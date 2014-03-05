@@ -1,0 +1,126 @@
+div
+  h1(style='font-weight: bold') Case {{caseId}}
+  h4(style='font-weight: bold') {{summary}}
+br
+div.container-fluid
+  div.row
+    h4.col-xs-12.section-header Case Details
+    div.container-fluid
+      div.row
+        div.col-xs-4
+          table.table.details-table
+            tr
+              th Case Type:
+              td {{type}}
+            tr
+              th Severity:
+              td {{severity}}
+            tr
+              th Status:
+              td {{status}}
+            tr
+              th Alternate ID:
+              td {{alternate_id}}
+        div.col-xs-4
+          table.table.details-table
+            tr
+              th Product:
+              td {{product}}
+            tr
+              th Support Level:
+              td {{sla}}
+            tr
+              th Owner:
+              td {{contact_name}}
+            tr
+              th Red Hat Owner:
+              td {{owner}}
+            tr
+              th Account Name:
+              td {{account_name}}
+        div.col-xs-4
+          table.table.details-table
+            tr
+              th Group:
+              td {{group}}
+            tr
+              th Opened:
+              td
+                div {{created_date | date:'medium'}}
+                div {{created_by}}
+            tr
+              th Last Updated:
+              td
+                div {{last_modified_date | date:'medium'}}
+                div {{last_modified_by}}
+            tr
+              th Account Number:
+              td {{account_number}}
+  div.row
+    h4.col-xs-12.section-header Description
+    div.container-fluid
+      div.row
+        div.col-xs-3
+          strong {{created_by}}
+        div.col-xs-9 {{description}}
+  div.row
+    h4.col-xs-12.section-header Bugzilla Tickets
+    div.container-fluid
+      div.row
+        div(ng-if='!hasBugzillas')
+          div.col-xs-12 No Bugzillas linked to case.
+        div(ng-if='hasBugzillas')
+          div.col-xs-12 Yes Bugzillas
+  div.row
+    h4.col-xs-12.section-header Attachments
+    div.container-fluid
+      div.row
+        div.col-xs-12
+          table.table.table-hover.table-bordered
+            thead
+              th Filename
+              th Description
+              th Size
+              th Attached
+              th Attached By
+            tbody
+              tr(ng-repeat='attachment in attachments')
+                td
+                  a(href='{{attachment.uri}}') {{attachment.file_name}}
+                td {{attachment.description}}
+                td {{attachment.length}}
+                td {{attachment.created_date | date:'medium'}}
+                td {{attachment.created_by}}
+  div.row(ng-controller='RecommendationsController')
+    h4.col-xs-12.section-header Recommendations
+    div.container-fluid
+      div.row
+        div(ng-repeat='recommendation in recommendationsOnScreen')
+          div.col-xs-3
+            div.bold {{recommendation.title}}
+            div(style='padding: 8px 0;') {{recommendation.solution_abstract}}
+            a(href='{{recommendation.resource_view_uri}}', target='_blank') View full article in new window
+      div.row
+        div.col-xs-12
+          pagination.pagination-sm(
+            boundary-links='true'
+            total-items='recommendations.length'
+            on-select-page='selectPage(page)'
+            items-per-page='itemsPerPage'
+            page='currentPage'
+            max-size='maxSize'
+            previous-text='<'
+            next-text='>'
+            first-text='<<'
+            last-text='>>')
+  div.row
+    h4.col-xs-12.section-header Case Discussion
+    div.container-fluid
+      div.row
+        div(ng-repeat='comment in comments')
+          div.col-xs-2
+            div.bold {{comment.created_by}}
+            div {{comment.created_date | date:'mediumDate'}}
+            div {{comment.created_date | date:'mediumTime'}}
+          div.col-xs-10
+            pre {{comment.text}}

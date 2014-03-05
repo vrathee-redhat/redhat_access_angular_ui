@@ -1,0 +1,45 @@
+div.container-fluid
+  div.row
+    div.col-xs-6(style='border-right: 1px solid gray; margin-top: 10px;')
+      div.container-fluid
+        div.row
+          div.col-xs-12
+            h3(style='padding-bottom: 14px') Open a New Support Case
+        div.row.create-field
+          div.col-xs-4
+            div Product:
+          div.col-xs-8
+            select(
+              style='width: 100%;',
+              ng-model='product',
+              ng-change='getProductVersions(product)',
+              ng-options='p.name for p in products track by p.code')
+        div.row.create-field
+          div.col-xs-4
+            div Product Version:
+          div.col-xs-8
+            select(
+              style='width: 100%;',
+              ng-model='version',
+              ng-options='v for v in versions')
+        div.row.create-field
+          div.col-xs-4
+            div Summary:
+          div.col-xs-8
+            input(style='width: 100%;')
+        div.row.create-field
+          div.col-xs-4
+            div Description:
+          div.col-xs-8
+            textarea(style='width: 100%; height: 200px;')
+        div.row
+          div.col-xs-12
+            pager(
+              style='position: relative',
+              total-items='2',
+              max-size='2')
+    div.col-xs-6(style='margin-top: 10px;')
+      div.container-fluid
+        div.row
+          div.col-xs-12
+            h3 Recommendations
