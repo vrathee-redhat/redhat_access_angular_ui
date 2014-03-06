@@ -1,45 +1,99 @@
+doctype html
 div.container-fluid
   div.row
-    div.col-xs-6(style='border-right: 1px solid gray; margin-top: 10px;')
+    div.col-xs-12
+      h3.bottom-border Open a New Support Case
+  div.row
+    div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
+      div.container-fluid
+        div.create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
+          div.row.create-field
+            div.col-xs-4
+              div Product:
+            div.col-xs-8
+              select.form-control(
+                style='width: 100%;',
+                ng-model='product',
+                ng-change='getProductVersions(product)',
+                ng-options='p.name for p in products track by p.code')
+          div.row.create-field
+            div.col-xs-4
+              div Product Version:
+            div.col-xs-8
+              div(style='color: red')
+                select.form-control(
+                  style='width: 100%;',
+                  ng-model='version',
+                  ng-options='v for v in versions',
+                  ng-change='validateForm()')
+          div.row.create-field
+            div.col-xs-4
+              div Summary:
+            div.col-xs-8
+              input.form-control(
+                id='rha-case-summary',
+                style='width: 100%;',
+                ng-change='validateForm()',
+                ng-model='summary')
+          div.row.create-field
+            div.col-xs-4
+              div Description:
+            div.col-xs-8
+              textarea.form-control(
+                style='width: 100%; height: 200px;',
+                ng-model='description',
+                ng-change='validateForm()')
+          div.row
+            div.col-xs-12(ng-class='{"hidden": isPage2}')
+              button.btn.btn-primary(
+                style='float: right',
+                ng-click='doNext()',
+                ng-disabled='incomplete') Next
+        div.create-case-section(ng-class='{"hidden": isPage1}', id='rha-case-wizard-page-1')
+          div.bottom-border
+            div.row
+              div.col-xs-12
+                div.bold(style='margin-bottom: 10px;') {{product.name}} {{version}}
+            div.row
+              div.col-xs-12
+                div.bold(style='font-size: 90%; margin-bottom: 4px;') {{summary}}
+            div.row
+              div.col-xs-12
+                div(style='font-size: 85%') {{description}}
+          div.row.create-field
+            div.col-xs-3
+              div Severity:
+            div.col-xs-9
+              select.form-control(
+                style='width: 100%;',
+                ng-model='severity',
+                ng-change='validatePage2()',
+                ng-options='s.name for s in severities track by s.name')
+          div.row.create-field
+            div.col-xs-3
+              div Case Group:
+            div.col-xs-9
+              select.form-control(
+                style='width: 100%;',
+                ng-model='caseGroup',
+                ng-change='validatePage2()',
+                ng-options='g.name for g in groups track by g.number')
+          div.row.create-field
+            div.col-xs-3
+              div Attachments:
+            div.col-xs-9
+              div blah
+          div.row(style='margin-top: 20px;')
+            div.col-xs-6
+              button.btn.btn-primary(
+                style='float: left',
+                ng-click='doPrevious()') Previous
+            div.col-xs-6
+              button.btn.btn-primary(
+                style='float: right',
+                ng-click='doSubmit()') Submit
+    div.col-xs-6
       div.container-fluid
         div.row
           div.col-xs-12
-            h3(style='padding-bottom: 14px') Open a New Support Case
-        div.row.create-field
-          div.col-xs-4
-            div Product:
-          div.col-xs-8
-            select(
-              style='width: 100%;',
-              ng-model='product',
-              ng-change='getProductVersions(product)',
-              ng-options='p.name for p in products track by p.code')
-        div.row.create-field
-          div.col-xs-4
-            div Product Version:
-          div.col-xs-8
-            select(
-              style='width: 100%;',
-              ng-model='version',
-              ng-options='v for v in versions')
-        div.row.create-field
-          div.col-xs-4
-            div Summary:
-          div.col-xs-8
-            input(style='width: 100%;')
-        div.row.create-field
-          div.col-xs-4
-            div Description:
-          div.col-xs-8
-            textarea(style='width: 100%; height: 200px;')
-        div.row
-          div.col-xs-12
-            pager(
-              style='position: relative',
-              total-items='2',
-              max-size='2')
-    div.col-xs-6(style='margin-top: 10px;')
-      div.container-fluid
-        div.row
-          div.col-xs-12
-            h3 Recommendations
+            h4.bottom-border(style='padding-left: 10px;') Recommendations

@@ -26,3 +26,17 @@ th {
 .bold {
     font-weight: bold;
 }
+
+.create-field {
+    padding-bottom: 8px;
+}
+
+.bottom-border {
+    margin-bottom: 14px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.create-case-section {
+    padding-top: 10px;
+}
