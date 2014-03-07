@@ -82,7 +82,35 @@ div.container-fluid
             div.col-xs-3
               div Attachments:
             div.col-xs-9
-              div blah
+              div.container-fluid
+                div.row.create-field
+                  div.col-xs-12.col-no-padding
+                    select.form-control(multiple)
+                      option Log1
+                      option Log2
+                      option Log3
+                      option Log4
+                      option Log5
+                      option Log6
+                div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; font-weight: bold;')
+                  div.col-xs-12.col-no-padding Upload a local file
+                div.row.create-field
+                  div.col-xs-12.col-no-padding(style='font-size: 80%;')
+                    span File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com.&nbsp;
+                    span
+                      a(href='https://access.devgssci.devlab.phx1.redhat.com/knowledge/solutions/2112') (More info)
+                div.row.create-field
+                  div.col-xs-12.col-no-padding
+                    div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
+                div.row.create-field
+                  div.col-xs-12.col-no-padding
+                    input.form-control(style='float: left;', placeholder='Description')
+                div.row.create-field
+                  div.col-xs-6.col-no-padding
+                    button.btn(style='float: left;') Choose File
+                  div.col-xs-6.col-no-padding
+                    button.btn(ng-disabled='true', style='float: right;') Upload
+
           div.row(style='margin-top: 20px;')
             div.col-xs-6
               button.btn.btn-primary(

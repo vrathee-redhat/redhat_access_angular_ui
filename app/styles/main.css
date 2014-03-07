@@ -38,5 +38,10 @@ th {
 }
 
 .create-case-section {
-    padding-top: 10px;
+    padding: 10px 0;
+}
+
+.col-no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
 }

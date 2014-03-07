@@ -9,12 +9,11 @@ angular.module('RedhatAccessCases')
       $scope.incomplete = true;
       $scope.severities = severityJSON;
       $scope.groups = groupsJSON;
-//      0: Object
-//      is_default: false
-//      is_private: false
-//      name: "newcasegroup"
-//      number: "97933"
-//      __proto__: Object
+
+      // <-- temporary static stuff for screen shots
+      $scope.fileName = 'No file chosen'
+
+      // --> end temporary stuff
 
       $scope.validateForm = function() {
         if ($scope.product == null || $scope.product == "" ||
