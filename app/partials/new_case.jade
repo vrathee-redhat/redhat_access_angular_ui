@@ -92,8 +92,9 @@ div.container-fluid
                       option Log4
                       option Log5
                       option Log6
-                div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; font-weight: bold;')
-                  div.col-xs-12.col-no-padding Upload a local file
+                div.row.create-field(style='border-top: 1px solid #cccccc; padding-top: 10px; font-weight: bold;')
+                  div.col-xs-12.col-no-padding
+                    button.btn(style='float: left;') Choose local file
                 div.row.create-field
                   div.col-xs-12.col-no-padding(style='font-size: 80%;')
                     span File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com.&nbsp;
@@ -104,12 +105,10 @@ div.container-fluid
                     div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
                 div.row.create-field
                   div.col-xs-12.col-no-padding
-                    input.form-control(style='float: left;', placeholder='Description')
+                    input.form-control(style='float: left;', placeholder='File description')
                 div.row.create-field
-                  div.col-xs-6.col-no-padding
-                    button.btn(style='float: left;') Choose File
-                  div.col-xs-6.col-no-padding
-                    button.btn(ng-disabled='true', style='float: right;') Upload
+                  div.col-xs-12.col-no-padding
+                    button.btn(ng-disabled='true', style='float: right;') Add
 
           div.row(style='margin-top: 20px;')
             div.col-xs-6
