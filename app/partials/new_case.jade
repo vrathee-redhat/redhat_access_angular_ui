@@ -61,30 +61,47 @@ div.container-fluid
               div.col-xs-12
                 div(style='font-size: 85%') {{description}}
           div.row.create-field
-            div.col-xs-3
-              div Severity:
-            div.col-xs-9
+            div.col-xs-4 Severity:
+            div.col-xs-8
               select.form-control(
                 style='width: 100%;',
                 ng-model='severity',
                 ng-change='validatePage2()',
                 ng-options='s.name for s in severities track by s.name')
           div.row.create-field
-            div.col-xs-3
-              div Case Group:
-            div.col-xs-9
+            div.col-xs-4 Case Group:
+            div.col-xs-8
               select.form-control(
                 style='width: 100%;',
                 ng-model='caseGroup',
                 ng-change='validatePage2()',
                 ng-options='g.name for g in groups track by g.number')
           div.row.create-field
-            div.col-xs-3
+            div.col-xs-12
               div Attachments:
-            div.col-xs-9
+          div.row.create-field
+            div.col-xs-12
               div.container-fluid
+                div.row.create-field.bottom-border
+                  div.col-xs-12.col-no-padding
+                    table.table.table-hover.table-bordered
+                      thead
+                        th Filename
+                        th Description
+                        th Size
+                        th Attached
+                        th Attached By
+                      tbody
+                        tr(ng-repeat='attachment in attachments')
+                          td
+                            a(href='{{attachment.uri}}') {{attachment.file_name}}
+                          td {{attachment.description}}
+                          td {{attachment.length}}
+                          td {{attachment.created_date | date:'medium'}}
+                          td {{attachment.created_by}}
                 div.row.create-field
                   div.col-xs-12.col-no-padding
+                    div Attach Foreman logs:
                     select.form-control(multiple)
                       option Log1
                       option Log2
@@ -92,17 +109,19 @@ div.container-fluid
                       option Log4
                       option Log5
                       option Log6
-                div.row.create-field(style='border-top: 1px solid #cccccc; padding-top: 10px; font-weight: bold;')
+                div.row.create-field.bottom-border
                   div.col-xs-12.col-no-padding
-                    button.btn(style='float: left;') Choose local file
+                    button.btn(ng-disabled='true', style='float: right;') Add
+                div.row.create-field
+                  div.col-xs-4.col-no-padding
+                    button.btn(style='float: left;') Attach local file
+                  div.col-xs-8.col-no-padding
+                    div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
                 div.row.create-field
                   div.col-xs-12.col-no-padding(style='font-size: 80%;')
                     span File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com.&nbsp;
                     span
                       a(href='https://access.devgssci.devlab.phx1.redhat.com/knowledge/solutions/2112') (More info)
-                div.row.create-field
-                  div.col-xs-12.col-no-padding
-                    div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
                 div.row.create-field
                   div.col-xs-12.col-no-padding
                     input.form-control(style='float: left;', placeholder='File description')

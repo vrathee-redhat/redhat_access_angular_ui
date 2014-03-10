@@ -71,6 +71,76 @@ angular.module('RedhatAccessCases', [
           );
 
           return deferred.promise;
+        },
+        caseTypesJSON: function($q) {
+          var deferred = $q.defer();
+
+          strata.values.cases.types(
+              function(response) {
+                deferred.resolve(response);
+              },
+              function(error) {
+                deferred.reject(error);
+              }
+          );
+
+          return deferred.promise;
+        },
+        severitiesJSON: function($q) {
+          var deferred = $q.defer();
+
+          strata.values.cases.severity  (
+              function(response) {
+                deferred.resolve(response);
+              },
+              function(error) {
+                deferred.reject(error);
+              }
+          );
+
+          return deferred.promise;
+        },
+        groupsJSON: function($q) {
+          var deferred = $q.defer();
+
+          strata.groups.list (
+              function(response) {
+                deferred.resolve(response);
+              },
+              function(error) {
+                deferred.reject(error);
+              }
+          );
+
+          return deferred.promise;
+        },
+        productsJSON: function($q) {
+          var deferred = $q.defer();
+
+          strata.products.list(
+              function(response) {
+                deferred.resolve(response);
+              },
+              function(error) {
+                deferred.reject(error);
+              }
+          );
+
+          return deferred.promise;
+        },
+        statusesJSON: function($q) {
+          var deferred = $q.defer();
+
+          strata.values.cases.status(
+              function(response) {
+                deferred.resolve(response);
+              },
+              function(error) {
+                deferred.reject(error);
+              }
+          );
+
+          return deferred.promise;
         }
       }
     });

@@ -1,6 +1,6 @@
 div
   h1(style='font-weight: bold') Case {{caseId}}
-  h4(style='font-weight: bold') {{summary}}
+  input.form-control(style='width: 50%;', ng-model='summary')
 br
 div.container-fluid
   div.row
@@ -10,52 +10,84 @@ div.container-fluid
         div.col-xs-4
           table.table.details-table
             tr
-              th Case Type:
-              td {{type}}
+              th.details-table-header Case Type:
+              td
+                select.form-control(
+                  style='width: 100%;',
+                  ng-model='type',
+                  ng-options='c.name for c in caseTypes track by c.name')
             tr
-              th Severity:
-              td {{severity}}
+              th.details-table-header Severity:
+              td
+                select.form-control(
+                  style='width: 100%;',
+                  ng-model='severity',
+                  ng-options='s.name for s in severities track by s.name')
             tr
-              th Status:
-              td {{status}}
+              th.details-table-header Status:
+              td
+                select.form-control(
+                  style='width: 100%;',
+                  ng-model='status',
+                  ng-options='s.name for s in statuses track by s.name')
             tr
-              th Alternate ID:
-              td {{alternate_id}}
+              th.details-table-header Alternate ID:
+              td
+                input.form-control(style='width: 100%', ng-model='alternate_id')
         div.col-xs-4
           table.table.details-table
             tr
               th Product:
-              td {{product}}
+              td
+                select.form-control(
+                  style='width: 100%;',
+                  ng-model='product',
+                  ng-change='getProductVersions(product)',
+                  ng-options='s.name for s in products track by s.name')
             tr
-              th Support Level:
+              th.details-table-header Product Version:
+              td
+                select.form-control(
+                  style='width: 100%;',
+                  ng-options='v for v in versions track by v',
+                  ng-model='version')
+            tr
+              th.details-table-header Support Level:
               td {{sla}}
             tr
-              th Owner:
+              th.details-table-header Owner:
               td {{contact_name}}
             tr
-              th Red Hat Owner:
+              th.details-table-header Red Hat Owner:
               td {{owner}}
-            tr
-              th Account Name:
-              td {{account_name}}
         div.col-xs-4
           table.table.details-table
             tr
-              th Group:
-              td {{group}}
+              th.details-table-header Group:
+              td
+                select.form-control(
+                  style='width: 100%;',
+                  ng-options='g.name for g in groups track by g.number',
+                  ng-model='group')
             tr
-              th Opened:
+              th.details-table-header Opened:
               td
                 div {{created_date | date:'medium'}}
                 div {{created_by}}
             tr
-              th Last Updated:
+              th.details-table-header Last Updated:
               td
                 div {{last_modified_date | date:'medium'}}
                 div {{last_modified_by}}
             tr
-              th Account Number:
+              th.details-table-header Account Number:
               td {{account_number}}
+            tr
+              th.details-table-header Account Name:
+              td {{account_name}}
+      div.row
+        div.col-xs-12
+          button.btn(ng-disabled='true', style='float: right;') Update
   div.row
     h4.col-xs-12.section-header Description
     div.container-fluid
@@ -91,6 +123,40 @@ div.container-fluid
                 td {{attachment.length}}
                 td {{attachment.created_date | date:'medium'}}
                 td {{attachment.created_by}}
+      div.row
+        div.col-xs-6.col-no-padding
+          div.container-fluid
+            div.row.create-field
+              div.col-xs-12
+                div Attach Foreman logs:
+                select.form-control(multiple)
+                  option Log1
+                  option Log2
+                  option Log3
+                  option Log4
+                  option Log5
+                  option Log6
+            div.row.create-field
+              div.col-xs-12
+                button.btn(ng-disabled='true', style='float: right;') Add
+        div.col-xs-6.col-no-padding
+          div.container-fluid
+            div.row.create-field
+              div.col-xs-4
+                button.btn(style='float: left;') Attach local file
+              div.col-xs-8
+                div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
+            div.row.create-field
+              div.col-xs-12(style='font-size: 80%;')
+                span File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com.&nbsp;
+                span
+                  a(href='https://access.devgssci.devlab.phx1.redhat.com/knowledge/solutions/2112') (More info)
+            div.row.create-field
+              div.col-xs-12
+                input.form-control(style='float: left;', placeholder='File description')
+            div.row.create-field
+              div.col-xs-12
+                button.btn(ng-disabled='true', style='float: right;') Add
   div.row(ng-controller='RecommendationsController')
     h4.col-xs-12.section-header Recommendations
     div.container-fluid
@@ -116,6 +182,12 @@ div.container-fluid
   div.row
     h4.col-xs-12.section-header Case Discussion
     div.container-fluid
+      div.row.create-field
+        div.col-xs-12
+          textarea.form-control(rows='5')
+      div.row.create-field.bottom-border(style='margin-left: 0px; margin-right: 0px;')
+        div.col-xs-12.col-no-padding
+          button.btn(ng-disabled='true', style='float: right;') Add comment
       div.row
         div(ng-repeat='comment in comments')
           div.col-xs-2

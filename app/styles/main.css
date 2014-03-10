@@ -45,3 +45,7 @@ th {
     padding-left: 0px;
     padding-right: 0px;
 }
+
+.details-table-header {
+    width: 40%;
+}

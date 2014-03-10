@@ -12,6 +12,24 @@ angular.module('RedhatAccessCases')
 
       // <-- temporary static stuff for screen shots
       $scope.fileName = 'No file chosen'
+      $scope.attachments = [
+        {
+          uri: "https://access.redhat.com/",
+          file_name: "first.log",
+          description: "The first log",
+          length: 20,
+          created_by: "Chris Kyrouac",
+          created_date: 1393611517000
+        },
+        {
+          uri: "https://access.redhat.com/",
+          file_name: "second.log",
+          description: "The second log",
+          length: 25,
+          created_by: "Chris Kyrouac",
+          created_date: 1393611517000
+        }
+      ];
 
       // --> end temporary stuff
 
