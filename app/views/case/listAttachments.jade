@@ -1,0 +1,15 @@
+table.table.table-hover.table-bordered
+  thead
+    th Filename
+    th Description
+    th Size
+    th Attached
+    th Attached By
+  tbody
+    tr(ng-repeat='attachment in attachments')
+      td
+        a(href='{{attachment.uri}}') {{attachment.file_name}}
+      td {{attachment.description}}
+      td {{attachment.length}}
+      td {{attachment.created_date | date:'medium'}}
+      td {{attachment.created_by}}
