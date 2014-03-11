@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('RedhatAccessEditCase')
+angular.module('RedhatAccessCases')
 .controller('DetailsController', [
   '$scope',
   '$stateParams',

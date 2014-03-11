@@ -3,7 +3,7 @@
  * Child of DetailsController
  **/
 
-angular.module('RedhatAccessEditCase')
+angular.module('RedhatAccessCases')
 .controller('RecommendationsController', [
   '$scope',
   function ($scope) {
