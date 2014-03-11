@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('RedhatAccessCases')
-    .controller(
-    'NewController',
-    function ($scope, productsJSON, severityJSON, groupsJSON) {
+angular.module('RedhatAccessCases').controller(
+    'NewController', [
+      '$scope', 'productsJSON', 'severityJSON', 'groupsJSON',
+      function ($scope, productsJSON, severityJSON, groupsJSON) {
+
+
       $scope.products = productsJSON;
       $scope.versions = [];
       $scope.incomplete = true;
@@ -11,7 +13,7 @@ angular.module('RedhatAccessCases')
       $scope.groups = groupsJSON;
 
       // <-- temporary static stuff for screen shots
-      $scope.fileName = 'No file chosen'
+      $scope.fileName = 'No file chosen';
       $scope.attachments = [
         {
           uri: "https://access.redhat.com/",
@@ -77,4 +79,5 @@ angular.module('RedhatAccessCases')
       };
 
       $scope.setPage(1);
-    });
+    }]);
+

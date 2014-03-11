@@ -2,7 +2,9 @@ doctype html
 div.container-fluid
   div.row
     div.col-xs-12
-      h3.bottom-border Open a New Support Case
+      h3 Red Hat Access: Open a New Support Case
+  div(style='padding: 10px;', x-login-status)
+  div.bottom-border(style='padding-top: 10px;')
   div.row
     div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
       div.container-fluid
@@ -143,3 +145,5 @@ div.container-fluid
         div.row
           div.col-xs-12
             h4.bottom-border(style='padding-left: 10px;') Recommendations
+            div(x-accordion-search-results, ng-controller='SearchController')
+
