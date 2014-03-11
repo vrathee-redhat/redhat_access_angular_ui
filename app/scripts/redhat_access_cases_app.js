@@ -1,8 +1,10 @@
 angular.module('RedhatAccessCases', [
   'ui.router',
   'ui.bootstrap'
-]).config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-
+])
+.config([
+  '$stateProvider', '$urlRouterProvider',
+  function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('case', {
       url: '/case/{id:[0-9]{1,8}}',
       templateUrl: 'partials/case.html',

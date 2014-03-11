@@ -1,28 +1,28 @@
 'use strict';
 
-angular.module('RedhatAccessCases').controller(
-    'DetailsController', [
-      '$scope',
-      '$stateParams',
-      'caseJSON',
-      'attachmentsJSON',
-      'commentsJSON',
-      'caseTypesJSON',
-      'severitiesJSON',
-      'groupsJSON',
-      'productsJSON',
-      'statusesJSON',
-    function(
-        $scope,
-        $stateParams,
-        caseJSON,
-        attachmentsJSON,
-        commentsJSON,
-        caseTypesJSON,
-        severitiesJSON,
-        groupsJSON,
-        productsJSON,
-        statusesJSON) {
+angular.module('RedhatAccessCases')
+.controller('DetailsController', [
+  '$scope',
+  '$stateParams',
+  'caseJSON',
+  'attachmentsJSON',
+  'commentsJSON',
+  'caseTypesJSON',
+  'severitiesJSON',
+  'groupsJSON',
+  'productsJSON',
+  'statusesJSON',
+  function(
+      $scope,
+      $stateParams,
+      caseJSON,
+      attachmentsJSON,
+      commentsJSON,
+      caseTypesJSON,
+      severitiesJSON,
+      groupsJSON,
+      productsJSON,
+      statusesJSON) {
 
     if (caseJSON) {
       $scope.caseId = $stateParams.id;
