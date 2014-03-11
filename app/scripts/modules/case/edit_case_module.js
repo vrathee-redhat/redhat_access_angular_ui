@@ -1,13 +1,13 @@
-angular.module('RedhatAccessCases', [
+angular.module('RedhatAccessEditCase', [
   'ui.router',
   'ui.bootstrap'
 ])
 .config([
-  '$stateProvider', '$urlRouterProvider',
-  function($stateProvider, $urlRouterProvider) {
+  '$stateProvider',
+  function($stateProvider) {
     $stateProvider.state('case', {
       url: '/case/{id:[0-9]{1,8}}',
-      templateUrl: 'partials/case.html',
+      templateUrl: 'views/case/case.html',
       controller: 'DetailsController',
       resolve: {
         caseJSON: function($q, $stateParams) {
@@ -124,56 +124,6 @@ angular.module('RedhatAccessCases', [
               function(error) {
                 deferred.reject(error);
               }
-          );
-
-          return deferred.promise;
-        }
-      }
-    });
-
-    $stateProvider.state('new', {
-      url: '/case/new',
-      templateUrl: 'partials/new_case.html',
-      controller: 'NewController',
-      resolve: {
-        productsJSON: function($q) {
-          var deferred = $q.defer();
-
-          strata.products.list(
-              function(response) {
-                deferred.resolve(response);
-              },
-              function(error) {
-                deferred.reject(error);
-              }
-          );
-
-          return deferred.promise;
-        },
-        severityJSON: function($q) {
-          var deferred = $q.defer();
-
-          strata.values.cases.severity  (
-              function(response) {
-                deferred.resolve(response);
-              },
-              function(error) {
-                deferred.reject(error);
-              }
-          );
-
-          return deferred.promise;
-        },
-        groupsJSON: function($q) {
-          var deferred = $q.defer();
-
-          strata.groups.list (
-            function(response) {
-              deferred.resolve(response);
-            },
-            function(error) {
-              deferred.reject(error);
-            }
           );
 
           return deferred.promise;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('RedhatAccessCases')
+angular.module('RedhatAccessNewCase')
 .controller('NewController', [
   '$scope', 'productsJSON', 'severityJSON', 'groupsJSON',
   function ($scope, productsJSON, severityJSON, groupsJSON) {
