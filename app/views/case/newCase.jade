@@ -1,13 +1,16 @@
 doctype html
-div.container-fluid
+div.container-fluid.side-padding
   div.row
     div.col-xs-12
       h3 Red Hat Access: Open a New Support Case
   div(style='padding: 10px;', x-login-status)
   div.bottom-border(style='padding-top: 10px;')
+  div.row(ng-hide='submitProgress == 0')
+    div.col-xs-12
+      progressbar(animate='true', type='success', value='submitProgress', max='100')
   div.row
     div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
-      div.container-fluid
+      div.container-fluid.side-padding
         div.create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
           div.row.create-field
             div.col-xs-4
@@ -22,12 +25,15 @@ div.container-fluid
             div.col-xs-4
               div Product Version:
             div.col-xs-8
-              div(style='color: red')
+              div
+                progressbar.progress-striped.active(ng-hide='!versionLoading', max='1', value='1', style='height: 34px; margin-bottom: 0px;')
                 select.form-control(
                   style='width: 100%;',
                   ng-model='version',
                   ng-options='v for v in versions',
-                  ng-change='validateForm()')
+                  ng-change='validateForm()',
+                  ng-disabled='versionDisabled',
+                  ng-hide='versionLoading')
           div.row.create-field
             div.col-xs-4
               div Summary:
@@ -81,15 +87,18 @@ div.container-fluid
           div.row.create-field
             div.col-xs-12
               div Attachments:
-          div.row.create-field
-            div.col-xs-12
-              rha-list-attachments
-          div.row.create-field
-            div.col-xs-12.col-no-padding
-              rha-attach-product-logs
-          div.row.create-field
-            div.col-xs-12.col-no-padding
-              rha-attach-local-file
+          div.bottom-border
+            div.row.create-field
+              div.col-xs-12
+                rha-list-attachments(attachments='attachments')
+          div.bottom-border
+            div.row.create-field
+              div.col-xs-12
+                rha-attach-product-logs(attachments='attachments')
+          div.bottom-border
+            div.row.create-field
+              div.col-xs-12
+                rha-attach-local-file(attachments='attachments')
 
           div.row(style='margin-top: 20px;')
             div.col-xs-6
@@ -99,9 +108,10 @@ div.container-fluid
             div.col-xs-6
               button.btn.btn-primary(
                 style='float: right',
+                ng-disabled='submitProgress > 0',
                 ng-click='doSubmit()') Submit
     div.col-xs-6
-      div.container-fluid
+      div.container-fluid.side-padding
         div.row
           div.col-xs-12
             h4.bottom-border(style='padding-left: 10px;') Recommendations

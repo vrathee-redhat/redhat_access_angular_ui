@@ -4,10 +4,10 @@ div
 //div(x-login-status)
 input.form-control(style='width: 50%;', ng-model='summary')
 br
-div.container-fluid
+div.container-fluid.side-padding
   div.row
     h4.col-xs-12.section-header Case Details
-    div.container-fluid
+    div.container-fluid.side-padding
       div.row
         div.col-xs-4
           table.table.details-table
@@ -92,14 +92,14 @@ div.container-fluid
           button.btn(ng-disabled='true', style='float: right;') Update
   div.row
     h4.col-xs-12.section-header Description
-    div.container-fluid
+    div.container-fluid.side-padding
       div.row
         div.col-xs-3
           strong {{created_by}}
         div.col-xs-9 {{description}}
   div.row
     h4.col-xs-12.section-header Bugzilla Tickets
-    div.container-fluid
+    div.container-fluid.side-padding
       div.row
         div(ng-if='!hasBugzillas')
           div.col-xs-12 No Bugzillas linked to case.
@@ -107,18 +107,18 @@ div.container-fluid
           div.col-xs-12 Yes Bugzillas
   div.row
     h4.col-xs-12.section-header Attachments
-    div.container-fluid
+    div.container-fluid.side-padding
+      div.row.side-padding
+        div.col-xs-12.bottom-border.col-no-padding
+          rha-list-attachments(attachments='newAttachments')
       div.row
-        div.col-xs-12
-          rha-list-attachments
-      div.row
-        div.col-xs-6.col-no-padding
-          rha-attach-product-logs
-        div.col-xs-6.col-no-padding
-          rha-attach-local-file
+        div.col-xs-6
+          rha-attach-product-logs(attachments='newAttachments')
+        div.col-xs-6
+          rha-attach-local-file(attachments='newAttachments')
   div.row(ng-controller='RecommendationsController')
     h4.col-xs-12.section-header Recommendations
-    div.container-fluid
+    div.container-fluid.side-padding
       div.row
         div(ng-repeat='recommendation in recommendationsOnScreen')
           div.col-xs-3
@@ -140,7 +140,7 @@ div.container-fluid
             last-text='>>')
   div.row
     h4.col-xs-12.section-header Case Discussion
-    div.container-fluid
+    div.container-fluid.side-padding
       div.row.create-field
         div.col-xs-12
           textarea.form-control(rows='5')

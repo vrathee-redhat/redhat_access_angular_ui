@@ -16,7 +16,7 @@ th {
 }
 
 .container-fluid {
-    padding: 0 15px;
+    /*padding: 0 15px;*/
 }
 
 .comment-creator {
@@ -48,4 +48,9 @@ th {
 
 .details-table-header {
     width: 40%;
+}
+
+.side-padding {
+    padding-left: 15px;
+    padding-right: 15px;
 }
