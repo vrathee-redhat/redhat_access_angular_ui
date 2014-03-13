@@ -2,7 +2,6 @@ div.container-fluid
   div.row.create-field
     div.col-xs-4
       button.btn(style='float: left;', ng-click='getFile()') Attach local file
-      //this is your file input tag, so i hide it!
       div(style='height: 0px; width:0px; overflow:hidden;')
         input(id='fileUploader', type='file', value='upload', ng-change='selectFile(this)', ng-model='file')
     div.col-xs-8

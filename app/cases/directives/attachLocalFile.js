@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('RedhatAccessCases')
-.directive('rhaListAttachments', function () {
+.directive('rhaAttachLocalFile', function () {
   return {
-    templateUrl: 'views/case/listAttachments.html',
+    templateUrl: 'cases/views/attachLocalFile.html',
     restrict: 'EA',
-    controller: 'ListAttachments',
+    controller: 'AttachLocalFile',
     scope: {
       attachments: '=attachments'
     },

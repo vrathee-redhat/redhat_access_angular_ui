@@ -31,7 +31,6 @@ angular.module('RedhatAccessCases')
     };
 
     $scope.addFile = function() {
-      //TODO: populate fields with real data
       $scope.attachments.push({
         file_name: $scope.fileName,
         description: $scope.fileDescription,

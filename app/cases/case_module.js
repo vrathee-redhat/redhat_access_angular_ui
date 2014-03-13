@@ -7,7 +7,7 @@ angular.module('RedhatAccessCases', [
   function($stateProvider) {
     $stateProvider.state('case', {
       url: '/case/{id:[0-9]{1,8}}',
-      templateUrl: 'views/case/case.html',
+      templateUrl: 'casese/views/case.html',
       controller: 'DetailsController',
       resolve: {
         caseJSON: function($q, $stateParams) {
@@ -133,7 +133,7 @@ angular.module('RedhatAccessCases', [
 
     $stateProvider.state('new', {
       url: '/case/new',
-      templateUrl: 'views/case/newCase.html',
+      templateUrl: 'cases/views/newCase.html',
       controller: 'NewController',
       resolve: {
         productsJSON: function($q) {
