@@ -4,5 +4,6 @@ dist
 .sass-cache
 app/bower_components
 app/vendor
+app/redhat_access_angular_ui.js
 *.swp
 .idea

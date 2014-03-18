@@ -25,6 +25,12 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <div class="container">
+     <ul id="nav">
+      <a class="navbar-brand" href="#search">Search Demo</a>
+      <a class="navbar-brand" href="#case/new">New Case Demo</a>  
+     </ul>
+    </div>
     <div style="padding-top: 10px;" class="container" ng-view="">
         <div ui-view></div>
     </div>
@@ -48,20 +54,14 @@
     <!-- endbuild -->
 
     <!-- other dependencies -->
+    <script src="vendor/stratajs/test/js/js-markdown-extra.js"></script>
     <script src="vendor/stratajs/test/js/Uri.js"></script>
     <script src="vendor/stratajs/strata.js"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="redhat_access_angular_ui.js"></script>
     <script src="redhat_access_module.js"></script>
-    <script src="cases/case_module.js"></script>
-    <script src="cases/controllers/details.js"></script>
-    <script src="cases/controllers/recommendations.js"></script>
-    <script src="cases/controllers/new.js"></script>
-    <script src="cases/controllers/attachLocalFile.js"></script>
-    <script src="cases/controllers/listAttachments.js"></script>
-    <script src="cases/directives/attachLocalFile.js"></script>
-    <script src="cases/directives/attachProductLogs.js"></script>
-    <script src="cases/directives/listAttachments.js"></script>
+    
     <!-- endbuild -->
 </body>
 </html>
