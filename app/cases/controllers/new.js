@@ -2,8 +2,13 @@
 
 angular.module('RedhatAccessCases')
 .controller('NewController', [
-  '$scope', '$state', 'productsJSON', 'severityJSON', 'groupsJSON',
-  function ($scope, $state, productsJSON, severityJSON, groupsJSON) {
+  '$scope',
+  '$state',
+  'attachments',
+  'productsJSON',
+  'severityJSON',
+  'groupsJSON',
+  function ($scope, $state, attachments, productsJSON, severityJSON, groupsJSON) {
     $scope.products = productsJSON;
     $scope.versions = [];
     $scope.versionDisabled = true;
@@ -12,8 +17,8 @@ angular.module('RedhatAccessCases')
     $scope.severities = severityJSON;
     $scope.severity = severityJSON[severityJSON.length - 1];
     $scope.groups = groupsJSON;
-    $scope.attachments = [];
     $scope.submitProgress = 0;
+    $scope.attachments = attachments;
 
     $scope.validateForm = function() {
       if ($scope.product == null || $scope.product == "" ||

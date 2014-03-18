@@ -3,7 +3,8 @@
 angular.module('RedhatAccessCases')
 .controller('AttachLocalFile', [
   '$scope',
-  function ($scope) {
+  'attachments',
+  function ($scope, attachments) {
     $scope.NO_FILE_CHOSEN = 'No file chosen';
     $scope.fileDescription = '';
 
@@ -31,7 +32,7 @@ angular.module('RedhatAccessCases')
     };
 
     $scope.addFile = function() {
-      $scope.attachments.push({
+      attachments.items.push({
         file_name: $scope.fileName,
         description: $scope.fileDescription,
         length: $scope.fileSize,

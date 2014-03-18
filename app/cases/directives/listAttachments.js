@@ -6,9 +6,6 @@ angular.module('RedhatAccessCases')
     templateUrl: 'cases/views/listAttachments.html',
     restrict: 'EA',
     controller: 'ListAttachments',
-    scope: {
-      attachments: '=attachments'
-    },
     link: function postLink(scope, element, attrs) {
     }
   };

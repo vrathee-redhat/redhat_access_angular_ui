@@ -3,9 +3,13 @@
 angular.module('RedhatAccessCases')
 .controller('ListAttachments', [
   '$scope',
-  function ($scope) {
+  'attachments',
+  function ($scope, attachments) {
+
+    $scope.attachments = attachments.items;
+
     $scope.removeAttachment = function() {
-      $scope.attachments.splice(this.$index, 1);
-    }
+      attachments.items.splice(this.$index, 1);
+    };
   }
 ]);

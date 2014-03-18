@@ -4,6 +4,7 @@ angular.module('RedhatAccessCases')
 .controller('DetailsController', [
   '$scope',
   '$stateParams',
+  'attachments',
   'caseJSON',
   'attachmentsJSON',
   'commentsJSON',
@@ -15,6 +16,7 @@ angular.module('RedhatAccessCases')
   function(
       $scope,
       $stateParams,
+      attachments,
       caseJSON,
       attachmentsJSON,
       commentsJSON,
@@ -48,14 +50,13 @@ angular.module('RedhatAccessCases')
       $scope.bugzillas = caseJSON.bugzillas;
       $scope.hasBugzillas = Object.getOwnPropertyNames($scope.bugzillas).length != 0;
 
-      $scope.newAttachments = [];
-
       if (Object.getOwnPropertyNames(caseJSON.recommendations).length != 0) {
         $scope.recommendations = caseJSON.recommendations.recommendation;
       }
     }
 
     if (attachmentsJSON) {
+      attachments.items = attachmentsJSON;
       $scope.attachments = attachmentsJSON;
     }
 
