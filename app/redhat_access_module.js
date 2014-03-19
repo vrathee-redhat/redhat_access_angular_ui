@@ -1,3 +1,7 @@
 angular.module('RedhatAccess', [
-  'RedhatAccessCases'
+  'ngSanitize',
+  'templates.app',
+  'RedhatAccessCases',
+  'RedhatAccess.security',
+  'RedhatAccess.search',
 ]);

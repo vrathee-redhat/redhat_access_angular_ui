@@ -16,9 +16,18 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   grunt.loadNpmTasks('grunt-contrib-jade');
+  grunt.loadNpmTasks('grunt-html2js');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+    distdir: 'dist',
+
+    pkg: grunt.file.readJSON('package.json'),
+    banner:
+    '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+    '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
+    ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
+    ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
 
     // Project settings
     yeoman: {
@@ -30,7 +39,7 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: true
@@ -316,7 +325,7 @@ module.exports = function (grunt) {
     // cssmin: {
     //   dist: {
     //     files: {
-    //       '<%= yeoman.dist %>/styles/case.css': [
+    //       '<%= yeoman.dist %>/styles/main.css': [
     //         '.tmp/styles/{,*/}*.css',
     //         '<%= yeoman.app %>/styles/{,*/}*.css'
     //       ]
@@ -332,9 +341,50 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    // concat: {
-    //   dist: {}
-    // },
+    concat: {
+      dist:{
+        options: {
+          banner: '<%= banner %>'
+        },
+        src:['<%= src.js %>', '<%= src.jsTpl %>'],
+        dest:'<%= distdir %>/<%= pkg.name %>.js'
+      },
+      index: {
+        src: ['app/index.html'],
+        dest: '<%= distdir %>/index.html',
+        options: {
+          process: true
+        }
+      },
+      yeoman: {
+        src:['<%= src.js %>', '<%= src.jsTpl %>'],
+        dest:'app/<%= pkg.name %>.js'
+      }
+    },
+    src: {
+      js: ['app/security/**/*.js','app/search/**/*.js','app/cases/**/*.js'],
+      jsTpl: ['<%= distdir %>/templates/**/*.js'],
+      specs: ['test/**/*.spec.js'],
+      scenarios: ['test/**/*.scenario.js'],
+      html: ['app/index.html'],
+      tpl: {
+        app: ['app/security/**/*.html','app/search/**/*.html','app/cases/**/*.html']
+        //common: ['src/common/**/*.tpl.html']
+      }
+      //less: ['src/less/stylesheet.less'], // recess:build doesn't accept ** in its file patterns
+      //lessWatch: ['src/less/**/*.less']
+    },
+    
+    html2js: {
+      app: {
+        options: {
+          base: 'app'
+        },
+        src: ['<%= src.tpl.app %>'],
+        dest: '<%= distdir %>/templates/app.js',
+        module: 'templates.app'
+      }
+    },
 
     // Test settings
     karma: {
@@ -355,6 +405,7 @@ module.exports = function (grunt) {
       'clean:server',
       'bower-install',
       'jade',
+      'build',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -380,16 +431,17 @@ module.exports = function (grunt) {
     'bower-install',
     'jade',
     'useminPrepare',
+    'html2js',
     'concurrent:dist',
     'autoprefixer',
     'concat',
     'ngmin',
     'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'rev',
-    'usemin',
+    //'cdnify',
+    //'cssmin',
+    //'uglify',
+    //'rev',
+    //'usemin',
     'htmlmin'
   ]);
 

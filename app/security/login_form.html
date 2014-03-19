@@ -1,0 +1,22 @@
+    <div class="modal-header">
+        <h4>Sign into the Red Hat Customer Portal</h4>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-warning" ng-show="authReason">
+            {{authReason}}
+        </div>
+        <div class="alert alert-error" ng-show="authError">
+            {{authError}}
+        </div>
+        <div class="alert alert-info">Please enter your login details</div>
+        <label>User ID</label>
+        <input name="login" type="text" ng-model="user.user" required autofocus>
+        <label>Password</label>
+        <input name="pass" type="password" ng-model="user.password" required>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary login" ng-click="modalOptions.ok()" >Sign in</button>
+        <button class="btn clear" ng-click="clearForm()">Clear</button>
+        <button class="btn btn-warning cancel" ng-click="modalOptions.close()">Cancel</button>
+    </div>
+
