@@ -133,7 +133,7 @@ angular.module('RedhatAccessCases', [
 
     $stateProvider.state('new', {
       url: '/case/new',
-      templateUrl: 'cases/views/newCase.html',
+      templateUrl: 'cases/views/new.html',
       controller: 'NewController',
       resolve: {
         productsJSON: function($q) {
