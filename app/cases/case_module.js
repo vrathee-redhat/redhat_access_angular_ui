@@ -7,7 +7,7 @@ angular.module('RedhatAccessCases', [
   function($stateProvider) {
     $stateProvider.state('case', {
       url: '/case/{id:[0-9]{1,8}}',
-      templateUrl: 'cases/views/case.html',
+      templateUrl: 'cases/views/details.html',
       controller: 'DetailsController',
       resolve: {
         caseJSON: function($q, $stateParams) {
