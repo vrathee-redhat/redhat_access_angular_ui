@@ -31,9 +31,10 @@ angular.module('RedhatAccessCases')
       $scope.fileDescription = '';
     };
 
-    $scope.addFile = function(form) {
+    $scope.addFile = function() {
       var data = new FormData();
       data.append('file', $scope.fileObj);
+      data.append('description', $scope.fileDescription);
 
       attachments.items.push({
         file_name: $scope.fileName,
@@ -51,7 +52,7 @@ angular.module('RedhatAccessCases')
       $('#fileUploader').click();
     };
 
-    $scope.selectFile = function(input) {
+    $scope.selectFile = function() {
       $scope.fileObj = $('#fileUploader')[0].files[0];
       $scope.fileSize = $scope.fileObj.size;
       $scope.fileName = $scope.fileObj.name;
