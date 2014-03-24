@@ -1,10 +1,10 @@
 'use strict';
 /**
- * Child of DetailsController
+ * Child of Details controller
  **/
 
 angular.module('RedhatAccessCases')
-.controller('RecommendationsController', [
+.controller('Recommendations', [
   '$scope',
   function ($scope) {
     $scope.itemsPerPage = 4;
@@ -23,6 +23,8 @@ angular.module('RedhatAccessCases')
       console.log($scope.recommendationsOnScreen);
     };
 
-    $scope.selectPage(1);
+    if ($scope.recommendations != null) {
+      $scope.selectPage(1);
+    }
   }]);
 

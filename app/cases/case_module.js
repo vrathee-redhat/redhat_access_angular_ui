@@ -8,7 +8,7 @@ angular.module('RedhatAccessCases', [
     $stateProvider.state('case', {
       url: '/case/{id:[0-9]{1,8}}',
       templateUrl: 'cases/views/details.html',
-      controller: 'DetailsController',
+      controller: 'Details',
       resolve: {
         caseJSON: function($q, $stateParams) {
           var deferred = $q.defer();
@@ -134,7 +134,7 @@ angular.module('RedhatAccessCases', [
     $stateProvider.state('new', {
       url: '/case/new',
       templateUrl: 'cases/views/new.html',
-      controller: 'NewController',
+      controller: 'New',
       resolve: {
         productsJSON: function($q) {
           var deferred = $q.defer();

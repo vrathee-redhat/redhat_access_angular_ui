@@ -16,5 +16,5 @@ div.container-fluid
       input.form-control(style='float: left;', placeholder='File description', ng-model='fileDescription')
   div.row.create-field
     div.col-xs-12
-      button.btn(ng-disabled='fileName == NO_FILE_CHOSEN', style='float: right;', ng-click='addFile()') Add
+      button.btn(ng-disabled='fileName == NO_FILE_CHOSEN', style='float: right;', ng-click='addFile(fileUploaderForm)') Add
 

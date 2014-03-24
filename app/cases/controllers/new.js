@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('RedhatAccessCases')
-.controller('NewController', [
+.controller('New', [
   '$scope',
   '$state',
+  '$q',
   'attachments',
   'productsJSON',
   'severityJSON',
   'groupsJSON',
-  function ($scope, $state, attachments, productsJSON, severityJSON, groupsJSON) {
+  function ($scope, $state, $q, attachments, productsJSON, severityJSON, groupsJSON) {
     $scope.products = productsJSON;
     $scope.versions = [];
     $scope.versionDisabled = true;
@@ -31,6 +32,11 @@ angular.module('RedhatAccessCases')
       }
     };
 
+    /**
+     * Retrieve product's versions from strata
+     *
+     * @param product
+     */
     $scope.getProductVersions = function(product) {
       $scope.version = "";
       $scope.versionDisabled = true;
@@ -50,22 +56,63 @@ angular.module('RedhatAccessCases')
           });
     };
 
+    /**
+     * Go to a page in the wizard
+     *
+     * @param page
+     */
     $scope.setPage = function(page) {
       $scope.isPage1 = page == 1 ? true : false;
       $scope.isPage2 = page == 2 ? true : false;
     };
 
+    /**
+     * Navigate forward in the wizard
+     */
     $scope.doNext = function() {
       $scope.setPage(2);
     };
 
+    /**
+     * Navigate back in the wizard
+     */
     $scope.doPrevious = function() {
       $scope.setPage(1);
     };
 
+    /**
+     * Return promise for a single attachment
+     */
+    var postAttachment = function(caseNumber, attachment, progressIncrement) {
+
+      var singleAttachmentSuccess = function(response) {
+        $scope.submitProgress = $scope.submitProgress + progressIncrement;
+      };
+
+      var deferred = $q.defer();
+      deferred.promise.then(singleAttachmentSuccess);
+
+      strata.cases.attachments.post(
+          attachment,
+          caseNumber,
+          function(response) {
+            deferred.resolve(response);
+          },
+          function(error, error2, error3, error4) {
+            console.log(error);
+            deferred.reject(error);
+          }
+      );
+
+      return deferred.promise;
+    };
+
+    /**
+     * Create the case with attachments
+     */
     $scope.doSubmit = function() {
 
-      $scope.submitProgress = '10';
+      $scope.submitProgress = 10;
 
       var caseJSON = {
         'product': $scope.product.code,
@@ -80,14 +127,31 @@ angular.module('RedhatAccessCases')
           caseJSON,
           function(caseNumber) {
             if ($scope.attachments.length > 0) {
-              //TODO: upload attachments
-              $scope.submitProgress = '55';
+              var progressIncrement = 90 / $scope.attachments.length;
+
+              var promises = [];
+              for (var i in $scope.attachments) {
+                promises.push(
+                    postAttachment(
+                        caseNumber,
+                        $scope.attachments[i].file,
+                        progressIncrement));
+              }
+
+              var parentPromise = $q.all(promises);
+              parentPromise.then(
+                function(results) {
+                  $scope.submitProgress = '100';
+                  $state.go('case', {id: caseNumber});
+                },
+                function(error, error2, error3, error4) {
+                  console.log("Problem creating attachment: " + error);
+                }
+              );
             } else {
               $scope.submitProgress = '100';
+              $state.go('case', {id: caseNumber});
             }
-
-            $state.go('case', {id: caseNumber});
-//            window.location = '/#/case/' + caseNumber; //TODO: get rid of hardcoded URL
           },
           function(error) {
             console.log(error);

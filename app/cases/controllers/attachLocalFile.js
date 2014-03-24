@@ -31,14 +31,17 @@ angular.module('RedhatAccessCases')
       $scope.fileDescription = '';
     };
 
-    $scope.addFile = function() {
+    $scope.addFile = function(form) {
+      var data = new FormData();
+      data.append('file', $scope.fileObj);
+
       attachments.items.push({
         file_name: $scope.fileName,
         description: $scope.fileDescription,
         length: $scope.fileSize,
         created_by: "Chris Kyrouac", //TODO: use Lindani's login service to get username
         created_date: new Date().getTime(),
-        file: $scope.fileObj
+        file: data
       });
 
       $scope.clearSelectedFile();

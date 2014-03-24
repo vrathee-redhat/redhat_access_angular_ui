@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('RedhatAccessCases')
-.controller('DetailsController', [
+.controller('Details', [
   '$scope',
   '$stateParams',
   'attachments',
@@ -50,8 +50,10 @@ angular.module('RedhatAccessCases')
       $scope.bugzillas = caseJSON.bugzillas;
       $scope.hasBugzillas = Object.getOwnPropertyNames($scope.bugzillas).length != 0;
 
-      if (Object.getOwnPropertyNames(caseJSON.recommendations).length != 0) {
-        $scope.recommendations = caseJSON.recommendations.recommendation;
+      if (caseJSON.recommendations) {
+        if (Object.getOwnPropertyNames(caseJSON.recommendations).length != 0) {
+          $scope.recommendations = caseJSON.recommendations.recommendation;
+        }
       }
     }
 

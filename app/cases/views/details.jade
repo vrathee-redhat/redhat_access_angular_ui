@@ -17,14 +17,14 @@ div.container-fluid.side-padding
                 select.form-control(
                   style='width: 100%;',
                   ng-model='type',
-                  ng-options='c.name for c in caseTypes track by c.name')
+                  ng-options='c.name for c in caseTypes track by c.name',
             tr
               th.details-table-header Severity:
               td
                 select.form-control(
                   style='width: 100%;',
                   ng-model='severity',
-                  ng-options='s.name for s in severities track by s.name')
+                  ng-options='s.name for s in severities track by s.name',
             tr
               th.details-table-header Status:
               td
@@ -116,7 +116,7 @@ div.container-fluid.side-padding
           rha-attach-product-logs
         div.col-xs-6
           rha-attach-local-file
-  div.row(ng-controller='RecommendationsController')
+  div.row(ng-controller='Recommendations')
     h4.col-xs-12.section-header Recommendations
     div.container-fluid.side-padding
       div.row
