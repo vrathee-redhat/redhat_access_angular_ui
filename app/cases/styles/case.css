@@ -54,3 +54,25 @@ th {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.select-feedback {
+    left: -34px !important;
+    top: 0px !important;
+}
+
+div#redhat-access-case .has-feedback .form-control-feedback {
+    right: 10px;
+    top: 0px;
+}
+
+div#redhat-access-case .form-group {
+    margin-bottom: 0px;
+}
+
+div#redhat-access-case .table > tbody > tr > th {
+    vertical-align: middle;
+}
+
+div#redhat-access-case .glyphicon-asterisk {
+    color: #428bca;
+}

@@ -1,157 +1,205 @@
 doctype html
-div
-  h1(style='font-weight: bold') Red Hat Access: Case {{caseId}}
-//div(x-login-status)
-input.form-control(style='width: 50%;', ng-model='summary')
-br
-div.container-fluid.side-padding
-  div.row
-    h4.col-xs-12.section-header Case Details
-    div.container-fluid.side-padding
-      div.row
-        div.col-xs-4
-          table.table.details-table
-            tr
-              th.details-table-header Case Type:
-              td
-                select.form-control(
-                  style='width: 100%;',
-                  ng-model='type',
-                  ng-options='c.name for c in caseTypes track by c.name',
-            tr
-              th.details-table-header Severity:
-              td
-                select.form-control(
-                  style='width: 100%;',
-                  ng-model='severity',
-                  ng-options='s.name for s in severities track by s.name',
-            tr
-              th.details-table-header Status:
-              td
-                select.form-control(
-                  style='width: 100%;',
-                  ng-model='status',
-                  ng-options='s.name for s in statuses track by s.name')
-            tr
-              th.details-table-header Alternate ID:
-              td
-                input.form-control(style='width: 100%', ng-model='alternate_id')
-        div.col-xs-4
-          table.table.details-table
-            tr
-              th Product:
-              td
-                select.form-control(
-                  style='width: 100%;',
-                  ng-model='product',
-                  ng-change='getProductVersions(product)',
-                  ng-options='s.name for s in products track by s.name')
-            tr
-              th.details-table-header Product Version:
-              td
-                select.form-control(
-                  style='width: 100%;',
-                  ng-options='v for v in versions track by v',
-                  ng-model='version')
-            tr
-              th.details-table-header Support Level:
-              td {{sla}}
-            tr
-              th.details-table-header Owner:
-              td {{contact_name}}
-            tr
-              th.details-table-header Red Hat Owner:
-              td {{owner}}
-        div.col-xs-4
-          table.table.details-table
-            tr
-              th.details-table-header Group:
-              td
-                select.form-control(
-                  style='width: 100%;',
-                  ng-options='g.name for g in groups track by g.number',
-                  ng-model='group')
-            tr
-              th.details-table-header Opened:
-              td
-                div {{created_date | date:'medium'}}
-                div {{created_by}}
-            tr
-              th.details-table-header Last Updated:
-              td
-                div {{last_modified_date | date:'medium'}}
-                div {{last_modified_by}}
-            tr
-              th.details-table-header Account Number:
-              td {{account_number}}
-            tr
-              th.details-table-header Account Name:
-              td {{account_name}}
-      div.row
-        div.col-xs-12
-          button.btn(ng-disabled='true', style='float: right;') Update
-  div.row
-    h4.col-xs-12.section-header Description
-    div.container-fluid.side-padding
-      div.row
-        div.col-xs-3
-          strong {{created_by}}
-        div.col-xs-9 {{description}}
-  div.row
-    h4.col-xs-12.section-header Bugzilla Tickets
-    div.container-fluid.side-padding
-      div.row
-        div(ng-if='!hasBugzillas')
-          div.col-xs-12 No Bugzillas linked to case.
-        div(ng-if='hasBugzillas')
-          div.col-xs-12 Yes Bugzillas
-  div.row
-    h4.col-xs-12.section-header Attachments
-    div.container-fluid.side-padding
-      div.row.side-padding
-        div.col-xs-12.bottom-border.col-no-padding
-          rha-list-attachments
-      div.row
-        div.col-xs-6
-          rha-attach-product-logs
-        div.col-xs-6
-          rha-attach-local-file
-  div.row(ng-controller='Recommendations')
-    h4.col-xs-12.section-header Recommendations
-    div.container-fluid.side-padding
-      div.row
-        div(ng-repeat='recommendation in recommendationsOnScreen')
+div#redhat-access-case
+  div
+    h1(style='font-weight: bold') Red Hat Access: Case {{caseId}}
+  div(x-login-status)
+  div.bottom-border(style='padding-top: 20px;')
+  div.container-fluid
+    div.row
+      div.col-xs-12.col-no-padding
+        form(name='caseDetails')
+          div.has-feedback(style='padding-bottom: 10px;')
+            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+              ng-show='caseDetails.summary.$dirty',
+              style='right: 50%; top: 0px;')
+            input.form-control(style='width: 50%;', ng-model='details.summary', name='summary')
+          div.container-fluid.side-padding
+            div.row
+              h4.col-xs-12.section-header Case Details
+              div.container-fluid.side-padding
+                div.row
+                  div.col-xs-4
+                    table.table.details-table
+                      tr
+                        th.details-table-header
+                          div(style='vertical-align: 50%') Case Type:
+                        td
+                          div.form-group.has-feedback
+                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                              ng-show='caseDetails.type.$dirty')
+                            select.form-control(
+                              name='type',
+                              style='width: 100%;',
+                              ng-model='details.type',
+                              ng-options='c.name for c in caseTypes track by c.name')
+                      tr
+                        th.details-table-header Severity:
+                        td
+                          div.form-group.has-feedback
+                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                              ng-show='caseDetails.severity.$dirty')
+                            select.form-control(
+                              name='severity',
+                              style='width: 100%;',
+                              ng-model='details.severity',
+                              ng-options='s.name for s in severities track by s.name')
+                      tr
+                        th.details-table-header Status:
+                        td
+                          div.form-group.has-feedback
+                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                              ng-show='caseDetails.status.$dirty')
+                            select.form-control(
+                              name='status',
+                              style='width: 100%;',
+                              ng-model='details.status',
+                              ng-options='s.name for s in statuses track by s.name')
+                      tr
+                        th.details-table-header Alternate ID:
+                        td
+                          div.form-group.has-feedback
+                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                              ng-show='caseDetails.alternate_id.$dirty')
+                            input.form-control(
+                              style='width: 100%',
+                              ng-model='details.alternate_id',
+                              name='alternate_id')
+                  div.col-xs-4
+                    table.table.details-table
+                      tr
+                        th Product:
+                        td
+                          div.form-group.has-feedback
+                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                              ng-show='caseDetails.product.$dirty')
+                            select.form-control(
+                              name='product',
+                              style='width: 100%;',
+                              ng-model='details.product',
+                              ng-change='getProductVersions(details.product)',
+                              ng-options='s.name for s in products track by s.name',
+                              required)
+                      tr
+                        th.details-table-header Product Version:
+                        td
+                          div.form-group.has-feedback
+                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                              ng-show='caseDetails.version.$dirty')
+                            select.form-control(
+                              name='version',
+                              style='width: 100%;',
+                              ng-options='v for v in versions track by v',
+                              ng-model='details.version',
+                              required)
+                      tr
+                        th.details-table-header Support Level:
+                        td {{details.sla}}
+                      tr
+                        th.details-table-header Owner:
+                        td {{details.contact_name}}
+                      tr
+                        th.details-table-header Red Hat Owner:
+                        td {{details.owner}}
+                  div.col-xs-4
+                    table.table.details-table
+                      tr
+                        th.details-table-header Group:
+                        td
+                          div.form-group.has-feedback
+                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                              ng-show='caseDetails.group.$dirty')
+                            select.form-control(
+                              name='group',
+                              style='width: 100%;',
+                              ng-options='g.name for g in groups track by g.number',
+                              ng-model='details.group')
+                      tr
+                        th.details-table-header Opened:
+                        td
+                          div {{details.created_date | date:'medium'}}
+                          div {{details.created_by}}
+                      tr
+                        th.details-table-header Last Updated:
+                        td
+                          div {{details.last_modified_date | date:'medium'}}
+                          div {{details.last_modified_by}}
+                      tr
+                        th.details-table-header Account Number:
+                        td {{details.account_number}}
+                      tr
+                        th.details-table-header Account Name:
+                        td {{details.account_name}}
+                div.row
+                  div.col-xs-12
+                    div(style='float: right;')
+                      button.btn.btn-primary(
+                        name='updateButton',
+                        ng-disabled='!caseDetails.$dirty',
+                        ng-hide='updatingDetails',
+                        ng-click='updateCase()') Update
+                      div(ng-show='updatingDetails') Updating Case...
+    div.row
+      h4.col-xs-12.section-header Description
+      div.container-fluid.side-padding
+        div.row
           div.col-xs-3
-            div.bold {{recommendation.title}}
-            div(style='padding: 8px 0;') {{recommendation.solution_abstract}}
-            a(href='{{recommendation.resource_view_uri}}', target='_blank') View full article in new window
-      div.row
-        div.col-xs-12
-          pagination.pagination-sm(
-            boundary-links='true'
-            total-items='recommendations.length'
-            on-select-page='selectPage(page)'
-            items-per-page='itemsPerPage'
-            page='currentPage'
-            max-size='maxSize'
-            previous-text='<'
-            next-text='>'
-            first-text='<<'
-            last-text='>>')
-  div.row
-    h4.col-xs-12.section-header Case Discussion
-    div.container-fluid.side-padding
-      div.row.create-field
-        div.col-xs-12
-          textarea.form-control(rows='5')
-      div.row.create-field.bottom-border(style='margin-left: 0px; margin-right: 0px;')
-        div.col-xs-12.col-no-padding
-          button.btn(ng-disabled='true', style='float: right;') Add comment
-      div.row
-        div(ng-repeat='comment in comments')
-          div.col-xs-2
-            div.bold {{comment.created_by}}
-            div {{comment.created_date | date:'mediumDate'}}
-            div {{comment.created_date | date:'mediumTime'}}
-          div.col-xs-10
-            pre {{comment.text}}
+            strong {{details.created_by}}
+          div.col-xs-9 {{details.description}}
+    div.row
+      h4.col-xs-12.section-header Bugzilla Tickets
+      div.container-fluid.side-padding
+        div.row
+          div(ng-if='!hasBugzillas')
+            div.col-xs-12 No Bugzillas linked to case.
+          div(ng-if='hasBugzillas')
+            div.col-xs-12 Yes Bugzillas
+    div.row
+      h4.col-xs-12.section-header Attachments
+      div.container-fluid.side-padding
+        div.row.side-padding
+          div.col-xs-12.bottom-border.col-no-padding
+            rha-list-attachments
+        div.row
+          div.col-xs-6
+            rha-attach-product-logs
+          div.col-xs-6
+            rha-attach-local-file
+    div.row(ng-controller='Recommendations')
+      h4.col-xs-12.section-header Recommendations
+      div.container-fluid.side-padding
+        div.row
+          div(ng-repeat='recommendation in recommendationsOnScreen')
+            div.col-xs-3
+              div.bold {{recommendation.title}}
+              div(style='padding: 8px 0;') {{recommendation.solution_abstract}}
+              a(href='{{recommendation.resource_view_uri}}', target='_blank') View full article in new window
+        div.row
+          div.col-xs-12
+            pagination.pagination-sm(
+              boundary-links='true'
+              total-items='recommendations.length'
+              on-select-page='selectPage(page)'
+              items-per-page='itemsPerPage'
+              page='currentPage'
+              max-size='maxSize'
+              previous-text='<'
+              next-text='>'
+              first-text='<<'
+              last-text='>>')
+    div.row
+      h4.col-xs-12.section-header Case Discussion
+      div.container-fluid.side-padding
+        div.row.create-field
+          div.col-xs-12
+            textarea.form-control(rows='5')
+        div.row.create-field.bottom-border(style='margin-left: 0px; margin-right: 0px;')
+          div.col-xs-12.col-no-padding
+            button.btn(ng-disabled='true', style='float: right;') Add comment
+        div.row
+          div(ng-repeat='comment in comments')
+            div.col-xs-2
+              div.bold {{comment.created_by}}
+              div {{comment.created_date | date:'mediumDate'}}
+              div {{comment.created_date | date:'mediumTime'}}
+            div.col-xs-10
+              pre {{comment.text}}
