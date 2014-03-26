@@ -1,6 +1,14 @@
-<div class ='row ' x-login-status/>
-<div class="row panel panel-default">
-   <div class="panel-body" x-search-form ng-controller='SearchController'>
-   </div>
+<div class="container-fluid side-padding">
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Red Hat Access: Search</h3>
+		</div>
+	</div>
+	<div x-login-status style="padding: 10px;"/>
+	<div class="bottom-border" style="padding-top: 10px;"></div>
+	<div class="row" x-search-form ng-controller='SearchController'></div>
+	<div style="padding-top: 10px;"></div>
+	<div class='row' x-list-search-results='' ng-controller='SearchController'/>
 </div>
-<div class='row' x-list-search-results='' ng-controller='SearchController'/>
+
+

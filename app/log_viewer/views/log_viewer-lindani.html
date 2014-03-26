@@ -1,0 +1,74 @@
+<div id="main" >
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Red Hat Access: Diagnose</h3>
+		</div>
+	</div>
+	<div x-login-status style="padding: 10px;"/>
+	<div class="bottom-border" style="padding-top: 10px;"></div>
+	<div class="row">
+		<div id="log-viewer-left" class="col-lg-4"> 
+			<div class="btn-group" ng-controller="DropdownCtrl" ng-init="init()">
+				<button type="button" class="btn btn-default dropdown-toggle"
+				data-toggle="dropdown">
+				{{blah}} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li ng-repeat="choice in items" ng-click="machineSelected()"><a>{{choice}}</a></li>
+			</ul>
+		</div>
+		<div ng-controller="fileController" ng-click="updateSelected()">
+			<div data-angular-treeview="true" data-tree-id="mytree"
+			data-tree-model="roleList" data-node-id="roleId"
+			data-node-label="roleName" data-node-children="children"></div>
+		</div>
+		<button type="button" class="btn btn-primary"
+		ng-controller="selectFileButton" ng-click="fileSelected()">
+		Select File</button>
+	</div>
+	<div id="log-viewer-right"class="col-lg-8"> 
+		<div class= "row" ng-show=>
+			<div ng-controller="TabsDemoCtrl">
+			<tabset > 
+				<tab ng-repeat="tab in tabs"
+				> <tab-heading>{{tab.shortTitle}}
+				<a ng-click="removeTab($index)" href=''> <span
+					class="glyphicon glyphicon-remove"></span>
+				</a> </tab-heading>
+				<div active="tab.active" disabled="tab.disabled" >
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
+							<button id="diagnoseButton" type="button" class="btn btn-primary"
+							ng-click="diagnoseText()">Red Hat Diagnose</button>
+							<br> <br>
+						</div>
+						<div class="panel-body">
+							<pre>{{tab.content}}</pre>
+						</div>
+					</div>
+
+				</div>
+			</tab> 
+		</tabset>
+		</div>
+	</div>
+	<div class= "row">
+     <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse"  data-target="#collapseTwo">
+          Suggested Solutions
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div  x-accordion-search-results='' ng-controller='SearchController'/>
+      </div>
+    </div>
+  </div>
+</div>
+</div>			
+</div>
+</div>

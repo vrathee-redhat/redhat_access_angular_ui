@@ -23,11 +23,10 @@ module.exports = function (grunt) {
     distdir: 'dist',
 
     pkg: grunt.file.readJSON('package.json'),
-    banner:
-    '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-    '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
-    ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
-    ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
+    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+      '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
+      ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
+      ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
 
     // Project settings
     yeoman: {
@@ -165,8 +164,6 @@ module.exports = function (grunt) {
 
 
 
-
-
     // Renames files for browser caching purposes
     rev: {
       dist: {
@@ -257,10 +254,10 @@ module.exports = function (grunt) {
     ngmin: {
       dist: {
         files: [{
-          expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
+          //expand: true,
+          //cwd: '.tmp/concat/scripts',
+          src: '<%= distdir %>/<%= pkg.name %>.js',
+          dest: '<%= distdir %>/<%= pkg.name %>.annonated.js'
         }]
       }
     },
@@ -342,12 +339,12 @@ module.exports = function (grunt) {
     //   }
     // },
     concat: {
-      dist:{
+      dist: {
         options: {
           banner: '<%= banner %>'
         },
-        src:['<%= src.js %>', '<%= src.jsTpl %>'],
-        dest:'<%= distdir %>/<%= pkg.name %>.js'
+        src: ['<%= src.js %>', '<%= src.jsTpl %>'],
+        dest: '<%= distdir %>/<%= pkg.name %>.js'
       },
       index: {
         src: ['app/index.html'],
@@ -357,24 +354,26 @@ module.exports = function (grunt) {
         }
       },
       yeoman: {
-        src:['<%= src.js %>', '<%= src.jsTpl %>'],
-        dest:'app/<%= pkg.name %>.js'
+        src: ['<%= src.js %>', '<%= src.jsTpl %>'],
+        dest: 'app/<%= pkg.name %>.js'
       }
     },
     src: {
-      js: ['app/security/**/*.js','app/search/**/*.js','app/cases/**/*.js'],
+      js: ['app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
       jsTpl: ['<%= distdir %>/templates/**/*.js'],
       specs: ['test/**/*.spec.js'],
       scenarios: ['test/**/*.scenario.js'],
       html: ['app/index.html'],
       tpl: {
-        app: ['app/security/**/*.html','app/search/**/*.html','app/cases/**/*.html']
+        app: ['app/security/**/*.html', 'app/search/**/*.html',
+          'app/cases/**/*.html', 'app/log_viewer/**/*.html'
+        ]
         //common: ['src/common/**/*.tpl.html']
       }
       //less: ['src/less/stylesheet.less'], // recess:build doesn't accept ** in its file patterns
       //lessWatch: ['src/less/**/*.less']
     },
-    
+
     html2js: {
       app: {
         options: {

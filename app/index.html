@@ -17,6 +17,7 @@
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/case.css -->
     <link rel="stylesheet" href="cases/styles/case.css">
+    <link rel="stylesheet" href="log_viewer/styles/log_viewer.css">
     <!-- endbuild -->
   </head>
   <body ng-app="RedhatAccess">
@@ -28,7 +29,8 @@
     <div class="container">
      <ul id="nav">
       <a class="navbar-brand" href="#search">Search Demo</a>
-      <a class="navbar-brand" href="#case/new">New Case Demo</a>  
+      <a class="navbar-brand" href="#case/new">New Case Demo</a> 
+      <a class="navbar-brand" href="#logviewer">Diagnose Case Demo</a> 
      </ul>
     </div>
     <div style="padding-top: 10px;" class="container" ng-view="">
@@ -57,6 +59,7 @@
     <script src="vendor/stratajs/test/js/js-markdown-extra.js"></script>
     <script src="vendor/stratajs/test/js/Uri.js"></script>
     <script src="vendor/stratajs/strata.js"></script>
+    <script src="vendor/angular.treeview.js"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="redhat_access_angular_ui.js"></script>
