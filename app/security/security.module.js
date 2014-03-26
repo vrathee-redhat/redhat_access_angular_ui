@@ -14,11 +14,21 @@ angular.module('RedhatAccess.security', ['ui.bootstrap'])
         templateUrl: 'security/login_status.html'
     };
 })
-.controller('SecurityController', ['$scope','$rootScope', 'securityService','AUTH_EVENTS',
-    function($scope,$rootScope, securityService, AUTH_EVENTS) {
+.controller('SecurityController', ['$scope', '$rootScope', 'securityService', 'AUTH_EVENTS',
+    function($scope, $rootScope, securityService, AUTH_EVENTS) {
 
-        $scope.isLoggedIn = false;
+        $scope.isLoggedIn = securityService.isLoggedIn;
         $scope.loggedInUser = '';
+
+        function setLoginStatus(isLoggedIn, user) {
+          $scope.isLoggedIn = isLoggedIn;
+          securityService.isLoggedIn = isLoggedIn;
+          if (user != null) {
+            $scope.loggedInUser = user;
+          } else {
+            $scope.loggedInuser = '';
+          }
+        };
 
         strata.checkLogin(loginHandler);
 
@@ -27,14 +37,12 @@ angular.module('RedhatAccess.security', ['ui.bootstrap'])
             if (result) {
                 console.log("Authorized!");
                 $scope.$apply(function() {
-                    $scope.isLoggedIn = true;
+                    setLoginStatus(true, authedUser.name);
                     //$scope.loggedInUser = securityService.getLoggedInUserName();
-                    $scope.loggedInUser = authedUser.name
                 });
             } else {
                 $scope.$apply(function() {
-                    $scope.isLoggedIn = false;
-                    $scope.loggedInUser = '';
+                    setLoginStatus(false, '')
                 });
             }
         };
@@ -42,8 +50,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap'])
         $scope.login = function() {
             securityService.login().then(function(authedUser) {
                 if (authedUser) {
-                    $scope.isLoggedIn = true;
-                    $scope.loggedInUser = authedUser.name;
+                  setLoginStatus(true, authedUser.name);
                 }
             });
 
@@ -51,8 +58,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap'])
 
         $scope.logout = function() {
             strata.clearCredentials();
-            $scope.isLoggedIn = false;
+            setLoginStatus(false, '');
             $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            location.reload(); //TODO: probably a neater way to do this with $state
         };
 
 
@@ -77,6 +85,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap'])
             bodyText: 'Perform this action?',
             backdrop: 'static'
         };
+
+        this.isLoggedIn = false;
 
         this.login = function() {
             return this.showLogin(modalDefaults, modalOptions);
