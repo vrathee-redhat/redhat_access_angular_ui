@@ -180,4 +180,45 @@ angular.module('RedhatAccessCases', [
         }
       }
     });
-  }]);
+  }])
+.run([
+  '$rootScope',
+  'securityService',
+  '$state',
+  function(
+    $rootScope,
+    securityService,
+    $state) {
+
+      $rootScope.$on('$stateChangeStart',
+          function(event, toState, toParams, fromState, fromParams){
+            if (!securityService.isLoggedIn) {
+              event.preventDefault();
+
+              strata.checkLogin(
+                  function(isLoggedIn, user) {
+
+                    if (!isLoggedIn) {
+                      securityService.login().then(
+                          function(authedUser) {
+                            if (authedUser) {
+                              securityService.isLoggedIn = true;
+                              $state.transitionTo(toState, toParams);
+                            } else {
+                              securityService.isLoggedIn = false;
+                              console.log('Not logged in.');
+                            }
+                          });
+                    } else {
+                      securityService.isLoggedIn = true;
+                      $state.transitionTo(toState, toParams);
+                    }
+
+                  }
+              );
+            }
+          }
+      );
+
+  }
+]);
