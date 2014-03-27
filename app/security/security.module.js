@@ -23,10 +23,13 @@ angular.module('RedhatAccess.security', ['ui.bootstrap'])
         function setLoginStatus(isLoggedIn, user) {
           $scope.isLoggedIn = isLoggedIn;
           securityService.isLoggedIn = isLoggedIn;
+
           if (user != null) {
             $scope.loggedInUser = user;
+            securityService.loggedInUser = user;
           } else {
             $scope.loggedInuser = '';
+            securityService.loggedInUser = '';
           }
         };
 
@@ -67,6 +70,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap'])
     function($modal) {
 
         //bool isAuthed = false;
+        this.isLoggedIn = false;
+        this.loggedInUser = '';
 
         var modalDefaults = {
             backdrop: true,

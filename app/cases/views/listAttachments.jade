@@ -6,7 +6,7 @@ table.table.table-hover.table-bordered(ng-show='attachments.length > 0')
     th Size
     th Attached
     th Attached By
-    th
+    th Delete
   tbody
     tr(ng-repeat='attachment in attachments')
       td
@@ -17,10 +17,4 @@ table.table.table-hover.table-bordered(ng-show='attachments.length > 0')
       td {{attachment.created_date | date:'medium'}}
       td {{attachment.created_by}}
       td
-        a(ng-click='removeAttachment()')
-          span.glyphicon.glyphicon-remove-circle(
-            popover='Remove',
-            popover-trigger='mouseenter',
-            popover-placement='right',
-            ng-click='removeAttachment',
-            style='width: 100%; height: 100%;')
+        a(ng-click='removeAttachment()') Delete

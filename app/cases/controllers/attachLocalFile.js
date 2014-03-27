@@ -4,28 +4,11 @@ angular.module('RedhatAccessCases')
 .controller('AttachLocalFile', [
   '$scope',
   'attachments',
-  function ($scope, attachments) {
+  'securityService',
+  function ($scope, attachments, securityService) {
     $scope.NO_FILE_CHOSEN = 'No file chosen';
     $scope.fileDescription = '';
 
-//    $scope.attachments = [
-//      {
-//        uri: "https://access.redhat.com/",
-//        file_name: "first.log",
-//        description: "The first log",
-//        length: 20,
-//        created_by: "Chris Kyrouac",
-//        created_date: 1393611517000
-//      },
-//      {
-//        uri: "https://access.redhat.com/",
-//        file_name: "second.log",
-//        description: "The second log",
-//        length: 25,
-//        created_by: "Chris Kyrouac",
-//        created_date: 1393611517000
-//      }
-//    ];
     $scope.clearSelectedFile = function() {
       $scope.fileName = $scope.NO_FILE_CHOSEN;
       $scope.fileDescription = '';
@@ -40,7 +23,7 @@ angular.module('RedhatAccessCases')
         file_name: $scope.fileName,
         description: $scope.fileDescription,
         length: $scope.fileSize,
-        created_by: "Chris Kyrouac", //TODO: use Lindani's login service to get username
+        created_by: securityService.loggedInUser, //TODO: use Lindani's login service to get username
         created_date: new Date().getTime(),
         file: data
       });

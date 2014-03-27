@@ -136,7 +136,7 @@ div#redhat-access-case
                         name='updateButton',
                         ng-disabled='!caseDetails.$dirty',
                         ng-hide='updatingDetails',
-                        ng-click='updateCase()') Update
+                        ng-click='updateCase()') Update Details
                       div(ng-show='updatingDetails') Updating Case...
     div.row
       h4.col-xs-12.section-header Description
@@ -157,12 +157,18 @@ div#redhat-access-case
       h4.col-xs-12.section-header Attachments
       div.container-fluid.side-padding
         div.row.side-padding
-          div.col-xs-12.bottom-border.col-no-padding
+          div.col-xs-12.col-no-padding
             rha-list-attachments
+        div.row.side-padding
+          div.col-xs-12.col-no-padding.bottom-border(style='padding-bottom: 14px;')
+            div(style='float: right')
+              div(ng-hide='!updatingAttachments') Updating Attachments...
+              button.btn.btn-primary(
+                ng-disabled='disableUpdateAttachmentsButton',
+                ng-hide='updatingAttachments',
+                ng-click='updateAttachments()') Update Attachments
         div.row
-          div.col-xs-6
-            rha-attach-product-logs
-          div.col-xs-6
+          div.col-xs-12.col-no-padding
             rha-attach-local-file
     div.row(ng-controller='Recommendations')
       h4.col-xs-12.section-header Recommendations
@@ -194,7 +200,9 @@ div#redhat-access-case
             textarea.form-control(rows='5')
         div.row.create-field.bottom-border(style='margin-left: 0px; margin-right: 0px;')
           div.col-xs-12.col-no-padding
-            button.btn(ng-disabled='true', style='float: right;') Add comment
+            button.btn.btn-primary(
+              ng-disabled='true',
+              style='float: right;') Add comment
         div.row
           div(ng-repeat='comment in comments')
             div.col-xs-2

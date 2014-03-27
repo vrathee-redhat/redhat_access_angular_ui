@@ -140,11 +140,11 @@ angular.module('RedhatAccessCases')
 
               var parentPromise = $q.all(promises);
               parentPromise.then(
-                function(results) {
+                function() {
                   $scope.submitProgress = '100';
                   $state.go('case', {id: caseNumber});
                 },
-                function(error, error2, error3, error4) {
+                function(error) {
                   console.log("Problem creating attachment: " + error);
                 }
               );
