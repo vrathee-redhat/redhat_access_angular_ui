@@ -7,6 +7,7 @@
  */
 angular.module('RedhatAccess.search', [
 	'ui.router',
+	'templates.app',
 	'RedhatAccess.security',
 	'ui.bootstrap',
 	'ngSanitize'

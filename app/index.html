@@ -41,7 +41,10 @@
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-
+    <!-- Manually add uri and angular treeview due to bower issues -->
+    
+    <script src="bower_components/jsUri/Uri.min.js"></script>
+    
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/jquery.js"></script>
@@ -52,15 +55,13 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/js-markdown-extra/js-markdown-extra.js"></script>
+    <script src="bower_components/stratajs/strata.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- Have to add treeview outside bower section because the package has no version -->
-     <script src="bower_components/angular-treeview/angular.treeview.min.js"></script>
-    <!-- other dependencies -->
-    <script src="vendor/stratajs/test/js/js-markdown-extra.js"></script>
-    <script src="vendor/stratajs/test/js/Uri.js"></script>
-    <script src="vendor/stratajs/strata.js"></script>
-
+    
+    <script src="bower_components/angular-treeview/angular.treeview.min.js"></script>
+    
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="redhat_access_angular_ui.js"></script>
     <script src="redhat_access_module.js"></script>
