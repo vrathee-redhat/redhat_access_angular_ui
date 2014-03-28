@@ -17,8 +17,24 @@ angular.module('RedhatAccessCases', [
 
             strata.cases.get(
               id,
-              function (response) {
-                deferred.resolve(response);
+              function (caseJSON) {
+                var accountNumber = caseJSON.account_number;
+
+                if (angular.isString(accountNumber)) {
+                  strata.accounts.get(
+                    accountNumber,
+                    function(response) {
+                      caseJSON.account_name = response.name;
+                      deferred.resolve(caseJSON);
+                    },
+                    function() {
+                      caseJSON.account_name = "ERROR";
+                      deferred.resolve(caseJSON);
+                    }
+                  );
+                } else {
+                  deferred.resolve(caseJSON);
+                }
               },
               function (error) {
                 deferred.reject(error);

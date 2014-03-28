@@ -30,8 +30,6 @@ angular.module('RedhatAccessCases')
       productsJSON,
       statusesJSON) {
 
-    var originalDetails;
-
     if (caseJSON) {
       $scope.details = {};
       $scope.details.caseId = $stateParams.id;
@@ -50,9 +48,8 @@ angular.module('RedhatAccessCases')
       $scope.details.last_modified_date = caseJSON.last_modified_date;
       $scope.details.last_modified_by = caseJSON.last_modified_by;
       $scope.details.account_number = caseJSON.account_number;
+      $scope.details.account_name = caseJSON.account_name;
       $scope.details.group = {'number': caseJSON.folder_number};
-
-      originalDetails = angular.copy($scope.details);
 
       $scope.bugzillas = caseJSON.bugzillas;
       $scope.hasBugzillas = Object.getOwnPropertyNames($scope.bugzillas).length != 0;
