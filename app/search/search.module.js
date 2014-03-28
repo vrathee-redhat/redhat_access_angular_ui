@@ -8,7 +8,8 @@
 angular.module('RedhatAccess.search', [
 	'ui.router',
 	'RedhatAccess.security',
-	'ui.bootstrap'
+	'ui.bootstrap',
+	'ngSanitize'
 ])
 	.constant('RESOURCE_TYPES', {
 		article: 'Article',
@@ -204,8 +205,9 @@ angular.module('RedhatAccess.search', [
 				setSelected: function (selection) {
 					this.currentSelection = selection;
 				},
-				search: function (searchString) {
+				search: function (searchString, limit) {
 					var that = this;
+					if ((limit === undefined) || (limit < 1)) limit = 5;
 					this.clear();
 					strata.search(
 						searchString,
@@ -218,7 +220,7 @@ angular.module('RedhatAccess.search', [
 						function (error) {
 							console.log("search failed");
 						},
-						10,
+						limit,
 						true
 					);
 				},
