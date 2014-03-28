@@ -197,17 +197,25 @@ div#redhat-access-case
       div.container-fluid.side-padding
         div.row.create-field
           div.col-xs-12
-            textarea.form-control(rows='5')
+            textarea.form-control(
+              ng-disabled='addingComment',
+              rows='5',
+              ng-model='newComment',
+              style='max-width: 100%')
         div.row.create-field.bottom-border(style='margin-left: 0px; margin-right: 0px;')
           div.col-xs-12.col-no-padding
-            button.btn.btn-primary(
-              ng-disabled='true',
-              style='float: right;') Add comment
-        div.row
-          div(ng-repeat='comment in comments')
-            div.col-xs-2
-              div.bold {{comment.created_by}}
-              div {{comment.created_date | date:'mediumDate'}}
-              div {{comment.created_date | date:'mediumTime'}}
-            div.col-xs-10
-              pre {{comment.text}}
+            div(style='float: right;')
+              div(ng-hide='!addingComment') Adding comment...
+              button.btn.btn-primary(
+                ng-hide='addingComment',
+                ng-disabled='false',
+                ng-click='addComment()',
+                style='float: right;') Add Comment
+        div(ng-repeat='comment in comments')
+          div.row(style='padding-bottom: 10px;')
+              div.col-xs-2
+                div.bold {{comment.created_by}}
+                div {{comment.created_date | date:'mediumDate'}}
+                div {{comment.created_date | date:'mediumTime'}}
+              div.col-xs-10
+                pre {{comment.text}}

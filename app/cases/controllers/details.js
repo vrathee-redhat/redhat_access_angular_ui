@@ -188,6 +188,37 @@ angular.module('RedhatAccessCases')
 
     };
 
+    $scope.newComment = '';
+    $scope.addingComment = false;
+
+    $scope.addComment = function() {
+      $scope.addingComment = true;
+
+      strata.cases.comments.post(
+        $scope.details.caseId,
+        {'text': $scope.newComment},
+        function(response) {
+
+          //refresh the comments list
+          strata.cases.comments.get(
+            $scope.details.caseId,
+            function(comments) {
+              $scope.newComment = '';
+              $scope.comments = comments;
+              $scope.addingComment = false;
+              $scope.$apply();
+            },
+            function(error) {
+              console.log(error);
+            }
+          );
+        },
+        function(error) {
+          console.log(error);
+        }
+      );
+    };
+
     $scope.getProductVersions = function(product) {
       $scope.version = "";
 
