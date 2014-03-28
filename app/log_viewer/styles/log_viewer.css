@@ -55,16 +55,9 @@ div[data-tree-model] li .selected {
   padding: 1px 5px;
 }
 
-html,body {
+#log_view_main {
 	height: 100%;
-}
-
-#mainyu {
-	height: 100%;
-}
-
-.nav,.pagination,.carousel,.panel-title a {
-	cursor: pointer;
+/*	background: #eee;*/
 }
 
 #right-side {
@@ -74,17 +67,17 @@ html,body {
 
 #right {
 	height: 100%;
-	overflow: hidden
+	overflow: hidden;
 }
 
 .left {
 	float: left;
-	width: 30px;
-	background: #eee;
+	width: 15px;
+/* 	background: #eee; */
 	height: 100%;
 	display: none;
-	
 }
+
 .left.showMe {
 	display: block;
 }
@@ -92,7 +85,7 @@ html,body {
 .demo-left {
 	float: left;
 	width: 275px;
-	background: #eee;
+/* 	background: #eee; */
 	height: 100%;
 	display: block;
 }
@@ -101,30 +94,27 @@ html,body {
 	display: none;
 }
 
-.demo-right {
-	background: #eee;
-	
-}
+/* .demo-right { */
+/* 	background: #eee; */
+/* } */
 
-#ng-pageslide {
-	width: 250px;
-	background: #eee;
-}
-
-span.glyphicon-chevron-right,.glyphicon-chevron-left {
-	font-size: 30px;
+.custom-glyphicon-left {
+/* 	font-size: 30px; */
 	top: 50%;
 	position: absolute;
-	margin-top: -15px;
-}
-
-.glyphicon-chevron-left {
+	margin-top: -7px;
 	text-align: right;
-	left: 245px;
+	left: 254px;
+}
+
+.custom-glyphicon-right {
+/* 	font-size: 30px; */
+	top: 50%;
+	position: absolute;
+	margin-top: -7px;
 }
 
 }
-
 #height {
 	height: 100%;
 }
@@ -162,8 +152,8 @@ span.glyphicon-chevron-right,.glyphicon-chevron-left {
 	display: inline-block;
 	overflow: hidden;
 	height: 100%;
-	width: 100%; 
-	transition : height 1s;
+	width: 100%;
+	transition: height 1s;
 	-webkit-transition: height 1s;
 	-moz-transition: height 1s;
 	-o-transition: height 1s;
@@ -176,7 +166,6 @@ span.glyphicon-chevron-right,.glyphicon-chevron-left {
 
 .demo-right {
 	display: none;
-	
 }
 
 .demo-right.showMe {
@@ -184,29 +173,41 @@ span.glyphicon-chevron-right,.glyphicon-chevron-left {
 	padding: 30px;
 }
 
-.main-right{
-	margin-right: -330px;
-	width: 97%; 
+.main-right {
+	width: 100%;	
 	float: left;
+	padding: 0 15px 0 0;
 }
 
-.main-right.showMe{
-	width: 50%; 
+.main-right.showMe {
+	width: 50%;
 	float: left;
+	padding: 0 0 0 0;
 }
 
-.controller-demo{
-	margin-left: 97%;
+.controller-demo {
+/* 	margin-left: 97%; */
+	float: right;
+	width: 50%;
+	height: 100%;
+	display: none;
 }
 
-.controller-demo.showMe{
-	margin-left: 50%;
-	
+.controller-demo.showMe {
+	display: block
+}
+.collapsed{
+	float: right;
+	width: 15px;
+	height: 100%;
+	display: block;
+}
+.collapsed.showMe{
+	display: none;
 }
 
 .bigger-button {
-	font-size: 30px;
 	top: 50%;
 	position: absolute;
-	float: left;
+/* 	float: left; */
 }
