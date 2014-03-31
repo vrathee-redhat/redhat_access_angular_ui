@@ -13,6 +13,7 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/case.css -->
@@ -29,8 +30,9 @@
     <div class="container">
      <ul id="nav">
       <a class="navbar-brand" href="#search">Search Demo</a>
-      <a class="navbar-brand" href="#case/new">New Case Demo</a> 
-      <a class="navbar-brand" href="#logviewer">Diagnose Case Demo</a> 
+      <a class="navbar-brand" href="#case/new">New Case Demo</a>
+      <a class="navbar-brand" href="#logviewer">Diagnose Case Demo</a>
+      <a class="navbar-brand" href="#case/list">List Case Demo</a>
      </ul>
     </div>
     <div style="padding-top: 10px;" class="container" ng-view="">
@@ -57,6 +59,7 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/js-markdown-extra/js-markdown-extra.js"></script>
     <script src="bower_components/stratajs/strata.js"></script>
+    <script src="bower_components/ng-table/ng-table.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     
@@ -70,12 +73,16 @@
     <script src="cases/controllers/recommendations.js"></script>
     <script src="cases/controllers/new.js"></script>
     <script src="cases/controllers/attachLocalFile.js"></script>
+    <script src="cases/controllers/list.js"></script>
     <script src="cases/controllers/listAttachments.js"></script>
     <script src="cases/directives/attachLocalFile.js"></script>
     <script src="cases/directives/attachProductLogs.js"></script>
     <script src="cases/directives/listAttachments.js"></script>
     <script src="cases/filters/bytes.js"></script>
     <script src="cases/services/attachments.js"></script>
+    <script src="security/security.module.js"></script>
+    <script src="search/search.module.js"></script>
+    <script src="log_viewer/log_viewer.module.js"></script>
     <!-- endbuild -->
 </body>
 </html>
