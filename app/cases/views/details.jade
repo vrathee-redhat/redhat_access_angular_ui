@@ -8,11 +8,14 @@ div#redhat-access-case
     div.row
       div.col-xs-12.col-no-padding
         form(name='caseDetails')
-          div.has-feedback(style='padding-bottom: 10px;')
+          div(style='padding-bottom: 10px;')
+            input.form-control(
+              style='width: 50%; display: inline-block;',
+              ng-model='details.summary',
+              name='summary')
             span.glyphicon.glyphicon-asterisk.form-control-feedback(
               ng-show='caseDetails.summary.$dirty',
-              style='right: 50%; top: 0px;')
-            input.form-control(style='width: 50%;', ng-model='details.summary', name='summary')
+              style='display: inline-block;')
           div.container-fluid.side-padding
             div.row
               h4.col-xs-12.section-header Case Details
@@ -22,75 +25,80 @@ div#redhat-access-case
                     table.table.details-table
                       tr
                         th.details-table-header
-                          div(style='vertical-align: 50%') Case Type:
+                          div(style='vertical-align: 50%; display: inline-block;') Case Type:
+                          span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                            ng-show='caseDetails.type.$dirty',
+                            style='display: inline-block;float: right; vertical-align: 50%;')
                         td
-                          div.form-group.has-feedback
-                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
-                              ng-show='caseDetails.type.$dirty')
-                            select.form-control(
-                              name='type',
-                              style='width: 100%;',
-                              ng-model='details.type',
-                              ng-options='c.name for c in caseTypes track by c.name')
+                          select.form-control(
+                            name='type',
+                            style='width: 100%;',
+                            ng-model='details.type',
+                            ng-options='c.name for c in caseTypes track by c.name')
                       tr
-                        th.details-table-header Severity:
+                        th.details-table-header
+                          div(style='vertical-align: 50%; display: inline-block;') Severity:
+                          span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                            ng-show='caseDetails.severity.$dirty',
+                            style='display: inline-block;float: right; vertical-align: 50%;')
                         td
-                          div.form-group.has-feedback
-                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
-                              ng-show='caseDetails.severity.$dirty')
-                            select.form-control(
-                              name='severity',
-                              style='width: 100%;',
-                              ng-model='details.severity',
-                              ng-options='s.name for s in severities track by s.name')
+                          select.form-control(
+                            name='severity',
+                            style='width: 100%;',
+                            ng-model='details.severity',
+                            ng-options='s.name for s in severities track by s.name')
                       tr
-                        th.details-table-header Status:
+                        th.details-table-header
+                          div(style='vertical-align: 50%; display: inline-block;') Status:
+                          span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                            ng-show='caseDetails.status.$dirty',
+                            style='display: inline-block;float: right; vertical-align: 50%;')
                         td
-                          div.form-group.has-feedback
-                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
-                              ng-show='caseDetails.status.$dirty')
-                            select.form-control(
-                              name='status',
-                              style='width: 100%;',
-                              ng-model='details.status',
-                              ng-options='s.name for s in statuses track by s.name')
+                          select.form-control(
+                            name='status',
+                            style='width: 100%;',
+                            ng-model='details.status',
+                            ng-options='s.name for s in statuses track by s.name')
                       tr
-                        th.details-table-header Alternate ID:
+                        th.details-table-header
+                          div(style='vertical-align: 50%; display: inline-block;') Alternate ID:
+                          span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                            ng-show='caseDetails.alternate_id.$dirty',
+                            style='display: inline-block;float: right; vertical-align: 50%;')
                         td
-                          div.form-group.has-feedback
-                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
-                              ng-show='caseDetails.alternate_id.$dirty')
-                            input.form-control(
-                              style='width: 100%',
-                              ng-model='details.alternate_id',
-                              name='alternate_id')
+                          input.form-control(
+                            style='width: 100%',
+                            ng-model='details.alternate_id',
+                            name='alternate_id')
                   div.col-xs-4
                     table.table.details-table
                       tr
-                        th Product:
+                        th
+                          div(style='vertical-align: 50%; display: inline-block;') Product:
+                          span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                            ng-show='caseDetails.product.$dirty',
+                            style='display: inline-block;float: right; vertical-align: 50%;')
                         td
-                          div.form-group.has-feedback
-                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
-                              ng-show='caseDetails.product.$dirty')
-                            select.form-control(
-                              name='product',
-                              style='width: 100%;',
-                              ng-model='details.product',
-                              ng-change='getProductVersions(details.product)',
-                              ng-options='s.name for s in products track by s.name',
-                              required)
+                          select.form-control(
+                            name='product',
+                            style='width: 100%;',
+                            ng-model='details.product',
+                            ng-change='getProductVersions(details.product)',
+                            ng-options='s.name for s in products track by s.name',
+                            required)
                       tr
-                        th.details-table-header Product Version:
+                        th.details-table-header
+                          div(style='vertical-align: 50%; display: inline-block;') Product Version:
+                          span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                            ng-show='caseDetails.version.$dirty',
+                            style='display: inline-block;float: right; vertical-align: 50%;')
                         td
-                          div.form-group.has-feedback
-                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
-                              ng-show='caseDetails.version.$dirty')
-                            select.form-control(
-                              name='version',
-                              style='width: 100%;',
-                              ng-options='v for v in versions track by v',
-                              ng-model='details.version',
-                              required)
+                          select.form-control(
+                            name='version',
+                            style='width: 100%;',
+                            ng-options='v for v in versions track by v',
+                            ng-model='details.version',
+                            required)
                       tr
                         th.details-table-header Support Level:
                         td {{details.sla}}
@@ -103,16 +111,17 @@ div#redhat-access-case
                   div.col-xs-4
                     table.table.details-table
                       tr
-                        th.details-table-header Group:
+                        th.details-table-header
+                          div(style='vertical-align: 50%; display: inline-block;') Group:
+                          span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                            ng-show='caseDetails.group.$dirty',
+                            style='display: inline-block;float: right; vertical-align: 50%;')
                         td
-                          div.form-group.has-feedback
-                            span.glyphicon.glyphicon-asterisk.form-control-feedback(
-                              ng-show='caseDetails.group.$dirty')
-                            select.form-control(
-                              name='group',
-                              style='width: 100%;',
-                              ng-options='g.name for g in groups track by g.number',
-                              ng-model='details.group')
+                          select.form-control(
+                            name='group',
+                            style='width: 100%;',
+                            ng-options='g.name for g in groups track by g.number',
+                            ng-model='details.group')
                       tr
                         th.details-table-header Opened:
                         td
