@@ -68,13 +68,14 @@ logViewer.controller('fileController', function($scope, files) {
 	});
 });
 
-logViewer.controller('DropdownCtrl', function($scope, $http, files) {
+logViewer.controller('DropdownCtrl', function($scope, $http, $location, files) {
 	$scope.blah = "Please Select the Machine";
 	$scope.items = [];
+	var sessionId = $location.search().sessionId;
 	$scope.init = function() {
 		$http({
 			method : 'GET',
-			url : 'GetMachineList'
+			url : 'GetMachineList?sessionId=' + encodeURIComponent(sessionId)
 		}).success(function(data, status, headers, config) {
 			$scope.items = data;
 		}).error(function(data, status, headers, config) {
@@ -84,16 +85,19 @@ logViewer.controller('DropdownCtrl', function($scope, $http, files) {
 		});
 	};
 	$scope.machineSelected = function() {
+		var sessionId = $location.search().sessionId;
+		var userId = $location.search().userId;
 		files.selectedHost = this.choice;
 		$scope.blah = this.choice;
-		$http({
-			method : 'GET',
-			url : 'GetFileList'
-		}).success(function(data, status, headers, config) {
+		$http(
+				{
+					method : 'GET',
+					url : 'GetFileList?hostName=' + files.selectedHost
+							+ '&sessionId=' + encodeURIComponent(sessionId)
+							+ '&userId=' + encodeURIComponent(userId)
+				}).success(function(data, status, headers, config) {
 			var tree = new Array();
 			parseList(tree, data);
-			console.log(tree)
-			var string = JSON.stringify(tree);
 			files.setFileList(tree);
 		}).error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
@@ -102,14 +106,20 @@ logViewer.controller('DropdownCtrl', function($scope, $http, files) {
 	};
 });
 
-logViewer.controller('selectFileButton', function($scope, $http, files) {
+logViewer.controller('selectFileButton', function($scope, $http, $location,
+		files) {
 	$scope.fileSelected = function() {
+		var sessionId = $location.search().sessionId;
+		var userId = $location.search().userId;
 		$scope.$parent.opens = !$scope.$parent.opens;
 		$http(
 				{
 					method : 'GET',
-					url : 'GetLogFile?filePath=' + files.selectedFile
-							+ '&hostName=localhost'
+					url : 'GetLogFile?sessionId='
+							+ encodeURIComponent(sessionId) + '&userId='
+							+ encodeURIComponent(userId) + '&filePath='
+							+ files.selectedFile + '&hostName='
+							+ files.selectedHost
 				}).success(function(data, status, headers, config) {
 			files.file = data;
 		}).error(function(data, status, headers, config) {

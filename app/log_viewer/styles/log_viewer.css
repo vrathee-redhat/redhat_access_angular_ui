@@ -196,13 +196,13 @@ div[data-tree-model] li .selected {
 .controller-demo.showMe {
 	display: block
 }
-.collapsed{
+.collapser{
 	float: right;
 	width: 15px;
 	height: 100%;
 	display: block;
 }
-.collapsed.showMe{
+.collapser.showMe{
 	display: none;
 }
 
