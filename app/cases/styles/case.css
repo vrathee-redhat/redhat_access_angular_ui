@@ -76,3 +76,11 @@ div#redhat-access-case .table > tbody > tr > th {
 div#redhat-access-case .glyphicon-asterisk {
     color: #428bca;
 }
+
+div#redhat-access-case a {
+    cursor: pointer;
+}
+
+div#redhat-access-case div .panel-body {
+    overflow: auto !important;
+}

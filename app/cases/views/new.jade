@@ -1,5 +1,5 @@
 doctype html
-div.container-fluid.side-padding
+div#redhat-access-case.container-fluid.side-padding
   div.row
     div.col-xs-12
       h3 Red Hat Access: Open a New Support Case
@@ -20,7 +20,8 @@ div.container-fluid.side-padding
                 style='width: 100%;',
                 ng-model='product',
                 ng-change='getProductVersions(product)',
-                ng-options='p.name for p in products track by p.code')
+                ng-options='p.name for p in products track by p.code',
+                ng-blur='getRecommendations()')
           div.row.create-field
             div.col-xs-4
               div Product Version:
@@ -33,7 +34,8 @@ div.container-fluid.side-padding
                   ng-options='v for v in versions',
                   ng-change='validateForm()',
                   ng-disabled='versionDisabled',
-                  ng-hide='versionLoading')
+                  ng-hide='versionLoading',
+                  ng-blur='getRecommendations()')
           div.row.create-field
             div.col-xs-4
               div Summary:
@@ -42,7 +44,8 @@ div.container-fluid.side-padding
                 id='rha-case-summary',
                 style='width: 100%;',
                 ng-change='validateForm()',
-                ng-model='summary')
+                ng-model='summary',
+                ng-blur='getRecommendations()')
           div.row.create-field
             div.col-xs-4
               div Description:
@@ -50,7 +53,8 @@ div.container-fluid.side-padding
               textarea.form-control(
                 style='width: 100%; height: 200px;',
                 ng-model='description',
-                ng-change='validateForm()')
+                ng-change='validateForm()',
+                ng-blur='getRecommendations()')
           div.row
             div.col-xs-12(ng-class='{"hidden": isPage2}')
               button.btn.btn-primary(
@@ -94,10 +98,6 @@ div.container-fluid.side-padding
           div.bottom-border
             div.row.create-field
               div.col-xs-12
-                rha-attach-product-logs
-          div.bottom-border
-            div.row.create-field
-              div.col-xs-12
                 rha-attach-local-file
 
           div.row(style='margin-top: 20px;')
@@ -111,9 +111,16 @@ div.container-fluid.side-padding
                 ng-disabled='submitProgress > 0',
                 ng-click='doSubmit()') Submit
     div.col-xs-6
-      div.container-fluid.side-padding
+      div.container-fluid(style='padding-right: 15px;')
         div.row
           div.col-xs-12
-            h4.bottom-border(style='padding-left: 10px;') Recommendations
-            div(x-accordion-search-results, ng-controller='SearchController')
+            div.bottom-border(style='padding-bottom: 0')
+              h4(style='padding-left: 10px; display: inline-block;') Recommendations
+              span(ng-hide='!loadingRecommendations', style='float: right; display: inline-block;') Loading...
+        div.row
+          div.col-xs-12
+            div(
+              x-accordion-search-results,
+              ng-controller='SearchController',
+              style='padding: 0 15px;')
 
