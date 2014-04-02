@@ -5,11 +5,12 @@ angular.module('RedhatAccessCases')
   '$scope',
   '$state',
   '$q',
+  'SearchResultsService',
   'attachments',
   'productsJSON',
   'severityJSON',
   'groupsJSON',
-  function ($scope, $state, $q, attachments, productsJSON, severityJSON, groupsJSON) {
+  function ($scope, $state, $q, SearchResultsService, attachments, productsJSON, severityJSON, groupsJSON) {
     $scope.products = productsJSON;
     $scope.versions = [];
     $scope.versionDisabled = true;
@@ -29,6 +30,84 @@ angular.module('RedhatAccessCases')
         $scope.incomplete = true;
       } else {
         $scope.incomplete = false;
+      }
+    };
+
+    $scope.loadingRecommendations = false;
+
+    $scope.setCurrentData = function() {
+      $scope.currentData = {
+        product: $scope.product,
+        version: $scope.version,
+        summary: $scope.summary,
+        description: $scope.description
+      };
+    };
+
+    $scope.setCurrentData();
+
+    $scope.getRecommendations = function() {
+
+      var newData = {
+        product: $scope.product,
+        version: $scope.version,
+        summary: $scope.summary,
+        description: $scope.description
+      };
+
+      if (!angular.equals($scope.currentData, newData) && !$scope.loadingRecommendations) {
+        $scope.loadingRecommendations = true;
+
+        var data = {
+          product: $scope.product,
+          version: $scope.version,
+          summary: $scope.summary,
+          description: $scope.desecription
+        };
+        $scope.setCurrentData();
+
+        var deferreds = [];
+
+        strata.problems(
+          data,
+          function(solutions) {
+            //retrieve details for each solution
+            solutions.forEach(function (solution) {
+              var deferred = $q.defer();
+              deferreds.push(deferred.promise);
+
+              strata.solutions.get(
+                solution.uri,
+                function(solution) {
+                  deferred.resolve(solution);
+                },
+                function(error) {
+                  deferred.resolve();
+                });
+            });
+
+            $q.all(deferreds).then(
+                function(solutions) {
+                  SearchResultsService.clear();
+
+                  solutions.forEach(function(solution) {
+                    if (solution !== undefined) {
+                      solution.resource_type = "Solution";
+                      SearchResultsService.add(solution);
+                    }
+                  });
+                  $scope.loadingRecommendations = false;
+                },
+                function(error) {
+                  $scope.loadingRecommendations = false;
+                }
+            );
+          },
+          function(error) {
+            console.log(error);
+          },
+          5
+        );
       }
     };
 
