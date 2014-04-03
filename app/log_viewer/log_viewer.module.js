@@ -4,7 +4,6 @@ var logViewer = angular.module('RedhatAccess.logViewer',
 		[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search']);
 
 logViewer.config(function($urlRouterProvider) {
-			$urlRouterProvider.otherwise('/logviewer')
 		}).config([ '$stateProvider', function($stateProvider) {
 			$stateProvider.state('logviewer', {
 				url : "/logviewer",
