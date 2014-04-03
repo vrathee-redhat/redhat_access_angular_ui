@@ -1,6 +1,16 @@
+ // var testURL = 'http://localhost:8080/LogCollector/';
 // angular module
-var logViewer = angular.module('logViewer',
+var logViewer = angular.module('RedhatAccess.logViewer',
 		[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search']);
+
+logViewer.config(function($urlRouterProvider) {
+			$urlRouterProvider.otherwise('/logviewer')
+		}).config([ '$stateProvider', function($stateProvider) {
+			$stateProvider.state('logviewer', {
+				url : "/logviewer",
+				templateUrl : 'log_viewer/views/log_viewer.html'
+			})
+		} ]);
 
 logViewer.factory('files', function() {
 	var fileList = '';
@@ -240,3 +250,45 @@ function returnNode(splitPath, tree, fullFilePath) {
 		}
 	}
 }
+
+logViewer.directive('resizeableFileView', function($window) {
+  return function($scope) {
+    $scope.initializeWindowSize = function() {
+      return $scope.windowHeight = $window.innerHeight - 225;
+    };
+    $scope.initializeWindowSize();
+    return angular.element($window).bind('resize', function() {
+      $scope.initializeWindowSize();
+      return $scope.$apply();
+    });
+  };
+});
+
+logViewer.directive('resizeableSolutionView', function($window) {
+  return function($scope) {
+    $scope.initializeWindowSize = function() {
+      return $scope.windowHeight = $window.innerHeight - 140;
+
+    };
+    $scope.initializeWindowSize();
+    return angular.element($window).bind('resize', function() {
+      $scope.initializeWindowSize();
+      return $scope.$apply();
+    });
+  };
+});
+
+logViewer.directive('resizeableDemoLeftView', function($window) {
+  return function($scope) {
+    $scope.initializeWindowSize = function() {
+      return $scope.windowHeight = $window.innerHeight - 35;
+
+    };
+    $scope.initializeWindowSize();
+    return angular.element($window).bind('resize', function() {
+      $scope.initializeWindowSize();
+      return $scope.$apply();
+    });
+  };
+});
+

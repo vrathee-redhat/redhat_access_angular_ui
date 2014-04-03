@@ -4,13 +4,5 @@ angular.module('RedhatAccess', [
 	'RedhatAccessCases',
 	'RedhatAccess.security',
 	'RedhatAccess.search',
-	'logViewer'
+	'RedhatAccess.logViewer'
 ])
-	.config(['$stateProvider',
-		function ($stateProvider) {
-			$stateProvider.state('logviewer', {
-				url: "/logviewer",
-				templateUrl: 'log_viewer/views/log_viewer.html'
-			})
-		}
-	]);
