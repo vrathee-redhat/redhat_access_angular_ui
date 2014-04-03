@@ -59,6 +59,8 @@ angular.module('RedhatAccessCases')
           $scope.recommendations = caseJSON.recommendations.recommendation;
         }
       }
+
+      $scope.title = 'Case ' + $scope.details.caseId;
     }
 
     if (angular.isArray(attachmentsJSON)) {

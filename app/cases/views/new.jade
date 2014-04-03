@@ -1,10 +1,6 @@
 doctype html
-div#redhat-access-case.container-fluid.side-padding
-  div.row
-    div.col-xs-12
-      h3 Red Hat Access: Open a New Support Case
-  div(style='padding: 10px;', x-login-status)
-  div.bottom-border(style='padding-top: 10px;')
+div#redhat-access-case.container-fluid
+  rha-page-header(title='"Open a New Support Case"')
   div.row(ng-hide='submitProgress == 0')
     div.col-xs-12
       progressbar(animate='true', type='success', value='submitProgress', max='100')

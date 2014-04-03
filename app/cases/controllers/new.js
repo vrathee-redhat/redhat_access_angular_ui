@@ -104,6 +104,7 @@ angular.module('RedhatAccessCases')
             );
           },
           function(error) {
+            $scope.loadingRecommendations = false;
             console.log(error);
           },
           5
