@@ -207,14 +207,14 @@ angular.module('RedhatAccessCases', [
         casesJSON: function ($q) {
           var deferred = $q.defer();
 
-          strata.cases.list(
-              function (response) {
-                deferred.resolve(response);
+          strata.cases.filter(
+              {},
+              function(allCases) {
+                deferred.resolve(allCases);
               },
-              function (error) {
+              function(error) {
                 deferred.reject(error);
-              },
-              false
+              }
           );
 
           return deferred.promise;

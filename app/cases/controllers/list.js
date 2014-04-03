@@ -33,14 +33,22 @@ angular.module('RedhatAccessCases')
     });
 
     $scope.filterByGroup = function(groupNumber) {
+      var params = {};
+      if (groupNumber !== undefined) {
+        params = {
+          group_numbers: {group_number: [groupNumber]}
+        };
+      }
+
       strata.cases.filter(
-          {
-            group_numbers: [{group_number: groupNumber}]
-          },
+          params,
           function(filteredCases) {
-            $scope.cases = filteredCases;
-            $scope.tableParams.refresh();
-            $scope.apply();
+            if (filteredCases === undefined) {
+              $scope.cases = [];
+            } else {
+              $scope.cases = filteredCases;
+            }
+            $scope.tableParams.reload();
           },
           function(error) {
             console.log(error);
