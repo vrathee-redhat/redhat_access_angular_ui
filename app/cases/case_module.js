@@ -2,7 +2,8 @@ angular.module('RedhatAccessCases', [
   'ui.router',
   'ui.bootstrap',
   'ngTable',
-  'templates.app'
+  'templates.app',
+  'RedhatAccess.security'
 ])
 .constant('STATUS', {
   open: 'open',
