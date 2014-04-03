@@ -7,7 +7,10 @@ angular.module('RedhatAccessCases')
   'casesJSON',
   'groupsJSON',
   'ngTableParams',
-  function ($scope, $filter, casesJSON, groupsJSON, ngTableParams) {
+  'STATUS',
+  function ($scope, $filter, casesJSON, groupsJSON, ngTableParams, STATUS) {
+    $scope.statusFilter = STATUS.open;
+
     $scope.cases = casesJSON;
     $scope.groups = groupsJSON;
 
@@ -32,14 +35,7 @@ angular.module('RedhatAccessCases')
       }
     });
 
-    $scope.filterByGroup = function(groupNumber) {
-      var params = {};
-      if (groupNumber !== undefined) {
-        params = {
-          group_numbers: {group_number: [groupNumber]}
-        };
-      }
-
+    var doCaseFilter = function(params) {
       strata.cases.filter(
           params,
           function(filteredCases) {
@@ -55,5 +51,36 @@ angular.module('RedhatAccessCases')
           }
       );
     };
+
+    var getIncludeClosed = function() {
+      if ($scope.statusFilter === STATUS.open) {
+        return false;
+      } else if ($scope.statusFilter === STATUS.closed) {
+        return true;
+      } else if ($scope.statusFilter === STATUS.both) {
+        return true;
+      }
+
+      return false;
+    };
+
+    $scope.doFilter = function() {
+      var params = {
+        include_closed: getIncludeClosed()
+      };
+
+      if ($scope.group !== undefined) {
+        params.group_numbers = {
+          group_number: [$scope.group.number]
+        };
+      }
+
+      if ($scope.statusFilter === STATUS.closed) {
+        params.status = STATUS.closed;
+      }
+
+      doCaseFilter(params);
+    };
+
   }
 ]);
