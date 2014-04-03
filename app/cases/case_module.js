@@ -4,6 +4,11 @@ angular.module('RedhatAccessCases', [
   'ngTable',
   'templates.app'
 ])
+.constant('STATUS', {
+  open: 'open',
+  closed: 'closed',
+  both: 'both'
+})
 .config([
   '$stateProvider',
   function ($stateProvider) {
