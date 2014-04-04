@@ -14,11 +14,11 @@ div#redhat-access-case.container-offset
               ng-show='caseDetails.summary.$dirty',
               style='display: inline-block;')
           div.container-fluid.side-padding
-            div.row
+            div#rha-case-details.row
               h4.col-xs-12.section-header Case Details
               div.container-fluid.side-padding
                 div.row
-                  div.col-xs-4
+                  div.col-md-4
                     table.table.details-table
                       tr
                         th.details-table-header
@@ -67,7 +67,7 @@ div#redhat-access-case.container-offset
                             style='width: 100%',
                             ng-model='details.alternate_id',
                             name='alternate_id')
-                  div.col-xs-4
+                  div.col-md-4
                     table.table.details-table
                       tr
                         th
@@ -105,7 +105,7 @@ div#redhat-access-case.container-offset
                       tr
                         th.details-table-header Red Hat Owner:
                         td {{details.owner}}
-                  div.col-xs-4
+                  div.col-md-4
                     table.table.details-table
                       tr
                         th.details-table-header
@@ -135,7 +135,7 @@ div#redhat-access-case.container-offset
                       tr
                         th.details-table-header Account Name:
                         td {{details.account_name}}
-                div.row
+                div.row(style='padding-top: 10px;')
                   div.col-xs-12
                     div(style='float: right;')
                       button.btn.btn-primary(
@@ -149,18 +149,18 @@ div#redhat-access-case.container-offset
         h4.section-header Description
         div.container-fluid.side-padding
           div.row
-            div.col-xs-3
+            div.col-md-2
               strong {{details.created_by}}
-            div.col-xs-9 {{details.description}}
-    div.row
-      div.col-xs-12
-        h4.section-header Bugzilla Tickets
-        div.container-fluid.side-padding
-          div.row
-            div(ng-if='!hasBugzillas')
-              div.col-xs-12 No Bugzillas linked to case.
-            div(ng-if='hasBugzillas')
-              div.col-xs-12 Yes Bugzillas
+            div.col-md-10 {{details.description}}
+    //div.row
+    //  div.col-xs-12
+    //    h4.section-header Bugzilla Tickets
+    //    div.container-fluid.side-padding
+    //      div.row
+    //        div(ng-if='!hasBugzillas')
+    //          div.col-xs-12 No Bugzillas linked to case.
+    //        div(ng-if='hasBugzillas')
+    //          div.col-xs-12 Yes Bugzillas
     div.row
       div.col-xs-12
         h4.section-header Attachments
@@ -224,9 +224,9 @@ div#redhat-access-case.container-offset
                   style='float: right;') Add Comment
           div(ng-repeat='comment in comments')
             div.row(style='padding-bottom: 10px;')
-                div.col-xs-2
+                div.col-md-2
                   div.bold {{comment.created_by}}
                   div {{comment.created_date | date:'mediumDate'}}
                   div {{comment.created_date | date:'mediumTime'}}
-                div.col-xs-10
+                div.col-md-10
                   pre {{comment.text}}

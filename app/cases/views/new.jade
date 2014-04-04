@@ -10,9 +10,9 @@ div.container-offset
         div.container-fluid.side-padding
           div.create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
             div.row.create-field
-              div.col-xs-4
+              div.col-md-4
                 div Product:
-              div.col-xs-8
+              div.col-md-8
                 select.form-control(
                   style='width: 100%;',
                   ng-model='product',
@@ -20,9 +20,9 @@ div.container-offset
                   ng-options='p.name for p in products track by p.code',
                   ng-blur='getRecommendations()')
             div.row.create-field
-              div.col-xs-4
+              div.col-md-4
                 div Product Version:
-              div.col-xs-8
+              div.col-md-8
                 div
                   progressbar.progress-striped.active(ng-hide='!versionLoading', max='1', value='1', style='height: 34px; margin-bottom: 0px;')
                   select.form-control(
@@ -34,9 +34,9 @@ div.container-offset
                     ng-hide='versionLoading',
                     ng-blur='getRecommendations()')
             div.row.create-field
-              div.col-xs-4
+              div.col-md-4
                 div Summary:
-              div.col-xs-8
+              div.col-md-8
                 input.form-control(
                   id='rha-case-summary',
                   style='width: 100%;',
@@ -44,9 +44,9 @@ div.container-offset
                   ng-model='summary',
                   ng-blur='getRecommendations()')
             div.row.create-field
-              div.col-xs-4
+              div.col-md-4
                 div Description:
-              div.col-xs-8
+              div.col-md-8
                 textarea.form-control(
                   style='width: 100%; height: 200px;',
                   ng-model='description',
@@ -70,16 +70,16 @@ div.container-offset
                 div.col-xs-12
                   div(style='font-size: 85%') {{description}}
             div.row.create-field
-              div.col-xs-4 Severity:
-              div.col-xs-8
+              div.col-md-4 Severity:
+              div.col-md-8
                 select.form-control(
                   style='width: 100%;',
                   ng-model='severity',
                   ng-change='validatePage2()',
                   ng-options='s.name for s in severities track by s.name')
             div.row.create-field
-              div.col-xs-4 Case Group:
-              div.col-xs-8
+              div.col-md-4 Case Group:
+              div.col-md-8
                 select.form-control(
                   style='width: 100%;',
                   ng-model='caseGroup',
@@ -89,7 +89,7 @@ div.container-offset
               div.col-xs-12
                 div Attachments:
             div.bottom-border
-              div.row.create-field
+              div.row.create-field(style='overflow: auto')
                 div.col-xs-12
                   rha-list-attachments
             div.bottom-border

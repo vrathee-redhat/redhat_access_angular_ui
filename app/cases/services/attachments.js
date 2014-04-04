@@ -4,6 +4,9 @@ angular.module('RedhatAccessCases')
 .factory('attachments', ['$q', function ($q) {
   return {
     items: [],
+    clear: function() {
+      this.items = [];
+    },
     post: function(attachment, caseNumber) {
 
       var deferred = $q.defer();

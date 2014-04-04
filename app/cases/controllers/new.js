@@ -20,7 +20,7 @@ angular.module('RedhatAccessCases')
     $scope.severity = severityJSON[severityJSON.length - 1];
     $scope.groups = groupsJSON;
     $scope.submitProgress = 0;
-    $scope.attachments = attachments;
+    attachments.clear();
 
     $scope.validateForm = function() {
       if ($scope.product == null || $scope.product == "" ||

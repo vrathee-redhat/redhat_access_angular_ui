@@ -1,10 +1,10 @@
 div.container-fluid
   div.row.create-field
-    div.col-xs-4
+    div.col-xs-6
       button.btn(style='float: left;', ng-click='getFile()') Attach local file
       div(style='height: 0px; width:0px; overflow:hidden;')
         input(id='fileUploader', type='file', value='upload', ng-change='selectFile(this)', ng-model='file')
-    div.col-xs-8
+    div.col-xs-6
       div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
   div.row.create-field
     div.col-xs-12(style='font-size: 80%;')

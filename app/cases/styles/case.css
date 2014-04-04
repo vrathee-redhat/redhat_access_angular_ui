@@ -92,3 +92,7 @@ div#redhat-access-case div .panel-body {
 .container-offset {
     padding: 0 15px;
 }
+
+div#rha-case-details .table {
+    margin-bottom: 0px;
+}
