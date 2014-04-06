@@ -87,7 +87,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app'])
                 headerText: 'Proceed?',
                 bodyText: 'Perform this action?',
                 backdrop: 'static'
-                
+
             };
 
             this.login = function () {

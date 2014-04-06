@@ -17,6 +17,10 @@ angular.module('RedhatAccess.search', [
 		solution: 'Solution',
 
 	})
+	.constant('SEARCH_PARAMS', {
+		limit: 10
+
+	})
 	.config(['$stateProvider',
 		function ($stateProvider) {
 			$stateProvider.state('search', {
@@ -32,41 +36,15 @@ angular.module('RedhatAccess.search', [
 		}
 	])
 	.controller('SearchController', ['$scope',
-		'SearchResultsService',
+		'SearchResultsService', 'SEARCH_PARAMS',
 		function ($scope, SearchResultsService) {
 			$scope.results = SearchResultsService.results;
 			$scope.selectedSolution = SearchResultsService.currentSelection;
-			//////////////////////
-			$scope.totalItems = $scope.results.length;
-			$scope.currentPage = 1;
-			$scope.maxSize = 5;
 
-			$scope.setPage = function (pageNo) {
-				$scope.currentPage = pageNo;
-			};
-
-			//$scope.bigTotalItems = 175;
-			//$scope.bigCurrentPage = 1;
-			$scope.pageChanged = function (page) {
-				$scope.currentPage = page;
-				console.log("selected page is " + page);
-				console.log("currentpage is " + $scope.currentPage);
-
-				//$scope.watchPage = newPage;
-			};
-			///////////////////////////////////////////
 			clearResults = function () {
-				//SearchResultsService.setSelected({});
 				SearchResultsService.clear();
 			};
 
-
-			// addResult = function(result) {
-			// 	$scope.$apply(function() {
-			// 		SearchResultsService.add(result);
-			// 	});
-
-			// };
 
 			$scope.solutionSelected = function (index) {
 				var response = $scope.results[index];
@@ -76,19 +54,12 @@ angular.module('RedhatAccess.search', [
 
 			$scope.search = function (searchStr, limit) {
 				SearchResultsService.search(searchStr, limit);
-				/*clearResults();
-				strata.search($scope.searchStr,
-					function(resourceType, response) {
-						//console.log(response);
-						response.resource_type = resourceType; //do this only for chained
-						addResult(response);
-					},
-					onFailure,
-					10,
-					true
-				);*/
-
 			};
+
+			$scope.diagnose = function (data, limit) {
+				SearchResultsService.diagnose(data, limit);
+			};
+
 
 			$scope.$watch(function () {
 					return SearchResultsService.currentSelection
@@ -97,15 +68,6 @@ angular.module('RedhatAccess.search', [
 					$scope.selectedSolution = newVal;
 				}
 			);
-			// $scope.$watch(function () {
-			// 		return SearchResultsService.results
-			// 	},
-			// 	function (newVal) {
-			// 		console.log("set new result");
-			// 		$scope.results = newVal;
-			// 		$scope.totalItems = SearchResultsService.results.length;
-			// 	}
-			// );
 
 
 		}
@@ -190,9 +152,9 @@ angular.module('RedhatAccess.search', [
 			};
 		}
 	])
-	.factory('SearchResultsService', ['$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES',
+	.factory('SearchResultsService', ['$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS',
 
-		function ($rootScope, AUTH_EVENTS, RESOURCE_TYPES) {
+		function ($rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS) {
 			var service = {
 				results: [],
 				currentSelection: {},
@@ -208,7 +170,7 @@ angular.module('RedhatAccess.search', [
 				},
 				search: function (searchString, limit) {
 					var that = this;
-					if ((limit === undefined) || (limit < 1)) limit = 5;
+					if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
 					this.clear();
 					strata.search(
 						searchString,
@@ -227,7 +189,7 @@ angular.module('RedhatAccess.search', [
 				},
 				searchSolutions: function (searchString, limit) {
 					var that = this;
-					if ((limit === undefined) || (limit < 1)) limit = 5;
+					if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
 					this.clear();
 					strata.solutions.search(
 						searchString,
@@ -251,7 +213,7 @@ angular.module('RedhatAccess.search', [
 				},
 				searchArticles: function (searchString, limit) {
 					var that = this;
-					if ((limit === undefined) || (limit < 1)) limit = 5;
+					if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
 					this.clear();
 					strata.articles.search(
 						searchString,
@@ -270,7 +232,7 @@ angular.module('RedhatAccess.search', [
 				},
 				diagnose: function (searchString, limit) {
 					var that = this;
-					if ((limit === undefined) || (limit < 1)) limit = 5;
+					if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
 					this.clear();
 					strata.diagnose(
 						searchString,
