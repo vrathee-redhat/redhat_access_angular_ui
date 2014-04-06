@@ -19,6 +19,7 @@
     <!-- build:css({.tmp,app}) styles/case.css -->
     <link rel="stylesheet" href="cases/styles/case.css">
     <link rel="stylesheet" href="log_viewer/styles/log_viewer.css">
+    <link rel="stylesheet" href="security/styles/security.css">
     <!-- endbuild -->
   </head>
   <body ng-app="RedhatAccess">
@@ -31,11 +32,11 @@
      <ul id="nav">
       <a class="navbar-brand" href="#search">Search Demo</a>
       <a class="navbar-brand" href="#case/new">New Case Demo</a>
-      <a class="navbar-brand" href="#logviewer">Diagnose Case Demo</a>
+      <a class="navbar-brand" href="#logviewer">Diagnose Log Demo</a>
       <a class="navbar-brand" href="#case/list">List Case Demo</a>
      </ul>
     </div>
-    <div style="padding-top: 10px;" ng-view="" >
+    <div style="padding-top: 10px;" ng-view=""  class="container">
         <div ui-view id="rha-content"></div>
     </div>
 

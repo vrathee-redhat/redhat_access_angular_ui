@@ -85,7 +85,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app'])
                 actionButtonText: 'OK',
                 headerText: 'Proceed?',
                 bodyText: 'Perform this action?',
-                backdrop: 'static'
+                backdrop: 'static',
+                windowClass: 'rha-login-modal'
             };
 
             this.login = function () {
@@ -118,9 +119,13 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app'])
                                     function (passed, authedUser) {
                                         if (passed) {
                                             $scope.user.password = '';
+                                            $scope.authError = null;
                                             $modalInstance.close(authedUser);
                                         } else {
-                                            alert("Login failed!");
+                                            // alert("Login failed!");
+                                            $scope.$apply(function () {
+                                                $scope.authError = "Login Failed!";
+                                            });
                                         }
                                     });
 
