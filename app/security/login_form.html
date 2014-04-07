@@ -3,25 +3,27 @@
     Sign into the Red Hat Customer Portal
     </h5>
 </div>
-<div class="modal-body form-horizontal" id="rha-login-modal-body" role="form">
-    <div class="alert alert-error" ng-show="authError">
-        {{authError}}
-    </div>
-    <div class="form-group" id="rha-login-modal-user-id">
-        <label for="user-id" class=" control-label">User ID</label>
-        <div >
-            <input type="text" class="form-control" id="user-id" placeholder="User ID" ng-model="user.user" required autofocus >
+<div class="modal-body form-horizontal" id="rha-login-modal-body" >
+    <form ng-submit="modalOptions.ok()">
+        <div class="alert alert-info" ng-show="authError">
+            {{authError}}
         </div>
-    </div>
-    <div class="form-group" id="rha-login-modal-user-pass">
-        <label for="password" class="control-label">Password</label>
-        <div >
-            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password" required>
+        <div class="form-group" id="rha-login-modal-user-id">
+            <label for="user-id" class=" control-label">User ID</label>
+            <div >
+                <input type="text" class="form-control" id="user-id" placeholder="User ID" ng-model="user.user" required autofocus >
+            </div>
         </div>
-    </div>
-    <div class="form-group" id="rha-login-modal-buttons">
-        <div>
-            <button class="btn btn-primary btn-md login" ng-click="modalOptions.ok()">Sign in</button> <button class="btn btn-primary btn-md cancel" ng-click="modalOptions.close()" type="submit">Cancel</button>
+        <div class="form-group" id="rha-login-modal-user-pass">
+            <label for="password" class="control-label">Password</label>
+            <div >
+                <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password" required>
+            </div>
         </div>
-    </div>
+        <div class="form-group" id="rha-login-modal-buttons">
+            <div>
+                <button class="btn btn-primary btn-md login" ng-click="modalOptions.ok()" type="submit">Sign in</button> <button class="btn btn-primary btn-md cancel" ng-click="modalOptions.close()" type="submit">Cancel</button>
+            </div>
+        </div>
+    </form>
 </div>
