@@ -39,6 +39,7 @@ angular.module('RedhatAccessCases')
       $scope.fileObj = $('#fileUploader')[0].files[0];
       $scope.fileSize = $scope.fileObj.size;
       $scope.fileName = $scope.fileObj.name;
+      $scope.$apply();
     };
 
     $scope.clearSelectedFile();
