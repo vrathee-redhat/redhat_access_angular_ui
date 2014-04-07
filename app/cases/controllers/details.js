@@ -9,6 +9,7 @@ angular.module('RedhatAccessCases')
   'attachments',
   'caseJSON',
   'attachmentsJSON',
+  'accountJSON',
   'commentsJSON',
   'caseTypesJSON',
   'severitiesJSON',
@@ -23,6 +24,7 @@ angular.module('RedhatAccessCases')
       attachments,
       caseJSON,
       attachmentsJSON,
+      accountJSON,
       commentsJSON,
       caseTypesJSON,
       severitiesJSON,
@@ -48,8 +50,11 @@ angular.module('RedhatAccessCases')
       $scope.details.last_modified_date = caseJSON.last_modified_date;
       $scope.details.last_modified_by = caseJSON.last_modified_by;
       $scope.details.account_number = caseJSON.account_number;
-      $scope.details.account_name = caseJSON.account_name;
       $scope.details.group = {'number': caseJSON.folder_number};
+
+      if (accountJSON !== null) {
+        $scope.details.account_name = accountJSON.name;
+      }
 
       $scope.bugzillas = caseJSON.bugzillas;
       $scope.hasBugzillas = Object.getOwnPropertyNames($scope.bugzillas).length != 0;

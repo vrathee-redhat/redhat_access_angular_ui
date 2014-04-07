@@ -18,139 +18,38 @@ angular.module('RedhatAccessCases', [
       templateUrl: 'cases/views/details.html',
       controller: 'Details',
       resolve: {
-        caseJSON: function ($q, $stateParams) {
-          var deferred = $q.defer();
-          var id = $stateParams.id;
-
-          strata.cases.get(
-            id,
-            function (caseJSON) {
-              var accountNumber = caseJSON.account_number;
-
-              if (angular.isString(accountNumber)) {
-                strata.accounts.get(
-                  accountNumber,
-                  function(response) {
-                    caseJSON.account_name = response.name;
-                    deferred.resolve(caseJSON);
-                  },
-                  function() {
-                    caseJSON.account_name = "ERROR";
-                    deferred.resolve(caseJSON);
-                  }
-                );
-              } else {
-                deferred.resolve(caseJSON);
-              }
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        caseJSON: function(strataService, $stateParams) {
+          return strataService.cases.get($stateParams.id);
         },
-        attachmentsJSON: function ($q, $stateParams) {
-          var deferred = $q.defer();
-          var id = $stateParams.id;
+        accountJSON: function(strataService, caseJSON) {
+          var accountNumber = caseJSON.account_number;
 
-          strata.cases.attachments.list(
-            id,
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+          if (angular.isString(accountNumber)) {
+            return strataService.accounts.get(caseJSON.account_number);
+          } else {
+            return null;
+          }
         },
-        commentsJSON: function ($q, $stateParams) {
-          var deferred = $q.defer();
-          var id = $stateParams.id;
-
-          strata.cases.comments.get(
-            id,
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        attachmentsJSON: function (strataService, $stateParams) {
+          return strataService.cases.attachments.list($stateParams.id);
         },
-        caseTypesJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.values.cases.types(
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        commentsJSON: function (strataService, $stateParams) {
+          return strataService.cases.comments.get($stateParams.id);
         },
-        severitiesJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.values.cases.severity(
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        caseTypesJSON: function (strataService) {
+          return strataService.values.cases.types();
         },
-        groupsJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.groups.list(
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        severitiesJSON: function (strataService) {
+          return strataService.values.cases.severity();
         },
-        productsJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.products.list(
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        groupsJSON: function(strataService) {
+          return strataService.groups.list();
         },
-        statusesJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.values.cases.status(
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        productsJSON: function(strataService) {
+          return strataService.products.list();
+        },
+        statusesJSON: function (strataService) {
+          return strataService.values.cases.status();
         }
       }
     });
@@ -160,47 +59,14 @@ angular.module('RedhatAccessCases', [
       templateUrl: 'cases/views/new.html',
       controller: 'New',
       resolve: {
-        productsJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.products.list(
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        productsJSON: function(strataService) {
+          return strataService.products.list();
         },
-        severityJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.values.cases.severity(
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        severityJSON: function (strataService) {
+          return strataService.values.cases.severity();
         },
-        groupsJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.groups.list(
-            function (response) {
-              deferred.resolve(response);
-            },
-            function (error) {
-              deferred.reject(error);
-            }
-          );
-
-          return deferred.promise;
+        groupsJSON: function(strataService) {
+          return strataService.groups.list();
         }
       }
     });
@@ -210,34 +76,11 @@ angular.module('RedhatAccessCases', [
       templateUrl: 'cases/views/list.html',
       controller: 'List',
       resolve: {
-        casesJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.cases.filter(
-              {},
-              function(allCases) {
-                deferred.resolve(allCases);
-              },
-              function(error) {
-                deferred.reject(error);
-              }
-          );
-
-          return deferred.promise;
+        casesJSON: function (strataService) {
+          return strataService.cases.filter();
         },
-        groupsJSON: function ($q) {
-          var deferred = $q.defer();
-
-          strata.groups.list(
-              function (response) {
-                deferred.resolve(response);
-              },
-              function (error) {
-                deferred.reject(error);
-              }
-          );
-
-          return deferred.promise;
+        groupsJSON: function(strataService) {
+          return strataService.groups.list();
         }
       }
     });
