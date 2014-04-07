@@ -77,7 +77,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app'])
                 backdrop: true,
                 keyboard: true,
                 modalFade: true,
-                templateUrl: 'security/login_form.html'
+                templateUrl: 'security/login_form.html',
+                windowClass: 'rha-login-modal'
             };
 
             var modalOptions = {
@@ -85,8 +86,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app'])
                 actionButtonText: 'OK',
                 headerText: 'Proceed?',
                 bodyText: 'Perform this action?',
-                backdrop: 'static',
-                windowClass: 'rha-login-modal'
+                backdrop: 'static'
+                
             };
 
             this.login = function () {
