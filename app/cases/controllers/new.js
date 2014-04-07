@@ -141,7 +141,7 @@ angular.module('RedhatAccessCases')
      *
      * @param page
      */
-    $scope.setPage = function(page) {
+    $scope.gotoPage = function(page) {
       $scope.isPage1 = page == 1 ? true : false;
       $scope.isPage2 = page == 2 ? true : false;
     };
@@ -150,14 +150,14 @@ angular.module('RedhatAccessCases')
      * Navigate forward in the wizard
      */
     $scope.doNext = function() {
-      $scope.setPage(2);
+      $scope.gotoPage(2);
     };
 
     /**
      * Navigate back in the wizard
      */
     $scope.doPrevious = function() {
-      $scope.setPage(1);
+      $scope.gotoPage(1);
     };
 
     /**
@@ -240,6 +240,6 @@ angular.module('RedhatAccessCases')
 
     };
 
-    $scope.setPage(1);
+    $scope.gotoPage(1);
   }]);
 
