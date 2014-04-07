@@ -1,8 +1,8 @@
 div#redhat-access-case.container-offset
   rha-page-header(title='"Support Cases"')
   div.container-fluid.side-padding
-    div.row(style='padding-bottom: 14px;')
-      div.col-xs-4
+    div.row
+      div.col-md-4(style='padding-bottom: 14px;')
         //label(for='rha-case-group-filter', style='padding-right: 4px; font-weight: normal;') Group:
         select.form-control(
             id='rha-case-group-filter',
@@ -11,14 +11,14 @@ div#redhat-access-case.container-offset
             ng-change='doFilter()',
             ng-options='g.name for g in groups track by g.number')
           option(value='') All Groups
-      div.col-xs-4
+      div.col-md-4(style='padding-bottom: 14px;')
         select.form-control(
             ng-model='statusFilter',
             ng-change='doFilter()')
           option(value='open', selected='selected') Open
           option(value='closed') Closed
           option(value='both') Open and Closed
-      div.col-xs-4
+      div.col-md-4(style='padding-bottom: 14px;')
         input.form-control(
             placeholder='Filter',
             ng-model='keyword',

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('RedhatAccessCases')
-.controller('Details', [
+.controller('Edit', [
   '$scope',
   '$stateParams',
   '$filter',
@@ -11,11 +11,6 @@ angular.module('RedhatAccessCases')
   'attachmentsJSON',
   'accountJSON',
   'commentsJSON',
-  'caseTypesJSON',
-  'severitiesJSON',
-  'groupsJSON',
-  'productsJSON',
-  'statusesJSON',
   function(
       $scope,
       $stateParams,
@@ -25,12 +20,7 @@ angular.module('RedhatAccessCases')
       caseJSON,
       attachmentsJSON,
       accountJSON,
-      commentsJSON,
-      caseTypesJSON,
-      severitiesJSON,
-      groupsJSON,
-      productsJSON,
-      statusesJSON) {
+      commentsJSON) {
 
     if (caseJSON) {
       $scope.details = {};
@@ -51,6 +41,7 @@ angular.module('RedhatAccessCases')
       $scope.details.last_modified_by = caseJSON.last_modified_by;
       $scope.details.account_number = caseJSON.account_number;
       $scope.details.group = {'number': caseJSON.folder_number};
+      $scope.details.version = caseJSON.version;
 
       if (accountJSON !== null) {
         $scope.details.account_name = accountJSON.name;
@@ -77,26 +68,6 @@ angular.module('RedhatAccessCases')
 
     if (commentsJSON) {
       $scope.comments = commentsJSON;
-    }
-
-    if (caseTypesJSON) {
-      $scope.caseTypes = caseTypesJSON;
-    }
-
-    if (severitiesJSON) {
-      $scope.severities = severitiesJSON;
-    }
-
-    if (groupsJSON) {
-      $scope.groups = groupsJSON;
-    }
-
-    if (productsJSON) {
-      $scope.products = productsJSON;
-    }
-
-    if (statusesJSON) {
-      $scope.statuses = statusesJSON;
     }
 
     $scope.originalAttachments = angular.copy(attachments.items);
@@ -161,39 +132,6 @@ angular.module('RedhatAccessCases')
       }
     };
 
-    $scope.updatingDetails = false;
-
-    $scope.updateCase = function() {
-      $scope.updatingDetails = true;
-
-      var caseJSON = {
-        'type': $scope.details.type.name,
-        'severity': $scope.details.severity.name,
-        'status': $scope.details.status.name,
-        'alternateId': $scope.details.alternate_id,
-//        'notes': $scope.details.notes,
-        'product': $scope.details.product.name,
-        'version': $scope.details.version,
-        'summary': $scope.details.summary,
-        'folderNumber': $scope.details.group.number
-      };
-
-      strata.cases.put(
-          $scope.details.caseId,
-          caseJSON,
-          function() {
-            $scope.caseDetails.$setPristine();
-            $scope.updatingDetails = false;
-            $scope.$apply();
-          },
-          function(error) {
-            console.log(error);
-            $scope.updatingDetails = false;
-            $scope.$apply();
-          }
-      );
-
-    };
 
     $scope.newComment = '';
     $scope.addingComment = false;
@@ -226,22 +164,6 @@ angular.module('RedhatAccessCases')
       );
     };
 
-    $scope.getProductVersions = function(product) {
-      $scope.version = "";
-
-      strata.products.versions(
-          product.name,
-          function(response){
-            $scope.versions = response;
-            $scope.$apply();
-          },
-          function(error){
-            console.log(error);
-          });
-    };
-
-    $scope.getProductVersions($scope.details.product);
-    $scope.details.version = caseJSON.version;
 
   }]);
 

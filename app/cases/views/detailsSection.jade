@@ -1,0 +1,182 @@
+form(name='caseDetails')
+  div(style='padding-bottom: 10px;')
+    input.form-control(
+    style='width: 50%; display: inline-block;',
+    ng-model='details.summary',
+    name='summary')
+    span.glyphicon.glyphicon-asterisk.form-control-feedback(
+    ng-show='caseDetails.summary.$dirty',
+    style='display: inline-block;')
+  div.container-fluid.side-padding
+    div#rha-case-details.row
+      h4.col-xs-12.section-header Case Details
+      div.container-fluid.side-padding
+        div.row
+          div.col-md-4
+            table.table.details-table
+              tr
+                th.details-table-header
+                  div(style='vertical-align: 50%; display: inline-block;') Case Type:
+                  span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                  ng-show='caseDetails.type.$dirty',
+                  style='display: inline-block;float: right; vertical-align: 50%;')
+                td
+                  div
+                    progressbar.progress-striped.active(
+                      ng-hide='caseTypes !== undefined',
+                      max='1',
+                      value='1',
+                      style='height: 34px; margin-bottom: 0px;')
+                    select.form-control(
+                      ng-hide='caseTypes === undefined',
+                      name='type',
+                      style='width: 100%;',
+                      ng-model='details.type',
+                      ng-options='c.name for c in caseTypes track by c.name')
+              tr
+                th.details-table-header
+                  div(style='vertical-align: 50%; display: inline-block;') Severity:
+                  span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                    ng-show='caseDetails.severity.$dirty',
+                    style='display: inline-block;float: right; vertical-align: 50%;')
+                td
+                  div
+                    progressbar.progress-striped.active(
+                      ng-hide='severities !== undefined',
+                      max='1',
+                      value='1',
+                      style='height: 34px; margin-bottom: 0px;')
+                    select.form-control(
+                      ng-hide='severities === undefined',
+                      name='severity',
+                      style='width: 100%;',
+                      ng-model='details.severity',
+                      ng-options='s.name for s in severities track by s.name')
+              tr
+                th.details-table-header
+                  div(style='vertical-align: 50%; display: inline-block;') Status:
+                  span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                  ng-show='caseDetails.status.$dirty',
+                  style='display: inline-block;float: right; vertical-align: 50%;')
+                td
+                  div
+                    progressbar.progress-striped.active(
+                      ng-hide='statuses !== undefined',
+                      max='1',
+                      value='1',
+                      style='height: 34px; margin-bottom: 0px;')
+                    select.form-control(
+                      ng-hide='statuses === undefined',
+                      name='status',
+                      style='width: 100%;',
+                      ng-model='details.status',
+                      ng-options='s.name for s in statuses track by s.name')
+              tr
+                th.details-table-header
+                  div(style='vertical-align: 50%; display: inline-block;') Alternate ID:
+                  span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                  ng-show='caseDetails.alternate_id.$dirty',
+                  style='display: inline-block;float: right; vertical-align: 50%;')
+                td
+                  input.form-control(
+                  style='width: 100%',
+                  ng-model='details.alternate_id',
+                  name='alternate_id')
+          div.col-md-4
+            table.table.details-table
+              tr
+                th
+                  div(style='vertical-align: 50%; display: inline-block;') Product:
+                  span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                  ng-show='caseDetails.product.$dirty',
+                  style='display: inline-block;float: right; vertical-align: 50%;')
+                td
+                  div
+                    progressbar.progress-striped.active(
+                      ng-hide='products !== undefined',
+                      max='1',
+                      value='1',
+                      style='height: 34px; margin-bottom: 0px;')
+                    select.form-control(
+                      ng-hide='products === undefined',
+                      name='product',
+                      style='width: 100%;',
+                      ng-model='details.product',
+                      ng-change='getProductVersions(details.product)',
+                      ng-options='s.name for s in products track by s.name',
+                      required)
+              tr
+                th.details-table-header
+                  div(style='vertical-align: 50%; display: inline-block;') Product Version:
+                  span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                  ng-show='caseDetails.version.$dirty',
+                  style='display: inline-block;float: right; vertical-align: 50%;')
+                td
+                  div
+                    progressbar.progress-striped.active(
+                      ng-hide='versions !== undefined',
+                      max='1',
+                      value='1',
+                      style='height: 34px; margin-bottom: 0px;')
+                    select.form-control(
+                      ng-hide='versions === undefined',
+                      name='version',
+                      style='width: 100%;',
+                      ng-options='v for v in versions track by v',
+                      ng-model='details.version',
+                      required)
+              tr
+                th.details-table-header Support Level:
+                td {{details.sla}}
+              tr
+                th.details-table-header Owner:
+                td {{details.contact_name}}
+              tr
+                th.details-table-header Red Hat Owner:
+                td {{details.owner}}
+          div.col-md-4
+            table.table.details-table
+              tr
+                th.details-table-header
+                  div(style='vertical-align: 50%; display: inline-block;') Group:
+                  span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                    ng-show='caseDetails.group.$dirty',
+                    style='display: inline-block;float: right; vertical-align: 50%;')
+                td
+                  div
+                    progressbar.progress-striped.active(
+                      ng-hide='groups !== undefined',
+                      max='1',
+                      value='1',
+                      style='height: 34px; margin-bottom: 0px;')
+                    select.form-control(
+                      ng-hide='groups === undefined',
+                      name='group',
+                      style='width: 100%;',
+                      ng-options='g.name for g in groups track by g.number',
+                      ng-model='details.group')
+              tr
+                th.details-table-header Opened:
+                td
+                  div {{details.created_date | date:'medium'}}
+                  div {{details.created_by}}
+              tr
+                th.details-table-header Last Updated:
+                td
+                  div {{details.last_modified_date | date:'medium'}}
+                  div {{details.last_modified_by}}
+              tr
+                th.details-table-header Account Number:
+                td {{details.account_number}}
+              tr
+                th.details-table-header Account Name:
+                td {{details.account_name}}
+        div.row(style='padding-top: 10px;')
+          div.col-xs-12
+            div(style='float: right;')
+              button.btn.btn-primary(
+              name='updateButton',
+              ng-disabled='!caseDetails.$dirty',
+              ng-hide='updatingDetails',
+              ng-click='updateCase()') Update Details
+              div(ng-show='updatingDetails') Updating Case...

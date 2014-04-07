@@ -23,7 +23,7 @@ angular.module('RedhatAccessCases')
         file_name: $scope.fileName,
         description: $scope.fileDescription,
         length: $scope.fileSize,
-        created_by: securityService.loggedInUser, //TODO: use Lindani's login service to get username
+        created_by: securityService.loggedInUser,
         created_date: new Date().getTime(),
         file: data
       });

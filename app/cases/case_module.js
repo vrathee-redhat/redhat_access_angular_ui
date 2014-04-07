@@ -3,7 +3,8 @@ angular.module('RedhatAccessCases', [
   'ui.bootstrap',
   'ngTable',
   'templates.app',
-  'RedhatAccess.security'
+  'RedhatAccess.security',
+  'RedhatAccess.search'
 ])
 .constant('STATUS', {
   open: 'open',
@@ -13,10 +14,31 @@ angular.module('RedhatAccessCases', [
 .config([
   '$stateProvider',
   function ($stateProvider) {
-    $stateProvider.state('case', {
+
+    $stateProvider.state('compact', {
+      url: '/case/compact',
+      templateUrl: 'cases/views/compact.html',
+      controller: 'Compact'
+    });
+
+    $stateProvider.state('compact.edit', {
+      url: '/{id:[0-9]{1,8}}',
+      templateUrl: 'cases/views/compact.edit.html',
+      controller: 'CompactEdit',
+      resolve: {
+        productsJSON: function(strataService) {
+          return strataService.products.list();
+        },
+        groupsJSON: function(strataService) {
+          return strataService.groups.list();
+        }
+      }
+    });
+
+    $stateProvider.state('edit', {
       url: '/case/{id:[0-9]{1,8}}',
-      templateUrl: 'cases/views/details.html',
-      controller: 'Details',
+      templateUrl: 'cases/views/edit.html',
+      controller: 'Edit',
       resolve: {
         caseJSON: function(strataService, $stateParams) {
           return strataService.cases.get($stateParams.id);
@@ -35,21 +57,6 @@ angular.module('RedhatAccessCases', [
         },
         commentsJSON: function (strataService, $stateParams) {
           return strataService.cases.comments.get($stateParams.id);
-        },
-        caseTypesJSON: function (strataService) {
-          return strataService.values.cases.types();
-        },
-        severitiesJSON: function (strataService) {
-          return strataService.values.cases.severity();
-        },
-        groupsJSON: function(strataService) {
-          return strataService.groups.list();
-        },
-        productsJSON: function(strataService) {
-          return strataService.products.list();
-        },
-        statusesJSON: function (strataService) {
-          return strataService.values.cases.status();
         }
       }
     });

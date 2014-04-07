@@ -1,0 +1,88 @@
+doctype html
+div#redhat-access-case.container-offset
+  rha-page-header(title='title')
+  div.container-fluid.side-padding
+    div.row
+      div.col-xs-12
+        rha-case-details(details='details')
+    div.row
+      div.col-xs-12
+        rha-case-description
+    //div.row
+    //  div.col-xs-12
+    //    h4.section-header Bugzilla Tickets
+    //    div.container-fluid.side-padding
+    //      div.row
+    //        div(ng-if='!hasBugzillas')
+    //          div.col-xs-12 No Bugzillas linked to case.
+    //        div(ng-if='hasBugzillas')
+    //          div.col-xs-12 Yes Bugzillas
+    div.row
+      div.col-xs-12
+        h4.section-header Attachments
+        div.container-fluid.side-padding
+          div.row.side-padding
+            div.col-xs-12.col-no-padding
+              rha-list-attachments
+          div.row.side-padding
+            div.col-xs-12.col-no-padding.bottom-border(style='padding-bottom: 14px;')
+              div(style='float: right')
+                div(ng-hide='!updatingAttachments') Updating Attachments...
+                button.btn.btn-primary(
+                  ng-disabled='disableUpdateAttachmentsButton',
+                  ng-hide='updatingAttachments',
+                  ng-click='updateAttachments()') Update Attachments
+          div.row
+            div.col-xs-12
+              rha-attach-local-file
+    div.row(ng-controller='Recommendations')
+      div.col-xs-12
+        h4.section-header Recommendations
+        div.container-fluid.side-padding
+          div.row
+            div(ng-repeat='recommendation in recommendationsOnScreen')
+              div.col-xs-3
+                div.bold {{recommendation.title}}
+                div(style='padding: 8px 0;') {{recommendation.solution_abstract}}
+                a(href='{{recommendation.resource_view_uri}}', target='_blank') View full article in new window
+          div.row
+            div.col-xs-12
+              pagination.pagination-sm(
+                boundary-links='true'
+                total-items='recommendations.length'
+                on-select-page='selectPage(page)'
+                items-per-page='itemsPerPage'
+                page='currentPage'
+                max-size='maxSize'
+                previous-text='<'
+                next-text='>'
+                first-text='<<'
+                last-text='>>')
+    div.row
+      div.col-xs-12
+        h4.section-header Case Discussion
+        div.container-fluid.side-padding
+          div.row.create-field
+            div.col-xs-12
+              textarea.form-control(
+                ng-disabled='addingComment',
+                rows='5',
+                ng-model='newComment',
+                style='max-width: 100%')
+          div.row.create-field.bottom-border(style='margin-left: 0px; margin-right: 0px;')
+            div.col-xs-12.col-no-padding
+              div(style='float: right;')
+                div(ng-hide='!addingComment') Adding comment...
+                button.btn.btn-primary(
+                  ng-hide='addingComment',
+                  ng-disabled='false',
+                  ng-click='addComment()',
+                  style='float: right;') Add Comment
+          div(ng-repeat='comment in comments')
+            div.row(style='padding-bottom: 10px;')
+                div.col-md-2
+                  div.bold {{comment.created_by}}
+                  div {{comment.created_date | date:'mediumDate'}}
+                  div {{comment.created_date | date:'mediumTime'}}
+                div.col-md-10
+                  pre {{comment.text}}
