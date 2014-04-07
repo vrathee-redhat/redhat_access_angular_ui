@@ -8,15 +8,6 @@ div#redhat-access-case.container-offset
     div.row
       div.col-xs-12
         rha-case-description(description='caseJSON.description', creator='caseJSON.created_by')
-    //div.row
-    //  div.col-xs-12
-    //    h4.section-header Bugzilla Tickets
-    //    div.container-fluid.side-padding
-    //      div.row
-    //        div(ng-if='!hasBugzillas')
-    //          div.col-xs-12 No Bugzillas linked to case.
-    //        div(ng-if='hasBugzillas')
-    //          div.col-xs-12 Yes Bugzillas
     div.row
       div.col-xs-12
         rha-case-attachments(attachmentsjson='attachments', caseid='caseJSON.case_number')
@@ -45,29 +36,4 @@ div#redhat-access-case.container-offset
                 last-text='>>')
     div.row
       div.col-xs-12
-        h4.section-header Case Discussion
-        div.container-fluid.side-padding
-          div.row.create-field
-            div.col-xs-12
-              textarea.form-control(
-                ng-disabled='addingComment',
-                rows='5',
-                ng-model='newComment',
-                style='max-width: 100%')
-          div.row.create-field.bottom-border(style='margin-left: 0px; margin-right: 0px;')
-            div.col-xs-12.col-no-padding
-              div(style='float: right;')
-                div(ng-hide='!addingComment') Adding comment...
-                button.btn.btn-primary(
-                  ng-hide='addingComment',
-                  ng-disabled='false',
-                  ng-click='addComment()',
-                  style='float: right;') Add Comment
-          div(ng-repeat='comment in comments')
-            div.row(style='padding-bottom: 10px;')
-                div.col-md-2
-                  div.bold {{comment.created_by}}
-                  div {{comment.created_date | date:'mediumDate'}}
-                  div {{comment.created_date | date:'mediumTime'}}
-                div.col-md-10
-                  pre {{comment.text}}
+        rha-case-comments(comments='comments', caseid='caseJSON.case_number')
