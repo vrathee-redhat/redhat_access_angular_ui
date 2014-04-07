@@ -26,11 +26,14 @@ angular.module('RedhatAccessCases', [
       templateUrl: 'cases/views/compact.edit.html',
       controller: 'CompactEdit',
       resolve: {
-        productsJSON: function(strataService) {
-          return strataService.products.list();
+        caseJSON: function(strataService, $stateParams) {
+          return strataService.cases.get($stateParams.id);
         },
-        groupsJSON: function(strataService) {
-          return strataService.groups.list();
+        attachmentsJSON: function (strataService, $stateParams) {
+          return strataService.cases.attachments.list($stateParams.id);
+        },
+        commentsJSON: function (strataService, $stateParams) {
+          return strataService.cases.comments.get($stateParams.id);
         }
       }
     });

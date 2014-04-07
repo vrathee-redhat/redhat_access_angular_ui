@@ -7,7 +7,7 @@ angular.module('RedhatAccessCases')
     controller: 'DetailsSection',
     scope: {
       compact: '=',
-      details: '='
+      casejson: '='
     },
     restrict: 'EA',
     link: function postLink(scope, element, attrs) {

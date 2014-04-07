@@ -4,10 +4,10 @@ div#redhat-access-case.container-offset
   div.container-fluid.side-padding
     div.row
       div.col-xs-12
-        rha-case-details(details='details')
+        rha-case-details(casejson='caseJSON', compact='false')
     div.row
       div.col-xs-12
-        rha-case-description
+        rha-case-description(description='caseJSON.description', creator='caseJSON.created_by')
     //div.row
     //  div.col-xs-12
     //    h4.section-header Bugzilla Tickets
@@ -19,22 +19,7 @@ div#redhat-access-case.container-offset
     //          div.col-xs-12 Yes Bugzillas
     div.row
       div.col-xs-12
-        h4.section-header Attachments
-        div.container-fluid.side-padding
-          div.row.side-padding
-            div.col-xs-12.col-no-padding
-              rha-list-attachments
-          div.row.side-padding
-            div.col-xs-12.col-no-padding.bottom-border(style='padding-bottom: 14px;')
-              div(style='float: right')
-                div(ng-hide='!updatingAttachments') Updating Attachments...
-                button.btn.btn-primary(
-                  ng-disabled='disableUpdateAttachmentsButton',
-                  ng-hide='updatingAttachments',
-                  ng-click='updateAttachments()') Update Attachments
-          div.row
-            div.col-xs-12
-              rha-attach-local-file
+        rha-case-attachments(attachmentsjson='attachments', caseid='caseJSON.case_number')
     div.row(ng-controller='Recommendations')
       div.col-xs-12
         h4.section-header Recommendations

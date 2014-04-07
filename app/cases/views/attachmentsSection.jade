@@ -1,0 +1,16 @@
+h4.section-header Attachments
+div.container-fluid.side-padding
+  div.row.side-padding
+    div.col-xs-12.col-no-padding
+      rha-list-attachments
+  div.row.side-padding
+    div.col-xs-12.col-no-padding.bottom-border(style='padding-bottom: 14px;')
+      div(style='float: right')
+        div(ng-hide='!updatingAttachments') Updating Attachments...
+        button.btn.btn-primary(
+        ng-disabled='disableUpdateAttachmentsButton',
+        ng-hide='updatingAttachments',
+        ng-click='updateAttachments()') Update Attachments
+  div.row
+    div.col-xs-12
+      rha-attach-local-file
