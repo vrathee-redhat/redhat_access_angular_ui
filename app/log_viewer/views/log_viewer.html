@@ -1,86 +1,84 @@
 <div id="log_view_main" style="max-height: 500px;" >
-	<!--div class="row">
-		<div class="col-xs-12">
-			<h3>Red Hat Access: Diagnose</h3>
-		</div>
-	</div-->
-	<div x-login-status style="padding: 10px;"/>
+	<div x-login-status style="padding: 10px;"></div>
 	<div class="bottom-border" style="padding-top: 10px;"></div>
 	<div ng-class="{ showMe: opens }" class="left">
-			<div id="controller-demo">
-				<div id="blah">
-					<a ng-click="opens = !opens"><span ng-class="{ showMe: opens }"
-						class="glyphicon glyphicon-chevron-right custom-glyphicon-right"></span></a>
-				</div>
-			</div>
+		<div id="blah">
+			<a ng-click="opens = !opens"><span ng-class="{ showMe: opens }"
+				class="glyphicon glyphicon-chevron-right custom-glyphicon-right"></span></a>
 		</div>
-		<div style="padding: 5px" ng-class="{ showMe: opens }"
-			class="demo-left" >
-			<div resizeable-demo-left-view ng-style="{ height: windowHeight }"> 
-				<div class="btn-group" ng-controller="DropdownCtrl" ng-init="init()">
-					<button type="button" class="btn btn-default dropdown-toggle"
-						data-toggle="dropdown">
-						{{blah}} <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li ng-repeat="choice in items" ng-click="machineSelected()"><a>{{choice}}</a></li>
-					</ul>
-				</div>
-				<div ng-controller="fileController" ng-click="updateSelected()">
-					<div data-angular-treeview="true" data-tree-id="mytree"
-						data-tree-model="roleList" data-node-id="roleId"
-						data-node-label="roleName" data-node-children="children"></div>
-				</div>
-
-				<button type="button" class="btn btn-default"
-					ng-controller="selectFileButton" ng-click="fileSelected()">
-					Select File</button>
-				<a ng-click="opens = !opens"><span ng-class="{ showMe: opens }"
-					class="glyphicon glyphicon-chevron-left custom-glyphicon-left"></span></a>
-			</div>
-		</div>
-
-
-		<div id="right">
-			<div ng-controller="TabsDemoCtrl" ng-class="{ showMe: open }"
-				class="main-right height">
-				<tabset class="height"> <tab ng-repeat="tab in tabs"
-					class="height"> <tab-heading>{{tab.shortTitle}}
-				<a ng-click="removeTab($index)" href=''> <span
-					class="glyphicon glyphicon-remove"></span>
-				</a> </tab-heading>
-				<div active="tab.active" disabled="tab.disabled" class="height">
-					<div class="panel panel-default height">
-						<div class="panel-heading">
-							<h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
-							<button id="diagnoseButton" type="button" class="btn btn-default"
-								ng-click="diagnoseText()">Red Hat Diagnose</button>
-							<br> <br>
-						</div>
-						<div  class="panel-body height" id="right-side">
-							<pre resizeable-file-view ng-style="{ height: windowHeight }" class="no-line-wrap">{{tab.content}}</pre>
-						</div>
-					</div>
-				</div>
-				</tab> </tabset>
-			</div>
-
-			<div id="collapser" ng-class="{ showMe: open }" class="collapser">
+	</div>
+	<div id="collapser" ng-class="{ showMe: open }" class="collapser">
 				<a ng-click="open = !open"><span ng-class="{ showMe: open }"
 					class="glyphicon glyphicon-chevron-left bigger-button"></span></a>
+	</div>
+	<div class="row-fluid">
+		<div class="nav_tree col-xs-3" ng-class="{ showMe: opens }">
+			<div ng-class="{ showMe: opens }">
+				<div id="resizeable-demo-left-view" class="resizeable-demo-left-view"> 
+					<div class="btn-group" ng-controller="DropdownCtrl" ng-init="init()">
+						<button type="button" class="btn btn-primary dropdown-toggle"
+							data-toggle="dropdown">
+							{{blah}} <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-repeat="choice in items" ng-click="machineSelected()"><a>{{choice}}</a></li>
+						</ul>
+					</div>
+					<a ng-click="opens = !opens"><span ng-class="{ showMe: opens }"
+						class="pull-right glyphicon glyphicon-chevron-left custom-glyphicon-left"></span></a>
+					<div id="fileList" fill-down ng-style="{ height: windowHeight }" class="fileList" ng-controller="fileController" ng-click="updateSelected()">
+						<div data-angular-treeview="true" data-tree-id="mytree"
+							data-tree-model="roleList" data-node-id="roleId"
+							data-node-label="roleName" data-node-children="children">
+						</div>
+					</div>
+					<button type="button" class="btn btn-primary"
+						ng-controller="selectFileButton" ng-click="fileSelected()">
+						Select File</button>
+				</div>
 			</div>
-
-
+		</div>
+		<div class="col-xs-4 pull-right solutions" ng-class="{ showMe: open }">
 			<div id="controller-demo" ng-class="{ showMe: open }"
 				class="controller-demo">
 				<div class="collapsable">
 					<a ng-click="open = !open"><span ng-class="{ showMe: open }"
-						class="glyphicon glyphicon-chevron-right bigger-button"></span></a>
+						class="glyphicon glyphicon-chevron-right right-side-button"></span></a>
 					<div ng-class="{ showMe: open }" class="demo-right">
-						<div resizeable-solution-view class="resizeable-solution-view" ng-style="{ width: windowWidth, height: windowHeight }" x-accordion-search-results=''
-							ng-controller='SearchController' /></div>
+						<div id="resizeable-solution-view" fill-down class="resizeable-solution-view" ng-style="{height: windowHeight }" x-accordion-search-results=''
+							ng-controller='SearchController' >
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="col-fluid">
+			<div id="right"demo-left>
+				<div class="row">
+					<div ng-controller="TabsDemoCtrl" ng-class="{ showMe: open }"
+						class="main-right height">
+						<tabset class="height"> <tab ng-repeat="tab in tabs"
+							class="height"> <tab-heading>{{tab.shortTitle}}
+						<a ng-click="removeTab($index)" href=''> <span
+							class="glyphicon glyphicon-remove"></span>
+						</a> </tab-heading>
+						<div active="tab.active" disabled="tab.disabled" class="height">
+							<div class="panel panel-default height">
+								<div class="panel-heading">
+									<h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
+									<button id="diagnoseButton" type="button" class="btn btn-primary"
+										ng-click="diagnoseText()">Red Hat Diagnose</button>
+									<br> <br>
+								</div>
+								<div  class="panel-body height" fill-down ng-style="{ height: windowHeight }" id="right-side">
+									<pre id="resizeable-file-view" class="no-line-wrap">{{tab.content}}</pre>
+								</div>
+							</div>
+						</div>
+						</tab> </tabset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

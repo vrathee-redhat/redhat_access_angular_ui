@@ -1,4 +1,4 @@
- // var testURL = 'http://localhost:8080/LogCollector/';
+ var testURL = 'http://localhost:8080/LogCollector/';
 // angular module
 angular.module('RedhatAccess.logViewer',
 		[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search'])
@@ -77,7 +77,7 @@ angular.module('RedhatAccess.logViewer',
 	$scope.init = function() {
 		$http({
 			method : 'GET',
-			url : 'GetMachineList?sessionId=' + encodeURIComponent(sessionId)
+			url : testURL + 'GetMachineList?sessionId=' + encodeURIComponent(sessionId)
 		}).success(function(data, status, headers, config) {
 			$scope.items = data;
 		}).error(function(data, status, headers, config) {
@@ -94,7 +94,7 @@ angular.module('RedhatAccess.logViewer',
 		$http(
 				{
 					method : 'GET',
-					url : 'GetFileList?hostName=' + files.selectedHost
+					url : testURL + 'GetFileList?hostName=' + files.selectedHost
 							+ '&sessionId=' + encodeURIComponent(sessionId)
 							+ '&userId=' + encodeURIComponent(userId)
 				}).success(function(data, status, headers, config) {
@@ -116,7 +116,7 @@ angular.module('RedhatAccess.logViewer',
 		$http(
 				{
 					method : 'GET',
-					url : 'GetLogFile?sessionId='
+					url : testURL + 'GetLogFile?sessionId='
 							+ encodeURIComponent(sessionId) + '&userId='
 							+ encodeURIComponent(userId) + '&filePath='
 							+ files.selectedFile + '&hostName='
@@ -178,17 +178,6 @@ angular.module('RedhatAccess.logViewer',
 				if (text != "") {
 					$scope.checked = !$scope.checked;
 					SearchResultsService.diagnose(text, 5);
-					// strata.diagnose(text, onSuccess = function(response) {
-					// var group = new Object();
-					// group.title = response.title;
-					// group.content = response.issue.text;
-					// accordian.addGroup(group);
-					// $scope.$apply();
-					// }, onFailure = function(response) {
-					// // Iterate over the response array
-					// // response.forEach(someHandler);
-					// console.log(response);
-					// }, 5);
 				}
 			};
 		} ])
@@ -197,52 +186,38 @@ angular.module('RedhatAccess.logViewer',
 	$scope.oneAtATime = true;
 	$scope.groups = accordian.getGroups();
 })
-.directive('resizeableFileView', function($window) {
-  return function($scope) {
-    $scope.initializeWindowSize = function() {
-      return $scope.windowHeight = $window.innerHeight - 225;
-    };
-    $scope.initializeWindowSize();
-    return angular.element($window).bind('resize', function() {
-      $scope.initializeWindowSize();
-      return $scope.$apply();
+
+.directive('fillDown', function($window, $timeout) {
+return {
+    restrict: 'EA',
+    link: function postLink(scope, element, attrs) {
+      scope.onResizeFunction = function() {
+        var distanceToTop = element[0].getBoundingClientRect().top;
+     	var height = $window.innerHeight - distanceToTop - 21;
+     	if(element[0].id == 'fileList'){
+     		height -= 34;
+     	}
+        return scope.windowHeight = height;
+      };
+      // This might be overkill?? 
+      scope.onResizeFunction();
+      angular.element($window).bind('resize', function() {
+        scope.onResizeFunction();
+        scope.$apply();
+      });
+      angular.element($window).bind('click', function() {
+        scope.onResizeFunction();
+        scope.$apply();
+      });
+      $timeout(scope.onResizeFunction, 0);
+      $(window).load(function(){
+      	scope.onResizeFunction();
+        scope.$apply();
     });
+    }
   };
-})
-
-.directive('resizeableSolutionView', function($window) {
-  return function($scope) {
-    $scope.initializeWindowSize = function() {
-      return $scope.windowHeight = $window.innerHeight - 140;
-
-    };
-    $scope.initializeWindowSize();
-    return angular.element($window).bind('resize', function() {
-      $scope.initializeWindowSize();
-      return $scope.$apply();
-    });
-  };
-})
-
-.directive('resizeableDemoLeftView', function($window) {
-  return function($scope) {
-    $scope.initializeWindowSize = function() {
-      return $scope.windowHeight = $window.innerHeight - 35;
-
-    };
-    $scope.initializeWindowSize();
-    return angular.element($window).bind('resize', function() {
-      $scope.initializeWindowSize();
-      return $scope.$apply();
-    });
-  };
-});
 
 
-
-angular.element(document).ready(function() {
-
-	c = angular.element(document.querySelector('#controller-demo')).scope();
 });
 
 function parseList(tree, data) {

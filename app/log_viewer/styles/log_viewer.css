@@ -1,15 +1,25 @@
+.col-fluid {
+    position: relative;
+    min-height: 1px;
+    margin-left: 15px;
+    margin-right: 15px;
+/*    display: table;*/
+    overflow: auto;
+}
+
+
 #log_view_main {
-	height: 100%;
+/*	height: 100%;*/
 /*	background: #eee;*/
 }
 
 #right-side {
-	height: 90%;
+/*	height: 90%;*/
 	overflow: scroll;
 }
 
 #right {
-	height: 100%;
+	/*height: 100%;*/
 	overflow: hidden;
 }
 
@@ -17,20 +27,34 @@
 	float: left;
 	width: 15px;
 /* 	background: #eee; */
-	height: 100%;
+	/*height: 100%;*/
 	display: none;
 }
 
 .left.showMe {
 	display: block;
 }
+.nav_tree {
+	display: block;
+}
+.nav_tree.showMe {
+	display: none;
+}
 
+.solutions{
+	display: none;
+}
+
+.solutions.showMe{
+	display: block;
+}
 .demo-left {
 	float: left;
-	width: 25%;
+/*	width: 25%;*/
 /* 	background: #eee; */
 	display: block;
 	overflow-y: scroll;
+	padding: 5px
 }
 
 .demo-left.showMe {
@@ -42,12 +66,10 @@
 /* } */
 
 .custom-glyphicon-left {
-/* 	font-size: 30px; */
-	top: 50%;
 	position: absolute;
+	top: 50%;
+	left: 95%;
 	margin-top: -7px;
-	text-align: right;
-	left: 25%;
 }
 
 .custom-glyphicon-right {
@@ -59,19 +81,19 @@
 
 }
 #height {
-	height: 100%;
+	/*height: 100%;*/
 }
 
 .height {
-	height: 100%;
+	/*height: 100%;*/
 }
 
 .tab-content {
-	height: 100%;
+	/*height: 100%;*/
 }
 
 .tab-pane {
-	height: 90%;
+	/*height: 90%;*/
 }
 
 .panel-body {
@@ -84,7 +106,7 @@
 
 .height-width {
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
 }
 
 .panel-body {
@@ -94,7 +116,7 @@
 .collapsable {
 	display: inline-block;
 	overflow: hidden;
-	height: 100%;
+	/*height: 100%;*/
 	width: 100%;
 	transition: height 1s;
 	-webkit-transition: height 1s;
@@ -113,7 +135,7 @@
 
 .demo-right.showMe {
 	display: block;
-	padding: 30px;
+	/*padding: 30px;*/
 }
 
 .main-right {
@@ -123,16 +145,16 @@
 }
 
 .main-right.showMe {
-	width: 50%;
+/*	width: 50%;*/
 	float: left;
-	padding: 0 0 0 15px;
+	padding: 0 15px;
 }
 
 .controller-demo {
 /* 	margin-left: 97%; */
-	float: right;
-	width: 50%;
-	height: 100%;
+/*	float: right;
+*//*	width: 50%;*/
+	/*height: 100%;*/
 	display: none;
 }
 
@@ -142,7 +164,7 @@
 .collapser{
 	float: right;
 	width: 15px;
-	height: 100%;
+	/*height: 100%;*/
 	display: block;
 }
 .collapser.showMe{
@@ -152,16 +174,26 @@
 .bigger-button {
 	top: 50%;
 	position: absolute;
-/* 	float: left; */
+/*	right: 95%;
+	margin-top: -7px;*/
 }
-
+.right-side-button{
+	top: 50%;
+	position: absolute;
+	right: 95%;
+	margin-top: -7px;
+}
+.fileList {
+	overflow: scroll;
+}
 .no-line-wrap {
 	word-wrap: normal;
 	white-space: pre;
-	overflow: auto;
+	/*overflow: auto;*/
+	overflow: scroll;
 	/*height: 70vh;*/
 }
 .resizeable-solution-view {
 	overflow-y: scroll;
-	padding: 15px;
+	padding: 0px 15px;
 }
