@@ -62,10 +62,21 @@ app.get('/GetMachineList', function (req, res) {
 	res.send("[ \"RHEV Manager\", \"Hypervisor 1\", \"Hypervisor 2\"]");
 });
 app.get('/GetFileList', function (req, res) {
-	res.send('/root/sub1/sub2\n/root2/sub21/sub22\n/root3/sub31/sub32\n/root3/sub31/sub34\n')
+	res.send('/root/sub1/sub2\n/root2/sub21/sub22\n/root3/sub31/sub32\n/root3/sub31/sub34\n');
 });
 app.get('/GetLogFile', function (req, res) {
-	res.send('This is a mock Log file. For RHEV. I am having installation issues.')
+	res.send('This is a mock Log file. For RHEV. I am having installation issues.');
+});
+app.get('/machines', function (req, res) {
+	res.send("[ \"RHEV Manager\", \"Hypervisor 1\", \"Hypervisor 2\"]");
+});
+app.get('/logs', function (req, res) {
+	var path = req.query.path;
+	if(path == null){
+		res.send('/root/sub1/sub2\n/root2/sub21/sub22\n/root3/sub31/sub32\n/root3/sub31/sub34\n');
+	} else {
+		res.send('Mock file text');
+	}
 });
 
 

@@ -77,7 +77,7 @@ angular.module('RedhatAccess.logViewer',
 	$scope.init = function() {
 		$http({
 			method : 'GET',
-			url : 'GetMachineList?sessionId=' + encodeURIComponent(sessionId)
+			url : 'machines?sessionId=' + encodeURIComponent(sessionId)
 		}).success(function(data, status, headers, config) {
 			$scope.items = data;
 		}).error(function(data, status, headers, config) {
@@ -94,7 +94,7 @@ angular.module('RedhatAccess.logViewer',
 		$http(
 				{
 					method : 'GET',
-					url : 'GetFileList?hostName=' + files.selectedHost
+					url : 'logs?machine=' + files.selectedHost
 							+ '&sessionId=' + encodeURIComponent(sessionId)
 							+ '&userId=' + encodeURIComponent(userId)
 				}).success(function(data, status, headers, config) {
@@ -116,10 +116,10 @@ angular.module('RedhatAccess.logViewer',
 		$http(
 				{
 					method : 'GET',
-					url : 'GetLogFile?sessionId='
+					url : 'logs?sessionId='
 							+ encodeURIComponent(sessionId) + '&userId='
-							+ encodeURIComponent(userId) + '&filePath='
-							+ files.selectedFile + '&hostName='
+							+ encodeURIComponent(userId) + '&path='
+							+ files.selectedFile + '&machine='
 							+ files.selectedHost
 				}).success(function(data, status, headers, config) {
 			files.file = data;
@@ -185,10 +185,10 @@ angular.module('RedhatAccess.logViewer',
 				$http(
 						{
 							method : 'GET',
-							url : 'GetLogFile?sessionId='
+							url : 'logs?sessionId='
 									+ encodeURIComponent(sessionId) + '&userId='
-									+ encodeURIComponent(userId) + '&filePath='
-									+ files.selectedFile + '&hostName='
+									+ encodeURIComponent(userId) + 'path='
+									+ files.selectedFile + '&machine='
 									+ files.selectedHost
 						}).success(function(data, status, headers, config) {
 					$scope.tabs[index].content = data;
