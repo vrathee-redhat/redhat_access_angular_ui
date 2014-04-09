@@ -42,7 +42,8 @@
     "karma": "~0.10.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "grunt-contrib-jade": "~0.10.0",
-    "grunt-html2js": "~0.2.4"
+    "grunt-html2js": "~0.2.4",
+    "express" : "~3.3.4"
     
 
   },

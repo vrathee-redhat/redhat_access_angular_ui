@@ -4,5 +4,6 @@ angular.module('RedhatAccess', [
 	'RedhatAccessCases',
 	'RedhatAccess.security',
 	'RedhatAccess.search',
-	'RedhatAccess.logViewer'
+	'RedhatAccess.logViewer',
+	'RedhatAccess.tree-selector'
 ])

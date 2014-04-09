@@ -6,9 +6,12 @@
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
+//var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var mountFolder = function (connect, dir) {
+  return connect.static(require('path').resolve(dir));
+};
 
 module.exports = function (grunt) {
-
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -86,7 +89,15 @@ module.exports = function (grunt) {
           base: [
             '.tmp',
             '<%= yeoman.app %>'
-          ]
+          ],
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, '<%= yeoman.app %>'),
+              require('./rest-mock-server'),
+              mountFolder(connect, 'app')
+            ];
+          }
+
         }
       },
       test: {
@@ -359,13 +370,13 @@ module.exports = function (grunt) {
       }
     },
     src: {
-      js: ['app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
+      js: ['app/common/**/*.js', 'app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
       jsTpl: ['<%= distdir %>/templates/**/*.js'],
       specs: ['test/**/*.spec.js'],
       scenarios: ['test/**/*.scenario.js'],
       html: ['app/index.html'],
       tpl: {
-        app: ['app/security/**/*.html', 'app/search/**/*.html',
+        app: ['app/common/**/*.html', 'app/security/**/*.html', 'app/search/**/*.html',
           'app/cases/**/*.html', 'app/log_viewer/**/*.html'
         ]
         //common: ['src/common/**/*.tpl.html']
