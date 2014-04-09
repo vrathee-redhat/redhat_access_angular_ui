@@ -1,4 +1,4 @@
- var testURL = 'http://localhost:8080/LogCollector/';
+//var testURL = 'http://localhost:8080/LogCollector/';
 // angular module
 angular.module('RedhatAccess.logViewer',
 		[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search'])
@@ -77,7 +77,7 @@ angular.module('RedhatAccess.logViewer',
 	$scope.init = function() {
 		$http({
 			method : 'GET',
-			url : testURL + 'GetMachineList?sessionId=' + encodeURIComponent(sessionId)
+			url : 'GetMachineList?sessionId=' + encodeURIComponent(sessionId)
 		}).success(function(data, status, headers, config) {
 			$scope.items = data;
 		}).error(function(data, status, headers, config) {
@@ -94,7 +94,7 @@ angular.module('RedhatAccess.logViewer',
 		$http(
 				{
 					method : 'GET',
-					url : testURL + 'GetFileList?hostName=' + files.selectedHost
+					url : 'GetFileList?hostName=' + files.selectedHost
 							+ '&sessionId=' + encodeURIComponent(sessionId)
 							+ '&userId=' + encodeURIComponent(userId)
 				}).success(function(data, status, headers, config) {
@@ -116,7 +116,7 @@ angular.module('RedhatAccess.logViewer',
 		$http(
 				{
 					method : 'GET',
-					url : testURL + 'GetLogFile?sessionId='
+					url : 'GetLogFile?sessionId='
 							+ encodeURIComponent(sessionId) + '&userId='
 							+ encodeURIComponent(userId) + '&filePath='
 							+ files.selectedFile + '&hostName='
@@ -131,10 +131,12 @@ angular.module('RedhatAccess.logViewer',
 })
 .controller('TabsDemoCtrl', [
 		'$scope',
+		'$http',
+		'$location',
 		'files',
 		'accordian',
 		'SearchResultsService',
-		function($scope, files, accordian, SearchResultsService) {
+		function($scope, $http, $location, files, accordian, SearchResultsService) {
 			$scope.tabs = [ {
 				shortTitle : "Short Sample Log File",
 				longTitle : "Long Log File",
@@ -168,19 +170,34 @@ angular.module('RedhatAccess.logViewer',
 				if (!$scope.$parent.open) {
 					$scope.$parent.open = !$scope.$parent.open;
 				}
-				var text = "";
-				if (window.getSelection) {
-					text = window.getSelection().toString();
-				} else if (document.selection
-						&& document.selection.type != "Control") {
-					text = document.selection.createRange().text;
-				}
+				var text = strata.utils.getSelectedText();
 				if (text != "") {
 					$scope.checked = !$scope.checked;
 					SearchResultsService.diagnose(text, 5);
 				}
 			};
-		} ])
+
+			$scope.refreshTab = function(index){
+				var sessionId = $location.search().sessionId;
+				var userId = $location.search().userId;
+				// $scope.tabs[index].content = '';
+				//TODO reuse this code from above
+				$http(
+						{
+							method : 'GET',
+							url : 'GetLogFile?sessionId='
+									+ encodeURIComponent(sessionId) + '&userId='
+									+ encodeURIComponent(userId) + '&filePath='
+									+ files.selectedFile + '&hostName='
+									+ files.selectedHost
+						}).success(function(data, status, headers, config) {
+					$scope.tabs[index].content = data;
+				}).error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+				});
+			}
+		}])
 
 .controller('AccordionDemoCtrl', function($scope, accordian) {
 	$scope.oneAtATime = true;

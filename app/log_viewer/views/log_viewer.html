@@ -38,44 +38,47 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-4 pull-right solutions" ng-class="{ showMe: open }">
-			<div id="controller-demo" ng-class="{ showMe: open }"
-				class="controller-demo">
-				<div class="collapsable">
-					<a ng-click="open = !open"><span ng-class="{ showMe: open }"
-						class="glyphicon glyphicon-chevron-right right-side-button"></span></a>
-					<div ng-class="{ showMe: open }" class="demo-right">
-						<div id="resizeable-solution-view" fill-down class="resizeable-solution-view" ng-style="{height: windowHeight }" x-accordion-search-results=''
-							ng-controller='SearchController' >
+		<div class=col-fluid> 
+			<div class="col-xs-6 pull-right solutions" ng-class="{ showMe: open }">
+				<div id="controller-demo" ng-class="{ showMe: open }"
+					class="controller-demo">
+					<div class="collapsable">
+						<a ng-click="open = !open"><span ng-class="{ showMe: open }"
+							class="glyphicon glyphicon-chevron-right right-side-button"></span></a>
+						<div ng-class="{ showMe: open }" class="demo-right">
+							<div id="resizeable-solution-view" fill-down class="resizeable-solution-view" ng-style="{height: windowHeight }" x-accordion-search-results=''
+								ng-controller='SearchController' >
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-fluid">
-			<div id="right"demo-left>
-				<div class="row">
-					<div ng-controller="TabsDemoCtrl" ng-class="{ showMe: open }"
-						class="main-right height">
-						<tabset class="height"> <tab ng-repeat="tab in tabs"
-							class="height"> <tab-heading>{{tab.shortTitle}}
-						<a ng-click="removeTab($index)" href=''> <span
-							class="glyphicon glyphicon-remove"></span>
-						</a> </tab-heading>
-						<div active="tab.active" disabled="tab.disabled" class="height">
-							<div class="panel panel-default height">
-								<div class="panel-heading">
-									<h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
-									<button id="diagnoseButton" type="button" class="btn btn-primary"
-										ng-click="diagnoseText()">Red Hat Diagnose</button>
-									<br> <br>
-								</div>
-								<div  class="panel-body height" fill-down ng-style="{ height: windowHeight }" id="right-side">
-									<pre id="resizeable-file-view" class="no-line-wrap">{{tab.content}}</pre>
+			<div class="col-fluid-no-margin">
+				<div id="right"demo-left>
+					<div class="row">
+						<div ng-controller="TabsDemoCtrl" ng-class="{ showMe: open }"
+							class="main-right height">
+							<tabset class="height"> <tab ng-repeat="tab in tabs"
+								class="height"> <tab-heading>{{tab.shortTitle}}
+							<a ng-click="removeTab($index)" href=''> <span
+								class="glyphicon glyphicon-remove"></span>
+							</a> </tab-heading>
+							<div active="tab.active" disabled="tab.disabled" class="height">
+								<div class="panel panel-default height">
+									<div class="panel-heading">
+										<a ng-click="refreshTab($index)"><span class="glyphicon glyphicon-refresh"></span></a>
+										<h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
+										<button popover="Select text and click to perform Red Hat Diagnose" popover-trigger="mouseenter" popover-placement="bottom" id="diagnoseButton" type="button" class="btn btn-primary diagnoseButton"
+											ng-click="diagnoseText()">Red Hat Diagnose</button>
+										<br> <br>
+									</div>
+									<div  class="panel-body height" fill-down ng-style="{ height: windowHeight }" id="right-side">
+										<pre id="resizeable-file-view" class="no-line-wrap">{{tab.content}}</pre>
+									</div>
 								</div>
 							</div>
+							</tab> </tabset>
 						</div>
-						</tab> </tabset>
 					</div>
 				</div>
 			</div>
