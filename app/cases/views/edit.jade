@@ -4,13 +4,13 @@ div#redhat-access-case.container-offset
   div.container-fluid.side-padding
     div.row
       div.col-xs-12
-        rha-case-details(casejson='caseJSON', compact='false')
+        rha-case-details(compact='false')
     div.row
       div.col-xs-12
-        rha-case-description(description='caseJSON.description', creator='caseJSON.created_by')
+        rha-case-description
     div.row
       div.col-xs-12
-        rha-case-attachments(attachmentsjson='attachments', caseid='caseJSON.case_number')
+        rha-case-attachments
     div.row(ng-controller='Recommendations')
       div.col-xs-12
         h4.section-header Recommendations

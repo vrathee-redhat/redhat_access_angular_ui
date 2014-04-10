@@ -7,8 +7,6 @@ angular.module('RedhatAccessCases')
     restrict: 'EA',
     controller: 'AttachmentsSection',
     scope: {
-      attachmentsjson: '=',
-      caseid: '='
     },
     link: function postLink(scope, element, attrs) {
     }

@@ -1,2 +1,19 @@
-<div>Compact list</div>
-<div ui-view></div>
+<div class="container-offset">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <rha-page-header title="title" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4" style="border-right: 1px solid gray; height: 100%;">
+                <rha-compact-case-list></rha-compact-case-list>
+            </div>
+            <div class="col-xs-8" style="overflow: auto;">
+                <!-- Jade can't create the ui-view attribute in the form
+                     angular ui router requires (see next line).-->
+                <div ui-view autoscroll="false"></div>
+            </div>
+        </div>
+    </div>
+</div>

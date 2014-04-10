@@ -2,7 +2,7 @@ form(name='caseDetails')
   div(style='padding-bottom: 10px;')
     input.form-control(
       style='width: 50%; display: inline-block;',
-      ng-model='details.summary',
+      ng-model='CaseService.case.summary',
       name='summary')
     span.glyphicon.glyphicon-asterisk.form-control-feedback(
       ng-show='caseDetails.summary.$dirty',
@@ -31,7 +31,7 @@ form(name='caseDetails')
                       ng-hide='caseTypes === undefined',
                       name='type',
                       style='width: 100%;',
-                      ng-model='details.type',
+                      ng-model='CaseService.case.type',
                       ng-options='c.name for c in caseTypes track by c.name')
               tr
                 th.details-table-header
@@ -50,7 +50,7 @@ form(name='caseDetails')
                       ng-hide='severities === undefined',
                       name='severity',
                       style='width: 100%;',
-                      ng-model='details.severity',
+                      ng-model='CaseService.case.severity',
                       ng-options='s.name for s in severities track by s.name')
               tr
                 th.details-table-header
@@ -69,7 +69,7 @@ form(name='caseDetails')
                       ng-hide='statuses === undefined',
                       name='status',
                       style='width: 100%;',
-                      ng-model='details.status',
+                      ng-model='CaseService.case.status',
                       ng-options='s.name for s in statuses track by s.name')
               tr(ng-hide='compact')
                 th.details-table-header
@@ -79,17 +79,17 @@ form(name='caseDetails')
                   style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   input.form-control(
-                  style='width: 100%',
-                  ng-model='details.alternate_id',
-                  name='alternate_id')
+                    style='width: 100%',
+                    ng-model='CaseService.case.alternate_id',
+                    name='alternate_id')
           div.col-md-4
             table.table.details-table
               tr
                 th
                   div(style='vertical-align: 50%; display: inline-block;') Product:
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
-                  ng-show='caseDetails.product.$dirty',
-                  style='display: inline-block;float: right; vertical-align: 50%;')
+                    ng-show='caseDetails.product.$dirty',
+                    style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
                     progressbar.progress-striped.active(
@@ -101,8 +101,8 @@ form(name='caseDetails')
                       ng-hide='products === undefined',
                       name='product',
                       style='width: 100%;',
-                      ng-model='details.product',
-                      ng-change='getProductVersions(details.product)',
+                      ng-model='CaseService.case.product',
+                      ng-change='getProductVersions()',
                       ng-options='s.name for s in products track by s.name',
                       required)
               tr
@@ -114,26 +114,26 @@ form(name='caseDetails')
                 td
                   div
                     progressbar.progress-striped.active(
-                      ng-hide='versions !== undefined',
+                      ng-hide='CaseService.versions.length !== 0 || CaseService.case.product.name == null',
                       max='1',
                       value='1',
                       style='height: 34px; margin-bottom: 0px;')
                     select.form-control(
-                      ng-hide='versions === undefined',
+                      ng-hide='CaseService.versions.length === 0',
                       name='version',
                       style='width: 100%;',
-                      ng-options='v for v in versions track by v',
-                      ng-model='details.version',
+                      ng-options='v for v in CaseService.versions track by v',
+                      ng-model='CaseService.case.version',
                       required)
               tr(ng-hide='compact')
                 th.details-table-header Support Level:
-                td {{details.sla}}
+                td {{CaseService.case.entitlement.sla}}
               tr(ng-hide='compact')
                 th.details-table-header Owner:
-                td {{details.contact_name}}
+                td {{CaseService.case.contact_name}}
               tr(ng-hide='compact')
                 th.details-table-header Red Hat Owner:
-                td {{details.owner}}
+                td {{CaseService.case.owner}}
           div.col-md-4
             table.table.details-table
               tr(ng-hide='compact')
@@ -154,23 +154,23 @@ form(name='caseDetails')
                       name='group',
                       style='width: 100%;',
                       ng-options='g.name for g in groups track by g.number',
-                      ng-model='details.group')
+                      ng-model='CaseService.case.group')
               tr(ng-hide='compact')
                 th.details-table-header Opened:
                 td
-                  div {{details.created_date | date:'medium'}}
-                  div {{details.created_by}}
+                  div {{CaseService.case.created_date | date:'medium'}}
+                  div {{CaseService.case.created_by}}
               tr(ng-hide='compact')
                 th.details-table-header Last Updated:
                 td
-                  div {{details.last_modified_date | date:'medium'}}
-                  div {{details.last_modified_by}}
+                  div {{CaseService.case.last_modified_date | date:'medium'}}
+                  div {{CaseService.case.last_modified_by}}
               tr(ng-hide='compact')
                 th.details-table-header Account Number:
-                td {{details.account_number}}
+                td {{CaseService.case.account_number}}
               tr(ng-hide='compact')
                 th.details-table-header Account Name:
-                td {{details.account_name}}
+                td {{CaseService.account.name}}
         div.row(style='padding-top: 10px;')
           div.col-xs-12
             div(style='float: right;')
