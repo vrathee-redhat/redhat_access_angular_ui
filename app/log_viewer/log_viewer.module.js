@@ -1,15 +1,15 @@
 //var testURL = 'http://localhost:8080/LogCollector/';
 // angular module
 angular.module('RedhatAccess.logViewer',
-		[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search'])
+	[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search'])
 
 .config(function($urlRouterProvider) {
-		}).config([ '$stateProvider', function($stateProvider) {
-			$stateProvider.state('logviewer', {
-				url : "/logviewer",
-				templateUrl : 'log_viewer/views/log_viewer.html'
-			})
-		} ])
+}).config([ '$stateProvider', function($stateProvider) {
+	$stateProvider.state('logviewer', {
+		url : "/logviewer",
+		templateUrl : 'log_viewer/views/log_viewer.html'
+	})
+} ])
 
 .factory('files', function() {
 	var fileList = '';
@@ -59,9 +59,8 @@ angular.module('RedhatAccess.logViewer',
 	$scope.roleList = '';
 	$scope.updateSelected = function() {
 		if ($scope.mytree.currentNode != null
-				&& $scope.mytree.currentNode.fullPath != null) {
+			&& $scope.mytree.currentNode.fullPath != null) {
 			files.setSelectedFile($scope.mytree.currentNode.fullPath);
-			// files.setSelectedFile($scope.mytree.currentNode.roleName);
 		}
 	};
 	$scope.$watch(function() {
@@ -92,12 +91,12 @@ angular.module('RedhatAccess.logViewer',
 		files.selectedHost = this.choice;
 		$scope.blah = this.choice;
 		$http(
-				{
-					method : 'GET',
-					url : 'logs?machine=' + files.selectedHost
-							+ '&sessionId=' + encodeURIComponent(sessionId)
-							+ '&userId=' + encodeURIComponent(userId)
-				}).success(function(data, status, headers, config) {
+		{
+			method : 'GET',
+			url : 'logs?machine=' + files.selectedHost
+			+ '&sessionId=' + encodeURIComponent(sessionId)
+			+ '&userId=' + encodeURIComponent(userId)
+		}).success(function(data, status, headers, config) {
 			var tree = new Array();
 			parseList(tree, data);
 			files.setFileList(tree);
@@ -108,20 +107,20 @@ angular.module('RedhatAccess.logViewer',
 	};
 })
 .controller('selectFileButton', function($scope, $http, $location,
-		files) {
+	files) {
 	$scope.fileSelected = function() {
 		var sessionId = $location.search().sessionId;
 		var userId = $location.search().userId;
 		$scope.$parent.opens = !$scope.$parent.opens;
 		$http(
-				{
-					method : 'GET',
-					url : 'logs?sessionId='
-							+ encodeURIComponent(sessionId) + '&userId='
-							+ encodeURIComponent(userId) + '&path='
-							+ files.selectedFile + '&machine='
-							+ files.selectedHost
-				}).success(function(data, status, headers, config) {
+		{
+			method : 'GET',
+			url : 'logs?sessionId='
+			+ encodeURIComponent(sessionId) + '&userId='
+			+ encodeURIComponent(userId) + '&path='
+			+ files.selectedFile + '&machine='
+			+ files.selectedHost
+		}).success(function(data, status, headers, config) {
 			files.file = data;
 		}).error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
@@ -130,37 +129,37 @@ angular.module('RedhatAccess.logViewer',
 	};
 })
 .controller('TabsDemoCtrl', [
-		'$scope',
-		'$http',
-		'$location',
-		'files',
-		'accordian',
-		'SearchResultsService',
-		function($scope, $http, $location, files, accordian, SearchResultsService) {
-			$scope.tabs = [ {
-				shortTitle : "Short Sample Log File",
-				longTitle : "Long Log File",
-				content : "Sample Log Text"
-			} ];
+	'$scope',
+	'$http',
+	'$location',
+	'files',
+	'accordian',
+	'SearchResultsService',
+	function($scope, $http, $location, files, accordian, SearchResultsService) {
+		$scope.tabs = [ {
+			shortTitle : "Short Sample Log File",
+			longTitle : "Long Log File",
+			content : "Sample Log Text"
+		} ];
 
-			$scope.$watch(function() {
-				return files.file;
-			}, function() {
-				if (files.file != null && files.selectedFile != null) {
-					file = new Object();
-					file.longTitle = files.selectedHost + " : "
-							+ files.selectedFile;
-					var splitFileName = files.selectedFile.split("/");
-					var fileName = splitFileName[splitFileName.length - 1];
-					file.shortTitle = files.selectedHost + ":" + fileName;
-					file.content = files.file;
-					files.file = null;
-					$scope.tabs.push(file);
-				}
-			});
-			$scope.removeTab = function(index) {
-				$scope.tabs.splice(index, 1);
-			};
+		$scope.$watch(function() {
+			return files.file;
+		}, function() {
+			if (files.file != null && files.selectedFile != null) {
+				file = new Object();
+				file.longTitle = files.selectedHost + " : "
+				+ files.selectedFile;
+				var splitFileName = files.selectedFile.split("/");
+				var fileName = splitFileName[splitFileName.length - 1];
+				file.shortTitle = files.selectedHost + ":" + fileName;
+				file.content = files.file;
+				files.file = null;
+				$scope.tabs.push(file);
+			}
+		});
+		$scope.removeTab = function(index) {
+			$scope.tabs.splice(index, 1);
+		};
 
 			$scope.checked = false; // This will be
 			// binded using the
@@ -183,19 +182,19 @@ angular.module('RedhatAccess.logViewer',
 				// $scope.tabs[index].content = '';
 				//TODO reuse this code from above
 				$http(
-						{
-							method : 'GET',
-							url : 'logs?sessionId='
-									+ encodeURIComponent(sessionId) + '&userId='
-									+ encodeURIComponent(userId) + 'path='
-									+ files.selectedFile + '&machine='
-									+ files.selectedHost
-						}).success(function(data, status, headers, config) {
+				{
+					method : 'GET',
+					url : 'logs?sessionId='
+					+ encodeURIComponent(sessionId) + '&userId='
+					+ encodeURIComponent(userId) + 'path='
+					+ files.selectedFile + '&machine='
+					+ files.selectedHost
+				}).success(function(data, status, headers, config) {
 					$scope.tabs[index].content = data;
 				}).error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
-				});
+		});
 			}
 		}])
 
@@ -205,34 +204,34 @@ angular.module('RedhatAccess.logViewer',
 })
 
 .directive('fillDown', function($window, $timeout) {
-return {
-    restrict: 'EA',
-    link: function postLink(scope, element, attrs) {
-      scope.onResizeFunction = function() {
-        var distanceToTop = element[0].getBoundingClientRect().top;
-     	var height = $window.innerHeight - distanceToTop - 21;
-     	if(element[0].id == 'fileList'){
-     		height -= 34;
-     	}
-        return scope.windowHeight = height;
-      };
+	return {
+		restrict: 'EA',
+		link: function postLink(scope, element, attrs) {
+			scope.onResizeFunction = function() {
+				var distanceToTop = element[0].getBoundingClientRect().top;
+				var height = $window.innerHeight - distanceToTop - 21;
+				if(element[0].id == 'fileList'){
+					height -= 34;
+				}
+				return scope.windowHeight = height;
+			};
       // This might be overkill?? 
       scope.onResizeFunction();
       angular.element($window).bind('resize', function() {
-        scope.onResizeFunction();
-        scope.$apply();
+      	scope.onResizeFunction();
+      	scope.$apply();
       });
       angular.element($window).bind('click', function() {
-        scope.onResizeFunction();
-        scope.$apply();
+      	scope.onResizeFunction();
+      	scope.$apply();
       });
       $timeout(scope.onResizeFunction, 0);
       $(window).load(function(){
       	scope.onResizeFunction();
-        scope.$apply();
-    });
-    }
-  };
+      	scope.$apply();
+      });
+  }
+};
 
 
 });

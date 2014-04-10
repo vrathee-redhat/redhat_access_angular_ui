@@ -2,7 +2,7 @@
     position: relative;
     min-height: 1px;
     margin-left: 15px;
-    margin-right: 15px;
+    /*margin-right: 15px;*/
 /*    display: table;*/
     overflow: auto;
 }
@@ -42,18 +42,30 @@
 .left.showMe {
 	display: block;
 }
+
 .nav_tree {
 	display: block;
 }
+
 .nav_tree.showMe {
+	width: 15px;
+	padding-left: 0px;
+}
+.hideable {
+	display: block;
+}
+
+.hideable.showMe {
 	display: none;
 }
 
 .solutions{
-	display: none;
+	width:15px;
+	padding-right: 0px;
 }
 
 .solutions.showMe{
+	width:50%;
 	display: block;
 }
 .demo-left {
@@ -76,14 +88,21 @@
 .custom-glyphicon-left {
 	position: absolute;
 	top: 50%;
-	left: 95%;
+	left: 100%;
 	margin-top: -7px;
+	margin-left: -15px;
+}
+.custom-glyphicon-left.showMe {
+	-webkit-transform:scaleX(-1);
+    -moz-transform:scaleX(-1);
+    -ms-transform:scaleX(-1);
+    -o-transform:scaleX(-1);
+    transform:scaleX(-1);
 }
 
 .custom-glyphicon-right {
-/* 	font-size: 30px; */
-	top: 50%;
 	position: absolute;
+	top: 50%;
 	margin-top: -7px;
 }
 
@@ -126,11 +145,6 @@
 	overflow: hidden;
 	/*height: 100%;*/
 	width: 100%;
-	transition: height 1s;
-	-webkit-transition: height 1s;
-	-moz-transition: height 1s;
-	-o-transition: height 1s;
-	transition: height 1s;
 }
 
 .collapsable.showMe {
@@ -180,16 +194,25 @@
 }
 
 .bigger-button {
-	top: 50%;
 	position: absolute;
-/*	right: 95%;
-	margin-top: -7px;*/
+	top: 50%;
+	margin-top: -7px;
+/*	margin-left: -15px;*/
+}
+.right-side-button.showMe{
+	-webkit-transform:scaleX(-1);
+    -moz-transform:scaleX(-1);
+    -ms-transform:scaleX(-1);
+    -o-transform:scaleX(-1);
+    transform:scaleX(-1);
 }
 .right-side-button{
 	top: 50%;
 	position: absolute;
-	right: 95%;
+	right: 100%;
 	margin-top: -7px;
+	margin-right: -15px;
+	display: block;
 }
 .fileList {
 	overflow: scroll;
