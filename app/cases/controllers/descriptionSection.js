@@ -1,16 +1,13 @@
 'use strict';
 
 angular.module('RedhatAccessCases')
-.controller('AttachmentsSection', [
+.controller('DescriptionSection', [
   '$scope',
-  'AttachmentsService',
   'CaseService',
   function(
       $scope,
-      AttachmentsService,
       CaseService) {
 
-    $scope.AttachmentsService = AttachmentsService;
     $scope.CaseService = CaseService;
   }
 ]);

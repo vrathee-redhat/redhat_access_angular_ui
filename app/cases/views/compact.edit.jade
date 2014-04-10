@@ -1,16 +1,19 @@
 doctype html
-div#redhat-access-case.container-offset
-  rha-page-header(title='title')
-  div.container-fluid.side-padding
+div#redhat-access-case
+  div.container-fluid(ng-show='caseLoading')
     div.row
       div.col-xs-12
-        rha-case-details(casejson='caseJSON', compact='true')
+        div Loading...
+  div.container-fluid(ng-hide='caseLoading')
     div.row
       div.col-xs-12
-        rha-case-description(description='caseJSON.description', creator='caseJSON.created_by')
+        rha-case-details(compact='true')
     div.row
       div.col-xs-12
-        rha-case-attachments(attachmentsjson='attachments', caseid='caseJSON.case_number')
+        rha-case-description
     div.row
       div.col-xs-12
-        rha-case-comments(comments='comments', caseid='caseJSON.case_number')
+        rha-case-attachments
+    div.row
+      div.col-xs-12
+        rha-case-comments(comments='comments')

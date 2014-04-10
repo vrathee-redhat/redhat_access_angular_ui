@@ -3,9 +3,9 @@
 angular.module('RedhatAccessCases')
 .controller('AttachLocalFile', [
   '$scope',
-  'attachments',
+  'AttachmentsService',
   'securityService',
-  function ($scope, attachments, securityService) {
+  function ($scope, AttachmentsService, securityService) {
     $scope.NO_FILE_CHOSEN = 'No file chosen';
     $scope.fileDescription = '';
 
@@ -19,7 +19,7 @@ angular.module('RedhatAccessCases')
       data.append('file', $scope.fileObj);
       data.append('description', $scope.fileDescription);
 
-      attachments.items.push({
+      AttachmentsService.addNewAttachment({
         file_name: $scope.fileName,
         description: $scope.fileDescription,
         length: $scope.fileSize,

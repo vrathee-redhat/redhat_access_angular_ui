@@ -5,10 +5,7 @@ angular.module('RedhatAccessCases')
 return {
   templateUrl: 'cases/views/descriptionSection.html',
   restrict: 'EA',
-  scope: {
-    description: '=',
-    creator: '='
-  },
+  controller: 'DescriptionSection',
   link: function postLink(scope, element, attrs) {
   }
 };

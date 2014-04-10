@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('RedhatAccessCases')
-.directive('rhaCaseDetails', function () {
+.directive('rhaCompactCaseList', function () {
   return {
-    templateUrl: 'cases/views/detailsSection.html',
-    controller: 'DetailsSection',
+    templateUrl: 'cases/views/compactCaseList.html',
+    controller: 'CompactCaseList',
     scope: {
-      compact: '='
     },
     restrict: 'EA',
     link: function postLink(scope, element, attrs) {

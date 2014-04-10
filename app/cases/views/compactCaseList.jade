@@ -1,0 +1,26 @@
+div#redhat-access-case
+  div.panel.panel-default(style='margin-bottom: 0px;')
+    div.panel-heading
+      h3.panel-title Case List
+    div.panel-body(ng-hide='!loadingCaseList')
+      div Loading...
+    ul.list-group(ng-hide='loadingCaseList')
+      a.list-group-item(
+        ng-repeat='case in casesOnScreen',
+        ui-sref='.edit({id: "{{case.case_number}}"})',
+        ng-class='{"active": $index == selectedCaseIndex && selectedCasePage == currentPage}',
+        ng-click='selectCase($index)') {{case.case_number}} {{case.summary}}
+  div
+    pagination.pagination-sm(
+      boundary-links='true',
+      rotate='false',
+      direction-links='false',
+      total-items='cases.length',
+      on-select-page='selectPage(page, this)',
+      items-per-page='itemsPerPage',
+      page='currentPage',
+      max-size='maxSize',
+      previous-text='<',
+      next-text='>',
+      first-text='<<',
+      last-text='>>')

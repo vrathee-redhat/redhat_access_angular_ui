@@ -24,44 +24,13 @@ angular.module('RedhatAccessCases', [
     $stateProvider.state('compact.edit', {
       url: '/{id:[0-9]{1,8}}',
       templateUrl: 'cases/views/compact.edit.html',
-      controller: 'CompactEdit',
-      resolve: {
-        caseJSON: function(strataService, $stateParams) {
-          return strataService.cases.get($stateParams.id);
-        },
-        attachmentsJSON: function (strataService, $stateParams) {
-          return strataService.cases.attachments.list($stateParams.id);
-        },
-        commentsJSON: function (strataService, $stateParams) {
-          return strataService.cases.comments.get($stateParams.id);
-        }
-      }
+      controller: 'CompactEdit'
     });
 
     $stateProvider.state('edit', {
       url: '/case/{id:[0-9]{1,8}}',
       templateUrl: 'cases/views/edit.html',
-      controller: 'Edit',
-      resolve: {
-        caseJSON: function(strataService, $stateParams) {
-          return strataService.cases.get($stateParams.id);
-        },
-        accountJSON: function(strataService, caseJSON) {
-          var accountNumber = caseJSON.account_number;
-
-          if (angular.isString(accountNumber)) {
-            return strataService.accounts.get(caseJSON.account_number);
-          } else {
-            return null;
-          }
-        },
-        attachmentsJSON: function (strataService, $stateParams) {
-          return strataService.cases.attachments.list($stateParams.id);
-        },
-        commentsJSON: function (strataService, $stateParams) {
-          return strataService.cases.comments.get($stateParams.id);
-        }
-      }
+      controller: 'Edit'
     });
 
     $stateProvider.state('new', {
@@ -118,44 +87,44 @@ angular.module('RedhatAccessCases', [
       $('#rha-content').toggleClass('rha-hidden', false);
     };
 
-    $rootScope.$on('$stateChangeSuccess',
-      function(event, toState, toParams, fromState, fromParams) {
-        hideLoading();
-      }
-    );
-
-    $rootScope.$on('$stateChangeStart',
-      function (event, toState, toParams, fromState, fromParams) {
-
-        showLoading();
-
-        if (!securityService.isLoggedIn) {
-          event.preventDefault();
-
-          strata.checkLogin(
-            function (isLoggedIn, user) {
-
-              if (!isLoggedIn) {
-                securityService.login().then(
-                  function (authedUser) {
-                    if (authedUser) {
-                      securityService.isLoggedIn = true;
-                      $state.transitionTo(toState, toParams);
-                    } else {
-                      securityService.isLoggedIn = false;
-                      console.log('Not logged in.');
-                    }
-                  });
-              } else {
-                securityService.isLoggedIn = true;
-                $state.transitionTo(toState, toParams);
-              }
-
-            }
-          );
-        }
-      }
-    );
+//    $rootScope.$on('$stateChangeSuccess',
+//      function(event, toState, toParams, fromState, fromParams) {
+//        hideLoading();
+//      }
+//    );
+//
+//    $rootScope.$on('$stateChangeStart',
+//      function (event, toState, toParams, fromState, fromParams) {
+//
+//        showLoading();
+//
+//        if (!securityService.isLoggedIn) {
+//          event.preventDefault();
+//
+//          strata.checkLogin(
+//            function (isLoggedIn, user) {
+//
+//              if (!isLoggedIn) {
+//                securityService.login().then(
+//                  function (authedUser) {
+//                    if (authedUser) {
+//                      securityService.isLoggedIn = true;
+//                      $state.transitionTo(toState, toParams);
+//                    } else {
+//                      securityService.isLoggedIn = false;
+//                      console.log('Not logged in.');
+//                    }
+//                  });
+//              } else {
+//                securityService.isLoggedIn = true;
+//                $state.transitionTo(toState, toParams);
+//              }
+//
+//            }
+//          );
+//        }
+//      }
+//    );
 
   }
 ]);

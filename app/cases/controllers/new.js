@@ -6,11 +6,11 @@ angular.module('RedhatAccessCases')
   '$state',
   '$q',
   'SearchResultsService',
-  'attachments',
+  'AttachmentsService',
   'productsJSON',
   'severityJSON',
   'groupsJSON',
-  function ($scope, $state, $q, SearchResultsService, attachments, productsJSON, severityJSON, groupsJSON) {
+  function ($scope, $state, $q, SearchResultsService, AttachmentsService, productsJSON, severityJSON, groupsJSON) {
     $scope.products = productsJSON;
     $scope.versions = [];
     $scope.versionDisabled = true;
@@ -20,7 +20,7 @@ angular.module('RedhatAccessCases')
     $scope.severity = severityJSON[severityJSON.length - 1];
     $scope.groups = groupsJSON;
     $scope.submitProgress = 0;
-    attachments.clear();
+    AttachmentsService.clear();
 
     $scope.validateForm = function() {
       if ($scope.product == null || $scope.product == "" ||

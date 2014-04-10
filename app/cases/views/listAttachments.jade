@@ -1,5 +1,5 @@
-div(ng-show='attachments.length == 0') No attachments added
-table.table.table-hover.table-bordered(ng-show='attachments.length > 0')
+div(ng-show='AttachmentsService.updatedAttachments.length == 0') No attachments added
+table.table.table-hover.table-bordered(ng-show='AttachmentsService.updatedAttachments.length > 0')
   thead
     th Filename
     th Description
@@ -8,7 +8,7 @@ table.table.table-hover.table-bordered(ng-show='attachments.length > 0')
     th Attached By
     th Delete
   tbody
-    tr(ng-repeat='attachment in attachments')
+    tr(ng-repeat='attachment in AttachmentsService.updatedAttachments')
       td
         a(ng-hide='attachment.uri == null', href='{{attachment.uri}}') {{attachment.file_name}}
         div(ng-show='attachment.uri == null') {{attachment.file_name}}
@@ -17,4 +17,4 @@ table.table.table-hover.table-bordered(ng-show='attachments.length > 0')
       td {{attachment.created_date | date:'medium'}}
       td {{attachment.created_by}}
       td
-        a(ng-click='removeAttachment()') Delete
+        a(ng-click='AttachmentsService.removeAttachment($index)') Delete
