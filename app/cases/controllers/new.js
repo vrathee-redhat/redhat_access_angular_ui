@@ -187,12 +187,12 @@ angular.module('RedhatAccessCases')
       return deferred.promise;
     };
 
+    $scope.submittingCase = false;
+
     /**
      * Create the case with attachments
      */
     $scope.doSubmit = function() {
-
-      $scope.submitProgress = 10;
 
       var caseJSON = {
         'product': $scope.product.code,
@@ -203,34 +203,17 @@ angular.module('RedhatAccessCases')
         'folderNumber': $scope.caseGroup == null ? '' : $scope.caseGroup.number
       };
 
+      $scope.submittingCase = true;
       strata.cases.post(
           caseJSON,
           function(caseNumber) {
-            if ($scope.attachments.length > 0) {
-              var progressIncrement = 90 / $scope.attachments.length;
-
-              var promises = [];
-              for (var i in $scope.attachments) {
-                promises.push(
-                    postAttachment(
-                        caseNumber,
-                        $scope.attachments[i].file,
-                        progressIncrement));
-              }
-
-              var parentPromise = $q.all(promises);
-              parentPromise.then(
-                function() {
-                  $scope.submitProgress = '100';
-                  $state.go('case', {id: caseNumber});
-                },
-                function(error) {
-                  console.log("Problem creating attachment: " + error);
-                }
+            if (AttachmentsService.updatedAttachments.length > 0) {
+              AttachmentsService.updateAttachments(caseNumber).then(
+                  function() {
+                    $state.go('edit', {id: caseNumber});
+                    $scope.submittingCase = false;
+                  }
               );
-            } else {
-              $scope.submitProgress = '100';
-              $state.go('case', {id: caseNumber});
             }
           },
           function(error) {

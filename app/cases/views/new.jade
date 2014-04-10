@@ -2,9 +2,6 @@ doctype html
 div.container-offset
   div#redhat-access-case.container-fluid
     rha-page-header(title='"Open a New Support Case"')
-    div.row(ng-hide='submitProgress == 0')
-      div.col-xs-12
-        progressbar(animate='true', type='success', value='submitProgress', max='100')
     div.row
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.side-padding
@@ -105,7 +102,7 @@ div.container-offset
               div.col-xs-6
                 button.btn.btn-primary(
                   style='float: right',
-                  ng-disabled='submitProgress > 0',
+                  ng-disabled='submittingCase',
                   ng-click='doSubmit()') Submit
       div.col-xs-6
         div.container-fluid(style='padding-right: 15px;')

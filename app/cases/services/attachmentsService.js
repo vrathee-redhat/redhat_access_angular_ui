@@ -8,7 +8,6 @@ angular.module('RedhatAccessCases')
   function ($filter, $q, strataService) {
     this.originalAttachments = [];
     this.updatedAttachments = [];
-    this.updatingAttachments = false;
 
     this.clear = function() {
       this.items = [];
@@ -76,19 +75,19 @@ angular.module('RedhatAccessCases')
           }
         });
 
-        this.updatingAttachments = true;
         var parentPromise = $q.all(promises);
 
         parentPromise.then(
             angular.bind(this, function(AttachmentsService, two, three, four) {
               this.defineOriginalAttachments(angular.copy(updatedAttachments));
-              this.updatingAttachments = false;
             }),
             function(error) {
               console.log("Problem creating attachments");
               console.log(error);
             }
         );
+
+        return parentPromise;
       }
     };
 }]);

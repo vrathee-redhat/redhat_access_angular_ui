@@ -12,5 +12,14 @@ angular.module('RedhatAccessCases')
 
     $scope.AttachmentsService = AttachmentsService;
     $scope.CaseService = CaseService;
+
+    $scope.doUpdate = function() {
+      $scope.updatingAttachments = true;
+      AttachmentsService.updateAttachments(CaseService.case.case_number).then(
+          function() {
+            $scope.updatingAttachments = false;
+          }
+      );
+    };
   }
 ]);

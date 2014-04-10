@@ -6,10 +6,10 @@ div.container-fluid.side-padding
   div.row.side-padding
     div.col-xs-12.col-no-padding.bottom-border(style='padding-bottom: 14px;')
       div(style='float: right')
-        div(ng-hide='!AttachmentsService.updatingAttachments') Updating Attachments...
+        div(ng-show='updatingAttachments') Updating Attachments...
         button.btn.btn-primary(
-          ng-hide='AttachmentsService.updatingAttachments',
-          ng-click='AttachmentsService.updateAttachments(CaseService.case.case_number)') Update Attachments
+          ng-hide='updatingAttachments',
+          ng-click='doUpdate()') Update Attachments
   div.row
     div.col-xs-12
       rha-attach-local-file
