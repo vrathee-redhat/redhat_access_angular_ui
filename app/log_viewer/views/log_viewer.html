@@ -4,7 +4,7 @@
 	<div class="row-fluid">
 		<div class="nav-side-bar col-xs-3" ng-class="{ showMe: sidePaneToggle }" fill-down ng-style="{height: windowHeight }">
 			<div class="hideable-side-bar" ng-class="{ showMe: sidePaneToggle }">
-				<div class="btn-group" ng-controller="DropdownCtrl" ng-init="init()">
+				<div class="btn-group" ng-class="{ hideMe: hideDropdown}" ng-controller="DropdownCtrl" ng-init="init()">
 					<button type="button" class="btn btn-primary dropdown-toggle"
 					data-toggle="dropdown">
 					{{blah}} <span class="caret"></span>

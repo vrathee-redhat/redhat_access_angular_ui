@@ -9,7 +9,9 @@ angular.module('RedhatAccess.logViewer',
 		url : "/logviewer",
 		templateUrl : 'log_viewer/views/log_viewer.html'
 	})
-} ])
+} ]).constant('config', {
+    showMachinesDropdown: true
+  })
 
 .factory('files', function() {
 	var fileList = '';
@@ -69,10 +71,12 @@ angular.module('RedhatAccess.logViewer',
 		$scope.roleList = files.fileList;
 	});
 })
-.controller('DropdownCtrl', function($scope, $http, $location, files) {
+.controller('DropdownCtrl', function($scope, $http, $location, files, config) {
 	$scope.blah = "Please Select the Machine";
 	$scope.items = [];
+	$scope.hideDropdown = config.showMachinesDropdown;
 	var sessionId = $location.search().sessionId;
+
 	$scope.init = function() {
 		$http({
 			method : 'GET',
@@ -105,6 +109,9 @@ angular.module('RedhatAccess.logViewer',
 			// or server returns response with an error status.
 		});
 	};
+	if($scope.hideDropdown){
+		$scope.machineSelected();
+	}
 })
 .controller('selectFileButton', function($scope, $http, $location,
 	files) {

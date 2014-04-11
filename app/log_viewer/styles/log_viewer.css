@@ -89,3 +89,11 @@
 .resizeable-solution-view.showMe {
 	display: block;
 }
+
+.btn-group{
+	display: block;
+}
+
+.btn-group.hideMe{
+	display: none;
+}
