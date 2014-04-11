@@ -151,11 +151,17 @@ angular.module('RedhatAccessCases')
 
         return deferred.promise;
       },
-      filter: function() {
+      filter: function(params) {
         var deferred = $q.defer();
+        if (params == null) {
+          params = {};
+        }
+        if (params.count == null) {
+          params.count = 50;
+        }
 
         strata.cases.filter(
-            {},
+            params,
             function(allCases) {
               deferred.resolve(allCases);
             },

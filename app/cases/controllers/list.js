@@ -4,83 +4,51 @@ angular.module('RedhatAccessCases')
 .controller('List', [
   '$scope',
   '$filter',
-  'casesJSON',
-  'groupsJSON',
   'ngTableParams',
   'STATUS',
-  function ($scope, $filter, casesJSON, groupsJSON, ngTableParams, STATUS) {
-    $scope.statusFilter = STATUS.open;
+  'strataService',
+  'CaseListService',
+  function ($scope, $filter, ngTableParams, STATUS, strataService, CaseListService) {
+    $scope.CaseListService = CaseListService;
 
-    $scope.cases = casesJSON;
-    $scope.groups = groupsJSON;
+    var buildTable = function() {
+      $scope.tableParams = new ngTableParams({
+        page: 1,
+        count: 10,
+        sorting: {
+          last_modified_date: 'desc'
+        }
+      }, {
+        total: CaseListService.cases.length,
+        getData: function($defer, params) {
+          var orderedData = params.sorting() ?
+              $filter('orderBy')(CaseListService.cases, params.orderBy()) : CaseListService.cases;
 
-    $scope.tableParams = new ngTableParams({
-      page: 1,
-      count: 10,
-      sorting: {
-        last_modified_date: 'desc'
-      }
-    }, {
-      total: $scope.cases.length,
-      getData: function($defer, params) {
-        var orderedData = params.sorting() ?
-            $filter('orderBy')($scope.cases, params.orderBy()) : $scope.cases;
+          var pageData = orderedData.slice(
+              (params.page() - 1) * params.count(), params.page() * params.count());
 
-        orderedData = $filter('filter')(orderedData, $scope.keyword);
-        var pageData = orderedData.slice(
-            (params.page() - 1) * params.count(), params.page() * params.count());
-
-        $scope.tableParams.total(orderedData.length);
-        $defer.resolve(pageData);
-      }
-    });
-
-    var doCaseFilter = function(params) {
-      strata.cases.filter(
-          params,
-          function(filteredCases) {
-            if (filteredCases === undefined) {
-              $scope.cases = [];
-            } else {
-              $scope.cases = filteredCases;
-            }
-            $scope.tableParams.reload();
-          },
-          function(error) {
-            console.log(error);
-          }
-      );
+          $scope.tableParams.total(orderedData.length);
+          $defer.resolve(pageData);
+        }
+      });
     };
 
-    var getIncludeClosed = function() {
-      if ($scope.statusFilter === STATUS.open) {
-        return false;
-      } else if ($scope.statusFilter === STATUS.closed) {
-        return true;
-      } else if ($scope.statusFilter === STATUS.both) {
-        return true;
-      }
+    $scope.loadingCases = true;
+    strataService.cases.filter().then(
+        function(cases) {
+          CaseListService.defineCases(cases);
+          buildTable();
+          $scope.loadingCases = false;
+        }
+    );
 
-      return false;
+    $scope.preFilter = function() {
+      $scope.loadingCases = true;
     };
 
-    $scope.doFilter = function() {
-      var params = {
-        include_closed: getIncludeClosed()
-      };
-
-      if ($scope.group !== undefined) {
-        params.group_numbers = {
-          group_number: [$scope.group.number]
-        };
-      }
-
-      if ($scope.statusFilter === STATUS.closed) {
-        params.status = STATUS.closed;
-      }
-
-      doCaseFilter(params);
+    $scope.postFilter = function() {
+      $scope.tableParams.reload();
+      $scope.loadingCases = false;
     };
-
   }
 ]);
