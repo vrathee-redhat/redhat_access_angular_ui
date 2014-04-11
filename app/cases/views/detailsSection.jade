@@ -1,5 +1,7 @@
 form(name='caseDetails')
   div(style='padding-bottom: 10px;')
+    div
+      h3(style='margin-top: 0px;') Case {{CaseService.case.case_number}}
     input.form-control(
       style='width: 50%; display: inline-block;',
       ng-model='CaseService.case.summary',
@@ -9,7 +11,7 @@ form(name='caseDetails')
       style='display: inline-block;')
   div.container-fluid.side-padding
     div#rha-case-details.row
-      h4.col-xs-12.section-header Case Details
+      h4.col-xs-12.section-header Details
       div.container-fluid.side-padding
         div.row
           div.col-md-4
