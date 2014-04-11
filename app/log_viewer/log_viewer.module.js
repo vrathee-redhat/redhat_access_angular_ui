@@ -111,7 +111,7 @@ angular.module('RedhatAccess.logViewer',
 	$scope.fileSelected = function() {
 		var sessionId = $location.search().sessionId;
 		var userId = $location.search().userId;
-		$scope.$parent.opens = !$scope.$parent.opens;
+		$scope.$parent.sidePaneToggle = !$scope.$parent.sidePaneToggle;
 		$http(
 		{
 			method : 'GET',
@@ -166,8 +166,8 @@ angular.module('RedhatAccess.logViewer',
 			// ps-open attribute
 
 			$scope.diagnoseText = function() {
-				if (!$scope.$parent.open) {
-					$scope.$parent.open = !$scope.$parent.open;
+				if (!$scope.$parent.solutionsToggle) {
+					$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
 				}
 				var text = strata.utils.getSelectedText();
 				if (text != "") {

@@ -75,7 +75,7 @@ app.get('/logs', function (req, res) {
 	if(path == null){
 		res.send('/root/sub1/sub2\n/root2/sub21/sub22\n/root3/sub31/sub32\n/root3/sub31/sub34\n');
 	} else {
-		res.send('Mock file text');
+		res.send('Mock file text fdsafdsafjklsdjfkldsjfkldsjfkldsjfkldsjklfjdsklafjkldsajfkldsajfkl;dsajfkl;dsjaklfjasdklfjdsklfjkldsajfkdasjfkljsdaklfjasdklfjkldsajfkdlsajfkldsjfkldsajfkldsajfklasdfjkl;asdfjkldsa');
 	}
 });
 
