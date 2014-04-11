@@ -1,54 +1,37 @@
 div#redhat-access-case.container-offset
   rha-page-header(title='"Support Cases"')
+  rha-list-filter(prefilter='preFilter', postfilter='postFilter')
+  div.bottom-border(style='margin-left: 10px; margin-right: 10px;')
   div.container-fluid.side-padding
     div.row
-      div.col-md-4(style='padding-bottom: 14px;')
-        //label(for='rha-case-group-filter', style='padding-right: 4px; font-weight: normal;') Group:
-        select.form-control(
-            id='rha-case-group-filter',
-            style='display: inline-block;',
-            ng-model='group',
-            ng-change='doFilter()',
-            ng-options='g.name for g in groups track by g.number')
-          option(value='') All Groups
-      div.col-md-4(style='padding-bottom: 14px;')
-        select.form-control(
-            ng-model='statusFilter',
-            ng-change='doFilter()')
-          option(value='open', selected='selected') Open
-          option(value='closed') Closed
-          option(value='both') Open and Closed
-      div.col-md-4(style='padding-bottom: 14px;')
-        input.form-control(
-            placeholder='Filter',
-            ng-model='keyword',
-            ng-change='tableParams.reload()')
-    div.row
       div.col-xs-12
-        table.table.table-bordered.table-striped(
-            ng-table='tableParams',
-            style='text-align: center')
-          tr(ng-repeat='case in $data')
-            td(data-title='"Case ID"',
-                sortable='"case_number"',
-                style='width: 10%')
-              a(href='#/case/{{case.case_number}}') {{case.case_number}}
-            td(data-title='"Summary"',
-                sortable='"summary"',
-                style='width: 15%') {{case.summary}}
-            td(data-title='"Product/Version"',
-                sortable='"product"') {{case.product}} / {{case.version}}
-            td(data-title='"Status"',
-                sortable='"status"') {{case.status}}
-            td(data-title='"Severity"',
-                sortable='"severity"') {{case.severity}}
-            td(data-title='"Owner"',
-                sortable='"owner"') {{case.owner}}
-            td(data-title='"Opened"',
-                sortable='"created_date"',
-                style='width: 10%') {{case.created_date | date:'medium'}}
-            td(data-title='"Updated"',
-                sortable='"last_modified_date"',
-                style='width: 10%') {{case.last_modified_date | date:'medium'}}
+        div(ng-show='CaseListService.cases.length == 0 && !loadingCases') No cases found with given filters.
+        div(ng-show='loadingCases') Loading...
+        div(ng-hide='CaseListService.cases.length == 0 || loadingCases')
+          table.table.table-bordered.table-striped(
+              ng-table='tableParams',
+              style='text-align: center')
+            tr(ng-repeat='case in $data')
+              td(data-title='"Case ID"',
+                  sortable='"case_number"',
+                  style='width: 10%')
+                a(href='#/case/{{case.case_number}}') {{case.case_number}}
+              td(data-title='"Summary"',
+                  sortable='"summary"',
+                  style='width: 15%') {{case.summary}}
+              td(data-title='"Product/Version"',
+                  sortable='"product"') {{case.product}} / {{case.version}}
+              td(data-title='"Status"',
+                  sortable='"status"') {{case.status}}
+              td(data-title='"Severity"',
+                  sortable='"severity"') {{case.severity}}
+              td(data-title='"Owner"',
+                  sortable='"owner"') {{case.owner}}
+              td(data-title='"Opened"',
+                  sortable='"created_date"',
+                  style='width: 10%') {{case.created_date | date:'medium'}}
+              td(data-title='"Updated"',
+                  sortable='"last_modified_date"',
+                  style='width: 10%') {{case.last_modified_date | date:'medium'}}
 
 

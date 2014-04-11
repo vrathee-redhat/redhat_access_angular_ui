@@ -6,26 +6,28 @@ angular.module('RedhatAccessCases')
   '$stateParams',
   'strataService',
   'CaseService',
+  'CaseListService',
   function(
       $scope,
       $stateParams,
       strataService,
-      CaseService) {
+      CaseService,
+      CaseListService) {
 
-    $scope.cases = [];
+    $scope.CaseService = CaseService;
+    $scope.CaseListService = CaseListService;
     $scope.loadingCaseList = true;
-
     $scope.itemsPerPage = 5;
     $scope.maxSize = 3;
 
     $scope.selectPage = function(pageNum) {
       var start = $scope.itemsPerPage * (pageNum - 1);
       var end = start + $scope.itemsPerPage;
-      end = end > $scope.cases.length ?
-          $scope.cases.length : end;
+      end = end > CaseListService.cases.length ?
+          CaseListService.cases.length : end;
 
       $scope.casesOnScreen =
-          $scope.cases.slice(start, end);
+          CaseListService.cases.slice(start, end);
     };
 
     $scope.selectedCaseIndex = -1;
@@ -41,7 +43,7 @@ angular.module('RedhatAccessCases')
       strataService.cases.filter().then(
           function(cases) {
             $scope.loadingCaseList = false;
-            $scope.cases = cases;
+            CaseListService.defineCases(cases);
             $scope.selectPage(1);
           },
           function(error) {
@@ -49,6 +51,20 @@ angular.module('RedhatAccessCases')
           }
       );
     };
+
+    /**
+     * Passed as a param to rha-list-filter as a callback after filtering
+     */
+    $scope.filterCallback = function() {
+      $scope.selectPage(1);
+      $scope.loadingCaseList = false;
+    };
+
+    $scope.onFilter = function() {
+      $scope.loadingCaseList = true;
+    };
+
+    CaseService.populateGroups();
 
     $scope.filterCases();
   }

@@ -1,0 +1,23 @@
+div.container-fluid.side-padding
+  div.row
+    div.col-lg-4(style='padding-bottom: 14px;')
+      input.form-control(
+        placeholder='Search',
+        ng-model='keyword',
+        ng-keypress='onFilterKeyPress($event)')
+    div.col-lg-4(style='padding-bottom: 14px;')
+      //label(for='rha-case-group-filter', style='padding-right: 4px; font-weight: normal;') Group:
+      select.form-control(
+        id='rha-case-group-filter',
+        style='display: inline-block;',
+        ng-model='group',
+        ng-change='doFilter()',
+        ng-options='g.name for g in groups track by g.number')
+        option(value='') All Groups
+    div.col-lg-4(style='padding-bottom: 14px;')
+      select.form-control(
+        ng-model='statusFilter',
+        ng-change='doFilter()')
+        option(value='both', selected='selected') Open and Closed
+        option(value='open') Open
+        option(value='closed') Closed

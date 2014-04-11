@@ -53,78 +53,7 @@ angular.module('RedhatAccessCases', [
     $stateProvider.state('list', {
       url: '/case/list',
       templateUrl: 'cases/views/list.html',
-      controller: 'List',
-      resolve: {
-        casesJSON: function (strataService) {
-          return strataService.cases.filter();
-        },
-        groupsJSON: function(strataService) {
-          return strataService.groups.list();
-        }
-      }
+      controller: 'List'
     });
-  }
-])
-.run([
-  '$rootScope',
-  'securityService',
-  '$state',
-  function (
-    $rootScope,
-    securityService,
-    $state) {
-
-    //TODO: find a better way to inject a loading message
-    var showLoading = function() {
-      if ($('#rha-loading').length === 0) {
-        $('#rha-content').after('<h1 id="rha-loading" class="text-center">Loading...</h1>');
-      }
-      $('#rha-content').toggleClass('rha-hidden', true);
-    };
-
-    var hideLoading = function() {
-      $('#rha-loading').remove();
-      $('#rha-content').toggleClass('rha-hidden', false);
-    };
-
-//    $rootScope.$on('$stateChangeSuccess',
-//      function(event, toState, toParams, fromState, fromParams) {
-//        hideLoading();
-//      }
-//    );
-//
-//    $rootScope.$on('$stateChangeStart',
-//      function (event, toState, toParams, fromState, fromParams) {
-//
-//        showLoading();
-//
-//        if (!securityService.isLoggedIn) {
-//          event.preventDefault();
-//
-//          strata.checkLogin(
-//            function (isLoggedIn, user) {
-//
-//              if (!isLoggedIn) {
-//                securityService.login().then(
-//                  function (authedUser) {
-//                    if (authedUser) {
-//                      securityService.isLoggedIn = true;
-//                      $state.transitionTo(toState, toParams);
-//                    } else {
-//                      securityService.isLoggedIn = false;
-//                      console.log('Not logged in.');
-//                    }
-//                  });
-//              } else {
-//                securityService.isLoggedIn = true;
-//                $state.transitionTo(toState, toParams);
-//              }
-//
-//            }
-//          );
-//        }
-//      }
-//    );
-
   }
 ]);

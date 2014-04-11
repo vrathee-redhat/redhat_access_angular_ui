@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('RedhatAccessCases')
-.service('CaseService',
-  function () {
+.service('CaseService', [
+  'strataService',
+  function (strataService) {
     this.case = {};
     this.versions = [];
     this.products = [];
     this.statuses = [];
     this.severities = [];
+    this.groups = [];
     this.account = {};
 
     /**
@@ -32,7 +34,13 @@ angular.module('RedhatAccessCases')
     this.clearCase = function() {
       this.case = {};
       this.account = {};
-    }
+    };
 
-  }
-);
+    this.populateGroups = function() {
+      strataService.groups.list().then(
+          angular.bind(this, function(groups) {
+            this.groups = groups;
+          })
+      );
+    };
+}]);
