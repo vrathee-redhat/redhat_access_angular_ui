@@ -10,7 +10,7 @@ angular.module('RedhatAccess.logViewer',
 		templateUrl : 'log_viewer/views/log_viewer.html'
 	})
 } ]).constant('config', {
-    showMachinesDropdown: true
+    hideMachinesDropdown: false
   })
 
 .factory('files', function() {
@@ -72,9 +72,9 @@ angular.module('RedhatAccess.logViewer',
 	});
 })
 .controller('DropdownCtrl', function($scope, $http, $location, files, config) {
-	$scope.blah = "Please Select the Machine";
+	$scope.machinesDropdownText = "Please Select the Machine";
 	$scope.items = [];
-	$scope.hideDropdown = config.showMachinesDropdown;
+	$scope.hideDropdown = config.hideMachinesDropdown;
 	var sessionId = $location.search().sessionId;
 
 	$scope.init = function() {
@@ -93,7 +93,7 @@ angular.module('RedhatAccess.logViewer',
 		var sessionId = $location.search().sessionId;
 		var userId = $location.search().userId;
 		files.selectedHost = this.choice;
-		$scope.blah = this.choice;
+		$scope.machinesDropdownText = this.choice;
 		$http(
 		{
 			method : 'GET',
@@ -239,8 +239,6 @@ angular.module('RedhatAccess.logViewer',
       });
   }
 };
-
-
 });
 
 function parseList(tree, data) {
@@ -266,14 +264,14 @@ function returnNode(splitPath, tree, fullFilePath) {
 				}
 			}
 			if (!match) {
-				var blah = new Object();
-				blah.roleName = node;
-				blah.roleId = node;
+				var object = new Object();
+				object.roleName = node;
+				object.roleId = node;
 				if (splitPath.length == 1) {
-					blah.fullPath = fullFilePath;
+					object.fullPath = fullFilePath;
 				}
-				blah.children = new Array();
-				tree.push(blah);
+				object.children = new Array();
+				tree.push(object);
 				index = tree.length - 1;
 			}
 

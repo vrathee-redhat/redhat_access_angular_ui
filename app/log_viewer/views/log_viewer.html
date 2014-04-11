@@ -5,9 +5,9 @@
 		<div class="nav-side-bar col-xs-3" ng-class="{ showMe: sidePaneToggle }" fill-down ng-style="{height: windowHeight }">
 			<div class="hideable-side-bar" ng-class="{ showMe: sidePaneToggle }">
 				<div class="btn-group" ng-class="{ hideMe: hideDropdown}" ng-controller="DropdownCtrl" ng-init="init()">
-					<button type="button" class="btn btn-primary dropdown-toggle"
+					<button type="button" class="dropdown-toggle btn btn-primary"
 					data-toggle="dropdown">
-					{{blah}} <span class="caret"></span>
+					{{machinesDropdownText}} <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
 						<li ng-repeat="choice in items" ng-click="machineSelected()"><a>{{choice}}</a></li>
