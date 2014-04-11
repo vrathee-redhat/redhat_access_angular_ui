@@ -72,6 +72,7 @@ angular.module('RedhatAccess.logViewer',
 .controller('DropdownCtrl', function($scope, $http, $location, files, hideMachinesDropdown) {
 	$scope.machinesDropdownText = "Please Select the Machine";
 	$scope.items = [];
+	$scope.hideDropdown = hideMachinesDropdown;
 	var sessionId = $location.search().sessionId;
 
 	$scope.getMachines = function() {
@@ -154,13 +155,18 @@ angular.module('RedhatAccess.logViewer',
 			if (files.file != null && files.selectedFile != null) {
 				file = new Object();
 				if(files.selectedHost != null){
-					file.longTitle = files.selectedHost + " : "
+					file.longTitle = files.selectedHost + ":"
+				} else {
+					file.longTitle = new String();
 				}
 				file.longTitle = file.longTitle.concat(files.selectedFile);
 				var splitFileName = files.selectedFile.split("/");
 				var fileName = splitFileName[splitFileName.length - 1];
+				
 				if(files.selectedHost != null){
-					file.shortTitle = files.selectedHost + " : "
+					file.shortTitle = files.selectedHost + ":"
+				} else {
+					file.shortTitle = new String();
 				}
 				file.shortTitle = file.shortTitle.concat(fileName);
 				file.content = files.file;
