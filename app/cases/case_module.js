@@ -4,7 +4,8 @@ angular.module('RedhatAccessCases', [
   'ngTable',
   'templates.app',
   'RedhatAccess.security',
-  'RedhatAccess.search'
+  'RedhatAccess.search',
+  'RedhatAccess.tree-selector'
 ])
 .constant('STATUS', {
   open: 'open',

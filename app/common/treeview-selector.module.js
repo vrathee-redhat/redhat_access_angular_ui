@@ -95,7 +95,7 @@ function returnAttachNode(splitPath, tree, fullFilePath) {
         blah.name = removeParams(node);
         //blah.roleId = node;
         if (splitPath.length == 1) {
-          blah.fullPath = fullFilePath;
+          blah.fullPath = removeParams(fullFilePath);
         }
         blah.children = new Array();
         tree.push(blah);

@@ -96,3 +96,8 @@ div#redhat-access-case div .panel-body {
 div#rha-case-details .table {
     margin-bottom: 0px;
 }
+
+div.server-attach-header{
+   font-weight: bold;
+   margin-bottom: 5px;
+}

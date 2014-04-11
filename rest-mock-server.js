@@ -4,7 +4,7 @@ var app = express();
 
 //Case attachment mocks
 app.get('/attachments', function (req, res) {
-	res.send('/SOS?checked=true/\n/root/sub1/sub2\n/root2/sub12/sub13\n/root2/sub12/sub14?checked=true');
+	res.send('/Main Server SOS Report?checked=true\n/Database Log?checked=true\n/Debug/katello-debug.log\n/Debug/foreman.debug');
 	//res.send('/Main SOS Report/\n/Database Log')
 	//\n/root2/sub1/sub2\n/root3/sub1/sub2\n')
 	// res.json(

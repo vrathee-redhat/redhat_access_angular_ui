@@ -1,13 +1,11 @@
-<div class="row " >
-    <accordion > 
-      <accordion-group is-open="isopen" ng-repeat="result in results">
-        <accordion-heading>
-            {{result.title}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
-        </accordion-heading>
-        <x-result-detail-display result='result'/>
-      </accordion-group>
+<div class="row ">
+    <accordion>
+        <accordion-group is-open="isopen" ng-repeat="result in results">
+            <accordion-heading >
+                <span class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></span>
+                <span>{{result.title}}</span>
+            </accordion-heading>
+            <x-result-detail-display result='result' />
+        </accordion-group>
     </accordion>
 </div>
-
-
-

@@ -93,7 +93,13 @@ div.container-offset
               div.row.create-field
                 div.col-xs-12
                   rha-attach-local-file
-
+            div.row.create-field
+              div.col-xs-12 
+                div.server-attach-header Server File(s) To Attach:
+                rha-choice-tree(
+                    ng-model="attachmentTree",
+                    ng-controller="BackEndAttachmentsCtrl"
+                  )
             div.row(style='margin-top: 20px;')
               div.col-xs-6
                 button.btn.btn-primary(

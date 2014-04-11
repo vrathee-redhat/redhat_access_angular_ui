@@ -1,6 +1,9 @@
-<div class ='row ' x-login-status/>
-<div class="row panel panel-default">
-   <div class="panel-body" x-search-form ng-controller='SearchController'>
-   </div>
+<div class="container-fluid side-padding">
+    <div x-login-status style="padding: 10px;" />
+    <div class="bottom-border" style="padding-top: 10px;"></div>
+    <div class="row" x-search-form ng-controller='SearchController'></div>
+    <div style="padding-top: 10px;"></div>
+    <div class='row'>
+    	<div class="container" x-accordion-search-results='' ng-controller='SearchController' />
+    </div>
 </div>
-<div class='row' x-accordion-search-results='' ng-controller='SearchController'/>

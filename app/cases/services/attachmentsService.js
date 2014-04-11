@@ -9,8 +9,15 @@ angular.module('RedhatAccessCases')
     this.originalAttachments = [];
     this.updatedAttachments = [];
 
+    this.backendAttachments =[];
+
     this.clear = function() {
-      this.items = [];
+      this.items = []; //TODO????
+    };
+
+    this.updateBackEndAttachements = function (selected){
+      this.backendAttachments = selected;
+
     };
 
     this.removeAttachment = function($index) {
