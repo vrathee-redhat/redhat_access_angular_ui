@@ -10,7 +10,8 @@ angular.module('RedhatAccessCases')
     this.updatedAttachments = [];
 
     this.clear = function() {
-      this.items = [];
+      this.originalAttachments = [];
+      this.updatedAttachments = [];
     };
 
     this.removeAttachment = function($index) {
