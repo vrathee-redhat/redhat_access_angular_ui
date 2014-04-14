@@ -203,7 +203,7 @@ angular.module('RedhatAccess.logViewer',
 					method : 'GET',
 					url : 'logs?sessionId='
 					+ encodeURIComponent(sessionId) + '&userId='
-					+ encodeURIComponent(userId) + 'path='
+					+ encodeURIComponent(userId) + '&path='
 					+ files.selectedFile + '&machine='
 					+ files.selectedHost
 				}).success(function(data, status, headers, config) {
