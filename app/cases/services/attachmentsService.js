@@ -8,16 +8,16 @@ angular.module('RedhatAccessCases')
   function ($filter, $q, strataService) {
     this.originalAttachments = [];
     this.updatedAttachments = [];
-
     this.backendAttachments =[];
 
     this.clear = function() {
-      this.items = []; //TODO????
+      this.originalAttachments= [];
+      this.updatedAttachments= [];
+      this.backendAttachments = [];
     };
 
     this.updateBackEndAttachements = function (selected){
       this.backendAttachments = selected;
-
     };
 
     this.removeAttachment = function($index) {
