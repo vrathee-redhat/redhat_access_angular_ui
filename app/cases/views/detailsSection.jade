@@ -3,7 +3,7 @@ form(name='caseDetails')
     div
       h3(style='margin-top: 0px;') Case {{CaseService.case.case_number}}
     input.form-control(
-      style='width: 50%; display: inline-block;',
+      style='width: 100%; display: inline-block;',
       ng-model='CaseService.case.summary',
       name='summary')
     span.glyphicon.glyphicon-asterisk.form-control-feedback(

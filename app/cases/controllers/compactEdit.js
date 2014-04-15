@@ -15,6 +15,7 @@ angular.module('RedhatAccessCases')
       AttachmentsService) {
 
     $scope.caseLoading = true;
+    $scope.domReady = false;
 
     strataService.cases.get($stateParams.id).then(
       function(caseJSON) {
@@ -26,6 +27,8 @@ angular.module('RedhatAccessCases')
               CaseService.versions = versions;
             }
         );
+
+        $scope.domReady = true;
       }
     );
 
