@@ -148,7 +148,7 @@ angular.module('RedhatAccess.logViewer',
 			longTitle : "Long Log File",
 			content : "Sample Log Text"
 		} ];
-
+		$scope.isDisabled = true;
 		$scope.$watch(function() {
 			return files.file;
 		}, function() {
@@ -178,40 +178,60 @@ angular.module('RedhatAccess.logViewer',
 			$scope.tabs.splice(index, 1);
 		};
 
-			$scope.checked = false; // This will be
-			// binded using the
-			// ps-open attribute
+		$scope.checked = false; // This will be
+		// binded using the
+		// ps-open attribute
 
-			$scope.diagnoseText = function() {
-				if (!$scope.$parent.solutionsToggle) {
-					$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
-				}
-				var text = strata.utils.getSelectedText();
-				if (text != "") {
-					$scope.checked = !$scope.checked;
-					SearchResultsService.diagnose(text, 5);
-				}
-			};
+		$scope.diagnoseText = function() {
+			$scope.isDisabled = true;
+			if (!$scope.$parent.solutionsToggle) {
+				$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
+			}
+			var text = strata.utils.getSelectedText();
+			if (text != "") {
+				$scope.checked = !$scope.checked;
+				SearchResultsService.diagnose(text, 5);
+			}
+			$scope.sleep(5000, $scope.checkTextSelection);
+		};
 
-			$scope.refreshTab = function(index){
-				var sessionId = $location.search().sessionId;
-				var userId = $location.search().userId;
-				// $scope.tabs[index].content = '';
-				//TODO reuse this code from above
-				$http(
-				{
-					method : 'GET',
-					url : 'logs?sessionId='
-					+ encodeURIComponent(sessionId) + '&userId='
-					+ encodeURIComponent(userId) + '&path='
-					+ files.selectedFile + '&machine='
-					+ files.selectedHost
-				}).success(function(data, status, headers, config) {
-					$scope.tabs[index].content = data;
-				}).error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
+		$scope.refreshTab = function(index){
+			var sessionId = $location.search().sessionId;
+			var userId = $location.search().userId;
+			// $scope.tabs[index].content = '';
+			//TODO reuse this code from above
+			$http(
+			{
+				method : 'GET',
+				url : 'logs?sessionId='
+				+ encodeURIComponent(sessionId) + '&userId='
+				+ encodeURIComponent(userId) + '&path='
+				+ files.selectedFile + '&machine='
+				+ files.selectedHost
+			}).success(function(data, status, headers, config) {
+				$scope.tabs[index].content = data;
+			}).error(function(data, status, headers, config) {
+		// called asynchronously if an error occurs
+		// or server returns response with an error status.
+			});
+		};
+		$scope.enableDiagnoseButton = function(){
+			//Gotta wait for text to "unselect"
+			$scope.sleep(1, $scope.checkTextSelection);
+		};
+		$scope.checkTextSelection = function(){
+			if(strata.utils.getSelectedText()){
+				$scope.isDisabled = false;
+			} else{
+				$scope.isDisabled = true;
+			}
+			$scope.$apply();
+		}
+
+		$scope.sleep = function(millis, callback) {
+    			setTimeout(function()
+            		{ callback(); }
+    			, millis);
 			}
 		}])
 
@@ -233,7 +253,7 @@ angular.module('RedhatAccess.logViewer',
 				return scope.windowHeight = height;
 			};
       // This might be overkill?? 
-      scope.onResizeFunction();
+      //scope.onResizeFunction();
       angular.element($window).bind('resize', function() {
       	scope.onResizeFunction();
       	scope.$apply();
@@ -242,11 +262,15 @@ angular.module('RedhatAccess.logViewer',
       	scope.onResizeFunction();
       	scope.$apply();
       });
-      $timeout(scope.onResizeFunction, 0);
-      $(window).load(function(){
-      	scope.onResizeFunction();
-      	scope.$apply();
-      });
+      $timeout(scope.onResizeFunction, 100);
+      // $(window).load(function(){
+      // 	scope.onResizeFunction();
+      // 	scope.$apply();
+      // });
+      // scope.$on('$viewContentLoaded', function() {
+      // 	scope.onResizeFunction();
+      // 	//scope.$apply();
+      // });
   }
 };
 });

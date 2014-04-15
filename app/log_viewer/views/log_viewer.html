@@ -44,17 +44,19 @@
 								</a> 
 							</tab-heading>
 							<div active="tab.active" disabled="tab.disabled">
-								<div class="panel panel-default">
+								<div class="panel panel-default" >
 									<div class="panel-heading">
 										<a popover="Click to refresh log file." popover-trigger="mouseenter" popover-placement="right" ng-click="refreshTab($index)">
 											<span class="glyphicon glyphicon-refresh"></span>
 										</a>
 										<h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
-										<button popover="Select text and click to perform Red Hat Diagnose" popover-trigger="mouseenter" popover-placement="bottom" id="diagnoseButton" type="button" class="btn btn-primary diagnoseButton" ng-click="diagnoseText()">Red Hat Diagnose</button>
+										<div class="pull-right" id="overlay" popover="Select text and click to perform Red Hat Diagnose" popover-trigger="mouseenter" popover-placement="left" > 
+											<button ng-disabled="isDisabled" id="diagnoseButton" type="button" class="btn btn-primary diagnoseButton" ng-click="diagnoseText()">Red Hat Diagnose</button>
+										</div>
 										<br> 
 										<br>
 									</div>
-									<div  class="panel-body" fill-down ng-style="{ height: windowHeight }">
+									<div  class="panel-body" ng-mouseup="enableDiagnoseButton()" fill-down ng-style="{ height: windowHeight }">
 										<pre id="resizeable-file-view" class="no-line-wrap">{{tab.content}}</pre>
 									</div>
 								</div>
