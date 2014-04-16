@@ -237,7 +237,6 @@ angular.module('RedhatAccess.search', [
 					strata.diagnose(
 						searchString,
 						function (response) {
-							//response.resource_type = resourceType;
 							response.resource_type = RESOURCE_TYPES.solution;
 							$rootScope.$apply(function () {
 								that.add(response);
@@ -246,8 +245,7 @@ angular.module('RedhatAccess.search', [
 						function (error) {
 							console.log("search failed");
 						},
-						limit,
-						true
+						limit
 					);
 				}
 
