@@ -66,25 +66,18 @@ angular.module('RedhatAccess.logViewer',
 })
 .controller('fileController', function($scope, files) {
 	$scope.roleList = '';
-	$scope.updateSelected = function() {
-		$scope.sleep(1,$scope.checkTreeForChanges);
-	};
-	$scope.sleep = function(millis, callback) {
-		setTimeout(function()
-    		{ callback(); }
-		, millis);
-	};
-	$scope.checkTreeForChanges = function(){
+
+	$scope.$watch(function() {
+		return $scope.mytree.currentNode;
+	}, function() {
 		if ($scope.mytree.currentNode != null
 			&& $scope.mytree.currentNode.fullPath != null) {
 			files.setSelectedFile($scope.mytree.currentNode.fullPath);
 			files.setRetrieveFileButtonIsDisabled(false);
-			$scope.$apply();
 		} else {
 			files.setRetrieveFileButtonIsDisabled(true);
-			$scope.$apply();
 		}
-	};
+	});
 	$scope.$watch(function() {
 		return files.fileList;
 	}, function() {
