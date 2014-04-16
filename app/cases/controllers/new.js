@@ -7,20 +7,39 @@ angular.module('RedhatAccess.cases')
     '$q',
     'SearchResultsService',
     'AttachmentsService',
-    'productsJSON',
-    'severityJSON',
-    'groupsJSON',
-    function ($scope, $state, $q, SearchResultsService, AttachmentsService, productsJSON, severityJSON, groupsJSON) {
-      $scope.products = productsJSON;
+    'strataService',
+    function ($scope, $state, $q, SearchResultsService, AttachmentsService, strataService) {
       $scope.versions = [];
       $scope.versionDisabled = true;
       $scope.versionLoading = false;
       $scope.incomplete = true;
-      $scope.severities = severityJSON;
-      $scope.severity = severityJSON[severityJSON.length - 1];
-      $scope.groups = groupsJSON;
       $scope.submitProgress = 0;
       AttachmentsService.clear();
+
+      $scope.productsLoading = true;
+      strataService.products.list().then(
+          function(products) {
+            $scope.products = products;
+            $scope.productsLoading = false;
+          }
+      );
+
+      $scope.severitiesLoading = true;
+      strataService.values.cases.severity().then(
+          function(severities) {
+            $scope.severities = severities;
+            $scope.severity = severities[severities.length - 1];
+            $scope.severitiesLoading = false;
+          }
+      );
+
+      $scope.groupsLoading = true;
+      strataService.groups.list().then(
+          function(groups) {
+            $scope.groups = groups;
+            $scope.groupsLoading = false;
+          }
+      );
 
       $scope.validateForm = function () {
         if ($scope.product == null || $scope.product == "" ||
