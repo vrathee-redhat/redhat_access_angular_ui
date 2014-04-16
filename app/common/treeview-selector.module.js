@@ -115,7 +115,7 @@ app.service('TreeViewSelectorUtils',
     };
 
     var hasSelectedLeaves = function (tree) {
-      
+
       for (var i = 0; i < tree.length; i++) {
         if (tree[i] !== undefined) {
           if (tree[i].children.length === 0) {
@@ -124,14 +124,28 @@ app.service('TreeViewSelectorUtils',
               return true;
             }
           } else {
-            if ( hasSelectedLeaves(tree[i].children)){
-              return true ;
+            if (hasSelectedLeaves(tree[i].children)) {
+              return true;
             }
           }
         }
       }
       return false;
-    }
+    };
+
+    var getSelectedNames = function (tree, container) {
+      for (var i = 0; i < tree.length; i++) {
+        if (tree[i] !== undefined) {
+          if (tree[i].children.length === 0) {
+            if (tree[i].checked === true) {
+              container.push(tree[i].fullPath);
+            }
+          } else {
+            getSelectedNames(tree[i].children, container);
+          }
+        }
+      }
+    };
 
     var service = {
       parseTreeList: function (tree, data) {
@@ -144,6 +158,15 @@ app.service('TreeViewSelectorUtils',
       },
       hasSelections: function (tree) {
         return hasSelectedLeaves(tree);
+      },
+      getSelectedLeaves: function (tree) {
+        if (tree === undefined) {
+          console.log("getSelectedLeaves: Invalid tree");
+          return [];
+        }
+        var container = [];
+        getSelectedNames(tree, container);
+        return container;
       }
     };
     return service;

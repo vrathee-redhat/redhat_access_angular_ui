@@ -1,6 +1,7 @@
 //See http://expressjs.com/3x/api.html
 express = require('express');
 var app = express();
+app.use(express.bodyParser());
 
 //Case attachment mocks
 app.get('/attachments', function (req, res) {
@@ -51,6 +52,7 @@ app.get('/attachments', function (req, res) {
 	// }])
 });
 app.post('/attachments', function (req, res) {
+	console.log(req.body);
 	res.json({
 		'foo': 'myMockJSON'
 	});

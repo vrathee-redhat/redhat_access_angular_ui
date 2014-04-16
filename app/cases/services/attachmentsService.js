@@ -23,7 +23,7 @@ angular.module('RedhatAccess.cases')
       this.updateBackEndAttachements = function (selected) {
         this.backendAttachments = selected;
       };
-      
+
       this.hasBackEndSelections = function () {
         return TreeViewSelectorUtils.hasSelections(this.backendAttachments);
       };
@@ -56,15 +56,20 @@ angular.module('RedhatAccess.cases')
 
 
       this.postBackEndAttachments = function (caseId) {
-        var data = this.backendAttachments;
+        var selectedFiles = TreeViewSelectorUtils.getSelectedLeaves(this.backendAttachments);
         securityService.getBasicAuthToken().then(
           function (auth) {
-            var jsonData = {
-              auth_token: auth,
-              attachments: data,
-              caseId: caseId
-            };
-            return $http.post('attachments', jsonData);
+            //we post each attachment separately
+            var promises = [];
+            for (var i = 0; i < selectedFiles.length; i++) {
+              var jsonData = {
+                authToken: auth,
+                attachment: selectedFiles[i],
+                caseNum: caseId
+              };
+              promises.push($http.post('attachments', jsonData));
+            }
+            return $q.all(promises);
           }
         )
       };
@@ -74,40 +79,42 @@ angular.module('RedhatAccess.cases')
         var hasServerAttachments = this.hasBackEndSelections;
         if (hasLocalAttachments || hasServerAttachments) {
           var promises = [];
+          var updatedAttachments = this.updatedAttachments;
           if (hasServerAttachments) {
             promises.push(this.postBackEndAttachments(caseId));
-          };
-          var updatedAttachments = this.updatedAttachments;
-          //find new attachments
-          for (var i in updatedAttachments) {
-            if (!updatedAttachments[i].hasOwnProperty('uuid')) {
-              var promise = strataService.cases.attachments.post(
-                updatedAttachments[i].file,
-                caseId
-              )
-              promise.then(function (uri) {
-                updatedAttachments[i].uri = uri;
-              });
-
-              promises.push(promise);
-            }
           }
-          //find removed attachments
-          jQuery.grep(this.originalAttachments, function (origAttachment) {
-            var attachment =
-              $filter('filter')(updatedAttachments, {
-                'uuid': origAttachment.uuid
-              });
-
-            if (attachment.length == 0) {
-              promises.push(
-                strataService.cases.attachments.delete(
-                  origAttachment.uuid,
+          if (hasLocalAttachments) {
+            //find new attachments
+            for (var i in updatedAttachments) {
+              if (!updatedAttachments[i].hasOwnProperty('uuid')) {
+                var promise = strataService.cases.attachments.post(
+                  updatedAttachments[i].file,
                   caseId
                 )
-              );
+                promise.then(function (uri) {
+                  updatedAttachments[i].uri = uri;
+                });
+
+                promises.push(promise);
+              }
             }
-          });
+            //find removed attachments
+            jQuery.grep(this.originalAttachments, function (origAttachment) {
+              var attachment =
+                $filter('filter')(updatedAttachments, {
+                  'uuid': origAttachment.uuid
+                });
+
+              if (attachment.length == 0) {
+                promises.push(
+                  strataService.cases.attachments.delete(
+                    origAttachment.uuid,
+                    caseId
+                  )
+                );
+              }
+            });
+          }
 
           var parentPromise = $q.all(promises);
           parentPromise.then(

@@ -93,26 +93,11 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.ro
 
       };
 
-      this.getAuthObject = function (base64_token) {
-        var decoded_token = atob(base64_token);
-        var data = decoded_token.split(":", 2);
-        if (data.length === 2) {
-          return {
-            username: data[0],
-            password: data[1]
-          };
-        } else {
-          console.log("Invalid login credentials");
-          return {};
-        }
-      };
-
-
       this.getBasicAuthToken = function () {
         var defer = $q.defer();
         var token = localStorage.getItem("rhAuthToken");
         if (token !== undefined && token !== '') {
-          defer.resolve(this.getAuthObject(token));
+          defer.resolve(token);
           return defer.promise;
         } else {
           var that = this;
@@ -122,11 +107,12 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.ro
                 that.isLoggedIn = true;
                 that.loggedInUser = authedUser.name;
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                defer.resolve(that.getAuthObject(localStorage.getItem("rhAuthToken")));
+                defer.resolve(localStorage.getItem("rhAuthToken"));
               }
             },
             function (error) {
-              defer.resolve({});
+              console.log("Unable to get user credentials");
+              defer.resolve("");
             });
           return defer.promise;
         }
