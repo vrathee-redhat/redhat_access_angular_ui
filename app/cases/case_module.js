@@ -1,4 +1,4 @@
-angular.module('RedhatAccessCases', [
+angular.module('RedhatAccess.cases', [
   'ui.router',
   'ui.bootstrap',
   'ngTable',
@@ -37,18 +37,7 @@ angular.module('RedhatAccessCases', [
     $stateProvider.state('new', {
       url: '/case/new',
       templateUrl: 'cases/views/new.html',
-      controller: 'New',
-      resolve: {
-        productsJSON: function(strataService) {
-          return strataService.products.list();
-        },
-        severityJSON: function (strataService) {
-          return strataService.values.cases.severity();
-        },
-        groupsJSON: function(strataService) {
-          return strataService.groups.list();
-        }
-      }
+      controller: 'New'
     });
 
     $stateProvider.state('list', {

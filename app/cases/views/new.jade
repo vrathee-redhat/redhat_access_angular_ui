@@ -10,7 +10,14 @@ div.container-offset
               div.col-md-4
                 div Product:
               div.col-md-8
+                progressbar.progress-striped.active(
+                  ng-hide='!productsLoading',
+                  max='1',
+                  value='1',
+                  animate='false',
+                  style='height: 34px; margin-bottom: 0px;')
                 select.form-control(
+                  ng-hide='productsLoading',
                   style='width: 100%;',
                   ng-model='product',
                   ng-change='getProductVersions(product)',
@@ -21,7 +28,12 @@ div.container-offset
                 div Product Version:
               div.col-md-8
                 div
-                  progressbar.progress-striped.active(ng-hide='!versionLoading', max='1', value='1', style='height: 34px; margin-bottom: 0px;')
+                  progressbar.progress-striped.active(
+                    ng-hide='!versionLoading',
+                    max='1',
+                    value='1',
+                    animate='false',
+                    style='height: 34px; margin-bottom: 0px;')
                   select.form-control(
                     style='width: 100%;',
                     ng-model='version',
@@ -69,7 +81,14 @@ div.container-offset
             div.row.create-field
               div.col-md-4 Severity:
               div.col-md-8
+                progressbar.progress-striped.active(
+                  ng-hide='!severitiesLoading',
+                  max='1',
+                  value='1',
+                  animate='false',
+                  style='height: 34px; margin-bottom: 0px;')
                 select.form-control(
+                  ng-hide='severitiesLoading',
                   style='width: 100%;',
                   ng-model='severity',
                   ng-change='validatePage2()',
@@ -77,7 +96,14 @@ div.container-offset
             div.row.create-field
               div.col-md-4 Case Group:
               div.col-md-8
+                progressbar.progress-striped.active(
+                  ng-hide='!groupsLoading',
+                  max='1',
+                  value='1',
+                  animate='false',
+                  style='height: 34px; margin-bottom: 0px;')
                 select.form-control(
+                  ng-hide='groupsLoading',
                   style='width: 100%;',
                   ng-model='caseGroup',
                   ng-change='validatePage2()',
