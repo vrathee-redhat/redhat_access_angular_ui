@@ -7,7 +7,7 @@ div.container-fluid.side-padding
         rows='5',
         ng-model='newComment',
         style='max-width: 100%')
-  div.row.create-field.bottom-border(style='margin-left: 0px; margin-right: 0px;')
+  div.row.create-field(style='margin-left: 0px; margin-right: 0px;')
     div.col-xs-12.col-no-padding
       div(style='float: right;')
         div(ng-hide='!addingComment') Adding comment...
@@ -16,11 +16,27 @@ div.container-fluid.side-padding
           ng-disabled='false',
           ng-click='addComment()',
           style='float: right;') Add Comment
-  div(ng-repeat='comment in comments')
-    div.row(style='padding-bottom: 10px;')
-      div.col-md-2
-        div.bold {{comment.created_by}}
-        div {{comment.created_date | date:'mediumDate'}}
-        div {{comment.created_date | date:'mediumTime'}}
-      div.col-md-10
-        pre {{comment.text}}
+  div(ng-hide='comments.length <= 0 || comments === undefined', style='border-top: 1px solid #dddddd;')
+    div.row
+      div.col-xs-12
+        pagination.pagination-sm(
+          style='float: right;',
+          boundary-links='true',
+          total-items='comments.length',
+          on-select-page='selectPage(page)',
+          items-per-page='itemsPerPage',
+          page='currentPage',
+          rotate='false',
+          max-size='maxPagerSize',
+          previous-text='<',
+          next-text='>',
+          first-text='<<',
+          last-text='>>')
+    div(ng-repeat='comment in commentsOnScreen')
+      div.row(style='padding-bottom: 10px;')
+        div.col-md-2
+          div.bold {{comment.created_by}}
+          div {{comment.created_date | date:'mediumDate'}}
+          div {{comment.created_date | date:'mediumTime'}}
+        div.col-md-10
+          pre {{comment.text}}

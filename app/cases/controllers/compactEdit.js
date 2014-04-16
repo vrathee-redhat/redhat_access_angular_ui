@@ -41,14 +41,6 @@ angular.module('RedhatAccessCases')
         }
     );
 
-    strataService.cases.comments.get($stateParams.id).then(
-        function(commentsJSON) {
-          $scope.comments = commentsJSON;
-        },
-        function(error) {
-          console.log(error);
-        }
-    );
 
   }
 ]);

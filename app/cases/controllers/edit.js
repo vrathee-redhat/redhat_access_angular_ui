@@ -20,6 +20,7 @@ angular.module('RedhatAccessCases')
 
     $scope.AttachmentsService = AttachmentsService;
     $scope.CaseService = CaseService;
+    CaseService.clearCase();
 
     $scope.caseLoading = true;
 
@@ -46,9 +47,11 @@ angular.module('RedhatAccessCases')
         }
     );
 
+    $scope.attachmentsLoading = true;
     strataService.cases.attachments.list($stateParams.id).then(
         function(attachmentsJSON) {
           AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+          $scope.attachmentsLoading = false;
         },
         function(error) {
           console.log(error);

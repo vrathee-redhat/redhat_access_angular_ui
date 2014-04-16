@@ -18,9 +18,6 @@ angular.module('RedhatAccessCases')
 
       $scope.recommendationsOnScreen =
         $scope.recommendations.slice(start, end);
-
-      console.log($scope.recommendations);
-      console.log($scope.recommendationsOnScreen);
     };
 
     if ($scope.recommendations != null) {

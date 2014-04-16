@@ -3,14 +3,18 @@ div#redhat-access-case.container-offset
   rha-page-header
   div.container-fluid.side-padding
     div.row
-      div.col-xs-12
+      div.col-xs-12(ng-hide='caseLoading')
         rha-case-details(compact='false')
+      div.col-xs-12(ng-show='caseLoading')
+        div Loading Details...
     div.row
-      div.col-xs-12
+      div.col-xs-12(ng-hide='caseLoading')
         rha-case-description
     div.row
-      div.col-xs-12
+      div.col-xs-12(ng-hide='attachmentsLoading')
         rha-case-attachments
+      div.col-xs-12(ng-show='attachmentsLoading')
+        div Loading Attachments...
     div.row(ng-controller='Recommendations')
       div.col-xs-12
         h4.section-header Recommendations
@@ -36,4 +40,4 @@ div#redhat-access-case.container-offset
                 last-text='>>')
     div.row
       div.col-xs-12
-        rha-case-comments(comments='comments', caseid='caseJSON.case_number')
+        rha-case-comments
