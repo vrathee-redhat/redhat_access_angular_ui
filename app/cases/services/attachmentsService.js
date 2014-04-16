@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('RedhatAccessCases')
+angular.module('RedhatAccess.cases')
   .service('AttachmentsService', [
     '$filter',
     '$q',

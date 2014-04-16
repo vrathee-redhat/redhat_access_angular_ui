@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('RedhatAccessCases')
+angular.module('RedhatAccess.cases')
 .controller('CommentsSection', [
   '$scope',
   'CaseService',
@@ -15,7 +15,10 @@ angular.module('RedhatAccessCases')
     strataService.cases.comments.get($stateParams.id).then(
         function(commentsJSON) {
           $scope.comments = commentsJSON;
-          $scope.selectPage(1);
+
+          if (commentsJSON != null) {
+            $scope.selectPage(1);
+          }
         },
         function(error) {
           console.log(error);

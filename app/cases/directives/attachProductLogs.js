@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('RedhatAccessCases')
+angular.module('RedhatAccess.cases')
 .directive('rhaAttachProductLogs', function () {
   return {
     templateUrl: 'cases/views/attachProductLogs.html',

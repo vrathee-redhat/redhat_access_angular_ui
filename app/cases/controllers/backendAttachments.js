@@ -1,5 +1,5 @@
 'use strict';
-angular.module('RedhatAccessCases')
+angular.module('RedhatAccess.cases')
   .controller('BackEndAttachmentsCtrl', ['$scope',
     '$http',
     'AttachmentsService',

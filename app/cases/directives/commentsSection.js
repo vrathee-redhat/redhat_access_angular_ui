@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('RedhatAccessCases')
+angular.module('RedhatAccess.cases')
 .directive('rhaCaseComments', function () {
 return {
   templateUrl: 'cases/views/commentsSection.html',
