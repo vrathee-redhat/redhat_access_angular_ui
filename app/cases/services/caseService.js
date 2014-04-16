@@ -33,6 +33,11 @@ angular.module('RedhatAccessCases')
 
     this.clearCase = function() {
       this.case = {};
+      this.versions = [];
+      this.products = [];
+      this.statuses = [];
+      this.severities = [];
+      this.groups = [];
       this.account = {};
     };
 
