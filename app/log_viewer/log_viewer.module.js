@@ -16,6 +16,7 @@ angular.module('RedhatAccess.logViewer',
 	var selectedFile = '';
 	var selectedHost = '';
 	var file = '';
+	var retrieveFileButtonIsDisabled = {check : true};
 	return {
 		getFileList : function() {
 			return fileList;
@@ -37,6 +38,14 @@ angular.module('RedhatAccess.logViewer',
 
 		setFile : function(file) {
 			this.file = file;
+		}, 
+
+		setRetrieveFileButtonIsDisabled : function(isDisabled){
+			retrieveFileButtonIsDisabled.check = isDisabled;
+		},
+
+		getRetrieveFileButtonIsDisabled : function() {
+			return retrieveFileButtonIsDisabled;
 		}
 	};
 })
@@ -58,9 +67,22 @@ angular.module('RedhatAccess.logViewer',
 .controller('fileController', function($scope, files) {
 	$scope.roleList = '';
 	$scope.updateSelected = function() {
+		$scope.sleep(1,$scope.checkTreeForChanges);
+	};
+	$scope.sleep = function(millis, callback) {
+		setTimeout(function()
+    		{ callback(); }
+		, millis);
+	};
+	$scope.checkTreeForChanges = function(){
 		if ($scope.mytree.currentNode != null
 			&& $scope.mytree.currentNode.fullPath != null) {
 			files.setSelectedFile($scope.mytree.currentNode.fullPath);
+			files.setRetrieveFileButtonIsDisabled(false);
+			$scope.$apply();
+		} else {
+			files.setRetrieveFileButtonIsDisabled(true);
+			$scope.$apply();
 		}
 	};
 	$scope.$watch(function() {
@@ -115,6 +137,8 @@ angular.module('RedhatAccess.logViewer',
 })
 .controller('selectFileButton', function($scope, $http, $location,
 	files) {
+	$scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
+
 	$scope.fileSelected = function() {
 		var sessionId = $location.search().sessionId;
 		var userId = $location.search().userId;
@@ -226,13 +250,13 @@ angular.module('RedhatAccess.logViewer',
 				$scope.isDisabled = true;
 			}
 			$scope.$apply();
-		}
+		};
 
 		$scope.sleep = function(millis, callback) {
-    			setTimeout(function()
-            		{ callback(); }
-    			, millis);
-			}
+			setTimeout(function()
+        		{ callback(); }
+			, millis);
+		};
 		}])
 
 .controller('AccordionDemoCtrl', function($scope, accordian) {
