@@ -39,7 +39,7 @@ angular.module('RedhatAccess.search', [
     'SearchResultsService', 'SEARCH_PARAMS',
     function ($scope, SearchResultsService) {
       $scope.results = SearchResultsService.results;
-      $scope.selectedSolution = SearchResultsService.currentSelection;
+      $scope.selectedSolution = SearchResultsService.currentSelection.data;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
 
       clearResults = function () {
@@ -49,7 +49,7 @@ angular.module('RedhatAccess.search', [
 
       $scope.solutionSelected = function (index) {
         var response = $scope.results[index];
-        SearchResultsService.setSelected(response);
+        SearchResultsService.setSelected(response,index);
 
       };
 
@@ -159,7 +159,7 @@ angular.module('RedhatAccess.search', [
     function ($q,$rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS) {
       var service = {
         results: [],
-        currentSelection: {},
+        currentSelection: {data:{}, index:-1},
         searchInProgress: {
           value: false
         },
@@ -170,8 +170,9 @@ angular.module('RedhatAccess.search', [
           this.results.length = 0;
           this.setSelected({});
         },
-        setSelected: function (selection) {
-          this.currentSelection = selection;
+        setSelected: function (selection,index) {
+          this.currentSelection.data = selection;
+          this.currentSelection.index = index;
         },
         search: function (searchString, limit) {
           var that = this;

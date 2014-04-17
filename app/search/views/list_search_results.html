@@ -7,10 +7,10 @@
             </h4>
         </div>
         <div id='solutions' class="list-group">
-            <a href="" ng-click="solutionSelected($index)" class='list-group-item' ng-class="{'active': selectedSolution.title===result.title}" ng-repeat="result in results" style="word-wrap: break-word;"> {{ result.title }}</a>
+            <a href="" ng-click="solutionSelected($index)" class='list-group-item' ng-class="{'active': selectedSolution.index===$index}" ng-repeat="result in results" style="word-wrap: break-word;"> {{ result.title }}</a>
         </div>
     </div>
 </div>
 <div class="col-sm-8">
-    <x-rha-result-detail-display result='selectedSolution' />
+    <x-rha-result-detail-display result='selectedSolution.data' />
 </div>

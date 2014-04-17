@@ -1,0 +1,9 @@
+.rha-search-spinner {
+    padding: 1px 1px 1px 1px;
+    background-image: url("../img/spinner.gif");
+    background-repeat: no-repeat;
+    display:inline-block;
+    width:32px; 
+    height:32px;
+    margin-bottom: 5px;
+}

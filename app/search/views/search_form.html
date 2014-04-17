@@ -5,8 +5,8 @@
             <span class="input-group-btn">
                 <button ng-disabled="searchInProgress.value === true" class="btn btn-default btn-primary" type='submit' ng-click="search(searchStr)">Search</button>
             </span>
-            <span ng-show="searchInProgress.value">
-                <img src="images/spinner.gif" alt="Searching" >
+            <span ng-show="searchInProgress.value" class="rha-search-spinner">
+                &nbsp;
             </span>
         </div>
     </form>
