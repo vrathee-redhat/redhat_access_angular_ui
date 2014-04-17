@@ -56,7 +56,7 @@ app.directive('rhaChoice', function ($compile) {
   };
 });
 
-app.service('TreeViewSelectorUtils',
+app.factory('TreeViewSelectorUtils',
   function () {
     var parseTreeNode = function (splitPath, tree, fullFilePath) {
       if (splitPath[0] != null) {

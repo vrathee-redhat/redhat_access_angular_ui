@@ -72,35 +72,35 @@ angular.module('RedhatAccess.search', [
 
 		}
 	])
-	.directive('accordionSearchResults', function () {
+	.directive('rhaAccordionSearchResults', function () {
 		return {
 			restrict: 'AE',
 			scope: false,
 			templateUrl: 'search/views/accordion_search_results.html'
 		};
 	})
-	.directive('listSearchResults', function () {
+	.directive('rhaListSearchResults', function () {
 		return {
 			restrict: 'AE',
 			scope: false,
 			templateUrl: 'search/views/list_search_results.html'
 		};
 	})
-	.directive('searchForm', function () {
+	.directive('rhaSearchForm', function () {
 		return {
 			restrict: 'AE',
 			scope: false,
 			templateUrl: 'search/views/search_form.html'
 		};
 	})
-	.directive('standardSearch', function () {
+	.directive('rhaStandardSearch', function () {
 		return {
 			restrict: 'AE',
 			scope: false,
 			templateUrl: 'search/views/standard_search.html'
 		};
 	})
-	.directive('resultDetailDisplay', ['RESOURCE_TYPES',
+	.directive('rhaResultDetailDisplay', ['RESOURCE_TYPES',
 		function (RESOURCE_TYPES) {
 			return {
 				restrict: 'AE',

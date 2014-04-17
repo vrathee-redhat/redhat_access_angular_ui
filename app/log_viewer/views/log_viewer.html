@@ -1,5 +1,5 @@
 <div id="log_view_main" style="max-height: 500px;" >
-	<div x-login-status style="padding: 10px;"></div>
+	<div x-rha-login-status style="padding: 10px;"></div>
 	<div class="bottom-border" style="padding-top: 10px;"></div>
 	<div class="row-fluid">
 		<div class="nav-side-bar col-xs-3" ng-class="{ showMe: sidePaneToggle }" fill-down ng-style="{height: windowHeight }">
@@ -29,7 +29,7 @@
 		<div class=col-fluid> 
 			<div class="col-xs-6 pull-right solutions" fill-down ng-style="{height: windowHeight }" ng-class="{ showMe: solutionsToggle }">
 				<div id="resizeable-solution-view" fill-down class="resizeable-solution-view" ng-class="{ showMe: solutionsToggle }" ng-style="{height: windowHeight }" 
-					x-accordion-search-results='' ng-controller='SearchController' >
+					x-rha-accordion-search-results='' ng-controller='SearchController' >
 				</div>
 				<a ng-click="solutionsToggle = !solutionsToggle"><span ng-class="{ showMe: solutionsToggle }"
 							class="glyphicon glyphicon-chevron-left right-side-glyphicon"></span></a>

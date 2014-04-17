@@ -7,7 +7,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.ro
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized'
   })
-  .directive('loginStatus', function () {
+  .directive('rhaLoginStatus', function () {
     return {
       restrict: 'AE',
       scope: false,
