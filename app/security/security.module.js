@@ -106,7 +106,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.ro
               if (authedUser) {
                 that.isLoggedIn = true;
                 that.loggedInUser = authedUser.name;
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 defer.resolve(localStorage.getItem("rhAuthToken"));
               }
             },
@@ -147,11 +146,17 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.ro
                 strata.setCredentials($scope.user.user, $scope.user.password,
                   function (passed, authedUser) {
                     if (passed) {
+                      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                       $scope.user.password = '';
                       $scope.authError = null;
-                      $modalInstance.close(authedUser);
+                      try {
+                        $modalInstance.close(authedUser);
+                      } catch (err) {
+                        console.log("Error closing login window.");
+                      }
                     } else {
                       // alert("Login failed!");
+                      $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
                       $scope.$apply(function () {
                         $scope.authError = "Login Failed!";
                       });

@@ -139,11 +139,6 @@ div.container-offset
         div.container-fluid(style='padding-right: 15px;')
           div.row
             div.col-xs-12
-              div.bottom-border(style='padding-bottom: 0')
-                h4(style='padding-left: 10px; display: inline-block;') Recommendations
-                span(ng-hide='!loadingRecommendations', style='float: right; display: inline-block;') Loading...
-          div.row
-            div.col-xs-12
               div(
                 x-rha-accordion-search-results,
                 ng-controller='SearchController',

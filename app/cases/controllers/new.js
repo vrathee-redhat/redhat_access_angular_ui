@@ -74,9 +74,7 @@ angular.module('RedhatAccess.cases')
           description: $scope.description
         };
 
-        if (!angular.equals($scope.currentData, newData) && !$scope.loadingRecommendations) {
-          $scope.loadingRecommendations = true;
-
+        if (!angular.equals($scope.currentData, newData) && !SearchResultsService.searchInProgress.value) {
           var data = {
             product: $scope.product,
             version: $scope.version,
@@ -85,49 +83,7 @@ angular.module('RedhatAccess.cases')
           };
           $scope.setCurrentData();
 
-          var deferreds = [];
-
-          strata.problems(
-            data,
-            function (solutions) {
-              //retrieve details for each solution
-              solutions.forEach(function (solution) {
-                var deferred = $q.defer();
-                deferreds.push(deferred.promise);
-
-                strata.solutions.get(
-                  solution.uri,
-                  function (solution) {
-                    deferred.resolve(solution);
-                  },
-                  function (error) {
-                    deferred.resolve();
-                  });
-              });
-
-              $q.all(deferreds).then(
-                function (solutions) {
-                  SearchResultsService.clear();
-
-                  solutions.forEach(function (solution) {
-                    if (solution !== undefined) {
-                      solution.resource_type = "Solution";
-                      SearchResultsService.add(solution);
-                    }
-                  });
-                  $scope.loadingRecommendations = false;
-                },
-                function (error) {
-                  $scope.loadingRecommendations = false;
-                }
-              );
-            },
-            function (error) {
-              $scope.loadingRecommendations = false;
-              console.log(error);
-            },
-            5
-          );
+          SearchResultsService.diagnose(data,5);
         }
       };
 

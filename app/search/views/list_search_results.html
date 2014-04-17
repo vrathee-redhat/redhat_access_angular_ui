@@ -1,19 +1,16 @@
-<div class="col-sm-4">  
-  <div class="panel panel-default" ng-show='results.length > 0'>
-    <!--pagination on-select-page="pageChanged(page)" total-items="totalItems" page="currentPage" max-size="maxSize"></pagination-->
-    <div class="panel-heading">
-      <h3 class="panel-title">
-       Recommendations
-     </h3>
-   </div>
-   <div id='solutions' class="list-group">
-      <a href="" ng-click="solutionSelected($index)" class='list-group-item'  
-      ng-class="{'active': selectedSolution.title===result.title}"
-      ng-repeat="result in results" style="word-wrap: break-word;"> {{ result.title }}</a>
-  </div>
-</div>
+<div class="col-sm-4">
+    <div class="panel panel-default" ng-show='results.length > 0'>
+        <!--pagination on-select-page="pageChanged(page)" total-items="totalItems" page="currentPage" max-size="maxSize"></pagination-->
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                Recommendations
+            </h4>
+        </div>
+        <div id='solutions' class="list-group">
+            <a href="" ng-click="solutionSelected($index)" class='list-group-item' ng-class="{'active': selectedSolution.title===result.title}" ng-repeat="result in results" style="word-wrap: break-word;"> {{ result.title }}</a>
+        </div>
+    </div>
 </div>
 <div class="col-sm-8">
-  <x-rha-result-detail-display result='selectedSolution'/>
+    <x-rha-result-detail-display result='selectedSolution' />
 </div>
-
