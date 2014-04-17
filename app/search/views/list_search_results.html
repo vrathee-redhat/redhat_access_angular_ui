@@ -9,7 +9,7 @@
    <div id='solutions' class="list-group">
       <a href="" ng-click="solutionSelected($index)" class='list-group-item'  
       ng-class="{'active': selectedSolution.title===result.title}"
-      ng-repeat="result in results"> {{ result.title }}</a>
+      ng-repeat="result in results" style="word-wrap: break-word;"> {{ result.title }}</a>
   </div>
 </div>
 </div>
