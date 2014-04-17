@@ -6,10 +6,10 @@
        Recommendations
      </h3>
    </div>
-   <div id='solutions' class="panel-body list-group">
-    <div class='list-group-item '  ng-repeat="result in results">
-      <a href="" ng-click="solutionSelected($index)"> {{ result.title }}</a>
-    </div>
+   <div id='solutions' class="list-group">
+      <a href="" ng-click="solutionSelected($index)" class='list-group-item'  
+      ng-class="{'active': selectedSolution.title===result.title}"
+      ng-repeat="result in results"> {{ result.title }}</a>
   </div>
 </div>
 </div>
