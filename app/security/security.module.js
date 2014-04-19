@@ -45,7 +45,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.ro
           console.log("Authorized!");
           $scope.$apply(function () {
             setLoginStatus(true, authedUser.name);
-            //$scope.loggedInUser = securityService.getLoggedInUserName();
           });
         } else {
           $scope.$apply(function () {
@@ -142,7 +141,12 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.ro
               };
               $scope.modalOptions = tempModalOptions;
               $scope.modalOptions.ok = function (result) {
-                //console.log($scope.user);
+                //Hack below is needed to handle autofill issues
+                //@see https://github.com/angular/angular.js/issues/1460
+                //BEGIN HACK
+                $scope.user.user = $("#rha-login-user-id").val();
+                $scope.user.password = $("#rha-login-password").val();
+                //END HACK
                 strata.setCredentials($scope.user.user, $scope.user.password,
                   function (passed, authedUser) {
                     if (passed) {
@@ -151,9 +155,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.ro
                       $scope.authError = null;
                       try {
                         $modalInstance.close(authedUser);
-                      } catch (err) {
-                        console.log("Error closing login window.");
-                      }
+                      } catch (err) {}
                     } else {
                       // alert("Login failed!");
                       $rootScope.$broadcast(AUTH_EVENTS.loginFailed);

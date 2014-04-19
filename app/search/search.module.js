@@ -39,8 +39,9 @@ angular.module('RedhatAccess.search', [
     'SearchResultsService', 'SEARCH_PARAMS',
     function ($scope, SearchResultsService) {
       $scope.results = SearchResultsService.results;
-      $scope.selectedSolution = SearchResultsService.currentSelection.data;
+      $scope.selectedSolution = SearchResultsService.currentSelection;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
+      $scope.searchResultInfo = SearchResultsService.searchResultInfo;
 
       clearResults = function () {
         SearchResultsService.clear();
@@ -49,7 +50,7 @@ angular.module('RedhatAccess.search', [
 
       $scope.solutionSelected = function (index) {
         var response = $scope.results[index];
-        SearchResultsService.setSelected(response,index);
+        SearchResultsService.setSelected(response, index);
 
       };
 
@@ -70,7 +71,6 @@ angular.module('RedhatAccess.search', [
           $scope.selectedSolution = newVal;
         }
       );
-
 
     }
   ])
@@ -154,23 +154,31 @@ angular.module('RedhatAccess.search', [
       };
     }
   ])
-  .factory('SearchResultsService', ['$q','$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS',
+  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS',
 
-    function ($q,$rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS) {
+    function ($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS) {
       var service = {
         results: [],
-        currentSelection: {data:{}, index:-1},
+        currentSelection: {
+          data: {},
+          index: -1
+        },
         searchInProgress: {
           value: false
+        },
+
+        searchResultInfo: {
+          msg: null
         },
         add: function (result) {
           this.results.push(result);
         },
         clear: function () {
           this.results.length = 0;
-          this.setSelected({});
+          this.setSelected({}, -1);
+          this.searchResultInfo.msg = null;
         },
-        setSelected: function (selection,index) {
+        setSelected: function (selection, index) {
           this.currentSelection.data = selection;
           this.currentSelection.index = index;
         },
@@ -215,8 +223,15 @@ angular.module('RedhatAccess.search', [
               );
             },
             function (error) {
-              that.searchInProgress.value = false;
               console.log(error);
+              $rootScope.$apply(function () {
+                that.searchInProgress.value = false;
+                if (error && error.statusText) {
+                  that.searchResultInfo.msg = error.statusText;
+                } else {
+                  that.searchResultInfo.msg = "Error retrieving solutions";
+                }
+              });
             },
             limit,
             false
@@ -301,7 +316,14 @@ angular.module('RedhatAccess.search', [
               );
             },
             function (error) {
-              that.searchInProgress.value = false;
+              $rootScope.$apply(function () {
+                that.searchInProgress.value = false;
+                if (error && error.statusText) {
+                  that.searchResultInfo.msg = error.statusText;
+                } else {
+                  that.searchResultInfo.msg = "Error retrieving solutions";
+                }
+              });
               console.log(error);
             },
             limit

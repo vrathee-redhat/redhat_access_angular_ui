@@ -1,13 +1,19 @@
 <div class='container col-sm-4 pull-left'>
     <form role="form" id="rh-search">
-        <div class="input-group">
-            <input type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="Search Articles and Solutions">
-            <span class="input-group-btn">
-                <button ng-disabled="searchInProgress.value === true" class="btn btn-default btn-primary" type='submit' ng-click="search(searchStr)">Search</button>
-            </span>
-            <span ng-show="searchInProgress.value" class="rha-search-spinner">
+        <div ng-class="{'col-sm-8': searchInProgress.value}">
+            <div class="input-group">
+                <input type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="Search Articles and Solutions">
+                <span class="input-group-btn">
+                    <button ng-disabled="searchInProgress.value === true" class="btn btn-default btn-primary" type='submit' ng-click="search(searchStr)">Search</button>
+                </span>
+
+            </div>
+        </div>
+        <div class="col-sm-4 " ng-show="searchInProgress.value">
+            <span class="rha-search-spinner">
                 &nbsp;
             </span>
         </div>
+
     </form>
 </div>
