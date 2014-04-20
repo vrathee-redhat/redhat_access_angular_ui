@@ -1,4 +1,4 @@
-angular.module('RedhatAccess.security', ['ui.bootstrap', 'templates.app', 'ui.router'])
+angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template', 'ui.router'])
   .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',

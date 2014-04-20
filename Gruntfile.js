@@ -20,16 +20,15 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-newer');
+  grunt.loadNpmTasks("grunt-image-embed");
 
   // Define the configuration for all the tasks
   grunt.initConfig({
     distdir: 'dist',
 
     pkg: grunt.file.readJSON('package.json'),
-    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
-      ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
-      ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
+    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' + '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' + ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
 
     // Project settings
     yeoman: {
@@ -59,15 +58,15 @@ module.exports = function (grunt) {
         files: ['Gruntfile.js']
       },
       jade: {
-        files: ['<%= yeoman.app %>/{,*/}*.jade'],
-        tasks: ['jade']
+        files: ['<%= yeoman.app %>/**/*.jade'],
+        tasks: ['newer:jade']
       },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '.tmp/{,*/}*.html',
+          '<%= src.tpl.app %>',
           '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
@@ -248,13 +247,13 @@ module.exports = function (grunt) {
     jade: {
       dist: {
         options: {
-          pretty: true
+          pretty: false
         },
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          dest: '.tmp',
-          src: '{,*/}*.jade',
+          dest: '<%= yeoman.app %>',
+          src: '**/*.jade',
           ext: '.html'
         }]
       }
@@ -306,9 +305,17 @@ module.exports = function (grunt) {
       },
       styles: {
         expand: true,
-        cwd: '<%= yeoman.app %>/styles',
+        filter: 'isFile',
+        flatten: true,
         dest: '.tmp/styles/',
-        src: '{,*/}*.css'
+        src: '<%= src.css.app %>'
+      },
+      images: {
+        expand: true,
+        filter: 'isFile',
+        flatten: true,
+        dest: '<%= yeoman.dist %>/img/',
+        src: '<%= src.img %>'
       }
     },
 
@@ -327,19 +334,29 @@ module.exports = function (grunt) {
       ]
     },
 
+    imageEmbed: {
+      dist: {
+        src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>.css'],
+        dest: "<%= yeoman.dist %>/styles/<%= pkg.name %>.embedded-images.css",
+        options: {
+          deleteAfterEncoding: false
+        }
+      }
+    },
+
+
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css',
-    //         '<%= yeoman.app %>/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
+    cssmin: {
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/styles/<%= pkg.name %>.css': [
+            '<%= src.css.app %>'
+          ]
+        }
+      }
+    },
     // uglify: {
     //   dist: {
     //     files: {
@@ -363,10 +380,6 @@ module.exports = function (grunt) {
         options: {
           process: true
         }
-      },
-      yeoman: {
-        src: ['<%= src.js %>', '<%= src.jsTpl %>'],
-        dest: 'app/<%= pkg.name %>.js'
       }
     },
     src: {
@@ -380,7 +393,15 @@ module.exports = function (grunt) {
           'app/cases/**/*.html', 'app/log_viewer/**/*.html'
         ]
         //common: ['src/common/**/*.tpl.html']
-      }
+      },
+      css: {
+        app: ['app/common/**/*.css', 'app/security/**/*.css', 'app/search/**/*.css',
+          'app/cases/**/*.css', 'app/log_viewer/**/*.css'
+        ]
+      },
+      img: ['<%= yeoman.app %>/**/img/*']
+
+
       //less: ['src/less/stylesheet.less'], // recess:build doesn't accept ** in its file patterns
       //lessWatch: ['src/less/**/*.less']
     },
@@ -391,8 +412,8 @@ module.exports = function (grunt) {
           base: 'app'
         },
         src: ['<%= src.tpl.app %>'],
-        dest: '<%= distdir %>/templates/app.js',
-        module: 'templates.app'
+        dest: '<%= distdir %>/templates/RedhatAccess.template.js',
+        module: 'RedhatAccess.template'
       }
     },
 
@@ -414,7 +435,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'bower-install',
-      'jade',
+      'newer:jade',
       'build',
       'concurrent:server',
       'autoprefixer',
@@ -439,16 +460,17 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'bower-install',
-    'jade',
+    'newer:jade',
     'useminPrepare',
     'html2js',
     'concurrent:dist',
     'autoprefixer',
     'concat',
     'ngmin',
-    'copy:dist',
+    'copy:images',
     //'cdnify',
-    //'cssmin',
+    'cssmin',
+    'imageEmbed',
     //'uglify',
     //'rev',
     //'usemin',
