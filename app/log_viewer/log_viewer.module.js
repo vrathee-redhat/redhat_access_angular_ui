@@ -166,6 +166,7 @@ angular.module('RedhatAccess.logViewer',
 			content : "Sample Log Text"
 		} ];
 		$scope.isDisabled = true;
+		$scope.textSelected = false;
 		$scope.$watch(function() {
 			return files.file;
 		}, function() {
@@ -191,6 +192,15 @@ angular.module('RedhatAccess.logViewer',
 				$scope.tabs.push(file);
 			}
 		});
+		$scope.$watch(function() {
+			return SearchResultsService.searchInProgress.value;
+		}, function() {
+			if (SearchResultsService.searchInProgress.value == true) {
+				$scope.isDisabled = true;
+			} else if(SearchResultsService.searchInProgress.value == false && $scope.textSelected == true){
+				$scope.isDisabled = false;
+			}
+		});
 		$scope.removeTab = function(index) {
 			$scope.tabs.splice(index, 1);
 		};
@@ -200,7 +210,7 @@ angular.module('RedhatAccess.logViewer',
 		// ps-open attribute
 
 		$scope.diagnoseText = function() {
-			$scope.isDisabled = true;
+			//$scope.isDisabled = true;
 			this.tt_isOpen = false;
 			if (!$scope.$parent.solutionsToggle) {
 				$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
@@ -210,7 +220,7 @@ angular.module('RedhatAccess.logViewer',
 				$scope.checked = !$scope.checked;
 				SearchResultsService.diagnose(text, 5);
 			}
-			$scope.sleep(5000, $scope.checkTextSelection);
+			//$scope.sleep(5000, $scope.checkTextSelection);
 		};
 
 		$scope.refreshTab = function(index){
@@ -239,8 +249,14 @@ angular.module('RedhatAccess.logViewer',
 		};
 		$scope.checkTextSelection = function(){
 			if(strata.utils.getSelectedText()){
-				$scope.isDisabled = false;
+				$scope.textSelected = true;
+				if(SearchResultsService.searchInProgress.value){
+					$scope.isDisabled = true;
+				} else {
+					$scope.isDisabled = false;
+				}
 			} else{
+				$scope.textSelected = false;
 				$scope.isDisabled = true;
 			}
 			$scope.$apply();
