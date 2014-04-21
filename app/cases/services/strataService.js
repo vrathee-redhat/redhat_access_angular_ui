@@ -3,6 +3,44 @@
 angular.module('RedhatAccess.cases')
 .factory('strataService', ['$q', function ($q) {
   return {
+    problems: function(data, max) {
+      var deferred = $q.defer();
+
+      strata.problems(
+          data,
+          function(solutions) {
+            deferred.resolve(solutions);
+          },
+          function(error) {
+            deferred.reject(error);
+          },
+          max
+      );
+
+      return deferred.promise;
+    },
+    solutions: {
+      get: function(uri) {
+        var deferred = $q.defer();
+
+        strata.solutions.get(
+            uri,
+            function(solution) {
+              deferred.resolve(solution);
+            },
+            function() {
+              //workaround for 502 from strata
+              //If the deferred is rejected then the parent $q.all()
+              //based deferred will fail. Since we don't need every
+              //recommendation just send back undefined
+              //and the caller can ignore the missing solution details.
+              deferred.resolve();
+            }
+        );
+
+        return deferred.promise;
+      }
+    },
     products: {
       list: function() {
         var deferred = $q.defer();

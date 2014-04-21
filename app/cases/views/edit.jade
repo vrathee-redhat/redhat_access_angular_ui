@@ -15,29 +15,11 @@ div#redhat-access-case.container-offset
         rha-case-attachments
       div.col-xs-12(ng-show='attachmentsLoading')
         div Loading Attachments...
-    div.row(ng-controller='Recommendations')
-      div.col-xs-12
-        h4.section-header Recommendations
-        div.container-fluid.side-padding
-          div.row
-            div(ng-repeat='recommendation in recommendationsOnScreen')
-              div.col-xs-3
-                div.bold {{recommendation.title}}
-                div(style='padding: 8px 0;') {{recommendation.solution_abstract}}
-                a(href='{{recommendation.resource_view_uri}}', target='_blank') View full article in new window
-          div.row
-            div.col-xs-12
-              pagination.pagination-sm(
-                boundary-links='true'
-                total-items='recommendations.length'
-                on-select-page='selectPage(page)'
-                items-per-page='itemsPerPage'
-                page='currentPage'
-                max-size='maxSize'
-                previous-text='<'
-                next-text='>'
-                first-text='<<'
-                last-text='>>')
+    div.row
+      div.col-xs-12(ng-hide='recommendationsLoading')
+        rha-case-recommendations
+      div.col-xs-12(ng-show='recommendationsLoading')
+        div Loading Recommendations...
     div.row
       div.col-xs-12
         rha-case-comments
