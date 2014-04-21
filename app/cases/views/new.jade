@@ -71,13 +71,13 @@ div.container-offset
             div.bottom-border
               div.row
                 div.col-xs-12
-                  div.bold(style='margin-bottom: 10px;') {{product.name}} {{version}}
+                  div.bold(style='margin-bottom: 10px;') {{CaseService.case.product.name}} {{CaseService.case.version}}
               div.row
                 div.col-xs-12
-                  div.bold(style='font-size: 90%; margin-bottom: 4px;') {{summary}}
+                  div.bold(style='font-size: 90%; margin-bottom: 4px;') {{CaseService.case.summary}}
               div.row
                 div.col-xs-12
-                  div(style='font-size: 85%') {{description}}
+                  div(style='font-size: 85%') {{CaseService.case.description}}
             div.row.create-field
               div.col-md-4 Severity:
               div.col-md-8
