@@ -1,0 +1,21 @@
+h4.section-header Recommendations
+div.container-fluid.side-padding
+  div.row
+    div(ng-repeat='recommendation in recommendationsOnScreen')
+      div.col-xs-3
+        div.bold {{recommendation.title}}
+        div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
+        a(href='{{recommendation.uri}}', target='_blank') View full article in new window
+  div.row
+    div.col-xs-12
+      pagination.pagination-sm(
+        boundary-links='true'
+        total-items='RecommendationsService.recommendations.length'
+        on-select-page='selectRecommendationsPage(page)'
+        items-per-page='recommendationsPerPage'
+        page='currentRecommendationPage'
+        max-size='maxRecommendationsSize'
+        previous-text='<'
+        next-text='>'
+        first-text='<<'
+        last-text='>>')

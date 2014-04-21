@@ -8,13 +8,42 @@ angular.module('RedhatAccess.cases')
     'SearchResultsService',
     'AttachmentsService',
     'strataService',
-    function ($scope, $state, $q, SearchResultsService, AttachmentsService, strataService) {
+    'RecommendationsService',
+    'CaseService',
+    function ($scope,
+              $state,
+              $q,
+              SearchResultsService,
+              AttachmentsService,
+              strataService,
+              RecommendationsService,
+              CaseService) {
+
       $scope.versions = [];
       $scope.versionDisabled = true;
       $scope.versionLoading = false;
       $scope.incomplete = true;
       $scope.submitProgress = 0;
       AttachmentsService.clear();
+
+      $scope.CaseService = CaseService;
+      $scope.RecommendationsService = RecommendationsService;
+
+      $scope.getRecommendations = function() {
+        RecommendationsService.populateRecommendations().then(
+            function() {
+              SearchResultsService.clear();
+
+              RecommendationsService.recommendations.forEach(
+                  function(recommendation) {
+                    SearchResultsService.add(recommendation);
+                  }
+              )
+
+              $scope.$apply();
+            }
+        );
+      };
 
       $scope.productsLoading = true;
       strataService.products.list().then(
@@ -28,7 +57,7 @@ angular.module('RedhatAccess.cases')
       strataService.values.cases.severity().then(
           function(severities) {
             $scope.severities = severities;
-            $scope.severity = severities[severities.length - 1];
+            CaseService.case.severity = severities[severities.length - 1];
             $scope.severitiesLoading = false;
           }
       );
@@ -42,48 +71,13 @@ angular.module('RedhatAccess.cases')
       );
 
       $scope.validateForm = function () {
-        if ($scope.product == null || $scope.product == "" ||
-          $scope.version == null || $scope.version == "" ||
-          $scope.summary == null || $scope.summary == "" ||
-          $scope.description == null || $scope.description == "") {
+        if (CaseService.case.product == null || CaseService.case.product == "" ||
+          CaseService.case.version == null || CaseService.case.version == "" ||
+          CaseService.case.summary == null || CaseService.case.summary == "" ||
+          CaseService.case.description == null || CaseService.case.description == "") {
           $scope.incomplete = true;
         } else {
           $scope.incomplete = false;
-        }
-      };
-
-      $scope.loadingRecommendations = false;
-
-      $scope.setCurrentData = function () {
-        $scope.currentData = {
-          product: $scope.product,
-          version: $scope.version,
-          summary: $scope.summary,
-          description: $scope.description
-        };
-      };
-
-      $scope.setCurrentData();
-
-      $scope.getRecommendations = function () {
-
-        var newData = {
-          product: $scope.product,
-          version: $scope.version,
-          summary: $scope.summary,
-          description: $scope.description
-        };
-
-        if (!angular.equals($scope.currentData, newData) && !SearchResultsService.searchInProgress.value) {
-          var data = {
-            product: $scope.product,
-            version: $scope.version,
-            summary: $scope.summary,
-            description: $scope.desecription
-          };
-          $scope.setCurrentData();
-
-          SearchResultsService.diagnose(data,5);
         }
       };
 
@@ -93,7 +87,7 @@ angular.module('RedhatAccess.cases')
        * @param product
        */
       $scope.getProductVersions = function (product) {
-        $scope.version = "";
+        CaseService.case.version = "";
         $scope.versionDisabled = true;
         $scope.versionLoading = true;
 
@@ -170,12 +164,12 @@ angular.module('RedhatAccess.cases')
       $scope.doSubmit = function () {
 
         var caseJSON = {
-          'product': $scope.product.code,
-          'version': $scope.version,
-          'summary': $scope.summary,
-          'description': $scope.description,
-          'severity': $scope.severity.name,
-          'folderNumber': $scope.caseGroup == null ? '' : $scope.caseGroup.number
+          'product': CaseService.case.product.code,
+          'version': CaseService.case.version,
+          'summary': CaseService.case.summary,
+          'description': CaseService.case.description,
+          'severity': CaseService.case.severity.name,
+          'folderNumber': CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
         };
         $scope.submittingCase = true;
         strata.cases.post(

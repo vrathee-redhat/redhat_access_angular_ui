@@ -9,6 +9,7 @@ angular.module('RedhatAccess.cases')
   'AttachmentsService',
   'CaseService',
   'strataService',
+  'RecommendationsService',
   function(
       $scope,
       $stateParams,
@@ -16,13 +17,15 @@ angular.module('RedhatAccess.cases')
       $q,
       AttachmentsService,
       CaseService,
-      strataService) {
+      strataService,
+      RecommendationsService) {
 
     $scope.AttachmentsService = AttachmentsService;
     $scope.CaseService = CaseService;
     CaseService.clearCase();
 
     $scope.caseLoading = true;
+    $scope.recommendationsLoading = true;
 
     strataService.cases.get($stateParams.id).then(
         function(caseJSON) {
@@ -43,7 +46,11 @@ angular.module('RedhatAccess.cases')
             );
           }
 
-          //TODO: get recommendations
+          RecommendationsService.populateRecommendations(25).then(
+              function() {
+                $scope.recommendationsLoading = false;
+              }
+          );
         }
     );
 

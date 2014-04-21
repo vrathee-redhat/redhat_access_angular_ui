@@ -19,8 +19,8 @@ div.container-offset
                 select.form-control(
                   ng-hide='productsLoading',
                   style='width: 100%;',
-                  ng-model='product',
-                  ng-change='getProductVersions(product)',
+                  ng-model='CaseService.case.product',
+                  ng-change='getProductVersions(CaseService.case.product)',
                   ng-options='p.name for p in products track by p.code',
                   ng-blur='getRecommendations()')
             div.row.create-field
@@ -36,7 +36,7 @@ div.container-offset
                     style='height: 34px; margin-bottom: 0px;')
                   select.form-control(
                     style='width: 100%;',
-                    ng-model='version',
+                    ng-model='CaseService.case.version',
                     ng-options='v for v in versions',
                     ng-change='validateForm()',
                     ng-disabled='versionDisabled',
@@ -50,7 +50,7 @@ div.container-offset
                   id='rha-case-summary',
                   style='width: 100%;',
                   ng-change='validateForm()',
-                  ng-model='summary',
+                  ng-model='CaseService.case.summary',
                   ng-blur='getRecommendations()')
             div.row.create-field
               div.col-md-4
@@ -58,7 +58,7 @@ div.container-offset
               div.col-md-8
                 textarea.form-control(
                   style='width: 100%; height: 200px;',
-                  ng-model='description',
+                  ng-model='CaseService.case.description',
                   ng-change='validateForm()',
                   ng-blur='getRecommendations()')
             div.row
@@ -90,7 +90,7 @@ div.container-offset
                 select.form-control(
                   ng-hide='severitiesLoading',
                   style='width: 100%;',
-                  ng-model='severity',
+                  ng-model='CaseService.case.severity',
                   ng-change='validatePage2()',
                   ng-options='s.name for s in severities track by s.name')
             div.row.create-field
@@ -105,7 +105,7 @@ div.container-offset
                 select.form-control(
                   ng-hide='groupsLoading',
                   style='width: 100%;',
-                  ng-model='caseGroup',
+                  ng-model='CaseService.case.group',
                   ng-change='validatePage2()',
                   ng-options='g.name for g in groups track by g.number')
             div.row.create-field
@@ -122,9 +122,8 @@ div.container-offset
                 div.col-xs-12 
                   div.server-attach-header Server File(s) To Attach:
                    rha-choice-tree(
-                      ng-model="attachmentTree",
-                      ng-controller="BackEndAttachmentsCtrl"
-                  )
+                     ng-model="attachmentTree",
+                     ng-controller="BackEndAttachmentsCtrl")
             div.row(style='margin-top: 20px;')
               div.col-xs-6
                 button.btn.btn-primary(
@@ -137,6 +136,11 @@ div.container-offset
                   ng-click='doSubmit()') Submit
       div.col-xs-6
         div.container-fluid(style='padding-right: 15px;')
+          div.row
+            div.col-xs-12
+              div.bottom-border(style='padding-bottom: 0')
+                h4(style='padding-left: 10px; display: inline-block;') Recommendations
+                span(ng-hide='!RecommendationsService.loadingRecommendations', style='float: right; display: inline-block;') Loading...
           div.row
             div.col-xs-12
               div(
