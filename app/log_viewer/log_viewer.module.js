@@ -201,6 +201,7 @@ angular.module('RedhatAccess.logViewer',
 
 		$scope.diagnoseText = function() {
 			$scope.isDisabled = true;
+			this.tt_isOpen = false;
 			if (!$scope.$parent.solutionsToggle) {
 				$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
 			}
