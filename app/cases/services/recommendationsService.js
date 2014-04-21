@@ -23,6 +23,10 @@ angular.module('RedhatAccess.cases')
     };
     setCurrentData();
 
+    this.clear = function() {
+      this.recommendations = [];
+    };
+
     this.setPopulateCallback = function(callback) {
       this.populateCallback = callback;
     };

@@ -1,5 +1,9 @@
 div#redhat-access-case.container-offset
   rha-page-header
+  div.container-fluid.side-padding
+    div.row
+      div.col-xs-12(style='padding-bottom: 14px;')
+        button.btn.btn-primary.pull-right(ui-sref='new') Open a New Support Case
   rha-list-filter(prefilter='preFilter', postfilter='postFilter')
   div.bottom-border(style='margin-left: 10px; margin-right: 10px;')
   div.container-fluid.side-padding

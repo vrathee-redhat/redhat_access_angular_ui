@@ -25,6 +25,9 @@ angular.module('RedhatAccess.cases')
       $scope.incomplete = true;
       $scope.submitProgress = 0;
       AttachmentsService.clear();
+      CaseService.clearCase();
+      RecommendationsService.clear();
+      SearchResultsService.clear();
 
       $scope.CaseService = CaseService;
       $scope.RecommendationsService = RecommendationsService;
