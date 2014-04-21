@@ -17,6 +17,8 @@ angular.module('RedhatAccess.logViewer',
 	var selectedHost = '';
 	var file = '';
 	var retrieveFileButtonIsDisabled = {check : true};
+	var fileClicked = {check : false};
+	var activeTab = null;
 	return {
 		getFileList : function() {
 			return fileList;
@@ -46,6 +48,20 @@ angular.module('RedhatAccess.logViewer',
 
 		getRetrieveFileButtonIsDisabled : function() {
 			return retrieveFileButtonIsDisabled;
+		},
+		setFileClicked : function(isClicked){
+			fileClicked.check = isClicked;
+		},
+
+		getFileClicked : function() {
+			return fileClicked;
+		},
+		setActiveTab : function(activeTab){
+			this.activeTab = activeTab;
+		},
+
+		getActiveTab : function() {
+			return activeTab;
 		}
 	};
 })
@@ -88,6 +104,7 @@ angular.module('RedhatAccess.logViewer',
 	$scope.machinesDropdownText = "Please Select the Machine";
 	$scope.items = [];
 	$scope.hideDropdown = hideMachinesDropdown;
+	$scope.loading = false;
 	var sessionId = $location.search().sessionId;
 
 	$scope.getMachines = function() {
@@ -103,6 +120,7 @@ angular.module('RedhatAccess.logViewer',
 		});
 	};
 	$scope.machineSelected = function() {
+		$scope.loading = true;
 		var sessionId = $location.search().sessionId;
 		var userId = $location.search().userId;
 		files.selectedHost = this.choice;
@@ -114,10 +132,12 @@ angular.module('RedhatAccess.logViewer',
 			+ '&sessionId=' + encodeURIComponent(sessionId)
 			+ '&userId=' + encodeURIComponent(userId)
 		}).success(function(data, status, headers, config) {
+			$scope.loading = false;
 			var tree = new Array();
 			parseList(tree, data);
 			files.setFileList(tree);
 		}).error(function(data, status, headers, config) {
+			$scope.loading = false;
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
 		});
@@ -133,6 +153,7 @@ angular.module('RedhatAccess.logViewer',
 	$scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
 
 	$scope.fileSelected = function() {
+		files.setFileClicked(true);
 		var sessionId = $location.search().sessionId;
 		var userId = $location.search().userId;
 		$scope.$parent.sidePaneToggle = !$scope.$parent.sidePaneToggle;
@@ -159,7 +180,8 @@ angular.module('RedhatAccess.logViewer',
 	'files',
 	'accordian',
 	'SearchResultsService',
-	function($scope, $http, $location, files, accordian, SearchResultsService) {
+	'securityService',
+	function($scope, $http, $location, files, accordian, SearchResultsService, securityService) {
 		$scope.tabs = [ {
 			shortTitle : "Short Sample Log File",
 			longTitle : "Long Log File",
@@ -167,29 +189,41 @@ angular.module('RedhatAccess.logViewer',
 		} ];
 		$scope.isDisabled = true;
 		$scope.textSelected = false;
+		$scope.isLoading = false;
 		$scope.$watch(function() {
-			return files.file;
+			return files.getFileClicked().check;
 		}, function() {
-			if (files.file != null && files.selectedFile != null) {
-				file = new Object();
+			if(files.getFileClicked().check && files.selectedFile != null){
+				tab = new Object();
 				if(files.selectedHost != null){
-					file.longTitle = files.selectedHost + ":"
+					tab.longTitle = files.selectedHost + ":"
 				} else {
-					file.longTitle = new String();
+					tab.longTitle = new String();
 				}
-				file.longTitle = file.longTitle.concat(files.selectedFile);
+				tab.longTitle = tab.longTitle.concat(files.selectedFile);
 				var splitFileName = files.selectedFile.split("/");
 				var fileName = splitFileName[splitFileName.length - 1];
 				
 				if(files.selectedHost != null){
-					file.shortTitle = files.selectedHost + ":"
+					tab.shortTitle = files.selectedHost + ":"
 				} else {
-					file.shortTitle = new String();
+					tab.shortTitle = new String();
 				}
-				file.shortTitle = file.shortTitle.concat(fileName);
-				file.content = files.file;
+				tab.shortTitle = tab.shortTitle.concat(fileName);
+				tab.active = true;
+				$scope.tabs.push(tab);
+				$scope.isLoading = true;
+				files.setActiveTab(tab);
+				files.setFileClicked(false);
+			}
+		});
+		$scope.$watch(function() {
+			return files.file;
+		}, function() {
+			if (files.file != null && files.activeTab  != null) {
+				files.activeTab.content = files.file;
+				$scope.isLoading = false;
 				files.file = null;
-				$scope.tabs.push(file);
 			}
 		});
 		$scope.$watch(function() {
@@ -211,6 +245,9 @@ angular.module('RedhatAccess.logViewer',
 
 		$scope.diagnoseText = function() {
 			//$scope.isDisabled = true;
+			if(!securityService.isLoggedIn){
+				securityService.login();
+			}
 			this.tt_isOpen = false;
 			if (!$scope.$parent.solutionsToggle) {
 				$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;

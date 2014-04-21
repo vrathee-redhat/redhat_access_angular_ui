@@ -5,6 +5,8 @@
 		<div class="nav-side-bar col-xs-3" ng-class="{ showMe: sidePaneToggle }" fill-down ng-style="{height: windowHeight }">
 			<div class="hideable-side-bar" ng-class="{ showMe: sidePaneToggle }">
 				<div class="btn-group" ng-class="{ hideMe: hideDropdown}" ng-controller="DropdownCtrl" ng-init="init()">
+					<div class="machines-spinner"  ng-class="{ showMe: loading }"><span class="rha-search-spinner pull-right"></span></div>
+					
 					<button type="button" class="dropdown-toggle btn btn-sm btn-primary"
 					data-toggle="dropdown">
 					{{machinesDropdownText}} <span class="caret"></span>
@@ -37,28 +39,28 @@
 			<div class="col-fluid">
 				<div ng-controller="TabsDemoCtrl" ng-class="{ showMe: solutionsToggle }">
 					<tabset > 
-						<tab ng-repeat="tab in tabs"> 
+						<tab active="tab.active" ng-repeat="tab in tabs"> 
 							<tab-heading>{{tab.shortTitle}}
 								<a ng-click="removeTab($index)" href=''> 
 									<span class="glyphicon glyphicon-remove"></span>
 								</a> 
 							</tab-heading>
-							<div active="tab.active" disabled="tab.disabled">
-								<div class="panel panel-default" >
-									<div class="panel-heading">
-										<a popover="Click to refresh log file." popover-trigger="mouseenter" popover-placement="right" ng-click="refreshTab($index)">
-											<span class="glyphicon glyphicon-refresh"></span>
-										</a>
-										<h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
-										<div class="pull-right" id="overlay" popover="Select text and click to perform Red Hat Diagnose" popover-trigger="mouseenter" popover-placement="left" > 
-											<button ng-disabled="isDisabled" id="diagnoseButton" type="button" class="btn btn-sm btn-primary diagnoseButton" ng-click="diagnoseText()">Red Hat Diagnose</button>
-										</div>
-										<br> 
-										<br>
+							<div class="panel panel-default" >
+								<div class="panel-heading">
+									<a class="tabs-spinner"  ng-class="{ showMe: isLoading }"><span class="rha-search-spinner"></span></a>
+									<a popover="Click to refresh log file." popover-trigger="mouseenter" popover-placement="right" ng-click="refreshTab($index)">
+										<span class="glyphicon glyphicon-refresh"></span>
+									</a>
+									<h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
+									<div class="pull-right" id="overlay" popover="Select text and click to perform Red Hat Diagnose" popover-trigger="mouseenter" popover-placement="left" > 
+										<button ng-disabled="isDisabled" id="diagnoseButton" type="button" class="btn btn-sm btn-primary diagnoseButton" ng-click="diagnoseText()">Red Hat Diagnose</button>
 									</div>
-									<div  class="panel-body" ng-mouseup="enableDiagnoseButton()" fill-down ng-style="{ height: windowHeight }">
-										<pre id="resizeable-file-view" class="no-line-wrap">{{tab.content}}</pre>
-									</div>
+									<br> 
+									<br>
+								</div>
+								<div class="panel-body" ng-mouseup="enableDiagnoseButton()" fill-down ng-style="{ height: windowHeight }">
+
+									<pre id="resizeable-file-view" class="no-line-wrap">{{tab.content}}</pre>
 								</div>
 							</div>
 						</tab> 

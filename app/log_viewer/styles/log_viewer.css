@@ -99,5 +99,21 @@
 }
 
 .dropdown-toggle{
+	border-radius: 3px!important;
 	float: none !important; 
+}
+
+.machines-spinner {
+	display: none;
+}
+
+.machines-spinner.showMe {
+	display: block;
+}
+.tabs-spinner {
+	display: none;
+}
+
+.tabs-spinner.showMe {
+	display: inline-block;
 }
