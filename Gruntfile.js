@@ -34,7 +34,8 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: 'dist',
+      bowerDir: 'app/bower_components'
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -311,11 +312,23 @@ module.exports = function (grunt) {
         src: '<%= src.css.app %>'
       },
       images: {
-        expand: true,
-        filter: 'isFile',
-        flatten: true,
-        dest: '<%= yeoman.dist %>/img/',
-        src: '<%= src.img %>'
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            nonull: true,
+            src: '<%= src.img %>',
+            dest: '<%= yeoman.dist %>/img/',
+            filter: 'isFile'
+          }, {
+            expand: true,
+            flatten: true,
+            nonull: true,
+            src: '<%= src.thirdParty.img %>',
+            dest: '<%= yeoman.dist %>/img/',
+            filter: 'isFile'
+          }
+        ]
       }
     },
 
@@ -352,7 +365,7 @@ module.exports = function (grunt) {
       dist: {
         files: {
           '<%= yeoman.dist %>/styles/<%= pkg.name %>.css': [
-            '<%= src.css.app %>'
+            '<%= src.thirdParty.css %>', '<%= src.css.app %>'
           ]
         }
       }
@@ -371,7 +384,7 @@ module.exports = function (grunt) {
         options: {
           banner: '<%= banner %>'
         },
-        src: ['<%= src.js %>', '<%= src.jsTpl %>'],
+        src: ['<%= src.thirdParty.js %>', '<%= src.js %>', '<%= src.jsTpl %>'],
         dest: '<%= distdir %>/<%= pkg.name %>.js'
       },
       index: {
@@ -382,8 +395,10 @@ module.exports = function (grunt) {
         }
       }
     },
+
+    //Define our source files
     src: {
-      js: ['app/common/**/*.js', 'app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
+      js: ['app/common/**/*.js','app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
       jsTpl: ['<%= distdir %>/templates/**/*.js'],
       specs: ['test/**/*.spec.js'],
       scenarios: ['test/**/*.scenario.js'],
@@ -399,11 +414,25 @@ module.exports = function (grunt) {
           'app/cases/**/*.css', 'app/log_viewer/**/*.css'
         ]
       },
-      img: ['<%= yeoman.app %>/**/img/*']
+      img: ['<%= yeoman.app %>/**/img/*'],
 
+      thirdParty: {
+        js: ['<%= yeoman.bowerDir %>/js-markdown-extra/js-markdown-extra.js',
+          '<%= yeoman.bowerDir %>/jsUri/Uri.js',
+          '<%= yeoman.bowerDir %>/stratajs/strata.js',
+          '<%= yeoman.bowerDir %>/angular-resource/angular-resource.js',
+          '<%= yeoman.bowerDir %>/angular-sanitize/angular-sanitize.js', 
+          '<%= yeoman.bowerDir %>/angular-route/angular-route.js',
+          '<%= yeoman.bowerDir %>/angular-bootstrap/ui-bootstrap-tpls.js',
+          '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
+          '<%= yeoman.bowerDir %>/ng-table/ng-table.js'
+        ],
+        css: ['<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
+          '<%= yeoman.bowerDir %>/ng-table/ng-table.css'
+        ],
+        img: ['<%= yeoman.bowerDir %>/angular-treeview/img/*']
+      }
 
-      //less: ['src/less/stylesheet.less'], // recess:build doesn't accept ** in its file patterns
-      //lessWatch: ['src/less/**/*.less']
     },
 
     html2js: {
