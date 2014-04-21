@@ -73,17 +73,17 @@
 }
 
 .fileList {
-	overflow: scroll;
+	overflow:auto;
 	padding-right: 0px;
 }
 .no-line-wrap {
 	word-wrap: normal;
 	white-space: pre;
-	overflow: scroll;
+	overflow:auto;
 }
 .resizeable-solution-view {
 	display: none;
-	overflow-y: scroll;
+	overflow:auto;
 	padding: 15px 30px 15px 15px
 }
 .resizeable-solution-view.showMe {
