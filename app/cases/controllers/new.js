@@ -30,7 +30,7 @@ angular.module('RedhatAccess.cases')
       $scope.RecommendationsService = RecommendationsService;
 
       $scope.getRecommendations = function() {
-        RecommendationsService.populateRecommendations().then(
+        RecommendationsService.populateRecommendations(5).then(
             function() {
               SearchResultsService.clear();
 
@@ -39,8 +39,6 @@ angular.module('RedhatAccess.cases')
                     SearchResultsService.add(recommendation);
                   }
               )
-
-              $scope.$apply();
             }
         );
       };
