@@ -423,6 +423,7 @@ module.exports = function (grunt) {
           '<%= yeoman.bowerDir %>/angular-resource/angular-resource.js',
           '<%= yeoman.bowerDir %>/angular-sanitize/angular-sanitize.js', 
           '<%= yeoman.bowerDir %>/angular-route/angular-route.js',
+          '<%= yeoman.bowerDir %>/angular-ui-router/release/angular-ui-router.js',
           '<%= yeoman.bowerDir %>/angular-bootstrap/ui-bootstrap-tpls.js',
           '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
           '<%= yeoman.bowerDir %>/ng-table/ng-table.js'
