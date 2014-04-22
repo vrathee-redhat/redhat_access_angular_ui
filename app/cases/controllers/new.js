@@ -33,6 +33,7 @@ angular.module('RedhatAccess.cases')
       $scope.RecommendationsService = RecommendationsService;
 
       $scope.getRecommendations = function() {
+        SearchResultsService.searchInProgress.value = true;
         RecommendationsService.populateRecommendations(5).then(
             function() {
               SearchResultsService.clear();
@@ -42,34 +43,35 @@ angular.module('RedhatAccess.cases')
                     SearchResultsService.add(recommendation);
                   }
               )
+              SearchResultsService.searchInProgress.value = false;
             }
         );
       };
 
-      $scope.productsLoading = true;
-      strataService.products.list().then(
-          function(products) {
-            $scope.products = products;
-            $scope.productsLoading = false;
-          }
-      );
+        $scope.productsLoading = true;
+        strataService.products.list().then(
+            function(products) {
+              $scope.products = products;
+              $scope.productsLoading = false;
+            }
+        );
 
-      $scope.severitiesLoading = true;
-      strataService.values.cases.severity().then(
-          function(severities) {
-            $scope.severities = severities;
-            CaseService.case.severity = severities[severities.length - 1];
-            $scope.severitiesLoading = false;
-          }
-      );
+        $scope.severitiesLoading = true;
+        strataService.values.cases.severity().then(
+            function(severities) {
+              $scope.severities = severities;
+              CaseService.case.severity = severities[severities.length - 1];
+              $scope.severitiesLoading = false;
+            }
+        );
 
-      $scope.groupsLoading = true;
-      strataService.groups.list().then(
-          function(groups) {
-            $scope.groups = groups;
-            $scope.groupsLoading = false;
-          }
-      );
+        $scope.groupsLoading = true;
+        strataService.groups.list().then(
+            function(groups) {
+              $scope.groups = groups;
+              $scope.groupsLoading = false;
+            }
+        );
 
       $scope.validateForm = function () {
         if (CaseService.case.product == null || CaseService.case.product == "" ||

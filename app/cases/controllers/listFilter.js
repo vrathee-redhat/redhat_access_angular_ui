@@ -6,14 +6,38 @@ angular.module('RedhatAccess.cases')
   'strataService',
   'STATUS',
   'CaseListService',
-  function ($scope, strataService, STATUS, CaseListService) {
+  'securityService',
+  'AlertService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  function ($scope,
+            strataService,
+            STATUS,
+            CaseListService,
+            securityService,
+            AlertService,
+            $rootScope,
+            AUTH_EVENTS) {
 
     $scope.groups = [];
-    strataService.groups.list().then(
-        function(groups) {
-          $scope.groups = groups;
-        }
-    );
+    $scope.securityService = securityService;
+
+    $scope.loadGroups = function() {
+      strataService.groups.list().then(
+          function(groups) {
+            $scope.groups = groups;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
+    }
+    $scope.loadGroups();
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.loadGroups();
+      AlertService.clearAlerts();
+    });
 
     $scope.statusFilter = STATUS.both;
 
