@@ -1,12 +1,8 @@
 <div class="container-fluid side-padding" ng-controller='SearchController'>
-    <!--div class="row">
-		<div class="col-xs-12">
-			<h3>Red Hat Access: Search</h3>
-		</div>
-	</div-->
+    <x-rha-header-template title='Search'></x-rha-header-template>
     <div x-rha-login-status style="padding: 10px;" />
     <div class="bottom-border" style="padding-top: 10px;"></div>
-    <div class="row" x-rha-search-form ></div>
+    <div class="row" x-rha-search-form></div>
     <div style="padding-top: 10px;"></div>
     <div class='row' x-rha-list-search-results='' ng-controller='SearchController' />
 </div>

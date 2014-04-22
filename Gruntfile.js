@@ -21,7 +21,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-newer');
-  grunt.loadNpmTasks("grunt-image-embed");
+  grunt.loadNpmTasks('grunt-image-embed');
   grunt.loadNpmTasks('grunt-ng-annotate');
 
   // Define the configuration for all the tasks
@@ -311,7 +311,7 @@ module.exports = function (grunt) {
           dest: '<%= distdir %>/<%= pkg.name %>.js'
         }]
       },
-      dist_no_deps: {
+      distNoDeps: {
         files: [{
           //expand: true,
           //cwd: '.tmp/concat/scripts',
@@ -333,7 +333,7 @@ module.exports = function (grunt) {
           dest: '<%= distdir %>/<%= pkg.name %>.js'
         }]
       },
-      dist_no_deps: {
+      distNoDeps: {
         files: [{
           //expand: true,
           //cwd: '.tmp/concat/scripts',
@@ -418,14 +418,14 @@ module.exports = function (grunt) {
     imageEmbed: {
       dist: {
         src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>.css'],
-        dest: "<%= yeoman.dist %>/styles/<%= pkg.name %>-embedded-images.css",
+        dest: '<%= yeoman.dist %>/styles/<%= pkg.name %>-embedded-images.css',
         options: {
           deleteAfterEncoding: false
         }
       },
-      dist_no_deps: {
+      distNoDeps: {
         src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps.css'],
-        dest: "<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps-embedded-images.css",
+        dest: '<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps-embedded-images.css',
         options: {
           deleteAfterEncoding: false
         }
@@ -444,7 +444,7 @@ module.exports = function (grunt) {
           ]
         }
       },
-      dist_no_deps: {
+      distNoDeps: {
         files: {
           '<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps.css': [
             '<%= src.css.app %>'
@@ -470,7 +470,7 @@ module.exports = function (grunt) {
         src: ['<%= src.thirdParty.js %>', '<%= src.js %>', '<%= src.jsTpl %>'],
         dest: '.tmp/<%= pkg.name %>.js'
       },
-      dist_no_deps: {
+      distNoDeps: {
         options: {
           banner: '<%= banner %>'
         },
