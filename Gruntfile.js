@@ -22,6 +22,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks("grunt-image-embed");
+  grunt.loadNpmTasks('grunt-ng-annotate');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -36,6 +37,45 @@ module.exports = function (grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist',
       bowerDir: 'app/bower_components'
+    },
+
+    //Define our source files
+    src: {
+      js: ['app/common/**/*.js', 'app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
+      jsTpl: ['.tmp/templates/**/*.js'],
+      specs: ['test/**/*.spec.js'],
+      scenarios: ['test/**/*.scenario.js'],
+      html: ['app/index.html'],
+      tpl: {
+        app: ['app/common/**/*.html', 'app/security/**/*.html', 'app/search/**/*.html',
+          'app/cases/**/*.html', 'app/log_viewer/**/*.html'
+        ]
+      },
+      css: {
+        app: ['app/common/**/*.css', 'app/security/**/*.css', 'app/search/**/*.css',
+          'app/cases/**/*.css', 'app/log_viewer/**/*.css'
+        ]
+      },
+      img: ['<%= yeoman.app %>/**/img/*'],
+
+      thirdParty: {
+        js: ['<%= yeoman.bowerDir %>/js-markdown-extra/js-markdown-extra.js',
+          '<%= yeoman.bowerDir %>/jsUri/Uri.js',
+          '<%= yeoman.bowerDir %>/stratajs/strata.js',
+          '<%= yeoman.bowerDir %>/angular-resource/angular-resource.js',
+          '<%= yeoman.bowerDir %>/angular-sanitize/angular-sanitize.js',
+          '<%= yeoman.bowerDir %>/angular-route/angular-route.js',
+          '<%= yeoman.bowerDir %>/angular-ui-router/release/angular-ui-router.js',
+          '<%= yeoman.bowerDir %>/angular-bootstrap/ui-bootstrap-tpls.js',
+          '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
+          '<%= yeoman.bowerDir %>/ng-table/ng-table.js'
+        ],
+        css: ['<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
+          '<%= yeoman.bowerDir %>/ng-table/ng-table.css'
+        ],
+        img: ['<%= yeoman.bowerDir %>/angular-treeview/img/*']
+      }
+
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -267,8 +307,38 @@ module.exports = function (grunt) {
         files: [{
           //expand: true,
           //cwd: '.tmp/concat/scripts',
-          src: '<%= distdir %>/<%= pkg.name %>.js',
-          dest: '<%= distdir %>/<%= pkg.name %>.annonated.js'
+          src: '.tmp/<%= pkg.name %>.js',
+          dest: '<%= distdir %>/<%= pkg.name %>.js'
+        }]
+      },
+      dist_no_deps: {
+        files: [{
+          //expand: true,
+          //cwd: '.tmp/concat/scripts',
+          src: '.tmp/<%= pkg.name %>-no-deps.js',
+          dest: '<%= distdir %>/<%= pkg.name %>.no-deps.js'
+        }]
+      }
+    },
+    //ngmin does not work with chaining....
+    ngAnnotate: {
+      options: {
+        // Task-specific options go here.
+      },
+      dist: {
+        files: [{
+          //expand: true,
+          //cwd: '.tmp/concat/scripts',
+          src: '.tmp/<%= pkg.name %>.js',
+          dest: '<%= distdir %>/<%= pkg.name %>.js'
+        }]
+      },
+      dist_no_deps: {
+        files: [{
+          //expand: true,
+          //cwd: '.tmp/concat/scripts',
+          src: '.tmp/<%= pkg.name %>-no-deps.js',
+          dest: '<%= distdir %>/<%= pkg.name %>.no-deps.js'
         }]
       }
     },
@@ -312,23 +382,21 @@ module.exports = function (grunt) {
         src: '<%= src.css.app %>'
       },
       images: {
-        files: [
-          {
-            expand: true,
-            flatten: true,
-            nonull: true,
-            src: '<%= src.img %>',
-            dest: '<%= yeoman.dist %>/img/',
-            filter: 'isFile'
-          }, {
-            expand: true,
-            flatten: true,
-            nonull: true,
-            src: '<%= src.thirdParty.img %>',
-            dest: '<%= yeoman.dist %>/img/',
-            filter: 'isFile'
-          }
-        ]
+        files: [{
+          expand: true,
+          flatten: true,
+          nonull: true,
+          src: '<%= src.img %>',
+          dest: '<%= yeoman.dist %>/img/',
+          filter: 'isFile'
+        }, {
+          expand: true,
+          flatten: true,
+          nonull: true,
+          src: '<%= src.thirdParty.img %>',
+          dest: '<%= yeoman.dist %>/img/',
+          filter: 'isFile'
+        }]
       }
     },
 
@@ -350,7 +418,14 @@ module.exports = function (grunt) {
     imageEmbed: {
       dist: {
         src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>.css'],
-        dest: "<%= yeoman.dist %>/styles/<%= pkg.name %>.embedded-images.css",
+        dest: "<%= yeoman.dist %>/styles/<%= pkg.name %>-embedded-images.css",
+        options: {
+          deleteAfterEncoding: false
+        }
+      },
+      dist_no_deps: {
+        src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps.css'],
+        dest: "<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps-embedded-images.css",
         options: {
           deleteAfterEncoding: false
         }
@@ -368,7 +443,15 @@ module.exports = function (grunt) {
             '<%= src.thirdParty.css %>', '<%= src.css.app %>'
           ]
         }
+      },
+      dist_no_deps: {
+        files: {
+          '<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps.css': [
+            '<%= src.css.app %>'
+          ]
+        }
       }
+
     },
     // uglify: {
     //   dist: {
@@ -385,56 +468,18 @@ module.exports = function (grunt) {
           banner: '<%= banner %>'
         },
         src: ['<%= src.thirdParty.js %>', '<%= src.js %>', '<%= src.jsTpl %>'],
-        dest: '<%= distdir %>/<%= pkg.name %>.js'
+        dest: '.tmp/<%= pkg.name %>.js'
       },
-      index: {
-        src: ['app/index.html'],
-        dest: '<%= distdir %>/index.html',
+      dist_no_deps: {
         options: {
-          process: true
-        }
+          banner: '<%= banner %>'
+        },
+        src: ['<%= src.js %>', '<%= src.jsTpl %>'],
+        dest: '.tmp/<%= pkg.name %>-no-deps.js'
       }
     },
 
-    //Define our source files
-    src: {
-      js: ['app/common/**/*.js','app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
-      jsTpl: ['<%= distdir %>/templates/**/*.js'],
-      specs: ['test/**/*.spec.js'],
-      scenarios: ['test/**/*.scenario.js'],
-      html: ['app/index.html'],
-      tpl: {
-        app: ['app/common/**/*.html', 'app/security/**/*.html', 'app/search/**/*.html',
-          'app/cases/**/*.html', 'app/log_viewer/**/*.html'
-        ]
-        //common: ['src/common/**/*.tpl.html']
-      },
-      css: {
-        app: ['app/common/**/*.css', 'app/security/**/*.css', 'app/search/**/*.css',
-          'app/cases/**/*.css', 'app/log_viewer/**/*.css'
-        ]
-      },
-      img: ['<%= yeoman.app %>/**/img/*'],
 
-      thirdParty: {
-        js: ['<%= yeoman.bowerDir %>/js-markdown-extra/js-markdown-extra.js',
-          '<%= yeoman.bowerDir %>/jsUri/Uri.js',
-          '<%= yeoman.bowerDir %>/stratajs/strata.js',
-          '<%= yeoman.bowerDir %>/angular-resource/angular-resource.js',
-          '<%= yeoman.bowerDir %>/angular-sanitize/angular-sanitize.js', 
-          '<%= yeoman.bowerDir %>/angular-route/angular-route.js',
-          '<%= yeoman.bowerDir %>/angular-ui-router/release/angular-ui-router.js',
-          '<%= yeoman.bowerDir %>/angular-bootstrap/ui-bootstrap-tpls.js',
-          '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
-          '<%= yeoman.bowerDir %>/ng-table/ng-table.js'
-        ],
-        css: ['<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
-          '<%= yeoman.bowerDir %>/ng-table/ng-table.css'
-        ],
-        img: ['<%= yeoman.bowerDir %>/angular-treeview/img/*']
-      }
-
-    },
 
     html2js: {
       app: {
@@ -442,7 +487,7 @@ module.exports = function (grunt) {
           base: 'app'
         },
         src: ['<%= src.tpl.app %>'],
-        dest: '<%= distdir %>/templates/RedhatAccess.template.js',
+        dest: '.tmp/templates/RedhatAccess.template.js',
         module: 'RedhatAccess.template'
       }
     },
@@ -496,7 +541,8 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'autoprefixer',
     'concat',
-    'ngmin',
+    //'ngmin', does not work with chaining
+    'ngAnnotate',
     'copy:images',
     //'cdnify',
     'cssmin',
