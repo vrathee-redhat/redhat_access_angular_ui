@@ -8,8 +8,23 @@ angular.module('RedhatAccess.cases')
   'STATUS',
   'strataService',
   'CaseListService',
-  function ($scope, $filter, ngTableParams, STATUS, strataService, CaseListService) {
+  'securityService',
+  'AlertService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  function ($scope,
+            $filter,
+            ngTableParams,
+            STATUS,
+            strataService,
+            CaseListService,
+            securityService,
+            AlertService,
+            $rootScope,
+            AUTH_EVENTS) {
     $scope.CaseListService = CaseListService;
+    $scope.securityService = securityService;
+    $scope.AlertService = AlertService;
 
     var buildTable = function() {
       $scope.tableParams = new ngTableParams({
@@ -33,14 +48,25 @@ angular.module('RedhatAccess.cases')
       });
     };
 
-    $scope.loadingCases = true;
-    strataService.cases.filter().then(
-        function(cases) {
-          CaseListService.defineCases(cases);
-          buildTable();
-          $scope.loadingCases = false;
-        }
-    );
+    $scope.loadCases = function() {
+      $scope.loadingCases = true;
+      strataService.cases.filter().then(
+          function(cases) {
+            CaseListService.defineCases(cases);
+            buildTable();
+            $scope.loadingCases = false;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
+    }
+    $scope.loadCases();
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.loadCases();
+      AlertService.clearAlerts();
+    });
 
     $scope.preFilter = function() {
       $scope.loadingCases = true;
