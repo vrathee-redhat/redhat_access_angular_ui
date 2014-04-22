@@ -80,7 +80,7 @@ angular.module('RedhatAccess.logViewer',
 		}
 	};
 })
-.controller('fileController', function($scope, files) {
+.controller('fileController', ['$scope', 'files', function($scope, files) {
 	$scope.roleList = '';
 
 	$scope.$watch(function() {
@@ -99,8 +99,8 @@ angular.module('RedhatAccess.logViewer',
 	}, function() {
 		$scope.roleList = files.fileList;
 	});
-})
-.controller('DropdownCtrl', function($scope, $http, $location, files, hideMachinesDropdown) {
+}])
+.controller('DropdownCtrl', ['$scope', '$http', '$location', 'files', 'hideMachinesDropdown', function($scope, $http, $location, files, hideMachinesDropdown) {
 	$scope.machinesDropdownText = "Please Select the Machine";
 	$scope.items = [];
 	$scope.hideDropdown = hideMachinesDropdown;
@@ -147,8 +147,9 @@ angular.module('RedhatAccess.logViewer',
 	} else{
 		$scope.getMachines();
 	}
-})
-.controller('selectFileButton', function($scope, $http, $location,
+}])
+.controller('selectFileButton', ['$scope', '$http', '$location',
+	'files', function($scope, $http, $location,
 	files) {
 	$scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
 
@@ -172,7 +173,7 @@ angular.module('RedhatAccess.logViewer',
 			// or server returns response with an error status.
 		});
 	};
-})
+}])
 .controller('TabsDemoCtrl', [
 	'$scope',
 	'$http',
@@ -306,12 +307,12 @@ angular.module('RedhatAccess.logViewer',
 		};
 		}])
 
-.controller('AccordionDemoCtrl', function($scope, accordian) {
+.controller('AccordionDemoCtrl', ['$scope', 'accordian', function($scope, accordian) {
 	$scope.oneAtATime = true;
 	$scope.groups = accordian.getGroups();
-})
+}])
 
-.directive('fillDown', function($window, $timeout) {
+.directive('fillDown', ['$window', '$timeout', function($window, $timeout) {
 	return {
 		restrict: 'EA',
 		link: function postLink(scope, element, attrs) {
@@ -344,7 +345,7 @@ angular.module('RedhatAccess.logViewer',
       // });
   }
 };
-});
+}]);
 
 function parseList(tree, data) {
 	var files = data.split("\n");
