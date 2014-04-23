@@ -1,5 +1,20 @@
-<div class="row" ng-show='showHeader'>
-    <div class="col-xs-12">
-        <h3>Red Hat Access: {{pageTitle}}</h3>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <x-rha-title-template title="{{title}}"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <x-rha-login-status />
+        </div>
+    </div>
+</div>
+<div class="bottom-border" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <x-rha-alert />
+        </div>
     </div>
 </div>

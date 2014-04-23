@@ -25,7 +25,7 @@ angular.module('RedhatAccess.cases', [
 
     $stateProvider.state('compact.edit', {
       url: '/{id:[0-9]{1,8}}',
-      templateUrl: 'cases/views/compact.edit.html',
+      templateUrl: 'cases/views/compactEdit.html',
       controller: 'CompactEdit'
     });
 
