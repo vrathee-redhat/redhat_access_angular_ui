@@ -7,3 +7,5 @@ app/vendor
 app/redhat_access_angular_ui.js
 *.swp
 .idea
+app/cases/views/*.html
+!app/cases/views/compact.html
