@@ -4,7 +4,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="Search Articles and Solutions">
                 <span class="input-group-btn">
-                    <button ng-disabled="searchInProgress.value === true" class="btn btn-default btn-primary" type='submit' ng-click="search(searchStr)">Search</button>
+                    <button ng-disabled="(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)" class="btn btn-default btn-primary" type='submit' ng-click="search(searchStr)">Search</button>
                 </span>
 
             </div>
