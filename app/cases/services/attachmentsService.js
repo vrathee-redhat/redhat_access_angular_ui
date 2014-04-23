@@ -91,10 +91,14 @@ angular.module('RedhatAccess.cases')
                   updatedAttachments[i].file,
                   caseId
                 )
-                promise.then(function (uri) {
-                  updatedAttachments[i].uri = uri;
-                });
-
+                promise.then(
+                    function (uri) {
+                      updatedAttachments[i].uri = uri;
+                    },
+                    function(error) {
+                      AlertService.addStrataErrorMessage(error);
+                    }
+                );
                 promises.push(promise);
               }
             }
@@ -106,24 +110,29 @@ angular.module('RedhatAccess.cases')
                 });
 
               if (attachment.length == 0) {
-                promises.push(
-                  strataService.cases.attachments.delete(
+                var promise = strataService.cases.attachments.delete(
                     origAttachment.uuid,
-                    caseId
-                  )
-                );
+                    caseId)
+
+                promise.then(
+                    function() {},
+                    function(error) {
+                      AlertService.addStrataErrorMessage(error);
+                    }
+                )
+
+                promises.push(promise);
               }
             });
           }
 
           var parentPromise = $q.all(promises);
           parentPromise.then(
-            angular.bind(this, function (AttachmentsService, two, three, four) {
+            angular.bind(this, function () {
               this.defineOriginalAttachments(angular.copy(updatedAttachments));
             }),
             function (error) {
-              console.log("Problem creating attachments");
-              console.log(error);
+              AlertService.addStrataErrorMessage(error);
             }
           );
 

@@ -25,6 +25,7 @@ angular.module('RedhatAccess.cases')
     $scope.CaseListService = CaseListService;
     $scope.securityService = securityService;
     $scope.AlertService = AlertService;
+    AlertService.clearAlerts();
 
     var buildTable = function() {
       $scope.tableParams = new ngTableParams({
@@ -63,15 +64,27 @@ angular.module('RedhatAccess.cases')
     }
     $scope.loadCases();
 
+    /**
+     * Callback after user login. Load the cases and clear alerts
+     */
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
       $scope.loadCases();
       AlertService.clearAlerts();
     });
 
+    /**
+     * Callback from listFilter directive
+     */
     $scope.preFilter = function() {
       $scope.loadingCases = true;
     };
 
+
+    /**
+     * Callback from listFilter directive.
+     * Fired after filtering the case list via strata api call.
+     * Reload the table.
+     */
     $scope.postFilter = function() {
       $scope.tableParams.reload();
       $scope.loadingCases = false;
