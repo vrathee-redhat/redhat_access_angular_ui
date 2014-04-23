@@ -10,6 +10,10 @@ angular.module('RedhatAccess.cases')
     'strataService',
     'RecommendationsService',
     'CaseService',
+    'AlertService',
+    'securityService',
+    '$rootScope',
+    'AUTH_EVENTS',
     function ($scope,
               $state,
               $q,
@@ -17,7 +21,11 @@ angular.module('RedhatAccess.cases')
               AttachmentsService,
               strataService,
               RecommendationsService,
-              CaseService) {
+              CaseService,
+              AlertService,
+              securityService,
+              $rootScope,
+              AUTH_EVENTS) {
 
       $scope.versions = [];
       $scope.versionDisabled = true;
@@ -28,9 +36,11 @@ angular.module('RedhatAccess.cases')
       CaseService.clearCase();
       RecommendationsService.clear();
       SearchResultsService.clear();
+      AlertService.clearAlerts();
 
       $scope.CaseService = CaseService;
       $scope.RecommendationsService = RecommendationsService;
+      $scope.securityService = securityService;
 
       $scope.getRecommendations = function() {
         SearchResultsService.searchInProgress.value = true;
@@ -44,15 +54,25 @@ angular.module('RedhatAccess.cases')
                   }
               )
               SearchResultsService.searchInProgress.value = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
             }
         );
       };
 
+      /**
+       * Populate the selects
+       */
+      $scope.initSelects = function() {
         $scope.productsLoading = true;
         strataService.products.list().then(
             function(products) {
               $scope.products = products;
               $scope.productsLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
             }
         );
 
@@ -62,6 +82,9 @@ angular.module('RedhatAccess.cases')
               $scope.severities = severities;
               CaseService.case.severity = severities[severities.length - 1];
               $scope.severitiesLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
             }
         );
 
@@ -70,9 +93,22 @@ angular.module('RedhatAccess.cases')
             function(groups) {
               $scope.groups = groups;
               $scope.groupsLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
             }
         );
+      };
+      $scope.initSelects();
 
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+        $scope.initSelects();
+        AlertService.clearAlerts();
+      });
+
+      /**
+       * Set $scope.incomplete to boolean based on state of form
+       */
       $scope.validateForm = function () {
         if (CaseService.case.product == null || CaseService.case.product == "" ||
           CaseService.case.version == null || CaseService.case.version == "" ||
@@ -104,7 +140,7 @@ angular.module('RedhatAccess.cases')
             $scope.$apply();
           },
           function (error) {
-            console.log(error);
+            AlertService.addStrataErrorMessage(error);
           });
       };
 
@@ -132,40 +168,11 @@ angular.module('RedhatAccess.cases')
         $scope.gotoPage(1);
       };
 
-      /**
-       * Return promise for a single attachment
-       */
-      var postAttachment = function (caseNumber, attachment, progressIncrement) {
-
-        var singleAttachmentSuccess = function (response) {
-          $scope.submitProgress = $scope.submitProgress + progressIncrement;
-        };
-
-        var deferred = $q.defer();
-        deferred.promise.then(singleAttachmentSuccess);
-
-        strata.cases.attachments.post(
-          attachment,
-          caseNumber,
-          function (response) {
-            deferred.resolve(response);
-          },
-          function (error, error2, error3, error4) {
-            console.log(error);
-            deferred.reject(error);
-          }
-        );
-
-        return deferred.promise;
-      };
-
       $scope.submittingCase = false;
-
       /**
        * Create the case with attachments
        */
       $scope.doSubmit = function () {
-
         var caseJSON = {
           'product': CaseService.case.product.code,
           'version': CaseService.case.version,
@@ -185,15 +192,17 @@ angular.module('RedhatAccess.cases')
                     id: caseNumber
                   });
                   $scope.submittingCase = false;
+                },
+                function(error) {
+                  AlertService.addStrataErrorMessage(error);
                 }
               );
             }
           },
           function (error) {
-            console.log(error);
+            AlertService.addStrataErrorMessage(error);
           }
         );
-
       };
 
       $scope.gotoPage(1);
