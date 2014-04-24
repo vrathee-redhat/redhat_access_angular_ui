@@ -6,11 +6,13 @@ angular.module('RedhatAccess.cases')
   'CaseService',
   'strataService',
   '$stateParams',
+  'AlertService',
   function(
       $scope,
       CaseService,
       strataService,
-      $stateParams) {
+      $stateParams,
+      AlertService) {
 
     strataService.cases.comments.get($stateParams.id).then(
         function(commentsJSON) {
@@ -21,7 +23,7 @@ angular.module('RedhatAccess.cases')
           }
         },
         function(error) {
-          console.log(error);
+          AlertService.addStrataErrorMessage(error);
         }
     );
 
@@ -31,14 +33,9 @@ angular.module('RedhatAccess.cases')
     $scope.addComment = function() {
       $scope.addingComment = true;
 
-      strata.cases.comments.post(
-          CaseService.case.case_number,
-          {'text': $scope.newComment},
+      strataService.cases.comments.post(CaseService.case.case_number, $scope.newComment).then(
           function(response) {
-
-            //refresh the comments list
-            strata.cases.comments.get(
-                CaseService.case.case_number,
+            strataService.cases.comments.get(CaseService.case.case_number).then(
                 function(comments) {
                   $scope.newComment = '';
                   $scope.comments = comments;
@@ -47,14 +44,13 @@ angular.module('RedhatAccess.cases')
                   $scope.$apply();
                 },
                 function(error) {
-                  console.log(error);
-                }
-            );
+                  AlertService.addStrataErrorMessage(error);
+                });
           },
           function(error) {
-            console.log(error);
-          }
-      );
+            AlertService.addStrataErrorMessage(error);
+            $scope.addingComment = false;
+          });
     };
 
     $scope.itemsPerPage = 4;

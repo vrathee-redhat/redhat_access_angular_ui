@@ -2,6 +2,16 @@
 
 angular.module('RedhatAccess.cases')
 .factory('strataService', ['$q', function ($q) {
+
+  var errorHandler = function(message, xhr, response, status) {
+    this.reject({
+      message: message,
+      xhr: xhr,
+      response: response,
+      status: status
+    });
+  }
+
   return {
     problems: function(data, max) {
       var deferred = $q.defer();
@@ -11,9 +21,7 @@ angular.module('RedhatAccess.cases')
           function(solutions) {
             deferred.resolve(solutions);
           },
-          function(error) {
-            deferred.reject(error);
-          },
+          angular.bind(deferred, errorHandler),
           max
       );
 
@@ -49,9 +57,7 @@ angular.module('RedhatAccess.cases')
             function (response) {
               deferred.resolve(response);
             },
-            function (error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -64,9 +70,7 @@ angular.module('RedhatAccess.cases')
             function (response) {
               deferred.resolve(response);
             },
-            function (error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -80,9 +84,7 @@ angular.module('RedhatAccess.cases')
             function (response) {
               deferred.resolve(response);
             },
-            function (error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -97,9 +99,7 @@ angular.module('RedhatAccess.cases')
           function(response) {
             deferred.resolve(response);
           },
-          function(error) {
-            deferred.reject(error);
-          }
+          angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -115,9 +115,7 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -131,10 +129,7 @@ angular.module('RedhatAccess.cases')
               function(response, code, xhr) {
                 deferred.resolve(xhr.getResponseHeader('Location'));
               },
-              function(error) {
-                console.log(error);
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -149,9 +144,7 @@ angular.module('RedhatAccess.cases')
               function(response) {
                 deferred.resolve(response);
               },
-              function(error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -166,9 +159,21 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
+          );
+
+          return deferred.promise;
+        },
+        post: function(case_number, text) {
+          var deferred = $q.defer();
+
+          strata.cases.comments.post(
+              case_number,
+              {'text': text},
+              function(response) {
+                deferred.resolve(response);
+              },
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -182,9 +187,7 @@ angular.module('RedhatAccess.cases')
             function (response) {
               deferred.resolve(response);
             },
-            function (error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -203,9 +206,21 @@ angular.module('RedhatAccess.cases')
             function(allCases) {
               deferred.resolve(allCases);
             },
-            function(error) {
-              deferred.reject(error);
-            }
+            angular.bind(deferred, errorHandler)
+        );
+
+        return deferred.promise;
+      },
+      put: function(case_number, caseJSON) {
+        var deferred = $q.defer();
+
+        strata.cases.put(
+            case_number,
+            caseJSON,
+            function(response) {
+              deferred.resolve(response);
+            },
+            angular.bind(deferred, errorHandler)
         );
 
         return deferred.promise;
@@ -220,9 +235,7 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -234,9 +247,7 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;
@@ -248,9 +259,7 @@ angular.module('RedhatAccess.cases')
               function (response) {
                 deferred.resolve(response);
               },
-              function (error) {
-                deferred.reject(error);
-              }
+              angular.bind(deferred, errorHandler)
           );
 
           return deferred.promise;

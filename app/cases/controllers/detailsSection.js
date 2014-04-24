@@ -100,9 +100,7 @@ angular.module('RedhatAccess.cases')
           caseJSON.folderNumber = CaseService.case.group.number;
         }
 
-        strata.cases.put(
-            CaseService.case.case_number,
-            caseJSON,
+        strataService.cases.put(CaseService.case.case_number, caseJSON).then(
             function() {
               $scope.caseDetails.$setPristine();
               $scope.updatingDetails = false;

@@ -76,32 +76,12 @@ angular.module('RedhatAccess.header', [])
         return errors;
       };
 
-      var buildStrataErrorMessage = function(error) {
-        var message = error.status + ': ' + error.statusText;
-
-        function messageWithDetails(message, details) {
-          return message + ' - ' + details;
-        }
-
-        if (error.responseText != null && error.responseText != '') {
-          message = messageWithDetails(message, error.responseText);
-        }
-
-        if (error.status == '401') {
-          message = messageWithDetails(message, 'Please log in to continue.');
-        }
-
-        return message;
-      };
-
       this.addStrataErrorMessage = function(error) {
-        var message = buildStrataErrorMessage(error);
-
         var existingMessage =
-            $filter('filter')(this.alerts, {type: ALERT_TYPES.DANGER, message: message})
+            $filter('filter')(this.alerts, {type: ALERT_TYPES.DANGER, message: error.message})
 
         if (existingMessage.length < 1) {
-          this.addDangerMessage(message);
+          this.addDangerMessage(error.message);
         }
       };
     }])
