@@ -99,7 +99,7 @@
 }
 
 .dropdown-toggle{
-	border-radius: 3px!important;
+	border-radius: 3px !important;
 	float: none !important; 
 }
 
@@ -116,4 +116,8 @@
 
 .tabs-spinner.showMe {
 	display: inline-block;
+}
+
+.rha-search-spinner {
+	margin-bottom: 0px !important;;
 }

@@ -3,13 +3,14 @@
 angular.module('RedhatAccess.logViewer',
 	[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search', 'RedhatAccess.header'])
 
-.config(function($urlRouterProvider) {
-}).config([ '$stateProvider', function($stateProvider) {
+.config([ '$stateProvider', function($stateProvider) {
 	$stateProvider.state('logviewer', {
 		url : "/logviewer",
 		templateUrl : 'log_viewer/views/log_viewer.html'
 	})
-} ]).value('hideMachinesDropdown', false)
+} ])
+
+.value('hideMachinesDropdown', false)
 
 .factory('files', function() {
 	var fileList = '';
@@ -80,6 +81,34 @@ angular.module('RedhatAccess.logViewer',
 		}
 	};
 })
+.controller('logViewerController', ['$scope', 'SearchResultsService', function($scope, SearchResultsService) {
+		$scope.isDisabled = true;
+		$scope.textSelected = false;
+		$scope.enableDiagnoseButton = function(){
+			//Gotta wait for text to "unselect"
+			$scope.sleep(1, $scope.checkTextSelection);
+		};
+		$scope.checkTextSelection = function(){
+			if(strata.utils.getSelectedText()){
+				$scope.textSelected = true;
+				if(SearchResultsService.searchInProgress.value){
+					$scope.isDisabled = true;
+				} else {
+					$scope.isDisabled = false;
+				}
+			} else{
+				$scope.textSelected = false;
+				$scope.isDisabled = true;
+			}
+			$scope.$apply();
+		};
+
+		$scope.sleep = function(millis, callback) {
+			setTimeout(function()
+        		{ callback(); }
+			, millis);
+		};
+}])
 .controller('fileController', ['$scope', 'files', function($scope, files) {
 	$scope.roleList = '';
 
@@ -188,8 +217,6 @@ angular.module('RedhatAccess.logViewer',
 			longTitle : "Long Log File",
 			content : "Sample Log Text"
 		} ];
-		$scope.isDisabled = true;
-		$scope.textSelected = false;
 		$scope.isLoading = false;
 		$scope.$watch(function() {
 			return files.getFileClicked().check;
@@ -231,9 +258,9 @@ angular.module('RedhatAccess.logViewer',
 			return SearchResultsService.searchInProgress.value;
 		}, function() {
 			if (SearchResultsService.searchInProgress.value == true) {
-				$scope.isDisabled = true;
-			} else if(SearchResultsService.searchInProgress.value == false && $scope.textSelected == true){
-				$scope.isDisabled = false;
+				$scope.$parent.isDisabled = true;
+			} else if(SearchResultsService.searchInProgress.value == false && $scope.$parent.textSelected == true){
+				$scope.$parent.isDisabled = false;
 			}
 		});
 		$scope.removeTab = function(index) {
@@ -281,31 +308,7 @@ angular.module('RedhatAccess.logViewer',
 		// or server returns response with an error status.
 			});
 		};
-		$scope.enableDiagnoseButton = function(){
-			//Gotta wait for text to "unselect"
-			$scope.sleep(1, $scope.checkTextSelection);
-		};
-		$scope.checkTextSelection = function(){
-			if(strata.utils.getSelectedText()){
-				$scope.textSelected = true;
-				if(SearchResultsService.searchInProgress.value){
-					$scope.isDisabled = true;
-				} else {
-					$scope.isDisabled = false;
-				}
-			} else{
-				$scope.textSelected = false;
-				$scope.isDisabled = true;
-			}
-			$scope.$apply();
-		};
-
-		$scope.sleep = function(millis, callback) {
-			setTimeout(function()
-        		{ callback(); }
-			, millis);
-		};
-		}])
+}])
 
 .controller('AccordionDemoCtrl', ['$scope', 'accordian', function($scope, accordian) {
 	$scope.oneAtATime = true;
