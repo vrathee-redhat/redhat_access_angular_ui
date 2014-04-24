@@ -1,9 +1,13 @@
 <div class="container-offset">
-    <x-rha-header title="My Cases"/>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-xs-12">
+                <x-rha-header title="My Cases"/>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-4" style="height: 100%;">
-                <rha-compact-case-list></rha-compact-case-list>
+                <x-rha-compact-case-list></x-rha-compact-case-list>
             </div>
             <div class="col-xs-8" style="padding: 0px; ">
                 <!-- Jade can't create the ui-view attribute in the form

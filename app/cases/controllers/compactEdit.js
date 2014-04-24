@@ -7,40 +7,59 @@ angular.module('RedhatAccess.cases')
   '$stateParams',
   'CaseService',
   'AttachmentsService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  'securityService',
+  'AlertService',
   function(
       $scope,
       strataService,
       $stateParams,
       CaseService,
-      AttachmentsService) {
+      AttachmentsService,
+      $rootScope,
+      AUTH_EVENTS,
+      securityService,
+      AlertService) {
+
+    $scope.securityService = securityService;
 
     $scope.caseLoading = true;
     $scope.domReady = false;
 
-    strataService.cases.get($stateParams.id).then(
-      function(caseJSON) {
-        CaseService.defineCase(caseJSON);
-        $scope.caseLoading = false;
+    $scope.init = function() {
+      strataService.cases.get($stateParams.id).then(
+          function(caseJSON) {
+            CaseService.defineCase(caseJSON);
+            $scope.caseLoading = false;
 
-        strataService.products.versions(caseJSON.product.name).then(
-            function(versions) {
-              CaseService.versions = versions;
-            }
-        );
+            strataService.products.versions(caseJSON.product.name).then(
+                function(versions) {
+                  CaseService.versions = versions;
+                },
+                function(error) {
+                  AlertService.addStrataErrorMessage(error);
+                }
+            );
 
-        $scope.domReady = true;
-      }
-    );
+            $scope.domReady = true;
+          }
+      );
 
-    strataService.cases.attachments.list($stateParams.id).then(
-        function(attachmentsJSON) {
-          AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-        },
-        function(error) {
-          console.log(error);
-        }
-    );
+      strataService.cases.attachments.list($stateParams.id).then(
+          function(attachmentsJSON) {
+            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
+    }
+    $scope.init();
 
-
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.init();
+      AlertService.clearAlerts();
+    });
   }
 ]);

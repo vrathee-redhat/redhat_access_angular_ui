@@ -7,13 +7,22 @@ angular.module('RedhatAccess.cases')
   'strataService',
   'CaseService',
   'CaseListService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  'securityService',
+  'AlertService',
   function(
       $scope,
       $stateParams,
       strataService,
       CaseService,
-      CaseListService) {
+      CaseListService,
+      $rootScope,
+      AUTH_EVENTS,
+      securityService,
+      AlertService) {
 
+    $scope.securityService = securityService;
     $scope.CaseService = CaseService;
     $scope.CaseListService = CaseListService;
     $scope.loadingCaseList = true;
@@ -34,10 +43,16 @@ angular.module('RedhatAccess.cases')
             $scope.domReady = true;
           },
           function(error) {
-            console.log(error);
+            AlertService.addStrataErrorMessage(error);
           }
       );
     };
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      CaseService.populateGroups();
+      $scope.filterCases();
+      AlertService.clearAlerts();
+    });
 
     /**
      * Passed to rha-list-filter as a callback after filtering
@@ -51,7 +66,6 @@ angular.module('RedhatAccess.cases')
     };
 
     CaseService.populateGroups();
-
     $scope.filterCases();
   }
 ]);

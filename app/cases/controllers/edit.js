@@ -10,6 +10,10 @@ angular.module('RedhatAccess.cases')
   'CaseService',
   'strataService',
   'RecommendationsService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  'AlertService',
+  'securityService',
   function(
       $scope,
       $stateParams,
@@ -18,60 +22,82 @@ angular.module('RedhatAccess.cases')
       AttachmentsService,
       CaseService,
       strataService,
-      RecommendationsService) {
+      RecommendationsService,
+      $rootScope,
+      AUTH_EVENTS,
+      AlertService,
+      securityService) {
 
+    $scope.securityService = securityService;
     $scope.AttachmentsService = AttachmentsService;
     $scope.CaseService = CaseService;
     CaseService.clearCase();
 
-    $scope.caseLoading = true;
-    $scope.recommendationsLoading = true;
+    $scope.init = function() {
+      $scope.caseLoading = true;
+      $scope.recommendationsLoading = true;
 
-    strataService.cases.get($stateParams.id).then(
-        function(caseJSON) {
-          CaseService.defineCase(caseJSON);
-          $scope.caseLoading = false;
+      strataService.cases.get($stateParams.id).then(
+          function(caseJSON) {
+            CaseService.defineCase(caseJSON);
+            $scope.caseLoading = false;
 
-          strataService.products.versions(caseJSON.product.name).then(
-              function(versions) {
-                CaseService.versions = versions;
-              }
-          );
+            strataService.products.versions(caseJSON.product.name).then(
+                function(versions) {
+                  CaseService.versions = versions;
+                },
+                function(error) {
+                  AlertService.addStrataErrorMessage(error);
+                }
+            );
 
-          if (caseJSON.account_number != null) {
-            strataService.accounts.get(caseJSON.account_number).then(
-                function(account) {
-                  CaseService.defineAccount(account);
+            if (caseJSON.account_number != null) {
+              strataService.accounts.get(caseJSON.account_number).then(
+                  function(account) {
+                    CaseService.defineAccount(account);
+                  },
+                  function(error) {
+                    AlertService.addStrataErrorMessage(error);
+                  }
+              );
+            }
+
+            RecommendationsService.populateRecommendations(25).then(
+                function() {
+                  $scope.recommendationsLoading = false;
+                },
+                function(error) {
+                  AlertService.addStrataErrorMessage(error);
                 }
             );
           }
+      );
 
-          RecommendationsService.populateRecommendations(25).then(
-              function() {
-                $scope.recommendationsLoading = false;
-              }
-          );
-        }
-    );
+      $scope.attachmentsLoading = true;
+      strataService.cases.attachments.list($stateParams.id).then(
+          function(attachmentsJSON) {
+            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+            $scope.attachmentsLoading = false;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
 
-    $scope.attachmentsLoading = true;
-    strataService.cases.attachments.list($stateParams.id).then(
-        function(attachmentsJSON) {
-          AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-          $scope.attachmentsLoading = false;
-        },
-        function(error) {
-          console.log(error);
-        }
-    );
+      strataService.cases.comments.get($stateParams.id).then(
+          function(commentsJSON) {
+            $scope.comments = commentsJSON;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
+    };
+    $scope.init();
 
-    strataService.cases.comments.get($stateParams.id).then(
-        function(commentsJSON) {
-          $scope.comments = commentsJSON;
-        },
-        function(error) {
-          console.log(error);
-        }
-    );
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.init();
+      AlertService.clearAlerts();
+    });
   }]);
 

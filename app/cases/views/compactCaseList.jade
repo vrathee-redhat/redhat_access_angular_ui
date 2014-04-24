@@ -6,7 +6,7 @@ div#redhat-access-case()
     div.row
       div.col-xs-12
         div(ng-show='CaseListService.cases.length == 0 && !loadingCaseList') No cases found with given filters.
-        span(ng-show='loadingCaseList').rha-search-spinner
+        span(ng-show='loadingCaseList && securityService.isLoggedIn').rha-search-spinner
     div.row(ng-hide='CaseListService.cases.length ==0 || loadingCaseList', style='border-top: 1px solid #dddddd;')
       div.col-xs-12(
         style='overflow: auto;',

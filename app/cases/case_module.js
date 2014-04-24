@@ -19,8 +19,7 @@ angular.module('RedhatAccess.cases', [
 
     $stateProvider.state('compact', {
       url: '/case/compact?sessionId',
-      templateUrl: 'cases/views/compact.html',
-      controller: 'Compact'
+      templateUrl: 'cases/views/compact.html'
     });
 
     $stateProvider.state('compact.edit', {

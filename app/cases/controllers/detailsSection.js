@@ -5,48 +5,71 @@ angular.module('RedhatAccess.cases')
   '$scope',
   'strataService',
   'CaseService',
+  '$rootScope',
+  'AUTH_EVENTS',
+  'AlertService',
   function(
       $scope,
       strataService,
-      CaseService) {
+      CaseService,
+      $rootScope,
+      AUTH_EVENTS,
+      AlertService) {
 
     $scope.CaseService = CaseService;
 
-    if (!$scope.compact) {
+    $scope.init = function() {
+      if (!$scope.compact) {
 
-      strataService.values.cases.types().then(
+        strataService.values.cases.types().then(
+            function(response) {
+              $scope.caseTypes = response;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
+
+        strataService.groups.list().then(
+            function(response) {
+              $scope.groups = response;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
+      }
+
+      strataService.values.cases.status().then(
           function(response) {
-            $scope.caseTypes = response;
+            $scope.statuses = response;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
           }
       );
 
-      strataService.groups.list().then(
+      strataService.values.cases.severity().then(
           function(response) {
-            $scope.groups = response;
+            $scope.severities = response;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
+          }
+      );
+
+      strataService.products.list().then(
+          function(response) {
+            $scope.products = response;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
           }
       );
     }
-
-    strataService.values.cases.status().then(
-        function(response) {
-          $scope.statuses = response;
-        }
-    );
-
-    strataService.values.cases.severity().then(
-        function(response) {
-          $scope.severities = response;
-        }
-    );
-
-    strataService.products.list().then(
-        function(response) {
-          $scope.products = response;
-        }
-    );
+    $scope.init();
 
     $scope.updatingDetails = false;
-
     $scope.updateCase = function() {
       $scope.updatingDetails = true;
 
@@ -86,7 +109,7 @@ angular.module('RedhatAccess.cases')
               $scope.$apply();
             },
             function(error) {
-              console.log(error);
+              AlertService.addStrataErrorMessage(error);
               $scope.updatingDetails = false;
               $scope.$apply();
             }
@@ -100,8 +123,16 @@ angular.module('RedhatAccess.cases')
       strataService.products.versions(CaseService.case.product.code).then(
           function(versions){
             CaseService.versions = versions;
+          },
+          function(error) {
+            AlertService.addStrataErrorMessage(error);
           }
       );
     };
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.init();
+      AlertService.clearAlerts();
+    });
   }
 ]);
