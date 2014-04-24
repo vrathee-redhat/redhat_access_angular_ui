@@ -65,7 +65,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         strata.clearCredentials();
         setLoginStatus(false, '');
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-        location.reload(); //TODO: probably a neater way to do this with $state
+        //location.reload(); //TODO: probably a neater way to do this with $state
       };
     }
   ])
