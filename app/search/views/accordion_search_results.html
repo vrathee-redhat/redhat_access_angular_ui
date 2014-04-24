@@ -15,10 +15,6 @@
 </div>
 <div class="row ">
     <div class="col-xs-12">
-        <div class="alert alert-info" ng-show="searchResultInfo.msg">
-            <a class="close" ng-click="searchResultInfo.msg=null">×</a>
-            {{searchResultInfo.msg}}
-        </div>
         <accordion>
             <accordion-group is-open="isopen" ng-repeat="result in results">
                 <accordion-heading>

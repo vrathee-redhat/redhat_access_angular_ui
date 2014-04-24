@@ -46,7 +46,6 @@ angular.module('RedhatAccess.search', [
       $scope.results = SearchResultsService.results;
       $scope.selectedSolution = SearchResultsService.currentSelection;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
-      $scope.searchResultInfo = SearchResultsService.searchResultInfo;
       $scope.currentSearchData = SearchResultsService.currentSearchData;
 
       clearResults = function() {
@@ -177,9 +176,9 @@ angular.module('RedhatAccess.search', [
       };
     }
   ])
-  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS',
+  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS','AlertService',
 
-    function($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS) {
+    function($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS,AlertService) {
       var service = {
         results: [],
         currentSelection: {
@@ -188,10 +187,6 @@ angular.module('RedhatAccess.search', [
         },
         searchInProgress: {
           value: false
-        },
-
-        searchResultInfo: {
-          msg: null
         },
         currentSearchData: {
           data: '',
@@ -204,7 +199,6 @@ angular.module('RedhatAccess.search', [
         clear: function() {
           this.results.length = 0;
           this.setSelected({}, -1);
-          this.searchResultInfo.msg = null;
           this.setCurrentSearchData('', '');
 
         },
@@ -220,16 +214,17 @@ angular.module('RedhatAccess.search', [
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
+          AlertService.clearAlerts();
           this.searchInProgress.value = true;
           this.setCurrentSearchData(searchString, 'search');
           var deferreds = [];
-          var sent = strata.search(
+          strata.search(
             searchString,
             function(entries) {
               //retrieve details for each solution
               if (entries !== undefined) {
                 if (entries.length === 0) {
-                  that.searchResultInfo.msg = "No recommendations found.";
+                  AlertService.addSuccessMessage("No recommendations found.");
                 };
                 entries.forEach(function(entry) {
                   var deferred = $q.defer();
@@ -248,7 +243,7 @@ angular.module('RedhatAccess.search', [
                     });
                 });
               } else {
-                that.searchResultInfo.msg = "No recommendations found.";
+                AlertService.addSuccessMessage("No recommendations found.");
               };
               $q.all(deferreds).then(
                 function(results) {
@@ -268,20 +263,13 @@ angular.module('RedhatAccess.search', [
               console.log(error);
               $rootScope.$apply(function() {
                 that.searchInProgress.value = false;
-                if (error && error.statusText) {
-                  that.searchResultInfo.msg = error.statusText;
-                } else {
-                  that.searchResultInfo.msg = "Error retrieving solutions";
-                }
+                console.log(error);
+                AlertService.addDangerMessage(error);
               });
             },
             limit,
             false
           );
-          if (sent == false) {
-            this.searchInProgress.value = false;
-          };
-
         },
         // solution and article search needs reimplementation
         // searchSolutions: function (searchString, limit) {
@@ -328,16 +316,17 @@ angular.module('RedhatAccess.search', [
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
+          AlertService.clearAlerts();
           var deferreds = [];
           that.searchInProgress.value = true;
           this.setCurrentSearchData(data, 'diagnose');
-          var sent = strata.problems(
+          strata.problems(
             data,
             function(solutions) {
               //retrieve details for each solution
               if (solutions !== undefined) {
                 if (solutions.length === 0) {
-                  that.searchResultInfo.msg = "No solutions found.";
+                  AlertService.addSuccessMessage("No solutions found.");
                 };
 
                 solutions.forEach(function(solution) {
@@ -353,7 +342,7 @@ angular.module('RedhatAccess.search', [
                     });
                 });
               } else {
-                that.searchResultInfo.msg = "No solutions found.";
+                AlertService.addSuccessMessage("No solutions found.");
               };
               $q.all(deferreds).then(
                 function(solutions) {
@@ -374,25 +363,22 @@ angular.module('RedhatAccess.search', [
             function(error) {
               $rootScope.$apply(function() {
                 that.searchInProgress.value = false;
-                if (error && error.statusText) {
-                  that.searchResultInfo.msg = error.statusText;
-                } else {
-                  that.searchResultInfo.msg = "Error retrieving solutions";
-                }
+                AlertService.addDangerMessage(error);
               });
               console.log(error);
             },
             limit
           );
-          if (sent == false) {
-            this.searchInProgress.value = false;
-          };
         }
       };
 
       $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
         service.clear.apply(service);
       });
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+         AlertService.clearAlerts();
+      });
+
       return service;
     }
   ]);
