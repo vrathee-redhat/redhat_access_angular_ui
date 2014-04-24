@@ -1,6 +1,6 @@
-<div class="row">
-    <div class="col-xs-12">
-        <div style="padding-bottom: 0" class="bottom-border">
+<div class="row bottom-border">
+    <div class="col-xs-6">
+        <div style="padding-bottom: 0">
             <span>
                 <h4 style="padding-left: 10px; display: inline-block;">Recommendations</h4>
             </span>
@@ -8,6 +8,9 @@
                 &nbsp;
             </span>
         </div>
+    </div>
+    <div style="padding-bottom: 14px;" class="col-xs-6" ng-show="showOpenCaseBtn()">
+        <a href={{getOpenCaseRef()}} class="btn btn-primary pull-right ">Open a New Support Case</a>
     </div>
 </div>
 <div class="row ">

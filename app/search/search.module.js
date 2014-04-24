@@ -22,6 +22,10 @@ angular.module('RedhatAccess.search', [
     limit: 10
 
   })
+  .value('SEARCH_CONFIG', {
+    openCaseRef: null,
+    showOpenCaseBtn:true
+  })
   .config(['$stateProvider',
     function($stateProvider) {
       $stateProvider.state('search', {
@@ -37,17 +41,26 @@ angular.module('RedhatAccess.search', [
     }
   ])
   .controller('SearchController', ['$scope',
-    'SearchResultsService', 'SEARCH_PARAMS',
-    function($scope, SearchResultsService) {
+    'SearchResultsService', 'SEARCH_CONFIG',
+    function($scope, SearchResultsService, SEARCH_CONFIG) {
       $scope.results = SearchResultsService.results;
       $scope.selectedSolution = SearchResultsService.currentSelection;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
       $scope.searchResultInfo = SearchResultsService.searchResultInfo;
+      $scope.currentSearchData = SearchResultsService.currentSearchData;
 
       clearResults = function() {
         SearchResultsService.clear();
       };
 
+      $scope.getOpenCaseRef = function() {
+        if (SEARCH_CONFIG.openCaseRef !== null) {
+          //TODO data may be complex type - need to normalize to string in future
+          return SEARCH_CONFIG.openCaseRef + '?data=' + SearchResultsService.currentSearchData.data;
+        } else {
+          return '#/case/new?data=' + SearchResultsService.currentSearchData.data;
+        }
+      };
 
       $scope.solutionSelected = function(index) {
         var response = $scope.results[index];
@@ -75,13 +88,22 @@ angular.module('RedhatAccess.search', [
 
     }
   ])
-  .directive('rhaAccordionSearchResults', function() {
+  .directive('rhaAccordionSearchResults',['SEARCH_CONFIG', function(SEARCH_CONFIG) {
     return {
       restrict: 'AE',
       scope: false,
-      templateUrl: 'search/views/accordion_search_results.html'
+      templateUrl: 'search/views/accordion_search_results.html',
+      link: function(scope, element, attr) {
+        scope.showOpenCaseBtn = function() {
+          if (SEARCH_CONFIG.showOpenCaseBtn && (attr && attr.opencase === 'true')) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
     };
-  })
+  }])
   .directive('rhaListSearchResults', function() {
     return {
       restrict: 'AE',
@@ -171,6 +193,11 @@ angular.module('RedhatAccess.search', [
         searchResultInfo: {
           msg: null
         },
+        currentSearchData: {
+          data: '',
+          method: ''
+        },
+
         add: function(result) {
           this.results.push(result);
         },
@@ -178,16 +205,23 @@ angular.module('RedhatAccess.search', [
           this.results.length = 0;
           this.setSelected({}, -1);
           this.searchResultInfo.msg = null;
+          this.setCurrentSearchData('', '');
+
         },
         setSelected: function(selection, index) {
           this.currentSelection.data = selection;
           this.currentSelection.index = index;
+        },
+        setCurrentSearchData: function(data, method) {
+          this.currentSearchData.data = data;
+          this.currentSearchData.method = method;
         },
         search: function(searchString, limit) {
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
           this.searchInProgress.value = true;
+          this.setCurrentSearchData(searchString, 'search');
           var deferreds = [];
           var sent = strata.search(
             searchString,
@@ -296,6 +330,7 @@ angular.module('RedhatAccess.search', [
           this.clear();
           var deferreds = [];
           that.searchInProgress.value = true;
+          this.setCurrentSearchData(data, 'diagnose');
           var sent = strata.problems(
             data,
             function(solutions) {

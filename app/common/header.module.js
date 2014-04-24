@@ -1,6 +1,6 @@
 angular.module('RedhatAccess.header', [])
 .value('TITLE_VIEW_CONFIG', {
-    show: 'true'
+    show: 'false'
 })
 .controller('TitleViewCtrl', ['TITLE_VIEW_CONFIG', '$scope',
     function(TITLE_VIEW_CONFIG, $scope) {

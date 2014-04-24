@@ -14,6 +14,7 @@ angular.module('RedhatAccess.cases')
     'securityService',
     '$rootScope',
     'AUTH_EVENTS',
+    '$location',
     function ($scope,
               $state,
               $q,
@@ -25,7 +26,8 @@ angular.module('RedhatAccess.cases')
               AlertService,
               securityService,
               $rootScope,
-              AUTH_EVENTS) {
+              AUTH_EVENTS,
+              $location) {
 
       $scope.versions = [];
       $scope.versionDisabled = true;
@@ -99,10 +101,20 @@ angular.module('RedhatAccess.cases')
             }
         );
       };
+      
+      $scope.initDescription = function() {
+        var searchObject = $location.search();
+        if (searchObject.data){
+          CaseService.case.description = searchObject.data;
+        };
+      };
+
       $scope.initSelects();
+      $scope.initDescription();
 
       $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
         $scope.initSelects();
+        $scope.initDescription();
         AlertService.clearAlerts();
       });
 
