@@ -33,15 +33,16 @@ angular.module('RedhatAccess.cases')
             CaseService.defineCase(caseJSON);
             $scope.caseLoading = false;
 
-            strataService.products.versions(caseJSON.product.name).then(
-                function(versions) {
-                  CaseService.versions = versions;
-                },
-                function(error) {
-                  AlertService.addStrataErrorMessage(error);
-                }
-            );
-
+            if (caseJSON.product != null && caseJSON.product.name != null) {
+              strataService.products.versions(caseJSON.product.name).then(
+                  function(versions) {
+                    CaseService.versions = versions;
+                  },
+                  function(error) {
+                    AlertService.addStrataErrorMessage(error);
+                  }
+              );
+            }
             $scope.domReady = true;
           }
       );
