@@ -6,7 +6,8 @@ angular.module('RedhatAccess.cases')
     templateUrl: 'cases/views/listAttachments.html',
     restrict: 'EA',
     controller: 'ListAttachments',
-    link: function postLink(scope, element, attrs) {
+    scope: {
+      disabled: '='
     }
   };
 });

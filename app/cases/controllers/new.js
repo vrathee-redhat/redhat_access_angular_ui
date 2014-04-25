@@ -142,18 +142,17 @@ angular.module('RedhatAccess.cases')
         $scope.versionDisabled = true;
         $scope.versionLoading = true;
 
-        strata.products.versions(
-          product.code,
-          function (response) {
-            $scope.versions = response;
-            $scope.validateForm();
-            $scope.versionDisabled = false;
-            $scope.versionLoading = false;
-            $scope.$apply();
-          },
-          function (error) {
-            AlertService.addStrataErrorMessage(error);
-          });
+        strataService.products.versions(product.code).then(
+            function(response) {
+              $scope.versions = response;
+              $scope.validateForm();
+              $scope.versionDisabled = false;
+              $scope.versionLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
       };
 
       /**
@@ -194,26 +193,27 @@ angular.module('RedhatAccess.cases')
           'folderNumber': CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
         };
         $scope.submittingCase = true;
-        strata.cases.post(
-          caseJSON,
-          function (caseNumber) {
-            if ((AttachmentsService.updatedAttachments.length > 0) || (AttachmentsService.hasBackEndSelections())) {
-              AttachmentsService.updateAttachments(caseNumber).then(
-                function () {
-                  $state.go('edit', {
-                    id: caseNumber
-                  });
-                  $scope.submittingCase = false;
-                },
-                function(error) {
-                  AlertService.addStrataErrorMessage(error);
-                }
-              );
+        AlertService.addWarningMessage('Creating case...');
+
+        strataService.cases.post(caseJSON).then(
+            function(caseNumber) {
+              AlertService.clearAlerts();
+              AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
+              if ((AttachmentsService.updatedAttachments.length > 0) || (AttachmentsService.hasBackEndSelections())) {
+                AttachmentsService.updateAttachments(caseNumber).then(
+                    function () {
+                      $state.go('edit', {
+                        id: caseNumber
+                      });
+                      AlertService.clearAlerts();
+                      $scope.submittingCase = false;
+                    }
+                );
+              }
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
             }
-          },
-          function (error) {
-            AlertService.addStrataErrorMessage(error);
-          }
         );
       };
 

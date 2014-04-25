@@ -8,7 +8,8 @@ angular.module('RedhatAccess.cases')
     'TreeViewSelectorUtils',
     '$http',
     'securityService',
-    function ($filter, $q, strataService, TreeViewSelectorUtils, $http, securityService) {
+    'AlertService',
+    function ($filter, $q, strataService, TreeViewSelectorUtils, $http, securityService, AlertService) {
       this.originalAttachments = [];
       this.updatedAttachments = [];
 
@@ -94,6 +95,10 @@ angular.module('RedhatAccess.cases')
                 promise.then(
                     function (uri) {
                       updatedAttachments[i].uri = uri;
+                      //TODO: delete uploading message
+                      AlertService.addSuccessMessage(
+                          'Successfully uploaded attachment ' +
+                              updatedAttachments[i].name + ' to case ' + caseId);
                     },
                     function(error) {
                       AlertService.addStrataErrorMessage(error);
@@ -115,7 +120,9 @@ angular.module('RedhatAccess.cases')
                     caseId)
 
                 promise.then(
-                    function() {},
+                    function() {
+                      AlertService.addSuccessMessage('Deleted attachment: ' +  origAttachment.uuid)
+                    },
                     function(error) {
                       AlertService.addStrataErrorMessage(error);
                     }
@@ -126,6 +133,7 @@ angular.module('RedhatAccess.cases')
             });
           }
 
+          AlertService.addWarningMessage('Uploading attachments...');
           var parentPromise = $q.all(promises);
           parentPromise.then(
             angular.bind(this, function () {

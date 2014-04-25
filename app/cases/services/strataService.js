@@ -211,6 +211,19 @@ angular.module('RedhatAccess.cases')
 
         return deferred.promise;
       },
+      post: function(caseJSON) {
+        var deferred = $q.defer();
+
+        strata.cases.post(
+            caseJSON,
+            function (caseNumber) {
+              deferred.resolve(caseNumber);
+            },
+            angular.bind(deferred, errorHandler)
+        );
+
+        return deferred.promise;
+      },
       put: function(case_number, caseJSON) {
         var deferred = $q.defer();
 
