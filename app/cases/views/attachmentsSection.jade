@@ -7,15 +7,15 @@ div.container-fluid.side-padding
     div.col-xs-12
       rha-attach-local-file
   div.row
-    div.col-xs-12 
+    div.col-xs-12
       div.server-attach-header Server File(s) To Attach:
       rha-choice-tree(ng-model="attachmentTree",
                       ng-controller="BackEndAttachmentsCtrl"
                       )
   div.row.side-padding
-    div.col-xs-12.col-no-padding.bottom-border(style='padding-bottom: 14px;')
+    div.col-xs-12.col-no-padding(style='padding-bottom: 14px;')
       div(style='float: right')
-        div(ng-show='updatingAttachments') Updating Attachments...
+        span.rha-search-spinner(ng-show='updatingAttachments')
         button.btn.btn-primary(
           ng-hide='updatingAttachments',
           ng-click='doUpdate()') Update Attachments

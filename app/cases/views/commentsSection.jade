@@ -10,7 +10,7 @@ div.container-fluid.side-padding
   div.row.create-field(style='margin-left: 0px; margin-right: 0px;')
     div.col-xs-12.col-no-padding
       div(style='float: right;')
-        div(ng-hide='!addingComment') Adding comment...
+        span.rha-search-spinner(ng-show='addingComment')
         button.btn.btn-primary(
           ng-hide='addingComment',
           ng-disabled='false',

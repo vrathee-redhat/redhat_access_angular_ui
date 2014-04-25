@@ -177,8 +177,8 @@ form(name='caseDetails')
           div.col-xs-12
             div(style='float: right;')
               button.btn.btn-primary(
-              name='updateButton',
-              ng-disabled='!caseDetails.$dirty',
-              ng-hide='updatingDetails',
-              ng-click='updateCase()') Update Details
-              div(ng-show='updatingDetails') Updating Case...
+                name='updateButton',
+                ng-disabled='!caseDetails.$dirty',
+                ng-hide='updatingDetails',
+                ng-click='updateCase()') Update Details
+              span.rha-search-spinner(ng-show='updatingDetails')
