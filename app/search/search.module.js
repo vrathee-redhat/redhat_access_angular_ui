@@ -24,10 +24,10 @@ angular.module('RedhatAccess.search', [
   })
   .value('SEARCH_CONFIG', {
     openCaseRef: null,
-    showOpenCaseBtn:true
+    showOpenCaseBtn: true
   })
   .config(['$stateProvider',
-    function($stateProvider) {
+    function ($stateProvider) {
       $stateProvider.state('search', {
         url: "/search",
         controller: 'SearchController',
@@ -42,17 +42,17 @@ angular.module('RedhatAccess.search', [
   ])
   .controller('SearchController', ['$scope',
     'SearchResultsService', 'SEARCH_CONFIG',
-    function($scope, SearchResultsService, SEARCH_CONFIG) {
+    function ($scope, SearchResultsService, SEARCH_CONFIG) {
       $scope.results = SearchResultsService.results;
       $scope.selectedSolution = SearchResultsService.currentSelection;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
       $scope.currentSearchData = SearchResultsService.currentSearchData;
 
-      clearResults = function() {
+      clearResults = function () {
         SearchResultsService.clear();
       };
 
-      $scope.getOpenCaseRef = function() {
+      $scope.getOpenCaseRef = function () {
         if (SEARCH_CONFIG.openCaseRef !== null) {
           //TODO data may be complex type - need to normalize to string in future
           return SEARCH_CONFIG.openCaseRef + '?data=' + SearchResultsService.currentSearchData.data;
@@ -61,63 +61,65 @@ angular.module('RedhatAccess.search', [
         }
       };
 
-      $scope.solutionSelected = function(index) {
+      $scope.solutionSelected = function (index) {
         var response = $scope.results[index];
         SearchResultsService.setSelected(response, index);
 
       };
 
-      $scope.search = function(searchStr, limit) {
+      $scope.search = function (searchStr, limit) {
 
         SearchResultsService.search(searchStr, limit);
       };
 
-      $scope.diagnose = function(data, limit) {
+      $scope.diagnose = function (data, limit) {
         SearchResultsService.diagnose(data, limit);
       };
 
 
-      $scope.$watch(function() {
+      $scope.$watch(function () {
           return SearchResultsService.currentSelection
         },
-        function(newVal) {
+        function (newVal) {
           $scope.selectedSolution = newVal;
         }
       );
 
     }
   ])
-  .directive('rhaAccordionSearchResults',['SEARCH_CONFIG', function(SEARCH_CONFIG) {
-    return {
-      restrict: 'AE',
-      scope: false,
-      templateUrl: 'search/views/accordion_search_results.html',
-      link: function(scope, element, attr) {
-        scope.showOpenCaseBtn = function() {
-          if (SEARCH_CONFIG.showOpenCaseBtn && (attr && attr.opencase === 'true')) {
-            return true;
-          } else {
-            return false;
+  .directive('rhaAccordionSearchResults', ['SEARCH_CONFIG',
+    function (SEARCH_CONFIG) {
+      return {
+        restrict: 'AE',
+        scope: false,
+        templateUrl: 'search/views/accordion_search_results.html',
+        link: function (scope, element, attr) {
+          scope.showOpenCaseBtn = function () {
+            if (SEARCH_CONFIG.showOpenCaseBtn && (attr && attr.opencase === 'true')) {
+              return true;
+            } else {
+              return false;
+            }
           }
         }
-      }
-    };
-  }])
-  .directive('rhaListSearchResults', function() {
+      };
+    }
+  ])
+  .directive('rhaListSearchResults', function () {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/list_search_results.html'
     };
   })
-  .directive('rhaSearchForm', function() {
+  .directive('rhaSearchForm', function () {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/search_form.html'
     };
   })
-  .directive('rhaStandardSearch', function() {
+  .directive('rhaStandardSearch', function () {
     return {
       restrict: 'AE',
       scope: false,
@@ -125,14 +127,14 @@ angular.module('RedhatAccess.search', [
     };
   })
   .directive('rhaResultDetailDisplay', ['RESOURCE_TYPES',
-    function(RESOURCE_TYPES) {
+    function (RESOURCE_TYPES) {
       return {
         restrict: 'AE',
         scope: {
           result: '='
         },
-        link: function(scope, element, attr) {
-          scope.isSolution = function() {
+        link: function (scope, element, attr) {
+          scope.isSolution = function () {
             if (scope.result !== undefined && scope.result.resource_type !== undefined) {
               if (scope.result.resource_type === RESOURCE_TYPES.solution) {
                 return true;
@@ -142,7 +144,7 @@ angular.module('RedhatAccess.search', [
             }
             return false;
           };
-          scope.isArticle = function() {
+          scope.isArticle = function () {
             if (scope.result !== undefined && scope.result.resource_type !== undefined) {
               if (scope.result.resource_type === RESOURCE_TYPES.article) {
                 return true;
@@ -152,7 +154,7 @@ angular.module('RedhatAccess.search', [
             }
             return false;
           };
-          scope.getSolutionResolution = function() {
+          scope.getSolutionResolution = function () {
             var resolution_html = '';
             if (scope.result.resolution !== undefined) {
               resolution_html = scope.result.resolution.html;
@@ -160,7 +162,7 @@ angular.module('RedhatAccess.search', [
             return resolution_html;
           };
 
-          scope.getArticleHtml = function() {
+          scope.getArticleHtml = function () {
             if (scope.result === undefined) {
               return '';
             }
@@ -176,9 +178,9 @@ angular.module('RedhatAccess.search', [
       };
     }
   ])
-  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS','AlertService',
+  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS', 'AlertService',
 
-    function($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS,AlertService) {
+    function ($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS, AlertService) {
       var service = {
         results: [],
         currentSelection: {
@@ -193,24 +195,24 @@ angular.module('RedhatAccess.search', [
           method: ''
         },
 
-        add: function(result) {
+        add: function (result) {
           this.results.push(result);
         },
-        clear: function() {
+        clear: function () {
           this.results.length = 0;
           this.setSelected({}, -1);
           this.setCurrentSearchData('', '');
 
         },
-        setSelected: function(selection, index) {
+        setSelected: function (selection, index) {
           this.currentSelection.data = selection;
           this.currentSelection.index = index;
         },
-        setCurrentSearchData: function(data, method) {
+        setCurrentSearchData: function (data, method) {
           this.currentSearchData.data = data;
           this.currentSearchData.method = method;
         },
-        search: function(searchString, limit) {
+        search: function (searchString, limit) {
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
@@ -220,25 +222,25 @@ angular.module('RedhatAccess.search', [
           var deferreds = [];
           strata.search(
             searchString,
-            function(entries) {
+            function (entries) {
               //retrieve details for each solution
               if (entries !== undefined) {
                 if (entries.length === 0) {
                   AlertService.addSuccessMessage("No recommendations found.");
                 };
-                entries.forEach(function(entry) {
+                entries.forEach(function (entry) {
                   var deferred = $q.defer();
                   deferreds.push(deferred.promise);
                   strata.utils.getURI(
                     entry.uri,
                     entry.resource_type,
-                    function(type, info) {
+                    function (type, info) {
                       if (info !== undefined) {
                         info.resource_type = type;
                       }
                       deferred.resolve(info);
                     },
-                    function(error) {
+                    function (error) {
                       deferred.resolve();
                     });
                 });
@@ -246,22 +248,22 @@ angular.module('RedhatAccess.search', [
                 AlertService.addSuccessMessage("No recommendations found.");
               };
               $q.all(deferreds).then(
-                function(results) {
-                  results.forEach(function(result) {
+                function (results) {
+                  results.forEach(function (result) {
                     if (result !== undefined) {
                       that.add(result);
                     }
                   });
                   that.searchInProgress.value = false;
                 },
-                function(error) {
+                function (error) {
                   that.searchInProgress.value = false;
                 }
               );
             },
-            function(error) {
+            function (error) {
               console.log(error);
-              $rootScope.$apply(function() {
+              $rootScope.$apply(function () {
                 that.searchInProgress.value = false;
                 console.log(error);
                 AlertService.addDangerMessage(error);
@@ -312,7 +314,7 @@ angular.module('RedhatAccess.search', [
         //     true
         //   );
         // },
-        diagnose: function(data, limit) {
+        diagnose: function (data, limit) {
           var that = this;
           if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
           this.clear();
@@ -322,22 +324,22 @@ angular.module('RedhatAccess.search', [
           this.setCurrentSearchData(data, 'diagnose');
           strata.problems(
             data,
-            function(solutions) {
+            function (solutions) {
               //retrieve details for each solution
               if (solutions !== undefined) {
                 if (solutions.length === 0) {
                   AlertService.addSuccessMessage("No solutions found.");
                 };
 
-                solutions.forEach(function(solution) {
+                solutions.forEach(function (solution) {
                   var deferred = $q.defer();
                   deferreds.push(deferred.promise);
                   strata.solutions.get(
                     solution.uri,
-                    function(solution) {
+                    function (solution) {
                       deferred.resolve(solution);
                     },
-                    function(error) {
+                    function (error) {
                       deferred.resolve();
                     });
                 });
@@ -345,8 +347,8 @@ angular.module('RedhatAccess.search', [
                 AlertService.addSuccessMessage("No solutions found.");
               };
               $q.all(deferreds).then(
-                function(solutions) {
-                  solutions.forEach(function(solution) {
+                function (solutions) {
+                  solutions.forEach(function (solution) {
                     if (solution !== undefined) {
                       solution.resource_type = RESOURCE_TYPES.solution;
                       that.add(solution);
@@ -354,14 +356,14 @@ angular.module('RedhatAccess.search', [
                   });
                   that.searchInProgress.value = false;
                 },
-                function(error) {
+                function (error) {
                   that.searchInProgress.value = false;
                 }
               );
             },
 
-            function(error) {
-              $rootScope.$apply(function() {
+            function (error) {
+              $rootScope.$apply(function () {
                 that.searchInProgress.value = false;
                 AlertService.addDangerMessage(error);
               });
@@ -372,11 +374,11 @@ angular.module('RedhatAccess.search', [
         }
       };
 
-      $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
+      $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
         service.clear.apply(service);
       });
-      $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-         AlertService.clearAlerts();
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        AlertService.clearAlerts();
       });
 
       return service;

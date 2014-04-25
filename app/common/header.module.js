@@ -1,32 +1,58 @@
 angular.module('RedhatAccess.header', [])
-.value('TITLE_VIEW_CONFIG', {
-    show: 'false'
-})
-.controller('TitleViewCtrl', ['TITLE_VIEW_CONFIG', '$scope',
-    function(TITLE_VIEW_CONFIG, $scope) {
-        $scope.showTitle = TITLE_VIEW_CONFIG.show;
-    }])
-.directive('rhaTitleTemplate',
-    function() {
+  .value('TITLE_VIEW_CONFIG', {
+    show: 'false',
+    titlePrefix: 'Red Hat Access: ',
+    searchTitle: 'Search',
+    caseListTitle: 'Support Cases',
+    caseViewTitle: 'View/Modify Case',
+    newCaseTitle: 'New Support Case',
+    logViewerTitle: 'Log'
+  })
+  .controller('TitleViewCtrl', ['TITLE_VIEW_CONFIG', '$scope',
+    function (TITLE_VIEW_CONFIG, $scope) {
+      $scope.showTitle = TITLE_VIEW_CONFIG.show;
+      $scope.titlePrefix = TITLE_VIEW_CONFIG.titlePrefix;
+      $scope.getPageTitle = function() {
+        switch ($scope.page) {
+        case 'search':
+          return TITLE_VIEW_CONFIG.searchTitle;
+        case 'caseList':
+          return TITLE_VIEW_CONFIG.caseListTitle;
+        case 'caseView':
+          return TITLE_VIEW_CONFIG.caseViewTitle;
+        case 'newCase':
+          return TITLE_VIEW_CONFIG.newCaseTitle;
+        case 'logViewer':
+          return TITLE_VIEW_CONFIG.logViewerTitle;
+        default:
+          console.log("Invalid title key" + $scope.page);
+          return '';
+        }
+      };
+    }
+  ])
+  .directive('rhaTitleTemplate',
+    function () {
       return {
-          restrict: 'AE',
-          scope: {
-              pageTitle: '@title'
-          },
-          templateUrl: 'common/views/title.html',
-          controller: 'TitleViewCtrl'
+        restrict: 'AE',
+        scope: {
+          page: '@'
+        },
+        templateUrl: 'common/views/title.html',
+        controller: 'TitleViewCtrl'
       };
     })
-.controller('AlertController', ['$scope', 'AlertService',
+  .controller('AlertController', ['$scope', 'AlertService',
     function ($scope, AlertService) {
       $scope.AlertService = AlertService;
       $scope.closeable = true;
 
-      $scope.closeAlert = function(index) {
+      $scope.closeAlert = function (index) {
         AlertService.alerts.splice(index, 1);
       }
-    }])
-.directive('rhaAlert',
+    }
+  ])
+  .directive('rhaAlert',
     function () {
       return {
         templateUrl: 'common/views/alert.html',
@@ -34,7 +60,7 @@ angular.module('RedhatAccess.header', [])
         controller: 'AlertController'
       };
     })
-.service('AlertService', ['$filter',
+  .service('AlertService', ['$filter',
     function ($filter) {
       var ALERT_TYPES = {
         DANGER: 'danger',
@@ -44,35 +70,37 @@ angular.module('RedhatAccess.header', [])
 
       this.alerts = []; //array of {message: 'some alert', type: '<type>'} objects
 
-      this.clearAlerts = function() {
+      this.clearAlerts = function () {
         this.alerts = [];
       };
 
-      this.addAlert = function(alert) {
+      this.addAlert = function (alert) {
         this.alerts.push(alert);
       };
 
-      this.addDangerMessage = function(message) {
+      this.addDangerMessage = function (message) {
         this.addMessage(message, ALERT_TYPES.DANGER);
       };
 
-      this.addSuccessMessage = function(message) {
+      this.addSuccessMessage = function (message) {
         this.addMessage(message, ALERT_TYPES.SUCCESS);
       };
 
-      this.addWarningMessage = function(message) {
+      this.addWarningMessage = function (message) {
         this.addMessage(message, ALERT_TYPES.WARNING);
       };
 
-      this.addMessage = function(message, type) {
+      this.addMessage = function (message, type) {
         this.alerts.push({
           message: message,
           type: type == null ? 'warning' : type
         })
       };
 
-      this.getErrors = function() {
-        var errors = $filter('filter')(this.alerts, {type: ALERT_TYPES.DANGER});
+      this.getErrors = function () {
+        var errors = $filter('filter')(this.alerts, {
+          type: ALERT_TYPES.DANGER
+        });
 
         if (errors == null) {
           errors = [];
@@ -81,22 +109,26 @@ angular.module('RedhatAccess.header', [])
         return errors;
       };
 
-      this.addStrataErrorMessage = function(error) {
+      this.addStrataErrorMessage = function (error) {
         var existingMessage =
-            $filter('filter')(this.alerts, {type: ALERT_TYPES.DANGER, message: error.message})
+          $filter('filter')(this.alerts, {
+            type: ALERT_TYPES.DANGER,
+            message: error.message
+          })
 
         if (existingMessage.length < 1) {
           this.addDangerMessage(error.message);
         }
       };
-    }])
-.directive('rhaHeader',
+    }
+  ])
+  .directive('rhaHeader',
     function () {
       return {
         templateUrl: 'common/views/header.html',
         restrict: 'E',
         scope: {
-          title: '@'
+          page: '@'
         }
       };
     });
