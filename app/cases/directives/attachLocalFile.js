@@ -6,7 +6,8 @@ angular.module('RedhatAccess.cases')
     templateUrl: 'cases/views/attachLocalFile.html',
     restrict: 'EA',
     controller: 'AttachLocalFile',
-    link: function postLink(scope, element, attrs) {
+    scope: {
+      disabled: '='
     }
   };
 });

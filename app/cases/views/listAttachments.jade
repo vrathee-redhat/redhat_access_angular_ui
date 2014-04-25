@@ -17,4 +17,5 @@ table.table.table-hover.table-bordered(ng-show='AttachmentsService.updatedAttach
       td {{attachment.created_date | date:'medium'}}
       td {{attachment.created_by}}
       td
-        a(ng-click='AttachmentsService.removeAttachment($index)') Delete
+        div(ng-show='disabled') Delete
+        a(ng-click='AttachmentsService.removeAttachment($index)', ng-hide='disabled') Delete

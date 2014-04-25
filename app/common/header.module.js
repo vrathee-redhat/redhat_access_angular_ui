@@ -49,6 +49,7 @@ angular.module('RedhatAccess.header', [])
 
       $scope.closeAlert = function (index) {
         AlertService.alerts.splice(index, 1);
+        $(window).trigger('resize');
       }
     }
   ])

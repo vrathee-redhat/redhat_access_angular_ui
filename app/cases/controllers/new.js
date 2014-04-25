@@ -16,18 +16,18 @@ angular.module('RedhatAccess.cases')
     'AUTH_EVENTS',
     '$location',
     function ($scope,
-      $state,
-      $q,
-      SearchResultsService,
-      AttachmentsService,
-      strataService,
-      RecommendationsService,
-      CaseService,
-      AlertService,
-      securityService,
-      $rootScope,
-      AUTH_EVENTS,
-      $location) {
+              $state,
+              $q,
+              SearchResultsService,
+              AttachmentsService,
+              strataService,
+              RecommendationsService,
+              CaseService,
+              AlertService,
+              securityService,
+              $rootScope,
+              AUTH_EVENTS,
+              $location) {
 
       $scope.versions = [];
       $scope.versionDisabled = true;
@@ -44,68 +44,67 @@ angular.module('RedhatAccess.cases')
       $scope.RecommendationsService = RecommendationsService;
       $scope.securityService = securityService;
 
-      $scope.getRecommendations = function () {
+      $scope.getRecommendations = function() {
         SearchResultsService.searchInProgress.value = true;
         RecommendationsService.populateRecommendations(5).then(
-          function () {
-            SearchResultsService.clear();
+            function() {
+              SearchResultsService.clear();
 
-            RecommendationsService.recommendations.forEach(
-              function (recommendation) {
-                SearchResultsService.add(recommendation);
-              }
-            )
-            SearchResultsService.searchInProgress.value = false;
-          },
-          function (error) {
-            AlertService.addStrataErrorMessage(error);
-          }
+              RecommendationsService.recommendations.forEach(
+                  function(recommendation) {
+                    SearchResultsService.add(recommendation);
+                  }
+              )
+              SearchResultsService.searchInProgress.value = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
         );
       };
 
       /**
        * Populate the selects
        */
-      $scope.initSelects = function () {
+      $scope.initSelects = function() {
         $scope.productsLoading = true;
         strataService.products.list().then(
-          function (products) {
-            $scope.products = products;
-            $scope.productsLoading = false;
-          },
-          function (error) {
-            AlertService.addStrataErrorMessage(error);
-          }
+            function(products) {
+              $scope.products = products;
+              $scope.productsLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
         );
 
         $scope.severitiesLoading = true;
         strataService.values.cases.severity().then(
-          function (severities) {
-            $scope.severities = severities;
-            CaseService.
-          case .severity = severities[severities.length - 1];
-          $scope.severitiesLoading = false;
-          },
-          function (error) {
-            AlertService.addStrataErrorMessage(error);
-          }
+            function(severities) {
+              $scope.severities = severities;
+              CaseService.case.severity = severities[severities.length - 1];
+              $scope.severitiesLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
         );
 
         $scope.groupsLoading = true;
         strataService.groups.list().then(
-          function (groups) {
-            $scope.groups = groups;
-            $scope.groupsLoading = false;
-          },
-          function (error) {
-            AlertService.addStrataErrorMessage(error);
-          }
+            function(groups) {
+              $scope.groups = groups;
+              $scope.groupsLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
         );
       };
-
-      $scope.initDescription = function () {
+      
+      $scope.initDescription = function() {
         var searchObject = $location.search();
-        if (searchObject.data) {
+        if (searchObject.data){
           CaseService.case.description = searchObject.data;
         } else {
           //angular does not  handle params before hashbang
@@ -124,7 +123,7 @@ angular.module('RedhatAccess.cases')
       $scope.initSelects();
       $scope.initDescription();
 
-      $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
         $scope.initSelects();
         $scope.initDescription();
         AlertService.clearAlerts();
@@ -154,23 +153,21 @@ angular.module('RedhatAccess.cases')
        * @param product
        */
       $scope.getProductVersions = function (product) {
-        CaseService.
-      case .version = "";
-      $scope.versionDisabled = true;
-      $scope.versionLoading = true;
+        CaseService.case.version = "";
+        $scope.versionDisabled = true;
+        $scope.versionLoading = true;
 
-      strata.products.versions(
-        product.code,
-        function (response) {
-          $scope.versions = response;
-          $scope.validateForm();
-          $scope.versionDisabled = false;
-          $scope.versionLoading = false;
-          $scope.$apply();
-        },
-        function (error) {
-          AlertService.addStrataErrorMessage(error);
-        });
+        strataService.products.versions(product.code).then(
+            function(response) {
+              $scope.versions = response;
+              $scope.validateForm();
+              $scope.versionDisabled = false;
+              $scope.versionLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
       };
 
       /**
@@ -204,33 +201,34 @@ angular.module('RedhatAccess.cases')
       $scope.doSubmit = function () {
         var caseJSON = {
           'product': CaseService.case.product.code,
-          'version':CaseService.case.version,
-          'summary':CaseService.case.summary,
-          'description':CaseService.case.description,
-          'severity':CaseService.case.severity.name,
-          'folderNumber':CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
+          'version': CaseService.case.version,
+          'summary': CaseService.case.summary,
+          'description': CaseService.case.description,
+          'severity': CaseService.case.severity.name,
+          'folderNumber': CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
         };
         $scope.submittingCase = true;
-        strata.cases.post(
-          caseJSON,
-          function (caseNumber) {
-            if ((AttachmentsService.updatedAttachments.length > 0) || (AttachmentsService.hasBackEndSelections())) {
-              AttachmentsService.updateAttachments(caseNumber).then(
-                function () {
-                  $state.go('edit', {
-                    id: caseNumber
-                  });
-                  $scope.submittingCase = false;
-                },
-                function (error) {
-                  AlertService.addStrataErrorMessage(error);
-                }
-              );
+        AlertService.addWarningMessage('Creating case...');
+
+        strataService.cases.post(caseJSON).then(
+            function(caseNumber) {
+              AlertService.clearAlerts();
+              AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
+              if ((AttachmentsService.updatedAttachments.length > 0) || (AttachmentsService.hasBackEndSelections())) {
+                AttachmentsService.updateAttachments(caseNumber).then(
+                    function () {
+                      $state.go('edit', {
+                        id: caseNumber
+                      });
+                      AlertService.clearAlerts();
+                      $scope.submittingCase = false;
+                    }
+                );
+              }
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
             }
-          },
-          function (error) {
-            AlertService.addStrataErrorMessage(error);
-          }
         );
       };
 
