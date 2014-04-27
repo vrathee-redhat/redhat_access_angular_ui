@@ -11,14 +11,14 @@ div.container-offset
                 div Product:
               div.col-md-8
                 progressbar.progress-striped.active(
-                  ng-hide='!productsLoading || !securityService.isLoggedIn',
+                  ng-hide='!productsLoading || !securityService.loginStatus.isLoggedIn',
                   max='1',
                   value='1',
                   animate='false',
                   style='height: 34px; margin-bottom: 0px;')
                 select.form-control(
-                  ng-disabled='!securityService.isLoggedIn || submittingCase',
-                  ng-hide='productsLoading && securityService.isLoggedIn',
+                  ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
+                  ng-hide='productsLoading && securityService.loginStatus.isLoggedIn',
                   style='width: 100%;',
                   ng-model='CaseService.case.product',
                   ng-change='getProductVersions(CaseService.case.product)',
@@ -40,7 +40,7 @@ div.container-offset
                     ng-model='CaseService.case.version',
                     ng-options='v for v in versions',
                     ng-change='validateForm()',
-                    ng-disabled='versionDisabled || !securityService.isLoggedIn || submittingCase',
+                    ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase',
                     ng-hide='versionLoading',
                     ng-blur='getRecommendations()')
             div.row.create-field
@@ -50,7 +50,7 @@ div.container-offset
                 input.form-control(
                   id='rha-case-summary',
                   style='width: 100%;',
-                  ng-disabled='!securityService.isLoggedIn',
+                  ng-disabled='!securityService.loginStatus.isLoggedIn',
                   ng-change='validateForm()',
                   ng-model='CaseService.case.summary',
                   ng-blur='getRecommendations()')
@@ -62,7 +62,7 @@ div.container-offset
                   style='width: 100%; height: 200px; max-width: 100%;',
                   ng-model='CaseService.case.description',
                   ng-change='validateForm()',
-                  ng-disabled='!securityService.isLoggedIn || submittingCase',
+                  ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
                   ng-blur='getRecommendations()')
             div.row
               div.col-xs-12(ng-class='{"hidden": isPage2}')

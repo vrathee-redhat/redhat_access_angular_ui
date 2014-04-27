@@ -23,7 +23,7 @@ angular.module('RedhatAccess.cases')
         file_name: $scope.fileName,
         description: $scope.fileDescription,
         length: $scope.fileSize,
-        created_by: securityService.loggedInUser,
+        created_by: securityService.loginStatus.loggedInUser,
         created_date: new Date().getTime(),
         file: data
       });

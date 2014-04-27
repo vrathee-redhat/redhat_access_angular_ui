@@ -1,7 +1,7 @@
 doctype html
 div#redhat-access-case.container-offset
   x-rha-header(page='caseView')
-  div.container-fluid.side-padding(ng-show='securityService.isLoggedIn')
+  div.container-fluid.side-padding(ng-show='securityService.loginStatus.isLoggedIn')
     div.row
       div.col-xs-12(ng-hide='caseLoading')
         rha-case-details(compact='false')

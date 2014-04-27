@@ -377,10 +377,7 @@ angular.module('RedhatAccess.search', [
       $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
         service.clear.apply(service);
       });
-      $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-        AlertService.clearAlerts();
-      });
-
+      
       return service;
     }
   ]);

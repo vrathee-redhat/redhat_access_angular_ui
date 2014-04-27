@@ -273,7 +273,7 @@ angular.module('RedhatAccess.logViewer',
 
 		$scope.diagnoseText = function() {
 			//$scope.isDisabled = true;
-			if(!securityService.isLoggedIn){
+			if(!securityService.loginStatus.isLoggedIn){
 				securityService.login();
 			}
 			this.tt_isOpen = false;

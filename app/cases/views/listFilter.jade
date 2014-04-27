@@ -2,7 +2,7 @@ div.container-fluid.side-padding
   div.row
     div.col-lg-4(style='padding-bottom: 14px;')
       input.form-control(
-        ng-disabled='!securityService.isLoggedIn',
+        ng-disabled='!securityService.loginStatus.isLoggedIn',
         placeholder='Search',
         ng-model='keyword',
         ng-keypress='onFilterKeyPress($event)')
@@ -10,7 +10,7 @@ div.container-fluid.side-padding
       //label(for='rha-case-group-filter', style='padding-right: 4px; font-weight: normal;') Group:
       select.form-control(
         id='rha-case-group-filter',
-        ng-disabled='!securityService.isLoggedIn',
+        ng-disabled='!securityService.loginStatus.isLoggedIn',
         style='display: inline-block;',
         ng-model='group',
         ng-change='doFilter()',
@@ -18,7 +18,7 @@ div.container-fluid.side-padding
         option(value='') All Groups
     div.col-lg-4(style='padding-bottom: 14px;')
       select.form-control(
-        ng-disabled='!securityService.isLoggedIn',
+        ng-disabled='!securityService.loginStatus.isLoggedIn',
         ng-model='statusFilter',
         ng-change='doFilter()')
         option(value='both', selected='selected') Open and Closed
