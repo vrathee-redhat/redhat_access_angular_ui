@@ -17,7 +17,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
   .controller('SecurityController', ['$scope', '$rootScope', 'securityService', 'AUTH_EVENTS',
     function ($scope, $rootScope, securityService, AUTH_EVENTS) {
       $scope.securityService = securityService;
-      securityService.validateLogin(false); //chenge to false to force login
+//      securityService.validateLogin(false); //chenge to false to force login
     }
   ])
   .service('securityService', ['$rootScope', '$modal', 'AUTH_EVENTS', '$q',
