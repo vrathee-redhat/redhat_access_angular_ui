@@ -6,7 +6,7 @@ angular.module('RedhatAccess.cases')
     var shortText = '';
     var maxTextLength = 150;
 
-    if (text.length > maxTextLength) {
+    if (text != null && text.length > maxTextLength) {
       shortText = text.substr(0, maxTextLength);
       var lastSpace = shortText.lastIndexOf(' ');
       shortText = shortText.substr(0, lastSpace);
