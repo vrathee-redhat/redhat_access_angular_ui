@@ -13,6 +13,10 @@ angular.module('RedhatAccess.cases', [
   closed: 'closed',
   both: 'both'
 })
+.value('NEW_DEFAULTS', {
+  'product': '',
+  'version': ''
+})
 .config([
   '$stateProvider',
   function ($stateProvider) {

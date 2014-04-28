@@ -15,6 +15,7 @@ angular.module('RedhatAccess.cases')
     '$rootScope',
     'AUTH_EVENTS',
     '$location',
+    'NEW_DEFAULTS',
     function ($scope,
               $state,
               $q,
@@ -27,7 +28,8 @@ angular.module('RedhatAccess.cases')
               securityService,
               $rootScope,
               AUTH_EVENTS,
-              $location) {
+              $location,
+              NEW_DEFAULTS) {
 
       $scope.versions = [];
       $scope.versionDisabled = true;
@@ -72,6 +74,15 @@ angular.module('RedhatAccess.cases')
             function(products) {
               $scope.products = products;
               $scope.productsLoading = false;
+
+              if (NEW_DEFAULTS.product != null && NEW_DEFAULTS.product != '') {
+                CaseService.case.product = {
+                  name: NEW_DEFAULTS.product,
+                  code: NEW_DEFAULTS.product
+                };
+
+                $scope.getProductVersions(CaseService.case.product);
+              }
             },
             function(error) {
               AlertService.addStrataErrorMessage(error);
@@ -163,6 +174,10 @@ angular.module('RedhatAccess.cases')
               $scope.validateForm();
               $scope.versionDisabled = false;
               $scope.versionLoading = false;
+
+              if (NEW_DEFAULTS.version != null & NEW_DEFAULTS.version != '') {
+                CaseService.case.version = NEW_DEFAULTS.version;
+              }
             },
             function(error) {
               AlertService.addStrataErrorMessage(error);
