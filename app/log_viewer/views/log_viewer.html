@@ -4,8 +4,9 @@
   </div>
 	<div class="row-fluid" ng-controller="logViewerController" ng-mouseup="enableDiagnoseButton()" >
 		<div class="nav-side-bar col-xs-3" ng-class="{ showMe: sidePaneToggle }" fill-down ng-style="{height: windowHeight }">
-			<div class="hideable-side-bar" ng-class="{ showMe: sidePaneToggle }">
-				<div class="btn-group" ng-class="{ hideMe: hideDropdown}" ng-controller="DropdownCtrl" ng-init="init()">
+			<div class="hideable-side-bar" ng-class="{ showMe: sidePaneToggle }" ng-controller="DropdownCtrl">
+				<h4 class="file-list-title" ng-class="{ showMe: hideDropdown}">Available Log Files</h4>
+				<div class="btn-group" ng-class="{ hideMe: hideDropdown}"  ng-init="init()">
 					<div class="machines-spinner"  ng-class="{ showMe: loading }"><span class="rha-search-spinner pull-right"></span></div>
 					
 					<button type="button" class="dropdown-toggle btn btn-sm btn-primary"

@@ -121,3 +121,11 @@
 .rha-search-spinner {
 	margin-bottom: 0px !important;;
 }
+
+.file-list-title {
+	display: none;
+}
+
+.file-list-title.showMe {
+	display: block;
+}

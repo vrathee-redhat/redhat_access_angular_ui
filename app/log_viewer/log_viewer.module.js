@@ -10,7 +10,7 @@ angular.module('RedhatAccess.logViewer',
 	})
 } ])
 
-.value('hideMachinesDropdown', false)
+.value('hideMachinesDropdown', {value:false})
 
 .factory('files', function() {
 	var fileList = '';
@@ -145,7 +145,7 @@ angular.module('RedhatAccess.logViewer',
 	function($scope, $http, $location, files, hideMachinesDropdown, AlertService) {
 		$scope.machinesDropdownText = "Please Select the Machine";
 		$scope.items = [];
-		$scope.hideDropdown = hideMachinesDropdown;
+		$scope.hideDropdown = hideMachinesDropdown.value;
 		$scope.loading = false;
 		var sessionId = $location.search().sessionId;
 
@@ -181,7 +181,7 @@ angular.module('RedhatAccess.logViewer',
 				AlertService.addStrataErrorMessage(data);
 			});
 		};
-		if(hideMachinesDropdown){
+		if($scope.hideDropdown){
 			$scope.machineSelected();
 		} else{
 			$scope.getMachines();
