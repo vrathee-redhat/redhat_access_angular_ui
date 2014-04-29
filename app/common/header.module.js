@@ -127,6 +127,8 @@ angular.module('RedhatAccess.header', [])
     function ($scope, AlertService) {
       $scope.AlertService = AlertService;
 
+      $scope.closeable = true;
+
       $scope.closeAlert = function (index) {
         AlertService.alerts.splice(index, 1);
       }
