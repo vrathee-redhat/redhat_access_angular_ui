@@ -53,9 +53,13 @@ app.get('/attachments', function (req, res) {
 });
 app.post('/attachments', function (req, res) {
 	console.log(req.body.attachment);
-	res.json({
-		'foo': 'myMockJSON'
-	});
+	var respond = function () {
+		res.json({
+			'foo': 'myMockJSON'
+		});
+	}
+	setTimeout(respond, 15000);
+
 });
 
 
@@ -74,7 +78,7 @@ app.get('/machines', function (req, res) {
 });
 app.get('/logs', function (req, res) {
 	var path = req.query.path;
-	if(path == null){
+	if (path == null) {
 		res.send('/root/sub1/sub2\n/root2/sub21/sub22\n/root3/sub31/sub32\n/root3/sub31/sub34\n');
 	} else {
 		res.send('Mock file text fdsafdsafjklsdjfkldsjfkldsjfkldsjfkldsjklfjdsklafjkldsajfkldsajfkl;dsajfkl;dsjaklfjasdklfjdsklfjkldsajfkdasjfkljsdaklfjasdklfjkldsajfkdlsajfkldsjfkldsajfkldsajfklasdfjkl;asdfjkldsa');

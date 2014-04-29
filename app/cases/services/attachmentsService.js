@@ -58,21 +58,32 @@ angular.module('RedhatAccess.cases')
 
       this.postBackEndAttachments = function (caseId) {
         var selectedFiles = TreeViewSelectorUtils.getSelectedLeaves(this.backendAttachments);
-        securityService.getBasicAuthToken().then(
+        return securityService.getBasicAuthToken().then(
           function (auth) {
             //we post each attachment separately
             var promises = [];
-            for (var i = 0; i < selectedFiles.length; i++) {
+            angular.forEach(selectedFiles, function (file) {
               var jsonData = {
                 authToken: auth,
-                attachment: selectedFiles[i],
+                attachment: file,
                 caseNum: caseId
               };
-              promises.push($http.post('attachments', jsonData));
-            }
+              var deferred = $q.defer();
+              $http.post('attachments', jsonData).success(function (data) {
+                deferred.resolve(data);
+                AlertService.addSuccessMessage(
+                  'Successfully uploaded attachment ' +
+                  jsonData.attachment + ' to case ' + caseId);
+              }).error(function (error) {
+                 AlertService.addSuccessMessage(
+                  'Failed to upload attachment ' +
+                  jsonData.attachment + ' to case ' + caseId);
+                deferred.reject();
+              });
+              promises.push(deferred.promise);
+            });
             return $q.all(promises);
-          }
-        )
+          });
       };
 
       this.updateAttachments = function (caseId) {

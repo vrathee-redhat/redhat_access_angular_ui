@@ -10,13 +10,13 @@ angular.module('RedhatAccess', [
 ]).run(['TITLE_VIEW_CONFIG', '$http', 'securityService',
   function (TITLE_VIEW_CONFIG, $http, securityService) {
     TITLE_VIEW_CONFIG.show = true;
-    // securityService.checkLogin(true).then(
-    //   function (authedUser) {
-    //     console.log("logged in user is " + authedUser)
-    //   },
-    //   function (error) {
-    //     console.log("Unable to get user credentials");
-    //   });
+    securityService.validateLogin(false).then(
+      function (authedUser) {
+        console.log("logged in user is " + authedUser)
+      },
+      function (error) {
+        console.log("Unable to get user credentials");
+      });
   }
 ]);
 
