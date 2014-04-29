@@ -201,7 +201,7 @@ angular.module('RedhatAccess.logViewer',
 			files.setFileClicked(true);
 			var sessionId = $location.search().sessionId;
 			var userId = $location.search().userId;
-			$scope.$parent.sidePaneToggle = !$scope.$parent.sidePaneToggle;
+			$scope.$parent.$parent.sidePaneToggle = !$scope.$parent.$parent.sidePaneToggle;
 			$http(
 			{
 				method : 'GET',
@@ -228,9 +228,9 @@ angular.module('RedhatAccess.logViewer',
 	'AlertService',
 	function($scope, $http, $location, files, accordian, SearchResultsService, securityService, AlertService) {
 		$scope.tabs = [ {
-			shortTitle : "Short Sample Log File",
-			longTitle : "Long Log File",
-			content : "Sample Log Text"
+			shortTitle : "Log File Viewer",
+			longTitle : "Log File Viewer",
+			content : "Please select a file from the left to begin."
 		} ];
 		$scope.isLoading = false;
 		$scope.$watch(function() {
