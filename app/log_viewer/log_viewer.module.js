@@ -81,7 +81,10 @@ angular.module('RedhatAccess.logViewer',
 		}
 	};
 })
-.controller('logViewerController', ['$scope', 'SearchResultsService', function($scope, SearchResultsService) {
+.controller('logViewerController', [
+	'$scope', 
+	'SearchResultsService', 
+	function($scope, SearchResultsService) {
 		$scope.isDisabled = true;
 		$scope.textSelected = false;
 		$scope.enableDiagnoseButton = function(){
@@ -109,99 +112,110 @@ angular.module('RedhatAccess.logViewer',
 			, millis);
 		};
 }])
-.controller('fileController', ['$scope', 'files', function($scope, files) {
-	$scope.roleList = '';
+.controller('fileController', [
+	'$scope', 
+	'files', 
+	function($scope, files) {
+		$scope.roleList = '';
 
-	$scope.$watch(function() {
-		return $scope.mytree.currentNode;
-	}, function() {
-		if ($scope.mytree.currentNode != null
-			&& $scope.mytree.currentNode.fullPath != null) {
-			files.setSelectedFile($scope.mytree.currentNode.fullPath);
-			files.setRetrieveFileButtonIsDisabled(false);
-		} else {
-			files.setRetrieveFileButtonIsDisabled(true);
+		$scope.$watch(function() {
+			return $scope.mytree.currentNode;
+		}, function() {
+			if ($scope.mytree.currentNode != null
+				&& $scope.mytree.currentNode.fullPath != null) {
+				files.setSelectedFile($scope.mytree.currentNode.fullPath);
+				files.setRetrieveFileButtonIsDisabled(false);
+			} else {
+				files.setRetrieveFileButtonIsDisabled(true);
+			}
+		});
+		$scope.$watch(function() {
+			return files.fileList;
+		}, function() {
+			$scope.roleList = files.fileList;
+		});
+}])
+.controller('DropdownCtrl', [
+	'$scope', 
+	'$http', 
+	'$location', 
+	'files', 
+	'hideMachinesDropdown',
+	'AlertService', 
+	function($scope, $http, $location, files, hideMachinesDropdown, AlertService) {
+		$scope.machinesDropdownText = "Please Select the Machine";
+		$scope.items = [];
+		$scope.hideDropdown = hideMachinesDropdown;
+		$scope.loading = false;
+		var sessionId = $location.search().sessionId;
+
+		$scope.getMachines = function() {
+			$http({
+				method : 'GET',
+				url : 'machines?sessionId=' + encodeURIComponent(sessionId)
+			}).success(function(data, status, headers, config) {
+				$scope.items = data;
+			}).error(function(data, status, headers, config) {
+				AlertService.addStrataErrorMessage(data);
+			});
+		};
+		$scope.machineSelected = function() {
+			$scope.loading = true;
+			var sessionId = $location.search().sessionId;
+			var userId = $location.search().userId;
+			files.selectedHost = this.choice;
+			$scope.machinesDropdownText = this.choice;
+			$http(
+			{
+				method : 'GET',
+				url : 'logs?machine=' + files.selectedHost
+				+ '&sessionId=' + encodeURIComponent(sessionId)
+				+ '&userId=' + encodeURIComponent(userId)
+			}).success(function(data, status, headers, config) {
+				$scope.loading = false;
+				var tree = new Array();
+				parseList(tree, data);
+				files.setFileList(tree);
+			}).error(function(data, status, headers, config) {
+				$scope.loading = false;
+				AlertService.addStrataErrorMessage(data);
+			});
+		};
+		if(hideMachinesDropdown){
+			$scope.machineSelected();
+		} else{
+			$scope.getMachines();
 		}
-	});
-	$scope.$watch(function() {
-		return files.fileList;
-	}, function() {
-		$scope.roleList = files.fileList;
-	});
 }])
-.controller('DropdownCtrl', ['$scope', '$http', '$location', 'files', 'hideMachinesDropdown', function($scope, $http, $location, files, hideMachinesDropdown) {
-	$scope.machinesDropdownText = "Please Select the Machine";
-	$scope.items = [];
-	$scope.hideDropdown = hideMachinesDropdown;
-	$scope.loading = false;
-	var sessionId = $location.search().sessionId;
+.controller('selectFileButton', [
+	'$scope', 
+	'$http', 
+	'$location',
+	'files', 
+	'AlertService', 
+	function($scope, $http, $location,
+	files, AlertService) {
+		$scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
 
-	$scope.getMachines = function() {
-		$http({
-			method : 'GET',
-			url : 'machines?sessionId=' + encodeURIComponent(sessionId)
-		}).success(function(data, status, headers, config) {
-			$scope.items = data;
-		}).error(function(data, status, headers, config) {
-			var i = 0;
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-	};
-	$scope.machineSelected = function() {
-		$scope.loading = true;
-		var sessionId = $location.search().sessionId;
-		var userId = $location.search().userId;
-		files.selectedHost = this.choice;
-		$scope.machinesDropdownText = this.choice;
-		$http(
-		{
-			method : 'GET',
-			url : 'logs?machine=' + files.selectedHost
-			+ '&sessionId=' + encodeURIComponent(sessionId)
-			+ '&userId=' + encodeURIComponent(userId)
-		}).success(function(data, status, headers, config) {
-			$scope.loading = false;
-			var tree = new Array();
-			parseList(tree, data);
-			files.setFileList(tree);
-		}).error(function(data, status, headers, config) {
-			$scope.loading = false;
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-	};
-	if(hideMachinesDropdown){
-		$scope.machineSelected();
-	} else{
-		$scope.getMachines();
-	}
-}])
-.controller('selectFileButton', ['$scope', '$http', '$location',
-	'files', function($scope, $http, $location,
-	files) {
-	$scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
-
-	$scope.fileSelected = function() {
-		files.setFileClicked(true);
-		var sessionId = $location.search().sessionId;
-		var userId = $location.search().userId;
-		$scope.$parent.sidePaneToggle = !$scope.$parent.sidePaneToggle;
-		$http(
-		{
-			method : 'GET',
-			url : 'logs?sessionId='
-			+ encodeURIComponent(sessionId) + '&userId='
-			+ encodeURIComponent(userId) + '&path='
-			+ files.selectedFile + '&machine='
-			+ files.selectedHost
-		}).success(function(data, status, headers, config) {
-			files.file = data;
-		}).error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-	};
+		$scope.fileSelected = function() {
+			files.setFileClicked(true);
+			var sessionId = $location.search().sessionId;
+			var userId = $location.search().userId;
+			$scope.$parent.sidePaneToggle = !$scope.$parent.sidePaneToggle;
+			$http(
+			{
+				method : 'GET',
+				url : 'logs?sessionId='
+				+ encodeURIComponent(sessionId) + '&userId='
+				+ encodeURIComponent(userId) + '&path='
+				+ files.selectedFile + '&machine='
+				+ files.selectedHost
+			}).success(function(data, status, headers, config) {
+				files.file = data;
+			}).error(function(data, status, headers, config) {
+				AlertService.addStrataErrorMessage(data);
+			});
+		};
 }])
 .controller('TabsDemoCtrl', [
 	'$scope',
@@ -211,7 +225,8 @@ angular.module('RedhatAccess.logViewer',
 	'accordian',
 	'SearchResultsService',
 	'securityService',
-	function($scope, $http, $location, files, accordian, SearchResultsService, securityService) {
+	'AlertService',
+	function($scope, $http, $location, files, accordian, SearchResultsService, securityService, AlertService) {
 		$scope.tabs = [ {
 			shortTitle : "Short Sample Log File",
 			longTitle : "Long Log File",
@@ -273,18 +288,28 @@ angular.module('RedhatAccess.logViewer',
 
 		$scope.diagnoseText = function() {
 			//$scope.isDisabled = true;
-			if(!securityService.loginStatus.isLoggedIn){
-				securityService.login();
-			}
-			this.tt_isOpen = false;
-			if (!$scope.$parent.solutionsToggle) {
-				$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
-			}
 			var text = strata.utils.getSelectedText();
-			if (text != "") {
-				$scope.checked = !$scope.checked;
-				SearchResultsService.diagnose(text, 5);
-			}
+			securityService.validateLogin(true).
+			then( function(){
+				this.tt_isOpen = false;
+				if (!$scope.$parent.solutionsToggle) {
+					$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
+				}
+				
+				if (text != "") {
+					$scope.checked = !$scope.checked;
+					SearchResultsService.diagnose(text, 5);
+				}
+			});
+			// this.tt_isOpen = false;
+			// if (!$scope.$parent.solutionsToggle) {
+			// 	$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
+			// }
+			// var text = strata.utils.getSelectedText();
+			// if (text != "") {
+			// 	$scope.checked = !$scope.checked;
+			// 	SearchResultsService.diagnose(text, 5);
+			// }
 			//$scope.sleep(5000, $scope.checkTextSelection);
 		};
 
@@ -304,49 +329,54 @@ angular.module('RedhatAccess.logViewer',
 			}).success(function(data, status, headers, config) {
 				$scope.tabs[index].content = data;
 			}).error(function(data, status, headers, config) {
-		// called asynchronously if an error occurs
-		// or server returns response with an error status.
+				AlertService.addStrataErrorMessage(data);
 			});
 		};
 }])
 
-.controller('AccordionDemoCtrl', ['$scope', 'accordian', function($scope, accordian) {
-	$scope.oneAtATime = true;
-	$scope.groups = accordian.getGroups();
+.controller('AccordionDemoCtrl', [
+	'$scope', 
+	'accordian', 
+	function($scope, accordian) {
+		$scope.oneAtATime = true;
+		$scope.groups = accordian.getGroups();
 }])
 
-.directive('fillDown', ['$window', '$timeout', function($window, $timeout) {
-	return {
-		restrict: 'EA',
-		link: function postLink(scope, element, attrs) {
-			scope.onResizeFunction = function() {
-				var distanceToTop = element[0].getBoundingClientRect().top;
-				var height = $window.innerHeight - distanceToTop - 21;
-				if(element[0].id == 'fileList'){
-					height -= 34;
-				}
-				return scope.windowHeight = height;
-			};
-      // This might be overkill?? 
-      //scope.onResizeFunction();
-      angular.element($window).bind('resize', function() {
-      	scope.onResizeFunction();
-      	scope.$apply();
-      });
-      angular.element($window).bind('click', function() {
-      	scope.onResizeFunction();
-      	scope.$apply();
-      });
-      $timeout(scope.onResizeFunction, 100);
-      // $(window).load(function(){
-      // 	scope.onResizeFunction();
-      // 	scope.$apply();
-      // });
-      // scope.$on('$viewContentLoaded', function() {
-      // 	scope.onResizeFunction();
-      // 	//scope.$apply();
-      // });
-  }
+.directive('fillDown', [
+	'$window', 
+	'$timeout', 
+	function($window, $timeout) {
+		return {
+			restrict: 'EA',
+			link: function postLink(scope, element, attrs) {
+				scope.onResizeFunction = function() {
+					var distanceToTop = element[0].getBoundingClientRect().top;
+					var height = $window.innerHeight - distanceToTop - 21;
+					if(element[0].id == 'fileList'){
+						height -= 34;
+					}
+					return scope.windowHeight = height;
+				};
+	      // This might be overkill?? 
+	      //scope.onResizeFunction();
+	      angular.element($window).bind('resize', function() {
+	      	scope.onResizeFunction();
+	      	scope.$apply();
+	      });
+	      angular.element($window).bind('click', function() {
+	      	scope.onResizeFunction();
+	      	scope.$apply();
+	      });
+	      $timeout(scope.onResizeFunction, 100);
+	      // $(window).load(function(){
+	      // 	scope.onResizeFunction();
+	      // 	scope.$apply();
+	      // });
+	      // scope.$on('$viewContentLoaded', function() {
+	      // 	scope.onResizeFunction();
+	      // 	//scope.$apply();
+	      // });
+	  }
 };
 }]);
 
