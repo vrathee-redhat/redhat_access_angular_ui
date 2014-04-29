@@ -80,7 +80,7 @@ angular.module('RedhatAccess.cases')
                   name: NEW_DEFAULTS.product,
                   code: NEW_DEFAULTS.product
                 };
-
+                $scope.getRecommendations();
                 $scope.getProductVersions(CaseService.case.product);
               }
             },
@@ -115,8 +115,14 @@ angular.module('RedhatAccess.cases')
       
       $scope.initDescription = function() {
         var searchObject = $location.search();
+
+        var setDesc = function(desc) {
+          CaseService.case.description = desc;
+          $scope.getRecommendations();
+        }
+
         if (searchObject.data){
-          CaseService.case.description = searchObject.data;
+          setDesc(searchObject.data);
         } else {
           //angular does not  handle params before hashbang
           //@see https://github.com/angular/angular.js/issues/6172
@@ -125,7 +131,7 @@ angular.module('RedhatAccess.cases')
           for (var i = 0; i < parameters.length; i++) {
             var parameterName = parameters[i].split('=');
             if (parameterName[0] == 'data') {
-              CaseService.case.description = decodeURIComponent(parameterName[1]);
+              setDesc(decodeURIComponent(parameterName[1]));
             }
           }
         }
@@ -177,6 +183,7 @@ angular.module('RedhatAccess.cases')
 
               if (NEW_DEFAULTS.version != null & NEW_DEFAULTS.version != '') {
                 CaseService.case.version = NEW_DEFAULTS.version;
+                $scope.getRecommendations();
               }
             },
             function(error) {
