@@ -64,7 +64,7 @@ angular.module('RedhatAccess.cases')
               );
             }
 
-            RecommendationsService.populateRecommendations(25).then(
+            RecommendationsService.populateRecommendations(12).then(
                 function() {
                   $scope.recommendationsLoading = false;
                 },
