@@ -5,7 +5,7 @@ div.container-fluid.side-padding
       div.col-xs-3
         div.bold {{recommendation.title}}
         div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
-        a(href='{{recommendation.uri}}', target='_blank') View full article in new window
+        a(href='{{recommendation.view_uri}}', target='_blank') View full article in new window
   div.row
     div.col-xs-12
       pagination.pagination-sm(
