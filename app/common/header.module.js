@@ -160,4 +160,17 @@ angular.module('RedhatAccess.header', [])
         AlertService.alerts.splice(index, 1);
       }
     }
+  ]).factory('configurationService', ['$q',
+    function ($q) {
+      var defer = $q.defer();
+      var service = {
+        setConfig: function (config) {
+            defer.resolve(config);
+        },
+        getConfig: function () {
+          return defer.promise;
+        }
+      };
+      return service;
+    }
   ]);

@@ -4,7 +4,7 @@
     </h5>
 </div>
 <div class="modal-body form-horizontal" id="rha-login-modal-body" >
-    <form ng-submit="modalOptions.ok()">
+    <!--form ng-submit="modalOptions.ok()"  method="post"-->
         <div class="alert alert-info" ng-show="authError">
             {{authError}}
         </div>
@@ -25,5 +25,5 @@
                 <button class="btn btn-primary btn-md login" ng-click="modalOptions.ok()" type="submit">Sign in</button> <button class="btn btn-primary btn-md cancel" ng-click="modalOptions.close()" type="submit">Cancel</button>
             </div>
         </div>
-    </form>
+    <!--/form-->
 </div>

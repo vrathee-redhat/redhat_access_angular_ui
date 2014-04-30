@@ -41,8 +41,8 @@ angular.module('RedhatAccess.search', [
     }
   ])
   .controller('SearchController', ['$scope',
-    'SearchResultsService', 'SEARCH_CONFIG',
-    function ($scope, SearchResultsService, SEARCH_CONFIG) {
+    'SearchResultsService', 'SEARCH_CONFIG', 'securityService', 'AlertService',
+    function ($scope, SearchResultsService, SEARCH_CONFIG,securityService, AlertService) {
       $scope.results = SearchResultsService.results;
       $scope.selectedSolution = SearchResultsService.currentSelection;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
@@ -69,11 +69,23 @@ angular.module('RedhatAccess.search', [
 
       $scope.search = function (searchStr, limit) {
 
-        SearchResultsService.search(searchStr, limit);
+        securityService.validateLogin(true).then(
+          function (authedUser) {
+            SearchResultsService.search(searchStr, limit);
+          },
+          function (error) {
+             AlertService.addDangerMessage("You must be logged in to use this functionality.");
+          });
       };
 
       $scope.diagnose = function (data, limit) {
-        SearchResultsService.diagnose(data, limit);
+        securityService.validateLogin(true).then(
+          function (authedUser) {
+            SearchResultsService.diagnose(data, limit);
+          },
+          function (error) {
+             AlertService.addDangerMessage("You must be logged in to use this functionality.");
+          });
       };
 
 
@@ -377,7 +389,7 @@ angular.module('RedhatAccess.search', [
       $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
         service.clear.apply(service);
       });
-      
+
       return service;
     }
   ]);
