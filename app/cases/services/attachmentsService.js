@@ -75,7 +75,7 @@ angular.module('RedhatAccess.cases')
                   'Successfully uploaded attachment ' +
                   jsonData.attachment + ' to case ' + caseId);
               }).error(function (error) {
-                 AlertService.addSuccessMessage(
+                 AlertService.addDangerMessage(
                   'Failed to upload attachment ' +
                   jsonData.attachment + ' to case ' + caseId);
                 deferred.reject();
