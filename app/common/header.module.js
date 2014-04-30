@@ -76,7 +76,9 @@ angular.module('RedhatAccess.header', [])
         this.alerts.push({
           message: message,
           type: type == null ? 'warning' : type
-        })
+        });
+
+        $('body').animate({scrollTop: $('body').offset().top}, 100);
       };
 
       this.getErrors = function () {
