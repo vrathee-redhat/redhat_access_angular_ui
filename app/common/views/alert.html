@@ -1,1 +1,12 @@
-<alert ng-repeat='alert in AlertService.alerts' type='alert.type' close='closeAlert($index)'>{{alert.message}}</alert>
+<div class="container-fluid">
+    <div class="row" style="padding-bottom: 5px;">
+        <div class="col-xs-12">
+            <a style="float: right" ng-show="AlertService.alerts.length > 1" ng-href="" ng-click="dismissAlerts()" >Close messages</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <alert ng-repeat='alert in AlertService.alerts' type='alert.type' close='closeAlert($index)'>{{alert.message}}</alert>
+        </div>
+    </div>
+</div>
