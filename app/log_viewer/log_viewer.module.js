@@ -156,7 +156,7 @@ angular.module('RedhatAccess.logViewer',
 			}).success(function(data, status, headers, config) {
 				$scope.items = data;
 			}).error(function(data, status, headers, config) {
-				AlertService.addStrataErrorMessage(data);
+				AlertService.addDangerMessage(data);
 			});
 		};
 		$scope.machineSelected = function() {
@@ -178,7 +178,7 @@ angular.module('RedhatAccess.logViewer',
 				files.setFileList(tree);
 			}).error(function(data, status, headers, config) {
 				$scope.loading = false;
-				AlertService.addStrataErrorMessage(data);
+				AlertService.addDangerMessage(data);
 			});
 		};
 		if($scope.hideDropdown){
@@ -213,7 +213,7 @@ angular.module('RedhatAccess.logViewer',
 			}).success(function(data, status, headers, config) {
 				files.file = data;
 			}).error(function(data, status, headers, config) {
-				AlertService.addStrataErrorMessage(data);
+				AlertService.addDangerMessage(data);
 			});
 		};
 }])
@@ -329,7 +329,7 @@ angular.module('RedhatAccess.logViewer',
 			}).success(function(data, status, headers, config) {
 				$scope.tabs[index].content = data;
 			}).error(function(data, status, headers, config) {
-				AlertService.addStrataErrorMessage(data);
+				AlertService.addDangerMessage(data);
 			});
 		};
 }])
