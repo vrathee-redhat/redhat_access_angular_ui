@@ -69,17 +69,29 @@ angular.module('RedhatAccess.cases')
                 caseNum: caseId
               };
               var deferred = $q.defer();
-              $http.post('attachments', jsonData).success(function (data) {
+              $http.post('attachments', jsonData).success(function (data, status, headers, config) {
                 deferred.resolve(data);
                 AlertService.addSuccessMessage(
                   'Successfully uploaded attachment ' +
                   jsonData.attachment + ' to case ' + caseId);
-              }).error(function (error) {
-                console.log(error);
+              }).error(function (data, status, headers, config) {
+                console.log(data);
+                var error_msg = '';
+                switch (status){
+                  case 401:
+                    error_msg = ' : Unauthorised.';
+                    break;
+                  case 409:
+                    error_msg = ' : Invalid username/password.';
+                    break;
+                  case 500:
+                    error_msg = ' : Internal server error';
+                    break;
+                }
                  AlertService.addDangerMessage(
                   'Failed to upload attachment ' +
-                  jsonData.attachment + ' to case ' + caseId);
-                deferred.reject(error);
+                  jsonData.attachment + ' to case ' + caseId + error_msg);
+                deferred.reject(data);
               });
               promises.push(deferred.promise);
             });
