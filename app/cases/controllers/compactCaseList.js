@@ -11,6 +11,7 @@ angular.module('RedhatAccess.cases')
   'AUTH_EVENTS',
   'securityService',
   'AlertService',
+  '$filter',
   function(
       $scope,
       $stateParams,
@@ -20,7 +21,8 @@ angular.module('RedhatAccess.cases')
       $rootScope,
       AUTH_EVENTS,
       securityService,
-      AlertService) {
+      AlertService,
+      $filter) {
 
     $scope.securityService = securityService;
     $scope.CaseService = CaseService;
@@ -29,9 +31,10 @@ angular.module('RedhatAccess.cases')
     $scope.selectedCaseIndex = -1;
 
     $scope.selectCase = function($index) {
-      $scope.selectedCaseIndex = $index;
-
-      CaseService.clearCase();
+      if ($scope.selectedCaseIndex != $index) {
+        $scope.selectedCaseIndex = $index;
+        CaseService.clearCase();
+      }
     };
 
     $scope.domReady = false; //used to notify resizable directive that the page has loaded
@@ -40,6 +43,15 @@ angular.module('RedhatAccess.cases')
           function(cases) {
             $scope.loadingCaseList = false;
             CaseListService.defineCases(cases);
+
+            if ($stateParams.id != null && $scope.selectedCaseIndex == -1) {
+              var selectedCase =
+                  $filter('filter')(
+                      CaseListService.cases,
+                      {'case_number': $stateParams.id});
+              $scope.selectedCaseIndex = CaseListService.cases.indexOf(selectedCase[0]);
+            }
+
             $scope.domReady = true;
           },
           function(error) {
