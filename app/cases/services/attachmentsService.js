@@ -75,10 +75,11 @@ angular.module('RedhatAccess.cases')
                   'Successfully uploaded attachment ' +
                   jsonData.attachment + ' to case ' + caseId);
               }).error(function (error) {
+                console.log(error);
                  AlertService.addDangerMessage(
                   'Failed to upload attachment ' +
                   jsonData.attachment + ' to case ' + caseId);
-                deferred.reject();
+                deferred.reject(error);
               });
               promises.push(deferred.promise);
             });

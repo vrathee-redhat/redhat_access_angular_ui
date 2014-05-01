@@ -19,8 +19,11 @@ angular.module('RedhatAccess.cases')
         case .case_number).then(
           function () {
             $scope.updatingAttachments = false;
-          }
-        );
+          },
+          function (error) {
+            $scope.updatingAttachments = false;
+            console.log("Error posting attachment");
+          });
       };
     }
   ]);

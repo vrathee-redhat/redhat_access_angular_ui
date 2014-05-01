@@ -5,74 +5,29 @@ app.use(express.bodyParser());
 
 //Case attachment mocks
 app.get('/attachments', function (req, res) {
-	res.send('Main Server SOS Report?checked=true\n/Database Log?checked=true\n/Debug/katello-debug.log\n/Debug/Level3/foreman.debug\nFail-409\nFail-500 ');
-	//res.send('/Main SOS Report/\n/Database Log')
-	//\n/root2/sub1/sub2\n/root3/sub1/sub2\n')
-	// res.json(
-	// 	[{
-	// 		"name": "Satellite Main",
-	// 		"checked": false,
-	// 		"children": [{
-	// 			"name": "SOS report",
-	// 			"checked": false,
-	// 			"children": []
-	// 		}, {
-	// 			"name": "Satellite Proxy 2",
-	// 			"children": []
-	// 		}, {
-	// 			"name": "Satellite proxy 3",
-	// 			"checked": false,
-	// 			"children": []
-	// 		}]
-	// 	}]
-	// );
-
-	// res.json([{
-	// 	"name": "root",
-	// 	"children": [{
-	// 		"name": "sub1",
-	// 		"children": [{
-	// 			"name": "sub2",
-	// 			"children": [
-
-	// 			]
-	// 		}]
-	// 	}]
-	// }, {
-	// 	"name": "root2",
-	// 	"children": [{
-	// 		"name": "sub12",
-	// 		"children": [{
-	// 			"name": "sub13",
-	// 			"children": [
-
-	// 			]
-	// 		}]
-	// 	}]
-	// }])
+	res.send('Main Server SOS Report?checked=true\n/Database Log?checked=true\n/Debug/katello-debug.log\n/Debug/Level3/foreman.debug\nFail-409\nFail-500');
+	
 });
 app.post('/attachments', function (req, res) {
 	console.log(req.body.attachment);
+
+	if (req.body.attachment === 'Fail-500'){
+		res.status(500);
+	}
+	if (req.body.attachment === 'Fail-409'){
+		res.status(409);
+	}
 	var respond = function () {
 		res.json({
 			'foo': 'myMockJSON'
 		});
 	}
-	setTimeout(respond, 15000);
+	setTimeout(respond, 1000);
 
 });
 
 
 //Log Viewer mocks
-// app.get('/GetMachineList', function (req, res) {
-// 	res.send("[ \"RHEV Manager\", \"Hypervisor 1\", \"Hypervisor 2\"]");
-// });
-// app.get('/GetFileList', function (req, res) {
-// 	res.send('/root/sub1/sub2\n/root2/sub21/sub22\n/root3/sub31/sub32\n/root3/sub31/sub34\n');
-// });
-// app.get('/GetLogFile', function (req, res) {
-// 	res.send('This is a mock Log file. For RHEV. I am having installation issues.');
-// });
 app.get('/machines', function (req, res) {
 	res.send("[ \"RHEV Manager\", \"Hypervisor 1\", \"Hypervisor 2\"]");
 });
