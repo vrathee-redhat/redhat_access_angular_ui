@@ -60,25 +60,35 @@ angular.module('RedhatAccess.header', [])
         this.alerts.push(alert);
       };
 
+      this.removeAlert = function(alert) {
+        this.alerts.splice(this.alerts.indexOf(alert), 1);
+      };
+
       this.addDangerMessage = function (message) {
-        this.addMessage(message, ALERT_TYPES.DANGER);
+        return this.addMessage(message, ALERT_TYPES.DANGER);
       };
 
       this.addSuccessMessage = function (message) {
-        this.addMessage(message, ALERT_TYPES.SUCCESS);
+        return this.addMessage(message, ALERT_TYPES.SUCCESS);
       };
 
       this.addWarningMessage = function (message) {
-        this.addMessage(message, ALERT_TYPES.WARNING);
+        return this.addMessage(message, ALERT_TYPES.WARNING);
       };
 
       this.addMessage = function (message, type) {
-        this.alerts.push({
+        var alert = {
           message: message,
           type: type == null ? 'warning' : type
-        });
+        };
+        this.addAlert(alert);
 
         $('body').animate({scrollTop: $('body').offset().top}, 100);
+
+        //Angular adds a unique hash to each alert during data binding,
+        //so the returned alert will be unique even if the
+        //message and type are identical.
+        return alert;
       };
 
       this.getErrors = function () {
@@ -98,7 +108,7 @@ angular.module('RedhatAccess.header', [])
           $filter('filter')(this.alerts, {
             type: ALERT_TYPES.DANGER,
             message: error.message
-          })
+          });
 
         if (existingMessage.length < 1) {
           this.addDangerMessage(error.message);

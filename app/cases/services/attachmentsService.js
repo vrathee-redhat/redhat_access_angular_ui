@@ -122,7 +122,7 @@ angular.module('RedhatAccess.cases')
                       //TODO: delete uploading message
                       AlertService.addSuccessMessage(
                           'Successfully uploaded attachment ' +
-                              updatedAttachments[i].name + ' to case ' + caseId);
+                              updatedAttachments[i].file_name + ' to case ' + caseId);
                     },
                     function(error) {
                       AlertService.addStrataErrorMessage(error);
@@ -145,7 +145,7 @@ angular.module('RedhatAccess.cases')
 
                 promise.then(
                     function() {
-                      AlertService.addSuccessMessage('Deleted attachment: ' +  origAttachment.uuid)
+                      AlertService.addSuccessMessage('Deleted attachment: ' +  origAttachment.file_name + ' - ' + origAttachment.uuid)
                     },
                     function(error) {
                       AlertService.addStrataErrorMessage(error);
@@ -157,14 +157,16 @@ angular.module('RedhatAccess.cases')
             });
           }
 
-          AlertService.addWarningMessage('Uploading attachments...');
+          var uploadingAlert = AlertService.addWarningMessage('Uploading attachments...');
           var parentPromise = $q.all(promises);
           parentPromise.then(
             angular.bind(this, function () {
               this.defineOriginalAttachments(angular.copy(updatedAttachments));
+              AlertService.removeAlert(uploadingAlert);
             }),
             function (error) {
               AlertService.addStrataErrorMessage(error);
+              AlertService.removeAlert(uploadingAlert);
             }
           );
 
