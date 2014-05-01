@@ -83,7 +83,7 @@ angular.module('RedhatAccess.header', [])
         };
         this.addAlert(alert);
 
-        $('body').animate({scrollTop: $('body').offset().top}, 100);
+        $('body,html').animate({scrollTop: $('body').offset().top}, 100);
 
         //Angular adds a unique hash to each alert during data binding,
         //so the returned alert will be unique even if the
@@ -143,7 +143,11 @@ angular.module('RedhatAccess.header', [])
 
       $scope.closeAlert = function (index) {
         AlertService.alerts.splice(index, 1);
-      }
+      };
+
+      $scope.dismissAlerts = function() {
+        AlertService.clearAlerts();
+      };
     }
   ])
   .directive('rhaHeader',
@@ -170,7 +174,11 @@ angular.module('RedhatAccess.header', [])
 
       $scope.closeAlert = function (index) {
         AlertService.alerts.splice(index, 1);
-      }
+      };
+
+      $scope.dismissAlerts = function() {
+        AlertService.clearAlerts();
+      };
     }
   ]).factory('configurationService', ['$q',
     function ($q) {
