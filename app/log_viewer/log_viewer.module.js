@@ -316,21 +316,26 @@ angular.module('RedhatAccess.logViewer',
 		$scope.refreshTab = function(index){
 			var sessionId = $location.search().sessionId;
 			var userId = $location.search().userId;
-			// $scope.tabs[index].content = '';
-			//TODO reuse this code from above
-			$http(
-			{
-				method : 'GET',
-				url : 'logs?sessionId='
-				+ encodeURIComponent(sessionId) + '&userId='
-				+ encodeURIComponent(userId) + '&path='
-				+ files.selectedFile + '&machine='
-				+ files.selectedHost
-			}).success(function(data, status, headers, config) {
-				$scope.tabs[index].content = data;
-			}).error(function(data, status, headers, config) {
-				AlertService.addDangerMessage(data);
-			});
+			var fileNameForRefresh = this.$parent.tab.longTitle;
+			var hostForRefresh = null;
+			var splitNameForRefresh = fileNameForRefresh.split(":");
+			if(splitNameForRefresh[0] && splitNameForRefresh[1]){
+				hostForRefresh = splitNameForRefresh[0];
+				fileNameForRefresh = splitNameForRefresh[1];
+				$http(
+				{
+					method : 'GET',
+					url : 'logs?sessionId='
+					+ encodeURIComponent(sessionId) + '&userId='
+					+ encodeURIComponent(userId) + '&path='
+					+ fileNameForRefresh+ '&machine='
+					+ hostForRefresh
+				}).success(function(data, status, headers, config) {
+					$scope.tabs[index].content = data;
+				}).error(function(data, status, headers, config) {
+					AlertService.addDangerMessage(data);
+				});
+			}
 		};
 }])
 
