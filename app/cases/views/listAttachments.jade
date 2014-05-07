@@ -1,5 +1,5 @@
-div(ng-show='AttachmentsService.updatedAttachments.length == 0') No attachments added
-table.table.table-hover.table-bordered(ng-show='AttachmentsService.updatedAttachments.length > 0')
+div(ng-show='AttachmentsService.originalAttachments.length == 0', style='padding-bottom: 10px;') No attachments added
+table.table.table-hover.table-bordered(ng-show='AttachmentsService.originalAttachments.length > 0')
   thead
     th Filename
     th Description
@@ -8,7 +8,7 @@ table.table.table-hover.table-bordered(ng-show='AttachmentsService.updatedAttach
     th Attached By
     th Delete
   tbody
-    tr(ng-repeat='attachment in AttachmentsService.updatedAttachments')
+    tr(ng-repeat='attachment in AttachmentsService.originalAttachments')
       td
         a(ng-hide='attachment.uri == null', href='{{attachment.uri}}') {{attachment.file_name}}
         div(ng-show='attachment.uri == null') {{attachment.file_name}}
@@ -18,4 +18,4 @@ table.table.table-hover.table-bordered(ng-show='AttachmentsService.updatedAttach
       td {{attachment.created_by}}
       td
         div(ng-show='disabled') Delete
-        a(ng-click='AttachmentsService.removeAttachment($index)', ng-hide='disabled') Delete
+        a(ng-click='AttachmentsService.removeOriginalAttachment($index)', ng-hide='disabled') Delete

@@ -1,0 +1,11 @@
+div.container-fluid
+  div.row
+    div.col-xs-12
+      ul.list-group
+        li.list-group-item(
+          ng-repeat='attachment in AttachmentsService.updatedAttachments',
+          ng-hide='AttachmentsService.updatedAttachments.length <= 0') {{attachment.file_name}} ({{attachment.length | bytes}}) - {{attachment.description}}
+          button.close(type='button', style='float: right', ng-click='removeLocalAttachment($index)') &times;
+        li.list-group-item(
+          ng-repeat='attachment in TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments)',
+          ng-hide='TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0') {{attachment}}

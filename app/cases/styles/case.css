@@ -102,17 +102,17 @@ div.server-attach-header{
    margin-bottom: 5px;
 }
 
-div#redhat-access-case .list-group-item:first-child {
+div#redhat-access-compact-list .list-group-item:first-child {
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
     border-top: none;
 }
 
-div#redhat-access-case .list-group-item:last-child {
+div#redhat-access-compact-list .list-group-item:last-child {
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
 
-div#redhat-access-case .list-group-item {
+div#redhat-access-compact-list .list-group-item {
     border-right: none;
 }

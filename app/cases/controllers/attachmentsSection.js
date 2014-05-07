@@ -5,13 +5,16 @@ angular.module('RedhatAccess.cases')
     '$scope',
     'AttachmentsService',
     'CaseService',
+    'TreeViewSelectorUtils',
     function (
       $scope,
       AttachmentsService,
-      CaseService) {
+      CaseService,
+      TreeViewSelectorUtils) {
 
       $scope.AttachmentsService = AttachmentsService;
       $scope.CaseService = CaseService;
+      $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;
 
       $scope.doUpdate = function () {
         $scope.updatingAttachments = true;

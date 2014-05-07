@@ -9,7 +9,8 @@ angular.module('RedhatAccess.cases')
     '$http',
     'securityService',
     'AlertService',
-    function ($filter, $q, strataService, TreeViewSelectorUtils, $http, securityService, AlertService) {
+    'CaseService',
+    function ($filter, $q, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService) {
       this.originalAttachments = [];
       this.updatedAttachments = [];
 
@@ -29,16 +30,28 @@ angular.module('RedhatAccess.cases')
         return TreeViewSelectorUtils.hasSelections(this.backendAttachments);
       };
 
-      this.removeAttachment = function ($index) {
+      this.removeUpdatedAttachment = function ($index) {
         this.updatedAttachments.splice($index, 1);
       };
 
-      this.getOriginalAttachments = function () {
-        return this.originalAttachments;
-      };
+      this.removeOriginalAttachment = function ($index) {
+        var attachment = this.originalAttachments[$index];
 
-      this.getUpdatedAttachments = function () {
-        return this.updatedAttachments;
+        var progressMessage =
+            AlertService.addWarningMessage(
+                'Deleting attachment: ' + attachment.file_name + ' - ' + attachment.uuid);
+
+        strataService.cases.attachments.delete(attachment.uuid, CaseService.case.case_number).then(
+            angular.bind(this, function() {
+              AlertService.removeAlert(progressMessage);
+              AlertService.addSuccessMessage(
+                  'Successfully deleted attachment: ' +  attachment.file_name + ' - ' + attachment.uuid);
+              this.originalAttachments.splice($index, 1);
+            }),
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
       };
 
       this.addNewAttachment = function (attachment) {
@@ -51,10 +64,7 @@ angular.module('RedhatAccess.cases')
         } else {
           this.originalAttachments = attachments;
         }
-
-        this.updatedAttachments = angular.copy(this.originalAttachments);
       };
-
 
       this.postBackEndAttachments = function (caseId) {
         var selectedFiles = TreeViewSelectorUtils.getSelectedLeaves(this.backendAttachments);
@@ -110,48 +120,24 @@ angular.module('RedhatAccess.cases')
           }
           if (hasLocalAttachments) {
             //find new attachments
-            for (var i in updatedAttachments) {
-              if (!updatedAttachments[i].hasOwnProperty('uuid')) {
+            angular.forEach(updatedAttachments, function(attachment) {
+              if (!attachment.hasOwnProperty('uuid')) {
                 var promise = strataService.cases.attachments.post(
-                  updatedAttachments[i].file,
-                  caseId
+                    attachment.file,
+                    caseId
                 )
                 promise.then(
                     function (uri) {
-                      updatedAttachments[i].uri = uri;
-                      //TODO: delete uploading message
+                      attachment.uri = uri;
+                      attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
                       AlertService.addSuccessMessage(
                           'Successfully uploaded attachment ' +
-                              updatedAttachments[i].file_name + ' to case ' + caseId);
+                              attachment.file_name + ' to case ' + caseId);
                     },
                     function(error) {
                       AlertService.addStrataErrorMessage(error);
                     }
                 );
-                promises.push(promise);
-              }
-            }
-            //find removed attachments
-            jQuery.grep(this.originalAttachments, function (origAttachment) {
-              var attachment =
-                $filter('filter')(updatedAttachments, {
-                  'uuid': origAttachment.uuid
-                });
-
-              if (attachment.length == 0) {
-                var promise = strataService.cases.attachments.delete(
-                    origAttachment.uuid,
-                    caseId)
-
-                promise.then(
-                    function() {
-                      AlertService.addSuccessMessage('Deleted attachment: ' +  origAttachment.file_name + ' - ' + origAttachment.uuid)
-                    },
-                    function(error) {
-                      AlertService.addStrataErrorMessage(error);
-                    }
-                )
-
                 promises.push(promise);
               }
             });
@@ -161,7 +147,9 @@ angular.module('RedhatAccess.cases')
           var parentPromise = $q.all(promises);
           parentPromise.then(
             angular.bind(this, function () {
-              this.defineOriginalAttachments(angular.copy(updatedAttachments));
+              this.originalAttachments =
+                  this.originalAttachments.concat(this.updatedAttachments);
+              this.updatedAttachments = [];
               AlertService.removeAlert(uploadingAlert);
             }),
             function (error) {
