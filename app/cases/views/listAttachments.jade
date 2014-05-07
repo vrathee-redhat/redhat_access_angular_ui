@@ -1,7 +1,7 @@
 div(ng-show='AttachmentsService.originalAttachments.length == 0', style='padding-bottom: 10px;') No attachments added
-div.panel.panel-default
+div.panel.panel-default(ng-show='AttachmentsService.originalAttachments.length > 0')
   div.panel-heading Attached Files
-  table.table.table-hover.table-bordered(ng-show='AttachmentsService.originalAttachments.length > 0')
+  table.table.table-hover.table-bordered
     thead
       th Filename
       th Description
