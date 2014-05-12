@@ -144,9 +144,13 @@ div.container-offset
                 span.rha-search-spinner(
                   ng-show='submittingCase',
                   style='float: right')
-      div.col-xs-6
+      div.col-xs-6(
+        style='overflow: auto;',
+        rha-resizable,
+        rha-dom-ready='domReady',
+        class='col-no-padding')
         div(
-          x-rha-accordion-search-results,
           ng-controller='SearchController',
-          style='padding: 0 15px;')
+          style='padding: 0 15px; overflow: auto;')
+          x-rha-accordion-search-results
 
