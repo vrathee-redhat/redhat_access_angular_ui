@@ -1,4 +1,7 @@
 'use strict';
+/*global strata*/
+ /*jshint camelcase: false */
+ /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
 .factory('strataService', ['$q', function ($q) {
@@ -10,7 +13,7 @@ angular.module('RedhatAccess.cases')
       response: response,
       status: status
     });
-  }
+  };
 
   return {
     problems: function(data, max) {

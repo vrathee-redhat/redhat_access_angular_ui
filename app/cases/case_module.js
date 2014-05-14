@@ -1,3 +1,4 @@
+'use strict';
 angular.module('RedhatAccess.cases', [
   'ui.router',
   'ui.bootstrap',

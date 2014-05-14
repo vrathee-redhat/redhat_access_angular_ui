@@ -1,4 +1,5 @@
 'use strict';
+/*jshint camelcase: false */
 
 angular.module('RedhatAccess.cases')
   .service('AttachmentsService', [
@@ -70,6 +71,7 @@ angular.module('RedhatAccess.cases')
         var selectedFiles = TreeViewSelectorUtils.getSelectedLeaves(this.backendAttachments);
         return securityService.getBasicAuthToken().then(
           function (auth) {
+            /*jshint unused:false */
             //we post each attachment separately
             var promises = [];
             angular.forEach(selectedFiles, function (file) {
@@ -98,7 +100,7 @@ angular.module('RedhatAccess.cases')
                     error_msg = ' : Internal server error';
                     break;
                 }
-                 AlertService.addDangerMessage(
+                AlertService.addDangerMessage(
                   'Failed to upload attachment ' +
                   jsonData.attachment + ' to case ' + caseId + error_msg);
                 deferred.reject(data);
@@ -125,7 +127,7 @@ angular.module('RedhatAccess.cases')
                 var promise = strataService.cases.attachments.post(
                     attachment.file,
                     caseId
-                )
+                );
                 promise.then(
                     function (uri) {
                       attachment.uri = uri;

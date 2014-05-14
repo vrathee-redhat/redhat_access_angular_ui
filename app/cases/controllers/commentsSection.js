@@ -1,4 +1,6 @@
 'use strict';
+ /*jshint unused:vars */
+ /*jshint camelcase: false */
 
 angular.module('RedhatAccess.cases')
 .controller('CommentsSection', [

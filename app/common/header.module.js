@@ -1,3 +1,6 @@
+'use strict';
+ /*global $ */
+
 angular.module('RedhatAccess.header', [])
   .value('TITLE_VIEW_CONFIG', {
     show: 'false',
@@ -9,30 +12,30 @@ angular.module('RedhatAccess.header', [])
     logViewerTitle: 'Log'
   })
   .controller('TitleViewCtrl', ['TITLE_VIEW_CONFIG', '$scope',
-    function (TITLE_VIEW_CONFIG, $scope) {
+    function(TITLE_VIEW_CONFIG, $scope) {
       $scope.showTitle = TITLE_VIEW_CONFIG.show;
       $scope.titlePrefix = TITLE_VIEW_CONFIG.titlePrefix;
-      $scope.getPageTitle = function () {
+      $scope.getPageTitle = function() {
         switch ($scope.page) {
-        case 'search':
-          return TITLE_VIEW_CONFIG.searchTitle;
-        case 'caseList':
-          return TITLE_VIEW_CONFIG.caseListTitle;
-        case 'caseView':
-          return TITLE_VIEW_CONFIG.caseViewTitle;
-        case 'newCase':
-          return TITLE_VIEW_CONFIG.newCaseTitle;
-        case 'logViewer':
-          return TITLE_VIEW_CONFIG.logViewerTitle;
-        default:
-          console.log("Invalid title key" + $scope.page);
-          return '';
+          case 'search':
+            return TITLE_VIEW_CONFIG.searchTitle;
+          case 'caseList':
+            return TITLE_VIEW_CONFIG.caseListTitle;
+          case 'caseView':
+            return TITLE_VIEW_CONFIG.caseViewTitle;
+          case 'newCase':
+            return TITLE_VIEW_CONFIG.newCaseTitle;
+          case 'logViewer':
+            return TITLE_VIEW_CONFIG.logViewerTitle;
+          default:
+            console.log('Invalid title key' + $scope.page);
+            return '';
         }
       };
     }
   ])
   .directive('rhaTitleTemplate',
-    function () {
+    function() {
       return {
         restrict: 'AE',
         scope: {
@@ -43,7 +46,7 @@ angular.module('RedhatAccess.header', [])
       };
     })
   .service('AlertService', ['$filter', 'AUTH_EVENTS', '$rootScope',
-    function ($filter, AUTH_EVENTS, $rootScope) {
+    function($filter, AUTH_EVENTS, $rootScope) {
       var ALERT_TYPES = {
         DANGER: 'danger',
         SUCCESS: 'success',
@@ -52,11 +55,11 @@ angular.module('RedhatAccess.header', [])
 
       this.alerts = []; //array of {message: 'some alert', type: '<type>'} objects
 
-      this.clearAlerts = function () {
+      this.clearAlerts = function() {
         this.alerts = [];
       };
 
-      this.addAlert = function (alert) {
+      this.addAlert = function(alert) {
         this.alerts.push(alert);
       };
 
@@ -64,26 +67,28 @@ angular.module('RedhatAccess.header', [])
         this.alerts.splice(this.alerts.indexOf(alert), 1);
       };
 
-      this.addDangerMessage = function (message) {
+      this.addDangerMessage = function(message) {
         return this.addMessage(message, ALERT_TYPES.DANGER);
       };
 
-      this.addSuccessMessage = function (message) {
+      this.addSuccessMessage = function(message) {
         return this.addMessage(message, ALERT_TYPES.SUCCESS);
       };
 
-      this.addWarningMessage = function (message) {
+      this.addWarningMessage = function(message) {
         return this.addMessage(message, ALERT_TYPES.WARNING);
       };
 
-      this.addMessage = function (message, type) {
+      this.addMessage = function(message, type) {
         var alert = {
           message: message,
-          type: type == null ? 'warning' : type
+          type: type === null ? 'warning' : type
         };
         this.addAlert(alert);
 
-        $('body,html').animate({scrollTop: $('body').offset().top}, 100);
+        $('body,html').animate({
+          scrollTop: $('body').offset().top
+        }, 100);
 
         //Angular adds a unique hash to each alert during data binding,
         //so the returned alert will be unique even if the
@@ -91,19 +96,19 @@ angular.module('RedhatAccess.header', [])
         return alert;
       };
 
-      this.getErrors = function () {
+      this.getErrors = function() {
         var errors = $filter('filter')(this.alerts, {
           type: ALERT_TYPES.DANGER
         });
 
-        if (errors == null) {
+        if (errors === null) {
           errors = [];
         }
 
         return errors;
       };
 
-      this.addStrataErrorMessage = function (error) {
+      this.addStrataErrorMessage = function(error) {
         var existingMessage =
           $filter('filter')(this.alerts, {
             type: ALERT_TYPES.DANGER,
@@ -116,19 +121,19 @@ angular.module('RedhatAccess.header', [])
       };
 
       $rootScope.$on(AUTH_EVENTS.logoutSuccess, angular.bind(this,
-        function () {
+        function() {
           this.clearAlerts();
-          this.addMessage("You have successfully logged out of the Red Hat Customer Portal.");
+          this.addMessage('You have successfully logged out of the Red Hat Customer Portal.');
         }));
       $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this,
-        function () {
+        function() {
           this.clearAlerts();
         }));
 
     }
   ])
   .directive('rhaAlert',
-    function () {
+    function() {
       return {
         templateUrl: 'common/views/alert.html',
         restrict: 'E',
@@ -136,12 +141,12 @@ angular.module('RedhatAccess.header', [])
       };
     })
   .controller('AlertController', ['$scope', 'AlertService',
-    function ($scope, AlertService) {
+    function($scope, AlertService) {
       $scope.AlertService = AlertService;
 
       $scope.closeable = true;
 
-      $scope.closeAlert = function (index) {
+      $scope.closeAlert = function(index) {
         AlertService.alerts.splice(index, 1);
       };
 
@@ -151,7 +156,7 @@ angular.module('RedhatAccess.header', [])
     }
   ])
   .directive('rhaHeader',
-    function () {
+    function() {
       return {
         templateUrl: 'common/views/header.html',
         restrict: 'E',
@@ -162,7 +167,7 @@ angular.module('RedhatAccess.header', [])
       };
     })
   .controller('HeaderController', ['$scope', 'AlertService',
-    function ($scope, AlertService) {
+    function($scope, AlertService) {
       /**
        * For some reason the rhaAlert directive's controller is not binding to the view.
        * Hijacking rhaAlert's parent controller (HeaderController) works
@@ -172,7 +177,7 @@ angular.module('RedhatAccess.header', [])
 
       $scope.closeable = true;
 
-      $scope.closeAlert = function (index) {
+      $scope.closeAlert = function(index) {
         AlertService.alerts.splice(index, 1);
       };
 
@@ -181,13 +186,13 @@ angular.module('RedhatAccess.header', [])
       };
     }
   ]).factory('configurationService', ['$q',
-    function ($q) {
+    function($q) {
       var defer = $q.defer();
       var service = {
-        setConfig: function (config) {
-            defer.resolve(config);
+        setConfig: function(config) {
+          defer.resolve(config);
         },
-        getConfig: function () {
+        getConfig: function() {
           return defer.promise;
         }
       };

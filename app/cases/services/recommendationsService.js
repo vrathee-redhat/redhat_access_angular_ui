@@ -1,5 +1,6 @@
 'use strict';
-
+ /*jshint unused:vars */
+ /*jshint camelcase: false */
 angular.module('RedhatAccess.cases')
 .service('RecommendationsService', [
   'strataService',
@@ -63,7 +64,7 @@ angular.module('RedhatAccess.cases')
 
                     solutions.forEach(angular.bind(this, function (solution) {
                       if (solution !== undefined) {
-                        solution.resource_type = "Solution";
+                        solution.resource_type = 'Solution';
                         this.recommendations.push(solution);
                       }
                     }));
@@ -83,4 +84,5 @@ angular.module('RedhatAccess.cases')
 
       return masterDeferred.promise;
     };
-  }]);
+  }
+]);

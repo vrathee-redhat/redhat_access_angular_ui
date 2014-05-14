@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint unused:vars */
 angular.module('RedhatAccess.cases')
 .directive('rhaListFilter', function () {
   return {

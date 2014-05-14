@@ -55,7 +55,7 @@ angular.module('RedhatAccess.cases')
             AlertService.addStrataErrorMessage(error);
           }
       );
-    }
+    };
     $scope.init();
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {

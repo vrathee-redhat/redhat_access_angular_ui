@@ -7,11 +7,11 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 //var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
-var mountFolder = function (connect, dir) {
+var mountFolder = function(connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
       dist: 'dist',
-      bowerDir: 'app/bower_components'
+      bowerDir: grunt.file.readJSON('.bowerrc').directory
     },
 
     //Define our source files
@@ -126,15 +126,19 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          base: [
-            '.tmp',
-            '<%= yeoman.app %>'
-          ],
-          middleware: function (connect) {
+          // base: [
+          //'.tmp',
+          //'<%= yeoman.app %>',
+          //'.'
+          // ],
+          middleware: function(connect) {
             return [
-              mountFolder(connect, '<%= yeoman.app %>'),
+              mountFolder(connect, '.'),
+              mountFolder(connect, 'app'),
               require('./rest-mock-server'),
-              mountFolder(connect, 'app')
+              //mountFolder(connect, 'app'),
+
+
             ];
           }
 
@@ -165,7 +169,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        '<%= src.js %>'
       ],
       test: {
         options: {
@@ -502,7 +506,7 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('serve', function (target) {
+  grunt.registerTask('serve', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
@@ -519,7 +523,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('server', function () {
+  grunt.registerTask('server', function() {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });

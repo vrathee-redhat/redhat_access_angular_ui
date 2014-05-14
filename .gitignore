@@ -2,7 +2,8 @@ node_modules
 dist
 .tmp
 .sass-cache
-app/bower_components
+bower_components
+generated
 app/vendor
 app/redhat_access_angular_ui.js
 *.swp

@@ -1,5 +1,5 @@
 'use strict';
-
+ /*jshint camelcase: false */
 angular.module('RedhatAccess.cases')
 .controller('Edit', [
   '$scope',
@@ -42,7 +42,7 @@ angular.module('RedhatAccess.cases')
             CaseService.defineCase(caseJSON);
             $scope.caseLoading = false;
 
-            if (caseJSON.product != null && caseJSON.product.name != null) {
+            if (caseJSON.product !== null && caseJSON.product.name !== null) {
               strataService.products.versions(caseJSON.product.name).then(
                   function(versions) {
                     CaseService.versions = versions;
@@ -53,7 +53,7 @@ angular.module('RedhatAccess.cases')
               );
             }
 
-            if (caseJSON.account_number != null) {
+            if (caseJSON.account_number !== null) {
               strataService.accounts.get(caseJSON.account_number).then(
                   function(account) {
                     CaseService.defineAccount(account);
@@ -101,5 +101,6 @@ angular.module('RedhatAccess.cases')
       $scope.init();
       AlertService.clearAlerts();
     });
-  }]);
+  }
+]);
 

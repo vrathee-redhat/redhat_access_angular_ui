@@ -1,4 +1,6 @@
 'use strict';
+/*global $ */
+
 
 angular.module('RedhatAccess.cases')
 .controller('AttachLocalFile', [
@@ -15,6 +17,7 @@ angular.module('RedhatAccess.cases')
     };
 
     $scope.addFile = function() {
+      /*jshint camelcase: false */
       var data = new FormData();
       data.append('file', $scope.fileObj);
       data.append('description', $scope.fileDescription);

@@ -7,6 +7,6 @@ angular.module('RedhatAccess.cases')
 
     this.defineCases = function(cases) {
       this.cases = cases;
-    }
+    };
   }
 ]);

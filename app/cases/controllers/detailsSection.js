@@ -1,5 +1,5 @@
 'use strict';
-
+ /*jshint camelcase: false */
 angular.module('RedhatAccess.cases')
 .controller('DetailsSection', [
   '$scope',
@@ -66,7 +66,7 @@ angular.module('RedhatAccess.cases')
             AlertService.addStrataErrorMessage(error);
           }
       );
-    }
+    };
     $scope.init();
 
     $scope.updatingDetails = false;

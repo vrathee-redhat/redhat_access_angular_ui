@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint camelcase: false */
 angular.module('RedhatAccess.cases')
   .controller('AttachmentsSection', [
     '$scope',
@@ -25,7 +25,7 @@ angular.module('RedhatAccess.cases')
           },
           function (error) {
             $scope.updatingAttachments = false;
-            console.log("Error posting attachment");
+            console.log('Error posting attachment : ' + error);
           });
       };
     }

@@ -1,4 +1,5 @@
 'use strict';
+/*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
 .directive('rhaPageHeader', function () {

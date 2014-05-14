@@ -1,5 +1,5 @@
 'use strict';
-
+ /*jshint camelcase: false */
 angular.module('RedhatAccess.cases')
 .controller('ListFilter', [
   '$scope',
@@ -31,7 +31,7 @@ angular.module('RedhatAccess.cases')
             AlertService.addStrataErrorMessage(error);
           }
       );
-    }
+    };
     $scope.loadGroups();
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
