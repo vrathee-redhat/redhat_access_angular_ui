@@ -7,3 +7,6 @@
     height:32px;
     margin-bottom: 5px;
 }
+.panel-group .panel-title>a:before {
+    content: none;
+}
