@@ -1,4 +1,3 @@
-doctype html
 div.container-offset
   div#redhat-access-case.container-fluid
     x-rha-header(page='newCase')
@@ -147,10 +146,9 @@ div.container-offset
       div.col-xs-6(
         style='overflow: auto;',
         rha-resizable,
-        rha-dom-ready='domReady',
-        class='col-no-padding')
+        rha-dom-ready='domReady')
         div(
           ng-controller='SearchController',
-          style='padding: 0 15px; overflow: auto;')
+          style='overflow: vertical;')
           x-rha-accordion-search-results
 

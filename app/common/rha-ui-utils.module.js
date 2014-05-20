@@ -1,7 +1,7 @@
 'use strict';
- /*jshint unused:vars */
+/*jshint unused:vars */
 
-var app = angular.module('RedhatAccess.tree-selector', []);
+var app = angular.module('RedhatAccess.ui-utils', []);
 
 //this is an example controller to provide tree data
 // app.controller('TreeViewSelectorCtrl', ['$scope', 'TreeViewSelectorData',
@@ -18,7 +18,7 @@ var app = angular.module('RedhatAccess.tree-selector', []);
 //     }
 // ]);
 
-app.directive('rhaChoiceTree', function() {
+app.directive('rhaChoiceTree', function () {
   return {
     template: '<ul><rha-choice ng-repeat="choice in tree"></rha-choice></ul>',
     replace: true,
@@ -30,16 +30,16 @@ app.directive('rhaChoiceTree', function() {
   };
 });
 
-app.directive('rhaChoice', function($compile) {
+app.directive('rhaChoice', function ($compile) {
   return {
     restrict: 'E',
     templateUrl: 'common/views/treenode.html',
-    link: function(scope, elm) {
-      scope.choiceClicked = function(choice) {
+    link: function (scope, elm) {
+      scope.choiceClicked = function (choice) {
         choice.checked = !choice.checked;
 
         function checkChildren(c) {
-          angular.forEach(c.children, function(c) {
+          angular.forEach(c.children, function (c) {
             c.checked = choice.checked;
             checkChildren(c);
           });
@@ -54,19 +54,21 @@ app.directive('rhaChoice', function($compile) {
   };
 });
 
+
+
 app.factory('TreeViewSelectorData', ['$http', '$q', 'TreeViewSelectorUtils',
-  function($http, $q, TreeViewSelectorUtils) {
+  function ($http, $q, TreeViewSelectorUtils) {
     var service = {
-      getTree: function(dataUrl) {
+      getTree: function (dataUrl) {
         var defer = $q.defer();
         $http({
           method: 'GET',
           url: dataUrl
-        }).success(function(data, status, headers, config) {
+        }).success(function (data, status, headers, config) {
           var tree = [];
           TreeViewSelectorUtils.parseTreeList(tree, data);
           defer.resolve(tree);
-        }).error(function(data, status, headers, config) {
+        }).error(function (data, status, headers, config) {
           console.log('Unable to get supported attachments list');
           defer.reject({});
         });
@@ -78,9 +80,9 @@ app.factory('TreeViewSelectorData', ['$http', '$q', 'TreeViewSelectorUtils',
 ]);
 
 app.factory('TreeViewSelectorUtils',
-  function() {
-    var parseTreeNode = function(splitPath, tree, fullFilePath) {
-      if (splitPath[0] !== undefined  ) {
+  function () {
+    var parseTreeNode = function (splitPath, tree, fullFilePath) {
+      if (splitPath[0] !== undefined) {
         if (splitPath[0] !== '') {
           var node = splitPath[0];
           var match = false;
@@ -112,7 +114,7 @@ app.factory('TreeViewSelectorUtils',
       }
     };
 
-    var removeParams = function(path) {
+    var removeParams = function (path) {
       if (path) {
         var split = path.split('?');
         return split[0];
@@ -120,7 +122,7 @@ app.factory('TreeViewSelectorUtils',
       return path;
     };
 
-    var isLeafChecked = function(path) {
+    var isLeafChecked = function (path) {
       if (path) {
         var split = path.split('?');
         if (split[1]) {
@@ -135,7 +137,7 @@ app.factory('TreeViewSelectorUtils',
       return false;
     };
 
-    var hasSelectedLeaves = function(tree) {
+    var hasSelectedLeaves = function (tree) {
 
       for (var i = 0; i < tree.length; i++) {
         if (tree[i] !== undefined) {
@@ -154,7 +156,7 @@ app.factory('TreeViewSelectorUtils',
       return false;
     };
 
-    var getSelectedNames = function(tree, container) {
+    var getSelectedNames = function (tree, container) {
       for (var i = 0; i < tree.length; i++) {
         if (tree[i] !== undefined) {
           if (tree[i].children.length === 0) {
@@ -169,7 +171,7 @@ app.factory('TreeViewSelectorUtils',
     };
 
     var service = {
-      parseTreeList: function(tree, data) {
+      parseTreeList: function (tree, data) {
         var files = data.split('\n');
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
@@ -177,10 +179,10 @@ app.factory('TreeViewSelectorUtils',
           parseTreeNode(splitPath, tree, file);
         }
       },
-      hasSelections: function(tree) {
+      hasSelections: function (tree) {
         return hasSelectedLeaves(tree);
       },
-      getSelectedLeaves: function(tree) {
+      getSelectedLeaves: function (tree) {
         if (tree === undefined) {
           console.log('getSelectedLeaves: Invalid tree');
           return [];
@@ -192,3 +194,54 @@ app.factory('TreeViewSelectorUtils',
     };
     return service;
   });
+
+app.directive('rhaResizable', [
+  '$window',
+  '$timeout',
+  function ($window) {
+
+    var link = function (scope, element, attrs) {
+
+      scope.onResizeFunction = function () {
+        var distanceToTop = element[0].getBoundingClientRect().top;
+        var height = $window.innerHeight - distanceToTop;
+        element.css('height', height);
+      };
+
+      angular.element($window).bind(
+        'resize',
+        function () {
+          scope.onResizeFunction();
+          scope.$apply();
+        }
+      );
+      angular.element($window).bind(
+        'click',
+        function () {
+          scope.onResizeFunction();
+          scope.$apply();
+        }
+      );
+
+      if (attrs.rhaDomReady !== undefined) {
+        scope.$watch('rhaDomReady', function (newValue) {
+          if (newValue) {
+            scope.onResizeFunction();
+          }
+        });
+      } else {
+        scope.onResizeFunction();
+      }
+
+
+    };
+
+    return {
+      restrict: 'A',
+      scope: {
+        rhaDomReady: '='
+      },
+      link: link
+    };
+  }
+]);

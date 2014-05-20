@@ -1,15 +1,15 @@
 'use strict';
 
-describe('Directives For Module:  common/tree-selector.module', function() {
+describe('Directives For Module:  common/tree-selector.module', function () {
 
 
 
   var mockScope;
   var compileService;
 
-  beforeEach(angular.mock.module('RedhatAccess.tree-selector'));
+  beforeEach(angular.mock.module('RedhatAccess.ui-utils'));
   beforeEach(angular.mock.module('common/views/treenode.html')); //load our template modules
-  beforeEach(angular.mock.inject(function($rootScope, $compile) {
+  beforeEach(angular.mock.inject(function ($rootScope, $compile) {
     mockScope = $rootScope.$new();
     compileService = $compile;
     mockScope.attachmentTree = [{
@@ -39,7 +39,7 @@ describe('Directives For Module:  common/tree-selector.module', function() {
     }];
   }));
 
-  it('Should generate a tree view from a tree object', function() {
+  it('Should generate a tree view from a tree object', function () {
     var compileFn = compileService('<rha-choice-tree ng-model="attachmentTree"></rha-choice-tree>');
     var elem = compileFn(mockScope);
     mockScope.$digest(); //Important so sync our data

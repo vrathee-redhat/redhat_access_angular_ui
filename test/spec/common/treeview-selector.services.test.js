@@ -1,16 +1,16 @@
 'use strict';
 
-describe('Services For Module:  common/tree-selector.module', function() {
+describe('Services For Module:  common/tree-selector.module', function () {
 
 
   var TreeViewSelectorUtils = null;
-  beforeEach(angular.mock.module('RedhatAccess.tree-selector'));
-  beforeEach(inject(function(_TreeViewSelectorUtils_) {
+  beforeEach(angular.mock.module('RedhatAccess.ui-utils'));
+  beforeEach(inject(function (_TreeViewSelectorUtils_) {
     TreeViewSelectorUtils = _TreeViewSelectorUtils_;
   }));
 
 
-  it('should have a have a method for parsing a string tree', function() {
+  it('should have a have a method for parsing a string tree', function () {
     var stringTree = 'node0?checked=true\n/node1\nfolder/child1\n/folder/child2?checked=true';
     var jsonTree = '[{"checked":true,"name":"node0","fullPath":"node0","children":[]},{"checked":false,"name":"node1","fullPath":"/node1","children":[]},{"checked":false,"name":"folder","children":[{"checked":false,"name":"child1","fullPath":"folder/child1","children":[]},{"checked":true,"name":"child2","fullPath":"/folder/child2","children":[]}]}]';
     var tree = [];
@@ -19,7 +19,7 @@ describe('Services For Module:  common/tree-selector.module', function() {
     expect(angular.toJson(tree)).toEqual(jsonTree);
   });
 
-  it('should have a have a method for getting list of selected nodes from a tree', function() {
+  it('should have a have a method for getting list of selected nodes from a tree', function () {
     var jsonTree = '[{"checked":true,"name":"node0","fullPath":"node0","children":[]},{"checked":false,"name":"node1","fullPath":"/node1","children":[]},{"checked":false,"name":"folder","children":[{"checked":false,"name":"child1","fullPath":"folder/child1","children":[]},{"checked":true,"name":"child2","fullPath":"/folder/child2","children":[]}]}]';
     var tree = angular.fromJson(jsonTree);
     expect(TreeViewSelectorUtils.getSelectedLeaves).toBeDefined();
@@ -31,7 +31,7 @@ describe('Services For Module:  common/tree-selector.module', function() {
     expect(angular.toJson(selectedNodes)).toEqual('[]');
   });
 
-  it('should have a have a method for checking if a tree has selected nodes', function() {
+  it('should have a have a method for checking if a tree has selected nodes', function () {
     var jsonTree = '[{"checked":true,"name":"node0","fullPath":"node0","children":[]},{"checked":false,"name":"node1","fullPath":"/node1","children":[]},{"checked":false,"name":"folder","children":[{"checked":false,"name":"child1","fullPath":"folder/child1","children":[]},{"checked":true,"name":"child2","fullPath":"/folder/child2","children":[]}]}]';
     var tree = angular.fromJson(jsonTree);
     expect(TreeViewSelectorUtils.hasSelections).toBeDefined();
