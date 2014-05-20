@@ -6,7 +6,7 @@ angular.module('RedhatAccess', [
   'RedhatAccess.security',
   'RedhatAccess.search',
   'RedhatAccess.logViewer',
-  'RedhatAccess.tree-selector'
+  'RedhatAccess.ui-utils'
 ]).run(['TITLE_VIEW_CONFIG', '$http', 'securityService',
   function (TITLE_VIEW_CONFIG, $http, securityService) {
     TITLE_VIEW_CONFIG.show = true;
