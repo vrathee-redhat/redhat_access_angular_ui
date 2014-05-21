@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directives For Module:  common/ui-utils.module', function () {
+describe('ui-utils  Directives:  TreeView', function () {
 
 
 
@@ -39,7 +39,7 @@ describe('Directives For Module:  common/ui-utils.module', function () {
     }];
   }));
 
-  it('Should generate a tree view from a tree object', function () {
+  it('should generate a tree view from a tree object', function () {
     var compileFn = compileService('<rha-choice-tree ng-model="attachmentTree"></rha-choice-tree>');
     var elem = compileFn(mockScope);
     mockScope.$digest(); //Important so sync our data

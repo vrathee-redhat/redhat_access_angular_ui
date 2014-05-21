@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Services For Module:  common/ui-utils.module', function () {
+describe('ui-utils  Services:  TreeView', function () {
 
 
   var TreeViewSelectorUtils = null;
