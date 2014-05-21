@@ -232,20 +232,25 @@ angular.module('RedhatAccess.cases')
         $scope.submittingCase = true;
         AlertService.addWarningMessage('Creating case...');
 
+        var redirectToCase = function(caseNumber) {
+          $state.go('edit', {
+            id: caseNumber
+          });
+          AlertService.clearAlerts();
+          $scope.submittingCase = false;
+        };
+
         strataService.cases.post(caseJSON).then(
             function(caseNumber) {
               AlertService.clearAlerts();
               AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
               if ((AttachmentsService.updatedAttachments.length > 0) || (AttachmentsService.hasBackEndSelections())) {
                 AttachmentsService.updateAttachments(caseNumber).then(
-                    function () {
-                      $state.go('edit', {
-                        id: caseNumber
-                      });
-                      AlertService.clearAlerts();
-                      $scope.submittingCase = false;
-                    }
-                );
+                  function() {
+                    redirectToCase(caseNumber);      
+                  });
+              } else {
+                redirectToCase(caseNumber);
               }
             },
             function(error) {
