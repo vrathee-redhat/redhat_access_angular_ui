@@ -529,7 +529,8 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:server',
+    //'clean:server',
+    'html2js',
     'concurrent:test',
     'autoprefixer',
     'connect:test',

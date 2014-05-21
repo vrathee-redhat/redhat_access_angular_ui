@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directives For Module:  common/tree-selector.module', function () {
+describe('Directives For Module:  common/ui-utils.module', function () {
 
 
 

@@ -25,24 +25,38 @@ module.exports = function(config) {
             'bower_components/ng-table/ng-table.js',
             'bower_components/angular-mocks/angular-mocks.js',
             'bower_components/angular-treeview/angular.treeview.min.js',
+            'bower_components/sinon/lib/sinon.js',
+            'bower_components/sinon/lib/sinon/spy.js',
+            'bower_components/sinon/lib/sinon/call.js',
+            //'bower_components/sinon/lib/sinon/behavior.js',
+            'bower_components/sinon/lib/sinon/stub.js',
+            'bower_components/sinon/lib/sinon/mock.js',
+            'bower_components/sinon/lib/sinon/collection.js',
+            'bower_components/sinon/lib/sinon/assert.js',
+            'bower_components/sinon/lib/sinon/sandbox.js',
+            'bower_components/sinon/lib/sinon/test.js',
+            'bower_components/sinon/lib/sinon/test_case.js',
+            'bower_components/sinon/lib/sinon/assert.js',
+            'bower_components/sinon/lib/sinon/match.js',
+            '.tmp/templates/RedhatAccess.template.js', 
             'app/common/**/*.js',
             'app/security/**/*.js',
             'app/search/**/*.js',
             'app/cases/**/*.js',
             'app/log_viewer/*.js',
-            'test/spec/**/*.js',
-            'app/**/*.html'
+            'test/spec/**/*.js'
+            //'app/**/*.html'
 
         ],
 
-        ngHtml2JsPreprocessor: {
-            // strip app from the file path
-            stripPrefix: 'app/'
-        },
+        // ngHtml2JsPreprocessor: {
+        //     // strip app from the file path
+        //     stripPrefix: 'app/'
+        // },
 
-        preprocessors: {
-            'app/**/*.html': 'html2js'
-        },
+        // preprocessors: {
+        //     'app/**/*.html': 'html2js'
+        // },
 
         // list of files / patterns to exclude
         exclude: [],
