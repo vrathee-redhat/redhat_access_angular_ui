@@ -23,7 +23,7 @@ angular.module('RedhatAccess.cases')
         this.backendAttachments = [];
       };
 
-      this.updateBackEndAttachements = function (selected) {
+      this.updateBackEndAttachments = function (selected) {
         this.backendAttachments = selected;
       };
 
@@ -39,19 +39,20 @@ angular.module('RedhatAccess.cases')
         var attachment = this.originalAttachments[$index];
 
         var progressMessage =
-            AlertService.addWarningMessage(
-                'Deleting attachment: ' + attachment.file_name + ' - ' + attachment.uuid);
+          AlertService.addWarningMessage(
+            'Deleting attachment: ' + attachment.file_name + ' - ' + attachment.uuid);
 
-        strataService.cases.attachments.delete(attachment.uuid, CaseService.case.case_number).then(
-            angular.bind(this, function() {
-              AlertService.removeAlert(progressMessage);
-              AlertService.addSuccessMessage(
-                  'Successfully deleted attachment: ' +  attachment.file_name + ' - ' + attachment.uuid);
-              this.originalAttachments.splice($index, 1);
-            }),
-            function(error) {
-              AlertService.addStrataErrorMessage(error);
-            }
+        strataService.cases.attachments.delete(attachment.uuid, CaseService.
+        case .case_number).then(
+          angular.bind(this, function () {
+            AlertService.removeAlert(progressMessage);
+            AlertService.addSuccessMessage(
+              'Successfully deleted attachment: ' + attachment.file_name + ' - ' + attachment.uuid);
+            this.originalAttachments.splice($index, 1);
+          }),
+          function (error) {
+            AlertService.addStrataErrorMessage(error);
+          }
         );
       };
 
@@ -89,16 +90,16 @@ angular.module('RedhatAccess.cases')
               }).error(function (data, status, headers, config) {
                 console.log(data);
                 var error_msg = '';
-                switch (status){
-                  case 401:
-                    error_msg = ' : Unauthorised.';
-                    break;
-                  case 409:
-                    error_msg = ' : Invalid username/password.';
-                    break;
-                  case 500:
-                    error_msg = ' : Internal server error';
-                    break;
+                switch (status) {
+                case 401:
+                  error_msg = ' : Unauthorised.';
+                  break;
+                case 409:
+                  error_msg = ' : Invalid username/password.';
+                  break;
+                case 500:
+                  error_msg = ' : Internal server error';
+                  break;
                 }
                 AlertService.addDangerMessage(
                   'Failed to upload attachment ' +
@@ -122,23 +123,23 @@ angular.module('RedhatAccess.cases')
           }
           if (hasLocalAttachments) {
             //find new attachments
-            angular.forEach(updatedAttachments, function(attachment) {
+            angular.forEach(updatedAttachments, function (attachment) {
               if (!attachment.hasOwnProperty('uuid')) {
                 var promise = strataService.cases.attachments.post(
-                    attachment.file,
-                    caseId
+                  attachment.file,
+                  caseId
                 );
                 promise.then(
-                    function (uri) {
-                      attachment.uri = uri;
-                      attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
-                      AlertService.addSuccessMessage(
-                          'Successfully uploaded attachment ' +
-                              attachment.file_name + ' to case ' + caseId);
-                    },
-                    function(error) {
-                      AlertService.addStrataErrorMessage(error);
-                    }
+                  function (uri) {
+                    attachment.uri = uri;
+                    attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
+                    AlertService.addSuccessMessage(
+                      'Successfully uploaded attachment ' +
+                      attachment.file_name + ' to case ' + caseId);
+                  },
+                  function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                  }
                 );
                 promises.push(promise);
               }
@@ -150,7 +151,7 @@ angular.module('RedhatAccess.cases')
           parentPromise.then(
             angular.bind(this, function () {
               this.originalAttachments =
-                  this.originalAttachments.concat(this.updatedAttachments);
+                this.originalAttachments.concat(this.updatedAttachments);
               this.updatedAttachments = [];
               AlertService.removeAlert(uploadingAlert);
             }),

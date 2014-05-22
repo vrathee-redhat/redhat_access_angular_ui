@@ -1,14 +1,15 @@
 'use strict';
 angular.module('RedhatAccess.cases')
-  .controller('BackEndAttachmentsCtrl', ['$scope', 'TreeViewSelectorData',
-    function($scope, TreeViewSelectorData) {
+  .controller('BackEndAttachmentsCtrl', ['$scope', 'TreeViewSelectorData', 'AttachmentsService',
+    function ($scope, TreeViewSelectorData, AttachmentsService) {
       $scope.name = 'Attachments';
       $scope.attachmentTree = [];
       TreeViewSelectorData.getTree('attachments').then(
-        function(tree) {
+        function (tree) {
           $scope.attachmentTree = tree;
+          AttachmentsService.updateBackEndAttachments(tree);
         },
-        function() {
+        function () {
           console.log('Unable to get tree data');
         });
     }
