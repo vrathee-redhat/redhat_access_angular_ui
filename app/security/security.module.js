@@ -10,7 +10,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized'
   })
-  .directive('rhaLoginStatus', function() {
+  .directive('rhaLoginStatus', function () {
     return {
       restrict: 'AE',
       scope: false,
@@ -18,13 +18,16 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     };
   })
   .controller('SecurityController', ['$scope', '$rootScope', 'securityService',
-    function($scope, $rootScope, securityService) {
+    function ($scope, $rootScope, securityService) {
       $scope.securityService = securityService;
       securityService.validateLogin(false); //change to false to force login
     }
   ])
-  .service('securityService', ['$rootScope', '$modal', 'AUTH_EVENTS', '$q',
-    function($rootScope, $modal, AUTH_EVENTS, $q) {
+  .value('LOGIN_VIEW_CONFIG', {
+    verbose: true,
+  })
+  .service('securityService', ['$rootScope', '$modal', 'AUTH_EVENTS', '$q', 'LOGIN_VIEW_CONFIG',
+    function ($rootScope, $modal, AUTH_EVENTS, $q, LOGIN_VIEW_CONFIG) {
 
       this.loginStatus = {
         isLoggedIn: false,
@@ -32,7 +35,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         verifying: false
       };
 
-      this.setLoginStatus = function(isLoggedIn, userName, verifying) {
+      this.setLoginStatus = function (isLoggedIn, userName, verifying) {
         this.loginStatus.isLoggedIn = isLoggedIn;
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
@@ -55,7 +58,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
 
       };
 
-      this.getBasicAuthToken = function() {
+      this.getBasicAuthToken = function () {
         var defer = $q.defer();
         var token = localStorage.getItem('rhAuthToken');
         if (token !== undefined && token !== '') {
@@ -63,10 +66,10 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
           return defer.promise;
         } else {
           this.login().then(
-            function(authedUser) {
+            function (authedUser) {
               defer.resolve(localStorage.getItem('rhAuthToken'));
             },
-            function(error) {
+            function (error) {
               console.log('Unable to get user credentials');
               defer.resolve(error);
             });
@@ -74,12 +77,12 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         }
       };
 
-      this.initLoginStatus = function() {
+      this.initLoginStatus = function () {
         var defer = $q.defer();
         var that = this;
         this.loginStatus.verifying = true;
         strata.checkLogin(
-          function(result, authedUser) {
+          function (result, authedUser) {
             if (result) {
               that.setLoginStatus(true, authedUser.name, false);
               defer.resolve(authedUser.name);
@@ -92,31 +95,31 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         return defer.promise;
       };
 
-      this.validateLogin = function(forceLogin) {
+      this.validateLogin = function (forceLogin) {
         var defer = $q.defer();
         var that = this;
         if (!forceLogin) {
           this.initLoginStatus().then(
-            function(username) {
+            function (username) {
               defer.resolve(username);
             },
-            function(error) {
+            function (error) {
               defer.reject(error);
             }
           );
           return defer.promise;
         } else {
           this.initLoginStatus().then(
-            function(username) {
+            function (username) {
               console.log('User name is ' + username);
               defer.resolve(username);
             },
-            function(error) {
+            function (error) {
               that.login().then(
-                function(authedUser) {
+                function (authedUser) {
                   defer.resolve(authedUser.name);
                 },
-                function(error) {
+                function (error) {
                   defer.reject(error);
                 });
             }
@@ -125,32 +128,32 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         }
       };
 
-      this.login = function() {
+      this.login = function () {
         var that = this;
         var result = this.showLogin(modalDefaults, modalOptions);
         result.then(
-          function(authedUser) {
+          function (authedUser) {
             console.log('User logged in : ' + authedUser.name);
             that.setLoginStatus(true, authedUser.name, false);
           },
-          function(error) {
+          function (error) {
             console.log('Unable to login user');
             that.setLoginStatus(false, '', false);
           });
         return result; // pass on the promise
       };
 
-      this.logout = function() {
+      this.logout = function () {
         strata.clearCredentials();
         this.setLoginStatus(false, '', false);
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
       };
 
-      this.getLoggedInUserName = function() {
+      this.getLoggedInUserName = function () {
         return strata.getAuthInfo().name;
       };
 
-      this.showLogin = function(customModalDefaults, customModalOptions) {
+      this.showLogin = function (customModalDefaults, customModalOptions) {
         //Create temp objects to work with since we're in a singleton service
         var tempModalDefaults = {};
         var tempModalOptions = {};
@@ -160,13 +163,14 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         angular.extend(tempModalOptions, modalOptions, customModalOptions);
         if (!tempModalDefaults.controller) {
           tempModalDefaults.controller = ['$scope', '$modalInstance',
-            function($scope, $modalInstance) {
+            function ($scope, $modalInstance) {
               $scope.user = {
                 user: null,
                 password: null
               };
+              $scope.useVerboseLoginView = LOGIN_VIEW_CONFIG.verbose;
               $scope.modalOptions = tempModalOptions;
-              $scope.modalOptions.ok = function(result) {
+              $scope.modalOptions.ok = function (result) {
                 //Hack below is needed to handle autofill issues
                 //@see https://github.com/angular/angular.js/issues/1460
                 //BEGIN HACK
@@ -174,7 +178,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                 $scope.user.password = $('#rha-login-password').val();
                 //END HACK
                 strata.setCredentials($scope.user.user, $scope.user.password,
-                  function(passed, authedUser) {
+                  function (passed, authedUser) {
                     if (passed) {
                       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                       $scope.user.password = '';
@@ -185,14 +189,14 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                     } else {
                       // alert("Login failed!");
                       $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-                      $scope.$apply(function() {
+                      $scope.$apply(function () {
                         $scope.authError = 'Login Failed!';
                       });
                     }
                   });
 
               };
-              $scope.modalOptions.close = function() {
+              $scope.modalOptions.close = function () {
                 $modalInstance.dismiss();
               };
             }

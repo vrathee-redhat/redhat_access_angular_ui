@@ -4,12 +4,12 @@
 }
 
 .rha-login-modal div.modal-dialog{
-	width:300px;
-	padding:5px;
+	width:600px;
+	padding:10px;
 }
 
 .rha-login-modal .modal-header{
-	padding:5px;
+	padding-left:30px;
 }
 .rha-login-modal .form-group{
 	margin-bottom:5px;
