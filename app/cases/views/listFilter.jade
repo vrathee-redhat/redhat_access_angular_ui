@@ -1,22 +1,33 @@
-div.container-fluid.side-padding
+div.container-fluid
   div.row
-    div.col-lg-4(style='padding-bottom: 14px;')
-      input.form-control(
-        ng-disabled='!securityService.loginStatus.isLoggedIn',
-        placeholder='Search',
-        ng-model='keyword',
-        ng-keypress='onFilterKeyPress($event)')
-    div.col-lg-4(style='padding-bottom: 14px;')
-      //label(for='rha-case-group-filter', style='padding-right: 4px; font-weight: normal;') Group:
-      select.form-control(
-        id='rha-case-group-filter',
-        ng-disabled='!securityService.loginStatus.isLoggedIn',
-        style='display: inline-block;',
-        ng-model='group',
-        ng-change='doFilter()',
-        ng-options='g.name for g in groups track by g.number')
-        option(value='') All Groups
-    div.col-lg-4(style='padding-bottom: 14px;')
+    div.col-md-6(style='padding-bottom: 14px;')
+      div.input-group
+        input.form-control(
+          ng-disabled='!securityService.loginStatus.isLoggedIn',
+          placeholder='Search',
+          ng-model='keyword',
+          ng-keypress='onFilterKeyPress($event)')
+        span.input-group-btn
+          button.btn.btn-default.btn-primary(ng-click='doFilter()')
+            i.glyphicon.glyphicon-search
+            |  Search
+    div.col-md-3(style='padding-bottom: 14px;')
+      div(style='display:table')
+        select.form-control(
+          id='rha-case-group-filter',
+          ng-disabled='!securityService.loginStatus.isLoggedIn',
+          style='display: table-cell;',
+          ng-model='group',
+          ng-change='doFilter()',
+          ng-options='g.name for g in groups track by g.number')
+          option(value='') All Groups
+        span.glyphicon.glyphicon-question-sign(
+          style='display: table-cell; width: 1%; padding-left: 6px;',
+          popover='Filtering by case groups helps you find related cases.',
+          tabindex='0',
+          popover-append-to-body='true',
+          popover-trigger='mouseenter')
+    div.col-md-3(style='padding-bottom: 14px;')
       select.form-control(
         ng-disabled='!securityService.loginStatus.isLoggedIn',
         ng-model='statusFilter',
