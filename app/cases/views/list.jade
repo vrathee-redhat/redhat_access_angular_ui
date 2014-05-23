@@ -16,7 +16,7 @@ div#redhat-access-case.container-offset
           div(ng-hide='CaseListService.cases.length == 0 || loadingCases')
             table.table.table-bordered.table-striped(
                 ng-table='tableParams',
-                style='text-align: center')
+                style='text-align: left')
               tr(ng-repeat='case in $data')
                 td(data-title='"Case ID"',
                     sortable='"case_number"',
@@ -35,9 +35,9 @@ div#redhat-access-case.container-offset
                     sortable='"owner"') {{case.owner}}
                 td(data-title='"Opened"',
                     sortable='"created_date"',
-                    style='width: 10%') {{case.created_date | date:'medium'}}
+                    style='width: 10%') {{case.created_date | date:'longDate'}}
                 td(data-title='"Updated"',
                     sortable='"last_modified_date"',
-                    style='width: 10%') {{case.last_modified_date | date:'medium'}}
+                    style='width: 10%') {{case.last_modified_date | date:'longDate'}}
 
 
