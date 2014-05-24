@@ -9,8 +9,11 @@ angular.module('RedhatAccess.logViewer',
 		templateUrl : 'log_viewer/views/log_viewer.html'
 	})
 } ])
-
+.constant('LOGVIEWER_EVENTS', {
+    allTabsClosed: 'allTabsClosed'
+  })
 .value('hideMachinesDropdown', {value:false})
+
 
 .factory('files', function() {
 	var fileList = '';
@@ -189,12 +192,14 @@ angular.module('RedhatAccess.logViewer',
 }])
 .controller('selectFileButton', [
 	'$scope', 
+	'$rootScope',
 	'$http', 
 	'$location',
 	'files', 
 	'AlertService', 
-	function($scope, $http, $location,
-	files, AlertService) {
+	'LOGVIEWER_EVENTS',
+	function($scope,$rootScope, $http, $location,
+	files, AlertService, LOGVIEWER_EVENTS) {
 		$scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
 
 		$scope.fileSelected = function() {
@@ -216,8 +221,13 @@ angular.module('RedhatAccess.logViewer',
 				AlertService.addDangerMessage(data);
 			});
 		};
+
+		$rootScope.$on(LOGVIEWER_EVENTS.allTabsClosed, function() {
+             $scope.$parent.$parent.sidePaneToggle = !$scope.$parent.$parent.sidePaneToggle;
+        });
 }])
 .controller('TabsDemoCtrl', [
+	'$rootScope',
 	'$scope',
 	'$http',
 	'$location',
@@ -226,12 +236,9 @@ angular.module('RedhatAccess.logViewer',
 	'SearchResultsService',
 	'securityService',
 	'AlertService',
-	function($scope, $http, $location, files, accordian, SearchResultsService, securityService, AlertService) {
-		$scope.tabs = [ {
-			shortTitle : "Log File Viewer",
-			longTitle : "Log File Viewer",
-			content : "Please select a file from the left to begin."
-		} ];
+	'LOGVIEWER_EVENTS',
+	function($rootScope,$scope, $http, $location, files, accordian, SearchResultsService, securityService, AlertService,LOGVIEWER_EVENTS) {
+		$scope.tabs = [];
 		$scope.isLoading = false;
 		$scope.$watch(function() {
 			return files.getFileClicked().check;
@@ -280,6 +287,9 @@ angular.module('RedhatAccess.logViewer',
 		});
 		$scope.removeTab = function(index) {
 			$scope.tabs.splice(index, 1);
+			if ($scope.tabs.length < 1){
+				$rootScope.$broadcast(LOGVIEWER_EVENTS.allTabsClosed);
+			}
 		};
 
 		$scope.checked = false; // This will be
@@ -312,6 +322,7 @@ angular.module('RedhatAccess.logViewer',
 			// }
 			//$scope.sleep(5000, $scope.checkTextSelection);
 		};
+
 
 		$scope.refreshTab = function(index){
 			var sessionId = $location.search().sessionId;

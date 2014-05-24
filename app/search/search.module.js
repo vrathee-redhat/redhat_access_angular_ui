@@ -73,13 +73,13 @@ angular.module('RedhatAccess.search', [
 
       $scope.search = function (searchStr, limit) {
 
-        securityService.validateLogin(true).then(
-          function (authedUser) {
-            SearchResultsService.search(searchStr, limit);
-          },
-          function (error) {
-            AlertService.addDangerMessage('You must be logged in to use this functionality.');
-          });
+        // securityService.validateLogin(true).then(
+        //function (authedUser) {
+        SearchResultsService.search(searchStr, limit);
+        //},
+        //function (error) {
+        //  AlertService.addDangerMessage('You must be logged in to use this functionality.');
+        //});
       };
 
       $scope.diagnose = function (data, limit) {
@@ -194,9 +194,131 @@ angular.module('RedhatAccess.search', [
       };
     }
   ])
-  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS', 'AlertService',
+  .factory('SearchResultsService', ['$q', '$rootScope', 'AUTH_EVENTS', 'RESOURCE_TYPES', 'SEARCH_PARAMS', 'AlertService', 'securityService',
 
-    function ($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS, AlertService) {
+    function ($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS, AlertService, securityService) {
+      var searchArticlesOrSolutions = function (searchString, limit) {
+        //var that = this;
+        if ((limit === undefined) || (limit < 1)) {
+          limit = SEARCH_PARAMS.limit;
+        }
+        service.clear();
+        AlertService.clearAlerts();
+
+        service.setCurrentSearchData(searchString, 'search');
+        var deferreds = [];
+        strata.search(
+          searchString,
+          function (entries) {
+            //retrieve details for each solution
+            if (entries !== undefined) {
+              if (entries.length === 0) {
+                AlertService.addSuccessMessage('No recommendations found.');
+              }
+              entries.forEach(function (entry) {
+                var deferred = $q.defer();
+                deferreds.push(deferred.promise);
+                strata.utils.getURI(
+                  entry.uri,
+                  entry.resource_type,
+                  function (type, info) {
+                    if (info !== undefined) {
+                      info.resource_type = type;
+                    }
+                    deferred.resolve(info);
+                  },
+                  function (error) {
+                    deferred.resolve();
+                  });
+              });
+            } else {
+              AlertService.addSuccessMessage('No recommendations found.');
+            }
+            $q.all(deferreds).then(
+              function (results) {
+                results.forEach(function (result) {
+                  if (result !== undefined) {
+                    service.add(result);
+                  }
+                });
+                service.searchInProgress.value = false;
+              },
+              function (error) {
+                service.searchInProgress.value = false;
+              }
+            );
+          },
+          function (error) {
+            console.log(error);
+            $rootScope.$apply(function () {
+              service.searchInProgress.value = false;
+              console.log(error);
+              AlertService.addDangerMessage(error);
+            });
+          },
+          limit,
+          false
+        );
+      };
+      var searchProblems = function (data, limit) {
+        if ((limit === undefined) || (limit < 1)) {
+          limit = SEARCH_PARAMS.limit;
+        }
+        service.clear();
+        AlertService.clearAlerts();
+        var deferreds = [];
+        service.searchInProgress.value = true;
+        service.setCurrentSearchData(data, 'diagnose');
+        strata.problems(
+          data,
+          function (solutions) {
+            //retrieve details for each solution
+            if (solutions !== undefined) {
+              if (solutions.length === 0) {
+                AlertService.addSuccessMessage('No solutions found.');
+              }
+
+              solutions.forEach(function (solution) {
+                var deferred = $q.defer();
+                deferreds.push(deferred.promise);
+                strata.solutions.get(
+                  solution.uri,
+                  function (solution) {
+                    deferred.resolve(solution);
+                  },
+                  function (error) {
+                    deferred.resolve();
+                  });
+              });
+            } else {
+              AlertService.addSuccessMessage('No solutions found.');
+            }
+            $q.all(deferreds).then(
+              function (solutions) {
+                solutions.forEach(function (solution) {
+                  if (solution !== undefined) {
+                    solution.resource_type = RESOURCE_TYPES.solution;
+                    service.add(solution);
+                  }
+                });
+                service.searchInProgress.value = false;
+              },
+              function (error) {
+                service.searchInProgress.value = false;
+              }
+            );
+          },
+
+          function (error) {
+            $rootScope.$apply(function () {
+              service.searchInProgress.value = false;
+              AlertService.addDangerMessage(error);
+            });
+            console.log(error);
+          },
+          limit
+        );
+      };
       var service = {
         results: [],
         currentSelection: {
@@ -229,168 +351,30 @@ angular.module('RedhatAccess.search', [
           this.currentSearchData.method = method;
         },
         search: function (searchString, limit) {
-          var that = this;
-          if ((limit === undefined) || (limit < 1)) {
-            limit = SEARCH_PARAMS.limit;
-          }
-          this.clear();
-          AlertService.clearAlerts();
           this.searchInProgress.value = true;
-          this.setCurrentSearchData(searchString, 'search');
-          var deferreds = [];
-          strata.search(
-            searchString,
-            function (entries) {
-              //retrieve details for each solution
-              if (entries !== undefined) {
-                if (entries.length === 0) {
-                  AlertService.addSuccessMessage('No recommendations found.');
-                }
-                entries.forEach(function (entry) {
-                  var deferred = $q.defer();
-                  deferreds.push(deferred.promise);
-                  strata.utils.getURI(
-                    entry.uri,
-                    entry.resource_type,
-                    function (type, info) {
-                      if (info !== undefined) {
-                        info.resource_type = type;
-                      }
-                      deferred.resolve(info);
-                    },
-                    function (error) {
-                      deferred.resolve();
-                    });
-                });
-              } else {
-                AlertService.addSuccessMessage('No recommendations found.');
-              }
-              $q.all(deferreds).then(
-                function (results) {
-                  results.forEach(function (result) {
-                    if (result !== undefined) {
-                      that.add(result);
-                    }
-                  });
-                  that.searchInProgress.value = false;
-                },
-                function (error) {
-                  that.searchInProgress.value = false;
-                }
-              );
-            },
-            function (error) {
-              console.log(error);
-              $rootScope.$apply(function () {
-                that.searchInProgress.value = false;
-                console.log(error);
-                AlertService.addDangerMessage(error);
-              });
-            },
-            limit,
-            false
-          );
-        },
-        // solution and article search needs reimplementation
-        // searchSolutions: function (searchString, limit) {
-        //   var that = this;
-        //   if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
-        //   this.clear();
-        //   strata.solutions.search(
-        //     searchString,
-        //     function (response) {
-        //       $rootScope.$apply(function () {
-        //         response.forEach(function (entry) {
-        //           entry.resource_type = RESOURCE_TYPES.solution;
-        //           that.add(entry);
-        //         });
-        //       });
-        //     },
-        //     function (error) {
-        //       console.log("search failed");
-        //     },
-        //     limit,
-        //     false
-        //   );
-        // },
-        // searchArticles: function (searchString, limit) {
-        //   var that = this;
-        //   if ((limit === undefined) || (limit < 1)) limit = SEARCH_PARAMS.limit;
-        //   this.clear();
-        //   strata.articles.search(
-        //     searchString,
-        //     function (response) {
-        //       response.resource_type = RESOURCE_TYPES.article;
-        //       $rootScope.$apply(function () {
-        //         that.add(response);
-        //       });
-        //     },
-        //     function (error) {
-        //       console.log("search failed");
-        //     },
-        //     limit,
-        //     true
-        //   );
-        // },
-        diagnose: function (data, limit) {
           var that = this;
-          if ((limit === undefined) || (limit < 1)) {
-            limit = SEARCH_PARAMS.limit;
-          }
-          this.clear();
-          AlertService.clearAlerts();
-          var deferreds = [];
-          that.searchInProgress.value = true;
-          this.setCurrentSearchData(data, 'diagnose');
-          strata.problems(
-            data,
-            function (solutions) {
-              //retrieve details for each solution
-              if (solutions !== undefined) {
-                if (solutions.length === 0) {
-                  AlertService.addSuccessMessage('No solutions found.');
-                }
-
-                solutions.forEach(function (solution) {
-                  var deferred = $q.defer();
-                  deferreds.push(deferred.promise);
-                  strata.solutions.get(
-                    solution.uri,
-                    function (solution) {
-                      deferred.resolve(solution);
-                    },
-                    function (error) {
-                      deferred.resolve();
-                    });
-                });
-              } else {
-                AlertService.addSuccessMessage('No solutions found.');
-              }
-              $q.all(deferreds).then(
-                function (solutions) {
-                  solutions.forEach(function (solution) {
-                    if (solution !== undefined) {
-                      solution.resource_type = RESOURCE_TYPES.solution;
-                      that.add(solution);
-                    }
-                  });
-                  that.searchInProgress.value = false;
-                },
-                function (error) {
-                  that.searchInProgress.value = false;
-                }
-              );
+          securityService.validateLogin(true).then(
+            function (authedUser) {
+              searchArticlesOrSolutions(searchString, limit);
             },
-
             function (error) {
-              $rootScope.$apply(function () {
-                that.searchInProgress.value = false;
-                AlertService.addDangerMessage(error);
-              });
-              console.log(error);
+              that.searchInProgress.value = false;
+              AlertService.addDangerMessage('You must be logged in to use this functionality.');
+            });
+
+        },
+        diagnose: function (data, limit) {
+          this.searchInProgress.value = true;
+          var that = this;
+          securityService.validateLogin(true).then(
+            function (authedUser) {
+              searchProblems(data, limit);
             },
-            limit
-          );
+            function (error) {
+              that.searchInProgress.value = false;
+              AlertService.addDangerMessage('You must be logged in to use this functionality.');
+            });
+
         }
       };
 
