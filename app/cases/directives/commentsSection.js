@@ -6,6 +6,9 @@ angular.module('RedhatAccess.cases')
     return {
       templateUrl: 'cases/views/commentsSection.html',
       controller: 'CommentsSection',
+      scope: {
+        loading: '='
+      },
       restrict: 'EA',
       link: function postLink(scope, element, attrs) {}
     };

@@ -1,5 +1,6 @@
 h4.section-header Recommendations
-div.container-fluid.side-padding
+span.rha-search-spinner(ng-show='loading')
+div.container-fluid.side-padding(ng-hide='loading')
   div.row
     div(ng-repeat='recommendation in recommendationsOnScreen')
       div.col-xs-3

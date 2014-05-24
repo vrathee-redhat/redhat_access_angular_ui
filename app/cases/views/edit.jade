@@ -3,23 +3,17 @@ div#redhat-access-case.container-offset
   x-rha-header(page='caseView')
   div.container-fluid.side-padding(ng-show='securityService.loginStatus.isLoggedIn')
     div.row
-      div.col-xs-12(ng-hide='caseLoading')
-        rha-case-details(compact='false')
-      div.col-xs-12(ng-show='caseLoading')
-        div Loading Details...
-    div.row
-      div.col-xs-12(ng-hide='caseLoading')
-        rha-case-description
-    div.row
-      div.col-xs-12(ng-hide='attachmentsLoading')
-        rha-case-attachments
-      div.col-xs-12(ng-show='attachmentsLoading')
-        div Loading Attachments...
-    div.row
-      div.col-xs-12(ng-hide='recommendationsLoading')
-        rha-case-recommendations
-      div.col-xs-12(ng-show='recommendationsLoading')
-        div Loading Recommendations...
+      div.col-xs-12
+        rha-case-details(compact='false', loading='caseLoading')
     div.row
       div.col-xs-12
-        rha-case-comments
+        rha-case-description(loading='caseLoading')
+    div.row
+      div.col-xs-12
+        rha-case-attachments(loading='attachmentsLoading')
+    div.row
+      div.col-xs-12
+        rha-case-recommendations(loading='recommendationsLoading')
+    div.row
+      div.col-xs-12
+        rha-case-comments(loading='commentsLoading')

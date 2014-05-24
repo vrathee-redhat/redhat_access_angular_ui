@@ -1,5 +1,6 @@
 h4.section-header Attachments
-div.container-fluid.side-padding
+span.rha-search-spinner(ng-show='loading')
+div.container-fluid.side-padding(ng-hide='loading')
   div.row.side-padding
     div.col-xs-12.col-no-padding
       rha-list-attachments

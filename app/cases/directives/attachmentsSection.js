@@ -8,6 +8,7 @@ angular.module('RedhatAccess.cases')
     restrict: 'EA',
     controller: 'AttachmentsSection',
     scope: {
+      loading: '='
     },
     link: function postLink(scope, element, attrs) {
     }
