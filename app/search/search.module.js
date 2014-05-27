@@ -73,23 +73,13 @@ angular.module('RedhatAccess.search', [
 
       $scope.search = function (searchStr, limit) {
 
-        // securityService.validateLogin(true).then(
-        //function (authedUser) {
         SearchResultsService.search(searchStr, limit);
-        //},
-        //function (error) {
-        //  AlertService.addDangerMessage('You must be logged in to use this functionality.');
-        //});
+
       };
 
       $scope.diagnose = function (data, limit) {
-        securityService.validateLogin(true).then(
-          function (authedUser) {
-            SearchResultsService.diagnose(data, limit);
-          },
-          function (error) {
-            AlertService.addDangerMessage('You must be logged in to use this functionality.');
-          });
+
+        SearchResultsService.diagnose(data, limit);
       };
 
 
