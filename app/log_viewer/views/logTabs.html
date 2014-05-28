@@ -21,9 +21,8 @@
                 <br>
                 <br>
             </div>
-            <div class="panel-body" fill-down ng-style="{ height: windowHeight }">
-
-                <pre id="resizeable-file-view" class="no-line-wrap">{{tab.content}}</pre>
+            <div class="panel-body" when-scrolled="loadMore()" fill-down ng-style="{ height: windowHeight }">
+                <tab-content></tab-content>
             </div>
         </div>
     </tab>

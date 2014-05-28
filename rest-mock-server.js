@@ -40,7 +40,18 @@ app.get('/logs', function (req, res) {
       res.status(401);
       res.send("Not authorized");
     } else {
-      res.send('Mock file text fdsafdsafjklsdjfkldsjfkldsjfkldsjfkldsjklfjdsklafjkldsajfkldsajfkl;dsajfkl;dsjaklfjasdklfjdsklfjkldsajfkdasjfkljsdaklfjasdklfjkldsajfkdlsajfkldsjfkldsajfkldsajfklasdfjkl;asdfjkldsa');
+      fs = require('fs');
+      fs.readFile('testFile.txt', 'utf8', function (err,data) {
+      //fs.readFile('/var/log/fsck_hfs.log', 'utf8', function (err,data) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(data);
+        }
+        //console.log(data);
+      });
+
+      
     }
   }
 });

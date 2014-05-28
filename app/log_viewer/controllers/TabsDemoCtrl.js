@@ -3,6 +3,7 @@
 angular.module('RedhatAccess.logViewer')
 .controller('TabsDemoCtrl', [
 	'$rootScope',
+	'$sce',
 	'$scope',
 	'$http',
 	'$location',
@@ -12,9 +13,10 @@ angular.module('RedhatAccess.logViewer')
 	'securityService',
 	'AlertService',
 	'LOGVIEWER_EVENTS',
-	function($rootScope,$scope, $http, $location, files, accordian, SearchResultsService, securityService, AlertService,LOGVIEWER_EVENTS) {
+	function($rootScope, $sce, $scope, $http, $location, files, accordian, SearchResultsService, securityService, AlertService,  LOGVIEWER_EVENTS) {
 		$scope.tabs = [];
 		$scope.isLoading = false;
+		$scope.lineChunkSize = 50;
 		$scope.$watch(function() {
 			return files.getFileClicked().check;
 		}, function() {
@@ -38,19 +40,20 @@ angular.module('RedhatAccess.logViewer')
 				tab.active = true;
 				$scope.tabs.push(tab);
 				$scope.isLoading = true;
-				files.setActiveTab(tab);
 				files.setFileClicked(false);
 			}
 		});
-		$scope.$watch(function() {
-			return files.file;
-		}, function() {
-			if (files.file != null && files.activeTab  != null) {
-				files.activeTab.content = files.file;
-				$scope.isLoading = false;
-				files.file = null;
+		$rootScope.$on(LOGVIEWER_EVENTS.fileParsed, function(eventInfo, fileName) {
+			for( var i = 0; i < $scope.tabs.length; i++){
+				if($scope.tabs[i] != null && $scope.tabs[i].longTitle === fileName){
+					$scope.tabs[i].linesDisplayed = 0;
+					$scope.tabs[i].content = files.getFile($scope.tabs[i].longTitle, $scope.tabs[i].linesDisplayed, $scope.lineChunkSize);
+					$scope.tabs[i].linesDisplayed += $scope.lineChunkSize;
+					$scope.isLoading = false;
+				}
 			}
-		});
+        });
+			
 		$scope.$watch(function() {
 			return SearchResultsService.searchInProgress.value;
 		}, function() {
@@ -99,7 +102,10 @@ angular.module('RedhatAccess.logViewer')
 			//$scope.sleep(5000, $scope.checkTextSelection);
 		};
 
-
+		$scope.getContent = function(){
+			var trustedHTML = $sce.trustAsHtml($scope.tabs[this.$index].content);
+			return trustedHTML;
+		}
 		$scope.refreshTab = function(index){
 			var sessionId = $location.search().sessionId;
 			var userId = $location.search().userId;
@@ -124,4 +130,10 @@ angular.module('RedhatAccess.logViewer')
 				});
 			}
 		};
+
+	    $scope.loadMore = function() {
+	        $scope.tabs[this.$index].content += files.getFile($scope.tabs[this.$index].longTitle, $scope.tabs[this.$index].linesDisplayed, $scope.lineChunkSize);
+	        $scope.tabs[this.$index].linesDisplayed += $scope.lineChunkSize;
+    };
+
 }]);

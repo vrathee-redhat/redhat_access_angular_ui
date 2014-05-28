@@ -27,7 +27,7 @@ angular.module('RedhatAccess.logViewer')
 				+ files.selectedFile + '&machine='
 				+ files.selectedHost
 			}).success(function(data, status, headers, config) {
-				files.file = data;
+				files.setFile(data);
 			}).error(function(data, status, headers, config) {
 				AlertService.addDangerMessage(data);
 			});
