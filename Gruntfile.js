@@ -41,7 +41,8 @@ module.exports = function(grunt) {
 
     //Define our source files
     src: {
-      js: ['app/common/**/*.js', 'app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
+      //need to put all the module first to avoid dependency issues
+      js: ['app/**/*.module.js','app/common/**/*.js', 'app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
       jsTpl: ['.tmp/templates/**/*.js'],
       specs: ['test/**/*.spec.js'],
       scenarios: ['test/**/*.scenario.js'],

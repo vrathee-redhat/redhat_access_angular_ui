@@ -2,14 +2,13 @@
 
 describe('Search Controller', function () {
 
-	var securityService;
+	
 	var searchResultsService;
 	var mockScope;
-	beforeEach(angular.mock.module('RedhatAccess.security'));
+
 	beforeEach(angular.mock.module('RedhatAccess.search'));
 	beforeEach(function () {
 		inject(function ($injector, $rootScope) {
-			securityService = $injector.get('securityService');
 			searchResultsService = $injector.get('SearchResultsService');
 			mockScope = $rootScope.$new();
 		})
