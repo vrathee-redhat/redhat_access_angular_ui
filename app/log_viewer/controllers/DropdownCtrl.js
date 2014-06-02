@@ -2,17 +2,20 @@
 
 angular.module('RedhatAccess.logViewer')
 .controller('DropdownCtrl', [
-	'$scope', 
+	'$scope',
+	'$rootScope', 
 	'$http', 
 	'$location', 
 	'files', 
 	'hideMachinesDropdown',
 	'AlertService', 
-	function($scope, $http, $location, files, hideMachinesDropdown, AlertService) {
+	'LOGVIEWER_EVENTS',
+	function($scope, $rootScope, $http, $location, files, hideMachinesDropdown, AlertService, LOGVIEWER_EVENTS) {
 		$scope.machinesDropdownText = "Please Select the Machine";
 		$scope.items = [];
 		$scope.hideDropdown = hideMachinesDropdown.value;
 		$scope.loading = false;
+		$scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
 		var sessionId = $location.search().sessionId;
 
 		$scope.getMachines = function() {
@@ -52,4 +55,30 @@ angular.module('RedhatAccess.logViewer')
 		} else{
 			$scope.getMachines();
 		}
+
+		$scope.fileSelected = function() {
+			if(!$scope.retrieveFileButtonIsDisabled.check){
+				files.setFileClicked(true);
+				var sessionId = $location.search().sessionId;
+				var userId = $location.search().userId;
+				$scope.$parent.$parent.sidePaneToggle = !$scope.$parent.$parent.sidePaneToggle;
+				$http(
+				{
+					method : 'GET',
+					url : 'logs?sessionId='
+					+ encodeURIComponent(sessionId) + '&userId='
+					+ encodeURIComponent(userId) + '&path='
+					+ files.selectedFile + '&machine='
+					+ files.selectedHost
+				}).success(function(data, status, headers, config) {
+					files.setFile(data);
+				}).error(function(data, status, headers, config) {
+					AlertService.addDangerMessage(data);
+				});
+			}
+		};
+
+		$rootScope.$on(LOGVIEWER_EVENTS.allTabsClosed, function() {
+             $scope.$parent.$parent.sidePaneToggle = !$scope.$parent.$parent.sidePaneToggle;
+        });
 }]);
