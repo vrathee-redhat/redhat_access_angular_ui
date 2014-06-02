@@ -43,6 +43,9 @@ angular.module('RedhatAccess.logViewer')
 				files.setFileClicked(false);
 			}
 		});
+		$rootScope.$on(LOGVIEWER_EVENTS.fileRetrievalError, function() {
+			$scope.isLoading = false;
+		});
 		$rootScope.$on(LOGVIEWER_EVENTS.fileParsed, function(eventInfo, fileName) {
 			for( var i = 0; i < $scope.tabs.length; i++){
 				if($scope.tabs[i] != null && $scope.tabs[i].longTitle === fileName){

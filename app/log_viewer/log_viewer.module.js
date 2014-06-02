@@ -10,7 +10,8 @@ angular.module('RedhatAccess.logViewer',
 }])
 .constant('LOGVIEWER_EVENTS', {
     allTabsClosed: 'allTabsClosed',
-    fileParsed: 'fileParsed'
+    fileParsed: 'fileParsed',
+    fileRetrievalError: 'fileRetrievalError'
   })
 .value('hideMachinesDropdown', {value:false});
 

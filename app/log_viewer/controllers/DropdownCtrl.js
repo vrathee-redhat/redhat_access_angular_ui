@@ -74,6 +74,7 @@ angular.module('RedhatAccess.logViewer')
 					files.setFile(data);
 				}).error(function(data, status, headers, config) {
 					AlertService.addDangerMessage(data);
+					$rootScope.$broadcast(LOGVIEWER_EVENTS.fileRetrievalError);
 				});
 			}
 		};
