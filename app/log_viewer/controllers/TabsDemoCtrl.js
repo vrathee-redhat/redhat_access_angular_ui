@@ -107,6 +107,7 @@ angular.module('RedhatAccess.logViewer')
 			return trustedHTML;
 		}
 		$scope.refreshTab = function(index){
+			$scope.isLoading = true;
 			var sessionId = $location.search().sessionId;
 			var userId = $location.search().userId;
 			var fileNameForRefresh = this.$parent.tab.longTitle;
@@ -124,8 +125,10 @@ angular.module('RedhatAccess.logViewer')
 					+ fileNameForRefresh+ '&machine='
 					+ hostForRefresh
 				}).success(function(data, status, headers, config) {
+					$scope.isLoading = false;
 					$scope.tabs[index].content = data;
 				}).error(function(data, status, headers, config) {
+					$scope.isLoading = false;
 					AlertService.addDangerMessage(data);
 				});
 			}
