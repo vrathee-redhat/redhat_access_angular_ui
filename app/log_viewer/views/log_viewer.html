@@ -1,8 +1,8 @@
-<div id="log_view_main" style="max-height: 500px;">
+<div id="log_view_main" style="max-height: 500px;" ng-controller="logViewerController" ng-mouseup="enableDiagnoseButton()">
     <div class="container-offset">
         <x-rha-header page="logViewer"></x-rha-header>
     </div>
-    <div class="row-fluid" ng-controller="logViewerController" ng-mouseup="enableDiagnoseButton()">
+    <div class="row-fluid">
         <x-nav-side-bar></x-nav-side-bar>
         <div class=col-fluid>
             <x-recommendations></x-recommendations>

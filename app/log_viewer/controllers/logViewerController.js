@@ -12,7 +12,7 @@ angular.module('RedhatAccess.logViewer')
 			$scope.sleep(1, $scope.checkTextSelection);
 		};
 		$scope.checkTextSelection = function(){
-			if(strata.utils.getSelectedText()){
+			if(strata.utils.getSelectedText() &&  window.getSelection().anchorNode.parentNode.parentNode.id === 'resizeable-file-view'){
 				$scope.textSelected = true;
 				if(SearchResultsService.searchInProgress.value){
 					$scope.isDisabled = true;
