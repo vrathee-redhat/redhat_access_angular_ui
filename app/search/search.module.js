@@ -173,7 +173,13 @@ angular.module('RedhatAccess.search', [
               return '';
             }
             if (scope.result.body !== undefined) {
-              return scope.result.body;
+              if (scope.result.body.html !== undefined) {
+                //this is for newer version of strata
+                return scope.result.body.html;
+              } else {
+                //handle old markdown format
+                return scope.result.body;
+              }
             } else {
               return '';
             }
