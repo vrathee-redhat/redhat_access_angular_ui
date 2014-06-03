@@ -182,6 +182,18 @@ angular.module('RedhatAccess.cases')
           return deferred.promise;
         }
       },
+      csv: function() {
+        var deferred = $q.defer();
+
+        strata.cases.csv(
+            function (response) {
+              deferred.resolve(response);
+            },
+            angular.bind(deferred, errorHandler)
+        );
+
+        return deferred.promise;
+      },
       get: function(id) {
         var deferred = $q.defer();
 
