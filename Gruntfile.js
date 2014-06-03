@@ -7,11 +7,11 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 //var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
-var mountFolder = function(connect, dir) {
+var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -23,6 +23,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-image-embed');
   grunt.loadNpmTasks('grunt-ng-annotate');
+  grunt.loadNpmTasks('grunt-angular-gettext');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -42,7 +43,7 @@ module.exports = function(grunt) {
     //Define our source files
     src: {
       //need to put all the module first to avoid dependency issues
-      js: ['app/**/*.module.js','app/common/**/*.js', 'app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
+      js: ['app/**/*.module.js', 'app/common/**/*.js', 'app/security/**/*.js', 'app/search/**/*.js', 'app/cases/**/*.js', 'app/log_viewer/**/*.js'],
       jsTpl: ['.tmp/templates/**/*.js'],
       specs: ['test/**/*.spec.js'],
       scenarios: ['test/**/*.scenario.js'],
@@ -75,6 +76,9 @@ module.exports = function(grunt) {
           '<%= yeoman.bowerDir %>/ng-table/ng-table.css'
         ],
         img: ['<%= yeoman.bowerDir %>/angular-treeview/img/*']
+      },
+      i18n : {
+        generated: ['<%= yeoman.app %>/i18n/translations.js']
       }
 
     },
@@ -132,7 +136,7 @@ module.exports = function(grunt) {
           //'<%= yeoman.app %>',
           //'.'
           // ],
-          middleware: function(connect) {
+          middleware: function (connect) {
             return [
               mountFolder(connect, '.'),
               mountFolder(connect, 'app'),
@@ -160,6 +164,22 @@ module.exports = function(grunt) {
           base: '<%= yeoman.dist %>'
         }
       }
+    },
+
+    nggettext_extract: {
+      pot: {
+        files: {
+          '<%= yeoman.app %>/i18n/template.pot': ['<%= src.tpl.app %>']
+        }
+      },
+    },
+
+    nggettext_compile: {
+      all: {
+        files: {
+          '<%= yeoman.app %>/i18n/translations.js': ['<%= yeoman.app %>/i18n/*.po']
+        }
+      },
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -472,14 +492,14 @@ module.exports = function(grunt) {
         options: {
           banner: '<%= banner %>'
         },
-        src: ['<%= src.thirdParty.js %>', '<%= src.js %>', '<%= src.jsTpl %>'],
+        src: ['<%= src.thirdParty.js %>', '<%= src.i18n.generated %>','<%= src.js %>', '<%= src.jsTpl %>'],
         dest: '.tmp/<%= pkg.name %>.js'
       },
       distNoDeps: {
         options: {
           banner: '<%= banner %>'
         },
-        src: ['<%= src.js %>', '<%= src.jsTpl %>'],
+        src: ['<%= src.i18n.generated %>','<%= src.js %>', '<%= src.jsTpl %>'],
         dest: '.tmp/<%= pkg.name %>-no-deps.js'
       }
     },
@@ -507,7 +527,7 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('serve', function(target) {
+  grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
@@ -524,7 +544,7 @@ module.exports = function(grunt) {
     ]);
   });
 
-  grunt.registerTask('server', function() {
+  grunt.registerTask('server', function () {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
@@ -546,6 +566,7 @@ module.exports = function(grunt) {
     'html2js',
     'concurrent:dist',
     'autoprefixer',
+    'nggettext_compile',
     'concat',
     //'ngmin', does not work with chaining
     'ngAnnotate',

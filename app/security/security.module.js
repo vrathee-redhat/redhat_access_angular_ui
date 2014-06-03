@@ -1,7 +1,7 @@
 'use strict';
 /*global strata,$*/
 /*jshint unused:vars */
-angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template', 'ui.router'])
+angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template', 'ui.router', 'gettext'])
   .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',

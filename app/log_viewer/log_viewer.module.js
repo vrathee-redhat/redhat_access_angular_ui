@@ -1,7 +1,7 @@
 //var testURL = 'http://localhost:8080/LogCollector/';
 // angular module
 angular.module('RedhatAccess.logViewer',
-	[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search', 'RedhatAccess.header'])
+	[ 'angularTreeview', 'ui.bootstrap', 'RedhatAccess.search', 'RedhatAccess.header', 'gettext'])
 .config([ '$stateProvider', function($stateProvider) {
 	$stateProvider.state('logviewer', {
 		url : "/logviewer",

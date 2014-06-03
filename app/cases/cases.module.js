@@ -7,7 +7,8 @@ angular.module('RedhatAccess.cases', [
   'RedhatAccess.security',
   'RedhatAccess.search',
   'RedhatAccess.ui-utils',
-  'RedhatAccess.header'
+  'RedhatAccess.header',
+  'gettext'
 ])
   .constant('STATUS', {
     open: 'open',

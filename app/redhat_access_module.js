@@ -7,8 +7,8 @@ angular.module('RedhatAccess', [
   'RedhatAccess.search',
   'RedhatAccess.logViewer',
   'RedhatAccess.ui-utils'
-]).run(['TITLE_VIEW_CONFIG', '$http', 'securityService',
-  function (TITLE_VIEW_CONFIG, $http, securityService) {
+]).run(['TITLE_VIEW_CONFIG', '$http', 'securityService','gettextCatalog',
+  function (TITLE_VIEW_CONFIG, $http, securityService,gettextCatalog) {
     TITLE_VIEW_CONFIG.show = true;
     securityService.validateLogin(false).then(
       function (authedUser) {
@@ -17,6 +17,8 @@ angular.module('RedhatAccess', [
       function (error) {
         console.log("Unable to get user credentials");
       });
+    //gettextCatalog.currentLanguage = 'fr';
+    //gettextCatalog.debug = true;
   }
 ]);
 

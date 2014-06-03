@@ -1,7 +1,7 @@
 'use strict';
 /*jshint unused:vars */
 
-var app = angular.module('RedhatAccess.ui-utils', []);
+var app = angular.module('RedhatAccess.ui-utils', ['gettext']);
 
 //this is an example controller to provide tree data
 // app.controller('TreeViewSelectorCtrl', ['$scope', 'TreeViewSelectorData',

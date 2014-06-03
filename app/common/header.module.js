@@ -1,7 +1,7 @@
 'use strict';
  /*global $ */
 
-angular.module('RedhatAccess.header', [])
+angular.module('RedhatAccess.header', ['gettext'])
   .value('TITLE_VIEW_CONFIG', {
     show: 'false',
     titlePrefix: 'Red Hat Access: ',

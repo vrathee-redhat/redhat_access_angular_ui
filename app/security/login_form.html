@@ -1,5 +1,5 @@
 <div class="modal-header" id="rha-login-modal-header">
-    <h3>
+    <h3 translate>
         Sign into the Red Hat Customer Portal
     </h3>
 </div>
@@ -7,28 +7,27 @@
     <div class="modal-body form-horizontal" id="rha-login-modal-body">
         <!--form ng-submit="modalOptions.ok()"  method="post"-->
         <div class="form-group" ng-show='useVerboseLoginView'>
-        Red Hat Access makes it easy for you to self-solve issues, diagnose problems, and engage
-        with us via the Red Hat Customer Portal. To access Red Hat Customer Portal resources, you
-        must enter valid portal credentials.
+        {{'Red Hat Access makes it easy for you to self-solve issues, diagnose problems, and engage with us via the Red Hat Customer Portal. To access Red Hat Customer Portal resources, you must enter valid portal credentials.'|translate}}
         </div>
 
         <div class="alert alert-danger" ng-show="authError">
             {{authError}}
         </div>
         <div class="form-group" id="rha-login-modal-user-id">
-            <label for="rha-login-user-id" class=" control-label">Red Hat Login</label>
+            <label for="rha-login-user-id" class=" control-label" translate>Red Hat Login</label>
             <div>
-                <input type="text" class="form-control" id="rha-login-user-id" placeholder="Red Hat Login" ng-model="user.user" required autofocus>
+                <input type="text" class="form-control" id="rha-login-user-id" placeholder="{{'Red Hat Login'|translate}}"  ng-model="user.user" required autofocus>
             </div>
         </div>
         <div class="form-group" id="rha-login-modal-user-pass">
-            <label for="rha-login-password" class="control-label">Password</label>
+            <label for="rha-login-password" class="control-label" translate>Password</label>
             <div>
-                <input type="password" class="form-control" id="rha-login-password" placeholder="Password" ng-model="user.password" required>
+                <input type="password" class="form-control" id="rha-login-password" placeholder="{{'Password'|translate}}" ng-model="user.password" required>
             </div>
         </div>
         <div class="form-group" style="font-size:smaller" ng-show='useVerboseLoginView'>
-            <strong>Note:&nbsp;</strong>Red Hat Customer Portal credentials differ from the credentials used to log into this product.
+            <strong>{{'Note:'|translate}}
+                &nbsp;</strong>{{'Red Hat Customer Portal credentials differ from the credentials used to log into this product.'|translate}}
         </div>
 
         <!--/form-->
@@ -36,8 +35,8 @@
     <div class="modal-footer">
         <div class="form-group" id="rha-login-modal-buttons">
             <span class="pull-right">
-                <button class="btn  btn-md cancel" ng-click="modalOptions.close()" type="submit">Cancel</button>
-                <button class="btn btn-primary btn-md login" ng-click="modalOptions.ok()" type="submit">Sign in</button>
+                <button class="btn  btn-md cancel" ng-click="modalOptions.close()" type="submit" translate>Cancel</button>
+                <button class="btn btn-primary btn-md login" ng-click="modalOptions.ok()" type="submit" translate>Sign in</button>
             </span>
         </div>
     </div>
