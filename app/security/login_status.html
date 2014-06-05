@@ -1,4 +1,4 @@
-<div ng-controller = 'SecurityController'>
+<div ng-controller = 'SecurityController' ng-show="displayLoginStatus()">
 <span ng-show="securityService.loginStatus.isLoggedIn" class="pull-right rha-logged-in"> Logged into the Red Hat Customer Portal as {{securityService.loginStatus.loggedInUser}} &nbsp;|&nbsp;
   <a href="" ng-click="securityService.logout()"> Log out</a>
 </span>

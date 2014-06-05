@@ -17,14 +17,24 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
       templateUrl: 'security/login_status.html'
     };
   })
-  .controller('SecurityController', ['$scope', '$rootScope', 'securityService',
-    function ($scope, $rootScope, securityService) {
+  .controller('SecurityController', ['$scope', '$rootScope', 'securityService', 'SECURITY_CONFIG',
+    function ($scope, $rootScope, securityService, SECURITY_CONFIG) {
       $scope.securityService = securityService;
-      securityService.validateLogin(false); //change to false to force login
+      if (SECURITY_CONFIG.autoCheckLogin) {
+        securityService.validateLogin(false); //change to false to force login
+      }
+      $scope.displayLoginStatus = function(){
+        return SECURITY_CONFIG.displayLoginStatus;
+
+      };
     }
   ])
   .value('LOGIN_VIEW_CONFIG', {
     verbose: true,
+  })
+  .value('SECURITY_CONFIG', {
+    displayLoginStatus: true,
+    autoCheckLogin: true
   })
   .service('securityService', ['$rootScope', '$modal', 'AUTH_EVENTS', '$q', 'LOGIN_VIEW_CONFIG',
     function ($rootScope, $modal, AUTH_EVENTS, $q, LOGIN_VIEW_CONFIG) {

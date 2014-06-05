@@ -1,4 +1,5 @@
 // Generated on 2014-02-17 using generator-angular 0.7.1
+/*jshint camelcase: false */
 'use strict';
 
 // # Globbing
