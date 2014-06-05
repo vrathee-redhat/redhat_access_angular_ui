@@ -11,7 +11,8 @@ angular.module('RedhatAccess.cases')
     'securityService',
     'AlertService',
     'CaseService',
-    function ($filter, $q, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService) {
+    'translate',
+    function ($filter, $q, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
       this.originalAttachments = [];
       this.updatedAttachments = [];
 
@@ -37,17 +38,16 @@ angular.module('RedhatAccess.cases')
 
       this.removeOriginalAttachment = function ($index) {
         var attachment = this.originalAttachments[$index];
-
         var progressMessage =
           AlertService.addWarningMessage(
-            'Deleting attachment: ' + attachment.file_name + ' - ' + attachment.uuid);
+            translate('Deleting attachment:')+ ' ' + attachment.file_name + ' - ' + attachment.uuid);
 
         strataService.cases.attachments.delete(attachment.uuid, CaseService.
         case .case_number).then(
           angular.bind(this, function () {
             AlertService.removeAlert(progressMessage);
             AlertService.addSuccessMessage(
-              'Successfully deleted attachment: ' + attachment.file_name + ' - ' + attachment.uuid);
+              translate('Successfully deleted attachment:') + ' ' + attachment.file_name + ' - ' + attachment.uuid);
             this.originalAttachments.splice($index, 1);
           }),
           function (error) {
@@ -85,8 +85,8 @@ angular.module('RedhatAccess.cases')
               $http.post('attachments', jsonData).success(function (data, status, headers, config) {
                 deferred.resolve(data);
                 AlertService.addSuccessMessage(
-                  'Successfully uploaded attachment ' +
-                  jsonData.attachment + ' to case ' + caseId);
+                  translate('Successfully uploaded attachment') + ' '+
+                  jsonData.attachment + ' '+translate('to case') + ' ' + caseId);
               }).error(function (data, status, headers, config) {
                 console.log(data);
                 var error_msg = '';

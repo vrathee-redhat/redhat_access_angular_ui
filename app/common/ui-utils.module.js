@@ -18,6 +18,15 @@ var app = angular.module('RedhatAccess.ui-utils', ['gettext']);
 //     }
 // ]);
 
+//Wrapper service for translations
+app.service('translate', ['gettextCatalog',
+  function (gettextCatalog) {
+    return function (str) {
+      return gettextCatalog.getString(str);
+    };
+  }
+]);
+
 app.directive('rhaChoiceTree', function () {
   return {
     template: '<ul><rha-choice ng-repeat="choice in tree"></rha-choice></ul>',

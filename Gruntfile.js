@@ -78,7 +78,7 @@ module.exports = function (grunt) {
         ],
         img: ['<%= yeoman.bowerDir %>/angular-treeview/img/*']
       },
-      i18n : {
+      i18n: {
         generated: ['<%= yeoman.app %>/i18n/translations.js']
       }
 
@@ -168,9 +168,12 @@ module.exports = function (grunt) {
     },
 
     nggettext_extract: {
+      options: {
+        markerName: 'translate'
+      },
       pot: {
         files: {
-          '<%= yeoman.app %>/i18n/template.pot': ['<%= src.tpl.app %>']
+          '<%= yeoman.app %>/i18n/template.pot': ['<%= src.tpl.app %>', '<%= src.js %>']
         }
       },
     },
@@ -493,14 +496,14 @@ module.exports = function (grunt) {
         options: {
           banner: '<%= banner %>'
         },
-        src: ['<%= src.thirdParty.js %>', '<%= src.i18n.generated %>','<%= src.js %>', '<%= src.jsTpl %>'],
+        src: ['<%= src.thirdParty.js %>', '<%= src.i18n.generated %>', '<%= src.js %>', '<%= src.jsTpl %>'],
         dest: '.tmp/<%= pkg.name %>.js'
       },
       distNoDeps: {
         options: {
           banner: '<%= banner %>'
         },
-        src: ['<%= src.i18n.generated %>','<%= src.js %>', '<%= src.jsTpl %>'],
+        src: ['<%= src.i18n.generated %>', '<%= src.js %>', '<%= src.jsTpl %>'],
         dest: '.tmp/<%= pkg.name %>-no-deps.js'
       }
     },

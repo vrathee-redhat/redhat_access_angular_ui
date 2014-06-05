@@ -7,6 +7,10 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: app/cases/services/attachmentsService.js
+msgid "Deleting attachment:"
+msgstr ""
+
 #: app/security/login_form.html
 msgid "Note:"
 msgstr ""
@@ -33,4 +37,20 @@ msgstr ""
 
 #: app/security/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
+msgstr ""
+
+#: app/cases/services/attachmentsService.js
+msgid "Successfully deleted attachment:"
+msgstr ""
+
+#: app/cases/services/attachmentsService.js
+msgid "Successfully uploaded attachment"
+msgstr ""
+
+#: app/cases/services/strataService.js
+msgid "Unauthorized."
+msgstr ""
+
+#: app/cases/services/attachmentsService.js
+msgid "to case"
 msgstr ""

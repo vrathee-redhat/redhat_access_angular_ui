@@ -17,8 +17,7 @@ angular.module('RedhatAccess.search', [
   'ui.bootstrap',
   'ngSanitize',
   'RedhatAccess.ui-utils',
-  'RedhatAccess.header',
-  'gettext'
+  'RedhatAccess.header'
 ])
   .constant('RESOURCE_TYPES', {
     article: 'Article',
