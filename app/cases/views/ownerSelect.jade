@@ -1,0 +1,15 @@
+label Owner
+x-rha-select-loading-indicator(loading='ownersLoading')
+  ui-select(
+    theme='bootstrap',
+    id='rha-case-search_owners',
+    ng-disabled='!securityService.loginStatus.isLoggedIn',
+    ng-model='CaseService.owner',
+    ng-change='onchange()')
+    ui-select-match(placeholder='Select an Owner') {{$select.selected.first_name}} {{$select.selected.last_name}}
+    ui-select-choices(
+      repeat='owner in CaseService.owners | filter: $select.search',
+      style='overflow: auto;')
+      div {{owner.first_name}} {{owner.last_name}}
+      small
+        username: {{owner.sso_username}}

@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="common/styles/treeviewselector.css">
     <link rel="stylesheet" href="search/styles/search.css">
     <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
     <!-- endbuild -->
   </head>
   <body ng-app="RedhatAccess">
@@ -38,7 +39,7 @@
       <a class="navbar-brand" href="#logviewer">Diagnose Log Demo</a>
       <a class="navbar-brand" href="#case/list">List Case Demo</a>
       <a class="navbar-brand" href="#case/compact">Compact List Case Demo</a>
-      
+      <a class="navbar-brand" href="#case/search">Search Case Demo</a>
      </ul>
     </div>
     <div style="padding-top: 10px;" ng-view="">
@@ -69,48 +70,65 @@
     <!-- endbower -->
     <!-- endbuild -->
     
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>
     <script src="bower_components/angular-treeview/angular.treeview.min.js"></script>
     
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="redhat_access_module.js"></script>
     <script src="cases/cases.module.js"></script>
-    <script src="cases/controllers/edit.js"></script>
-    <script src="cases/controllers/compactEdit.js"></script>
-    <script src="cases/controllers/compactCaseList.js"></script>
-    <script src="cases/controllers/detailsSection.js"></script>
-    <script src="cases/controllers/new.js"></script>
     <script src="cases/controllers/attachLocalFile.js"></script>
-    <script src="cases/controllers/list.js"></script>
-    <script src="cases/controllers/listAttachments.js"></script>
-    <script src="cases/controllers/listNewAttachments.js"></script>
     <script src="cases/controllers/attachmentsSection.js"></script>
     <script src="cases/controllers/backendAttachments.js"></script>
     <script src="cases/controllers/commentsSection.js"></script>
+    <script src="cases/controllers/compactCaseList.js"></script>
+    <script src="cases/controllers/compactEdit.js"></script>
     <script src="cases/controllers/descriptionSection.js"></script>
+    <script src="cases/controllers/detailsSection.js"></script>
+    <script src="cases/controllers/edit.js"></script>
+    <script src="cases/controllers/groupSelect.js"></script>
+    <script src="cases/controllers/list.js"></script>
+    <script src="cases/controllers/listAttachments.js"></script>
     <script src="cases/controllers/listFilter.js"></script>
+    <script src="cases/controllers/listNewAttachments.js"></script>
+    <script src="cases/controllers/new.js"></script>
+    <script src="cases/controllers/ownerSelect.js"></script>
+    <script src="cases/controllers/productSelect.js"></script>
     <script src="cases/controllers/recommendationsSection.js"></script>
+    <script src="cases/controllers/search.js"></script>
+    <script src="cases/controllers/searchResult.js"></script>
+    <script src="cases/controllers/severitySelect.js"></script>
+    <script src="cases/controllers/statusSelect.js"></script>
+    <script src="cases/controllers/typeSelect.js"></script>
     <script src="cases/directives/attachLocalFile.js"></script>
-    <script src="cases/directives/attachProductLogs.js"></script>
-    <script src="cases/directives/descriptionSection.js"></script>
-    <script src="cases/directives/detailsSection.js"></script>
-    <script src="cases/directives/listAttachments.js"></script>
-    <script src="cases/directives/listNewAttachments.js"></script>
-    <script src="cases/directives/pageHeader.js"></script>
-    <script src="cases/directives/onChange.js"></script>
     <script src="cases/directives/attachmentsSection.js"></script>
+    <script src="cases/directives/attachProductLogs.js"></script>
     <script src="cases/directives/commentsSection.js"></script>
     <script src="cases/directives/compactCaseList.js"></script>
+    <script src="cases/directives/descriptionSection.js"></script>
+    <script src="cases/directives/detailsSection.js"></script>
+    <script src="cases/directives/groupSelect.js"></script>
+    <script src="cases/directives/listAttachments.js"></script>
     <script src="cases/directives/listFilter.js"></script>
+    <script src="cases/directives/listNewAttachments.js"></script>
+    <script src="cases/directives/onChange.js"></script>
+    <script src="cases/directives/ownerSelect.js"></script>
+    <script src="cases/directives/productSelect.js"></script>
+    <script src="cases/directives/pageHeader.js"></script>
     <script src="cases/directives/recommendationsSection.js"></script>
+    <script src="cases/directives/searchResult.js"></script>
+    <script src="cases/directives/selectLoadingIndicator.js"></script>
+    <script src="cases/directives/severitySelect.js"></script>
+    <script src="cases/directives/statusSelect.js"></script>
+    <script src="cases/directives/typeSelect.js"></script>
     <script src="cases/filters/bytes.js"></script>
     <script src="cases/filters/recommendationsResolution.js"></script>
     <script src="cases/services/attachmentsService.js"></script>
-    <script src="cases/services/caseService.js"></script>
-    <script src="cases/services/strataService.js"></script>
     <script src="cases/services/caseListService.js"></script>
+    <script src="cases/services/caseService.js"></script>
     <script src="cases/services/recommendationsService.js"></script>
-    <script src="security/security.module.js"></script>
-    <script src="search/search.module.js"></script>
+    <script src="cases/services/searchCaseService.js"></script>
+    <script src="cases/services/strataService.js"></script>
+    <script src="common/header.module.js"></script>
+    <script src="common/ui-utils.module.js"></script>
     <script src="log_viewer/log_viewer.module.js"></script>
     <script src="log_viewer/controllers/AccordionDemoCtrl.js"></script>
     <script src="log_viewer/controllers/DropdownCtrl.js"></script>
@@ -119,14 +137,15 @@
     <script src="log_viewer/controllers/selectFileButton.js"></script>
     <script src="log_viewer/controllers/TabsDemoCtrl.js"></script>
     <script src="log_viewer/directives/fillDown.js"></script>
-    <script src="log_viewer/directives/navSideBar.js"></script>
-    <script src="log_viewer/directives/recommendations.js"></script>
     <script src="log_viewer/directives/logsInstructionPane.js"></script>
     <script src="log_viewer/directives/logTabs.js"></script>
+    <script src="log_viewer/directives/navSideBar.js"></script>
+    <script src="log_viewer/directives/recommendations.js"></script>
     <script src="log_viewer/services/accordianService.js"></script>
     <script src="log_viewer/services/fileService.js"></script>
-    <script src="common/ui-utils.module.js"></script>
-    <script src="common/header.module.js"></script>
+    <script src="redhat_access_module.js"></script>
+    <script src="search/search.module.js"></script>
+    <script src="security/security.module.js"></script>
     <!-- endbuild -->
 </body>
 </html>

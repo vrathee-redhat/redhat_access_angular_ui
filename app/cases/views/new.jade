@@ -9,39 +9,27 @@ div.container-offset
               div.col-md-4
                 div Product:
               div.col-md-8
-                progressbar.progress-striped.active(
-                  ng-hide='!productsLoading || !securityService.loginStatus.isLoggedIn',
-                  max='1',
-                  value='1',
-                  animate='false',
-                  style='height: 34px; margin-bottom: 0px;')
-                select.form-control(
-                  ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
-                  ng-hide='productsLoading && securityService.loginStatus.isLoggedIn',
-                  style='width: 100%;',
-                  ng-model='CaseService.case.product',
-                  ng-change='getProductVersions(CaseService.case.product)',
-                  ng-options='p.name for p in products track by p.code',
-                  ng-blur='getRecommendations()')
+                x-rha-select-loading-indicator(loading='productsLoading')
+                  select.form-control(
+                    ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
+                    style='width: 100%;',
+                    ng-model='CaseService.case.product',
+                    ng-change='getProductVersions(CaseService.case.product)',
+                    ng-options='p.name for p in products track by p.code',
+                    ng-blur='getRecommendations()')
             div.row.create-field
               div.col-md-4
                 div Product Version:
               div.col-md-8
                 div
-                  progressbar.progress-striped.active(
-                    ng-hide='!versionLoading',
-                    max='1',
-                    value='1',
-                    animate='false',
-                    style='height: 34px; margin-bottom: 0px;')
-                  select.form-control(
-                    style='width: 100%;',
-                    ng-model='CaseService.case.version',
-                    ng-options='v for v in versions',
-                    ng-change='validateForm()',
-                    ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase',
-                    ng-hide='versionLoading',
-                    ng-blur='getRecommendations()')
+                  x-rha-select-loading-indicator(loading='versionLoading')
+                    select.form-control(
+                      style='width: 100%;',
+                      ng-model='CaseService.case.version',
+                      ng-options='v for v in versions',
+                      ng-change='validateForm()',
+                      ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase',
+                      ng-blur='getRecommendations()')
             div.row.create-field
               div.col-md-4
                 div Summary:
@@ -83,35 +71,23 @@ div.container-offset
             div.row.create-field
               div.col-md-4 Severity:
               div.col-md-8
-                progressbar.progress-striped.active(
-                  ng-hide='!severitiesLoading',
-                  max='1',
-                  value='1',
-                  animate='false',
-                  style='height: 34px; margin-bottom: 0px;')
-                select.form-control(
-                  ng-hide='severitiesLoading',
-                  style='width: 100%;',
-                  ng-model='CaseService.case.severity',
-                  ng-change='validatePage2()',
-                  ng-disabled='submittingCase',
-                  ng-options='s.name for s in severities track by s.name')
+                x-rha-loading-indicator(loading='severitiesLoading')
+                  select.form-control(
+                    style='width: 100%;',
+                    ng-model='CaseService.case.severity',
+                    ng-change='validatePage2()',
+                    ng-disabled='submittingCase',
+                    ng-options='s.name for s in severities track by s.name')
             div.row.create-field
               div.col-md-4 Case Group:
               div.col-md-8
-                progressbar.progress-striped.active(
-                  ng-hide='!groupsLoading',
-                  max='1',
-                  value='1',
-                  animate='false',
-                  style='height: 34px; margin-bottom: 0px;')
-                select.form-control(
-                  ng-hide='groupsLoading',
-                  style='width: 100%;',
-                  ng-disabled='submittingCase',
-                  ng-model='CaseService.case.group',
-                  ng-change='validatePage2()',
-                  ng-options='g.name for g in groups track by g.number')
+                x-rha-loading-indicator(loading='groupsLoading')
+                  select.form-control(
+                    style='width: 100%;',
+                    ng-disabled='submittingCase',
+                    ng-model='CaseService.case.group',
+                    ng-change='validatePage2()',
+                    ng-options='g.name for g in groups track by g.number')
             div.row.create-field
               div.col-xs-12
                 div Attachments:

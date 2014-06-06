@@ -106,9 +106,49 @@ angular.module('RedhatAccess.cases')
         );
 
         return deferred.promise;
+      },
+      users: function(accountNumber, group) {
+        var deferred = $q.defer();
+
+        strata.accounts.users(
+          accountNumber,
+          function(response) {
+            deferred.resolve(response);
+          },
+          angular.bind(deferred, errorHandler),
+          group
+        );
+
+        return deferred.promise;
+      },
+      list: function() {
+        var deferred = $q.defer();
+
+        strata.accounts.list(
+          function(response) {
+            deferred.resolve(response);
+          },
+          angular.bind(deferred, errorHandler)
+        );
+
+        return deferred.promise;
       }
     },
     cases: {
+      list: function(closed, query) {
+        var deferred = $q.defer();
+
+        strata.cases.list(
+            function (response) {
+              deferred.resolve(response);
+            },
+            angular.bind(deferred, errorHandler),
+            closed,
+            query
+        );
+
+        return deferred.promise;
+      },
       attachments: {
         list: function(id) {
           var deferred = $q.defer();

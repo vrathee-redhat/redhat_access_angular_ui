@@ -1,5 +1,6 @@
 angular.module('RedhatAccess', [
   'ngSanitize',
+  'ui.select',
   'RedhatAccess.header',
   'RedhatAccess.template',
   'RedhatAccess.cases',
@@ -7,7 +8,13 @@ angular.module('RedhatAccess', [
   'RedhatAccess.search',
   'RedhatAccess.logViewer',
   'RedhatAccess.ui-utils'
-]).run(['TITLE_VIEW_CONFIG', '$http', 'securityService',
+])
+.config(['uiSelectConfig',
+  function(uiSelectConfig) {
+    uiSelectConfig.theme = 'bootstrap';
+  }
+])
+.run(['TITLE_VIEW_CONFIG', '$http', 'securityService',
   function (TITLE_VIEW_CONFIG, $http, securityService) {
     TITLE_VIEW_CONFIG.show = true;
     securityService.validateLogin(false).then(

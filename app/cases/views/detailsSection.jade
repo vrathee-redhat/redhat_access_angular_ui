@@ -24,17 +24,12 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    progressbar.progress-striped.active(
-                      ng-hide='caseTypes !== undefined',
-                      max='1',
-                      value='1',
-                      style='height: 34px; margin-bottom: 0px;')
-                    select.form-control(
-                      ng-hide='caseTypes === undefined',
-                      name='type',
-                      style='width: 100%;',
-                      ng-model='CaseService.case.type',
-                      ng-options='c.name for c in caseTypes track by c.name')
+                    x-rha-select-loading-indicator(loading='caseTypes === undefined')
+                      select.form-control(
+                        name='type',
+                        style='width: 100%;',
+                        ng-model='CaseService.case.type',
+                        ng-options='c.name for c in caseTypes track by c.name')
               tr
                 th.details-table-header
                   div(style='vertical-align: 50%; display: inline-block;') Severity:
@@ -43,17 +38,12 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    progressbar.progress-striped.active(
-                      ng-hide='severities !== undefined',
-                      max='1',
-                      value='1',
-                      style='height: 34px; margin-bottom: 0px;')
-                    select.form-control(
-                      ng-hide='severities === undefined',
-                      name='severity',
-                      style='width: 100%;',
-                      ng-model='CaseService.case.severity',
-                      ng-options='s.name for s in severities track by s.name')
+                    x-rha-select-loading-indicator(loading='severities === undefined')
+                      select.form-control(
+                        name='severity',
+                        style='width: 100%;',
+                        ng-model='CaseService.case.severity',
+                        ng-options='s.name for s in severities track by s.name')
               tr
                 th.details-table-header
                   div(style='vertical-align: 50%; display: inline-block;') Status:
@@ -62,17 +52,12 @@ form(name='caseDetails')
                   style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    progressbar.progress-striped.active(
-                      ng-hide='statuses !== undefined',
-                      max='1',
-                      value='1',
-                      style='height: 34px; margin-bottom: 0px;')
-                    select.form-control(
-                      ng-hide='statuses === undefined',
-                      name='status',
-                      style='width: 100%;',
-                      ng-model='CaseService.case.status',
-                      ng-options='s.name for s in statuses track by s.name')
+                    x-rha-select-loading-indicator(loading='statuses === undefined')
+                      select.form-control(
+                        name='status',
+                        style='width: 100%;',
+                        ng-model='CaseService.case.status',
+                        ng-options='s.name for s in statuses track by s.name')
               tr(ng-hide='compact')
                 th.details-table-header
                   div(style='vertical-align: 50%; display: inline-block;') Alternate ID:
@@ -94,19 +79,14 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    progressbar.progress-striped.active(
-                      ng-hide='products !== undefined',
-                      max='1',
-                      value='1',
-                      style='height: 34px; margin-bottom: 0px;')
-                    select.form-control(
-                      ng-hide='products === undefined',
-                      name='product',
-                      style='width: 100%;',
-                      ng-model='CaseService.case.product',
-                      ng-change='getProductVersions()',
-                      ng-options='s.name for s in products track by s.name',
-                      required)
+                    x-rha-select-loading-indicator(loading='products === undefined')
+                      select.form-control(
+                        name='product',
+                        style='width: 100%;',
+                        ng-model='CaseService.case.product',
+                        ng-change='getProductVersions()',
+                        ng-options='s.name for s in products track by s.name',
+                        required)
               tr
                 th.details-table-header
                   div(style='vertical-align: 50%; display: inline-block;') Product Version:
@@ -115,18 +95,13 @@ form(name='caseDetails')
                   style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    progressbar.progress-striped.active(
-                      ng-hide='CaseService.versions.length !== 0 || CaseService.case.product.name == null',
-                      max='1',
-                      value='1',
-                      style='height: 34px; margin-bottom: 0px;')
-                    select.form-control(
-                      ng-hide='CaseService.versions.length === 0',
-                      name='version',
-                      style='width: 100%;',
-                      ng-options='v for v in CaseService.versions track by v',
-                      ng-model='CaseService.case.version',
-                      required)
+                    x-rha-select-loading-indicator(loading='CaseService.versions.length === 0')
+                      select.form-control(
+                        name='version',
+                        style='width: 100%;',
+                        ng-options='v for v in CaseService.versions track by v',
+                        ng-model='CaseService.case.version',
+                        required)
               tr(ng-hide='compact')
                 th.details-table-header Support Level:
                 td {{CaseService.case.entitlement.sla}}
@@ -146,17 +121,12 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    progressbar.progress-striped.active(
-                      ng-hide='groups !== undefined',
-                      max='1',
-                      value='1',
-                      style='height: 34px; margin-bottom: 0px;')
-                    select.form-control(
-                      ng-hide='groups === undefined',
-                      name='group',
-                      style='width: 100%;',
-                      ng-options='g.name for g in groups track by g.number',
-                      ng-model='CaseService.case.group')
+                    x-rha-select-loading-indicator(loading='groups === undefined')
+                      select.form-control(
+                        name='group',
+                        style='width: 100%;',
+                        ng-options='g.name for g in groups track by g.number',
+                        ng-model='CaseService.case.group')
               tr(ng-hide='compact')
                 th.details-table-header Opened:
                 td
