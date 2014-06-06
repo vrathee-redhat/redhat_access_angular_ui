@@ -56,14 +56,18 @@ div#rha-case-search.container-offset
       div.row
         div.col-xs-12
           div.bottom-border
-    div.row(ng-hide='SearchCaseService.cases.length === 0')
-      div.col-xs-12
-        pagination.pagination-sm(
-          style='float: right; cursor: pointer;',
-          boundary-links='false',
-          total-items='SearchCaseService.cases.length',
-          on-select-page='selectPage(page)',
-          items-per-page='itemsPerPage',
-          page='currentPage',
-          max-size='maxPagerSize',
-          rotate='true')
+    div(ng-hide='SearchCaseService.cases.length === 0')
+      div.row
+        div.col-xs-12
+          pagination.pagination-sm(
+            style='float: right; cursor: pointer;',
+            boundary-links='false',
+            total-items='SearchCaseService.cases.length',
+            on-select-page='selectPage(page)',
+            items-per-page='itemsPerPage',
+            page='currentPage',
+            max-size='maxPagerSize',
+            rotate='true')
+      div.row(style='padding-bottom: 10px;')
+        div.col-xs-12
+          x-rha-export-csv-button

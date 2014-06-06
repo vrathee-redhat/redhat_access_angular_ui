@@ -147,19 +147,19 @@ angular.module('RedhatAccess.cases')
             return deferred.promise;
           }
         },
-        csv: function() {
-          var deferred = $q.defer();
-
-          strata.cases.csv(
-              function (response) {
-                deferred.resolve(response);
-              },
-              angular.bind(deferred, errorHandler)
-          );
-
-          return deferred.promise;
-        },
         cases: {
+          csv: function() {
+            var deferred = $q.defer();
+
+            strata.cases.csv(
+                function (response) {
+                  deferred.resolve(response);
+                },
+                angular.bind(deferred, errorHandler)
+            );
+
+            return deferred.promise;
+          },
           attachments: {
             list: function (id) {
               var deferred = $q.defer();
