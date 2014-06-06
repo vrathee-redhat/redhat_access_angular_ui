@@ -1,0 +1,13 @@
+label(for='rha-case-search_status') Status
+ui-select(
+  theme='bootstrap',
+  id='rha-case-search_status',
+  ng-disabled='!securityService.loginStatus.isLoggedIn',
+  ng-model='CaseService.status',
+  ng-change='onchange()',
+  style='width: 100%')
+  ui-select-match(placeholder='Select a Status') {{$select.selected.name}}
+  ui-select-choices(
+    repeat='status in statuses track by status.value | filter: $select.search',
+    style='overflow: auto;')
+    div {{status.name}}

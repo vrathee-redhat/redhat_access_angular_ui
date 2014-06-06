@@ -8,11 +8,19 @@ angular.module('RedhatAccess.cases')
       case = {};
       this.versions = [];
       this.products = [];
-      this.statuses = [];
+      //this.statuses = [];
       this.severities = [];
       this.groups = [];
+      this.owners = [];
+
       this.account = {};
 
+      this.status;
+      this.severity;
+      this.type;
+      this.group;
+      this.owner;
+      this.product;
       /**
        * Add the necessary wrapper objects needed to properly display the data.
        *
@@ -47,12 +55,20 @@ angular.module('RedhatAccess.cases')
       this.clearCase = function() {
         this.
         case = {};
+
         this.versions = [];
         this.products = [];
         this.statuses = [];
         this.severities = [];
         this.groups = [];
         this.account = {};
+
+        this.status = undefined;
+        this.severity = undefined;
+        this.type = undefined;
+        this.group = undefined;
+        this.owner = undefined;
+        this.product = undefined;
       };
 
       this.populateGroups = function() {

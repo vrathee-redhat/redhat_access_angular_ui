@@ -1,0 +1,69 @@
+div#rha-case-search.container-offset
+  x-rha-header(page='searchCase')
+  div.container-fluid
+    div.row(style='padding-bottom: 10px;')
+      div.col-xs-6
+        div.input-group
+          input.form-control(
+            ng-disabled='!securityService.loginStatus.isLoggedIn',
+            placeholder='Search',
+            ng-model='SearchCaseService.searchTerm',
+            ng-keypress='onSearchKeyPress($event)')
+          span.input-group-btn
+            button.btn.btn-default.btn-primary(
+              ng-click='doFilter()',
+              ng-disabled='!securityService.loginStatus.isLoggedIn')
+              i.glyphicon.glyphicon-search
+              |  Search
+      div.col-xs-3
+        div.pull-right
+          //span(style='padding-right: 4px;') Want real-time help?
+          //button.btn.btn-primary(
+            //ng-disabled='!securityService.loginStatus.isLoggedIn') Chat with Support
+      div.col-xs-3
+        button.btn.btn-secondary.pull-right(
+          ng-disabled='!securityService.loginStatus.isLoggedIn',
+          ui-sref='new') Open a New Support Case
+    div.bottom-border
+    div.row(style='padding-bottom: 10px;')
+      div.col-sm-2
+        x-rha-status-select(onchange='doFilter()')
+      div.col-sm-2
+        x-rha-severity-select(onchange='doFilter()')
+      div.col-sm-2
+        x-rha-type-select(onchange='doFilter()')
+      div.col-sm-2
+        x-rha-group-select(onchange='doFilter()')
+      div.col-sm-2
+        x-rha-owner-select(onchange='doFilter()')
+      div.col-sm-2
+        x-rha-product-select(onchange='doFilter()')
+    div.bottom-border
+    div(ng-show='SearchCaseService.searching')
+      div.row(style='padding-bottom: 4px;')
+        div.col-xs-12
+          span.rha-search-spinner
+          h3(style='display: inline-block; padding-left: 4px;') Searching...
+      div.bottom-border
+    div(ng-show='SearchCaseService.cases.length === 0 && !SearchCaseService.searching')
+      div.row
+        div.col-xs-12
+          div No cases found with given search criteria.
+    div(ng-repeat='case in casesOnScreen') 
+      div.row(style='padding-bottom: 10px;')
+        div.col-xs-12
+          x-rha-case-search-result(case='case')
+      div.row
+        div.col-xs-12
+          div.bottom-border
+    div.row(ng-hide='SearchCaseService.cases.length === 0')
+      div.col-xs-12
+        pagination.pagination-sm(
+          style='float: right; cursor: pointer;',
+          boundary-links='false',
+          total-items='SearchCaseService.cases.length',
+          on-select-page='selectPage(page)',
+          items-per-page='itemsPerPage',
+          page='currentPage',
+          max-size='maxPagerSize',
+          rotate='true')

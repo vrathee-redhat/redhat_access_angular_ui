@@ -22,10 +22,12 @@ angular.module('RedhatAccess.cases')
     $scope.groups = [];
     $scope.securityService = securityService;
 
+    $scope.groupsLoading = true;
     $scope.loadGroups = function() {
       strataService.groups.list().then(
           function(groups) {
             $scope.groups = groups;
+            $scope.groupsLoading = false;
           },
           function(error) {
             AlertService.addStrataErrorMessage(error);

@@ -42,7 +42,7 @@ angular.module('RedhatAccess.cases')
             CaseService.defineCase(caseJSON);
             $scope.caseLoading = false;
 
-            if (caseJSON.product !== null && caseJSON.product.name !== null) {
+            if ('product' in caseJSON && 'name' in caseJSON.product && caseJSON.product.name) {
               strataService.products.versions(caseJSON.product.name).then(
                   function(versions) {
                     CaseService.versions = versions;
@@ -53,7 +53,7 @@ angular.module('RedhatAccess.cases')
               );
             }
 
-            if (caseJSON.account_number !== null) {
+            if (caseJSON.account_number !== undefined) {
               strataService.accounts.get(caseJSON.account_number).then(
                   function(account) {
                     CaseService.defineAccount(account);

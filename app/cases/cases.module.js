@@ -50,5 +50,11 @@ angular.module('RedhatAccess.cases', [
         templateUrl: 'cases/views/list.html',
         controller: 'List'
       });
+
+      $stateProvider.state('searchCases', {
+        url: '/case/search',
+        templateUrl: 'cases/views/search.html',
+        controller: 'Search'
+      });
     }
   ]);

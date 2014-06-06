@@ -9,6 +9,7 @@ angular.module('RedhatAccess.header', [])
     caseListTitle: 'Support Cases',
     caseViewTitle: 'View/Modify Case',
     newCaseTitle: 'New Support Case',
+    searchCaseTitle: 'Search Support Cases',
     logViewerTitle: 'Log'
   })
   .controller('TitleViewCtrl', ['TITLE_VIEW_CONFIG', '$scope',
@@ -27,6 +28,8 @@ angular.module('RedhatAccess.header', [])
             return TITLE_VIEW_CONFIG.newCaseTitle;
           case 'logViewer':
             return TITLE_VIEW_CONFIG.logViewerTitle;
+          case 'searchCase':
+            return TITLE_VIEW_CONFIG.searchCaseTitle;
           default:
             console.log('Invalid title key' + $scope.page);
             return '';

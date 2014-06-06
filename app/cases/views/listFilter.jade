@@ -13,14 +13,15 @@ div.container-fluid
             |  Search
     div.col-md-3(style='padding-bottom: 14px;')
       div(style='display:table')
-        select.form-control(
-          id='rha-case-group-filter',
-          ng-disabled='!securityService.loginStatus.isLoggedIn',
-          style='display: table-cell;',
-          ng-model='group',
-          ng-change='doFilter()',
-          ng-options='g.name for g in groups track by g.number')
-          option(value='') All Groups
+        x-rha-select-loading-indicator(loading='groupsLoading')
+          select.form-control(
+            id='rha-case-group-filter',
+            ng-disabled='!securityService.loginStatus.isLoggedIn',
+            style='display: table-cell;',
+            ng-model='group',
+            ng-change='doFilter()',
+            ng-options='g.name for g in groups track by g.number')
+            option(value='') All Groups
         span.glyphicon.glyphicon-question-sign(
           style='display: table-cell; width: 1%; padding-left: 6px;',
           popover='Filtering by case groups helps you find related cases.',

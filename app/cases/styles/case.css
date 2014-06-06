@@ -116,3 +116,74 @@ div#redhat-access-compact-list .list-group-item:last-child {
 div#redhat-access-compact-list .list-group-item {
     border-right: none;
 }
+
+div#rha-case-search-result .detail-name {
+    color: #999;
+}
+
+div#rha-case-search-result .detail-value {
+
+}
+
+div#rha-case-search-result .status {
+    font-weight: bold;
+}
+
+div#rha-case-search-result .redhat {
+    color: #7ab800
+}
+
+div#rha-case-search-result .customer {
+    color: #c00;
+}
+
+div#rha-case-search-result .closed {
+    color: #666;
+}
+
+div#rha-case-search label {
+    font-weight: normal;
+    color: #999;
+}
+
+div#rha-case-search-result .comment-tip {
+    position: absolute;
+    left: 40px;
+    bottom: 0px;
+    display: block;
+    width: 17px;
+    height: 42px;
+    clip: rect(21px, 17px, 42px, 0px);
+    background: url(../img/g_comment-tip.png) no-repeat 0 0;
+}
+
+div#rha-case-search-result .well {
+    border: 1px solid #ccc;
+    background-color: #efefef;
+}
+
+div#rha-case-search-result .comment-user {
+    position: absolute;
+    left: 70px;
+    bottom: -32px;
+    padding-left: 40px;
+}
+
+div#rha-case-search-result .comment-user div {
+    position: static;
+    display: block;
+}
+
+div#rha-case-search-result .avatar {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    background: url(../img/g_comment-avatar.png) no-repeat 0 0;
+}
+.hascomment {
+    padding-bottom: 25px;
+}

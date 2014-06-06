@@ -107,12 +107,38 @@ angular.module('RedhatAccess.cases')
           }
         },
         accounts: {
-          get: function (accountNumber) {
+          get: function(accountNumber) {
             var deferred = $q.defer();
 
             strata.accounts.get(
               accountNumber,
-              function (response) {
+              function(response) {
+                deferred.resolve(response);
+              },
+              angular.bind(deferred, errorHandler)
+            );
+
+            return deferred.promise;
+          },
+          users: function(accountNumber, group) {
+            var deferred = $q.defer();
+
+            strata.accounts.users(
+              accountNumber,
+              function(response) {
+                deferred.resolve(response);
+              },
+              angular.bind(deferred, errorHandler),
+              group
+            );
+
+            return deferred.promise;
+          },
+          list: function() {
+            var deferred = $q.defer();
+
+            strata.accounts.list(
+              function(response) {
                 deferred.resolve(response);
               },
               angular.bind(deferred, errorHandler)

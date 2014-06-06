@@ -1,0 +1,13 @@
+label Severity
+x-rha-select-loading-indicator(loading='severitiesLoading')
+  ui-select(
+    theme='bootstrap',
+    id='rha-case-search_severities',
+    ng-disabled='!securityService.loginStatus.isLoggedIn',
+    ng-model='CaseService.severity',
+    ng-change='onchange()')
+    ui-select-match(placeholder='Select a Severity') {{$select.selected.name}}
+    ui-select-choices(
+      repeat='severity in CaseService.severities | filter: $select.search',
+      style='overflow: auto;')
+      div {{severity.name}}
