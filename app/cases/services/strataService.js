@@ -147,6 +147,18 @@ angular.module('RedhatAccess.cases')
             return deferred.promise;
           }
         },
+        csv: function() {
+          var deferred = $q.defer();
+
+          strata.cases.csv(
+              function (response) {
+                deferred.resolve(response);
+              },
+              angular.bind(deferred, errorHandler)
+          );
+
+          return deferred.promise;
+        },
         cases: {
           attachments: {
             list: function (id) {
@@ -216,11 +228,11 @@ angular.module('RedhatAccess.cases')
                 function (response) {
                   deferred.resolve(response);
                 },
-                angular.bind(deferred, errorHandler)
+                angular.bind(defferred, errorHandler)
               );
 
               return deferred.promise;
-            }
+            },
           },
           get: function (id) {
             var deferred = $q.defer();

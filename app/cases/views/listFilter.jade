@@ -8,7 +8,9 @@ div.container-fluid
           ng-model='keyword',
           ng-keypress='onFilterKeyPress($event)')
         span.input-group-btn
-          button.btn.btn-default.btn-primary(ng-click='doFilter()')
+          button.btn.btn-default.btn-primary(
+            ng-click='doFilter()', 
+            ng-disabled='!securityService.loginStatus.isLoggedIn')
             i.glyphicon.glyphicon-search
             |  Search
     div.col-md-3(style='padding-bottom: 14px;')
