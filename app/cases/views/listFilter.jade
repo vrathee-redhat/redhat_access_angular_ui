@@ -15,7 +15,7 @@ div.container-fluid
             |  Search
     div.col-md-3(style='padding-bottom: 14px;')
       div(style='display:table')
-        x-rha-select-loading-indicator(loading='groupsLoading')
+        x-rha-select-loading-indicator(loading='groupsLoading', type='bootstrap')
           select.form-control(
             id='rha-case-group-filter',
             ng-disabled='!securityService.loginStatus.isLoggedIn',

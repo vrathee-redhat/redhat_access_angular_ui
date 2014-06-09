@@ -1,13 +1,10 @@
 label Group
-x-rha-select-loading-indicator(loading='groupsLoading')
-  ui-select(
-    theme='bootstrap',
-    id='rha-case-search_groups',
+x-rha-select-loading-indicator(loading='groupsLoading', type='select2')
+  select(
+    ui-select2,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.group',
-    ng-change='onchange()')
-    ui-select-match(placeholder='Select a Group') {{$select.selected.name}}
-    ui-select-choices(
-      repeat='group in CaseService.groups | filter: $select.search',
-      style='overflow: auto;')
-      div {{group.name}}
+    ng-change='CaseService.onSelectChanged()',
+    multiple,
+    style='width: 100%')
+    option(ng-repeat='group in CaseService.groups' value='{{group.number}}') {{group.name}}

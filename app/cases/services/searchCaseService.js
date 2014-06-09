@@ -6,25 +6,25 @@ angular.module('RedhatAccess.cases')
   'strataService',
   'AlertService',
   'STATUS',
+  '$q',
   function (
     CaseService,
     strataService,
     AlertService,
-    STATUS) {
+    STATUS,
+    $q) {
 
     this.cases = [];
     this.searching = false;
     this.searchTerm = '';
     
     var getIncludeClosed = function() {
-      if (CaseService.status !== undefined) {
-        if (CaseService.status.value === STATUS.open) {
-          return false;
-        } else if (CaseService.status.value === STATUS.closed) {
-          return true;
-        } else if (CaseService.status.value === STATUS.both) {
-          return true;
-        }
+      if (CaseService.status === STATUS.open) {
+        return false;
+      } else if (CaseService.status === STATUS.closed) {
+        return true;
+      } else if (CaseService.status === STATUS.both) {
+        return true;
       }
 
       return true;
@@ -35,56 +35,72 @@ angular.module('RedhatAccess.cases')
       this.searchTerm = '';
     };
 
+    this.oldParams = {};
     this.doFilter = function() {
       var params = {
         include_closed: getIncludeClosed(),
         count: 100
       };
 
-      if (this.searchTerm !== '') {
+      var isObjectNothing = function(object) {
+        if (object === '' || object === undefined || object === null) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+      if (!isObjectNothing(this.searchTerm)) {
         params.keyword = this.searchTerm;
       }
 
-      if (CaseService.group !== undefined) {
+      if (!isObjectNothing(CaseService.group)) {
         params.group_numbers = {
-          group_number: [CaseService.group.number]
+          group_number: CaseService.group
         };
       }
 
-      if (CaseService.status !== undefined) {
-        if (CaseService.status.value === STATUS.closed) {
-          params.status = STATUS.closed;
-        }
+      if (CaseService.status === STATUS.closed) {
+        params.status = STATUS.closed;
       }
 
-      if (CaseService.product !== undefined) {
-        params.product = CaseService.product.name;
+      if (!isObjectNothing(CaseService.product)) {
+        params.product = CaseService.product;
       }
 
-      if (CaseService.owner !== undefined) {
-        params.owner_ssoname =  CaseService.owner.sso_username;
+      if (!isObjectNothing(CaseService.owner)) {
+        params.owner_ssoname =  CaseService.owner;
       }
       
-      if (CaseService.type !== undefined) {
-        params.type = CaseService.type.name;
+      if (!isObjectNothing(CaseService.type)) {
+        params.type = CaseService.type;
       }
 
-      if (CaseService.severity !== undefined) {
-        params.severity = CaseService.severity.name;
+      if (!isObjectNothing(CaseService.severity)) {
+        params.severity = CaseService.severity;
       }
 
       this.searching = true;
 
-      return strataService.cases.filter(params).then(
-          angular.bind(this, function(cases) {
-            this.cases = cases;
-            this.searching = false;
-          }),
-          angular.bind(this, function(error) {
-            AlertService.addStrataErrorMessage(error);
-            this.searching = false;
-          })
-      );
+      //TODO: hack to get around onchange() firing at page load for each select.
+      //Need to prevent initial onchange() event instead of handling here.
+      if (!angular.equals(params, this.oldParams)) {
+        this.oldParams = params;
+        return strataService.cases.filter(params).then(
+            angular.bind(this, function(cases) {
+              this.cases = cases;
+              this.searching = false;
+            }),
+            angular.bind(this, function(error) {
+              AlertService.addStrataErrorMessage(error);
+              this.searching = false;
+            })
+        );
+      } else {
+        var deferred = $q.defer();
+        deferred.resolve();
+        return deferred.promise;
+      }
     };
 
 

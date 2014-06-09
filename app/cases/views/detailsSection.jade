@@ -24,7 +24,7 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    x-rha-select-loading-indicator(loading='caseTypes === undefined')
+                    x-rha-select-loading-indicator(loading='caseTypes === undefined', type='bootstrap')
                       select.form-control(
                         name='type',
                         style='width: 100%;',
@@ -38,7 +38,7 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    x-rha-select-loading-indicator(loading='severities === undefined')
+                    x-rha-select-loading-indicator(loading='severities === undefined', type='bootstrap')
                       select.form-control(
                         name='severity',
                         style='width: 100%;',
@@ -52,7 +52,7 @@ form(name='caseDetails')
                   style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    x-rha-select-loading-indicator(loading='statuses === undefined')
+                    x-rha-select-loading-indicator(loading='statuses === undefined', type='bootstrap')
                       select.form-control(
                         name='status',
                         style='width: 100%;',
@@ -79,7 +79,7 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    x-rha-select-loading-indicator(loading='products === undefined')
+                    x-rha-select-loading-indicator(loading='products === undefined', type='bootstrap')
                       select.form-control(
                         name='product',
                         style='width: 100%;',
@@ -95,7 +95,7 @@ form(name='caseDetails')
                   style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    x-rha-select-loading-indicator(loading='CaseService.versions.length === 0')
+                    x-rha-select-loading-indicator(loading='CaseService.versions.length === 0', type='bootstrap')
                       select.form-control(
                         name='version',
                         style='width: 100%;',
@@ -121,7 +121,7 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    x-rha-select-loading-indicator(loading='groups === undefined')
+                    x-rha-select-loading-indicator(loading='groups === undefined', type='bootstrap')
                       select.form-control(
                         name='group',
                         style='width: 100%;',

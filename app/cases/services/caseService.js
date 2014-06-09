@@ -15,12 +15,14 @@ angular.module('RedhatAccess.cases')
 
       this.account = {};
 
-      this.status;
-      this.severity;
-      this.type;
-      this.group;
-      this.owner;
-      this.product;
+      this.status = '';
+      this.severity = '';
+      this.type = '';
+      this.group = '';
+      this.owner = '';
+      this.product = '';
+
+      this.onSelectChanged;
       /**
        * Add the necessary wrapper objects needed to properly display the data.
        *

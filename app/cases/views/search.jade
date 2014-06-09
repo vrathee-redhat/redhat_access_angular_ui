@@ -11,7 +11,7 @@ div#rha-case-search.container-offset
             ng-keypress='onSearchKeyPress($event)')
           span.input-group-btn
             button.btn.btn-default.btn-primary(
-              ng-click='doFilter()',
+              ng-click='CaseService.onSelectChanged()',
               ng-disabled='!securityService.loginStatus.isLoggedIn')
               i.glyphicon.glyphicon-search
               |  Search
@@ -27,38 +27,33 @@ div#rha-case-search.container-offset
     div.bottom-border
     div.row(style='padding-bottom: 10px;')
       div.col-sm-2
-        x-rha-status-select(onchange='doFilter()')
+        x-rha-status-select
       div.col-sm-2
-        x-rha-severity-select(onchange='doFilter()')
+        x-rha-severity-select
       div.col-sm-2
-        x-rha-type-select(onchange='doFilter()')
+        x-rha-type-select
       div.col-sm-2
-        x-rha-group-select(onchange='doFilter()')
+        x-rha-group-select
       div.col-sm-2
-        x-rha-owner-select(onchange='doFilter()')
+        x-rha-owner-select
       div.col-sm-2
-        x-rha-product-select(onchange='doFilter()')
-    div.bottom-border
+        x-rha-product-select
     div(ng-show='SearchCaseService.searching')
       div.row(style='padding-bottom: 4px;')
         div.col-xs-12
           span.rha-search-spinner
           h3(style='display: inline-block; padding-left: 4px;') Searching...
-      div.bottom-border
     div(ng-show='SearchCaseService.cases.length === 0 && !SearchCaseService.searching')
       div.row
         div.col-xs-12
           div No cases found with given search criteria.
     div(ng-repeat='case in casesOnScreen') 
-      div.row(style='padding-bottom: 10px;')
+      div.row
         div.col-xs-12
           x-rha-case-search-result(case='case')
+    div(ng-hide='SearchCaseService.cases.length === 0', style='border-top: 1px solid #cccccc')
       div.row
-        div.col-xs-12
-          div.bottom-border
-    div(ng-hide='SearchCaseService.cases.length === 0')
-      div.row
-        div.col-xs-12
+        div.col-xs-6.pull-right
           pagination.pagination-sm(
             style='float: right; cursor: pointer;',
             boundary-links='false',
@@ -68,6 +63,5 @@ div#rha-case-search.container-offset
             page='currentPage',
             max-size='maxPagerSize',
             rotate='true')
-      div.row(style='padding-bottom: 10px;')
-        div.col-xs-12
+        div.col-xs-6.pull-left(style='padding-top: 20px;')
           x-rha-export-csv-button
