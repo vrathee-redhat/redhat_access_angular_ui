@@ -184,6 +184,21 @@ div#rha-case-search-result .avatar {
     overflow: hidden;
     background: url(../img/g_comment-avatar.png) no-repeat 0 0;
 }
-.hascomment {
-    padding-bottom: 25px;
+div#rha-select-loading-indicator .bootstrap {
+    height: 34px;
+}
+div#rha-select-loading-indicator .select2 {
+    height: 26px;
+}
+div#rha-case-search-result .hascomment {
+    padding-bottom: 40px;
+}
+
+div#rha-case-search-result .hover:hover {
+    background-color: #f5f5f5;
+}
+
+.select2-search-choice-close {
+    display: block !important;
+    top: 6px !important;
 }

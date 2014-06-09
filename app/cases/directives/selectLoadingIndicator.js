@@ -8,7 +8,8 @@ angular.module('RedhatAccess.cases')
     restrict: 'E',
     transclude: true,
     scope: {
-      loading: '='
+      loading: '=',
+      type: '@'
     }
   };
 });

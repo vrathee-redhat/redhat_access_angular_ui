@@ -9,7 +9,7 @@ div.container-offset
               div.col-md-4
                 div Product:
               div.col-md-8
-                x-rha-select-loading-indicator(loading='productsLoading')
+                x-rha-select-loading-indicator(loading='productsLoading', type='bootstrap')
                   select.form-control(
                     ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
                     style='width: 100%;',
@@ -22,7 +22,7 @@ div.container-offset
                 div Product Version:
               div.col-md-8
                 div
-                  x-rha-select-loading-indicator(loading='versionLoading')
+                  x-rha-select-loading-indicator(loading='versionLoading', type='bootstrap')
                     select.form-control(
                       style='width: 100%;',
                       ng-model='CaseService.case.version',

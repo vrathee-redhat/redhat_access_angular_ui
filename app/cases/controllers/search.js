@@ -16,10 +16,11 @@ angular.module('RedhatAccess.cases')
 
     $scope.securityService = securityService;
     $scope.SearchCaseService = SearchCaseService;
+    $scope.CaseService = CaseService;
 
     $scope.onSearchKeyPress = function($event) {
       if ($event.keyCode === 13) {
-        SearchCaseService.doFilter();
+        CaseService.onSelectChanged();
       }
     };
 
@@ -36,7 +37,7 @@ angular.module('RedhatAccess.cases')
           SearchCaseService.cases.slice(start, end);
     };
 
-    $scope.doFilter = function() {
+    CaseService.onSelectChanged = function() {
       SearchCaseService.doFilter().then(
           function() {
             $scope.selectPage(1);      
@@ -46,6 +47,6 @@ angular.module('RedhatAccess.cases')
 
     CaseService.clearCase();
     SearchCaseService.clear();
-    $scope.doFilter();
+    CaseService.onSelectChanged();
   }
 ]);

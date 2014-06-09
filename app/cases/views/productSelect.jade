@@ -1,13 +1,9 @@
 label Product
-x-rha-select-loading-indicator(loading='productsLoading')
-  ui-select(
-    theme='bootstrap',
-    id='rha-case-search_products',
+x-rha-select-loading-indicator(loading='productsLoading', type='select2')
+  select(
+    ui-select2,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.product',
-    ng-change='onchange()')
-    ui-select-match(placeholder='Select a Product') {{$select.selected.name}}
-    ui-select-choices(
-      repeat='product in CaseService.products | filter: $select.search',
-      style='overflow: auto;')
-      div {{product.name}}
+    ng-change='CaseService.onSelectChanged()',
+    style='width: 100%')
+    option(ng-repeat='product in CaseService.products') {{product.name}}

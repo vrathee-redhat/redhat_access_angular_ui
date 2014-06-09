@@ -1,13 +1,9 @@
 label Type
-x-rha-select-loading-indicator(loading='typesLoading')
-  ui-select(
-    theme='bootstrap',
-    id='rha-case-search_types',
+x-rha-select-loading-indicator(loading='typesLoading', type='select2')
+  select(
+    ui-select2,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.type',
-    ng-change='onchange()')
-    ui-select-match(placeholder='Select a Type') {{$select.selected.name}}
-    ui-select-choices(
-      repeat='type in CaseService.types | filter: $select.search',
-      style='overflow: auto;')
-      div {{type.name}}
+    ng-change='CaseService.onSelectChanged()',
+    style='width: 100%')
+    option(ng-repeat='type in CaseService.types') {{type.name}}

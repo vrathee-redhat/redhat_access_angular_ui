@@ -1,6 +1,6 @@
 angular.module('RedhatAccess', [
   'ngSanitize',
-  'ui.select',
+  'ui.select2',
   'RedhatAccess.header',
   'RedhatAccess.template',
   'RedhatAccess.cases',
@@ -9,10 +9,9 @@ angular.module('RedhatAccess', [
   'RedhatAccess.logViewer',
   'RedhatAccess.ui-utils'
 ])
-.config(['$provide', 'uiSelectConfig',
-  function ($provide, uiSelectConfig) {
+.config(['$provide',
+  function ($provide) {
     $provide.value('SECURITY_CONFIG', {displayLoginStatus:true,autoCheckLogin:true});
-    uiSelectConfig.theme = 'bootstrap';
   }
 ])
 .run(['TITLE_VIEW_CONFIG', '$http', 'securityService', 'gettextCatalog',
