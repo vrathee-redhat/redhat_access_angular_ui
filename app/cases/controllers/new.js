@@ -105,6 +105,12 @@ angular.module('RedhatAccess.cases')
         strataService.groups.list().then(
             function(groups) {
               $scope.groups = groups;
+              for(var i = 0; i < groups.length; i++){
+                if(groups[i].is_default){
+                  CaseService.case.group = groups[i];
+                  break;
+                }
+              }
               $scope.groupsLoading = false;
             },
             function(error) {
