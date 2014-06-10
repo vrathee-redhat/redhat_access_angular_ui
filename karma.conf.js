@@ -15,6 +15,7 @@ module.exports = function(config) {
             'bower_components/jquery/jquery.js',
             'bower_components/angular/angular.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
+            'bower_components/angular-gettext/dist/angular-gettext.min.js',
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-route/angular-route.js',
