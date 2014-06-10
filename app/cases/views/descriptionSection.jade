@@ -1,5 +1,6 @@
 h4.section-header Description
-div.container-fluid.side-padding
+span.rha-search-spinner(ng-show='loading')
+div.container-fluid.side-padding(ng-hide='loading')
   div.row
     div.col-md-2
       strong {{CaseService.case.created_by}}

@@ -9,7 +9,8 @@ form(name='caseDetails')
     span.glyphicon.glyphicon-asterisk.form-control-feedback(
       ng-show='caseDetails.summary.$dirty',
       style='display: inline-block;')
-  div.container-fluid.side-padding
+  span.rha-search-spinner(ng-show='loading')
+  div.container-fluid.side-padding(ng-hide='loading')
     div#rha-case-details.row
       h4.col-xs-12.section-header Details
       div.container-fluid.side-padding

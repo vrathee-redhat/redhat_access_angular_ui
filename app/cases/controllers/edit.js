@@ -86,9 +86,11 @@ angular.module('RedhatAccess.cases')
           }
       );
 
+      $scope.commentsLoading = true;
       strataService.cases.comments.get($stateParams.id).then(
           function(commentsJSON) {
             $scope.comments = commentsJSON;
+            $scope.commentsLoading = false;
           },
           function(error) {
             AlertService.addStrataErrorMessage(error);

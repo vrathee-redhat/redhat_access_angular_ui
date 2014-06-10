@@ -7,7 +7,8 @@ angular.module('RedhatAccess.cases')
     templateUrl: 'cases/views/detailsSection.html',
     controller: 'DetailsSection',
     scope: {
-      compact: '='
+      compact: '=',
+      loading: '='
     },
     restrict: 'EA',
     link: function postLink(scope, element, attrs) {
