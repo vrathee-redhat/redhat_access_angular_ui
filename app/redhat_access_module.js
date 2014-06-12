@@ -23,6 +23,7 @@ angular.module('RedhatAccess', [
       },
       function (error) {
         console.log("Unable to get user credentials");
+        securityService.login();
       });
     //gettextCatalog.currentLanguage = 'fr';
     //gettextCatalog.debug = true;

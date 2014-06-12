@@ -6,17 +6,24 @@ angular.module('RedhatAccess.cases')
   'strataService',
   'AlertService',
   'STATUS',
+  'CASE_GROUPS',
   '$q',
+  '$state',
+  'SearchBoxService',
   function (
     CaseService,
     strataService,
     AlertService,
     STATUS,
-    $q) {
+    CASE_GROUPS,
+    $q,
+    $state,
+    SearchBoxService) {
 
     this.cases = [];
     this.searching = false;
-    this.searchTerm = '';
+    this.prefilter;
+    this.postfilter;
     
     var getIncludeClosed = function() {
       if (CaseService.status === STATUS.open) {
@@ -32,11 +39,15 @@ angular.module('RedhatAccess.cases')
 
     this.clear = function() {
       this.cases = [];
-      this.searchTerm = '';
+      SearchBoxService.searchTerm = '';
     };
 
     this.oldParams = {};
     this.doFilter = function() {
+      if (angular.isFunction(this.prefilter)) {
+        this.prefilter();
+      }
+      
       var params = {
         include_closed: getIncludeClosed(),
         count: 100
@@ -50,13 +61,17 @@ angular.module('RedhatAccess.cases')
         }
       };
 
-      if (!isObjectNothing(this.searchTerm)) {
-        params.keyword = this.searchTerm;
+      if (!isObjectNothing(SearchBoxService.searchTerm)) {
+        params.keyword = SearchBoxService.searchTerm;
       }
 
-      if (!isObjectNothing(CaseService.group)) {
+      if (CaseService.group === CASE_GROUPS.manage) {
+        $state.go('group');
+      } else if (CaseService.group === CASE_GROUPS.ungrouped) {
+        params.only_ungrouped = true;
+      } else if (!isObjectNothing(CaseService.group)) {
         params.group_numbers = {
-          group_number: CaseService.group
+          group_number: [CaseService.group]
         };
       }
 
@@ -90,6 +105,10 @@ angular.module('RedhatAccess.cases')
             angular.bind(this, function(cases) {
               this.cases = cases;
               this.searching = false;
+
+              if (angular.isFunction(this.postFilter)) {
+                this.postFilter();
+              }
             }),
             angular.bind(this, function(error) {
               AlertService.addStrataErrorMessage(error);

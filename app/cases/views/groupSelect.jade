@@ -1,10 +1,14 @@
-label Group
 x-rha-select-loading-indicator(loading='groupsLoading', type='select2')
   select(
     ui-select2,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.group',
     ng-change='CaseService.onSelectChanged()',
-    multiple,
+    placeholder='Select a Group',
     style='width: 100%')
+    option(value='') All Groups
+    option(value='{{CASE_GROUPS.ungrouped}}') Ungrouped Cases
+    option(disabled) ────────────────────────────────────────
     option(ng-repeat='group in CaseService.groups' value='{{group.number}}') {{group.name}}
+    option(disabled) ────────────────────────────────────────
+    option(value='{{CASE_GROUPS.manage}}') Manage Case Groups

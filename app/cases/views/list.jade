@@ -3,20 +3,20 @@ div#redhat-access-case.container-offset(style='padding-bottom: 15px;')
   div.container-fluid.side-padding
     div.row
       div.col-md-9
-        rha-list-filter(prefilter='preFilter', postfilter='postFilter')
+        rha-list-filter
       div.col-md-3
         button.btn.btn-primary.pull-right(
           ng-disabled='!securityService.loginStatus.isLoggedIn', 
           ui-sref='new') Open a New Support Case
   div.bottom-border(style='margin-left: 10px; margin-right: 10px;')
   div.container-fluid.side-padding
-    div.row(ng-show='loadingCases && securityService.loginStatus.isLoggedIn')
+    div.row(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
       div.col-xs-12
         span.rha-search-spinner
-    div.row(ng-show='CaseListService.cases.length == 0 && !loadingCases')
+    div.row(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching')
       div.col-xs-12
         div No cases found with given filters.
-    div(ng-hide='CaseListService.cases.length == 0 || loadingCases || !securityService.loginStatus.isLoggedIn')
+    div(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching || !securityService.loginStatus.isLoggedIn')
       div.row
         div.col-xs-12
           table.table.table-bordered.table-striped(

@@ -202,3 +202,17 @@ div#rha-case-search-result .hover:hover {
     display: block !important;
     top: 6px !important;
 }
+
+.select2-disabled {
+    background: white !important;
+    color: #cccccc;
+}
+
+.pagination {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+div#rha-create-group-modal label {
+    font-weight: normal;
+}

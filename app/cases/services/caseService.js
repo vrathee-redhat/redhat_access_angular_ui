@@ -54,6 +54,10 @@ angular.module('RedhatAccess.cases')
         this.account = account;
       };
 
+      this.getGroups = function() {
+        return this.groups;
+      };
+
       this.clearCase = function() {
         this.
         case = {};

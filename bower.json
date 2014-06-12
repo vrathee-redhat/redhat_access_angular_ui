@@ -14,7 +14,7 @@
     "angular-bootstrap": "0.10.0",
     "stratajs": ">1.0.0",
     "angular-treeview": "",
-    "ng-table": "~0.3.1",
+    "ng-table": "~0.3.3",
     "angular-gettext": "~0.2.9",
     "angular-ui-select2": "~0.0.5"
   },

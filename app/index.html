@@ -14,6 +14,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
+    <link rel="stylesheet" href="bower_components/select2/select2.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/case.css -->
@@ -23,7 +24,6 @@
     <link rel="stylesheet" href="common/styles/treeviewselector.css">
     <link rel="stylesheet" href="search/styles/search.css">
     <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
-    <link rel="stylesheet" href="bower_components/select2/select2.css">
     <!-- endbuild -->
   </head>
   <body ng-app="RedhatAccess">
@@ -68,12 +68,11 @@
     <script src="bower_components/stratajs/strata.js"></script>
     <script src="bower_components/ng-table/ng-table.js"></script>
     <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
-    <script src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/angular-ui-select2/src/select2.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     
     <script type="text/javascript" src="bower_components/select2/select2.js"></script>
-    <script type="text/javascript" src="bower_components/angular-ui-select2/src/select2.js"></script>
     <script src="bower_components/angular-treeview/angular.treeview.min.js"></script>
     
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -84,10 +83,15 @@
     <script src="cases/controllers/commentsSection.js"></script>
     <script src="cases/controllers/compactCaseList.js"></script>
     <script src="cases/controllers/compactEdit.js"></script>
+    <script src="cases/controllers/createGroupButton.js"></script>
+    <script src="cases/controllers/createGroupModal.js"></script>
+    <script src="cases/controllers/deleteGroupButton.js"></script>
     <script src="cases/controllers/descriptionSection.js"></script>
     <script src="cases/controllers/detailsSection.js"></script>
     <script src="cases/controllers/edit.js"></script>
     <script src="cases/controllers/exportCSVButton.js"></script>
+    <script src="cases/controllers/group.js"></script>
+    <script src="cases/controllers/groupList.js"></script>
     <script src="cases/controllers/groupSelect.js"></script>
     <script src="cases/controllers/list.js"></script>
     <script src="cases/controllers/listAttachments.js"></script>
@@ -98,6 +102,7 @@
     <script src="cases/controllers/productSelect.js"></script>
     <script src="cases/controllers/recommendationsSection.js"></script>
     <script src="cases/controllers/search.js"></script>
+    <script src="cases/controllers/searchBox.js"></script>
     <script src="cases/controllers/severitySelect.js"></script>
     <script src="cases/controllers/statusSelect.js"></script>
     <script src="cases/controllers/typeSelect.js"></script>
@@ -106,9 +111,12 @@
     <script src="cases/directives/attachProductLogs.js"></script>
     <script src="cases/directives/commentsSection.js"></script>
     <script src="cases/directives/compactCaseList.js"></script>
+    <script src="cases/directives/createGroupButton.js"></script>
+    <script src="cases/directives/deleteGroupButton.js"></script>
     <script src="cases/directives/descriptionSection.js"></script>
     <script src="cases/directives/detailsSection.js"></script>
     <script src="cases/directives/exportCSVButton.js"></script>
+    <script src="cases/directives/groupList.js"></script>
     <script src="cases/directives/groupSelect.js"></script>
     <script src="cases/directives/listAttachments.js"></script>
     <script src="cases/directives/listFilter.js"></script>
@@ -118,6 +126,7 @@
     <script src="cases/directives/productSelect.js"></script>
     <script src="cases/directives/pageHeader.js"></script>
     <script src="cases/directives/recommendationsSection.js"></script>
+    <script src="cases/directives/searchBox.js"></script>
     <script src="cases/directives/searchResult.js"></script>
     <script src="cases/directives/selectLoadingIndicator.js"></script>
     <script src="cases/directives/severitySelect.js"></script>
@@ -128,7 +137,9 @@
     <script src="cases/services/attachmentsService.js"></script>
     <script src="cases/services/caseListService.js"></script>
     <script src="cases/services/caseService.js"></script>
+    <script src="cases/services/groupService.js"></script>
     <script src="cases/services/recommendationsService.js"></script>
+    <script src="cases/services/searchBoxService.js"></script>
     <script src="cases/services/searchCaseService.js"></script>
     <script src="cases/services/strataService.js"></script>
     <script src="common/header.module.js"></script>

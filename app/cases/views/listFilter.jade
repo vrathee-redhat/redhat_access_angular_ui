@@ -1,29 +1,10 @@
 div.container-fluid
   div.row
     div.col-md-6(style='padding-bottom: 14px;')
-      div.input-group
-        input.form-control(
-          ng-disabled='!securityService.loginStatus.isLoggedIn',
-          placeholder='Search',
-          ng-model='keyword',
-          ng-keypress='onFilterKeyPress($event)')
-        span.input-group-btn
-          button.btn.btn-default.btn-primary(
-            ng-click='doFilter()', 
-            ng-disabled='!securityService.loginStatus.isLoggedIn')
-            i.glyphicon.glyphicon-search
-            |  Search
+      x-rha-search-box(placeholder='Search')
     div.col-md-3(style='padding-bottom: 14px;')
       div(style='display:table')
-        x-rha-select-loading-indicator(loading='groupsLoading', type='bootstrap')
-          select.form-control(
-            id='rha-case-group-filter',
-            ng-disabled='!securityService.loginStatus.isLoggedIn',
-            style='display: table-cell;',
-            ng-model='group',
-            ng-change='doFilter()',
-            ng-options='g.name for g in groups track by g.number')
-            option(value='') All Groups
+        x-rha-group-select
         span.glyphicon.glyphicon-question-sign(
           style='display: table-cell; width: 1%; padding-left: 6px;',
           popover='Filtering by case groups helps you find related cases.',
@@ -31,10 +12,4 @@ div.container-fluid
           popover-append-to-body='true',
           popover-trigger='mouseenter')
     div.col-md-3(style='padding-bottom: 14px;')
-      select.form-control(
-        ng-disabled='!securityService.loginStatus.isLoggedIn',
-        ng-model='statusFilter',
-        ng-change='doFilter()')
-        option(value='both', selected='selected') Open and Closed
-        option(value='open') Open
-        option(value='closed') Closed
+      x-rha-status-select
