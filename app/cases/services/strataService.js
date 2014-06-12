@@ -104,6 +104,32 @@ angular.module('RedhatAccess.cases')
             );
 
             return deferred.promise;
+          },
+          delete: function(groupNum) {
+            var deferred = $q.defer();
+
+            strata.groups.delete(
+              groupNum,
+              function (response) {
+                deferred.resolve(response);
+              },
+              angular.bind(deferred, errorHandler)
+            );
+
+            return deferred.promise;
+          },
+          create: function(groupName) {
+            var deferred = $q.defer();
+
+            strata.groups.create(
+              groupName,
+              function (response) {
+                deferred.resolve(response);
+              },
+              angular.bind(deferred, errorHandler)
+            );
+
+            return deferred.promise;
           }
         },
         accounts: {

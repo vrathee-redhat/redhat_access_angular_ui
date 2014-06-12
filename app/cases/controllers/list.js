@@ -5,27 +5,29 @@ angular.module('RedhatAccess.cases')
   '$scope',
   '$filter',
   'ngTableParams',
-  'STATUS',
-  'strataService',
-  'CaseListService',
   'securityService',
   'AlertService',
   '$rootScope',
+  'SearchCaseService',
+  'CaseService',
   'AUTH_EVENTS',
+  'SearchBoxService',
   function ($scope,
             $filter,
             ngTableParams,
-            STATUS,
-            strataService,
-            CaseListService,
             securityService,
             AlertService,
             $rootScope,
-            AUTH_EVENTS) {
-    $scope.CaseListService = CaseListService;
+            SearchCaseService,
+            CaseService,
+            AUTH_EVENTS,
+            SearchBoxService) {
+    $scope.SearchCaseService = SearchCaseService;
     $scope.securityService = securityService;
     $scope.AlertService = AlertService;
     AlertService.clearAlerts();
+
+    var tableBuilt = false;
 
     var buildTable = function() {
       $scope.tableParams = new ngTableParams({
@@ -35,10 +37,10 @@ angular.module('RedhatAccess.cases')
           last_modified_date: 'desc'
         }
       }, {
-        total: CaseListService.cases.length,
+        total: SearchCaseService.cases.length,
         getData: function($defer, params) {
           var orderedData = params.sorting() ?
-              $filter('orderBy')(CaseListService.cases, params.orderBy()) : CaseListService.cases;
+              $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
 
           var pageData = orderedData.slice(
               (params.page() - 1) * params.count(), params.page() * params.count());
@@ -47,47 +49,30 @@ angular.module('RedhatAccess.cases')
           $defer.resolve(pageData);
         }
       });
+
+      tableBuilt = true;
     };
 
-    $scope.loadCases = function() {
-      $scope.loadingCases = true;
-      strataService.cases.filter().then(
-          function(cases) {
-            CaseListService.defineCases(cases);
-            buildTable();
-            $scope.loadingCases = false;
-          },
-          function(error) {
-            AlertService.addStrataErrorMessage(error);
+    SearchBoxService.doSearch = CaseService.onSelectChanged = function() {
+      SearchCaseService.doFilter().then(
+          function() {
+            if (!tableBuilt) {
+              buildTable();
+            } else {
+              $scope.tableParams.reload();
+            }
           }
       );
     };
-    $scope.loadCases();
 
     /**
      * Callback after user login. Load the cases and clear alerts
      */
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-      $scope.loadCases();
+      SearchBoxService.doSearch();
       AlertService.clearAlerts();
     });
 
-    /**
-     * Callback from listFilter directive
-     */
-    $scope.preFilter = function() {
-      $scope.loadingCases = true;
-    };
-
-
-    /**
-     * Callback from listFilter directive.
-     * Fired after filtering the case list via strata api call.
-     * Reload the table.
-     */
-    $scope.postFilter = function() {
-      $scope.tableParams.reload();
-      $scope.loadingCases = false;
-    };
+    SearchBoxService.doSearch();
   }
 ]);

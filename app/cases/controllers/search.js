@@ -3,12 +3,16 @@
 angular.module('RedhatAccess.cases')
 .controller('Search', [
   '$scope',
+  '$rootScope',
+  'AUTH_EVENTS',
   'securityService',
   'SearchCaseService',
   'CaseService',
   'STATUS',
   function (
     $scope,
+    $rootScope,
+    AUTH_EVENTS,
     securityService,
     SearchCaseService,
     CaseService,
@@ -17,12 +21,6 @@ angular.module('RedhatAccess.cases')
     $scope.securityService = securityService;
     $scope.SearchCaseService = SearchCaseService;
     $scope.CaseService = CaseService;
-
-    $scope.onSearchKeyPress = function($event) {
-      if ($event.keyCode === 13) {
-        CaseService.onSelectChanged();
-      }
-    };
 
     $scope.itemsPerPage = 10;
     $scope.maxPagerSize = 5;
@@ -37,7 +35,7 @@ angular.module('RedhatAccess.cases')
           SearchCaseService.cases.slice(start, end);
     };
 
-    CaseService.onSelectChanged = function() {
+    SearchBoxService.doSearch = CaseService.onSelectChanged = function() {
       SearchCaseService.doFilter().then(
           function() {
             $scope.selectPage(1);      
@@ -45,8 +43,18 @@ angular.module('RedhatAccess.cases')
       );
     };
 
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      SearchBoxService.doSearch();
+      AlertService.clearAlerts();
+    });
+
+    $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
+      CaseService.clearCase();
+      SearchCaseService.clear();
+    });
+
     CaseService.clearCase();
     SearchCaseService.clear();
-    CaseService.onSelectChanged();
+    SearchBoxService.doSearch();
   }
 ]);

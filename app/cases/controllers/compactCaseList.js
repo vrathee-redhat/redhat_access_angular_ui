@@ -6,78 +6,62 @@ angular.module('RedhatAccess.cases')
   '$stateParams',
   'strataService',
   'CaseService',
-  'CaseListService',
   '$rootScope',
   'AUTH_EVENTS',
   'securityService',
+  'SearchCaseService',
   'AlertService',
+  'SearchBoxService',
   '$filter',
   function(
       $scope,
       $stateParams,
       strataService,
       CaseService,
-      CaseListService,
       $rootScope,
       AUTH_EVENTS,
       securityService,
+      SearchCaseService,
       AlertService,
+      SearchBoxService,
       $filter) {
 
     $scope.securityService = securityService;
     $scope.CaseService = CaseService;
-    $scope.CaseListService = CaseListService;
-    $scope.loadingCaseList = true;
     $scope.selectedCaseIndex = -1;
+    $scope.SearchCaseService = SearchCaseService;
 
     $scope.selectCase = function($index) {
       if ($scope.selectedCaseIndex != $index) {
         $scope.selectedCaseIndex = $index;
-        CaseService.clearCase();
       }
     };
 
     $scope.domReady = false; //used to notify resizable directive that the page has loaded
-    $scope.filterCases = function() {
-      strataService.cases.filter().then(
-          function(cases) {
-            $scope.loadingCaseList = false;
-            CaseListService.defineCases(cases);
 
+    SearchBoxService.doSearch = CaseService.onSelectChanged = function() {
+      SearchCaseService.doFilter().then(
+          function() {
             if ($stateParams.id != null && $scope.selectedCaseIndex == -1) {
               var selectedCase =
                   $filter('filter')(
-                      CaseListService.cases,
+                      SearchCaseService.cases,
                       {'case_number': $stateParams.id});
-              $scope.selectedCaseIndex = CaseListService.cases.indexOf(selectedCase[0]);
+              $scope.selectedCaseIndex = SearchCaseService.cases.indexOf(selectedCase[0]);
             }
 
             $scope.domReady = true;
-          },
-          function(error) {
-            AlertService.addStrataErrorMessage(error);
           }
       );
     };
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
       CaseService.populateGroups();
-      $scope.filterCases();
+      SearchBoxService.doSearch();
       AlertService.clearAlerts();
     });
 
-    /**
-     * Passed to rha-list-filter as a callback after filtering
-     */
-    $scope.filterCallback = function() {
-      $scope.loadingCaseList = false;
-    };
-
-    $scope.onFilter = function() {
-      $scope.loadingCaseList = true;
-    };
-
     CaseService.populateGroups();
-    $scope.filterCases();
+    SearchBoxService.doSearch();
   }
 ]);

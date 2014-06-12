@@ -3,18 +3,7 @@ div#rha-case-search.container-offset
   div.container-fluid
     div.row(style='padding-bottom: 10px;')
       div.col-xs-6
-        div.input-group
-          input.form-control(
-            ng-disabled='!securityService.loginStatus.isLoggedIn',
-            placeholder='Search',
-            ng-model='SearchCaseService.searchTerm',
-            ng-keypress='onSearchKeyPress($event)')
-          span.input-group-btn
-            button.btn.btn-default.btn-primary(
-              ng-click='CaseService.onSelectChanged()',
-              ng-disabled='!securityService.loginStatus.isLoggedIn')
-              i.glyphicon.glyphicon-search
-              |  Search
+        x-rha-search-box(placeholder='Search')
       div.col-xs-3
         div.pull-right
           //span(style='padding-right: 4px;') Want real-time help?
@@ -27,18 +16,24 @@ div#rha-case-search.container-offset
     div.bottom-border
     div.row(style='padding-bottom: 10px;')
       div.col-sm-2
+        label Status
         x-rha-status-select
       div.col-sm-2
+        label Severity
         x-rha-severity-select
       div.col-sm-2
+        label Type
         x-rha-type-select
       div.col-sm-2
+        label Group
         x-rha-group-select
       div.col-sm-2
+        label Owner
         x-rha-owner-select
       div.col-sm-2
+        label Product
         x-rha-product-select
-    div(ng-show='SearchCaseService.searching')
+    div(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
       div.row(style='padding-bottom: 4px;')
         div.col-xs-12
           span.rha-search-spinner

@@ -1,0 +1,17 @@
+span.rha-search-spinner(ng-show='groupsLoading')
+div(ng-show='!groupsLoading && listEmpty') No groups found.
+div(ng-hide='groupsLoading || listEmpty')
+  table.table.table-bordered.table-striped(
+      ng-table='tableParams')
+    thead(style='text-align: center')
+      th
+        input(type='checkbox', style='width: 25px;', ng-model='masterSelected', ng-change='onMasterCheckboxClicked()')
+      th.sortable(ng-class='{"sort-asc": table-params.isSortBy("name", "asc"), "sort-desc": tableParams.isSortBy("name", "desc")}', ng-click='tableParams.sorting({"name": tableParams.isSortBy("name", "asc") ? "desc" : "asc"})')
+        div Name
+    tbody
+      tr(ng-repeat='group in GroupService.groupsOnScreen')
+        td(style='text-align: center; width: 25px;')
+          input(type='checkbox', ng-model='group.selected')
+        td(data-title='"Group Name"', sortable='"name"')
+          div {{group.name}}
+
