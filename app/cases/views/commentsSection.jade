@@ -18,7 +18,7 @@ div.container-fluid.side-padding(ng-hide='loading')
           ng-click='addComment()',
           style='float: right;') Add Comment
   div(ng-hide='comments.length <= 0 || comments === undefined', style='border-top: 1px solid #dddddd;')
-    div.row
+    div.row(style='padding: 10px 0;')
       div.col-xs-12
         pagination.pagination-sm(
           style='float: right;',
