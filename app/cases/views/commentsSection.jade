@@ -3,27 +3,14 @@ span.rha-search-spinner(ng-show='loading')
 div.container-fluid.side-padding(ng-hide='loading')
   div.row.create-field
     div.col-xs-12
-      textarea.form-control(
-        ng-disabled='addingComment',
-        rows='5',
-        ng-model='newComment',
-        style='max-width: 100%')
-  div.row.create-field(style='margin-left: 0px; margin-right: 0px;')
-    div.col-xs-12.col-no-padding
-      div(style='float: right;')
-        span.rha-search-spinner(ng-show='addingComment')
-        button.btn.btn-primary(
-          ng-hide='addingComment',
-          ng-disabled='false',
-          ng-click='addComment()',
-          style='float: right;') Add Comment
-  div(ng-hide='comments.length <= 0 || comments === undefined', style='border-top: 1px solid #dddddd;')
+      x-rha-add-comment-section
+  div(ng-hide='CaseService.comments.length <= 0 || CaseService.comments === undefined', style='border-top: 1px solid #dddddd;')
     div.row
       div.col-xs-12
         pagination.pagination-sm(
           style='float: right;',
           boundary-links='true',
-          total-items='comments.length',
+          total-items='CaseService.comments.length',
           on-select-page='selectPage(page)',
           items-per-page='itemsPerPage',
           page='currentPage',
@@ -33,7 +20,7 @@ div.container-fluid.side-padding(ng-hide='loading')
           next-text='>',
           first-text='<<',
           last-text='>>')
-    div(ng-repeat='comment in commentsOnScreen')
+    div(ng-repeat='comment in commentsOnScreen', ng-if='!comment.draft')
       div.row(style='padding-bottom: 10px;')
         div.col-md-2
           div.bold {{comment.created_by}}

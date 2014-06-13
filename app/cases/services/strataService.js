@@ -244,21 +244,43 @@ angular.module('RedhatAccess.cases')
 
               return deferred.promise;
             },
-            post: function (case_number, text) {
+            post: function (case_number, text, isDraft) {
               var deferred = $q.defer();
 
               strata.cases.comments.post(
-                case_number, {
-                  'text': text
+                case_number, 
+                {
+                  'text': text,
+                  'draft': isDraft === true ? 'true' : 'false'
                 },
                 function (response) {
                   deferred.resolve(response);
                 },
-                angular.bind(defferred, errorHandler)
+                angular.bind(deferred, errorHandler)
               );
 
               return deferred.promise;
             },
+            put: function(case_number, text, isDraft, comment_id) {
+              var deferred = $q.defer();
+
+              strata.cases.comments.update(
+                case_number,
+                {
+                  'text': text,
+                  'draft': isDraft === true ? 'true' : 'false',
+                  'caseNumber': case_number,
+                  'id': comment_id
+                },
+                comment_id,
+                function(response) {
+                  deferred.resolve(response);
+                },
+                angular.bind(deferred, errorHandler)
+              );
+
+              return deferred.promise;
+            }
           },
           get: function (id) {
             var deferred = $q.defer();

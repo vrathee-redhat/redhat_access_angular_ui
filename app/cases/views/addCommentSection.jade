@@ -1,0 +1,19 @@
+div(style='margin-left: 60px; margin-right: 60px;')
+  div.well(style='margin-bottom: 10px;')
+    textarea.form-control(
+      ng-disabled='addingComment',
+      rows='5',
+      ng-model='CaseService.commentText',
+      style='max-width: 100%',
+      ng-keypress='onNewCommentKeypress()')
+    div(style='padding-top: 10px;')
+      span.hidden You have used 0% of the 32KB maximum description size.
+      span.pull-right.bold(ng-show='savingDraft') Saving draft...
+      span.pull-right.bold(ng-show='draftSaved') Draft saved
+  div(style='float: right;')
+    span.rha-search-spinner(ng-show='addingComment')
+    button.btn.btn-primary(
+      ng-hide='addingComment',
+      ng-disabled='false',
+      ng-click='addComment()',
+      style='float: right;') Add Comment

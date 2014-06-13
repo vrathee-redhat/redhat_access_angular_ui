@@ -17,6 +17,24 @@ var app = angular.module('RedhatAccess.ui-utils', ['gettext']);
 //             });
 //     }
 // ]);
+app.service('RHAUtils',
+  function() {
+    /**
+     * Generic function to decide if a simple object should be considered nothing
+     */
+    this.isEmpty = function(object) {
+      if (object === undefined || object === null || object === '') {
+        return true;
+      } else {
+        return false
+      }
+    }
+
+    this.isNotEmpty = function(object) {
+      return !this.isEmpty(object);
+    }
+  }
+);
 
 //Wrapper service for translations
 app.service('translate', ['gettextCatalog',

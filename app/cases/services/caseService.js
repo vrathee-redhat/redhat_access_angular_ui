@@ -3,7 +3,8 @@
 angular.module('RedhatAccess.cases')
   .service('CaseService', [
     'strataService',
-    function(strataService) {
+    'AlertService',
+    function(strataService, AlertService) {
       this.
       case = {};
       this.versions = [];
@@ -12,9 +13,12 @@ angular.module('RedhatAccess.cases')
       this.severities = [];
       this.groups = [];
       this.owners = [];
+      this.comments = [];
 
       this.account = {};
 
+      this.draftComment = '';
+      this.commentText = '';
       this.status = '';
       this.severity = '';
       this.type = '';
@@ -68,7 +72,10 @@ angular.module('RedhatAccess.cases')
         this.severities = [];
         this.groups = [];
         this.account = {};
+        this.comments = [];
 
+        this.draftComment = undefined;
+        this.commentText = undefined;
         this.status = undefined;
         this.severity = undefined;
         this.type = undefined;
@@ -83,6 +90,32 @@ angular.module('RedhatAccess.cases')
             this.groups = groups;
           })
         );
+      };
+
+      this.refreshComments;
+
+      this.populateComments = function(case_number) {
+        var promise = strataService.cases.comments.get(case_number);
+
+        promise.then(
+            angular.bind(this, function(comments) {
+              //pull out the draft comment
+              angular.forEach(comments, angular.bind(this, function(comment, index) {
+                if (comment.draft === true) {
+                  this.draftComment = comment;
+                  this.commentText = comment.text
+                  comments.slice(index, index + 1);
+                }
+              }));
+
+              this.comments = comments;
+            }),
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
+
+        return promise;
       };
     }
   ]);
