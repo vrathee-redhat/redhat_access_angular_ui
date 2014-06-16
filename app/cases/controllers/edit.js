@@ -64,12 +64,18 @@ angular.module('RedhatAccess.cases')
               );
             }
 
-            RecommendationsService.populateRecommendations(12).then(
+            RecommendationsService.populatePinnedRecommendations().then(
                 function() {
                   $scope.recommendationsLoading = false;
                 },
                 function(error) {
                   AlertService.addStrataErrorMessage(error);
+                }
+            );
+
+            RecommendationsService.populateRecommendations(12).then(
+                function() {
+                  $scope.recommendationsLoading = false;
                 }
             );
           }

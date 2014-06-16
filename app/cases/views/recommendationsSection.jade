@@ -1,22 +1,33 @@
-h4.section-header Recommendations
-span.rha-search-spinner(ng-show='loading')
-div.container-fluid.side-padding(ng-hide='loading')
-  div.row
-    div(ng-repeat='recommendation in recommendationsOnScreen')
-      div.col-xs-3
-        div.bold {{recommendation.title}}
-        div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
-        a(href='{{recommendation.view_uri}}', target='_blank') View full article in new window
-  div.row
-    div.col-xs-12
-      pagination.pagination-sm(
-        boundary-links='true'
-        total-items='RecommendationsService.recommendations.length'
-        on-select-page='selectRecommendationsPage(page)'
-        items-per-page='recommendationsPerPage'
-        page='currentRecommendationPage'
-        max-size='maxRecommendationsSize'
-        previous-text='<'
-        next-text='>'
-        first-text='<<'
-        last-text='>>')
+div#rha-recommendation-section
+  div.section-header(style='margin-bottom: 10px;')
+    h4(style='display: inline; padding-right: 10px;') Recommendations
+    span.rha-search-spinner-sm(style='display: inline-block; height: 11px; width: 11px;', ng-show='RecommendationsService.loadingRecommendations')
+  span.rha-search-spinner(ng-show='loading')
+  div.container-fluid.side-padding(ng-hide='loading')
+    div.row
+      div(ng-repeat='recommendation in recommendationsOnScreen')
+        div.col-xs-3
+          div(style='display: block; overflow: hidden; text-overflow: ellipsis')
+            div(style='display: table')
+              div(style='display: table-cell')
+                span(
+                  ng-class='{pinned: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
+                  ng-click='pinRecommendation(recommendation, $index, $event)',
+                  style='cursor: pointer;')&nbsp;
+              div(style='display: table-cell')
+                div.bold {{recommendation.title}}
+                div(ng-bind-html='recommendation.resolution.html | recommendationsResolution', style='padding: 8px 0;word-wrap:break-word;') 
+                a(href='{{recommendation.view_uri}}', target='_blank') View full article in new window
+    div.row
+      div.col-xs-12
+        pagination.pagination-sm(
+          boundary-links='true'
+          total-items='RecommendationsService.recommendations.length'
+          on-select-page='selectRecommendationsPage(page)'
+          items-per-page='recommendationsPerPage'
+          page='currentRecommendationPage'
+          max-size='maxRecommendationsSize'
+          previous-text='<'
+          next-text='>'
+          first-text='<<'
+          last-text='>>')
