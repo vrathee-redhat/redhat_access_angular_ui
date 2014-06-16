@@ -1,0 +1,13 @@
+h4.section-header(style='padding-top: 20px;') Bugzilla Tickets
+span.rha-search-spinner(ng-show='loading')
+div.panel.panel-default(ng-show='CaseService.bugzillaList.bugzilla.length > 0')
+  div.panel-heading Linked Bugzillas
+  table.table.table-hover.table-bordered
+    thead
+      th Bugzilla Number
+      th Summary of Request
+    tbody   
+      tr(ng-repeat='bugzilla in CaseService.bugzillaList.bugzilla')
+        td 
+          a(href='{{bugzilla.resource_view_uri}}', target='_blank') {{bugzilla.bugzilla_number}}
+        td {{bugzilla.summary}}

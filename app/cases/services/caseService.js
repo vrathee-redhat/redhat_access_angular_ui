@@ -25,6 +25,7 @@ angular.module('RedhatAccess.cases')
       this.group = '';
       this.owner = '';
       this.product = '';
+      this.bugzillaList = {};
 
       this.onSelectChanged;
       /**
@@ -52,6 +53,7 @@ angular.module('RedhatAccess.cases')
 
         this.
         case = rawCase;
+        this.bugzillaList = rawCase.bugzillas;
       };
 
       this.defineAccount = function(account) {
@@ -73,6 +75,7 @@ angular.module('RedhatAccess.cases')
         this.groups = [];
         this.account = {};
         this.comments = [];
+        this.bugzillaList = {};
 
         this.draftComment = undefined;
         this.commentText = undefined;
