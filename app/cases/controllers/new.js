@@ -16,6 +16,7 @@ angular.module('RedhatAccess.cases')
     'AUTH_EVENTS',
     '$location',
     'NEW_DEFAULTS',
+    'NEW_CASE_CONFIG',
     function ($scope,
               $state,
               $q,
@@ -29,8 +30,10 @@ angular.module('RedhatAccess.cases')
               $rootScope,
               AUTH_EVENTS,
               $location,
-              NEW_DEFAULTS) {
+              NEW_DEFAULTS,
+              NEW_CASE_CONFIG) {
 
+      $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
       $scope.versions = [];
       $scope.versionDisabled = true;
       $scope.versionLoading = false;
@@ -47,22 +50,24 @@ angular.module('RedhatAccess.cases')
       $scope.securityService = securityService;
 
       $scope.getRecommendations = function() {
-        SearchResultsService.searchInProgress.value = true;
-        RecommendationsService.populateRecommendations(5).then(
-            function() {
-              SearchResultsService.clear();
+        if ($scope.NEW_CASE_CONFIG.showRecommendations) {
+          SearchResultsService.searchInProgress.value = true;
+          RecommendationsService.populateRecommendations(5).then(
+              function() {
+                SearchResultsService.clear();
 
-              RecommendationsService.recommendations.forEach(
-                  function(recommendation) {
-                    SearchResultsService.add(recommendation);
-                  }
-              )
-              SearchResultsService.searchInProgress.value = false;
-            },
-            function(error) {
-              AlertService.addStrataErrorMessage(error);
-            }
-        );
+                RecommendationsService.recommendations.forEach(
+                    function(recommendation) {
+                      SearchResultsService.add(recommendation);
+                    }
+                )
+                SearchResultsService.searchInProgress.value = false;
+              },
+              function(error) {
+                AlertService.addStrataErrorMessage(error);
+              }
+          );
+        }
       };
 
       /**
@@ -250,7 +255,9 @@ angular.module('RedhatAccess.cases')
             function(caseNumber) {
               AlertService.clearAlerts();
               AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
-              if ((AttachmentsService.updatedAttachments.length > 0) || (AttachmentsService.hasBackEndSelections())) {
+              if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) 
+                  && NEW_CASE_CONFIG.showAttachments) {
+
                 AttachmentsService.updateAttachments(caseNumber).then(
                   function() {
                     redirectToCase(caseNumber);      

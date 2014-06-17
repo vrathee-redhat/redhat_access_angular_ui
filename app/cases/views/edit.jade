@@ -2,18 +2,18 @@ doctype html
 div#redhat-access-case.container-offset
   x-rha-header(page='caseView')
   div.container-fluid.side-padding(ng-show='securityService.loginStatus.isLoggedIn')
-    div.row
+    div.row(ng-show='EDIT_CASE_CONFIG.showDetails')
       div.col-xs-12
         rha-case-details(compact='false', loading='caseLoading')
-    div.row
+    div.row(ng-show='EDIT_CASE_CONFIG.showDescription')
       div.col-xs-12
         rha-case-description(loading='caseLoading')
-    div.row
+    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments')
       div.col-xs-12
         rha-case-attachments(loading='attachmentsLoading')
-    div.row
+    div.row(ng-show='EDIT_CASE_CONFIG.showRecommendations')
       div.col-xs-12
         rha-case-recommendations(loading='recommendationsLoading')
-    div.row
+    div.row(ng-show='EDIT_CASE_CONFIG.showComments')
       div.col-xs-12
         rha-case-comments(loading='commentsLoading')
