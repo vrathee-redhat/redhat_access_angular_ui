@@ -9,6 +9,11 @@ angular.module('RedhatAccess.cases', [
   'RedhatAccess.ui-utils',
   'RedhatAccess.header'
 ])
+.constant('ENTITLEMENTS', {
+  standard: 'STANDARD',
+  premium: 'PREMIUM',
+  default: 'DEFAULT'
+})
 .constant('STATUS', {
   open: 'open',
   closed: 'closed',

@@ -69,6 +69,11 @@ div.container-offset
                 div.col-xs-12
                   div(style='font-size: 85%') {{CaseService.case.description}}
             div.row.create-field
+              div.col-md-4 Support Level:
+              div.col-md-8(ng-show='CaseService.entitlements.length <= 1') {{CaseService.entitlements[0]}}
+              div.col-md-8(ng-hide='CaseService.entitlements.length <= 1')
+                x-rha-entitlement-select
+            div.row.create-field
               div.col-md-4 Severity:
               div.col-md-8
                 x-rha-loading-indicator(loading='severitiesLoading')

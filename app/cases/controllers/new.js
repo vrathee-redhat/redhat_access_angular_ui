@@ -15,6 +15,7 @@ angular.module('RedhatAccess.cases')
     '$rootScope',
     'AUTH_EVENTS',
     '$location',
+    'RHAUtils',
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
     function ($scope,
@@ -30,6 +31,7 @@ angular.module('RedhatAccess.cases')
               $rootScope,
               AUTH_EVENTS,
               $location,
+              RHAUtils,
               NEW_DEFAULTS,
               NEW_CASE_CONFIG) {
 
@@ -240,6 +242,12 @@ angular.module('RedhatAccess.cases')
           'severity': CaseService.case.severity.name,
           'folderNumber': CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
         };
+
+        if (RHAUtils.isNotEmpty(CaseService.entitlement)) {
+          caseJSON.entitlement = {};
+          caseJSON.entitlement.sla = CaseService.entitlement;
+        }
+
         $scope.submittingCase = true;
         AlertService.addWarningMessage('Creating case...');
 

@@ -51,8 +51,8 @@ angular.module('RedhatAccess.header', [])
         controller: 'TitleViewCtrl'
       };
     })
-  .service('AlertService', ['$filter', 'AUTH_EVENTS', '$rootScope',
-    function($filter, AUTH_EVENTS, $rootScope) {
+  .service('AlertService', ['$filter', 'AUTH_EVENTS', '$rootScope', 'RHAUtils',
+    function($filter, AUTH_EVENTS, $rootScope, RHAUtils) {
       var ALERT_TYPES = {
         DANGER: 'danger',
         SUCCESS: 'success',
@@ -115,14 +115,16 @@ angular.module('RedhatAccess.header', [])
       };
 
       this.addStrataErrorMessage = function(error) {
-        var existingMessage =
-          $filter('filter')(this.alerts, {
-            type: ALERT_TYPES.DANGER,
-            message: error.message
-          });
+        if (RHAUtils.isNotEmpty(error)) {
+          var existingMessage =
+            $filter('filter')(this.alerts, {
+              type: ALERT_TYPES.DANGER,
+              message: error.message
+            });
 
-        if (existingMessage.length < 1) {
-          this.addDangerMessage(error.message);
+          if (existingMessage.length < 1) {
+            this.addDangerMessage(error.message);
+          }
         }
       };
 
