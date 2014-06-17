@@ -9,6 +9,7 @@ angular.module('RedhatAccess.cases')
   function (strataService, CaseService, $q) {
 
     this.recommendations = [];
+    this.pinnedRecommendations = [];
     this.populateCallback = function() {};
 
     var currentData = {};
@@ -32,6 +33,39 @@ angular.module('RedhatAccess.cases')
       this.populateCallback = callback;
     };
 
+    this.populatePinnedRecommendations = function() {
+      var promises = [];
+
+      if (CaseService.case.recommendations) {
+        //Push any pinned recommendations to the front of the array
+        if (CaseService.case.recommendations.recommendation) {
+          var pinnedRecsPromises = [];
+          angular.forEach(CaseService.case.recommendations.recommendation, 
+              angular.bind(this, function(rec) {
+                if (rec.pinned_at) {
+                  var promise = 
+                    strataService.solutions.get(rec.solution_url).then(
+                      angular.bind(this, function(solution) {
+                        solution.pinned = true;
+                        this.pinnedRecommendations.push(solution);
+                      }),
+                      function(error) {
+                        AlertService.addStrataErrorMessage(error);
+                      }
+                    );
+                  promises.push(promise);
+                }
+              })
+          );
+        }
+      }
+
+      var masterPromise = $q.all(promises);
+      masterPromise.then(angular.bind(this, function() {this.populateCallback();}));
+      return masterPromise;
+    };
+
+    this.failureCount = 0;
     this.populateRecommendations = function (max) {
 
       var masterDeferred = $q.defer();
@@ -45,7 +79,8 @@ angular.module('RedhatAccess.cases')
         description: CaseService.case.description
       };
 
-      if (!angular.equals(currentData, newData) && !this.loadingRecommendations) {
+      if ((!angular.equals(currentData, newData) && !this.loadingRecommendations) || 
+          (this.recommendations.length < 1 && this.failureCount < 10)) {
         this.loadingRecommendations = true;
         setCurrentData();
         var deferreds = [];
@@ -76,6 +111,11 @@ angular.module('RedhatAccess.cases')
                     masterDeferred.resolve();
                   })
               );
+            }),
+            angular.bind(this, function(error) {
+              masterDeferred.reject();
+              this.failureCount++;
+              this.populateRecommendations(12);
             })
         );
       } else {

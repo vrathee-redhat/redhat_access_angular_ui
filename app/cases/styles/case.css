@@ -216,3 +216,31 @@ div#rha-case-search-result .hover:hover {
 div#rha-create-group-modal label {
     font-weight: normal;
 }
+
+div#rha-recommendation-section .not-pinned {
+    background: url(../img/bg-recommendations.png) no-repeat 0 0;
+    height: 16px;
+    width: 15px;
+    display: block;
+}
+
+div#rha-recommendation-section .pinned {
+    background: url(../img/bg-recommendations.png) no-repeat 0 0;
+    height: 16px;
+    width: 30px;
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: -16px;
+    overflow: hidden;
+    clip: rect(0px, 30px, 16px, 15px);
+}
+
+.rha-search-spinner-sm {
+    padding: 1px 1px 1px 1px;
+    background-image: url("../img/throbber_dickie_small.gif");
+    background-repeat: no-repeat;
+    display:inline-block;
+    width:11px; 
+    height:11px;
+}
