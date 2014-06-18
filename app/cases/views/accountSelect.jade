@@ -1,0 +1,5 @@
+div(style='display: inline-block; padding-right: 10px;')
+  input.form-control(style='width: 100%', ng-model='CaseService.account.number')
+div(style='display: inline-block;')
+  button.btn.btn-secondary(ng-click='selectUserAccount()', ng-hide='loadingAccountNumber') My Account
+  span.rha-search-spinner(ng-show='loadingAccountNumber') &nbsp;

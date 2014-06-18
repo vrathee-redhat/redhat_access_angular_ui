@@ -5,6 +5,11 @@ div.container-offset
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.side-padding
           div.create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
+            div.row.create-field(ng-show='securityService.loginStatus.isInternal')
+              div.col-md-4
+                div Account: 
+              div.col-md-8
+                x-rha-account-select
             div.row.create-field
               div.col-md-4
                 div Product:

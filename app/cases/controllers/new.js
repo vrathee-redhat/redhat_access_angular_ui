@@ -248,6 +248,10 @@ angular.module('RedhatAccess.cases')
           caseJSON.entitlement.sla = CaseService.entitlement;
         }
 
+        if (RHAUtils.isNotEmpty(CaseService.account)) {
+          caseJSON.accountNumber = CaseService.account.number;
+        }
+
         $scope.submittingCase = true;
         AlertService.addWarningMessage('Creating case...');
 
