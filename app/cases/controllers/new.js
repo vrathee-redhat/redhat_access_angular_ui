@@ -18,6 +18,7 @@ angular.module('RedhatAccess.cases')
     'RHAUtils',
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
+    'ENTITLEMENTS',
     function ($scope,
               $state,
               $q,
@@ -33,7 +34,8 @@ angular.module('RedhatAccess.cases')
               $location,
               RHAUtils,
               NEW_DEFAULTS,
-              NEW_CASE_CONFIG) {
+              NEW_CASE_CONFIG,
+              ENTITLEMENTS) {
 
       $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
       $scope.versions = [];
@@ -99,7 +101,7 @@ angular.module('RedhatAccess.cases')
         $scope.severitiesLoading = true;
         strataService.values.cases.severity().then(
             function(severities) {
-              $scope.severities = severities;
+              CaseService.severities = severities;
               CaseService.case.severity = severities[severities.length - 1];
               $scope.severitiesLoading = false;
             },
@@ -229,6 +231,7 @@ angular.module('RedhatAccess.cases')
         $scope.gotoPage(1);
       };
 
+
       $scope.submittingCase = false;
       /**
        * Create the case with attachments
@@ -250,6 +253,13 @@ angular.module('RedhatAccess.cases')
 
         if (RHAUtils.isNotEmpty(CaseService.account)) {
           caseJSON.accountNumber = CaseService.account.number;
+        }
+
+        if (CaseService.fts) {
+          caseJSON.fts = true;
+          if (CaseService.fts_contact) {
+            caseJSON.contactInfo24X7 = CaseService.fts_contact;
+          }
         }
 
         $scope.submittingCase = true;

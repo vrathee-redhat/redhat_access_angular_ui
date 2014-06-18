@@ -8,13 +8,15 @@ angular.module('RedhatAccess.cases')
   '$rootScope',
   'AUTH_EVENTS',
   'AlertService',
+  'RHAUtils',
   function(
       $scope,
       strataService,
       CaseService,
       $rootScope,
       AUTH_EVENTS,
-      AlertService) {
+      AlertService,
+      RHAUtils) {
 
     $scope.CaseService = CaseService;
 
@@ -51,7 +53,7 @@ angular.module('RedhatAccess.cases')
 
       strataService.values.cases.severity().then(
           function(response) {
-            $scope.severities = response;
+            CaseService.severities = response;
           },
           function(error) {
             AlertService.addStrataErrorMessage(error);
@@ -98,6 +100,15 @@ angular.module('RedhatAccess.cases')
         }
         if (CaseService.case.group != null) {
           caseJSON.folderNumber = CaseService.case.group.number;
+        }
+        if (RHAUtils.isNotEmpty(CaseService.case.fts)) {
+          caseJSON.fts = CaseService.case.fts;
+          if (!CaseService.case.fts) {
+            caseJSON.contactInfo24X7 = '';
+          }
+        }
+        if (CaseService.case.fts && RHAUtils.isNotEmpty(CaseService.case.contact_info24_x7)) {
+          caseJSON.contactInfo24X7 = CaseService.case.contact_info24_x7;
         }
 
         strataService.cases.put(CaseService.case.case_number, caseJSON).then(

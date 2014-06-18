@@ -39,12 +39,22 @@ form(name='caseDetails')
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
                   div
-                    x-rha-select-loading-indicator(loading='severities === undefined', type='bootstrap')
+                    x-rha-select-loading-indicator(loading='CaseService.severities === undefined', type='bootstrap')
                       select.form-control(
                         name='severity',
                         style='width: 100%;',
                         ng-model='CaseService.case.severity',
-                        ng-options='s.name for s in severities track by s.name')
+                        ng-options='s.name for s in CaseService.severities track by s.name')
+              tr(ng-show='CaseService.showFts()')
+                th.details-table-header
+                  div(style='vertical-align: 50%; display: inline-block;') 24x7 Support:
+                td
+                  input(ng-model='CaseService.case.fts', type='checkbox')
+              tr(ng-show='CaseService.showFts() && CaseService.case.fts')
+                th.details-table-header
+                  div(style='vertical-align: 50%; display: inline-block;') 24x7 Contact:
+                td
+                  input.form-control(ng-model='CaseService.case.contact_info24_x7')
               tr
                 th.details-table-header
                   div(style='vertical-align: 50%; display: inline-block;') Status:

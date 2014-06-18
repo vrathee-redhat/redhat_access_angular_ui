@@ -87,7 +87,17 @@ div.container-offset
                     ng-model='CaseService.case.severity',
                     ng-change='validatePage2()',
                     ng-disabled='submittingCase',
-                    ng-options='s.name for s in severities track by s.name')
+                    ng-options='s.name for s in CaseService.severities track by s.name')
+            div(ng-show='CaseService.showFts()', style='padding-left: 30px;')
+              div.row.create-field
+                div.col-md-12 
+                  span 24x7 Support:
+                  input(type='checkbox', ng-model='CaseService.fts', style='display: inline-block; padding-left: 10px;')
+              div.row.create-field(ng-show='CaseService.fts')
+                div.col-md-4
+                  div 24x7 Contact:
+                div.col-md-8
+                  input.form-control(ng-model='CaseService.fts_contact')
             div.row.create-field
               div.col-md-4 Case Group:
               div.col-md-8

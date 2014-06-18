@@ -4,7 +4,9 @@ angular.module('RedhatAccess.cases')
   .service('CaseService', [
     'strataService',
     'AlertService',
-    function(strataService, AlertService) {
+    'ENTITLEMENTS',
+    'RHAUtils',
+    function(strataService, AlertService, ENTITLEMENTS, RHAUtils) {
       this.
       case = {};
       this.versions = [];
@@ -116,6 +118,17 @@ angular.module('RedhatAccess.cases')
         );
 
         return promise;
+      };
+
+      this.showFts = function() {
+        if (RHAUtils.isNotEmpty(this.severities) && angular.equals(this.case.severity, this.severities[0])) {
+          if (this.entitlement === ENTITLEMENTS.premium ||
+              (RHAUtils.isNotEmpty(this.case.entitlement) 
+                && this.case.entitlement.sla === ENTITLEMENTS.premium)) {
+            return true;
+          }
+        }
+        return false;
       };
     }
   ]);
