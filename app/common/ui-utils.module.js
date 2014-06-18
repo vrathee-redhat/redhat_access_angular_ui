@@ -52,7 +52,8 @@ app.directive('rhaChoiceTree', function () {
     transclude: true,
     restrict: 'E',
     scope: {
-      tree: '=ngModel'
+      tree: '=ngModel',
+      rhaDisabled: '='
     }
   };
 });

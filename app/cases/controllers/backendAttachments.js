@@ -4,13 +4,16 @@ angular.module('RedhatAccess.cases')
     function ($scope, TreeViewSelectorData, AttachmentsService) {
       $scope.name = 'Attachments';
       $scope.attachmentTree = [];
-      TreeViewSelectorData.getTree('attachments').then(
-        function (tree) {
-          $scope.attachmentTree = tree;
-          AttachmentsService.updateBackEndAttachments(tree);
-        },
-        function () {
-          console.log('Unable to get tree data');
-        });
+      
+      if (!$scope.rhaDisabled) {
+        TreeViewSelectorData.getTree('attachments').then(
+          function (tree) {
+            $scope.attachmentTree = tree;
+            AttachmentsService.updateBackEndAttachments(tree);
+          },
+          function () {
+            console.log('Unable to get tree data');
+          });
+      }
     }
   ]);

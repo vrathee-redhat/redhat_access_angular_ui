@@ -23,6 +23,7 @@ div.container-fluid.side-padding(ng-hide='loading')
   div.row
     div.col-xs-12
       div.server-attach-header Server File(s) To Attach:
-      rha-choice-tree(ng-model="attachmentTree",
-                      ng-controller="BackEndAttachmentsCtrl"
-                      )
+      rha-choice-tree(
+        ng-model='attachmentTree',
+        ng-controller='BackEndAttachmentsCtrl',
+        rhaDisabled='rhaDisabled')
