@@ -10,6 +10,7 @@ angular.module('RedhatAccess.cases')
   '$stateParams',
   'AlertService',
   '$timeout',
+  '$modal',
   'RHAUtils',
   function(
       $scope,
@@ -18,6 +19,7 @@ angular.module('RedhatAccess.cases')
       $stateParams,
       AlertService,
       $timeout,
+      $modal,
       RHAUtils) {
     $scope.CaseService = CaseService;
 
@@ -44,6 +46,13 @@ angular.module('RedhatAccess.cases')
 
       $scope.commentsOnScreen =
           CaseService.comments.slice(start, end);
+    };
+
+    $scope.requestManagementEscalation = function() {
+      $modal.open({
+        templateUrl: 'cases/views/requestManagementEscalationModal.html',
+        controller: 'RequestManagementEscalationModal'
+      });
     };
 
     if (RHAUtils.isNotEmpty(CaseService.comments)) {

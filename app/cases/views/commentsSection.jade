@@ -4,8 +4,14 @@ div.container-fluid.side-padding(ng-hide='loading')
   div.row.create-field
     div.col-xs-12
       x-rha-add-comment-section
+  div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; padding-bottom: 10px;')
+    div.col-xs-12
+      span(style='display: inline-block; padding-right: 10px;') Would you like a Red Hat support manager to contact you regarding this case?
+      button.btn.btn-secondary(
+        style='display: inline-block', 
+        ng-click='requestManagementEscalation()') Request Management Escalation
   div(ng-hide='CaseService.comments.length <= 0 || CaseService.comments === undefined', style='border-top: 1px solid #dddddd;')
-    div.row
+    div.row(style='padding-top: 10px; padding-bottom: 10px;')
       div.col-xs-12
         pagination.pagination-sm(
           style='float: right;',
