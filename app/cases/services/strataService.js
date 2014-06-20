@@ -314,6 +314,36 @@ angular.module('RedhatAccess.cases')
               return deferred.promise;
             }
           },
+          notified_users: {
+            add: function(caseNumber, ssoUserName) {
+              var deferred = $q.defer();
+
+              strata.cases.notified_users.add(
+                caseNumber,
+                ssoUserName,
+                function (response) {
+                  deferred.resolve(response);
+                },
+                angular.bind(deferred, errorHandler)
+              );
+
+              return deferred.promise;
+            },
+            remove: function(caseNumber, ssoUserName) {
+              var deferred = $q.defer();
+
+              strata.cases.notified_users.remove(
+                caseNumber,
+                ssoUserName,
+                function (response) {
+                  deferred.resolve(response);
+                },
+                angular.bind(deferred, errorHandler)
+              );
+
+              return deferred.promise;
+            }
+          },
           //cases.get
           get: function (id) {
             var deferred = $q.defer();

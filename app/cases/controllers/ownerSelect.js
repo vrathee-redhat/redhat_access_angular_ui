@@ -20,23 +20,6 @@ angular.module('RedhatAccess.cases')
     $scope.SearchCaseService = SearchCaseService;
     $scope.CaseService = CaseService;
 
-    $scope.ownersLoading = true;
-
-    var getAccountNumber = function() {
-      return strataService.accounts.list().then(
-          function(accountNumber) {
-            return accountNumber;
-          });
-    };
-
-    var getUsers = function(accountNumber) {
-      return strataService.accounts.users(accountNumber).then(
-        function(users) {
-          $scope.ownersLoading = false;
-          CaseService.owners = users;
-        });
-    };
-
-    getAccountNumber().then(getUsers);
+    CaseService.populateUsers();
   }
 ]);

@@ -15,6 +15,7 @@ angular.module('RedhatAccess.cases')
   'AlertService',
   'securityService',
   'EDIT_CASE_CONFIG',
+  'RHAUtils',
   function(
       $scope,
       $stateParams,
@@ -28,7 +29,8 @@ angular.module('RedhatAccess.cases')
       AUTH_EVENTS,
       AlertService,
       securityService,
-      EDIT_CASE_CONFIG) {
+      EDIT_CASE_CONFIG,
+      RHAUtils) {
 
     $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
     $scope.securityService = securityService;
@@ -82,6 +84,13 @@ angular.module('RedhatAccess.cases')
                     $scope.recommendationsLoading = false;
                   }
               );
+            }
+
+            if (RHAUtils.isNotEmpty(caseJSON.notified_users)) {
+              angular.forEach(caseJSON.notified_users.link, function(user) {
+                CaseService.originalNotifiedUsers.push(user.sso_username);
+              });
+              CaseService.updatedNotifiedUsers = CaseService.originalNotifiedUsers;
             }
           }
       );

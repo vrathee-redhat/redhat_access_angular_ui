@@ -10,6 +10,7 @@ angular.module('RedhatAccess.cases')
   'CaseService',
   'STATUS',
   'SearchBoxService',
+  'AlertService',
   function (
     $scope,
     $rootScope,
@@ -18,7 +19,8 @@ angular.module('RedhatAccess.cases')
     SearchCaseService,
     CaseService,
     STATUS,
-    SearchBoxService) {
+    SearchBoxService,
+    AlertService) {
 
     $scope.securityService = securityService;
     $scope.SearchCaseService = SearchCaseService;

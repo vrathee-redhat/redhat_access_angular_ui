@@ -1,10 +1,10 @@
 div#rha-owner-select
-  x-rha-select-loading-indicator(loading='ownersLoading', type='select2')
+  x-rha-select-loading-indicator(loading='CaseService.usersLoading', type='select2')
     select(
       ui-select2,
       ng-disabled='!securityService.loginStatus.isLoggedIn',
       ng-model='CaseService.owner',
       ng-change='CaseService.onSelectChanged()',
       style='width: 100%')
-      option(ng-repeat='owner in CaseService.owners') 
-        {{owner.sso_username}}
+      option(ng-repeat='user in CaseService.users') 
+        {{user.sso_username}}
