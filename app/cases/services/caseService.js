@@ -26,6 +26,7 @@ angular.module('RedhatAccess.cases')
       this.owner = '';
       this.product = '';
       this.bugzillaList = {};
+      this.userIsInternal = false;
 
       this.onSelectChanged;
       /**
@@ -53,7 +54,10 @@ angular.module('RedhatAccess.cases')
 
         this.
         case = rawCase;
+        
+        this.userIsInternal = strata.getAuthInfo().isInternal;
         this.bugzillaList = rawCase.bugzillas;
+
       };
 
       this.defineAccount = function(account) {
