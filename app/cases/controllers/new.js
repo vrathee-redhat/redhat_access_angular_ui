@@ -127,7 +127,7 @@ angular.module('RedhatAccess.cases')
             }
         );
       };
-      
+
       $scope.initDescription = function() {
         var searchObject = $location.search();
 
@@ -243,7 +243,7 @@ angular.module('RedhatAccess.cases')
           'summary': CaseService.case.summary,
           'description': CaseService.case.description,
           'severity': CaseService.case.severity.name,
-          'folderNumber': CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
+          'folderNumber': CaseService.case.group == null ? '' : CaseService.case.group.number
         };
 
         if (RHAUtils.isNotEmpty(CaseService.entitlement)) {
@@ -277,12 +277,12 @@ angular.module('RedhatAccess.cases')
             function(caseNumber) {
               AlertService.clearAlerts();
               AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
-              if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) 
+              if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections())
                   && NEW_CASE_CONFIG.showAttachments) {
 
                 AttachmentsService.updateAttachments(caseNumber).then(
                   function() {
-                    redirectToCase(caseNumber);      
+                    redirectToCase(caseNumber);
                   });
               } else {
                 redirectToCase(caseNumber);
