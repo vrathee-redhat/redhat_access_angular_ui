@@ -42,13 +42,15 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
       this.loginStatus = {
         isLoggedIn: false,
         loggedInUser: '',
-        verifying: false
+        verifying: false,
+        isInternal: false
       };
 
-      this.setLoginStatus = function (isLoggedIn, userName, verifying) {
+      this.setLoginStatus = function (isLoggedIn, userName, verifying, isInternal) {
         this.loginStatus.isLoggedIn = isLoggedIn;
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
+        this.loginStatus.isInternal = isInternal;
       };
 
       var modalDefaults = {
@@ -94,10 +96,10 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         strata.checkLogin(
           function (result, authedUser) {
             if (result) {
-              that.setLoginStatus(true, authedUser.name, false);
+              that.setLoginStatus(true, authedUser.name, false, authedUser.is_internal);
               defer.resolve(authedUser.name);
             } else {
-              that.setLoginStatus(false, '', false);
+              that.setLoginStatus(false, '', false, false);
               defer.reject('');
             }
           }
@@ -144,18 +146,18 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         result.then(
           function (authedUser) {
             console.log('User logged in : ' + authedUser.name);
-            that.setLoginStatus(true, authedUser.name, false);
+            that.setLoginStatus(true, authedUser.name, false, authedUser.is_internal);
           },
           function (error) {
             console.log('Unable to login user');
-            that.setLoginStatus(false, '', false);
+            that.setLoginStatus(false, '', false, false);
           });
         return result; // pass on the promise
       };
 
       this.logout = function () {
         strata.clearCredentials();
-        this.setLoginStatus(false, '', false);
+        this.setLoginStatus(false, '', false, false);
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
       };
 

@@ -15,7 +15,10 @@ angular.module('RedhatAccess.cases')
     '$rootScope',
     'AUTH_EVENTS',
     '$location',
+    'RHAUtils',
     'NEW_DEFAULTS',
+    'NEW_CASE_CONFIG',
+    'ENTITLEMENTS',
     function ($scope,
               $state,
               $q,
@@ -29,8 +32,12 @@ angular.module('RedhatAccess.cases')
               $rootScope,
               AUTH_EVENTS,
               $location,
-              NEW_DEFAULTS) {
+              RHAUtils,
+              NEW_DEFAULTS,
+              NEW_CASE_CONFIG,
+              ENTITLEMENTS) {
 
+      $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
       $scope.versions = [];
       $scope.versionDisabled = true;
       $scope.versionLoading = false;
@@ -47,22 +54,24 @@ angular.module('RedhatAccess.cases')
       $scope.securityService = securityService;
 
       $scope.getRecommendations = function() {
-        SearchResultsService.searchInProgress.value = true;
-        RecommendationsService.populateRecommendations(5).then(
-            function() {
-              SearchResultsService.clear();
+        if ($scope.NEW_CASE_CONFIG.showRecommendations) {
+          SearchResultsService.searchInProgress.value = true;
+          RecommendationsService.populateRecommendations(5).then(
+              function() {
+                SearchResultsService.clear();
 
-              RecommendationsService.recommendations.forEach(
-                  function(recommendation) {
-                    SearchResultsService.add(recommendation);
-                  }
-              )
-              SearchResultsService.searchInProgress.value = false;
-            },
-            function(error) {
-              AlertService.addStrataErrorMessage(error);
-            }
-        );
+                RecommendationsService.recommendations.forEach(
+                    function(recommendation) {
+                      SearchResultsService.add(recommendation);
+                    }
+                )
+                SearchResultsService.searchInProgress.value = false;
+              },
+              function(error) {
+                AlertService.addStrataErrorMessage(error);
+              }
+          );
+        }
       };
 
       /**
@@ -92,7 +101,7 @@ angular.module('RedhatAccess.cases')
         $scope.severitiesLoading = true;
         strataService.values.cases.severity().then(
             function(severities) {
-              $scope.severities = severities;
+              CaseService.severities = severities;
               CaseService.case.severity = severities[severities.length - 1];
               $scope.severitiesLoading = false;
             },
@@ -222,6 +231,7 @@ angular.module('RedhatAccess.cases')
         $scope.gotoPage(1);
       };
 
+
       $scope.submittingCase = false;
       /**
        * Create the case with attachments
@@ -235,6 +245,23 @@ angular.module('RedhatAccess.cases')
           'severity': CaseService.case.severity.name,
           'folderNumber': CaseService.case.caseGroup == null ? '' : CaseService.case.caseGroup.number
         };
+
+        if (RHAUtils.isNotEmpty(CaseService.entitlement)) {
+          caseJSON.entitlement = {};
+          caseJSON.entitlement.sla = CaseService.entitlement;
+        }
+
+        if (RHAUtils.isNotEmpty(CaseService.account)) {
+          caseJSON.accountNumber = CaseService.account.number;
+        }
+
+        if (CaseService.fts) {
+          caseJSON.fts = true;
+          if (CaseService.fts_contact) {
+            caseJSON.contactInfo24X7 = CaseService.fts_contact;
+          }
+        }
+
         $scope.submittingCase = true;
         AlertService.addWarningMessage('Creating case...');
 
@@ -250,7 +277,9 @@ angular.module('RedhatAccess.cases')
             function(caseNumber) {
               AlertService.clearAlerts();
               AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
-              if ((AttachmentsService.updatedAttachments.length > 0) || (AttachmentsService.hasBackEndSelections())) {
+              if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) 
+                  && NEW_CASE_CONFIG.showAttachments) {
+
                 AttachmentsService.updateAttachments(caseNumber).then(
                   function() {
                     redirectToCase(caseNumber);      

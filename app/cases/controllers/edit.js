@@ -14,6 +14,7 @@ angular.module('RedhatAccess.cases')
   'AUTH_EVENTS',
   'AlertService',
   'securityService',
+  'EDIT_CASE_CONFIG',
   function(
       $scope,
       $stateParams,
@@ -26,8 +27,10 @@ angular.module('RedhatAccess.cases')
       $rootScope,
       AUTH_EVENTS,
       AlertService,
-      securityService) {
+      securityService,
+      EDIT_CASE_CONFIG) {
 
+    $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
     $scope.securityService = securityService;
     $scope.AttachmentsService = AttachmentsService;
     $scope.CaseService = CaseService;
@@ -64,44 +67,50 @@ angular.module('RedhatAccess.cases')
               );
             }
 
-            RecommendationsService.populatePinnedRecommendations().then(
-                function() {
-                  $scope.recommendationsLoading = false;
-                },
-                function(error) {
-                  AlertService.addStrataErrorMessage(error);
-                }
-            );
+            if (EDIT_CASE_CONFIG.showRecommendations) {
+              RecommendationsService.populatePinnedRecommendations().then(
+                  function() {
+                    $scope.recommendationsLoading = false;
+                  },
+                  function(error) {
+                    AlertService.addStrataErrorMessage(error);
+                  }
+              );
 
-            RecommendationsService.populateRecommendations(12).then(
-                function() {
-                  $scope.recommendationsLoading = false;
-                }
-            );
+              RecommendationsService.populateRecommendations(12).then(
+                  function() {
+                    $scope.recommendationsLoading = false;
+                  }
+              );
+            }
           }
       );
 
-      $scope.attachmentsLoading = true;
-      strataService.cases.attachments.list($stateParams.id).then(
-          function(attachmentsJSON) {
-            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-            $scope.attachmentsLoading = false;
-          },
-          function(error) {
-            AlertService.addStrataErrorMessage(error);
-          }
-      );
+      if (EDIT_CASE_CONFIG.showAttachments) {
+        $scope.attachmentsLoading = true;
+        strataService.cases.attachments.list($stateParams.id).then(
+            function(attachmentsJSON) {
+              AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+              $scope.attachmentsLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
+      }
 
-      $scope.commentsLoading = true;
-      strataService.cases.comments.get($stateParams.id).then(
-          function(commentsJSON) {
-            $scope.comments = commentsJSON;
-            $scope.commentsLoading = false;
-          },
-          function(error) {
-            AlertService.addStrataErrorMessage(error);
-          }
-      );
+      if (EDIT_CASE_CONFIG.showComments) {
+        $scope.commentsLoading = true;
+        strataService.cases.comments.get($stateParams.id).then(
+            function(commentsJSON) {
+              $scope.comments = commentsJSON;
+              $scope.commentsLoading = false;
+            },
+            function(error) {
+              AlertService.addStrataErrorMessage(error);
+            }
+        );
+      }
     };
     $scope.init();
 

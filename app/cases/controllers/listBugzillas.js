@@ -4,11 +4,14 @@ angular.module('RedhatAccess.cases')
 .controller('ListBugzillas', [
   '$scope',
   'CaseService',
+  'securityService',
   function (
 	  	$scope,
-	    CaseService) {
+	    CaseService,
+	    securityService) {
 
   	$scope.CaseService = CaseService;
+  	$scope.securityService = securityService;
   }
     
 ]);

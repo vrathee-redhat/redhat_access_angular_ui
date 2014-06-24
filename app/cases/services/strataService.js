@@ -4,8 +4,8 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-  .factory('strataService', ['$q', 'translate',
-    function ($q, translate) {
+  .factory('strataService', ['$q', 'translate', 'RHAUtils',
+    function ($q, translate, RHAUtils) {
 
       var errorHandler = function (message, xhr, response, status) {
 
@@ -29,6 +29,22 @@ angular.module('RedhatAccess.cases')
       };
 
       return {
+        entitlements: {
+          //entitlements.get
+          get: function(showAll) {
+            var deferred = $q.defer();
+
+            strata.entitlements.get(
+              showAll,
+              function (entitlements) {
+                deferred.resolve(entitlements);
+              },
+              angular.bind(deferred, errorHandler)
+            );
+
+            return deferred.promise; 
+          }
+        },
         problems: function (data, max) {
           var deferred = $q.defer();
 
@@ -44,6 +60,7 @@ angular.module('RedhatAccess.cases')
           return deferred.promise;
         },
         solutions: {
+          //solutions.get
           get: function (uri) {
             var deferred = $q.defer();
 
@@ -66,6 +83,7 @@ angular.module('RedhatAccess.cases')
           }
         },
         products: {
+          //products.list
           list: function () {
             var deferred = $q.defer();
 
@@ -78,6 +96,7 @@ angular.module('RedhatAccess.cases')
 
             return deferred.promise;
           },
+          //products.versions
           versions: function (productCode) {
             var deferred = $q.defer();
 
@@ -93,6 +112,7 @@ angular.module('RedhatAccess.cases')
           }
         },
         groups: {
+          //groups.list
           list: function () {
             var deferred = $q.defer();
 
@@ -105,6 +125,7 @@ angular.module('RedhatAccess.cases')
 
             return deferred.promise;
           },
+          //groups.delete
           delete: function(groupNum) {
             var deferred = $q.defer();
 
@@ -118,6 +139,7 @@ angular.module('RedhatAccess.cases')
 
             return deferred.promise;
           },
+          //groups.create
           create: function(groupName) {
             var deferred = $q.defer();
 
@@ -133,6 +155,7 @@ angular.module('RedhatAccess.cases')
           }
         },
         accounts: {
+          //accounts.get
           get: function(accountNumber) {
             var deferred = $q.defer();
 
@@ -146,6 +169,7 @@ angular.module('RedhatAccess.cases')
 
             return deferred.promise;
           },
+          //accounts.users
           users: function(accountNumber, group) {
             var deferred = $q.defer();
 
@@ -160,6 +184,7 @@ angular.module('RedhatAccess.cases')
 
             return deferred.promise;
           },
+          //accounts.list
           list: function() {
             var deferred = $q.defer();
 
@@ -174,6 +199,7 @@ angular.module('RedhatAccess.cases')
           }
         },
         cases: {
+          //cases.csv
           csv: function() {
             var deferred = $q.defer();
 
@@ -187,6 +213,7 @@ angular.module('RedhatAccess.cases')
             return deferred.promise;
           },
           attachments: {
+            //cases.attachments.list
             list: function (id) {
               var deferred = $q.defer();
 
@@ -200,6 +227,7 @@ angular.module('RedhatAccess.cases')
 
               return deferred.promise;
             },
+            //cases.attachments.post
             post: function (attachment, caseNumber) {
               var deferred = $q.defer();
 
@@ -214,6 +242,7 @@ angular.module('RedhatAccess.cases')
 
               return deferred.promise;
             },
+            //cases.attachments.delete
             delete: function (id, caseNumber) {
 
               var deferred = $q.defer();
@@ -231,6 +260,7 @@ angular.module('RedhatAccess.cases')
             }
           },
           comments: {
+            //cases.comments.get
             get: function (id) {
               var deferred = $q.defer();
 
@@ -244,6 +274,7 @@ angular.module('RedhatAccess.cases')
 
               return deferred.promise;
             },
+            //cases.comments.post
             post: function (case_number, text, isDraft) {
               var deferred = $q.defer();
 
@@ -261,6 +292,7 @@ angular.module('RedhatAccess.cases')
 
               return deferred.promise;
             },
+            //cases.comments.put
             put: function(case_number, text, isDraft, comment_id) {
               var deferred = $q.defer();
 
@@ -282,6 +314,7 @@ angular.module('RedhatAccess.cases')
               return deferred.promise;
             }
           },
+          //cases.get
           get: function (id) {
             var deferred = $q.defer();
 
@@ -295,6 +328,7 @@ angular.module('RedhatAccess.cases')
 
             return deferred.promise;
           },
+          //cases.filter
           filter: function (params) {
             var deferred = $q.defer();
             if (params == null) {
@@ -314,6 +348,7 @@ angular.module('RedhatAccess.cases')
 
             return deferred.promise;
           },
+          //cases.post
           post: function (caseJSON) {
             var deferred = $q.defer();
 
@@ -327,6 +362,7 @@ angular.module('RedhatAccess.cases')
 
             return deferred.promise;
           },
+          //cases.put
           put: function (case_number, caseJSON) {
             var deferred = $q.defer();
 
@@ -344,6 +380,7 @@ angular.module('RedhatAccess.cases')
         },
         values: {
           cases: {
+            //values.cases.severity
             severity: function () {
               var deferred = $q.defer();
 
@@ -356,6 +393,7 @@ angular.module('RedhatAccess.cases')
 
               return deferred.promise;
             },
+            //values.cases.status
             status: function () {
               var deferred = $q.defer();
 
@@ -368,6 +406,7 @@ angular.module('RedhatAccess.cases')
 
               return deferred.promise;
             },
+            //values.cases.types
             types: function () {
               var deferred = $q.defer();
 

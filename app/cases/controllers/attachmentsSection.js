@@ -6,12 +6,15 @@ angular.module('RedhatAccess.cases')
     'AttachmentsService',
     'CaseService',
     'TreeViewSelectorUtils',
+    'EDIT_CASE_CONFIG',
     function (
       $scope,
       AttachmentsService,
       CaseService,
-      TreeViewSelectorUtils) {
+      TreeViewSelectorUtils,
+      EDIT_CASE_CONFIG) {
 
+      $scope.rhaDisabled = !EDIT_CASE_CONFIG.showAttachments;
       $scope.AttachmentsService = AttachmentsService;
       $scope.CaseService = CaseService;
       $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;

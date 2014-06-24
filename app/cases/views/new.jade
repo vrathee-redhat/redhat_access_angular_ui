@@ -5,6 +5,11 @@ div.container-offset
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.side-padding
           div.create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
+            div.row.create-field(ng-show='securityService.loginStatus.isInternal')
+              div.col-md-4
+                div Account: 
+              div.col-md-8
+                x-rha-account-select
             div.row.create-field
               div.col-md-4
                 div Product:
@@ -69,6 +74,11 @@ div.container-offset
                 div.col-xs-12
                   div(style='font-size: 85%') {{CaseService.case.description}}
             div.row.create-field
+              div.col-md-4 Support Level:
+              div.col-md-8(ng-show='CaseService.entitlements.length <= 1') {{CaseService.entitlements[0]}}
+              div.col-md-8(ng-hide='CaseService.entitlements.length <= 1')
+                x-rha-entitlement-select
+            div.row.create-field
               div.col-md-4 Severity:
               div.col-md-8
                 x-rha-loading-indicator(loading='severitiesLoading')
@@ -77,7 +87,17 @@ div.container-offset
                     ng-model='CaseService.case.severity',
                     ng-change='validatePage2()',
                     ng-disabled='submittingCase',
-                    ng-options='s.name for s in severities track by s.name')
+                    ng-options='s.name for s in CaseService.severities track by s.name')
+            div(ng-show='CaseService.showFts()', style='padding-left: 30px;')
+              div.row.create-field
+                div.col-md-12 
+                  span 24x7 Support:
+                  input(type='checkbox', ng-model='CaseService.fts', style='display: inline-block; padding-left: 10px;')
+              div.row.create-field(ng-show='CaseService.fts')
+                div.col-md-4
+                  div 24x7 Contact:
+                div.col-md-8
+                  input.form-control(ng-model='CaseService.fts_contact')
             div.row.create-field
               div.col-md-4 Case Group:
               div.col-md-8
@@ -88,22 +108,23 @@ div.container-offset
                     ng-model='CaseService.case.group',
                     ng-change='validatePage2()',
                     ng-options='g.name for g in groups track by g.number')
-            div.row.create-field
-              div.col-xs-12
-                div Attachments:
-            div.bottom-border
-              div.row.create-field(style='overflow: auto')
+            div(ng-show='NEW_CASE_CONFIG.showAttachments')
+              div.row.create-field
                 div.col-xs-12
-                  rha-list-new-attachments
-              div.row.create-field(ng-hide='submittingCase')
-                div.col-xs-12
-                  rha-attach-local-file(disabled='submittingCase')
-              div.row.create-field(ng-hide='submittingCase')
-                div.col-xs-12
-                  div.server-attach-header Server File(s) To Attach:
-                   rha-choice-tree(
-                     ng-model='attachmentTree',
-                     ng-controller='BackEndAttachmentsCtrl')
+                  div Attachments:
+              div.bottom-border
+                div.row.create-field(style='overflow: auto')
+                  div.col-xs-12
+                    rha-list-new-attachments
+                div.row.create-field(ng-hide='submittingCase')
+                  div.col-xs-12
+                    rha-attach-local-file(disabled='submittingCase')
+                div.row.create-field(ng-hide='submittingCase')
+                  div.col-xs-12
+                    div.server-attach-header Server File(s) To Attach:
+                     rha-choice-tree(
+                       ng-model='attachmentTree',
+                       ng-controller='BackEndAttachmentsCtrl')
             div.row(style='margin-top: 20px;')
               div.col-xs-6
                 button.btn.btn-primary(
@@ -122,7 +143,8 @@ div.container-offset
       div.col-xs-6(
         style='overflow: auto;',
         rha-resizable,
-        rha-dom-ready='domReady')
+        rha-dom-ready='domReady',
+        ng-show='NEW_CASE_CONFIG.showRecommendations')
         div(
           ng-controller='SearchController',
           style='overflow: vertical;')

@@ -3,8 +3,11 @@
 angular.module('RedhatAccess.cases')
   .service('CaseService', [
     'strataService',
+    'securityService',
     'AlertService',
-    function(strataService, AlertService) {
+    'ENTITLEMENTS',
+    'RHAUtils',
+    function(strataService, securityService, AlertService, ENTITLEMENTS, RHAUtils) {
       this.
       case = {};
       this.versions = [];
@@ -26,8 +29,7 @@ angular.module('RedhatAccess.cases')
       this.owner = '';
       this.product = '';
       this.bugzillaList = {};
-      this.userIsInternal = false;
-
+      
       this.onSelectChanged;
       /**
        * Add the necessary wrapper objects needed to properly display the data.
@@ -55,9 +57,8 @@ angular.module('RedhatAccess.cases')
         this.
         case = rawCase;
         
-        this.userIsInternal = strata.getAuthInfo().isInternal;
         this.bugzillaList = rawCase.bugzillas;
-
+        
       };
 
       this.defineAccount = function(account) {
@@ -123,6 +124,17 @@ angular.module('RedhatAccess.cases')
         );
 
         return promise;
+      };
+
+      this.showFts = function() {
+        if (RHAUtils.isNotEmpty(this.severities) && angular.equals(this.case.severity, this.severities[0])) {
+          if (this.entitlement === ENTITLEMENTS.premium ||
+              (RHAUtils.isNotEmpty(this.case.entitlement) 
+                && this.case.entitlement.sla === ENTITLEMENTS.premium)) {
+            return true;
+          }
+        }
+        return false;
       };
     }
   ]);

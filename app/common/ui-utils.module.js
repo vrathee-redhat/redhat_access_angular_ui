@@ -23,7 +23,7 @@ app.service('RHAUtils',
      * Generic function to decide if a simple object should be considered nothing
      */
     this.isEmpty = function(object) {
-      if (object === undefined || object === null || object === '') {
+      if (object === undefined || object === null || object === '' || object.length === 0 || object === {}) {
         return true;
       } else {
         return false
@@ -52,7 +52,8 @@ app.directive('rhaChoiceTree', function () {
     transclude: true,
     restrict: 'E',
     scope: {
-      tree: '=ngModel'
+      tree: '=ngModel',
+      rhaDisabled: '='
     }
   };
 });
