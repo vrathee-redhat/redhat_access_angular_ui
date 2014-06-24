@@ -34,10 +34,12 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
   })
   .value('SECURITY_CONFIG', {
     displayLoginStatus: true,
-    autoCheckLogin: true
+    autoCheckLogin: true,
+    loginURL: "",
+    logoutURL: ""
   })
-  .service('securityService', ['$rootScope', '$modal', 'AUTH_EVENTS', '$q', 'LOGIN_VIEW_CONFIG',
-    function ($rootScope, $modal, AUTH_EVENTS, $q, LOGIN_VIEW_CONFIG) {
+  .service('securityService', ['$rootScope', '$modal', 'AUTH_EVENTS', '$q', 'LOGIN_VIEW_CONFIG', 'SECURITY_CONFIG',
+    function ($rootScope, $modal, AUTH_EVENTS, $q, LOGIN_VIEW_CONFIG, SECURITY_CONFIG) {
 
       this.loginStatus = {
         isLoggedIn: false,
@@ -45,6 +47,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         verifying: false,
         isInternal: false
       };
+
+      this.loginURL = SECURITY_CONFIG.loginURL;
+      this.logoutURL = SECURITY_CONFIG.logoutURL;
 
       this.setLoginStatus = function (isLoggedIn, userName, verifying, isInternal) {
         this.loginStatus.isLoggedIn = isLoggedIn;
