@@ -1,0 +1,12 @@
+label(style='font-weight: normal;') Email Notification Recipients:
+span.rha-search-spinner-sm(ng-show='updatingList', style='margin-left: 5px;')
+x-rha-select-loading-indicator(loading='CaseService.usersLoading', type='bootstrap')
+  select(
+    ui-select2,
+    multiple,
+    ng-disabled='!securityService.loginStatus.isLoggedIn || updatingList',
+    ng-model='CaseService.updatedNotifiedUsers',
+    ng-change='updateNotifyUsers()',
+    style='width: 100%')
+    option(ng-repeat='user in CaseService.users') 
+      {{user.sso_username}}

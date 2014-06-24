@@ -14,8 +14,11 @@ angular.module('RedhatAccess.cases')
       //this.statuses = [];
       this.severities = [];
       this.groups = [];
-      this.owners = [];
+      this.users = [];
       this.comments = [];
+
+      this.originalNotifiedUsers = [];
+      this.updatedNotifiedUsers = [];
 
       this.account = {};
 
@@ -92,6 +95,30 @@ angular.module('RedhatAccess.cases')
             this.groups = groups;
           })
         );
+      };
+
+      this.usersLoading = false;
+      this.populateUsers = function () {
+        this.usersLoading = true;
+
+        //TODO: probably don't need this extra call. Check if the account num already exists
+        //      otherwise get it.
+        var getAccountNumber = function() {
+          return strataService.accounts.list().then(
+              function(accountNumber) {
+                return accountNumber;
+              });
+        };
+
+        var getUsers = angular.bind(this, function(accountNumber) {
+          return strataService.accounts.users(accountNumber).then(
+            angular.bind(this, function(users) {
+              this.usersLoading = false;
+              this.users = users;
+            }));
+        });
+
+        getAccountNumber().then(getUsers);
       };
 
       this.refreshComments;
