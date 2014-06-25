@@ -414,20 +414,32 @@ module.exports = function (grunt) {
       },
       images: {
         files: [{
-          expand: true,
-          flatten: true,
-          nonull: true,
-          src: '<%= src.img %>',
-          dest: '<%= yeoman.dist %>/img/',
-          filter: 'isFile'
-        }, {
-          expand: true,
-          flatten: true,
-          nonull: true,
-          src: '<%= src.thirdParty.img %>',
-          dest: '<%= yeoman.dist %>/img/',
-          filter: 'isFile'
-        }]
+            expand: true,
+            flatten: true,
+            nonull: true,
+            src: '<%= src.img %>',
+            dest: '<%= yeoman.dist %>/img/',
+            filter: 'isFile'
+          }, {
+            expand: true,
+            flatten: true,
+            nonull: true,
+            src: '<%= src.thirdParty.img %>',
+            dest: '<%= yeoman.dist %>/img/',
+            filter: 'isFile'
+          },
+          //this is a hack to get past image embedd issue with select2 package - need to revisit.
+          {
+            expand: true,
+            flatten: true,
+            nonull: true,
+            src: '<%= yeoman.bowerDir%>/select2/{select2.png,select2-spinner.gif,select2x2.png}',
+            dest: '<%= yeoman.dist %>/styles',
+            filter: 'isFile'
+          }
+
+
+        ]
       }
     },
 
@@ -451,6 +463,7 @@ module.exports = function (grunt) {
         src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>.css'],
         dest: '<%= yeoman.dist %>/styles/<%= pkg.name %>-embedded-images.css',
         options: {
+          //baseDir : '<%= yeoman.dist %>/',
           deleteAfterEncoding: false
         }
       },
