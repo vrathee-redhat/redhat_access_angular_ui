@@ -113,18 +113,20 @@ div.container-offset
                 div.col-xs-12
                   div Attachments:
               div.bottom-border
-                div.row.create-field(style='overflow: auto')
-                  div.col-xs-12
-                    rha-list-new-attachments
+                div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
+                  div.row.create-field(style='overflow: auto')
+                    div.col-xs-12
+                      rha-list-new-attachments
                 div.row.create-field(ng-hide='submittingCase')
                   div.col-xs-12
                     rha-attach-local-file(disabled='submittingCase')
                 div.row.create-field(ng-hide='submittingCase')
                   div.col-xs-12
-                    div.server-attach-header Server File(s) To Attach:
-                     rha-choice-tree(
-                       ng-model='attachmentTree',
-                       ng-controller='BackEndAttachmentsCtrl')
+                    div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
+                      div.server-attach-header Server File(s) To Attach:
+                       rha-choice-tree(
+                         ng-model='attachmentTree',
+                         ng-controller='BackEndAttachmentsCtrl')
             div.row(style='margin-top: 20px;')
               div.col-xs-6
                 button.btn.btn-primary(
