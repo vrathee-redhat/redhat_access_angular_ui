@@ -35,7 +35,7 @@ angular.module('RedhatAccess.cases', [
   'showAttachments': true,
   'showRecommendations': true,
   'showComments': true,
-  'showServerSideAttachments': false
+  'showServerSideAttachments': true
 })
 .config([
   '$stateProvider',
