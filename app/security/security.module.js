@@ -45,17 +45,19 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         isLoggedIn: false,
         loggedInUser: '',
         verifying: false,
-        isInternal: false
+        isInternal: false,
+        sessionId: ''
       };
 
       this.loginURL = SECURITY_CONFIG.loginURL;
       this.logoutURL = SECURITY_CONFIG.logoutURL;
 
-      this.setLoginStatus = function (isLoggedIn, userName, verifying, isInternal) {
+      this.setLoginStatus = function (isLoggedIn, userName, verifying, isInternal, sessionId) {
         this.loginStatus.isLoggedIn = isLoggedIn;
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
         this.loginStatus.isInternal = isInternal;
+        this.loginStatus.sessionId = sessionId;
       };
 
       var modalDefaults = {

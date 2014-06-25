@@ -6,9 +6,8 @@ div#rha-case-search.container-offset
         x-rha-search-box(placeholder='Search')
       div.col-xs-3
         div.pull-right
-          //span(style='padding-right: 4px;') Want real-time help?
-          //button.btn.btn-primary(
-            //ng-disabled='!securityService.loginStatus.isLoggedIn') Chat with Support
+          span(style='padding-right: 4px;') Want real-time help?
+          x-rha-chat-button
       div.col-xs-3
         button.btn.btn-secondary.pull-right(
           ng-disabled='!securityService.loginStatus.isLoggedIn',
