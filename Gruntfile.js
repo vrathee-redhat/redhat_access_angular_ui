@@ -72,7 +72,9 @@ module.exports = function (grunt) {
           '<%= yeoman.bowerDir %>/angular-bootstrap/ui-bootstrap-tpls.js',
           '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
           '<%= yeoman.bowerDir %>/ng-table/ng-table.js',
-          '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js'
+          '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js',
+          '<%= yeoman.bowerDir %>/angular-ui-select2/src/select2.js',
+          '<%= yeoman.bowerDir %>/select2/select2.js'
         ],
         css: ['<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
           '<%= yeoman.bowerDir %>/ng-table/ng-table.css',
