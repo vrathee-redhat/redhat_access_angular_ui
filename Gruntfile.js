@@ -75,7 +75,8 @@ module.exports = function (grunt) {
           '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js'
         ],
         css: ['<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
-          '<%= yeoman.bowerDir %>/ng-table/ng-table.css'
+          '<%= yeoman.bowerDir %>/ng-table/ng-table.css',
+          '<%= yeoman.bowerDir %>/select2/select2.css'
         ],
         img: ['<%= yeoman.bowerDir %>/angular-treeview/img/*']
       },
