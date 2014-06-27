@@ -105,19 +105,23 @@ angular.module('RedhatAccess.cases')
        *  See securityService.
        */
       this.populateUsers = angular.bind(this, function () {
-        this.usersLoading = true;
+        if (securityService.userAllowedToManage()) {
+          this.usersLoading = true;
 
-        strataService.accounts.users(securityService.loginStatus.account.number).then(
-            angular.bind(this, function(users) {
-              this.usersLoading = false;
-              this.users = users;
-            }),
-            angular.bind(this, function(error) {
-              this.usersLoading = false;
-              this.users = [];
-              AlertService.addStrataErrorMessage(error);
-            })
-        );
+          strataService.accounts.users(securityService.loginStatus.account.number).then(
+              angular.bind(this, function(users) {
+                this.usersLoading = false;
+                this.users = users;
+              }),
+              angular.bind(this, function(error) {
+                this.usersLoading = false;
+                this.users = [];
+                AlertService.addStrataErrorMessage(error);
+              })
+          );
+        } else {
+          this.users = [];
+        }
       });
 
       this.refreshComments;
