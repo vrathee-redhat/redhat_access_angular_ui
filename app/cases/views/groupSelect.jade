@@ -8,7 +8,7 @@ x-rha-select-loading-indicator(loading='groupsLoading', type='select2')
     style='width: 100%')
     option(value='') All Groups
     option(value='{{CASE_GROUPS.ungrouped}}') Ungrouped Cases
-    option(disabled) ────────────────────────────────────────
+    option(disabled, ng-hide='CaseService.groups.length < 1') ────────────────────────────────────────
     option(ng-repeat='group in CaseService.groups' value='{{group.number}}') {{group.name}}
-    option(disabled) ────────────────────────────────────────
-    option(value='{{CASE_GROUPS.manage}}') Manage Case Groups
+    option(ng-if='securityService.userAllowedToManage()', disabled) ────────────────────────────────────────
+    option(ng-if='securityService.userAllowedToManage()', value='{{CASE_GROUPS.manage}}') Manage Case Groups

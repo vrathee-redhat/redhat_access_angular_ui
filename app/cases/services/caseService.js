@@ -6,7 +6,8 @@ angular.module('RedhatAccess.cases')
     'AlertService',
     'ENTITLEMENTS',
     'RHAUtils',
-    function(strataService, AlertService, ENTITLEMENTS, RHAUtils) {
+    'securityService',
+    function(strataService, AlertService, ENTITLEMENTS, RHAUtils, securityService) {
       this.
       case = {};
       this.versions = [];
@@ -98,28 +99,26 @@ angular.module('RedhatAccess.cases')
       };
 
       this.usersLoading = false;
-      this.populateUsers = function () {
+
+      /**
+       *  Intended to be called only after user is logged in and has account details
+       *  See securityService.
+       */
+      this.populateUsers = angular.bind(this, function () {
         this.usersLoading = true;
 
-        //TODO: probably don't need this extra call. Check if the account num already exists
-        //      otherwise get it.
-        var getAccountNumber = function() {
-          return strataService.accounts.list().then(
-              function(accountNumber) {
-                return accountNumber;
-              });
-        };
-
-        var getUsers = angular.bind(this, function(accountNumber) {
-          return strataService.accounts.users(accountNumber).then(
+        strataService.accounts.users(securityService.loginStatus.account.number).then(
             angular.bind(this, function(users) {
               this.usersLoading = false;
               this.users = users;
-            }));
-        });
-
-        getAccountNumber().then(getUsers);
-      };
+            }),
+            angular.bind(this, function(error) {
+              this.usersLoading = false;
+              this.users = [];
+              AlertService.addStrataErrorMessage(error);
+            })
+        );
+      });
 
       this.refreshComments;
 

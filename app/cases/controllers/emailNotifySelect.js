@@ -12,6 +12,7 @@ angular.module('RedhatAccess.cases')
   function($scope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils) {
 
     $scope.securityService = securityService;
+    $scope.CaseService = CaseService;
 
     $scope.updateNotifyUsers = function() {
       if (!angular.equals(CaseService.updatedNotifiedUsers, CaseService.originalNotifiedUsers)) {
@@ -52,6 +53,6 @@ angular.module('RedhatAccess.cases')
       }
     };
 
-    CaseService.populateUsers();
+    securityService.registerAfterLoginEvent(CaseService.populateUsers);
   }
 ]);
