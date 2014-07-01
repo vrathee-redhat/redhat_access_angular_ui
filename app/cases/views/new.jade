@@ -113,10 +113,9 @@ div.container-offset
                 div.col-xs-12
                   div Attachments:
               div.bottom-border
-                div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
-                  div.row.create-field(style='overflow: auto')
-                    div.col-xs-12
-                      rha-list-new-attachments
+                div.row.create-field(style='overflow: auto')
+                  div.col-xs-12
+                    rha-list-new-attachments
                 div.row.create-field(ng-hide='submittingCase')
                   div.col-xs-12
                     rha-attach-local-file(disabled='submittingCase')

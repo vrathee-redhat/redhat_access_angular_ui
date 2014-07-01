@@ -1,11 +1,19 @@
 'use strict';
 angular.module('RedhatAccess.cases')
-  .controller('BackEndAttachmentsCtrl', ['$scope', 'TreeViewSelectorData', 'AttachmentsService',
-    function ($scope, TreeViewSelectorData, AttachmentsService) {
+  .controller('BackEndAttachmentsCtrl', ['$scope', '$location', 'TreeViewSelectorData', 'AttachmentsService', 'NEW_CASE_CONFIG', 'EDIT_CASE_CONFIG',
+    function ($scope, $location, TreeViewSelectorData, AttachmentsService, NEW_CASE_CONFIG, EDIT_CASE_CONFIG) {
       $scope.name = 'Attachments';
       $scope.attachmentTree = [];
+
+      var newCase = false;
+      var editCase = false;
       
-      if (!$scope.rhaDisabled) {
+      if($location.path().indexOf('new') > -1 ){
+        newCase = true;
+      } else{
+        editCase = true;
+      }
+      if (!$scope.rhaDisabled && newCase && NEW_CASE_CONFIG.showServerSideAttachments || !$scope.rhaDisabled && editCase && EDIT_CASE_CONFIG.showServerSideAttachments) {
         TreeViewSelectorData.getTree('attachments').then(
           function (tree) {
             $scope.attachmentTree = tree;
