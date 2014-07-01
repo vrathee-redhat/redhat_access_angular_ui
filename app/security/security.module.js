@@ -39,20 +39,20 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     logoutURL: ""
   })
   .service('securityService', [
-      '$rootScope', 
-      '$modal', 
-      'AUTH_EVENTS', 
-      '$q', 
-      'LOGIN_VIEW_CONFIG', 
+      '$rootScope',
+      '$modal',
+      'AUTH_EVENTS',
+      '$q',
+      'LOGIN_VIEW_CONFIG',
       'SECURITY_CONFIG',
       'strataService',
       'RHAUtils',
     function (
-      $rootScope, 
-      $modal, 
-      AUTH_EVENTS, 
-      $q, 
-      LOGIN_VIEW_CONFIG, 
+      $rootScope,
+      $modal,
+      AUTH_EVENTS,
+      $q,
+      LOGIN_VIEW_CONFIG,
       SECURITY_CONFIG,
       strataService,
       RHAUtils) {
@@ -72,9 +72,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
       this.logoutURL = SECURITY_CONFIG.logoutURL;
 
       this.setLoginStatus = function (
-        isLoggedIn, 
-        userName, 
-        verifying, 
+        isLoggedIn,
+        userName,
+        verifying,
         isInternal,
         orgAdmin,
         hasChat,
@@ -126,7 +126,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
 
       this.userAllowedToManage = function(user) {
         if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account))
-              && ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
+              && ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin) || !this.loginStatus.has_group_acls)) {
             return true;
         } else {
           return false;
@@ -180,9 +180,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
           angular.bind(this, function (result, authedUser) {
             if (result) {
               that.setLoginStatus(
-                true, 
-                authedUser.name, 
-                false, 
+                true,
+                authedUser.name,
+                false,
                 authedUser.is_internal,
                 authedUser.org_admin,
                 authedUser.has_chat,
@@ -196,7 +196,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                       that.setAccount(account)
 
                       angular.forEach(
-                        that.postLoginEvents, 
+                        that.postLoginEvents,
                         function(callback) {
                           callback();
                         });
@@ -204,7 +204,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                       this.loggingIn = false;
                       defer.resolve(authedUser.name);
                     })
-                  );   
+                  );
                 }),
                 angular.bind(this, function(error) {
                   AlertService.addStrataErrorMessage(error);
