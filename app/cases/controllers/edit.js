@@ -86,12 +86,7 @@ angular.module('RedhatAccess.cases')
               );
             }
 
-            if (RHAUtils.isNotEmpty(caseJSON.notified_users)) {
-              angular.forEach(caseJSON.notified_users.link, function(user) {
-                CaseService.originalNotifiedUsers.push(user.sso_username);
-              });
-              CaseService.updatedNotifiedUsers = CaseService.originalNotifiedUsers;
-            }
+            CaseService.defineNotifiedUsers();
           }
       );
 

@@ -64,6 +64,32 @@ angular.module('RedhatAccess.cases')
         this.account = account;
       };
 
+      this.defineNotifiedUsers = function() {
+        this.updatedNotifiedUsers.push(this.
+          case.contact_sso_username);
+
+        //hide the X button for the case owner
+        $('#rha-email-notify-select').on('change', angular.bind(this, function(e) {
+          $('x-rha-email-notify-select .select2-choices li:contains("' + this.
+            case.contact_sso_username + '") a').css('display', 'none');
+          $('x-rha-email-notify-select .select2-choices li:contains("' + this.
+            case.contact_sso_username + '")').css('padding-left', '5px');
+        }));
+
+        if (RHAUtils.isNotEmpty(this.
+            case.notified_users)) {
+
+          angular.forEach(this.
+              case.notified_users.link, 
+            angular.bind(this, function(user) {
+              this.originalNotifiedUsers.push(user.sso_username);
+            })
+          );
+          this.updatedNotifiedUsers = 
+            this.updatedNotifiedUsers.concat(this.originalNotifiedUsers);
+        }
+      };
+
       this.getGroups = function() {
         return this.groups;
       };

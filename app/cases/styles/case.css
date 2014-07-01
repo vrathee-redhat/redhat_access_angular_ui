@@ -198,9 +198,13 @@ div#rha-case-search-result .hover:hover {
     background-color: #f5f5f5;
 }
 
-.select2-search-choice-close {
+div#rha-case-search .select2-search-choice-close {
     display: block !important;
     top: 6px !important;
+}
+
+div#rha-case-search .select2-chosen {
+    margin-right: 40px !important;
 }
 
 .select2-disabled {

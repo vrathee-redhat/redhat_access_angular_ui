@@ -9,6 +9,7 @@ select(
   ng-disabled='updatingList',
   ng-model='CaseService.updatedNotifiedUsers',
   ng-change='updateNotifyUsers()',
+  id='rha-email-notify-select',
   style='width: 100%')
   option(ng-repeat='user in CaseService.users') 
     {{user.sso_username}}
