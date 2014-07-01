@@ -3,14 +3,14 @@ div.container-offset
     x-rha-header(page='newCase')
     div.row
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
-        div.container-fluid.side-padding
-          div.create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
-            div.row.create-field(ng-show='securityService.loginStatus.isInternal')
+        div.container-fluid.rha-side-padding
+          div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
+            div.row.rha-create-field(ng-show='securityService.loginStatus.isInternal')
               div.col-md-4
                 div Account: 
               div.col-md-8
                 x-rha-account-select
-            div.row.create-field
+            div.row.rha-create-field
               div.col-md-4
                 div Product:
               div.col-md-8
@@ -22,7 +22,7 @@ div.container-offset
                     ng-change='getProductVersions(CaseService.case.product)',
                     ng-options='p.name for p in products track by p.code',
                     ng-blur='getRecommendations()')
-            div.row.create-field
+            div.row.rha-create-field
               div.col-md-4
                 div Product Version:
               div.col-md-8
@@ -35,7 +35,7 @@ div.container-offset
                       ng-change='validateForm()',
                       ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase',
                       ng-blur='getRecommendations()')
-            div.row.create-field
+            div.row.rha-create-field
               div.col-md-4
                 div Summary:
               div.col-md-8
@@ -46,7 +46,7 @@ div.container-offset
                   ng-change='validateForm()',
                   ng-model='CaseService.case.summary',
                   ng-blur='getRecommendations()')
-            div.row.create-field
+            div.row.rha-create-field
               div.col-md-4
                 div Description:
               div.col-md-8
@@ -62,23 +62,23 @@ div.container-offset
                   style='float: right',
                   ng-click='doNext()',
                   ng-disabled='incomplete') Next
-          div.create-case-section(ng-class='{"hidden": isPage1}', id='rha-case-wizard-page-1')
-            div.bottom-border
+          div.rha-create-case-section(ng-class='{"hidden": isPage1}', id='rha-case-wizard-page-1')
+            div.rha-bottom-border
               div.row
                 div.col-xs-12
-                  div.bold(style='margin-bottom: 10px;') {{CaseService.case.product.name}} {{CaseService.case.version}}
+                  div.rha-bold(style='margin-bottom: 10px;') {{CaseService.case.product.name}} {{CaseService.case.version}}
               div.row
                 div.col-xs-12
-                  div.bold(style='font-size: 90%; margin-bottom: 4px;') {{CaseService.case.summary}}
+                  div.rha-bold(style='font-size: 90%; margin-bottom: 4px;') {{CaseService.case.summary}}
               div.row
                 div.col-xs-12
                   div(style='font-size: 85%') {{CaseService.case.description}}
-            div.row.create-field
+            div.row.rha-create-field
               div.col-md-4 Support Level:
               div.col-md-8(ng-show='CaseService.entitlements.length <= 1') {{CaseService.entitlements[0]}}
               div.col-md-8(ng-hide='CaseService.entitlements.length <= 1')
                 x-rha-entitlement-select
-            div.row.create-field
+            div.row.rha-create-field
               div.col-md-4 Severity:
               div.col-md-8
                 x-rha-loading-indicator(loading='severitiesLoading')
@@ -89,16 +89,16 @@ div.container-offset
                     ng-disabled='submittingCase',
                     ng-options='s.name for s in CaseService.severities track by s.name')
             div(ng-show='CaseService.showFts()', style='padding-left: 30px;')
-              div.row.create-field
+              div.row.rha-create-field
                 div.col-md-12 
                   span 24x7 Support:
                   input(type='checkbox', ng-model='CaseService.fts', style='display: inline-block; padding-left: 10px;')
-              div.row.create-field(ng-show='CaseService.fts')
+              div.row.rha-create-field(ng-show='CaseService.fts')
                 div.col-md-4
                   div 24x7 Contact:
                 div.col-md-8
                   input.form-control(ng-model='CaseService.fts_contact')
-            div.row.create-field
+            div.row.rha-create-field
               div.col-md-4 Case Group:
               div.col-md-8
                 x-rha-loading-indicator(loading='groupsLoading')
@@ -109,17 +109,17 @@ div.container-offset
                     ng-change='validatePage2()',
                     ng-options='g.name for g in groups track by g.number')
             div(ng-show='NEW_CASE_CONFIG.showAttachments')
-              div.row.create-field
+              div.row.rha-create-field
                 div.col-xs-12
                   div Attachments:
-              div.bottom-border
-                div.row.create-field(style='overflow: auto')
+              div.rha-bottom-border
+                div.row.rha-create-field(style='overflow: auto')
                   div.col-xs-12
                     rha-list-new-attachments
-                div.row.create-field(ng-hide='submittingCase')
+                div.row.rha-create-field(ng-hide='submittingCase')
                   div.col-xs-12
                     rha-attach-local-file(disabled='submittingCase')
-                div.row.create-field(ng-hide='submittingCase')
+                div.row.rha-create-field(ng-hide='submittingCase')
                   div.col-xs-12
                     div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
                       div.server-attach-header Server File(s) To Attach:

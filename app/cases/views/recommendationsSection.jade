@@ -1,9 +1,9 @@
 div#rha-recommendation-section
-  div.section-header(style='margin-bottom: 10px;')
+  div.rha-section-header(style='margin-bottom: 10px;')
     h4(style='display: inline; padding-right: 10px;') Recommendations
     span.rha-search-spinner-sm(style='display: inline-block; height: 11px; width: 11px;', ng-show='RecommendationsService.loadingRecommendations')
   span.rha-search-spinner(ng-show='loading')
-  div.container-fluid.side-padding(ng-hide='loading')
+  div.container-fluid.rha-side-padding(ng-hide='loading')
     div.row
       div(ng-repeat='recommendation in recommendationsOnScreen')
         div.col-xs-3
@@ -15,7 +15,7 @@ div#rha-recommendation-section
                   ng-click='pinRecommendation(recommendation, $index, $event)',
                   style='cursor: pointer;')&nbsp;
               div(style='display: table-cell')
-                div.bold {{recommendation.title}}
+                div.rha-bold {{recommendation.title}}
                 div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.html | recommendationsResolution}}
                 a(href='{{recommendation.view_uri}}', target='_blank') View full article in new window
     div.row(style='padding-top: 10px;', ng-hide='recommendationsOnScreen.length == 0')
