@@ -39,6 +39,7 @@ angular.module('RedhatAccess.cases')
 
     this.clear = function() {
       this.cases = [];
+      this.oldParams = {};
       SearchBoxService.searchTerm = '';
     };
 

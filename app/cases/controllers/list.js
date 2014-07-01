@@ -73,6 +73,7 @@ angular.module('RedhatAccess.cases')
       AlertService.clearAlerts();
     });
 
+    SearchCaseService.clear();
     SearchBoxService.doSearch();
   }
 ]);
