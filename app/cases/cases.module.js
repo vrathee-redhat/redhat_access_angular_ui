@@ -2,6 +2,7 @@
 angular.module('RedhatAccess.cases', [
   'ui.router',
   'ui.bootstrap',
+  'ui.select2',
   'ngTable',
   'RedhatAccess.template',
   'RedhatAccess.security',
@@ -25,7 +26,8 @@ angular.module('RedhatAccess.cases', [
 })
 .value('NEW_CASE_CONFIG', {
   'showRecommendations': true,
-  'showAttachments': true
+  'showAttachments': true,
+  'showServerSideAttachments': true
 })
 .value('EDIT_CASE_CONFIG', {
   'showDetails': true,
@@ -33,7 +35,8 @@ angular.module('RedhatAccess.cases', [
   'showBugzillas': true,
   'showAttachments': true,
   'showRecommendations': true,
-  'showComments': true
+  'showComments': true,
+  'showServerSideAttachments': true
 })
 .config([
   '$stateProvider',

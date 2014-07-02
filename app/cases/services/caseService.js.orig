@@ -7,8 +7,12 @@ angular.module('RedhatAccess.cases')
     'AlertService',
     'ENTITLEMENTS',
     'RHAUtils',
+<<<<<<< HEAD
+    function(strataService, securityService, AlertService, ENTITLEMENTS, RHAUtils) {
+=======
     'securityService',
     function(strataService, AlertService, ENTITLEMENTS, RHAUtils, securityService) {
+>>>>>>> upstream/master
       this.
       case = {};
       this.versions = [];

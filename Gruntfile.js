@@ -72,10 +72,13 @@ module.exports = function (grunt) {
           '<%= yeoman.bowerDir %>/angular-bootstrap/ui-bootstrap-tpls.js',
           '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
           '<%= yeoman.bowerDir %>/ng-table/ng-table.js',
-          '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js'
+          '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js',
+          '<%= yeoman.bowerDir %>/angular-ui-select2/src/select2.js',
+          '<%= yeoman.bowerDir %>/select2/select2.js'
         ],
         css: ['<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
-          '<%= yeoman.bowerDir %>/ng-table/ng-table.css'
+          '<%= yeoman.bowerDir %>/ng-table/ng-table.css',
+          '<%= yeoman.bowerDir %>/select2/select2.css'
         ],
         img: ['<%= yeoman.bowerDir %>/angular-treeview/img/*']
       },
@@ -127,7 +130,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -413,20 +416,32 @@ module.exports = function (grunt) {
       },
       images: {
         files: [{
-          expand: true,
-          flatten: true,
-          nonull: true,
-          src: '<%= src.img %>',
-          dest: '<%= yeoman.dist %>/img/',
-          filter: 'isFile'
-        }, {
-          expand: true,
-          flatten: true,
-          nonull: true,
-          src: '<%= src.thirdParty.img %>',
-          dest: '<%= yeoman.dist %>/img/',
-          filter: 'isFile'
-        }]
+            expand: true,
+            flatten: true,
+            nonull: true,
+            src: '<%= src.img %>',
+            dest: '<%= yeoman.dist %>/img/',
+            filter: 'isFile'
+          }, {
+            expand: true,
+            flatten: true,
+            nonull: true,
+            src: '<%= src.thirdParty.img %>',
+            dest: '<%= yeoman.dist %>/img/',
+            filter: 'isFile'
+          },
+          //this is a hack to get past image embedd issue with select2 package - need to revisit.
+          {
+            expand: true,
+            flatten: true,
+            nonull: true,
+            src: '<%= yeoman.bowerDir%>/select2/{select2.png,select2-spinner.gif,select2x2.png}',
+            dest: '<%= yeoman.dist %>/styles',
+            filter: 'isFile'
+          }
+
+
+        ]
       }
     },
 
@@ -450,6 +465,7 @@ module.exports = function (grunt) {
         src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>.css'],
         dest: '<%= yeoman.dist %>/styles/<%= pkg.name %>-embedded-images.css',
         options: {
+          //baseDir : '<%= yeoman.dist %>/',
           deleteAfterEncoding: false
         }
       },

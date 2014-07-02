@@ -16,7 +16,7 @@ div#rha-recommendation-section
                   style='cursor: pointer;')&nbsp;
               div(style='display: table-cell')
                 div.bold {{recommendation.title}}
-                div(ng-bind-html='recommendation.resolution.html | recommendationsResolution', style='padding: 8px 0;word-wrap:break-word;') 
+                div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.html | recommendationsResolution}}
                 a(href='{{recommendation.view_uri}}', target='_blank') View full article in new window
     div.row(style='padding-top: 10px;', ng-hide='recommendationsOnScreen.length == 0')
       div.col-xs-12

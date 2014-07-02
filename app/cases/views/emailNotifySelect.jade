@@ -1,0 +1,19 @@
+h4.section-header Email Notification Recipients
+span.rha-search-spinner(
+  ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn', 
+  style='margin-left: 5px;')
+select(
+  ui-select2,
+  multiple,
+  ng-show='securityService.userAllowedToManage() && securityService.loginStatus.isLoggedIn && !CaseService.usersLoading && !securityService.loggingIn',
+  ng-disabled='updatingList',
+  ng-model='CaseService.updatedNotifiedUsers',
+  ng-change='updateNotifyUsers()',
+  style='width: 100%')
+  option(ng-repeat='user in CaseService.users') 
+    {{user.sso_username}}
+div(ng-if='!securityService.userAllowedToManage() && !securityService.loggingIn')
+  div.well(style='display: inline-block; width: 100%; padding: 6px;')
+    span.well.well-sm(
+      ng-repeat='user in CaseService.updatedNotifiedUsers', 
+      style='display: inline-block; word-wrap: break-word; padding: 4px; margin: 2px;') {{user}}

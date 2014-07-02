@@ -87,7 +87,7 @@ angular.module('RedhatAccess.cases')
           caseJSON.status = CaseService.case.status.name;
         }
         if (CaseService.case.alternate_id != null) {
-          caseJSON.alternate_id = CaseService.case.alternate_id;
+          caseJSON.alternateId = CaseService.case.alternate_id;
         }
         if (CaseService.case.product != null) {
           caseJSON.product = CaseService.case.product.name;

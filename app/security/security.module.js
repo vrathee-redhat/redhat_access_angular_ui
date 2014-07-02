@@ -34,23 +34,75 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
   })
   .value('SECURITY_CONFIG', {
     displayLoginStatus: true,
-    autoCheckLogin: true
+    autoCheckLogin: true,
+    loginURL: "",
+    logoutURL: ""
   })
-  .service('securityService', ['$rootScope', '$modal', 'AUTH_EVENTS', '$q', 'LOGIN_VIEW_CONFIG',
-    function ($rootScope, $modal, AUTH_EVENTS, $q, LOGIN_VIEW_CONFIG) {
+  .service('securityService', [
+      '$rootScope', 
+      '$modal', 
+      'AUTH_EVENTS', 
+      '$q', 
+      'LOGIN_VIEW_CONFIG', 
+      'SECURITY_CONFIG',
+      'strataService',
+      'RHAUtils',
+    function (
+      $rootScope, 
+      $modal, 
+      AUTH_EVENTS, 
+      $q, 
+      LOGIN_VIEW_CONFIG, 
+      SECURITY_CONFIG,
+      strataService,
+      RHAUtils) {
 
       this.loginStatus = {
         isLoggedIn: false,
         loggedInUser: '',
         verifying: false,
-        isInternal: false
+        isInternal: false,
+        orgAdmin: false,
+        hasChat: false,
+        sessionId: '',
+        canAddAttachments: false
       };
 
-      this.setLoginStatus = function (isLoggedIn, userName, verifying, isInternal) {
+      this.loginURL = SECURITY_CONFIG.loginURL;
+      this.logoutURL = SECURITY_CONFIG.logoutURL;
+
+      this.setLoginStatus = function (
+        isLoggedIn, 
+        userName, 
+        verifying, 
+        isInternal,
+        orgAdmin,
+        hasChat,
+        sessionId,
+        canAddAttachments) {
         this.loginStatus.isLoggedIn = isLoggedIn;
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
         this.loginStatus.isInternal = isInternal;
+        this.loginStatus.orgAdmin = orgAdmin;
+        this.loginStatus.hasChat = hasChat;
+        this.loginStatus.sessionId = sessionId;
+        this.loginStatus.canAddAttachments = canAddAttachments;
+      };
+
+      this.clearLoginStatus = function() {
+        this.isLoggedIn = false;
+        this.loggedInUser = '';
+        this.verifying = false;
+        this.isInternal = false;
+        this.orgAdmin = false;
+        this.hasChat = false;
+        this.sessionId = '';
+        this.canAddAttachments = false;
+      };
+
+      this.setAccount = function(accountJSON) {
+        this.loginStatus.account = accountJSON;
       };
 
       var modalDefaults = {
@@ -69,6 +121,33 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         backdrop: 'static'
 
       };
+
+      this.postLoginEvents = [];
+
+      this.userAllowedToManage = function(user) {
+        if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account))
+              && ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
+            return true;
+        } else {
+          return false;
+        }
+      }
+
+      this.registerAfterLoginEvent = function(func, scope) {
+        if (this.loginStatus.isLoggedIn) {
+          if (RHAUtils.isNotEmpty(scope)) {
+            angular.bind(scope, func());
+          } else {
+            func();
+          }
+        } else {
+          if (RHAUtils.isNotEmpty(scope)) {
+            this.postLoginEvents.push(angular.bind(scope, func));
+          } else {
+            this.postLoginEvents.push(func);
+          }
+        }
+      }
 
       this.getBasicAuthToken = function () {
         var defer = $q.defer();
@@ -89,20 +168,56 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         }
       };
 
+      this.loggingIn = false;
+
       this.initLoginStatus = function () {
+        this.loggingIn = true;
+
         var defer = $q.defer();
         var that = this;
         this.loginStatus.verifying = true;
         strata.checkLogin(
-          function (result, authedUser) {
+          angular.bind(this, function (result, authedUser) {
             if (result) {
-              that.setLoginStatus(true, authedUser.name, false, authedUser.is_internal);
-              defer.resolve(authedUser.name);
+              that.setLoginStatus(
+                true, 
+                authedUser.name, 
+                false, 
+                authedUser.is_internal,
+                authedUser.org_admin,
+                authedUser.has_chat,
+                authedUser.session_id,
+                authedUser.can_add_attachments);
+
+              strataService.accounts.list().then(
+                angular.bind(this, function(accountNumber) {
+                  strataService.accounts.get(accountNumber).then(
+                    angular.bind(this, function(account) {
+                      that.setAccount(account)
+
+                      angular.forEach(
+                        that.postLoginEvents, 
+                        function(callback) {
+                          callback();
+                        });
+
+                      this.loggingIn = false;
+                      defer.resolve(authedUser.name);
+                    })
+                  );   
+                }),
+                angular.bind(this, function(error) {
+                  AlertService.addStrataErrorMessage(error);
+                  this.loggingIn = false;
+                  defer.resolve(authedUser.name);
+                })
+              );
             } else {
-              that.setLoginStatus(false, '', false, false);
+              this.loggingIn = false;
+              that.clearLoginStatus();
               defer.reject('');
             }
-          }
+          })
         );
         return defer.promise;
       };
@@ -150,14 +265,14 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
           },
           function (error) {
             console.log('Unable to login user');
-            that.setLoginStatus(false, '', false, false);
+            that.clearLoginStatus();
           });
         return result; // pass on the promise
       };
 
       this.logout = function () {
         strata.clearCredentials();
-        this.setLoginStatus(false, '', false, false);
+        this.clearLoginStatus();
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
       };
 
