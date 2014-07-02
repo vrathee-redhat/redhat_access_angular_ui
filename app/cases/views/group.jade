@@ -1,7 +1,7 @@
 
 div#redhat-access-case.container-offset
   x-rha-header(page='manageGroups')
-  div.container-fluid.side-padding(ng-show='securityService.loginStatus.isLoggedIn')
+  div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn')
     div.row(style='padding-bottom: 20px;')
       div.col-xs-6
         x-rha-search-box(placeholder='"Search Groups"')

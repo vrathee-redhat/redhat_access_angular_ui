@@ -1,23 +1,22 @@
-h4.section-header Attachments
+h4.rha-section-header Attachments
 span.rha-search-spinner(ng-show='loading')
-div.container-fluid.side-padding(ng-hide='loading')
-  div.row.side-padding
-    div.col-xs-12.col-no-padding
+div.container-fluid.rha-side-padding(ng-hide='loading')
+  div.row.rha-side-padding
+    div.col-xs-12.rha-col-no-padding
       rha-list-attachments
-  div(ng-show='showServerSideAttachments')
+  div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; margin: 0;')
+  div(ng-hide='AttachmentsService.updatedAttachments.length <= 0 && TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0')
+    div.row.rha-side-padding
+      div.col-xs-12.rha-col-no-padding
+        rha-list-new-attachments
+    div.row.rha-side-padding
+      div.col-xs-12.rha-col-no-padding(style='padding-bottom: 14px;')
+        div(style='float: right')
+          span.rha-search-spinner(ng-show='updatingAttachments')
+          button.btn.btn-primary(
+            ng-hide='updatingAttachments',
+            ng-click='doUpdate()') Upload Attachments
     div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; margin: 0;')
-    div(ng-hide='AttachmentsService.updatedAttachments.length <= 0 && TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0')
-      div.row.side-padding
-        div.col-xs-12.col-no-padding
-          rha-list-new-attachments
-      div.row.side-padding
-        div.col-xs-12.col-no-padding(style='padding-bottom: 14px;')
-          div(style='float: right')
-            span.rha-search-spinner(ng-show='updatingAttachments')
-            button.btn.btn-primary(
-              ng-hide='updatingAttachments',
-              ng-click='doUpdate()') Upload Attachments
-      div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; margin: 0;')
   div.row
     div.col-xs-12
       rha-attach-local-file

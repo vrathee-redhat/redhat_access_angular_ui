@@ -598,12 +598,12 @@ module.exports = function (grunt) {
     //'uglify',
     //'rev',
     //'usemin',
-    'htmlmin'
+    'htmlmin',
+    'test'
   ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'test',
     'build'
   ]);
 };

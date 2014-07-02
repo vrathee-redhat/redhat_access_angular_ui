@@ -9,7 +9,7 @@ th {
     border-top: none;
 }
 
-.section-header {
+.rha-section-header {
     padding: 0;
     border-bottom: solid 1px;
     border-color: grey;
@@ -19,45 +19,36 @@ th {
     /*padding: 0 15px;*/
 }
 
-.comment-creator {
+.rha-bold {
     font-weight: bold;
 }
 
-.bold {
-    font-weight: bold;
-}
-
-.create-field {
+.rha-create-field {
     padding-bottom: 8px;
 }
 
-.bottom-border {
+.rha-bottom-border {
     margin-bottom: 14px;
     padding-bottom: 7px;
     border-bottom: 1px solid #cccccc;
 }
 
-.create-case-section {
+.rha-create-case-section {
     padding: 10px 0;
 }
 
-.col-no-padding {
+.rha-col-no-padding {
     padding-left: 0px;
     padding-right: 0px;
 }
 
-.details-table-header {
+.rha-details-table-header {
     width: 40%;
 }
 
-.side-padding {
+.rha-side-padding {
     padding-left: 15px;
     padding-right: 15px;
-}
-
-.select-feedback {
-    left: -34px !important;
-    top: 0px !important;
 }
 
 div#redhat-access-case .has-feedback .form-control-feedback {
@@ -198,9 +189,13 @@ div#rha-case-search-result .hover:hover {
     background-color: #f5f5f5;
 }
 
-.select2-search-choice-close {
+div#rha-case-search .select2-search-choice-close {
     display: block !important;
     top: 6px !important;
+}
+
+div#rha-case-search .select2-chosen {
+    margin-right: 40px !important;
 }
 
 .select2-disabled {

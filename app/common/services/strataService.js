@@ -3,7 +3,7 @@
 /*jshint camelcase: false */
 /*jshint unused:vars */
 
-angular.module('RedhatAccess.cases')
+angular.module('RedhatAccess.common')
   .factory('strataService', ['$q', 'translate', 'RHAUtils',
     function ($q, translate, RHAUtils) {
 
