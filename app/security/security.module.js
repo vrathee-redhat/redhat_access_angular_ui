@@ -126,7 +126,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
 
       this.userAllowedToManage = function(user) {
         if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account))
-              && ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin) || !this.loginStatus.has_group_acls)) {
+              && ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
             return true;
         } else {
           return false;
