@@ -1,0 +1,14 @@
+div(ng-show='securityService.loginStatus.isInternal')
+  h4.section-header(style='padding-top: 20px;') Bugzilla Tickets
+  span.rha-search-spinner(ng-show='loading')
+  div(ng-hide='CaseService.bugzillaList.bugzilla.length > 0' , style='padding-bottom: 10px;') No linked bugzillas
+  div.panel.panel-default(ng-show='CaseService.bugzillaList.bugzilla.length > 0')
+    table.table.table-hover.table-bordered
+      thead
+        th Bugzilla Number
+        th Summary of Request
+      tbody   
+        tr(ng-repeat='bugzilla in CaseService.bugzillaList.bugzilla')
+          td 
+            a(href='{{bugzilla.resource_view_uri}}', target='_blank') {{bugzilla.bugzilla_number}}
+          td {{bugzilla.summary}}
