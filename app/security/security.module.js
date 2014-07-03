@@ -91,14 +91,14 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
       };
 
       this.clearLoginStatus = function() {
-        this.isLoggedIn = false;
-        this.loggedInUser = '';
-        this.verifying = false;
-        this.isInternal = false;
-        this.orgAdmin = false;
-        this.hasChat = false;
-        this.sessionId = '';
-        this.canAddAttachments = false;
+        this.loginStatus.isLoggedIn = false;
+        this.loginStatus.loggedInUser = '';
+        this.loginStatus.verifying = false;
+        this.loginStatus.isInternal = false;
+        this.loginStatus.orgAdmin = false;
+        this.loginStatus.hasChat = false;
+        this.loginStatus.sessionId = '';
+        this.loginStatus.canAddAttachments = false;
       };
 
       this.setAccount = function(accountJSON) {
