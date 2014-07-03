@@ -3,7 +3,6 @@
 angular.module('RedhatAccess.cases')
   .service('CaseService', [
     'strataService',
-    'securityService',
     'AlertService',
     'ENTITLEMENTS',
     'RHAUtils',
@@ -34,7 +33,7 @@ angular.module('RedhatAccess.cases')
       this.product = '';
       this.bugzillaList = {};
       
-      this.onSelectChanged;
+      this.onSelectChanged = null;
       /**
        * Add the necessary wrapper objects needed to properly display the data.
        *
@@ -70,11 +69,12 @@ angular.module('RedhatAccess.cases')
       };
 
       this.defineNotifiedUsers = function() {
+        /*jshint camelcase: false */
         this.updatedNotifiedUsers.push(this.
           case.contact_sso_username);
 
         //hide the X button for the case owner
-        $('#rha-email-notify-select').on('change', angular.bind(this, function(e) {
+        $('#rha-email-notify-select').on('change', angular.bind(this, function() {
           $('x-rha-email-notify-select .select2-choices li:contains("' + this.
             case.contact_sso_username + '") a').css('display', 'none');
           $('x-rha-email-notify-select .select2-choices li:contains("' + this.
@@ -156,10 +156,10 @@ angular.module('RedhatAccess.cases')
         }
       });
 
-      this.refreshComments;
+      this.refreshComments = null;
 
-      this.populateComments = function(case_number) {
-        var promise = strataService.cases.comments.get(case_number);
+      this.populateComments = function(caseNumber) {
+        var promise = strataService.cases.comments.get(caseNumber);
 
         promise.then(
             angular.bind(this, function(comments) {
@@ -167,7 +167,7 @@ angular.module('RedhatAccess.cases')
               angular.forEach(comments, angular.bind(this, function(comment, index) {
                 if (comment.draft === true) {
                   this.draftComment = comment;
-                  this.commentText = comment.text
+                  this.commentText = comment.text;
                   comments.slice(index, index + 1);
                 }
               }));
@@ -185,8 +185,8 @@ angular.module('RedhatAccess.cases')
       this.showFts = function() {
         if (RHAUtils.isNotEmpty(this.severities) && angular.equals(this.case.severity, this.severities[0])) {
           if (this.entitlement === ENTITLEMENTS.premium ||
-              (RHAUtils.isNotEmpty(this.case.entitlement) 
-                && this.case.entitlement.sla === ENTITLEMENTS.premium)) {
+              (RHAUtils.isNotEmpty(this.case.entitlement) && 
+               this.case.entitlement.sla === ENTITLEMENTS.premium)) {
             return true;
           }
         }
