@@ -256,7 +256,7 @@ angular.module('RedhatAccess.cases')
         }
 
         if (RHAUtils.isNotEmpty(CaseService.owner)) {
-          caseJSON.owner = CaseService.owner;
+          caseJSON.contactSsoUsername = CaseService.owner;
         }
 
         $scope.submittingCase = true;
@@ -274,7 +274,7 @@ angular.module('RedhatAccess.cases')
             function(caseNumber) {
               AlertService.clearAlerts();
               AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
-              if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && 
+              if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) &&
                 NEW_CASE_CONFIG.showAttachments) {
 
                 AttachmentsService.updateAttachments(caseNumber).then(
