@@ -5,11 +5,17 @@ div.container-offset
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.rha-side-padding
           div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
-            div.row.rha-create-field(ng-show='securityService.loginStatus.isInternal')
-              div.col-md-4
-                div Account: 
-              div.col-md-8
-                x-rha-account-select
+            div(ng-if='securityService.loginStatus.isInternal')
+              div.row.rha-create-field
+                div.col-md-4
+                  div Account: 
+                div.col-md-8
+                  x-rha-account-select
+              div.row.rha-create-field
+                div.col-md-4
+                  div Owner:
+                div.col-md-8
+                  x-rha-owner-select
             div.row.rha-create-field
               div.col-md-4
                 div Product:
@@ -32,7 +38,7 @@ div.container-offset
                       style='width: 100%;',
                       ng-model='CaseService.case.version',
                       ng-options='v for v in versions',
-                      ng-change='validateForm()',
+                      ng-change='CaseService.validateNewCasePage1()',
                       ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase',
                       ng-blur='getRecommendations()')
             div.row.rha-create-field
@@ -43,7 +49,7 @@ div.container-offset
                   id='rha-case-summary',
                   style='width: 100%;',
                   ng-disabled='!securityService.loginStatus.isLoggedIn',
-                  ng-change='validateForm()',
+                  ng-change='CaseService.validateNewCasePage1()',
                   ng-model='CaseService.case.summary',
                   ng-blur='getRecommendations()')
             div.row.rha-create-field
@@ -53,7 +59,7 @@ div.container-offset
                 textarea.form-control.description-box(
                   style='width: 100%; height: 200px; max-width: 100%;',
                   ng-model='CaseService.case.description',
-                  ng-change='validateForm()',
+                  ng-change='CaseService.validateNewCasePage1()',
                   ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
                   ng-blur='getRecommendations()')
             div.row
@@ -61,8 +67,8 @@ div.container-offset
                 button.btn.btn-primary(
                   style='float: right',
                   ng-click='doNext()',
-                  ng-disabled='incomplete') Next
-          div.rha-create-case-section(ng-class='{"hidden": isPage1}', id='rha-case-wizard-page-1')
+                  ng-disabled='CaseService.newCasePage1Incomplete') Next
+          div.rha-create-case-section(ng-class='{hidden: isPage1}', id='rha-case-wizard-page-2')
             div.rha-bottom-border
               div.row
                 div.col-xs-12
@@ -101,13 +107,7 @@ div.container-offset
             div.row.rha-create-field
               div.col-md-4 Case Group:
               div.col-md-8
-                x-rha-loading-indicator(loading='groupsLoading')
-                  select.form-control(
-                    style='width: 100%;',
-                    ng-disabled='submittingCase',
-                    ng-model='CaseService.case.group',
-                    ng-change='validatePage2()',
-                    ng-options='g.name for g in groups track by g.number')
+                x-rha-group-select(showsearchoptions='false')
             div(ng-show='NEW_CASE_CONFIG.showAttachments')
               div.row.rha-create-field
                 div.col-xs-12

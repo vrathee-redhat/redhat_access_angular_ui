@@ -27,15 +27,6 @@ angular.module('RedhatAccess.cases')
     $scope.CaseService = CaseService;
     $scope.CASE_GROUPS = CASE_GROUPS;
 
-    $scope.groupsLoading = true;
-    strataService.groups.list().then(
-      function(groups) {
-        $scope.groupsLoading = false;
-        CaseService.groups = groups;
-      },
-      function(error) {
-        $scope.groupsLoading = false;
-        AlertService.addStrataErrorMessage(error);
-      })
+    CaseService.populateGroups();
   }
 ]);

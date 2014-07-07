@@ -7,7 +7,8 @@ angular.module('RedhatAccess.cases')
     restrict: 'E',
     controller: 'GroupSelect',
     scope: {
-      onchange: '&'
+      onchange: '&',
+      showsearchoptions: '='
     }
   };
 });

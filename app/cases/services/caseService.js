@@ -7,7 +7,9 @@ angular.module('RedhatAccess.cases')
     'ENTITLEMENTS',
     'RHAUtils',
     'securityService',
-    function(strataService, AlertService, ENTITLEMENTS, RHAUtils, securityService) {
+    '$q',
+    '$filter',
+    function(strataService, AlertService, ENTITLEMENTS, RHAUtils, securityService, $q, $filter) {
       this.
       case = {};
       this.versions = [];
@@ -34,6 +36,8 @@ angular.module('RedhatAccess.cases')
       this.bugzillaList = {};
       
       this.onSelectChanged = null;
+      this.onOwnerSelectChanged = null;
+      this.onGroupSelectChanged = null;
       /**
        * Add the necessary wrapper objects needed to properly display the data.
        *
@@ -122,10 +126,18 @@ angular.module('RedhatAccess.cases')
         this.product = undefined;
       };
 
-      this.populateGroups = function() {
-        strataService.groups.list().then(
+      this.groupsLoading = false;
+
+      this.populateGroups = function(ssoUsername) {
+        this.groupsLoading = true;
+        strataService.groups.list(ssoUsername).then(
           angular.bind(this, function(groups) {
+            this.groupsLoading = false;
             this.groups = groups;
+          }),
+          angular.bind(this, function(error) {
+            this.groupsLoading = false;
+            AlertService.addStrataErrorMessage(error);
           })
         );
       };
@@ -137,10 +149,17 @@ angular.module('RedhatAccess.cases')
        *  See securityService.
        */
       this.populateUsers = angular.bind(this, function () {
+        var promise = null;
+
         if (securityService.userAllowedToManage()) {
           this.usersLoading = true;
 
-          strataService.accounts.users(securityService.loginStatus.account.number).then(
+          var accountNumber = 
+            RHAUtils.isEmpty(this.account.number) ? 
+              securityService.loginStatus.account.number : this.account.number;
+
+          promise = strataService.accounts.users(accountNumber);
+          promise.then(
               angular.bind(this, function(users) {
                 this.usersLoading = false;
                 this.users = users;
@@ -152,8 +171,14 @@ angular.module('RedhatAccess.cases')
               })
           );
         } else {
+          var deferred = $q.defer();
+          promise = deferred.promise;
+          deferred.resolve();
+
           this.users = [];
         }
+
+        return promise;
       });
 
       this.refreshComments = null;
@@ -182,6 +207,39 @@ angular.module('RedhatAccess.cases')
         return promise;
       };
 
+      this.entitlementsLoading = false;
+      this.populateEntitlements = function(ssoUserName) {
+        this.entitlementsLoading = true;
+        strataService.entitlements.get(false, ssoUserName).then(
+          angular.bind(this, function(entitlementsResponse) {
+            // if the user has any premium or standard level entitlement, then allow them
+            // to select it, regardless of the product.
+            // TODO: strata should respond with a filtered list given a product.
+            //       Adding the query param ?product=$PRODUCT does not work.
+            var premiumSupport = $filter('filter')(entitlementsResponse.entitlement, {'sla': ENTITLEMENTS.premium});
+            var standardSupport = $filter('filter')(entitlementsResponse.entitlement, {'sla': ENTITLEMENTS.standard});
+
+            var entitlements = [];
+            if (RHAUtils.isNotEmpty(premiumSupport)) {
+              entitlements.push(ENTITLEMENTS.premium);
+            }
+            if (RHAUtils.isNotEmpty(standardSupport)) {
+              entitlements.push(ENTITLEMENTS.standard);
+            }
+
+            if (entitlements.length === 0) {
+              entitlements.push(ENTITLEMENTS.default);
+            }
+
+            this.entitlements = entitlements;
+            this.entitlementsLoading = false;
+          }),
+          angular.bind(this, function(error) {
+            AlertService.addStrataErrorMessage(error);
+          })
+        );
+      };
+
       this.showFts = function() {
         if (RHAUtils.isNotEmpty(this.severities) && angular.equals(this.case.severity, this.severities[0])) {
           if (this.entitlement === ENTITLEMENTS.premium ||
@@ -191,6 +249,19 @@ angular.module('RedhatAccess.cases')
           }
         }
         return false;
+      };
+
+      this.newCasePage1Incomplete = true;
+      this.validateNewCasePage1 = function () {
+        if (RHAUtils.isEmpty(this.case.product) ||
+          RHAUtils.isEmpty(this.case.version) ||
+          RHAUtils.isEmpty(this.case.summary) ||
+          RHAUtils.isEmpty(this.case.description) ||
+          (securityService.loginStatus.isInternal && RHAUtils.isEmpty(this.owner))) {
+          this.newCasePage1Incomplete = true;
+        } else {
+          this.newCasePage1Incomplete = false;
+        }
       };
     }
   ]);

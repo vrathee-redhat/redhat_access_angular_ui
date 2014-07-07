@@ -10,11 +10,11 @@ angular.module('RedhatAccess.common')
       var errorHandler = function (message, xhr, response, status) {
 
         var translatedMsg = message;
-        console.log("Strata status is " + status)
+        console.log('Strata status is ' + status);
 
         switch (status) {
         case 'Unauthorized':
-          translatedMsg = translate("Unauthorized.");
+          translatedMsg = translate('Unauthorized.');
           break;
         // case n:
         //   code block
@@ -31,7 +31,7 @@ angular.module('RedhatAccess.common')
       return {
         entitlements: {
           //entitlements.get
-          get: function(showAll) {
+          get: function(showAll, ssoUserName) {
             var deferred = $q.defer();
 
             strata.entitlements.get(
@@ -39,7 +39,8 @@ angular.module('RedhatAccess.common')
               function (entitlements) {
                 deferred.resolve(entitlements);
               },
-              angular.bind(deferred, errorHandler)
+              angular.bind(deferred, errorHandler),
+              ssoUserName
             );
 
             return deferred.promise; 
@@ -113,14 +114,15 @@ angular.module('RedhatAccess.common')
         },
         groups: {
           //groups.list
-          list: function () {
+          list: function (ssoUserName) {
             var deferred = $q.defer();
 
             strata.groups.list(
               function (response) {
                 deferred.resolve(response);
               },
-              angular.bind(deferred, errorHandler)
+              angular.bind(deferred, errorHandler),
+              ssoUserName
             );
 
             return deferred.promise;
@@ -361,10 +363,10 @@ angular.module('RedhatAccess.common')
           //cases.filter
           filter: function (params) {
             var deferred = $q.defer();
-            if (params == null) {
+            if (RHAUtils.isEmpty(params)) {
               params = {};
             }
-            if (params.count == null) {
+            if (RHAUtils.isEmpty(params.count)) {
               params.count = 50;
             }
 
