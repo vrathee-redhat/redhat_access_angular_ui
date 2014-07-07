@@ -12,6 +12,7 @@ angular.module('RedhatAccess.cases')
   'SearchCaseService',
   'AlertService',
   'SearchBoxService',
+  'RHAUtils',
   '$filter',
   function(
       $scope,
@@ -24,6 +25,7 @@ angular.module('RedhatAccess.cases')
       SearchCaseService,
       AlertService,
       SearchBoxService,
+      RHAUtils,
       $filter) {
 
     $scope.securityService = securityService;
@@ -32,17 +34,20 @@ angular.module('RedhatAccess.cases')
     $scope.SearchCaseService = SearchCaseService;
 
     $scope.selectCase = function($index) {
-      if ($scope.selectedCaseIndex != $index) {
+      if ($scope.selectedCaseIndex !== $index) {
         $scope.selectedCaseIndex = $index;
       }
     };
 
     $scope.domReady = false; //used to notify resizable directive that the page has loaded
 
-    SearchBoxService.doSearch = CaseService.onSelectChanged = function() {
+    SearchBoxService.doSearch = 
+    CaseService.onSelectChanged = 
+    CaseService.onOwnerSelectChanged = 
+    CaseService.onGroupSelectChanged = function() {
       SearchCaseService.doFilter().then(
           function() {
-            if ($stateParams.id != null && $scope.selectedCaseIndex == -1) {
+            if (RHAUtils.isNotEmpty($stateParams.id) && $scope.selectedCaseIndex === -1) {
               var selectedCase =
                   $filter('filter')(
                       SearchCaseService.cases,

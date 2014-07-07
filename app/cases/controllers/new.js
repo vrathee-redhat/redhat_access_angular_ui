@@ -18,7 +18,6 @@ angular.module('RedhatAccess.cases')
     'RHAUtils',
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
-    'ENTITLEMENTS',
     function ($scope,
               $state,
               $q,
@@ -34,8 +33,7 @@ angular.module('RedhatAccess.cases')
               $location,
               RHAUtils,
               NEW_DEFAULTS,
-              NEW_CASE_CONFIG,
-              ENTITLEMENTS) {
+              NEW_CASE_CONFIG) {
 
       $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
       $scope.versions = [];
@@ -64,7 +62,7 @@ angular.module('RedhatAccess.cases')
                     function(recommendation) {
                       SearchResultsService.add(recommendation);
                     }
-                )
+                );
                 SearchResultsService.searchInProgress.value = false;
               },
               function(error) {
@@ -72,6 +70,13 @@ angular.module('RedhatAccess.cases')
               }
           );
         }
+      };
+
+      CaseService.onOwnerSelectChanged = function() {
+        CaseService.populateEntitlements(CaseService.owner);
+        CaseService.populateGroups(CaseService.owner);
+
+        CaseService.validateNewCasePage1();
       };
 
       /**
@@ -84,7 +89,7 @@ angular.module('RedhatAccess.cases')
               $scope.products = products;
               $scope.productsLoading = false;
 
-              if (NEW_DEFAULTS.product != null && NEW_DEFAULTS.product != '') {
+              if (RHAUtils.isNotEmpty(NEW_DEFAULTS.product)) {
                 CaseService.case.product = {
                   name: NEW_DEFAULTS.product,
                   code: NEW_DEFAULTS.product
@@ -113,7 +118,8 @@ angular.module('RedhatAccess.cases')
         $scope.groupsLoading = true;
         strataService.groups.list().then(
             function(groups) {
-              $scope.groups = groups;
+              /*jshint camelcase: false*/
+              CaseService.groups = groups;
               for(var i = 0; i < groups.length; i++){
                 if(groups[i].is_default){
                   CaseService.case.group = groups[i];
@@ -134,7 +140,7 @@ angular.module('RedhatAccess.cases')
         var setDesc = function(desc) {
           CaseService.case.description = desc;
           $scope.getRecommendations();
-        }
+        };
 
         if (searchObject.data){
           setDesc(searchObject.data);
@@ -145,7 +151,7 @@ angular.module('RedhatAccess.cases')
           var parameters = queryParamsStr.split('&');
           for (var i = 0; i < parameters.length; i++) {
             var parameterName = parameters[i].split('=');
-            if (parameterName[0] == 'data') {
+            if (parameterName[0] === 'data') {
               setDesc(decodeURIComponent(parameterName[1]));
             }
           }
@@ -161,23 +167,6 @@ angular.module('RedhatAccess.cases')
         AlertService.clearAlerts();
       });
 
-      /**
-       * Set $scope.incomplete to boolean based on state of form
-       */
-      $scope.validateForm = function () {
-        if (CaseService.case.product == null ||
-          CaseService.case.product == "" ||
-          CaseService.case.version == null ||
-          CaseService.case.version == "" ||
-          CaseService.case.summary == null ||
-          CaseService.case.summary == "" ||
-          CaseService.case.description == null ||
-          CaseService.case.description == "") {
-          $scope.incomplete = true;
-        } else {
-          $scope.incomplete = false;
-        }
-      };
 
       /**
        * Retrieve product's versions from strata
@@ -185,18 +174,18 @@ angular.module('RedhatAccess.cases')
        * @param product
        */
       $scope.getProductVersions = function (product) {
-        CaseService.case.version = "";
+        CaseService.case.version = '';
         $scope.versionDisabled = true;
         $scope.versionLoading = true;
 
         strataService.products.versions(product.code).then(
             function(response) {
               $scope.versions = response;
-              $scope.validateForm();
+              CaseService.validateNewCasePage1();
               $scope.versionDisabled = false;
               $scope.versionLoading = false;
 
-              if (NEW_DEFAULTS.version != null & NEW_DEFAULTS.version != '') {
+              if (RHAUtils.isNotEmpty(NEW_DEFAULTS.version)) {
                 CaseService.case.version = NEW_DEFAULTS.version;
                 $scope.getRecommendations();
               }
@@ -213,8 +202,8 @@ angular.module('RedhatAccess.cases')
        * @param page
        */
       $scope.gotoPage = function (page) {
-        $scope.isPage1 = page == 1 ? true : false;
-        $scope.isPage2 = page == 2 ? true : false;
+        $scope.isPage1 = page === 1 ? true : false;
+        $scope.isPage2 = page === 2 ? true : false;
       };
 
       /**
@@ -237,14 +226,18 @@ angular.module('RedhatAccess.cases')
        * Create the case with attachments
        */
       $scope.doSubmit = function () {
+        /*jshint camelcase: false */
         var caseJSON = {
           'product': CaseService.case.product.code,
           'version': CaseService.case.version,
           'summary': CaseService.case.summary,
           'description': CaseService.case.description,
           'severity': CaseService.case.severity.name,
-          'folderNumber': CaseService.case.group == null ? '' : CaseService.case.group.number
         };
+
+        if (RHAUtils.isNotEmpty(CaseService.group)) {
+          caseJSON.folderNumber = CaseService.group;
+        }
 
         if (RHAUtils.isNotEmpty(CaseService.entitlement)) {
           caseJSON.entitlement = {};
@@ -262,6 +255,10 @@ angular.module('RedhatAccess.cases')
           }
         }
 
+        if (RHAUtils.isNotEmpty(CaseService.owner)) {
+          caseJSON.owner = CaseService.owner;
+        }
+
         $scope.submittingCase = true;
         AlertService.addWarningMessage('Creating case...');
 
@@ -277,8 +274,8 @@ angular.module('RedhatAccess.cases')
             function(caseNumber) {
               AlertService.clearAlerts();
               AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
-              if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections())
-                  && NEW_CASE_CONFIG.showAttachments) {
+              if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && 
+                NEW_CASE_CONFIG.showAttachments) {
 
                 AttachmentsService.updateAttachments(caseNumber).then(
                   function() {

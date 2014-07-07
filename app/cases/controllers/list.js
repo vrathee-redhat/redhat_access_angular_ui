@@ -30,6 +30,7 @@ angular.module('RedhatAccess.cases')
     var tableBuilt = false;
 
     var buildTable = function() {
+      /*jshint newcap: false*/
       $scope.tableParams = new ngTableParams({
         page: 1,
         count: 10,
@@ -53,7 +54,10 @@ angular.module('RedhatAccess.cases')
       tableBuilt = true;
     };
 
-    SearchBoxService.doSearch = CaseService.onSelectChanged = function() {
+    SearchBoxService.doSearch = 
+    CaseService.onSelectChanged = 
+    CaseService.onOwnerSelectChanged = 
+    CaseService.onGroupSelectChanged = function() {
       SearchCaseService.doFilter().then(
           function() {
             if (!tableBuilt) {

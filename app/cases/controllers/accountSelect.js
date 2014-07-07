@@ -1,5 +1,4 @@
 'use strict';
-/*global $ */
 
 angular.module('RedhatAccess.cases')
 .controller('AccountSelect', [
@@ -7,7 +6,8 @@ angular.module('RedhatAccess.cases')
   'strataService',
   'AlertService',
   'CaseService',
-  function ($scope, strataService, AlertService, CaseService) {
+  'RHAUtils',
+  function ($scope, strataService, AlertService, CaseService, RHAUtils) {
 
     $scope.CaseService = CaseService;
 
@@ -22,6 +22,26 @@ angular.module('RedhatAccess.cases')
           $scope.loadingAccountNumber = false;
           AlertService.addStrataErrorMessage(error);
         });
+    };
+
+    $scope.alertInstance = null;
+    $scope.populateAccountSpecificFields = function() {
+      if (RHAUtils.isNotEmpty(CaseService.account.number)) {
+        strataService.accounts.get(CaseService.account.number).then(
+            function() {
+              if (RHAUtils.isNotEmpty($scope.alertInstance)) {
+                AlertService.removeAlert($scope.alertInstance);
+              }
+              CaseService.populateUsers();
+            },
+            function() {
+              if (RHAUtils.isNotEmpty($scope.alertInstance)) {
+                AlertService.removeAlert($scope.alertInstance);
+              }
+              $scope.alertInstance = AlertService.addWarningMessage('Account not found.');
+            }
+        );
+      }
     };
   }
 ]);

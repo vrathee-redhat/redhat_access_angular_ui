@@ -39,7 +39,10 @@ angular.module('RedhatAccess.cases')
           SearchCaseService.cases.slice(start, end);
     };
 
-    SearchBoxService.doSearch = CaseService.onSelectChanged = function() {
+    SearchBoxService.doSearch = 
+    CaseService.onSelectChanged = 
+    CaseService.onOwnerSelectChanged = 
+    CaseService.onGroupSelectChanged = function() {
       SearchCaseService.doFilter().then(
           function() {
             $scope.selectPage(1);      

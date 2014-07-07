@@ -4,7 +4,7 @@ div#rha-owner-select
       ui-select2,
       ng-disabled='!securityService.loginStatus.isLoggedIn',
       ng-model='CaseService.owner',
-      ng-change='CaseService.onSelectChanged()',
+      ng-change='CaseService.onOwnerSelectChanged()',
       style='width: 100%')
       option(ng-repeat='user in CaseService.users') 
         {{user.sso_username}}
