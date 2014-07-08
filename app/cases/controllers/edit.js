@@ -86,7 +86,9 @@ angular.module('RedhatAccess.cases')
               );
             }
 
-            CaseService.defineNotifiedUsers();
+            if (EDIT_CASE_CONFIG.showEmailNotifications) {
+                CaseService.defineNotifiedUsers();
+            }
           }
       );
 
