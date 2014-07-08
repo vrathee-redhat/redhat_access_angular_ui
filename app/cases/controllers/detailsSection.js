@@ -7,6 +7,7 @@ angular.module('RedhatAccess.cases')
   'CaseService',
   '$rootScope',
   'AUTH_EVENTS',
+  'CASE_EVENTS',
   'AlertService',
   'RHAUtils',
   function(
@@ -15,6 +16,7 @@ angular.module('RedhatAccess.cases')
       CaseService,
       $rootScope,
       AUTH_EVENTS,
+      CASE_EVENTS,
       AlertService,
       RHAUtils) {
 
@@ -32,7 +34,7 @@ angular.module('RedhatAccess.cases')
             }
         );
 
-        strataService.groups.list().then(
+        strataService.groups.list(CaseService.case.contact_sso_username).then(
             function(response) {
               $scope.groups = response;
             },
@@ -69,7 +71,6 @@ angular.module('RedhatAccess.cases')
           }
       );
     };
-    $scope.init();
 
     $scope.updatingDetails = false;
     $scope.updateCase = function() {
@@ -139,7 +140,7 @@ angular.module('RedhatAccess.cases')
       );
     };
 
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+    $rootScope.$on(CASE_EVENTS.received, function() {
       $scope.init();
       AlertService.clearAlerts();
     });

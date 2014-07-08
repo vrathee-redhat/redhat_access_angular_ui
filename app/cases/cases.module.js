@@ -11,6 +11,9 @@ angular.module('RedhatAccess.cases', [
   'RedhatAccess.common',
   'RedhatAccess.header'
 ])
+.constant('CASE_EVENTS', {
+  received: "case-received"
+})
 .constant('ENTITLEMENTS', {
   standard: 'STANDARD',
   premium: 'PREMIUM',
