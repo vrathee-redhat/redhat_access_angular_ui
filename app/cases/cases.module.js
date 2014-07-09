@@ -11,6 +11,9 @@ angular.module('RedhatAccess.cases', [
   'RedhatAccess.common',
   'RedhatAccess.header'
 ])
+.constant('CASE_EVENTS', {
+  received: "case-received"
+})
 .constant('ENTITLEMENTS', {
   standard: 'STANDARD',
   premium: 'PREMIUM',
@@ -37,7 +40,8 @@ angular.module('RedhatAccess.cases', [
   'showAttachments': true,
   'showRecommendations': true,
   'showComments': true,
-  'showServerSideAttachments': true
+  'showServerSideAttachments': true,
+  'showEmailNotifications': true
 })
 .config([
   '$stateProvider',

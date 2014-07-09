@@ -11,7 +11,7 @@ angular.module('RedhatAccess', [
 ])
 .config(['$provide',
   function ($provide) {
-    $provide.value('SECURITY_CONFIG', {displayLoginStatus:true,autoCheckLogin:true});
+    $provide.value('SECURITY_CONFIG', {displayLoginStatus:true,autoCheckLogin:true,loginURL:"",logoutURL:""});
   }
 ])
 .run(['TITLE_VIEW_CONFIG', '$http', 'securityService', 'gettextCatalog',

@@ -6,20 +6,16 @@ angular.module('RedhatAccess.cases')
   'securityService',
   'SearchCaseService',
   'CaseService',
-  'strataService',
-  'AlertService',
   function (
     $scope,
     securityService,
     SearchCaseService,
-    CaseService,
-    strataService,
-    AlertService) {
+    CaseService) {
 
     $scope.securityService = securityService;
     $scope.SearchCaseService = SearchCaseService;
     $scope.CaseService = CaseService;
 
-    CaseService.populateUsers();
+    securityService.registerAfterLoginEvent(CaseService.populateUsers);
   }
 ]);

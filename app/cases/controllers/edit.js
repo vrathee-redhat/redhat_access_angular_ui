@@ -16,6 +16,7 @@ angular.module('RedhatAccess.cases')
   'securityService',
   'EDIT_CASE_CONFIG',
   'RHAUtils',
+  'CASE_EVENTS',
   function(
       $scope,
       $stateParams,
@@ -30,7 +31,8 @@ angular.module('RedhatAccess.cases')
       AlertService,
       securityService,
       EDIT_CASE_CONFIG,
-      RHAUtils) {
+      RHAUtils,
+      CASE_EVENTS) {
 
     $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
     $scope.securityService = securityService;
@@ -45,6 +47,7 @@ angular.module('RedhatAccess.cases')
       strataService.cases.get($stateParams.id).then(
           function(caseJSON) {
             CaseService.defineCase(caseJSON);
+            $rootScope.$broadcast(CASE_EVENTS.received);
             $scope.caseLoading = false;
 
             if ('product' in caseJSON && 'name' in caseJSON.product && caseJSON.product.name) {
@@ -86,7 +89,9 @@ angular.module('RedhatAccess.cases')
               );
             }
 
-            CaseService.defineNotifiedUsers();
+            if (EDIT_CASE_CONFIG.showEmailNotifications) {
+                CaseService.defineNotifiedUsers();
+            }
           }
       );
 

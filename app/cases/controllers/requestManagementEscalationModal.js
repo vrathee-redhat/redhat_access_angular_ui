@@ -14,7 +14,7 @@ angular.module('RedhatAccess.cases')
   function ($scope, $modalInstance, AlertService, CaseService, strataService, $q, $stateParams) {
 
     $scope.CaseService = CaseService;
-    $scope.commentText = '';
+    $scope.commentText = CaseService.commentText;
 
     $scope.submittingRequest = false;
     $scope.submitRequestClick = angular.bind($scope, function(commentText) {
@@ -22,7 +22,12 @@ angular.module('RedhatAccess.cases')
       var promises = [];
 
       var fullComment = 'Request Management Escalation: ' + commentText;
-      var postComment = strataService.cases.comments.post(CaseService.case.case_number, fullComment, false);
+      var postComment;
+      if (CaseService.draftComment) {
+          postComment = strataService.cases.comments.put(CaseService.case.case_number, fullComment, false, CaseService.draftComment.id);
+      } else {
+          postComment = strataService.cases.comments.post(CaseService.case.case_number, fullComment, false);
+      }
       postComment.then(
         function(response) {
         },
@@ -44,7 +49,7 @@ angular.module('RedhatAccess.cases')
           }
       );
       promises.push(updateCase);
-      
+
       var masterPromise = $q.all(promises);
       masterPromise.then(
           function(response) {
