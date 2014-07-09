@@ -8,10 +8,10 @@ div#redhat-access-case.container-offset
     div.row(ng-show='EDIT_CASE_CONFIG.showDescription')
       div.col-xs-12
         rha-case-description(loading='caseLoading')
-    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments')
+    div.row(ng-show='EDIT_CASE_CONFIG.showBugzillas')
       div.col-xs-12
         rha-list-bugzillas(loading='caseLoading')
-    div.row
+    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments')
       div.col-xs-12
         rha-case-attachments(loading='attachmentsLoading')
     div.row(ng-show='EDIT_CASE_CONFIG.showRecommendations')
