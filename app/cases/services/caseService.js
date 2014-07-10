@@ -151,7 +151,7 @@ angular.module('RedhatAccess.cases')
       this.populateUsers = angular.bind(this, function () {
         var promise = null;
 
-        if (securityService.userAllowedToManage()) {
+        if (securityService.loginStatus.orgAdmin) {
           this.usersLoading = true;
 
           var accountNumber =
