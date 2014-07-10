@@ -34,7 +34,7 @@ angular.module('RedhatAccess.cases')
       this.owner = '';
       this.product = '';
       this.bugzillaList = {};
-      
+
       this.onSelectChanged = null;
       this.onOwnerSelectChanged = null;
       this.onGroupSelectChanged = null;
@@ -63,9 +63,9 @@ angular.module('RedhatAccess.cases')
 
         this.
         case = rawCase;
-        
+
         this.bugzillaList = rawCase.bugzillas;
-        
+
       };
 
       this.defineAccount = function(account) {
@@ -89,12 +89,12 @@ angular.module('RedhatAccess.cases')
             case.notified_users)) {
 
           angular.forEach(this.
-              case.notified_users.link, 
+              case.notified_users.link,
             angular.bind(this, function(user) {
               this.originalNotifiedUsers.push(user.sso_username);
             })
           );
-          this.updatedNotifiedUsers = 
+          this.updatedNotifiedUsers =
             this.updatedNotifiedUsers.concat(this.originalNotifiedUsers);
         }
       };
@@ -132,8 +132,8 @@ angular.module('RedhatAccess.cases')
         this.groupsLoading = true;
         strataService.groups.list(ssoUsername).then(
           angular.bind(this, function(groups) {
-            this.groupsLoading = false;
             this.groups = groups;
+            this.groupsLoading = false;
           }),
           angular.bind(this, function(error) {
             this.groupsLoading = false;
@@ -154,8 +154,8 @@ angular.module('RedhatAccess.cases')
         if (securityService.userAllowedToManage()) {
           this.usersLoading = true;
 
-          var accountNumber = 
-            RHAUtils.isEmpty(this.account.number) ? 
+          var accountNumber =
+            RHAUtils.isEmpty(this.account.number) ?
               securityService.loginStatus.account.number : this.account.number;
 
           promise = strataService.accounts.users(accountNumber);
@@ -243,7 +243,7 @@ angular.module('RedhatAccess.cases')
       this.showFts = function() {
         if (RHAUtils.isNotEmpty(this.severities) && angular.equals(this.case.severity, this.severities[0])) {
           if (this.entitlement === ENTITLEMENTS.premium ||
-              (RHAUtils.isNotEmpty(this.case.entitlement) && 
+              (RHAUtils.isNotEmpty(this.case.entitlement) &&
                this.case.entitlement.sla === ENTITLEMENTS.premium)) {
             return true;
           }

@@ -73,8 +73,10 @@ angular.module('RedhatAccess.cases')
       };
 
       CaseService.onOwnerSelectChanged = function() {
-        CaseService.populateEntitlements(CaseService.owner);
-        CaseService.populateGroups(CaseService.owner);
+        if (CaseService.owner != null) {
+            CaseService.populateEntitlements(CaseService.owner);
+            CaseService.populateGroups(CaseService.owner);
+        }
 
         CaseService.validateNewCasePage1();
       };
