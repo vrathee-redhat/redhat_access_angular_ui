@@ -14,7 +14,8 @@ angular.module('RedhatAccess.cases')
         editCase = true;
       }
       if (!$scope.rhaDisabled && newCase && NEW_CASE_CONFIG.showServerSideAttachments || !$scope.rhaDisabled && editCase && EDIT_CASE_CONFIG.showServerSideAttachments) {
-        TreeViewSelectorData.getTree('attachments').then(
+        var sessionId = $location.search().sessionId;
+        TreeViewSelectorData.getTree('attachments', sessionId).then(
           function (tree) {
             $scope.attachmentTree = tree;
             AttachmentsService.updateBackEndAttachments(tree);
