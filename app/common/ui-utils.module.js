@@ -87,11 +87,15 @@ app.directive('rhaChoice', function ($compile) {
 app.factory('TreeViewSelectorData', ['$http', '$q', 'TreeViewSelectorUtils',
   function ($http, $q, TreeViewSelectorUtils) {
     var service = {
-      getTree: function (dataUrl) {
+      getTree: function (dataUrl, sessionId) {
         var defer = $q.defer();
+        var tmpUrl = dataUrl;
+        if(sessionId){
+          tmpUrl = tmpUrl + '?sessionId=' + encodeURIComponent(sessionId)
+        }
         $http({
           method: 'GET',
-          url: dataUrl
+          url: tmpUrl
         }).success(function (data, status, headers, config) {
           var tree = [];
           TreeViewSelectorUtils.parseTreeList(tree, data);
