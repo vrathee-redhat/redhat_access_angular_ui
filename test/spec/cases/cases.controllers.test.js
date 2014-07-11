@@ -35,5 +35,47 @@ describe('Case Controllers', function() {
 		        expect(strataService.cases.put).toHaveBeenCalledWith("1234", caseJSON);
 				
 		}));
+
+		it('should have a function for adding comments to case', inject(function ($controller) {
+
+				$controller('AddCommentSection', {
+						$scope: mockScope,
+						CaseService: caseService,
+						strataService: strataService
+				});
+
+				caseService.case.case_number = '1234';
+				caseService.commentText = 'test comment';
+				expect(mockScope.addComment).toBeDefined();
+				var deferred = q.defer();
+				spyOn(strataService.cases.comments, 'post').andReturn(deferred.promise);
+		        deferred.resolve();
+				mockScope.addComment();
+				expect(strataService.cases.comments.post).toHaveBeenCalledWith("1234", 'test comment');			
+
+		
+		}));
+
+		it('should have a function for adding draft comments to case', inject(function ($controller) {
+
+				$controller('AddCommentSection', {
+						$scope: mockScope,
+						CaseService: caseService,
+						strataService: strataService
+				});
+
+				caseService.case.case_number = '1234';
+				caseService.commentText = 'test comment';
+				caseService.draftComment = {};
+				caseService.draftComment.id = '1111';
+				expect(mockScope.addComment).toBeDefined();
+				var deferred = q.defer();
+				spyOn(strataService.cases.comments, 'put').andReturn(deferred.promise);
+		        deferred.resolve();
+				mockScope.addComment();
+				expect(strataService.cases.comments.put).toHaveBeenCalledWith("1234", 'test comment', false, '1111');						
+
+		
+		}));
 	
 });
