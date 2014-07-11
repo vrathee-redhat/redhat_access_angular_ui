@@ -1,7 +1,8 @@
 'use strict';
 /*global strata,$*/
 /*jshint unused:vars */
-angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template', 'ui.router', 'RedhatAccess.common',])
+/*jshint camelcase: false */
+angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template', 'ui.router', 'RedhatAccess.common'])
   .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',
@@ -35,8 +36,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
   .value('SECURITY_CONFIG', {
     displayLoginStatus: true,
     autoCheckLogin: true,
-    loginURL: "",
-    logoutURL: ""
+    loginURL: '',
+    logoutURL: '' 
   })
   .service('securityService', [
       '$rootScope',
@@ -46,6 +47,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
       'LOGIN_VIEW_CONFIG',
       'SECURITY_CONFIG',
       'strataService',
+      'AlertService',
       'RHAUtils',
     function (
       $rootScope,
@@ -55,6 +57,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
       LOGIN_VIEW_CONFIG,
       SECURITY_CONFIG,
       strataService,
+      AlertService,
       RHAUtils) {
 
       this.loginStatus = {
@@ -125,13 +128,13 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
       this.postLoginEvents = [];
 
       this.userAllowedToManage = function(user) {
-        if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account))
-              && ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
+        if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account)) && 
+            ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
             return true;
         } else {
           return false;
         }
-      }
+      };
 
       this.registerAfterLoginEvent = function(func, scope) {
         if (this.loginStatus.isLoggedIn) {
@@ -147,7 +150,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
             this.postLoginEvents.push(func);
           }
         }
-      }
+      };
 
       this.getBasicAuthToken = function () {
         var defer = $q.defer();
@@ -193,7 +196,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                 angular.bind(this, function(accountNumber) {
                   strataService.accounts.get(accountNumber).then(
                     angular.bind(this, function(account) {
-                      that.setAccount(account)
+                      that.setAccount(account);
 
                       angular.forEach(
                         that.postLoginEvents,

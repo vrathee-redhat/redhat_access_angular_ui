@@ -12,7 +12,13 @@ angular.module('RedhatAccess.cases', [
   'RedhatAccess.header'
 ])
 .constant('CASE_EVENTS', {
-  received: "case-received"
+  received: 'case-received'
+})
+.constant('CHAT_SUPPORT', {
+  chatButtonToken: '573A0000000GmiP',
+  chatLiveAgentUrlPrefix: 'https://d.la6cs.salesforceliveagent.com/chat',
+  chatInitHashOne: '572A0000000GmiP',
+  chatInitHashTwo: '00DJ0000000DkMi'
 })
 .constant('ENTITLEMENTS', {
   standard: 'STANDARD',
@@ -28,6 +34,10 @@ angular.module('RedhatAccess.cases', [
   'product': '',
   'version': ''
 })
+.value('GLOBAL_CASE_CONFIG', {
+  'showRecommendations': true,
+  'showAttachments': true
+})
 .value('NEW_CASE_CONFIG', {
   'showRecommendations': true,
   'showAttachments': true,
@@ -42,6 +52,9 @@ angular.module('RedhatAccess.cases', [
   'showComments': true,
   'showServerSideAttachments': true,
   'showEmailNotifications': true
+})
+.value('SEARCH_CASE_CONFIG', {
+  'showChat': true
 })
 .config([
   '$stateProvider',
