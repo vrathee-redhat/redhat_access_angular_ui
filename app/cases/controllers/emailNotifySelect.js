@@ -9,10 +9,12 @@ angular.module('RedhatAccess.cases')
   'strataService',
   '$filter',
   'RHAUtils',
-  function($scope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils) {
+  'EDIT_CASE_CONFIG',
+  function($scope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils, EDIT_CASE_CONFIG) {
 
     $scope.securityService = securityService;
     $scope.CaseService = CaseService;
+    $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
 
     $scope.updateNotifyUsers = function() {
       if (!angular.equals(CaseService.updatedNotifiedUsers, CaseService.originalNotifiedUsers)) {
