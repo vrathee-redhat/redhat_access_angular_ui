@@ -28,5 +28,14 @@ describe('Case Directives', function() {
         expect(element.find('.redhat-access-bz').length).toBe(1);        
     });
 
+    it('should not display the linked bugzilla section for customer', function() {
+        var compileFn = compileService(' <rha-list-bugzillas/>');
+        var element = compileFn(mockScope);
+        securityService.loginStatus.isInternal = false;
+        mockScope.securityService = securityService;
+        mockScope.$digest();
+        expect(element.find('.redhat-access-bz.ng-hide').length).toBe(1);        
+    });
+
 
 });
