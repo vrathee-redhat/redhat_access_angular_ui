@@ -4,6 +4,7 @@ describe('Case Controllers', function() {
 
 		var caseService;
 		var strataService;
+		var recommendationsService;
 		var mockScope;
 		var q;
 
@@ -13,6 +14,7 @@ describe('Case Controllers', function() {
 						caseService = $injector.get('CaseService');
 						q = $q;
 						strataService = $injector.get('strataService');
+						recommendationsService = $injector.get('RecommendationsService');
 						mockScope = $rootScope.$new();					
 				})
 		});
@@ -74,6 +76,36 @@ describe('Case Controllers', function() {
 		        deferred.resolve();
 				mockScope.addComment();
 				expect(strataService.cases.comments.put).toHaveBeenCalledWith("1234", 'test comment', false, '1111');						
+
+		
+		}));
+
+		it('should have a function for fetching recommendations', inject(function ($controller) {
+
+				$controller('New', {
+						$scope: mockScope,
+						RecommendationsService: recommendationsService,
+						strataService: strataService
+				});
+
+				var newData = {
+			        product: 'Red Hat Enterprise Linux',
+			        version: '6.0',
+			        summary: 'test case summary',
+			        description: 'test case description'		        
+      			};
+
+      			caseService.case.product = 'Red Hat Enterprise Linux';
+		        caseService.case.version = '6.0';
+		        caseService.case.summary = 'test case summary';
+		        caseService.case.description = 'test case description';
+
+      			expect(mockScope.getRecommendations).toBeDefined();
+      			var deferred = q.defer();
+				spyOn(strataService, 'problems').andReturn(deferred.promise);
+		        deferred.resolve();
+				mockScope.getRecommendations();
+				expect(strataService.problems).toHaveBeenCalledWith(newData,5);						
 
 		
 		}));
