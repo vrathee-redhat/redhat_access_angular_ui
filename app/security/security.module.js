@@ -68,7 +68,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         orgAdmin: false,
         hasChat: false,
         sessionId: '',
-        canAddAttachments: false
+        canAddAttachments: false,
+        login: ''
       };
 
       this.loginURL = SECURITY_CONFIG.loginURL;
@@ -82,7 +83,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         orgAdmin,
         hasChat,
         sessionId,
-        canAddAttachments) {
+        canAddAttachments,
+        login) {
         this.loginStatus.isLoggedIn = isLoggedIn;
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
@@ -91,6 +93,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         this.loginStatus.hasChat = hasChat;
         this.loginStatus.sessionId = sessionId;
         this.loginStatus.canAddAttachments = canAddAttachments;
+        this.loginStatus.login = login;
       };
 
       this.clearLoginStatus = function() {
@@ -190,7 +193,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                 authedUser.org_admin,
                 authedUser.has_chat,
                 authedUser.session_id,
-                authedUser.can_add_attachments);
+                authedUser.can_add_attachments,
+                authedUser.login);
 
               strataService.accounts.list().then(
                 angular.bind(this, function(accountNumber) {

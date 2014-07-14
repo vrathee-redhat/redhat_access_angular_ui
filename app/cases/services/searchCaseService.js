@@ -10,6 +10,7 @@ angular.module('RedhatAccess.cases')
   '$q',
   '$state',
   'SearchBoxService',
+  'securityService',
   function (
     CaseService,
     strataService,
@@ -18,7 +19,8 @@ angular.module('RedhatAccess.cases')
     CASE_GROUPS,
     $q,
     $state,
-    SearchBoxService) {
+    SearchBoxService,
+    securityService) {
 
     this.cases = [];
     this.searching = false;
@@ -44,7 +46,7 @@ angular.module('RedhatAccess.cases')
     };
 
     this.oldParams = {};
-    this.doFilter = function(ssoName) {
+    this.doFilter = function() {
       if (angular.isFunction(this.prefilter)) {
         this.prefilter();
       }
@@ -53,10 +55,6 @@ angular.module('RedhatAccess.cases')
         include_closed: getIncludeClosed(),
         count: 100
       };
-
-      if(ssoName){
-        params.owner_ssoname = "rhn-support-sshumake";
-      }
 
       var isObjectNothing = function(object) {
         if (object === '' || object === undefined || object === null) {
@@ -106,20 +104,31 @@ angular.module('RedhatAccess.cases')
       //Need to prevent initial onchange() event instead of handling here.
       if (!angular.equals(params, this.oldParams)) {
         this.oldParams = params;
-        return strataService.cases.filter(params).then(
-            angular.bind(this, function(cases) {
-              this.cases = cases;
-              this.searching = false;
+        // securityService.validateLogin(true).then(
+        //       function (authedUser) {
+        //         if(securityService.loginStatus.login){
+        //           params.owner_ssoname = securityService.loginStatus.login;
+        //         }
+                  return strataService.cases.filter(params).then(
+                    angular.bind(this, function(cases) {
+                      this.cases = cases;
+                      this.searching = false;
 
-              if (angular.isFunction(this.postFilter)) {
-                this.postFilter();
-              }
-            }),
-            angular.bind(this, function(error) {
-              AlertService.addStrataErrorMessage(error);
-              this.searching = false;
-            })
-        );
+                      if (angular.isFunction(this.postFilter)) {
+                        this.postFilter();
+                      }
+                    }),
+                    angular.bind(this, function(error) {
+                      AlertService.addStrataErrorMessage(error);
+                      this.searching = false;
+                    })
+                );
+              //   },
+              // function (error) {
+              //   AlertService.addStrataErrorMessage(error);
+              //   this.searching = false;
+              // });
+
       } else {
         var deferred = $q.defer();
         deferred.resolve();
