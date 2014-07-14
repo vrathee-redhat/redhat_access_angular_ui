@@ -45,7 +45,7 @@ angular.module('RedhatAccess.cases')
     CaseService.onSelectChanged = 
     CaseService.onOwnerSelectChanged = 
     CaseService.onGroupSelectChanged = function() {
-      SearchCaseService.doFilter().then(
+      SearchCaseService.doFilter($scope.securityService.getLoggedInUserName).then(
           function() {
             if (RHAUtils.isNotEmpty($stateParams.id) && $scope.selectedCaseIndex === -1) {
               var selectedCase =

@@ -44,7 +44,7 @@ angular.module('RedhatAccess.cases')
     };
 
     this.oldParams = {};
-    this.doFilter = function() {
+    this.doFilter = function(ssoName) {
       if (angular.isFunction(this.prefilter)) {
         this.prefilter();
       }
@@ -53,6 +53,10 @@ angular.module('RedhatAccess.cases')
         include_closed: getIncludeClosed(),
         count: 100
       };
+
+      if(ssoName){
+        params.owner_ssoname = "rhn-support-sshumake";
+      }
 
       var isObjectNothing = function(object) {
         if (object === '' || object === undefined || object === null) {
