@@ -17,6 +17,7 @@ angular.module('RedhatAccess.cases')
         function(response) {
           $scope.loadingAccountNumber = false;
           CaseService.account.number = response;         
+          $scope.populateAccountSpecificFields();
         },
         function(error) {
           $scope.loadingAccountNumber = false;

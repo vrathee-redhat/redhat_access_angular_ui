@@ -3,12 +3,16 @@
 angular.module('RedhatAccess.cases')
 .controller('OwnerSelect', [
   '$scope',
+  '$rootScope',
   'securityService',
+  'AUTH_EVENTS',
   'SearchCaseService',
   'CaseService',
   function (
     $scope,
+    $rootScope,
     securityService,
+    AUTH_EVENTS,
     SearchCaseService,
     CaseService) {
 
@@ -16,6 +20,8 @@ angular.module('RedhatAccess.cases')
     $scope.SearchCaseService = SearchCaseService;
     $scope.CaseService = CaseService;
 
-    securityService.registerAfterLoginEvent(CaseService.populateUsers);
-  }
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      CaseService.populateUsers();
+  });
+}
 ]);

@@ -141,22 +141,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         }
       };
 
-      this.registerAfterLoginEvent = function(func, scope) {
-        if (this.loginStatus.isLoggedIn) {
-          if (RHAUtils.isNotEmpty(scope)) {
-            angular.bind(scope, func());
-          } else {
-            func();
-          }
-        } else {
-          if (RHAUtils.isNotEmpty(scope)) {
-            this.postLoginEvents.push(angular.bind(scope, func));
-          } else {
-            this.postLoginEvents.push(func);
-          }
-        }
-      };
-
       this.getBasicAuthToken = function () {
         var defer = $q.defer();
         var token = localStorage.getItem('rhAuthToken');
@@ -187,16 +171,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         strata.checkLogin(
           angular.bind(this, function (result, authedUser) {
             if (result) {
-              that.setLoginStatus(
-                true,
-                authedUser.name,
-                false,
-                authedUser.is_internal,
-                authedUser.org_admin,
-                authedUser.has_chat,
-                authedUser.session_id,
-                authedUser.can_add_attachments,
-                authedUser.login);
 
               strataService.accounts.list().then(
                 angular.bind(this, function(accountNumber) {
@@ -211,6 +185,20 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                         });
 
                       this.loggingIn = false;
+                      //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
+                      if (that.loginStatus.isLoggedIn === false) {
+                        that.setLoginStatus(
+                          true,
+                          authedUser.name,
+                          false,
+                          authedUser.is_internal,
+                          authedUser.org_admin,
+                          authedUser.has_chat,
+                          authedUser.session_id,
+                          authedUser.can_add_attachments,
+                          authedUser.login);
+                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                      }
                       defer.resolve(authedUser.name);
                     })
                   );
@@ -316,7 +304,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                 strata.setCredentials($scope.user.user, $scope.user.password,
                   function (passed, authedUser) {
                     if (passed) {
-                      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                       $scope.user.password = '';
                       $scope.authError = null;
                       try {

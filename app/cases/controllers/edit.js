@@ -121,7 +121,6 @@ angular.module('RedhatAccess.cases')
         );
       }
     };
-    $scope.init();
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
       $scope.init();

@@ -3,6 +3,7 @@
 angular.module('RedhatAccess.cases')
 .controller('EmailNotifySelect', [
   '$scope',
+  '$rootScope',
   'CaseService',
   'securityService',
   'AlertService',
@@ -10,7 +11,8 @@ angular.module('RedhatAccess.cases')
   '$filter',
   'RHAUtils',
   'EDIT_CASE_CONFIG',
-  function($scope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils, EDIT_CASE_CONFIG) {
+  'AUTH_EVENTS',
+  function($scope, $rootScope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
 
     $scope.securityService = securityService;
     $scope.CaseService = CaseService;
@@ -55,6 +57,8 @@ angular.module('RedhatAccess.cases')
       }
     };
 
-    securityService.registerAfterLoginEvent(CaseService.populateUsers);
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
+      CaseService.populateUsers();
+    });
   }
 ]);
