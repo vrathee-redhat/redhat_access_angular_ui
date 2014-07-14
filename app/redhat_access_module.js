@@ -11,22 +11,12 @@ angular.module('RedhatAccess', [
 ])
 .config(['$provide',
   function ($provide) {
-    $provide.value('SECURITY_CONFIG', {displayLoginStatus:true,autoCheckLogin:true,loginURL:"",logoutURL:""});
+    $provide.value('SECURITY_CONFIG', {displayLoginStatus:true,autoCheckLogin:true, forceLogin: false,loginURL:"",logoutURL:""});
   }
 ])
 .run(['TITLE_VIEW_CONFIG', '$http', 'securityService', 'gettextCatalog',
   function (TITLE_VIEW_CONFIG, $http, securityService, gettextCatalog) {
     TITLE_VIEW_CONFIG.show = true;
-    securityService.validateLogin(false).then(
-      function (authedUser) {
-        console.log("logged in user is " + authedUser)
-      },
-      function (error) {
-        console.log("Unable to get user credentials");
-        securityService.login();
-      });
-    //gettextCatalog.currentLanguage = 'fr';
-    //gettextCatalog.debug = true;
   }
 ]);
 

@@ -22,7 +22,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     function ($scope, $rootScope, securityService, SECURITY_CONFIG) {
       $scope.securityService = securityService;
       if (SECURITY_CONFIG.autoCheckLogin) {
-        securityService.validateLogin(false); //change to false to force login
+        securityService.validateLogin(SECURITY_CONFIG.forceLogin); 
       }
       $scope.displayLoginStatus = function(){
         return SECURITY_CONFIG.displayLoginStatus;
@@ -37,7 +37,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     displayLoginStatus: true,
     autoCheckLogin: true,
     loginURL: '',
-    logoutURL: '' 
+    logoutURL: '',
+    forceLogin: false,
+  
   })
   .service('securityService', [
       '$rootScope',
