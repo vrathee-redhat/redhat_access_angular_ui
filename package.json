@@ -41,6 +41,7 @@
     "karma-phantomjs-launcher": "~0.1.2",
     "karma": "~0.10.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
+    "karma-coverage": "~0.1",
     "grunt-contrib-jade": "~0.10.0",
     "grunt-html2js": "~0.2.4",
     "express": "~3.3.4",

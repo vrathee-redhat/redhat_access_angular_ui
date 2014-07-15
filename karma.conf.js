@@ -60,6 +60,18 @@ module.exports = function(config) {
         // preprocessors: {
         //     'app/**/*.html': 'html2js'
         // },
+        // generate js files from html templates
+        preprocessors: {
+            'app/cases/**/*.js': ['coverage']
+        },
+     
+        reporters: ['progress', 'coverage'],
+     
+        autoWatch: true,
+        coverageReporter: {
+             type: 'lcov',
+            dir: 'test/coverage'
+        },
 
         // list of files / patterns to exclude
         exclude: [],
