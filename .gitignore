@@ -10,3 +10,4 @@ app/redhat_access_angular_ui.js
 .idea
 app/cases/views/*.html
 !app/cases/views/compact.html
+test/coverage
