@@ -309,12 +309,17 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                       try {
                         $modalInstance.close(authedUser);
                       } catch (err) {}
+                      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     } else {
                       // alert("Login failed!");
                       $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-                      $scope.$apply(function () {
+                      if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+                        $scope.$apply(function () {
+                          $scope.authError = 'Login Failed!';
+                        });
+                      } else {
                         $scope.authError = 'Login Failed!';
-                      });
+                      }
                     }
                   });
 
