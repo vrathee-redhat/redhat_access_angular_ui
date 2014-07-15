@@ -7,8 +7,10 @@ angular.module('RedhatAccess.cases')
   'AlertService',
   'STATUS',
   'CASE_GROUPS',
+  'AUTH_EVENTS',
   '$q',
   '$state',
+  '$rootScope',
   'SearchBoxService',
   'securityService',
   function (
@@ -17,8 +19,10 @@ angular.module('RedhatAccess.cases')
     AlertService,
     STATUS,
     CASE_GROUPS,
+    AUTH_EVENTS,
     $q,
     $state,
+    $rootScope,
     SearchBoxService,
     securityService) {
 
@@ -102,40 +106,38 @@ angular.module('RedhatAccess.cases')
 
       //TODO: hack to get around onchange() firing at page load for each select.
       //Need to prevent initial onchange() event instead of handling here.
+      var promises = [];
       if (!angular.equals(params, this.oldParams)) {
         this.oldParams = params;
-        // securityService.validateLogin(true).then(
-        //       function (authedUser) {
-        //         if(securityService.loginStatus.login){
-        //           params.owner_ssoname = securityService.loginStatus.login;
-        //         }
-                  return strataService.cases.filter(params).then(
-                    angular.bind(this, function(cases) {
-                      this.cases = cases;
-                      this.searching = false;
+        var deferred = $q.defer();
+        var that = this;
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+          if(securityService.loginStatus.login){
+            params.owner_ssoname = securityService.loginStatus.login;
+          }
+          var cases = strataService.cases.filter(params).then(
+            angular.bind(that, function(cases) {
+              that.cases = cases;
+              that.searching = false;
 
-                      if (angular.isFunction(this.postFilter)) {
-                        this.postFilter();
-                      }
-                    }),
-                    angular.bind(this, function(error) {
-                      AlertService.addStrataErrorMessage(error);
-                      this.searching = false;
-                    })
-                );
-              //   },
-              // function (error) {
-              //   AlertService.addStrataErrorMessage(error);
-              //   this.searching = false;
-              // });
-
+              if (angular.isFunction(that.postFilter)) {
+                that.postFilter();
+              }
+            }),
+            angular.bind(that, function(error) {
+              AlertService.addStrataErrorMessage(error);
+              that.searching = false;
+            })
+          );
+          deferred.resolve(cases);
+        });
+        promises.push(deferred.promise);
       } else {
         var deferred = $q.defer();
         deferred.resolve();
-        return deferred.promise;
+        promises.push(deferred.promise);
       }
+      return $q.all(promises);
     };
-
-
   }
 ]);
