@@ -116,7 +116,9 @@ angular.module('RedhatAccess.cases')
             function() {
               $scope.caseDetails.$setPristine();
               $scope.updatingDetails = false;
-              $scope.$apply();
+              if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+                $scope.$apply();
+              }
             },
             function(error) {
               AlertService.addStrataErrorMessage(error);

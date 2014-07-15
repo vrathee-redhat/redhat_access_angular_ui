@@ -24,6 +24,11 @@ angular.module('RedhatAccess.cases')
 
         CaseService.commentText = '';
 
+        //TODO: find better way than hard code
+        if(CaseService.case.status.name === "Closed"){
+          CaseService.case.status.name = "Waiting on Red Hat";
+        }
+
         CaseService.populateComments(CaseService.case.case_number).then(
           function(comments) {
             $scope.addingComment = false;
