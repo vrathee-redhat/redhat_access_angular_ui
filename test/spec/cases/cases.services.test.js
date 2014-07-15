@@ -1,19 +1,26 @@
-'use strict';
+//'use strict';
 
 describe('Case Services', function() {
 
 	var caseService;
+	var searchCaseService;
 	var strataService;
 	var securityService;
+	var mockSCope;
 	var q;
 
 	beforeEach(angular.mock.module('RedhatAccess.cases'));
-	beforeEach(inject(function (_CaseService_,$injector,$q) {
+	beforeEach(angular.mock.inject(function($rootScope) {
+        mockScope = $rootScope.$new();
+    }));
+	beforeEach(inject(function (_CaseService_,_SearchCaseService_,$injector,$q) {
 	    caseService = _CaseService_;
-	    strataService = $injector.get('strataService');
+	    searchCaseService = _SearchCaseService_
+	    strataService = $injector.get('strataService');	    
 	    securityService = $injector.get('securityService');
 	    q = $q;
 	}));
+	
 
 	it('should have a method for populating Case Groups', function () {
 		expect(caseService.populateGroups).toBeDefined();  
@@ -107,5 +114,37 @@ describe('Case Services', function() {
 		caseService.defineNotifiedUsers();
 		expect(caseService.updatedNotifiedUsers).toContain('testUser','dhughesgit','customerportalQA');
   	});
+
+  	it('should have a method to Filter/Search cases', function () {
+		expect(searchCaseService.doFilter).toBeDefined(); 
+		searchCaseService.oldParams = {};			
+      	securityService.loginStatus.login = 'testUser';
+
+      	var filterParams = {
+	        include_closed: true,
+	        count: 100,
+	        product: 'Red Hat Enterprise Linux',
+	        owner: '',
+	        type: '',
+	        severity: '1'
+	    };
+
+      	caseService.status = 'closed';
+      	caseService.product = 'Red Hat Enterprise Linux';
+      	caseService.owner = '';
+      	caseService.type = '';
+      	caseService.severity = '1';
+
+
+      	var deferred = q.defer();
+		spyOn(strataService.cases, 'filter').andReturn(deferred.promise);
+		deferred.resolve(); 
+		mockScope.$broadcast('auth-login-success'); 
+		searchCaseService.doFilter();
+		expect(strataService.cases.filter).toHaveBeenCalledWith(filterParams);
+
+  	});
+
+
 
 });
