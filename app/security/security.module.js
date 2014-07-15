@@ -278,6 +278,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
       };
 
       this.showLogin = function (customModalDefaults, customModalOptions) {
+        var that = this;
         //Create temp objects to work with since we're in a singleton service
         var tempModalDefaults = {};
         var tempModalOptions = {};
@@ -309,6 +310,16 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                       try {
                         $modalInstance.close(authedUser);
                       } catch (err) {}
+                      that.setLoginStatus(
+                        true,
+                        authedUser.name,
+                        false,
+                        authedUser.is_internal,
+                        authedUser.org_admin,
+                        authedUser.has_chat,
+                        authedUser.session_id,
+                        authedUser.can_add_attachments,
+                        authedUser.login);
                       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     } else {
                       // alert("Login failed!");
