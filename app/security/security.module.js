@@ -2,7 +2,7 @@
 /*global strata,$*/
 /*jshint unused:vars */
 /*jshint camelcase: false */
-angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template', 'ui.router', 'RedhatAccess.common','RedhatAccess.header'])
+angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template', 'ui.router', 'RedhatAccess.common', 'RedhatAccess.header'])
   .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',
@@ -22,9 +22,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     function ($scope, $rootScope, securityService, SECURITY_CONFIG) {
       $scope.securityService = securityService;
       if (SECURITY_CONFIG.autoCheckLogin) {
-        securityService.validateLogin(SECURITY_CONFIG.forceLogin); 
+        securityService.validateLogin(SECURITY_CONFIG.forceLogin);
       }
-      $scope.displayLoginStatus = function(){
+      $scope.displayLoginStatus = function () {
         return SECURITY_CONFIG.displayLoginStatus;
 
       };
@@ -39,18 +39,18 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     loginURL: '',
     logoutURL: '',
     forceLogin: false,
-  
+
   })
   .service('securityService', [
-      '$rootScope',
-      '$modal',
-      'AUTH_EVENTS',
-      '$q',
-      'LOGIN_VIEW_CONFIG',
-      'SECURITY_CONFIG',
-      'strataService',
-      'AlertService',
-      'RHAUtils',
+    '$rootScope',
+    '$modal',
+    'AUTH_EVENTS',
+    '$q',
+    'LOGIN_VIEW_CONFIG',
+    'SECURITY_CONFIG',
+    'strataService',
+    'AlertService',
+    'RHAUtils',
     function (
       $rootScope,
       $modal,
@@ -98,7 +98,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         this.loginStatus.login = login;
       };
 
-      this.clearLoginStatus = function() {
+      this.clearLoginStatus = function () {
         this.loginStatus.isLoggedIn = false;
         this.loginStatus.loggedInUser = '';
         this.loginStatus.verifying = false;
@@ -107,9 +107,10 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         this.loginStatus.hasChat = false;
         this.loginStatus.sessionId = '';
         this.loginStatus.canAddAttachments = false;
+        this.loginStatus.account = {};
       };
 
-      this.setAccount = function(accountJSON) {
+      this.setAccount = function (accountJSON) {
         this.loginStatus.account = accountJSON;
       };
 
@@ -130,12 +131,12 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
 
       };
 
-      this.postLoginEvents = [];
 
-      this.userAllowedToManage = function(user) {
-        if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account)) && 
-            ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
-            return true;
+
+      this.userAllowedToManage = function (user) {
+        if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account)) &&
+          ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
+          return true;
         } else {
           return false;
         }
@@ -167,43 +168,37 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
 
         var defer = $q.defer();
         var that = this;
+        var wasLoggedIn = this.loginStatus.isLoggedIn;
         this.loginStatus.verifying = true;
         strata.checkLogin(
           angular.bind(this, function (result, authedUser) {
             if (result) {
 
               strataService.accounts.list().then(
-                angular.bind(this, function(accountNumber) {
+                angular.bind(this, function (accountNumber) {
                   strataService.accounts.get(accountNumber).then(
-                    angular.bind(this, function(account) {
+                    angular.bind(this, function (account) {
                       that.setAccount(account);
-
-                      angular.forEach(
-                        that.postLoginEvents,
-                        function(callback) {
-                          callback();
-                        });
-
+                      that.setLoginStatus(
+                        true,
+                        authedUser.name,
+                        false,
+                        authedUser.is_internal,
+                        authedUser.org_admin,
+                        authedUser.has_chat,
+                        authedUser.session_id,
+                        authedUser.can_add_attachments,
+                        authedUser.login);
                       this.loggingIn = false;
                       //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
-                      if (that.loginStatus.isLoggedIn === false) {
-                        that.setLoginStatus(
-                          true,
-                          authedUser.name,
-                          false,
-                          authedUser.is_internal,
-                          authedUser.org_admin,
-                          authedUser.has_chat,
-                          authedUser.session_id,
-                          authedUser.can_add_attachments,
-                          authedUser.login);
+                      if (wasLoggedIn === false) {
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                       }
                       defer.resolve(authedUser.name);
                     })
                   );
                 }),
-                angular.bind(this, function(error) {
+                angular.bind(this, function (error) {
                   AlertService.addStrataErrorMessage(error);
                   this.loggingIn = false;
                   defer.resolve(authedUser.name);

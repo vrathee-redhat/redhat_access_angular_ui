@@ -244,14 +244,14 @@ app.directive('rhaResizable', [
         'resize',
         function () {
           scope.onResizeFunction();
-          scope.$apply();
+          //scope.$apply();
         }
       );
       angular.element($window).bind(
         'click',
         function () {
           scope.onResizeFunction();
-          scope.$apply();
+          //scope.$apply();
         }
       );
 

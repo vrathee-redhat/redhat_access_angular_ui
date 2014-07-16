@@ -1,64 +1,68 @@
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.controller('EmailNotifySelect', [
-  '$scope',
-  '$rootScope',
-  'CaseService',
-  'securityService',
-  'AlertService',
-  'strataService',
-  '$filter',
-  'RHAUtils',
-  'EDIT_CASE_CONFIG',
-  'AUTH_EVENTS',
-  function($scope, $rootScope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
+  .controller('EmailNotifySelect', [
+    '$scope',
+    '$rootScope',
+    'CaseService',
+    'securityService',
+    'AlertService',
+    'strataService',
+    '$filter',
+    'RHAUtils',
+    'EDIT_CASE_CONFIG',
+    'AUTH_EVENTS',
+    function ($scope, $rootScope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
 
-    $scope.securityService = securityService;
-    $scope.CaseService = CaseService;
-    $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
+      $scope.securityService = securityService;
+      $scope.CaseService = CaseService;
+      $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
 
-    $scope.updateNotifyUsers = function() {
-      if (!angular.equals(CaseService.updatedNotifiedUsers, CaseService.originalNotifiedUsers)) {
+      $scope.updateNotifyUsers = function () {
+        if (!angular.equals(CaseService.updatedNotifiedUsers, CaseService.originalNotifiedUsers)) {
 
-        angular.forEach(CaseService.originalNotifiedUsers, function(origUser) {
-          var updatedUser = $filter('filter')(CaseService.updatedNotifiedUsers, origUser);
+          angular.forEach(CaseService.originalNotifiedUsers, function (origUser) {
+            var updatedUser = $filter('filter')(CaseService.updatedNotifiedUsers, origUser);
 
-          if (RHAUtils.isEmpty(updatedUser)) {
-            $scope.updatingList = true;
-            strataService.cases.notified_users.remove(CaseService.case.case_number, origUser).then(
-              function() {
-                $scope.updatingList = false;
-                CaseService.originalNotifiedUsers = CaseService.updatedNotifiedUsers;
-              },
-              function(error) {
-                $scope.updatingList = false;
-                AlertService.addStrataErrorMessage(error); 
-              });
-          }
-        });
+            if (RHAUtils.isEmpty(updatedUser)) {
+              $scope.updatingList = true;
+              strataService.cases.notified_users.remove(CaseService.
+              case .case_number, origUser).then(
+                function () {
+                  $scope.updatingList = false;
+                  CaseService.originalNotifiedUsers = CaseService.updatedNotifiedUsers;
+                },
+                function (error) {
+                  $scope.updatingList = false;
+                  AlertService.addStrataErrorMessage(error);
+                });
+            }
+          });
 
-        angular.forEach(CaseService.updatedNotifiedUsers, function(updatedUser) {
-          var originalUser = $filter('filter')(CaseService.originalNotifiedUsers, updatedUser);
+          angular.forEach(CaseService.updatedNotifiedUsers, function (updatedUser) {
+            var originalUser = $filter('filter')(CaseService.originalNotifiedUsers, updatedUser);
 
-          if (RHAUtils.isEmpty(originalUser)) {
-            $scope.updatingList = true;
-            strataService.cases.notified_users.add(CaseService.case.case_number, updatedUser).then(
-              function() {
-                CaseService.originalNotifiedUsers = CaseService.updatedNotifiedUsers;
-                $scope.updatingList = false;
-              },
-              function(error) {
-                $scope.updatingList = false;
-                AlertService.addStrataErrorMessage(error); 
-              });
-          }
-        });
+            if (RHAUtils.isEmpty(originalUser)) {
+              $scope.updatingList = true;
+              strataService.cases.notified_users.add(CaseService.
+              case .case_number, updatedUser).then(
+                function () {
+                  CaseService.originalNotifiedUsers = CaseService.updatedNotifiedUsers;
+                  $scope.updatingList = false;
+                },
+                function (error) {
+                  $scope.updatingList = false;
+                  AlertService.addStrataErrorMessage(error);
+                });
+            }
+          });
+        }
+      };
+      if (securityService.loginStatus.isLoggedIn) {
+        CaseService.populateUsers();
       }
-    };
-
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, function() {
-      CaseService.populateUsers();
-    });
-  }
-]);
+      $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        CaseService.populateUsers();
+      });
+    }
+  ]);
