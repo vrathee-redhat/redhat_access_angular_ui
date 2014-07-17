@@ -11,7 +11,7 @@ div#rha-recommendation-section
             div(style='display: table')
               div(style='display: table-cell')
                 span(
-                  ng-class='{pinned: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
+                  ng-class='{"hand-picked": recommendation.handPicked, pinned: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
                   ng-click='pinRecommendation(recommendation, $index, $event)',
                   style='cursor: pointer;')&nbsp;
               div(style='display: table-cell')

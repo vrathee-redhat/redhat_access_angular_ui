@@ -59,7 +59,7 @@ angular.module('RedhatAccess.cases')
                   var promise = 
                     strataService.solutions.get(rec.solution_url).then(
                       angular.bind(this, function(solution) {
-                        solution.pinned = true;
+                        //solution.pinned = true;
                         solution.handPicked = true;
                         this.handPickedRecommendations.push(solution);
                       }),
