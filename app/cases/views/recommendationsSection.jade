@@ -11,11 +11,13 @@ div#rha-recommendation-section
             div(style='display: table')
               div(style='display: table-cell')
                 span(
-                  ng-class='{"hand-picked": recommendation.handPicked, pinned: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
+                  ng-class='{pinned: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
                   ng-click='pinRecommendation(recommendation, $index, $event)',
                   style='cursor: pointer;')&nbsp;
               div(style='display: table-cell')
                 div.rha-bold {{recommendation.title}}
+                span( 
+                  ng-show='recommendation.handPicked' ng-class='{"hand-picked": recommendation.handPicked}') handpicked
                 div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.html | recommendationsResolution}}
                 a(href='{{recommendation.view_uri}}', target='_blank') View full article in new window
     div.row(style='padding-top: 10px;', ng-hide='recommendationsOnScreen.length == 0')
