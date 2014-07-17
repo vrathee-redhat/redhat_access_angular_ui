@@ -1,57 +1,178 @@
-//'use strict';
+'use strict';
 
 describe('Case Services', function() {
 
 	var caseService;
 	var searchCaseService;
-	var strataService;
 	var securityService;
-	var mockSCope;
+	var searchBoxService;
+	var scope;	
 	var q;
+	var mockStrataService;
+	var mockService;	
+	var deferred;
+	var AUTH_EVENTS;
 
 	beforeEach(angular.mock.module('RedhatAccess.cases'));
-	beforeEach(angular.mock.inject(function($rootScope) {
-        mockScope = $rootScope.$new();
-    }));
-	beforeEach(inject(function (_CaseService_,_SearchCaseService_,$injector,$q) {
+
+	beforeEach(function (){
+		mockStrataService = {
+            groups: {	          
+	          	list: function (ssoUserName) {
+		            deferred = q.defer();
+		            return deferred.promise;	            
+	          	}
+	    	},
+	    	accounts: {
+              	users: function(accountNumber) {
+	            	deferred = q.defer();
+	            	return deferred.promise;
+            	}
+            },
+            cases: {
+              	comments: {
+              		get: function(id) {
+		            	deferred = q.defer();
+		            	return deferred.promise;
+            		}
+            	},
+            	filter: function (params) {
+            		deferred = q.defer();
+		            return deferred.promise;
+            	}
+            },
+            entitlements: {
+              	get: function(showAll, ssoUserName) {
+		           	deferred = q.defer();
+		           	return deferred.promise;
+            	}
+            }
+	    };
+		module(function ($provide) {
+          $provide.value('strataService', mockStrataService);
+      	});
+	});
+
+	beforeEach(inject(function (_CaseService_,_SearchCaseService_,_MockService_,_SearchBoxService_,
+		$injector,$q,$rootScope) {
 	    caseService = _CaseService_;
-	    searchCaseService = _SearchCaseService_
-	    strataService = $injector.get('strataService');	    
-	    securityService = $injector.get('securityService');
+	    searchCaseService = _SearchCaseService_;
+	    mockService = _MockService_;
+	    searchBoxService = _SearchBoxService_;
+	    scope = $rootScope.$new();
+	    securityService = $injector.get('securityService');	
+	    AUTH_EVENTS =  $injector.get('AUTH_EVENTS');	  
 	    q = $q;
+	    
 	}));
 	
+	it('should have a method for defining case object', function () {
+		expect(caseService.defineCase).toBeDefined();  
+		var rawCase = {
+			severity: '1',
+			status: 'closed',
+			product: 'Red Hat Enterprise Linux',
+			folder_number: '1234',
+			type: 'bug'
+		};
+		caseService.defineCase(rawCase);
+		expect(caseService.case).toEqual(rawCase);	
+  	});
 
-	it('should have a method for populating Case Groups', function () {
+	it('should have a method for populating Case Groups resolved', function () {
 		expect(caseService.populateGroups).toBeDefined();  
 		var ssoUsername = 'testUser';
-		var deferred = q.defer();
-		spyOn(strataService.groups, 'list').andReturn(deferred.promise);
-		deferred.resolve();  
 		caseService.populateGroups(ssoUsername);
-		expect(strataService.groups.list).toHaveBeenCalledWith(ssoUsername);
+		deferred.resolve(mockService.mockGroups);
+		spyOn(mockStrataService.groups, 'list').andCallThrough();
+		scope.$root.$digest();
+		expect(caseService.groups).toEqual(mockService.mockGroups);
+		expect(caseService.groupsLoading).toBe(false);		
   	});
 
-  	it('should have a method for populating Case Comments', function () {
+	it('should have a method for populating Case Groups rejected', function () {
+		expect(caseService.populateGroups).toBeDefined();  
+		var ssoUsername = 'testUser';
+		caseService.populateGroups(ssoUsername);
+		deferred.reject();
+		spyOn(mockStrataService.groups, 'list').andCallThrough();
+		scope.$root.$digest();
+		expect(caseService.groups).toEqual([]);
+		expect(caseService.groupsLoading).toBe(false);
+  	});
+
+  	it('should have a method for populating Users For An Account resolved', function () {
+		expect(caseService.populateUsers).toBeDefined(); 
+		securityService.loginStatus.orgAdmin = true; 
+		caseService.account.number = '540155';
+		caseService.populateUsers();
+		deferred.resolve(mockService.mockUsers);
+		spyOn(mockStrataService.accounts, 'users').andCallThrough();
+		scope.$root.$digest();
+		expect(caseService.users).toEqual(mockService.mockUsers);	
+		expect(caseService.usersLoading).toBe(false);	
+  	});
+
+  	it('should have a method for populating Users For An Account non org admin', function () {
+		expect(caseService.populateUsers).toBeDefined(); 
+		securityService.loginStatus.orgAdmin = false; 
+		caseService.account.number = '540155';
+		caseService.populateUsers();
+		expect(caseService.users).toEqual([]);	
+		expect(caseService.usersLoading).toBe(false);	
+  	});
+
+  	it('should have a method for populating Users For An Account rejected', function () {
+		expect(caseService.populateUsers).toBeDefined(); 
+		securityService.loginStatus.orgAdmin = true; 
+		caseService.account.number = '540155';
+		caseService.populateUsers();
+		deferred.reject();
+		spyOn(mockStrataService.accounts, 'users').andCallThrough();
+		scope.$root.$digest();
+		expect(caseService.users).toEqual([]);	
+		expect(caseService.usersLoading).toBe(false);		
+  	});
+
+  	it('should have a method for populating Case Comments resolved', function () {
 		expect(caseService.populateComments).toBeDefined();  
 		var caseNumber = '12345';
-		var deferred = q.defer();
-		spyOn(strataService.cases.comments, 'get').andReturn(deferred.promise);
-		deferred.resolve();  
 		caseService.populateComments(caseNumber);
-		expect(strataService.cases.comments.get).toHaveBeenCalledWith(caseNumber);
-		expect(caseService.comments).not.toBe(null);
+		deferred.resolve(mockService.mockComments);
+		spyOn(mockStrataService.cases.comments, 'get').andCallThrough();
+		scope.$root.$digest();
+		expect(caseService.comments).toEqual(mockService.mockComments);
   	});
 
-  	it('should have a method for populating User Entitlements', function () {
+  	it('should have a method for populating Case Comments rejected', function () {
+		expect(caseService.populateComments).toBeDefined();  
+		var caseNumber = '12345';
+		caseService.populateComments(caseNumber);
+		deferred.reject();
+		spyOn(mockStrataService.cases.comments, 'get').andCallThrough();
+		scope.$root.$digest();
+		expect(caseService.comments).toEqual([]);
+  	});
+
+  	it('should have a method for populating User Entitlements resolved', function () {
+		var mockEntitlements = [];
 		expect(caseService.populateEntitlements).toBeDefined();  
 		var ssoUsername = 'testUser';
-		var deferred = q.defer();
-		spyOn(strataService.entitlements, 'get').andReturn(deferred.promise);
-		deferred.resolve();  
 		caseService.populateEntitlements(ssoUsername);
-		expect(strataService.entitlements.get).toHaveBeenCalledWith(false,ssoUsername);	
-		expect(caseService.entitlements).not.toBe(null);	
+		deferred.resolve(mockEntitlements);
+		spyOn(mockStrataService.entitlements, 'get').andCallThrough();
+		scope.$root.$digest();
+		expect(caseService.entitlements).toEqual(['DEFAULT']);	
+  	});
+
+  	it('should have a method for populating User Entitlements rejected', function () {
+		expect(caseService.populateEntitlements).toBeDefined();  
+		var ssoUsername = 'testUser';
+		caseService.populateEntitlements(ssoUsername);
+		deferred.reject();
+		spyOn(mockStrataService.entitlements, 'get').andCallThrough();
+		scope.$root.$digest();
+		expect(caseService.entitlements).toBeUndefined();	
   	});
 
   	it('should have a method for validating New Case Page', function () {
@@ -93,18 +214,6 @@ describe('Case Services', function() {
 		expect(fts).toBe(false);
   	});
 
-  	it('should have a method for populating Users For An Account', function () {
-		expect(caseService.populateUsers).toBeDefined(); 
-		securityService.loginStatus.orgAdmin = true; 
-		caseService.account.number = '540155';
-		var deferred = q.defer();
-		spyOn(strataService.accounts, 'users').andReturn(deferred.promise);
-		deferred.resolve();  
-		caseService.populateUsers();
-		expect(strataService.accounts.users).toHaveBeenCalledWith('540155');
-		expect(caseService.users).not.toBe(null);
-  	});
-
   	it('should have a method for defining Notified Users for a case', function () {
 		expect(caseService.defineNotifiedUsers).toBeDefined(); 
 		caseService.case.contact_sso_username = 'testUser';	
@@ -115,36 +224,58 @@ describe('Case Services', function() {
 		expect(caseService.updatedNotifiedUsers).toContain('testUser','dhughesgit','customerportalQA');
   	});
 
-  	it('should have a method to Filter/Search cases', function () {
+  	it('should have a method to Filter/Search cases resolved for loggedin user', function () {
 		expect(searchCaseService.doFilter).toBeDefined(); 
 		searchCaseService.oldParams = {};			
       	securityService.loginStatus.login = 'testUser';
+      	securityService.loginStatus.isLoggedIn = true;
+      	searchBoxService.searchTerm = 'test';
 
       	var filterParams = {
 	        include_closed: true,
 	        count: 100,
 	        product: 'Red Hat Enterprise Linux',
-	        owner: '',
-	        type: '',
+	        owner: 'testUser',
+	        type: 'bug',
 	        severity: '1'
 	    };
 
       	caseService.status = 'closed';
       	caseService.product = 'Red Hat Enterprise Linux';
-      	caseService.owner = '';
-      	caseService.type = '';
+      	caseService.owner = 'testUser';
+      	caseService.type = 'bug';
       	caseService.severity = '1';
-
-
-      	var deferred = q.defer();
-		spyOn(strataService.cases, 'filter').andReturn(deferred.promise);
-		deferred.resolve(); 
-		mockScope.$broadcast('auth-login-success'); 
-		searchCaseService.doFilter();
-		expect(strataService.cases.filter).toHaveBeenCalledWith(filterParams);
-
+      	
+      	searchCaseService.doFilter();
+      	deferred.resolve(mockService.mockCases);
+		spyOn(mockStrataService.cases, 'filter').andCallThrough();
+		scope.$root.$digest();
+		expect(searchCaseService.searching).toBe(false); 
+		expect(searchCaseService.cases).toEqual(mockService.mockCases);     	
   	});
 
+	it('should have a method to Filter/Search cases rejected', function () {
+		expect(searchCaseService.doFilter).toBeDefined(); 
+		searchCaseService.oldParams = {};			
+      	securityService.loginStatus.login = 'testUser';
+      	securityService.loginStatus.isLoggedIn = true;
 
+      	var filterParams = {};
+      	searchCaseService.doFilter();
+      	deferred.reject();
+		spyOn(mockStrataService.cases, 'filter').andCallThrough();
+		scope.$root.$digest();
+		expect(searchCaseService.searching).toBe(false); 
+		expect(searchCaseService.cases).toEqual([]);     	
+  	});
+
+  	it('should have a method to clear the search criteria and result', function () {
+		expect(searchCaseService.clear).toBeDefined(); 
+		searchCaseService.oldParams = {};	
+		searchBoxService.searchTerm = 'test';		
+      	searchCaseService.clear();
+      	expect(searchBoxService.searchTerm).toEqual('');
+      	expect(searchCaseService.cases).toEqual([]);    	
+  	});
 
 });
