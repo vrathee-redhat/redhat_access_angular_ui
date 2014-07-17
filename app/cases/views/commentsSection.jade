@@ -33,4 +33,4 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
           div {{comment.created_date | date:'mediumDate'}}
           div {{comment.created_date | date:'mediumTime'}}
         div.col-md-10
-          pre {{comment.text}}
+          pre(style='word-break: normal;') {{comment.text}}
