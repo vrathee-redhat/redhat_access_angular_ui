@@ -5,7 +5,7 @@ div#redhat-access-case
         rha-list-filter
     div.row
       div.col-xs-12
-        div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching') No cases found with given filters.
+        div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') No cases found with given filters.
         span(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn').rha-search-spinner
     div.row(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching', style='border-top: 1px solid #dddddd;')
       div.col-xs-12(

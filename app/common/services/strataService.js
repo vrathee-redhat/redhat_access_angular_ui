@@ -104,6 +104,7 @@ angular.module('RedhatAccess.common')
             strata.products.versions(
               productCode,
               function (response) {
+                console.log("got products for...");
                 deferred.resolve(response);
               },
               angular.bind(deferred, errorHandler)

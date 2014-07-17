@@ -10,6 +10,7 @@ angular.module('RedhatAccess.cases')
 
     this.recommendations = [];
     this.pinnedRecommendations = [];
+    this.handPickedRecommendations = [];
     this.populateCallback = function() {};
 
     var currentData = {};
@@ -43,11 +44,24 @@ angular.module('RedhatAccess.cases')
           angular.forEach(CaseService.case.recommendations.recommendation, 
               angular.bind(this, function(rec) {
                 if (rec.pinned_at) {
-                  var promise = 
+                  var promise =
                     strataService.solutions.get(rec.solution_url).then(
                       angular.bind(this, function(solution) {
                         solution.pinned = true;
                         this.pinnedRecommendations.push(solution);
+                      }),
+                      function(error) {
+                        AlertService.addStrataErrorMessage(error);
+                      }
+                    );
+                  promises.push(promise);
+                } else if (rec.linked){
+                  var promise = 
+                    strataService.solutions.get(rec.solution_url).then(
+                      angular.bind(this, function(solution) {
+                        //solution.pinned = true;
+                        solution.handPicked = true;
+                        this.handPickedRecommendations.push(solution);
                       }),
                       function(error) {
                         AlertService.addStrataErrorMessage(error);

@@ -37,7 +37,7 @@ div#rha-case-search.container-offset
         div.col-xs-12
           span.rha-search-spinner
           h3(style='display: inline-block; padding-left: 4px;') Searching...
-    div(ng-show='SearchCaseService.cases.length === 0 && !SearchCaseService.searching')
+    div(ng-show='SearchCaseService.cases.length === 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
       div.row
         div.col-xs-12
           div No cases found with given search criteria.

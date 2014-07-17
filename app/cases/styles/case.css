@@ -231,6 +231,15 @@ div#rha-recommendation-section .pinned {
     clip: rect(0px, 30px, 16px, 15px);
 }
 
+div#rha-recommendation-section .hand-picked {
+    background: url(../img/bg-recommendations.png) no-repeat 0 -27px;
+    color: #078700;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+    margin: 0 0 0 3px;
+    padding: 0 0 0 13px;
+}
+
 .rha-search-spinner-sm {
     padding: 1px 1px 1px 1px;
     background-image: url("../img/throbber_dickie_small.gif");

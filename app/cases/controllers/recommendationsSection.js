@@ -33,8 +33,22 @@ angular.module('RedhatAccess.cases')
           }
       );
 
+      angular.forEach(RecommendationsService.handPickedRecommendations,
+          function(handPickedRec) {
+            angular.forEach(RecommendationsService.recommendations,
+              function(rec, index) {
+                if (angular.equals(rec.id, handPickedRec.id)) {
+                  RecommendationsService.recommendations.splice(index, 1);
+                }
+              }
+            );
+          }
+      );
+
       var recommendations = RecommendationsService.pinnedRecommendations.concat(
           RecommendationsService.recommendations);
+      recommendations = RecommendationsService.handPickedRecommendations.concat(
+          recommendations);
       var start = $scope.recommendationsPerPage * (pageNum - 1);
       var end = start + $scope.recommendationsPerPage;
       end = end > recommendations.length ? recommendations.length : end;
