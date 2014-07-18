@@ -33,6 +33,12 @@ angular.module('RedhatAccess.cases')
       ];
 
       var mockEntitlements = [];
-           
+
+      var mockRecommendations = [
+        {"linked":false,"pinned_at":true,"last_suggested_date":1398756627000,"lucene_score":141.0,"resource_id":"27450","resource_type":"Solution","resource_uri":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/27450","solution_title":" test solution title 1 ","solution_abstract":"test solution abstract 1","solution_url":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/27450","title":"test title 1","solution_case_count":3},
+        {"linked":false,"pinned_at":false,"last_suggested_date":1398756612000,"lucene_score":155.0,"resource_id":"637583","resource_type":"Solution","resource_uri":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583","solution_title":"test solution title 2","solution_abstract":"test solution abstract 2","solution_url":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583","title":"test title 2","solution_case_count":14,}
+      ];
+
+                 
     }
   ]);

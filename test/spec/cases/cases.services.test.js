@@ -6,12 +6,12 @@ describe('Case Services', function() {
 	var searchCaseService;
 	var securityService;
 	var searchBoxService;
+	var recommendationsService;
 	var scope;	
 	var q;
 	var mockStrataService;
 	var mockService;	
 	var deferred;
-	var AUTH_EVENTS;
 
 	beforeEach(angular.mock.module('RedhatAccess.cases'));
 
@@ -46,6 +46,16 @@ describe('Case Services', function() {
 		           	deferred = q.defer();
 		           	return deferred.promise;
             	}
+            },
+            solutions: {
+              	get: function(showAll, ssoUserName) {
+		           	deferred = q.defer();
+		           	return deferred.promise;
+            	}
+            },
+            problems: function (params) {
+            	deferred = q.defer();
+		        return deferred.promise;
             }
 	    };
 		module(function ($provide) {
@@ -54,14 +64,14 @@ describe('Case Services', function() {
 	});
 
 	beforeEach(inject(function (_CaseService_,_SearchCaseService_,_MockService_,_SearchBoxService_,
-		$injector,$q,$rootScope) {
+		_RecommendationsService_,$injector,$q,$rootScope) {
 	    caseService = _CaseService_;
 	    searchCaseService = _SearchCaseService_;
 	    mockService = _MockService_;
 	    searchBoxService = _SearchBoxService_;
+	    recommendationsService = _RecommendationsService_;
 	    scope = $rootScope.$new();
 	    securityService = $injector.get('securityService');	
-	    AUTH_EVENTS =  $injector.get('AUTH_EVENTS');	  
 	    q = $q;
 	    
 	}));
@@ -186,7 +196,7 @@ describe('Case Services', function() {
 		expect(caseService.newCasePage1Incomplete).toBe(true);
 		caseService.case.product = 'Red Hat Enterprise Linux';
         caseService.case.version = '6.0';
-        caseService.case.summary = 'Tset Summary';
+        caseService.case.summary = 'Test Summary';
         caseService.case.description = 'Test Description';		 
 		caseService.validateNewCasePage1();
 		expect(caseService.newCasePage1Incomplete).toBe(false);			
@@ -276,6 +286,54 @@ describe('Case Services', function() {
       	searchCaseService.clear();
       	expect(searchBoxService.searchTerm).toEqual('');
       	expect(searchCaseService.cases).toEqual([]);    	
+  	});
+
+  	it('should have a method to populate pinned recommendations but not linked', function () {
+		expect(recommendationsService.populatePinnedRecommendations).toBeDefined(); 
+		var mockSolution = {
+			solution_title: 'test solution title 1 ',
+			solution_abstract: 'test solution abstract 1'
+		};
+		caseService.case.recommendations = {"recommendation":[
+	        {"linked":false,"pinned_at":true,"last_suggested_date":1398756627000,"lucene_score":141.0,"resource_id":"27450","resource_type":"Solution","resource_uri":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/27450","solution_title":" test solution title 1 ","solution_abstract":"test solution abstract 1","solution_url":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/27450","title":"test title 1","solution_case_count":3}
+	      ]};
+		recommendationsService.populatePinnedRecommendations();
+		deferred.resolve(mockSolution);
+		spyOn(mockStrataService.solutions, 'get').andCallThrough();
+		scope.$root.$digest();
+		expect(recommendationsService.pinnedRecommendations).toContain(mockSolution);
+  	});
+
+	it('should have a method to populate non pinned recommendations but linked', function () {
+		expect(recommendationsService.populatePinnedRecommendations).toBeDefined(); 
+		var mockSolution = {
+			solution_title: 'test solution title 2 ',
+			solution_abstract: 'test solution abstract 2'
+		};
+		caseService.case.recommendations = {"recommendation":[
+	        {"linked":true,"pinned_at":false,"last_suggested_date":1398756612000,"lucene_score":155.0,"resource_id":"637583","resource_type":"Solution","resource_uri":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583","solution_title":"test solution title 2","solution_abstract":"test solution abstract 2","solution_url":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583","title":"test title 2","solution_case_count":14,}
+	      ]};
+		recommendationsService.populatePinnedRecommendations();
+		deferred.resolve(mockSolution);
+		spyOn(mockStrataService.solutions, 'get').andCallThrough();
+		scope.$root.$digest();
+		expect(recommendationsService.handPickedRecommendations).toContain(mockSolution);
+  	});
+
+	it('should have a method to populate recommendations', function () {
+		expect(recommendationsService.populateRecommendations).toBeDefined(); 
+		caseService.case.product = 'Red Hat Enterprise Linux';
+        caseService.case.version = '6.0';
+        caseService.case.summary = 'Test Summary';
+        caseService.case.description = 'Test Description';
+        var mockSolutions = [
+        	{solution_title: 'test solution title 1 ',solution_abstract: 'test solution abstract 1',uri: 'xyz'},
+        	{solution_title: 'test solution title 1 ',solution_abstract: 'test solution abstract 1',uri: 'abc'}
+        	];
+        recommendationsService.populateRecommendations(5);
+        deferred.resolve(mockSolutions);
+		spyOn(mockStrataService, 'problems').andCallThrough();
+		scope.$root.$digest();		
   	});
 
 });
