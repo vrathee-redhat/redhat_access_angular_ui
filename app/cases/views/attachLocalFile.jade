@@ -1,14 +1,14 @@
 div.container-fluid
   div.row.rha-create-field
     div.col-xs-6
-      button.btn(style='float: left;', ng-click='getFile()', ng-disabled='disabled') Attach local file
+      button.btn(style='float: left;', ng-click='getFile()', ng-disabled='disabled', translate='') Attach local file
       div(style='height: 0px; width:0px; overflow:hidden;')
         input(id='fileUploader', type='file', value='upload', rha-on-change='selectFile', ng-model='file', ng-disabled='disabled')
     div.col-xs-6
       div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
   div.row.rha-create-field
     div.col-xs-12(style='font-size: 80%;')
-      span File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com.&nbsp;
+      span {{'File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com.'|translate}}&nbsp;
       span
         a(href='https://access.devgssci.devlab.phx1.redhat.com/knowledge/solutions/2112') (More info)
   div.row.rha-create-field
@@ -23,5 +23,5 @@ div.container-fluid
       button.btn(
         ng-disabled='fileName == NO_FILE_CHOSEN || disabled',
         style='float: right;',
-        ng-click='addFile(fileUploaderForm)') Add
+        ng-click='addFile(fileUploaderForm)', translate='') Add
 

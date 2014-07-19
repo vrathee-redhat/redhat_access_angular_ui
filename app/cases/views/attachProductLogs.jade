@@ -1,7 +1,7 @@
 div.container-fluid
   div.row.rha-create-field
     div.col-xs-12
-      div(style='padding-bottom: 4px;') Attach Foreman logs:
+      div(style='padding-bottom: 4px;') {{'Attach Foreman logs:'|translate}}
       select.form-control(multiple)
         option Log1
         option Log2
@@ -11,4 +11,4 @@ div.container-fluid
         option Log6
   div.row.rha-create-field
     div.col-xs-12
-      button.btn(ng-disabled='true', style='float: right;') Add
+      button.btn(ng-disabled='true', style='float: right;', translate='') Add
