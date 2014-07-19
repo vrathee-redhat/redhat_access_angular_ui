@@ -12,7 +12,7 @@
                 </a>
                 <h3 class="panel-title" style="display: inline">{{tab.longTitle}}</h3>
                 <div class="pull-right" id="overlay" popover="Select text and click to perform Red Hat Diagnose" popover-trigger="mouseenter" popover-placement="left">
-                    <button ng-disabled="isDisabled" id="diagnoseButton" type="button" class="btn btn-sm btn-primary diagnoseButton" ng-click="diagnoseText()">Red Hat Diagnose</button>
+                    <button ng-disabled="isDisabled" id="diagnoseButton" type="button" class="btn btn-sm btn-primary diagnoseButton" ng-click="diagnoseText()" translate='' >Red Hat Diagnose</button>
                 </div>
                 <a class="tabs-spinner" ng-class="{ showMe: isLoading }">
                     <span class="rha-search-spinner"></span>

@@ -1,6 +1,6 @@
 div#rha-recommendation-section
   div.rha-section-header(style='margin-bottom: 10px;')
-    h4(style='display: inline; padding-right: 10px;') Recommendations
+    h4(style='display: inline; padding-right: 10px;', translate='') Recommendations
     span.rha-search-spinner-sm(style='display: inline-block; height: 11px; width: 11px;', ng-show='RecommendationsService.loadingRecommendations')
   span.rha-search-spinner(ng-show='loading')
   div.container-fluid.rha-side-padding(ng-hide='loading')
@@ -17,9 +17,9 @@ div#rha-recommendation-section
               div(style='display: table-cell')
                 div.rha-bold {{recommendation.title}}
                 span( 
-                  ng-show='recommendation.handPicked' ng-class='{"hand-picked": recommendation.handPicked}') handpicked
+                  ng-show='recommendation.handPicked' ng-class='{"hand-picked": recommendation.handPicked}', translate='') handpicked
                 div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.html | recommendationsResolution}}
-                a(href='{{recommendation.view_uri}}', target='_blank') View full article in new window
+                a(href='{{recommendation.view_uri}}', target='_blank') {{'View full article in new window'|translate}}
     div.row(style='padding-top: 10px;', ng-hide='recommendationsOnScreen.length == 0')
       div.col-xs-12
         pagination.pagination-sm(

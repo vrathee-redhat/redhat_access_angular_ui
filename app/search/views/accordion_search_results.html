@@ -2,7 +2,7 @@
     <div class="col-xs-6">
         <div style="padding-bottom: 0">
             <span>
-                <h4 style="padding-left: 10px; display: inline-block;">Recommendations</h4>
+                <h4 style="padding-left: 10px; display: inline-block;" translate=''>Recommendations</h4>
             </span>
             <span ng-show="searchInProgress.value" class="rha-search-spinner">
                 &nbsp;
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div style="padding-bottom: 14px;" class="col-xs-6" ng-show="showOpenCaseBtn()">
-        <a href={{getOpenCaseRef()}} class="btn btn-primary pull-right ">Open a New Support Case</a>
+        <a href={{getOpenCaseRef()}} class="btn btn-primary pull-right ">{{'Open a New Support Case'|translate}}</a>
     </div>
 </div>
 <div class="">

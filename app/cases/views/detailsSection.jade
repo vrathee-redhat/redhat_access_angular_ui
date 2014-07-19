@@ -17,14 +17,14 @@ form(name='caseDetails')
   div.container-fluid.rha-side-padding(ng-hide='loading')
     div#rha-case-details.row
       div.col-sm-12.rha-section-header
-        h4 Details
+        h4(translate='') Details
       div.container-fluid.rha-side-padding
         div.row
           div.col-md-4
             table.table.details-table
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') Case Type:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'Case Type:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                     ng-show='caseDetails.type.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
@@ -38,7 +38,7 @@ form(name='caseDetails')
                         ng-options='c.name for c in caseTypes track by c.name')
               tr
                 th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') Severity:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'Severity:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                     ng-show='caseDetails.severity.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
@@ -52,17 +52,17 @@ form(name='caseDetails')
                         ng-options='s.name for s in CaseService.severities track by s.name')
               tr(ng-show='CaseService.showFts()')
                 th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') 24x7 Support:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Support:'|translate}}
                 td
                   input(ng-model='CaseService.case.fts', type='checkbox')
               tr(ng-show='CaseService.showFts() && CaseService.case.fts')
                 th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') 24x7 Contact:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Contact:'|translate}}
                 td
                   input.form-control(ng-model='CaseService.case.contact_info24_x7')
               tr
                 th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') Status:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'Status:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                   ng-show='caseDetails.status.$dirty',
                   style='display: inline-block;float: right; vertical-align: 50%;')
@@ -76,7 +76,7 @@ form(name='caseDetails')
                         ng-options='s.name for s in statuses track by s.name')
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') Alternate ID:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'Alternate ID:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                   ng-show='caseDetails.alternate_id.$dirty',
                   style='display: inline-block;float: right; vertical-align: 50%;')
@@ -89,7 +89,7 @@ form(name='caseDetails')
             table.table.details-table
               tr
                 th
-                  div(style='vertical-align: 50%; display: inline-block;') Product:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'Product:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                     ng-show='caseDetails.product.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
@@ -105,7 +105,7 @@ form(name='caseDetails')
                         required)
               tr
                 th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') Product Version:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'Product Version:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                   ng-show='caseDetails.version.$dirty',
                   style='display: inline-block;float: right; vertical-align: 50%;')
@@ -119,19 +119,19 @@ form(name='caseDetails')
                         ng-model='CaseService.case.version',
                         required)
               tr(ng-hide='compact')
-                th.rha-detail-table-header Support Level:
+                th.rha-detail-table-header {{'Support Level:'|translate}}
                 td {{CaseService.case.entitlement.sla}}
               tr(ng-hide='compact')
-                th.rha-detail-table-header Owner:
+                th.rha-detail-table-header {{'Owner:'|translate}}
                 td {{CaseService.case.contact_name}}
               tr(ng-hide='compact')
-                th.rha-detail-table-header Red Hat Owner:
+                th.rha-detail-table-header {{'Red Hat Owner:'|translate}}
                 td {{CaseService.case.owner}}
           div.col-md-4
             table.table.details-table
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') Group:
+                  div(style='vertical-align: 50%; display: inline-block;') {{'Group:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                     ng-show='caseDetails.group.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
@@ -144,20 +144,20 @@ form(name='caseDetails')
                         ng-options='g.name for g in groups track by g.number',
                         ng-model='CaseService.case.group')
               tr(ng-hide='compact')
-                th.rha-detail-table-header Opened:
+                th.rha-detail-table-header {{'Opened:'|translate}}
                 td
                   div {{CaseService.case.created_date | date:'medium'}}
                   div {{CaseService.case.created_by}}
               tr(ng-hide='compact')
-                th.rha-detail-table-header Last Updated:
+                th.rha-detail-table-header {{'Last Updated:'|translate}}
                 td
                   div {{CaseService.case.last_modified_date | date:'medium'}}
                   div {{CaseService.case.last_modified_by}}
               tr(ng-hide='compact')
-                th.rha-detail-table-header Account Number:
+                th.rha-detail-table-header {{'Account Number:'|translate}}
                 td {{CaseService.case.account_number}}
               tr(ng-hide='compact')
-                th.rha-detail-table-header Account Name:
+                th.rha-detail-table-header {{'Account Name:'|translate}}
                 td {{CaseService.account.name}}
         div.row(style='padding-top: 10px;')
           div.col-xs-12
@@ -166,5 +166,5 @@ form(name='caseDetails')
                 name='updateButton',
                 ng-disabled='!caseDetails.$dirty',
                 ng-hide='updatingDetails',
-                ng-click='updateCase()') Update Details
+                ng-click='updateCase()', translate='') Update Details
               span.rha-search-spinner(ng-show='updatingDetails')

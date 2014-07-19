@@ -1,14 +1,14 @@
-div(ng-show='AttachmentsService.originalAttachments.length == 0', style='padding-bottom: 10px;') No attachments added
+div(ng-show='AttachmentsService.originalAttachments.length == 0', style='padding-bottom: 10px;') {{'No attachments added'|translate}}
 div.panel.panel-default(ng-show='AttachmentsService.originalAttachments.length > 0')
-  div.panel-heading Attached Files
+  div.panel-heading {{'Attached Files'|translate}}
   table.table.table-hover.table-bordered
     thead
-      th Filename
-      th Description
-      th Size
-      th Attached
-      th Attached By
-      th Delete
+      th {{'Filename'|translate}}
+      th {{'Description'|translate}}
+      th {{'Size'|translate}}
+      th {{'Attached'|translate}}
+      th {{'Attached By'|translate}}
+      th {{'Delete'|translate}}
     tbody
       tr(ng-repeat='attachment in AttachmentsService.originalAttachments')
         td
@@ -19,5 +19,5 @@ div.panel.panel-default(ng-show='AttachmentsService.originalAttachments.length >
         td {{attachment.created_date | date:'medium'}}
         td {{attachment.created_by}}
         td
-          div(ng-show='disabled') Delete
-          a(ng-click='AttachmentsService.removeOriginalAttachment($index)', ng-hide='disabled') Delete
+          div(ng-show='disabled') {{'Delete'|translate}}
+          a(ng-click='AttachmentsService.removeOriginalAttachment($index)', ng-hide='disabled') {{'Delete'|translate}}

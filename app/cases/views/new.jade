@@ -8,17 +8,17 @@ div.container-offset
             div(ng-if='securityService.loginStatus.isInternal')
               div.row.rha-create-field
                 div.col-md-4
-                  div Account: 
+                  div {{'Account:'|translate}}
                 div.col-md-8
                   x-rha-account-select
               div.row.rha-create-field
                 div.col-md-4
-                  div Owner:
+                  div {{'Owner:'|translate}}
                 div.col-md-8
                   x-rha-owner-select
             div.row.rha-create-field
               div.col-md-4
-                div Product:
+                div {{'Product:'|translate}}
               div.col-md-8
                 x-rha-select-loading-indicator(loading='productsLoading', type='bootstrap')
                   select.form-control(
@@ -30,7 +30,7 @@ div.container-offset
                     ng-blur='getRecommendations()')
             div.row.rha-create-field
               div.col-md-4
-                div Product Version:
+                div {{'Product Version:'|translate}}
               div.col-md-8
                 div
                   x-rha-select-loading-indicator(loading='versionLoading', type='bootstrap')
@@ -43,7 +43,7 @@ div.container-offset
                       ng-blur='getRecommendations()')
             div.row.rha-create-field
               div.col-md-4
-                div Summary:
+                div {{'Summary:'|translate}}
               div.col-md-8
                 input.form-control(
                   id='rha-case-summary',
@@ -54,7 +54,7 @@ div.container-offset
                   ng-blur='getRecommendations()')
             div.row.rha-create-field
               div.col-md-4
-                div Description:
+                div {{'Description:'|translate}}
               div.col-md-8
                 textarea.form-control.description-box(
                   style='width: 100%; height: 200px; max-width: 100%;',
@@ -67,7 +67,7 @@ div.container-offset
                 button.btn.btn-primary(
                   style='float: right',
                   ng-click='doNext()',
-                  ng-disabled='CaseService.newCasePage1Incomplete') Next
+                  ng-disabled='CaseService.newCasePage1Incomplete', translate='') Next
           div.rha-create-case-section(ng-class='{hidden: isPage1}', id='rha-case-wizard-page-2')
             div.rha-bottom-border
               div.row
@@ -85,7 +85,7 @@ div.container-offset
               div.col-md-8(ng-hide='CaseService.entitlements.length <= 1')
                 x-rha-entitlement-select
             div.row.rha-create-field
-              div.col-md-4 Severity:
+              div.col-md-4 {{'Severity:'|translate}}
               div.col-md-8
                 x-rha-loading-indicator(loading='severitiesLoading')
                   select.form-control(
@@ -97,21 +97,21 @@ div.container-offset
             div(ng-show='CaseService.showFts()', style='padding-left: 30px;')
               div.row.rha-create-field
                 div.col-md-12 
-                  span 24x7 Support:
+                  span {{'24x7 Support:'|translate}}
                   input(type='checkbox', ng-model='CaseService.fts', style='display: inline-block; padding-left: 10px;')
               div.row.rha-create-field(ng-show='CaseService.fts')
                 div.col-md-4
-                  div 24x7 Contact:
+                  div {{'24x7 Contact:'|translate}}
                 div.col-md-8
                   input.form-control(ng-model='CaseService.fts_contact')
             div.row.rha-create-field
-              div.col-md-4 Case Group:
+              div.col-md-4 {{'Case Group:'|translate}}
               div.col-md-8
                 x-rha-group-select(showsearchoptions='false')
             div(ng-show='NEW_CASE_CONFIG.showAttachments')
               div.row.rha-create-field
                 div.col-xs-12
-                  div Attachments:
+                  div {{'Attachments:'|translate}}
               div.rha-bottom-border
                 div.row.rha-create-field(style='overflow: auto')
                   div.col-xs-12
@@ -131,13 +131,13 @@ div.container-offset
                 button.btn.btn-primary(
                   style='float: left',
                   ng-click='doPrevious()',
-                  ng-disabled='submittingCase') Previous
+                  ng-disabled='submittingCase', translate='') Previous
               div.col-xs-6()
                 button.btn.btn-primary(
                   style='float: right',
                   ng-disabled='submittingCase',
                   ng-hide='submittingCase',
-                  ng-click='doSubmit()') Submit
+                  ng-click='doSubmit()', translate='') Submit
                 span.rha-search-spinner(
                   ng-show='submittingCase',
                   style='float: right')

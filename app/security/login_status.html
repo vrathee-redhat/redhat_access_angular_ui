@@ -1,5 +1,5 @@
 <div ng-controller = 'SecurityController' ng-show="displayLoginStatus()">
-<span ng-show="securityService.loginStatus.isLoggedIn" class="pull-right rha-logged-in"> Logged into the Red Hat Customer Portal as {{securityService.loginStatus.loggedInUser}} &nbsp;|&nbsp;
+<span ng-show="securityService.loginStatus.isLoggedIn" class="pull-right rha-logged-in"> {{'Logged into the Red Hat Customer Portal as'|translate}} {{securityService.loginStatus.loggedInUser}} &nbsp;|&nbsp;
     <span ng-if="securityService.logoutURL.length === 0">
         <a href="" ng-click="securityService.logout()"> Log out</a>
     </span>
@@ -7,12 +7,12 @@
         <a href="{{securityService.logoutURL}}"> Log out</a>
     </span>
 </span>
-<span ng-show="!securityService.loginStatus.isLoggedIn" class="pull-right rha-logged-out"> Not Logged into the Red Hat Customer Portal&nbsp;|&nbsp;
+<span ng-show="!securityService.loginStatus.isLoggedIn" class="pull-right rha-logged-out"> {{'Not Logged into the Red Hat Customer Portal'|translate}}&nbsp;|&nbsp;
     <span ng-if="securityService.loginURL.length === 0">
-        <a href="" ng-click="securityService.login()"> Log In</a>
+        <a href="" ng-click="securityService.login()"> {{'Log In'|translate}}</a>
     </span>
     <span ng-if="securityService.loginURL.length > 0">
-        <a href="{{securityService.loginURL}}"> Log In</a>
+        <a href="{{securityService.loginURL}}"> {{'Log In'|translate}}</a>
     </span>
 </span>
 

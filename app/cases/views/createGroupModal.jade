@@ -1,17 +1,17 @@
 div#rha-create-group-modal
   div.modal-header
-    h3 Create Case Group
+    h3(translate='') Create Case Group
   div.container-fluid(style='padding: 20px;')
     div.row(style='padding-bottom: 20px;')
       div.col-sm-12
         div(style='display: table; width: 100%;')
-          label(style='display: table-cell') Case Group:
+          label(style='display: table-cell', translate='') Case Group:
           input.form-control(
             ng-model='groupName', 
             style='display: table-cell; width: 100%;', 
             ng-keypress='onGroupNameKeyPress($event)')
     div.row
       div.col-sm-12
-        button.btn-primary.btn.pull-right(ng-click='createGroup()', style='margin-left: 10px;') Save
-        button.btn-secondary.btn.pull-right(ng-click='closeModal()') Cancel
+        button.btn-primary.btn.pull-right(ng-click='createGroup()', style='margin-left: 10px;', translate='') Save
+        button.btn-secondary.btn.pull-right(ng-click='closeModal()', translate='') Cancel
 

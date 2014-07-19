@@ -1,7 +1,7 @@
 <div class="nav-side-bar col-xs-3" ng-class="{ showMe: sidePaneToggle }" fill-down ng-style="{height: windowHeight }">
     <div class="hideable-side-bar" ng-class="{ showMe: sidePaneToggle }">
         <div ng-controller="DropdownCtrl" ng-init="init()">
-            <h4 class="file-list-title" ng-class="{ showMe: hideDropdown}">Available Log Files</h4>
+            <h4 class="file-list-title" ng-class="{ showMe: hideDropdown}" translate=''>Available Log Files</h4>
             <div class="btn-group" ng-class="{ hideMe: hideDropdown}">
                 <div class="machines-spinner" ng-class="{ showMe: loading }">
                     <span class="rha-search-spinner pull-right"></span>
@@ -20,7 +20,7 @@
                 <div data-angular-treeview="true" data-tree-id="mytree" data-tree-model="roleList" data-node-id="roleId" data-node-label="roleName" data-node-children="children">
                 </div>
             </div>
-            <button ng-disabled="retrieveFileButtonIsDisabled.check" type="button" class="pull-right btn btn-sm btn-primary" ng-controller="selectFileButton" ng-click="fileSelected()">
+            <button ng-disabled="retrieveFileButtonIsDisabled.check" type="button" class="pull-right btn btn-sm btn-primary" ng-controller="selectFileButton" ng-click="fileSelected()" translate=''>
                 Select File</button>
         </div>
     </div>
