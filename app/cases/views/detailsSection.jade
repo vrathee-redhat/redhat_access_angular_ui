@@ -146,12 +146,12 @@ form(name='caseDetails')
               tr(ng-hide='compact')
                 th.rha-detail-table-header Opened:
                 td
-                  div {{CaseService.case.created_date | date:'medium'}}
+                  div {{CaseService.case.created_date | date:'MMM d, y h:mm:ss a Z'}}
                   div {{CaseService.case.created_by}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header Last Updated:
                 td
-                  div {{CaseService.case.last_modified_date | date:'medium'}}
+                  div {{CaseService.case.last_modified_date | date:'MMM d, y h:mm:ss a Z'}}
                   div {{CaseService.case.last_modified_by}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header Account Number:
