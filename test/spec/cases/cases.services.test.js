@@ -14,66 +14,25 @@ describe('Case Services', function() {
 	var deferred;
 
 	beforeEach(angular.mock.module('RedhatAccess.cases'));
-
+	
 	beforeEach(function (){
-		mockStrataService = {
-            groups: {	          
-	          	list: function (ssoUserName) {
-		            deferred = q.defer();
-		            return deferred.promise;	            
-	          	}
-	    	},
-	    	accounts: {
-              	users: function(accountNumber) {
-	            	deferred = q.defer();
-	            	return deferred.promise;
-            	}
-            },
-            cases: {
-              	comments: {
-              		get: function(id) {
-		            	deferred = q.defer();
-		            	return deferred.promise;
-            		}
-            	},
-            	filter: function (params) {
-            		deferred = q.defer();
-		            return deferred.promise;
-            	}
-            },
-            entitlements: {
-              	get: function(showAll, ssoUserName) {
-		           	deferred = q.defer();
-		           	return deferred.promise;
-            	}
-            },
-            solutions: {
-              	get: function(showAll, ssoUserName) {
-		           	deferred = q.defer();
-		           	return deferred.promise;
-            	}
-            },
-            problems: function (params) {
-            	deferred = q.defer();
-		        return deferred.promise;
-            }
-	    };
 		module(function ($provide) {
           $provide.value('strataService', mockStrataService);
       	});
+
 	});
 
 	beforeEach(inject(function (_CaseService_,_SearchCaseService_,_MockService_,_SearchBoxService_,
-		_RecommendationsService_,$injector,$q,$rootScope) {
+		_RecommendationsService_,_MockStrataService_,$injector,$q,$rootScope) {
 	    caseService = _CaseService_;
 	    searchCaseService = _SearchCaseService_;
 	    mockService = _MockService_;
+	    mockStrataService = _MockStrataService_;
 	    searchBoxService = _SearchBoxService_;
 	    recommendationsService = _RecommendationsService_;
 	    scope = $rootScope.$new();
 	    securityService = $injector.get('securityService');	
-	    q = $q;
-	    
+	    q = $q;    
 	}));
 	
 	it('should have a method for defining case object', function () {
