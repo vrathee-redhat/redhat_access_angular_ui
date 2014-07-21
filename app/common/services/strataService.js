@@ -10,7 +10,7 @@ angular.module('RedhatAccess.common')
       var errorHandler = function (message, xhr, response, status) {
 
         var translatedMsg = message;
-        console.log('Strata status is ' + status);
+        //console.log('Strata status is ' + status);
 
         switch (status) {
         case 'Unauthorized':
