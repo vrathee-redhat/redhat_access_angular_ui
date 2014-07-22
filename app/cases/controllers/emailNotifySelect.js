@@ -26,8 +26,7 @@ angular.module('RedhatAccess.cases')
 
             if (RHAUtils.isEmpty(updatedUser)) {
               $scope.updatingList = true;
-              strataService.cases.notified_users.remove(CaseService.
-              case .case_number, origUser).then(
+              strataService.cases.notified_users.remove(CaseService.kase.case_number, origUser).then(
                 function () {
                   $scope.updatingList = false;
                   CaseService.originalNotifiedUsers = CaseService.updatedNotifiedUsers;
@@ -44,8 +43,7 @@ angular.module('RedhatAccess.cases')
 
             if (RHAUtils.isEmpty(originalUser)) {
               $scope.updatingList = true;
-              strataService.cases.notified_users.add(CaseService.
-              case .case_number, updatedUser).then(
+              strataService.cases.notified_users.add(CaseService.kase.case_number, updatedUser).then(
                 function () {
                   CaseService.originalNotifiedUsers = CaseService.updatedNotifiedUsers;
                   $scope.updatingList = false;

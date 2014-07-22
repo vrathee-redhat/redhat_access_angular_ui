@@ -73,7 +73,7 @@ angular.module('RedhatAccess.cases')
           }
         };
 
-        strataService.cases.put(CaseService.case.case_number, recJSON).then(
+        strataService.cases.put(CaseService.kase.case_number, recJSON).then(
             function(response) {
               if (!$scope.currentRecPin.pinned) {
                 //not currently pinned, so add it to the pinned list
