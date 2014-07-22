@@ -7,13 +7,13 @@ div(style='margin-left: 60px; margin-right: 60px;')
       style='max-width: 100%',
       ng-keypress='onNewCommentKeypress()')
     div(style='padding-top: 10px;')
-      span.hidden You have used 0% of the 32KB maximum description size.
-      span.pull-right.rha-bold(ng-show='savingDraft') Saving draft...
-      span.pull-right.rha-bold(ng-show='draftSaved') Draft saved
+      span.hidden {{'You have used 0% of the 32KB maximum description size.'|translate}}
+      span.pull-right.rha-bold(ng-show='savingDraft') {{'Saving draft...'|translate}}
+      span.pull-right.rha-bold(ng-show='draftSaved') {{'Draft saved'|translate}}
   div(style='float: right;')
     span.rha-search-spinner(ng-show='addingComment')
     button.btn.btn-primary(
       ng-hide='addingComment',
       ng-disabled='false',
       ng-click='addComment()',
-      style='float: right;') Add Comment
+      style='float: right;',translate='') Add Comment

@@ -10,36 +10,36 @@ div#rha-case-search.container-offset
       div.col-xs-3
         button.btn.btn-secondary.pull-right(
           ng-disabled='!securityService.loginStatus.isLoggedIn',
-          ui-sref='new') Open a New Support Case
+          ui-sref='new', translate='') Open a New Support Case
     div.rha-bottom-border
     div.row(style='padding-bottom: 10px;')
       div.col-sm-2
-        label Status
+        label(translate='') Status
         x-rha-status-select
       div.col-sm-2
-        label Severity
+        label(translate='') Severity
         x-rha-severity-select
       div.col-sm-2
-        label Type
+        label(translate='') Type
         x-rha-type-select
       div.col-sm-2
-        label Group
+        label(translate='') Group
         x-rha-group-select(show-search-options='true')
       div.col-sm-2
-        label Owner
+        label(translate='') Owner
         x-rha-owner-select
       div.col-sm-2
-        label Product
+        label(translate='') Product
         x-rha-product-select
     div(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
       div.row(style='padding-bottom: 4px;')
         div.col-xs-12
           span.rha-search-spinner
-          h3(style='display: inline-block; padding-left: 4px;') Searching...
+          h3(style='display: inline-block; padding-left: 4px;', translate='') Searching...
     div(ng-show='SearchCaseService.cases.length === 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
       div.row
         div.col-xs-12
-          div No cases found with given search criteria.
+          div {{'No cases found with given search criteria.'|translate}}
     div(ng-repeat='case in casesOnScreen') 
       div.row
         div.col-xs-12

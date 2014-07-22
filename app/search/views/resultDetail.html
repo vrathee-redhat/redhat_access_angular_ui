@@ -1,10 +1,10 @@
 <div class='panel' style='border:0' ng-model="result" >
 	<div ng-if="isSolution()">
-		<h3>Environment</h3>
+		<h3 translate=''>Environment</h3>
 		<div ng-bind-html='result.environment.html'></div>
 		<h3>Issue</h3>
 		<div ng-bind-html='result.issue.html'></div>
-		<h3 ng-if="getSolutionResolution() !== ''" >Resolution</h3>
+		<h3 ng-if="getSolutionResolution() !== ''" translate=''>Resolution</h3>
 		<div ng-bind-html='getSolutionResolution()'></div>
 	</div>
 	<div ng-if="isArticle()">

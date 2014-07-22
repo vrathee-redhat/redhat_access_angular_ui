@@ -3,7 +3,7 @@
         <!--pagination on-select-page="pageChanged(page)" total-items="totalItems" page="currentPage" max-size="maxSize"></pagination-->
 
         <div class="panel-heading">
-            <h4 class="panel-title">
+            <h4 class="panel-title" translate=''>
                 Recommendations
             </h4>
         </div>
@@ -14,7 +14,7 @@
 </div>
 <div class="col-sm-8" style="overflow: auto;" rha-resizable rha-dom-ready="domReady">
     <div class="alert alert-info" ng-show='selectedSolution.index === -1 && results.length > 0'>
-        To view a recommendation, click on it.
+        {{'To view a recommendation, click on it.'|translate}}
     </div>
     <div style "overflow: vertical;">
         <x-rha-result-detail-display result='selectedSolution.data' />
