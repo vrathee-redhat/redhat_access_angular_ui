@@ -128,11 +128,11 @@ angular.module('RedhatAccess.common')
 
             return deferred.promise;
           },
-          //groups.delete
-          delete: function(groupNum) {
+          //groups.remove
+          remove: function(groupNum) {
             var deferred = $q.defer();
 
-            strata.groups.delete(
+            strata.groups.remove(
               groupNum,
               function (response) {
                 deferred.resolve(response);
@@ -245,12 +245,12 @@ angular.module('RedhatAccess.common')
 
               return deferred.promise;
             },
-            //cases.attachments.delete
-            delete: function (id, caseNumber) {
+            //cases.attachments.remove
+            remove: function (id, caseNumber) {
 
               var deferred = $q.defer();
 
-              strata.cases.attachments.delete(
+              strata.cases.attachments.remove(
                 id,
                 caseNumber,
                 function (response) {

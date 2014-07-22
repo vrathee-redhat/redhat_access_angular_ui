@@ -16,7 +16,7 @@ angular.module('RedhatAccess.cases')
       var promises = [];
       angular.forEach(CaseService.groups, function(group, index) {
         if (group.selected) {
-          var promise = strataService.groups.delete(group.number);
+          var promise = strataService.groups.remove(group.number);
           promise.then(
             function(success) {
               var groups =

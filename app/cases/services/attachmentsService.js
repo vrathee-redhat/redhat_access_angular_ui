@@ -42,8 +42,7 @@ angular.module('RedhatAccess.cases')
           AlertService.addWarningMessage(
             translate('Deleting attachment:')+ ' ' + attachment.file_name + ' - ' + attachment.uuid);
 
-        strataService.cases.attachments.delete(attachment.uuid, CaseService.
-        case .case_number).then(
+        strataService.cases.attachments.remove(attachment.uuid, CaseService.kase.case_number).then(
           angular.bind(this, function () {
             AlertService.removeAlert(progressMessage);
             AlertService.addSuccessMessage(
