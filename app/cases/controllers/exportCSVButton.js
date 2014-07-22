@@ -12,7 +12,7 @@ angular.module('RedhatAccess.cases')
 
     $scope.exporting = false;
 
-    $scope.export = function() {
+    $scope.exports = function() {
       $scope.exporting = true;
       strataService.cases.csv().then(
         function(response) {
