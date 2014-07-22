@@ -53,6 +53,7 @@ angular.module('RedhatAccess.cases')
         SearchBoxService.searchTerm = '';
         this.start = 0;
         this.total = 0;
+        this.allCasesDownloaded = false;
       };
 
       this.oldParams = {};
