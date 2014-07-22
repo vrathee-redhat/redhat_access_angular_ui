@@ -4,11 +4,11 @@
     overflow: auto;
 }
 
-.nav-side-bar {
+.rha-navsidebar {
 	display: block;
 }
 
-.nav-side-bar.showMe {
+.rha-navsidebar.showMe {
 	width: 15px;
 	padding-left: 0px;
 }
@@ -129,7 +129,7 @@
 .file-list-title.showMe {
 	display: block;
 }
-.logs-instruction-pane {
+.rha-logsinstructionpane {
 	padding-left: 20px;
 	padding-right: 20px;
 }

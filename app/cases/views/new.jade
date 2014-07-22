@@ -1,6 +1,6 @@
 div.container-offset
   div#redhat-access-case.container-fluid
-    x-rha-header(page='newCase')
+    div(rha-header='', page='newCase')
     div.row
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.rha-side-padding
@@ -10,17 +10,17 @@ div.container-offset
                 div.col-md-4
                   div {{'Account:'|translate}}
                 div.col-md-8
-                  x-rha-account-select
+                  div(rha-accountselect='')
               div.row.rha-create-field
                 div.col-md-4
                   div {{'Owner:'|translate}}
                 div.col-md-8
-                  x-rha-owner-select
+                  div(rha-ownerselect='')
             div.row.rha-create-field
               div.col-md-4
                 div {{'Product:'|translate}}
               div.col-md-8
-                x-rha-select-loading-indicator(loading='productsLoading', type='bootstrap')
+                div(rha-selectloadingindicator='', loading='productsLoading', type='bootstrap')
                   select.form-control(
                     ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
                     style='width: 100%;',
@@ -33,7 +33,7 @@ div.container-offset
                 div {{'Product Version:'|translate}}
               div.col-md-8
                 div
-                  x-rha-select-loading-indicator(loading='versionLoading', type='bootstrap')
+                  div(rha-selectloadingindicator='', loading='versionLoading', type='bootstrap')
                     select.form-control(
                       style='width: 100%;',
                       ng-model='CaseService.kase.version',
@@ -83,11 +83,11 @@ div.container-offset
               div.col-md-4 Support Level:
               div.col-md-8(ng-show='CaseService.entitlements.length <= 1') {{CaseService.entitlements[0]}}
               div.col-md-8(ng-hide='CaseService.entitlements.length <= 1')
-                x-rha-entitlement-select
+                div(rha-entitlementselect='')
             div.row.rha-create-field
               div.col-md-4 {{'Severity:'|translate}}
               div.col-md-8
-                x-rha-loading-indicator(loading='severitiesLoading')
+                div(rha-loadingindicator='', loading='severitiesLoading')
                   select.form-control(
                     style='width: 100%;',
                     ng-model='CaseService.kase.severity',
@@ -107,7 +107,7 @@ div.container-offset
             div.row.rha-create-field
               div.col-md-4 {{'Case Group:'|translate}}
               div.col-md-8
-                x-rha-group-select(showsearchoptions='false')
+                div(rha-groupselect='', showsearchoptions='false')
             div(ng-show='NEW_CASE_CONFIG.showAttachments')
               div.row.rha-create-field
                 div.col-xs-12
@@ -115,15 +115,15 @@ div.container-offset
               div.rha-bottom-border
                 div.row.rha-create-field(style='overflow: auto')
                   div.col-xs-12
-                    rha-list-new-attachments
+                    div(rha-listnewattachments='')
                 div.row.rha-create-field(ng-hide='submittingCase')
                   div.col-xs-12
-                    rha-attach-local-file(disabled='submittingCase')
+                    div(rha-attachlocalfile='', disabled='submittingCase')
                 div.row.rha-create-field(ng-hide='submittingCase')
                   div.col-xs-12
                     div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
                       div.server-attach-header Server File(s) To Attach:
-                       rha-choice-tree(
+                       div(rha-choicetree='',
                          ng-model='attachmentTree',
                          ng-controller='BackEndAttachmentsCtrl')
             div.row(style='margin-top: 20px;')
@@ -144,10 +144,10 @@ div.container-offset
       div.col-xs-6(
         style='overflow: auto;',
         rha-resizable,
-        rha-dom-ready='domReady',
+        rha-domready='domReady',
         ng-show='NEW_CASE_CONFIG.showRecommendations')
         div(
           ng-controller='SearchController',
           style='overflow: vertical;')
-          x-rha-accordion-search-results
+          div(rha-accordionsearchresults='')
 

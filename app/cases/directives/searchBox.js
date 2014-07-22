@@ -2,10 +2,10 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-.directive('rhaSearchBox', function () {
+.directive('rhaSearchbox', function () {
   return {
     templateUrl: 'cases/views/searchBox.html',
-    restrict: 'E',
+    restrict: 'EA',
     controller: 'SearchBox',
     scope: {
       placeholder: '='

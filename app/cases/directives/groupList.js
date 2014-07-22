@@ -1,10 +1,10 @@
 'use strict';
 /*jshint unused:vars */
 angular.module('RedhatAccess.cases')
-.directive('rhaGroupList', function () {
+.directive('rhaGrouplist', function () {
   return {
     templateUrl: 'cases/views/groupList.html',
-    restrict: 'E',
+    restrict: 'EA',
     controller: 'GroupList'
   };
 });

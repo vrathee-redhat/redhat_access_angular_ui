@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.directive('rhaListAttachments', function () {
+.directive('rhaListattachments', function () {
   return {
     templateUrl: 'cases/views/listAttachments.html',
     restrict: 'EA',

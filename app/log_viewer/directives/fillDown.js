@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('RedhatAccess.logViewer')
-.directive('fillDown', [
+.directive('rhaFilldown', [
 	'$window', 
 	'$timeout', 
 	function($window, $timeout) {

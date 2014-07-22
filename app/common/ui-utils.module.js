@@ -45,12 +45,12 @@ app.service('translate', ['gettextCatalog',
   }
 ]);
 
-app.directive('rhaChoiceTree', function () {
+app.directive('rhaChoicetree', function () {
   return {
-    template: '<ul><rha-choice ng-repeat="choice in tree"></rha-choice></ul>',
+    template: '<ul><div rha-choice ng-repeat="choice in tree"></div></ul>',
     replace: true,
     transclude: true,
-    restrict: 'E',
+    restrict: 'EA',
     scope: {
       tree: '=ngModel',
       rhaDisabled: '='
@@ -60,7 +60,7 @@ app.directive('rhaChoiceTree', function () {
 
 app.directive('rhaChoice', function ($compile) {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     templateUrl: 'common/views/treenode.html',
     link: function (scope, elm) {
       scope.choiceClicked = function (choice) {
@@ -75,7 +75,7 @@ app.directive('rhaChoice', function ($compile) {
         checkChildren(choice);
       };
       if (scope.choice.children.length > 0) {
-        var childChoice = $compile('<rha-choice-tree ng-show="!choice.collapsed" ng-model="choice.children"></rha-choice-tree>')(scope);
+        var childChoice = $compile('<div rha-choicetree ng-show="!choice.collapsed" ng-model="choice.children"></div>')(scope);
         elm.append(childChoice);
       }
     }

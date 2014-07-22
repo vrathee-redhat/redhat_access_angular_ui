@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.directive('rhaAddCommentSection', function () {
+.directive('rhaAddcommentsection', function () {
   return {
     templateUrl: 'cases/views/addCommentSection.html',
-    restrict: 'E',
+    restrict: 'EA',
     controller: 'AddCommentSection'
   };
 });

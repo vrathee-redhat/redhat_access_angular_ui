@@ -2,7 +2,7 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-  .directive('rhaCaseComments', function() {
+  .directive('rhaCasecomments', function() {
     return {
       templateUrl: 'cases/views/commentsSection.html',
       controller: 'CommentsSection',

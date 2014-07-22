@@ -77,9 +77,9 @@ angular.module('RedhatAccess.cases')
         this.updatedNotifiedUsers.push(this.kase.contact_sso_username);
 
         //hide the X button for the case owner
-        $('#rha-email-notify-select').on('change', angular.bind(this, function() {
-          $('x-rha-email-notify-select .select2-choices li:contains("' + this.kase.contact_sso_username + '") a').css('display', 'none');
-          $('x-rha-email-notify-select .select2-choices li:contains("' + this.kase.contact_sso_username + '")').css('padding-left', '5px');
+        $('#rha-emailnotifyselect').on('change', angular.bind(this, function() {
+          $('rha-emailnotifyselect .select2-choices li:contains("' + this.kase.contact_sso_username + '") a').css('display', 'none');
+          $('rha-emailnotifyselect .select2-choices li:contains("' + this.kase.contact_sso_username + '")').css('padding-left', '5px');
         }));
 
         if (RHAUtils.isNotEmpty(this.kase.notified_users)) {

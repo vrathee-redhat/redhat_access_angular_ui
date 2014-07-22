@@ -40,7 +40,7 @@ angular.module('RedhatAccess.header', [])
       };
     }
   ])
-  .directive('rhaTitleTemplate',
+  .directive('rhaTitletemplate',
     function() {
       return {
         restrict: 'AE',
@@ -144,7 +144,7 @@ angular.module('RedhatAccess.header', [])
     function() {
       return {
         templateUrl: 'common/views/alert.html',
-        restrict: 'E',
+        restrict: 'EA',
         controller: 'AlertController'
       };
     })
@@ -167,7 +167,7 @@ angular.module('RedhatAccess.header', [])
     function() {
       return {
         templateUrl: 'common/views/header.html',
-        restrict: 'E',
+        restrict: 'EA',
         scope: {
           page: '@'
         },

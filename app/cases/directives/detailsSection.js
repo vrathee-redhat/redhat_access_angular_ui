@@ -2,7 +2,7 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-.directive('rhaCaseDetails', function () {
+.directive('rhaCasedetails', function () {
   return {
     templateUrl: 'cases/views/detailsSection.html',
     controller: 'DetailsSection',

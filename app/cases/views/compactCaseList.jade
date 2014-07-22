@@ -2,7 +2,7 @@ div#redhat-access-case
   div.container-fluid#redhat-access-compact-list
     div.row
       div.col-xs-12.rha-col-no-padding
-        rha-list-filter
+        div(rha-listfilter='')
     div.row
       div.col-xs-12
         div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
@@ -11,7 +11,7 @@ div#redhat-access-case
       div.col-xs-12(
         style='overflow: auto;',
         rha-resizable,
-        rha-dom-ready='domReady',
+        rha-domready='domReady',
         class='rha-col-no-padding')
         div(
           style='margin-bottom: 0px; overflow: auto;')

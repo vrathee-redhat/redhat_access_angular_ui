@@ -2,10 +2,10 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-.directive('rhaSelectLoadingIndicator', function () {
+.directive('rhaSelectloadingindicator', function () {
   return {
     templateUrl: 'cases/views/selectLoadingIndicator.html',
-    restrict: 'E',
+    restrict: 'EA',
     transclude: true,
     scope: {
       loading: '=',

@@ -1,15 +1,15 @@
 <div id="log_view_main" style="max-height: 500px;">
     <div class="container-offset">
-        <x-rha-header page="logViewer"></x-rha-header>
+        <div rha-header page="logViewer"></div>
     </div>
     <div class="row-fluid" ng-controller="logViewerController" ng-mouseup="enableDiagnoseButton()">
-        <x-nav-side-bar></x-nav-side-bar>
+        <div rha-navsidebar></div>
         <div class=col-fluid>
-            <x-recommendations></x-recommendations>
+            <div rha-recommendations></div>
             <div class="col-fluid">
                 <div ng-controller="TabsDemoCtrl" ng-class="{ showMe: solutionsToggle }">
-                    <x-logs-instruction-pane></x-logs-instruction-pane>
-                    <x-log-tabs></x-log-tabs>
+                    <div rha-logsinstructionpane></div>
+                    <div rha-logtabs></div>
                 </div>
             </div>
         </div>

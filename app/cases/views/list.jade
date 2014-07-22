@@ -1,9 +1,9 @@
 div#redhat-access-case.container-offset(style='padding-bottom: 15px;')
-  x-rha-header(page='caseList')
+  div(rha-header='', page='caseList')
   div.container-fluid.rha-side-padding
     div.row
       div.col-md-9
-        rha-list-filter
+        div(rha-listfilter='')
       div.col-md-3
         button.btn.btn-primary.pull-right(
           ng-disabled='!securityService.loginStatus.isLoggedIn', 
@@ -46,4 +46,4 @@ div#redhat-access-case.container-offset(style='padding-bottom: 15px;')
                   style='width: 10%') {{case.last_modified_date | date:'longDate'}}
       div.row
         div.col-xs-12
-          x-rha-export-csv-button
+          div(rha-exportcsvbutton='')
