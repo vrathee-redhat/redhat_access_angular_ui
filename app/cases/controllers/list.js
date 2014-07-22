@@ -40,14 +40,33 @@ angular.module('RedhatAccess.cases')
         }, {
           total: SearchCaseService.cases.length,
           getData: function ($defer, params) {
-            var orderedData = params.sorting() ?
-              $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
+            var count = params.count();
+            var page = params.page();
+            var total = params.total();
+            if(!SearchCaseService.allCasesDownloaded && ((params.count() * params.page()) / SearchCaseService.total >= .8)){
+              SearchCaseService.doFilter().then(
+                function () {
+                  $scope.tableParams.reload();
+                  var orderedData = params.sorting() ?
+                    $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
 
-            var pageData = orderedData.slice(
-              (params.page() - 1) * params.count(), params.page() * params.count());
+                  var pageData = orderedData.slice(
+                    (params.page() - 1) * params.count(), params.page() * params.count());
 
-            $scope.tableParams.total(orderedData.length);
-            $defer.resolve(pageData);
+                  $scope.tableParams.total(orderedData.length);
+                  $defer.resolve(pageData);
+                }
+              );
+            } else {
+              var orderedData = params.sorting() ?
+                $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
+
+              var pageData = orderedData.slice(
+                (params.page() - 1) * params.count(), params.page() * params.count());
+
+              $scope.tableParams.total(orderedData.length);
+              $defer.resolve(pageData);
+            }
           }
         });
 
