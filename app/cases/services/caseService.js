@@ -223,7 +223,7 @@ angular.module('RedhatAccess.cases')
             }
 
             if (entitlements.length === 0) {
-              entitlements.push(ENTITLEMENTS.default);
+              entitlements.push(ENTITLEMENTS.defaults);
             }
 
             this.entitlements = entitlements;
