@@ -111,6 +111,14 @@ angular.module('RedhatAccess.cases')
       $scope.currentRecommendationPage = 1;
     };
 
+    $scope.triggerAnalytics = function($event) {
+      if(window.portal){
+        chrometwo_require(['analytics/main'], function (analytics) {
+          analytics.trigger('OpenSupportCaseRecommendationClick', $event);
+        });
+      }
+    }
+
     RecommendationsService.setPopulateCallback($scope.selectPageOne);
   }
 ]);

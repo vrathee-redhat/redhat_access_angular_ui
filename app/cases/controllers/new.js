@@ -229,7 +229,13 @@ angular.module('RedhatAccess.cases')
       /**
        * Create the case with attachments
        */
-      $scope.doSubmit = function () {
+      $scope.doSubmit = function ($event) {
+        if(window.portal){
+          chrometwo_require(['analytics/main'], function (analytics) {
+             analytics.trigger('OpenSupportCaseSubmit', $event);
+          });
+        }
+
         /*jshint camelcase: false */
         var caseJSON = {
           'product': CaseService.kase.product.code,
