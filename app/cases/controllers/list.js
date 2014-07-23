@@ -40,9 +40,6 @@ angular.module('RedhatAccess.cases')
         }, {
           total: SearchCaseService.cases.length,
           getData: function ($defer, params) {
-            var count = params.count();
-            var page = params.page();
-            var total = params.total();
             if(!SearchCaseService.allCasesDownloaded && ((params.count() * params.page()) / SearchCaseService.total >= .8)){
               SearchCaseService.doFilter().then(
                 function () {
