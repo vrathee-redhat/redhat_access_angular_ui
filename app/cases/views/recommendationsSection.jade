@@ -7,19 +7,17 @@ div#rha-recommendation-section
     div.row
       div(ng-repeat='recommendation in recommendationsOnScreen')
         div.col-xs-3
-          div(style='display: block; overflow: hidden; text-overflow: ellipsis')
-            div(style='display: table')
-              div(style='display: table-cell')
-                span(
-                  ng-class='{pinned: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
-                  ng-click='pinRecommendation(recommendation, $index, $event)',
-                  style='cursor: pointer;')&nbsp;
-              div(style='display: table-cell')
-                div.rha-bold {{recommendation.title}}
-                span( 
-                  ng-show='recommendation.handPicked' ng-class='{"hand-picked": recommendation.handPicked}', translate='') handpicked
-                div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
-                a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank') {{'View full article in new window'|translate}}
+          div(style='position: absolute; left: 0px;')
+            span(
+              ng-class='{pinned: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
+              ng-click='pinRecommendation(recommendation, $index, $event)',
+              style='cursor: pointer;')&nbsp;
+          div
+            div.rha-bold(style='overflow: hidden;') {{recommendation.title}}
+            span(
+              ng-show='recommendation.handPicked' ng-class='{"hand-picked": recommendation.handPicked}', translate='') handpicked
+            div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
+            a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank') {{'View full article in new window'|translate}}
     div.row(style='padding-top: 10px;', ng-hide='recommendationsOnScreen.length == 0')
       div.col-xs-12
         pagination.pagination-sm(
