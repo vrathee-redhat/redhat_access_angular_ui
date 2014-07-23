@@ -10,5 +10,5 @@ div(rha-selectloadingindicator='', loading='CaseService.groupsLoading', type='se
     option(value='{{CASE_GROUPS.ungrouped}}', ng-if='showsearchoptions') Ungrouped Cases
     option(disabled, ng-hide='CaseService.groups.length < 1', ng-if='showsearchoptions') ────────────────────────────────────────
     option(ng-repeat='group in CaseService.groups' value='{{group.number}}') {{group.name}}
-    option(ng-if='securityService.userAllowedToManage() && showsearchoptions', disabled) ────────────────────────────────────────
-    option(ng-if='securityService.userAllowedToManage() && showsearchoptions', value='{{CASE_GROUPS.manage}}') Manage Case Groups
+    option(ng-if='securityService.userAllowedToManageGroups() && showsearchoptions', disabled) ────────────────────────────────────────
+    option(ng-if='securityService.userAllowedToManageGroups() && showsearchoptions', value='{{CASE_GROUPS.manage}}') Manage Case Groups

@@ -135,9 +135,18 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
 
 
 
-      this.userAllowedToManage = function (user) {
+      this.userAllowedToManageEmailNotifications = function (user) {
         if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account)) &&
-          ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
+          ((this.loginStatus.orgAdmin))) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+      this.userAllowedToManageGroups = function (user) {
+        if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account)) &&
+          ((!this.loginStatus.account.has_group_acls || this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
           return true;
         } else {
           return false;
