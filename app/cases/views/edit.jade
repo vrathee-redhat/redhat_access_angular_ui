@@ -1,22 +1,22 @@
 doctype html
 div#redhat-access-case.container-offset
-  x-rha-header(page='caseView')
+  div(rha-header='', page='caseView')
   div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn')
     div.row(ng-show='EDIT_CASE_CONFIG.showDetails')
       div.col-xs-12
-        rha-case-details(compact='false', loading='caseLoading')
+        div(rha-casedetails='', compact='false', loading='caseLoading')
     div.row(ng-show='EDIT_CASE_CONFIG.showDescription')
       div.col-xs-12
-        rha-case-description(loading='caseLoading')
+        div(rha-casedescription='', loading='caseLoading')
     div.row(ng-show='EDIT_CASE_CONFIG.showBugzillas')
       div.col-xs-12
-        rha-list-bugzillas(loading='caseLoading')
+        div(rha-listbugzillas='', loading='caseLoading')
     div.row(ng-show='EDIT_CASE_CONFIG.showAttachments')
       div.col-xs-12
-        rha-case-attachments(loading='attachmentsLoading')
+        div(rha-caseattachments='', loading='attachmentsLoading')
     div.row(ng-show='EDIT_CASE_CONFIG.showRecommendations')
       div.col-xs-12
-        rha-case-recommendations(loading='recommendationsLoading')
+        div(rha-caserecommendations='', loading='recommendationsLoading')
     div.row(ng-show='EDIT_CASE_CONFIG.showComments')
       div.col-xs-12
-        rha-case-comments(loading='commentsLoading')
+        div(rha-casecomments='', loading='commentsLoading')

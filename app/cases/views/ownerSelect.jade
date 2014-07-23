@@ -1,5 +1,5 @@
 div#rha-owner-select
-  x-rha-select-loading-indicator(loading='CaseService.usersLoading', type='select2')
+  div(rha-selectloadingindicator='', loading='CaseService.usersLoading', type='select2')
     select(
       ui-select2,
       ng-disabled='!securityService.loginStatus.isLoggedIn',

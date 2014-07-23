@@ -50,16 +50,16 @@ describe('Case Services', function() {
   	it('should have a method for validating New Case Page', function () {
 		expect(caseService.validateNewCasePage1).toBeDefined(); 
 		expect(caseService.newCasePage1Incomplete).toBe(true);
-		caseService.case.product = '';
-        caseService.case.version = '';
-        caseService.case.summary = '';
-        caseService.case.description = '';		 
+		caseService.kase.product = '';
+        caseService.kase.version = '';
+        caseService.kase.summary = '';
+        caseService.kase.description = '';		 
 		caseService.validateNewCasePage1();
 		expect(caseService.newCasePage1Incomplete).toBe(true);
-		caseService.case.product = 'Red Hat Enterprise Linux';
-        caseService.case.version = '6.0';
-        caseService.case.summary = 'Tset Summary';
-        caseService.case.description = 'Test Description';		 
+		caseService.kase.product = 'Red Hat Enterprise Linux';
+        caseService.kase.version = '6.0';
+        caseService.kase.summary = 'Tset Summary';
+        caseService.kase.description = 'Test Description';		 
 		caseService.validateNewCasePage1();
 		expect(caseService.newCasePage1Incomplete).toBe(false);			
   	});
@@ -69,19 +69,19 @@ describe('Case Services', function() {
 		var fts = false;
 		caseService.severities = [{"name":"1 (Urgent)"},{"name":"2 (High)"},{"name":"3 (Normal)"},{"name":"4 (Low)"}];
 		// Show the FTS flag for sev 1 premium case
-		caseService.case.severity = {"name":"1 (Urgent)"};
-		caseService.case.entitlement = {};  
-		caseService.case.entitlement.sla = 'PREMIUM'
+		caseService.kase.severity = {"name":"1 (Urgent)"};
+		caseService.kase.entitlement = {};  
+		caseService.kase.entitlement.sla = 'PREMIUM'
 		fts = caseService.showFts();
 		expect(fts).toBe(true);
 		// Hide the FTS flag for non premium case
-		caseService.case.entitlement.sla = 'STANDARD'	
+		caseService.kase.entitlement.sla = 'STANDARD'	
 		fts = caseService.showFts();
 		expect(fts).toBe(false);
 		// Hide the FTS flag for premium but non sev1 case
-		caseService.case.severity = {"name":"3 (Normal)"};
-		caseService.case.entitlement = {};  
-		caseService.case.entitlement.sla = 'PREMIUM'
+		caseService.kase.severity = {"name":"3 (Normal)"};
+		caseService.kase.entitlement = {};  
+		caseService.kase.entitlement.sla = 'PREMIUM'
 		fts = caseService.showFts();
 		expect(fts).toBe(false);
   	});
@@ -100,8 +100,8 @@ describe('Case Services', function() {
 
   	it('should have a method for defining Notified Users for a case', function () {
 		expect(caseService.defineNotifiedUsers).toBeDefined(); 
-		caseService.case.contact_sso_username = 'testUser';	
-		caseService.case.notified_users	= {"link":[
+		caseService.kase.contact_sso_username = 'testUser';	
+		caseService.kase.notified_users	= {"link":[
 		{"title":"Denises Hughes","type":"application/vnd.redhat.user","sso_username":"dhughesgit"},
 		{"title":"Customer Portal-Qa","type":"application/vnd.redhat.user","sso_username":"customerportalQA"}]}
 		caseService.defineNotifiedUsers();

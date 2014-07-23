@@ -1,7 +1,7 @@
 'use strict';
 /*jshint unused:vars */
 angular.module('RedhatAccess.cases')
-.directive('rhaListFilter', function () {
+.directive('rhaListfilter', function () {
   return {
     templateUrl: 'cases/views/listFilter.html',
     restrict: 'EA',

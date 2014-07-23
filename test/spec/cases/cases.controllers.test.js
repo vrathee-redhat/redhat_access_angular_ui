@@ -28,7 +28,7 @@ describe('Case Controllers', function() {
 				});
 
 				var caseJSON = {};
-				caseService.case.case_number = '1234';
+				caseService.kase.case_number = '1234';
 				expect(mockScope.updateCase).toBeDefined();
 				var deferred = q.defer();
 				spyOn(strataService.cases, 'put').andReturn(deferred.promise);
@@ -46,7 +46,7 @@ describe('Case Controllers', function() {
 						strataService: strataService
 				});
 
-				caseService.case.case_number = '1234';
+				caseService.kase.case_number = '1234';
 				caseService.commentText = 'test comment';
 				expect(mockScope.addComment).toBeDefined();
 				var deferred = q.defer();
@@ -66,7 +66,7 @@ describe('Case Controllers', function() {
 						strataService: strataService
 				});
 
-				caseService.case.case_number = '1234';
+				caseService.kase.case_number = '1234';
 				caseService.commentText = 'test comment';
 				caseService.draftComment = {};
 				caseService.draftComment.id = '1111';
@@ -95,10 +95,10 @@ describe('Case Controllers', function() {
 			        description: 'test case description'		        
       			};
 
-      			caseService.case.product = 'Red Hat Enterprise Linux';
-		        caseService.case.version = '6.0';
-		        caseService.case.summary = 'test case summary';
-		        caseService.case.description = 'test case description';
+      			caseService.kase.product = 'Red Hat Enterprise Linux';
+		        caseService.kase.version = '6.0';
+		        caseService.kase.summary = 'test case summary';
+		        caseService.kase.description = 'test case description';
 
       			expect(mockScope.getRecommendations).toBeDefined();
       			var deferred = q.defer();

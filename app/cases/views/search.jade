@@ -1,12 +1,12 @@
 div#rha-case-search.container-offset
-  x-rha-header(page='searchCase')
+  div(rha-header='', page='searchCase')
   div.container-fluid
     div.row(style='padding-bottom: 10px;')
       div.col-xs-6
-        x-rha-search-box(placeholder='Search')
+        div(rha-searchbox='', placeholder='Search')
       div.col-xs-3
         div.pull-right
-          x-rha-chat-button
+          div(rha-chatbutton='')
       div.col-xs-3
         button.btn.btn-secondary.pull-right(
           ng-disabled='!securityService.loginStatus.isLoggedIn',
@@ -15,22 +15,22 @@ div#rha-case-search.container-offset
     div.row(style='padding-bottom: 10px;')
       div.col-sm-2
         label(translate='') Status
-        x-rha-status-select
+        div(rha-statusselect='')
       div.col-sm-2
         label(translate='') Severity
-        x-rha-severity-select
+        div(rha-severityselect='')
       div.col-sm-2
         label(translate='') Type
-        x-rha-type-select
+        div(rha-typeselect='')
       div.col-sm-2
         label(translate='') Group
-        x-rha-group-select(show-search-options='true')
+        div(rha-groupselect='', show-search-options='true')
       div.col-sm-2
         label(translate='') Owner
-        x-rha-owner-select
+        div(rha-ownerselect='')
       div.col-sm-2
         label(translate='') Product
-        x-rha-product-select
+        div(rha-productselect='')
     div(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
       div.row(style='padding-bottom: 4px;')
         div.col-xs-12
@@ -43,7 +43,7 @@ div#rha-case-search.container-offset
     div(ng-repeat='case in casesOnScreen') 
       div.row
         div.col-xs-12
-          x-rha-case-search-result(case='case')
+          div(rha-casesearchresult='', case='case')
     div(ng-hide='SearchCaseService.cases.length === 0', style='border-top: 1px solid #cccccc')
       div.row
         div.col-xs-6.pull-right
@@ -57,4 +57,4 @@ div#rha-case-search.container-offset
             max-size='maxPagerSize',
             rotate='true')
         div.col-xs-6.pull-left(style='padding-top: 20px;')
-          x-rha-export-csv-button
+          div(rha-exportcsvbutton='')

@@ -25,11 +25,11 @@ angular.module('RedhatAccess.cases')
         CaseService.commentText = '';
 
         //TODO: find better way than hard code
-        if(CaseService.case.status.name === "Closed"){
-          CaseService.case.status.name = "Waiting on Red Hat";
+        if(CaseService.kase.status.name === "Closed"){
+          CaseService.kase.status.name = "Waiting on Red Hat";
         }
 
-        CaseService.populateComments(CaseService.case.case_number).then(
+        CaseService.populateComments(CaseService.kase.case_number).then(
           function(comments) {
             $scope.addingComment = false;
             $scope.savingDraft = false;
@@ -47,14 +47,14 @@ angular.module('RedhatAccess.cases')
 
       if(RHAUtils.isNotEmpty(CaseService.draftComment)) {
         strataService.cases.comments.put(
-          CaseService.case.case_number, 
+          CaseService.kase.case_number, 
           CaseService.commentText, 
           false, 
           CaseService.draftComment.id)
             .then(onSuccess, onError);
       } else {
         strataService.cases.comments.post(
-          CaseService.case.case_number, 
+          CaseService.kase.case_number, 
           CaseService.commentText)
             .then(onSuccess, onError);
       }
@@ -84,7 +84,7 @@ angular.module('RedhatAccess.cases')
           "text": CaseService.commentText,
           "id": RHAUtils.isNotEmpty(commentId) ? commentId : draftComment.id,
           "draft": true,
-          "case_number": CaseService.case.case_number
+          "case_number": CaseService.kase.case_number
         };
       };
 
@@ -96,7 +96,7 @@ angular.module('RedhatAccess.cases')
       if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
         //draft update
         strataService.cases.comments.put(
-          CaseService.case.case_number, 
+          CaseService.kase.case_number, 
           CaseService.commentText, 
           true, 
           CaseService.draftComment.id)
@@ -104,7 +104,7 @@ angular.module('RedhatAccess.cases')
       } else {
         //initial draft save
         strataService.cases.comments.post(
-          CaseService.case.case_number, 
+          CaseService.kase.case_number, 
           CaseService.commentText, 
           true)
             .then(onSuccess, onFailure);

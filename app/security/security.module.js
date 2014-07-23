@@ -11,7 +11,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized'
   })
-  .directive('rhaLoginStatus', function () {
+  .directive('rhaLoginstatus', function () {
     return {
       restrict: 'AE',
       scope: false,
@@ -154,7 +154,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
               defer.resolve(localStorage.getItem('rhAuthToken'));
             },
             function (error) {
-              console.log('Unable to get user credentials');
               defer.resolve(error);
             });
           return defer.promise;
@@ -230,7 +229,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         } else {
           this.initLoginStatus().then(
             function (username) {
-              console.log('User name is ' + username);
               defer.resolve(username);
             },
             function (error) {
@@ -252,11 +250,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         var result = this.showLogin(modalDefaults, modalOptions);
         result.then(
           function (authedUser) {
-            console.log('User logged in : ' + authedUser.name);
             that.setLoginStatus(true, authedUser.name, false, authedUser.is_internal);
           },
           function (error) {
-            console.log('Unable to login user');
             that.clearLoginStatus();
           });
         return result; // pass on the promise

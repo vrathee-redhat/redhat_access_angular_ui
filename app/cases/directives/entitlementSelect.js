@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.directive('rhaEntitlementSelect', function () {
+.directive('rhaEntitlementselect', function () {
   return {
     templateUrl: 'cases/views/entitlementSelect.html',
-    restrict: 'E',
+    restrict: 'EA',
     controller: 'EntitlementSelect'
   };
 });

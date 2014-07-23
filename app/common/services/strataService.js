@@ -10,7 +10,6 @@ angular.module('RedhatAccess.common')
       var errorHandler = function (message, xhr, response, status) {
 
         var translatedMsg = message;
-        //console.log('Strata status is ' + status);
 
         switch (status) {
         case 'Unauthorized':
@@ -104,7 +103,6 @@ angular.module('RedhatAccess.common')
             strata.products.versions(
               productCode,
               function (response) {
-                console.log("got products for...");
                 deferred.resolve(response);
               },
               angular.bind(deferred, errorHandler)
@@ -128,11 +126,11 @@ angular.module('RedhatAccess.common')
 
             return deferred.promise;
           },
-          //groups.delete
-          delete: function(groupNum) {
+          //groups.remove
+          remove: function(groupNum) {
             var deferred = $q.defer();
 
-            strata.groups.delete(
+            strata.groups.remove(
               groupNum,
               function (response) {
                 deferred.resolve(response);
@@ -245,12 +243,12 @@ angular.module('RedhatAccess.common')
 
               return deferred.promise;
             },
-            //cases.attachments.delete
-            delete: function (id, caseNumber) {
+            //cases.attachments.remove
+            remove: function (id, caseNumber) {
 
               var deferred = $q.defer();
 
-              strata.cases.attachments.delete(
+              strata.cases.attachments.remove(
                 id,
                 caseNumber,
                 function (response) {

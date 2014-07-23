@@ -1,4 +1,4 @@
-<div class="nav-side-bar col-xs-3" ng-class="{ showMe: sidePaneToggle }" fill-down ng-style="{height: windowHeight }">
+<div class="rha-navsidebar col-xs-3" ng-class="{ showMe: sidePaneToggle }" rha-filldown ng-style="{height: windowHeight }">
     <div class="hideable-side-bar" ng-class="{ showMe: sidePaneToggle }">
         <div ng-controller="DropdownCtrl" ng-init="init()">
             <h4 class="file-list-title" ng-class="{ showMe: hideDropdown}" translate=''>Available Log Files</h4>
@@ -16,7 +16,7 @@
                     </li>
                 </ul>
             </div>
-            <div id="fileList" fill-down ng-style="{ height: windowHeight }" class="fileList" ng-controller="fileController">
+            <div id="fileList" rha-filldown ng-style="{ height: windowHeight }" class="fileList" ng-controller="fileController">
                 <div data-angular-treeview="true" data-tree-id="mytree" data-tree-model="roleList" data-node-id="roleId" data-node-label="roleName" data-node-children="children">
                 </div>
             </div>

@@ -24,9 +24,9 @@ angular.module('RedhatAccess.cases')
       var fullComment = 'Request Management Escalation: ' + commentText;
       var postComment;
       if (CaseService.draftComment) {
-          postComment = strataService.cases.comments.put(CaseService.case.case_number, fullComment, false, CaseService.draftComment.id);
+          postComment = strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, CaseService.draftComment.id);
       } else {
-          postComment = strataService.cases.comments.post(CaseService.case.case_number, fullComment, false);
+          postComment = strataService.cases.comments.post(CaseService.kase.case_number, fullComment, false);
       }
       postComment.then(
         function(response) {
@@ -40,7 +40,7 @@ angular.module('RedhatAccess.cases')
       var caseJSON = {
         'escalated': true
       };
-      var updateCase = strataService.cases.put(CaseService.case.case_number, caseJSON);
+      var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
       updateCase.then(
           function(response) {
           },

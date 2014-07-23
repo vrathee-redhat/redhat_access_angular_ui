@@ -20,7 +20,7 @@ describe('Case Directives', function() {
     });
 
     it('should display the linked bugzilla section for internal user', function() {
-        var compileFn = compileService(' <rha-list-bugzillas/>');
+        var compileFn = compileService(' <div rha-listbugzillas/>');
         var element = compileFn(mockScope);
         securityService.loginStatus.isInternal = true;
         mockScope.securityService = securityService;
@@ -29,7 +29,7 @@ describe('Case Directives', function() {
     });
 
     it('should not display the linked bugzilla section for customer', function() {
-        var compileFn = compileService(' <rha-list-bugzillas/>');
+        var compileFn = compileService(' <div rha-listbugzillas/>');
         var element = compileFn(mockScope);
         securityService.loginStatus.isInternal = false;
         mockScope.securityService = securityService;

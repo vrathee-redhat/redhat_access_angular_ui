@@ -18,10 +18,10 @@ angular.module('RedhatAccess.cases')
 
     var setCurrentData = function () {
       currentData = {
-        product: CaseService.case.product,
-        version: CaseService.case.version,
-        summary: CaseService.case.summary,
-        description: CaseService.case.description
+        product: CaseService.kase.product,
+        version: CaseService.kase.version,
+        summary: CaseService.kase.summary,
+        description: CaseService.kase.description
       };
     };
     setCurrentData();
@@ -37,11 +37,11 @@ angular.module('RedhatAccess.cases')
     this.populatePinnedRecommendations = function() {
       var promises = [];
 
-      if (CaseService.case.recommendations) {
+      if (CaseService.kase.recommendations) {
         //Push any pinned recommendations to the front of the array
-        if (CaseService.case.recommendations.recommendation) {
+        if (CaseService.kase.recommendations.recommendation) {
           var pinnedRecsPromises = [];
-          angular.forEach(CaseService.case.recommendations.recommendation, 
+          angular.forEach(CaseService.kase.recommendations.recommendation, 
               angular.bind(this, function(rec) {
                 if (rec.pinned_at) {
                   var promise =
@@ -87,10 +87,10 @@ angular.module('RedhatAccess.cases')
       masterDeferred.promise.then(this.populateCallback);
 
       var newData = {
-        product: CaseService.case.product,
-        version: CaseService.case.version,
-        summary: CaseService.case.summary,
-        description: CaseService.case.description
+        product: CaseService.kase.product,
+        version: CaseService.kase.version,
+        summary: CaseService.kase.summary,
+        description: CaseService.kase.description
       };
 
       if ((!angular.equals(currentData, newData) && !this.loadingRecommendations) || 

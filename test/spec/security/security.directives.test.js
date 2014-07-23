@@ -20,7 +20,7 @@ describe('Directive for login status', function() {
     });
 
     it('should provide a login link when the user is not logged in', function() {
-        var compileFn = compileService(' <x-rha-login-status/>');
+        var compileFn = compileService(' <div rha-loginstatus/>');
         sinon.stub(securityService, 'validateLogin').returns(true);
         var element = compileFn(mockScope);
         mockScope.securityService = securityService;
@@ -32,7 +32,7 @@ describe('Directive for login status', function() {
     });
 
     it('should provide a logout link when the user is logged in ', function() {
-        var compileFn = compileService(' <x-rha-login-status/>');
+        var compileFn = compileService(' <div rha-loginstatus/>');
         sinon.stub(securityService, 'validateLogin').returns(true);
         securityService.loginStatus = {
             isLoggedIn: true,

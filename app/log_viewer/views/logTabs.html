@@ -1,10 +1,10 @@
-<tabset ng-show='tabs.length > 0'>
-    <tab active="tab.active" ng-repeat="tab in tabs">
-        <tab-heading>{{tab.shortTitle}}
+<div tabset ng-show='tabs.length > 0'>
+    <div tab active="tab.active" ng-repeat="tab in tabs">
+        <div tab-heading>{{tab.shortTitle}}
             <a ng-click="removeTab($index)" href=''>
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
-        </tab-heading>
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a popover="Click to refresh log file." popover-trigger="mouseenter" popover-placement="right" ng-click="refreshTab($index)">
@@ -21,10 +21,10 @@
                 <br>
                 <br>
             </div>
-            <div class="panel-body" fill-down ng-style="{ height: windowHeight }">
+            <div class="panel-body" rha-filldown ng-style="{ height: windowHeight }">
 
                 <pre id="resizeable-file-view" class="no-line-wrap">{{tab.content}}</pre>
             </div>
         </div>
-    </tab>
-</tabset>
+    </div>
+</div>

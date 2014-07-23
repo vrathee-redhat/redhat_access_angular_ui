@@ -2,7 +2,7 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-.directive('rhaPageHeader', function () {
+.directive('rhaPageheader', function () {
   return {
     templateUrl: 'cases/views/pageHeader.html',
     restrict: 'EA',

@@ -34,7 +34,7 @@ angular.module('RedhatAccess.cases')
             }
         );
 
-        strataService.groups.list(CaseService.case.contact_sso_username).then(
+        strataService.groups.list(CaseService.kase.contact_sso_username).then(
             function(response) {
               $scope.groups = response;
             },
@@ -77,42 +77,42 @@ angular.module('RedhatAccess.cases')
       $scope.updatingDetails = true;
 
       var caseJSON = {};
-      if (CaseService.case != null) {
-        if (CaseService.case.type != null) {
-          caseJSON.type = CaseService.case.type.name;
+      if (CaseService.kase != null) {
+        if (CaseService.kase.type != null) {
+          caseJSON.type = CaseService.kase.type.name;
         }
-        if (CaseService.case.severity != null) {
-          caseJSON.severity = CaseService.case.severity.name;
+        if (CaseService.kase.severity != null) {
+          caseJSON.severity = CaseService.kase.severity.name;
         }
-        if (CaseService.case.status != null) {
-          caseJSON.status = CaseService.case.status.name;
+        if (CaseService.kase.status != null) {
+          caseJSON.status = CaseService.kase.status.name;
         }
-        if (CaseService.case.alternate_id != null) {
-          caseJSON.alternateId = CaseService.case.alternate_id;
+        if (CaseService.kase.alternate_id != null) {
+          caseJSON.alternateId = CaseService.kase.alternate_id;
         }
-        if (CaseService.case.product != null) {
-          caseJSON.product = CaseService.case.product.name;
+        if (CaseService.kase.product != null) {
+          caseJSON.product = CaseService.kase.product.name;
         }
-        if (CaseService.case.version != null) {
-          caseJSON.version = CaseService.case.version;
+        if (CaseService.kase.version != null) {
+          caseJSON.version = CaseService.kase.version;
         }
-        if (CaseService.case.summary != null) {
-          caseJSON.summary = CaseService.case.summary;
+        if (CaseService.kase.summary != null) {
+          caseJSON.summary = CaseService.kase.summary;
         }
-        if (CaseService.case.group != null) {
-          caseJSON.folderNumber = CaseService.case.group.number;
+        if (CaseService.kase.group != null) {
+          caseJSON.folderNumber = CaseService.kase.group.number;
         }
-        if (RHAUtils.isNotEmpty(CaseService.case.fts)) {
-          caseJSON.fts = CaseService.case.fts;
-          if (!CaseService.case.fts) {
+        if (RHAUtils.isNotEmpty(CaseService.kase.fts)) {
+          caseJSON.fts = CaseService.kase.fts;
+          if (!CaseService.kase.fts) {
             caseJSON.contactInfo24X7 = '';
           }
         }
-        if (CaseService.case.fts && RHAUtils.isNotEmpty(CaseService.case.contact_info24_x7)) {
-          caseJSON.contactInfo24X7 = CaseService.case.contact_info24_x7;
+        if (CaseService.kase.fts && RHAUtils.isNotEmpty(CaseService.kase.contact_info24_x7)) {
+          caseJSON.contactInfo24X7 = CaseService.kase.contact_info24_x7;
         }
 
-        strataService.cases.put(CaseService.case.case_number, caseJSON).then(
+        strataService.cases.put(CaseService.kase.case_number, caseJSON).then(
             function() {
               $scope.caseDetails.$setPristine();
               $scope.updatingDetails = false;
@@ -132,7 +132,7 @@ angular.module('RedhatAccess.cases')
     $scope.getProductVersions = function() {
       CaseService.versions = [];
 
-      strataService.products.versions(CaseService.case.product.code).then(
+      strataService.products.versions(CaseService.kase.product.code).then(
           function(versions){
             CaseService.versions = versions;
           },

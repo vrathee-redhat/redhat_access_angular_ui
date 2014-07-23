@@ -2,7 +2,7 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-.directive('rhaAttachProductLogs', function () {
+.directive('rhaAttachproductlogs', function () {
   return {
     templateUrl: 'cases/views/attachProductLogs.html',
     restrict: 'EA',

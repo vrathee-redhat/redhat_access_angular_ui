@@ -21,7 +21,6 @@ angular.module('RedhatAccess.cases')
             AttachmentsService.updateBackEndAttachments(tree);
           },
           function () {
-            console.log('Unable to get tree data');
           });
       }
     }
