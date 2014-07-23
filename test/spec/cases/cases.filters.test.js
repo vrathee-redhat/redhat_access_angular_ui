@@ -1,4 +1,4 @@
-'use strict';
+	'use strict';
 
 describe('Case Filters: recommendationsResolution', function () {
 
@@ -23,7 +23,7 @@ describe('Case Filters: recommendationsResolution', function () {
 		result_long = $filter('recommendationsResolution')(long_string);
 
 		expect(result_short).toEqual('hello world');
-		expect(result_long).toEqual('hello world hello world hello world hello world  hello world hello world hello world hello world hello world hello world  hello world  hello world ...');
+		expect(result_long).toEqual('hello world hello world hello world hello world  hello world hello world hello world hello world hello world hello world  hello world  hello world  he...');
 
 	});
 });
