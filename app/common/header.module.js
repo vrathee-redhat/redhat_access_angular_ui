@@ -34,7 +34,6 @@ angular.module('RedhatAccess.header', [])
           case 'manageGroups':
             return TITLE_VIEW_CONFIG.manageGroupsTitle;
           default:
-            console.log('Invalid title key' + $scope.page);
             return '';
         }
       };

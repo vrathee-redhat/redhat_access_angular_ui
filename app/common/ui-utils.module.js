@@ -13,7 +13,6 @@ var app = angular.module('RedhatAccess.ui-utils', ['gettext']);
 //                 $scope.attachmentTree = tree;
 //             },
 //             function() {
-//                 console.log("Unable to get tree data");
 //             });
 //     }
 // ]);
@@ -101,7 +100,6 @@ app.factory('TreeViewSelectorData', ['$http', '$q', 'TreeViewSelectorUtils',
           TreeViewSelectorUtils.parseTreeList(tree, data);
           defer.resolve(tree);
         }).error(function (data, status, headers, config) {
-          console.log('Unable to get supported attachments list');
           defer.reject({});
         });
         return defer.promise;
@@ -216,7 +214,6 @@ app.factory('TreeViewSelectorUtils',
       },
       getSelectedLeaves: function (tree) {
         if (tree === undefined) {
-          console.log('getSelectedLeaves: Invalid tree');
           return [];
         }
         var container = [];

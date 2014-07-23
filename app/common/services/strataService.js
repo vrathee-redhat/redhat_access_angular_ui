@@ -10,7 +10,6 @@ angular.module('RedhatAccess.common')
       var errorHandler = function (message, xhr, response, status) {
 
         var translatedMsg = message;
-        //console.log('Strata status is ' + status);
 
         switch (status) {
         case 'Unauthorized':
@@ -104,7 +103,6 @@ angular.module('RedhatAccess.common')
             strata.products.versions(
               productCode,
               function (response) {
-                console.log("got products for...");
                 deferred.resolve(response);
               },
               angular.bind(deferred, errorHandler)

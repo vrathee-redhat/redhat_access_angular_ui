@@ -28,7 +28,6 @@ angular.module('RedhatAccess.cases')
           },
           function (error) {
             $scope.updatingAttachments = false;
-            console.log('Error posting attachment : ' + error);
           });
       };
     }

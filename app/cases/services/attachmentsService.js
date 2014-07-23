@@ -87,7 +87,6 @@ angular.module('RedhatAccess.cases')
                   translate('Successfully uploaded attachment') + ' '+
                   jsonData.attachment + ' '+translate('to case') + ' ' + caseId);
               }).error(function (data, status, headers, config) {
-                console.log(data);
                 var error_msg = '';
                 switch (status) {
                 case 401:

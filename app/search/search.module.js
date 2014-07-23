@@ -246,10 +246,8 @@ angular.module('RedhatAccess.search', [
             );
           },
           function (error) {
-            console.log(error);
             $rootScope.$apply(function () {
               service.searchInProgress.value = false;
-              console.log(error);
               AlertService.addDangerMessage(error);
             });
           },
@@ -311,7 +309,6 @@ angular.module('RedhatAccess.search', [
               service.searchInProgress.value = false;
               AlertService.addDangerMessage(error);
             });
-            console.log(error);
           },
           limit
         );
