@@ -1,4 +1,5 @@
 div(ng-show='securityService.loginStatus.isLoggedIn')
+  iframe(style='display: none;' ng-src='{{chatHackUrl}}')
   button.btn.btn-primary#rha-livechat-enabled-button(
     ng-click='openChatWindow()', translate='') Chat with support
   button.btn.btn-secondary(disabled , translate='')#rha-livechat-disabled-button Chat offline

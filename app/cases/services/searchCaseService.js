@@ -121,8 +121,8 @@ angular.module('RedhatAccess.cases')
           var that = this;
           var cases = null;
           if (securityService.loginStatus.isLoggedIn) {
-            if (securityService.loginStatus.login) {
-              params.owner_ssoname = securityService.loginStatus.login;
+            if (securityService.loginStatus.ssoName) {
+              params.owner_ssoname = securityService.loginStatus.ssoName;
             }
             cases = strataService.cases.filter(params).then(
               angular.bind(that, function (cases) {
@@ -146,8 +146,8 @@ angular.module('RedhatAccess.cases')
             deferred.resolve(cases);
           } else {
             $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-              if (securityService.loginStatus.login) {
-                params.owner_ssoname = securityService.loginStatus.login;
+              if (securityService.loginStatus.ssoName) {
+                params.owner_ssoname = securityService.loginStatus.ssoName;
               }
               cases = strataService.cases.filter(params).then(
                 angular.bind(that, function (cases) {

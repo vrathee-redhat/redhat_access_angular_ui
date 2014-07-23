@@ -71,7 +71,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         hasChat: false,
         sessionId: '',
         canAddAttachments: false,
-        login: ''
+        ssoName: ''
       };
 
       this.loginURL = SECURITY_CONFIG.loginURL;
@@ -86,7 +86,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         hasChat,
         sessionId,
         canAddAttachments,
-        login) {
+        ssoName) {
         this.loginStatus.isLoggedIn = isLoggedIn;
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
@@ -95,7 +95,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         this.loginStatus.hasChat = hasChat;
         this.loginStatus.sessionId = sessionId;
         this.loginStatus.canAddAttachments = canAddAttachments;
-        this.loginStatus.login = login;
+        this.loginStatus.ssoName = ssoName;
       };
 
       this.clearLoginStatus = function () {
@@ -108,6 +108,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         this.loginStatus.sessionId = '';
         this.loginStatus.canAddAttachments = false;
         this.loginStatus.account = {};
+        this.loginStatus.ssoName = '';
+
       };
 
       this.setAccount = function (accountJSON) {
@@ -188,6 +190,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                         authedUser.session_id,
                         authedUser.can_add_attachments,
                         authedUser.login);
+                      //console.log(that.loginStatus);
+                      //console.log(authedUser);
                       this.loggingIn = false;
                       //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
                       if (wasLoggedIn === false) {

@@ -18,7 +18,9 @@ angular.module('RedhatAccess.cases', [
   chatButtonToken: '573A0000000GmiP',
   chatLiveAgentUrlPrefix: 'https://d.la8cs.salesforceliveagent.com/chat',
   chatInitHashOne: '572A0000000GmiP',
-  chatInitHashTwo: '00DK000000W3mDA'
+  chatInitHashTwo: '00DK000000W3mDA',
+  chatIframeHackUrlPrefix:'https://qa-rogsstest.cs9.force.com/chatHidden'
+
 //  chatButtonToken - '573A0000000GmiP'
 //  deploymentJS - 'https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js'
 // chatLiveAgentUrlPrefix - 'https://d.la8cs.salesforceliveagent.com/chat'
