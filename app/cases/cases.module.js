@@ -15,6 +15,7 @@ angular.module('RedhatAccess.cases', [
   received: 'case-received'
 })
 .constant('CHAT_SUPPORT', {
+  enableChat: false,
   chatButtonToken: '573A0000000GmiP',
   chatLiveAgentUrlPrefix: 'https://d.la8cs.salesforceliveagent.com/chat',
   chatInitHashOne: '572A0000000GmiP',
@@ -61,9 +62,6 @@ angular.module('RedhatAccess.cases', [
   'showComments': true,
   'showServerSideAttachments': true,
   'showEmailNotifications': true
-})
-.value('SEARCH_CASE_CONFIG', {
-  'showChat': true
 })
 .config([
   '$stateProvider',

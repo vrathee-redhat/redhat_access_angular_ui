@@ -5,9 +5,6 @@ div#rha-case-search.container-offset
       div.col-xs-6
         div(rha-searchbox='', placeholder='Search')
       div.col-xs-3
-        div.pull-right
-          div(rha-chatbutton='')
-      div.col-xs-3
         button.btn.btn-secondary.pull-right(
           ng-disabled='!securityService.loginStatus.isLoggedIn',
           ui-sref='new', translate='') Open a New Support Case

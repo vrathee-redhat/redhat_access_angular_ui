@@ -2,8 +2,11 @@ div#redhat-access-case.container-offset(style='padding-bottom: 15px;')
   div(rha-header='', page='caseList')
   div.container-fluid.rha-side-padding
     div.row
-      div.col-md-9
+      div.col-md-6
         div(rha-listfilter='')
+      div.col-md-3
+        div.pull-right
+          div(rha-chatbutton='')
       div.col-md-3
         button.btn.btn-primary.pull-right(
           ng-disabled='!securityService.loginStatus.isLoggedIn', 

@@ -30,8 +30,18 @@ angular.module('RedhatAccess.cases')
           liveagent.showWhenOffline(
             CHAT_SUPPORT.chatButtonToken,
             document.getElementById('rha-livechat-disabled-button'));
+          // liveagent.showWhenOnline(
+          //   CHAT_SUPPORT.chatButtonToken,
+          //   document.getElementById('rha-livechat-enabled-button2'));
+
+          // liveagent.showWhenOffline(
+          //   CHAT_SUPPORT.chatButtonToken,
+          //   document.getElementById('rha-livechat-disabled-button2'));
+
+
         }
       );
+
 
       $scope.chatHackUrl = $sce.trustAsResourceUrl(CHAT_SUPPORT.chatIframeHackUrlPrefix);
 
@@ -42,13 +52,18 @@ angular.module('RedhatAccess.cases')
 
       };
 
-      // $scope.checkChatAvailability = function () {
-      //   var url = 'https://d.la8cs.salesforceliveagent.com/chat/rest/Visitor/Settings.jsonp?chatted=1&sid=a9e1a868-c774-4d36-a7f8-3ac775f9a607&Settings.prefix=Visitor&Settings.buttonIds=[573A0000000GmiP]&Settings.updateBreadcrumb=1&callback=liveagent._.handlePing&deployment_id=572A0000000GmiP&org_id=00DK000000W3mDA&version=31';
-      //   $http.get(url).success(function (data, status, headers, config) {
-      //   }).error(function (data, status, headers, config) {
-      //   });
-      // }
+
+      $scope.enableChat = function () {
+        $scope.showChat = securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat && CHAT_SUPPORT.enableChat;
+        return $scope.showChat;
+
+      };
+      $scope.showChat = false;
       $scope.init = function () {
+
+        if (!$scope.enableChat()) {
+          return;
+        }
         var chatToken = securityService.loginStatus.sessionId;
         var ssoName = securityService.loginStatus.ssoName;
         var name = securityService.loginStatus.loggedInUser;
@@ -96,23 +111,26 @@ angular.module('RedhatAccess.cases')
       };
 
       if (securityService.loginStatus.isLoggedIn) {
-        $scope.setChatIframeHackUrl();
-        if (window.chatInitialized === false) {
-          $scope.init();
-        } else {
-          //$scope.checkChatAvailability();
-          location.reload();
-        }
-      } else {
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        if ($scope.enableChat()) {
           $scope.setChatIframeHackUrl();
           if (window.chatInitialized === false) {
             $scope.init();
           } else {
-            //$scope.checkChatAvailability();
-            location.reload();
+            location.reload(); // bad hack until we convert to rest
+          }
+        }
+      } else {
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+          if ($scope.enableChat()) {
+            $scope.setChatIframeHackUrl();
+            if (window.chatInitialized === false) {
+              $scope.init();
+            } else {
+              location.reload(); // bad hack until we convert to rest
+            }
           }
         });
       }
+      
     }
   ]);

@@ -14,9 +14,10 @@ angular.module('RedhatAccess', [
     $provide.value('SECURITY_CONFIG', {displayLoginStatus:true,autoCheckLogin:true, forceLogin: false,loginURL:"",logoutURL:""});
   }
 ])
-.run(['TITLE_VIEW_CONFIG', '$http', 'securityService', 'gettextCatalog',
-  function (TITLE_VIEW_CONFIG, $http, securityService, gettextCatalog) {
+.run(['TITLE_VIEW_CONFIG', '$http', 'securityService', 'gettextCatalog','CHAT_SUPPORT',
+  function (TITLE_VIEW_CONFIG, $http, securityService, gettextCatalog,CHAT_SUPPORT) {
     TITLE_VIEW_CONFIG.show = true;
+    CHAT_SUPPORT.enableChat = true;
   }
 ]);
 
