@@ -2,6 +2,9 @@ doctype html
 div#redhat-access-case.container-offset
   div(rha-header='', page='caseView')
   div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn')
+    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat')
+      div.pull-right
+          div(rha-chatbutton='')
     div.row(ng-show='EDIT_CASE_CONFIG.showDetails')
       div.col-xs-12
         div(rha-casedetails='', compact='false', loading='caseLoading')

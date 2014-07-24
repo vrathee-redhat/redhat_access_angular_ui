@@ -9,7 +9,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     logoutSuccess: 'auth-logout-success',
     sessionTimeout: 'auth-session-timeout',
     notAuthenticated: 'auth-not-authenticated',
-    notAuthorized: 'auth-not-authorized'
+    notAuthorized: 'auth-not-authorized',
+    sessionIdChanged: 'sid-changed'
   })
   .directive('rhaLoginstatus', function () {
     return {
@@ -179,11 +180,12 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         var defer = $q.defer();
         var that = this;
         var wasLoggedIn = this.loginStatus.isLoggedIn;
+        var currentSid = this.loginStatus.sessionId;
         this.loginStatus.verifying = true;
         strata.checkLogin(
           angular.bind(this, function (result, authedUser) {
             if (result) {
-
+              var sidChanged = (currentSid !== authedUser.session_id);
               strataService.accounts.list().then(
                 angular.bind(this, function (accountNumber) {
                   strataService.accounts.get(accountNumber).then(
@@ -205,6 +207,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                       //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
                       if (wasLoggedIn === false) {
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                      }
+                      if (sidChanged) {
+                        $rootScope.$broadcast(AUTH_EVENTS.sessionIdChanged);
                       }
                       defer.resolve(authedUser.name);
                     })
