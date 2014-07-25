@@ -146,7 +146,7 @@ angular.module('RedhatAccess.cases')
             deferred.resolve(cases);
           } else {
             $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-              if (securityService.loginStatus.ssoName) {
+              if (securityService.loginStatus.ssoName && securityService.loginStatus.isInternal) {
                 params.owner_ssoname = securityService.loginStatus.ssoName;
               }
               cases = strataService.cases.filter(params).then(
