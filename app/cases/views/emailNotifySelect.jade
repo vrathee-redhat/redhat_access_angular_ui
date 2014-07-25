@@ -13,7 +13,7 @@ select(
   style='width: 100%')
   option(ng-repeat='user in CaseService.users') 
     {{user.sso_username}}
-div(ng-if='!securityService.userAllowedToManage(EmailNotifications) && !securityService.loggingIn')
+div(ng-if='!securityService.userAllowedToManageEmailNotifications() && !securityService.loggingIn')
   div.well(style='display: inline-block; width: 100%; padding: 6px;')
     span.well.well-sm(
       ng-repeat='user in CaseService.updatedNotifiedUsers', 
