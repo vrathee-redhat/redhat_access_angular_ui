@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaOwnerselect', function () {
   return {
     templateUrl: 'cases/views/ownerSelect.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'OwnerSelect',
     scope: {
       onchange: '&'

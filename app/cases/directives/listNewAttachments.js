@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
   .directive('rhaListnewattachments', function() {
     return {
       templateUrl: 'cases/views/listNewAttachments.html',
-      restrict: 'EA',
+      restrict: 'A',
       controller: 'ListNewAttachments'
     };
   });

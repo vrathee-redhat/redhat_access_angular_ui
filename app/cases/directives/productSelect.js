@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaProductselect', function () {
   return {
     templateUrl: 'cases/views/productSelect.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'ProductSelect',
     scope: {
       onchange: '&'

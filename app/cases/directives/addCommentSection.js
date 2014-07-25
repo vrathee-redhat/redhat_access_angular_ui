@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaAddcommentsection', function () {
   return {
     templateUrl: 'cases/views/addCommentSection.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'AddCommentSection'
   };
 });

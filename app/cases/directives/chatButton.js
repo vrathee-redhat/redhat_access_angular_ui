@@ -5,7 +5,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaChatbutton', function () {
   return {
     templateUrl: 'cases/views/chatButton.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'ChatButton'
   };
 });

@@ -5,7 +5,7 @@ angular.module('RedhatAccess.cases')
   .directive('rhaCasedescription', function() {
     return {
       templateUrl: 'cases/views/descriptionSection.html',
-      restrict: 'EA',
+      restrict: 'A',
       scope: {
         loading: '='
       },

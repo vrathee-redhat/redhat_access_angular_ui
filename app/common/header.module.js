@@ -143,7 +143,7 @@ angular.module('RedhatAccess.header', [])
     function() {
       return {
         templateUrl: 'common/views/alert.html',
-        restrict: 'EA',
+        restrict: 'A',
         controller: 'AlertController'
       };
     })
@@ -166,7 +166,7 @@ angular.module('RedhatAccess.header', [])
     function() {
       return {
         templateUrl: 'common/views/header.html',
-        restrict: 'EA',
+        restrict: 'A',
         scope: {
           page: '@'
         },

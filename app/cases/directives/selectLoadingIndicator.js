@@ -5,7 +5,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaSelectloadingindicator', function () {
   return {
     templateUrl: 'cases/views/selectLoadingIndicator.html',
-    restrict: 'EA',
+    restrict: 'A',
     transclude: true,
     scope: {
       loading: '=',

@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaAttachlocalfile', function () {
   return {
     templateUrl: 'cases/views/attachLocalFile.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'AttachLocalFile',
     scope: {
       disabled: '='

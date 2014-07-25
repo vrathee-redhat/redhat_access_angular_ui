@@ -10,7 +10,7 @@ angular.module('RedhatAccess.cases')
       compact: '=',
       loading: '='
     },
-    restrict: 'EA',
+    restrict: 'A',
     link: function postLink(scope, element, attrs) {
     }
   };

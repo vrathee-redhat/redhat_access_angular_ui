@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaListfilter', function () {
   return {
     templateUrl: 'cases/views/listFilter.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'ListFilter',
     scope: {
       prefilter: '=',

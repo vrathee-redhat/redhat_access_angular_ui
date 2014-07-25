@@ -5,7 +5,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaSearchbox', function () {
   return {
     templateUrl: 'cases/views/searchBox.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'SearchBox',
     scope: {
       placeholder: '='

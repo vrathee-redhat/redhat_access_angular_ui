@@ -8,7 +8,7 @@ angular.module('RedhatAccess.cases')
     controller: 'CompactCaseList',
     scope: {
     },
-    restrict: 'EA',
+    restrict: 'A',
     link: function postLink(scope, element, attrs) {
     }
   };

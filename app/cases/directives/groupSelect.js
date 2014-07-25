@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaGroupselect', function () {
   return {
     templateUrl: 'cases/views/groupSelect.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'GroupSelect',
     scope: {
       onchange: '&',

@@ -6,7 +6,7 @@ angular.module('RedhatAccess.logViewer')
 	'$timeout', 
 	function($window, $timeout) {
 		return {
-			restrict: 'EA',
+			restrict: 'A',
 			link: function postLink(scope, element, attrs) {
 				scope.onResizeFunction = function() {
 					var distanceToTop = element[0].getBoundingClientRect().top;

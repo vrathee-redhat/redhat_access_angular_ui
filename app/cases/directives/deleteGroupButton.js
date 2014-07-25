@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaDeletegroupbutton', function () {
   return {
     templateUrl: 'cases/views/deleteGroupButton.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'DeleteGroupButton'
   };
 });

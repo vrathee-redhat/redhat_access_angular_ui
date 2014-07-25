@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaCasesearchresult', function () {
   return {
     templateUrl: 'cases/views/searchResult.html',
-    restrict: 'EA',
+    restrict: 'A',
     scope: {
       theCase: '=case'
     }

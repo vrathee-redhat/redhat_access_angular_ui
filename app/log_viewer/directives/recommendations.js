@@ -4,7 +4,7 @@ angular.module('RedhatAccess.logViewer')
 .directive('rhaRecommendations', function () {
   return {
     templateUrl: 'log_viewer/views/recommendations.html',
-    restrict: 'EA',
+    restrict: 'A',
     link: function postLink(scope, element, attrs) {
     }
   };

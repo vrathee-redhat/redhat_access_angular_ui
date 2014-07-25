@@ -49,7 +49,7 @@ app.directive('rhaChoicetree', function () {
     template: '<ul><div rha-choice ng-repeat="choice in tree"></div></ul>',
     replace: true,
     transclude: true,
-    restrict: 'EA',
+    restrict: 'A',
     scope: {
       tree: '=ngModel',
       rhaDisabled: '='
@@ -59,7 +59,7 @@ app.directive('rhaChoicetree', function () {
 
 app.directive('rhaChoice', function ($compile) {
   return {
-    restrict: 'EA',
+    restrict: 'A',
     templateUrl: 'common/views/treenode.html',
     link: function (scope, elm) {
       scope.choiceClicked = function (choice) {

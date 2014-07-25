@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaListbugzillas', function () {
   return {
     templateUrl: 'cases/views/listBugzillas.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'ListBugzillas',
     scope: {
       loading: '='

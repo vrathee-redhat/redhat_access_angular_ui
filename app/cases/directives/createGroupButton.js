@@ -5,7 +5,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaCreategroupbutton', function () {
   return {
     templateUrl: 'cases/views/createGroupButton.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'CreateGroupButton'
   };
 });

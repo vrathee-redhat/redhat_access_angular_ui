@@ -4,7 +4,7 @@ angular.module('RedhatAccess.cases')
 .directive('rhaExportcsvbutton', function () {
   return {
     templateUrl: 'cases/views/exportCSVButton.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'ExportCSVButton'
   };
 });

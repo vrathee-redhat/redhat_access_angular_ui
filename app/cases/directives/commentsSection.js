@@ -9,7 +9,7 @@ angular.module('RedhatAccess.cases')
       scope: {
         loading: '='
       },
-      restrict: 'EA',
+      restrict: 'A',
       link: function postLink(scope, element, attrs) {}
     };
   });
