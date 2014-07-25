@@ -1,6 +1,10 @@
 div.container-offset
   div#redhat-access-case.container-fluid
     div(rha-header='', page='newCase')
+    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat')
+      div.pull-right
+          div(rha-chatbutton='' style='margin-right: 10px;')
+    div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat')
     div.row
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.rha-side-padding
