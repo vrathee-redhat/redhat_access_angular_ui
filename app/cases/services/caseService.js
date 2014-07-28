@@ -11,7 +11,7 @@ angular.module('RedhatAccess.cases')
     '$filter',
     function(strataService, AlertService, ENTITLEMENTS, RHAUtils, securityService, $q, $filter) {
       this.
-      case = {};
+      kase = {};
       this.versions = [];
       this.products = [];
       //this.statuses = [];
@@ -62,7 +62,7 @@ angular.module('RedhatAccess.cases')
         };
 
         this.
-        case = rawCase;
+        kase = rawCase;
 
         this.bugzillaList = rawCase.bugzillas;
 
@@ -74,22 +74,17 @@ angular.module('RedhatAccess.cases')
 
       this.defineNotifiedUsers = function() {
         /*jshint camelcase: false */
-        this.updatedNotifiedUsers.push(this.
-          case.contact_sso_username);
+        this.updatedNotifiedUsers.push(this.kase.contact_sso_username);
 
         //hide the X button for the case owner
-        $('#rha-email-notify-select').on('change', angular.bind(this, function() {
-          $('x-rha-email-notify-select .select2-choices li:contains("' + this.
-            case.contact_sso_username + '") a').css('display', 'none');
-          $('x-rha-email-notify-select .select2-choices li:contains("' + this.
-            case.contact_sso_username + '")').css('padding-left', '5px');
+        $('#rha-emailnotifyselect').on('change', angular.bind(this, function() {
+          $('rha-emailnotifyselect .select2-choices li:contains("' + this.kase.contact_sso_username + '") a').css('display', 'none');
+          $('rha-emailnotifyselect .select2-choices li:contains("' + this.kase.contact_sso_username + '")').css('padding-left', '5px');
         }));
 
-        if (RHAUtils.isNotEmpty(this.
-            case.notified_users)) {
+        if (RHAUtils.isNotEmpty(this.kase.notified_users)) {
 
-          angular.forEach(this.
-              case.notified_users.link,
+          angular.forEach(this.kase.notified_users.link,
             angular.bind(this, function(user) {
               this.originalNotifiedUsers.push(user.sso_username);
             })
@@ -105,7 +100,7 @@ angular.module('RedhatAccess.cases')
 
       this.clearCase = function() {
         this.
-        case = {};
+        kase = {};
 
         this.versions = [];
         this.products = [];
@@ -228,7 +223,7 @@ angular.module('RedhatAccess.cases')
             }
 
             if (entitlements.length === 0) {
-              entitlements.push(ENTITLEMENTS.default);
+              entitlements.push(ENTITLEMENTS.defaults);
             }
 
             this.entitlements = entitlements;
@@ -241,10 +236,10 @@ angular.module('RedhatAccess.cases')
       };
 
       this.showFts = function() {
-        if (RHAUtils.isNotEmpty(this.severities) && angular.equals(this.case.severity, this.severities[0])) {
+        if (RHAUtils.isNotEmpty(this.severities) && angular.equals(this.kase.severity, this.severities[0])) {
           if (this.entitlement === ENTITLEMENTS.premium ||
-              (RHAUtils.isNotEmpty(this.case.entitlement) &&
-               this.case.entitlement.sla === ENTITLEMENTS.premium)) {
+              (RHAUtils.isNotEmpty(this.kase.entitlement) &&
+               this.kase.entitlement.sla === ENTITLEMENTS.premium)) {
             return true;
           }
         }
@@ -253,10 +248,10 @@ angular.module('RedhatAccess.cases')
 
       this.newCasePage1Incomplete = true;
       this.validateNewCasePage1 = function () {
-        if (RHAUtils.isEmpty(this.case.product) ||
-          RHAUtils.isEmpty(this.case.version) ||
-          RHAUtils.isEmpty(this.case.summary) ||
-          RHAUtils.isEmpty(this.case.description) ||
+        if (RHAUtils.isEmpty(this.kase.product) ||
+          RHAUtils.isEmpty(this.kase.version) ||
+          RHAUtils.isEmpty(this.kase.summary) ||
+          RHAUtils.isEmpty(this.kase.description) ||
           (securityService.loginStatus.isInternal && RHAUtils.isEmpty(this.owner))) {
           this.newCasePage1Incomplete = true;
         } else {

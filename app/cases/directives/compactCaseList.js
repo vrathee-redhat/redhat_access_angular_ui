@@ -2,13 +2,13 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-.directive('rhaCompactCaseList', function () {
+.directive('rhaCompactcaselist', function () {
   return {
     templateUrl: 'cases/views/compactCaseList.html',
     controller: 'CompactCaseList',
     scope: {
     },
-    restrict: 'EA',
+    restrict: 'A',
     link: function postLink(scope, element, attrs) {
     }
   };

@@ -8,8 +8,8 @@ angular.module('RedhatAccess.cases')
 
     if (text != null && text.length > maxTextLength) {
       shortText = text.substr(0, maxTextLength);
-      var lastSpace = shortText.lastIndexOf(' ');
-      shortText = shortText.substr(0, lastSpace);
+      // var lastSpace = shortText.lastIndexOf(' ');
+      // shortText = shortText.substr(0, lastSpace);
       shortText = shortText.concat('...');
     } else {
       shortText = text;

@@ -42,8 +42,7 @@ angular.module('RedhatAccess.cases')
           AlertService.addWarningMessage(
             translate('Deleting attachment:')+ ' ' + attachment.file_name + ' - ' + attachment.uuid);
 
-        strataService.cases.attachments.delete(attachment.uuid, CaseService.
-        case .case_number).then(
+        strataService.cases.attachments.remove(attachment.uuid, CaseService.kase.case_number).then(
           angular.bind(this, function () {
             AlertService.removeAlert(progressMessage);
             AlertService.addSuccessMessage(
@@ -88,7 +87,6 @@ angular.module('RedhatAccess.cases')
                   translate('Successfully uploaded attachment') + ' '+
                   jsonData.attachment + ' '+translate('to case') + ' ' + caseId);
               }).error(function (data, status, headers, config) {
-                console.log(data);
                 var error_msg = '';
                 switch (status) {
                 case 401:

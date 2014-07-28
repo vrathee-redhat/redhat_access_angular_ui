@@ -2,10 +2,11 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-.directive('rhaChatButton', function () {
-  return {
-    templateUrl: 'cases/views/chatButton.html',
-    restrict: 'E',
-    controller: 'ChatButton'
-  };
-});
+	.directive('rhaChatbutton', function () {
+		return {
+			scope: {},
+			templateUrl: 'cases/views/chatButton.html',
+			restrict: 'A',
+			controller: 'ChatButton'
+		};
+	});

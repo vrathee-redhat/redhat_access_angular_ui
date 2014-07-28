@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.directive('rhaCaseSearchResult', function () {
+.directive('rhaCasesearchresult', function () {
   return {
     templateUrl: 'cases/views/searchResult.html',
-    restrict: 'E',
+    restrict: 'A',
     scope: {
       theCase: '=case'
     }

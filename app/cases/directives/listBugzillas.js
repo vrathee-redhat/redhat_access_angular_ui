@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.directive('rhaListBugzillas', function () {
+.directive('rhaListbugzillas', function () {
   return {
     templateUrl: 'cases/views/listBugzillas.html',
-    restrict: 'EA',
+    restrict: 'A',
     controller: 'ListBugzillas',
     scope: {
       loading: '='

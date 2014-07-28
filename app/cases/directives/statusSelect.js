@@ -1,10 +1,10 @@
 'use strict';
 /*jshint unused:vars */
 angular.module('RedhatAccess.cases')
-.directive('rhaStatusSelect', function () {
+.directive('rhaStatusselect', function () {
   return {
     templateUrl: 'cases/views/statusSelect.html',
-    restrict: 'E',
+    restrict: 'A',
     controller: 'StatusSelect',
     scope: {
       onchange: '&'

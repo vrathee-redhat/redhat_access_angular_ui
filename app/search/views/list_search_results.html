@@ -12,11 +12,11 @@
         </div>
     </div>
 </div>
-<div class="col-sm-8" style="overflow: auto;" rha-resizable rha-dom-ready="domReady">
+<div class="col-sm-8" style="overflow: auto;" rha-resizable rha-domready="domReady">
     <div class="alert alert-info" ng-show='selectedSolution.index === -1 && results.length > 0'>
         {{'To view a recommendation, click on it.'|translate}}
     </div>
     <div style "overflow: vertical;">
-        <x-rha-result-detail-display result='selectedSolution.data' />
+        <div rha-resultdetaildisplay result='selectedSolution.data' />
     </div>
 </div>

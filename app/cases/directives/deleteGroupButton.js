@@ -1,10 +1,10 @@
 'use strict';
 /*jshint unused:vars */
 angular.module('RedhatAccess.cases')
-.directive('rhaDeleteGroupButton', function () {
+.directive('rhaDeletegroupbutton', function () {
   return {
     templateUrl: 'cases/views/deleteGroupButton.html',
-    restrict: 'E',
+    restrict: 'A',
     controller: 'DeleteGroupButton'
   };
 });

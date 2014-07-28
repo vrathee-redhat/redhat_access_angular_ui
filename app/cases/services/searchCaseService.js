@@ -30,6 +30,10 @@ angular.module('RedhatAccess.cases')
       this.searching = false;
       this.prefilter;
       this.postfilter;
+      this.start = 0;
+      this.count = 100;
+      this.total = 0;
+      this.allCasesDownloaded = false;
 
       var getIncludeClosed = function () {
         if (CaseService.status === STATUS.open) {
@@ -47,6 +51,9 @@ angular.module('RedhatAccess.cases')
         this.cases = [];
         this.oldParams = {};
         SearchBoxService.searchTerm = '';
+        this.start = 0;
+        this.total = 0;
+        this.allCasesDownloaded = false;
       };
 
       this.oldParams = {};
@@ -57,8 +64,9 @@ angular.module('RedhatAccess.cases')
 
         var params = {
           include_closed: getIncludeClosed(),
-          count: 100
+          count: this.count,
         };
+        params.start = this.start;
 
         var isObjectNothing = function (object) {
           if (object === '' || object === undefined || object === null) {
@@ -113,13 +121,18 @@ angular.module('RedhatAccess.cases')
           var that = this;
           var cases = null;
           if (securityService.loginStatus.isLoggedIn) {
-            if (securityService.loginStatus.login) {
-              params.owner_ssoname = securityService.loginStatus.login;
+            if (securityService.loginStatus.ssoName && securityService.loginStatus.isInternal) {
+              params.owner_ssoname = securityService.loginStatus.ssoName;
             }
             cases = strataService.cases.filter(params).then(
               angular.bind(that, function (cases) {
-                that.cases = cases;
-                that.searching = false;
+                  if(cases.length < that.count){
+                    that.allCasesDownloaded = true;
+                  }
+                  that.cases = that.cases.concat(cases);
+                  that.searching = false;
+                  that.start = that.start + that.count;
+                  that.total = that.total + that.count;
 
                 if (angular.isFunction(that.postFilter)) {
                   that.postFilter();
@@ -133,13 +146,18 @@ angular.module('RedhatAccess.cases')
             deferred.resolve(cases);
           } else {
             $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-              if (securityService.loginStatus.login) {
-                params.owner_ssoname = securityService.loginStatus.login;
+              if (securityService.loginStatus.ssoName && securityService.loginStatus.isInternal) {
+                params.owner_ssoname = securityService.loginStatus.ssoName;
               }
               cases = strataService.cases.filter(params).then(
                 angular.bind(that, function (cases) {
-                  that.cases = cases;
+                  if(cases.length < that.count){
+                    that.allCasesDownloaded = true;
+                  }
+                  that.cases = that.cases.concat(cases);
                   that.searching = false;
+                  that.start = that.start + that.count;
+                  that.total = that.total + that.count;
 
                   if (angular.isFunction(that.postFilter)) {
                     that.postFilter();

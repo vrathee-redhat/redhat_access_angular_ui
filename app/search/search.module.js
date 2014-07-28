@@ -48,8 +48,8 @@ angular.module('RedhatAccess.search', [
     }
   ])
   .controller('SearchController', ['$scope',
-    'SearchResultsService', 'SEARCH_CONFIG', 'securityService', 'AlertService',
-    function ($scope, SearchResultsService, SEARCH_CONFIG, securityService, AlertService) {
+    '$location', 'SearchResultsService', 'SEARCH_CONFIG', 'securityService', 'AlertService',
+    function ($scope, $location, SearchResultsService, SEARCH_CONFIG, securityService, AlertService) {
       $scope.results = SearchResultsService.results;
       $scope.selectedSolution = SearchResultsService.currentSelection;
       $scope.searchInProgress = SearchResultsService.searchInProgress;
@@ -83,7 +83,13 @@ angular.module('RedhatAccess.search', [
         SearchResultsService.diagnose(data, limit);
       };
 
-
+      $scope.triggerAnalytics = function($event) {
+        if(this.isopen && window.portal && $location.path() === '/case/new'){
+          chrometwo_require(['analytics/main'], function (analytics) {
+             analytics.trigger('OpenSupportCaseRecommendationClick', $event);
+          });
+        }
+      };
       $scope.$watch(function () {
           return SearchResultsService.currentSelection;
         },
@@ -94,7 +100,7 @@ angular.module('RedhatAccess.search', [
 
     }
   ])
-  .directive('rhaAccordionSearchResults', ['SEARCH_CONFIG',
+  .directive('rhaAccordionsearchresults', ['SEARCH_CONFIG',
     function (SEARCH_CONFIG) {
       return {
         restrict: 'AE',
@@ -112,28 +118,28 @@ angular.module('RedhatAccess.search', [
       };
     }
   ])
-  .directive('rhaListSearchResults', function () {
+  .directive('rhaListsearchresults', function () {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/list_search_results.html'
     };
   })
-  .directive('rhaSearchForm', function () {
+  .directive('rhaSearchform', function () {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/search_form.html'
     };
   })
-  .directive('rhaStandardSearch', function () {
+  .directive('rhaStandardsearch', function () {
     return {
       restrict: 'AE',
       scope: false,
       templateUrl: 'search/views/standard_search.html'
     };
   })
-  .directive('rhaResultDetailDisplay', ['RESOURCE_TYPES',
+  .directive('rhaResultdetaildisplay', ['RESOURCE_TYPES',
     function (RESOURCE_TYPES) {
       return {
         restrict: 'AE',
@@ -246,10 +252,8 @@ angular.module('RedhatAccess.search', [
             );
           },
           function (error) {
-            console.log(error);
             $rootScope.$apply(function () {
               service.searchInProgress.value = false;
-              console.log(error);
               AlertService.addDangerMessage(error);
             });
           },
@@ -311,7 +315,6 @@ angular.module('RedhatAccess.search', [
               service.searchInProgress.value = false;
               AlertService.addDangerMessage(error);
             });
-            console.log(error);
           },
           limit
         );

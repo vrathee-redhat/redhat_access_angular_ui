@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.directive('rhaEmailNotifySelect', function () {
+.directive('rhaEmailnotifyselect', function () {
   return {
     templateUrl: 'cases/views/emailNotifySelect.html',
-    restrict: 'E',
+    restrict: 'A',
     controller: 'EmailNotifySelect'
   };
 });

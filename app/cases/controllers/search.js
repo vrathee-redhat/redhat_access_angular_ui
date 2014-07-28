@@ -30,13 +30,27 @@ angular.module('RedhatAccess.cases')
       $scope.maxPagerSize = 5;
 
       $scope.selectPage = function (pageNum) {
-        var start = $scope.itemsPerPage * (pageNum - 1);
-        var end = start + $scope.itemsPerPage;
-        end = end > SearchCaseService.cases.length ?
-          SearchCaseService.cases.length : end;
+        if(!SearchCaseService.allCasesDownloaded && (($scope.itemsPerPage * pageNum) / SearchCaseService.total >= .8)){
+          SearchCaseService.doFilter().then(
+                function () {
+                  var start = $scope.itemsPerPage * (pageNum - 1);
+                  var end = start + $scope.itemsPerPage;
+                  end = end > SearchCaseService.cases.length ?
+                    SearchCaseService.cases.length : end;
 
-        $scope.casesOnScreen =
-          SearchCaseService.cases.slice(start, end);
+                  $scope.casesOnScreen =
+                    SearchCaseService.cases.slice(start, end);
+            }
+          );
+        } else {
+          var start = $scope.itemsPerPage * (pageNum - 1);
+          var end = start + $scope.itemsPerPage;
+          end = end > SearchCaseService.cases.length ?
+            SearchCaseService.cases.length : end;
+
+          $scope.casesOnScreen =
+            SearchCaseService.cases.slice(start, end);
+        }
       };
 
       SearchBoxService.doSearch =

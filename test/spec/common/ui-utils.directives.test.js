@@ -40,11 +40,11 @@ describe('ui-utils  Directives:  TreeView', function () {
   }));
 
   it('should generate a tree view from a tree object', function () {
-    var compileFn = compileService('<rha-choice-tree ng-model="attachmentTree"></rha-choice-tree>');
+    var compileFn = compileService('<div rha-choicetree ng-model="attachmentTree"></div>');
     var elem = compileFn(mockScope);
     mockScope.$digest(); //Important so sync our data
     expect(elem.find('ul').length).toEqual(1); //we should have one root
-    expect(elem.find('rha-choice').length).toEqual(5); //we should have 5 nodes
+    expect(elem.find('div[rha-choice]').length).toEqual(5); //we should have 5 nodes
     expect(elem.find('input').length).toEqual(4); //we have 4 checkboxes
     //first and last checkboxes must be prechecked:
     expect(elem.find('input').eq(0).attr('checked')).toBeDefined();

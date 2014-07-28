@@ -92,14 +92,12 @@ angular.module('RedhatAccess.cases')
             $scope.productsLoading = false;
 
             if (RHAUtils.isNotEmpty(NEW_DEFAULTS.product)) {
-              CaseService.
-            case .product = {
+              CaseService.kase.product = {
               name: NEW_DEFAULTS.product,
               code: NEW_DEFAULTS.product
             };
             $scope.getRecommendations();
-            $scope.getProductVersions(CaseService.
-            case .product);
+            $scope.getProductVersions(CaseService.kase.product);
             }
           },
           function (error) {
@@ -111,8 +109,7 @@ angular.module('RedhatAccess.cases')
         strataService.values.cases.severity().then(
           function (severities) {
             CaseService.severities = severities;
-            CaseService.
-          case .severity = severities[severities.length - 1];
+            CaseService.kase.severity = severities[severities.length - 1];
           $scope.severitiesLoading = false;
           },
           function (error) {
@@ -127,8 +124,7 @@ angular.module('RedhatAccess.cases')
             CaseService.groups = groups;
             for (var i = 0; i < groups.length; i++) {
               if (groups[i].is_default) {
-                CaseService.
-              case .group = groups[i];
+                CaseService.kase.group = groups[i];
               break;
               }
             }
@@ -144,8 +140,7 @@ angular.module('RedhatAccess.cases')
         var searchObject = $location.search();
 
         var setDesc = function (desc) {
-          CaseService.
-        case .description = desc;
+          CaseService.kase.description = desc;
         $scope.getRecommendations();
         };
 
@@ -183,8 +178,7 @@ angular.module('RedhatAccess.cases')
        * @param product
        */
       $scope.getProductVersions = function (product) {
-        CaseService.
-      case .version = '';
+        CaseService.kase.version = '';
       $scope.versionDisabled = true;
       $scope.versionLoading = true;
 
@@ -196,8 +190,7 @@ angular.module('RedhatAccess.cases')
           $scope.versionLoading = false;
 
           if (RHAUtils.isNotEmpty(NEW_DEFAULTS.version)) {
-            CaseService.
-          case .version = NEW_DEFAULTS.version;
+            CaseService.kase.version = NEW_DEFAULTS.version;
           $scope.getRecommendations();
           }
         },
@@ -236,23 +229,24 @@ angular.module('RedhatAccess.cases')
       /**
        * Create the case with attachments
        */
-      $scope.doSubmit = function () {
+      $scope.doSubmit = function ($event) {
+        if(window.portal){
+          chrometwo_require(['analytics/main'], function (analytics) {
+             analytics.trigger('OpenSupportCaseSubmit', $event);
+          });
+        }
+
         /*jshint camelcase: false */
         var caseJSON = {
-          'product': CaseService.
-        case .product.code,
+          'product': CaseService.kase.product.code,
         'version':
-          CaseService.
-        case .version,
+          CaseService.kase.version,
         'summary':
-          CaseService.
-        case .summary,
+          CaseService.kase.summary,
         'description':
-          CaseService.
-        case .description,
+          CaseService.kase.description,
         'severity':
-          CaseService.
-        case .severity.name,
+          CaseService.kase.severity.name,
         };
 
         if (RHAUtils.isNotEmpty(CaseService.group)) {

@@ -2,10 +2,10 @@
 'use strict';
 /*jshint unused:vars */
 angular.module('RedhatAccess.cases')
-.directive('rhaCreateGroupButton', function () {
+.directive('rhaCreategroupbutton', function () {
   return {
     templateUrl: 'cases/views/createGroupButton.html',
-    restrict: 'E',
+    restrict: 'A',
     controller: 'CreateGroupButton'
   };
 });

@@ -9,9 +9,10 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
     logoutSuccess: 'auth-logout-success',
     sessionTimeout: 'auth-session-timeout',
     notAuthenticated: 'auth-not-authenticated',
-    notAuthorized: 'auth-not-authorized'
+    notAuthorized: 'auth-not-authorized',
+    sessionIdChanged: 'sid-changed'
   })
-  .directive('rhaLoginStatus', function () {
+  .directive('rhaLoginstatus', function () {
     return {
       restrict: 'AE',
       scope: false,
@@ -71,7 +72,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         hasChat: false,
         sessionId: '',
         canAddAttachments: false,
-        login: ''
+        ssoName: ''
       };
 
       this.loginURL = SECURITY_CONFIG.loginURL;
@@ -86,7 +87,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         hasChat,
         sessionId,
         canAddAttachments,
-        login) {
+        ssoName) {
         this.loginStatus.isLoggedIn = isLoggedIn;
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
@@ -95,7 +96,7 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         this.loginStatus.hasChat = hasChat;
         this.loginStatus.sessionId = sessionId;
         this.loginStatus.canAddAttachments = canAddAttachments;
-        this.loginStatus.login = login;
+        this.loginStatus.ssoName = ssoName;
       };
 
       this.clearLoginStatus = function () {
@@ -108,6 +109,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         this.loginStatus.sessionId = '';
         this.loginStatus.canAddAttachments = false;
         this.loginStatus.account = {};
+        this.loginStatus.ssoName = '';
+
       };
 
       this.setAccount = function (accountJSON) {
@@ -133,9 +136,18 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
 
 
 
-      this.userAllowedToManage = function (user) {
+      this.userAllowedToManageEmailNotifications = function (user) {
         if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account)) &&
-          ((this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
+          ((this.loginStatus.orgAdmin))) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+      this.userAllowedToManageGroups = function (user) {
+        if ((RHAUtils.isNotEmpty(this.loginStatus.account) && RHAUtils.isNotEmpty(this.loginStatus.account)) &&
+          ((!this.loginStatus.account.has_group_acls || this.loginStatus.account.has_group_acls && this.loginStatus.orgAdmin))) {
           return true;
         } else {
           return false;
@@ -154,7 +166,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
               defer.resolve(localStorage.getItem('rhAuthToken'));
             },
             function (error) {
-              console.log('Unable to get user credentials');
               defer.resolve(error);
             });
           return defer.promise;
@@ -169,11 +180,12 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         var defer = $q.defer();
         var that = this;
         var wasLoggedIn = this.loginStatus.isLoggedIn;
+        var currentSid = this.loginStatus.sessionId;
         this.loginStatus.verifying = true;
         strata.checkLogin(
           angular.bind(this, function (result, authedUser) {
             if (result) {
-
+              var sidChanged = (currentSid !== authedUser.session_id);
               strataService.accounts.list().then(
                 angular.bind(this, function (accountNumber) {
                   strataService.accounts.get(accountNumber).then(
@@ -189,10 +201,15 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
                         authedUser.session_id,
                         authedUser.can_add_attachments,
                         authedUser.login);
+                      //console.log(that.loginStatus);
+                      //console.log(authedUser);
                       this.loggingIn = false;
                       //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
                       if (wasLoggedIn === false) {
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                      }
+                      if (sidChanged) {
+                        $rootScope.$broadcast(AUTH_EVENTS.sessionIdChanged);
                       }
                       defer.resolve(authedUser.name);
                     })
@@ -230,7 +247,6 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         } else {
           this.initLoginStatus().then(
             function (username) {
-              console.log('User name is ' + username);
               defer.resolve(username);
             },
             function (error) {
@@ -252,11 +268,9 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         var result = this.showLogin(modalDefaults, modalOptions);
         result.then(
           function (authedUser) {
-            console.log('User logged in : ' + authedUser.name);
             that.setLoginStatus(true, authedUser.name, false, authedUser.is_internal);
           },
           function (error) {
-            console.log('Unable to login user');
             that.clearLoginStatus();
           });
         return result; // pass on the promise

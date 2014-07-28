@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('RedhatAccess.logViewer')
-.directive('fillDown', [
+.directive('rhaFilldown', [
 	'$window', 
 	'$timeout', 
 	function($window, $timeout) {
 		return {
-			restrict: 'EA',
+			restrict: 'A',
 			link: function postLink(scope, element, attrs) {
 				scope.onResizeFunction = function() {
 					var distanceToTop = element[0].getBoundingClientRect().top;

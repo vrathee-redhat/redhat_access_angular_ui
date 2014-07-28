@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('RedhatAccess.cases')
-.directive('rhaExportCsvButton', function () {
+.directive('rhaExportcsvbutton', function () {
   return {
     templateUrl: 'cases/views/exportCSVButton.html',
-    restrict: 'E',
+    restrict: 'A',
     controller: 'ExportCSVButton'
   };
 });

@@ -2,17 +2,17 @@ form(name='caseDetails')
   div(style='display: table; width: 100%; padding-bottom: 20px;')
     div(style='display: table-cell; width: 50%;')
       div
-        h3(style='margin-top: 0px;') Case {{CaseService.case.case_number}}
+        h3(style='margin-top: 0px;') Case {{CaseService.kase.case_number}}
       input.form-control(
         style='width: 100%; display: inline-block;',
-        ng-model='CaseService.case.summary',
+        ng-model='CaseService.kase.summary',
         name='summary')
       span.glyphicon.glyphicon-asterisk.form-control-feedback(
         ng-show='caseDetails.summary.$dirty',
         style='display: inline-block;')
     div(ng-show='showEmailNotifications', style='display: table-cell; vertical-align: bottom; width: 50%;')
       div.pull-right(style='width: 75%')
-        x-rha-email-notify-select
+        div(rha-emailnotifyselect='')
   span.rha-search-spinner(ng-show='loading')
   div.container-fluid.rha-side-padding(ng-hide='loading')
     div#rha-case-details.row
@@ -29,12 +29,11 @@ form(name='caseDetails')
                     ng-show='caseDetails.type.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
-                  div
-                    x-rha-select-loading-indicator(loading='caseTypes === undefined', type='bootstrap')
+                  div(rha-selectloadingindicator='', loading='caseTypes === undefined', type='bootstrap')
                       select.form-control(
                         name='type',
                         style='width: 100%;',
-                        ng-model='CaseService.case.type',
+                        ng-model='CaseService.kase.type',
                         ng-options='c.name for c in caseTypes track by c.name')
               tr
                 th.rha-detail-table-header
@@ -43,23 +42,22 @@ form(name='caseDetails')
                     ng-show='caseDetails.severity.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
-                  div
-                    x-rha-select-loading-indicator(loading='CaseService.severities === undefined', type='bootstrap')
+                  div(rha-selectloadingindicator='', loading='CaseService.severities === undefined', type='bootstrap')
                       select.form-control(
                         name='severity',
                         style='width: 100%;',
-                        ng-model='CaseService.case.severity',
+                        ng-model='CaseService.kase.severity',
                         ng-options='s.name for s in CaseService.severities track by s.name')
               tr(ng-show='CaseService.showFts()')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Support:'|translate}}
                 td
-                  input(ng-model='CaseService.case.fts', type='checkbox')
-              tr(ng-show='CaseService.showFts() && CaseService.case.fts')
+                  input(ng-model='CaseService.kase.fts', type='checkbox')
+              tr(ng-show='CaseService.showFts() && CaseService.kase.fts')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Contact:'|translate}}
                 td
-                  input.form-control(ng-model='CaseService.case.contact_info24_x7')
+                  input.form-control(ng-model='CaseService.kase.contact_info24_x7')
               tr
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;') {{'Status:'|translate}}
@@ -67,12 +65,11 @@ form(name='caseDetails')
                   ng-show='caseDetails.status.$dirty',
                   style='display: inline-block;float: right; vertical-align: 50%;')
                 td
-                  div
-                    x-rha-select-loading-indicator(loading='statuses === undefined', type='bootstrap')
+                  div(rha-selectloadingindicator='', loading='statuses === undefined', type='bootstrap')
                       select.form-control(
                         name='status',
                         style='width: 100%;',
-                        ng-model='CaseService.case.status',
+                        ng-model='CaseService.kase.status',
                         ng-options='s.name for s in statuses track by s.name')
               tr(ng-hide='compact')
                 th.rha-detail-table-header
@@ -83,7 +80,7 @@ form(name='caseDetails')
                 td
                   input.form-control(
                     style='width: 100%',
-                    ng-model='CaseService.case.alternate_id',
+                    ng-model='CaseService.kase.alternate_id',
                     name='alternate_id')
           div.col-md-4
             table.table.details-table
@@ -94,12 +91,11 @@ form(name='caseDetails')
                     ng-show='caseDetails.product.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
-                  div
-                    x-rha-select-loading-indicator(loading='products === undefined', type='bootstrap')
+                  div(rha-selectloadingindicator='', loading='products === undefined', type='bootstrap')
                       select.form-control(
                         name='product',
                         style='width: 100%;',
-                        ng-model='CaseService.case.product',
+                        ng-model='CaseService.kase.product',
                         ng-change='getProductVersions()',
                         ng-options='s.name for s in products track by s.name',
                         required)
@@ -110,23 +106,22 @@ form(name='caseDetails')
                   ng-show='caseDetails.version.$dirty',
                   style='display: inline-block;float: right; vertical-align: 50%;')
                 td
-                  div
-                    x-rha-select-loading-indicator(loading='CaseService.versions.length === 0', type='bootstrap')
+                  div(rha-selectloadingindicator='', loading='CaseService.versions.length === 0', type='bootstrap')
                       select.form-control(
                         name='version',
                         style='width: 100%;',
                         ng-options='v for v in CaseService.versions track by v',
-                        ng-model='CaseService.case.version',
+                        ng-model='CaseService.kase.version',
                         required)
               tr(ng-hide='compact')
                 th.rha-detail-table-header {{'Support Level:'|translate}}
-                td {{CaseService.case.entitlement.sla}}
+                td {{CaseService.kase.entitlement.sla}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header {{'Owner:'|translate}}
-                td {{CaseService.case.contact_name}}
+                td {{CaseService.kase.contact_name}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header {{'Red Hat Owner:'|translate}}
-                td {{CaseService.case.owner}}
+                td {{CaseService.kase.owner}}
           div.col-md-4
             table.table.details-table
               tr(ng-hide='compact')
@@ -136,26 +131,37 @@ form(name='caseDetails')
                     ng-show='caseDetails.group.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
                 td
-                  div
-                    x-rha-select-loading-indicator(loading='groups === undefined', type='bootstrap')
+                  div(rha-selectloadingindicator='', loading='groups === undefined', type='bootstrap')
                       select.form-control(
                         name='group',
                         style='width: 100%;',
                         ng-options='g.name for g in groups track by g.number',
-                        ng-model='CaseService.case.group')
+                        ng-model='CaseService.kase.group')
               tr(ng-hide='compact')
                 th.rha-detail-table-header {{'Opened:'|translate}}
                 td
-                  div {{CaseService.case.created_date | date:'MMM d, y h:mm:ss a Z'}}
-                  div {{CaseService.case.created_by}}
+                  div {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}}
+                  div {{CaseService.kase.created_by}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header {{'Last Updated:'|translate}}
                 td
-                  div {{CaseService.case.last_modified_date | date:'MMM d, y h:mm:ss a Z'}}
-                  div {{CaseService.case.last_modified_by}}
+                  div {{CaseService.kase.last_modified_date | date:'MMM d, y h:mm:ss a Z'}}
+                  div {{CaseService.kase.last_modified_by}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header {{'Account Number:'|translate}}
-                td {{CaseService.case.account_number}}
+                td {{CaseService.kase.account_number}}
+              tr(ng-hide='compact')
+                th.rha-detail-table-header {{'Account Name:'|translate}}
+                td {{CaseService.account.name}}
+        div.row(style='padding-top: 10px;')
+          div.col-xs-12
+            div(style='float: right;')
+              button.btn.btn-primary(
+                name='updateButton',
+                ng-disabled='!caseDetails.$dirty',
+                ng-hide='updatingDetails',
+                ng-click='updateCase()', translate='') Update Details
+              span.rha-search-spinner(ng-show='updatingDetails')
               tr(ng-hide='compact')
                 th.rha-detail-table-header {{'Account Name:'|translate}}
                 td {{CaseService.account.name}}

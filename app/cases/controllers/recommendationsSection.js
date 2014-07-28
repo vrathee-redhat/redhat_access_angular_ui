@@ -73,7 +73,7 @@ angular.module('RedhatAccess.cases')
           }
         };
 
-        strataService.cases.put(CaseService.case.case_number, recJSON).then(
+        strataService.cases.put(CaseService.kase.case_number, recJSON).then(
             function(response) {
               if (!$scope.currentRecPin.pinned) {
                 //not currently pinned, so add it to the pinned list
@@ -110,6 +110,14 @@ angular.module('RedhatAccess.cases')
       $scope.selectRecommendationsPage(1);
       $scope.currentRecommendationPage = 1;
     };
+
+    $scope.triggerAnalytics = function($event) {
+      if(window.portal){
+        chrometwo_require(['analytics/main'], function (analytics) {
+          analytics.trigger('OpenSupportCaseRecommendationClick', $event);
+        });
+      }
+    }
 
     RecommendationsService.setPopulateCallback($scope.selectPageOne);
   }

@@ -1,13 +1,13 @@
 
 div#redhat-access-case.container-offset
-  x-rha-header(page='manageGroups')
+  div(rha-header='', page='manageGroups')
   div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn')
     div.row(style='padding-bottom: 20px;')
       div.col-xs-6
-        x-rha-search-box(placeholder='"Search Groups"')
+        div(rha-searchbox='', placeholder='"Search Groups"')
       div.col-xs-6
-        x-rha-create-group-button.pull-right
-        x-rha-delete-group-button.pull-right(style='padding-right: 20px;')
+        div.pull-right(rha-creategroupbutton='')
+        div.pull-right(rha-deletegroupbutton='', style='padding-right: 20px;')
     div.row
       div.col-xs-12
-        x-rha-group-list
+        div(rha-grouplist='')

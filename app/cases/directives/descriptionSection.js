@@ -2,10 +2,10 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-  .directive('rhaCaseDescription', function() {
+  .directive('rhaCasedescription', function() {
     return {
       templateUrl: 'cases/views/descriptionSection.html',
-      restrict: 'EA',
+      restrict: 'A',
       scope: {
         loading: '='
       },

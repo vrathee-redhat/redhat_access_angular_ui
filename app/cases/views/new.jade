@@ -1,6 +1,10 @@
 div.container-offset
   div#redhat-access-case.container-fluid
-    x-rha-header(page='newCase')
+    div(rha-header='', page='newCase')
+    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat')
+      div.pull-right
+          div(rha-chatbutton='' style='margin-right: 10px;')
+    div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat')
     div.row
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.rha-side-padding
@@ -10,22 +14,22 @@ div.container-offset
                 div.col-md-4
                   div {{'Account:'|translate}}
                 div.col-md-8
-                  x-rha-account-select
+                  div(rha-accountselect='')
               div.row.rha-create-field
                 div.col-md-4
                   div {{'Owner:'|translate}}
                 div.col-md-8
-                  x-rha-owner-select
+                  div(rha-ownerselect='')
             div.row.rha-create-field
               div.col-md-4
                 div {{'Product:'|translate}}
               div.col-md-8
-                x-rha-select-loading-indicator(loading='productsLoading', type='bootstrap')
+                div(rha-selectloadingindicator='', loading='productsLoading', type='bootstrap')
                   select.form-control(
                     ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
                     style='width: 100%;',
-                    ng-model='CaseService.case.product',
-                    ng-change='getProductVersions(CaseService.case.product)',
+                    ng-model='CaseService.kase.product',
+                    ng-change='getProductVersions(CaseService.kase.product)',
                     ng-options='p.name for p in products track by p.code',
                     ng-blur='getRecommendations()')
             div.row.rha-create-field
@@ -33,10 +37,10 @@ div.container-offset
                 div {{'Product Version:'|translate}}
               div.col-md-8
                 div
-                  x-rha-select-loading-indicator(loading='versionLoading', type='bootstrap')
+                  div(rha-selectloadingindicator='', loading='versionLoading', type='bootstrap')
                     select.form-control(
                       style='width: 100%;',
-                      ng-model='CaseService.case.version',
+                      ng-model='CaseService.kase.version',
                       ng-options='v for v in versions',
                       ng-change='CaseService.validateNewCasePage1()',
                       ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase',
@@ -50,7 +54,7 @@ div.container-offset
                   style='width: 100%;',
                   ng-disabled='!securityService.loginStatus.isLoggedIn',
                   ng-change='CaseService.validateNewCasePage1()',
-                  ng-model='CaseService.case.summary',
+                  ng-model='CaseService.kase.summary',
                   ng-blur='getRecommendations()')
             div.row.rha-create-field
               div.col-md-4
@@ -58,7 +62,7 @@ div.container-offset
               div.col-md-8
                 textarea.form-control.description-box(
                   style='width: 100%; height: 200px; max-width: 100%;',
-                  ng-model='CaseService.case.description',
+                  ng-model='CaseService.kase.description',
                   ng-change='CaseService.validateNewCasePage1()',
                   ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
                   ng-blur='getRecommendations()')
@@ -72,25 +76,25 @@ div.container-offset
             div.rha-bottom-border
               div.row
                 div.col-xs-12
-                  div.rha-bold(style='margin-bottom: 10px;') {{CaseService.case.product.name}} {{CaseService.case.version}}
+                  div.rha-bold(style='margin-bottom: 10px;') {{CaseService.kase.product.name}} {{CaseService.kase.version}}
               div.row
                 div.col-xs-12
-                  div.rha-bold(style='font-size: 90%; margin-bottom: 4px;') {{CaseService.case.summary}}
+                  div.rha-bold(style='font-size: 90%; margin-bottom: 4px;') {{CaseService.kase.summary}}
               div.row
                 div.col-xs-12
-                  div(style='font-size: 85%') {{CaseService.case.description}}
+                  div(style='font-size: 85%') {{CaseService.kase.description}}
             div.row.rha-create-field
               div.col-md-4 Support Level:
               div.col-md-8(ng-show='CaseService.entitlements.length <= 1') {{CaseService.entitlements[0]}}
               div.col-md-8(ng-hide='CaseService.entitlements.length <= 1')
-                x-rha-entitlement-select
+                div(rha-entitlementselect='')
             div.row.rha-create-field
               div.col-md-4 {{'Severity:'|translate}}
               div.col-md-8
-                x-rha-loading-indicator(loading='severitiesLoading')
+                div(rha-loadingindicator='', loading='severitiesLoading')
                   select.form-control(
                     style='width: 100%;',
-                    ng-model='CaseService.case.severity',
+                    ng-model='CaseService.kase.severity',
                     ng-change='validatePage2()',
                     ng-disabled='submittingCase',
                     ng-options='s.name for s in CaseService.severities track by s.name')
@@ -107,7 +111,7 @@ div.container-offset
             div.row.rha-create-field
               div.col-md-4 {{'Case Group:'|translate}}
               div.col-md-8
-                x-rha-group-select(showsearchoptions='false')
+                div(rha-groupselect='', showsearchoptions='false')
             div(ng-show='NEW_CASE_CONFIG.showAttachments')
               div.row.rha-create-field
                 div.col-xs-12
@@ -115,15 +119,15 @@ div.container-offset
               div.rha-bottom-border
                 div.row.rha-create-field(style='overflow: auto')
                   div.col-xs-12
-                    rha-list-new-attachments
+                    div(rha-listnewattachments='')
                 div.row.rha-create-field(ng-hide='submittingCase')
                   div.col-xs-12
-                    rha-attach-local-file(disabled='submittingCase')
+                    div(rha-attachlocalfile='', disabled='submittingCase')
                 div.row.rha-create-field(ng-hide='submittingCase')
                   div.col-xs-12
                     div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
                       div.server-attach-header Server File(s) To Attach:
-                       rha-choice-tree(
+                       div(rha-choicetree='',
                          ng-model='attachmentTree',
                          ng-controller='BackEndAttachmentsCtrl')
             div.row(style='margin-top: 20px;')
@@ -137,17 +141,21 @@ div.container-offset
                   style='float: right',
                   ng-disabled='submittingCase',
                   ng-hide='submittingCase',
-                  ng-click='doSubmit()', translate='') Submit
+                  ng-click='doSubmit($event)', translate='') Submit
                 span.rha-search-spinner(
                   ng-show='submittingCase',
                   style='float: right')
       div.col-xs-6(
         style='overflow: auto;',
         rha-resizable,
-        rha-dom-ready='domReady',
+        rha-domready='domReady',
         ng-show='NEW_CASE_CONFIG.showRecommendations')
         div(
           ng-controller='SearchController',
           style='overflow: vertical;')
-          x-rha-accordion-search-results
+          div(rha-accordionsearchresults='')
+
+          ng-controller='SearchController',
+          style='overflow: vertical;')
+          div(rha-accordionsearchresults='')
 

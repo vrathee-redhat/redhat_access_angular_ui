@@ -2,14 +2,14 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.cases')
-  .directive('rhaCaseComments', function() {
+  .directive('rhaCasecomments', function() {
     return {
       templateUrl: 'cases/views/commentsSection.html',
       controller: 'CommentsSection',
       scope: {
         loading: '='
       },
-      restrict: 'EA',
+      restrict: 'A',
       link: function postLink(scope, element, attrs) {}
     };
   });

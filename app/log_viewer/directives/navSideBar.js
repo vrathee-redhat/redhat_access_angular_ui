@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('RedhatAccess.logViewer')
-.directive('navSideBar', function () {
+.directive('rhaNavsidebar', function () {
   return {
     templateUrl: 'log_viewer/views/navSideBar.html',
-    restrict: 'EA',
+    restrict: 'A',
     link: function postLink(scope, element, attrs) {
     }
   };
