@@ -161,16 +161,4 @@ form(name='caseDetails')
                 ng-disabled='!caseDetails.$dirty',
                 ng-hide='updatingDetails',
                 ng-click='updateCase()', translate='') Update Details
-              span.rha-search-spinner(ng-show='updatingDetails')
-              tr(ng-hide='compact')
-                th.rha-detail-table-header {{'Account Name:'|translate}}
-                td {{CaseService.account.name}}
-        div.row(style='padding-top: 10px;')
-          div.col-xs-12
-            div(style='float: right;')
-              button.btn.btn-primary(
-                name='updateButton',
-                ng-disabled='!caseDetails.$dirty',
-                ng-hide='updatingDetails',
-                ng-click='updateCase()', translate='') Update Details
-              span.rha-search-spinner(ng-show='updatingDetails')
+              span.rha-search-spinner(ng-show='updatingDetails')           
