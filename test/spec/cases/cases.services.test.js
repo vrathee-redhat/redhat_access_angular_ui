@@ -93,7 +93,6 @@ describe('Case Services', function() {
 	    q = $q;    
 	}));
 
-
 	//Suite for CaseService
 	describe('CaseService', function() {
 
@@ -487,3 +486,4 @@ describe('Case Services', function() {
 	});  	
 
 });
+
