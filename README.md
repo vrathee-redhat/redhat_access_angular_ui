@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/redhataccess/redhat_access_angular_ui.svg?branch=master)](https://travis-ci.org/redhataccess/redhat_access_angular_ui)  
+
 ### Installation  
 Run 'npm install' and 'bower install' to pull in dependencies.  
 Execute grunt build and check the dist folder for js and css files.
