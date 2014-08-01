@@ -4,6 +4,14 @@
 Run 'npm install' and 'bower install' to pull in dependencies.  
 Execute grunt build and check the dist folder for js and css files.
 
+### StrataJS configuration
+redhat_access_angular_ui uses [stratajs](https://github.com/redhataccess/stratajs) for communication with the Red Hat Customer Portal API and has a few options integrators should set.  
+Set an identifier for auditing:  
+window.strata.setRedhatClientID('product_name_and_version');  
+Use a non-production Red Hat Customer Portal API:  
+window.strata.setPortalHostname('hostname_with_no_protocol.com');  
+
+
 ### Bootstrapping a module inside of another angular app
 #### HTML
 ~~~
@@ -29,9 +37,32 @@ angular.element(document).ready(function() {
 });
 ~~~
 
+### Module configuration
+The RedhatAccess.cases module has the following configuration options(They MUST ALL be specified if deviating from the default)  :  
+
+~~~
+angular.module('RedhatAccess.cases')
+.value('NEW_CASE_CONFIG', {
+  'showRecommendations': true,
+  'showAttachments': true,
+  'showServerSideAttachments': true
+})
+.value('EDIT_CASE_CONFIG', {
+  'showDetails': true,
+  'showDescription': true,
+  'showBugzillas': true,
+  'showAttachments': true,
+  'showRecommendations': true,
+  'showComments': true,
+  'showServerSideAttachments': true,
+  'showEmailNotifications': true
+});
+~~~
+
 ### IE8 Support
 [Angular IE8 Support Doc](https://docs.angularjs.org/guide/ie)  
-The following shims and xmlns's defined:
+Included in bower_components but not in the dist/redhat_access_angular_ui.js combined module.  
+The following shims and xmlns's should be defined:  
 
 ~~~
 <html xmlns:ng="http://angularjs.org" xmlns:rha="http://access.redhat.com">
