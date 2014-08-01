@@ -49,7 +49,9 @@ describe('Case Services', function() {
 				type: 'bug'
 			};
 			caseService.defineCase(rawCase);
-			expect(caseService.kase).toEqual(rawCase);	
+			expect(caseService.kase.product.name).toEqual('Red Hat Enterprise Linux');	
+			expect(caseService.kase.status.name).toEqual('closed');
+			expect(caseService.kase.group.number).toEqual('1234');
   		});
 
   		it('should have a method to define account', function () {
