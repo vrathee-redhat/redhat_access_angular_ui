@@ -1,6 +1,6 @@
 {
   "name": "redhat-access-angular-ui",
-  "version": "0.0.0",
+  "version": "0.9.1",
   "dependencies": {
     "angular": "1.2.1",
     "json3": "~3.2.6",
@@ -12,7 +12,7 @@
     "angular-route": "1.2.1",
     "angular-ui-router": "0.2.8-bowratic-tedium",
     "angular-bootstrap": "0.10.0",
-    "stratajs": ">1.0.26",
+    "stratajs": ">1.0.28",
     "angular-treeview": "",
     "ng-table": "~0.3.3",
     "angular-gettext": "~0.2.9",
