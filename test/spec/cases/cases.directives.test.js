@@ -24,7 +24,7 @@ describe('Case Directives', function() {
         var element = compileFn(mockScope);
         securityService.loginStatus.isInternal = true;
         mockScope.securityService = securityService;
-        mockScope.$digest();
+        mockScope.$root.$digest();
         expect(element.find('.redhat-access-bz').length).toBe(1);        
     });
 
@@ -33,7 +33,7 @@ describe('Case Directives', function() {
         var element = compileFn(mockScope);
         securityService.loginStatus.isInternal = false;
         mockScope.securityService = securityService;
-        mockScope.$digest();
+        mockScope.$root.$digest();
         expect(element.find('.redhat-access-bz.ng-hide').length).toBe(1);        
     });
 

@@ -47,7 +47,8 @@ module.exports = function(config) {
             'app/search/**/*.js',
             'app/cases/**/*.js',
             'app/log_viewer/*.js',
-            'test/spec/**/*.js'
+            'test/mocks/**/*.js',
+            'test/spec/**/*.js'            
             //'app/**/*.html'
 
         ],
