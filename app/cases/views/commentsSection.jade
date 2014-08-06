@@ -10,7 +10,7 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
       button.btn.btn-secondary(
         style='display: inline-block', 
         ng-click='requestManagementEscalation()', translate='') Request Management Escalation
-  div(ng-hide='CaseService.comments.length <= 0 || CaseService.comments === undefined', style='border-top: 1px solid #dddddd;')
+  div.rha-comments-section(ng-hide='CaseService.comments.length <= 0 || CaseService.comments === undefined', style='border-top: 1px solid #dddddd;')
     div.row(style='padding-top: 10px; padding-bottom: 10px;')
       div.col-xs-12
         pagination.pagination-sm(
@@ -32,5 +32,5 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
           div.rha-bold {{comment.created_by}}
           div {{comment.created_date | date:'mediumDate'}}
           div {{comment.created_date | date:'h:mm:ss a Z'}}
-        div.col-md-10
+        div.col-md-10.rha-comment-text
           pre(style='word-break: normal;') {{comment.text}}

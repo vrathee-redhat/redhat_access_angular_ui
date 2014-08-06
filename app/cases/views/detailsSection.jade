@@ -147,10 +147,10 @@ form(name='caseDetails')
                 td
                   div {{CaseService.kase.last_modified_date | date:'MMM d, y h:mm:ss a Z'}}
                   div {{CaseService.kase.last_modified_by}}
-              tr(ng-hide='compact',ng-if="securityService.loginStatus.isInternal")
+              tr.rha-detail-acc-number(ng-hide='compact',ng-if="securityService.loginStatus.isInternal")
                 th.rha-detail-table-header {{'Account Number:'|translate}}
                 td {{CaseService.kase.account_number}}
-              tr(ng-hide='compact',ng-if="securityService.loginStatus.isInternal")
+              tr.rha-detail-acc-name(ng-hide='compact',ng-if="securityService.loginStatus.isInternal")
                 th.rha-detail-table-header {{'Account Name:'|translate}}
                 td {{CaseService.account.name}}
         div.row(style='padding-top: 10px;')
@@ -161,4 +161,4 @@ form(name='caseDetails')
                 ng-disabled='!caseDetails.$dirty',
                 ng-hide='updatingDetails',
                 ng-click='updateCase()', translate='') Update Details
-              span.rha-search-spinner(ng-show='updatingDetails')           
+              span.rha-search-spinner(ng-show='updatingDetails')       
