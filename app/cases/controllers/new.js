@@ -230,7 +230,7 @@ angular.module('RedhatAccess.cases')
        * Create the case with attachments
        */
       $scope.doSubmit = function ($event) {
-        if(window.portal){
+        if(window.chrometwo_require != null){
           chrometwo_require(['analytics/main'], function (analytics) {
              analytics.trigger('OpenSupportCaseSubmit', $event);
           });

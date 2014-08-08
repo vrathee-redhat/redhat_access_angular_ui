@@ -112,9 +112,9 @@ angular.module('RedhatAccess.cases')
     };
 
     $scope.triggerAnalytics = function($event) {
-      if(window.portal){
+      if(window.chrometwo_require != null){
         chrometwo_require(['analytics/main'], function (analytics) {
-          analytics.trigger('OpenSupportCaseRecommendationClick', $event);
+          analytics.trigger('CaseViewRecommendationClick', $event);
         });
       }
     }

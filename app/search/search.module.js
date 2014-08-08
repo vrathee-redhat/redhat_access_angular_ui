@@ -84,7 +84,7 @@ angular.module('RedhatAccess.search', [
       };
 
       $scope.triggerAnalytics = function($event) {
-        if(this.isopen && window.portal && $location.path() === '/case/new'){
+        if(this.isopen && window.chrometwo_require != null && $location.path() === '/case/new'){
           chrometwo_require(['analytics/main'], function (analytics) {
              analytics.trigger('OpenSupportCaseRecommendationClick', $event);
           });
