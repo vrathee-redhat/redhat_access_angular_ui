@@ -1,4 +1,4 @@
-div(ng-show='AttachmentsService.originalAttachments.length == 0', style='padding-bottom: 10px;') {{'No attachments added'|translate}}
+div.rha-attachments-section(ng-show='AttachmentsService.originalAttachments.length == 0', style='padding-bottom: 10px;') {{'No attachments added'|translate}}
 div.panel.panel-default(ng-show='AttachmentsService.originalAttachments.length > 0')
   div.panel-heading {{'Attached Files'|translate}}
   table.table.table-hover.table-bordered
