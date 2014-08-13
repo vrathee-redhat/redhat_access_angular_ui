@@ -92,11 +92,21 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
         this.loginStatus.isInternal = isInternal;
-        this.loginStatus.orgAdmin = orgAdmin;
-        this.loginStatus.hasChat = hasChat;
-        this.loginStatus.sessionId = sessionId;
-        this.loginStatus.canAddAttachments = canAddAttachments;
-        this.loginStatus.ssoName = ssoName;
+        if(orgAdmin != null){
+          this.loginStatus.orgAdmin = orgAdmin;
+        }
+        if(hasChat != null){
+          this.loginStatus.hasChat = hasChat;
+        }
+        if(sessionId != null){
+          this.loginStatus.sessionId = sessionId;
+        }
+        if(canAddAttachments != null){
+          this.loginStatus.canAddAttachments = canAddAttachments;
+        }
+        if(ssoName != null){
+          this.loginStatus.ssoName = ssoName;
+        }
       };
 
       this.clearLoginStatus = function () {
@@ -268,7 +278,8 @@ angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template'
         var result = this.showLogin(modalDefaults, modalOptions);
         result.then(
           function (authedUser) {
-            that.setLoginStatus(true, authedUser.name, false, authedUser.is_internal);
+            //that.setLoginStatus(true, authedUser.name, false, authedUser.is_internal);
+            that.initLoginStatus();
           },
           function (error) {
             that.clearLoginStatus();
