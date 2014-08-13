@@ -12,7 +12,7 @@ angular.module('RedhatAccess.mock', [])
         "number": "49496",
         "name": "groupTest:1398506570363",
         "is_private": false,
-        "is_default": false
+        "is_default": true
       }];
  
       this.mockUsers = [{
@@ -129,6 +129,36 @@ angular.module('RedhatAccess.mock', [])
       }];
  
       this.mockEntitlements = [];
+
+      this.mockRecommendationPinned = {
+        "linked": false,
+        "pinned": true,
+        "last_suggested_date": 1398756627000,
+        "lucene_score": 141.0,
+        "resource_id": "27450",
+        "resource_type": "Solution",
+        "resource_uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/27450",
+        "solution_title": " test solution title 1 ",
+        "solution_abstract": "test solution abstract 1",
+        "solution_url": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/27450",
+        "title": "test title 1",
+        "solution_case_count": 3
+      };
+
+      this.mockSolutionNotPinned = {
+        "linked": false,
+        "pinned": false,
+        "last_suggested_date": 1398756627000,
+        "lucene_score": 141.0,
+        "resource_id": "27450",
+        "resource_type": "Solution",
+        "resource_uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/27450",
+        "solution_title": " test solution title 1 ",
+        "solution_abstract": "test solution abstract 1",
+        "solution_url": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/27450",
+        "title": "test title 1",
+        "solution_case_count": 3
+      };
  
       this.mockRecommendations = [{
         "linked": false,
@@ -190,15 +220,92 @@ angular.module('RedhatAccess.mock', [])
         "size": "50Mb"
       }];
 
+      this.mockProducts = [{
+          "name": "Red Hat Enterprise Linux",
+          "value": "RHEL"
+      }];
+
       this.mockVersions = [{
           "name": "6.0",
           "value": "6.0"
       }];
 
+      this.mockSeverities = [{
+          "name": "HIGH",
+          "value": "1"
+      }, {
+          "name": "Medium",
+          "value": "2"
+      }, {
+          "name": "Low",
+          "value": "3"
+      }];
+
+      this.mockStatuses = [{
+          "name": "Closed",
+          "value": "closed"
+      }, {
+          "name": "Open",
+          "value": "open"
+      }, {
+          "name": "Waiting on Red Hat",
+          "value": "WORH"
+      }];
+
+      this.mockTypes = [{
+          "name": "Bug",
+          "value": "bug"
+      }, {
+          "name": "Defect",
+          "value": "defect"
+      }, {
+          "name": "Request",
+          "value": "request"
+      }];
+
+      this.mockNotifiedUser = {
+        "userName": "test@redhat.com",
+        "fullName": "test",
+        "orgAdmin": true,
+        "internal": false
+      };
+
+      this.mockOriginalNotifiedUsers = [{
+        "userName": "test1@redhat.com",
+        "fullName": "test1",
+        "orgAdmin": true,
+        "internal": true
+      }, {
+        "userName": "test2@redhat.com",
+        "fullName": "test2",
+        "orgAdmin": false,
+        "internal": true
+      }];
+
+      this.mockUpdatedNotifiedUsers = [{
+        "userName": "test3@redhat.com",
+        "fullName": "test3",
+        "orgAdmin": false,
+        "internal": true
+      }, {
+        "userName": "test4@redhat.com",
+        "fullName": "test4",
+        "orgAdmin": false,
+        "internal": true
+      }];
+
       this.uri = 'https://test.com/testUser/redhat_access.com';
       this.value = {
         'product': 'rhel',
-        'version': '6.0'
+        'version': '6.0',
+        'showDetails': true,
+        'showDescription': true,
+        'showBugzillas': true,
+        'showAttachments': true,
+        'showRecommendations': true,
+        'showComments': true,
+        'showServerSideAttachments': true,
+        'showEmailNotifications': true
       }
  
     }
@@ -309,6 +416,26 @@ angular.module('RedhatAccess.mock', [])
             deferred.resolve();
           }
           return deferred.promise;
+        },
+        notified_users: {
+          remove: function (caseNumber, user) {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve();
+            }
+            return deferred.promise;
+          },
+          add: function (caseNumber, user) {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve();
+            }
+            return deferred.promise;
+          }
         }
       },
       entitlements: {
@@ -348,7 +475,7 @@ angular.module('RedhatAccess.mock', [])
           if (that.rejectCall) {
             deferred.reject();
           } else {
-            deferred.resolve(MockStrataDataService.mockSolutions);
+            deferred.resolve(MockStrataDataService.mockProducts);
           }
           return deferred.promise;
         },
@@ -360,6 +487,37 @@ angular.module('RedhatAccess.mock', [])
             deferred.resolve(MockStrataDataService.mockVersions);
           }
           return deferred.promise;
+        }
+      },
+      values: {
+        cases: {
+          severity: function() {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve(MockStrataDataService.mockSeverities);
+            }
+            return deferred.promise;
+          },
+          types: function() {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve(MockStrataDataService.mockTypes);
+            }
+            return deferred.promise;
+          },
+          status: function() {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve(MockStrataDataService.mockStatuses);
+            }
+            return deferred.promise;
+          }  
         }
       },
       rejectCalls: function () {
@@ -403,12 +561,12 @@ angular.module('RedhatAccess.mock', [])
     };
     this.validateNewCasePage1 = function () {};
 
-
     this.populateComments = function(caseNumber) {
         var deferred = $q.defer();
         deferred.resolve(MockStrataDataService.mockComments);          
         return deferred.promise;
     };
+
   }
 ])
 .service('MockRecommendationsService', [
@@ -431,6 +589,9 @@ angular.module('RedhatAccess.mock', [])
         deferred.resolve(MockStrataDataService.mockSolutions);          
         return deferred.promise;
     };
+    this.setPopulateCallback = function(callback) {
+      this.populateCallback = callback;
+    };
   }
 ])
 .service('MockSearchResultsService', [
@@ -446,6 +607,18 @@ angular.module('RedhatAccess.mock', [])
     };
     this.add = function(result) {
       this.results.push(result);
+    };
+  }
+])
+.service('MockAttachmentsService', [
+  'MockStrataDataService',
+  '$q',
+  function (MockStrataDataService,$q) {
+    this.originalAttachments = [];
+    this.updatedAttachments = [];
+    this.backendAttachments = [];
+    this.removeUpdatedAttachment = function ($index) {
+        this.updatedAttachments.splice($index, 1);
     };
   }
 ]);
