@@ -56,6 +56,13 @@ angular.module('RedhatAccess.cases')
         this.allCasesDownloaded = false;
       };
 
+      this.clearPagination = function() {
+        this.start = 0;
+        this.total = 0;
+        this.allCasesDownloaded = false;
+        this.cases = [];
+      }
+
       this.oldParams = {};
       this.doFilter = function () {
         if (angular.isFunction(this.prefilter)) {
