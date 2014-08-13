@@ -310,7 +310,7 @@ angular.module('RedhatAccess.mock', [])
         'showEmailNotifications': true
       }
 
-      this.fakeModal = {
+      this.mockModalInstance = {
         result: {
             then: function(confirmCallback, cancelCallback) {
                 //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog

@@ -654,7 +654,7 @@ describe('Case Controllers', function() {
 	          	strataService: mockStrataService,
 	          	GroupService: mockGroupService,
 	          	AlertService: mockAlertService,
-	          	$modalInstance: mockStrataDataService.fakeModal
+	          	$modalInstance: mockStrataDataService.mockModalInstance
 	        });
 
 	        expect(mockScope.createGroup).toBeDefined();
@@ -674,7 +674,7 @@ describe('Case Controllers', function() {
 	          	strataService: mockStrataService,
 	          	GroupService: mockGroupService,
 	          	AlertService: mockAlertService,
-	          	$modalInstance: mockStrataDataService.fakeModal
+	          	$modalInstance: mockStrataDataService.mockModalInstance
 	        });
 
 	        expect(mockScope.createGroup).toBeDefined();
@@ -695,7 +695,7 @@ describe('Case Controllers', function() {
 	          	strataService: mockStrataService,
 	          	GroupService: mockGroupService,
 	          	AlertService: mockAlertService,
-	          	$modalInstance: mockStrataDataService.fakeModal
+	          	$modalInstance: mockStrataDataService.mockModalInstance
 	        });
 
 	        expect(mockScope.closeModal).toBeDefined();
@@ -711,7 +711,7 @@ describe('Case Controllers', function() {
 	          	strataService: mockStrataService,
 	          	GroupService: mockGroupService,
 	          	AlertService: mockAlertService,
-	          	$modalInstance: mockStrataDataService.fakeModal
+	          	$modalInstance: mockStrataDataService.mockModalInstance
 	        });
 
 	        expect(mockScope.onGroupNameKeyPress).toBeDefined();
