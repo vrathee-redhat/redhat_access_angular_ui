@@ -7,12 +7,14 @@ angular.module('RedhatAccess.mock', [])
         "number": "80437",
         "name": "sfWdBWa6La",
         "is_private": false,
-        "is_default": false
+        "is_default": false,
+        "selected": true
       }, {
         "number": "49496",
         "name": "groupTest:1398506570363",
         "is_private": false,
-        "is_default": true
+        "is_default": true,
+        "selected": false
       }];
  
       this.mockUsers = [{
@@ -307,6 +309,24 @@ angular.module('RedhatAccess.mock', [])
         'showServerSideAttachments': true,
         'showEmailNotifications': true
       }
+
+      this.fakeModal = {
+        result: {
+            then: function(confirmCallback, cancelCallback) {
+                //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
+                this.confirmCallBack = confirmCallback;
+                this.cancelCallback = cancelCallback;
+            }
+        },
+        close: function() {
+            //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
+            //this.result.confirmCallBack();
+        },
+        dismiss: function() {
+            //The user clicked cancel on the modal dialog, call the stored cancel callback
+            //this.result.cancelCallback();
+        }
+    };
  
     }
   ])
@@ -325,6 +345,24 @@ angular.module('RedhatAccess.mock', [])
             deferred.reject();
           } else {
             deferred.resolve(MockStrataDataService.mockGroups);
+          }
+          return deferred.promise;
+        },
+        remove: function (groupNumber) {
+          var deferred = $q.defer();
+          if (that.rejectCall) {
+            deferred.reject("strata error");
+          } else {
+            deferred.resolve();
+          }
+          return deferred.promise;
+        },
+        create: function (groupName) {
+          var deferred = $q.defer();
+          if (that.rejectCall) {
+            deferred.reject("strata error");
+          } else {
+            deferred.resolve(MockStrataDataService.mockGroups[0].number);
           }
           return deferred.promise;
         }
@@ -619,6 +657,44 @@ angular.module('RedhatAccess.mock', [])
     this.backendAttachments = [];
     this.removeUpdatedAttachment = function ($index) {
         this.updatedAttachments.splice($index, 1);
+    };
+  }
+])
+.service('MockGroupService', [
+  'MockStrataDataService',
+  '$q',
+  function (MockStrataDataService,$q) {
+    this.reloadTable = function() {};
+    this.groupsOnScreen = [];
+  }
+])
+.service('MockAlertService', [
+  'MockStrataDataService',
+  '$q',
+  function (MockStrataDataService,$q) {
+    this.alerts = [];
+    this.clearAlerts = function() {
+        this.alerts = [];
+    };
+    this.addSuccessMessage = function(message) {
+        return this.addMessage(message, 'success');
+    };
+    this.addWarningMessage = function(message) {
+        return this.addMessage(message, 'warning');
+    };
+    this.addStrataErrorMessage = function(error) {
+        return this.addMessage(error, 'danger');
+    };
+    this.addMessage = function(message, type) {
+        var alert = {
+          message: message,
+          type: type === null ? 'warning' : type
+        };
+        this.addAlert(alert);        
+        return alert;
+    };
+    this.addAlert = function(alert) {
+        this.alerts.push(alert);
     };
   }
 ]);

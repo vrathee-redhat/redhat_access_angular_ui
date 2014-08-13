@@ -8,9 +8,11 @@ describe('Case Controllers', function() {
     var mockStrataDataService;
     var mockCaseService;
     var mockAttachmentsService;
+    var mockGroupService;
+    var mockAlertService;
 	var mockScope;
 	var q;
-
+	
 	beforeEach(angular.mock.module('RedhatAccess.cases'));
 	beforeEach(angular.mock.module('RedhatAccess.mock'));
 
@@ -22,7 +24,9 @@ describe('Case Controllers', function() {
 		mockSearchResultsService = $injector.get('MockSearchResultsService');
 		mockStrataDataService = $injector.get('MockStrataDataService');
 		mockAttachmentsService = $injector.get('MockAttachmentsService');
-		mockScope = $rootScope.$new();					
+		mockGroupService = $injector.get('MockGroupService');
+		mockAlertService = $injector.get('MockAlertService');
+		mockScope = $rootScope.$new();							
 			
 	}));
 
@@ -590,6 +594,132 @@ describe('Case Controllers', function() {
 	        expect(mockScope.updatingList).toBe(false);
 	        expect(mockCaseService.updatedNotifiedUsers).toEqual(mockStrataDataService.mockUpdatedNotifiedUsers);       
 
+  		}));
+
+	});
+
+	//Suite for DeleteGroupButton
+	describe('DeleteGroupButton', function() {
+
+		it('should have a function to delete Groups resolved', inject(function ($controller) {
+
+	        $controller('DeleteGroupButton', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,
+	          	strataService: mockStrataService,
+	          	GroupService: mockGroupService,
+	          	AlertService: mockAlertService
+	        });
+
+	        expect(mockScope.deleteGroups).toBeDefined();
+	        mockCaseService.groups = mockStrataDataService.mockGroups;
+	        mockScope.deleteGroups();
+	        spyOn(mockStrataService.groups, 'remove').andCallThrough();        	        	        
+	        mockScope.$root.$digest();
+	        expect(mockAlertService.alerts[0].message).toEqual('Successfully deleted groups.');
+	        	        
+  		}));
+
+  		it('should have a function to delete Groups rejected', inject(function ($controller) {
+
+	        $controller('DeleteGroupButton', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,
+	          	strataService: mockStrataService,
+	          	GroupService: mockGroupService,
+	          	AlertService: mockAlertService
+	        });
+
+	        expect(mockScope.deleteGroups).toBeDefined();
+	        mockCaseService.groups = mockStrataDataService.mockGroups;
+	        mockStrataService.rejectCalls();
+	        spyOn(mockStrataService.groups, 'remove').andCallThrough();        	        	        
+	        mockScope.deleteGroups();
+	        mockScope.$root.$digest();	        
+	        expect(mockAlertService.alerts[0].message).toEqual('Deleting groups...');
+	        expect(mockAlertService.alerts[1].message).toEqual('strata error');
+	        	        
+  		}));
+
+	});
+
+	//Suite for CreateGroupModal
+	describe('CreateGroupModal', function() {
+
+		it('should have a function to create a Group resolved', inject(function ($controller) {
+
+	        $controller('CreateGroupModal', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,
+	          	strataService: mockStrataService,
+	          	GroupService: mockGroupService,
+	          	AlertService: mockAlertService,
+	          	$modalInstance: mockStrataDataService.fakeModal
+	        });
+
+	        expect(mockScope.createGroup).toBeDefined();
+	        mockScope.createGroup();
+	        spyOn(mockStrataService.groups, 'create').andCallThrough();
+	        mockScope.$root.$digest();	        
+	        expect(mockAlertService.alerts[0].message).toContain('Successfully created group');	        
+	        expect(mockCaseService.groups[0].number).toEqual(mockStrataDataService.mockGroups[0].number);
+	        	        
+  		}));
+
+  		it('should have a function to create a Group rejected', inject(function ($controller) {
+
+	        $controller('CreateGroupModal', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,
+	          	strataService: mockStrataService,
+	          	GroupService: mockGroupService,
+	          	AlertService: mockAlertService,
+	          	$modalInstance: mockStrataDataService.fakeModal
+	        });
+
+	        expect(mockScope.createGroup).toBeDefined();
+	        mockStrataService.rejectCalls();
+	        spyOn(mockStrataService.groups, 'create').andCallThrough();
+	        mockScope.createGroup();
+	        mockScope.$root.$digest();	        
+	        expect(mockAlertService.alerts[0].message).toEqual('strata error');	
+	        expect(mockAlertService.alerts[0].type).toEqual('danger');        
+	        	        
+  		}));
+
+  		it('should have a function to close Modal window', inject(function ($controller) {
+
+	        $controller('CreateGroupModal', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,
+	          	strataService: mockStrataService,
+	          	GroupService: mockGroupService,
+	          	AlertService: mockAlertService,
+	          	$modalInstance: mockStrataDataService.fakeModal
+	        });
+
+	        expect(mockScope.closeModal).toBeDefined();
+	        mockScope.closeModal();	        
+	        	        
+  		}));
+
+  		it('should have a function to trigger create group on GroupName KeyPress', inject(function ($controller) {
+
+	        $controller('CreateGroupModal', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,
+	          	strataService: mockStrataService,
+	          	GroupService: mockGroupService,
+	          	AlertService: mockAlertService,
+	          	$modalInstance: mockStrataDataService.fakeModal
+	        });
+
+	        expect(mockScope.onGroupNameKeyPress).toBeDefined();
+	        var event = {
+	        	"keyCode": 13
+	        }
+	        mockScope.onGroupNameKeyPress(event);	        
+	        	        
   		}));
 
 	});
