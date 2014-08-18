@@ -111,8 +111,9 @@ angular.module('RedhatAccess.cases')
       };
 
       this.updateAttachments = function (caseId) {
-        var hasLocalAttachments = !angular.equals(this.originalAttachments, this.updatedAttachments);
-        var hasServerAttachments = this.hasBackEndSelections;
+        var hasServerAttachments = this.hasBackEndSelections();
+        var hasLocalAttachments = !angular.equals(this.updatedAttachments.length, 0);
+        
         if (hasLocalAttachments || hasServerAttachments) {
           var promises = [];
           var updatedAttachments = this.updatedAttachments;

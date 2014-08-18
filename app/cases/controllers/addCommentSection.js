@@ -26,7 +26,8 @@ angular.module('RedhatAccess.cases')
 
         //TODO: find better way than hard code
         if(CaseService.kase.status.name === "Closed"){
-          CaseService.kase.status.name = "Waiting on Red Hat";
+          var status = {name:"Waiting on Red Hat"};
+          CaseService.kase.status = status;
         }
 
         CaseService.populateComments(CaseService.kase.case_number).then(

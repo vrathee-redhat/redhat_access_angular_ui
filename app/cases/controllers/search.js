@@ -57,6 +57,7 @@ angular.module('RedhatAccess.cases')
         CaseService.onSelectChanged =
         CaseService.onOwnerSelectChanged =
         CaseService.onGroupSelectChanged = function () {
+          SearchCaseService.clearPagination();
           SearchCaseService.doFilter().then(
             function () {
               $scope.selectPage(1);
