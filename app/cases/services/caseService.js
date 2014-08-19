@@ -211,6 +211,7 @@ angular.module('RedhatAccess.cases')
             // to select it, regardless of the product.
             // TODO: strata should respond with a filtered list given a product.
             //       Adding the query param ?product=$PRODUCT does not work.
+            console.log(entitlementsResponse);
             var premiumSupport = $filter('filter')(entitlementsResponse.entitlement, {'sla': ENTITLEMENTS.premium});
             var standardSupport = $filter('filter')(entitlementsResponse.entitlement, {'sla': ENTITLEMENTS.standard});
 
@@ -222,9 +223,9 @@ angular.module('RedhatAccess.cases')
               entitlements.push(ENTITLEMENTS.standard);
             }
 
-            if (entitlements.length === 0) {
-              entitlements.push(ENTITLEMENTS.defaults);
-            }
+            // if (entitlements.length === 0) {
+            //   entitlements.push(ENTITLEMENTS.defaults);
+            // }
 
             this.entitlements = entitlements;
             this.entitlementsLoading = false;

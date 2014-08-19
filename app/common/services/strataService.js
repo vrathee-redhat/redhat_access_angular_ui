@@ -84,14 +84,15 @@ angular.module('RedhatAccess.common')
         },
         products: {
           //products.list
-          list: function () {
+          list: function (ssoUserName) {
             var deferred = $q.defer();
 
             strata.products.list(
               function (response) {
                 deferred.resolve(response);
               },
-              angular.bind(deferred, errorHandler)
+              angular.bind(deferred, errorHandler),
+              ssoUserName
             );
 
             return deferred.promise;

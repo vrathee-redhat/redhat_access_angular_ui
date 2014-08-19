@@ -86,7 +86,7 @@ angular.module('RedhatAccess.cases')
        */
       $scope.initSelects = function () {
         $scope.productsLoading = true;
-        strataService.products.list().then(
+        strataService.products.list(securityService.loginStatus.ssoName).then(
           function (products) {
             $scope.products = products;
             $scope.productsLoading = false;

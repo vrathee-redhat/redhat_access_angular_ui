@@ -89,7 +89,7 @@ div.container-offset
                 div.col-xs-12
                   div(style='font-size: 85%') {{CaseService.kase.description}}
             div.row.rha-create-field
-              div.col-md-4
+              div.col-md-4(ng-hide='CaseService.entitlements.length <= 1')
                 label(for='rha-entitlement-select')
                   | Support Level:
               div.col-md-8(ng-show='CaseService.entitlements.length <= 1') {{CaseService.entitlements[0]}}

@@ -32,8 +32,8 @@ angular.module('RedhatAccess.cases', [
 })
 .constant('ENTITLEMENTS', {
   standard: 'STANDARD',
-  premium: 'PREMIUM',
-  defaults: 'DEFAULT'
+  premium: 'PREMIUM'
+//  defaults: 'DEFAULT'
 })
 .constant('STATUS', {
   open: 'open',

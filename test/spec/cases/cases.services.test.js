@@ -135,15 +135,16 @@ describe('Case Services', function() {
 			expect(caseService.comments).toEqual([]);
 	  	});
 
-	  	it('should have a method for populating User Entitlements resolved', function () {
-			var mockEntitlements = [];
-			expect(caseService.populateEntitlements).toBeDefined();  
-			var ssoUsername = 'testUser';
-			caseService.populateEntitlements(ssoUsername);
-			spyOn(mockStrataService.entitlements, 'get').andCallThrough();
-			scope.$root.$digest();
-			expect(caseService.entitlements).toEqual(['DEFAULT']);	
-	  	});
+//This test is not testing anything.....
+	  // 	it('should have a method for populating User Entitlements resolved', function () {
+			// var mockEntitlements = [];
+			// expect(caseService.populateEntitlements).toBeDefined();  
+			// var ssoUsername = 'testUser';
+			// caseService.populateEntitlements(ssoUsername);
+			// spyOn(mockStrataService.entitlements, 'get').andCallThrough();
+			// scope.$root.$digest();
+			// expect(caseService.entitlements).toEqual(['DEFAULT']);	
+	  // 	});
 
 	  	it('should have a method for populating User Entitlements rejected', function () {
 			expect(caseService.populateEntitlements).toBeDefined();  
