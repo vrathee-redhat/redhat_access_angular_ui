@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Grab .js files to be commited
+files=$(git diff --cached --diff-filter=ACM --name-only | grep ".js$")
+if [ "$files" = "" ]; then
+    exit 0
+fi
+
+# Run tests on these files
+echo "[Running Tests]"
+grunt test
+testExitCode=$?
+
+if [ $testExitCode -ne 0 ]
+then
+  echo "\n[Commit FAIL]"
+  echo "We found test issues. Fix 'em up before commiting\n"
+  exit 1
+fi
+
+
+echo "\n[Validating Javascript]"
+files=`echo $files | tr '\n' ' '`
+
+# Run jshint on these files
+grunt jshint:files --files="'$files'"
+jsHintExitCode=$?
+
+if [ $jsHintExitCode -ne 0 ]
+then
+  echo "\n[Commit FAIL]"
+  echo "We found jshint issues. Fix 'em up before commiting. Or use git commit -n to bypass this check\n"
+  exit 1
+fi
+
+echo "\n[Commit PASS]"
+echo "All good!\n"
+exit 0
