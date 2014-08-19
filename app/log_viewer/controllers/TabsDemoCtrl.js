@@ -45,7 +45,7 @@ angular.module('RedhatAccess.logViewer')
 		$scope.$watch(function() {
 			return files.file;
 		}, function() {
-			if (files.file !== null && files.activeTab  !== null) {
+			if (files.file && files.activeTab) {
 				files.activeTab.content = files.file;
 				$scope.isLoading = false;
 				files.file = null;

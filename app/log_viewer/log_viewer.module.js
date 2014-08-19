@@ -23,8 +23,8 @@ function parseList(tree, data) {
 }
 
 function returnNode(splitPath, tree, fullFilePath) {
-	if (splitPath[0] !== null) {
-		if (splitPath[0] !== '') {
+	if (splitPath[0] != null) {
+		if (splitPath[0] != '') {
 			var node = splitPath[0];
 			var match = false;
 			var index = 0;
