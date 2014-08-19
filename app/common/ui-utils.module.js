@@ -24,14 +24,13 @@ app.service('RHAUtils',
     this.isEmpty = function(object) {
       if (object === undefined || object === null || object === '' || object.length === 0 || object === {}) {
         return true;
-      } else {
-        return false
       }
-    }
+      return false;
+    };
 
     this.isNotEmpty = function(object) {
       return !this.isEmpty(object);
-    }
+    };
   }
 );
 
@@ -90,7 +89,7 @@ app.factory('TreeViewSelectorData', ['$http', '$q', 'TreeViewSelectorUtils',
         var defer = $q.defer();
         var tmpUrl = dataUrl;
         if(sessionId){
-          tmpUrl = tmpUrl + '?sessionId=' + encodeURIComponent(sessionId)
+          tmpUrl = tmpUrl + '?sessionId=' + encodeURIComponent(sessionId);
         }
         $http({
           method: 'GET',

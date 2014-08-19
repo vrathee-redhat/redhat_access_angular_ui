@@ -36,12 +36,12 @@ angular.module('RedhatAccess.cases')
 
     $scope.closeModal = function() {
       $modalInstance.close();
-    };   
+    };
 
     $scope.onGroupNameKeyPress = function($event) {
       if ($event.keyCode === 13) {
         angular.bind(this, $scope.createGroup)();
       }
-    }
+    };
   }
 ]);

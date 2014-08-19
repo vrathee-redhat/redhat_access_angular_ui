@@ -61,7 +61,7 @@ angular.module('RedhatAccess.cases')
         this.total = 0;
         this.allCasesDownloaded = false;
         this.cases = [];
-      }
+      };
 
       this.oldParams = {};
       this.doFilter = function () {
@@ -141,10 +141,10 @@ angular.module('RedhatAccess.cases')
                   that.start = that.start + that.count;
                   that.total = that.total + that.count;
 
-                if (angular.isFunction(that.postFilter)) {
-                  that.postFilter();
-                }
-              }),
+                  if (angular.isFunction(that.postFilter)) {
+                    that.postFilter();
+                  }
+                }),
               angular.bind(that, function (error) {
                 AlertService.addStrataErrorMessage(error);
                 that.searching = false;

@@ -21,7 +21,7 @@ angular.module('RedhatAccess.cases')
 
     $scope.selectRecommendationsPage = function(pageNum) {
       //filter out pinned recommendations
-      angular.forEach(RecommendationsService.pinnedRecommendations, 
+      angular.forEach(RecommendationsService.pinnedRecommendations,
           function(pinnedRec) {
             angular.forEach(RecommendationsService.recommendations,
               function(rec, index) {
@@ -59,13 +59,13 @@ angular.module('RedhatAccess.cases')
     $scope.pinRecommendation = function(recommendation, $index, $event) {
       $scope.currentRecPin = recommendation;
       $scope.currentRecPin.pinning = true;
-      
+
       var doPut = function(linked) {
         var recJSON = {
           recommendations: {
             recommendation: [
               {
-                linked: linked.toString(), 
+                linked: linked.toString(),
                 resourceId: recommendation.id,
                 resourceType: 'Solution'
               }
@@ -95,13 +95,13 @@ angular.module('RedhatAccess.cases')
               $scope.currentRecPin.pinning = false;
               $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
               $scope.selectPageOne();
-            }, 
+            },
             function(error) {
               $scope.currentRecPin.pinning = false;
               AlertService.addStrataErrorMessage(error);
             }
         );
-      }
+      };
 
       recommendation.pinned ? doPut(false) : doPut(true);
     };
@@ -117,7 +117,7 @@ angular.module('RedhatAccess.cases')
           analytics.trigger('CaseViewRecommendationClick', $event);
         });
       }
-    }
+    };
 
     RecommendationsService.setPopulateCallback($scope.selectPageOne);
   }

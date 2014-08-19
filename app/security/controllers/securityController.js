@@ -13,4 +13,4 @@ angular.module('RedhatAccess.security')
         return SECURITY_CONFIG.displayLoginStatus;
       };
     }
-  ])
+  ]);

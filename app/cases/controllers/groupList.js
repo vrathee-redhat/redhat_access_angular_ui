@@ -33,7 +33,7 @@ angular.module('RedhatAccess.cases')
 
           orderedData = params.sorting() ?
               $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
-          
+
           orderedData.length < 1 ? $scope.listEmpty = true : $scope.listEmpty = false;
 
           var pageData = orderedData.slice(
@@ -70,8 +70,8 @@ angular.module('RedhatAccess.cases')
         } else {
           GroupService.groupsOnScreen[i].selected = false;
         }
-      };
-    }
+      }
+    };
 
     CaseService.clearCase();
   }

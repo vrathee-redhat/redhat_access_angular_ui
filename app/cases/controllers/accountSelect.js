@@ -16,7 +16,7 @@ angular.module('RedhatAccess.cases')
       strataService.accounts.list().then(
         function(response) {
           $scope.loadingAccountNumber = false;
-          CaseService.account.number = response;         
+          CaseService.account.number = response;
           $scope.populateAccountSpecificFields();
         },
         function(error) {

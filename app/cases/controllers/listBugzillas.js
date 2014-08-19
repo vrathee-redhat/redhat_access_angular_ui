@@ -6,12 +6,12 @@ angular.module('RedhatAccess.cases')
   'CaseService',
   'securityService',
   function (
-	  	$scope,
-	    CaseService,
-	    securityService) {
+      $scope,
+      CaseService,
+      securityService) {
 
-  	$scope.CaseService = CaseService;
-  	$scope.securityService = securityService;
+    $scope.CaseService = CaseService;
+    $scope.securityService = securityService;
   }
-    
+
 ]);

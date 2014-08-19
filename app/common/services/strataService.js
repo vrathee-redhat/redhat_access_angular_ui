@@ -42,7 +42,7 @@ angular.module('RedhatAccess.common')
               ssoUserName
             );
 
-            return deferred.promise; 
+            return deferred.promise;
           }
         },
         problems: function (data, max) {
@@ -281,7 +281,7 @@ angular.module('RedhatAccess.common')
               var deferred = $q.defer();
 
               strata.cases.comments.post(
-                case_number, 
+                case_number,
                 {
                   'text': text,
                   'draft': isDraft === true ? 'true' : 'false'

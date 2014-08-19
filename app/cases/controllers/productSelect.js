@@ -29,6 +29,6 @@ angular.module('RedhatAccess.cases')
       function(error) {
         $scope.productsLoading = false;
         AlertService.addStrataErrorMessage(error);
-      })
+      });
   }
 ]);

@@ -4,7 +4,6 @@ angular.module('RedhatAccess.logViewer')
 .factory('files', function() {
 	var fileList = '';
 	var selectedFile = '';
-	var selectedHost = '';
 	var file = '';
 	var retrieveFileButtonIsDisabled = {check : true};
 	var fileClicked = {check : false};
@@ -30,7 +29,7 @@ angular.module('RedhatAccess.logViewer')
 
 		setFile : function(file) {
 			this.file = file;
-		}, 
+		},
 
 		setRetrieveFileButtonIsDisabled : function(isDisabled){
 			retrieveFileButtonIsDisabled.check = isDisabled;

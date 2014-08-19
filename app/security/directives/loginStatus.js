@@ -6,4 +6,4 @@ angular.module('RedhatAccess.security')
       scope: false,
       templateUrl: 'security/views/login_status.html'
     };
-  })
+  });
