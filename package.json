@@ -55,5 +55,9 @@
   },
   "scripts": {
     "test": "grunt build"
+  },
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/redhataccess/redhat_access_angular_ui.git"
   }
 }
