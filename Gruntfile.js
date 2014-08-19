@@ -335,25 +335,6 @@ module.exports = function (grunt) {
 
     // Allow the use of non-minsafe AngularJS files. Automatically makes it
     // minsafe compatible so Uglify does not destroy the ng references
-    ngmin: {
-      dist: {
-        files: [{
-          //expand: true,
-          //cwd: '.tmp/concat/scripts',
-          src: '.tmp/<%= pkg.name %>.js',
-          dest: '<%= distdir %>/<%= pkg.name %>.js'
-        }]
-      },
-      distNoDeps: {
-        files: [{
-          //expand: true,
-          //cwd: '.tmp/concat/scripts',
-          src: '.tmp/<%= pkg.name %>-no-deps.js',
-          dest: '<%= distdir %>/<%= pkg.name %>.no-deps.js'
-        }]
-      }
-    },
-    //ngmin does not work with chaining....
     ngAnnotate: {
       options: {
         // Task-specific options go here.
@@ -589,7 +570,6 @@ module.exports = function (grunt) {
     'autoprefixer',
     'nggettext_compile',
     'concat',
-    //'ngmin', does not work with chaining
     'ngAnnotate',
     'copy:images',
     //'cdnify',
