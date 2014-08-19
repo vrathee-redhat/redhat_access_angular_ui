@@ -7,4 +7,4 @@ div
       ng-change='CaseService.onOwnerSelectChanged()',
       style='width: 100%')
       option(ng-repeat='user in CaseService.users')
-        {{user.sso_username}}
+        | {{user.sso_username}}

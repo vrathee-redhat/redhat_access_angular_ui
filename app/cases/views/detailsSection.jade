@@ -25,8 +25,7 @@ form(name='caseDetails')
               tr(ng-hide='compact')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-case-type')
-                      {{'Case Type:'|translate}}
+                    label(for='rha-case-type') {{'Case Type:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                     ng-show='caseDetails.type.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
@@ -40,8 +39,7 @@ form(name='caseDetails')
               tr
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-case-severity')
-                      {{'Severity:'|translate}}
+                    label(for='rha-case-severity') {{'Severity:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                     ng-show='caseDetails.severity.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
@@ -65,8 +63,7 @@ form(name='caseDetails')
               tr
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-case-status')
-                      {{'Status:'|translate}}
+                    label(for='rha-case-status') {{'Status:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                   ng-show='caseDetails.status.$dirty',
                   style='display: inline-block;float: right; vertical-align: 50%;')
@@ -80,8 +77,7 @@ form(name='caseDetails')
               tr(ng-hide='compact')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-case-alt-id')
-                      {{'Alternate ID:'|translate}}
+                    label(for='rha-case-alt-id') {{'Alternate ID:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                   ng-show='caseDetails.alternate_id.$dirty',
                   style='display: inline-block;float: right; vertical-align: 50%;')
@@ -95,8 +91,7 @@ form(name='caseDetails')
               tr
                 th
                   div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-product')
-                      {{'Product:'|translate}}
+                    label(for='rha-product') {{'Product:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                     ng-show='caseDetails.product.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
@@ -112,8 +107,7 @@ form(name='caseDetails')
               tr
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-product-version')
-                      {{'Product Version:'|translate}}
+                    label(for='rha-product-version') {{'Product Version:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                   ng-show='caseDetails.version.$dirty',
                   style='display: inline-block;float: right; vertical-align: 50%;')
@@ -127,26 +121,22 @@ form(name='caseDetails')
                         required)
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  label(for='rha-support-level')
-                    {{'Support Level:'|translate}}
+                  label(for='rha-support-level') {{'Support Level:'|translate}}
                 td#rha-support-level {{CaseService.kase.entitlement.sla}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  label(for='rha-owner')
-                    {{'Owner:'|translate}}
+                  label(for='rha-owner') {{'Owner:'|translate}}
                 td#rha-owner {{CaseService.kase.contact_name}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  label(for='rha-rh-owner')
-                    {{'Red Hat Owner:'|translate}}
+                  label(for='rha-rh-owner') {{'Red Hat Owner:'|translate}}
                 td#rha-rh-owner {{CaseService.kase.owner}}
           div.col-md-4
             table.table.details-table
               tr(ng-hide='compact')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-group-select')
-                      {{'Group:'|translate}}
+                    label(for='rha-group-select') {{'Group:'|translate}}
                   span.glyphicon.glyphicon-asterisk.form-control-feedback(
                     ng-show='caseDetails.group.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')
@@ -159,27 +149,23 @@ form(name='caseDetails')
                         ng-model='CaseService.kase.group')
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  label(for='rha-opened')
-                    {{'Opened:'|translate}}
+                  label(for='rha-opened') {{'Opened:'|translate}}
                 td#rha-opened
                   div {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}}
                   div {{CaseService.kase.created_by}}
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  label(for='rha-last-updated')
-                    {{'Last Updated:'|translate}}
+                  label(for='rha-last-updated') {{'Last Updated:'|translate}}
                 td#rha-last-updated
                   div {{CaseService.kase.last_modified_date | date:'MMM d, y h:mm:ss a Z'}}
                   div {{CaseService.kase.last_modified_by}}
               tr.rha-detail-acc-number(ng-hide='compact',ng-if="securityService.loginStatus.isInternal")
                 th.rha-detail-table-header
-                  label(for='rha-account-number')
-                    {{'Account Number:'|translate}}
+                  label(for='rha-account-number') {{'Account Number:'|translate}}
                 td#rha-account-number {{CaseService.kase.account_number}}
               tr.rha-detail-acc-name(ng-hide='compact',ng-if="securityService.loginStatus.isInternal")
                 th.rha-detail-table-header
-                  label(for='rha-account-name')
-                    {{'Account Name:'|translate}}
+                  label(for='rha-account-name') {{'Account Name:'|translate}}
                 td#rha-account-name {{CaseService.account.name}}
         div.row(style='padding-top: 10px;')
           div.col-xs-12
