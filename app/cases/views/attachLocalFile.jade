@@ -1,7 +1,7 @@
 div.container-fluid
   div.row.rha-create-field
     div.col-xs-6
-      button.btn(style='float: left;', ng-click='getFile()', ng-disabled='disabled', translate='') Attach local file
+      button.btn.btn-attach(style='float: left;', ng-click='getFile()', ng-disabled='disabled', translate='') Attach local file
       div(style='height: 0px; width:0px; overflow:hidden;')
         input(id='fileUploader', type='file', value='upload', rha-onchange='selectFile', ng-model='file', ng-disabled='disabled')
     div.col-xs-6
@@ -20,7 +20,7 @@ div.container-fluid
         ng-disabled='disabled')
   div.row.rha-create-field
     div.col-xs-12
-      button.btn(
+      button.btn.btn-add(
         ng-disabled='fileName == NO_FILE_CHOSEN || disabled',
         style='float: right;',
         ng-click='addFile(fileUploaderForm)', translate='') Add

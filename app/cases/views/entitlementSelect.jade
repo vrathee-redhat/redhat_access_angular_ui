@@ -1,9 +1,9 @@
 div(rha-selectloadingindicator='', loading='CaseService.entitlementsLoading', type='select2')
-  select(
+  select#rha-entitlement-select(
     ui-select2,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.entitlement',
     ng-change='CaseService.onSelectChanged()',
     style='width: 100%')
-    option(ng-repeat='entitlement in CaseService.entitlements') 
+    option(ng-repeat='entitlement in CaseService.entitlements')
       {{entitlement}}
