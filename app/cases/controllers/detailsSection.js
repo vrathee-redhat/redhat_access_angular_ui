@@ -77,29 +77,29 @@ angular.module('RedhatAccess.cases')
       $scope.updatingDetails = true;
 
       var caseJSON = {};
-      if (CaseService.kase != null) {
-        if (CaseService.kase.type != null) {
+      if (CaseService.kase !== null) {
+        if (CaseService.kase.type !== null) {
           caseJSON.type = CaseService.kase.type.name;
         }
-        if (CaseService.kase.severity != null) {
+        if (CaseService.kase.severity !== null) {
           caseJSON.severity = CaseService.kase.severity.name;
         }
-        if (CaseService.kase.status != null) {
+        if (CaseService.kase.status !== null) {
           caseJSON.status = CaseService.kase.status.name;
         }
-        if (CaseService.kase.alternate_id != null) {
+        if (CaseService.kase.alternate_id !== null) {
           caseJSON.alternateId = CaseService.kase.alternate_id;
         }
-        if (CaseService.kase.product != null) {
+        if (CaseService.kase.product !== null) {
           caseJSON.product = CaseService.kase.product.name;
         }
-        if (CaseService.kase.version != null) {
+        if (CaseService.kase.version !== null) {
           caseJSON.version = CaseService.kase.version;
         }
-        if (CaseService.kase.summary != null) {
+        if (CaseService.kase.summary !== null) {
           caseJSON.summary = CaseService.kase.summary;
         }
-        if (CaseService.kase.group != null) {
+        if (CaseService.kase.group !== null) {
           caseJSON.folderNumber = CaseService.kase.group.number;
         }
         if (RHAUtils.isNotEmpty(CaseService.kase.fts)) {
@@ -116,7 +116,7 @@ angular.module('RedhatAccess.cases')
             function() {
               $scope.caseDetails.$setPristine();
               $scope.updatingDetails = false;
-              if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+              if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                 $scope.$apply();
               }
             },

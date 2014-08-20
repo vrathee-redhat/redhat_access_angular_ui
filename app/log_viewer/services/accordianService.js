@@ -2,7 +2,7 @@
 
 angular.module('RedhatAccess.logViewer')
 .service('accordian', function() {
-	var groups = new Array();
+	var groups = [];
 	return {
 		getGroups : function() {
 			return groups;

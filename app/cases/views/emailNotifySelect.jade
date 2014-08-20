@@ -1,6 +1,6 @@
 h4.rha-section-header(translate='') Email Notification Recipients
 span.rha-search-spinner(
-  ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn', 
+  ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn',
   style='margin-left: 5px;')
 select(
   ui-select2,
@@ -11,10 +11,10 @@ select(
   ng-change='updateNotifyUsers()',
   id='rha-email-notify-select',
   style='width: 100%')
-  option(ng-repeat='user in CaseService.users') 
-    {{user.sso_username}}
+  option(ng-repeat='user in CaseService.users')
+    | {{user.sso_username}}
 div(ng-if='!securityService.userAllowedToManageEmailNotifications() && !securityService.loggingIn')
   div.well(style='display: inline-block; width: 100%; padding: 6px;')
     span.well.well-sm(
-      ng-repeat='user in CaseService.updatedNotifiedUsers', 
+      ng-repeat='user in CaseService.updatedNotifiedUsers',
       style='display: inline-block; word-wrap: break-word; padding: 4px; margin: 2px;') {{user}}

@@ -52,6 +52,6 @@ angular.module('RedhatAccess.cases')
           AlertService.addStrataErrorMessage(error);
         }
       );
-    }
+    };
   }
 ]);

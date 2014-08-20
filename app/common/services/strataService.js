@@ -42,7 +42,7 @@ angular.module('RedhatAccess.common')
               ssoUserName
             );
 
-            return deferred.promise; 
+            return deferred.promise;
           }
         },
         problems: function (data, max) {
@@ -84,14 +84,15 @@ angular.module('RedhatAccess.common')
         },
         products: {
           //products.list
-          list: function () {
+          list: function (ssoUserName) {
             var deferred = $q.defer();
 
             strata.products.list(
               function (response) {
                 deferred.resolve(response);
               },
-              angular.bind(deferred, errorHandler)
+              angular.bind(deferred, errorHandler),
+              ssoUserName
             );
 
             return deferred.promise;
@@ -280,7 +281,7 @@ angular.module('RedhatAccess.common')
               var deferred = $q.defer();
 
               strata.cases.comments.post(
-                case_number, 
+                case_number,
                 {
                   'text': text,
                   'draft': isDraft === true ? 'true' : 'false'

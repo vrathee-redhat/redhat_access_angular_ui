@@ -40,7 +40,7 @@ angular.module('RedhatAccess.cases')
         }, {
           total: SearchCaseService.cases.length,
           getData: function ($defer, params) {
-            if(!SearchCaseService.allCasesDownloaded && ((params.count() * params.page()) / SearchCaseService.total >= .8)){
+            if(!SearchCaseService.allCasesDownloaded && ((params.count() * params.page()) / SearchCaseService.total >= 0.8)){
               SearchCaseService.doFilter().then(
                 function () {
                   $scope.tableParams.reload();
@@ -84,7 +84,7 @@ angular.module('RedhatAccess.cases')
               }
             }
           );
-      };
+        };
 
       /**
        * Callback after user login. Load the cases and clear alerts

@@ -18,21 +18,21 @@ angular.module('RedhatAccess.logViewer')
 		$scope.$watch(function() {
 			return files.getFileClicked().check;
 		}, function() {
-			if(files.getFileClicked().check && files.selectedFile != null){
-				var tab = new Object();
-				if(files.selectedHost != null){
-					tab.longTitle = files.selectedHost + ":"
+			if(files.getFileClicked().check && files.selectedFile !== null){
+				var tab = {};
+				if(files.selectedHost !== null){
+					tab.longTitle = files.selectedHost + ':';
 				} else {
-					tab.longTitle = new String();
+					tab.longTitle = '';
 				}
 				tab.longTitle = tab.longTitle.concat(files.selectedFile);
-				var splitFileName = files.selectedFile.split("/");
+				var splitFileName = files.selectedFile.split('/');
 				var fileName = splitFileName[splitFileName.length - 1];
-				
-				if(files.selectedHost != null){
-					tab.shortTitle = files.selectedHost + ":"
+
+				if(files.selectedHost !== null){
+					tab.shortTitle = files.selectedHost + ':';
 				} else {
-					tab.shortTitle = new String();
+					tab.shortTitle = '';
 				}
 				tab.shortTitle = tab.shortTitle.concat(fileName);
 				tab.active = true;
@@ -45,7 +45,7 @@ angular.module('RedhatAccess.logViewer')
 		$scope.$watch(function() {
 			return files.file;
 		}, function() {
-			if (files.file != null && files.activeTab  != null) {
+			if (files.file && files.activeTab) {
 				files.activeTab.content = files.file;
 				$scope.isLoading = false;
 				files.file = null;
@@ -54,9 +54,9 @@ angular.module('RedhatAccess.logViewer')
 		$scope.$watch(function() {
 			return SearchResultsService.searchInProgress.value;
 		}, function() {
-			if (SearchResultsService.searchInProgress.value == true) {
+			if (SearchResultsService.searchInProgress.value === true) {
 				$scope.$parent.isDisabled = true;
-			} else if(SearchResultsService.searchInProgress.value == false && $scope.$parent.textSelected == true){
+			} else if(SearchResultsService.searchInProgress.value === false && $scope.$parent.textSelected === true){
 				$scope.$parent.isDisabled = false;
 			}
 		});
@@ -81,8 +81,8 @@ angular.module('RedhatAccess.logViewer')
 				if (!$scope.$parent.solutionsToggle) {
 					$scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
 				}
-				
-				if (text != "") {
+
+				if (text !== '') {
 					$scope.checked = !$scope.checked;
 					SearchResultsService.diagnose(text, 5);
 				}
@@ -105,18 +105,18 @@ angular.module('RedhatAccess.logViewer')
 			var userId = $location.search().userId;
 			var fileNameForRefresh = this.$parent.tab.longTitle;
 			var hostForRefresh = null;
-			var splitNameForRefresh = fileNameForRefresh.split(":");
+			var splitNameForRefresh = fileNameForRefresh.split(':');
 			if(splitNameForRefresh[0] && splitNameForRefresh[1]){
 				hostForRefresh = splitNameForRefresh[0];
 				fileNameForRefresh = splitNameForRefresh[1];
 				$http(
 				{
 					method : 'GET',
-					url : 'logs?sessionId='
-					+ encodeURIComponent(sessionId) + '&userId='
-					+ encodeURIComponent(userId) + '&path='
-					+ fileNameForRefresh+ '&machine='
-					+ hostForRefresh
+					url : 'logs?sessionId=' +
+					encodeURIComponent(sessionId) + '&userId=' +
+					encodeURIComponent(userId) + '&path=' +
+					fileNameForRefresh+ '&machine=' +
+					hostForRefresh
 				}).success(function(data, status, headers, config) {
 					$scope.tabs[index].content = data;
 				}).error(function(data, status, headers, config) {

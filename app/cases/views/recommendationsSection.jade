@@ -11,7 +11,7 @@ div#rha-recommendation-section
             span(
               ng-class='{pinned: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
               ng-click='pinRecommendation(recommendation, $index, $event)',
-              style='cursor: pointer;')&nbsp;
+              style='cursor: pointer;') &nbsp;
           div
             div.rha-bold(style='overflow: hidden;') {{recommendation.title}}
             span(

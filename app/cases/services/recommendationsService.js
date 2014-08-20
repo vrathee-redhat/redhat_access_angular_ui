@@ -41,7 +41,7 @@ angular.module('RedhatAccess.cases')
         //Push any pinned recommendations to the front of the array
         if (CaseService.kase.recommendations.recommendation) {
           var pinnedRecsPromises = [];
-          angular.forEach(CaseService.kase.recommendations.recommendation, 
+          angular.forEach(CaseService.kase.recommendations.recommendation,
               angular.bind(this, function(rec) {
                 if (rec.pinned_at) {
                   var promise =
@@ -56,7 +56,7 @@ angular.module('RedhatAccess.cases')
                     );
                   promises.push(promise);
                 } else if (rec.linked){
-                  var promise = 
+                  var promise =
                     strataService.solutions.get(rec.solution_url).then(
                       angular.bind(this, function(solution) {
                         //solution.pinned = true;
@@ -93,7 +93,7 @@ angular.module('RedhatAccess.cases')
         description: CaseService.kase.description
       };
 
-      if ((!angular.equals(currentData, newData) && !this.loadingRecommendations) || 
+      if ((!angular.equals(currentData, newData) && !this.loadingRecommendations) ||
           (this.recommendations.length < 1 && this.failureCount < 10)) {
         this.loadingRecommendations = true;
         setCurrentData();

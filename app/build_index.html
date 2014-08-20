@@ -1,0 +1,83 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
+    <link rel="stylesheet" href="bower_components/select2/select2.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/case.css -->
+    <link rel="stylesheet" href="dist/styles/redhat_access_angular_ui-no-deps-embedded-images.css"/>
+    
+  </head>
+  <body ng-app="RedhatAccess">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="container">
+     <ul id="nav">
+      <a class="navbar-brand" href="#search">Search Demo</a>
+      <a class="navbar-brand" href="#case/new">New Case Demo</a>
+      <a class="navbar-brand" href="#logviewer">Diagnose Log Demo</a>
+      <a class="navbar-brand" href="#case/list">List Case Demo</a>
+      <a class="navbar-brand" href="#case/compact">Compact List Case Demo</a>
+      <a class="navbar-brand" href="#case/search">Search Case Demo</a>
+     </ul>
+    </div>
+    <div style="padding-top: 10px;" ng-view="">
+        <div ui-view id="rha-content" autoscroll="false"></div>
+    </div>
+
+    <script src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+    <script src="bower_components/ie-shiv/index.js"></script>
+    <script src="bower_components/json2/json2.js"></script>
+    <script src="bower_components/respond/dest/respond.src.js"></script>
+    <![endif]-->
+    <!-- Manually add uri and angular treeview due to bower issues -->
+    
+    <script src="bower_components/jsUri/Uri.min.js"></script>
+    
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/js-markdown-extra/js-markdown-extra.js"></script>
+    <script src="bower_components/stratajs/strata.js"></script>
+    <script src="bower_components/ng-table/ng-table.js"></script>
+    <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
+    <script src="bower_components/angular-ui-select2/src/select2.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    
+    <script type="text/javascript" src="bower_components/select2/select2.js"></script>
+    <script src="bower_components/angular-treeview/angular.treeview.min.js"></script>
+    <script src="dist/redhat_access_angular_ui.no-deps.js"></script>
+    <script src="build_redhat_access_module.js"></script>
+    
+</script>
+</body>
+</html>

@@ -86,18 +86,18 @@ angular.module('RedhatAccess.cases')
        */
       $scope.initSelects = function () {
         $scope.productsLoading = true;
-        strataService.products.list().then(
+        strataService.products.list(securityService.loginStatus.ssoName).then(
           function (products) {
             $scope.products = products;
             $scope.productsLoading = false;
 
             if (RHAUtils.isNotEmpty(NEW_DEFAULTS.product)) {
               CaseService.kase.product = {
-              name: NEW_DEFAULTS.product,
-              code: NEW_DEFAULTS.product
-            };
-            $scope.getRecommendations();
-            $scope.getProductVersions(CaseService.kase.product);
+                name: NEW_DEFAULTS.product,
+                code: NEW_DEFAULTS.product
+              };
+              $scope.getRecommendations();
+              $scope.getProductVersions(CaseService.kase.product);
             }
           },
           function (error) {
@@ -110,7 +110,7 @@ angular.module('RedhatAccess.cases')
           function (severities) {
             CaseService.severities = severities;
             CaseService.kase.severity = severities[severities.length - 1];
-          $scope.severitiesLoading = false;
+            $scope.severitiesLoading = false;
           },
           function (error) {
             AlertService.addStrataErrorMessage(error);
@@ -125,7 +125,7 @@ angular.module('RedhatAccess.cases')
             for (var i = 0; i < groups.length; i++) {
               if (groups[i].is_default) {
                 CaseService.kase.group = groups[i];
-              break;
+                break;
               }
             }
             $scope.groupsLoading = false;
@@ -141,7 +141,7 @@ angular.module('RedhatAccess.cases')
 
         var setDesc = function (desc) {
           CaseService.kase.description = desc;
-        $scope.getRecommendations();
+          $scope.getRecommendations();
         };
 
         if (searchObject.data) {
@@ -179,10 +179,10 @@ angular.module('RedhatAccess.cases')
        */
       $scope.getProductVersions = function (product) {
         CaseService.kase.version = '';
-      $scope.versionDisabled = true;
-      $scope.versionLoading = true;
+        $scope.versionDisabled = true;
+        $scope.versionLoading = true;
 
-      strataService.products.versions(product.code).then(
+        strataService.products.versions(product.code).then(
         function (response) {
           $scope.versions = response;
           CaseService.validateNewCasePage1();
@@ -191,7 +191,7 @@ angular.module('RedhatAccess.cases')
 
           if (RHAUtils.isNotEmpty(NEW_DEFAULTS.version)) {
             CaseService.kase.version = NEW_DEFAULTS.version;
-          $scope.getRecommendations();
+            $scope.getRecommendations();
           }
         },
         function (error) {
@@ -232,7 +232,7 @@ angular.module('RedhatAccess.cases')
       $scope.doSubmit = function ($event) {
         if(window.chrometwo_require != null){
           chrometwo_require(['analytics/main'], function (analytics) {
-             analytics.trigger('OpenSupportCaseSubmit', $event);
+            analytics.trigger('OpenSupportCaseSubmit', $event);
           });
         }
 

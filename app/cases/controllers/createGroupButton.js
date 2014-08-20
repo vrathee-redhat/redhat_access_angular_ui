@@ -11,6 +11,6 @@ angular.module('RedhatAccess.cases')
         templateUrl: 'cases/views/createGroupModal.html',
         controller: 'CreateGroupModal'
       });
-    }
+    };
   }
 ]);

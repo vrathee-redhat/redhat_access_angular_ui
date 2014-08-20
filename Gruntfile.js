@@ -25,6 +25,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-image-embed');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-angular-gettext');
+  grunt.loadNpmTasks('grunt-shell');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -200,6 +201,7 @@ module.exports = function (grunt) {
         'Gruntfile.js',
         '<%= src.js %>'
       ],
+      files: grunt.option('files') && grunt.option('files').split(' '),
       test: {
         options: {
           jshintrc: 'test/.jshintrc'
@@ -220,7 +222,9 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      // Clean any pre-commit hooks in .git/hooks directory
+      hooks: ['.git/hooks/pre-commit']
     },
 
     // Add vendor prefixed styles
@@ -335,25 +339,6 @@ module.exports = function (grunt) {
 
     // Allow the use of non-minsafe AngularJS files. Automatically makes it
     // minsafe compatible so Uglify does not destroy the ng references
-    ngmin: {
-      dist: {
-        files: [{
-          //expand: true,
-          //cwd: '.tmp/concat/scripts',
-          src: '.tmp/<%= pkg.name %>.js',
-          dest: '<%= distdir %>/<%= pkg.name %>.js'
-        }]
-      },
-      distNoDeps: {
-        files: [{
-          //expand: true,
-          //cwd: '.tmp/concat/scripts',
-          src: '.tmp/<%= pkg.name %>-no-deps.js',
-          dest: '<%= distdir %>/<%= pkg.name %>.no-deps.js'
-        }]
-      }
-    },
-    //ngmin does not work with chaining....
     ngAnnotate: {
       options: {
         // Task-specific options go here.
@@ -478,6 +463,13 @@ module.exports = function (grunt) {
       }
     },
 
+    shell: {
+      hooks: {
+        // Copy the project's pre-commit hook into .git/hooks
+        command: 'cp hooks/pre-commit .git/hooks/'
+      }
+    },
+
 
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
@@ -524,8 +516,6 @@ module.exports = function (grunt) {
         dest: '.tmp/<%= pkg.name %>-no-deps.js'
       }
     },
-
-
 
     html2js: {
       app: {
@@ -589,7 +579,6 @@ module.exports = function (grunt) {
     'autoprefixer',
     'nggettext_compile',
     'concat',
-    //'ngmin', does not work with chaining
     'ngAnnotate',
     'copy:images',
     //'cdnify',
@@ -601,6 +590,9 @@ module.exports = function (grunt) {
     'htmlmin',
     'test'
   ]);
+
+  // Clean the .git/hooks/pre-commit file then copy in the latest version
+  grunt.registerTask('inithooks', ['clean:hooks', 'shell:hooks']);
 
   grunt.registerTask('default', [
     'newer:jshint',

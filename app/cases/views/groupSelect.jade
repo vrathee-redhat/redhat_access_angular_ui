@@ -1,5 +1,5 @@
 div(rha-selectloadingindicator='', loading='CaseService.groupsLoading', type='select2')
-  select(
+  select#rha-group-select(
     ui-select2,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.group',

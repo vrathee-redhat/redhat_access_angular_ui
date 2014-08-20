@@ -30,7 +30,7 @@ angular.module('RedhatAccess.cases')
       $scope.maxPagerSize = 5;
 
       $scope.selectPage = function (pageNum) {
-        if(!SearchCaseService.allCasesDownloaded && (($scope.itemsPerPage * pageNum) / SearchCaseService.total >= .8)){
+        if(!SearchCaseService.allCasesDownloaded && (($scope.itemsPerPage * pageNum) / SearchCaseService.total >= 0.8)){
           SearchCaseService.doFilter().then(
                 function () {
                   var start = $scope.itemsPerPage * (pageNum - 1);
@@ -40,7 +40,7 @@ angular.module('RedhatAccess.cases')
 
                   $scope.casesOnScreen =
                     SearchCaseService.cases.slice(start, end);
-            }
+                }
           );
         } else {
           var start = $scope.itemsPerPage * (pageNum - 1);
@@ -63,7 +63,7 @@ angular.module('RedhatAccess.cases')
               $scope.selectPage(1);
             }
           );
-      };
+        };
 
       if (securityService.loginStatus.isLoggedIn) {
         CaseService.clearCase();
