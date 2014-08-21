@@ -248,3 +248,10 @@ div#rha-recommendation-section .hand-picked {
     width:11px; 
     height:11px;
 }
+
+.textBlock {
+    color: #222;
+    font-family: "Courier New", Courier, "DejaVu Sans Mono", monospace;
+    font-size: 1em;
+    white-space: pre-wrap;
+}
