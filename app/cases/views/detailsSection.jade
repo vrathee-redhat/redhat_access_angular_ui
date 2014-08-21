@@ -20,7 +20,7 @@ form(name='caseDetails')
         h4(translate='') Details
       div.container-fluid.rha-side-padding
         div.row
-          div.col-lg-4
+          div.col-md-4
             table.table.details-table
               tr(ng-hide='compact')
                 th.rha-detail-table-header
@@ -86,7 +86,7 @@ form(name='caseDetails')
                     style='width: 100%',
                     ng-model='CaseService.kase.alternate_id',
                     name='alternate_id')
-          div.col-lg-4
+          div.col-md-4
             table.table.details-table
               tr
                 th
@@ -131,7 +131,7 @@ form(name='caseDetails')
                 th.rha-detail-table-header
                   label(for='rha-rh-owner') {{'Red Hat Owner:'|translate}}
                 td#rha-rh-owner {{CaseService.kase.owner}}
-          div.col-lg-4
+          div.col-md-4
             table.table.details-table
               tr(ng-hide='compact')
                 th.rha-detail-table-header
