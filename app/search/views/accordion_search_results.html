@@ -15,14 +15,14 @@
 </div>
 <div class="">
     <!--div class="col-xs-12" style="overflow: auto;" rha-resizable rha-dom-ready="domReady"-->
-        <accordion>
-            <accordion-group is-open="isopen" ng-click="triggerAnalytics($event)" ng-repeat="result in results">
-                <accordion-heading>
+        <div accordion=''>
+            <div accordion-group='' is-open="isopen" ng-click="triggerAnalytics($event)" ng-repeat="result in results">
+                <div accordion-heading=''>
                     <span class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></span>
                     <span class="result-title">&nbsp{{result.title}}</span>
-                </accordion-heading>
+                </div>
                 <div rha-resultdetaildisplay result='result' />
-            </accordion-group>
-        </accordion>
+            </div>
+        </div>
     <!--/div-->
 </div>
