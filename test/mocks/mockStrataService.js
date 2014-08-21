@@ -51,7 +51,10 @@ angular.module('RedhatAccess.mock', [])
         "summary": "test case notified users",
         "description": "test",
         "status": "Waiting on Red Hat",
-        "product": "Red Hat Enterprise Linux",
+        "product": {
+          "name": "Red Hat Enterprise Linux",
+          "value" : "RHEL"
+        },
         "version": "7.0",
         "account_number": "940527",
         "escalated": false,
@@ -130,7 +133,10 @@ angular.module('RedhatAccess.mock', [])
         "closed": false
       }];
  
-      this.mockEntitlements = [];
+      this.mockEntitlements = {
+        "standard": 'STANDARD',
+        "premium": 'PREMIUM'
+      };
 
       this.mockRecommendationPinned = {
         "linked": false,
@@ -298,6 +304,7 @@ angular.module('RedhatAccess.mock', [])
 
       this.uri = 'https://test.com/testUser/redhat_access.com';
       this.value = {
+        'id': 1234,
         'product': 'rhel',
         'version': '6.0',
         'showDetails': true,
@@ -307,7 +314,13 @@ angular.module('RedhatAccess.mock', [])
         'showRecommendations': true,
         'showComments': true,
         'showServerSideAttachments': true,
-        'showEmailNotifications': true
+        'showEmailNotifications': true,
+        'enableChat': true,
+        'chatIframeHackUrlPrefix': 'https://test.cs9.force.com/chatHidden',        
+        'chatButtonToken': '573A0000000GmiP',
+        'chatLiveAgentUrlPrefix': 'https://test.cs9.force.com/chat',
+        'chatInitHashOne': '572A0000000GmiP',
+        'chatInitHashTwo': '00DK000000W3mDA'
       }
 
       this.mockModalInstance = {
@@ -326,7 +339,13 @@ angular.module('RedhatAccess.mock', [])
             //The user clicked cancel on the modal dialog, call the stored cancel callback
             //this.result.cancelCallback();
         }
-    };
+      };
+
+      this.mockStatus = {
+        open: 'open',
+        closed: 'closed',
+        both: 'both'
+      }
  
     }
   ])
@@ -376,6 +395,24 @@ angular.module('RedhatAccess.mock', [])
             deferred.resolve(MockStrataDataService.mockUsers);
           }
           return deferred.promise;
+        },
+        list: function () {
+          var deferred = $q.defer();
+          if (that.rejectCall) {
+            deferred.reject("strata error");
+          } else {
+            deferred.resolve(MockStrataDataService.mockAccount[0].account_number);
+          }
+          return deferred.promise;
+        },
+        get: function (accountNumber) {
+          var deferred = $q.defer();
+          if (that.rejectCall) {
+            deferred.reject();
+          } else {
+            deferred.resolve(MockStrataDataService.mockAccount[0]);            
+          }
+          return deferred.promise;
         }
       },
       cases: {
@@ -407,6 +444,15 @@ angular.module('RedhatAccess.mock', [])
             }
             return deferred.promise;
           }
+        },
+        get: function (caseNumber) {
+             var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject("strata error");
+            } else {
+              deferred.resolve(MockStrataDataService.mockCases[0]);              
+            }
+           return deferred.promise;
         },
         post: function (caseJSON) {
              var deferred = $q.defer();
@@ -444,6 +490,15 @@ angular.module('RedhatAccess.mock', [])
                deferred.resolve();
              }
             return deferred.promise;
+          },
+          list: function (caseNumber) {
+             var deferred = $q.defer();
+             if (that.rejectCall) {
+               deferred.reject("strata error");
+             } else {
+               deferred.resolve(MockStrataDataService.mockAttachments);
+             }
+            return deferred.promise;
           }
         },
         put : function(id,caseObj) {
@@ -474,6 +529,15 @@ angular.module('RedhatAccess.mock', [])
             }
             return deferred.promise;
           }
+        },
+        csv : function() {
+          var deferred = $q.defer();
+          if (that.rejectCall) {
+            deferred.reject("strata error");
+          } else {
+            deferred.resolve(MockStrataDataService.mockCases);
+          }
+          return deferred.promise;
         }
       },
       entitlements: {
@@ -520,7 +584,7 @@ angular.module('RedhatAccess.mock', [])
         versions: function(productCode) {
           var deferred = $q.defer();
           if (that.rejectCall) {
-            deferred.reject();
+            deferred.reject("strata error");
           } else {
             deferred.resolve(MockStrataDataService.mockVersions);
           }
@@ -605,6 +669,31 @@ angular.module('RedhatAccess.mock', [])
         return deferred.promise;
     };
 
+    this.defineCase = function(rawCase) {
+      this.kase = rawCase;
+    };
+
+    this.populateUsers = function() {
+      this.users = MockStrataDataService.mockUsers;
+    };
+
+    this.defineAccount = function(account) {
+      this.account = account;
+    };
+
+    this.defineNotifiedUsers = function() {
+      this.updatedNotifiedUsers.push(MockStrataDataService.mockUsers.sso_username);
+    };
+
+    this.populateGroups = function(ssoUsername) {
+      this.groupsLoading = true;
+      this.groups = MockStrataDataService.mockGroups;        
+    };
+
+    this.populateEntitlements = function(ssoUserName) {
+      this.entitlements = MockStrataDataService.mockEntitlements;
+    };
+
   }
 ])
 .service('MockRecommendationsService', [
@@ -623,6 +712,12 @@ angular.module('RedhatAccess.mock', [])
     };
     this.populateRecommendations = function (max) {
         this.recommendations = MockStrataDataService.mockSolutions;
+        var deferred = $q.defer();
+        deferred.resolve(MockStrataDataService.mockSolutions);          
+        return deferred.promise;
+    };
+    this.populatePinnedRecommendations = function() {
+        this.pinnedRecommendations.push(MockStrataDataService.mockSolutions[0]);
         var deferred = $q.defer();
         deferred.resolve(MockStrataDataService.mockSolutions);          
         return deferred.promise;
@@ -657,6 +752,34 @@ angular.module('RedhatAccess.mock', [])
     this.backendAttachments = [];
     this.removeUpdatedAttachment = function ($index) {
         this.updatedAttachments.splice($index, 1);
+    };
+    this.defineOriginalAttachments = function (attachments) {
+        if (!angular.isArray(attachments)) {
+          this.originalAttachments = [];
+        } else {
+          this.originalAttachments = attachments;
+        }
+    };
+    this.addNewAttachment = function (attachment) {
+        this.updatedAttachments.push(attachment);
+    };
+    this.updateAttachments = function (caseId) {
+        this.updatedAttachments.push(MockStrataDataService.mockAttachments[0]);
+        var deferred = $q.defer();
+        deferred.resolve();          
+        return deferred.promise;
+        mockAttachments
+    };
+    this.clear = function () {
+        this.originalAttachments = [];
+        this.updatedAttachments = [];
+        this.backendAttachments = [];
+    };
+    this.hasBackEndSelections = function () {
+        return true;
+    };
+    this.updateBackEndAttachments = function (selected) {
+        this.backendAttachments = selected;
     };
   }
 ])
@@ -696,5 +819,62 @@ angular.module('RedhatAccess.mock', [])
     this.addAlert = function(alert) {
         this.alerts.push(alert);
     };
+    this.removeAlert = function(alert) {
+        this.alerts.splice(this.alerts.indexOf(alert), 1);
+    };
+  }
+])
+.service('MockSearchBoxService', [
+  'MockStrataDataService',
+  '$q',
+  function (MockStrataDataService,$q) {
+    this.doSearch = function() {};
+    this.searchTerm = function() {};
+    this.onKeyPress = function() {};    
+  }
+])
+.service('MockSearchCaseService', [
+  'MockStrataDataService',
+  '$q',
+  function (MockStrataDataService,$q) {
+    this.cases = MockStrataDataService.mockCases;
+    this.searching = false;
+    this.prefilter;
+    this.postfilter;
+    this.start = 0;
+    this.count = 100;
+    this.total = 0;
+    this.allCasesDownloaded = false;
+    this.doFilter = function () {
+      var deferred = $q.defer();
+      deferred.resolve();
+      return deferred.promise;
+    };
+    this.clearPagination = function() {
+        this.start = 0;
+        this.total = 0;
+        this.allCasesDownloaded = false;
+        this.cases = [];
+    };
+    this.clear = function () {
+        this.cases = [];
+        this.oldParams = {};
+        this.start = 0;
+        this.total = 0;
+        this.allCasesDownloaded = false;
+    };  
+  }
+])
+.service('MockTreeViewSelectorData', [
+  'MockStrataDataService', 
+  '$q',
+  function (MockStrataDataService, $q) {
+    
+    this.getTree = function (dataUrl, sessionId) {
+      var defer = $q.defer();
+      var tree = MockStrataDataService.mockAttachments;
+      defer.resolve(tree);      
+      return defer.promise;
+    };    
   }
 ]);

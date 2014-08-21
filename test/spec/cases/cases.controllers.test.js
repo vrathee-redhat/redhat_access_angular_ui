@@ -10,8 +10,13 @@ describe('Case Controllers', function() {
     var mockAttachmentsService;
     var mockGroupService;
     var mockAlertService;
+    var mockSearchBoxService;
+    var mockSearchCaseService;
+    var mockTreeViewSelectorData;
 	var mockScope;
+	var rootScope;
 	var q;
+	var securityService;	
 	
 	beforeEach(angular.mock.module('RedhatAccess.cases'));
 	beforeEach(angular.mock.module('RedhatAccess.mock'));
@@ -26,7 +31,12 @@ describe('Case Controllers', function() {
 		mockAttachmentsService = $injector.get('MockAttachmentsService');
 		mockGroupService = $injector.get('MockGroupService');
 		mockAlertService = $injector.get('MockAlertService');
-		mockScope = $rootScope.$new();							
+		mockSearchBoxService = $injector.get('MockSearchBoxService');
+		mockSearchCaseService = $injector.get('MockSearchCaseService');
+		mockTreeViewSelectorData = $injector.get('MockTreeViewSelectorData');
+		securityService = $injector.get('securityService');
+		mockScope = $rootScope.$new();	
+		rootScope = $rootScope;						
 			
 	}));
 
@@ -362,7 +372,9 @@ describe('Case Controllers', function() {
 	            RecommendationsService: mockRecommendationsService,
 	            SearchResultsService: mockSearchResultsService,
 	            strataService: mockStrataService,
-	            NEW_DEFAULTS: mockStrataDataService.value
+	            AttachmentsService: mockAttachmentsService,
+	            NEW_DEFAULTS: mockStrataDataService.value,
+	            NEW_CASE_CONFIG: mockStrataDataService.value
 	        });
 
 			mockCaseService.kase.version = '6.0';
@@ -438,6 +450,19 @@ describe('Case Controllers', function() {
 	        expect(mockCaseService.severities).toEqual([]);	        
 	        expect(mockCaseService.groups).toEqual([]);	        
 	        expect(mockCaseService.kase.group).toBeUndefined();
+
+  		}));
+
+		it('should have a function to handle login success event', inject(function ($controller) {
+
+	        $controller('New', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,	            
+	            strataService: mockStrataService,
+	            NEW_DEFAULTS: mockStrataDataService.value
+	        });
+
+	        rootScope.$broadcast('auth-login-success');
 
   		}));
 
@@ -723,6 +748,732 @@ describe('Case Controllers', function() {
   		}));
 
 	});
+
+	//Suite for CompactEdit
+	describe('CompactEdit', function() {
+
+		it('should have a function to initialize the compact case edit screen resolved', inject(function ($controller) {
+
+	        $controller('CompactEdit', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,
+	          	strataService: mockStrataService,
+	          	AttachmentsService: mockAttachmentsService,
+	          	AlertService: mockAlertService,
+	          	$stateParams: mockStrataDataService.value,
+	          	$modalInstance: mockStrataDataService.mockModalInstance
+	        });
+
+	        expect(mockScope.init).toBeDefined();
+	        mockScope.init();
+	        spyOn(mockStrataService.cases, 'get').andCallThrough();
+	        spyOn(mockStrataService.products, 'versions').andCallThrough();
+	        spyOn(mockStrataService.cases.attachments, 'list').andCallThrough();
+	        mockScope.$root.$digest();
+	        expect(mockCaseService.versions).toEqual(mockStrataDataService.mockVersions);
+	        expect(mockAttachmentsService.originalAttachments).toEqual(mockStrataDataService.mockAttachments);       
+	        	        
+  		}));
+
+		it('should have a function to initialize the compact case edit screen rejected', inject(function ($controller) {
+
+	        $controller('CompactEdit', {
+	            $scope: mockScope,
+	            CaseService: mockCaseService,
+	          	strataService: mockStrataService,
+	          	AttachmentsService: mockAttachmentsService,
+	          	AlertService: mockAlertService,
+	          	$stateParams: mockStrataDataService.value,
+	          	$modalInstance: mockStrataDataService.mockModalInstance
+	        });
+
+	        expect(mockScope.init).toBeDefined();
+	        mockStrataService.rejectCalls();	        
+	        spyOn(mockStrataService.cases, 'get').andCallThrough();
+	        spyOn(mockStrataService.products, 'versions').andCallThrough();
+	        spyOn(mockStrataService.cases.attachments, 'list').andCallThrough();
+	        mockScope.init();
+	        mockScope.$root.$digest();
+	        expect(mockAlertService.alerts[0].message).toEqual('strata error');	
+	        expect(mockAlertService.alerts[0].type).toEqual('danger');
+	        expect(mockAttachmentsService.originalAttachments).toEqual([]);
+	        	        
+  		}));
+
+	});
+
+	//Suite for SearchBox
+	describe('SearchBox', function() {
+
+		it('should have a function to do search on filter key press', inject(function ($controller) {
+
+	        $controller('SearchBox', {
+	            $scope: mockScope,
+	            SearchBoxService: mockSearchBoxService
+	        });
+
+	        expect(mockScope.onFilterKeyPress).toBeDefined();
+	        var event = {
+	        	"keyCode": 13
+	        }	        
+	        mockScope.onFilterKeyPress(event);	        
+	        	        
+  		}));
+
+  		it('should have a function to to check key press', inject(function ($controller) {
+
+	        $controller('SearchBox', {
+	            $scope: mockScope,
+	            SearchBoxService: mockSearchBoxService
+	        });
+
+	        expect(mockScope.onFilterKeyPress).toBeDefined();
+	        var event = {
+	        	"keyCode": 14
+	        }	        
+	        mockScope.onFilterKeyPress(event);	        
+	        	        
+  		}));
+
+	});
+
+	//Suite for Search
+	describe('Search', function() {
+
+		it('should have a function to select case list page', inject(function ($controller) {
+
+	        $controller('Search', {
+	            $scope: mockScope,
+	            SearchBoxService: mockSearchBoxService,
+	            CaseService: mockCaseService,
+	          	AlertService: mockAlertService,
+	          	SearchCaseService: mockSearchCaseService
+	        });
+
+	        expect(mockScope.selectPage).toBeDefined();	        
+	        mockScope.selectPage(1);
+	        spyOn(mockSearchCaseService, 'doFilter').andCallThrough();
+	        mockScope.$root.$digest();
+	        expect(mockScope.casesOnScreen).toEqual(mockStrataDataService.mockCases);
+	        	        
+  		}));
+
+  		it('should have a function to show empty case list when page number exceeds ', inject(function ($controller) {
+
+	        $controller('Search', {
+	            $scope: mockScope,
+	            SearchBoxService: mockSearchBoxService,
+	            CaseService: mockCaseService,
+	          	AlertService: mockAlertService,
+	          	SearchCaseService: mockSearchCaseService
+	        });
+
+	        expect(mockScope.selectPage).toBeDefined();	        
+	        mockScope.selectPage(5);
+	        spyOn(mockSearchCaseService, 'doFilter').andCallThrough();
+	        mockScope.$root.$digest();
+	        expect(mockScope.casesOnScreen).toEqual([]);
+	        	        
+  		}));
+
+  		it('should have a function to select case list page with all cases downloaded', inject(function ($controller) {
+
+	        $controller('Search', {
+	            $scope: mockScope,
+	            SearchBoxService: mockSearchBoxService,
+	            CaseService: mockCaseService,
+	          	AlertService: mockAlertService,
+	          	SearchCaseService: mockSearchCaseService
+	        });
+
+	        expect(mockScope.selectPage).toBeDefined();
+	        mockSearchCaseService.allCasesDownloaded = true;	        
+	        mockScope.selectPage(1);
+	        spyOn(mockSearchCaseService, 'doFilter').andCallThrough();
+	        mockScope.$root.$digest();
+	        expect(mockScope.casesOnScreen).toEqual(mockStrataDataService.mockCases);
+	        	        
+  		}));
+
+  		it('should have a function to handle login success event', inject(function ($controller) {
+
+	        $controller('Search', {
+	            $scope: mockScope,
+	            SearchBoxService: mockSearchBoxService,
+	            CaseService: mockCaseService,
+	          	AlertService: mockAlertService,
+	          	SearchCaseService: mockSearchCaseService
+	        });
+
+	        expect(mockSearchCaseService.cases).toEqual(mockStrataDataService.mockCases);
+	        rootScope.$broadcast('auth-login-success');	
+	        expect(mockSearchCaseService.cases).toEqual([]);	                
+	        	        
+  		}));
+
+  		it('should have a function to handle logout success event', inject(function ($controller) {
+
+	        $controller('Search', {
+	            $scope: mockScope,
+	            SearchBoxService: mockSearchBoxService,
+	            CaseService: mockCaseService,
+	          	AlertService: mockAlertService,
+	          	SearchCaseService: mockSearchCaseService
+	        });
+
+	        mockCaseService.kase = mockStrataDataService.mockCases[0];
+	        rootScope.$broadcast('auth-logout-success');	
+	        expect(mockCaseService.kase).toEqual({});	                
+	        	        
+  		}));
+
+	});
+
+	//Suite for AttachLocalFile
+	describe('AttachLocalFile', function() {		
+
+		it('should have a function to clear filename and file description', inject(function ($controller) {
+			$controller('AttachLocalFile', {
+				$scope: mockScope,
+				AttachmentsService: mockAttachmentsService
+			});
+
+			mockScope.fileName = "test_file";
+			mockScope.fileDescription = "test_description";
+
+			expect(mockScope.clearSelectedFile).toBeDefined();
+			mockScope.fileName = 'Test fileName';
+			mockScope.fileDescription = 'Test file description';
+			mockScope.clearSelectedFile();
+			expect(mockScope.fileName).toEqual('No file chosen');
+			expect(mockScope.fileDescription).toEqual('');
+		}));
+
+		it('should have a function to get selected file', inject(function ($controller) {
+			$controller('AttachLocalFile', {
+				$scope: mockScope,
+				AttachmentsService: mockAttachmentsService
+			});
+
+			var file = {files: [{
+					fileSize: 32323,
+					fileName: 'gfdsfds'
+			}]};
+
+			var fileUploader = [file];
+			spyOn(window, "$").andReturn(fileUploader);
+			var result = $("#fileUploader")[0].files;
+
+			expect(mockScope.selectFile).toBeDefined();
+			mockScope.selectFile();
+		}));
+
+		it('should add file to the list of attachments', inject(function ($controller) {
+			$controller('AttachLocalFile', {
+				$scope: mockScope,
+				AttachmentsService: mockAttachmentsService
+			});
+
+			mockScope.fileObj = 'test_data';
+			mockScope.fileDescription = 'test_description';
+			mockScope.fileName = 'test_file';
+			mockScope.fileSize = '200MB';
+
+			expect(mockScope.addFile).toBeDefined();
+			mockScope.addFile();
+			expect(mockAttachmentsService.updatedAttachments.length).toEqual(1);			
+			expect(mockAttachmentsService.updatedAttachments[0].description).toEqual('test_description');
+
+		}));
+	});
+
+	//Suite for ExportCSVButton
+	describe('ExportCSVButton', function() {
+
+		it('shoud have a function to export all cases as CSV resolved', inject(function ($controller) {
+			$controller('ExportCSVButton', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				AlertService: mockAlertService
+			});
+
+			expect(mockScope.exports).toBeDefined();
+			mockScope.exports();			
+			spyOn(mockStrataService.cases, 'csv').andCallThrough();
+			mockScope.$root.$digest();
+			expect(mockScope.exporting).toEqual(false);
+		}));
+
+
+		it('shoud have a function to export all cases as CSV rejected', inject(function ($controller) {
+			$controller('ExportCSVButton', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				AlertService: mockAlertService
+			});
+
+			expect(mockScope.exports).toBeDefined();
+			mockStrataService.rejectCalls();
+			spyOn(mockStrataService.cases, 'csv').andCallThrough();
+			mockScope.exports();			
+			mockScope.$root.$digest();
+			expect(mockAlertService.alerts[0].message).toEqual('strata error');	
+		}));
+		
+	});
+
+	//Suite for Edit
+	describe('Edit', function() {
+
+		it('should have a function to initialize the case edit page resolved', inject(function ($controller) {
+			$controller('Edit', {
+				$scope: mockScope,
+				$stateParams: mockStrataDataService.value,
+				EDIT_CASE_CONFIG: mockStrataDataService.value,
+				AttachmentsService: mockAttachmentsService,
+				strataService: mockStrataService,
+				CaseService: mockCaseService,
+				RecommendationsService: mockRecommendationsService,
+				AlertService: mockAlertService
+			});
+
+			expect(mockScope.init).toBeDefined();
+			mockScope.init();
+			spyOn(mockStrataService.cases, 'get').andCallThrough();
+			spyOn(mockStrataService.products, 'versions').andCallThrough();
+			spyOn(mockStrataService.accounts, 'get').andCallThrough();
+			spyOn(mockStrataService.cases.attachments, 'list').andCallThrough();
+			spyOn(mockStrataService.cases.comments, 'get').andCallThrough();
+			mockScope.$root.$digest();
+			expect(mockCaseService.versions).toEqual(mockStrataDataService.mockVersions);
+			expect(mockCaseService.account.account_number).toEqual(mockStrataDataService.mockAccount[0].account_number);
+			expect(mockScope.comments).toEqual(mockStrataDataService.mockComments);
+		}));
+
+		it('should have a function to initialize the case edit page rejected', inject(function ($controller) {
+			$controller('Edit', {
+				$scope: mockScope,
+				$stateParams: mockStrataDataService.value,
+				EDIT_CASE_CONFIG: mockStrataDataService.value,
+				AttachmentsService: mockAttachmentsService,
+				strataService: mockStrataService,
+				CaseService: mockCaseService,
+				RecommendationsService: mockRecommendationsService,
+				AlertService: mockAlertService
+			});
+
+			expect(mockScope.init).toBeDefined();
+			mockStrataService.rejectCalls();
+			spyOn(mockStrataService.cases, 'get').andCallThrough();
+			spyOn(mockStrataService.products, 'versions').andCallThrough();
+			spyOn(mockStrataService.accounts, 'get').andCallThrough();
+			spyOn(mockStrataService.cases.attachments, 'list').andCallThrough();
+			spyOn(mockStrataService.cases.comments, 'get').andCallThrough();
+			mockScope.init();			
+			mockScope.$root.$digest();
+			expect(mockAlertService.alerts[0].message).toEqual('strata error');
+			
+		}));
+
+	});
+
+	//Suite for CommentsSection
+	describe('CommentsSection', function() {
+
+		it('should have a function to show comments for selected pagination', inject(function ($controller) {
+			$controller('CommentsSection', {
+				$scope: mockScope,
+				$stateParams: mockStrataDataService.value,
+				CaseService: mockCaseService,
+				strataService: mockStrataService,
+				AlertService: mockAlertService
+			});
+
+			expect(mockScope.selectPage).toBeDefined();
+			mockCaseService.comments = mockStrataDataService.mockComments;			
+			mockScope.selectPage(1);			
+			expect(mockScope.commentsOnScreen).toEqual(mockStrataDataService.mockComments);
+
+		}));		
+		
+	});
+
+	//Suite for AttachmentsSection
+	describe('AttachmentsSection', function() {
+
+		it('should have a function to update attachement in attachment list', inject(function ($controller) {
+			$controller('AttachmentsSection', {
+				$scope: mockScope,
+				AttachmentsService: mockAttachmentsService,
+				CaseService: mockCaseService
+			});
+
+			expect(mockScope.doUpdate).toBeDefined();
+			mockCaseService.kase.case_number = '12345'
+			mockScope.doUpdate();			
+			spyOn(mockAttachmentsService, 'updateAttachments').andCallThrough();
+			mockScope.$root.$digest();
+			expect(mockScope.updatingAttachments).toEqual(false);
+			expect(mockAttachmentsService.updatedAttachments).toContain(mockStrataDataService.mockAttachments[0]);
+		}));
+		
+	});
+
+	//Suite for CompactCaseList
+	describe('CompactCaseList', function() {
+
+		it('should have a function to set the selected case index', inject(function ($controller) {
+			$controller('CompactCaseList', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				CaseService: mockCaseService,
+				SearchCaseService: mockSearchCaseService,
+				SearchBoxService: mockSearchBoxService
+			});
+
+			expect(mockScope.selectCase).toBeDefined();	
+			mockScope.selectCase(1);		
+			expect(mockScope.selectedCaseIndex).toEqual(1);
+			
+		}));
+
+		it('should have a function to handle login success event', inject(function ($controller) {
+			$controller('CompactCaseList', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				CaseService: mockCaseService,
+				SearchCaseService: mockSearchCaseService,
+				SearchBoxService: mockSearchBoxService
+			});
+
+			rootScope.$broadcast('auth-login-success');
+			spyOn(mockSearchCaseService, 'doFilter');
+			mockScope.$root.$digest();	
+			expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);
+			expect(mockScope.domReady).toBe(true);		
+			
+		}));		
+
+	});
+
+	//Suite for GroupList
+	describe('GroupList', function() {
+
+		it('should have a function to handle Master Checkbox Click', inject(function ($controller) {
+			$controller('GroupList', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				CaseService: mockCaseService,
+				GroupService: mockGroupService,
+				SearchBoxService: mockSearchBoxService
+			});
+
+			expect(mockScope.onMasterCheckboxClicked).toBeDefined();
+			mockGroupService.groupsOnScreen = mockStrataDataService.mockGroups;
+			mockScope.onMasterCheckboxClicked();
+			expect(mockGroupService.groupsOnScreen[0].selected).toBe(false);
+			
+		}));
+
+		it('should have a function to build group Table', inject(function ($controller) {
+			$controller('GroupList', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				CaseService: mockCaseService,
+				GroupService: mockGroupService,
+				SearchBoxService: mockSearchBoxService
+			});
+
+			mockScope.onMasterCheckboxClicked();
+			spyOn(mockStrataService.groups, 'list');
+			mockScope.$root.$digest();
+			expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);			
+			
+		}));
+
+	});
+
+	//Suite for StatusSelect
+	describe('StatusSelect', function() {
+
+		it('should have status of cases as open', inject(function ($controller) {
+			$controller('StatusSelect', {
+				$scope: mockScope,
+				CaseService: mockCaseService,
+				STATUS: mockStrataDataService.mockStatus
+			});
+
+			expect(mockScope.STATUS).toEqual(mockStrataDataService.mockStatus);
+			expect(mockScope.statuses[0].name).toEqual('Open and Closed');
+			expect(mockScope.statuses[1].name).toEqual('Open');
+			expect(mockScope.statuses[2].name).toEqual('Closed');
+		}));
+
+	});
+
+	//Suite for AccountSelect
+	describe('AccountSelect', function() {
+
+		it('should have a function to fetch user account number resolved', inject(function ($controller) {
+			$controller('AccountSelect', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				AlertService: mockAlertService,
+				CaseService: mockCaseService
+			});
+
+			expect(mockScope.selectUserAccount).toBeDefined();
+			mockScope.selectUserAccount();			
+			spyOn(mockStrataService.accounts, 'list').andCallThrough();
+			mockScope.$root.$digest();
+			expect(mockScope.loadingAccountNumber).toEqual(false);
+			expect(mockCaseService.users).toEqual(mockStrataDataService.mockUsers);	
+			expect(mockCaseService.account.number).toEqual(mockStrataDataService.mockAccount[0].account_number);
+		}));
+
+		it('should have a function to fetch user account number rejected', inject(function ($controller) {
+			$controller('AccountSelect', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				AlertService: mockAlertService,
+				CaseService: mockCaseService
+			});
+
+			expect(mockScope.selectUserAccount).toBeDefined();
+			mockStrataService.rejectCalls();
+			spyOn(mockStrataService.accounts, 'list').andCallThrough();
+			mockScope.selectUserAccount();		
+			mockScope.$root.$digest();
+			expect(mockScope.loadingAccountNumber).toEqual(false);
+			expect(mockCaseService.account.number).toBeUndefined();
+			expect(mockAlertService.alerts[0].message).toEqual('strata error');
+		}));
+
+		
+		it('should have a function to populate account specific fields', inject(function ($controller) {
+			$controller('AccountSelect', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				AlertService: mockAlertService,
+				CaseService: mockCaseService
+			});
+
+			expect(mockScope.populateAccountSpecificFields).toBeDefined();
+			mockScope.alertInstance = 'Account found'
+			mockScope.populateAccountSpecificFields();			
+			spyOn(mockStrataService.accounts, 'get').andCallThrough();
+			mockScope.$root.$digest();			
+			expect(mockCaseService.users).toEqual([]);	
+		}));
+		
+	});
+
+	//Suite for SeveritySelect
+	describe('SeveritySelect', function() {
+
+		it('should load all the case severities resolved', inject(function ($controller) {
+			$controller('SeveritySelect', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				AlertService: mockAlertService,
+				CaseService: mockCaseService
+			});
+
+			spyOn(mockStrataService.values.cases, 'severity').andCallThrough();
+			mockScope.$root.$digest();
+			expect(mockCaseService.severities).toEqual(mockStrataDataService.mockSeverities);
+		}));
+	});
+
+	//Suite for TypeSelect
+	describe('TypeSelect', function() {
+
+		it('should load all the case types resolved', inject(function ($controller) {
+			$controller('TypeSelect', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				AlertService: mockAlertService,
+				CaseService: mockCaseService
+			});
+
+			spyOn(mockStrataService.values.cases, 'types').andCallThrough();
+			mockScope.$root.$digest();
+			expect(mockCaseService.types).toEqual(mockStrataDataService.mockTypes);
+		}));
+		
+	});	
+
+	//Suite for ProductSelect
+	describe('ProductSelect', function() {
+
+		it('should load all the products resolved', inject(function ($controller) {
+			$controller('ProductSelect', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				CaseService: mockCaseService
+			});
+
+			spyOn(mockStrataService.products, 'list');
+			mockScope.$root.$digest();
+			expect(mockCaseService.products).toEqual(mockStrataDataService.mockProducts);
+		}));
+		
+	});	
+
+	//Suite for GroupSelect
+	describe('GroupSelect', function() {
+
+		it('should have a function to do blah!', inject(function ($controller) {
+			$controller('GroupSelect', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				CaseService: mockCaseService,
+				GroupService: mockGroupService,
+				AlertService: mockAlertService
+			});
+
+			expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);		
+			
+		}));
+
+	});
+
+	//Suite for OwnerSelect
+	describe('OwnerSelect', function() {
+
+		it('should have a function to handle login success event', inject(function ($controller) {
+			$controller('OwnerSelect', {
+				$scope: mockScope,
+				CaseService: mockCaseService,
+				SearchCaseService: mockSearchCaseService
+			});	
+
+			rootScope.$broadcast('auth-login-success');			
+			expect(mockCaseService.users).toEqual(mockStrataDataService.mockUsers);	
+			
+		}));
+
+	});
+
+	//Suite for EntitlementSelect
+	describe('EntitlementSelect', function() {
+
+		it('should have a function to do blah!', inject(function ($controller) {
+			$controller('EntitlementSelect', {
+				$scope: mockScope,
+				strataService: mockStrataService,
+				CaseService: mockCaseService,
+				AlertService: mockAlertService
+			});	
+
+			expect(mockCaseService.entitlements).toEqual(mockStrataDataService.mockEntitlements);		
+				
+		}));
+
+	});
 	
+	//Suite for Group
+	describe('Group', function() {
+
+		it('should have a function to do blah!', inject(function ($controller) {
+			$controller('Group', {
+				$scope: mockScope,
+				GroupService: mockGroupService,
+				SearchBoxService: mockSearchBoxService
+			});			
+				
+		}));
+
+	});	
+
+	//Suite for List
+	describe('List', function() {
+
+		it('should have a function to handle login success event', inject(function ($controller) {
+			$controller('List', {
+				$scope: mockScope,
+				SearchCaseService: mockSearchCaseService,
+				CaseService: mockCaseService,
+				AlertService: mockAlertService,
+				SearchBoxService: mockSearchBoxService
+			});	
+
+			mockSearchCaseService.cases = mockStrataDataService.mockCases;
+			rootScope.$broadcast('auth-login-success');
+			spyOn(mockSearchCaseService, 'doFilter');
+			mockScope.$root.$digest();
+			expect(mockScope.tableParams).toBeDefined();
+				
+		}));
+
+	});
+
+	//Suite for ListFilter
+	describe('ListFilter', function() {
+
+		it('should default case filter status to both OPEN and CLOSED', inject(function ($controller) {
+			$controller('ListFilter', {
+				$scope: mockScope,
+				STATUS: mockStrataDataService.mockStatus,
+				CaseService: mockCaseService
+			});	
+
+			expect(mockCaseService.status).toEqual(mockStrataDataService.mockStatus.both);
+				
+		}));
+
+	});
+
+	//Suite for CreateGroupButton
+	describe('CreateGroupButton', function() {
+
+		var mockModal = jasmine.createSpyObj('modal', ['open']);
+
+		it('should have a function to open Create Group Dialog', inject(function ($controller) {
+			$controller('CreateGroupButton', {
+				$scope: mockScope,
+				$modal: mockModal
+			});	
+			
+			expect(mockScope.openCreateGroupDialog).toBeDefined();
+			mockScope.openCreateGroupDialog();
+				
+		}));
+
+	});
+
+	//Suite for DescriptionSection
+	describe('DescriptionSection', function() {
+
+		it('should have a function to do blah!', inject(function ($controller) {
+			$controller('DescriptionSection', {
+				$scope: mockScope,
+				CaseService: mockCaseService
+			});				
+				
+		}));
+
+	});
+
+	//Suite for BackEndAttachmentsCtrl
+	describe('BackEndAttachmentsCtrl', function() {
+
+		it('should have a function to do blah!', inject(function ($controller) {
+			$controller('BackEndAttachmentsCtrl', {
+				$scope: mockScope,
+				AttachmentsService: mockAttachmentsService,
+				NEW_CASE_CONFIG: mockStrataDataService.value,
+				EDIT_CASE_CONFIG: mockStrataDataService.value,
+				TreeViewSelectorData: mockTreeViewSelectorData
+			});	
+
+			spyOn(mockTreeViewSelectorData, 'getTree');
+			mockScope.$root.$digest();
+			expect(mockAttachmentsService.backendAttachments).toEqual(mockStrataDataService.mockAttachments);						
+			expect(mockScope.attachmentTree).toEqual(mockStrataDataService.mockAttachments);
+				
+		}));
+
+	});
 	
 });

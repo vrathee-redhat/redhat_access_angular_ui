@@ -1,5 +1,5 @@
 div.redhat-access-bz(ng-show='securityService.loginStatus.isInternal')
-  h4.section-header(style='padding-top: 20px;') {{'Bugzilla Tickets'|translate}}
+  h4.rha-section-header(style='padding-top: 20px;') {{'Bugzilla Tickets'|translate}}
   span.rha-search-spinner(ng-show='loading')
   div(ng-hide='CaseService.bugzillaList.bugzilla.length > 0' , style='padding-bottom: 10px;') {{'No linked bugzillas'|translate}}
   div.panel.panel-default(ng-show='CaseService.bugzillaList.bugzilla.length > 0')
