@@ -16,7 +16,7 @@ module.exports = function(config) {
             'bower_components/angular/angular.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/angular-gettext/dist/angular-gettext.min.js',
-            'bower_components/angular-ui-select2/src/select2.js',
+            'bower_components/angular-nca-select2/src/select2.js',
             'bower_components/select2/select2.js',
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
@@ -41,7 +41,7 @@ module.exports = function(config) {
             'bower_components/sinon/lib/sinon/test_case.js',
             'bower_components/sinon/lib/sinon/assert.js',
             'bower_components/sinon/lib/sinon/match.js',
-            '.tmp/templates/RedhatAccess.template.js', 
+            '.tmp/templates/RedhatAccess.template.js',
             'app/**/*.module.js', //define all modules first!
             'app/common/**/*.js',
             'app/security/**/*.js',
@@ -49,7 +49,7 @@ module.exports = function(config) {
             'app/cases/**/*.js',
             'app/log_viewer/*.js',
             'test/mocks/**/*.js',
-            'test/spec/**/*.js'            
+            'test/spec/**/*.js'
             //'app/**/*.html'
 
         ],
@@ -66,9 +66,9 @@ module.exports = function(config) {
         preprocessors: {
             'app/cases/**/*.js': ['coverage']
         },
-     
+
         reporters: ['progress', 'coverage'],
-     
+
         autoWatch: true,
         coverageReporter: {
              type: 'lcov',

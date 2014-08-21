@@ -16,15 +16,18 @@
     "angular-treeview": "",
     "ng-table": "~0.3.3",
     "angular-gettext": "~0.2.9",
-    "angular-ui-select2": "~0.0.5",
     "html5shiv": "~3.7.2",
     "ie-shiv": "https://raw.githubusercontent.com/angular-ui/ui-utils/master/modules/ie-shiv/ie-shiv.js",
     "json2": "*",
-    "respond": "~1.4.2"
+    "respond": "~1.4.2",
+    "angular-nca-select2": "~0.0.5-nca"
   },
   "devDependencies": {
     "angular-mocks": "1.2.1",
     "angular-scenario": "1.2.1",
     "sinon": "~1.7.3"
+  },
+  "resolutions": {
+    "jquery": "~1.10.2"
   }
 }
