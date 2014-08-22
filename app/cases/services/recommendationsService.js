@@ -13,7 +13,12 @@ angular.module('RedhatAccess.cases')
     this.handPickedRecommendations = [];
     this.populateCallback = function() {};
 
-    var currentData = {};
+    var currentData = {
+      product: null,
+      version: null,
+      summary: null,
+      description: null
+    };
     this.loadingRecommendations = false;
 
     var setCurrentData = function () {
@@ -93,8 +98,11 @@ angular.module('RedhatAccess.cases')
         description: CaseService.kase.description
       };
 
-      if ((!angular.equals(currentData, newData) && !this.loadingRecommendations) ||
-          (this.recommendations.length < 1 && this.failureCount < 10)) {
+      if ((newData.product !== undefined && newData.version !== undefined && 
+        newData.summary !== undefined && newData.description !== undefined) &&
+        ((!angular.equals(currentData, newData) && !this.loadingRecommendations) ||
+        (this.recommendations.length < 1 && this.failureCount < 10))) {
+
         this.loadingRecommendations = true;
         setCurrentData();
         var deferreds = [];
