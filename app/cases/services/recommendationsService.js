@@ -45,7 +45,7 @@ angular.module('RedhatAccess.cases')
               angular.bind(this, function(rec) {
                 if (rec.pinned_at) {
                   var promise =
-                    strataService.solutions.get(rec.solution_url).then(
+                    strataService.solutions.get(rec.resource_id).then(
                       angular.bind(this, function(solution) {
                         solution.pinned = true;
                         this.pinnedRecommendations.push(solution);
@@ -57,7 +57,7 @@ angular.module('RedhatAccess.cases')
                   promises.push(promise);
                 } else if (rec.linked){
                   var promise =
-                    strataService.solutions.get(rec.solution_url).then(
+                    strataService.solutions.get(rec.resource_id).then(
                       angular.bind(this, function(solution) {
                         //solution.pinned = true;
                         solution.handPicked = true;
@@ -103,7 +103,8 @@ angular.module('RedhatAccess.cases')
             angular.bind(this, function(solutions) {
               //retrieve details for each solution
               solutions.forEach(function (solution) {
-                var deferred = strataService.solutions.get(solution.uri);
+                var splitUri = solution.uri.split('/');
+                var deferred = strataService.solutions.get(splitUri[splitUri.length - 1]);
                 deferreds.push(deferred);
               });
 
