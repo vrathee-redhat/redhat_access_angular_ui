@@ -4,12 +4,11 @@ angular.module('RedhatAccess.cases')
   .service('CaseService', [
     'strataService',
     'AlertService',
-    'ENTITLEMENTS',
     'RHAUtils',
     'securityService',
     '$q',
     '$filter',
-    function(strataService, AlertService, ENTITLEMENTS, RHAUtils, securityService, $q, $filter) {
+    function(strataService, AlertService, RHAUtils, securityService, $q, $filter) {
       this.
       kase = {};
       this.versions = [];
@@ -211,21 +210,16 @@ angular.module('RedhatAccess.cases')
             // to select it, regardless of the product.
             // TODO: strata should respond with a filtered list given a product.
             //       Adding the query param ?product=$PRODUCT does not work.
-            console.log(entitlementsResponse);
-            var premiumSupport = $filter('filter')(entitlementsResponse.entitlement, {'sla': ENTITLEMENTS.premium});
-            var standardSupport = $filter('filter')(entitlementsResponse.entitlement, {'sla': ENTITLEMENTS.standard});
+            var uniqueEntitlements = function(a) {
+              return a.reduce(function(p, c) {
+                if (p.indexOf(c.sla) < 0) p.push(c.sla);
+                return p;
+              }, []);
+            };
+            var entitlements = uniqueEntitlements(entitlementsResponse.entitlement);
 
-            var entitlements = [];
-            if (RHAUtils.isNotEmpty(premiumSupport)) {
-              entitlements.push(ENTITLEMENTS.premium);
-            }
-            if (RHAUtils.isNotEmpty(standardSupport)) {
-              entitlements.push(ENTITLEMENTS.standard);
-            }
-
-            // if (entitlements.length === 0) {
-            //   entitlements.push(ENTITLEMENTS.defaults);
-            // }
+            var unknownIndex = entitlements.indexOf("UNKNOWN");
+            if (unknownIndex > -1) entitlements.splice(unknownIndex, 1);
 
             this.entitlements = entitlements;
             this.entitlementsLoading = false;
@@ -237,10 +231,10 @@ angular.module('RedhatAccess.cases')
       };
 
       this.showFts = function() {
-        if (RHAUtils.isNotEmpty(this.severities) && angular.equals(this.kase.severity, this.severities[0])) {
-          if (this.entitlement === ENTITLEMENTS.premium ||
+        if (RHAUtils.isNotEmpty(this.severities)) {
+          if ((this.entitlement === "PREMIUM" || this.entitlement === "AMC") ||
               (RHAUtils.isNotEmpty(this.kase.entitlement) &&
-               this.kase.entitlement.sla === ENTITLEMENTS.premium)) {
+               (this.kase.entitlement.sla === "PREMIUM" || this.kase.entitlement.sla === "AMC"))) {
             return true;
           }
         }

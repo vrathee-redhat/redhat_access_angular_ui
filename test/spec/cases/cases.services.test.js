@@ -188,12 +188,6 @@ describe('Case Services', function() {
 			caseService.kase.entitlement.sla = 'STANDARD'	
 			fts = caseService.showFts();
 			expect(fts).toBe(false);
-			// Hide the FTS flag for premium but non sev1 case
-			caseService.kase.severity = {"name":"3 (Normal)"};
-			caseService.kase.entitlement = {};  
-			caseService.kase.entitlement.sla = 'PREMIUM'
-			fts = caseService.showFts();
-			expect(fts).toBe(false);
 	  	});
 
 	  	it('should have a method for defining Notified Users for a case', function () {
