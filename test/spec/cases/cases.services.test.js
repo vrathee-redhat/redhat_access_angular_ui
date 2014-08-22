@@ -10,17 +10,19 @@ describe('Case Services', function() {
 	var caseListService;
 	var attachmentsService;
 	var groupService;
-	var scope;	
+	var scope;
+	var rootScope;	
 	var q;
 	var mockStrataService;
-    var mockStrataDataService;	
+    var mockStrataDataService;
+    var mockTreeViewSelectorUtils;	
 	var deferred;
 
 	beforeEach(angular.mock.module('RedhatAccess.cases'));
 	beforeEach(angular.mock.module('RedhatAccess.mock'));
 	
 	beforeEach(inject(function (_CaseService_,_SearchCaseService_,_MockStrataDataService_,_strataService_,_SearchBoxService_,
-		_RecommendationsService_,_CaseListService_,_AttachmentsService_,_GroupService_,$injector,$q,$rootScope) {
+		_RecommendationsService_,_CaseListService_,_AttachmentsService_,_GroupService_,_TreeViewSelectorUtils_,$injector,$q,$rootScope) {
 	    caseService = _CaseService_;
 	    searchCaseService = _SearchCaseService_;
 	    mockStrataDataService = _MockStrataDataService_;
@@ -30,9 +32,11 @@ describe('Case Services', function() {
 	    attachmentsService = _AttachmentsService_;
 	    caseListService = _CaseListService_;
 	    groupService = _GroupService_;
+	    mockTreeViewSelectorUtils = _TreeViewSelectorUtils_;
 	    scope = $rootScope.$new();
+	    rootScope = $rootScope;
 	    securityService = $injector.get('securityService');	
-	    q = $q;    
+	    q = $q; 	    
 	}));
 
 
@@ -232,6 +236,29 @@ describe('Case Services', function() {
 			expect(searchCaseService.cases).toEqual(mockStrataDataService.mockCases);     	
   		});
 
+  		it('should have a method to Filter/Search cases resolved for login success event', function () {
+			expect(searchCaseService.doFilter).toBeDefined(); 
+			searchCaseService.oldParams = {};			
+	      	securityService.loginStatus.login = 'testUser';
+	      	securityService.loginStatus.isLoggedIn = false;
+	      	securityService.loginStatus.isInternal = true;
+	      	securityService.loginStatus.ssoName = 'testSsoName'
+	      	searchBoxService.searchTerm = 'test';	      	
+
+	      	caseService.status = 'closed';
+	      	caseService.product = 'Red Hat Enterprise Linux';
+	      	caseService.owner = 'testUser';
+	      	caseService.type = 'bug';
+	      	caseService.severity = '1';
+	      	
+	      	searchCaseService.doFilter();
+	      	rootScope.$broadcast('auth-login-success');
+	      	spyOn(mockStrataService.cases, 'filter').andCallThrough();
+			scope.$root.$digest();
+			expect(searchCaseService.searching).toBe(false); 
+			expect(searchCaseService.cases).toEqual(mockStrataDataService.mockCases);     	
+  		});
+
 		it('should have a method to Filter/Search cases rejected', function () {
 			expect(searchCaseService.doFilter).toBeDefined(); 
 			searchCaseService.oldParams = {};			
@@ -258,6 +285,13 @@ describe('Case Services', function() {
 			searchBoxService.searchTerm = 'test';		
 	      	searchCaseService.clear();
 	      	expect(searchBoxService.searchTerm).toEqual('');
+	      	expect(searchCaseService.cases).toEqual([]);    	
+	  	});
+
+	  	it('should have a method to clear the pagination of the search result', function () {
+			expect(searchCaseService.clearPagination).toBeDefined();
+			searchCaseService.cases =  mockStrataDataService.mockCases;
+			searchCaseService.clearPagination();
 	      	expect(searchCaseService.cases).toEqual([]);    	
 	  	});
 
@@ -419,6 +453,13 @@ describe('Case Services', function() {
 			attachments = null;
 			attachmentsService.defineOriginalAttachments(attachments);
 			expect(attachmentsService.originalAttachments).toEqual([]);
+	  	});	  	
+
+	  	it('should have a method to update BackEnd Attachments', function () {
+			expect(attachmentsService.updateBackEndAttachments).toBeDefined();  			
+			attachmentsService.updateBackEndAttachments(mockStrataDataService.mockAttachments);
+			expect(attachmentsService.backendAttachments).toEqual(mockStrataDataService.mockAttachments);
+			
 	  	});
 
 	});  	

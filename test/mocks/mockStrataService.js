@@ -220,12 +220,16 @@ angular.module('RedhatAccess.mock', [])
         "filename": "test1.txt",
         "description": "sample1 attachment",
         "attached_by": "testUser",
-        "size": "10Mb"
+        "size": "10Mb",
+        "checked": true,
+        "fullPath": "https://api.access.devgssci.devlab.phx1.redhat.com/attachments/12345"
       }, {
         "filename": "test2.txt",
         "description": "sample2 attachment",
         "attached_by": "testUser",
-        "size": "50Mb"
+        "size": "50Mb",
+        "checked": true,
+        "fullPath": "https://api.access.devgssci.devlab.phx1.redhat.com/attachments/45678"
       }];
 
       this.mockProducts = [{
@@ -875,6 +879,36 @@ angular.module('RedhatAccess.mock', [])
       var tree = MockStrataDataService.mockAttachments;
       defer.resolve(tree);      
       return defer.promise;
+    };    
+  }
+])
+.service('TreeViewSelectorUtils', [
+  'MockStrataDataService', 
+  '$q',
+  function (MockStrataDataService, $q) {
+    
+    this.hasSelections = function (tree) {
+      return hasSelectedLeaves(tree);
+    };
+    var hasSelectedLeaves = function (tree) {
+      return true;
+    };
+    var getSelectedNames = function (tree, container) {
+      for (var i = 0; i < tree.length; i++) {
+        if (tree[i] !== undefined) {   
+          if (tree[i].checked === true) {
+            container.push(tree[i].fullPath);
+          }          
+        }
+      }
+    };
+    this.getSelectedLeaves = function (tree) {
+      if (tree === undefined) {
+          return [];
+      }
+      var container = [];
+      getSelectedNames(tree, container);
+      return container;
     };    
   }
 ]);
