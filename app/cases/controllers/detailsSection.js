@@ -111,6 +111,9 @@ angular.module('RedhatAccess.cases')
         if (CaseService.kase.fts && RHAUtils.isNotEmpty(CaseService.kase.contact_info24_x7)) {
           caseJSON.contactInfo24X7 = CaseService.kase.contact_info24_x7;
         }
+        if (CaseService.kase.notes !== null) {
+          caseJSON.notes = CaseService.kase.notes;
+        }
 
         strataService.cases.put(CaseService.kase.case_number, caseJSON).then(
             function() {
