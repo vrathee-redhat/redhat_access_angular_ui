@@ -30,11 +30,6 @@ angular.module('RedhatAccess.cases', [
 // chatIframeHackUrlPrefix - 'https://qa-rogsstest.cs9.force.com/chatHidden'
 
 })
-.constant('ENTITLEMENTS', {
-  standard: 'STANDARD',
-  premium: 'PREMIUM'
-//  defaults: 'DEFAULT'
-})
 .constant('STATUS', {
   open: 'open',
   closed: 'closed',
