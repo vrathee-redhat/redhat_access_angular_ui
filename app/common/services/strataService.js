@@ -1,11 +1,46 @@
 'use strict';
-/*global strata*/
+/*global strata, angular*/
 /*jshint camelcase: false */
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.common')
   .factory('strataService', ['$q', 'translate', 'RHAUtils', '$angularCacheFactory',
     function ($q, translate, RHAUtils, $angularCacheFactory) {
+
+        $angularCacheFactory('strataCache', {
+
+            // This cache can hold 1000 items
+            capacity: 1000,
+
+            // Items added to this cache expire after 15 minutes
+            maxAge: 900000,
+
+            // Items will be actively deleted when they expire
+            deleteOnExpire: 'aggressive',
+
+            // This cache will check for expired items every minute
+            recycleFreq: 60000,
+
+            // This cache will clear itself every hour
+            cacheFlushInterval: 3600000,
+
+            // This cache will sync itself with localStorage
+            storageMode: 'sessionStorage',
+
+            // Full synchronization with localStorage on every operation
+            verifyIntegrity: true,
+
+            // This callback is executed when the item specified by "key" expires.
+            // At this point you could retrieve a fresh value for "key"
+            // from the server and re-insert it into the cache.
+            onExpire: function (key, value) {
+                console.log(key);
+                console.log(value);
+
+            }
+        });
+
+        var strataCache = $angularCacheFactory.get('strataCache');
 
       var errorHandler = function (message, xhr, response, status) {
 
@@ -33,14 +68,19 @@ angular.module('RedhatAccess.common')
           get: function(showAll, ssoUserName) {
             var deferred = $q.defer();
 
-            strata.entitlements.get(
-              showAll,
-              function (entitlements) {
-                deferred.resolve(entitlements);
-              },
-              angular.bind(deferred, errorHandler),
-              ssoUserName
-            );
+            if (strataCache.get("entitlements" + ssoUserName)) {
+                deferred.resolve(strataCache.get("entitlements" + ssoUserName));
+            } else {
+                strata.entitlements.get(
+                  showAll,
+                  function (entitlements) {
+                    strataCache.put("entitlements" + ssoUserName, entitlements);
+                    deferred.resolve(entitlements);
+                  },
+                  angular.bind(deferred, errorHandler),
+                  ssoUserName
+                );
+            }
 
             return deferred.promise;
           }
@@ -64,20 +104,25 @@ angular.module('RedhatAccess.common')
           get: function (uri) {
             var deferred = $q.defer();
 
-            strata.solutions.get(
-              uri,
-              function (solution) {
-                deferred.resolve(solution);
-              },
-              function () {
-                //workaround for 502 from strata
-                //If the deferred is rejected then the parent $q.all()
-                //based deferred will fail. Since we don't need every
-                //recommendation just send back undefined
-                //and the caller can ignore the missing solution details.
-                deferred.resolve();
-              }
-            );
+            if (strataCache.get("solution" + uri)) {
+                deferred.resolve(strataCache.get("solution" + uri));
+            } else {
+                strata.solutions.get(
+                  uri,
+                  function (solution) {
+                    strataCache.put("solution" + uri, solution);
+                    deferred.resolve(solution);
+                  },
+                  function () {
+                    //workaround for 502 from strata
+                    //If the deferred is rejected then the parent $q.all()
+                    //based deferred will fail. Since we don't need every
+                    //recommendation just send back undefined
+                    //and the caller can ignore the missing solution details.
+                    deferred.resolve();
+                  }
+                );
+            }
 
             return deferred.promise;
           }
@@ -87,13 +132,18 @@ angular.module('RedhatAccess.common')
           list: function (ssoUserName) {
             var deferred = $q.defer();
 
-            strata.products.list(
-              function (response) {
-                deferred.resolve(response);
-              },
-              angular.bind(deferred, errorHandler),
-              ssoUserName
-            );
+            if(strataCache.get("products" + ssoUserName)) {
+                deferred.resolve(strataCache.get("products" + ssoUserName));
+            } else {
+                strata.products.list(
+                  function (response) {
+                    strataCache.put("products" + ssoUserName, response);
+                    deferred.resolve(response);
+                  },
+                  angular.bind(deferred, errorHandler),
+                  ssoUserName
+                );
+            }
 
             return deferred.promise;
           },
@@ -101,13 +151,18 @@ angular.module('RedhatAccess.common')
           versions: function (productCode) {
             var deferred = $q.defer();
 
-            strata.products.versions(
-              productCode,
-              function (response) {
-                deferred.resolve(response);
-              },
-              angular.bind(deferred, errorHandler)
-            );
+            if (strataCache.get("versions-" + productCode)) {
+                deferred.resolve(strataCache.get("versions-" + productCode));
+            } else {
+                strata.products.versions(
+                  productCode,
+                  function (response) {
+                    strataCache.put("versions-" + productCode, response);
+                    deferred.resolve(response);
+                  },
+                  angular.bind(deferred, errorHandler)
+                );
+            }
 
             return deferred.promise;
           }
@@ -117,13 +172,18 @@ angular.module('RedhatAccess.common')
           list: function (ssoUserName) {
             var deferred = $q.defer();
 
-            strata.groups.list(
-              function (response) {
-                deferred.resolve(response);
-              },
-              angular.bind(deferred, errorHandler),
-              ssoUserName
-            );
+            if (strataCache.get("groups" + ssoUserName)) {
+                deferred.resolve(strataCache.get("groups" + ssoUserName));
+            } else {
+                strata.groups.list(
+                  function (response) {
+                    strataCache.put("groups" + ssoUserName, response);
+                    deferred.resolve(response);
+                  },
+                  angular.bind(deferred, errorHandler),
+                  ssoUserName
+                );
+            }
 
             return deferred.promise;
           },
@@ -161,13 +221,18 @@ angular.module('RedhatAccess.common')
           get: function(accountNumber) {
             var deferred = $q.defer();
 
-            strata.accounts.get(
-              accountNumber,
-              function(response) {
-                deferred.resolve(response);
-              },
-              angular.bind(deferred, errorHandler)
-            );
+            if (strataCache.get("account" + accountNumber)) {
+                deferred.resolve(strataCache.get("account" + accountNumber));
+            } else {
+                strata.accounts.get(
+                  accountNumber,
+                  function(response) {
+                    strataCache.put("account" + accountNumber, response);
+                    deferred.resolve(response);
+                  },
+                  angular.bind(deferred, errorHandler)
+                );
+            }
 
             return deferred.promise;
           },
@@ -175,14 +240,19 @@ angular.module('RedhatAccess.common')
           users: function(accountNumber, group) {
             var deferred = $q.defer();
 
-            strata.accounts.users(
-              accountNumber,
-              function(response) {
-                deferred.resolve(response);
-              },
-              angular.bind(deferred, errorHandler),
-              group
-            );
+            if (strataCache.get("users" + accountNumber + group)) {
+                deferred.resolve(strataCache.get("account" + accountNumber + group));
+            } else {
+                strata.accounts.users(
+                  accountNumber,
+                  function(response) {
+                    strataCache.put("users" + accountNumber + group, response);
+                    deferred.resolve(response);
+                  },
+                  angular.bind(deferred, errorHandler),
+                  group
+                );
+            }
 
             return deferred.promise;
           },
@@ -190,12 +260,17 @@ angular.module('RedhatAccess.common')
           list: function() {
             var deferred = $q.defer();
 
-            strata.accounts.list(
-              function(response) {
-                deferred.resolve(response);
-              },
-              angular.bind(deferred, errorHandler)
-            );
+            if (strataCache.get("account")) {
+                deferred.resolve(strataCache.get("account"));
+            } else {
+                strata.accounts.list(
+                  function(response) {
+                    strataCache.put("account", response);
+                    deferred.resolve(response);
+                  },
+                  angular.bind(deferred, errorHandler)
+                );
+            }
 
             return deferred.promise;
           }
@@ -219,13 +294,18 @@ angular.module('RedhatAccess.common')
             list: function (id) {
               var deferred = $q.defer();
 
+            if (strataCache.get("attachments" + id)) {
+                deferred.resolve(strataCache.get("attachments" + id));
+            } else {
               strata.cases.attachments.list(
                 id,
                 function (response) {
+                  strataCache.put("attachments" + id, response);
                   deferred.resolve(response);
                 },
                 angular.bind(deferred, errorHandler)
               );
+            }
 
               return deferred.promise;
             },
@@ -266,13 +346,18 @@ angular.module('RedhatAccess.common')
             get: function (id) {
               var deferred = $q.defer();
 
-              strata.cases.comments.get(
-                id,
-                function (response) {
-                  deferred.resolve(response);
-                },
-                angular.bind(deferred, errorHandler)
-              );
+              if (strataCache.get("comments" + id)) {
+                deferred.resolve(strataCache.get("comments" + id));
+              } else {
+                  strata.cases.comments.get(
+                    id,
+                    function (response) {
+                      strataCache.put("comments" + id, response);
+                      deferred.resolve(response);
+                    },
+                    angular.bind(deferred, errorHandler)
+                  );
+              }
 
               return deferred.promise;
             },
@@ -350,13 +435,18 @@ angular.module('RedhatAccess.common')
           get: function (id) {
             var deferred = $q.defer();
 
-            strata.cases.get(
-              id,
-              function (response) {
-                deferred.resolve(response);
-              },
-              angular.bind(deferred, errorHandler)
-            );
+            if (strataCache.get("case" + id)) {
+                deferred.resolve([strataCache.get("case" + id), true]);
+            } else {
+                strata.cases.get(
+                  id,
+                  function (response) {
+                    strataCache.put("case" + id, response);
+                    deferred.resolve([response, false]);
+                  },
+                  angular.bind(deferred, errorHandler)
+                );
+            }
 
             return deferred.promise;
           },
@@ -370,13 +460,18 @@ angular.module('RedhatAccess.common')
               params.count = 50;
             }
 
-            strata.cases.filter(
-              params,
-              function (allCases) {
-                deferred.resolve(allCases);
-              },
-              angular.bind(deferred, errorHandler)
-            );
+            if (strataCache.get("filter" + JSON.stringify(params))) {
+                deferred.resolve(strataCache.get("filter" + JSON.stringify(params)));
+            } else {
+                strata.cases.filter(
+                  params,
+                  function (allCases) {
+                    strataCache.put("filter" + JSON.stringify(params), allCases);
+                    deferred.resolve(allCases);
+                  },
+                  angular.bind(deferred, errorHandler)
+                );
+            }
 
             return deferred.promise;
           },
@@ -416,12 +511,17 @@ angular.module('RedhatAccess.common')
             severity: function () {
               var deferred = $q.defer();
 
+            if (strataCache.get("severities")) {
+                deferred.resolve(strataCache.get("severities"));
+            } else {
               strata.values.cases.severity(
                 function (response) {
+                  strataCache.put("severities", response);
                   deferred.resolve(response);
                 },
                 angular.bind(deferred, errorHandler)
               );
+            }
 
               return deferred.promise;
             },
@@ -429,12 +529,17 @@ angular.module('RedhatAccess.common')
             status: function () {
               var deferred = $q.defer();
 
+            if (strataCache.get("statuses")) {
+                deferred.resolve(strataCache.get("statuses"));
+            } else {
               strata.values.cases.status(
                 function (response) {
+                  strataCache.put("statuses", response);
                   deferred.resolve(response);
                 },
                 angular.bind(deferred, errorHandler)
               );
+            }
 
               return deferred.promise;
             },
@@ -442,12 +547,17 @@ angular.module('RedhatAccess.common')
             types: function () {
               var deferred = $q.defer();
 
+            if (strataCache.get("types")) {
+                deferred.resolve(strataCache.get("types"));
+            } else {
               strata.values.cases.types(
                 function (response) {
+                  strataCache.put("types", response);
                   deferred.resolve(response);
                 },
                 angular.bind(deferred, errorHandler)
               );
+            }
 
               return deferred.promise;
             }

@@ -45,8 +45,14 @@ angular.module('RedhatAccess.cases')
         $scope.recommendationsLoading = true;
 
         strataService.cases.get($stateParams.id).then(
-          function (caseJSON) {
-            CaseService.defineCase(caseJSON);
+          function (resp) {
+            var caseJSON = resp[0];
+            var cacheHit = resp[1];
+            if (!cacheHit) {
+                CaseService.defineCase(caseJSON);
+            } else {
+                CaseService.kase = caseJSON;
+            }
             $rootScope.$broadcast(CASE_EVENTS.received);
             $scope.caseLoading = false;
 
