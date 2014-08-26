@@ -4,8 +4,8 @@
 /*jshint unused:vars */
 
 angular.module('RedhatAccess.common')
-  .factory('strataService', ['$q', 'translate', 'RHAUtils',
-    function ($q, translate, RHAUtils) {
+  .factory('strataService', ['$q', 'translate', 'RHAUtils', '$angularCacheFactory',
+    function ($q, translate, RHAUtils, $angularCacheFactory) {
 
       var errorHandler = function (message, xhr, response, status) {
 

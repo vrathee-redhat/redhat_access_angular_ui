@@ -20,7 +20,8 @@
     "ie-shiv": "https://raw.githubusercontent.com/angular-ui/ui-utils/master/modules/ie-shiv/ie-shiv.js",
     "json2": "*",
     "respond": "~1.4.2",
-    "angular-nca-select2": "~0.0.5-nca"
+    "angular-nca-select2": "~0.0.5-nca",
+    "angular-cache": "~2.3.7"
   },
   "devDependencies": {
     "angular-mocks": "1.2.1",
