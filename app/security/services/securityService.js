@@ -53,19 +53,19 @@ angular.module('RedhatAccess.security')
         this.loginStatus.loggedInUser = userName;
         this.loginStatus.verifying = verifying;
         this.loginStatus.isInternal = isInternal;
-        if (orgAdmin != null) {
+        if (orgAdmin !== null) {
           this.loginStatus.orgAdmin = orgAdmin;
         }
-        if (hasChat != null) {
+        if (hasChat !== null) {
           this.loginStatus.hasChat = hasChat;
         }
-        if (sessionId != null) {
+        if (sessionId !== null) {
           this.loginStatus.sessionId = sessionId;
         }
-        if (canAddAttachments != null) {
+        if (canAddAttachments !== null) {
           this.loginStatus.canAddAttachments = canAddAttachments;
         }
-        if (ssoName != null) {
+        if (ssoName !==null) {
           this.loginStatus.ssoName = ssoName;
         }
       };
@@ -149,59 +149,41 @@ angular.module('RedhatAccess.security')
         this.loggingIn = true;
 
         var defer = $q.defer();
-        var that = this;
         var wasLoggedIn = this.loginStatus.isLoggedIn;
         var currentSid = this.loginStatus.sessionId;
         this.loginStatus.verifying = true;
-        strata.checkLogin(
-          angular.bind(this, function (result, authedUser) {
-            if (result) {
-              var sidChanged = (currentSid !== authedUser.session_id);
-              strataService.accounts.list().then(
-                angular.bind(this, function (accountNumber) {
-                  strataService.accounts.get(accountNumber).then(
-                    angular.bind(this, function (account) {
-                      that.setAccount(account);
-                      that.setLoginStatus(
-                        true,
-                        authedUser.name,
-                        false,
-                        authedUser.is_internal,
-                        authedUser.org_admin,
-                        authedUser.has_chat,
-                        authedUser.session_id,
-                        authedUser.can_add_attachments,
-                        authedUser.login);
-                      //console.log(that.loginStatus);
-                      //console.log(authedUser);
-                      this.loggingIn = false;
-                      //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
-                      if (wasLoggedIn === false) {
-                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                      }
-                      if (sidChanged) {
-                        $rootScope.$broadcast(AUTH_EVENTS.sessionIdChanged);
-                      }
-                      defer.resolve(authedUser.name);
-                    })
-                  );
-                }),
-                angular.bind(this, function (error) {
-                  AlertService.addStrataErrorMessage(error);
-                  this.loggingIn = false;
-                  defer.resolve(authedUser.name);
-                })
-              );
-            } else {
-              this.loggingIn = false;
-              that.clearLoginStatus();
-              defer.reject('');
+        strataService.authentication.checkLogin().then(
+          angular.bind(this, function (authedUser) {
+            var sidChanged = (currentSid !== authedUser.session_id);
+            this.setAccount(authedUser.account);
+            this.setLoginStatus(
+              true,
+              authedUser.name,
+              false,
+              authedUser.is_internal,
+              authedUser.org_admin,
+              authedUser.has_chat,
+              authedUser.session_id,
+              authedUser.can_add_attachments,
+              authedUser.login);
+            this.loggingIn = false;
+            //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
+            if (wasLoggedIn === false) {
+              $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             }
+            if (sidChanged) {
+              $rootScope.$broadcast(AUTH_EVENTS.sessionIdChanged);
+            }
+            defer.resolve(authedUser.name);
+          }),
+          angular.bind(this, function (error) {
+            AlertService.addDangerMessage(error);
+            this.loggingIn = false;
+            defer.reject(error);
           })
         );
         return defer.promise;
       };
-
       this.validateLogin = function (forceLogin) {
         var defer = $q.defer();
         var that = this;
@@ -305,7 +287,7 @@ angular.module('RedhatAccess.security')
                     } else {
                       // alert("Login failed!");
                       $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-                      if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+                      if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                         $scope.$apply(function () {
                           $scope.authError = 'Login Failed!';
                         });
