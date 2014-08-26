@@ -241,7 +241,7 @@ angular.module('RedhatAccess.common')
             var deferred = $q.defer();
 
             if (strataCache.get("users" + accountNumber + group)) {
-                deferred.resolve(strataCache.get("account" + accountNumber + group));
+                deferred.resolve(strataCache.get("users" + accountNumber + group));
             } else {
                 strata.accounts.users(
                   accountNumber,
