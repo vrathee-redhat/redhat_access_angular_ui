@@ -166,7 +166,15 @@ form(name='caseDetails')
               tr.rha-detail-acc-name(ng-hide='compact',ng-if="securityService.loginStatus.isInternal")
                 th.rha-detail-table-header
                   label(for='rha-account-name') {{'Account Name:'|translate}}
-                td#rha-account-name {{CaseService.account.name}}
+                td#rha-account-name {{CaseService.account.name}}        
+         div(ng-if="!securityService.loginStatus.isInternal")
+            label(for='rha-case-notes') {{'Notes:'|translate}} 
+            span.glyphicon.glyphicon-asterisk.form-control-feedback(
+                  ng-show='caseDetails.notes.$dirty')
+            textarea#rha-case-notes(
+              style='width: 100%; height: 100px; max-width: 100%;',
+              ng-model='CaseService.kase.notes',
+              name='notes')
         div.row(style='padding-top: 10px;')
           div.col-xs-12
             div(style='float: right;')
