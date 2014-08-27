@@ -94,9 +94,13 @@ angular.module('RedhatAccess.cases')
         SearchCaseService.clear();
         SearchBoxService.doSearch();
       }
-      $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+      $scope.listAuthEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
         SearchBoxService.doSearch();
         AlertService.clearAlerts();
+      });
+
+      $scope.$on('$destroy', function () {
+        $scope.listAuthEventDeregister();
       });
     }
   ]);
