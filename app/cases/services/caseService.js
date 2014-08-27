@@ -69,6 +69,7 @@ angular.module('RedhatAccess.cases')
 
       this.setCase = function (jsonCase) {
         this.kase = jsonCase;
+        this.bugzillaList = jsonCase.bugzillas;
         this.caseDataReady = true;
       };
 

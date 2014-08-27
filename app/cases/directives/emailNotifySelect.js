@@ -1,3 +1,4 @@
+/*global angular*/
 'use strict';
 
 angular.module('RedhatAccess.cases')
@@ -5,6 +6,11 @@ angular.module('RedhatAccess.cases')
   return {
     templateUrl: 'cases/views/emailNotifySelect.html',
     restrict: 'A',
-    controller: 'EmailNotifySelect'
+    controller: 'EmailNotifySelect',
+    link: function postLink(scope, element, attrs) {
+        scope.$on('$destroy', function () {
+            element.remove();
+        });
+    }
   };
 });

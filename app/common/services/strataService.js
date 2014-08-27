@@ -63,28 +63,34 @@ angular.module('RedhatAccess.common')
           //authentication service
           checkLogin: function () {
             var deferred = $q.defer();
-            strata.checkLogin(
-              function (result, authedUser) {
-                if (result) {
-                  service.accounts.list().then(
-                    function (accountNumber) {
-                      service.accounts.get(accountNumber).then(
-                        function (account) {
-                          authedUser.account = account;
-                          deferred.resolve(authedUser);
+
+            if (strataCache.get("auth")) {
+                deferred.resolve(strataCache.get("auth"));
+            } else {
+                strata.checkLogin(
+                    function (result, authedUser) {
+                    if (result) {
+                        service.accounts.list().then(
+                            function (accountNumber) {
+                            service.accounts.get(accountNumber).then(
+                                function (account) {
+                                authedUser.account = account;
+                                strataCache.put("auth", authedUser);
+                                deferred.resolve(authedUser);
+                            }
+                            );
+                        },
+                        function (error) {
+                            //TODO revisit this behavior
+                            authedUser.account = undefined;
+                            deferred.resolve(authedUser);
                         }
-                      );
-                    },
-                    function (error) {
-                      //TODO revisit this behavior
-                      authedUser.account = undefined;
-                      deferred.resolve(authedUser);
+                        );
+                    } else {
+                        deferred.reject('Unauthorized.');
                     }
-                  );
-                } else {
-                  deferred.reject('Unauthorized.');
-                }
-              });
+                });
+            }
             return deferred.promise;
           },
           login: function (username, password) {
@@ -333,18 +339,19 @@ angular.module('RedhatAccess.common')
             },
             //cases.attachments.post
             post: function (attachment, caseNumber) {
-              var deferred = $q.defer();
+                var deferred = $q.defer();
 
-              strata.cases.attachments.post(
-                attachment,
-                caseNumber,
-                function (response, code, xhr) {
-                  deferred.resolve(xhr.getResponseHeader('Location'));
-                },
-                angular.bind(deferred, errorHandler)
-              );
+                strata.cases.attachments.post(
+                    attachment,
+                    caseNumber,
+                    function (response, code, xhr) {
+                        strataCache.remove('attachments' + caseNumber);
+                        deferred.resolve(xhr.getResponseHeader('Location'));
+                    },
+                    angular.bind(deferred, errorHandler)
+                );
 
-              return deferred.promise;
+                return deferred.promise;
             },
             //cases.attachments.remove
             remove: function (id, caseNumber) {
@@ -355,6 +362,7 @@ angular.module('RedhatAccess.common')
                 id,
                 caseNumber,
                 function (response) {
+                  strataCache.remove('attachments' + caseNumber);
                   deferred.resolve(response);
                 },
                 angular.bind(deferred, errorHandler)
@@ -393,6 +401,7 @@ angular.module('RedhatAccess.common')
                   'draft': isDraft === true ? 'true' : 'false'
                 },
                 function (response) {
+                  strataCache.remove('comments' + case_number);
                   deferred.resolve(response);
                 },
                 angular.bind(deferred, errorHandler)
@@ -413,6 +422,7 @@ angular.module('RedhatAccess.common')
                 },
                 comment_id,
                 function (response) {
+                  strataCache.remove('comments' + case_number);
                   deferred.resolve(response);
                 },
                 angular.bind(deferred, errorHandler)
@@ -502,6 +512,12 @@ angular.module('RedhatAccess.common')
             strata.cases.post(
               caseJSON,
               function (caseNumber) {
+                //Remove any case filters that are cached
+                for (var k in strataCache.keySet()){
+                    if(~k.indexOf('filter')){
+                      strataCache.remove(k);
+                  }
+                }
                 deferred.resolve(caseNumber);
               },
               angular.bind(deferred, errorHandler)
@@ -517,6 +533,7 @@ angular.module('RedhatAccess.common')
               case_number,
               caseJSON,
               function (response) {
+                strataCache.remove('case' + case_number);
                 deferred.resolve(response);
               },
               angular.bind(deferred, errorHandler)

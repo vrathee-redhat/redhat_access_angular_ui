@@ -1,3 +1,4 @@
+/*global angular*/
 'use strict';
 
 angular.module('RedhatAccess.cases')
@@ -59,8 +60,12 @@ angular.module('RedhatAccess.cases')
       if (securityService.loginStatus.isLoggedIn) {
         CaseService.populateUsers();
       }
-      $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+      $scope.authEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
         CaseService.populateUsers();
+      });
+
+      $scope.$on('$destroy', function () {
+          $scope.authEventDeregister();
       });
     }
   ]);
