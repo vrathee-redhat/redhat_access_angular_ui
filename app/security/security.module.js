@@ -1,5 +1,4 @@
 'use strict';
-/*global strata,$*/
 /*jshint unused:vars */
 /*jshint camelcase: false */
 angular.module('RedhatAccess.security', ['ui.bootstrap', 'RedhatAccess.template', 'ui.router', 'RedhatAccess.common', 'RedhatAccess.header'])

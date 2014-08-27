@@ -7,10 +7,10 @@ angular.module('RedhatAccess.cases')
 
       var newCase = false;
       var editCase = false;
-      
-      if($location.path().indexOf('new') > -1 ){
+
+      if ($location.path().indexOf('new') > -1) {
         newCase = true;
-      } else{
+      } else {
         editCase = true;
       }
       if (!$scope.rhaDisabled && newCase && NEW_CASE_CONFIG.showServerSideAttachments || !$scope.rhaDisabled && editCase && EDIT_CASE_CONFIG.showServerSideAttachments) {
@@ -20,8 +20,7 @@ angular.module('RedhatAccess.cases')
             $scope.attachmentTree = tree;
             AttachmentsService.updateBackEndAttachments(tree);
           },
-          function () {
-          });
+          function () {});
       }
     }
   ]);

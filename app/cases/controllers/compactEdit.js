@@ -35,9 +35,9 @@ angular.module('RedhatAccess.cases')
             var caseJSON = resp[0];
             var cacheHit = resp[1];
             if (!cacheHit) {
-                CaseService.defineCase(caseJSON);
+              CaseService.defineCase(caseJSON);
             } else {
-                CaseService.kase = caseJSON;
+              CaseService.kase = caseJSON;
             }
             $rootScope.$broadcast(CASE_EVENTS.received);
             $scope.caseLoading = false;

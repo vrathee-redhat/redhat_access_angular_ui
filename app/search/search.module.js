@@ -1,6 +1,5 @@
 /*jshint camelcase: false */
 'use strict';
-/*global strata */
 /*jshint unused:vars */
 
 /**

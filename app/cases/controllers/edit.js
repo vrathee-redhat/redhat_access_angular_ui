@@ -49,9 +49,9 @@ angular.module('RedhatAccess.cases')
             var caseJSON = resp[0];
             var cacheHit = resp[1];
             if (!cacheHit) {
-                CaseService.defineCase(caseJSON);
+              CaseService.defineCase(caseJSON);
             } else {
-                CaseService.kase = caseJSON;
+              CaseService.setCase(caseJSON);
             }
             $rootScope.$broadcast(CASE_EVENTS.received);
             $scope.caseLoading = false;
@@ -98,6 +98,7 @@ angular.module('RedhatAccess.cases')
             if (EDIT_CASE_CONFIG.showEmailNotifications) {
               CaseService.defineNotifiedUsers();
             }
+
           }
         );
 

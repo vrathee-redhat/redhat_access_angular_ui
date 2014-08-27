@@ -2,6 +2,7 @@
 
 angular.module('RedhatAccess.mock', [])
   .service('MockStrataDataService', [
+
     function () {
       this.mockGroups = [{
         "number": "80437",
@@ -41,97 +42,101 @@ angular.module('RedhatAccess.mock', [])
         "id": 2345
       }];
 
-      this.mockCases = [[{
-        "created_by": "Sunil Keshari",
-        "created_date": 1405416971000,
-        "last_modified_by": "Sunil Keshari",
-        "last_modified_date": 1405416972000,
-        "id": "500K0000006FeAaIAK",
-        "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01364190",
-        "summary": "test case notified users",
-        "description": "test",
-        "status": "Waiting on Red Hat",
-        "product": {
-          "name": "Red Hat Enterprise Linux",
-          "value" : "RHEL"
-        },
-        "version": "7.0",
-        "account_number": "940527",
-        "escalated": false,
-        "contact_name": "Sunil Keshari",
-        "contact_sso_username": "skesharigit",
-        "origin": "Web",
-        "owner": "New Case Queue",
-        "severity": "4 (Low)",
-        "comments": {},
-        "notified_users": {},
-        "entitlement": {
-          "sla": "UNKNOWN"
-        },
-        "fts": false,
-        "bugzillas": {},
-        "sbr_groups": {},
-        "case_number": "01364190",
-        "closed": false
-      }, false], {
-        "created_by": "Sunil Keshari",
-        "created_date": 1405340814000,
-        "last_modified_by": "Sunil Keshari",
-        "last_modified_date": 1405340815000,
-        "id": "500K0000006FMC3IAO",
-        "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01359975",
-        "summary": "another test case",
-        "description": "test test",
-        "status": "Waiting on Red Hat",
-        "product": "JBoss Web Framework Kit",
-        "version": "1.1.0",
-        "account_number": "940527",
-        "escalated": false,
-        "contact_name": "Sunil Keshari",
-        "contact_sso_username": "skesharigit",
-        "origin": "API",
-        "owner": "New Case Queue",
-        "severity": "4 (Low)",
-        "comments": {},
-        "notified_users": {},
-        "entitlement": {
-          "sla": "UNKNOWN"
-        },
-        "fts": false,
-        "bugzillas": {},
-        "sbr_groups": {},
-        "case_number": "01359975",
-        "closed": false
-      }, {
-        "created_by": "Sunil Keshari",
-        "created_date": 1405340608000,
-        "last_modified_by": "Sunil Keshari",
-        "last_modified_date": 1405340613000,
-        "id": "500K0000006FM7dIAG",
-        "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01359974",
-        "summary": "test case",
-        "description": "test case",
-        "status": "Waiting on Red Hat",
-        "product": "Red Hat Enterprise Linux",
-        "version": "6.0",
-        "account_number": "940527",
-        "escalated": false,
-        "contact_name": "Sunil Keshari",
-        "contact_sso_username": "skesharigit",
-        "origin": "API",
-        "owner": "New Case Queue",
-        "severity": "4 (Low)",
-        "comments": {},
-        "notified_users": {},
-        "entitlement": {
-          "sla": "UNKNOWN"
-        },
-        "fts": false,
-        "bugzillas": {},
-        "sbr_groups": {},
-        "case_number": "01359974",
-        "closed": false
-      }];
+      this.mockCases = [
+        [{
+            "created_by": "Sunil Keshari",
+            "created_date": 1405416971000,
+            "last_modified_by": "Sunil Keshari",
+            "last_modified_date": 1405416972000,
+            "id": "500K0000006FeAaIAK",
+            "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01364190",
+            "summary": "test case notified users",
+            "description": "test",
+            "status": "Waiting on Red Hat",
+            "product": {
+              "name": "Red Hat Enterprise Linux",
+              "value": "RHEL"
+            },
+            "version": "7.0",
+            "account_number": "940527",
+            "escalated": false,
+            "contact_name": "Sunil Keshari",
+            "contact_sso_username": "skesharigit",
+            "origin": "Web",
+            "owner": "New Case Queue",
+            "severity": "4 (Low)",
+            "comments": {},
+            "notified_users": {},
+            "entitlement": {
+              "sla": "UNKNOWN"
+            },
+            "fts": false,
+            "bugzillas": {},
+            "sbr_groups": {},
+            "case_number": "01364190",
+            "closed": false
+          },
+          false
+        ], {
+          "created_by": "Sunil Keshari",
+          "created_date": 1405340814000,
+          "last_modified_by": "Sunil Keshari",
+          "last_modified_date": 1405340815000,
+          "id": "500K0000006FMC3IAO",
+          "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01359975",
+          "summary": "another test case",
+          "description": "test test",
+          "status": "Waiting on Red Hat",
+          "product": "JBoss Web Framework Kit",
+          "version": "1.1.0",
+          "account_number": "940527",
+          "escalated": false,
+          "contact_name": "Sunil Keshari",
+          "contact_sso_username": "skesharigit",
+          "origin": "API",
+          "owner": "New Case Queue",
+          "severity": "4 (Low)",
+          "comments": {},
+          "notified_users": {},
+          "entitlement": {
+            "sla": "UNKNOWN"
+          },
+          "fts": false,
+          "bugzillas": {},
+          "sbr_groups": {},
+          "case_number": "01359975",
+          "closed": false
+        }, {
+          "created_by": "Sunil Keshari",
+          "created_date": 1405340608000,
+          "last_modified_by": "Sunil Keshari",
+          "last_modified_date": 1405340613000,
+          "id": "500K0000006FM7dIAG",
+          "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01359974",
+          "summary": "test case",
+          "description": "test case",
+          "status": "Waiting on Red Hat",
+          "product": "Red Hat Enterprise Linux",
+          "version": "6.0",
+          "account_number": "940527",
+          "escalated": false,
+          "contact_name": "Sunil Keshari",
+          "contact_sso_username": "skesharigit",
+          "origin": "API",
+          "owner": "New Case Queue",
+          "severity": "4 (Low)",
+          "comments": {},
+          "notified_users": {},
+          "entitlement": {
+            "sla": "UNKNOWN"
+          },
+          "fts": false,
+          "bugzillas": {},
+          "sbr_groups": {},
+          "case_number": "01359974",
+          "closed": false
+        }
+      ];
 
       this.mockEntitlements = {
         "standard": 'STANDARD',
@@ -205,7 +210,7 @@ angular.module('RedhatAccess.mock', [])
         "solution_title": 'test solution title 1 ',
         "solution_abstract": 'test solution abstract 1',
         "uri": 'xyz'
-      },{
+      }, {
         "solution_title": 'test solution title 1 ',
         "solution_abstract": 'test solution abstract 1',
         "uri": 'abc'
@@ -233,46 +238,46 @@ angular.module('RedhatAccess.mock', [])
       }];
 
       this.mockProducts = [{
-          "name": "Red Hat Enterprise Linux",
-          "value": "RHEL"
+        "name": "Red Hat Enterprise Linux",
+        "value": "RHEL"
       }];
 
       this.mockVersions = [{
-          "name": "6.0",
-          "value": "6.0"
+        "name": "6.0",
+        "value": "6.0"
       }];
 
       this.mockSeverities = [{
-          "name": "HIGH",
-          "value": "1"
+        "name": "HIGH",
+        "value": "1"
       }, {
-          "name": "Medium",
-          "value": "2"
+        "name": "Medium",
+        "value": "2"
       }, {
-          "name": "Low",
-          "value": "3"
+        "name": "Low",
+        "value": "3"
       }];
 
       this.mockStatuses = [{
-          "name": "Closed",
-          "value": "closed"
+        "name": "Closed",
+        "value": "closed"
       }, {
-          "name": "Open",
-          "value": "open"
+        "name": "Open",
+        "value": "open"
       }, {
-          "name": "Waiting on Red Hat",
-          "value": "WORH"
+        "name": "Waiting on Red Hat",
+        "value": "WORH"
       }];
 
       this.mockTypes = [{
-          "name": "Bug",
-          "value": "bug"
+        "name": "Bug",
+        "value": "bug"
       }, {
-          "name": "Defect",
-          "value": "defect"
+        "name": "Defect",
+        "value": "defect"
       }, {
-          "name": "Request",
-          "value": "request"
+        "name": "Request",
+        "value": "request"
       }];
 
       this.mockNotifiedUser = {
@@ -329,19 +334,19 @@ angular.module('RedhatAccess.mock', [])
 
       this.mockModalInstance = {
         result: {
-            then: function(confirmCallback, cancelCallback) {
-                //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
-                this.confirmCallBack = confirmCallback;
-                this.cancelCallback = cancelCallback;
-            }
+          then: function (confirmCallback, cancelCallback) {
+            //Store the callbacks for later when the user clicks on the OK or Cancel button of the dialog
+            this.confirmCallBack = confirmCallback;
+            this.cancelCallback = cancelCallback;
+          }
         },
-        close: function() {
-            //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
-            //this.result.confirmCallBack();
+        close: function () {
+          //The user clicked OK on the modal dialog, call the stored confirm callback with the selected item
+          //this.result.confirmCallBack();
         },
-        dismiss: function() {
-            //The user clicked cancel on the modal dialog, call the stored cancel callback
-            //this.result.cancelCallback();
+        dismiss: function () {
+          //The user clicked cancel on the modal dialog, call the stored cancel callback
+          //this.result.cancelCallback();
         }
       };
 
@@ -353,169 +358,159 @@ angular.module('RedhatAccess.mock', [])
 
     }
   ])
-.service('strataService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
-    this.rejectCall = false;
-    var that = this;
+  .service('strataService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
+      this.rejectCall = false;
+      var that = this;
 
-    return {
-      groups: {
-        list: function (ssoUserName) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject();
-          } else {
-            deferred.resolve(MockStrataDataService.mockGroups);
-          }
-          return deferred.promise;
-        },
-        remove: function (groupNumber) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject("strata error");
-          } else {
-            deferred.resolve();
-          }
-          return deferred.promise;
-        },
-        create: function (groupName) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject("strata error");
-          } else {
-            deferred.resolve(MockStrataDataService.mockGroups[0].number);
-          }
-          return deferred.promise;
-        }
-      },
-      accounts: {
-        users: function (accountNumber) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject();
-          } else {
-            deferred.resolve(MockStrataDataService.mockUsers);
-          }
-          return deferred.promise;
-        },
-        list: function () {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject("strata error");
-          } else {
-            deferred.resolve(MockStrataDataService.mockAccount[0].account_number);
-          }
-          return deferred.promise;
-        },
-        get: function (accountNumber) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject();
-          } else {
-            deferred.resolve(MockStrataDataService.mockAccount[0]);
-          }
-          return deferred.promise;
-        }
-      },
-      cases: {
-        comments: {
-          get: function (id) {
+      return {
+        groups: {
+          list: function (ssoUserName) {
             var deferred = $q.defer();
             if (that.rejectCall) {
               deferred.reject();
             } else {
-              deferred.resolve(MockStrataDataService.mockComments);
+              deferred.resolve(MockStrataDataService.mockGroups);
             }
             return deferred.promise;
           },
-          post: function (caseNumber,commentText) {
+          remove: function (groupNumber) {
             var deferred = $q.defer();
             if (that.rejectCall) {
-              deferred.reject();
+              deferred.reject("strata error");
             } else {
-              deferred.resolve(MockStrataDataService.mockComments[0].id);
+              deferred.resolve();
             }
             return deferred.promise;
           },
-          put: function (caseNumber,commentText,id) {
+          create: function (groupName) {
             var deferred = $q.defer();
             if (that.rejectCall) {
-              deferred.reject();
+              deferred.reject("strata error");
             } else {
-              deferred.resolve(MockStrataDataService.mockComments[0].id);
+              deferred.resolve(MockStrataDataService.mockGroups[0].number);
             }
             return deferred.promise;
           }
         },
-        get: function (caseNumber) {
-             var deferred = $q.defer();
+        accounts: {
+          users: function (accountNumber) {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve(MockStrataDataService.mockUsers);
+            }
+            return deferred.promise;
+          },
+          list: function () {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject("strata error");
+            } else {
+              deferred.resolve(MockStrataDataService.mockAccount[0].account_number);
+            }
+            return deferred.promise;
+          },
+          get: function (accountNumber) {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve(MockStrataDataService.mockAccount[0]);
+            }
+            return deferred.promise;
+          }
+        },
+        cases: {
+          comments: {
+            get: function (id) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve(MockStrataDataService.mockComments);
+              }
+              return deferred.promise;
+            },
+            post: function (caseNumber, commentText) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve(MockStrataDataService.mockComments[0].id);
+              }
+              return deferred.promise;
+            },
+            put: function (caseNumber, commentText, id) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve(MockStrataDataService.mockComments[0].id);
+              }
+              return deferred.promise;
+            }
+          },
+          get: function (caseNumber) {
+            var deferred = $q.defer();
             if (that.rejectCall) {
               deferred.reject("strata error");
             } else {
               deferred.resolve(MockStrataDataService.mockCases[0]);
             }
-           return deferred.promise;
-        },
-        post: function (caseJSON) {
-             var deferred = $q.defer();
+            return deferred.promise;
+          },
+          post: function (caseJSON) {
+            var deferred = $q.defer();
             if (that.rejectCall) {
               deferred.reject();
             } else {
               deferred.resolve(12345);
             }
-           return deferred.promise;
-        },
-        filter: function (params) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject();
-          } else {
-            deferred.resolve(MockStrataDataService.mockCases);
-          }
-          return deferred.promise;
-        },
-        attachments: {
-          post: function (id,caseNumber) {
-             var deferred = $q.defer();
+            return deferred.promise;
+          },
+          filter: function (params) {
+            var deferred = $q.defer();
             if (that.rejectCall) {
               deferred.reject();
             } else {
-              deferred.resolve(MockStrataDataService.uri);
+              deferred.resolve(MockStrataDataService.mockCases);
             }
-           return deferred.promise;
-          },
-          remove: function (id,caseNumber) {
-             var deferred = $q.defer();
-             if (that.rejectCall) {
-               deferred.reject();
-             } else {
-               deferred.resolve();
-             }
             return deferred.promise;
           },
-          list: function (caseNumber) {
-             var deferred = $q.defer();
-             if (that.rejectCall) {
-               deferred.reject("strata error");
-             } else {
-               deferred.resolve(MockStrataDataService.mockAttachments);
-             }
-            return deferred.promise;
-          }
-        },
-        put : function(id,caseObj) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject();
-          } else {
-            deferred.resolve();
-          }
-          return deferred.promise;
-        },
-        notified_users: {
-          remove: function (caseNumber, user) {
+          attachments: {
+            post: function (id, caseNumber) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve(MockStrataDataService.uri);
+              }
+              return deferred.promise;
+            },
+            remove: function (id, caseNumber) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve();
+              }
+              return deferred.promise;
+            },
+            list: function (caseNumber) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject("strata error");
+              } else {
+                deferred.resolve(MockStrataDataService.mockAttachments);
+              }
+              return deferred.promise;
+            }
+          },
+          put: function (id, caseObj) {
             var deferred = $q.defer();
             if (that.rejectCall) {
               deferred.reject();
@@ -524,391 +519,410 @@ angular.module('RedhatAccess.mock', [])
             }
             return deferred.promise;
           },
-          add: function (caseNumber, user) {
+          notified_users: {
+            remove: function (caseNumber, user) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve();
+              }
+              return deferred.promise;
+            },
+            add: function (caseNumber, user) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve();
+              }
+              return deferred.promise;
+            }
+          },
+          csv: function () {
             var deferred = $q.defer();
             if (that.rejectCall) {
-              deferred.reject();
+              deferred.reject("strata error");
             } else {
-              deferred.resolve();
+              deferred.resolve(MockStrataDataService.mockCases);
             }
             return deferred.promise;
           }
         },
-        csv : function() {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject("strata error");
-          } else {
-            deferred.resolve(MockStrataDataService.mockCases);
+        entitlements: {
+          get: function (showAll, ssoUserName) {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve(MockStrataDataService.mockEntitlements);
+            }
+            return deferred.promise;
           }
-          return deferred.promise;
-        }
-      },
-      entitlements: {
-        get: function (showAll, ssoUserName) {
+        },
+        solutions: {
+          get: function (showAll, ssoUserName) {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject();
+            } else {
+              deferred.resolve(MockStrataDataService.mockSolution);
+            }
+            return deferred.promise;
+          }
+        },
+        problems: function (params, max) {
           var deferred = $q.defer();
           if (that.rejectCall) {
             deferred.reject();
           } else {
-            deferred.resolve(MockStrataDataService.mockEntitlements);
-          }
-          return deferred.promise;
-        }
-      },
-      solutions: {
-        get: function (showAll, ssoUserName) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject();
-          } else {
-            deferred.resolve(MockStrataDataService.mockSolution);
-          }
-          return deferred.promise;
-        }
-      },
-      problems: function (params,max) {
-        var deferred = $q.defer();
-        if (that.rejectCall) {
-          deferred.reject();
-        } else {
-          deferred.resolve(MockStrataDataService.mockSolutions);
-        }
-        return deferred.promise;
-      },
-      products: {
-        list: function() {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject();
-          } else {
-            deferred.resolve(MockStrataDataService.mockProducts);
+            deferred.resolve(MockStrataDataService.mockSolutions);
           }
           return deferred.promise;
         },
-        versions: function(productCode) {
-          var deferred = $q.defer();
-          if (that.rejectCall) {
-            deferred.reject("strata error");
-          } else {
-            deferred.resolve(MockStrataDataService.mockVersions);
-          }
-          return deferred.promise;
-        }
-      },
-      values: {
-        cases: {
-          severity: function() {
+        products: {
+          list: function () {
             var deferred = $q.defer();
             if (that.rejectCall) {
               deferred.reject();
             } else {
-              deferred.resolve(MockStrataDataService.mockSeverities);
+              deferred.resolve(MockStrataDataService.mockProducts);
             }
             return deferred.promise;
           },
-          types: function() {
+          versions: function (productCode) {
             var deferred = $q.defer();
             if (that.rejectCall) {
-              deferred.reject();
+              deferred.reject("strata error");
             } else {
-              deferred.resolve(MockStrataDataService.mockTypes);
-            }
-            return deferred.promise;
-          },
-          status: function() {
-            var deferred = $q.defer();
-            if (that.rejectCall) {
-              deferred.reject();
-            } else {
-              deferred.resolve(MockStrataDataService.mockStatuses);
+              deferred.resolve(MockStrataDataService.mockVersions);
             }
             return deferred.promise;
           }
+        },
+        values: {
+          cases: {
+            severity: function () {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve(MockStrataDataService.mockSeverities);
+              }
+              return deferred.promise;
+            },
+            types: function () {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve(MockStrataDataService.mockTypes);
+              }
+              return deferred.promise;
+            },
+            status: function () {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject();
+              } else {
+                deferred.resolve(MockStrataDataService.mockStatuses);
+              }
+              return deferred.promise;
+            }
+          }
+        },
+        rejectCalls: function () {
+          that.rejectCall = true;
         }
-      },
-      rejectCalls: function () {
-        that.rejectCall = true;
-      }
-    };
-  }
-])
-.service('MockCaseService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
+      };
+    }
+  ])
+  .service('MockCaseService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
 
-    this.kase = {};
-    this.versions = [];
-    this.products = [];
-
-    this.severities = [];
-    this.groups = [];
-    this.users = [];
-    this.comments = [];
-
-    this.originalNotifiedUsers = [];
-    this.updatedNotifiedUsers = [];
-
-    this.account = {};
-
-    this.draftComment = '';
-    this.commentText = '';
-    this.status = '';
-    this.severity = '';
-    this.type = '';
-    this.group = '';
-    this.owner = '';
-    this.product = '';
-    this.bugzillaList = {};
-
-    this.refreshComments = function() {};
-    this.clearCase = function() {
+      this.caseDataReady = false;
       this.kase = {};
-    };
-    this.validateNewCasePage1 = function () {};
+      this.versions = [];
+      this.products = [];
 
-    this.populateComments = function(caseNumber) {
+      this.severities = [];
+      this.groups = [];
+      this.users = [];
+      this.comments = [];
+
+      this.originalNotifiedUsers = [];
+      this.updatedNotifiedUsers = [];
+
+      this.account = {};
+
+      this.draftComment = '';
+      this.commentText = '';
+      this.status = '';
+      this.severity = '';
+      this.type = '';
+      this.group = '';
+      this.owner = '';
+      this.product = '';
+      this.bugzillaList = {};
+
+      this.refreshComments = function () {};
+      this.clearCase = function () {
+        this.kase = {};
+        this.caseDataReady = false;
+      };
+      this.validateNewCasePage1 = function () {};
+
+      this.populateComments = function (caseNumber) {
         var deferred = $q.defer();
         deferred.resolve(MockStrataDataService.mockComments);
         return deferred.promise;
-    };
+      };
 
-    this.defineCase = function(rawCase) {
-      this.kase = rawCase;
-    };
+      this.defineCase = function (rawCase) {
+        this.kase = rawCase;
+        this.caseDataReady = false;
+      };
+      this.setCase = function (jsonCase) {
+        this.
+      kase = jsonCase;
+      this.caseDataReady = true;
 
-    this.populateUsers = function() {
-      this.users = MockStrataDataService.mockUsers;
-    };
+      };
 
-    this.defineAccount = function(account) {
-      this.account = account;
-    };
+      this.populateUsers = function () {
+        this.users = MockStrataDataService.mockUsers;
+      };
 
-    this.defineNotifiedUsers = function() {
-      this.updatedNotifiedUsers.push(MockStrataDataService.mockUsers.sso_username);
-    };
+      this.defineAccount = function (account) {
+        this.account = account;
+      };
 
-    this.populateGroups = function(ssoUsername) {
-      this.groupsLoading = true;
-      this.groups = MockStrataDataService.mockGroups;
-    };
+      this.defineNotifiedUsers = function () {
+        this.updatedNotifiedUsers.push(MockStrataDataService.mockUsers.sso_username);
+      };
 
-    this.populateEntitlements = function(ssoUserName) {
-      this.entitlements = MockStrataDataService.mockEntitlements;
-    };
+      this.populateGroups = function (ssoUsername) {
+        this.groupsLoading = true;
+        this.groups = MockStrataDataService.mockGroups;
+      };
 
-  }
-])
-.service('MockRecommendationsService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
-    this.recommendations = [];
-    this.pinnedRecommendations = [];
-    this.handPickedRecommendations = [];
-    this.populateCallback = function() {};
+      this.populateEntitlements = function (ssoUserName) {
+        this.entitlements = MockStrataDataService.mockEntitlements;
+      };
 
-    var currentData = {};
-    this.loadingRecommendations = false;
-    this.clear = function() {
+    }
+  ])
+  .service('MockRecommendationsService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
       this.recommendations = [];
-    };
-    this.populateRecommendations = function (max) {
+      this.pinnedRecommendations = [];
+      this.handPickedRecommendations = [];
+      this.populateCallback = function () {};
+
+      var currentData = {};
+      this.loadingRecommendations = false;
+      this.clear = function () {
+        this.recommendations = [];
+      };
+      this.populateRecommendations = function (max) {
         this.recommendations = MockStrataDataService.mockSolutions;
         var deferred = $q.defer();
         deferred.resolve(MockStrataDataService.mockSolutions);
         return deferred.promise;
-    };
-    this.populatePinnedRecommendations = function() {
+      };
+      this.populatePinnedRecommendations = function () {
         this.pinnedRecommendations.push(MockStrataDataService.mockSolutions[0]);
         var deferred = $q.defer();
         deferred.resolve(MockStrataDataService.mockSolutions);
         return deferred.promise;
-    };
-    this.setPopulateCallback = function(callback) {
-      this.populateCallback = callback;
-    };
-  }
-])
-.service('MockSearchResultsService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
-    this.searchInProgress = {
-          value: false
-    };
-    this.results = [];
-    this.clear = function() {
-      this.results.length = 0;
-    };
-    this.add = function(result) {
-      this.results.push(result);
-    };
-  }
-])
-.service('MockAttachmentsService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
-    this.originalAttachments = [];
-    this.updatedAttachments = [];
-    this.backendAttachments = [];
-    this.removeUpdatedAttachment = function ($index) {
+      };
+      this.setPopulateCallback = function (callback) {
+        this.populateCallback = callback;
+      };
+    }
+  ])
+  .service('MockSearchResultsService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
+      this.searchInProgress = {
+        value: false
+      };
+      this.results = [];
+      this.clear = function () {
+        this.results.length = 0;
+      };
+      this.add = function (result) {
+        this.results.push(result);
+      };
+    }
+  ])
+  .service('MockAttachmentsService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
+      this.originalAttachments = [];
+      this.updatedAttachments = [];
+      this.backendAttachments = [];
+      this.removeUpdatedAttachment = function ($index) {
         this.updatedAttachments.splice($index, 1);
-    };
-    this.defineOriginalAttachments = function (attachments) {
+      };
+      this.defineOriginalAttachments = function (attachments) {
         if (!angular.isArray(attachments)) {
           this.originalAttachments = [];
         } else {
           this.originalAttachments = attachments;
         }
-    };
-    this.addNewAttachment = function (attachment) {
+      };
+      this.addNewAttachment = function (attachment) {
         this.updatedAttachments.push(attachment);
-    };
-    this.updateAttachments = function (caseId) {
+      };
+      this.updateAttachments = function (caseId) {
         this.updatedAttachments.push(MockStrataDataService.mockAttachments[0]);
         var deferred = $q.defer();
         deferred.resolve();
         return deferred.promise;
         mockAttachments
-    };
-    this.clear = function () {
+      };
+      this.clear = function () {
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
-    };
-    this.hasBackEndSelections = function () {
+      };
+      this.hasBackEndSelections = function () {
         return true;
-    };
-    this.updateBackEndAttachments = function (selected) {
+      };
+      this.updateBackEndAttachments = function (selected) {
         this.backendAttachments = selected;
-    };
-  }
-])
-.service('MockGroupService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
-    this.reloadTable = function() {};
-    this.groupsOnScreen = [];
-  }
-])
-.service('MockAlertService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
-    this.alerts = [];
-    this.clearAlerts = function() {
+      };
+    }
+  ])
+  .service('MockGroupService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
+      this.reloadTable = function () {};
+      this.groupsOnScreen = [];
+    }
+  ])
+  .service('MockAlertService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
+      this.alerts = [];
+      this.clearAlerts = function () {
         this.alerts = [];
-    };
-    this.addSuccessMessage = function(message) {
+      };
+      this.addSuccessMessage = function (message) {
         return this.addMessage(message, 'success');
-    };
-    this.addWarningMessage = function(message) {
+      };
+      this.addWarningMessage = function (message) {
         return this.addMessage(message, 'warning');
-    };
-    this.addStrataErrorMessage = function(error) {
+      };
+      this.addStrataErrorMessage = function (error) {
         return this.addMessage(error, 'danger');
-    };
-    this.addMessage = function(message, type) {
+      };
+      this.addMessage = function (message, type) {
         var alert = {
           message: message,
           type: type === null ? 'warning' : type
         };
         this.addAlert(alert);
         return alert;
-    };
-    this.addAlert = function(alert) {
+      };
+      this.addAlert = function (alert) {
         this.alerts.push(alert);
-    };
-    this.removeAlert = function(alert) {
+      };
+      this.removeAlert = function (alert) {
         this.alerts.splice(this.alerts.indexOf(alert), 1);
-    };
-  }
-])
-.service('MockSearchBoxService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
-    this.doSearch = function() {};
-    this.searchTerm = function() {};
-    this.onKeyPress = function() {};
-  }
-])
-.service('MockSearchCaseService', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService,$q) {
-    this.cases = MockStrataDataService.mockCases;
-    this.searching = false;
-    this.prefilter;
-    this.postfilter;
-    this.start = 0;
-    this.count = 100;
-    this.total = 0;
-    this.allCasesDownloaded = false;
-    this.doFilter = function () {
-      var deferred = $q.defer();
-      deferred.resolve();
-      return deferred.promise;
-    };
-    this.clearPagination = function() {
+      };
+    }
+  ])
+  .service('MockSearchBoxService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
+      this.doSearch = function () {};
+      this.searchTerm = function () {};
+      this.onKeyPress = function () {};
+    }
+  ])
+  .service('MockSearchCaseService', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
+      this.cases = MockStrataDataService.mockCases;
+      this.searching = false;
+      this.prefilter;
+      this.postfilter;
+      this.start = 0;
+      this.count = 100;
+      this.total = 0;
+      this.allCasesDownloaded = false;
+      this.doFilter = function () {
+        var deferred = $q.defer();
+        deferred.resolve();
+        return deferred.promise;
+      };
+      this.clearPagination = function () {
         this.start = 0;
         this.total = 0;
         this.allCasesDownloaded = false;
         this.cases = [];
-    };
-    this.clear = function () {
+      };
+      this.clear = function () {
         this.cases = [];
         this.oldParams = {};
         this.start = 0;
         this.total = 0;
         this.allCasesDownloaded = false;
-    };
-  }
-])
-.service('MockTreeViewSelectorData', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService, $q) {
+      };
+    }
+  ])
+  .service('MockTreeViewSelectorData', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
 
-    this.getTree = function (dataUrl, sessionId) {
-      var defer = $q.defer();
-      var tree = MockStrataDataService.mockAttachments;
-      defer.resolve(tree);
-      return defer.promise;
-    };
-  }
-])
-.service('TreeViewSelectorUtils', [
-  'MockStrataDataService',
-  '$q',
-  function (MockStrataDataService, $q) {
+      this.getTree = function (dataUrl, sessionId) {
+        var defer = $q.defer();
+        var tree = MockStrataDataService.mockAttachments;
+        defer.resolve(tree);
+        return defer.promise;
+      };
+    }
+  ])
+  .service('TreeViewSelectorUtils', [
+    'MockStrataDataService',
+    '$q',
+    function (MockStrataDataService, $q) {
 
-    this.hasSelections = function (tree) {
-      return hasSelectedLeaves(tree);
-    };
-    var hasSelectedLeaves = function (tree) {
-      return true;
-    };
-    var getSelectedNames = function (tree, container) {
-      for (var i = 0; i < tree.length; i++) {
-        if (tree[i] !== undefined) {
-          if (tree[i].checked === true) {
-            container.push(tree[i].fullPath);
+      this.hasSelections = function (tree) {
+        return hasSelectedLeaves(tree);
+      };
+      var hasSelectedLeaves = function (tree) {
+        return true;
+      };
+      var getSelectedNames = function (tree, container) {
+        for (var i = 0; i < tree.length; i++) {
+          if (tree[i] !== undefined) {
+            if (tree[i].checked === true) {
+              container.push(tree[i].fullPath);
+            }
           }
         }
-      }
-    };
-    this.getSelectedLeaves = function (tree) {
-      if (tree === undefined) {
+      };
+      this.getSelectedLeaves = function (tree) {
+        if (tree === undefined) {
           return [];
-      }
-      var container = [];
-      getSelectedNames(tree, container);
-      return container;
-    };
-  }
-]);
+        }
+        var container = [];
+        getSelectedNames(tree, container);
+        return container;
+      };
+    }
+  ]);

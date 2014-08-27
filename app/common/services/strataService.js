@@ -76,11 +76,11 @@ angular.module('RedhatAccess.common')
                           authedUser.account = account;
                           deferred.resolve(authedUser);
                         }
-                      )
+                      );
                     },
                     function (error) {
                       //TODO revisit this behavior
-                      authedUser.account = udefined;
+                      authedUser.account = undefined;
                       deferred.resolve(authedUser);
                     }
                   );
@@ -551,7 +551,6 @@ angular.module('RedhatAccess.common')
             //values.cases.status
             status: function () {
               var deferred = $q.defer();
-
               if (strataCache.get("statuses")) {
                 deferred.resolve(strataCache.get("statuses"));
               } else {
