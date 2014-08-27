@@ -33,11 +33,8 @@ angular.module('RedhatAccess.common')
         // This callback is executed when the item specified by "key" expires.
         // At this point you could retrieve a fresh value for "key"
         // from the server and re-insert it into the cache.
-        onExpire: function (key, value) {
-          console.log(key);
-          console.log(value);
-
-        }
+        //onExpire: function (key, value) {
+        //}
       });
 
       var strataCache = $angularCacheFactory.get('strataCache');
