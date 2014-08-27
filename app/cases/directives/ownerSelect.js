@@ -1,4 +1,5 @@
 'use strict';
+/*global angular*/
 /*jshint unused:vars */
 angular.module('RedhatAccess.cases')
 .directive('rhaOwnerselect', function () {
@@ -8,6 +9,11 @@ angular.module('RedhatAccess.cases')
     controller: 'OwnerSelect',
     scope: {
       onchange: '&'
+    },
+    link: function postLink(scope, element, attrs) {
+        scope.$on('$destroy', function () {
+            element.remove();
+        });
     }
   };
 });
