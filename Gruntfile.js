@@ -175,7 +175,7 @@ module.exports = function (grunt) {
             all: [
                 '<%= src.js %>'
             ],
-            //files: grunt.option('files') && grunt.option('files').split(' '),
+            files: grunt.option('files') && grunt.option('files').split(' '),
             test: {
                 options: { jshintrc: 'test/.jshintrc' },
                 src: ['test/spec/{,*/}*.js']

@@ -26,7 +26,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             }, {
                 total: SearchCaseService.cases.length,
                 getData: function ($defer, params) {
-                    if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() / SearchCaseService.total >= 0.8) {
+                    if (!SearchCaseService.allCasesDownloaded && params.count() === params.page()) {
                         SearchCaseService.doFilter().then(function () {
                             $scope.tableParams.reload();
                             var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
