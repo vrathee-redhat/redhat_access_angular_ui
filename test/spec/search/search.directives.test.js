@@ -1,6 +1,3 @@
 'use strict';
-
-describe('Search Directives', function() {
-
-
+describe('Search Directives', function () {
 });

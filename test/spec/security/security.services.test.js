@@ -1,5 +1,3 @@
 'use strict';
-
-describe('Security services', function() {
-
+describe('Security services', function () {
 });

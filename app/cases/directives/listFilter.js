@@ -1,8 +1,7 @@
 /*global angular*/
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.cases')
-.directive('rhaListfilter', function () {
+angular.module('RedhatAccess.cases').directive('rhaListfilter', function () {
     return {
         templateUrl: 'cases/views/listFilter.html',
         restrict: 'A',
@@ -12,7 +11,7 @@ angular.module('RedhatAccess.cases')
             postfilter: '='
         },
         link: function postLink(scope, element, attrs) {
-            scope.$on('$destroy', function() {
+            scope.$on('$destroy', function () {
                 element.remove();
             });
         }

@@ -1,5 +1,3 @@
 'use strict';
-
-describe('Search Service', function() {
-
+describe('Search Service', function () {
 });
