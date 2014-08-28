@@ -7,6 +7,9 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', function () {
         scope: { loading: '=' },
         restrict: 'A',
         link: function postLink(scope, element, attrs) {
+            scope.$on('$destroy', function () {
+                element.remove();
+            });
         }
     };
 });
