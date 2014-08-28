@@ -21,7 +21,7 @@ angular.module('RedhatAccess.search', [
     article: 'Article',
     solution: 'Solution'
 }).constant('SEARCH_PARAMS', { limit: 10 }).value('SEARCH_CONFIG', {
-    openCaseRef: null,
+    openCaseRef: '#/case/new',
     showOpenCaseBtn: true
 }).config([
     '$stateProvider',

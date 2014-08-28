@@ -25,7 +25,7 @@ angular.module('RedhatAccess.cases').controller('CompactEdit', [
                 }
                 $rootScope.$broadcast(CASE_EVENTS.received);
                 $scope.caseLoading = false;
-                if (caseJSON.product !== null && caseJSON.product.name !== null) {
+                if (caseJSON.product !== undefined && caseJSON.product.name !== undefined) {
                     strataService.products.versions(caseJSON.product.name).then(function (versions) {
                         CaseService.versions = versions;
                     }, function (error) {

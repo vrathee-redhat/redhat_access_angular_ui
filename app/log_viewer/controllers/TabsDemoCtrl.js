@@ -16,9 +16,9 @@ angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
         $scope.$watch(function () {
             return files.getFileClicked().check;
         }, function () {
-            if (files.getFileClicked().check && files.selectedFile !== null) {
+            if (files.getFileClicked().check && files.selectedFile !== undefined) {
                 var tab = {};
-                if (files.selectedHost !== null) {
+                if (files.selectedHost !== undefined) {
                     tab.longTitle = files.selectedHost + ':';
                 } else {
                     tab.longTitle = '';
@@ -26,7 +26,7 @@ angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
                 tab.longTitle = tab.longTitle.concat(files.selectedFile);
                 var splitFileName = files.selectedFile.split('/');
                 var fileName = splitFileName[splitFileName.length - 1];
-                if (files.selectedHost !== null) {
+                if (files.selectedHost !== undefined) {
                     tab.shortTitle = files.selectedHost + ':';
                 } else {
                     tab.shortTitle = '';
@@ -45,7 +45,7 @@ angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
             if (files.file && files.activeTab) {
                 files.activeTab.content = files.file;
                 $scope.isLoading = false;
-                files.file = null;
+                files.file = undefined;
             }
         });
         $scope.$watch(function () {

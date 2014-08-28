@@ -3,7 +3,7 @@ angular.module('RedhatAccess.cases').filter('recommendationsResolution', functio
     return function (text) {
         var shortText = '';
         var maxTextLength = 150;
-        if (text !== null && text.length > maxTextLength) {
+        if (text !== undefined && text.length > maxTextLength) {
             shortText = text.substr(0, maxTextLength);
             // var lastSpace = shortText.lastIndexOf(' ');
             // shortText = shortText.substr(0, lastSpace);

@@ -44,29 +44,29 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.updateCase = function () {
             $scope.updatingDetails = true;
             var caseJSON = {};
-            if (CaseService.kase !== null) {
-                if (CaseService.kase.type !== null) {
+            if (CaseService.kase !== undefined) {
+                if (CaseService.kase.type !== undefined) {
                     caseJSON.type = CaseService.kase.type.name;
                 }
-                if (CaseService.kase.severity !== null) {
+                if (CaseService.kase.severity !== undefined) {
                     caseJSON.severity = CaseService.kase.severity.name;
                 }
-                if (CaseService.kase.status !== null) {
+                if (CaseService.kase.status !== undefined) {
                     caseJSON.status = CaseService.kase.status.name;
                 }
-                if (CaseService.kase.alternate_id !== null) {
+                if (CaseService.kase.alternate_id !== undefined) {
                     caseJSON.alternateId = CaseService.kase.alternate_id;
                 }
-                if (CaseService.kase.product !== null) {
+                if (CaseService.kase.product !== undefined) {
                     caseJSON.product = CaseService.kase.product.name;
                 }
-                if (CaseService.kase.version !== null) {
+                if (CaseService.kase.version !== undefined) {
                     caseJSON.version = CaseService.kase.version;
                 }
-                if (CaseService.kase.summary !== null) {
+                if (CaseService.kase.summary !== undefined) {
                     caseJSON.summary = CaseService.kase.summary;
                 }
-                if (CaseService.kase.group !== null) {
+                if (CaseService.kase.group !== undefined) {
                     caseJSON.folderNumber = CaseService.kase.group.number;
                 }
                 if (RHAUtils.isNotEmpty(CaseService.kase.fts)) {

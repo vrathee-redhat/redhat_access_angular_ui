@@ -16,7 +16,7 @@ angular.module('RedhatAccess.logViewer', [
     }
 ]).constant('LOGVIEWER_EVENTS', { allTabsClosed: 'allTabsClosed' }).value('hideMachinesDropdown', { value: false });
 function returnNode(splitPath, tree, fullFilePath) {
-    if (splitPath[0] !== null) {
+    if (splitPath[0] !== undefined) {
         if (splitPath[0] !== '') {
             var node = splitPath[0];
             var match = false;

@@ -47,7 +47,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
         CaseService.onOwnerSelectChanged = function () {
-            if (CaseService.owner !== null) {
+            if (CaseService.owner !== undefined) {
                 CaseService.populateEntitlements(CaseService.owner);
                 CaseService.populateGroups(CaseService.owner);
             }
