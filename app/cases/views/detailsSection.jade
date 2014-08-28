@@ -2,7 +2,8 @@ form(name='caseDetails')
   div(style='display: table; width: 100%; padding-bottom: 20px;')
     div(style='display: table-cell; width: 50%;')
       div
-        h3.case-id(style='margin-top: 0px;') Case {{CaseService.kase.case_number}}
+        h3.case-id(style='margin-top: 0px;') Case {{CaseService.kase.case_number}} 
+         span.amc(ng-show="CaseService.kase.entitlement.sla=='AMC'") {{'Advanced Mission Critical'|translate}}
       input.form-control(
         style='width: 100%; display: inline-block;',
         ng-model='CaseService.kase.summary',
