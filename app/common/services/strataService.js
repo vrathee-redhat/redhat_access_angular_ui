@@ -62,7 +62,12 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         }
                         return deferred.promise;
                     },
-                    login: function (username, password) {
+                    setCredentials: function (username, password) {
+                        return strata.setCredentials(username,password);
+                    },
+                    logout: function (){
+                        strataCache.removeAll();
+                        strata.clearCredentials();
                     }
                 },
                 entitlements: {
