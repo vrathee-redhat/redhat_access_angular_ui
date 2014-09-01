@@ -81,7 +81,7 @@ angular.module('RedhatAccess.cases').controller('RecommendationsSection', [
             $scope.currentRecommendationPage = 1;
         };
         $scope.triggerAnalytics = function ($event) {
-            if (window.chrometwo_require !== null) {
+            if (window.chrometwo_require !== undefined) {
                 chrometwo_require(['analytics/main'], function (analytics) {
                     analytics.trigger('CaseViewRecommendationClick', $event);
                 });

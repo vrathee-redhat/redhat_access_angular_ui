@@ -5,6 +5,11 @@ angular.module('RedhatAccess.cases').directive('rhaChatbutton', function () {
         scope: {},
         templateUrl: 'cases/views/chatButton.html',
         restrict: 'A',
-        controller: 'ChatButton'
+        controller: 'ChatButton',
+        link: function postLink(scope, element, attrs) {
+            scope.$on('$destroy', function () {
+                element.remove();
+            });
+        }
     };
 });

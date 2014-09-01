@@ -7,7 +7,7 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
         $scope.$watch(function () {
             return $scope.mytree.currentNode;
         }, function () {
-            if ($scope.mytree.currentNode !== null && $scope.mytree.currentNode.fullPath !== null) {
+            if ($scope.mytree.currentNode !== undefined && $scope.mytree.currentNode.fullPath !== undefined) {
                 files.setSelectedFile($scope.mytree.currentNode.fullPath);
                 files.setRetrieveFileButtonIsDisabled(false);
             } else {

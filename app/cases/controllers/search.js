@@ -41,13 +41,18 @@ angular.module('RedhatAccess.cases').controller('Search', [
             SearchCaseService.clear();
             SearchBoxService.doSearch();
         }
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.authEventLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             SearchBoxService.doSearch();
             AlertService.clearAlerts();
         });
-        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
             CaseService.clearCase();
             SearchCaseService.clear();
+        });
+
+        $scope.$on('$destroy', function () {
+            $scope.authEventLoginSuccess();
+            $scope.authEventLogoutSuccess();
         });
     }
 ]);
