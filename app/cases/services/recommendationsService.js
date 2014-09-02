@@ -10,8 +10,6 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         this.recommendations = [];
         this.pinnedRecommendations = [];
         this.handPickedRecommendations = [];
-        this.populateCallback = function () {
-        };
         var currentData = {
                 product: null,
                 version: null,
@@ -31,8 +29,32 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         this.clear = function () {
             this.recommendations = [];
         };
-        this.setPopulateCallback = function (callback) {
-            this.populateCallback = callback;
+        this.pageSize = 4;
+        this.maxSize = 10;
+        this.recommendationsOnScreen = [];
+        this.selectPage = function (pageNum) {
+            //filter out pinned recommendations
+            angular.forEach(this.pinnedRecommendations, angular.bind(this, function (pinnedRec) {
+                angular.forEach(this.recommendations, angular.bind(this, function (rec, index) {
+                    if (angular.equals(rec.id, pinnedRec.id)) {
+                        this.recommendations.splice(index, 1);
+                    }
+                }));
+            }));
+            angular.forEach(this.handPickedRecommendations, angular.bind(this, function (handPickedRec) {
+                angular.forEach(this.recommendations, angular.bind(this, function (rec, index) {
+                    if (angular.equals(rec.id, handPickedRec.id)) {
+                        this.recommendations.splice(index, 1);
+                    }
+                }));
+            }));
+            var recommendations = this.pinnedRecommendations.concat(this.recommendations);
+            recommendations = this.handPickedRecommendations.concat(recommendations);
+            var start = this.pageSize * (pageNum - 1);
+            var end = start + this.pageSize;
+            end = end > recommendations.length ? recommendations.length : end;
+            this.recommendationsOnScreen = recommendations.slice(start, end);
+            this.currentPage = pageNum;
         };
         this.populatePinnedRecommendations = function () {
             var promises = [];
@@ -64,14 +86,14 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             }
             var masterPromise = $q.all(promises);
             masterPromise.then(angular.bind(this, function () {
-                this.populateCallback();
+                this.selectPage(1);
             }));
             return masterPromise;
         };
         this.failureCount = 0;
         this.populateRecommendations = function (max) {
             var masterDeferred = $q.defer();
-            masterDeferred.promise.then(this.populateCallback);
+            masterDeferred.promise.then(angular.bind(this, function() {this.selectPage(1);}));
             var newData = {
                     product: CaseService.kase.product,
                     version: CaseService.kase.version,

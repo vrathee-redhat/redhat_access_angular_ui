@@ -8,31 +8,6 @@ angular.module('RedhatAccess.cases').controller('RecommendationsSection', [
     'AlertService',
     function (RecommendationsService, $scope, strataService, CaseService, AlertService) {
         $scope.RecommendationsService = RecommendationsService;
-        $scope.recommendationsPerPage = 4;
-        $scope.maxRecommendationsSize = 10;
-        $scope.selectRecommendationsPage = function (pageNum) {
-            //filter out pinned recommendations
-            angular.forEach(RecommendationsService.pinnedRecommendations, function (pinnedRec) {
-                angular.forEach(RecommendationsService.recommendations, function (rec, index) {
-                    if (angular.equals(rec.id, pinnedRec.id)) {
-                        RecommendationsService.recommendations.splice(index, 1);
-                    }
-                });
-            });
-            angular.forEach(RecommendationsService.handPickedRecommendations, function (handPickedRec) {
-                angular.forEach(RecommendationsService.recommendations, function (rec, index) {
-                    if (angular.equals(rec.id, handPickedRec.id)) {
-                        RecommendationsService.recommendations.splice(index, 1);
-                    }
-                });
-            });
-            var recommendations = RecommendationsService.pinnedRecommendations.concat(RecommendationsService.recommendations);
-            recommendations = RecommendationsService.handPickedRecommendations.concat(recommendations);
-            var start = $scope.recommendationsPerPage * (pageNum - 1);
-            var end = start + $scope.recommendationsPerPage;
-            end = end > recommendations.length ? recommendations.length : end;
-            $scope.recommendationsOnScreen = recommendations.slice(start, end);
-        };
         $scope.currentRecPin = {};
         $scope.pinRecommendation = function (recommendation, $index, $event) {
             $scope.currentRecPin = recommendation;
@@ -64,7 +39,7 @@ angular.module('RedhatAccess.cases').controller('RecommendationsSection', [
                     }
                     $scope.currentRecPin.pinning = false;
                     $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
-                    $scope.selectPageOne();
+                    RecommendationsService.selectPage(1);
                 }, function (error) {
                     $scope.currentRecPin.pinning = false;
                     AlertService.addStrataErrorMessage(error);
@@ -76,10 +51,6 @@ angular.module('RedhatAccess.cases').controller('RecommendationsSection', [
                 doPut(true);
             }
         };
-        $scope.selectPageOne = function () {
-            $scope.selectRecommendationsPage(1);
-            $scope.currentRecommendationPage = 1;
-        };
         $scope.triggerAnalytics = function ($event) {
             if (window.chrometwo_require !== undefined) {
                 chrometwo_require(['analytics/main'], function (analytics) {
@@ -87,6 +58,5 @@ angular.module('RedhatAccess.cases').controller('RecommendationsSection', [
                 });
             }
         };
-        RecommendationsService.setPopulateCallback($scope.selectPageOne);
     }
 ]);
