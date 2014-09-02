@@ -17,16 +17,16 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
           style='float: right;',
           boundary-links='true',
           total-items='CaseService.comments.length',
-          on-select-page='selectPage(page)',
-          items-per-page='itemsPerPage',
+          on-select-page='CaseService.selectCommentsPage(page)',
+          items-per-page='CaseService.commentsPerPage',
           page='currentPage',
           rotate='false',
-          max-size='maxPagerSize',
+          max-size=3,
           previous-text='<',
           next-text='>',
           first-text='<<',
           last-text='>>')
-    div(ng-repeat='comment in commentsOnScreen', ng-if='!comment.draft')
+    div(ng-repeat='comment in CaseService.commentsOnScreen', ng-if='!comment.draft')
       div.row(style='padding-bottom: 10px;')
         div.col-md-2
           div.rha-bold {{comment.created_by}}

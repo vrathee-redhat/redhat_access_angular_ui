@@ -826,22 +826,6 @@ describe('Case Controllers', function () {
             expect(mockAlertService.alerts[0].message).toEqual('strata error');
         }));
     });
-    //Suite for CommentsSection
-    describe('CommentsSection', function () {
-        it('should have a function to show comments for selected pagination', inject(function ($controller) {
-            $controller('CommentsSection', {
-                $scope: mockScope,
-                $stateParams: mockStrataDataService.value,
-                CaseService: mockCaseService,
-                strataService: mockStrataService,
-                AlertService: mockAlertService
-            });
-            expect(mockScope.selectPage).toBeDefined();
-            mockCaseService.comments = mockStrataDataService.mockComments;
-            mockScope.selectPage(1);
-            expect(mockScope.commentsOnScreen).toEqual(mockStrataDataService.mockComments);
-        }));
-    });
     //Suite for AttachmentsSection
     describe('AttachmentsSection', function () {
         it('should have a function to update attachement in attachment list', inject(function ($controller) {

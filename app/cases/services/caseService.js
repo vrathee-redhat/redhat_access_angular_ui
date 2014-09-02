@@ -131,7 +131,14 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             }
             return promise;
         });
-        this.refreshComments = null;
+        this.commentsOnScreen = [];
+        this.commentsPerPage = 4;
+        this.selectCommentsPage = function(pageNum) {
+            var start = this.commentsPerPage * (pageNum - 1);
+            var end = start + this.commentsPerPage;
+            end = end > this.comments.length ? this.comments.length : end;
+            this.commentsOnScreen = this.comments.slice(start, end);
+        };
         this.populateComments = function (caseNumber) {
             var promise = strataService.cases.comments.get(caseNumber);
             promise.then(angular.bind(this, function (comments) {

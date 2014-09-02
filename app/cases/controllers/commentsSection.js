@@ -12,22 +12,11 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
     'RHAUtils',
     function ($scope, CaseService, strataService, $stateParams, AlertService, $timeout, $modal, RHAUtils) {
         $scope.CaseService = CaseService;
-        CaseService.refreshComments = function () {
-            $scope.selectPage(1);
-        };
         CaseService.populateComments($stateParams.id).then(function (comments) {
             if (RHAUtils.isNotEmpty(comments)) {
-                CaseService.refreshComments();
+                CaseService.selectCommentsPage(1);
             }
         });
-        $scope.itemsPerPage = 4;
-        $scope.maxPagerSize = 3;
-        $scope.selectPage = function (pageNum) {
-            var start = $scope.itemsPerPage * (pageNum - 1);
-            var end = start + $scope.itemsPerPage;
-            end = end > CaseService.comments.length ? CaseService.comments.length : end;
-            $scope.commentsOnScreen = CaseService.comments.slice(start, end);
-        };
         $scope.requestManagementEscalation = function () {
             $modal.open({
                 templateUrl: 'cases/views/requestManagementEscalationModal.html',
@@ -35,7 +24,7 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
             });
         };
         if (RHAUtils.isNotEmpty(CaseService.comments)) {
-            CaseService.refreshComments();
+            CaseService.selectCommentsPage(1);
         }
     }
 ]);
