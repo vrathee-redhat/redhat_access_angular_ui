@@ -667,7 +667,11 @@ angular.module('RedhatAccess.mock', [])
       this.product = '';
       this.bugzillaList = {};
 
-      this.refreshComments = function () {};
+      //this.refreshComments = function () {};
+      this.commentsOnScreen = [];
+      this.commentsPerPage = 4;
+      this.selectCommentsPage = function(pageNum) {};
+
       this.clearCase = function () {
         this.kase = {};
         this.caseDataReady = false;
@@ -721,7 +725,11 @@ angular.module('RedhatAccess.mock', [])
       this.recommendations = [];
       this.pinnedRecommendations = [];
       this.handPickedRecommendations = [];
-      this.populateCallback = function () {};
+
+      this.pageSize = 4;
+      this.maxSize = 10;
+      this.recommendationsOnScreen = [];
+      this.selectPage = function (pageNum) {};
 
       var currentData = {};
       this.loadingRecommendations = false;

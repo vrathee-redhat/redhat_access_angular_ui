@@ -28,7 +28,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     $scope.savingDraft = false;
                     $scope.draftSaved = false;
                     CaseService.draftComment = undefined;
-                    CaseService.refreshComments();
+                    CaseService.selectCommentsPage(1);
                 });
             };
             var onError = function (error) {

@@ -53,9 +53,10 @@ angular.module('RedhatAccess.cases', [
             controller: 'CompactEdit'
         });
         $stateProvider.state('edit', {
-            url: '/case/{id:[0-9]{1,8}}',
+            url: '/case/{id:[0-9]{1,8}}?commentId',
             templateUrl: 'cases/views/edit.html',
-            controller: 'Edit'
+            controller: 'Edit',
+            reloadOnSearch: false
         });
         $stateProvider.state('new', {
             url: '/case/new',

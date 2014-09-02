@@ -377,20 +377,6 @@ describe('Case Controllers', function () {
     });
     //Suite for RecommendationsSection
     describe('RecommendationsSection', function () {
-        it('should have a function to select Recommendations Page', inject(function ($controller) {
-            $controller('RecommendationsSection', {
-                $scope: mockScope,
-                RecommendationsService: mockRecommendationsService,
-                CaseService: mockCaseService,
-                strataService: mockStrataService
-            });
-            expect(mockScope.selectRecommendationsPage).toBeDefined();
-            mockRecommendationsService.pinnedRecommendations = mockStrataDataService.mockRecommendations;
-            mockRecommendationsService.recommendations = mockStrataDataService.mockRecommendations;
-            mockRecommendationsService.handPickedRecommendations = mockStrataDataService.mockRecommendations;
-            mockScope.selectRecommendationsPage();
-            expect(mockScope.recommendationsOnScreen).toEqual([]);
-        }));
         it('should have a function to pin Recommendations', inject(function ($controller) {
             $controller('RecommendationsSection', {
                 $scope: mockScope,
@@ -824,22 +810,6 @@ describe('Case Controllers', function () {
             mockScope.init();
             mockScope.$root.$digest();
             expect(mockAlertService.alerts[0].message).toEqual('strata error');
-        }));
-    });
-    //Suite for CommentsSection
-    describe('CommentsSection', function () {
-        it('should have a function to show comments for selected pagination', inject(function ($controller) {
-            $controller('CommentsSection', {
-                $scope: mockScope,
-                $stateParams: mockStrataDataService.value,
-                CaseService: mockCaseService,
-                strataService: mockStrataService,
-                AlertService: mockAlertService
-            });
-            expect(mockScope.selectPage).toBeDefined();
-            mockCaseService.comments = mockStrataDataService.mockComments;
-            mockScope.selectPage(1);
-            expect(mockScope.commentsOnScreen).toEqual(mockStrataDataService.mockComments);
         }));
     });
     //Suite for AttachmentsSection
