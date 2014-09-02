@@ -286,7 +286,7 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     src: '.tmp/<%= pkg.name %>-deps.js',
-                    dest: '<%= distdir %>/<%= pkg.name %>-deps.js'
+                    dest: '<%= distdir %>/js/<%= pkg.name %>-deps.js'
                 }]
             },
             distNoDeps: {
@@ -310,9 +310,9 @@ module.exports = function (grunt) {
                         '.htaccess',
                         '*.html',
                         'views/{,*/}*.html',
-        'bower_components/**/*',
-        'images/{,*/}*.{webp}',
-        'fonts/*'
+                        'bower_components/**/*',
+                        'images/{,*/}*.{webp}',
+                        'fonts/*'
                     ]
                 },
                 {
