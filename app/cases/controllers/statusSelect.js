@@ -6,7 +6,6 @@ angular.module('RedhatAccess.cases').controller('StatusSelect', [
     'STATUS',
     function ($scope, securityService, CaseService, STATUS) {
         $scope.securityService = securityService;
-        $scope.CaseService = CaseService;
         $scope.STATUS = STATUS;
         $scope.statuses = [
             {
