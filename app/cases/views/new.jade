@@ -45,6 +45,8 @@ div.container-offset
                       ng-change='CaseService.validateNewCasePage1()',
                       ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase',
                       ng-blur='getRecommendations()')
+                  div.versionSunsetMessage(ng-show='CaseService.showVersionSunset()')
+                    span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
             div.row.rha-create-field
               div.col-md-4
                 label(for='rha-case-summary') {{'Summary:'|translate}}

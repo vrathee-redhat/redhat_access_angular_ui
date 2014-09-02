@@ -192,5 +192,13 @@ angular.module('RedhatAccess.cases').service('CaseService', [
                 this.newCasePage1Incomplete = false;
             }
         };
+        this.showVersionSunset = function () {
+            if (RHAUtils.isNotEmpty(this.kase.product) && RHAUtils.isNotEmpty(this.kase.version)) {
+                if (this.kase.version === '3 - EOL') {
+                    return true;
+                }
+            }
+            return false;
+        };
     }
 ]);

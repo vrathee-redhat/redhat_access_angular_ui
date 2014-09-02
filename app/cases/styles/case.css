@@ -269,3 +269,9 @@ div#rha-recommendation-section .hand-picked {
     padding: 4px 7px;
     vertical-align: 5px;
 }
+
+.versionSunsetMessage {
+    margin-top: 1em;
+    white-space: normal;
+    font-size: 0.846em;
+}
