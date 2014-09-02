@@ -85,9 +85,13 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
         }
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
             AlertService.clearAlerts();
+        });
+
+        $scope.$on('$destroy', function () {
+            $scope.authLoginEvent();
         });
     }
 ]);

@@ -99,14 +99,21 @@ angular.module('RedhatAccess.cases').controller('ChatButton', [
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
         } else {
-            $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            $scope.authEventLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
                 $scope.init();
             });
+            $scope.$on('$destroy', function () {
+                $scope.authEventLoginSuccess();
+            });
         }
-        $rootScope.$on(AUTH_EVENTS.sessionIdChanged, function () {
+        $scope.authEventSessionChanged = $rootScope.$on(AUTH_EVENTS.sessionIdChanged, function () {
             if ($scope.enableChat()) {
                 $scope.setChatIframeHackUrl();
             }
+        });
+
+        $scope.$on('$destroy', function () {
+            $scope.authEventSessionChanged();
         });
     }
 ]);

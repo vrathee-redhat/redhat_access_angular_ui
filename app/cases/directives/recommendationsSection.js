@@ -5,8 +5,12 @@ angular.module('RedhatAccess.cases').directive('rhaCaserecommendations', functio
         templateUrl: 'cases/views/recommendationsSection.html',
         restrict: 'A',
         controller: 'RecommendationsSection',
+        transclude: true,
         scope: { loading: '=' },
         link: function postLink(scope, element, attrs) {
+            scope.$on('$destroy', function () {
+                element.remove();
+            });
         }
     };
 });

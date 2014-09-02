@@ -285,14 +285,14 @@ module.exports = function (grunt) {
             options: {},
             dist: {
                 files: [{
-                    src: '.tmp/<%= pkg.name %>.js',
-                    dest: '<%= distdir %>/<%= pkg.name %>.js'
+                    src: '.tmp/<%= pkg.name %>-deps.js',
+                    dest: '<%= distdir %>/<%= pkg.name %>-deps.js'
                 }]
             },
             distNoDeps: {
                 files: [{
-                    src: '.tmp/<%= pkg.name %>-no-deps.js',
-                    dest: '<%= distdir %>/<%= pkg.name %>.no-deps.js'
+                    src: '.tmp/<%= pkg.name %>.js',
+                    dest: '<%= distdir %>/<%= pkg.name %>.js'
                 }]
             }
         },
@@ -370,13 +370,13 @@ module.exports = function (grunt) {
         },
         imageEmbed: {
             dist: {
-                src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>.css'],
-                dest: '<%= yeoman.dist %>/styles/<%= pkg.name %>-embedded-images.css',
+                src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>-deps.css'],
+                dest: '<%= yeoman.dist %>/styles/<%= pkg.name %>-deps-embedded-images.css',
                 options: { deleteAfterEncoding: false }
             },
             distNoDeps: {
-                src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps.css'],
-                dest: '<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps-embedded-images.css',
+                src: ['<%= yeoman.dist %>/styles/<%= pkg.name %>.css'],
+                dest: '<%= yeoman.dist %>/styles/<%= pkg.name %>-embedded-images.css',
                 options: { deleteAfterEncoding: false }
             }
         },
@@ -384,24 +384,21 @@ module.exports = function (grunt) {
         cssmin: {
             dist: {
                 files: {
-                    '<%= yeoman.dist %>/styles/<%= pkg.name %>.css': [
+                    '<%= yeoman.dist %>/styles/<%= pkg.name %>-deps.css': [
                         '<%= src.thirdParty.css %>',
                         '<%= src.css.app %>'
                     ]
                 }
             },
-            distNoDeps: { files: { '<%= yeoman.dist %>/styles/<%= pkg.name %>-no-deps.css': ['<%= src.css.app %>'] } }
+            distNoDeps: { files: { '<%= yeoman.dist %>/styles/<%= pkg.name %>.css': ['<%= src.css.app %>'] } }
         },
         concat: {
             dist: {
                 options: { banner: '<%= banner %>' },
                 src: [
-                    '<%= src.thirdParty.js %>',
-                    '<%= src.i18n.generated %>',
-                    '<%= src.js %>',
-                    '<%= src.jsTpl %>'
+                    '<%= src.thirdParty.js %>'
                 ],
-                dest: '.tmp/<%= pkg.name %>.js'
+                dest: '.tmp/<%= pkg.name %>-deps.js'
             },
             distNoDeps: {
                 options: { banner: '<%= banner %>' },
@@ -410,7 +407,7 @@ module.exports = function (grunt) {
                     '<%= src.js %>',
                     '<%= src.jsTpl %>'
                 ],
-                dest: '.tmp/<%= pkg.name %>-no-deps.js'
+                dest: '.tmp/<%= pkg.name %>.js'
             }
         },
         html2js: {

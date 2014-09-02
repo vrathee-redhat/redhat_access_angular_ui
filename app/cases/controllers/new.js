@@ -120,10 +120,14 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.initSelects();
             $scope.initDescription();
         }
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.authLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.initSelects();
             $scope.initDescription();
             AlertService.clearAlerts();
+        });
+
+        $scope.$on('$destroy', function () {
+            $scope.authLoginSuccess();
         });
         /**
        * Retrieve product's versions from strata
