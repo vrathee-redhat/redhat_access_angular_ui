@@ -22,7 +22,7 @@ describe('Directive for login status', function () {
         expect(element.find('.rha-logged-in.ng-hide').length).toBe(1);
         expect(element.find('.rha-logged-out').length).toBe(1);
         expect(element.find('.rha-logged-out.ng-hide').length).toBe(0);
-        expect(element.find('span.rha-logged-in a').text()).toBe(' Log out');
+        expect(element.find('span.rha-logged-in a').text()).toBe(' Log Out');
     });
     it('should provide a logout link when the user is logged in ', function () {
         var compileFn = compileService(' <div rha-loginstatus/>');

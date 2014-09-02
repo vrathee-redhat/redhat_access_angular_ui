@@ -36,7 +36,7 @@
         <div class="form-group" id="rha-login-modal-buttons">
             <span class="pull-right">
                 <button class="btn  btn-md cancel" ng-click="modalOptions.close()" type="submit" translate>Cancel</button>
-                <button class="btn btn-primary btn-md login" ng-click="modalOptions.ok()" type="submit" translate>Sign in</button>
+                <button class="btn btn-primary btn-md login" ng-click="modalOptions.ok()" type="submit" translate ng-disabled="status.authenticating">Sign in</button>
             </span>
         </div>
     </div>

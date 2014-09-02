@@ -182,12 +182,16 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                 user: null,
                                 password: null
                             };
+                            $scope.status = {
+                                authenticating: false
+                            };
                             $scope.useVerboseLoginView = LOGIN_VIEW_CONFIG.verbose;
                             $scope.modalOptions = tempModalOptions;
                             $scope.modalOptions.ok = function(result) {
                                 //Hack below is needed to handle autofill issues
                                 //@see https://github.com/angular/angular.js/issues/1460
                                 //BEGIN HACK
+                                $scope.status.authenticating = true;
                                 $scope.user.user = $('#rha-login-user-id').val();
                                 $scope.user.password = $('#rha-login-password').val();
                                 //END HACK
@@ -200,6 +204,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                             try {
                                                 $modalInstance.close(authedUser);
                                             } catch (err) {}
+                                            $scope.status.authenticating = false;
                                         },
                                         function(error) {
                                             if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
@@ -209,13 +214,16 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                             } else {
                                                 $scope.authError = 'Login Failed!';
                                             }
+                                            $scope.status.authenticating = false;
                                         }
                                     );
                                 }else {
                                     $scope.authError = 'Login Failed!';
+                                    $scope.status.authenticating = false;
                                 }
                             };
                             $scope.modalOptions.close = function() {
+                                $scope.status.authenticating = false;
                                 $modalInstance.dismiss('User Canceled Login');
                             };
                         }
