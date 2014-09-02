@@ -1,0 +1,33 @@
+div#rha-new-recommendation-section.row.rha-bottom-border
+ div.col-xs-6
+    div(style="padding-bottom: 0")
+     span 
+      h4(style="padding-left: 10px; display: inline-block;") Red Hat Access Recommendations
+     span.rha-search-spinner(ng-show='searchInProgress.value')
+div
+ div.recommendations-inner
+   ul.recommendations(style="display: block;")
+     li(ng-repeat="result in results")
+       h4
+         a(ng-click='triggerAnalytics($event)', href='{{result.view_uri}}', target='_blank') {{result.title}} 
+       p.snippet {{result.resolution.text | recommendationsResolution}}
+       div.row
+        div(ng-repeat="product in result.products.product")
+         div.col-xs-3
+          span.recommendations_products {{product}}
+        div(ng-repeat="tag in result.tags.tag")
+         div.col-xs-3
+          span.recommendations_tags {{tag}}       
+   div.row(style='padding-top: 10px;', ng-hide='results.length == 0')
+      div.col-xs-12
+        pagination.pagination-sm(
+          boundary-links='true'
+          total-items='SearchResultsService.results.length'
+          on-select-page=''
+          items-per-page='3'
+          page='1'
+          max-size='10'
+          previous-text='<'
+          next-text='>'
+          first-text='<<'
+          last-text='>>')
