@@ -240,6 +240,13 @@ div#rha-recommendation-section .hand-picked {
     padding: 0 0 0 13px;
 }
 
+.clickable{
+    cursor: pointer;
+}
+
+.rha-comment-link {
+    margin-top: 10px;
+}
 .rha-search-spinner-sm {
     padding: 1px 1px 1px 1px;
     background-image: url("../img/throbber_dickie_small.gif");

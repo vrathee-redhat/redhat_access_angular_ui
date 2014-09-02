@@ -27,10 +27,13 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
           first-text='<<',
           last-text='>>')
     div(ng-repeat='comment in CaseService.commentsOnScreen', ng-if='!comment.draft')
-      div.row(style='padding-bottom: 10px;')
-        div.col-md-2
-          div.rha-bold {{comment.created_by}}
-          div {{comment.created_date | date:'mediumDate'}}
-          div {{comment.created_date | date:'h:mm:ss a Z'}}
-        div.col-md-10.rha-comment-text
-          pre(style='word-break: normal;', ng-bind-html="comment.text | linky:'_blank'")
+      div(id="{{comment.id}}")
+        div.row(style='padding-bottom: 10px;')
+          div.col-md-2
+            div.rha-bold {{comment.created_by}}
+            div {{comment.created_date | date:'mediumDate'}}
+            div {{comment.created_date | date:'h:mm:ss a Z'}}
+          div.col-md-9.rha-comment-text
+            pre(style='word-break: normal;', ng-bind-html="comment.text | linky:'_blank'")
+          div.col-md-1.rha-comment-link
+            span.glyphicon.glyphicon-link.clickable(ng-click='linkToComment(comment.id)')
