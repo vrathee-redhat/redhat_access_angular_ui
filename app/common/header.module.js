@@ -123,6 +123,7 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
     '$scope',
     'AlertService',
     function ($scope, AlertService) {
+        $scope.AlertService = AlertService;
         $scope.closeable = true;
         $scope.closeAlert = function (index) {
             AlertService.alerts.splice(index, 1);
@@ -147,6 +148,7 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
        * Hijacking rhaAlert's parent controller (HeaderController) works
        * until a real solution is found.
        */
+        $scope.AlertService = AlertService;
         $scope.closeable = true;
         $scope.closeAlert = function (index) {
             AlertService.alerts.splice(index, 1);
