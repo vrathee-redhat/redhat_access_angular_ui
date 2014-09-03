@@ -282,3 +282,9 @@ div#rha-recommendation-section .hand-picked {
     white-space: normal;
     font-size: 0.846em;
 }
+
+.private {
+    background-color: #fde5e5;
+    color: #c92b22; 
+    width: 25%;   
+}
