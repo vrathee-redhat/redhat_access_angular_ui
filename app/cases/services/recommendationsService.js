@@ -104,10 +104,10 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                 this.loadingRecommendations = true;
                 setCurrentData();
                 var deferreds = [];
-                strataService.problems(currentData, max).then(angular.bind(this, function (solutions) {
+                strataService.recommendations(currentData, max).then(angular.bind(this, function (solutions) {
                     //retrieve details for each solution
                     solutions.forEach(function (solution) {
-                        var splitUri = solution.uri.split('/');
+                        var splitUri = solution.resource_uri.split('/');
                         var deferred = strataService.solutions.get(splitUri[splitUri.length - 1]);
                         deferreds.push(deferred);
                     });
