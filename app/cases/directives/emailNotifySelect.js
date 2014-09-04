@@ -8,7 +8,6 @@ angular.module('RedhatAccess.cases').directive('rhaEmailnotifyselect', function 
         controller: 'EmailNotifySelect',
         link: function postLink(scope, element, attrs) {
             scope.$on('$destroy', function () {
-                $('option.ng-scope.ng-binding').remove();
                 element.remove();
             });
         }
