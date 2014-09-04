@@ -5,10 +5,12 @@ angular.module('RedhatAccess.cases').service('CaseService', [
     'RHAUtils',
     'securityService',
     '$q',
+    '$timeout',
     '$filter',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $filter) {
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter) {
         this.kase = {};
         this.caseDataReady = false;
+        this.isCommentPublic = false;
         this.versions = [];
         this.products = [];
         //this.statuses = [];
@@ -31,6 +33,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         this.onSelectChanged = null;
         this.onOwnerSelectChanged = null;
         this.onGroupSelectChanged = null;
+        this.currentPage = 1;
         /**
        * Add the necessary wrapper objects needed to properly display the data.
        *
@@ -75,6 +78,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         };
         this.clearCase = function () {
             this.caseDataReady = false;
+            this.isCommentPublic = false;
             this.kase = {};
             this.versions = [];
             this.products = [];
@@ -92,6 +96,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             this.group = undefined;
             this.owner = undefined;
             this.product = undefined;
+            this.currentPage = 1;
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername) {
@@ -138,6 +143,42 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             var end = start + this.commentsPerPage;
             end = end > this.comments.length ? this.comments.length : end;
             this.commentsOnScreen = this.comments.slice(start, end);
+            this.currentPage = pageNum;
+        };
+        this.scrollToComment = function(commentID) {
+            if(!commentID) {
+                return;
+            }
+            var targetComment,
+                commentIndex,
+                length = this.comments.length,
+                page = 1;
+            for(var i = 0; i < length; i++) {
+                if(i && i % 4 === 0) {
+                    page++;
+                }
+                if(this.comments[i].id === commentID) {
+                    targetComment = this.comments[i];
+                    commentIndex = i;
+                    break;
+                }
+            }
+            var scrollToCommentElement = function() {
+                var commentElem = document.getElementById(commentID);
+                if(commentElem) {
+                    commentElem.scrollIntoView(true);
+                }
+            };
+            if(page === this.currentPage) {
+                scrollToCommentElement();
+            } else {
+                this.selectCommentsPage(page);
+                // Had to put this in a timeout because changing the comment page will change the
+                // rendered comments, and we have to wait for digest to happen before scrolling
+                // to the comment node
+                $timeout(scrollToCommentElement, 0, false);
+            }
+
         };
         this.populateComments = function (caseNumber) {
             var promise = strataService.cases.comments.get(caseNumber);
@@ -198,6 +239,14 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             } else {
                 this.newCasePage1Incomplete = false;
             }
+        };
+        this.showVersionSunset = function () {
+            if (RHAUtils.isNotEmpty(this.kase.product) && RHAUtils.isNotEmpty(this.kase.version)) {
+                if (this.kase.version === '3 - EOL') {
+                    return true;
+                }
+            }
+            return false;
         };
     }
 ]);

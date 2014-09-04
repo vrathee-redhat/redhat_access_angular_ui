@@ -7,23 +7,23 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
     'strataService',
     '$stateParams',
     'AlertService',
-    '$timeout',
     '$modal',
     '$location',
     '$anchorScroll',
     'RHAUtils',
-    function ($scope, CaseService, strataService, $stateParams, AlertService, $timeout, $modal, $location, $anchorScroll, RHAUtils) {
-        var timerRepeats = 0;
+    function ($scope, CaseService, strataService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils) {
         $scope.CaseService = CaseService;
+
         CaseService.populateComments($stateParams.id).then(function (comments) {
             if (RHAUtils.isNotEmpty(comments)) {
                 CaseService.selectCommentsPage(1);
                 //CaseService.refreshComments();
-                var commentId = $location.search().commentId;
-                if(commentId !== undefined){
-                    $timeout($scope.isCommentRendered, commentId, 500);
-                }
             }
+            $scope.$on('rhaCaseSettled', function() {
+                $scope.$evalAsync(function() {
+                    CaseService.scrollToComment($location.search().commentId);
+                });
+            });
         });
         $scope.requestManagementEscalation = function () {
             $modal.open({
@@ -34,20 +34,6 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
         if (RHAUtils.isNotEmpty(CaseService.comments)) {
             CaseService.selectCommentsPage(1);
         }
-
-        $scope.isCommentRendered = function(){
-            //This feels even more terribly hacky :(
-            var commentId = $location.search().commentId;
-            if(document.getElementById(commentId) !== undefined ){
-                timerRepeats++;
-                $scope.linkToComment(commentId);
-                if(timerRepeats < 5){
-                    $timeout($scope.isCommentRendered, 500);
-                }
-            } else{
-                $timeout($scope.isCommentRendered, 500);
-            }
-        };
 
         $scope.linkToComment = function (commentId) {
             //This feels terrible hacky :(

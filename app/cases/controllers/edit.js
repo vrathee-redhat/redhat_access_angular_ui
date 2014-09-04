@@ -22,8 +22,9 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         CaseService.clearCase();
+        $scope.loading = {};
         $scope.init = function () {
-            $scope.caseLoading = true;
+            $scope.loading.kase = true;
             $scope.recommendationsLoading = true;
             strataService.cases.get($stateParams.id).then(function (resp) {
                 var caseJSON = resp[0];
@@ -34,7 +35,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     CaseService.setCase(caseJSON);
                 }
                 $rootScope.$broadcast(CASE_EVENTS.received);
-                $scope.caseLoading = false;
+                $scope.loading.kase = false;
                 if ('product' in caseJSON && 'name' in caseJSON.product && caseJSON.product.name) {
                     strataService.products.versions(caseJSON.product.name).then(function (versions) {
                         CaseService.versions = versions;
@@ -50,12 +51,11 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     });
                 }
                 if (EDIT_CASE_CONFIG.showRecommendations) {
-                    RecommendationsService.populatePinnedRecommendations().then(function () {
-                        $scope.recommendationsLoading = false;
-                    }, function (error) {
+                    var pinnedDfd = RecommendationsService.populatePinnedRecommendations().then(angular.noop, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
-                    RecommendationsService.populateRecommendations(12).then(function () {
+                    var reccomendDfd = RecommendationsService.populateRecommendations(12);
+                    $q.all([pinnedDfd, reccomendDfd]).then(function(){
                         $scope.recommendationsLoading = false;
                     });
                 }
@@ -64,19 +64,19 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 }
             });
             if (EDIT_CASE_CONFIG.showAttachments) {
-                $scope.attachmentsLoading = true;
+                $scope.loading.attachments = true;
                 strataService.cases.attachments.list($stateParams.id).then(function (attachmentsJSON) {
                     AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                    $scope.attachmentsLoading = false;
+                    $scope.loading.attachments= false;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
             }
             if (EDIT_CASE_CONFIG.showComments) {
-                $scope.commentsLoading = true;
+                $scope.loading.comments = true;
                 strataService.cases.comments.get($stateParams.id).then(function (commentsJSON) {
                     $scope.comments = commentsJSON;
-                    $scope.commentsLoading = false;
+                    $scope.loading.comments = false;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
@@ -90,8 +90,36 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             AlertService.clearAlerts();
         });
 
+        var caseSettled = function() {
+            $scope.$broadcast('rhaCaseSettled');
+        };
+
+        $scope.loadingWatcher = $scope.$watch('loading', function(loadingObj){
+            if($.isEmptyObject(loadingObj)) {
+                return;
+            }
+            var allLoaded = true;
+            for (var key in loadingObj) {
+                if(loadingObj[key] !== false) {
+                    allLoaded = false;
+                }
+            }
+            if(allLoaded) {
+                caseSettled();
+            }
+        }, true);
+
+        $scope.loadingRecWatcher = $scope.$watch('recommendationsLoading', function(newVal) {
+            if(newVal === false) {
+                caseSettled();
+            }
+        });
+
         $scope.$on('$destroy', function () {
+            // Clean up listeners
             $scope.authLoginEvent();
+            $scope.loadingWatcher();
+            $scope.loadingRecWatcher();
         });
     }
 ]);

@@ -100,20 +100,21 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                     summary: CaseService.kase.summary,
                     description: CaseService.kase.description
                 };
-            if (newData.product !== undefined && newData.version !== undefined && newData.summary !== undefined && newData.description !== undefined && (!angular.equals(currentData, newData) && !this.loadingRecommendations || this.recommendations.length < 1 && this.failureCount < 10)) {
+            if (newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations || this.recommendations.length < 1 && this.failureCount < 10)) {
                 this.loadingRecommendations = true;
                 setCurrentData();
                 var deferreds = [];
-                strataService.problems(currentData, max).then(angular.bind(this, function (solutions) {
+                strataService.recommendations(currentData, max).then(angular.bind(this, function (solutions) {
                     //retrieve details for each solution
                     solutions.forEach(function (solution) {
-                        var deferred = strataService.solutions.get(solution.uri);
+                        var deferred = strataService.solutions.get(solution.resource_uri);
                         deferreds.push(deferred);
                     });
                     $q.all(deferreds).then(angular.bind(this, function (solutions) {
                         this.recommendations = [];
                         solutions.forEach(angular.bind(this, function (solution) {
                             if (solution !== undefined) {
+                                solution.resource_type = 'Solution';
                                 this.recommendations.push(solution);
                             }
                         }));

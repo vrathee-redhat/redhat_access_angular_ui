@@ -230,7 +230,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                     ];
                 }
                 return $modal.open(tempModalDefaults).result;
-            },
+            }
         };
         return service;
     }

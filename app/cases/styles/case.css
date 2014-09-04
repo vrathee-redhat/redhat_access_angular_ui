@@ -262,3 +262,29 @@ div#rha-recommendation-section .hand-picked {
     font-size: 1em;
     white-space: pre-wrap;
 }
+
+.amc {
+    background: #f32827;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    font-size: 46.15%;
+    line-height: 100%;
+    margin: 0 0 0 4px;
+    padding: 4px 7px;
+    vertical-align: 5px;
+}
+
+.versionSunsetMessage {
+    margin-top: 1em;
+    white-space: normal;
+    font-size: 0.846em;
+}
+
+.private {
+    background-color: #fde5e5;
+    color: #c92b22; 
+    display: inline-block; 
+}

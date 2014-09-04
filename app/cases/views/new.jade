@@ -29,9 +29,8 @@ div.container-offset
                     ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
                     style='width: 100%;',
                     ng-model='CaseService.kase.product',
-                    ng-change='getProductVersions(CaseService.kase.product)',
-                    ng-options='p.name for p in products track by p.code',
-                    ng-blur='getRecommendations()')
+                    ng-change='getProductVersions(CaseService.kase.product);getRecommendations()',
+                    ng-options='p.name for p in products track by p.code')
             div.row.rha-create-field
               div.col-md-4
                 label(for='rha-product-version-select') {{'Product Version:'|translate}}
@@ -42,9 +41,10 @@ div.container-offset
                       style='width: 100%;',
                       ng-model='CaseService.kase.version',
                       ng-options='v for v in versions',
-                      ng-change='CaseService.validateNewCasePage1()',
-                      ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase',
-                      ng-blur='getRecommendations()')
+                      ng-change='CaseService.validateNewCasePage1();getRecommendations()',
+                      ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase')
+                  div.versionSunsetMessage(ng-show='CaseService.showVersionSunset()')
+                    span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
             div.row.rha-create-field
               div.col-md-4
                 label(for='rha-case-summary') {{'Summary:'|translate}}
@@ -52,9 +52,8 @@ div.container-offset
                 input#rha-case-summary.form-control(
                   style='width: 100%;',
                   ng-disabled='!securityService.loginStatus.isLoggedIn',
-                  ng-change='CaseService.validateNewCasePage1()',
-                  ng-model='CaseService.kase.summary',
-                  ng-blur='getRecommendations()')
+                  ng-change='CaseService.validateNewCasePage1();getRecommendations()',
+                  ng-model='CaseService.kase.summary')
             div.row.rha-create-field
               div.col-md-4
                 label(for='rha-case-description') {{'Description:'|translate}}
@@ -62,9 +61,8 @@ div.container-offset
                 textarea#rha-case-description.form-control.description-box(
                   style='width: 100%; height: 200px; max-width: 100%;',
                   ng-model='CaseService.kase.description',
-                  ng-change='CaseService.validateNewCasePage1()',
-                  ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
-                  ng-blur='getRecommendations()')
+                  ng-change='CaseService.validateNewCasePage1();getRecommendations()',
+                  ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase')
             div.row
               div.col-xs-12(ng-class='{"hidden": isPage2}')
                 button.btn.btn-primary.btn-next(

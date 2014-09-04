@@ -326,7 +326,7 @@ describe('Case Services', function () {
             caseService.kase.summary = 'Test Summary';
             caseService.kase.description = 'Test Description';
             recommendationsService.populateRecommendations(5);
-            spyOn(mockStrataService, 'problems').andCallThrough();
+            spyOn(mockStrataService, 'recommendations').andCallThrough();
             scope.$root.$digest();
         });
     });
