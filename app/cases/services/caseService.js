@@ -10,6 +10,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
     function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter) {
         this.kase = {};
         this.caseDataReady = false;
+        this.isCommentPublic = false;                           
         this.versions = [];
         this.products = [];
         //this.statuses = [];
@@ -77,6 +78,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         };
         this.clearCase = function () {
             this.caseDataReady = false;
+            this.isCommentPublic = false;
             this.kase = {};
             this.versions = [];
             this.products = [];

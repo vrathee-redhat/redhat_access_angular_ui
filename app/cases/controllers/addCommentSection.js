@@ -6,13 +6,18 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
     'strataService',
     'CaseService',
     'AlertService',
+    'securityService',
     '$timeout',
     'RHAUtils',
-    function ($scope, strataService, CaseService, AlertService, $timeout, RHAUtils) {
+    function ($scope, strataService, CaseService, AlertService, securityService, $timeout, RHAUtils) {
         $scope.CaseService = CaseService;
+        $scope.securityService = securityService;
         $scope.addingComment = false;
         $scope.addComment = function () {
             $scope.addingComment = true;
+            if (!securityService.loginStatus.isInternal) {
+                CaseService.isCommentPublic = true;
+            }
             var onSuccess = function (response) {
                 if (RHAUtils.isNotEmpty($scope.saveDraftPromise)) {
                     $timeout.cancel($scope.saveDraftPromise);
@@ -38,7 +43,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
                 strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.draftComment.id).then(onSuccess, onError);
             } else {
-                strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText).then(onSuccess, onError);
+                strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
             }
         };
         $scope.saveDraftPromise;

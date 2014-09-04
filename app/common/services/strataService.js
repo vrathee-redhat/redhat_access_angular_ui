@@ -297,11 +297,12 @@ angular.module('RedhatAccess.common').factory('strataService', [
                             }
                             return deferred.promise;
                         },
-                        post: function (caseNumber, text, isDraft) {
+                        post: function (caseNumber, text, isPublic, isDraft) {
                             var deferred = $q.defer();
                             strata.cases.comments.post(caseNumber, {
                                 'text': text,
-                                'draft': isDraft === true ? 'true' : 'false'
+                                'draft': isDraft === true ? 'true' : 'false',
+                                'public': isPublic === true ? 'true' : 'false'
                             }, function (response) {
                                 if (!ie8) {
                                     strataCache.remove('comments' + caseNumber);
