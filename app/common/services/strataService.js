@@ -25,6 +25,9 @@ angular.module('RedhatAccess.common').factory('strataService', [
         var strataCache;
         if (!ie8) {
             strataCache = $angularCacheFactory.get('strataCache');
+            $(window).unload(function () {
+                strataCache.destroy();
+            });
         }
         var errorHandler = function (message, xhr, response, status) {
             var translatedMsg = message;

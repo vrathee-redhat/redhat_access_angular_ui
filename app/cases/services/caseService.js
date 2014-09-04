@@ -10,7 +10,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
     function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter) {
         this.kase = {};
         this.caseDataReady = false;
-        this.isCommentPublic = false;                           
+        this.isCommentPublic = false;
         this.versions = [];
         this.products = [];
         //this.statuses = [];
