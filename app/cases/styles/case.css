@@ -286,5 +286,5 @@ div#rha-recommendation-section .hand-picked {
 .private {
     background-color: #fde5e5;
     color: #c92b22; 
-    width: 25%;   
+    display: inline-block; 
 }

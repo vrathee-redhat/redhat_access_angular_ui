@@ -33,7 +33,7 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
             div.rha-bold {{comment.created_by}}
             div {{comment.created_date | date:'mediumDate'}}
             div {{comment.created_date | date:'h:mm:ss a Z'}}
-            div.private(ng-if='!comment.public') Private
+            div.private(ng-if='comment.public !== undefined && comment.public === false') Private
           div.col-md-9.rha-comment-text
             pre(style='word-break: normal;', ng-bind-html="comment.text | linky:'_blank'")
           div.col-md-1.rha-comment-link
