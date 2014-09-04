@@ -107,15 +107,13 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                 strataService.problems(currentData, max).then(angular.bind(this, function (solutions) {
                     //retrieve details for each solution
                     solutions.forEach(function (solution) {
-                        var splitUri = solution.uri.split('/');
-                        var deferred = strataService.solutions.get(splitUri[splitUri.length - 1]);
+                        var deferred = strataService.solutions.get(solution.uri);
                         deferreds.push(deferred);
                     });
                     $q.all(deferreds).then(angular.bind(this, function (solutions) {
                         this.recommendations = [];
                         solutions.forEach(angular.bind(this, function (solution) {
                             if (solution !== undefined) {
-                                solution.resource_type = 'Solution';
                                 this.recommendations.push(solution);
                             }
                         }));

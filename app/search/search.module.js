@@ -17,10 +17,7 @@ angular.module('RedhatAccess.search', [
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
     'RedhatAccess.header'
-]).constant('RESOURCE_TYPES', {
-    article: 'Article',
-    solution: 'Solution'
-}).constant('SEARCH_PARAMS', { limit: 10 }).value('SEARCH_CONFIG', {
+]).constant('SEARCH_PARAMS', { limit: 10 }).value('SEARCH_CONFIG', {
     openCaseRef: '#/case/new',
     showOpenCaseBtn: true
 }).config([
