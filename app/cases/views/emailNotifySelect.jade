@@ -10,8 +10,8 @@ select(
   ng-model='CaseService.updatedNotifiedUsers',
   ng-change='updateNotifyUsers()',
   id='rha-email-notify-select',
-  style='width: 100%')
-  option(ng-repeat='user in CaseService.users')
+  style='width: 100%',
+  ng-options='user.sso_username for user in CaseService.users')
     | {{user.sso_username}}
 div(ng-if='!securityService.userAllowedToManageEmailNotifications() && !securityService.loggingIn')
   div.well(style='display: inline-block; width: 100%; padding: 6px;')
