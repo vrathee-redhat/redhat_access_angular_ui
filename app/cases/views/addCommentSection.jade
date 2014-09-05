@@ -5,7 +5,7 @@ div(style='margin-left: 60px; margin-right: 60px;')
       rows='5',
       ng-model='CaseService.commentText',
       style='max-width: 100%',
-      ng-keypress='onNewCommentKeypress()')
+      ng-change='onNewCommentKeypress()')
     div(style='padding-top: 10px;')
       div(ng-if='securityService.loginStatus.isInternal')
         span(style='float: left;') {{'Is Public:'|translate}}
@@ -17,6 +17,6 @@ div(style='margin-left: 60px; margin-right: 60px;')
     span.rha-search-spinner(ng-show='addingComment')
     button.btn.btn-primary(
       ng-hide='addingComment',
-      ng-disabled='false',
+      ng-disabled='disableAddComment',
       ng-click='addComment()',
       style='float: right;',translate='') Add Comment

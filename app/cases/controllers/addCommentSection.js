@@ -13,6 +13,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.addingComment = false;
+        $scope.disableAddComment = true;
         $scope.addComment = function () {
             $scope.addingComment = true;
             if (!securityService.loginStatus.isInternal) {
@@ -49,12 +50,15 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.saveDraftPromise;
         $scope.onNewCommentKeypress = function () {
             if (RHAUtils.isNotEmpty(CaseService.commentText) && !$scope.addingComment) {
+                $scope.disableAddComment = false;
                 $timeout.cancel($scope.saveDraftPromise);
                 $scope.saveDraftPromise = $timeout(function () {
                     if (!$scope.addingComment) {
                         $scope.saveDraft();
                     }
                 }, 5000);
+            } else if (RHAUtils.isEmpty(CaseService.commentText)) {
+                $scope.disableAddComment = true;
             }
         };
         $scope.saveDraft = function () {
