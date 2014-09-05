@@ -38,7 +38,6 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
             var masterPromise = $q.all(promises);
             masterPromise.then(function (response) {
                 CaseService.populateComments($stateParams.id).then(function (comments) {
-                    CaseService.selectCommentsPage(1);
                     $scope.closeModal();
                     $scope.submittingRequest = false;
                 });

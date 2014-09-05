@@ -33,7 +33,6 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         this.onSelectChanged = null;
         this.onOwnerSelectChanged = null;
         this.onGroupSelectChanged = null;
-        this.currentPage = 1;
         /**
        * Add the necessary wrapper objects needed to properly display the data.
        *
@@ -96,7 +95,6 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             this.group = undefined;
             this.owner = undefined;
             this.product = undefined;
-            this.currentPage = 1;
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername) {
@@ -136,15 +134,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             }
             return promise;
         });
-        this.commentsOnScreen = [];
-        this.commentsPerPage = 4;
-        this.selectCommentsPage = function(pageNum) {
-            var start = this.commentsPerPage * (pageNum - 1);
-            var end = start + this.commentsPerPage;
-            end = end > this.comments.length ? this.comments.length : end;
-            this.commentsOnScreen = this.comments.slice(start, end);
-            this.currentPage = pageNum;
-        };
+
         this.scrollToComment = function(commentID) {
             if(!commentID) {
                 return;
@@ -169,16 +159,6 @@ angular.module('RedhatAccess.cases').service('CaseService', [
                     commentElem.scrollIntoView(true);
                 }
             };
-            if(page === this.currentPage) {
-                scrollToCommentElement();
-            } else {
-                this.selectCommentsPage(page);
-                // Had to put this in a timeout because changing the comment page will change the
-                // rendered comments, and we have to wait for digest to happen before scrolling
-                // to the comment node
-                $timeout(scrollToCommentElement, 0, false);
-            }
-
         };
         this.populateComments = function (caseNumber) {
             var promise = strataService.cases.comments.get(caseNumber);

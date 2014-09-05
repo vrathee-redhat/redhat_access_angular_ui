@@ -11,22 +11,7 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
         style='display: inline-block',
         ng-click='requestManagementEscalation()', translate='') Request Management Escalation
   div.rha-comments-section(ng-hide='CaseService.comments.length <= 0 || CaseService.comments === undefined', style='border-top: 1px solid #dddddd;')
-    div.row(style='padding-top: 10px; padding-bottom: 10px;')
-      div.col-xs-12
-        pagination.pagination-sm(
-          style='float: right;',
-          boundary-links='true',
-          total-items='CaseService.comments.length',
-          on-select-page='CaseService.selectCommentsPage(page)',
-          items-per-page='CaseService.commentsPerPage',
-          page='CaseService.currentPage',
-          rotate='false',
-          max-size=3,
-          previous-text='<',
-          next-text='>',
-          first-text='<<',
-          last-text='>>')
-    div(ng-repeat='comment in CaseService.commentsOnScreen', ng-if='!comment.draft')
+    div(ng-repeat='comment in CaseService.comments', ng-if='!comment.draft')
       div(id="{{comment.id}}")
         div.row(style='padding-bottom: 10px;')
           div.col-md-2

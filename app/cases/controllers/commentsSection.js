@@ -15,10 +15,6 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
         $scope.CaseService = CaseService;
 
         CaseService.populateComments($stateParams.id).then(function (comments) {
-            if (RHAUtils.isNotEmpty(comments)) {
-                CaseService.selectCommentsPage(1);
-                //CaseService.refreshComments();
-            }
             $scope.$on('rhaCaseSettled', function() {
                 $scope.$evalAsync(function() {
                     CaseService.scrollToComment($location.search().commentId);
@@ -31,9 +27,6 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
                 controller: 'RequestManagementEscalationModal'
             });
         };
-        if (RHAUtils.isNotEmpty(CaseService.comments)) {
-            CaseService.selectCommentsPage(1);
-        }
 
         $scope.linkToComment = function (commentId) {
             //This feels terrible hacky :(
