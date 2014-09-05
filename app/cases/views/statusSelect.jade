@@ -1,8 +1,8 @@
 div(style='display: block')
   select(
-    ui-select2,
+    chosen,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.status',
     ng-change='CaseService.onSelectChanged()',
-    style='width: 100%')
-    option(ng-repeat='status in statuses', value='{{status.value}}') {{status.name}}
+    width='"100%"',
+    ng-options='status.value as status.name for status in statuses')

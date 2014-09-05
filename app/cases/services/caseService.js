@@ -98,14 +98,18 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername) {
+            var deferred = $q.defer();
             this.groupsLoading = true;
             strataService.groups.list(ssoUsername).then(angular.bind(this, function (groups) {
                 this.groups = groups;
                 this.groupsLoading = false;
+                deferred.resolve(groups);
             }), angular.bind(this, function (error) {
                 this.groupsLoading = false;
                 AlertService.addStrataErrorMessage(error);
+                deferred.reject();
             }));
+            return deferred.promise;
         };
         this.usersLoading = false;
         /**

@@ -2,7 +2,7 @@
 angular.module('RedhatAccess.cases', [
     'ui.router',
     'ui.bootstrap',
-    'ui.select2',
+    'localytics.directives',
     'ngTable',
     'RedhatAccess.template',
     'RedhatAccess.security',
