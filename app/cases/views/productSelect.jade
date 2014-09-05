@@ -1,8 +1,8 @@
 div(rha-selectloadingindicator='', loading='productsLoading', type='select2')
   select(
-    ui-select2,
+    chosen,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.product',
     ng-change='CaseService.onSelectChanged()',
-    style='width: 100%')
-    option(ng-repeat='product in CaseService.products') {{product.name}}
+    width='"100%"',
+    ng-options='product.name as product.name for product in CaseService.products')

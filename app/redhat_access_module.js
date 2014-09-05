@@ -1,6 +1,6 @@
 angular.module('RedhatAccess', [
     'ngSanitize',
-    'ui.select2',
+    'localytics.directives',
     'RedhatAccess.header',
     'RedhatAccess.template',
     'RedhatAccess.cases',

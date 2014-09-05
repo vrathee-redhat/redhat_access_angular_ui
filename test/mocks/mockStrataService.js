@@ -717,8 +717,11 @@ angular.module('RedhatAccess.mock', [])
       };
 
       this.populateGroups = function (ssoUsername) {
+        var deferred = $q.defer();
         this.groupsLoading = true;
         this.groups = MockStrataDataService.mockGroups;
+        deferred.resolve(MockStrataDataService.mockGroups);
+        return deferred.promise;
       };
 
       this.populateEntitlements = function (ssoUserName) {

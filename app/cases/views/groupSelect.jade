@@ -1,14 +1,10 @@
 div(rha-selectloadingindicator='', loading='CaseService.groupsLoading', type='select2')
   select#rha-group-select(
-    ui-select2,
+    chosen,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.group',
     ng-change='CaseService.onGroupSelectChanged()',
     placeholder='Select a Group',
-    style='width: 100%')
-    option(value='', ng-if='showsearchoptions') All Groups
-    option(value='{{CASE_GROUPS.ungrouped}}', ng-if='showsearchoptions') Ungrouped Cases
-    option(disabled, ng-hide='CaseService.groups.length < 1', ng-if='showsearchoptions') ────────────────────────────────────────
-    option(ng-repeat='group in CaseService.groups' value='{{group.number}}') {{group.name}}
-    option(ng-if='securityService.userAllowedToManageGroups() && showsearchoptions', disabled) ────────────────────────────────────────
-    option(ng-if='securityService.userAllowedToManageGroups() && showsearchoptions', value='{{CASE_GROUPS.manage}}') Manage Case Groups
+    width='"100%"',
+    ng-options='option.value as option.label for option in groupOptions',
+    options-disabled="option.isDisabled for option in groupOptions")

@@ -77,16 +77,19 @@ module.exports = function (grunt) {
                     '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
                     '<%= yeoman.bowerDir %>/ng-table/ng-table.js',
                     '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js',
-                    '<%= yeoman.bowerDir %>/angular-nca-select2/src/select2.js',
+                    '<%= yeoman.bowerDir %>/angular-chosen-localystics/choseng.js',
                     '<%= yeoman.bowerDir %>/angular-cache/dist/angular-cache.js',
-                    '<%= yeoman.bowerDir %>/select2/select2.js'
+                    '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js'
                 ],
                 css: [
                     '<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
                     '<%= yeoman.bowerDir %>/ng-table/ng-table.css',
-                    '<%= yeoman.bowerDir %>/select2/select2.css'
+                    '<%= yeoman.bowerDir %>/chosen/chosen.css'
                 ],
-                img: ['<%= yeoman.bowerDir %>/angular-treeview/img/*']
+                img: [
+                    '<%= yeoman.bowerDir %>/angular-treeview/img/*',
+                    '<%= yeoman.bowerDir %>/chosen/*.png'
+                ]
             },
             i18n: { generated: ['<%= yeoman.app %>/i18n/translations.js'] }
         },
@@ -352,7 +355,7 @@ module.exports = function (grunt) {
                     expand: true,
                     flatten: true,
                     nonull: true,
-                    src: '<%= yeoman.bowerDir%>/select2/{select2.png,select2-spinner.gif,select2x2.png}',
+                    src: '<%= yeoman.bowerDir%>/chosen/*.png',
                     dest: '<%= yeoman.dist %>/styles',
                     filter: 'isFile'
                 }

@@ -1,8 +1,8 @@
 div(rha-selectloadingindicator='', loading='typesLoading', type='select2')
   select(
-    ui-select2,
+    chosen,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.type',
     ng-change='CaseService.onSelectChanged()',
-    style='width: 100%')
-    option(ng-repeat='type in CaseService.types') {{type.name}}
+    width='"100%"',
+    ng-options='type.name as type.name for type in CaseService.types')

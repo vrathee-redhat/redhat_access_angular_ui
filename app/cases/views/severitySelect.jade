@@ -1,8 +1,8 @@
 div(rha-selectloadingindicator='', loading='severitiesLoading', type='select2')
   select(
-    ui-select2,
+    chosen,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.severity',
     ng-change='CaseService.onSelectChanged()',
-    style='width: 100%')
-    option(ng-repeat='severity in CaseService.severities') {{severity.name}}
+    width='"100%"',
+    ng-options='severity.name as severity.name for severity in CaseService.severities')
