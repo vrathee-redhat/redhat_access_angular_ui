@@ -401,7 +401,8 @@ module.exports = function (grunt) {
                 src: [
                     '<%= src.thirdParty.js %>'
                 ],
-                dest: '.tmp/<%= pkg.name %>-deps.js'
+                dest: '.tmp/<%= pkg.name %>-deps.js',
+                nonull: true
             },
             distNoDeps: {
                 options: { banner: '<%= banner %>' },
@@ -410,7 +411,8 @@ module.exports = function (grunt) {
                     '<%= src.js %>',
                     '<%= src.jsTpl %>'
                 ],
-                dest: '.tmp/<%= pkg.name %>.js'
+                dest: '.tmp/<%= pkg.name %>.js',
+                nonull: true
             }
         },
         html2js: {
