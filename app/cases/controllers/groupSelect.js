@@ -29,8 +29,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 });
 
                 var defaultGroup = '';
+                var sep = '────────────────────────────────────────';
                 if ($scope.showsearchoptions) {
-                    var sep = '────────────────────────────────────────';
                     $scope.groupOptions.push({
                         value: '',
                         label: 'All Groups'
