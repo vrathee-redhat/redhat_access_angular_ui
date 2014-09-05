@@ -67,8 +67,13 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             });
         };
         buildGroupOptions();
-        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.authLoginEvent = $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             buildGroupOptions();
+        });
+
+        $scope.$on('$destroy', function () {
+            // Clean up listeners
+            $scope.authLoginEvent();
         });
     }
 ]);
