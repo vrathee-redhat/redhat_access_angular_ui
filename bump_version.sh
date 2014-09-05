@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $1 -eq "" ]]; then
+if  [ "$1" = "" ] ; then
     echo "Please supply a version"
     exit
 fi
