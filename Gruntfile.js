@@ -77,7 +77,7 @@ module.exports = function (grunt) {
                     '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
                     '<%= yeoman.bowerDir %>/ng-table/ng-table.js',
                     '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js',
-                    '<%= yeoman.bowerDir %>/angular-chosen-localystics/choseng.js',
+                    '<%= yeoman.bowerDir %>/angular-chosen-localystics/chosen.js',
                     '<%= yeoman.bowerDir %>/angular-cache/dist/angular-cache.js',
                     '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js'
                 ],
