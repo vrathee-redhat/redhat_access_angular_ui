@@ -36,7 +36,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.getRecommendations = function () {
             if ($scope.NEW_CASE_CONFIG.showRecommendations) {
                 SearchResultsService.searchInProgress.value = true;
-                RecommendationsService.populateRecommendations(5).then(function () {
+                RecommendationsService.populateRecommendations(10).then(function () {
                     SearchResultsService.clear();
                     RecommendationsService.recommendations.forEach(function (recommendation) {
                         SearchResultsService.add(recommendation);

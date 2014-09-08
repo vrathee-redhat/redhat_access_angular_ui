@@ -21,13 +21,14 @@ div
    div.row(style='padding-top: 10px;', ng-hide='results.length == 0')
       div.col-xs-12
         pagination.pagination-sm(
-          boundary-links='true'
-          total-items='SearchResultsService.results.length'
-          on-select-page=''
-          items-per-page='3'
-          page='1'
-          max-size='10'
-          previous-text='<'
-          next-text='>'
-          first-text='<<'
+          boundary-links='true',
+          total-items='SearchResultsService.results.length',
+          on-select-page='selectPage(page)',
+          items-per-page='itemsPerPage',
+          page='currentPage',
+          rotate='false',
+          max-size='maxPagerSize',
+          previous-text='<',
+          next-text='>',
+          first-text='<<',
           last-text='>>')
