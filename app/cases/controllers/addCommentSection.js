@@ -24,6 +24,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     $timeout.cancel($scope.saveDraftPromise);
                 }
                 CaseService.commentText = '';
+                $scope.disableAddComment = true;
                 //TODO: find better way than hard code
                 if (CaseService.kase.status.name === 'Closed') {
                     var status = { name: 'Waiting on Red Hat' };
@@ -81,7 +82,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, true, CaseService.draftComment.id).then(onSuccess, onFailure);
             } else {
                 //initial draft save
-                strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, true).then(onSuccess, onFailure);
+                strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, true).then(onSuccess, onFailure);
             }
         };
     }
