@@ -117,6 +117,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
 
         $scope.$on('$destroy', function () {
             // Clean up listeners
+            CaseService.clearCase();
             $scope.authLoginEvent();
             $scope.loadingWatcher();
             $scope.loadingRecWatcher();

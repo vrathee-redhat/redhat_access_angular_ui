@@ -20,6 +20,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         $scope.groupOptions = [];
 
         var buildGroupOptions = function() {
+            var sep = '────────────────────────────────────────';
             CaseService.populateGroups().then(function(groups){
                 $scope.groupOptions = [];
                 groups.sort(function(a, b){
@@ -63,7 +64,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 }
                 // Assign to default group or '' which will fallback
                 // to 'All Groups'
-                $scope.CaseService.group = defaultGroup;
+                //$scope.CaseService.group = defaultGroup;
             });
         };
         buildGroupOptions();

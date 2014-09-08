@@ -95,6 +95,8 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             this.group = undefined;
             this.owner = undefined;
             this.product = undefined;
+            this.originalNotifiedUsers = [];
+            this.updatedNotifiedUsers = [];
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername) {

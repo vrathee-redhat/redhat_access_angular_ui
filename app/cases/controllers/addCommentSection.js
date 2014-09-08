@@ -36,6 +36,15 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     $scope.draftSaved = false;
                     CaseService.draftComment = undefined;
                 });
+
+                if(securityService.loginStatus.ssoName !== undefined && CaseService.originalNotifiedUsers.indexOf(securityService.loginStatus.ssoName) == -1){
+                    strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.ssoName).then(function () {
+                        CaseService.originalNotifiedUsers.push(securityService.loginStatus.ssoName);
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
+                }
+                
             };
             var onError = function (error) {
                 AlertService.addStrataErrorMessage(error);
