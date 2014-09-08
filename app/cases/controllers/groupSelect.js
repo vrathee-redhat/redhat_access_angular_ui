@@ -50,7 +50,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                         label: group.name
                     });
                     if(group.is_default) {
-                        defaultGroup = group;
+                        defaultGroup = group.number;
+                        $scope.CaseService.group = defaultGroup;
+                        CaseService.onGroupSelectChanged();
                     }
                 });
                 if ($scope.showsearchoptions) {
@@ -62,9 +64,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                         label: 'Manage Case Groups'
                     });
                 }
-                // Assign to default group or '' which will fallback
-                // to 'All Groups'
-                //$scope.CaseService.group = defaultGroup;
             });
         };
         buildGroupOptions();
