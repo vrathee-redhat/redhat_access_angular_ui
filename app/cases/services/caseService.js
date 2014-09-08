@@ -226,7 +226,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         };
         this.showVersionSunset = function () {
             if (RHAUtils.isNotEmpty(this.kase.product) && RHAUtils.isNotEmpty(this.kase.version)) {
-                if (this.kase.version === '3 - EOL') {
+                if ((this.kase.version).toLowerCase().indexOf("- eol") > -1) {
                     return true;
                 }
             }
