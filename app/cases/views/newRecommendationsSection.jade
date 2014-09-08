@@ -9,6 +9,7 @@ div
    ul.recommendations(style="display: block;")
      li(ng-repeat="result in results")
        h4
+         span.icon-solution
          a(ng-click='triggerAnalytics($event)', href='{{result.view_uri}}', target='_blank') {{result.title}} 
        p.snippet {{result.resolution.text | recommendationsResolution}}
        div.row

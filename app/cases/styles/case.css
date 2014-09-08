@@ -319,7 +319,12 @@ div#rha-recommendation-section .hand-picked {
     zoom: 1;
     border: 1px solid #dedede;
 }
-.private {
+
+.recommendations li .icon-solution {
+    position: relative;
+    float: left;
+    margin-left: -20px;
+}.private {
     background-color: #fde5e5;
     color: #c92b22;
     display: inline-block;
