@@ -23,6 +23,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         this.account = {};
         this.draftComment = '';
         this.commentText = '';
+        this.escalationCommentText = '';
         this.status = '';
         this.severity = '';
         this.type = '';
@@ -89,6 +90,7 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             this.bugzillaList = {};
             this.draftComment = undefined;
             this.commentText = undefined;
+            this.escalationCommentText = undefined;
             this.status = undefined;
             this.severity = undefined;
             this.type = undefined;
