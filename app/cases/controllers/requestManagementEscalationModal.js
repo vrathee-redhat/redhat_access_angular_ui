@@ -9,10 +9,11 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
     'strataService',
     '$q',
     '$stateParams',
-    function ($scope, $modalInstance, AlertService, CaseService, strataService, $q, $stateParams) {
+    'RHAUtils',
+    function ($scope, $modalInstance, AlertService, CaseService, strataService, $q, $stateParams, RHAUtils) {
         $scope.CaseService = CaseService;
-        $scope.commentText = CaseService.commentText;
         $scope.submittingRequest = false;
+        $scope.disableSubmitRequest = true;
         $scope.submitRequestClick = angular.bind($scope, function (commentText) {
             $scope.submittingRequest = true;
             var promises = [];
@@ -21,7 +22,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
             if (CaseService.draftComment) {
                 postComment = strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, CaseService.draftComment.id);
             } else {
-                postComment = strataService.cases.comments.post(CaseService.kase.case_number, fullComment, false);
+                postComment = strataService.cases.comments.post(CaseService.kase.case_number, fullComment, true, false);
             }
             postComment.then(function (response) {
             }, function (error) {
@@ -47,7 +48,15 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
             return masterPromise;
         });
         $scope.closeModal = function () {
+            CaseService.escalationCommentText = undefined;
             $modalInstance.close();
+        };
+        $scope.onNewEscalationComment = function () {
+            if (RHAUtils.isNotEmpty(CaseService.escalationCommentText) && !$scope.submittingRequest) {
+                $scope.disableSubmitRequest = false;                
+            } else if (RHAUtils.isEmpty(CaseService.escalationCommentText)) {
+                $scope.disableSubmitRequest = true;
+            }
         };
     }
 ]);
