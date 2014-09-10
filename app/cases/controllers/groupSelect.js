@@ -43,23 +43,17 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                         label: sep
                     });
                 }
-                var updateGroupOptions = true;
+
                 angular.forEach(groups, function(group){
-                    if (updateGroupOptions) {
-                        if (group.is_default) {
-                            if ($scope.showsearchoptions === false) {
-                                $scope.groupOptions = [];
-                                defaultGroup = group.number;
-                                $scope.CaseService.group = defaultGroup;
-                                CaseService.onGroupSelectChanged();                        
-                                updateGroupOptions = false;
-                            }                            
-                        }
-                        $scope.groupOptions.push({
-                            value: group.number,
-                            label: group.name
-                        });
-                    }                                        
+                    $scope.groupOptions.push({
+                        value: group.number,
+                        label: group.name
+                    });
+                    if(group.is_default) {
+                        defaultGroup = group.number;
+                        $scope.CaseService.group = defaultGroup;
+                        CaseService.onGroupSelectChanged();
+                    }
                 });
                 if ($scope.showsearchoptions) {
                     $scope.groupOptions.push({
