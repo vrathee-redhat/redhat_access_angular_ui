@@ -157,18 +157,4 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
             AlertService.clearAlerts();
         };
     }
-]).factory('configurationService', [
-    '$q',
-    function ($q) {
-        var defer = $q.defer();
-        var service = {
-                setConfig: function (config) {
-                    defer.resolve(config);
-                },
-                getConfig: function () {
-                    return defer.promise;
-                }
-            };
-        return service;
-    }
 ]);

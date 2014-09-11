@@ -10,13 +10,15 @@ angular.module('RedhatAccess.cases', [
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
     'RedhatAccess.header'
-]).constant('CASE_EVENTS', { received: 'case-received' }).constant('CHAT_SUPPORT', {
-    enableChat: false,
+]).constant('CASE_EVENTS', {
+    received: 'case-received'
+}).constant('CHAT_SUPPORT', {
+    enableChat: true,
     chatButtonToken: '573A0000000GmiP',
-    chatLiveAgentUrlPrefix: 'https://d.la8cs.salesforceliveagent.com/chat',
+    chatLiveAgentUrlPrefix: 'https://d.la1w1.salesforceliveagent.com/chat',
     chatInitHashOne: '572A0000000GmiP',
-    chatInitHashTwo: '00DK000000W3mDA',
-    chatIframeHackUrlPrefix: 'https://qa-rogsstest.cs9.force.com/chatHidden'
+    chatInitHashTwo: '00DA0000000HxWH',
+    chatIframeHackUrlPrefix: 'https://rogsstest.force.com/chatHidden'
 }).constant('STATUS', {
     open: 'open',
     closed: 'closed',
