@@ -57,6 +57,7 @@ angular.module('RedhatAccess.cases').controller('New', [
        * Populate the selects
        */
         $scope.initSelects = function () {
+            CaseService.clearCase();
             $scope.productsLoading = true;
             strataService.products.list(securityService.loginStatus.ssoName).then(function (products) {
                 $scope.products = products;
@@ -81,15 +82,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 AlertService.addStrataErrorMessage(error);
             });
             $scope.groupsLoading = true;
-            strataService.groups.list().then(function (groups) {
-                /*jshint camelcase: false*/
-                CaseService.groups = groups;
-                for (var i = 0; i < groups.length; i++) {
-                    if (groups[i].is_default) {
-                        CaseService.kase.group = groups[i];
-                        break;
-                    }
-                }
+            CaseService.populateGroups().then(function (groups) {
                 $scope.groupsLoading = false;
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
@@ -173,6 +166,17 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.gotoPage(1);
         };
         $scope.submittingCase = false;
+
+        $scope.setSearchOptions = function (showsearchoptions) {
+            CaseService.showsearchoptions = showsearchoptions;
+            if(CaseService.groups.length === 0){
+                CaseService.populateGroups().then(function (){
+                    CaseService.buildGroupOptions();
+                });
+            } else{
+                CaseService.buildGroupOptions();
+            }
+        };
         /**
        * Create the case with attachments
        */
@@ -231,5 +235,12 @@ angular.module('RedhatAccess.cases').controller('New', [
             });
         };
         $scope.gotoPage(1);
+
+        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+            CaseService.clearCase();
+        });
+        $scope.$on('$destroy', function () {
+            CaseService.clearCase();
+        });
     }
 ]);

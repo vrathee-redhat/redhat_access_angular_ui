@@ -8,5 +8,16 @@ angular.module('RedhatAccess.cases').controller('ListFilter', [
     function ($scope, STATUS, CaseService, securityService) {
         $scope.securityService = securityService;
         CaseService.status = STATUS.both;
+        $scope.showsearchoptions = CaseService.showsearchoptions;
+        $scope.setSearchOptions = function (showsearchoptions) {
+            CaseService.showsearchoptions = showsearchoptions;
+            if(CaseService.groups.length === 0){
+                CaseService.populateGroups().then(function (){
+                    CaseService.buildGroupOptions();
+                });
+            } else{
+                CaseService.buildGroupOptions();
+            }
+        };
     }
 ]);

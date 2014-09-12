@@ -1,5 +1,8 @@
 'use strict';
-angular.module('RedhatAccess.cases').service('CaseService', [
+angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
+    manage: 'manage',
+    ungrouped: 'ungrouped'
+}).service('CaseService', [
     'strataService',
     'AlertService',
     'RHAUtils',
@@ -34,6 +37,8 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         this.onSelectChanged = null;
         this.onOwnerSelectChanged = null;
         this.onGroupSelectChanged = null;
+        this.groupOptions = [];
+        this.showsearchoptions = false;
         /**
        * Add the necessary wrapper objects needed to properly display the data.
        *
@@ -99,17 +104,25 @@ angular.module('RedhatAccess.cases').service('CaseService', [
             this.product = undefined;
             this.originalNotifiedUsers = [];
             this.updatedNotifiedUsers = [];
+            this.groupOptions = [];
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername) {
+            var that = this;
             var deferred = $q.defer();
             this.groupsLoading = true;
+            var username = ssoUsername;
+            if(username === undefined){
+                username = securityService.loginStatus.ssoName;
+            }
             strataService.groups.list(ssoUsername).then(angular.bind(this, function (groups) {
-                this.groups = groups;
-                this.groupsLoading = false;
+                that.groups = groups;
+                that.group = '';
+                that.buildGroupOptions(that);
+                that.groupsLoading = false;
                 deferred.resolve(groups);
             }), angular.bind(this, function (error) {
-                this.groupsLoading = false;
+                that.groupsLoading = false;
                 AlertService.addStrataErrorMessage(error);
                 deferred.reject();
             }));
@@ -230,11 +243,56 @@ angular.module('RedhatAccess.cases').service('CaseService', [
         };
         this.showVersionSunset = function () {
             if (RHAUtils.isNotEmpty(this.kase.product) && RHAUtils.isNotEmpty(this.kase.version)) {
-                if ((this.kase.version).toLowerCase().indexOf("- eol") > -1) {
+                if ((this.kase.version).toLowerCase().indexOf('- eol') > -1) {
                     return true;
                 }
             }
             return false;
+        };
+
+        this.buildGroupOptions = function() {
+            var that = this;
+            this.groupOptions = [];
+            var sep = '────────────────────────────────────────';
+            this.groups.sort(function(a, b){
+                if(a.name < b.name) { return -1; }
+                if(a.name > b.name) { return 1; }
+                return 0;
+            });
+
+            var defaultGroup = '';
+            if (this.showsearchoptions === true) {
+                this.groupOptions.push({
+                    value: '',
+                    label: 'All Groups'
+                }, {
+                    value: 'ungrouped',
+                    label: 'Ungrouped Cases'
+                }, {
+                    isDisabled: true,
+                    label: sep
+                });
+            }
+
+            angular.forEach(that.groups, function(group){
+                that.groupOptions.push({
+                    value: group.number,
+                    label: group.name
+                });
+                if(group.is_default) {
+                    that.kase.group = group.number;
+                    that.group = group.number;
+                }
+            });
+            if (this.showsearchoptions === true) {
+                this.groupOptions.push({
+                    isDisabled: true,
+                    label: sep
+                }, {
+                    value: 'manage',
+                    label: 'Manage Case Groups'
+                });
+            }
         };
     }
 ]);

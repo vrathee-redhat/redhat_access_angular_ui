@@ -343,7 +343,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.kase.product.name).toEqual(mockStrataDataService.value.product);
             expect(mockCaseService.severities).toEqual(mockStrataDataService.mockSeverities);
             expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);
-            expect(mockCaseService.kase.group).toEqual(mockStrataDataService.mockGroups[1]);
+
         }));
         it('should have a function for initializing the drop downs rejected', inject(function ($controller) {
             $controller('New', {
@@ -362,8 +362,7 @@ describe('Case Controllers', function () {
             expect(mockScope.products).toBeUndefined();
             expect(mockCaseService.kase.product).toBeUndefined();
             expect(mockCaseService.severities).toEqual([]);
-            expect(mockCaseService.groups).toEqual([]);
-            expect(mockCaseService.kase.group).toBeUndefined();
+
         }));
         it('should have a function to handle login success event', inject(function ($controller) {
             $controller('New', {
@@ -990,19 +989,6 @@ describe('Case Controllers', function () {
             expect(mockCaseService.products).toEqual(mockStrataDataService.mockProducts);
         }));
     });
-    //Suite for GroupSelect
-    describe('GroupSelect', function () {
-        it('should have a function to do blah!', inject(function ($controller) {
-            $controller('GroupSelect', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                AlertService: mockAlertService
-            });
-            expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);
-        }));
-    });
     //Suite for OwnerSelect
     describe('OwnerSelect', function () {
         it('should have a function to handle login success event', inject(function ($controller) {
@@ -1049,7 +1035,7 @@ describe('Case Controllers', function () {
             });
             mockSearchCaseService.cases = mockStrataDataService.mockCases;
             rootScope.$broadcast('auth-login-success');
-            spyOn(mockSearchCaseService, 'doFilter');
+            spyOn(mockSearchBoxService, 'doSearch');
             mockScope.$root.$digest();
             expect(mockScope.tableParams).toBeDefined();
         }));
