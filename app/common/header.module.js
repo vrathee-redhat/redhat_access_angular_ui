@@ -96,12 +96,18 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
         };
         this.addStrataErrorMessage = function (error) {
             if (RHAUtils.isNotEmpty(error)) {
+                var errorText='';
+                if (error.xhr && error.xhr.responseText){
+                    errorText = error.xhr.responseText;
+                }else {
+                    errorText = error.message;
+                }
                 var existingMessage = $filter('filter')(this.alerts, {
                         type: ALERT_TYPES.DANGER,
-                        message: error.message
+                        message: errorText,
                     });
                 if (existingMessage.length < 1) {
-                    this.addDangerMessage(error.message);
+                    this.addDangerMessage(errorText);
                 }
             }
         };
