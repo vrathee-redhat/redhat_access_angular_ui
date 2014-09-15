@@ -6,8 +6,7 @@ angular.module('RedhatAccess.cases').directive('rhaGroupselect', function () {
         restrict: 'A',
         controller: 'GroupSelect',
         scope: {
-            onchange: '&',
-            showsearchoptions: '='
+            onchange: '&'
         }
     };
 });

@@ -4,7 +4,7 @@ div.container-fluid
       div(rha-searchbox='', placeholder='Search')
     div.col-md-3(style='padding-bottom: 14px;')
       div(style='display:table')
-        div(rha-groupselect='', showsearchoptions='true')
+        div(rha-groupselect='', ng-init="setSearchOptions(true)")
         span.glyphicon.glyphicon-question-sign(
           style='display: table-cell; width: 1%; padding-left: 6px;',
           popover='Filtering by case groups helps you find related cases.',

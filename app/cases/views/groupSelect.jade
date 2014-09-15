@@ -6,5 +6,5 @@ div(rha-selectloadingindicator='', loading='CaseService.groupsLoading', type='se
     ng-change='CaseService.onGroupSelectChanged()',
     placeholder='Select a Group',
     width='"100%"',
-    ng-options='option.value as option.label for option in groupOptions',
-    options-disabled="option.isDisabled for option in groupOptions")
+    ng-options='option.value as option.label for option in CaseService.groupOptions',
+    options-disabled="option.isDisabled for option in CaseService.groupOptions")

@@ -46,13 +46,27 @@ angular.module('RedhatAccess.cases').controller('List', [
         };
         SearchBoxService.doSearch = CaseService.onSelectChanged = CaseService.onOwnerSelectChanged = CaseService.onGroupSelectChanged = function () {
             SearchCaseService.clearPagination();
-            SearchCaseService.doFilter().then(function () {
-                if (!tableBuilt) {
-                    buildTable();
-                } else {
-                    $scope.tableParams.reload();
-                }
-            });
+            if(CaseService.groups.length === 0){
+                CaseService.populateGroups().then(function (){
+                    SearchCaseService.doFilter().then(function () {
+                        if (!tableBuilt) {
+                            buildTable();
+                        } else {
+                            $scope.tableParams.reload();
+                        }
+                    });
+                });
+            } else {
+                //CaseService.buildGroupOptions();
+                SearchCaseService.doFilter().then(function () {
+                    if (!tableBuilt) {
+                        buildTable();
+                    } else {
+                        $scope.tableParams.reload();
+                    }
+                });
+            }
+            
         };
         /**
        * Callback after user login. Load the cases and clear alerts
@@ -65,8 +79,15 @@ angular.module('RedhatAccess.cases').controller('List', [
             SearchBoxService.doSearch();
             AlertService.clearAlerts();
         });
+
+        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+            CaseService.clearCase();
+            SearchCaseService.clear();
+        });
+        
         $scope.$on('$destroy', function () {
             $scope.listAuthEventDeregister();
+            CaseService.clearCase();
         });
     }
 ]);

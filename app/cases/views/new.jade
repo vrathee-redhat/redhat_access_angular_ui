@@ -17,7 +17,7 @@ div.container-offset
                   div(rha-accountselect='')
               div.row.rha-create-field
                 div.col-md-4
-                  label(for='rha-owners-elect') {{'Owner:'|translate}}
+                  label(for='rha-owners-select') {{'Owner:'|translate}}
                 div.col-md-8
                   div(rha-ownerselect='')
             div.row.rha-create-field
@@ -111,7 +111,7 @@ div.container-offset
               div.col-md-4
                 label(for='rha-group-select') {{'Case Group:'|translate}}
               div.col-md-8
-                div(rha-groupselect='', showsearchoptions='false')
+                div(rha-groupselect='', ng-init="setSearchOptions('false')")
             div(ng-show='NEW_CASE_CONFIG.showAttachments')
               div.row.rha-create-field
                 div.col-xs-12

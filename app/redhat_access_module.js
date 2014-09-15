@@ -31,7 +31,7 @@ angular.module('RedhatAccess', [
         CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
         CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
         CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
-        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://rogsstest.force.com/chatHidden';
+        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
     }
 ]);
 //Define dummy RedhatAccess.template module - not needed in productions since its

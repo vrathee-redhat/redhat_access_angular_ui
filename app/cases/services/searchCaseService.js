@@ -14,7 +14,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
     'securityService',
     function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $state, $rootScope, SearchBoxService, securityService) {
         this.cases = [];
-        this.searching = false;
+        this.searching = true;
         this.prefilter = {};
         this.postfilter = {};
         this.start = 0;
@@ -38,6 +38,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.start = 0;
             this.total = 0;
             this.allCasesDownloaded = false;
+            this.prefilter = {};
+            this.postfilter = {};
+            this.searching = true;
         };
         this.clearPagination = function () {
             this.start = 0;

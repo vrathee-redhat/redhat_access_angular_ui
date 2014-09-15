@@ -746,6 +746,10 @@ angular.module('RedhatAccess.mock', [])
         this.entitlements = MockStrataDataService.mockEntitlements;
       };
 
+
+      this.buildGroupOptions = function() {
+        this.kase.group = mockStrataDataService.mockGroups[1]
+      }
     }
   ])
   .service('MockRecommendationsService', [
