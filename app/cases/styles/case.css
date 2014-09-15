@@ -252,7 +252,7 @@ div#rha-recommendation-section .hand-picked {
     background-image: url("../img/throbber_dickie_small.gif");
     background-repeat: no-repeat;
     display:inline-block;
-    width:11px; 
+    width:11px;
     height:11px;
 }
 
@@ -285,6 +285,13 @@ div#rha-recommendation-section .hand-picked {
 
 .private {
     background-color: #fde5e5;
-    color: #c92b22; 
-    display: inline-block; 
+    color: #c92b22;
+    display: inline-block;
+}
+
+.group-select-help {
+    position: absolute;
+    right: 0;
+    padding-left: 5px;
+    padding-top: 9px;
 }

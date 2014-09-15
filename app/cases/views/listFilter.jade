@@ -1,15 +1,14 @@
 div.container-fluid
   div.row
-    div.col-md-6(style='padding-bottom: 14px;')
+    div.col-md-6.pad-b-l
       div(rha-searchbox='', placeholder='Search')
-    div.col-md-3(style='padding-bottom: 14px;')
-      div(style='display:table')
+    div.col-md-3.pad-s-y
+      div
         div(rha-groupselect='', ng-init="setSearchOptions(true)")
-        span.glyphicon.glyphicon-question-sign(
-          style='display: table-cell; width: 1%; padding-left: 6px;',
+        span.glyphicon.glyphicon-question-sign.group-select-help(
           popover='Filtering by case groups helps you find related cases.',
           tabindex='0',
           popover-append-to-body='true',
           popover-trigger='mouseenter')
-    div.col-md-3(style='padding-bottom: 14px;')
+    div.col-md-3.pad-s-y
       div(rha-statusselect='')
