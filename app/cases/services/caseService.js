@@ -251,7 +251,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
 
         this.buildGroupOptions = function() {
-            var that = this;
             this.groupOptions = [];
             var sep = '────────────────────────────────────────';
             this.groups.sort(function(a, b){
@@ -274,16 +273,16 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 });
             }
 
-            angular.forEach(that.groups, function(group){
-                that.groupOptions.push({
+            angular.forEach(this.groups, function(group){
+                this.groupOptions.push({
                     value: group.number,
                     label: group.name
                 });
                 if(group.is_default) {
-                    that.kase.group = group.number;
-                    that.group = group.number;
+                    this.kase.group = group.number;
+                    this.group = group.number;
                 }
-            });
+            }, this);
             if (this.showsearchoptions === true) {
                 this.groupOptions.push({
                     isDisabled: true,
