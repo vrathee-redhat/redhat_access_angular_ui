@@ -242,6 +242,15 @@ angular.module('RedhatAccess.mock', [])
         "value": "RHEL"
       }];
 
+      this.mockproduct = {
+        "name":"Red Hat Enterprise Linux",
+        "suggested_artifacts":{
+          "suggested_artifact":[{
+            "name":"sosreport",
+            "description":"Please attach an <a href=\"https://access.redhat.com/knowledge/node/3592\" class=\"help\">sosreport</a> (optional)"
+          }]
+        }}
+
       this.mockVersions = [{
         "name": "6.0",
         "value": "6.0"
@@ -605,6 +614,15 @@ angular.module('RedhatAccess.mock', [])
               deferred.reject("strata error");
             } else {
               deferred.resolve(MockStrataDataService.mockVersions);
+            }
+            return deferred.promise;
+          },
+          get: function (productCode) {
+            var deferred = $q.defer();
+            if (that.rejectCall) {
+              deferred.reject("strata error");
+            } else {
+              deferred.resolve(MockStrataDataService.mockProduct);
             }
             return deferred.promise;
           }

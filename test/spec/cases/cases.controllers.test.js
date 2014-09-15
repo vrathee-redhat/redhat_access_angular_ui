@@ -286,6 +286,7 @@ describe('Case Controllers', function () {
             expect(mockScope.getProductVersions).toBeDefined();
             mockScope.getProductVersions(product);
             spyOn(mockStrataService.products, 'versions').andCallThrough();
+            spyOn(mockStrataService.products, 'get').andCallThrough();
             mockScope.$root.$digest();
             expect(mockCaseService.kase.version).toEqual(mockStrataDataService.value.version);
         }));

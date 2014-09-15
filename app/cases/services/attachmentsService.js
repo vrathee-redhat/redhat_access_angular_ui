@@ -14,6 +14,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
+        this.suggestedArtifact;
         this.clear = function () {
             this.originalAttachments = [];
             this.updatedAttachments = [];
@@ -124,5 +125,34 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                 return parentPromise;
             }
         };
+        this.fetchProductDetail = function (productCode) {
+            this.suggestedArtifact = {};
+            strataService.products.get(productCode).then(angular.bind(this, function (product) {
+                //TODO find some better way of escaping the html
+                if (product !== undefined && product.suggested_artifacts !== undefined && product.suggested_artifacts.suggested_artifact.length > 0) {
+                    var description = product.suggested_artifacts.suggested_artifact[0].description;;
+                    var attachmentLink = '';
+                    var text = '';
+                    var trail = '';
+                    this.suggestedArtifact.hasLink = false;
+                    if (description.indexOf("<a") > -1) {
+                        this.suggestedArtifact.hasLink = true;
+                        attachmentLink = description.slice(description.indexOf('\"'),description.lastIndexOf('\"')-12);
+                        text = description.slice(0,description.indexOf('<'));
+                        trail = description.slice(description.lastIndexOf('>')+1,description.length);
+                    } else {
+                        text = product.suggested_artifacts.suggested_artifact[0].description;
+                    }
+                    
+                    this.suggestedArtifact.name = product.suggested_artifacts.suggested_artifact[0].name;
+                    this.suggestedArtifact.link = attachmentLink;
+                    this.suggestedArtifact.description = text;
+                    this.suggestedArtifact.trail = trail;
+                }                                
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
     }
 ]);

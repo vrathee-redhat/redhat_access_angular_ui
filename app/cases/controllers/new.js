@@ -150,6 +150,9 @@ angular.module('RedhatAccess.cases').controller('New', [
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
+
+            //Retrieve the product detail, basically finding the attachment artifact
+            AttachmentsService.fetchProductDetail(product.code);
         };
         /**
        * Go to a page in the wizard
