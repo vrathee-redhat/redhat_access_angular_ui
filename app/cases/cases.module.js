@@ -80,5 +80,10 @@ angular.module('RedhatAccess.cases', [
             controller: 'Group',
             templateUrl: 'cases/views/group.html'
         });
+        $stateProvider.state('editGroup', {
+            url: '/case/group/{groupNumber}',
+            controller: 'EditGroup',
+            templateUrl: 'cases/views/editGroup.html'
+        });
     }
 ]);

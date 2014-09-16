@@ -269,6 +269,22 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         deferred.resolve(response);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
+                },
+                update: function(groupName, groupnum){
+                    var deferred = $q.defer();
+                    strata.groups.update(groupName, groupnum, function (response) {
+                        deferred.resolve(response);
+                    }, angular.bind(deferred, errorHandler));
+                    return deferred.promise;
+                }
+            },
+            groupUsers: {
+                update: function(users, accountId, groupnum){
+                    var deferred = $q.defer();
+                    strata.groupUsers.update(users, accountId, groupnum, function (response) {
+                        deferred.resolve(response);
+                    }, angular.bind(deferred, errorHandler));
+                    return deferred.promise;
                 }
             },
             accounts: {

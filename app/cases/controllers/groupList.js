@@ -2,6 +2,7 @@
 /*global $ */
 /*jshint expr: true, newcap: false*/
 angular.module('RedhatAccess.cases').controller('GroupList', [
+    '$rootScope',
     '$scope',
     'strataService',
     'AlertService',
@@ -9,13 +10,18 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
     '$filter',
     'ngTableParams',
     'GroupService',
+    'securityService',
     'SearchBoxService',
-    function ($scope, strataService, AlertService, CaseService, $filter, ngTableParams, GroupService, SearchBoxService) {
+    'AUTH_EVENTS',
+    function ($rootScope, $scope, strataService, AlertService, CaseService, $filter, ngTableParams, GroupService, securityService, SearchBoxService, AUTH_EVENTS) {
         $scope.CaseService = CaseService;
         $scope.GroupService = GroupService;
         $scope.listEmpty = false;
         $scope.groupsOnScreen = [];
+        $scope.has_group_acls = false;
+        var reloadTable = false;
         var tableBuilt = false;
+        $scope.groupsLoading = true;
         var buildTable = function () {
             $scope.tableParams = new ngTableParams({
                 page: 1,
@@ -38,14 +44,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             };
             tableBuilt = true;
         };
-        $scope.groupsLoading = true;
-        strataService.groups.list().then(function (groups) {
-            CaseService.groups = groups;
-            buildTable();
-            $scope.groupsLoading = false;
-        }, function (error) {
-            AlertService.addStrataErrorMessage(error);
-        });
+        
         $scope.onMasterCheckboxClicked = function () {
             for (var i = 0; i < GroupService.groupsOnScreen.length; i++) {
                 if (this.masterSelected) {
@@ -56,5 +55,35 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             }
         };
         CaseService.clearCase();
+
+        $scope.init = function() {
+            strataService.groups.list().then(function (groups) {
+                CaseService.groups = groups;
+                $scope.has_group_acls = securityService.loginStatus.account.has_group_acls;
+                $scope.groupsLoading = false;
+                buildTable();
+                if(reloadTable){
+                    GroupService.reloadTable();
+                    reloadTable = false;
+                }
+            }, function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
+        if (securityService.loginStatus.isLoggedIn) {
+            $scope.init();
+
+        }
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            $scope.init();
+        });
+
+        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+            CaseService.clearCase();
+            $scope.groupsOnScreen = [];
+            GroupService.groupsOnScreen = [];
+            reloadTable = true;
+        });
     }
 ]);

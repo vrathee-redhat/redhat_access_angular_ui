@@ -9,7 +9,8 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
     newCaseTitle: 'New Support Case',
     searchCaseTitle: 'Search Support Cases',
     logViewerTitle: 'Log',
-    manageGroupsTitle: 'Manage Case Groups'
+    manageGroupsTitle: 'Manage Case Groups',
+    editGroupTitle: 'Edit Case Group'
 }).controller('TitleViewCtrl', [
     'TITLE_VIEW_CONFIG',
     '$scope',
@@ -32,6 +33,8 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
                 return TITLE_VIEW_CONFIG.searchCaseTitle;
             case 'manageGroups':
                 return TITLE_VIEW_CONFIG.manageGroupsTitle;
+            case 'editGroup':
+                return TITLE_VIEW_CONFIG.editGroupTitle;
             default:
                 return '';
             }
@@ -96,11 +99,9 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
         };
         this.addStrataErrorMessage = function (error) {
             if (RHAUtils.isNotEmpty(error)) {
-                var errorText='';
+                var errorText=error.message;
                 if (error.xhr && error.xhr.responseText){
-                    errorText = error.xhr.responseText;
-                }else {
-                    errorText = error.message;
+                    errorText = errorText.concat(' Message: ' + error.xhr.responseJSON.message);
                 }
                 var existingMessage = $filter('filter')(this.alerts, {
                         type: ALERT_TYPES.DANGER,

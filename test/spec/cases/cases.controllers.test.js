@@ -873,19 +873,6 @@ describe('Case Controllers', function () {
             mockScope.onMasterCheckboxClicked();
             expect(mockGroupService.groupsOnScreen[0].selected).toBe(false);
         }));
-        it('should have a function to build group Table', inject(function ($controller) {
-            $controller('GroupList', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService
-            });
-            mockScope.onMasterCheckboxClicked();
-            spyOn(mockStrataService.groups, 'list');
-            mockScope.$root.$digest();
-            expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);
-        }));
     });
     //Suite for StatusSelect
     describe('StatusSelect', function () {
