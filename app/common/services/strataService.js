@@ -225,6 +225,20 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         }, angular.bind(deferred, errorHandler));
                     }
                     return deferred.promise;
+                },
+                get: function (productCode) {
+                    var deferred = $q.defer();
+                    if (!ie8 && strataCache.get('product' + productCode)) {
+                        deferred.resolve(strataCache.get('product' + productCode));
+                    } else {
+                        strata.products.get(productCode, function (response) {
+                            if (!ie8) {
+                                strataCache.put('product' + productCode, response);
+                            }
+                            deferred.resolve(response);
+                        }, angular.bind(deferred, errorHandler));
+                    }
+                    return deferred.promise;
                 }
             },
             groups: {

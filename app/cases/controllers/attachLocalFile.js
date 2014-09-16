@@ -5,6 +5,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
     'AttachmentsService',
     'securityService',
     function ($scope, AttachmentsService, securityService) {
+        $scope.AttachmentsService = AttachmentsService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
         $scope.fileDescription = '';
         $scope.clearSelectedFile = function () {
