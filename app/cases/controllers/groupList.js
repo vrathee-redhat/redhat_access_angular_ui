@@ -1,6 +1,6 @@
 'use strict';
 /*global $ */
-/*jshint expr: true, newcap: false*/
+/*jshint expr: true, camelcase: false, newcap: false*/
 angular.module('RedhatAccess.cases').controller('GroupList', [
     '$rootScope',
     '$scope',

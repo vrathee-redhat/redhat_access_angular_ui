@@ -53,7 +53,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
         };
         $scope.onNewEscalationComment = function () {
             if (RHAUtils.isNotEmpty(CaseService.escalationCommentText) && !$scope.submittingRequest) {
-                $scope.disableSubmitRequest = false;                
+                $scope.disableSubmitRequest = false;
             } else if (RHAUtils.isEmpty(CaseService.escalationCommentText)) {
                 $scope.disableSubmitRequest = true;
             }

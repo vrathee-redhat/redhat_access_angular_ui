@@ -1,5 +1,6 @@
 'use strict';
 /*global $ */
+/*jshint expr: true, camelcase: false, newcap: false */
 angular.module('RedhatAccess.cases').controller('EditGroup', [
     '$scope',
     '$rootScope',
@@ -49,7 +50,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             if(securityService.userAllowedToManageGroups()){
                 strataService.groups.list().then(function (groups) {
                     for(var i = 0; i < groups.length; i++){
-                        var loc = $location.url().split("/");
+                        var loc = $location.url().split('/');
                         $scope.accountNumber = securityService.loginStatus.account.number;
                         if(loc[3] !== undefined && groups[i].number === loc[3]){
                             $scope.selectedGroup = groups[i];
@@ -71,42 +72,42 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                     AlertService.addStrataErrorMessage(error);
                 });
             }else{
-                AlertService.addStrataErrorMessage("User does not have proper credentials to manage case groups.");
+                AlertService.addStrataErrorMessage('User does not have proper credentials to manage case groups.');
             }
-        }
+        };
         $scope.saveGroup = function () {
             strataService.groups.update($scope.selectedGroup.name, $scope.selectedGroup.number).then(function (response) {
                 strataService.groupUsers.update($scope.usersOnAccount, $scope.accountNumber, $scope.selectedGroup.number).then(function(response) {
-                    AlertService.addSuccessMessage("Case group successfully updated.");
+                    AlertService.addSuccessMessage('Case group successfully updated.');
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-        }
+        };
 
         $scope.onMasterReadCheckboxClicked = function (masterReadSelected) {
             for(var i = 0; i < $scope.usersOnAccount.length; i++){
                 $scope.usersOnAccount[i].access = masterReadSelected;
             }
-        }
+        };
         
         $scope.onMasterWriteCheckboxClicked = function (masterWriteSelected) {
             for(var i = 0; i < $scope.usersOnAccount.length; i++){
                 $scope.usersOnAccount[i].write = masterWriteSelected;
             }
-        }
+        };
 
         $scope.writeAccessToggle = function(user){
             if(user.write && !user.access){
                 user.access = true;
             }
-        }
+        };
 
         $scope.cancel = function(){
             $location.path('/case/group');
-        }
+        };
 
         $scope.usersLoading = true;
         if (securityService.loginStatus.isLoggedIn) {

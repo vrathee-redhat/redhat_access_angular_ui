@@ -37,7 +37,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     CaseService.draftComment = undefined;
                 });
 
-                if(securityService.loginStatus.ssoName !== undefined && CaseService.originalNotifiedUsers.indexOf(securityService.loginStatus.ssoName) == -1){
+                if(securityService.loginStatus.ssoName !== undefined && CaseService.originalNotifiedUsers.indexOf(securityService.loginStatus.ssoName) === -1){
                     strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.ssoName).then(function () {
                         CaseService.originalNotifiedUsers.push(securityService.loginStatus.ssoName);
                     }, function (error) {
