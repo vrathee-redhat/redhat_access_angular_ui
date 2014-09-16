@@ -20,6 +20,6 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
             div {{comment.created_date | date:'h:mm:ss a Z'}}
             div.private(ng-if='comment.public !== undefined && comment.public === false') Private
           div.col-md-9.rha-comment-text
-            pre(style='word-break: normal;', ng-bind-html="comment.text | linky:'_blank'")
+            pre(style='word-break: normal;', ng-bind-html="comment.text | linky:'_blank' | ie8ifyNewlines")
           div.col-md-1.rha-comment-link
             span.glyphicon.glyphicon-link.clickable(ng-click='linkToComment(comment.id)')
