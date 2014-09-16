@@ -30,6 +30,20 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     var status = { name: 'Waiting on Red Hat' };
                     CaseService.kase.status = status;
                 }
+
+                if(securityService.loginStatus.isInternal){
+                    if (CaseService.kase.status.name === 'Waiting on Red Hat') {
+                        var status = { name: 'Waiting on Customer' };
+                        CaseService.kase.status = status;
+                    }
+                }else {
+                    if (CaseService.kase.status.name === 'Waiting on Customer') {
+                        var status = { name: 'Waiting on Red Hat' };
+                        CaseService.kase.status = status;
+                    }
+                }
+                
+
                 CaseService.populateComments(CaseService.kase.case_number).then(function (comments) {
                     $scope.addingComment = false;
                     $scope.savingDraft = false;
