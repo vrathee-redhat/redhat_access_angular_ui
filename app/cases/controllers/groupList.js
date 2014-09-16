@@ -39,6 +39,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
                     $defer.resolve(pageData);
                 }
             });
+            $scope.tableParams.settings().$scope = $scope;
             GroupService.reloadTable = function () {
                 $scope.tableParams.reload();
             };
@@ -84,6 +85,11 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             $scope.groupsOnScreen = [];
             GroupService.groupsOnScreen = [];
             reloadTable = true;
+        });
+
+        $scope.$on('$destroy', function () {
+            CaseService.clearCase();
+            $scope.authEventLogoutSuccess();
         });
     }
 ]);
