@@ -30,6 +30,20 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     var status = { name: 'Waiting on Red Hat' };
                     CaseService.kase.status = status;
                 }
+
+                if(securityService.loginStatus.isInternal){
+                    if (CaseService.kase.status.name === 'Waiting on Red Hat') {
+                        var status = { name: 'Waiting on Customer' };
+                        CaseService.kase.status = status;
+                    }
+                }else {
+                    if (CaseService.kase.status.name === 'Waiting on Customer') {
+                        var status = { name: 'Waiting on Red Hat' };
+                        CaseService.kase.status = status;
+                    }
+                }
+                
+
                 CaseService.populateComments(CaseService.kase.case_number).then(function (comments) {
                     $scope.addingComment = false;
                     $scope.savingDraft = false;
@@ -37,7 +51,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     CaseService.draftComment = undefined;
                 });
 
-                if(securityService.loginStatus.ssoName !== undefined && CaseService.originalNotifiedUsers.indexOf(securityService.loginStatus.ssoName) == -1){
+                if(securityService.loginStatus.ssoName !== undefined && CaseService.originalNotifiedUsers.indexOf(securityService.loginStatus.ssoName) === -1){
                     strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.ssoName).then(function () {
                         CaseService.originalNotifiedUsers.push(securityService.loginStatus.ssoName);
                     }, function (error) {

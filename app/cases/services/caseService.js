@@ -1,4 +1,5 @@
 'use strict';
+/*jshint camelcase: false */
 angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     manage: 'manage',
     ungrouped: 'ungrouped'
