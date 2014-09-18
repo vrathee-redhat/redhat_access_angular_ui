@@ -11,9 +11,10 @@ form(name='caseDetails')
       span.glyphicon.glyphicon-asterisk.form-control-feedback(
         ng-show='caseDetails.summary.$dirty',
         style='display: inline-block;')
-    div(ng-show='showEmailNotifications', style='display: table-cell; vertical-align: bottom; width: 50%;')
-      div.pull-right(style='width: 75%')
-        div(rha-emailnotifyselect='')
+    div(ng-hide='compact')
+      div(ng-show='showEmailNotifications', style='display: table-cell; vertical-align: bottom; width: 50%;')
+        div.pull-right(style='width: 75%')
+          div(rha-emailnotifyselect='')
   span.rha-search-spinner(ng-show='loading')
   div.container-fluid.rha-side-padding(ng-hide='loading')
     div#rha-case-details.row
