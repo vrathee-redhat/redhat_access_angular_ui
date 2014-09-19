@@ -60,7 +60,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                         buildTable();
                         $scope.usersLoading = false;
                         if(reloadTable){
-                            GroupUserService.reloadTable();
+                            //GroupUserService.reloadTable();
                             reloadTable = false;
                         }
                     }, function (error) {
