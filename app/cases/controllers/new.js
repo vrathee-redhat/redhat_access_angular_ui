@@ -17,7 +17,8 @@ angular.module('RedhatAccess.cases').controller('New', [
     'RHAUtils',
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
-    function ($scope, $state, $q, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG) {
+    '$http',
+    function ($scope, $state, $q, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, $http) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -53,6 +54,43 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
             CaseService.validateNewCasePage1();
         };
+
+        /**
+        * Add the top sorted products to list
+        */
+        $scope.buildProductOptions = function(originalProductList) {
+            var productOptions = [];
+            var productSortList = [];
+            $http.get($scope.NEW_CASE_CONFIG.productSortListFile).then(function (response) {
+                if (response.status === 200 && response.data !== undefined) {
+                    productSortList = response.data.split(',');
+
+                    angular.forEach(productSortList, function(sortProduct){
+                        productOptions.push({
+                            value: sortProduct,
+                            label: sortProduct
+                        });
+                    }, this);
+
+                    var sep = '────────────────────────────────────────';
+
+                    productOptions.push({
+                        isDisabled: true,
+                        label: sep
+                    });
+
+                    angular.forEach(originalProductList, function(product){
+                        productOptions.push({
+                            value: product.code,
+                            label: product.name
+                        });
+                    }, this);
+
+                    $scope.products = productOptions;
+                }  
+            });  
+        };
+
         /**
        * Populate the selects
        */
@@ -60,7 +98,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.clearCase();
             $scope.productsLoading = true;
             strataService.products.list(securityService.loginStatus.ssoName).then(function (products) {
-                $scope.products = products;
+                $scope.buildProductOptions(products);
                 $scope.productsLoading = false;
                 if (RHAUtils.isNotEmpty(NEW_DEFAULTS.product)) {
                     CaseService.kase.product = {
@@ -131,7 +169,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.kase.version = '';
             $scope.versionDisabled = true;
             $scope.versionLoading = true;
-            strataService.products.versions(product.code).then(function (response) {
+            strataService.products.versions(product).then(function (response) {
                 $scope.versions = response;
                 CaseService.validateNewCasePage1();
                 $scope.versionDisabled = false;
@@ -145,7 +183,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             });
 
             //Retrieve the product detail, basically finding the attachment artifact
-            AttachmentsService.fetchProductDetail(product.code);
+            AttachmentsService.fetchProductDetail(product);
         };
         /**
        * Go to a page in the wizard
