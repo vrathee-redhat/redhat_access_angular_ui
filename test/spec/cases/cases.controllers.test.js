@@ -337,21 +337,14 @@ describe('Case Controllers', function () {
                 NEW_DEFAULTS: mockStrataDataService.value
             });
             expect(mockScope.initSelects).toBeDefined();
-            httpMock.expectGET('/productSortList.txt').respond('RHEL');
+            httpMock.expectGET('/productSortList.txt').respond('Red Hat Enterprise Linux,Red Hat JBoss Enterprise Application Platform,Red Hat Satellite or Proxy');
             mockScope.initSelects();
             httpMock.flush();
             spyOn(mockStrataService.products, 'list').andCallThrough();
             spyOn(mockStrataService.values.cases, 'severity').andCallThrough();
             spyOn(mockStrataService.groups, 'list').andCallThrough();
             mockScope.$root.$digest();
-            var mockProducts = [{ 
-                isDisabled : true,
-                label : '────────────────────────────────────────'
-            },{ 
-                value : 'RHEL', 
-                label : 'Red Hat Enterprise Linux' 
-            }];
-            expect(mockScope.products).toEqual(mockProducts);
+            expect(mockScope.products).toEqual(mockStrataDataService.mockSortedProductList);
             expect(mockCaseService.kase.product.name).toEqual(mockStrataDataService.value.product);
             expect(mockCaseService.severities).toEqual(mockStrataDataService.mockSeverities);
             expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);

@@ -251,6 +251,23 @@ angular.module('RedhatAccess.mock', [])
           }]
         }}
 
+      this.mockSortedProductList = [{
+          "value" : "Red Hat Enterprise Linux", 
+          "label" : "Red Hat Enterprise Linux"                
+      },{ 
+          "value" : "Red Hat JBoss Enterprise Application Platform", 
+          "label" : "Red Hat JBoss Enterprise Application Platform" 
+      },{ 
+          "value" : "Red Hat Satellite or Proxy", 
+          "label" : "Red Hat Satellite or Proxy" 
+      },{ 
+          "isDisabled" : true,
+          "label" : "────────────────────────────────────────"
+      },{ 
+          "value" : "RHEL", 
+          "label" : "Red Hat Enterprise Linux" 
+      }];
+
       this.mockVersions = [{
         "name": "6.0",
         "value": "6.0"
