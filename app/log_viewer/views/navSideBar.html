@@ -16,12 +16,14 @@
                     </li>
                 </ul>
             </div>
-            <div id="fileList" rha-filldown ng-style="{ height: windowHeight }" class="fileList" ng-controller="fileController">
-                <div data-angular-treeview="true" data-tree-id="mytree" data-tree-model="roleList" data-node-id="roleId" data-node-label="roleName" data-node-children="children">
+            <div ng-controller="fileController">
+                <div id="fileList" rha-filldown ng-style="{ height: windowHeight }" class="fileList" >
+                    <div ng-dblclick="selectItem(item)" data-angular-treeview="true" data-tree-id="mytree" data-tree-model="roleList" data-node-id="roleId" data-node-label="roleName" data-node-children="children">
+                    </div>
                 </div>
+                <button ng-disabled="retrieveFileButtonIsDisabled.check" type="button" class="pull-right btn btn-sm btn-primary" ng-click="fileSelected()" translate=''>
+                    Select File</button>
             </div>
-            <button ng-disabled="retrieveFileButtonIsDisabled.check" type="button" class="pull-right btn btn-sm btn-primary" ng-controller="selectFileButton" ng-click="fileSelected()" translate=''>
-                Select File</button>
         </div>
     </div>
     <a ng-click="sidePaneToggle = !sidePaneToggle">
