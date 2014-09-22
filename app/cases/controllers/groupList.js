@@ -50,8 +50,10 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             for (var i = 0; i < GroupService.groupsOnScreen.length; i++) {
                 if (this.masterSelected) {
                     GroupService.groupsOnScreen[i].selected = true;
+                    GroupService.disableDeleteGroup = false;
                 } else {
                     GroupService.groupsOnScreen[i].selected = false;
+                    GroupService.disableDeleteGroup = true;
                 }
             }
         };
@@ -71,6 +73,17 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
                 AlertService.addStrataErrorMessage(error);
             });
         };
+
+        $scope.onGroupSelected = function() {
+            var disableDeleteGroup = true;
+            for (var i = 0; i < GroupService.groupsOnScreen.length; i++) {
+                if (GroupService.groupsOnScreen[i].selected === true) {
+                    disableDeleteGroup = false;
+                    break;
+                }
+            }
+            GroupService.disableDeleteGroup = disableDeleteGroup;
+        }
 
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();

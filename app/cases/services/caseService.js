@@ -281,7 +281,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 });
                 if(group.is_default) {
                     this.kase.group = group.number;
-                    this.group = group.number;
+                    this.group = group.number;                  
                 }
             }, this);
             if (this.showsearchoptions === true) {

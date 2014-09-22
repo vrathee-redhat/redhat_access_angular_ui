@@ -13,12 +13,13 @@ describe('Case Controllers', function () {
     var mockSearchCaseService;
     var mockTreeViewSelectorData;
     var mockScope;
+    var httpMock;
     var rootScope;
     var q;
     var securityService;
     beforeEach(angular.mock.module('RedhatAccess.cases'));
     beforeEach(angular.mock.module('RedhatAccess.mock'));
-    beforeEach(inject(function ($injector, $rootScope, $q) {
+    beforeEach(inject(function ($injector, $rootScope, $q, $httpBackend) {
         q = $q;
         mockStrataService = $injector.get('strataService');
         mockCaseService = $injector.get('MockCaseService');
@@ -34,6 +35,7 @@ describe('Case Controllers', function () {
         securityService = $injector.get('securityService');
         mockScope = $rootScope.$new();
         rootScope = $rootScope;
+        httpMock = $httpBackend;
     }));
     //Suite for DetailsSection
     describe('DetailsSection', function () {
@@ -335,12 +337,14 @@ describe('Case Controllers', function () {
                 NEW_DEFAULTS: mockStrataDataService.value
             });
             expect(mockScope.initSelects).toBeDefined();
+            httpMock.expectGET('/productSortList.txt').respond('Red Hat Enterprise Linux,Red Hat JBoss Enterprise Application Platform,Red Hat Satellite or Proxy');
             mockScope.initSelects();
+            httpMock.flush();
             spyOn(mockStrataService.products, 'list').andCallThrough();
             spyOn(mockStrataService.values.cases, 'severity').andCallThrough();
             spyOn(mockStrataService.groups, 'list').andCallThrough();
             mockScope.$root.$digest();
-            expect(mockScope.products).toEqual(mockStrataDataService.mockProducts);
+            expect(mockScope.products).toEqual(mockStrataDataService.mockSortedProductList);
             expect(mockCaseService.kase.product.name).toEqual(mockStrataDataService.value.product);
             expect(mockCaseService.severities).toEqual(mockStrataDataService.mockSeverities);
             expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);
@@ -872,6 +876,19 @@ describe('Case Controllers', function () {
             mockGroupService.groupsOnScreen = mockStrataDataService.mockGroups;
             mockScope.onMasterCheckboxClicked();
             expect(mockGroupService.groupsOnScreen[0].selected).toBe(false);
+        }));
+        it('should have a function to handle group select Click', inject(function ($controller) {
+            $controller('GroupList', {
+                $scope: mockScope,
+                strataService: mockStrataService,
+                CaseService: mockCaseService,
+                GroupService: mockGroupService,
+                SearchBoxService: mockSearchBoxService
+            });
+            expect(mockScope.onGroupSelected).toBeDefined();
+            mockGroupService.groupsOnScreen = mockStrataDataService.mockGroups;
+            mockScope.onGroupSelected();
+            expect(mockGroupService.disableDeleteGroup).toBe(false);
         }));
     });
     //Suite for StatusSelect

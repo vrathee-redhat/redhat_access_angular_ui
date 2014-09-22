@@ -9,6 +9,7 @@ angular.module('RedhatAccess.cases').controller('DeleteGroupButton', [
     '$filter',
     'GroupService',
     function ($scope, strataService, AlertService, CaseService, $q, $filter, GroupService) {
+        $scope.GroupService = GroupService;
         $scope.deleteGroups = function () {
             var promises = [];
             angular.forEach(CaseService.groups, function (group, index) {

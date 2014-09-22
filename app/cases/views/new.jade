@@ -30,7 +30,8 @@ div.container-offset
                     style='width: 100%;',
                     ng-model='CaseService.kase.product',
                     ng-change='getProductVersions(CaseService.kase.product);getRecommendations()',
-                    ng-options='p.name for p in products track by p.code')
+                    ng-options='p.value as p.label for p in products',
+                    options-disabled='p.isDisabled for p in products')
             div.row.rha-create-field
               div.col-md-4
                 label(for='rha-product-version-select') {{'Product Version:'|translate}}

@@ -239,7 +239,7 @@ angular.module('RedhatAccess.mock', [])
 
       this.mockProducts = [{
         "name": "Red Hat Enterprise Linux",
-        "value": "RHEL"
+        "code": "RHEL"
       }];
 
       this.mockproduct = {
@@ -250,6 +250,23 @@ angular.module('RedhatAccess.mock', [])
             "description":"Please attach an <a href=\"https://access.redhat.com/knowledge/node/3592\" class=\"help\">sosreport</a> (optional)"
           }]
         }}
+
+      this.mockSortedProductList = [{
+          "value" : "Red Hat Enterprise Linux", 
+          "label" : "Red Hat Enterprise Linux"                
+      },{ 
+          "value" : "Red Hat JBoss Enterprise Application Platform", 
+          "label" : "Red Hat JBoss Enterprise Application Platform" 
+      },{ 
+          "value" : "Red Hat Satellite or Proxy", 
+          "label" : "Red Hat Satellite or Proxy" 
+      },{ 
+          "isDisabled" : true,
+          "label" : "────────────────────────────────────────"
+      },{ 
+          "value" : "RHEL", 
+          "label" : "Red Hat Enterprise Linux" 
+      }];
 
       this.mockVersions = [{
         "name": "6.0",
