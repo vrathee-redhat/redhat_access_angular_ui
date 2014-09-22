@@ -98,14 +98,17 @@ angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
             var hostForRefresh = null;
             var splitNameForRefresh = fileNameForRefresh.split(':');
             if (splitNameForRefresh[0] && splitNameForRefresh[1]) {
+                $scope.isLoading = true;
                 hostForRefresh = splitNameForRefresh[0];
                 fileNameForRefresh = splitNameForRefresh[1];
                 $http({
                     method: 'GET',
                     url: 'logs?sessionId=' + encodeURIComponent(sessionId) + '&userId=' + encodeURIComponent(userId) + '&path=' + fileNameForRefresh + '&machine=' + hostForRefresh
                 }).success(function (data, status, headers, config) {
+                    $scope.isLoading = false;
                     $scope.tabs[index].content = data;
                 }).error(function (data, status, headers, config) {
+                    $scope.isLoading = false;
                     AlertService.addDangerMessage(data);
                 });
             }
