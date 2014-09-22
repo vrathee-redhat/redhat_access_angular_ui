@@ -5,6 +5,7 @@ angular.module('RedhatAccess.logViewer').controller('logViewerController', [
     function ($scope, SearchResultsService) {
         $scope.isDisabled = true;
         $scope.textSelected = false;
+        $scope.showSolutions = false;
         $scope.enableDiagnoseButton = function () {
             //Gotta wait for text to "unselect"
             $scope.sleep(1, $scope.checkTextSelection);
@@ -28,5 +29,8 @@ angular.module('RedhatAccess.logViewer').controller('logViewerController', [
                 callback();
             }, millis);
         };
+        $scope.toggleSolutions = function () {
+            $scope.showSolutions = !$scope.showSolutions;
+        }
     }
 ]);
