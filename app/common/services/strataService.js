@@ -71,7 +71,8 @@ angular.module('RedhatAccess.common').factory('strataService', [
                                     deferred.resolve(authedUser);
                                 });
                             } else {
-                                deferred.reject('Unauthorized.');
+                                var error = {message: 'Unauthorized.'};
+                                deferred.reject(error);
                             }
                         });
                     }
