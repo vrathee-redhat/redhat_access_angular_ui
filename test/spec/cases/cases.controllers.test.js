@@ -877,6 +877,19 @@ describe('Case Controllers', function () {
             mockScope.onMasterCheckboxClicked();
             expect(mockGroupService.groupsOnScreen[0].selected).toBe(false);
         }));
+        it('should have a function to handle group select Click', inject(function ($controller) {
+            $controller('GroupList', {
+                $scope: mockScope,
+                strataService: mockStrataService,
+                CaseService: mockCaseService,
+                GroupService: mockGroupService,
+                SearchBoxService: mockSearchBoxService
+            });
+            expect(mockScope.onGroupSelected).toBeDefined();
+            mockGroupService.groupsOnScreen = mockStrataDataService.mockGroups;
+            mockScope.onGroupSelected();
+            expect(mockGroupService.disableDeleteGroup).toBe(false);
+        }));
     });
     //Suite for StatusSelect
     describe('StatusSelect', function () {

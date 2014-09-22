@@ -11,7 +11,7 @@ div(ng-hide='groupsLoading || listEmpty')
     tbody
       tr(ng-repeat='group in GroupService.groupsOnScreen')
         td(style='text-align: center; width: 25px;')
-          input(type='checkbox', ng-model='group.selected')
+          input(type='checkbox', ng-model='group.selected', ng-change='onGroupSelected()')
         td(data-title='"Group Name"', sortable='"name"')
           a(ng-show='canManageGroups' ng-href='#/case/group/{{group.number}}') {{group.name}}
           p(ng-hide='canManageGroups') {{group.name}}

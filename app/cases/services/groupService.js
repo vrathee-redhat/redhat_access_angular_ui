@@ -6,5 +6,6 @@ angular.module('RedhatAccess.cases').service('GroupService', [
     function (strataService) {
         this.reloadTable = {};
         this.groupsOnScreen = [];
+        this.disableDeleteGroup = true;
     }
 ]);
