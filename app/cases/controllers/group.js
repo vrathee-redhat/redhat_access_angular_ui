@@ -7,8 +7,11 @@ angular.module('RedhatAccess.cases').controller('Group', [
     'GroupService',
     function ($scope, securityService, SearchBoxService, GroupService) {
         $scope.securityService = securityService;
-        SearchBoxService.onChange = SearchBoxService.doSearch = SearchBoxService.onKeyPress = function () {
+        $scope.onChange = SearchBoxService.onChange = SearchBoxService.doSearch = SearchBoxService.onKeyPress = function () {
             GroupService.reloadTable();
         };
+        $scope.$on('$destroy', function () {
+            $scope.onChange();
+        });
     }
 ]);

@@ -115,7 +115,6 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 strataService.authentication.checkLogin().then(angular.bind(this, function(authedUser) {
                     var sidChanged = currentSid !== authedUser.session_id;
                     service.setAccount(authedUser.account);
-                    strata.addAccountNumber(authedUser.account.number);
                     service.setLoginStatus(true, authedUser.name, false, authedUser.is_internal, authedUser.org_admin, authedUser.has_chat, authedUser.session_id, authedUser.can_add_attachments, authedUser.login);
                     service.loggingIn = false;
                     //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
@@ -128,7 +127,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                     defer.resolve(authedUser.name);
                 }), angular.bind(this, function(error) {
                     service.clearLoginStatus();
-                    AlertService.addDangerMessage(error);
+                    AlertService.addStrataErrorMessage(error);
                     service.loggingIn = false;
                     defer.reject(error);
                 }));

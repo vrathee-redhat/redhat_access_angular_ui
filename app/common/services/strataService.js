@@ -51,6 +51,7 @@ angular.module('RedhatAccess.common').factory('strataService', [
                 checkLogin: function () {
                     var deferred = $q.defer();
                     if (!ie8 && strataCache.get('auth')) {
+                        strata.addAccountNumber(strataCache.get('auth').number);
                         deferred.resolve(strataCache.get('auth'));
                     } else {
                         strata.checkLogin(function (result, authedUser) {
@@ -58,6 +59,7 @@ angular.module('RedhatAccess.common').factory('strataService', [
                                 service.accounts.list().then(function (accountNumber) {
                                     service.accounts.get(accountNumber).then(function (account) {
                                         authedUser.account = account;
+                                        strata.addAccountNumber(account.number);
                                         if (!ie8) {
                                             strataCache.put('auth', authedUser);
                                         }

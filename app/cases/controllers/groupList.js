@@ -18,7 +18,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
         $scope.GroupService = GroupService;
         $scope.listEmpty = false;
         $scope.groupsOnScreen = [];
-        $scope.has_group_acls = false;
+        $scope.canManageGroups = false;
         var reloadTable = false;
         var tableBuilt = false;
         $scope.groupsLoading = true;
@@ -60,11 +60,11 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
         $scope.init = function() {
             strataService.groups.list().then(function (groups) {
                 CaseService.groups = groups;
-                $scope.has_group_acls = securityService.loginStatus.account.has_group_acls;
+                $scope.canManageGroups = securityService.loginStatus.account.has_group_acls && securityService.loginStatus.orgAdmin;
                 $scope.groupsLoading = false;
                 buildTable();
                 if(reloadTable){
-                    GroupService.reloadTable();
+                    //GroupService.reloadTable();
                     reloadTable = false;
                 }
             }, function (error) {
@@ -76,7 +76,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             $scope.init();
 
         }
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.authEventLogin = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
         });
 
@@ -90,6 +90,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
         $scope.$on('$destroy', function () {
             CaseService.clearCase();
             $scope.authEventLogoutSuccess();
+            $scope.authEventLogin();
         });
     }
 ]);

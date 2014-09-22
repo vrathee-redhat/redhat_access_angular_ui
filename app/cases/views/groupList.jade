@@ -13,6 +13,6 @@ div(ng-hide='groupsLoading || listEmpty')
         td(style='text-align: center; width: 25px;')
           input(type='checkbox', ng-model='group.selected')
         td(data-title='"Group Name"', sortable='"name"')
-          a(ng-show='has_group_acls' ng-href='#/case/group/{{group.number}}') {{group.name}}
-          p(ng-hide='has_group_acls') {{group.name}}
+          a(ng-show='canManageGroups' ng-href='#/case/group/{{group.number}}') {{group.name}}
+          p(ng-hide='canManageGroups') {{group.name}}
 
