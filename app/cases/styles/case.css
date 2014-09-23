@@ -333,3 +333,23 @@ div#rha-recommendation-section .hand-picked {
     color: #333;
     line-height: 1.2em;
 }
+
+.commentReply {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    left: auto;
+    top: auto;
+    color: #4e9fdd;
+    padding: 3px 8px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.commentReply:hover {
+    text-decoration: none;
+    color: #06c;
+    background: #fff;
+}
