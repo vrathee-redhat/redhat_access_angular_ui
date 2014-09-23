@@ -5,12 +5,17 @@ div(style='margin-left: 60px; margin-right: 60px;')
       rows='5',
       ng-model='CaseService.commentText',
       style='max-width: 100%',
-      ng-change='onNewCommentKeypress()')
+      ng-change='onNewCommentKeypress();maxCharacterCheck()')
+    span#commentNotice.uploadNotice  
+        span {{'You have used'|translate}}
+        span.progressBarWrap
+          span.progressBar
+          span.progressCount
+        span {{'of the 32KB maximum description size.'|translate}}
     div(style='padding-top: 10px;')
       div(ng-if='securityService.loginStatus.isInternal')
         span(style='float: left;') {{'Is Public:'|translate}}
         input(type='checkbox', ng-model='CaseService.isCommentPublic', style='display: inline-block;')
-      span.hidden {{'You have used 0% of the 32KB maximum description size.'|translate}}
       span.pull-right.rha-bold(ng-show='savingDraft') {{'Saving draft...'|translate}}
       span.pull-right.rha-bold(ng-show='draftSaved') {{'Draft saved'|translate}}
   div(style='float: right;')
