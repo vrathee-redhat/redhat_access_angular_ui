@@ -1,5 +1,5 @@
 div(style='display: block')
-  select(
+  select#rha-status-select(
     chosen,
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.status',
