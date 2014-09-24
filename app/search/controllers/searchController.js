@@ -21,7 +21,7 @@ angular.module('RedhatAccess.search').controller('SearchController', [
         $scope.searchInProgress = SearchResultsService.searchInProgress;
         $scope.currentSearchData = SearchResultsService.currentSearchData;
         $scope.itemsPerPage = 3;
-        $scope.maxPagerSize = 10;
+        $scope.maxPagerSize = 5;
         $scope.selectPage = function (pageNum) {
             var start = $scope.itemsPerPage * (pageNum - 1);
             var end = start + $scope.itemsPerPage;

@@ -1,7 +1,7 @@
 div#rha-new-recommendation-section.row.rha-bottom-border
  div.col-xs-6
     div(style="padding-bottom: 0")
-     span 
+     span
       h4(style="padding-left: 10px; display: inline-block;") Red Hat Access Recommendations
      span.rha-search-spinner(ng-show='searchInProgress.value')
 div
@@ -18,7 +18,7 @@ div
           span.recommendations_products {{product}}
         div(ng-repeat="tag in result.tags.tag")
          div.col-xs-3
-          span.recommendations_tags {{tag}}       
+          span.recommendations_tags {{tag}}
    div.row(style='padding-top: 10px;', ng-hide='results.length == 0')
       div.col-xs-12
         pagination.pagination-sm(
