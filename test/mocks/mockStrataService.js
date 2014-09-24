@@ -268,6 +268,11 @@ angular.module('RedhatAccess.mock', [])
           "label" : "Red Hat Enterprise Linux" 
       }];
 
+      this.mockProductList = [{
+        "label": "Red Hat Enterprise Linux",
+        "value": "RHEL"
+      }];
+
       this.mockVersions = [{
         "name": "6.0",
         "value": "6.0"
@@ -351,6 +356,7 @@ angular.module('RedhatAccess.mock', [])
         'showServerSideAttachments': true,
         'showEmailNotifications': true,
         'enableChat': true,
+        'isPCM': true,
         'chatIframeHackUrlPrefix': 'https://test.cs9.force.com/chatHidden',
         'chatButtonToken': '573A0000000GmiP',
         'chatLiveAgentUrlPrefix': 'https://test.cs9.force.com/chat',

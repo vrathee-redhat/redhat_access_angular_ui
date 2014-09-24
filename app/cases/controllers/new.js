@@ -33,7 +33,6 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.CaseService = CaseService;
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
-        $scope.isPCM = false;
         $scope.getRecommendations = function () {
             if ($scope.NEW_CASE_CONFIG.showRecommendations) {
                 SearchResultsService.searchInProgress.value = true;
@@ -62,34 +61,52 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.buildProductOptions = function(originalProductList) {
             var productOptions = [];
             var productSortList = [];
-            $http.get($scope.NEW_CASE_CONFIG.productSortListFile).then(function (response) {
-                if (response.status === 200 && response.data !== undefined) {
-                    productSortList = response.data.split(',');
+            if($scope.NEW_CASE_CONFIG.isPCM){
+                $http.get($scope.NEW_CASE_CONFIG.productSortListFile).then(function (response) {
+                    if (response.status === 200 && response.data !== undefined) {
+                        productSortList = response.data.split(',');
 
-                    angular.forEach(productSortList, function(sortProduct){
+                        angular.forEach(productSortList, function(sortProduct){
+                            productOptions.push({
+                                value: sortProduct,
+                                label: sortProduct
+                            });
+                        }, this);
+
+                        var sep = '────────────────────────────────────────';
+
                         productOptions.push({
-                            value: sortProduct,
-                            label: sortProduct
+                            isDisabled: true,
+                            label: sep
                         });
-                    }, this);
 
-                    var sep = '────────────────────────────────────────';
+                        angular.forEach(originalProductList, function(product){
+                            productOptions.push({
+                                value: product.code,
+                                label: product.name
+                            });
+                        }, this);
 
+                        $scope.products = productOptions;
+                    } else {
+                        angular.forEach(originalProductList, function(product){
+                            productOptions.push({
+                                value: product.code,
+                                label: product.name
+                            });
+                        }, this);
+                        $scope.products = productOptions;
+                    }
+                });
+            } else {
+                angular.forEach(originalProductList, function(product){
                     productOptions.push({
-                        isDisabled: true,
-                        label: sep
+                        value: product.code,
+                        label: product.name
                     });
-
-                    angular.forEach(originalProductList, function(product){
-                        productOptions.push({
-                            value: product.code,
-                            label: product.name
-                        });
-                    }, this);
-
-                    $scope.products = productOptions;
-                }  
-            });  
+                }, this);
+                $scope.products = productOptions;
+            }
         };
 
         /**
