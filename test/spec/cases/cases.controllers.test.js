@@ -992,18 +992,6 @@ describe('Case Controllers', function () {
             expect(mockCaseService.products).toEqual(mockStrataDataService.mockProducts);
         }));
     });
-    //Suite for OwnerSelect
-    describe('OwnerSelect', function () {
-        it('should have a function to handle login success event', inject(function ($controller) {
-            $controller('OwnerSelect', {
-                $scope: mockScope,
-                CaseService: mockCaseService,
-                SearchCaseService: mockSearchCaseService
-            });
-            rootScope.$broadcast('auth-login-success');
-            expect(mockCaseService.users).toEqual(mockStrataDataService.mockUsers);
-        }));
-    });
     //Suite for EntitlementSelect
     describe('EntitlementSelect', function () {
         it('should have a function to do blah!', inject(function ($controller) {
