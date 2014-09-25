@@ -83,7 +83,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
                 }
             }
             GroupService.disableDeleteGroup = disableDeleteGroup;
-        }
+        };
 
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();

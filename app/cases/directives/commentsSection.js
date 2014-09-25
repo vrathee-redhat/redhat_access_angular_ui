@@ -13,16 +13,16 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','
             scope.commentReply = function(id) {
                 var text = $('#'+id+' .textBlock').text();
                 var person = $('#'+id+' .personBlock').text();
-                var originalText = $("#case-comment-box").val();
+                var originalText = $('#case-comment-box').val();
                 var lines = text.split(/\n/);
                 text = '(In reply to ' + person + ')\n';
                 for (var i = 0, max = lines.length; i < max; i++) {
                     text = text + '> '+ lines[i] + '\n';
                 }
-                if (originalText.trim() !== "") {
-                    text = "\n" + text;
+                if (originalText.trim() !== '') {
+                    text = '\n' + text;
                 }
-                $("#case-comment-box").val($("#case-comment-box").val()+text).keyup();
+                $('#case-comment-box').val($('#case-comment-box').val()+text).keyup();
                 
                 //Copying the code from the link to comment method
                 var old = $location.hash();
@@ -30,7 +30,7 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','
                 $anchorScroll();
                 $location.hash(old);
                 $location.search('commentBox', 'commentBox');
-            }
+            };
         }
     };
 }]);

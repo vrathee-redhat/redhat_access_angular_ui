@@ -70,7 +70,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                 }, function (error) {
                     $scope.usersLoading = false;
                     AlertService.addStrataErrorMessage(error);
-                }); 
+                });
             }else{
                 $scope.usersLoading = false;
                 AlertService.addStrataErrorMessage('User does not have proper credentials to manage case groups.');
