@@ -113,7 +113,7 @@ div.container-offset
                 label(for='rha-group-select') {{'Case Group:'|translate}}
               div.col-md-8
                 div(rha-groupselect='', ng-init="setSearchOptions('false')")
-            div(ng-show='NEW_CASE_CONFIG.showAttachments')
+            div(ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.canAddAttachments')
               div.row.rha-create-field
                 div.col-xs-12
                   label {{'Attachments:'|translate}}

@@ -14,7 +14,7 @@ div#redhat-access-case.container-offset
     div.row(ng-show='EDIT_CASE_CONFIG.showBugzillas')
       div.col-xs-12
         div(rha-listbugzillas='', loading='loading.kase')
-    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments')
+    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.canAddAttachments')
       div.col-xs-12
         div(rha-caseattachments='', loading='loading.attachments')
     div.row(ng-show='EDIT_CASE_CONFIG.showRecommendations')
