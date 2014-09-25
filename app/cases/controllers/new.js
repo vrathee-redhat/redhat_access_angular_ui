@@ -68,8 +68,8 @@ angular.module('RedhatAccess.cases').controller('New', [
 
                         angular.forEach(productSortList, function(sortProduct){
                             productOptions.push({
-                                value: sortProduct,
-                                label: sortProduct
+                                code: sortProduct,
+                                name: sortProduct
                             });
                         }, this);
 
@@ -77,13 +77,13 @@ angular.module('RedhatAccess.cases').controller('New', [
 
                         productOptions.push({
                             isDisabled: true,
-                            label: sep
+                            name: sep
                         });
 
                         angular.forEach(originalProductList, function(product){
                             productOptions.push({
-                                value: product.code,
-                                label: product.name
+                                code: product.code,
+                                name: product.name
                             });
                         }, this);
 
@@ -91,8 +91,8 @@ angular.module('RedhatAccess.cases').controller('New', [
                     } else {
                         angular.forEach(originalProductList, function(product){
                             productOptions.push({
-                                value: product.code,
-                                label: product.name
+                                code: product.code,
+                                name: product.name
                             });
                         }, this);
                         $scope.products = productOptions;
@@ -101,8 +101,8 @@ angular.module('RedhatAccess.cases').controller('New', [
             } else {
                 angular.forEach(originalProductList, function(product){
                     productOptions.push({
-                        value: product.code,
-                        label: product.name
+                        code: product.code,
+                        name: product.name
                     });
                 }, this);
                 $scope.products = productOptions;
@@ -187,7 +187,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.kase.version = '';
             $scope.versionDisabled = true;
             $scope.versionLoading = true;
-            strataService.products.versions(product).then(function (response) {
+            strataService.products.versions(product.code).then(function (response) {
                 $scope.versions = response;
                 CaseService.validateNewCasePage1();
                 $scope.versionDisabled = false;
@@ -201,7 +201,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             });
 
             //Retrieve the product detail, basically finding the attachment artifact
-            AttachmentsService.fetchProductDetail(product);
+            AttachmentsService.fetchProductDetail(product.code);
         };
         /**
        * Go to a page in the wizard

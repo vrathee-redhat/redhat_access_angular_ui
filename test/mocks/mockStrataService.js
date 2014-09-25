@@ -269,8 +269,8 @@ angular.module('RedhatAccess.mock', [])
       }];
 
       this.mockProductList = [{
-        "label": "Red Hat Enterprise Linux",
-        "value": "RHEL"
+        "name": "Red Hat Enterprise Linux",
+        "code": "RHEL"
       }];
 
       this.mockVersions = [{
