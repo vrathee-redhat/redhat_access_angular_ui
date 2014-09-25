@@ -33,7 +33,8 @@ angular.module('RedhatAccess.cases', [
     'showRecommendations': true,
     'showAttachments': true,
     'showServerSideAttachments': true,
-    'productSortListFile': '/productSortList.txt'
+    'productSortListFile': '/productSortList.txt',
+    'isPCM': false
 }).value('EDIT_CASE_CONFIG', {
     'showDetails': true,
     'showDescription': true,
@@ -80,6 +81,11 @@ angular.module('RedhatAccess.cases', [
             url: '/case/group',
             controller: 'Group',
             templateUrl: 'cases/views/group.html'
+        });
+        $stateProvider.state('defaultGroup', {
+            url: '/case/group/default',
+            controller: 'DefaultGroup',
+            templateUrl: 'cases/views/defaultGroup.html'
         });
         $stateProvider.state('editGroup', {
             url: '/case/group/{groupNumber}',

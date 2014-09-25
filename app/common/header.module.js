@@ -10,7 +10,8 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
     searchCaseTitle: 'Search Support Cases',
     logViewerTitle: 'Log',
     manageGroupsTitle: 'Manage Case Groups',
-    editGroupTitle: 'Edit Case Group'
+    editGroupTitle: 'Edit Case Group',
+    defaultGroup: 'Manage Default Case Groups'
 }).controller('TitleViewCtrl', [
     'TITLE_VIEW_CONFIG',
     '$scope',
@@ -101,7 +102,7 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
             if (RHAUtils.isNotEmpty(error)) {
                 var errorText=error.message;
                 if (error.xhr && error.xhr.responseText){
-                    errorText = errorText.concat(' Message: ' + error.xhr.responseJSON.message);
+                    errorText = errorText.concat(' Message: ' + error.xhr.responseText);
                 }
                 var existingMessage = $filter('filter')(this.alerts, {
                         type: ALERT_TYPES.DANGER,

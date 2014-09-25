@@ -152,5 +152,6 @@ div.container-offset
         div(
           ng-controller='SearchController',
           style='overflow: vertical;')
-          div(rha-accordionsearchresults='')
+          div(ng-hide='!NEW_CASE_CONFIG.isPCM', rha-newrecommendations='')
+          div(ng-hide='NEW_CASE_CONFIG.isPCM', rha-accordionsearchresults='')
 

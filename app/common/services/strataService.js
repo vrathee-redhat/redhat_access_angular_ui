@@ -293,6 +293,13 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         deferred.resolve(response);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
+                },
+                createDefault: function(group){
+                    var deferred = $q.defer();
+                    strata.groups.createDefault(group, function (response) {
+                        deferred.resolve(response);
+                    }, angular.bind(deferred, errorHandler));
+                    return deferred.promise;
                 }
             },
             groupUsers: {

@@ -31,6 +31,7 @@ angular.module('RedhatAccess.cases').controller('AccountSelect', [
                         AlertService.removeAlert($scope.alertInstance);
                     }
                     $scope.alertInstance = AlertService.addWarningMessage('Account not found.');
+                    CaseService.users = [];
                 });
             }
         };

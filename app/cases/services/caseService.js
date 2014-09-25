@@ -141,11 +141,16 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 var accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.account.number : this.account.number;
                 promise = strataService.accounts.users(accountNumber);
                 promise.then(angular.bind(this, function (users) {
+                    angular.forEach(users, function(user){
+                        if(user.sso_username === securityService.loginStatus.ssoName) {
+                            this.owner = user.sso_username;
+                        }
+                    }, this);
                     this.usersLoading = false;
                     this.users = users;
                 }), angular.bind(this, function (error) {
-                    this.usersLoading = false;
                     this.users = [];
+                    this.usersLoading = false;
                     AlertService.addStrataErrorMessage(error);
                 }));
             } else {
@@ -281,7 +286,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 });
                 if(group.is_default) {
                     this.kase.group = group.number;
-                    this.group = group.number;                  
+                    this.group = group.number;
                 }
             }, this);
             if (this.showsearchoptions === true) {

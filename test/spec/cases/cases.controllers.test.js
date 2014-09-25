@@ -337,14 +337,12 @@ describe('Case Controllers', function () {
                 NEW_DEFAULTS: mockStrataDataService.value
             });
             expect(mockScope.initSelects).toBeDefined();
-            httpMock.expectGET('/productSortList.txt').respond('Red Hat Enterprise Linux,Red Hat JBoss Enterprise Application Platform,Red Hat Satellite or Proxy');
             mockScope.initSelects();
-            httpMock.flush();
             spyOn(mockStrataService.products, 'list').andCallThrough();
             spyOn(mockStrataService.values.cases, 'severity').andCallThrough();
             spyOn(mockStrataService.groups, 'list').andCallThrough();
             mockScope.$root.$digest();
-            expect(mockScope.products).toEqual(mockStrataDataService.mockSortedProductList);
+            expect(mockScope.products).toEqual(mockStrataDataService.mockProductList);
             expect(mockCaseService.kase.product.name).toEqual(mockStrataDataService.value.product);
             expect(mockCaseService.severities).toEqual(mockStrataDataService.mockSeverities);
             expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);
@@ -992,18 +990,6 @@ describe('Case Controllers', function () {
             spyOn(mockStrataService.products, 'list');
             mockScope.$root.$digest();
             expect(mockCaseService.products).toEqual(mockStrataDataService.mockProducts);
-        }));
-    });
-    //Suite for OwnerSelect
-    describe('OwnerSelect', function () {
-        it('should have a function to handle login success event', inject(function ($controller) {
-            $controller('OwnerSelect', {
-                $scope: mockScope,
-                CaseService: mockCaseService,
-                SearchCaseService: mockSearchCaseService
-            });
-            rootScope.$broadcast('auth-login-success');
-            expect(mockCaseService.users).toEqual(mockStrataDataService.mockUsers);
         }));
     });
     //Suite for EntitlementSelect

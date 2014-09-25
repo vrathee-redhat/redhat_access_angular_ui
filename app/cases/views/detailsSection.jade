@@ -11,8 +11,8 @@ form(name='caseDetails')
       span.glyphicon.glyphicon-asterisk.form-control-feedback(
         ng-show='caseDetails.summary.$dirty',
         style='display: inline-block;')
-    div(ng-hide='compact')
-      div(ng-show='showEmailNotifications', style='display: table-cell; vertical-align: bottom; width: 50%;')
+    div(ng-hide='compact', style='display: table-cell; vertical-align: bottom; width: 50%;')
+      div(ng-show='showEmailNotifications')
         div.pull-right(style='width: 75%')
           div(rha-emailnotifyselect='')
   span.rha-search-spinner(ng-show='loading')

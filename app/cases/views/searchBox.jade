@@ -1,12 +1,12 @@
 div.input-group
-  input.form-control(
+  input#rha-searchform-searchbox.form-control(
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     placeholder='{{placeholder}}',
     ng-model='SearchBoxService.searchTerm',
     ng-keypress='onFilterKeyPress($event)',
     ng-change='SearchBoxService.onChange()')
   span.input-group-btn
-    button.btn.btn-default.btn-primary(
+    button#rha-searchform-searchbutton.btn.btn-default.btn-primary(
       ng-click='SearchBoxService.doSearch()', 
       ng-disabled='!securityService.loginStatus.isLoggedIn')
       i.glyphicon.glyphicon-search

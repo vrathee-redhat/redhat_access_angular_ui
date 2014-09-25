@@ -15,10 +15,19 @@ angular.module('RedhatAccess.search').controller('SearchController', [
     'securityService',
     'AlertService',
     function ($scope, $location, SearchResultsService, SEARCH_CONFIG, securityService, AlertService) {
+        $scope.SearchResultsService = SearchResultsService;
         $scope.results = SearchResultsService.results;
         $scope.selectedSolution = SearchResultsService.currentSelection;
         $scope.searchInProgress = SearchResultsService.searchInProgress;
         $scope.currentSearchData = SearchResultsService.currentSearchData;
+        $scope.itemsPerPage = 3;
+        $scope.maxPagerSize = 5;
+        $scope.selectPage = function (pageNum) {
+            var start = $scope.itemsPerPage * (pageNum - 1);
+            var end = start + $scope.itemsPerPage;
+            end = end > SearchResultsService.results.length ? SearchResultsService.results.length : end;
+            $scope.results = SearchResultsService.results.slice(start, end);
+        };
         $scope.getOpenCaseRef = function () {
             if (SEARCH_CONFIG.openCaseRef !== undefined) {
                 //TODO data may be complex type - need to normalize to string in future
