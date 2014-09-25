@@ -733,12 +733,13 @@ describe('Case Controllers', function () {
         it('should have a function to get selected file', inject(function ($controller) {
             $controller('AttachLocalFile', {
                 $scope: mockScope,
-                AttachmentsService: mockAttachmentsService
+                AttachmentsService: mockAttachmentsService,
+                AlertService: mockAlertService
             });
             var file = {
                 files: [{
-                    fileSize: 32323,
-                    fileName: 'gfdsfds'
+                    size: 32323,
+                    name: 'gfdsfds'
                 }]
             };
             var fileUploader = [file];
