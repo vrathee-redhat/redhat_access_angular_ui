@@ -166,26 +166,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if(!commentID) {
                 return;
             }
-            var targetComment,
-                commentIndex,
-                length = this.comments.length,
-                page = 1;
-            for(var i = 0; i < length; i++) {
-                if(i && i % 4 === 0) {
-                    page++;
-                }
-                if(this.comments[i].id === commentID) {
-                    targetComment = this.comments[i];
-                    commentIndex = i;
-                    break;
-                }
+            var commentElem = document.getElementById(commentID);
+            if(commentElem) {
+                commentElem.scrollIntoView(true);
             }
-            var scrollToCommentElement = function() {
-                var commentElem = document.getElementById(commentID);
-                if(commentElem) {
-                    commentElem.scrollIntoView(true);
-                }
-            };
         };
         this.populateComments = function (caseNumber) {
             var promise = strataService.cases.comments.get(caseNumber);
