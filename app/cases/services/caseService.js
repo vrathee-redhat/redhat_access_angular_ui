@@ -261,6 +261,11 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     isDisabled: true,
                     label: sep
                 });
+            } else {
+                this.groupOptions.push({
+                    value: '',
+                    label: 'Ungrouped Case'
+                });
             }
 
             angular.forEach(this.groups, function(group){
