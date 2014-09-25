@@ -27,15 +27,5 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
                 controller: 'RequestManagementEscalationModal'
             });
         };
-
-        $scope.linkToComment = function (commentId) {
-            //This feels terrible hacky :(
-            var old = $location.hash();
-            $location.hash(commentId);
-            $anchorScroll();
-            //reset to old to keep any additional routing logic from kicking in
-            $location.hash(old);
-            $location.search('commentId', commentId);
-        };
     }
 ]);

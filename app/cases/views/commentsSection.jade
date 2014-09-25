@@ -22,4 +22,4 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
           div.col-md-9.rha-comment-text
             pre(style='word-break: normal;', ng-bind-html="comment.text | linky:'_blank'")
           div.col-md-1.rha-comment-link
-            span.glyphicon.glyphicon-link.clickable(ng-click='linkToComment(comment.id)')
+            a.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(comment.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{comment.id}}')
