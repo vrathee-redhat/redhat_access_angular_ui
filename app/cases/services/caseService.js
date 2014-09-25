@@ -40,6 +40,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.onGroupSelectChanged = null;
         this.groupOptions = [];
         this.showsearchoptions = false;
+        this.disableAddComment = true;
         /**
        * Add the necessary wrapper objects needed to properly display the data.
        *
@@ -195,6 +196,11 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     if (comment.draft === true) {
                         this.draftComment = comment;
                         this.commentText = comment.text;
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
                         comments.slice(index, index + 1);
                     }
                 }));

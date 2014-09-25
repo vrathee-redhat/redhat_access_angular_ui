@@ -22,6 +22,6 @@ div(style='margin-left: 60px; margin-right: 60px;')
     span.rha-search-spinner(ng-show='addingComment')
     button.btn.btn-primary(
       ng-hide='addingComment',
-      ng-disabled='disableAddComment',
+      ng-disabled='CaseService.disableAddComment',
       ng-click='addComment()',
       style='float: right;',translate='') Add Comment
