@@ -9,7 +9,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
         $scope.AttachmentsService = AttachmentsService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
         $scope.fileDescription = '';
-        var maxFileSize = 31250000;
+        var maxFileSize = 250000000;
         $scope.clearSelectedFile = function () {
             $scope.fileName = $scope.NO_FILE_CHOSEN;
             $scope.fileDescription = '';
