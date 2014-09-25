@@ -149,6 +149,7 @@ form(name='caseDetails')
                         style='width: 100%;',
                         ng-options='g.name for g in groups track by g.number',
                         ng-model='CaseService.kase.group')
+                        option(value="") Ungrouped Case
               tr(ng-hide='compact')
                 th.rha-detail-table-header
                   label(for='rha-opened') {{'Opened:'|translate}}
