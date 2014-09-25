@@ -128,7 +128,7 @@ form(name='caseDetails')
               tr(ng-hide='compact')
                 th.rha-detail-table-header
                   label(for='rha-owner') {{'Owner:'|translate}}
-                td#rha-owner {{CaseService.kase.contact_name}}
+                td#rha-owner {{CaseService.kase.contact_name}} <{{CaseService.kase.contact_sso_username }}>
               tr(ng-hide='compact')
                 th.rha-detail-table-header
                   label(for='rha-rh-owner') {{'Red Hat Owner:'|translate}}
