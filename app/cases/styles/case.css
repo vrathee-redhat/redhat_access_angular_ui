@@ -340,3 +340,57 @@ div#rha-recommendation-section .hand-picked {
 .group-select {
     margin-right: 20px;
 }
+
+.progressBarWrap {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    margin: 0 5px;
+    width: 100px;
+    height: 1.2em;
+    background: #fff;
+    vertical-align: middle;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    overflow: hidden;
+}
+
+.progressBar {
+    position: absolute;
+        left: 0;
+        top: 0;
+    height: 100%;
+    width: 0;
+    background: #83bce7;
+}
+
+.progressCount {
+    position: absolute;
+        left: 0;
+        top: 0;
+    width: 100%;
+    text-align: center;
+    color: #333;
+    line-height: 1.2em;
+}
+
+.commentReply {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    left: auto;
+    top: auto;
+    color: #4e9fdd;
+    padding: 3px 8px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.commentReply:hover {
+    text-decoration: none;
+    color: #06c;
+    background: #fff;
+}

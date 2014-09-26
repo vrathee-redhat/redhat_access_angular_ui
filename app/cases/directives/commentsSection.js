@@ -1,6 +1,6 @@
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaCasecomments', function () {
+angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','$anchorScroll' ,function ($location, $anchorScroll) {
     return {
         templateUrl: 'cases/views/commentsSection.html',
         controller: 'CommentsSection',
@@ -10,6 +10,27 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', function () {
             scope.$on('$destroy', function () {
                 element.remove();
             });
+            scope.commentReply = function(id) {
+                var text = $('#'+id+' .textBlock').text();
+                var person = $('#'+id+' .personBlock').text();
+                var originalText = $('#case-comment-box').val();
+                var lines = text.split(/\n/);
+                text = '(In reply to ' + person + ')\n';
+                for (var i = 0, max = lines.length; i < max; i++) {
+                    text = text + '> '+ lines[i] + '\n';
+                }
+                if (originalText.trim() !== '') {
+                    text = '\n' + text;
+                }
+                $('#case-comment-box').val($('#case-comment-box').val()+text).keyup();
+                
+                //Copying the code from the link to comment method
+                var old = $location.hash();
+                $location.hash('case-comment-box');
+                $anchorScroll();
+                $location.hash(old);
+                $location.search('commentBox', 'commentBox');
+            };
         }
     };
-});
+}]);

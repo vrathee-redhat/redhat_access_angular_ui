@@ -13,7 +13,6 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.addingComment = false;
-        $scope.disableAddComment = true;
         $scope.addComment = function () {
             $scope.addingComment = true;
             if (!securityService.loginStatus.isInternal) {
@@ -24,7 +23,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     $timeout.cancel($scope.saveDraftPromise);
                 }
                 CaseService.commentText = '';
-                $scope.disableAddComment = true;
+                CaseService.disableAddComment = true;
                 //TODO: find better way than hard code
                 if (!securityService.loginStatus.isInternal && CaseService.kase.status.name === 'Closed') {
                     var status = { name: 'Waiting on Red Hat' };
@@ -73,7 +72,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.saveDraftPromise;
         $scope.onNewCommentKeypress = function () {
             if (RHAUtils.isNotEmpty(CaseService.commentText) && !$scope.addingComment) {
-                $scope.disableAddComment = false;
+                CaseService.disableAddComment = false;
                 $timeout.cancel($scope.saveDraftPromise);
                 $scope.saveDraftPromise = $timeout(function () {
                     if (!$scope.addingComment) {
@@ -81,7 +80,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     }
                 }, 5000);
             } else if (RHAUtils.isEmpty(CaseService.commentText)) {
-                $scope.disableAddComment = true;
+                CaseService.disableAddComment = true;
             }
         };
         $scope.saveDraft = function () {
