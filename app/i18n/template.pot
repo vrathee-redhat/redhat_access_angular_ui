@@ -13,6 +13,14 @@ msgstr ""
 msgid "24x7 Support:"
 msgstr ""
 
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support Case"
+msgstr ""
+
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 msgid "Account Name:"
 msgstr ""
@@ -35,7 +43,11 @@ msgid "Add Comment"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
-msgid "Alternate ID:"
+msgid "Advanced Mission Critical"
+msgstr ""
+
+#: app/cases/views/detailsSection.html
+msgid "Alternate Case ID:"
 msgstr ""
 
 #: app/cases/views/attachProductLogs.html
@@ -78,8 +90,9 @@ msgstr ""
 msgid "Bugzilla Tickets"
 msgstr ""
 
-#: app/security/login_form.html
+#: app/security/views/login_form.html
 #: app/cases/views/createGroupModal.html
+#: app/cases/views/editGroup.html
 msgid "Cancel"
 msgstr ""
 
@@ -185,6 +198,10 @@ msgstr ""
 msgid "Files to Attach"
 msgstr ""
 
+#: app/cases/views/editGroup.html
+msgid "First Name"
+msgstr ""
+
 #: app/cases/views/search.html
 msgid "Group"
 msgstr ""
@@ -201,6 +218,14 @@ msgstr ""
 msgid "In the event that you would still like to open a support case, select 'Open a New Support Case'. The case will be pre-populated with the portion of the log previously selected."
 msgstr ""
 
+#: app/cases/views/addCommentSection.html
+msgid "Is Public:"
+msgstr ""
+
+#: app/cases/views/editGroup.html
+msgid "Last Name"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 msgid "Last Updated:"
 msgstr ""
@@ -213,11 +238,15 @@ msgstr ""
 msgid "Log File Viewer"
 msgstr ""
 
-#: app/security/login_status.html
+#: app/security/views/login_status.html
 msgid "Log In"
 msgstr ""
 
-#: app/security/login_status.html
+#: app/security/views/login_status.html
+msgid "Log Out"
+msgstr ""
+
+#: app/security/views/login_status.html
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr ""
 
@@ -254,12 +283,16 @@ msgstr ""
 msgid "No linked bugzillas"
 msgstr ""
 
-#: app/security/login_status.html
+#: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
 msgstr ""
 
-#: app/security/login_form.html
+#: app/security/views/login_form.html
 msgid "Note:"
+msgstr ""
+
+#: app/cases/views/detailsSection.html
+msgid "Notes:"
 msgstr ""
 
 #: app/log_viewer/views/logsInstructionPane.html
@@ -269,7 +302,6 @@ msgstr ""
 #: app/search/views/accordion_search_results.html
 #: app/cases/views/list.html
 #: app/cases/views/search.html
-#: app/log_viewer/views/logsInstructionPane.html
 msgid "Open a New Support Case"
 msgstr ""
 
@@ -286,7 +318,7 @@ msgstr ""
 msgid "Owner:"
 msgstr ""
 
-#: app/security/login_form.html
+#: app/security/views/login_form.html
 msgid "Password"
 msgstr ""
 
@@ -314,11 +346,11 @@ msgstr ""
 msgid "Recommendations"
 msgstr ""
 
-#: app/security/login_form.html
+#: app/security/views/login_form.html
 msgid "Red Hat Access makes it easy for you to self-solve issues, diagnose problems, and engage with us via the Red Hat Customer Portal. To access Red Hat Customer Portal resources, you must enter valid portal credentials."
 msgstr ""
 
-#: app/security/login_form.html
+#: app/security/views/login_form.html
 msgid "Red Hat Customer Portal credentials differ from the credentials used to log into this product."
 msgstr ""
 
@@ -326,7 +358,7 @@ msgstr ""
 msgid "Red Hat Diagnose"
 msgstr ""
 
-#: app/security/login_form.html
+#: app/security/views/login_form.html
 msgid "Red Hat Login"
 msgstr ""
 
@@ -347,6 +379,10 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: app/cases/views/editGroup.html
+msgid "Save Group"
+msgstr ""
+
 #: app/cases/views/addCommentSection.html
 msgid "Saving draft..."
 msgstr ""
@@ -363,10 +399,6 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
-#: app/log_viewer/views/logsInstructionPane.html
-msgid "Select Log"
-msgstr ""
-
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr ""
@@ -381,11 +413,11 @@ msgstr ""
 msgid "Severity:"
 msgstr ""
 
-#: app/security/login_form.html
+#: app/security/views/login_form.html
 msgid "Sign in"
 msgstr ""
 
-#: app/security/login_form.html
+#: app/security/views/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
 msgstr ""
 
@@ -438,6 +470,10 @@ msgstr ""
 msgid "The log file viewer gives the ability to diagnose application logs as well as file a support case with Red Hat Global Support Services."
 msgstr ""
 
+#: app/cases/views/new.html
+msgid "This release is now retired, please refer to the recommended FAQ prior to filing a case"
+msgstr ""
+
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
 msgstr ""
@@ -460,6 +496,10 @@ msgstr ""
 
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
+msgstr ""
+
+#: app/cases/views/editGroup.html
+msgid "User Name"
 msgstr ""
 
 #: app/cases/views/recommendationsSection.html
