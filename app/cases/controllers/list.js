@@ -24,20 +24,20 @@ angular.module('RedhatAccess.cases').controller('List', [
                 count: 10,
                 sorting: { last_modified_date: 'desc' }
             }, {
-                total: SearchCaseService.cases.length,
+                total: SearchCaseService.totalCases,
                 getData: function ($defer, params) {
-                    if (!SearchCaseService.allCasesDownloaded && params.count() === params.page()) {
+                    if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.count) {
                         SearchCaseService.doFilter().then(function () {
                             $scope.tableParams.reload();
                             var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
                             var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                            $scope.tableParams.total(orderedData.length);
+                            $scope.tableParams.total(SearchCaseService.totalCases);
                             $defer.resolve(pageData);
                         });
                     } else {
                         var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
                         var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                        $scope.tableParams.total(orderedData.length);
+                        $scope.tableParams.total(SearchCaseService.totalCases);
                         $defer.resolve(pageData);
                     }
                 }

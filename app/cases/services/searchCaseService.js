@@ -14,6 +14,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
     'securityService',
     function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $state, $rootScope, SearchBoxService, securityService) {
         this.cases = [];
+        this.totalCases = 0;
         this.searching = true;
         this.prefilter = {};
         this.postfilter = {};
@@ -37,6 +38,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             SearchBoxService.searchTerm = '';
             this.start = 0;
             this.total = 0;
+            this.totalCases = 0;
             this.allCasesDownloaded = false;
             this.prefilter = {};
             this.postfilter = {};
@@ -53,10 +55,13 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             if (angular.isFunction(this.prefilter)) {
                 this.prefilter();
             }
+            if(this.start > 0){
+                this.count = this.totalCases - this.start;
+            }
             var params = {
-                    include_closed: getIncludeClosed(),
-                    count: this.count
-                };
+                count: this.count,
+                include_closed: getIncludeClosed(),
+            };
             params.start = this.start;
             var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
@@ -103,14 +108,15 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     if (securityService.loginStatus.ssoName && securityService.loginStatus.isInternal) {
                         params.owner_ssoname = securityService.loginStatus.ssoName;
                     }
-                    cases = strataService.cases.filter(params).then(angular.bind(that, function (cases) {
-                        if (cases.length < that.count) {
+                    cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
+                        that.totalCases = response.total_count;
+                        if (response['case'].length + that.total >= that.totalCases) {
                             that.allCasesDownloaded = true;
                         }
-                        that.cases = that.cases.concat(cases);
+                        that.cases = that.cases.concat(response['case']);
                         that.searching = false;
                         that.start = that.start + that.count;
-                        that.total = that.total + that.count;
+                        that.total = that.total + response['case'].length;
                         if (angular.isFunction(that.postFilter)) {
                             that.postFilter();
                         }
@@ -124,14 +130,16 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         if (securityService.loginStatus.ssoName && securityService.loginStatus.isInternal) {
                             params.owner_ssoname = securityService.loginStatus.ssoName;
                         }
-                        cases = strataService.cases.filter(params).then(angular.bind(that, function (cases) {
-                            if (cases.length < that.count) {
-                                that.allCasesDownloaded = true;
-                            }
-                            that.cases = that.cases.concat(cases);
+                        cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
+                            that.totalCases = response.total_count;
+                            
+                            that.cases = that.cases.concat(response['case']);
                             that.searching = false;
                             that.start = that.start + that.count;
-                            that.total = that.total + that.count;
+                            that.total = that.total + response['case'].length;
+                            if (that.total >= that.totalCases) {
+                                that.allCasesDownloaded = true;
+                            }
                             if (angular.isFunction(that.postFilter)) {
                                 that.postFilter();
                             }

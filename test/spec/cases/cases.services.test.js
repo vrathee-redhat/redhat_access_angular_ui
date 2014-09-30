@@ -216,7 +216,7 @@ describe('Case Services', function () {
             spyOn(mockStrataService.cases, 'filter').andCallThrough();
             scope.$root.$digest();
             expect(searchCaseService.searching).toBe(false);
-            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockCases);
+            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
         });
         it('should have a method to Filter/Search cases resolved for login success event', function () {
             expect(searchCaseService.doFilter).toBeDefined();
@@ -236,7 +236,7 @@ describe('Case Services', function () {
             spyOn(mockStrataService.cases, 'filter').andCallThrough();
             scope.$root.$digest();
             expect(searchCaseService.searching).toBe(false);
-            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockCases);
+            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
         });
         it('should have a method to Filter/Search cases rejected', function () {
             expect(searchCaseService.doFilter).toBeDefined();

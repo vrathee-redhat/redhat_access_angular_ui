@@ -491,11 +491,11 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     if (!ie8 && strataCache.get('filter' + JSON.stringify(params))) {
                         deferred.resolve(strataCache.get('filter' + JSON.stringify(params)));
                     } else {
-                        strata.cases.filter(params, function (allCases) {
+                        strata.cases.filter(params, function (response) {
                             if (!ie8) {
-                                strataCache.put('filter' + JSON.stringify(params), allCases);
+                                strataCache.put('filter' + JSON.stringify(params), response);
                             }
-                            deferred.resolve(allCases);
+                            deferred.resolve(response);
                         }, angular.bind(deferred, errorHandler));
                     }
                     return deferred.promise;
