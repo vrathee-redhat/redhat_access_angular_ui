@@ -66,8 +66,10 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 if (CaseService.kase.summary !== undefined) {
                     caseJSON.summary = CaseService.kase.summary;
                 }
-                if (CaseService.kase.group !== undefined) {
+                if (CaseService.kase.group !== null && CaseService.kase.group !== undefined && CaseService.kase.group.number !== undefined) {
                     caseJSON.folderNumber = CaseService.kase.group.number;
+                } else {
+                    caseJSON.folderNumber = "";
                 }
                 if (RHAUtils.isNotEmpty(CaseService.kase.fts)) {
                     caseJSON.fts = CaseService.kase.fts;
