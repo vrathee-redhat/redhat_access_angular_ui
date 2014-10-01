@@ -70,6 +70,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     $scope.loading.attachments= false;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
+                    $scope.loading.attachments= false;
                 });
             }
             if (EDIT_CASE_CONFIG.showComments) {
@@ -79,6 +80,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     $scope.loading.comments = false;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
+                    $scope.loading.comments = false;
                 });
             }
         };

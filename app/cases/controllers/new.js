@@ -285,12 +285,16 @@ angular.module('RedhatAccess.cases').controller('New', [
                 if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && NEW_CASE_CONFIG.showAttachments) {
                     AttachmentsService.updateAttachments(caseNumber).then(function () {
                         redirectToCase(caseNumber);
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                        $scope.submittingCase = false;
                     });
                 } else {
                     redirectToCase(caseNumber);
                 }
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
+                $scope.submittingCase = false;
             });
         };
         $scope.gotoPage(1);
