@@ -58,7 +58,15 @@ angular.module('RedhatAccess.cases')
   'showEmailNotifications': true
 });
 ~~~
+You can also set an ID to identify your client to strata. It is recommended that you include your plugin version in your ID:
 
+~~~
+<script type="text/javascript">
+//<![CDATA[
+  strata.setRedhatClientID('satellite6_plugin_0.0.5');
+//]]>
+</script>
+~~~
 ### IE8 Support
 [Angular IE8 Support Doc](https://docs.angularjs.org/guide/ie)  
 Included in bower_components but not in the dist/redhat_access_angular_ui.js combined module.  
