@@ -30,7 +30,7 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
             if(files.selectedFile !== undefined && !files.getRetrieveFileButtonIsDisabled()){
                 $scope.fileSelected();
             }
-        }
+        };
 
         $scope.fileSelected = function () {
             files.setFileClicked(true);

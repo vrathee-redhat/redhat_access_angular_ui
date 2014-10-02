@@ -27,7 +27,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             if(securityService.userAllowedToManageGroups()){
                 $scope.groupsLoading = true;
                 var loc = $location.url().split('/');
-                $scope.ssoName = securityService.loginStatus.ssoName;
+                $scope.ssoName = securityService.loginStatus.authedUser.sso_username;
                 $scope.account = securityService.loginStatus.account;
                 strataService.groups.list($scope.ssoName).then(function (groups) {
                     $scope.groupsLoading = false;

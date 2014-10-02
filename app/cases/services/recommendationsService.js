@@ -94,7 +94,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         this.populateRecommendations = function (max) {
             var masterDeferred = $q.defer();
             masterDeferred.promise.then(angular.bind(this, function() {this.selectPage(1);}));
-            var productName = undefined;
+            var productName;
             if(CaseService.kase.product !== undefined && CaseService.kase.product.name !== undefined){
                 productName = CaseService.kase.product.name;
             }

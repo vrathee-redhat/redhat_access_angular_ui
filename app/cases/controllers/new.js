@@ -134,7 +134,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.initSelects = function () {
             CaseService.clearCase();
             $scope.productsLoading = true;
-            strataService.products.list(securityService.loginStatus.ssoName).then(function (products) {
+            strataService.products.list(securityService.loginStatus.authedUser.sso_username).then(function (products) {
                 $scope.buildProductOptions(products);
                 $scope.productsLoading = false;
                 if (RHAUtils.isNotEmpty(NEW_DEFAULTS.product)) {

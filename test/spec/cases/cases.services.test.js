@@ -76,7 +76,7 @@ describe('Case Services', function () {
         });
         it('should have a method for populating Users For An Account resolved', function () {
             expect(caseService.populateUsers).toBeDefined();
-            securityService.loginStatus.orgAdmin = true;
+            securityService.loginStatus.authedUser.org_admin = true;
             caseService.account.number = '540155';
             caseService.populateUsers();
             spyOn(mockStrataService.accounts, 'users').andCallThrough();
@@ -86,7 +86,7 @@ describe('Case Services', function () {
         });
         it('should have a method for populating Users For An Account non org admin', function () {
             expect(caseService.populateUsers).toBeDefined();
-            securityService.loginStatus.orgAdmin = false;
+            securityService.loginStatus.authedUser.org_admin = false;
             caseService.account.number = '540155';
             caseService.populateUsers();
             expect(caseService.users).toEqual([]);
@@ -94,7 +94,7 @@ describe('Case Services', function () {
         });
         it('should have a method for populating Users For An Account rejected', function () {
             expect(caseService.populateUsers).toBeDefined();
-            securityService.loginStatus.orgAdmin = true;
+            securityService.loginStatus.authedUser.org_admin = true;
             caseService.account.number = '540155';
             mockStrataService.rejectCalls();
             spyOn(mockStrataService.accounts, 'users').andCallThrough();
@@ -223,8 +223,8 @@ describe('Case Services', function () {
             searchCaseService.oldParams = {};
             securityService.loginStatus.login = 'testUser';
             securityService.loginStatus.isLoggedIn = false;
-            securityService.loginStatus.isInternal = true;
-            securityService.loginStatus.ssoName = 'testSsoName';
+            securityService.loginStatus.authedUser.is_internal = true;
+            securityService.loginStatus.authedUser.sso_username = 'testSsoName';
             searchBoxService.searchTerm = 'test';
             caseService.status = 'closed';
             caseService.product = 'Red Hat Enterprise Linux';

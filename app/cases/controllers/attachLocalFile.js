@@ -23,7 +23,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 file_name: $scope.fileName,
                 description: $scope.fileDescription,
                 length: $scope.fileSize,
-                created_by: securityService.loginStatus.loggedInUser,
+                created_by: securityService.loginStatus.authedUser.loggedInUser,
                 created_date: new Date().getTime(),
                 file: data
             });
@@ -39,7 +39,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 $scope.fileName = $scope.fileObj.name;
                 $scope.$apply();
             } else {
-                AlertService.addDangerMessage($('#fileUploader')[0].files[0].name + " cannot be attached because it is larger the 250MB. Please FTP large files to dropbox.redhat.com.")
+                AlertService.addDangerMessage($('#fileUploader')[0].files[0].name + ' cannot be attached because it is larger the 250MB. Please FTP large files to dropbox.redhat.com.');
             }
             $('#fileUploader')[0].value = '';
         };

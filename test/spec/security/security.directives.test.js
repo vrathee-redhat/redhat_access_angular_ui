@@ -29,7 +29,9 @@ describe('Directive for login status', function () {
         sinon.stub(securityService, 'validateLogin').returns(true);
         securityService.loginStatus = {
             isLoggedIn: true,
-            loggedInUser: 'John Doe',
+            authedUser: {
+                loggedInUser: 'John Doe'
+            },
             verifying: false
         };
         var element = compileFn(mockScope);

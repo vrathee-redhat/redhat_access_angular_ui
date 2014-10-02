@@ -52,7 +52,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
         $scope.init = function() {
             if(securityService.userAllowedToManageGroups()){
                 var loc = $location.url().split('/');
-                $scope.accountNumber = securityService.loginStatus.account.number;
+                $scope.accountNumber = securityService.loginStatus.authedUser.account_number;
                 strataService.groups.get(loc[3]).then(function (group) {
                     $scope.selectedGroup = group;
                     strataService.accounts.users($scope.accountNumber, $scope.selectedGroup.number).then(function (users) {

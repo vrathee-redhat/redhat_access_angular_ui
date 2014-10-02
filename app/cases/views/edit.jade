@@ -2,7 +2,7 @@ doctype html
 div#redhat-access-case.container-offset
   div(rha-header='', page='caseView')
   div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn')
-    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat')
+    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
       div.pull-right
           div(rha-chatbutton='')
     div.row(ng-show='EDIT_CASE_CONFIG.showDetails')
@@ -14,7 +14,7 @@ div#redhat-access-case.container-offset
     div.row(ng-show='EDIT_CASE_CONFIG.showBugzillas')
       div.col-xs-12
         div(rha-listbugzillas='', loading='loading.kase')
-    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.canAddAttachments')
+    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
       div.col-xs-12
         div(rha-caseattachments='', loading='loading.attachments')
     div.row(ng-show='EDIT_CASE_CONFIG.showRecommendations')

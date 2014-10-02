@@ -105,8 +105,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 var that = this;
                 var cases = null;
                 if (securityService.loginStatus.isLoggedIn) {
-                    if (securityService.loginStatus.ssoName && securityService.loginStatus.isInternal) {
-                        params.owner_ssoname = securityService.loginStatus.ssoName;
+                    if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal) {
+                        params.owner_ssoname = securityService.loginStatus.authedUser.sso_username;
                     }
                     cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                         that.totalCases = response.total_count;
@@ -127,8 +127,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     deferred.resolve(cases);
                 } else {
                     $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-                        if (securityService.loginStatus.ssoName && securityService.loginStatus.isInternal) {
-                            params.owner_ssoname = securityService.loginStatus.ssoName;
+                        if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal) {
+                            params.owner_ssoname = securityService.loginStatus.authedUser.sso_username;
                         }
                         cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                             that.totalCases = response.total_count;

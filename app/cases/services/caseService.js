@@ -115,7 +115,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.groupsLoading = true;
             var username = ssoUsername;
             if(username === undefined){
-                username = securityService.loginStatus.ssoName;
+                username = securityService.loginStatus.authedUser.sso_username;
             }
             strataService.groups.list(ssoUsername).then(angular.bind(this, function (groups) {
                 that.groups = groups;
@@ -137,13 +137,13 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
        */
         this.populateUsers = angular.bind(this, function () {
             var promise = null;
-            if (securityService.loginStatus.orgAdmin) {
+            if (securityService.loginStatus.authedUser.org_admin) {
                 this.usersLoading = true;
-                var accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.account.number : this.account.number;
+                var accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.authedUser.account_number : this.account.number;
                 promise = strataService.accounts.users(accountNumber);
                 promise.then(angular.bind(this, function (users) {
                     angular.forEach(users, function(user){
-                        if(user.sso_username === securityService.loginStatus.ssoName) {
+                        if(user.sso_username === securityService.loginStatus.authedUser.sso_username) {
                             this.owner = user.sso_username;
                         }
                     }, this);

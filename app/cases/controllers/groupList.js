@@ -62,7 +62,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
         $scope.init = function() {
             strataService.groups.list().then(function (groups) {
                 CaseService.groups = groups;
-                $scope.canManageGroups = securityService.loginStatus.account.has_group_acls && securityService.loginStatus.orgAdmin;
+                $scope.canManageGroups = securityService.loginStatus.account.has_group_acls && securityService.loginStatus.authedUser.org_admin;
                 $scope.groupsLoading = false;
                 buildTable();
                 if(reloadTable){

@@ -12,7 +12,7 @@ div(style='margin-left: 60px; margin-right: 60px;')
           span.progressCount {{progressCount}} %
         span {{'of the 32KB maximum description size.'|translate}}
     div(style='padding-top: 10px;')
-      div(ng-if='securityService.loginStatus.isInternal')
+      div(ng-if='securityService.loginStatus.authedUser.is_internal')
         span(style='float: left;') {{'Is Public:'|translate}}
         input(type='checkbox', ng-model='CaseService.isCommentPublic', style='display: inline-block;')
       span.pull-right.rha-bold(ng-show='savingDraft') {{'Saving draft...'|translate}}

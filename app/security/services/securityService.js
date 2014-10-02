@@ -15,49 +15,20 @@ angular.module('RedhatAccess.security').factory('securityService', [
         var service = {
             loginStatus: {
                 isLoggedIn: false,
-                loggedInUser: '',
                 verifying: false,
-                isInternal: false,
-                orgAdmin: false,
-                hasChat: false,
-                sessionId: '',
-                canAddAttachments: false,
-                ssoName: ''
+                authedUser: {}
             },
             loginURL: SECURITY_CONFIG.loginURL,
             logoutURL: SECURITY_CONFIG.logoutURL,
-            setLoginStatus: function(isLoggedIn, userName, verifying, isInternal, orgAdmin, hasChat, sessionId, canAddAttachments, ssoName) {
+            setLoginStatus: function(isLoggedIn, verifying, authedUser) {
                 service.loginStatus.isLoggedIn = isLoggedIn;
-                service.loginStatus.loggedInUser = userName;
                 service.loginStatus.verifying = verifying;
-                service.loginStatus.isInternal = isInternal;
-                if (orgAdmin !== null) {
-                    service.loginStatus.orgAdmin = orgAdmin;
-                }
-                if (hasChat !== null) {
-                    service.loginStatus.hasChat = hasChat;
-                }
-                if (sessionId !== null) {
-                    service.loginStatus.sessionId = sessionId;
-                }
-                if (canAddAttachments !== null) {
-                    service.loginStatus.canAddAttachments = canAddAttachments;
-                }
-                if (ssoName !== null) {
-                    service.loginStatus.ssoName = ssoName;
-                }
+                service.loginStatus.authedUser = authedUser;
             },
             clearLoginStatus: function() {
                 service.loginStatus.isLoggedIn = false;
-                service.loginStatus.loggedInUser = '';
                 service.loginStatus.verifying = false;
-                service.loginStatus.isInternal = false;
-                service.loginStatus.orgAdmin = false;
-                service.loginStatus.hasChat = false;
-                service.loginStatus.sessionId = '';
-                service.loginStatus.canAddAttachments = false;
-                service.loginStatus.account = {};
-                service.loginStatus.ssoName = '';
+                service.loginStatus.authedUser = {};
             },
             setAccount: function(accountJSON) {
                 service.loginStatus.account = accountJSON;
@@ -77,14 +48,14 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 backdrop: 'static'
             },
             userAllowedToManageEmailNotifications: function(user) {
-                if (RHAUtils.isNotEmpty(service.loginStatus.account) && RHAUtils.isNotEmpty(service.loginStatus.account) && service.loginStatus.orgAdmin) {
+                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && service.loginStatus.authedUser.org_admin) {
                     return true;
                 } else {
                     return false;
                 }
             },
             userAllowedToManageGroups: function(user) {
-                if (RHAUtils.isNotEmpty(service.loginStatus.account) && RHAUtils.isNotEmpty(service.loginStatus.account) && (!service.loginStatus.account.has_group_acls || service.loginStatus.account.has_group_acls && service.loginStatus.orgAdmin)) {
+                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && (!service.loginStatus.authedUser.account.has_group_acls || service.loginStatus.authedUser.account.has_group_acls && service.loginStatus.authedUser.org_admin)) {
                     return true;
                 } else {
                     return false;
@@ -115,7 +86,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 strataService.authentication.checkLogin().then(angular.bind(this, function(authedUser) {
                     var sidChanged = currentSid !== authedUser.session_id;
                     service.setAccount(authedUser.account);
-                    service.setLoginStatus(true, authedUser.name, false, authedUser.is_internal, authedUser.org_admin, authedUser.has_chat, authedUser.session_id, authedUser.can_add_attachments, authedUser.login);
+                    service.setLoginStatus(true, false, authedUser);
                     service.loggingIn = false;
                     //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
                     if (wasLoggedIn === false) {

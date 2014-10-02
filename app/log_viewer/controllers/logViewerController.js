@@ -31,6 +31,6 @@ angular.module('RedhatAccess.logViewer').controller('logViewerController', [
         };
         $scope.toggleSolutions = function () {
             $scope.showSolutions = !$scope.showSolutions;
-        }
+        };
     }
 ]);

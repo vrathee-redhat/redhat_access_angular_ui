@@ -1,15 +1,15 @@
 div.container-offset
   div#redhat-access-case.container-fluid
     div(rha-header='', page='newCase')
-    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat')
+    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
       div.pull-right
           div(rha-chatbutton='' style='margin-right: 10px;')
-    div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.hasChat')
+    div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
     div.row
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.rha-side-padding
           div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
-            div(ng-if='securityService.loginStatus.isInternal')
+            div(ng-if='securityService.loginStatus.authedUser.is_internal')
               div.row.rha-create-field
                 div.col-md-3
                   label(for='rha-account-number') {{'Account:'|translate}}
@@ -113,7 +113,7 @@ div.container-offset
                 label(for='rha-group-select') {{'Case Group:'|translate}}
               div.col-md-8
                 div(rha-groupselect='', ng-init="setSearchOptions('false')")
-            div(ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.canAddAttachments')
+            div(ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
               div.row.rha-create-field
                 div.col-xs-12
                   label {{'Attachments:'|translate}}

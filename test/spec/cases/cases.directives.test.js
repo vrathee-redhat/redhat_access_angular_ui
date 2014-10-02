@@ -27,7 +27,7 @@ describe('Case Directives', function () {
         it('should display the linked bugzilla section for internal user', function () {
             var compileFn = compileService(' <div rha-listbugzillas/>');
             var element = compileFn(mockScope);
-            securityService.loginStatus.isInternal = true;
+            securityService.loginStatus.authedUser.is_internal = true;
             mockScope.securityService = securityService;
             mockScope.$root.$digest();
             expect(element.find('.redhat-access-bz').length).toBe(1);
@@ -35,7 +35,7 @@ describe('Case Directives', function () {
         it('should not display the linked bugzilla section for customer', function () {
             var compileFn = compileService(' <div rha-listbugzillas/>');
             var element = compileFn(mockScope);
-            securityService.loginStatus.isInternal = false;
+            securityService.loginStatus.authedUser.is_internal = false;
             mockScope.securityService = securityService;
             mockScope.$root.$digest();
             expect(element.find('.redhat-access-bz.ng-hide').length).toBe(1);
@@ -46,7 +46,7 @@ describe('Case Directives', function () {
         it('should display the accNo and Name details for internal user', function () {
             var compileFn = compileService(' <div rha-casedetails/>');
             var element = compileFn(mockScope);
-            securityService.loginStatus.isInternal = true;
+            securityService.loginStatus.authedUser.is_internal = true;
             mockScope.securityService = securityService;
             mockScope.$root.$digest();
             expect(element.find('.rha-detail-acc-name').length).toBe(1);
@@ -55,7 +55,7 @@ describe('Case Directives', function () {
         it('should not display the accNo and Name details for customer', function () {
             var compileFn = compileService(' <div rha-casedetails/>');
             var element = compileFn(mockScope);
-            securityService.loginStatus.isInternal = false;
+            securityService.loginStatus.authedUser.is_internal = false;
             mockScope.securityService = securityService;
             mockScope.$root.$digest();
             expect(element.find('.rha-detail-acc-name').length).toBe(0);

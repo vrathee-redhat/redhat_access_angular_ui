@@ -18,7 +18,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
 
         $scope.addComment = function () {
             $scope.addingComment = true;
-            if (!securityService.loginStatus.isInternal) {
+            if (!securityService.loginStatus.authedUser.is_internal) {
                 CaseService.isCommentPublic = true;
             }
             var onSuccess = function (response) {
@@ -28,12 +28,12 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.commentText = '';
                 CaseService.disableAddComment = true;
                 //TODO: find better way than hard code
-                if (!securityService.loginStatus.isInternal && CaseService.kase.status.name === 'Closed') {
+                if (!securityService.loginStatus.authedUser.is_internal && CaseService.kase.status.name === 'Closed') {
                     var status = { name: 'Waiting on Red Hat' };
                     CaseService.kase.status = status;
                 }
 
-                if(securityService.loginStatus.isInternal){
+                if(securityService.loginStatus.authedUser.is_internal){
                     if (CaseService.kase.status.name === 'Waiting on Red Hat') {
                         var status = { name: 'Waiting on Customer' };
                         CaseService.kase.status = status;
@@ -54,9 +54,9 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 });
                 $scope.progressCount = 0;
 
-                if(securityService.loginStatus.ssoName !== undefined && CaseService.originalNotifiedUsers.indexOf(securityService.loginStatus.ssoName) === -1){
-                    strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.ssoName).then(function () {
-                        CaseService.originalNotifiedUsers.push(securityService.loginStatus.ssoName);
+                if(securityService.loginStatus.authedUser.sso_username !== undefined && CaseService.updatedNotifiedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) === -1){
+                    strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.authedUser.sso_username).then(function () {
+                        CaseService.updatedNotifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });

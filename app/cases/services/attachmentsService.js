@@ -149,7 +149,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                         this.suggestedArtifact.link = attachmentLink;
                         this.suggestedArtifact.description = text;
                         this.suggestedArtifact.trail = trail;
-                    }                    
+                    }
                 }
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
