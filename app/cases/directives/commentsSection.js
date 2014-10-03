@@ -11,7 +11,7 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','
                 element.remove();
             });
             scope.commentReply = function(id) {
-                var text = $('#'+id+' .textBlock').text();
+                var text = $('#'+id+' .pcmTextBlock').text();
                 var person = $('#'+id+' .personNameBlock').text();
                 var originalText = $('#case-comment-box').val();
                 var lines = text.split(/\n/);
