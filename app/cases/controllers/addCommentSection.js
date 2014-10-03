@@ -75,7 +75,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.disableAddComment = false;
                 $timeout.cancel($scope.saveDraftPromise);
                 $scope.saveDraftPromise = $timeout(function () {
-                    if (!$scope.addingComment) {
+                    if (!$scope.addingComment && CaseService.commentText !== '') {
                         $scope.saveDraft();
                     }
                 }, 5000);
