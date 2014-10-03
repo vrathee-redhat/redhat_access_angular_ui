@@ -118,7 +118,7 @@ describe('Case Directives', function () {
             mockScope.CaseService = caseService;
             mockScope.$root.$digest();
             expect(element.find('.rha-comments-section').length).toBe(1);
-            expect(element.find('.rha-comment-text .textBlock').text()).toEqual(mockStrataDataService.mockComments[0].text);
+            expect(element.find('.rha-comment-text .pcmTextBlock').text()).toEqual(mockStrataDataService.mockComments[0].text);
         });
         it('should not display the comments section when no comments available', function () {
             var compileFn = compileService(' <div rha-casecomments/>');
