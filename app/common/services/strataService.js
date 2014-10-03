@@ -428,11 +428,12 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         }, angular.bind(deferred, errorHandler));
                         return deferred.promise;
                     },
-                    put: function (caseNumber, text, isDraft, comment_id) {
+                    put: function (caseNumber, text, isDraft, isPublic, comment_id) {
                         var deferred = $q.defer();
                         strata.cases.comments.update(caseNumber, {
                             'text': text,
                             'draft': isDraft === true ? 'true' : 'false',
+                            'public': isPublic === true ? 'true' : 'false',
                             'caseNumber': caseNumber,
                             'id': comment_id
                         }, comment_id, function (response) {

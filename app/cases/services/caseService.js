@@ -25,7 +25,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.originalNotifiedUsers = [];
         this.updatedNotifiedUsers = [];
         this.account = {};
-        this.draftComment = '';
+        this.draftComment = {};
         this.commentText = '';
         this.escalationCommentText = '';
         this.status = '';
@@ -180,6 +180,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     if (comment.draft === true) {
                         this.draftComment = comment;
                         this.commentText = comment.text;
+                        this.isCommentPublic = comment.public;
                         if (RHAUtils.isNotEmpty(this.commentText)) {
                             this.disableAddComment = false;
                         } else if (RHAUtils.isEmpty(this.commentText)) {

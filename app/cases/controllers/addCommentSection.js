@@ -64,7 +64,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.addingComment = false;
             };
             if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
-                strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.draftComment.id).then(onSuccess, onError);
+                strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
             } else {
                 strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
             }
@@ -90,8 +90,9 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.draftSaved = true;
                 CaseService.draftComment = {
                     'text': CaseService.commentText,
-                    'id': RHAUtils.isNotEmpty(commentId) ? commentId : draftComment.id,
+                    'id': RHAUtils.isNotEmpty(commentId) ? commentId : CaseService.draftComment.id,
                     'draft': true,
+                    'public': CaseService.isCommentPublic,
                     'case_number': CaseService.kase.case_number
                 };
             };
@@ -101,7 +102,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             };
             if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
                 //draft update
-                strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, true, CaseService.draftComment.id).then(onSuccess, onFailure);
+                strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, true, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onFailure);
             } else {
                 //initial draft save
                 strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, true).then(onSuccess, onFailure);
