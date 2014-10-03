@@ -12,7 +12,7 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','
             });
             scope.commentReply = function(id) {
                 var text = $('#'+id+' .textBlock').text();
-                var person = $('#'+id+' .personBlock').text();
+                var person = $('#'+id+' .personNameBlock').text();
                 var originalText = $('#case-comment-box').val();
                 var lines = text.split(/\n/);
                 text = '(In reply to ' + person + ')\n';

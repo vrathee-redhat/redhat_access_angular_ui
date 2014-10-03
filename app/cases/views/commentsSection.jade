@@ -15,7 +15,7 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
       div(id="{{comment.id}}")
         div.row(style='padding-bottom: 10px;')
           div.col-md-2
-            div.rha-bold.personBlock {{comment.created_by}}
+            div.rha-bold.personNameBlock {{comment.created_by}}
             div {{comment.created_date | date:'mediumDate'}}
             div {{comment.created_date | date:'h:mm:ss a Z'}}
             div.private(ng-if='comment.public !== undefined && comment.public === false') Private
