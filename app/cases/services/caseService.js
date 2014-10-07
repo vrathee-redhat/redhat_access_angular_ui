@@ -232,7 +232,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.newCasePage1Incomplete = true;
         this.validateNewCasePage1 = function () {
-            if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary) || RHAUtils.isEmpty(this.kase.description) || securityService.loginStatus.isInternal && RHAUtils.isEmpty(this.owner)) {
+            if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary) || RHAUtils.isEmpty(this.kase.description)) {
                 this.newCasePage1Incomplete = true;
             } else {
                 this.newCasePage1Incomplete = false;
