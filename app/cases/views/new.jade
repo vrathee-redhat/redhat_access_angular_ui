@@ -9,7 +9,7 @@ div.container-offset
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.rha-side-padding
           div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
-            div(ng-if='securityService.loginStatus.isInternal && securityService.loginStatus.orgAdmin')
+            div(ng-if='securityService.loginStatus.isInternal')
               div.row.rha-create-field
                 div.col-md-3
                   label(for='rha-account-number') {{'Account:'|translate}}
