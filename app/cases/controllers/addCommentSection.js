@@ -13,6 +13,9 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.addingComment = false;
+        $scope.progressCount = 0;
+        $scope.maxCommentLength = '32000';
+
         $scope.addComment = function () {
             $scope.addingComment = true;
             if (!securityService.loginStatus.isInternal) {
@@ -49,6 +52,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     $scope.draftSaved = false;
                     CaseService.draftComment = undefined;
                 });
+                $scope.progressCount = 0;
 
                 if(securityService.loginStatus.ssoName !== undefined && CaseService.originalNotifiedUsers.indexOf(securityService.loginStatus.ssoName) === -1){
                     strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.ssoName).then(function () {
@@ -62,6 +66,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             var onError = function (error) {
                 AlertService.addStrataErrorMessage(error);
                 $scope.addingComment = false;
+                $scope.progressCount = 0;
             };
             if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
                 strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
@@ -81,6 +86,16 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 }, 5000);
             } else if (RHAUtils.isEmpty(CaseService.commentText)) {
                 CaseService.disableAddComment = true;
+            }
+        };
+        $scope.$watch('CaseService.commentText', function() {
+            $scope.maxCharacterCheck();
+        });
+        $scope.maxCharacterCheck = function() {
+            if (CaseService.commentText !== undefined && $scope.maxCommentLength  > CaseService.commentText.length) {
+                var count = CaseService.commentText.length * 100 / $scope.maxCommentLength ;
+                parseInt(count);
+                $scope.progressCount = Math.round(count * 100) / 100;
             }
         };
         $scope.saveDraft = function () {

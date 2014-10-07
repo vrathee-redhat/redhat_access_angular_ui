@@ -5,12 +5,11 @@ div(style='margin-left: 60px; margin-right: 60px;')
       rows='5',
       ng-model='CaseService.commentText',
       style='max-width: 100%',
-      ng-change='onNewCommentKeypress();maxCharacterCheck()')
+      ng-change='onNewCommentKeypress()')
     span#commentNotice.uploadNotice  
         span {{'You have used'|translate}}
         span.progressBarWrap
-          span.progressBar
-          span.progressCount
+          span.progressCount {{progressCount}} %
         span {{'of the 32KB maximum description size.'|translate}}
     div(style='padding-top: 10px;')
       div(ng-if='securityService.loginStatus.isInternal')
