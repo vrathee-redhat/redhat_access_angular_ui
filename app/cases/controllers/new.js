@@ -50,7 +50,11 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.getRecommendations = function () {
             if ($scope.NEW_CASE_CONFIG.showRecommendations) {
                 SearchResultsService.searchInProgress.value = true;
-                RecommendationsService.populateRecommendations(5).then(function () {
+                var numRecommendations = 5;
+                if($scope.NEW_CASE_CONFIG.isPCM){
+                    numRecommendations = 30;
+                }
+                RecommendationsService.populateRecommendations(numRecommendations).then(function () {
                     SearchResultsService.clear();
                     RecommendationsService.recommendations.forEach(function (recommendation) {
                         SearchResultsService.add(recommendation);
@@ -58,6 +62,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                     SearchResultsService.searchInProgress.value = false;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
+                    SearchResultsService.searchInProgress.value = false;
                 });
             }
         };
@@ -187,6 +192,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.initSelects();
             $scope.initDescription();
             AlertService.clearAlerts();
+            RecommendationsService.failureCount = 0;
         });
 
         $scope.$on('$destroy', function () {

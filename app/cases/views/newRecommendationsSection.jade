@@ -1,25 +1,25 @@
 div#rha-new-recommendation-section.row.rha-bottom-border
- div.col-xs-12
+  div.col-xs-12
     div(style="padding-bottom: 0")
-     span
-      h4(style="padding-left: 10px; display: inline-block;") Red Hat Access Recommendations
-     span.rha-search-spinner(ng-show='searchInProgress.value')
+      span
+        h4(style="padding-left: 10px; display: inline-block;") Red Hat Access Recommendations
+      span.rha-search-spinner(ng-show='searchInProgress.value')
 div.col-xs-12
- div.recommendations-inner
-   ul.recommendations(style="display: block;")
-     li(ng-repeat="result in results")
-       h4
-         span.icon-solution
-         a(ng-click='triggerAnalytics($event)', href='{{result.view_uri}}', target='_blank') {{result.title}} 
-       p.snippet {{result.resolution.text | recommendationsResolution}}
-       div.row
-        div(ng-repeat="product in result.products.product")
-         div.col-xs-3
-          span.recommendations_products {{product}}
-        div(ng-repeat="tag in result.tags.tag")
-         div.col-xs-3
+  div.recommendations-inner
+    ul.recommendations(style="display: block;")
+      li(ng-repeat="result in results")
+        h4
+          span.icon-solution
+          a(ng-click='triggerAnalytics($event)', href='{{result.view_uri}}', target='_blank') {{result.title}} 
+        p.snippet {{result.resolution.text | recommendationsResolution}}
+        div.row
+          div(ng-repeat="product in result.products.product")
+            div.col-xs-3
+              span.recommendations_products {{product}}
+          div(ng-repeat="tag in result.tags.tag")
+            div.col-xs-3
           span.recommendations_tags {{tag}}
-   div.row(style='padding-top: 10px;', ng-hide='results.length == 0')
+    div.row(style='padding-top: 10px;', ng-hide='results.length == 0')
       div.col-xs-12
         pagination.pagination-sm(
           boundary-links='true',

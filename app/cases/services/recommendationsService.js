@@ -94,8 +94,12 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         this.populateRecommendations = function (max) {
             var masterDeferred = $q.defer();
             masterDeferred.promise.then(angular.bind(this, function() {this.selectPage(1);}));
+            var productName = undefined;
+            if(CaseService.kase.product !== undefined && CaseService.kase.product.name !== undefined){
+                productName = CaseService.kase.product.name;
+            }
             var newData = {
-                    product: CaseService.kase.product,
+                    product: productName,
                     version: CaseService.kase.version,
                     summary: CaseService.kase.summary,
                     description: CaseService.kase.description
@@ -125,6 +129,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                         masterDeferred.resolve();
                     }));
                 }), angular.bind(this, function (error) {
+                    this.loadingRecommendations = false;
                     masterDeferred.reject();
                     this.failureCount++;
                     this.populateRecommendations(12);
