@@ -14,6 +14,8 @@ angular.module('RedhatAccess.cases').controller('EmailNotifySelect', [
     'AUTH_EVENTS',
     function ($scope, $rootScope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
         $scope.securityService = securityService;
+        $scope.userName = [];
+        $scope.selectedUser = [];
         $scope.CaseService = CaseService;
         $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
         $scope.updateNotifyUsers = function () {
@@ -48,9 +50,11 @@ angular.module('RedhatAccess.cases').controller('EmailNotifySelect', [
         };
         if (securityService.loginStatus.isLoggedIn) {
             CaseService.populateUsers();
+            $scope.userName.push(securityService.loginStatus.ssoName);
         }
         $scope.authEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             CaseService.populateUsers();
+            $scope.userName.push(securityService.loginStatus.ssoName);
         });
         $scope.$on('$destroy', function () {
             $scope.authEventDeregister();
