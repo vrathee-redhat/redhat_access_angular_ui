@@ -70,8 +70,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.updatedNotifiedUsers.push(this.kase.contact_sso_username);
             //hide the X button for the case owner
             $('#rha-emailnotifyselect').on('change', angular.bind(this, function () {
-                $('rha-emailnotifyselect .select2-choices li:contains("' + this.kase.contact_sso_username + '") a').css('display', 'none');
-                $('rha-emailnotifyselect .select2-choices li:contains("' + this.kase.contact_sso_username + '")').css('padding-left', '5px');
+                $('rha-emailnotifyselect .chosen-choices li:contains("' + this.kase.contact_sso_username + '") a').css('display', 'none');
+                $('rha-emailnotifyselect .chosen-choices li:contains("' + this.kase.contact_sso_username + '")').css('padding-left', '5px');
             }));
             if (RHAUtils.isNotEmpty(this.kase.notified_users)) {
                 angular.forEach(this.kase.notified_users.link, angular.bind(this, function (user) {
@@ -158,7 +158,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 var deferred = $q.defer();
                 promise = deferred.promise;
                 deferred.resolve();
-                this.users = [];
+                var tmp= {'sso_username': securityService.loginStatus.authedUser.sso_username};
+                this.users.push(tmp);
             }
             return promise;
         });
