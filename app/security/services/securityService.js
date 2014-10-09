@@ -81,19 +81,14 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 service.loggingIn = true;
                 var defer = $q.defer();
                 var wasLoggedIn = service.loginStatus.isLoggedIn;
-                var currentSid = service.loginStatus.sessionId;
                 service.loginStatus.verifying = true;
                 strataService.authentication.checkLogin().then(angular.bind(this, function(authedUser) {
-                    var sidChanged = currentSid !== authedUser.session_id;
                     service.setAccount(authedUser.account);
                     service.setLoginStatus(true, false, authedUser);
                     service.loggingIn = false;
                     //We don't want to resend the AUTH_EVENTS.loginSuccess if we are already logged in
                     if (wasLoggedIn === false) {
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                    }
-                    if (sidChanged) {
-                        $rootScope.$broadcast(AUTH_EVENTS.sessionIdChanged);
                     }
                     defer.resolve(authedUser.name);
                 }), angular.bind(this, function(error) {

@@ -13,14 +13,15 @@ angular.module('RedhatAccess.cases').controller('ChatButton', [
     '$scope',
     'CaseService',
     'securityService',
+    'strataService',
+    'AlertService',
     'CHAT_SUPPORT',
-    'securityService',
     'AUTH_EVENTS',
     '$rootScope',
     '$sce',
     '$http',
     '$interval',
-    function ($scope, CaseService, SecurityService, CHAT_SUPPORT, securityService, AUTH_EVENTS, $rootScope, $sce, $http, $interval) {
+    function ($scope, CaseService, securityService, strataService, AlertService, CHAT_SUPPORT, AUTH_EVENTS, $rootScope, $sce, $http, $interval) {
         $scope.securityService = securityService;
         if (window.chatInitialized === undefined) {
             window.chatInitialized = false;
@@ -31,8 +32,12 @@ angular.module('RedhatAccess.cases').controller('ChatButton', [
         $scope.timer = null;
         $scope.chatHackUrl = $sce.trustAsResourceUrl(CHAT_SUPPORT.chatIframeHackUrlPrefix);
         $scope.setChatIframeHackUrl = function () {
-            var url = CHAT_SUPPORT.chatIframeHackUrlPrefix + '?sessionId=' + securityService.loginStatus.sessionId + '&ssoName=' + securityService.loginStatus.authedUser.sso_username;
-            $scope.chatHackUrl = $sce.trustAsResourceUrl(url);
+            strataService.users.chatSession.post().then(angular.bind(this, function (sessionId) {
+                var url = CHAT_SUPPORT.chatIframeHackUrlPrefix + '?sessionId=' + sessionId + '&ssoName=' + securityService.loginStatus.authedUser.sso_username;
+                $scope.chatHackUrl = $sce.trustAsResourceUrl(url);
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
         };
         $scope.enableChat = function () {
             $scope.showChat = securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CHAT_SUPPORT.enableChat;
@@ -107,11 +112,6 @@ angular.module('RedhatAccess.cases').controller('ChatButton', [
                 $scope.authEventLoginSuccess();
             });
         }
-        $scope.authEventSessionChanged = $rootScope.$on(AUTH_EVENTS.sessionIdChanged, function () {
-            if ($scope.enableChat()) {
-                $scope.setChatIframeHackUrl();
-            }
-        });
 
         $scope.$on('$destroy', function () {
             window._laq = null;

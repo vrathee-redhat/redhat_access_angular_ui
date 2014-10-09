@@ -12,7 +12,7 @@
     "angular-route": "1.2.1",
     "angular-ui-router": "0.2.8-bowratic-tedium",
     "angular-bootstrap": "0.10.0",
-    "stratajs": ">1.1.1",
+    "stratajs": ">1.1.2",
     "angular-treeview": "",
     "ng-table": "~0.3.3",
     "angular-gettext": "~0.2.9",

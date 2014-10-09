@@ -587,6 +587,22 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         }, angular.bind(deferred, errorHandler), userId);
                     }
                     return deferred.promise;
+                },
+                chatSession: {
+                    post: function(){
+                        var deferred = $q.defer();
+                        if (!ie8 && strataCache.get('chatSession')) {
+                            deferred.resolve(strataCache.get('chatSession'));
+                        } else {
+                            strata.users.chatSession.get(function (response) {
+                                if (!ie8) {
+                                    strataCache.put('chatSession', response);
+                                }
+                                deferred.resolve(response);
+                            }, angular.bind(deferred, errorHandler));
+                        }
+                        return deferred.promise;
+                    }
                 }
             }
         };
