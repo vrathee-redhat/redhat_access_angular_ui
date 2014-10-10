@@ -19,7 +19,7 @@ div(style='margin-left: 60px; margin-right: 60px;')
       span.pull-right.rha-bold(ng-show='draftSaved') {{'Draft saved'|translate}}
   div(style='float: right;')
     span.rha-search-spinner(ng-show='addingComment')
-    button#rha-caseupdateform-updatebutton.btn.btn-primary(
+    button#rha-case-addcommentbutton.btn.btn-primary(
       ng-hide='addingComment',
       ng-disabled='CaseService.disableAddComment',
       ng-click='addComment()',
