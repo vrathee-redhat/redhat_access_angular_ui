@@ -16,7 +16,7 @@ div.container-fluid(style='padding: 20px;')
   div.row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     div.col-sm-12
       div.pull-right
-        button.btn-secondary.btn(
+        button#rha-case-escalation-submitbutton.btn-secondary.btn(
           style='margin-left: 10px;', 
           ng-click='submitRequestClick(CaseService.escalationCommentText)', 
           ng-disabled='submittingRequest || disableSubmitRequest') 
