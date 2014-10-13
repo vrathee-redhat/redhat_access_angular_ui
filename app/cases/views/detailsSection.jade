@@ -56,12 +56,12 @@ form(name='caseDetails')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Support:'|translate}}
                 td
-                  input(ng-model='CaseService.kase.fts', type='checkbox')
+                  input#rha-case-ftsCheckboxEdit(ng-model='CaseService.kase.fts', type='checkbox')
               tr(ng-show='CaseService.showFts() && CaseService.kase.fts')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Contact:'|translate}}
                 td
-                  input.form-control(ng-model='CaseService.kase.contact_info24_x7')
+                  input#rha-case-contact-24x7-edit.form-control(ng-model='CaseService.kase.contact_info24_x7')
               tr
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
