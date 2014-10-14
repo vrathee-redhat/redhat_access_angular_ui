@@ -1,50 +1,53 @@
 div#redhat-access-case.container-offset(style='padding-bottom: 15px;')
   div(rha-header='', page='caseList')
-  div.container-fluid.rha-side-padding
-    div.row
-      div.col-md-8
-        div(rha-listfilter='')
-      div.col-md-4.text-right
-          span.pad-r-l(rha-chatbutton='')
-          button.btn.btn-primary.btn-slim.btn-sm(
-            ng-disabled='!securityService.loginStatus.isLoggedIn',
-            ui-sref='new', translate='') Open a New Support Case
-  div.rha-bottom-border(style='margin-left: 10px; margin-right: 10px;')
-  div.container-fluid.rha-side-padding
-    div.row(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
-      div.col-xs-12
-        span.rha-search-spinner
-    div.row(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
-      div.col-xs-12
-        div {{'No cases found with given filters.'|translate}}
-    div(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching || !securityService.loginStatus.isLoggedIn')
+  div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn')
+    div {{'User does not have permissions to manage cases.'|translate}}
+  div(ng-hide='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn')
+    div.container-fluid.rha-side-padding
       div.row
+        div.col-md-8
+          div(rha-listfilter='')
+        div.col-md-4.text-right
+            span.pad-r-l(rha-chatbutton='')
+            button.btn.btn-primary.btn-slim.btn-sm(
+              ng-disabled='!securityService.loginStatus.isLoggedIn',
+              ui-sref='new', translate='') Open a New Support Case
+    div.rha-bottom-border(style='margin-left: 10px; margin-right: 10px;')
+    div.container-fluid.rha-side-padding
+      div.row(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
         div.col-xs-12
-          table.table.table-bordered.table-striped(
-              ng-table='tableParams',
-              style='text-align: left')
-            tr(ng-repeat='case in $data')
-              td(data-title='"Case ID"',
-                  sortable='"case_number"',
-                  style='width: 10%')
-                a(href='#/case/{{case.case_number}}') {{case.case_number}}
-              td(data-title='"Summary"',
-                  sortable='"summary"',
-                  style='width: 15%') {{case.summary}}
-              td(data-title='"Product/Version"',
-                  sortable='"product"') {{case.product}} / {{case.version}}
-              td(data-title='"Status"',
-                  sortable='"status"') {{case.status}}
-              td(data-title='"Severity"',
-                  sortable='"severity"') {{case.severity}}
-              td(data-title='"Owner"',
-                  sortable='"owner"') {{case.contact_name}}
-              td(data-title='"Opened"',
-                  sortable='"created_date"',
-                  style='width: 10%') {{case.created_date | date:'longDate'}}
-              td(data-title='"Updated"',
-                  sortable='"last_modified_date"',
-                  style='width: 10%') {{case.last_modified_date | date:'longDate'}}
-      div.row
+          span.rha-search-spinner
+      div.row(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
         div.col-xs-12
-          div(rha-exportcsvbutton='')
+          div {{'No cases found with given filters.'|translate}}
+      div(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching || !securityService.loginStatus.isLoggedIn')
+        div.row
+          div.col-xs-12
+            table.table.table-bordered.table-striped(
+                ng-table='tableParams',
+                style='text-align: left')
+              tr(ng-repeat='case in $data')
+                td(data-title='"Case ID"',
+                    sortable='"case_number"',
+                    style='width: 10%')
+                  a(href='#/case/{{case.case_number}}') {{case.case_number}}
+                td(data-title='"Summary"',
+                    sortable='"summary"',
+                    style='width: 15%') {{case.summary}}
+                td(data-title='"Product/Version"',
+                    sortable='"product"') {{case.product}} / {{case.version}}
+                td(data-title='"Status"',
+                    sortable='"status"') {{case.status}}
+                td(data-title='"Severity"',
+                    sortable='"severity"') {{case.severity}}
+                td(data-title='"Owner"',
+                    sortable='"owner"') {{case.contact_name}}
+                td(data-title='"Opened"',
+                    sortable='"created_date"',
+                    style='width: 10%') {{case.created_date | date:'longDate'}}
+                td(data-title='"Updated"',
+                    sortable='"last_modified_date"',
+                    style='width: 10%') {{case.last_modified_date | date:'longDate'}}
+        div.row
+          div.col-xs-12
+            div(rha-exportcsvbutton='')

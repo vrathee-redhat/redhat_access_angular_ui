@@ -16,6 +16,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
             loginStatus: {
                 isLoggedIn: false,
                 verifying: false,
+                userAllowedToManageCases: false,
                 authedUser: {}
             },
             loginURL: SECURITY_CONFIG.loginURL,
@@ -24,10 +25,12 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 service.loginStatus.isLoggedIn = isLoggedIn;
                 service.loginStatus.verifying = verifying;
                 service.loginStatus.authedUser = authedUser;
+                service.userAllowedToManageCases();
             },
             clearLoginStatus: function() {
                 service.loginStatus.isLoggedIn = false;
                 service.loginStatus.verifying = false;
+                service.loginStatus.userAllowedToManageCases = false;
                 service.loginStatus.authedUser = {};
             },
             setAccount: function(accountJSON) {
@@ -46,6 +49,18 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 headerText: 'Proceed?',
                 bodyText: 'Perform this action?',
                 backdrop: 'static'
+            },
+            userAllowedToManageCases: function() {
+                var canManage = false;
+                if(service.loginStatus.authedUser.rights !== undefined){
+                    for(var i = 0; i < service.loginStatus.authedUser.rights.right.length; i++){
+                         if(service.loginStatus.authedUser.rights.right[i].name === 'portal_manage_cases' && service.loginStatus.authedUser.rights.right[i].has_access === true){
+                            canManage = true;
+                            break;
+                        }
+                    }
+                }
+                service.loginStatus.userAllowedToManageCases = canManage;
             },
             userAllowedToManageEmailNotifications: function(user) {
                 if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && service.loginStatus.authedUser.org_admin) {
