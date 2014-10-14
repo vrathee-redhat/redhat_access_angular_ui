@@ -1026,6 +1026,7 @@ describe('Case Controllers', function () {
                 SearchBoxService: mockSearchBoxService
             });
             mockSearchCaseService.cases = mockStrataDataService.mockCases;
+            securityService.loginStatus.userAllowedToManageCases = true;
             rootScope.$broadcast('auth-login-success');
             spyOn(mockSearchBoxService, 'doSearch');
             mockScope.$root.$digest();
