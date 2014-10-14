@@ -138,7 +138,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                         this.suggestedArtifact.hasLink = false;
                         if (description.indexOf('<a') > -1) {
                             this.suggestedArtifact.hasLink = true;
-                            attachmentLink = description.slice(description.indexOf('\"'),description.lastIndexOf('\"')-12);
+                            attachmentLink = description.slice(description.indexOf('\"')+1,description.lastIndexOf('\"')-13);
                             text = description.slice(0,description.indexOf('<'));
                             trail = description.slice(description.lastIndexOf('>')+1,description.length);
                         } else {
