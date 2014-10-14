@@ -334,7 +334,8 @@ describe('Case Controllers', function () {
                 $scope: mockScope,
                 CaseService: mockCaseService,
                 strataService: mockStrataService,
-                NEW_DEFAULTS: mockStrataDataService.value
+                NEW_DEFAULTS: mockStrataDataService.value,
+                NEW_CASE_CONFIG: mockStrataDataService.value
             });
             expect(mockScope.initSelects).toBeDefined();
             httpMock.expectGET('/productSortList.txt').respond('Red Hat Enterprise Linux,Red Hat JBoss Enterprise Application Platform,Red Hat Satellite or Proxy');
