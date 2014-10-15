@@ -54,7 +54,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 var canManage = false;
                 if(service.loginStatus.authedUser.rights !== undefined){
                     for(var i = 0; i < service.loginStatus.authedUser.rights.right.length; i++){
-                         if(service.loginStatus.authedUser.rights.right[i].name === 'portal_manage_cases' && service.loginStatus.authedUser.rights.right[i].has_access === true){
+                        if(service.loginStatus.authedUser.rights.right[i].name === 'portal_manage_cases' && service.loginStatus.authedUser.rights.right[i].has_access === true){
                             canManage = true;
                             break;
                         }

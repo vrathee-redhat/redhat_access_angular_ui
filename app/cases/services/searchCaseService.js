@@ -109,17 +109,24 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         params.owner_ssoname = securityService.loginStatus.authedUser.sso_username;
                     }
                     cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
-                        that.totalCases = response.total_count;
-                        if (response['case'].length + that.total >= that.totalCases) {
-                            that.allCasesDownloaded = true;
+                        if(response['case'] === undefined ){
+                            that.totalCases = 0;
+                            that.total = 0;
+                        } else {
+                            that.totalCases = response.total_count;
+                            if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
+                                that.allCasesDownloaded = true;
+                            }
+                            that.cases = that.cases.concat(response['case']);
+                            that.start = that.start + that.count;
+                            if (response['case'] !== undefined){
+                                that.total = that.total + response['case'].length;
+                            }
+                            if (angular.isFunction(that.postFilter)) {
+                                that.postFilter();
+                            }
                         }
-                        that.cases = that.cases.concat(response['case']);
                         that.searching = false;
-                        that.start = that.start + that.count;
-                        that.total = that.total + response['case'].length;
-                        if (angular.isFunction(that.postFilter)) {
-                            that.postFilter();
-                        }
                     }), angular.bind(that, function (error) {
                         AlertService.addStrataErrorMessage(error);
                         that.searching = false;
