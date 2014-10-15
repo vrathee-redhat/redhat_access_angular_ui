@@ -115,7 +115,6 @@ angular.module('RedhatAccess.cases').controller('ChatButton', [
 
         $scope.$on('$destroy', function () {
             window._laq = null;
-            $scope.authEventSessionChanged();
         });
     }
 ]);
