@@ -63,7 +63,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 document.body.appendChild(iFrame);
 
                 var form = document.createElement('form');
-                form.action = 'api.access.devgssci.devlab.phx1.redhat.com/rs/cases';
+                form.action = 'access.devgssci.devlab.phx1.redhat.com/rs/cases';
                 form.method = 'post';
                 form.enctype = 'multipart/form-data';
                 form.encoding = 'multipart/form-data';
