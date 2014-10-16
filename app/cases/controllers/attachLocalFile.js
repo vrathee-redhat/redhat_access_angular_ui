@@ -54,12 +54,38 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
             if(e.target.files !== undefined){
                 $scope.selectFile(e.target.files[0]);
             } else{
-                $scope.selectFile(e.target.value);
-                $('#fileUploader').action = 'api.access.devgssci.devlab.phx1.redhat.com/rs/cases';
-                $('#fileUploader').method = 'post';
-                $('#fileUploader').enctype = 'multipart/form-data';
-                $('#fileUploader').encoding = 'multipart/form-data';  //this additional line fixes the IE8 problem I was having
-                $('#fileUploader').submit();
+                //$scope.selectFile(e.target.value);
+
+                var frameName = 'fileUploadFormFrame';
+                var fileValue;
+                var iFrame = document.createElement('iframe');
+                iFrame.name = frameName
+                document.body.appendChild(iFrame);
+
+                var form = document.createElement('form');
+                form.action = 'api.access.devgssci.devlab.phx1.redhat.com/rs/cases';
+                form.method = 'post';
+                form.enctype = 'multipart/form-data';
+                form.encoding = 'multipart/form-data';
+                form.target = frameName;
+
+                var fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.name = 'File';
+                fileInput.value = e.target.value;
+                fileValue = fileInput.value;
+
+                //all browsers except IE8
+                //add event listener to fileInput onChange event -> fileInputChangedCallback
+
+                //IE8 fix
+                //add event listener to fileInput onFocus event -> fileInputChangedCallback
+
+                form.appendChild(fileInput);
+
+                document.body.appendChild(form);
+
+                form.submit();
             }
         });
         //$scope.clearSelectedFile();
