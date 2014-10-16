@@ -85,19 +85,26 @@ angular.module('RedhatAccess.cases').controller('New', [
                     if (response.status === 200 && response.data !== undefined) {
                         productSortList = response.data.split(',');
 
-                        angular.forEach(productSortList, function(sortProduct){
-                            productOptions.push({
-                                value: sortProduct,
-                                label: sortProduct
-                            });
-                        }, this);
+                        for(var i = 0; i < productSortList.length; i++) {
+                            for (var j = 0 ; j < originalProductList.length ; j++) {
+                                if (productSortList[i] === originalProductList[j].code) {
+                                    var sortProduct = productSortList[i];
+                                    productOptions.push({
+                                        value: sortProduct,
+                                        label: sortProduct
+                                    });
+                                    break;
+                                }
+                            }
+                        }
 
                         var sep = '────────────────────────────────────────';
-
-                        productOptions.push({
-                            isDisabled: true,
-                            label: sep
-                        });
+                        if (productOptions.length > 0) {
+                            productOptions.push({
+                                isDisabled: true,
+                                label: sep
+                            });
+                        }
 
                         angular.forEach(originalProductList, function(product){
                             productOptions.push({

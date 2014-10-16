@@ -345,7 +345,7 @@ describe('Case Controllers', function () {
             spyOn(mockStrataService.values.cases, 'severity').andCallThrough();
             spyOn(mockStrataService.groups, 'list').andCallThrough();
             mockScope.$root.$digest();
-            expect(mockScope.products).toEqual(mockStrataDataService.mockSortedProductList);
+            expect(mockScope.products).toEqual(mockStrataDataService.mockProductList);
             expect(mockCaseService.kase.product.name).toEqual(mockStrataDataService.value.product);
             expect(mockCaseService.severities).toEqual(mockStrataDataService.mockSeverities);
             expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);
