@@ -71,13 +71,15 @@ angular.module('RedhatAccess.cases').controller('List', [
         /**
        * Callback after user login. Load the cases and clear alerts
        */
-        if (securityService.loginStatus.isLoggedIn) {
+        if (securityService.loginStatus.isLoggedIn && securityService.loginStatus.userAllowedToManageCases) {
             SearchCaseService.clear();
             SearchBoxService.doSearch();
         }
         $scope.listAuthEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            SearchBoxService.doSearch();
-            AlertService.clearAlerts();
+            if(securityService.loginStatus.userAllowedToManageCases){
+                SearchBoxService.doSearch();
+                AlertService.clearAlerts();
+            }
         });
 
         $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {

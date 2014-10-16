@@ -100,6 +100,9 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         };
         $scope.saveDraft = function () {
             $scope.savingDraft = true;
+            if (!securityService.loginStatus.authedUser.is_internal) {
+                CaseService.isCommentPublic = true;
+            }
             var onSuccess = function (commentId) {
                 $scope.savingDraft = false;
                 $scope.draftSaved = true;

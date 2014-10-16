@@ -740,15 +740,13 @@ describe('Case Controllers', function () {
                 AlertService: mockAlertService
             });
             var file = {
-                files: [{
                     size: 32323,
                     name: 'gfdsfds'
-                }]
             };
             var fileUploader = [file];
             spyOn(window, '$').andReturn(fileUploader);
             expect(mockScope.selectFile).toBeDefined();
-            mockScope.selectFile();
+            mockScope.selectFile(file);
         }));
         it('should add file to the list of attachments', inject(function ($controller) {
             $controller('AttachLocalFile', {
@@ -1029,6 +1027,7 @@ describe('Case Controllers', function () {
                 SearchBoxService: mockSearchBoxService
             });
             mockSearchCaseService.cases = mockStrataDataService.mockCases;
+            securityService.loginStatus.userAllowedToManageCases = true;
             rootScope.$broadcast('auth-login-success');
             spyOn(mockSearchBoxService, 'doSearch');
             mockScope.$root.$digest();

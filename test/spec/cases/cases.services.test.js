@@ -89,7 +89,7 @@ describe('Case Services', function () {
             securityService.loginStatus.authedUser.org_admin = false;
             caseService.account.number = '540155';
             caseService.populateUsers();
-            expect(caseService.users).toEqual([]);
+            expect(caseService.users).toEqual([{'sso_username' : undefined}]);
             expect(caseService.usersLoading).toBe(false);
         });
         it('should have a method for populating Users For An Account rejected', function () {
