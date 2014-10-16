@@ -55,6 +55,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 $scope.selectFile(e.target.files[0]);
             } else{
                 $scope.selectFile(e.target.value);
+                $('#fileUploader').submit();
             }
         });
         //$scope.clearSelectedFile();
