@@ -55,6 +55,10 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 $scope.selectFile(e.target.files[0]);
             } else{
                 $scope.selectFile(e.target.value);
+                $('#fileUploader').action = 'api.access.devgssci.devlab.phx1.redhat.com/rs/cases';
+                $('#fileUploader').method = 'post';
+                $('#fileUploader').enctype = 'multipart/form-data';
+                $('#fileUploader').encoding = 'multipart/form-data';  //this additional line fixes the IE8 problem I was having
                 $('#fileUploader').submit();
             }
         });
