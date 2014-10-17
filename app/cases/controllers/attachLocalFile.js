@@ -55,7 +55,6 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 }
                 $('#fileUploader')[0].value = '';
             } else {
-                $scope.fileObj = file;
                 $scope.fileName = file;
                 $scope.$apply();
             }
@@ -65,40 +64,9 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
             if(e.target.files !== undefined){
                 $scope.selectFile(e.target.files[0]);
             } else{
-                //$scope.selectFile(e.target.value);
-
-                var frameName = 'fileUploadFormFrame';
-                var fileValue;
-                var iFrame = document.createElement('iframe');
-                iFrame.name = frameName
-                document.body.appendChild(iFrame);
-
-                var form = document.createElement('form');
-                form.action = 'access.devgssci.devlab.phx1.redhat.com/rs/cases';
-                form.method = 'post';
-                form.enctype = 'multipart/form-data';
-                form.encoding = 'multipart/form-data';
-                form.target = frameName;
-
-                var fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.name = 'File';
-                fileInput.value = e.target.value;
-                fileValue = fileInput.value;
-
-                //all browsers except IE8
-                //add event listener to fileInput onChange event -> fileInputChangedCallback
-
-                //IE8 fix
-                //add event listener to fileInput onFocus event -> fileInputChangedCallback
-
-                form.appendChild(fileInput);
-
-                document.body.appendChild(form);
-
-                form.submit();
+                $scope.selectFile(e.target.value);
             }
         });
-        //$scope.clearSelectedFile();
+        $scope.clearSelectedFile();
     }
 ]);
