@@ -85,24 +85,31 @@ angular.module('RedhatAccess.cases').controller('New', [
                     if (response.status === 200 && response.data !== undefined) {
                         productSortList = response.data.split(',');
 
-                        angular.forEach(productSortList, function(sortProduct){
-                            productOptions.push({
-                                code: sortProduct,
-                                name: sortProduct
-                            });
-                        }, this);
+                        for(var i = 0; i < productSortList.length; i++) {
+                            for (var j = 0 ; j < originalProductList.length ; j++) {
+                                if (productSortList[i] === originalProductList[j].code) {
+                                    var sortProduct = productSortList[i];
+                                    productOptions.push({
+                                        value: sortProduct,
+                                        label: sortProduct
+                                    });
+                                    break;
+                                }
+                            }
+                        }
 
                         var sep = '────────────────────────────────────────';
-
-                        productOptions.push({
-                            isDisabled: true,
-                            name: sep
-                        });
+                        if (productOptions.length > 0) {
+                            productOptions.push({
+                                isDisabled: true,
+                                label: sep
+                            });
+                        }
 
                         angular.forEach(originalProductList, function(product){
                             productOptions.push({
-                                code: product.code,
-                                name: product.name
+                                value: product.code,
+                                label: product.name
                             });
                         }, this);
 
@@ -110,8 +117,8 @@ angular.module('RedhatAccess.cases').controller('New', [
                     } else {
                         angular.forEach(originalProductList, function(product){
                             productOptions.push({
-                                code: product.code,
-                                name: product.name
+                                value: product.code,
+                                label: product.name
                             });
                         }, this);
                         $scope.products = productOptions;
@@ -120,8 +127,8 @@ angular.module('RedhatAccess.cases').controller('New', [
             } else {
                 angular.forEach(originalProductList, function(product){
                     productOptions.push({
-                        code: product.code,
-                        name: product.name
+                        value: product.code,
+                        label: product.name
                     });
                 }, this);
                 $scope.products = productOptions;
@@ -207,7 +214,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.kase.version = '';
             $scope.versionDisabled = true;
             $scope.versionLoading = true;
-            strataService.products.versions(product.code).then(function (response) {
+            strataService.products.versions(product).then(function (response) {
                 $scope.versions = response;
                 CaseService.validateNewCasePage1();
                 $scope.versionDisabled = false;
@@ -221,8 +228,29 @@ angular.module('RedhatAccess.cases').controller('New', [
             });
 
             //Retrieve the product detail, basically finding the attachment artifact
-            AttachmentsService.fetchProductDetail(product.code);
+            $scope.fetchProductDetail(product);
         };
+
+        /**
+        * Fetch the product details for the selected product
+        **/
+        $scope.fetchProductDetail = function (productCode) {
+            AttachmentsService.suggestedArtifact = {};
+            strataService.products.get(productCode).then(angular.bind(this, function (product) {
+                if (product !== undefined && product.suggested_artifacts !== undefined && product.suggested_artifacts.suggested_artifact !== undefined) {
+                    if (product.suggested_artifacts.suggested_artifact.length > 0) {
+                        var description = product.suggested_artifacts.suggested_artifact[0].description;
+                        if (description.indexOf('<a') > -1) {
+                            description = description.replace("<a","<a target='_blank'");
+                        }
+                        AttachmentsService.suggestedArtifact.description = description;
+                    }
+                }
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
         /**
        * Go to a page in the wizard
        *

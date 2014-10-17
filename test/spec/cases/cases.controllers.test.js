@@ -334,10 +334,13 @@ describe('Case Controllers', function () {
                 $scope: mockScope,
                 CaseService: mockCaseService,
                 strataService: mockStrataService,
-                NEW_DEFAULTS: mockStrataDataService.value
+                NEW_DEFAULTS: mockStrataDataService.value,
+                NEW_CASE_CONFIG: mockStrataDataService.value
             });
             expect(mockScope.initSelects).toBeDefined();
+            httpMock.expectGET('/productSortList.txt').respond('Red Hat Enterprise Linux,Red Hat JBoss Enterprise Application Platform,Red Hat Satellite or Proxy');
             mockScope.initSelects();
+            httpMock.flush();
             spyOn(mockStrataService.products, 'list').andCallThrough();
             spyOn(mockStrataService.values.cases, 'severity').andCallThrough();
             spyOn(mockStrataService.groups, 'list').andCallThrough();
