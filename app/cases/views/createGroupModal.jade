@@ -6,7 +6,7 @@ div#rha-create-group-modal
       div.col-sm-12
         div(style='display: table; width: 100%;')
           label(style='display: table-cell', translate='') Case Group:
-          input.form-control(
+          input#rha-case-groupName.form-control(
             ng-model='groupName', 
             style='display: table-cell; width: 100%;', 
             ng-keypress='onGroupNameKeyPress($event)')
