@@ -228,8 +228,29 @@ angular.module('RedhatAccess.cases').controller('New', [
             });
 
             //Retrieve the product detail, basically finding the attachment artifact
-            AttachmentsService.fetchProductDetail(product);
+            $scope.fetchProductDetail(product);
         };
+
+        /**
+        * Fetch the product details for the selected product
+        **/
+        $scope.fetchProductDetail = function (productCode) {
+            AttachmentsService.suggestedArtifact = {};
+            strataService.products.get(productCode).then(angular.bind(this, function (product) {
+                if (product !== undefined && product.suggested_artifacts !== undefined && product.suggested_artifacts.suggested_artifact !== undefined) {
+                    if (product.suggested_artifacts.suggested_artifact.length > 0) {
+                        var description = product.suggested_artifacts.suggested_artifact[0].description;
+                        if (description.indexOf('<a') > -1) {
+                            description = description.replace("<a","<a target='_blank'");
+                        }
+                        AttachmentsService.suggestedArtifact.description = description;
+                    }
+                }
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
         /**
        * Go to a page in the wizard
        *
