@@ -5,7 +5,21 @@ div.container-offset
       div.pull-right
           div(rha-chatbutton='' style='margin-right: 10px;')
     div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
-    div.row
+    div.container-fluid.row(ng-hide='!NEW_CASE_CONFIG.isPCM')
+      div.full-border.col-md-12
+        div.col-md-4.center 
+          label {{'Product & Topic'|translate}}
+          div.col-md-12
+            div(ng-attr-class="{{isPage1 && 'no-fun' || 'fun' }}")
+        div.col-md-4.center 
+          label {{'Case Details'|translate}}
+          div.col-md-12
+            div(ng-attr-class="{{(isPage2 && !submittingCase) && 'no-fun' || 'fun' }}")
+        div.col-md-4.center 
+          label {{'Creating Case'|translate}}
+          div.col-md-12
+            div(ng-attr-class="{{submittingCase && 'no-fun' || 'fun' }}")
+    div.container-fluid.rha-side-padding(ng-class="{'partial-border': NEW_CASE_CONFIG.isPCM}")
       div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
         div.container-fluid.rha-side-padding
           div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')

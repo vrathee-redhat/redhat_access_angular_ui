@@ -370,7 +370,7 @@ div#rha-recommendation-section .hand-picked {
         left: 0;
         top: 0;
     width: 100%;
-    text-align: center;
+    text-align:center ;
     color: #333;
     line-height: 1.2em;
 }
@@ -393,4 +393,42 @@ div#rha-recommendation-section .hand-picked {
     text-decoration: none;
     color: #06c;
     background: #fff;
+}
+
+.center {
+    text-align:center ;
+}
+
+.fun {
+    background: url(https://access.redhat.com/webassets/avalon/g/bg-create-case.png) no-repeat;
+    display: block;
+    height: 18px;
+    margin: 0 0 0 -9px;
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    width: 18px;
+}
+
+.no-fun {
+    background: url(https://access.redhat.com/webassets/avalon/g/bg-create-case.png) no-repeat;
+    display: block;
+    height: 18px;
+    margin: 0 0 0 -9px;
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    width: 18px;
+    background-position: -36px 0
+}
+
+.full-border {
+    padding-bottom: 10px;
+    border: 1px solid #cccccc;
+}
+
+.partial-border {
+    border-left: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
 }
