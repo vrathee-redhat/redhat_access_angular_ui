@@ -41,7 +41,11 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
                 method: 'GET',
                 url: 'logs?sessionId=' + encodeURIComponent(sessionId) + '&userId=' + encodeURIComponent(userId) + '&path=' + files.selectedFile + '&machine=' + files.selectedHost
             }).success(function (data, status, headers, config) {
-                files.file = data;
+                if(data !== ""){
+                    files.file = data;
+                } else {
+                    files.file = " "
+                }
             }).error(function (data, status, headers, config) {
                 AlertService.addDangerMessage(data);
             });
