@@ -73,8 +73,8 @@ angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
             securityService.validateLogin(true).then(function () {
                 //Removed in refactor, no loger exists.  Think it hides tool tip??
                 //this.tt_isOpen = false;
-                if (!$scope.$parent.solutionsToggle) {
-                    $scope.$parent.solutionsToggle = !$scope.$parent.solutionsToggle;
+                if (!$scope.$parent.showSolutions) {
+                    $scope.$parent.showSolutions = !$scope.$parent.showSolutions;
                 }
                 if (text !== '') {
                     $scope.checked = !$scope.checked;
