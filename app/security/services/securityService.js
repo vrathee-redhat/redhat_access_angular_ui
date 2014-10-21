@@ -105,7 +105,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                     if (wasLoggedIn === false) {
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     }
-                    defer.resolve(authedUser.name);
+                    defer.resolve(authedUser.loggedInUser);
                 }), angular.bind(this, function(error) {
                     service.clearLoginStatus();
                     AlertService.addStrataErrorMessage(error);
