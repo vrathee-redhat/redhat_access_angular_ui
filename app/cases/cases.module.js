@@ -13,7 +13,7 @@ angular.module('RedhatAccess.cases', [
 ]).constant('CASE_EVENTS', {
     received: 'case-received'
 }).constant('CHAT_SUPPORT', {
-    enableChat: true,
+    enableChat: false,
     chatButtonToken: '573A0000000GmiP',
     chatLiveAgentUrlPrefix: 'https://d.la1w1.salesforceliveagent.com/chat',
     chatInitHashOne: '572A0000000GmiP',
