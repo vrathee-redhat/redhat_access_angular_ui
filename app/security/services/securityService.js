@@ -129,7 +129,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                         defer.resolve(username);
                     }, function(error) {
                         service.login().then(function(authedUser) {
-                            defer.resolve(authedUser.name);
+                            defer.resolve(authedUser.loggedInUser);
                         }, function(error) {
                             defer.reject(error);
                         });
