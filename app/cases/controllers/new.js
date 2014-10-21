@@ -90,8 +90,8 @@ angular.module('RedhatAccess.cases').controller('New', [
                                 if (productSortList[i] === originalProductList[j].code) {
                                     var sortProduct = productSortList[i];
                                     productOptions.push({
-                                        code: sortProduct,
-                                        name: sortProduct
+                                        value: sortProduct,
+                                        label: sortProduct
                                     });
                                     break;
                                 }
@@ -102,14 +102,14 @@ angular.module('RedhatAccess.cases').controller('New', [
                         if (productOptions.length > 0) {
                             productOptions.push({
                                 isDisabled: true,
-                                name: sep
+                                label: sep
                             });
                         }
 
                         angular.forEach(originalProductList, function(product){
                             productOptions.push({
-                                code: product.code,
-                                name: product.name
+                                value: product.code,
+                                label: product.name
                             });
                         }, this);
 
@@ -117,8 +117,8 @@ angular.module('RedhatAccess.cases').controller('New', [
                     } else {
                         angular.forEach(originalProductList, function(product){
                             productOptions.push({
-                                code: product.code,
-                                name: product.name
+                                value: product.code,
+                                label: product.name
                             });
                         }, this);
                         $scope.products = productOptions;
@@ -127,8 +127,8 @@ angular.module('RedhatAccess.cases').controller('New', [
             } else {
                 angular.forEach(originalProductList, function(product){
                     productOptions.push({
-                        code: product.code,
-                        name: product.name
+                        value: product.code,
+                        label: product.name
                     });
                 }, this);
                 $scope.products = productOptions;
@@ -146,13 +146,13 @@ angular.module('RedhatAccess.cases').controller('New', [
                 $scope.productsLoading = false;
                 if (RHAUtils.isNotEmpty(NEW_DEFAULTS.product)) {
                     for(var i = 0; i < $scope.products.length; i++){
-                        if($scope.products[i].name === NEW_DEFAULTS.product){
-                            CaseService.kase.product = $scope.products[i];
+                        if($scope.products[i].label === NEW_DEFAULTS.product){
+                            CaseService.kase.product = $scope.products[i].value;
                             break;
                         }
                     }
                     $scope.getRecommendations();
-                    $scope.getProductVersions(CaseService.kase.product.code);
+                    $scope.getProductVersions(CaseService.kase.product);
                 }
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
@@ -297,7 +297,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
             /*jshint camelcase: false */
             var caseJSON = {
-                    'product': CaseService.kase.product.code,
+                    'product': CaseService.kase.product,
                     'version': CaseService.kase.version,
                     'summary': CaseService.kase.summary,
                     'description': CaseService.kase.description,

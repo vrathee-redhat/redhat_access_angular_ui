@@ -94,10 +94,7 @@ describe('Case Controllers', function () {
             mockCaseService.kase.severity = 'high';
             mockCaseService.kase.status = 'open';
             mockCaseService.kase.alternate_id = '12345';
-            mockCaseService.kase.product = {
-                name: 'Red Hat Enterprise Linux',
-                code: 'Red Hat Enterprise Linux'
-            };
+            mockCaseService.kase.product = 'Red Hat Enterprise Linux';
             mockCaseService.kase.version = '6.0';
             mockCaseService.kase.summary = 'Test Summary';
             mockCaseService.kase.group = {
@@ -337,6 +334,7 @@ describe('Case Controllers', function () {
                 $scope: mockScope,
                 CaseService: mockCaseService,
                 strataService: mockStrataService,
+                //NEW_DEFAULTS: mockStrataDataService.value,
                 NEW_CASE_CONFIG: mockStrataDataService.value
             });
             expect(mockScope.initSelects).toBeDefined();
@@ -348,7 +346,7 @@ describe('Case Controllers', function () {
             spyOn(mockStrataService.groups, 'list').andCallThrough();
             mockScope.$root.$digest();
             expect(mockScope.products).toEqual(mockStrataDataService.mockProductList);
-            //expect(mockCaseService.kase.product.code).toEqual(mockStrataDataService.value.product);
+            //expect(mockCaseService.kase.product).toEqual(mockStrataDataService.value.product);
             expect(mockCaseService.severities).toEqual(mockStrataDataService.mockSeverities);
             expect(mockCaseService.groups).toEqual(mockStrataDataService.mockGroups);
 
