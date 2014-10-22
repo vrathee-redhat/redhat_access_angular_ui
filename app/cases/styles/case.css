@@ -432,3 +432,9 @@ div#rha-recommendation-section .hand-picked {
     border-bottom: 1px solid #cccccc;
     border-right: 1px solid #cccccc;
 }
+
+.divider{
+    width:10px;
+    height:auto;
+    display:inline-block;
+}
