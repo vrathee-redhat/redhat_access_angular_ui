@@ -32,6 +32,11 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
                 strataService.groups.list($scope.ssoName).then(function (groups) {
                     $scope.groupsLoading = false;
                     $scope.groups = groups;
+                    $scope.groups.sort(function(a, b){
+                        if(a.name < b.name) { return -1; }
+                        if(a.name > b.name) { return 1; }
+                        return 0;
+                    });
                 }, function (error) {
                     $scope.groupsLoading = false;
                     AlertService.addStrataErrorMessage(error);
@@ -42,6 +47,11 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
                     $scope.usersLoading = false;
                     $scope.usersOnAccount = users;
                     $scope.usersLoaded = true;
+                    $scope.usersOnAccount.sort(function(a, b){
+                        if(a.sso_username < b.sso_username) { return -1; }
+                        if(a.sso_username > b.sso_username) { return 1; }
+                        return 0;
+                    });
                 }, function (error) {
                     $scope.usersLoading = false;
                     AlertService.addStrataErrorMessage(error);
@@ -53,12 +63,16 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             }
         };
 
-        $scope.userChange = function (){
-            $scope.usersAndGroupsFinishedLoading = true;
+        $scope.validatePage = function () {
+            if ($scope.selectedGroup.name !== undefined && $scope.selectedUser.sso_username !== undefined) {
+                $scope.usersAndGroupsFinishedLoading = true;
+            } else {
+                $scope.usersAndGroupsFinishedLoading = false;
+            }
         };
 
         $scope.setDefaultGroup = function () {
-            //Remove old group is_default
+            //Remove old group is_default            
             var tmpGroup = {
                 name: $scope.selectedGroup.name,
                 number: $scope.selectedGroup.number,
