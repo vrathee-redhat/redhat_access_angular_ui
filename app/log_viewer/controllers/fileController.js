@@ -44,7 +44,7 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
                 if(data !== ""){
                     files.file = data;
                 } else {
-                    files.file = " "
+                    files.file = " ";
                 }
             }).error(function (data, status, headers, config) {
                 AlertService.addDangerMessage(data);

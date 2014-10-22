@@ -7,9 +7,9 @@ div#redhat-access-case.container-offset
           label Case Group Name: 
         div.col-xs-9
           select#rha-defaultgroup-groupselect.form-control(
-            chosen,
             ng-disabled='!securityService.loginStatus.isLoggedIn || groupsLoading',
             ng-model='selectedGroup',
+            ng-change='validatePage()',
             ng-options='group as group.name for group in groups')
         div.col-xs-1
           div(style='width: 100%')
@@ -19,10 +19,9 @@ div#redhat-access-case.container-offset
           label Group Users: 
         div.col-xs-9
           select#rha-defaultgroup-userselect.form-control(
-            chosen,
             ng-disabled='!securityService.loginStatus.isLoggedIn || !usersLoaded',
             ng-model='selectedUser',
-            ng-change='userChange()',
+            ng-change='validatePage()',
             ng-options='user.sso_username for user in usersOnAccount')
         div.col-xs-1
           div(style='width: 100%')
