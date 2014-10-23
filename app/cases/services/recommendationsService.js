@@ -139,5 +139,53 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             }
             return masterDeferred.promise;
         };
+        this.populatePCMRecommendations = function (max) {
+            var masterDeferred = $q.defer();
+            masterDeferred.promise.then(angular.bind(this, function() {this.selectPage(1);}));
+            var productName;
+            if(CaseService.kase.product !== undefined && CaseService.kase.product.name !== undefined){
+                productName = CaseService.kase.product.name;
+            }
+            var newData = {
+                    product: productName,
+                    version: CaseService.kase.version,
+                    summary: CaseService.kase.summary,
+                    description: CaseService.kase.description
+                };
+            if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations || this.recommendations.length < 1)) && this.failureCount < 10) {
+                this.loadingRecommendations = true;
+                setCurrentData();
+                var deferreds = [];
+                strataService.recommendations(currentData, max, true, "%3Cstrong%3E%2C%3C%2Fstrong%3E").then(angular.bind(this, function (solutions) {
+                    //retrieve details for each solution
+                    solutions.forEach(function (solution) {
+                        //var deferred = strataService.solutions.get(solution.resource_uri);
+                        deferreds.push(solution);
+                    });
+                    $q.all(deferreds).then(angular.bind(this, function (solutions) {
+                        this.recommendations = [];
+                        solutions.forEach(angular.bind(this, function (solution) {
+                            if (solution !== undefined) {
+                                solution.resource_type = 'Solution';
+                                this.recommendations.push(solution);
+                            }
+                        }));
+                        this.loadingRecommendations = false;
+                        masterDeferred.resolve();
+                    }), angular.bind(this, function (error) {
+                        this.loadingRecommendations = false;
+                        masterDeferred.resolve();
+                    }));
+                }), angular.bind(this, function (error) {
+                    this.loadingRecommendations = false;
+                    masterDeferred.reject();
+                    this.failureCount++;
+                    this.populateRecommendations(12);
+                }));
+            } else {
+                masterDeferred.resolve();
+            }
+            return masterDeferred.promise;
+        };
     }
 ]);

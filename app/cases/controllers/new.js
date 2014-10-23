@@ -5,6 +5,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     '$state',
     '$q',
     '$timeout',
+    '$sanitize',
     'SearchResultsService',
     'AttachmentsService',
     'strataService',
@@ -19,7 +20,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
     '$http',
-    function ($scope, $state, $q, $timeout, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, $http) {
+    function ($scope, $state, $q, $timeout, $sanitize, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, $http) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -53,17 +54,34 @@ angular.module('RedhatAccess.cases').controller('New', [
                 var numRecommendations = 5;
                 if($scope.NEW_CASE_CONFIG.isPCM){
                     numRecommendations = 30;
-                }
-                RecommendationsService.populateRecommendations(numRecommendations).then(function () {
-                    SearchResultsService.clear();
-                    RecommendationsService.recommendations.forEach(function (recommendation) {
-                        SearchResultsService.add(recommendation);
+                    RecommendationsService.populatePCMRecommendations(numRecommendations).then(function () {
+                        SearchResultsService.clear();
+                        RecommendationsService.recommendations.forEach(function (recommendation) {
+                            try {
+                                recommendation.abstract = $sanitize(recommendation.abstract);
+                            }
+                            catch(err) {
+                                recommendation.abstract = '';
+                            }
+                            SearchResultsService.add(recommendation);
+                        });
+                        SearchResultsService.searchInProgress.value = false;
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                        SearchResultsService.searchInProgress.value = false;
                     });
-                    SearchResultsService.searchInProgress.value = false;
-                }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
-                    SearchResultsService.searchInProgress.value = false;
-                });
+                } else {
+                    RecommendationsService.populateRecommendations(numRecommendations).then(function () {
+                        SearchResultsService.clear();
+                        RecommendationsService.recommendations.forEach(function (recommendation) {
+                            SearchResultsService.add(recommendation);
+                        });
+                        SearchResultsService.searchInProgress.value = false;
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                        SearchResultsService.searchInProgress.value = false;
+                    });
+                }
             }
         };
         CaseService.onOwnerSelectChanged = function () {
