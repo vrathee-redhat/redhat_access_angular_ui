@@ -5,7 +5,7 @@ div.container-offset
       div.pull-right
           div(rha-chatbutton='' style='margin-right: 10px;')
     div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
-    div.container-fluid.row(ng-hide='!NEW_CASE_CONFIG.isPCM')
+    div.container-fluid.row.no-mar-bottom(ng-hide='!NEW_CASE_CONFIG.isPCM')
       div.full-border.col-md-12
         div.col-md-4.center 
           label {{'Product & Topic'|translate}}
