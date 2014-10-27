@@ -20,7 +20,7 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
             div {{comment.created_date | date:'h:mm:ss a Z'}}
             div.private(ng-if='comment.public !== undefined && comment.public === false') Private
           div.col-md-9.rha-comment-text
-            pre.pcmTextBlock(style='word-break: normal;', ng-bind-html="comment.text | linky:'_blank'")
+            p.pcmTextBlock(style='word-break: normal;', ng-bind-html="comment.text | linky:'_blank'")
             a.commentReply(ng-click='commentReply(comment.id)') {{'Reply'|translate}}
           div.col-md-1.rha-comment-link
             a.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(comment.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{comment.id}}')
