@@ -260,8 +260,10 @@ div#rha-recommendation-section .hand-picked {
     color: #222;
     font-family: "Courier New", Courier, "DejaVu Sans Mono", monospace;
     font-size: 1em;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    word-wrap: break-word;      /* IE 5.5-7 */
+    white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
+    white-space: pre-wrap;      /* current browsers */
+    word-break: break-all;
 }
 
 .amc {
