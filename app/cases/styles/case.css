@@ -261,6 +261,7 @@ div#rha-recommendation-section .hand-picked {
     font-family: "Courier New", Courier, "DejaVu Sans Mono", monospace;
     font-size: 1em;
     white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .amc {
