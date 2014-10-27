@@ -1,6 +1,6 @@
 div.container-offset
   div#redhat-access-case.container-fluid
-    div(rha-header='', page='newCase')
+    div(rha-header='', page='newCase', ng-hide='NEW_CASE_CONFIG.isPCM')
     div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
       div.pull-right
           div(rha-chatbutton='' style='margin-right: 10px;')
