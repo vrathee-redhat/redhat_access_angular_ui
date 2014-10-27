@@ -1,16 +1,16 @@
-<div class='panel' style='border:0' ng-model="result" >
+<div class='panel' style='border:0' ng-model="result" ng-click="resultClickCapture($event, result)">
 	<div ng-if="isSolution()">
 		<h3 translate=''>Environment</h3>
 		<div ng-bind-html='result.environment.html'></div>
 		<h3>Issue</h3>
-		<div ng-bind-html='result.issue.html'></div>
+		<div ng-bind-html='result.issue.html | trust_html'></div>
 		<div ng-if="getSolutionResolution() !== ''">
 			<h3  translate=''>Resolution</h3>
 		</div>
-		<div ng-bind-html='getSolutionResolution()'></div>
+		<div ng-bind-html='getSolutionResolution() | trust_html'></div>
 	</div>
 	<div ng-if="isArticle()">
-		<div ng-bind-html='getArticleHtml()'></div>
+		<div ng-bind-html='getArticleHtml() | trust_html'></div>
 	</div>
 </div>
 
