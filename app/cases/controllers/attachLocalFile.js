@@ -60,6 +60,13 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
             }
         };
 
+        $('#fileUploader').click(function () {
+            // Cause the change() event
+            // to be fired in IE8 et. al.
+            this.blur();
+            this.focus();
+        });
+
         $('#fileUploader').change(function(e){
             if(e.target.files !== undefined){
                 $scope.selectFile(e.target.files[0]);

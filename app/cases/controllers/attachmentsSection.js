@@ -9,6 +9,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
     function ($scope, AttachmentsService, CaseService, TreeViewSelectorUtils, EDIT_CASE_CONFIG) {
         $scope.rhaDisabled = !EDIT_CASE_CONFIG.showAttachments;
         $scope.showServerSideAttachments = EDIT_CASE_CONFIG.showServerSideAttachments;
+        $scope.isPCM = EDIT_CASE_CONFIG.isPCM;
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;

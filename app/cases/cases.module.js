@@ -43,7 +43,8 @@ angular.module('RedhatAccess.cases', [
     'showRecommendations': true,
     'showComments': true,
     'showServerSideAttachments': true,
-    'showEmailNotifications': true
+    'showEmailNotifications': true,
+    'isPCM': false
 }).config([
     '$stateProvider',
     function ($stateProvider) {
