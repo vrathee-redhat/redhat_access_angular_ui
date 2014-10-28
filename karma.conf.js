@@ -18,6 +18,7 @@ module.exports = function(config) {
             'bower_components/angular-gettext/dist/angular-gettext.min.js',
             'bower_components/angular-chosen-localytics/chosen.js',
             'bower_components/chosen/chosen.jquery.js',
+            'bower_components/ng-file-upload/angular-file-upload.js',
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-route/angular-route.js',
