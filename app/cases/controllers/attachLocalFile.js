@@ -43,37 +43,17 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
         $scope.getFile = function () {
             $('#fileUploader').click();
         };
-        $scope.selectFile = function (file) {
-            if(file.size !== undefined){
-                if(file.size < maxFileSize){
-                    $scope.fileObj = file;
-                    $scope.fileSize = $scope.fileObj.size;
-                    $scope.fileName = $scope.fileObj.name;
-                    $scope.$apply();
-                } else {
-                    AlertService.addDangerMessage(file.name + ' cannot be attached because it is larger the 250MB. Please FTP large files to dropbox.redhat.com.');
-                }
-                $('#fileUploader')[0].value = '';
-            } else {
-                $scope.fileName = file;
+        $scope.selectFile = function () {
+            if($('#fileUploader')[0].files[0].size < maxFileSize){
+                $scope.fileObj = $('#fileUploader')[0].files[0];
+                $scope.fileSize = $scope.fileObj.size;
+                $scope.fileName = $scope.fileObj.name;
                 $scope.$apply();
+            } else {
+                AlertService.addDangerMessage($('#fileUploader')[0].files[0].name + ' cannot be attached because it is larger the 250MB. Please FTP large files to dropbox.redhat.com.');
             }
+            $('#fileUploader')[0].value = '';
         };
-
-        $('#fileUploader').click(function () {
-            // Cause the change() event
-            // to be fired in IE8 et. al.
-            this.blur();
-            this.focus();
-        });
-
-        $('#fileUploader').change(function(e){
-            if(e.target.files !== undefined){
-                $scope.selectFile(e.target.files[0]);
-            } else{
-                $scope.selectFile(e.target.value);
-            }
-        });
         $scope.clearSelectedFile();
     }
 ]);
