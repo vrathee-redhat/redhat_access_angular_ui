@@ -82,6 +82,10 @@ msgstr ""
 msgid "Available Log Files"
 msgstr ""
 
+#: app/cases/views/defaultGroup.html
+msgid "Back"
+msgstr ""
+
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Number"
 msgstr ""
@@ -94,6 +98,10 @@ msgstr ""
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/editGroup.html
 msgid "Cancel"
+msgstr ""
+
+#: app/cases/views/new.html
+msgid "Case Details"
 msgstr ""
 
 #: app/cases/views/commentsSection.html
@@ -135,6 +143,10 @@ msgstr ""
 
 #: app/cases/views/createGroupButton.html
 msgid "Create New Case Group"
+msgstr ""
+
+#: app/cases/views/new.html
+msgid "Creating Case"
 msgstr ""
 
 #: app/cases/views/listAttachments.html
@@ -250,12 +262,24 @@ msgstr ""
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr ""
 
+#: app/i18n/placeholder.html
+msgid "Logs"
+msgstr ""
+
+#: app/cases/views/group.html
+msgid "Manage Default Case Groups"
+msgstr ""
+
 #: app/cases/views/accountSelect.html
 msgid "My Account"
 msgstr ""
 
 #: app/cases/views/groupList.html
 msgid "Name"
+msgstr ""
+
+#: app/i18n/placeholder.html
+msgid "New Case"
 msgstr ""
 
 #: app/cases/views/new.html
@@ -330,6 +354,10 @@ msgstr ""
 msgid "Product"
 msgstr ""
 
+#: app/cases/views/new.html
+msgid "Product & Topic"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product Version:"
@@ -344,6 +372,10 @@ msgstr ""
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
+msgstr ""
+
+#: app/i18n/placeholder.html
+msgid "Red Hat Access"
 msgstr ""
 
 #: app/security/views/login_form.html
@@ -367,6 +399,10 @@ msgid "Red Hat Owner:"
 msgstr ""
 
 #: app/cases/views/commentsSection.html
+msgid "Reply"
+msgstr ""
+
+#: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
 msgstr ""
@@ -379,6 +415,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: app/cases/views/defaultGroup.html
 #: app/cases/views/editGroup.html
 msgid "Save Group"
 msgstr ""
@@ -388,6 +425,7 @@ msgid "Saving draft..."
 msgstr ""
 
 #: app/search/views/search_form.html
+#: app/i18n/placeholder.html
 msgid "Search"
 msgstr ""
 
@@ -462,6 +500,10 @@ msgstr ""
 msgid "Summary:"
 msgstr ""
 
+#: app/i18n/placeholder.html
+msgid "Support"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 msgid "Support Level:"
 msgstr ""
@@ -502,6 +544,14 @@ msgstr ""
 msgid "User Name"
 msgstr ""
 
+#: app/cases/views/list.html
+msgid "User does not have permissions to manage cases."
+msgstr ""
+
+#: app/cases/views/defaultGroup.html
+msgid "User does not have permissions to set default case group."
+msgstr ""
+
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
 msgstr ""
@@ -511,11 +561,15 @@ msgid "Would you like a Red Hat support manager to contact you regarding this ca
 msgstr ""
 
 #: app/cases/views/addCommentSection.html
-msgid "You have used 0% of the 32KB maximum description size."
+msgid "You have used"
 msgstr ""
 
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
+msgstr ""
+
+#: app/cases/views/addCommentSection.html
+msgid "of the 32KB maximum description size."
 msgstr ""
 
 #: app/cases/services/attachmentsService.js

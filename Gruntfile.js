@@ -179,7 +179,8 @@ module.exports = function (grunt) {
                 files: {
                     '<%= yeoman.app %>/i18n/template.pot': [
                         '<%= src.tpl.app %>',
-                        '<%= src.js %>'
+                        '<%= src.js %>',
+                        '<%= yeoman.app %>/i18n/placeholder.html'
                     ]
                 }
             }
