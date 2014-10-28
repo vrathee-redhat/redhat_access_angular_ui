@@ -5,6 +5,8 @@ angular.module('RedhatAccess.cases').controller('ExportCSVButton', [
     'strataService',
     'AlertService',
     function ($scope, strataService, AlertService) {
+        $scope.ie8 = window.ie8;
+        $scope.ie9 = window.ie9;
         $scope.exporting = false;
         $scope.exports = function () {
             $scope.exporting = true;

@@ -13,6 +13,8 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
     'RHAUtils',
     function ($scope, CaseService, strataService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils) {
         $scope.CaseService = CaseService;
+        $scope.ie8 = window.ie8;
+        $scope.ie9 = window.ie9;
 
         CaseService.populateComments($stateParams.id).then(function (comments) {
             $scope.$on('rhaCaseSettled', function() {
