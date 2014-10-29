@@ -820,6 +820,7 @@ describe('Case Controllers', function () {
     });
     //Suite for AttachmentsSection
     describe('AttachmentsSection', function () {
+        //TODO fix unit test
         it('should have a function to update attachement in attachment list', inject(function ($controller) {
             $controller('AttachmentsSection', {
                 $scope: mockScope,

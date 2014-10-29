@@ -29,7 +29,3 @@ div.container-fluid.rha-side-padding(ng-hide='loading || ie8 && isPCM')
           ng-controller='BackEndAttachmentsCtrl',
           rhaDisabled='rhaDisabled')
 div(ng-show='!loading && ie8 && isPCM')
-  input(type="text" ng-model="myModelObj")
-  input(type="file" ng-file-select="onFileSelect($files)" onclick="this.value=null")
-  div.button(ng-file-select="onFileSelect($files)" data-multiple="true")
-  button(ng-click="upload.abort()") Cancel Upload

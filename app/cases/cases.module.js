@@ -9,9 +9,8 @@ angular.module('RedhatAccess.cases', [
     'RedhatAccess.search',
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
-    'RedhatAccess.header',
-    'angularFileUpload'
-]).constant('CASE_EVENTS', {
+    'RedhatAccess.header'
+    ]).constant('CASE_EVENTS', {
     received: 'case-received'
 }).constant('CHAT_SUPPORT', {
     enableChat: false,
