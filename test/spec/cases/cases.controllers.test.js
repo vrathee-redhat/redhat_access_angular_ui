@@ -263,9 +263,9 @@ describe('Case Controllers', function () {
                 $scope: mockScope,
                 RecommendationsService: mockRecommendationsService,
                 SearchResultsService: mockSearchResultsService,
-                strataService: mockStrataService
+                strataService: mockStrataService,
+                NEW_CASE_CONFIG: mockStrataDataService.value
             });
-            mockScope.NEW_CASE_CONFIG.showRecommendations = true;
             expect(mockScope.getRecommendations).toBeDefined();
             mockScope.getRecommendations();
             spyOn(mockRecommendationsService, 'populateRecommendations').andCallThrough();
