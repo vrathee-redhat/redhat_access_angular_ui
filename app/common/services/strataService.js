@@ -247,12 +247,12 @@ angular.module('RedhatAccess.common').factory('strataService', [
             groups: {
                 get: function (groupNum, ssoUserName) {
                     var deferred = $q.defer();
-                    if (!ie8 && strataCache.get('groups' + ssoUserName)) {
-                        deferred.resolve(strataCache.get('groups' + ssoUserName));
+                    if (!ie8 && strataCache.get('groups' + groupNum + ssoUserName)) {
+                        deferred.resolve(strataCache.get('groups' + groupNum + ssoUserName));
                     } else {
                         strata.groups.get(groupNum, function (response) {
                             if (!ie8) {
-                                strataCache.put('groups' + ssoUserName, response);
+                                strataCache.put('groups' + groupNum + ssoUserName, response);
                             }
                             deferred.resolve(response);
                         }, angular.bind(deferred, errorHandler), ssoUserName);
