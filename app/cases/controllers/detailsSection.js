@@ -92,7 +92,9 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                     $scope.updatingDetails = false;
-                    $scope.$apply();
+                    if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
+                        $scope.$apply();
+                    }
                 });
             }
         };

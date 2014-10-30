@@ -34,7 +34,7 @@ angular.module('RedhatAccess.cases', [
     'showAttachments': true,
     'showServerSideAttachments': true,
     'productSortListFile': '/productSortList.txt',
-    'isPCM': true
+    'isPCM': false
 }).value('EDIT_CASE_CONFIG', {
     'showDetails': true,
     'showDescription': true,
