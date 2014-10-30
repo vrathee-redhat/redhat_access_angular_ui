@@ -19,10 +19,12 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         this.loadingRecommendations = false;
         var setCurrentData = function () {
             currentData = {
-                product: CaseService.kase.product,
-                version: CaseService.kase.version,
-                summary: CaseService.kase.summary,
-                description: CaseService.kase.description
+                case : {
+                    product: CaseService.kase.product,
+                    version: CaseService.kase.version,
+                    summary: CaseService.kase.summary,
+                    description: CaseService.kase.description
+                }
             };
         };
         setCurrentData();
@@ -155,10 +157,12 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                 productName = CaseService.kase.product.name;
             }
             var newData = {
-                    product: productName,
-                    version: CaseService.kase.version,
-                    summary: CaseService.kase.summary,
-                    description: CaseService.kase.description
+                    case : {
+                        product: productName,
+                        version: CaseService.kase.version,
+                        summary: CaseService.kase.summary,
+                        description: CaseService.kase.description
+                    }
                 };
             if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations || this.recommendations.length < 1)) && this.failureCount < 10) {
                 this.loadingRecommendations = true;

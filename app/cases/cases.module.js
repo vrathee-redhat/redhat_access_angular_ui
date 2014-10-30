@@ -10,7 +10,7 @@ angular.module('RedhatAccess.cases', [
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
     'RedhatAccess.header'
-    ]).constant('CASE_EVENTS', {
+]).constant('CASE_EVENTS', {
     received: 'case-received'
 }).constant('CHAT_SUPPORT', {
     enableChat: false,
