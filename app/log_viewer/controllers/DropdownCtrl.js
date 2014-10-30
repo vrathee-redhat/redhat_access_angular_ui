@@ -7,8 +7,9 @@ angular.module('RedhatAccess.logViewer').controller('DropdownCtrl', [
     'files',
     'hideMachinesDropdown',
     'AlertService',
-    function ($scope, $http, $location, files, hideMachinesDropdown, AlertService) {
-        $scope.machinesDropdownText = 'Please Select the Machine';
+    'translate',
+    function ($scope, $http, $location, files, hideMachinesDropdown, AlertService,translate) {
+        $scope.machinesDropdownText = translate('Please Select the Machine');
         $scope.items = [];
         $scope.hideDropdown = hideMachinesDropdown.value;
         $scope.loading = false;

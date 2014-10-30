@@ -3,6 +3,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: app/cases/views/attachLocalFile.html
+msgid "(More info)"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Contact:"
@@ -29,6 +33,10 @@ msgstr ""
 msgid "Account Number:"
 msgstr ""
 
+#: app/cases/controllers/accountSelect.js
+msgid "Account not found."
+msgstr ""
+
 #: app/cases/views/new.html
 msgid "Account:"
 msgstr ""
@@ -44,6 +52,10 @@ msgstr ""
 
 #: app/cases/views/detailsSection.html
 msgid "Advanced Mission Critical"
+msgstr ""
+
+#: app/cases/services/caseService.js
+msgid "All Groups"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
@@ -113,8 +125,20 @@ msgstr ""
 msgid "Case Group:"
 msgstr ""
 
+#: app/cases/views/list.html
+msgid "Case ID"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 msgid "Case Type:"
+msgstr ""
+
+#: app/cases/controllers/EditGroup.js
+msgid "Case group successfully updated."
+msgstr ""
+
+#: app/cases/controllers/EditGroup.js
+msgid "Case users successfully updated."
 msgstr ""
 
 #: app/cases/views/chatButton.html
@@ -133,6 +157,10 @@ msgstr ""
 msgid "Close messages"
 msgstr ""
 
+#: app/cases/controllers/statusSelect.js
+msgid "Closed"
+msgstr ""
+
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
 msgstr ""
@@ -147,6 +175,10 @@ msgstr ""
 
 #: app/cases/views/new.html
 msgid "Creating Case"
+msgstr ""
+
+#: app/cases/controllers/createGroupModal.js
+msgid "Creating group"
 msgstr ""
 
 #: app/cases/views/listAttachments.html
@@ -198,6 +230,14 @@ msgstr ""
 msgid "Exporting CSV..."
 msgstr ""
 
+#: app/cases/services/attachmentsService.js
+msgid "Failed to upload attachment"
+msgstr ""
+
+#: app/cases/views/attachLocalFile.html
+msgid "File description"
+msgstr ""
+
 #: app/cases/views/attachLocalFile.html
 msgid "File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com."
 msgstr ""
@@ -208,6 +248,10 @@ msgstr ""
 
 #: app/cases/views/listNewAttachments.html
 msgid "Files to Attach"
+msgstr ""
+
+#: app/cases/views/listFilter.html
+msgid "Filtering by case groups helps you find related cases."
 msgstr ""
 
 #: app/cases/views/editGroup.html
@@ -262,11 +306,18 @@ msgstr ""
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr ""
 
+#: app/common/header.module.js
 #: app/i18n/placeholder.html
 msgid "Logs"
 msgstr ""
 
+#: app/common/header.module.js
+#: app/cases/services/caseService.js
+msgid "Manage Case Groups"
+msgstr ""
+
 #: app/cases/views/group.html
+#: app/common/header.module.js
 msgid "Manage Default Case Groups"
 msgstr ""
 
@@ -274,12 +325,16 @@ msgstr ""
 msgid "My Account"
 msgstr ""
 
+#: app/i18n/placeholder.html
+msgid "My Cases"
+msgstr ""
+
 #: app/cases/views/groupList.html
 msgid "Name"
 msgstr ""
 
-#: app/i18n/placeholder.html
-msgid "New Case"
+#: app/common/header.module.js
+msgid "New Support Case"
 msgstr ""
 
 #: app/cases/views/new.html
@@ -307,6 +362,14 @@ msgstr ""
 msgid "No linked bugzillas"
 msgstr ""
 
+#: app/cases/views/ownerSelect.html
+msgid "No match found"
+msgstr ""
+
+#: app/search/services/searchResultsService.js
+msgid "No solutions found."
+msgstr ""
+
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
 msgstr ""
@@ -323,16 +386,33 @@ msgstr ""
 msgid "Once you have selected your log file then you may diagnose any part of the log file and clicking the 'Red Hat Diagnose' button. This will then display relevant articles and solutons from our Red Hat Knowledge base."
 msgstr ""
 
+#: app/cases/controllers/statusSelect.js
+msgid "Open"
+msgstr ""
+
+#: app/i18n/placeholder.html
+msgid "Open New Case"
+msgstr ""
+
 #: app/search/views/accordion_search_results.html
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Open a New Support Case"
 msgstr ""
 
+#: app/cases/controllers/statusSelect.js
+msgid "Open and Closed"
+msgstr ""
+
+#: app/cases/views/list.html
+msgid "Opened"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 msgid "Opened:"
 msgstr ""
 
+#: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Owner"
 msgstr ""
@@ -344,6 +424,10 @@ msgstr ""
 
 #: app/security/views/login_form.html
 msgid "Password"
+msgstr ""
+
+#: app/log_viewer/controllers/DropdownCtrl.js
+msgid "Please Select the Machine"
 msgstr ""
 
 #: app/cases/views/new.html
@@ -363,6 +447,10 @@ msgstr ""
 msgid "Product Version:"
 msgstr ""
 
+#: app/cases/views/list.html
+msgid "Product/Version"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product:"
@@ -372,10 +460,6 @@ msgstr ""
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
-msgstr ""
-
-#: app/i18n/placeholder.html
-msgid "Red Hat Access"
 msgstr ""
 
 #: app/security/views/login_form.html
@@ -425,8 +509,19 @@ msgid "Saving draft..."
 msgstr ""
 
 #: app/search/views/search_form.html
+#: app/cases/views/listFilter.html
+#: app/cases/views/searchBox.html
+#: app/common/header.module.js
 #: app/i18n/placeholder.html
 msgid "Search"
+msgstr ""
+
+#: app/search/views/search_form.html
+msgid "Search Articles and Solutions"
+msgstr ""
+
+#: app/common/header.module.js
+msgid "Search Support Case"
 msgstr ""
 
 #: app/cases/views/search.html
@@ -437,10 +532,15 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
+#: app/cases/views/entitlementSelect.html
+msgid "Select a Support Level"
+msgstr ""
+
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr ""
 
+#: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Severity"
 msgstr ""
@@ -467,6 +567,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+#: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Status"
 msgstr ""
@@ -484,12 +585,32 @@ msgstr ""
 msgid "Submit Request"
 msgstr ""
 
+#: app/cases/controllers/new.js
+msgid "Successfully created case number"
+msgstr ""
+
+#: app/cases/controllers/createGroupModal.js
+msgid "Successfully created group"
+msgstr ""
+
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:"
 msgstr ""
 
+#: app/cases/controllers/deleteGroupButton.js
+msgid "Successfully deleted group"
+msgstr ""
+
+#: app/cases/controllers/deleteGroupButton.js
+msgid "Successfully deleted groups."
+msgstr ""
+
 #: app/cases/services/attachmentsService.js
 msgid "Successfully uploaded attachment"
+msgstr ""
+
+#: app/cases/views/list.html
+msgid "Summary"
 msgstr ""
 
 #: app/cases/views/listBugzillas.html
@@ -504,7 +625,12 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
+#: app/common/header.module.js
+msgid "Support Cases"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
 msgid "Support Level:"
 msgstr ""
 
@@ -528,8 +654,20 @@ msgstr ""
 msgid "Unauthorized."
 msgstr ""
 
+#: app/cases/services/caseService.js
+msgid "Ungrouped Case"
+msgstr ""
+
+#: app/cases/services/caseService.js
+msgid "Ungrouped Cases"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 msgid "Update Details"
+msgstr ""
+
+#: app/cases/views/list.html
+msgid "Updated"
 msgstr ""
 
 #: app/cases/views/searchResult.html
@@ -538,6 +676,10 @@ msgstr ""
 
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
+msgstr ""
+
+#: app/cases/services/attachmentsService.js
+msgid "Uploading attachments..."
 msgstr ""
 
 #: app/cases/views/editGroup.html
@@ -552,16 +694,40 @@ msgstr ""
 msgid "User does not have permissions to set default case group."
 msgstr ""
 
+#: app/cases/controllers/EditGroup.js
+msgid "User does not have proper credentials to manage case groups."
+msgstr ""
+
+#: app/cases/controllers/defaultGroup.js
+msgid "User does not have proper credentials to manage default groups."
+msgstr ""
+
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
+msgstr ""
+
+#: app/common/header.module.js
+msgid "View/Modify Case"
 msgstr ""
 
 #: app/cases/views/commentsSection.html
 msgid "Would you like a Red Hat support manager to contact you regarding this case?"
 msgstr ""
 
+#: app/common/header.module.js
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr ""
+
 #: app/cases/views/addCommentSection.html
 msgid "You have used"
+msgstr ""
+
+#: app/search/services/searchResultsService.js
+msgid "You must be logged in to use this functionality."
+msgstr ""
+
+#: app/cases/controllers/attachLocalFile.js
+msgid "cannot be attached because it is larger the 250MB. Please FTP large files to dropbox.redhat.com."
 msgstr ""
 
 #: app/cases/views/recommendationsSection.html
@@ -574,4 +740,8 @@ msgstr ""
 
 #: app/cases/services/attachmentsService.js
 msgid "to case"
+msgstr ""
+
+#: app/cases/views/ownerSelect.html
+msgid "{{'No match found"
 msgstr ""

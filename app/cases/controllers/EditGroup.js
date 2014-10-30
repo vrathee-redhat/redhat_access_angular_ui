@@ -14,7 +14,8 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
     'securityService',
     'RHAUtils',
     'AUTH_EVENTS',
-    function ($scope, $rootScope, strataService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS) {
+    'translate',
+    function ($scope, $rootScope, strataService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, translate) {
         $scope.GroupUserService = GroupUserService;
         $scope.listEmpty = false;
         $scope.selectedGroup = {};
@@ -73,13 +74,13 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                 });
             }else{
                 $scope.usersLoading = false;
-                AlertService.addStrataErrorMessage('User does not have proper credentials to manage case groups.');
+                AlertService.addStrataErrorMessage(translate('User does not have proper credentials to manage case groups.'));
             }
         };
         $scope.saveGroup = function () {
             if(!$scope.isGroupPrestine){
                 strataService.groups.update($scope.selectedGroup.name, $scope.selectedGroup.number).then(function (response) {
-                    AlertService.addSuccessMessage('Case group successfully updated.');
+                    AlertService.addSuccessMessage(translate('Case group successfully updated.'));
                     $scope.isGroupPrestine = true;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
@@ -88,7 +89,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             if(!$scope.isUsersPrestine){
                 strataService.groupUsers.update($scope.usersOnAccount, $scope.accountNumber, $scope.selectedGroup.number).then(function(response) {
                     $scope.isUsersPrestine = true;
-                    AlertService.addSuccessMessage('Case users successfully updated.');
+                    AlertService.addSuccessMessage(translate('Case users successfully updated.'));
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });

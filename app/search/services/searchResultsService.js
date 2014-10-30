@@ -17,7 +17,8 @@ angular.module('RedhatAccess.search').factory('SearchResultsService', [
     'AlertService',
     'securityService',
     'strataService',
-    function ($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS, AlertService, securityService, strataService) {
+    'translate',
+    function ($q, $rootScope, AUTH_EVENTS, RESOURCE_TYPES, SEARCH_PARAMS, AlertService, securityService, strataService, translate) {
         var searchArticlesOrSolutions = function (searchString, limit) {
             //var that = this;
             if (limit === undefined || limit < 1) {
@@ -29,7 +30,7 @@ angular.module('RedhatAccess.search').factory('SearchResultsService', [
             strataService.search(searchString, limit).then(
                 function (results) {
                     if (results.length === 0) {
-                        AlertService.addSuccessMessage('No solutions found.');
+                        AlertService.addSuccessMessage(translate('No solutions found.'));
                     }
                     results.forEach(function (result) {
                         if (result !== undefined) {
@@ -55,7 +56,7 @@ angular.module('RedhatAccess.search').factory('SearchResultsService', [
                     //retrieve details for each solution
                     if (solutions !== undefined) {
                         if (solutions.length === 0) {
-                            AlertService.addSuccessMessage('No solutions found.');
+                            AlertService.addSuccessMessage(translate('No solutions found.'));
                         }
                         solutions.forEach(function (solution) {
                             var deferred = $q.defer();
@@ -69,7 +70,7 @@ angular.module('RedhatAccess.search').factory('SearchResultsService', [
                                 });
                         });
                     } else {
-                        AlertService.addSuccessMessage('No solutions found.');
+                        AlertService.addSuccessMessage(translate('No solutions found.'));
                     }
                     $q.all(deferreds).then(function (solutions) {
                         solutions.forEach(function (solution) {
@@ -123,7 +124,7 @@ angular.module('RedhatAccess.search').factory('SearchResultsService', [
                     searchArticlesOrSolutions(searchString, limit);
                 }, function (error) {
                     that.searchInProgress.value = false;
-                    AlertService.addDangerMessage('You must be logged in to use this functionality.');
+                    AlertService.addDangerMessage(translate('You must be logged in to use this functionality.'));
                 });
             },
             diagnose: function (data, limit) {
@@ -133,7 +134,7 @@ angular.module('RedhatAccess.search').factory('SearchResultsService', [
                     searchProblems(data, limit);
                 }, function (error) {
                     that.searchInProgress.value = false;
-                    AlertService.addDangerMessage('You must be logged in to use this functionality.');
+                    AlertService.addDangerMessage(translate('You must be logged in to use this functionality.'));
                 });
             }
         };

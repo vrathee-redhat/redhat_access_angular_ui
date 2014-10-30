@@ -47,7 +47,7 @@ angular.module('RedhatAccess.cases', [
     'isPCM': false
 }).config([
     '$stateProvider',
-    function ($stateProvider) {
+    function($stateProvider) {
         $stateProvider.state('compact', {
             url: '/case/compact?sessionId',
             templateUrl: 'cases/views/compact.html'

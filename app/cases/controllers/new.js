@@ -20,7 +20,8 @@ angular.module('RedhatAccess.cases').controller('New', [
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
     '$http',
-    function ($scope, $state, $q, $timeout, $sanitize, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, $http) {
+    'translate',
+    function ($scope, $state, $q, $timeout, $sanitize, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, $http, translate) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -349,7 +350,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             };
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage('Successfully created case number ' + caseNumber);
+                AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
                 if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && NEW_CASE_CONFIG.showAttachments) {
                     AttachmentsService.updateAttachments(caseNumber).then(function () {
                         redirectToCase(caseNumber);
