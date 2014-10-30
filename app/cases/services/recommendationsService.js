@@ -164,7 +164,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                         description: CaseService.kase.description
                     }
                 };
-            if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations || this.recommendations.length < 1)) && this.failureCount < 10) {
+            if ((newData.case.product !== undefined || newData.case.version !== undefined || newData.case.summary !== undefined || newData.case.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations)) && this.failureCount < 10) {
                 this.loadingRecommendations = true;
                 setCurrentData();
                 var deferreds = [];
@@ -192,7 +192,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                     this.loadingRecommendations = false;
                     masterDeferred.reject();
                     this.failureCount++;
-                    this.populateRecommendations(12);
+                    this.populatePCMRecommendations(12);
                 }));
             } else {
                 masterDeferred.resolve();
