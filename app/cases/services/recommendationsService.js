@@ -28,6 +28,14 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         setCurrentData();
         this.clear = function () {
             this.recommendations = [];
+            this.pinnedRecommendations = [];
+            this.handPickedRecommendations = [];
+            var currentData = {
+                product: null,
+                version: null,
+                summary: null,
+                description: null
+            };
         };
         this.pageSize = 4;
         this.maxSize = 10;

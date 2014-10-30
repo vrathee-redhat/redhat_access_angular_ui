@@ -123,6 +123,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             $scope.authLoginEvent();
             $scope.loadingWatcher();
             $scope.loadingRecWatcher();
+            RecommendationsService.clear();
         });
     }
 ]);
