@@ -90,7 +90,7 @@ div#redhat-access-case
             div.col-xs-12
               div(style='font-size: 85%') {{CaseService.kase.description}}
         div.row.rha-create-field
-          div.col-md-4(ng-hide='CaseService.entitlements.length <= 1')
+          div.col-md-4
             label(for='rha-entitlement-select') Support Level:
           div.col-md-8(ng-show='CaseService.entitlements.length <= 1') {{CaseService.entitlements[0]}}
           div.col-md-8(ng-hide='CaseService.entitlements.length <= 1')
@@ -106,16 +106,17 @@ div#redhat-access-case
                 ng-change='validatePage2()',
                 ng-disabled='submittingCase',
                 ng-options='s.name for s in CaseService.severities track by s.name')
-        div(ng-show='CaseService.showFts()', style='padding-left: 30px;')
+        div(ng-show='CaseService.showFts()')
           div.row.rha-create-field
-            div.col-md-12
-              span {{'24x7 Support:'|translate}}
-              input(type='checkbox', ng-model='CaseService.fts', style='display: inline-block; padding-left: 10px;')
+            div.col-md-4
+              label(for='rha-ftsCheck') {{'24x7 Support:'|translate}}
+            div.col-md-8
+              input#rha-ftsCheck(type='checkbox', ng-model='CaseService.fts', style='display: inline-block;')
           div.row.rha-create-field(ng-show='CaseService.fts')
             div.col-md-4
-              div {{'24x7 Contact:'|translate}}
+              label(for='rha-ftsContact') {{'24x7 Contact:'|translate}}
             div.col-md-8
-              input.form-control(ng-model='CaseService.fts_contact')
+              input#rha-ftsContact.form-control(ng-model='CaseService.fts_contact', style='display: inline-block;')
         div.row.rha-create-field
           div.col-md-4
             label(for='rha-group-select') {{'Case Group:'|translate}}
