@@ -1,7 +1,5 @@
 div(rha-selectloadingindicator='', loading='CaseService.entitlementsLoading', type='select2')
   select#rha-entitlement-select(
-    chosen,
-    data-placeholder="{{'Select a Support Level'|translate}}",
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.entitlement',
     ng-change='CaseService.onSelectChanged()',

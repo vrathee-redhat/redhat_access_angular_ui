@@ -225,8 +225,18 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }));
         };
         this.showFts = function () {
+            var showFtsCheckbox = false;
             if (RHAUtils.isNotEmpty(this.severities)) {
-                if (this.entitlement === 'PREMIUM' || this.entitlement === 'AMC' || RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC')) {
+                if (this.entitlements !== undefined && this.entitlements.length === 1) {
+                    if (this.entitlements[0] === 'PREMIUM' || this.entitlements[0] === 'AMC') {
+                        showFtsCheckbox = true;
+                    }
+                } else if (this.entitlement === 'PREMIUM' || this.entitlement === 'AMC') {
+                    showFtsCheckbox = true;
+                } else if (RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC')) {
+                    showFtsCheckbox = true;
+                }
+                if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
                     return true;
                 }
             }
