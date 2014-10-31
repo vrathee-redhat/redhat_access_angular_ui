@@ -2,7 +2,7 @@ div
   div(rha-selectloadingindicator='', loading='CaseService.usersLoading', type='select2')
     select#rha-owner-select(
       chosen,
-      no_results_text="'{{'No match found'|translate}}'",
+      no_results_text="'No match found'|translate",
       ng-disabled='!securityService.loginStatus.isLoggedIn',
       ng-model='CaseService.owner',
       ng-change='CaseService.onOwnerSelectChanged()',

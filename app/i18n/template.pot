@@ -741,7 +741,3 @@ msgstr ""
 #: app/cases/services/attachmentsService.js
 msgid "to case"
 msgstr ""
-
-#: app/cases/views/ownerSelect.html
-msgid "{{'No match found"
-msgstr ""
