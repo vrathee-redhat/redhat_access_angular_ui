@@ -23,10 +23,12 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         $scope.CaseService = CaseService;
         CaseService.clearCase();
         $scope.loading = {};
+        $scope.failedToLoadCase = true;
         $scope.init = function () {
             $scope.loading.kase = true;
             $scope.recommendationsLoading = true;
             strataService.cases.get($stateParams.id).then(function (resp) {
+                $scope.failedToLoadCase = false;
                 var caseJSON = resp[0];
                 var cacheHit = resp[1];
                 if (!cacheHit) {
@@ -62,8 +64,8 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 if (EDIT_CASE_CONFIG.showEmailNotifications && !cacheHit) {
                     CaseService.defineNotifiedUsers();
                 }
-            });
-            if (EDIT_CASE_CONFIG.showAttachments) {
+
+                if (EDIT_CASE_CONFIG.showAttachments) {
                 $scope.loading.attachments = true;
                 strataService.cases.attachments.list($stateParams.id).then(function (attachmentsJSON) {
                     AttachmentsService.defineOriginalAttachments(attachmentsJSON);
@@ -72,17 +74,21 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     AlertService.addStrataErrorMessage(error);
                     $scope.loading.attachments= false;
                 });
-            }
-            if (EDIT_CASE_CONFIG.showComments) {
-                $scope.loading.comments = true;
-                strataService.cases.comments.get($stateParams.id).then(function (commentsJSON) {
-                    $scope.comments = commentsJSON;
-                    $scope.loading.comments = false;
-                }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
-                    $scope.loading.comments = false;
-                });
-            }
+                }
+                if (EDIT_CASE_CONFIG.showComments) {
+                    $scope.loading.comments = true;
+                    strataService.cases.comments.get($stateParams.id).then(function (commentsJSON) {
+                        $scope.comments = commentsJSON;
+                        $scope.loading.comments = false;
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                        $scope.loading.comments = false;
+                    });
+                }
+            }, function (error) {
+                AlertService.addDangerMessage("Unable to retrieve case.  Please be sure case number is valid.");
+                $scope.failedToLoadCase = true;
+            });
         };
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
@@ -106,7 +112,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     allLoaded = false;
                 }
             }
-            if(allLoaded) {
+            if(allLoaded && !$scope.failedToLoadCase) {
                 caseSettled();
             }
         }, true);

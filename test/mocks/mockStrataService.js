@@ -901,6 +901,9 @@ angular.module('RedhatAccess.mock', [])
       this.addStrataErrorMessage = function (error) {
         return this.addMessage(error, 'danger');
       };
+      this.addDangerMessage = function (error) {
+        return this.addMessage(error, 'danger');
+      };
       this.addMessage = function (message, type) {
         var alert = {
           message: message,

@@ -806,6 +806,7 @@ describe('Case Controllers', function () {
                 RecommendationsService: mockRecommendationsService,
                 AlertService: mockAlertService
             });
+            mockScope.failedToLoadCase = true;
             expect(mockScope.init).toBeDefined();
             mockStrataService.rejectCalls();
             spyOn(mockStrataService.cases, 'get').andCallThrough();
@@ -815,7 +816,7 @@ describe('Case Controllers', function () {
             spyOn(mockStrataService.cases.comments, 'get').andCallThrough();
             mockScope.init();
             mockScope.$root.$digest();
-            expect(mockAlertService.alerts[0].message).toEqual('strata error');
+            expect(mockAlertService.alerts[0].message).toEqual('Unable to retrieve case.  Please be sure case number is valid.');
         }));
     });
     //Suite for AttachmentsSection
