@@ -30,7 +30,6 @@ angular.module('RedhatAccess.cases').controller('List', [
                 getData: function ($defer, params) {
                     if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.count) {
                         SearchCaseService.doFilter().then(function () {
-                            $scope.tableParams.reload();
                             var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
                             var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
                             $scope.tableParams.total(SearchCaseService.totalCases);
@@ -49,7 +48,7 @@ angular.module('RedhatAccess.cases').controller('List', [
         SearchBoxService.doSearch = CaseService.onSelectChanged = CaseService.onOwnerSelectChanged = CaseService.onGroupSelectChanged = function () {
             SearchCaseService.clearPagination();
             if($scope.tableParams !== undefined){
-                //$scope.tableParams.$params.page = 1;
+                $scope.tableParams.$params.page = 1;
             }
             if(CaseService.groups.length === 0){
                 CaseService.populateGroups().then(function (){
