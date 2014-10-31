@@ -1,11 +1,11 @@
 div.container-fluid
   div.row
     div.col-md-6.pad-b-l
-      div(rha-searchbox='', placeholder='Search')
+      div(rha-searchbox='', placeholder="'Search'|translate")
     div.col-md-3.pad-s-y
       div
         span.glyphicon.glyphicon-question-sign.pull-right(
-          popover='Filtering by case groups helps you find related cases.',
+          popover="{{'Filtering by case groups helps you find related cases.'|translate}}",
           tabindex='0',
           popover-append-to-body='true',
           popover-trigger='mouseenter')

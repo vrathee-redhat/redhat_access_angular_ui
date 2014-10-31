@@ -79,7 +79,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             errorMsg = ' : Internal server error';
                             break;
                         }
-                        AlertService.addDangerMessage('Failed to upload attachment ' + jsonData.attachment + ' to case ' + caseId + errorMsg);
+                        AlertService.addDangerMessage(translate('Failed to upload attachment ') + jsonData.attachment + translate(' to case ') + caseId + errorMsg);
                         deferred.reject(data);
                     });
                     promises.push(deferred.promise);
@@ -104,7 +104,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
-                                AlertService.addSuccessMessage('Successfully uploaded attachment ' + attachment.file_name + ' to case ' + caseId);
+                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment ') + attachment.file_name + ' to case ' + caseId);
                             }, function (error) {
                                 AlertService.addStrataErrorMessage(error);
                             });
@@ -112,7 +112,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                         }
                     });
                 }
-                var uploadingAlert = AlertService.addWarningMessage('Uploading attachments...');
+                var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachments...'));
                 var parentPromise = $q.all(promises);
                 parentPromise.then(angular.bind(this, function () {
                     this.originalAttachments = this.originalAttachments.concat(this.updatedAttachments);

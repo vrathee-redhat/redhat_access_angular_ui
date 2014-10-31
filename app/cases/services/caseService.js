@@ -11,7 +11,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$q',
     '$timeout',
     '$filter',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter) {
+    'translate',
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter,translate ) {
         this.kase = {};
         this.caseDataReady = false;
         this.isCommentPublic = false;
@@ -271,10 +272,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if (this.showsearchoptions === true) {
                 this.groupOptions.push({
                     value: '',
-                    label: 'All Groups'
+                    label: translate('All Groups')
                 }, {
                     value: 'ungrouped',
-                    label: 'Ungrouped Cases'
+                    label: translate('Ungrouped Cases')
                 }, {
                     isDisabled: true,
                     label: sep
@@ -282,7 +283,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             } else {
                 this.groupOptions.push({
                     value: '',
-                    label: 'Ungrouped Case'
+                    label: translate('Ungrouped Case')
                 });
             }
 
@@ -302,7 +303,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     label: sep
                 }, {
                     value: 'manage',
-                    label: 'Manage Case Groups'
+                    label: translate('Manage Case Groups')
                 });
             }
         };

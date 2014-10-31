@@ -9,7 +9,8 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
     '$location',
     'securityService',
     'AUTH_EVENTS',
-    function ($scope, $rootScope, strataService, AlertService, $location, securityService, AUTH_EVENTS) {
+    'translate',
+    function ($scope, $rootScope, strataService, AlertService, $location, securityService, AUTH_EVENTS, translate) {
         $scope.securityService = securityService;
         $scope.listEmpty = false;
         $scope.selectedGroup = {};
@@ -59,7 +60,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             }else{
                 $scope.usersLoading = false;
                 $scope.groupsLoading = false;
-                AlertService.addStrataErrorMessage('User does not have proper credentials to manage default groups.');
+                AlertService.addStrataErrorMessage(translate('User does not have proper credentials to manage default groups.'));
             }
         };
 

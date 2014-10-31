@@ -7,7 +7,8 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
     'AlertService',
     'AttachmentsService',
     'securityService',
-    function ($scope, $sce, RHAUtils,AlertService, AttachmentsService, securityService) {
+    'translate',
+    function ($scope, $sce, RHAUtils,AlertService, AttachmentsService, securityService, translate) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
         $scope.fileDescription = '';
@@ -50,7 +51,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 $scope.fileName = $scope.fileObj.name;
                 $scope.$apply();
             } else {
-                AlertService.addDangerMessage($('#fileUploader')[0].files[0].name + ' cannot be attached because it is larger the 250MB. Please FTP large files to dropbox.redhat.com.');
+                AlertService.addDangerMessage($('#fileUploader')[0].files[0].name + translate(' cannot be attached because it is larger the 250MB. Please FTP large files to dropbox.redhat.com.'));
             }
             $('#fileUploader')[0].value = '';
         };

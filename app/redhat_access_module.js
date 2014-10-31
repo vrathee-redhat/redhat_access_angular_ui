@@ -33,6 +33,7 @@ angular.module('RedhatAccess', [
         CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
         CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
         //gettextCatalog.currentLanguage ='fr';
+        //gettextCatalog.debug = true;
     }
 ]);
 //Define dummy RedhatAccess.template module - not needed in productions since its

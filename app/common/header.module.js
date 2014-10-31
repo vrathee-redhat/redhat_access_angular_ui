@@ -2,40 +2,32 @@
 /*global $ */
 angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
     show: 'false',
-    titlePrefix: 'Red Hat Access: ',
-    searchTitle: 'Search',
-    caseListTitle: 'Support Cases',
-    caseViewTitle: 'View/Modify Case',
-    newCaseTitle: 'New Support Case',
-    searchCaseTitle: 'Search Support Cases',
-    logViewerTitle: 'Log',
-    manageGroupsTitle: 'Manage Case Groups',
-    editGroupTitle: 'Edit Case Group',
-    defaultGroup: 'Manage Default Case Groups'
+    titlePrefix: 'Red Hat Access: '
 }).controller('TitleViewCtrl', [
     'TITLE_VIEW_CONFIG',
     '$scope',
-    function (TITLE_VIEW_CONFIG, $scope) {
+    'translate',
+    function (TITLE_VIEW_CONFIG, $scope, translate) {
         $scope.showTitle = TITLE_VIEW_CONFIG.show;
         $scope.titlePrefix = TITLE_VIEW_CONFIG.titlePrefix;
         $scope.getPageTitle = function () {
             switch ($scope.page) {
             case 'search':
-                return TITLE_VIEW_CONFIG.searchTitle;
+                return translate('Search');
             case 'caseList':
-                return TITLE_VIEW_CONFIG.caseListTitle;
+                return translate('Support Cases');
             case 'caseView':
-                return TITLE_VIEW_CONFIG.caseViewTitle;
+                return translate('View/Modify Case');
             case 'newCase':
-                return TITLE_VIEW_CONFIG.newCaseTitle;
+                return translate('New Support Case');
             case 'logViewer':
-                return TITLE_VIEW_CONFIG.logViewerTitle;
+                return translate('Logs');
             case 'searchCase':
-                return TITLE_VIEW_CONFIG.searchCaseTitle;
+                return translate('Search Support Case');
             case 'manageGroups':
-                return TITLE_VIEW_CONFIG.manageGroupsTitle;
+                return translate('Manage Case Groups');
             case 'editGroup':
-                return TITLE_VIEW_CONFIG.editGroupTitle;
+                return translate('Manage Default Case Groups');
             default:
                 return '';
             }
@@ -53,7 +45,8 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
     'AUTH_EVENTS',
     '$rootScope',
     'RHAUtils',
-    function ($filter, AUTH_EVENTS, $rootScope, RHAUtils) {
+    'translate',
+    function ($filter, AUTH_EVENTS, $rootScope, RHAUtils, translate) {
         var ALERT_TYPES = {
                 DANGER: 'danger',
                 SUCCESS: 'success',
@@ -115,7 +108,7 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
         };
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, angular.bind(this, function () {
             this.clearAlerts();
-            this.addMessage('You have successfully logged out of the Red Hat Customer Portal.');
+            this.addMessage(translate('You have successfully logged out of the Red Hat Customer Portal.'));
         }));
         $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this, function () {
             this.clearAlerts();

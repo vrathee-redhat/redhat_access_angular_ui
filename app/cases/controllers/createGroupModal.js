@@ -7,9 +7,10 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
     'AlertService',
     'CaseService',
     'GroupService',
-    function ($scope, $modalInstance, strataService, AlertService, CaseService, GroupService) {
+    'translate',
+    function ($scope, $modalInstance, strataService, AlertService, CaseService, GroupService, translate) {
         $scope.createGroup = function () {
-            AlertService.addWarningMessage('Creating group ' + this.groupName + '...');
+            AlertService.addWarningMessage(translate('Creating group') + ' ' + this.groupName + '...');
             $modalInstance.close();
             strataService.groups.create(this.groupName).then(angular.bind(this, function (success) {
                 CaseService.groups.push({
@@ -17,7 +18,7 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
                     number: success
                 });
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage('Successfully created group ' + this.groupName);
+                AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
                 GroupService.reloadTable();
             }), function (error) {
                 AlertService.clearAlerts();

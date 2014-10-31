@@ -8,7 +8,8 @@ angular.module('RedhatAccess.cases').controller('DeleteGroupButton', [
     '$q',
     '$filter',
     'GroupService',
-    function ($scope, strataService, AlertService, CaseService, $q, $filter, GroupService) {
+    'translate',
+    function ($scope, strataService, AlertService, CaseService, $q, $filter, GroupService, translate) {
         $scope.GroupService = GroupService;
         $scope.deleteGroups = function () {
             var promises = [];
@@ -25,7 +26,7 @@ angular.module('RedhatAccess.cases').controller('DeleteGroupButton', [
                             });
                         CaseService.groups = groups;
                         GroupService.reloadTable();
-                        AlertService.addSuccessMessage('Successfully deleted group ' + group.name);
+                        AlertService.addSuccessMessage(translate('Successfully deleted group') + ' ' + group.name);
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
@@ -36,7 +37,7 @@ angular.module('RedhatAccess.cases').controller('DeleteGroupButton', [
             var parentPromise = $q.all(promises);
             parentPromise.then(function (success) {
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage('Successfully deleted groups.');
+                AlertService.addSuccessMessage(translate('Successfully deleted groups.'));
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
