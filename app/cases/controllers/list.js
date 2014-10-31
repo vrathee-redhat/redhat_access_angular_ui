@@ -49,7 +49,7 @@ angular.module('RedhatAccess.cases').controller('List', [
         SearchBoxService.doSearch = CaseService.onSelectChanged = CaseService.onOwnerSelectChanged = CaseService.onGroupSelectChanged = function () {
             SearchCaseService.clearPagination();
             if($scope.tableParams !== undefined){
-                $scope.tableParams.$params.page = 1;
+                //$scope.tableParams.$params.page = 1;
             }
             if(CaseService.groups.length === 0){
                 CaseService.populateGroups().then(function (){
