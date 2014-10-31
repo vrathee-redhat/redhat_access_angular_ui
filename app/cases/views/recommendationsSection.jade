@@ -17,7 +17,7 @@ div#rha-recommendation-section
             span(
               ng-show='recommendation.handPicked' ng-class='{"hand-picked": recommendation.handPicked}', translate='') handpicked
             div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
-            a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank') {{'View full article in new window'|translate}}
+            a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank') {{'View full article in new window'|translate}}
     div.row(style='padding-top: 10px;', ng-hide='RecommendationsService.recommendationsOnScreen.length == 0')
       div.col-xs-12
         pagination.pagination-sm(
