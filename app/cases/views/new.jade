@@ -126,7 +126,7 @@ div#redhat-access-case
           div.row.rha-create-field
             div.col-xs-12
               label {{'Attachments:'|translate}}
-          div.rha-bottom-border
+          div.rha-bottom-border(ng-show='!ie8 || !NEW_CASE_CONFIG.isPCM')
             div.row.rha-create-field(style='overflow: auto')
               div.col-xs-12
                 div(rha-listnewattachments='')

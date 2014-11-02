@@ -36,6 +36,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.CaseService = CaseService;
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
+        $scope.ie8 = window.ie8;
 
         // Instantiate these variables outside the watch
         var waiting = false;
