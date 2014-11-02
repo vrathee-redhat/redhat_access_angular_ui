@@ -11,15 +11,17 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         this.pinnedRecommendations = [];
         this.handPickedRecommendations = [];
         var currentData = {
+            kase : {
                 product: null,
                 version: null,
                 summary: null,
                 description: null
-            };
+            }
+        };
         this.loadingRecommendations = false;
         var setCurrentData = function () {
             currentData = {
-                case : {
+                kase : {
                     product: CaseService.kase.product,
                     version: CaseService.kase.version,
                     summary: CaseService.kase.summary,
@@ -33,10 +35,12 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             this.pinnedRecommendations = [];
             this.handPickedRecommendations = [];
             var currentData = {
-                product: null,
-                version: null,
-                summary: null,
-                description: null
+                kase : {
+                    product: null,
+                    version: null,
+                    summary: null,
+                    description: null
+                }
             };
         };
         this.pageSize = 4;
@@ -109,12 +113,14 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                 productName = CaseService.kase.product.name;
             }
             var newData = {
+                kase : {
                     product: productName,
                     version: CaseService.kase.version,
                     summary: CaseService.kase.summary,
                     description: CaseService.kase.description
-                };
-            if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations || this.recommendations.length < 1)) && this.failureCount < 10) {
+                }
+            };
+            if ((newData.kase.product !== undefined || newData.kase.version !== undefined || newData.kase.summary !== undefined || newData.kase.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations || this.recommendations.length < 1)) && this.failureCount < 10) {
                 this.loadingRecommendations = true;
                 setCurrentData();
                 var deferreds = [];
@@ -156,15 +162,17 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             if(CaseService.kase.product !== undefined && CaseService.kase.product.name !== undefined){
                 productName = CaseService.kase.product.name;
             }
+
             var newData = {
-                    case : {
-                        product: productName,
-                        version: CaseService.kase.version,
-                        summary: CaseService.kase.summary,
-                        description: CaseService.kase.description
-                    }
-                };
-            if ((newData.case.product !== undefined || newData.case.version !== undefined || newData.case.summary !== undefined || newData.case.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations)) && this.failureCount < 10) {
+                kase : {
+                    product: productName,
+                    version: CaseService.kase.version,
+                    summary: CaseService.kase.summary,
+                    description: CaseService.kase.description
+                }
+            };
+
+            if ((newData.kase.product !== undefined || newData.kase.version !== undefined || newData.kase.summary !== undefined || newData.kase.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations)) && this.failureCount < 10) {
                 this.loadingRecommendations = true;
                 setCurrentData();
                 var deferreds = [];
