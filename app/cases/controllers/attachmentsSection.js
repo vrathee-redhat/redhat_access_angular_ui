@@ -14,6 +14,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;
+        $scope.ie8Message="We currently do not allow file attachments to support cases in IE8.  Please refer to <a href=\"https://access.redhat.com/solutions/2112\">How to provide large files to Red Hat Support</a> for other options to upload attachments to support cases."
         $scope.doUpdate = function () {
             $scope.updatingAttachments = true;
             AttachmentsService.updateAttachments(CaseService.kase.case_number).then(function () {

@@ -140,6 +140,8 @@ div#redhat-access-case
                    div(rha-choicetree='',
                      ng-model='attachmentTree',
                      ng-controller='BackEndAttachmentsCtrl')
+          div(ng-show='ie8 && NEW_CASE_CONFIG.isPCM')
+            div(ng-bind-html="ie8Message")
         div.row(style='margin-top: 20px;')
           div.col-xs-6
             button.btn.btn-primary.btn-previous(
