@@ -37,7 +37,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
         $scope.ie8 = window.ie8;
-        $scope.ie8Message='We currently do not allow file attachments to support cases in Internet Explorer 8.  Please refer to <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">How to provide large files to Red Hat Support </a> for other options to upload attachments to support cases.';
+        $scope.ie8Message='We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
 
 
         // Instantiate these variables outside the watch
