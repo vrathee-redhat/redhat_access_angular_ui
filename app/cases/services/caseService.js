@@ -42,6 +42,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.groupOptions = [];
         this.showsearchoptions = false;
         this.disableAddComment = true;
+        this.fts = false;
+        this.fts_contact = '';
         /**
        * Add the necessary wrapper objects needed to properly display the data.
        *
@@ -108,6 +110,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.originalNotifiedUsers = [];
             this.updatedNotifiedUsers = [];
             this.groupOptions = [];
+            this.fts = false;
+            this.fts_contact = '';
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername) {
@@ -238,6 +242,16 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 }
                 if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
                     return true;
+                } else {
+                    this.fts = false;
+                    this.fts_contact = '';
+                    if (this.kase.fts !== undefined) {
+                        this.kase.fts = false;
+                    }
+                    if (this.kase.contact_info24_x7 !== undefined) {
+                        this.kase.contact_info24_x7 = '';
+                    }
+                    return false;
                 }
             }
             return false;
