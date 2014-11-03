@@ -112,6 +112,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         if(response['case'] === undefined ){
                             that.totalCases = 0;
                             that.total = 0;
+                            that.allCasesDownloaded = true;
                         } else {
                             that.totalCases = response.total_count;
                             if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
