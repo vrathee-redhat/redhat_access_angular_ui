@@ -13,13 +13,20 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
             AlertService.addWarningMessage(translate('Creating group') + ' ' + this.groupName + '...');
             $modalInstance.close();
             strataService.groups.create(this.groupName).then(angular.bind(this, function (success) {
-                CaseService.groups.push({
-                    name: this.groupName,
-                    number: success
-                });
-                AlertService.clearAlerts();
-                AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
-                GroupService.reloadTable();
+                if(success !== undefined){
+                    CaseService.groups.push({
+                        name: this.groupName,
+                        number: success
+                    });
+                    AlertService.clearAlerts();
+                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
+                    GroupService.reloadTable();
+                } else {
+                    CaseService.populateGroups().then(function (groups) {
+                        AlertService.clearAlerts();
+                        AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);                        
+                    });
+                }
             }), function (error) {
                 AlertService.clearAlerts();
                 AlertService.addStrataErrorMessage(error);
