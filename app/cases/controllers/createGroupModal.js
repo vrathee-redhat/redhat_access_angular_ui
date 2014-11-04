@@ -13,7 +13,7 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
             AlertService.addWarningMessage(translate('Creating group') + ' ' + this.groupName + '...');
             $modalInstance.close();
             strataService.groups.create(this.groupName).then(angular.bind(this, function (success) {
-                if(success !== undefined){
+                if(success !== null){
                     CaseService.groups.push({
                         name: this.groupName,
                         number: success
