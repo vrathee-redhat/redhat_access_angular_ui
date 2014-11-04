@@ -114,7 +114,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.fts_contact = '';
         };
         this.groupsLoading = false;
-        this.populateGroups = function (ssoUsername) {
+        this.populateGroups = function (ssoUsername, flushCache) {
             var that = this;
             var deferred = $q.defer();
             this.groupsLoading = true;
@@ -122,7 +122,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if(username === undefined){
                 username = securityService.loginStatus.authedUser.sso_username;
             }
-            strataService.groups.list(ssoUsername).then(angular.bind(this, function (groups) {
+            strataService.groups.list(ssoUsername, flushCache).then(angular.bind(this, function (groups) {
                 that.groups = groups;
                 that.group = '';
                 that.buildGroupOptions(that);

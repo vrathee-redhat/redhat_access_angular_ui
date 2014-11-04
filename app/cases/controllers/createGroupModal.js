@@ -4,11 +4,12 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
     '$scope',
     '$modalInstance',
     'strataService',
+    'securityService',
     'AlertService',
     'CaseService',
     'GroupService',
     'translate',
-    function ($scope, $modalInstance, strataService, AlertService, CaseService, GroupService, translate) {
+    function ($scope, $modalInstance, strataService, securityService, AlertService, CaseService, GroupService, translate) {
         $scope.createGroup = function () {
             AlertService.addWarningMessage(translate('Creating group') + ' ' + this.groupName + '...');
             $modalInstance.close();
@@ -22,11 +23,13 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
                     AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
                     GroupService.reloadTable();
                 } else {
-                    var that = this;
-                    CaseService.populateGroups().then(function (groups) {
+                    CaseService.populateGroups(securityService.loginStatus.authedUser.sso_username, true).then(angular.bind(this, function (groups) {
                         AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + that.groupName);
+                        AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
                         GroupService.reloadTable();                      
+                    }), function (error) {
+                        AlertService.clearAlerts();
+                        AlertService.addStrataErrorMessage(error);
                     });
                 }
             }), function (error) {

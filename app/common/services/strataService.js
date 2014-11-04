@@ -259,8 +259,11 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     }
                     return deferred.promise;
                 },
-                list: function (ssoUserName) {
+                list: function (ssoUserName, flushCashe) {
                     var deferred = $q.defer();
+                    if(flushCashe){
+                        strataCache.remove('groups' + ssoUserName);
+                    }
                     if (!ie8 && strataCache.get('groups' + ssoUserName)) {
                         deferred.resolve(strataCache.get('groups' + ssoUserName));
                     } else {
