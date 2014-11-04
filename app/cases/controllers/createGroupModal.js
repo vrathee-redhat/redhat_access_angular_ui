@@ -22,9 +22,11 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
                     AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
                     GroupService.reloadTable();
                 } else {
+                    var that = this;
                     CaseService.populateGroups().then(function (groups) {
                         AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);                        
+                        AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + that.groupName);
+                        GroupService.reloadTable();                      
                     });
                 }
             }), function (error) {
