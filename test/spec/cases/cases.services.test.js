@@ -68,9 +68,9 @@ describe('Case Services', function () {
             var ssoUsername = 'testUser';
             mockStrataService.rejectCalls();
             spyOn(mockStrataService.groups, 'list').andCallThrough();
-            caseService.populateGroups(ssoUsername);
+            caseService.populateGroups(ssoUsername, false);
             scope.$root.$digest();
-            expect(mockStrataService.groups.list).toHaveBeenCalledWith('testUser');
+            expect(mockStrataService.groups.list).toHaveBeenCalledWith('testUser', false);
             expect(caseService.groups).toEqual([]);
             expect(caseService.groupsLoading).toBe(false);
         });
