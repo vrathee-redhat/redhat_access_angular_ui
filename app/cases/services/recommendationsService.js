@@ -166,7 +166,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                 this.loadingRecommendations = true;
                 setCurrentData();
                 var deferreds = [];
-                strataService.recommendations(currentData, max, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
+                strataService.recommendationsXmlHack(currentData, max, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
                     //retrieve details for each solution
                     solutions.forEach(function (solution) {
                         //var deferred = strataService.solutions.get(solution.resource_uri);

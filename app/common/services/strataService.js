@@ -118,6 +118,13 @@ angular.module('RedhatAccess.common').factory('strataService', [
                 }, angular.bind(deferred, errorHandler), max, highlight, highlightTags);
                 return deferred.promise;
             },
+            recommendationsXmlHack: function (data, max, highlight, highlightTags) {
+                var deferred = $q.defer();
+                strata.recommendationsXmlHack(data, function (recommendations) {
+                    deferred.resolve(recommendations);
+                }, angular.bind(deferred, errorHandler), max, highlight, highlightTags);
+                return deferred.promise;
+            },
             solutions: {
                 get: function (uri) {
                     var deferred = $q.defer();
