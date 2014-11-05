@@ -28,19 +28,20 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.commentText = '';
                 CaseService.disableAddComment = true;
                 //TODO: find better way than hard code
+                var status = {};
                 if (!securityService.loginStatus.authedUser.is_internal && CaseService.kase.status.name === 'Closed') {
-                    var status = { name: 'Waiting on Red Hat' };
+                    status = { name: 'Waiting on Red Hat' };
                     CaseService.kase.status = status;
                 }
 
                 if(securityService.loginStatus.authedUser.is_internal){
                     if (CaseService.kase.status.name === 'Waiting on Red Hat') {
-                        var status = { name: 'Waiting on Customer' };
+                        status = { name: 'Waiting on Customer' };
                         CaseService.kase.status = status;
                     }
                 }else {
                     if (CaseService.kase.status.name === 'Waiting on Customer') {
-                        var status = { name: 'Waiting on Red Hat' };
+                        status = { name: 'Waiting on Red Hat' };
                         CaseService.kase.status = status;
                     }
                 }

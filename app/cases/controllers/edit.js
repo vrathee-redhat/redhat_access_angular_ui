@@ -66,14 +66,14 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 }
 
                 if (EDIT_CASE_CONFIG.showAttachments) {
-                $scope.loading.attachments = true;
-                strataService.cases.attachments.list($stateParams.id).then(function (attachmentsJSON) {
-                    AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                    $scope.loading.attachments= false;
-                }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
-                    $scope.loading.attachments= false;
-                });
+                    $scope.loading.attachments = true;
+                    strataService.cases.attachments.list($stateParams.id).then(function (attachmentsJSON) {
+                        AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                        $scope.loading.attachments= false;
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                        $scope.loading.attachments= false;
+                    });
                 }
                 if (EDIT_CASE_CONFIG.showComments) {
                     $scope.loading.comments = true;
@@ -86,7 +86,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     });
                 }
             }, function (error) {
-                AlertService.addDangerMessage("Unable to retrieve case.  Please be sure case number is valid.");
+                AlertService.addDangerMessage('Unable to retrieve case.  Please be sure case number is valid.');
                 $scope.failedToLoadCase = true;
             });
         };
