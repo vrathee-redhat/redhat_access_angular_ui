@@ -10,8 +10,13 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','
             scope.$on('$destroy', function () {
                 element.remove();
             });
-            scope.commentReply = function(id) {
-                var text = $('#'+id+' .pcmTextBlock').text();
+            scope.commentReply = function(id,browserIE) {
+                var text = '';
+                if (browserIE === true) {
+                    text = $('#'+id+' .browserIE').text();
+                } else {
+                    text = $('#'+id+' .browserNotIE').text();
+                }
                 var person = $('#'+id+' .personNameBlock').text();
                 var originalText = $('#case-comment-box').val();
                 var lines = text.split(/\n/);

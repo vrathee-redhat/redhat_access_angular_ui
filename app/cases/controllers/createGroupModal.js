@@ -26,7 +26,7 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
                     CaseService.populateGroups(securityService.loginStatus.authedUser.sso_username, true).then(angular.bind(this, function (groups) {
                         AlertService.clearAlerts();
                         AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
-                        GroupService.reloadTable();                      
+                        GroupService.reloadTable();
                     }), function (error) {
                         AlertService.clearAlerts();
                         AlertService.addStrataErrorMessage(error);
