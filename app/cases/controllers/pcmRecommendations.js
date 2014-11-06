@@ -24,7 +24,7 @@ angular.module('RedhatAccess.cases').controller('PcmRecommendationsController', 
             $scope.results = SearchResultsService.results.slice(start, end);
         };
         $scope.triggerAnalytics = function ($event) {
-            if (this.isopen && window.chrometwo_require !== undefined && $location.path() === '/case/new') {
+            if (window.chrometwo_require !== undefined && $location.path() === '/case/new') {
                 chrometwo_require(['analytics/main'], function (analytics) {
                     analytics.trigger('OpenSupportCaseRecommendationClick', $event);
                 });
