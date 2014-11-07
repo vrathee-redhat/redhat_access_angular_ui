@@ -28,7 +28,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             }, {
                 total: SearchCaseService.totalCases,
                 getData: function ($defer, params) {
-                    if (!SearchCaseService.allCasesDownloaded) {
+                    if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.count) {
                         SearchCaseService.doFilter().then(function () {
                             var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
                             var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
@@ -77,10 +77,12 @@ angular.module('RedhatAccess.cases').controller('List', [
        */
         if (securityService.loginStatus.isLoggedIn && securityService.loginStatus.userAllowedToManageCases) {
             SearchCaseService.clear();
+            CaseService.status = 'open';
             SearchBoxService.doSearch();
         }
         $scope.listAuthEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             if(securityService.loginStatus.userAllowedToManageCases){
+                CaseService.status = 'open';
                 SearchBoxService.doSearch();
                 AlertService.clearAlerts();
             }
