@@ -18,7 +18,7 @@ angular.module('RedhatAccess.cases', [
     chatLiveAgentUrlPrefix: 'https://d.la1w1.salesforceliveagent.com/chat',
     chatInitHashOne: '572A0000000GmiP',
     chatInitHashTwo: '00DA0000000HxWH',
-    chatIframeHackUrlPrefix: 'https://rogsstest.force.com/chatHidden'
+    chatIframeHackUrlPrefix: 'https://rogsstest.secure.force.com/chatHidden'
 }).constant('STATUS', {
     open: 'open',
     closed: 'closed',
