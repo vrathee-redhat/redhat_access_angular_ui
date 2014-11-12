@@ -106,7 +106,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 var cases = null;
                 if (securityService.loginStatus.isLoggedIn) {
                     if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal) {
-                        params.owner_ssoname = securityService.loginStatus.authedUser.sso_username;
+                        params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
+                        params.view = 'internal';
                     }
                     cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                         if(response['case'] === undefined ){
