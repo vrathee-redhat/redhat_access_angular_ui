@@ -81,14 +81,14 @@
                       NEW_CASE_CONFIG.isPCM = true;
                       NEW_CASE_CONFIG.productSortListFile = 'productSortList.txt';
                       EDIT_CASE_CONFIG.isPCM = true;
-                      CHAT_SUPPORT.enableChat = true;
-                      if (host !== 'access.redhat.com' ) { 
-                        CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
-                        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
-                        CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
-                        CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
-                        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
-                      }
+                      CHAT_SUPPORT.enableChat = false;
+                      //if (host !== 'access.redhat.com' ) {
+                      //  CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
+                      //  CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
+                      //  CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
+                      //  CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
+                      //  CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
+                      //}
                     }
                   }, function (error) {
                         window.location.replace(redirectURL);

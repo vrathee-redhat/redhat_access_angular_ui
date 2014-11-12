@@ -298,8 +298,13 @@ div#rha-recommendation-section .hand-picked {
 .recommendations {
     display: none;
     list-style: none;
-    margin: 0 !important;
-    padding: 0;
+    margin: 0;
+    padding: 0 0 0 30px;
+}
+
+.recommendations li {
+  	position: relative;
+    margin-bottom: 12px;
 }
 
 .recommendations li .meta {
@@ -324,10 +329,12 @@ div#rha-recommendation-section .hand-picked {
 }
 
 .recommendations li .icon-solution {
-    position: relative;
-    float: left;
-    margin-left: -20px;
-}.private {
+    position: absolute;
+    left: -30px;
+	  top: 0;
+}
+
+.private {
     background-color: #fde5e5;
     color: #c92b22;
     display: inline-block;

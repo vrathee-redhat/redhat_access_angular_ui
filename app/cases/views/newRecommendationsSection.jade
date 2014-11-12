@@ -8,9 +8,9 @@ div.col-xs-12
   div.recommendations-inner
     ul.recommendations(style="display: block;")
       li(ng-repeat="result in results")
-        h4
+        a(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank')
+          strong {{result.title}}
           span.icon-solution
-          a(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title}} 
         p.snippet(ng-bind-html='result.abstract')
     div.row(style='padding-top: 10px;', ng-hide='results.length == 0')
       div.col-xs-12
