@@ -48,6 +48,53 @@
     }
     // Once all modules have loaded bootstrap it
     jq.when.apply(jq, dfds).always(function() {
+      angular.module('RedhatAccess.cases').config(['$urlRouterProvider',
+            function($urlRouterProvider) {
+              $urlRouterProvider.otherwise('case/list')
+            }
+            ]).run([
+                'CHAT_SUPPORT', 
+                'EDIT_CASE_CONFIG', 
+                'NEW_CASE_CONFIG', 
+                'SECURITY_CONFIG',
+                'securityService',  
+                'gettextCatalog', 
+                function (CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog){
+                  SECURITY_CONFIG.autoCheckLogin = false;
+                  SECURITY_CONFIG.displayLoginStatus = false;
+                  NEW_CASE_CONFIG.showServerSideAttachments = false;
+                  EDIT_CASE_CONFIG.showServerSideAttachments = false;
+                  gettextCatalog.currentLanguage = getCookieValue('rh_locale');
+                  securityService.validateLogin(false).then(function (authedUser) {
+                    var account = securityService.loginStatus.account;
+                    if(account.is_secured_support !== undefined && account.is_secured_support === true){
+                      strata.setRedhatClientID("secure_case_management_1.0");
+                      strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
+                      NEW_CASE_CONFIG.showRecommendations = false;
+                      NEW_CASE_CONFIG.showAttachments = false;
+                      EDIT_CASE_CONFIG.showBugzillas = false;
+                      EDIT_CASE_CONFIG.showAttachments = false;
+                      EDIT_CASE_CONFIG.showRecommendations = false;
+                      EDIT_CASE_CONFIG.showEmailNotifications = false;
+                      CHAT_SUPPORT.enableChat = false;
+                    } else {
+                      NEW_CASE_CONFIG.isPCM = true;
+                      NEW_CASE_CONFIG.productSortListFile = 'productSortList.txt';
+                      EDIT_CASE_CONFIG.isPCM = true;
+                      CHAT_SUPPORT.enableChat = true;
+                      if (host !== 'access.redhat.com' ) { 
+                        CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
+                        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
+                        CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
+                        CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
+                        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
+                      }
+                    }
+                  }, function (error) {
+                        window.location.replace(redirectURL);
+                  });
+                }
+              ]);
       // Bootstrap angular app
       angular.bootstrap(document, ['RedhatAccess']);
       // Fade in main element
