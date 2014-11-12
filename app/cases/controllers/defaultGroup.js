@@ -41,7 +41,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
                 }, function (error) {
                     $scope.groupsLoading = false;
                     AlertService.addStrataErrorMessage(error);
-                });                
+                });
             }else{
                 $scope.usersLoading = false;
                 $scope.groupsLoading = false;
@@ -61,7 +61,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             $scope.usersLoading = true;
             $scope.usersOnAccount = [];
             strataService.accounts.users($scope.account.number, $scope.selectedGroup.number).then(function (users) {
-                $scope.usersLoading = false;                
+                $scope.usersLoading = false;
                 $scope.usersLoaded = true;
                 for (var i=0; i<users.length; i++) {
                     if (users[i].write) {
