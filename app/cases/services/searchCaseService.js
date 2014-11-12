@@ -55,9 +55,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             if (angular.isFunction(this.prefilter)) {
                 this.prefilter();
             }
-            if(this.start > 0){
-                this.count = this.totalCases - this.start;
-            }
+            // if(this.start > 0){
+            //     this.count = this.totalCases - this.start;
+            // }
             var params = {
                 count: this.count,
                 include_closed: getIncludeClosed(),
@@ -120,7 +120,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                             }
                             if (response['case'] !== undefined){
                                 that.cases = that.cases.concat(response['case']);
-                                that.count = response['case'].length + that.total
+                                //that.count = response['case'].length + that.total
                                 that.start = that.start + that.count;
                                 that.total = that.total + response['case'].length;
                             }

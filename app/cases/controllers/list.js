@@ -28,8 +28,9 @@ angular.module('RedhatAccess.cases').controller('List', [
             }, {
                 total: SearchCaseService.totalCases,
                 getData: function ($defer, params) {
-                    if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.count) {
+                    if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.total) {
                         SearchCaseService.doFilter().then(function () {
+                            $scope.tableParams.$params.page = (SearchCaseService.total - SearchCaseService.count) / params.count();
                             var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
                             var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
                             $scope.tableParams.total(SearchCaseService.totalCases);
@@ -70,7 +71,6 @@ angular.module('RedhatAccess.cases').controller('List', [
                     }
                 });
             }
-            
         };
         /**
        * Callback after user login. Load the cases and clear alerts
