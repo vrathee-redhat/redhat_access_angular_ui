@@ -16,7 +16,6 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
         $scope.disableSubmitRequest = true;
         $scope.submitRequestClick = angular.bind($scope, function (commentText) {
             $scope.submittingRequest = true;
-            var promises = [];
             var fullComment = 'Request Management Escalation: ' + commentText;
             var onSuccess  = function (response) {
                 var caseJSON = { "escalated": true };
