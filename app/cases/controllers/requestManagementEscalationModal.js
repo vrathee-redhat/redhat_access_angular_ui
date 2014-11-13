@@ -18,34 +18,30 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
             $scope.submittingRequest = true;
             var promises = [];
             var fullComment = 'Request Management Escalation: ' + commentText;
-            var postComment;
-            if (CaseService.draftComment) {
-                postComment = strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, CaseService.draftComment.id);
-            } else {
-                postComment = strataService.cases.comments.post(CaseService.kase.case_number, fullComment, true, false);
-            }
-            postComment.then(function (response) {
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
-            promises.push(postComment);
-            var caseJSON = { 'escalated': true };
-            var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
-            updateCase.then(function (response) {
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
-            promises.push(updateCase);
-            var masterPromise = $q.all(promises);
-            masterPromise.then(function (response) {
+            var onSuccess  = function (response) {
+                var caseJSON = { "escalated": true };
+                var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
+                console.log("Pranjal test " + caseJSON.escalated + " " + CaseService.kase.case_number);
+                updateCase.then(function (response) {
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                    console.log("error in update case" + error.text);
+                });
+
                 CaseService.populateComments($stateParams.id).then(function (comments) {
                     $scope.closeModal();
                     $scope.submittingRequest = false;
                 });
-            }, function (error) {
+            };
+            var onError = function (error) {
                 AlertService.addStrataErrorMessage(error);
-            });
-            return masterPromise;
+            };
+
+            if (CaseService.draftComment) {
+                strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, CaseService.draftComment.id).then(onSuccess, onError);
+            } else {
+                strataService.cases.comments.post(CaseService.kase.case_number, fullComment, true, false).then(onSuccess, onError);
+            }
         });
         $scope.closeModal = function () {
             CaseService.escalationCommentText = undefined;
@@ -60,3 +56,4 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
         };
     }
 ]);
+
