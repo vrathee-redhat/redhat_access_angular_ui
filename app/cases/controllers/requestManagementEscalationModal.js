@@ -21,11 +21,9 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
             var onSuccess  = function (response) {
                 var caseJSON = { "escalated": true };
                 var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
-                console.log("Pranjal test " + caseJSON.escalated + " " + CaseService.kase.case_number);
                 updateCase.then(function (response) {
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
-                    console.log("error in update case" + error.text);
                 });
 
                 CaseService.populateComments($stateParams.id).then(function (comments) {
