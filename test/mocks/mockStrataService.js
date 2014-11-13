@@ -625,6 +625,15 @@ angular.module('RedhatAccess.mock', [])
           }
           return deferred.promise;
         },
+          recommendationsXmlHack: function (params, max,highlight, highlightTags) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                  deferred.reject();
+              } else {
+                  deferred.resolve(MockStrataDataService.mockRecommendations);
+              }
+              return deferred.promise;
+          },
         products: {
           list: function () {
             var deferred = $q.defer();

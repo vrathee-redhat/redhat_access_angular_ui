@@ -359,6 +359,21 @@ div#rha-recommendation-section .hand-picked {
     overflow: hidden;
 }
 
+.progressBarWrapNotes {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    margin: 0 5px;
+    width: 25px;
+    height: 1.2em;
+    background: #fff;
+    vertical-align: middle;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
 .progressBar {
     position: absolute;
         left: 0;
