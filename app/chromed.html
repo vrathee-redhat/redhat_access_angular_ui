@@ -1,0 +1,181 @@
+<!doctype html>
+<html class="bootstrap3 legacyfalse chrometwo">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="/chrome_themes/nimbus/css/chrometwo.css" rel="stylesheet" />
+    <script type="text/javascript" src="/webassets/avalon/j/lib/require.js"></script>
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/chosen/chosen.css" />
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/case.css -->
+    <link rel="stylesheet" href="cases/styles/case.css">
+    <link rel="stylesheet" href="log_viewer/styles/log_viewer.css">
+    <link rel="stylesheet" href="security/styles/security.css">
+    <link rel="stylesheet" href="common/styles/treeviewselector.css">
+    <link rel="stylesheet" href="common/styles/helpers.css">
+    <link rel="stylesheet" href="search/styles/search.css">
+    <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
+    <!-- endbuild -->
+  </head>
+  <body>
+
+    <div id="chrometwo">
+      <div id="chromed-app-content">
+        <div id="pcm" style="display: none;" class="container">
+            <div class="container" style="padding-top: 10px;" ng-view="">
+                <div ui-view id="rha-content" autoscroll="false"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    window.deps = [];
+    window.deps.push("/bower_components/jsUri/Uri.min.js");
+
+    window.deps.push("/bower_components/bootstrap/dist/js/bootstrap.js");
+    window.deps.push("/bower_components/angular-resource/angular-resource.js");
+    window.deps.push("/bower_components/angular-sanitize/angular-sanitize.js");
+    window.deps.push("/bower_components/angular-route/angular-route.js");
+    window.deps.push("/bower_components/angular-ui-router/release/angular-ui-router.js");
+    window.deps.push("/bower_components/angular-bootstrap/ui-bootstrap-tpls.js");
+    window.deps.push("/bower_components/js-markdown-extra/js-markdown-extra.js");
+    window.deps.push("/bower_components/ng-table/ng-table.js");
+    window.deps.push("/bower_components/angular-gettext/dist/angular-gettext.js");
+    window.deps.push("/bower_components/angular-cache/dist/angular-cache.min.js");
+    window.deps.push("/bower_components/angular-chosen-localytics/chosen.js");
+
+
+    window.deps.push("/bower_components/chosen/chosen.jquery.js");
+    window.deps.push("/bower_components/angular-treeview/angular.treeview.min.js");
+
+    window.deps.push("/common/common.module.js");
+    window.deps.push("/cases/cases.module.js");
+    window.deps.push("/cases/controllers/accountSelect.js");
+    window.deps.push("/cases/controllers/addCommentSection.js");
+    window.deps.push("/cases/controllers/attachLocalFile.js");
+    window.deps.push("/cases/controllers/attachmentsSection.js");
+    window.deps.push("/cases/controllers/backendAttachments.js");
+    window.deps.push("/cases/controllers/chatButton.js");
+    window.deps.push("/cases/controllers/commentsSection.js");
+    window.deps.push("/cases/controllers/compactCaseList.js");
+    window.deps.push("/cases/controllers/compactEdit.js");
+    window.deps.push("/cases/controllers/createGroupButton.js");
+    window.deps.push("/cases/controllers/createGroupModal.js");
+    window.deps.push("/cases/controllers/deleteGroupButton.js");
+    window.deps.push("/cases/controllers/defaultGroup.js");
+    window.deps.push("/cases/controllers/descriptionSection.js");
+    window.deps.push("/cases/controllers/detailsSection.js");
+    window.deps.push("/cases/controllers/edit.js");
+    window.deps.push("/cases/controllers/editGroup.js");
+    window.deps.push("/cases/controllers/emailNotifySelect.js");
+    window.deps.push("/cases/controllers/entitlementSelect.js");
+    window.deps.push("/cases/controllers/exportCSVButton.js");
+    window.deps.push("/cases/controllers/group.js");
+    window.deps.push("/cases/controllers/groupList.js");
+    window.deps.push("/cases/controllers/groupSelect.js");
+    window.deps.push("/cases/controllers/list.js");
+    window.deps.push("/cases/controllers/listAttachments.js");
+    window.deps.push("/cases/controllers/listFilter.js");
+    window.deps.push("/cases/controllers/listNewAttachments.js");
+    window.deps.push("/cases/controllers/new.js");
+    window.deps.push("/cases/controllers/ownerSelect.js");
+    window.deps.push("/cases/controllers/pcmRecommendations.js");
+    window.deps.push("/cases/controllers/productSelect.js");
+    window.deps.push("/cases/controllers/recommendationsSection.js");
+    window.deps.push("/cases/controllers/requestManagementEscalationModal.js");
+    window.deps.push("/cases/controllers/search.js");
+    window.deps.push("/cases/controllers/searchBox.js");
+    window.deps.push("/cases/controllers/severitySelect.js");
+    window.deps.push("/cases/controllers/statusSelect.js");
+    window.deps.push("/cases/controllers/typeSelect.js");
+    window.deps.push("/cases/controllers/listBugzillas.js");
+    window.deps.push("/cases/directives/accountSelect.js");
+    window.deps.push("/cases/directives/addCommentSection.js");
+    window.deps.push("/cases/directives/attachLocalFile.js");
+    window.deps.push("/cases/directives/attachmentsSection.js");
+    window.deps.push("/cases/directives/attachProductLogs.js");
+    window.deps.push("/cases/directives/chatButton.js");
+    window.deps.push("/cases/directives/commentsSection.js");
+    window.deps.push("/cases/directives/compactCaseList.js");
+    window.deps.push("/cases/directives/createGroupButton.js");
+    window.deps.push("/cases/directives/deleteGroupButton.js");
+    window.deps.push("/cases/directives/descriptionSection.js");
+    window.deps.push("/cases/directives/detailsSection.js");
+    window.deps.push("/cases/directives/emailNotifySelect.js");
+    window.deps.push("/cases/directives/entitlementSelect.js");
+    window.deps.push("/cases/directives/exportCSVButton.js");
+    window.deps.push("/cases/directives/groupList.js");
+    window.deps.push("/cases/directives/groupSelect.js");
+    window.deps.push("/cases/directives/listAttachments.js");
+    window.deps.push("/cases/directives/listFilter.js");
+    window.deps.push("/cases/directives/listNewAttachments.js");
+    window.deps.push("/cases/directives/onChange.js");
+    window.deps.push("/cases/directives/ownerSelect.js");
+    window.deps.push("/cases/directives/productSelect.js");
+    window.deps.push("/cases/directives/pageHeader.js");
+    window.deps.push("/cases/directives/recommendationsSection.js");
+    window.deps.push("/cases/directives/searchBox.js");
+    window.deps.push("/cases/directives/searchResult.js");
+    window.deps.push("/cases/directives/selectLoadingIndicator.js");
+    window.deps.push("/cases/directives/severitySelect.js");
+    window.deps.push("/cases/directives/statusSelect.js");
+    window.deps.push("/cases/directives/typeSelect.js");
+    window.deps.push("/cases/directives/listBugzillas.js");
+    window.deps.push("/cases/directives/newRecommendationsSection.js");
+    window.deps.push("/cases/filters/bytes.js");
+    window.deps.push("/cases/filters/recommendationsResolution.js");
+    window.deps.push("/cases/services/attachmentsService.js");
+    window.deps.push("/cases/services/caseListService.js");
+    window.deps.push("/cases/services/caseService.js");
+    window.deps.push("/cases/services/groupService.js");
+    window.deps.push("/cases/services/groupUserService.js");
+    window.deps.push("/cases/services/recommendationsService.js");
+    window.deps.push("/cases/services/searchBoxService.js");
+    window.deps.push("/cases/services/searchCaseService.js");
+    window.deps.push("/common/services/strataService.js");
+    window.deps.push("/common/header.module.js");
+    window.deps.push("/common/ui-utils.module.js");
+    window.deps.push("/i18n/translations.js");
+    window.deps.push("/log_viewer/log_viewer.module.js");
+    window.deps.push("/log_viewer/controllers/AccordionDemoCtrl.js");
+    window.deps.push("/log_viewer/controllers/DropdownCtrl.js");
+    window.deps.push("/log_viewer/controllers/fileController.js");
+    window.deps.push("/log_viewer/controllers/logViewerController.js");
+    window.deps.push("/log_viewer/controllers/TabsDemoCtrl.js");
+    window.deps.push("/log_viewer/directives/fillDown.js");
+    window.deps.push("/log_viewer/directives/logsInstructionPane.js");
+    window.deps.push("/log_viewer/directives/logTabs.js");
+    window.deps.push("/log_viewer/directives/navSideBar.js");
+    window.deps.push("/log_viewer/directives/recommendations.js");
+    window.deps.push("/log_viewer/services/accordianService.js");
+    window.deps.push("/log_viewer/services/fileService.js");
+
+
+    window.deps.push("/security/security.module.js");
+    window.deps.push("/security/directives/loginStatus.js");
+    window.deps.push("/security/controllers/securityController.js");
+    window.deps.push("/security/services/securityService.js");
+
+    window.deps.push("/search/search.module.js");
+    window.deps.push("/search/controllers/searchController.js");
+    window.deps.push("/search/directives/accordionSearchResults.js");
+    window.deps.push("/search/directives/listSearchResults.js");
+    window.deps.push("/search/directives/resultDetailDisplay.js");
+    window.deps.push("/search/directives/searchForm.js");
+    window.deps.push("/search/directives/standardSearch.js");
+    window.deps.push("/search/services/searchResultsService.js");
+
+    window.deps.push("/redhat_access_module.js");
+    </script>
+    <script type="text/javascript" src="loader.js"></script>
+</body>
+</html>
