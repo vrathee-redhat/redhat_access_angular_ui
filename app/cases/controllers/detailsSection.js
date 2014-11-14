@@ -11,6 +11,8 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
     'RHAUtils',
     function ($scope, strataService, CaseService, $rootScope, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
         $scope.CaseService = CaseService;
+        $scope.maxNotesLength = '255';
+        $scope.progressCount = 0;
         $scope.init = function () {
             if (!$scope.compact) {
                 strataService.values.cases.types().then(function (response) {
@@ -40,6 +42,19 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 AlertService.addStrataErrorMessage(error);
             });
         };
+
+
+        $scope.$watch('CaseService.kase.notes', function() {
+            $scope.maxCharacterCheck();
+        });
+        $scope.maxCharacterCheck = function() {
+
+            if (CaseService.kase.notes !== undefined ) {
+
+                $scope.progressCount = CaseService.kase.notes.length;
+            }
+        };
+
         $scope.updatingDetails = false;
         $scope.updateCase = function () {
             $scope.updatingDetails = true;
