@@ -35,7 +35,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
             };
 
             if (CaseService.draftComment) {
-                strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, CaseService.draftComment.id).then(onSuccess, onError);
+                strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
             } else {
                 strataService.cases.comments.post(CaseService.kase.case_number, fullComment, true, false).then(onSuccess, onError);
             }
