@@ -53,13 +53,27 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     });
                 }
                 if (EDIT_CASE_CONFIG.showRecommendations) {
-                    var pinnedDfd = RecommendationsService.populatePinnedRecommendations().then(angular.noop, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                    });
-                    var reccomendDfd = RecommendationsService.populateRecommendations(12);
-                    $q.all([pinnedDfd, reccomendDfd]).then(function(){
-                        $scope.recommendationsLoading = false;
-                    });
+                    var pinnedDfd;
+                    var reccomendDfd;
+                    if($scope.EDIT_CASE_CONFIG.isPCM)
+                    {
+                         pinnedDfd = RecommendationsService.populatePinnedRecommendations().then(angular.noop, function (error) {
+                            AlertService.addStrataErrorMessage(error);
+                        });
+                         reccomendDfd = RecommendationsService.populatePCMRecommendationsForEdit(12);
+                        $q.all([pinnedDfd, reccomendDfd]).then(function () {
+                            $scope.recommendationsLoading = false;
+                        });
+                    }
+                    else {
+                         pinnedDfd = RecommendationsService.populatePinnedRecommendations().then(angular.noop, function (error) {
+                            AlertService.addStrataErrorMessage(error);
+                        });
+                         reccomendDfd = RecommendationsService.populateRecommendations(12);
+                        $q.all([pinnedDfd, reccomendDfd]).then(function () {
+                            $scope.recommendationsLoading = false;
+                        });
+                    }
                 }
                 if (EDIT_CASE_CONFIG.showEmailNotifications && !cacheHit) {
                     CaseService.defineNotifiedUsers();

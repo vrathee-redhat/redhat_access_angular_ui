@@ -329,6 +329,16 @@ describe('Case Services', function () {
             spyOn(mockStrataService, 'recommendations').andCallThrough();
             scope.$root.$digest();
         });
+        it('should have a method to populate recommendations For Edit', function () {
+            expect(recommendationsService.populatePCMRecommendationsForEdit).toBeDefined();
+            caseService.kase.product = 'Red Hat Enterprise Linux';
+            caseService.kase.version = '6.0';
+            caseService.kase.summary = 'Test Summary';
+            caseService.kase.description = 'Test Description';
+            recommendationsService.populatePCMRecommendationsForEdit(5);
+            spyOn(mockStrataService, 'recommendations').andCallThrough();
+            scope.$root.$digest();
+        });
     });
     //Suite for CaseListService
     describe('CaseListService', function () {
