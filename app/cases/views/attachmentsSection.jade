@@ -1,9 +1,10 @@
 h4.rha-section-header(translate='') Attachments
 span.rha-search-spinner(ng-show='loading')
-div.container-fluid.rha-side-padding(ng-hide='loading || ie8 && isPCM')
+div.container-fluid.rha-side-padding
   div.row.rha-side-padding
     div.col-xs-12.rha-col-no-padding
       div(rha-listattachments='')
+div(ng-hide='loading || ie8 && isPCM')
   div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; margin: 0;')
   div(ng-hide='AttachmentsService.updatedAttachments.length <= 0 && TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0')
     div.row.rha-side-padding

@@ -10,7 +10,7 @@ div#redhat-access-case.container-offset
           select#rha-defaultgroup-groupselect.form-control(
             ng-disabled='!securityService.loginStatus.isLoggedIn || groupsLoading',
             ng-model='selectedGroup',
-            ng-change='validatePage()',
+            ng-change='defaultGroupChanged()',
             ng-options='group as group.name for group in groups')
         div.col-xs-1
           div(style='width: 100%')

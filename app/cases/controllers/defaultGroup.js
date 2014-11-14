@@ -42,21 +42,6 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
                     $scope.groupsLoading = false;
                     AlertService.addStrataErrorMessage(error);
                 });
-
-                $scope.usersLoading = true;
-                strataService.accounts.users($scope.account.number, $scope.selectedGroup.number).then(function (users) {
-                    $scope.usersLoading = false;
-                    $scope.usersOnAccount = users;
-                    $scope.usersLoaded = true;
-                    $scope.usersOnAccount.sort(function(a, b){
-                        if(a.sso_username < b.sso_username) { return -1; }
-                        if(a.sso_username > b.sso_username) { return 1; }
-                        return 0;
-                    });
-                }, function (error) {
-                    $scope.usersLoading = false;
-                    AlertService.addStrataErrorMessage(error);
-                });
             }else{
                 $scope.usersLoading = false;
                 $scope.groupsLoading = false;
@@ -70,6 +55,29 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             } else {
                 $scope.usersAndGroupsFinishedLoading = false;
             }
+        };
+
+        $scope.defaultGroupChanged = function () {
+            $scope.usersLoading = true;
+            $scope.usersOnAccount = [];
+            strataService.accounts.users($scope.account.number, $scope.selectedGroup.number).then(function (users) {
+                $scope.usersLoading = false;
+                $scope.usersLoaded = true;
+                for (var i=0; i<users.length; i++) {
+                    if (users[i].write) {
+                        $scope.usersOnAccount.push(users[i]);
+                    }
+                }
+                $scope.usersOnAccount.sort(function(a, b){
+                    if(a.sso_username < b.sso_username) { return -1; }
+                    if(a.sso_username > b.sso_username) { return 1; }
+                    return 0;
+                });
+            }, function (error) {
+                $scope.usersLoading = false;
+                AlertService.addStrataErrorMessage(error);
+            });
+            $scope.validatePage();
         };
 
         $scope.setDefaultGroup = function () {
