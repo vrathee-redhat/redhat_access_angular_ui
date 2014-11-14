@@ -818,6 +818,12 @@ angular.module('RedhatAccess.mock', [])
         deferred.resolve(MockStrataDataService.mockSolutions);
         return deferred.promise;
       };
+      this.populatePCMRecommendationsForEdit = function (max) {
+            this.recommendations = MockStrataDataService.mockSolutions;
+            var deferred = $q.defer();
+            deferred.resolve(MockStrataDataService.mockSolutions);
+            return deferred.promise;
+        };
       this.populatePinnedRecommendations = function () {
         this.pinnedRecommendations.push(MockStrataDataService.mockSolutions[0]);
         var deferred = $q.defer();
