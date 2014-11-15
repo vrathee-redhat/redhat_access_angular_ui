@@ -46,6 +46,9 @@ angular.module('RedhatAccess.common').factory('strataService', [
                 status: status
             });
         };
+        var clearCache = function (key) {
+            strataCache.put(key, null);
+        };
         var service = {
             authentication: {
                 checkLogin: function () {
@@ -317,6 +320,9 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     var deferred = $q.defer();
                     strata.groupUsers.update(users, accountId, groupnum, function (response) {
                         deferred.resolve(response);
+                        if (!ie8 && strataCache.get('users' + accountId + groupnum)) {
+                            clearCache('users' + accountId + groupnum);
+                        }
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 }
@@ -338,9 +344,18 @@ angular.module('RedhatAccess.common').factory('strataService', [
                 },
                 users: function (accountNumber, group) {
                     var deferred = $q.defer();
-                    strata.accounts.users(accountNumber, function (response) {
-                        deferred.resolve(response);
-                    }, angular.bind(deferred, errorHandler), group);
+                    if (!ie8 && strataCache.get('users' + accountNumber + group)) {
+                        console.log('data present in strata cache !');
+                        deferred.resolve(strataCache.get('users' + accountNumber + group));
+                    } else {
+                        console.log('data not present in strata cache !!');
+                        strata.accounts.users(accountNumber, function (response) {
+                            if (!ie8) {
+                                strataCache.put('users' + accountNumber + group, response);
+                            }
+                            deferred.resolve(response);
+                        }, angular.bind(deferred, errorHandler), group);
+                    }
                     return deferred.promise;
                 },
                 list: function () {
