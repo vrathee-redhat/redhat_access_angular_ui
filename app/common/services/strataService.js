@@ -338,16 +338,9 @@ angular.module('RedhatAccess.common').factory('strataService', [
                 },
                 users: function (accountNumber, group) {
                     var deferred = $q.defer();
-                    if (!ie8 && strataCache.get('users' + accountNumber + group)) {
-                        deferred.resolve(strataCache.get('users' + accountNumber + group));
-                    } else {
-                        strata.accounts.users(accountNumber, function (response) {
-                            if (!ie8) {
-                                strataCache.put('users' + accountNumber + group, response);
-                            }
-                            deferred.resolve(response);
-                        }, angular.bind(deferred, errorHandler), group);
-                    }
+                    strata.accounts.users(accountNumber, function (response) {
+                        deferred.resolve(response);
+                    }, angular.bind(deferred, errorHandler), group);
                     return deferred.promise;
                 },
                 list: function () {
