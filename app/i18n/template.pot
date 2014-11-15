@@ -532,10 +532,6 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
-#: app/cases/views/entitlementSelect.html
-msgid "Select a Support Level"
-msgstr ""
-
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr ""
@@ -719,6 +715,7 @@ msgid "You have successfully logged out of the Red Hat Customer Portal."
 msgstr ""
 
 #: app/cases/views/addCommentSection.html
+#: app/cases/views/detailsSection.html
 msgid "You have used"
 msgstr ""
 
@@ -727,11 +724,15 @@ msgid "You must be logged in to use this functionality."
 msgstr ""
 
 #: app/cases/controllers/attachLocalFile.js
-msgid "cannot be attached because it is larger the 250MB. Please FTP large files to dropbox.redhat.com."
+msgid "cannot be attached because it is larger the 1GB. Please FTP large files to dropbox.redhat.com."
 msgstr ""
 
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
+msgstr ""
+
+#: app/cases/views/detailsSection.html
+msgid "of the 255 maximum character size."
 msgstr ""
 
 #: app/cases/views/addCommentSection.html
