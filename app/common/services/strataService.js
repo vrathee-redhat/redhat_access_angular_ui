@@ -46,6 +46,9 @@ angular.module('RedhatAccess.common').factory('strataService', [
                 status: status
             });
         };
+        var clearCache = function (key) {
+            strataCache.remove(key);
+        };
         var service = {
             authentication: {
                 checkLogin: function () {
@@ -317,6 +320,9 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     var deferred = $q.defer();
                     strata.groupUsers.update(users, accountId, groupnum, function (response) {
                         deferred.resolve(response);
+                        if (!ie8 && strataCache.get('users' + accountId + groupnum)) {
+                            clearCache('users' + accountId + groupnum);
+                        }
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 }

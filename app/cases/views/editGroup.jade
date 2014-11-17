@@ -32,9 +32,9 @@ div#redhat-access-case.container-offset
             tbody
               tr(ng-repeat='user in usersOnScreen')
                 td(style='text-align: center; width: 25px;')
-                  input(type='checkbox', ng-disabled='user.write' ng-model='user.access' ng-change="toggleUsersPrestine()")
+                  input(type='checkbox', ng-disabled='user.write || user.org_admin' ng-model='user.access' ng-change="toggleUsersPrestine()")
                 td(style='text-align: center; width: 25px;')
-                  input(type='checkbox', ng-model='user.write'  ng-change='writeAccessToggle(user)')
+                  input(type='checkbox', ng-disabled='user.org_admin' ng-model='user.write'  ng-change='writeAccessToggle(user)')
                 td(data-title='"user.sso_username"', sortable='"sso_username"')
                   {{user.sso_username}}
                 td(data-title='"user.first_name"', sortable='"first_name"')
