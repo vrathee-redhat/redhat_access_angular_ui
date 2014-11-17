@@ -345,10 +345,8 @@ angular.module('RedhatAccess.common').factory('strataService', [
                 users: function (accountNumber, group) {
                     var deferred = $q.defer();
                     if (!ie8 && strataCache.get('users' + accountNumber + group)) {
-                        console.log('data present in strata cache !');
                         deferred.resolve(strataCache.get('users' + accountNumber + group));
                     } else {
-                        console.log('data not present in strata cache !!');
                         strata.accounts.users(accountNumber, function (response) {
                             if (!ie8) {
                                 strataCache.put('users' + accountNumber + group, response);
