@@ -47,7 +47,7 @@ angular.module('RedhatAccess.common').factory('strataService', [
             });
         };
         var clearCache = function (key) {
-            strataCache.put(key, null);
+            strataCache.remove(key);
         };
         var service = {
             authentication: {
