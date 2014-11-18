@@ -44,6 +44,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.disableAddComment = true;
         this.fts = false;
         this.fts_contact = '';
+        this.draftSaved = false;
         /**
        * Add the necessary wrapper objects needed to properly display the data.
        *

@@ -15,8 +15,9 @@ div(style='margin-left: 60px; margin-right: 60px;')
       div(ng-if='securityService.loginStatus.authedUser.is_internal')
         span(style='float: left;') {{'Is Public:'|translate}}
         input#rha-case-comment-isPublic(type='checkbox', ng-model='CaseService.isCommentPublic', style='display: inline-block;')
+
       span.pull-right.rha-bold(ng-show='savingDraft') {{'Saving draft...'|translate}}
-      span.pull-right.rha-bold(ng-show='draftSaved && !savingDraft') {{'Draft saved'|translate}}
+      span.pull-right.rha-bold(ng-show='CaseService.draftSaved && !savingDraft') {{'Draft saved'|translate}}
   div(style='float: right;')
     span.rha-search-spinner(ng-show='addingComment')
     button#rha-case-addcommentbutton.btn.btn-primary(
