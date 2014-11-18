@@ -209,7 +209,7 @@ describe('Case Controllers', function () {
             mockScope.saveDraft();
             spyOn(mockStrataService.cases.comments, 'post').andCallThrough();
             mockScope.$root.$digest();
-            expect(mockScope.draftSaved).toBe(true);
+            expect(mockCaseService.draftSaved).toBe(true);
             expect(mockCaseService.draftComment.case_number).toEqual('1234');
         }));
         it('should have a function for saving draft comments', inject(function ($controller) {
@@ -225,7 +225,7 @@ describe('Case Controllers', function () {
             mockScope.saveDraft();
             spyOn(mockStrataService.cases.comments, 'put').andCallThrough();
             mockScope.$root.$digest();
-            expect(mockScope.draftSaved).toBe(true);
+            expect(mockCaseService.draftSaved).toBe(true);
             expect(mockCaseService.draftComment.text).toEqual('test comment');
         }));
         it('should have a function for saving draft comments rejected', inject(function ($controller) {

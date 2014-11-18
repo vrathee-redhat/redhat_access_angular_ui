@@ -50,7 +50,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.populateComments(CaseService.kase.case_number).then(function (comments) {
                     $scope.addingComment = false;
                     $scope.savingDraft = false;
-                    $scope.draftSaved = false;
+                    CaseService.draftSaved = false;
                     CaseService.draftComment = undefined;
                 });
                 $scope.progressCount = 0;
@@ -106,7 +106,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             }
             var onSuccess = function (commentId) {
                 $scope.savingDraft = false;
-                $scope.draftSaved = true;
+                CaseService.draftSaved = true;
                 CaseService.draftComment = {
                     'text': CaseService.commentText,
                     'id': RHAUtils.isNotEmpty(commentId) ? commentId : CaseService.draftComment.id,

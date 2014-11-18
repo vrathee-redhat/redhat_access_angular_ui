@@ -13,7 +13,12 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
     function ($scope, $modalInstance, AlertService, CaseService, strataService, $q, $stateParams, RHAUtils) {
         $scope.CaseService = CaseService;
         $scope.submittingRequest = false;
-        $scope.disableSubmitRequest = true;
+        if(CaseService.draftComment && RHAUtils.isNotEmpty(CaseService.draftComment.text)){
+            $scope.disableSubmitRequest = false;
+            CaseService.escalationCommentText = CaseService.commentText;
+        }else{
+            $scope.disableSubmitRequest = true;
+        }
         $scope.submitRequestClick = angular.bind($scope, function (commentText) {
             $scope.submittingRequest = true;
             var fullComment = 'Request Management Escalation: ' + commentText;
@@ -28,6 +33,9 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
                 CaseService.populateComments($stateParams.id).then(function (comments) {
                     $scope.closeModal();
                     $scope.submittingRequest = false;
+                    CaseService.draftSaved = false;
+                    CaseService.draftComment = undefined;
+                    CaseService.commentText = undefined;
                 });
             };
             var onError = function (error) {
@@ -35,7 +43,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
             };
 
             if (CaseService.draftComment) {
-                strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
+                strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, true, CaseService.draftComment.id).then(onSuccess, onError);
             } else {
                 strataService.cases.comments.post(CaseService.kase.case_number, fullComment, true, false).then(onSuccess, onError);
             }
