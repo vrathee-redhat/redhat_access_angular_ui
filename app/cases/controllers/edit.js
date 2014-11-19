@@ -102,10 +102,22 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 $scope.failedToLoadCase = true;
             });
         };
+
+        $scope.firePageLoadEvent = function () {
+            if (window.chrometwo_require !== undefined) {
+                chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
+                    attrs.harvest();
+                    paf.report();
+                });
+            }
+        };
+
         if (securityService.loginStatus.isLoggedIn) {
+            $scope.firePageLoadEvent();
             $scope.init();
         }
         $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            $scope.firePageLoadEvent();
             $scope.init();
             AlertService.clearAlerts();
         });

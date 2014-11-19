@@ -72,16 +72,28 @@ angular.module('RedhatAccess.cases').controller('List', [
                 });
             }
         };
+
+        $scope.firePageLoadEvent = function () {
+            if (window.chrometwo_require !== undefined) {
+                chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
+                    attrs.harvest();
+                    paf.report();
+                });
+            }
+        };
+
         /**
        * Callback after user login. Load the cases and clear alerts
        */
         if (securityService.loginStatus.isLoggedIn && securityService.loginStatus.userAllowedToManageCases) {
+            $scope.firePageLoadEvent();
             SearchCaseService.clear();
             CaseService.status = 'open';
             SearchBoxService.doSearch();
         }
         $scope.listAuthEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             if(securityService.loginStatus.userAllowedToManageCases){
+                $scope.firePageLoadEvent();
                 CaseService.status = 'open';
                 SearchBoxService.doSearch();
                 AlertService.clearAlerts();

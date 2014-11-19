@@ -215,11 +215,23 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
             }
         };
+
+        $scope.firePageLoadEvent = function () {
+            if (window.chrometwo_require !== undefined) {
+                chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
+                    attrs.harvest();
+                    paf.report();
+                });
+            }
+        };
+
         if (securityService.loginStatus.isLoggedIn) {
+            $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
         }
         $scope.authLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
             AlertService.clearAlerts();
