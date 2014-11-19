@@ -48,7 +48,9 @@
     }
     // Once all modules have loaded bootstrap it
     jq.when.apply(jq, dfds).always(function() {
-      strata.setStrataHostname('https://' + window.location.host);
+      var host = window.location.host;
+      strata.setStrataHostname('https://' + host);
+      $.support.cors = true;
       angular.module('RedhatAccess.cases').config(['$urlRouterProvider',
             function($urlRouterProvider) {
               $urlRouterProvider.otherwise('case/list')
