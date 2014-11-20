@@ -42,6 +42,7 @@ form(name='caseDetails')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
                     label(for='rha-case-severity') {{'Severity:'|translate}}
+                    span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
                   span.glyphicon.glyphicon-asterisk(
                     ng-show='caseDetails.severity.$dirty',
                     style='display: inline-block;float: right; vertical-align: 50%;')

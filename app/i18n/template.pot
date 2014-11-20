@@ -210,6 +210,10 @@ msgstr ""
 msgid "Diagnose"
 msgstr ""
 
+#: app/cases/views/detailsSection.html
+msgid "Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case."
+msgstr ""
+
 #: app/cases/views/addCommentSection.html
 msgid "Draft saved"
 msgstr ""
@@ -446,7 +450,7 @@ msgstr ""
 #: app/cases/views/new.html
 msgid "Product Version:"
 msgstr ""
-
+a
 #: app/cases/views/list.html
 msgid "Product/Version"
 msgstr ""
@@ -700,6 +704,10 @@ msgstr ""
 
 #: app/cases/controllers/defaultGroup.js
 msgid "User does not have proper credentials to manage default groups."
+msgstr ""
+
+#: app/cases/views/detailsSection.html
+msgid "View Production Support Service Level Agreement"
 msgstr ""
 
 #: app/cases/views/recommendationsSection.html
