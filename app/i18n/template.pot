@@ -450,7 +450,7 @@ msgstr ""
 #: app/cases/views/new.html
 msgid "Product Version:"
 msgstr ""
-a
+
 #: app/cases/views/list.html
 msgid "Product/Version"
 msgstr ""
@@ -748,7 +748,7 @@ msgid "of the 255 maximum character size."
 msgstr ""
 
 #: app/cases/views/addCommentSection.html
-msgid "of the 32KB maximum description size."
+msgid "of the 32K maximum description size."
 msgstr ""
 
 #: app/cases/services/attachmentsService.js
