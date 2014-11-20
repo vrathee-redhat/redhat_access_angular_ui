@@ -133,11 +133,11 @@ msgstr ""
 msgid "Case Type:"
 msgstr ""
 
-#: app/cases/controllers/EditGroup.js
+#: app/cases/controllers/editGroup.js
 msgid "Case group successfully updated."
 msgstr ""
 
-#: app/cases/controllers/EditGroup.js
+#: app/cases/controllers/editGroup.js
 msgid "Case users successfully updated."
 msgstr ""
 
@@ -634,6 +634,10 @@ msgstr ""
 msgid "The log file viewer gives the ability to diagnose application logs as well as file a support case with Red Hat Global Support Services."
 msgstr ""
 
+#: app/cases/views/detailsSection.html
+msgid "This field allows Red Hat customers to make private notes pertinent to their case or account.  Contents of this field are not visible to  support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."
+msgstr ""
+
 #: app/cases/views/new.html
 msgid "This release is now retired, please refer to the recommended FAQ prior to filing a case"
 msgstr ""
@@ -690,7 +694,7 @@ msgstr ""
 msgid "User does not have permissions to set default case group."
 msgstr ""
 
-#: app/cases/controllers/EditGroup.js
+#: app/cases/controllers/editGroup.js
 msgid "User does not have proper credentials to manage case groups."
 msgstr ""
 
@@ -724,7 +728,7 @@ msgid "You must be logged in to use this functionality."
 msgstr ""
 
 #: app/cases/controllers/attachLocalFile.js
-msgid "cannot be attached because it is larger the 1GB. Please FTP large files to dropbox.redhat.com."
+msgid "cannot be attached because it is larger the 250 MB. Please FTP large files to dropbox.redhat.com."
 msgstr ""
 
 #: app/cases/views/recommendationsSection.html
