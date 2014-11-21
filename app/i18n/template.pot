@@ -210,6 +210,10 @@ msgstr ""
 msgid "Diagnose"
 msgstr ""
 
+#: app/cases/views/detailsSection.html
+msgid "Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case."
+msgstr ""
+
 #: app/cases/views/addCommentSection.html
 msgid "Draft saved"
 msgstr ""
@@ -702,6 +706,10 @@ msgstr ""
 msgid "User does not have proper credentials to manage default groups."
 msgstr ""
 
+#: app/cases/views/detailsSection.html
+msgid "View Production Support Service Level Agreement"
+msgstr ""
+
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
 msgstr ""
@@ -740,7 +748,7 @@ msgid "of the 255 maximum character size."
 msgstr ""
 
 #: app/cases/views/addCommentSection.html
-msgid "of the 32KB maximum description size."
+msgid "of the 32K maximum description size."
 msgstr ""
 
 #: app/cases/services/attachmentsService.js
