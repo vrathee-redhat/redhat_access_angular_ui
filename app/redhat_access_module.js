@@ -1,5 +1,7 @@
 angular.module('RedhatAccess', [
     'ngSanitize',
+    'toastr',
+    'ngAnimate',
     'localytics.directives',
     'RedhatAccess.header',
     'RedhatAccess.template',

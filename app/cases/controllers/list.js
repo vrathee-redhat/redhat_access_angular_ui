@@ -3,6 +3,7 @@
 angular.module('RedhatAccess.cases').controller('List', [
     '$scope',
     '$filter',
+    '$animate',
     'ngTableParams',
     'securityService',
     'AlertService',
@@ -12,7 +13,8 @@ angular.module('RedhatAccess.cases').controller('List', [
     'AUTH_EVENTS',
     'SearchBoxService',
     'NEW_CASE_CONFIG',
-    function ($scope, $filter, ngTableParams, securityService, AlertService, $rootScope, SearchCaseService, CaseService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG) {
+    'toastr',
+    function ($scope, $filter, $animate, ngTableParams, securityService, AlertService, $rootScope, SearchCaseService, CaseService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, toastr) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -51,6 +53,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             if($scope.tableParams !== undefined){
                 $scope.tableParams.$params.page = 1;
             }
+            toastr.info('Click to access', 'user12345 has just created Support Case 3837110.');
             if(CaseService.groups.length === 0){
                 CaseService.populateGroups().then(function (){
                     SearchCaseService.doFilter().then(function () {
