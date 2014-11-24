@@ -243,7 +243,7 @@ msgid "File description"
 msgstr ""
 
 #: app/cases/views/attachLocalFile.html
-msgid "File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat.com."
+msgid "File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
 msgstr ""
 
 #: app/cases/views/listAttachments.html
@@ -736,7 +736,7 @@ msgid "You must be logged in to use this functionality."
 msgstr ""
 
 #: app/cases/controllers/attachLocalFile.js
-msgid "cannot be attached because it is larger the 250 MB. Please FTP large files to dropbox.redhat.com."
+msgid "cannot be attached because it is larger the 1 GB. Please FTP large files to dropbox.redhat.com."
 msgstr ""
 
 #: app/cases/views/recommendationsSection.html
