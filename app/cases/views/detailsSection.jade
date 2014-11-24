@@ -57,12 +57,12 @@ form(name='caseDetails')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Support:'|translate}}
                 td
-                  input#rha-case-ftsCheckboxEdit(ng-model='CaseService.kase.fts', type='checkbox')
+                  input#rha-case-ftsCheckboxEdit(ng-model='CaseService.kase.fts', type='checkbox', name='ftsCheckbox')
               tr(ng-show='CaseService.showFts() && CaseService.kase.fts')
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Contact:'|translate}}
                 td
-                  input#rha-case-contact-24x7-edit.form-control(ng-model='CaseService.kase.contact_info24_x7')
+                  input#rha-case-contact-24x7-edit.form-control(ng-model='CaseService.kase.contact_info24_x7', name='ftsContact')
               tr
                 th.rha-detail-table-header
                   div(style='vertical-align: 50%; display: inline-block;')
@@ -132,8 +132,20 @@ form(name='caseDetails')
                 td#rha-owner {{CaseService.kase.contact_name}} <{{CaseService.kase.contact_sso_username }}>
               tr(ng-hide='compact')
                 th.rha-detail-table-header
-                  label(for='rha-rh-owner') {{'Red Hat Owner:'|translate}}
-                td#rha-rh-owner {{CaseService.kase.owner}}
+                  div(style='vertical-align: 50%; display: inline-block;')
+                    label(for='rha-rh-owner') {{'Red Hat Owner:'|translate}}
+                td
+                  div
+                    span.glyphicon.glyphicon-asterisk(
+                    ng-show='caseDetails.owner.$dirty',
+                    style='display: inline-block;float: left; vertical-align: 50%;')
+                    span#rha-rh-owner(ng-if='userIsCaseOwner') {{CaseService.kase.owner}}
+                    select#rha-rh-owner.form-control(
+                      name='owner',
+                      style='width: 100%;',
+                      ng-model='CaseService.kase.owner'
+                      ng-if='!userIsCaseOwner',
+                      ng-options='owner.value as owner.label for owner in owners')
           div.col-md-4
             table.table.details-table
               tr(ng-hide='compact')

@@ -89,6 +89,11 @@ describe('Case Controllers', function () {
                 $setPristine: function () {
                 }
             };
+            mockScope.caseDetails.summary = {
+                $dirty: function () {
+                return true;
+                }
+            };
             mockCaseService.kase.case_number = '1234';
             mockCaseService.kase.type = 'bug';
             mockCaseService.kase.severity = 'high';
@@ -106,6 +111,7 @@ describe('Case Controllers', function () {
             expect(mockScope.updateCase).toBeDefined();
             mockScope.updateCase();
             spyOn(mockStrataService.cases, 'put').andCallThrough();
+            spyOn(mockStrataService.cases.owner, 'update').andCallThrough();
             mockScope.$root.$digest();
             expect(mockScope.updatingDetails).toBe(false);
         }));

@@ -541,6 +541,15 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         deferred.resolve(response);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
+                },
+                owner: {
+                    update: function (caseNumber, ssoUserName) {
+                        var deferred = $q.defer();
+                        strata.cases.owner.update(caseNumber, ssoUserName, function (response) {
+                            deferred.resolve(response);
+                        }, angular.bind(deferred, errorHandler));
+                        return deferred.promise;
+                    }
                 }
             },
             values: {
