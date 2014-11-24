@@ -583,6 +583,17 @@ angular.module('RedhatAccess.mock', [])
               deferred.resolve(MockStrataDataService.mockCases);
             }
             return deferred.promise;
+          },
+          owner: {
+            update: function () {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                deferred.reject("strata error");
+              } else {
+                deferred.resolve();
+              }
+              return deferred.promise;
+            }
           }
         },
         entitlements: {
