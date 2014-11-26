@@ -68,6 +68,17 @@
                   NEW_CASE_CONFIG.showServerSideAttachments = false;
                   EDIT_CASE_CONFIG.showServerSideAttachments = false;
                   gettextCatalog.currentLanguage = getCookieValue('rh_locale');
+                  CHAT_SUPPORT.enableChat = true;
+                  NEW_CASE_CONFIG.isPCM = true;
+                  NEW_CASE_CONFIG.productSortListFile = 'productSortList.txt';
+                  EDIT_CASE_CONFIG.isPCM = true;
+                  if (host !== 'access.redhat.com' ) {
+                    CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
+                    CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
+                    CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
+                    CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
+                    CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
+                  }
                   securityService.validateLogin(false).then(function (authedUser) {
                     var account = securityService.loginStatus.account;
                     if(account.is_secured_support !== undefined && account.is_secured_support === true){
@@ -80,18 +91,6 @@
                       EDIT_CASE_CONFIG.showRecommendations = false;
                       EDIT_CASE_CONFIG.showEmailNotifications = false;
                       CHAT_SUPPORT.enableChat = false;
-                    } else {
-                      NEW_CASE_CONFIG.isPCM = true;
-                      NEW_CASE_CONFIG.productSortListFile = 'productSortList.txt';
-                      EDIT_CASE_CONFIG.isPCM = true;
-                      CHAT_SUPPORT.enableChat = true;
-                      if (host !== 'access.redhat.com' ) { 
-                        CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
-                        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
-                        CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
-                        CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
-                        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
-                      }
                     }
                   }, function (error) {
                         window.location.replace(redirectURL);

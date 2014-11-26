@@ -91,6 +91,11 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     strata.clearCredentials();
                 }
             },
+            cache: {
+                clr: function(key) {
+                    clearCache(key);
+                }
+            },
             entitlements: {
                 get: function (showAll, ssoUserName) {
                     var deferred = $q.defer();
