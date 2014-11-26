@@ -16,6 +16,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
         $scope.isPCM = EDIT_CASE_CONFIG.isPCM;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
+        $scope.ieFileDescription ='';
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;
@@ -28,6 +29,11 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                 $scope.updatingAttachments = false;
             });
         };
+
+        $scope.ieClearSelectedFile = function () {
+            $scope.ieFileDescription = '';
+        };
+
         $scope.ieUpload = function($event) {
             var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachment...'));
             var form = document.getElementById('fileUploaderForm');
@@ -43,13 +49,14 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                 }
 
                 var content;
-                if (iframeId.contentDocument) {
+                if (iframeId.contentDocument && iframeId.contentDocument.body !== null) {
                     content = iframeId.contentDocument.body.innerText;
-                } else if (iframeId.contentWindow) {
+                } else if (iframeId.contentWindow && iframeId.contentWindow.document.body !== null) {
                     content = iframeId.contentWindow.document.body.innerText;
-                } else if (iframeId.document) {
-                    content = iframeId.document.body.innerText;
                 }
+                //else if (iframeId.document) {
+                //  content = iframeId.document.body.innerText;
+                //}
                 if (content !== undefined && content.length) {
                     var parser = document.createElement('a');
                     parser.href = content;
@@ -61,6 +68,8 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                             AlertService.removeAlert(uploadingAlert);
                             AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                             AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                            $scope.ieClearSelectedFile();
+
                         }, function (error) {
                             AlertService.addStrataErrorMessage(error);
                         });
