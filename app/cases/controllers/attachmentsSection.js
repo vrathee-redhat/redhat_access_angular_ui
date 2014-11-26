@@ -16,6 +16,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
         $scope.isPCM = EDIT_CASE_CONFIG.isPCM;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
+        $scope.fileDescription ='';
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;
@@ -28,6 +29,11 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                 $scope.updatingAttachments = false;
             });
         };
+
+        $scope.ieClearSelectedFile = function () {
+            $scope.ieFileDescription = '';
+        };
+
         $scope.ieUpload = function($event) {
             var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachment...'));
             var form = document.getElementById('fileUploaderForm');
@@ -61,6 +67,8 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                             AlertService.removeAlert(uploadingAlert);
                             AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                             AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                            $scope.ieClearSelectedFile();
+
                         }, function (error) {
                             AlertService.addStrataErrorMessage(error);
                         });

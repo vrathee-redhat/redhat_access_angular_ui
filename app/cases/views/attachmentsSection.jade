@@ -47,12 +47,13 @@ div(ng-show='!loading && ie8 || ie9 && isPCM')
             a(href='https://access.redhat.com/knowledge/solutions/2112', target='_blank') {{'(More info)'|translate}}
       div.row.rha-create-field
         div.col-xs-12
-          input#rha-case-attachement-fileDescription.form-control(
+            input#fileDescription.form-control(
             style='float: left;',
-            placeholder="{{'File description'|translate}}",
-            ng-model='fileDescription',
-            ng-disabled='disabled')
-      div.row.rha-create-field
+            type='text',
+            name='description',
+            ng-model='ieFileDescription',
+            placeholder="{{'File description'|translate}}")
+          div.row.rha-create-field
         div.col-xs-12
           button.btn.btn-add(
             style='float: right;',
