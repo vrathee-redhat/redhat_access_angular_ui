@@ -168,7 +168,7 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
             CaseService.sfdcIsHealthy = COMMON_CONFIG.sfdcIsHealthy;
             HeaderService.sfdcIsHealthy = COMMON_CONFIG.sfdcIsHealthy;
             if (COMMON_CONFIG.doSfdcHealthCheck) {
-                $scope.healthTimer = $interval(HeaderService.checkSfdcHealth, 10000);
+                $scope.healthTimer = $interval(HeaderService.checkSfdcHealth, COMMON_CONFIG.healthCheckInterval);
             }
         };
         $scope.init();
