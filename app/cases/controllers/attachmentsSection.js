@@ -16,7 +16,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
         $scope.isPCM = EDIT_CASE_CONFIG.isPCM;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
-        $scope.fileDescription ='';
+        $scope.ieFileDescription ='';
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;
