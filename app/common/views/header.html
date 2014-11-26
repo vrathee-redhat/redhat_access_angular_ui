@@ -10,8 +10,9 @@
         </div>
     </div>
     <div class="rha-bottom-border" style='margin-bottom: 0px;'/>
-    <div class="row" style='margin-bottom: 0px;'>
-        <div class="col-xs-12">
+    <div class="row" style='margin-bottom: 0px;' ng-controller='HeaderController'>
+        <div ng-show='!HeaderService.sfdcIsHealthy' ng-bind-html='parseSfdcOutageHtml()'/>
+        <div class="col-xs-12" ng-show='HeaderService.sfdcIsHealthy'>
             <div rha-alert />
         </div>
     </div>

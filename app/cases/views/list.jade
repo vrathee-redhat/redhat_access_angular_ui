@@ -1,8 +1,8 @@
 div#redhat-access-case.container-offset(style='padding-bottom: 15px;')
-  div(rha-header='', page='caseList', ng-hide='NEW_CASE_CONFIG.isPCM')
-  div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn')
+  div(rha-header='', page='caseList')
+  div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
     div {{'User does not have permissions to manage cases.'|translate}}
-  div(ng-hide='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn')
+  div(ng-hide='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn || !CaseService.sfdcIsHealthy')
     div.container-fluid.rha-side-padding
       div.row
         div.col-md-8

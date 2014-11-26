@@ -1,10 +1,10 @@
 div#redhat-access-case
   div(rha-header='', page='newCase')
-  div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
+  div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy')
     div.pull-right
         div(rha-chatbutton='' style='margin-right: 10px;')
-  div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
-  div.row.no-margin-bottom.full-border(style='margin-bottom: 0px;' ng-hide='!NEW_CASE_CONFIG.isPCM')
+  div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy')
+  div.row.no-margin-bottom.full-border(style='margin-bottom: 0px;' ng-hide='!NEW_CASE_CONFIG.isPCM || !CaseService.sfdcIsHealthy')
     div.col-md-4.center 
       label {{'Product & Topic'|translate}}
       div(ng-attr-class="{{isPage1 && 'no-fun' || 'fun' }}")
@@ -14,7 +14,7 @@ div#redhat-access-case
     div.col-md-4.center 
       label {{'Creating Case'|translate}}
       div(ng-attr-class="{{submittingCase && 'no-fun' || 'fun' }}")
-  div.row(ng-class="{'partial-border': NEW_CASE_CONFIG.isPCM}")
+  div.row(ng-class="{'partial-border': NEW_CASE_CONFIG.isPCM}" , ng-hide='!CaseService.sfdcIsHealthy')
     div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
       div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
         div(ng-if='securityService.loginStatus.authedUser.is_internal')

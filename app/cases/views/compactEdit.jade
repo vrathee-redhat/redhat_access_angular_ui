@@ -1,6 +1,6 @@
 doctype html
 div#redhat-access-case
-  div.container-fluid(ng-show='caseLoading && securityService.loginStatus.isLoggedIn')
+  div.container-fluid(ng-show='caseLoading && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
     div.row(style='margin-right: 0px;')
       div.col-xs-12
         span.rha-search-spinner

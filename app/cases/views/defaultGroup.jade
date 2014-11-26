@@ -1,7 +1,7 @@
 div#redhat-access-case.container-offset
   div(rha-header='', page='defaultGroup' ng-controller='DefaultGroup')
-  div(ng-show='!securityService.loginStatus.authedUser.org_admin') {{'User does not have permissions to set default case group.'|translate}}
-  div.rha-side-padding(ng-show='securityService.loginStatus.authedUser.org_admin')
+  div(ng-show='!securityService.loginStatus.authedUser.org_admin && CaseService.sfdcIsHealthy') {{'User does not have permissions to set default case group.'|translate}}
+  div.rha-side-padding(ng-show='securityService.loginStatus.authedUser.org_admin && CaseService.sfdcIsHealthy')
     div.row(style='padding-bottom: 20px;')
       div.col-xs-12(style='padding-bottom: 20px;')
         div.col-xs-2 
