@@ -47,42 +47,58 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                 if (iframeId.removeEventListener){
                     iframeId.removeEventListener('load', eventHandler, false);
                 }
+                if(!$scope.ie8){
+                    var content;
+                    if (iframeId.contentDocument && iframeId.contentDocument.body !== null) {
+                        content = iframeId.contentDocument.body.innerText;
+                    } else if (iframeId.contentWindow && iframeId.contentWindow.document.body !== null) {
+                        content = iframeId.contentWindow.document.body.innerText;
+                    }
+                    //else if (iframeId.document) {
+                    //  content = iframeId.document.body.innerText;
+                    //}
+                    if (content !== undefined && content.length) {
+                        var parser = document.createElement('a');
+                        parser.href = content;
+                        var splitPath = parser.pathname.split('/');
+                        if(splitPath !== undefined && splitPath[4] !== undefined){
+                            AttachmentsService.clear();
+                            strataService.cache.clr('attachments' + CaseService.kase.case_number);
+                            strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
+                                AlertService.removeAlert(uploadingAlert);
+                                AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                                $scope.ieClearSelectedFile();
 
-                var content;
-                if (iframeId.contentDocument && iframeId.contentDocument.body !== null) {
-                    content = iframeId.contentDocument.body.innerText;
-                } else if (iframeId.contentWindow && iframeId.contentWindow.document.body !== null) {
-                    content = iframeId.contentWindow.document.body.innerText;
-                }
-                //else if (iframeId.document) {
-                //  content = iframeId.document.body.innerText;
-                //}
-                if (content !== undefined && content.length) {
-                    var parser = document.createElement('a');
-                    parser.href = content;
-                    var splitPath = parser.pathname.split('/');
-                    if(splitPath !== undefined && splitPath[4] !== undefined){
-                        AttachmentsService.clear();
-                        strataService.cache.clr('attachments' + CaseService.kase.case_number);
-                        strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
+                            }, function (error) {
+                                AlertService.addStrataErrorMessage(error);
+                            });
+                        } else {
                             AlertService.removeAlert(uploadingAlert);
-                            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                            AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
-                            $scope.ieClearSelectedFile();
-
-                        }, function (error) {
-                            AlertService.addStrataErrorMessage(error);
-                        });
+                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                            $scope.$apply();
+                        }
                     } else {
                         AlertService.removeAlert(uploadingAlert);
                         AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
                         $scope.$apply();
                     }
-                } else {
-                    AlertService.removeAlert(uploadingAlert);
-                    AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
-                    $scope.$apply();
+                }else {
+                    AttachmentsService.clear();
+                    strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
+                        AlertService.removeAlert(uploadingAlert);
+                        AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                        AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                        $scope.ieClearSelectedFile();
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
                 }
+                setTimeout(function(){
+                    iframeId.contentDocument.clear();
+                },
+                    100
+                );
             };
 
             if (iframeId.addEventListener){
