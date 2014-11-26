@@ -84,12 +84,17 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                         $scope.$apply();
                     }
                 }else {
-                    AttachmentsService.clear();
                     strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
-                        AlertService.removeAlert(uploadingAlert);
-                        AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                        AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
-                        $scope.ieClearSelectedFile();
+                        if(attachmentsJSON.length !== AttachmentsService.originalAttachments.length){
+                            AlertService.removeAlert(uploadingAlert);
+                            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                            AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                            $scope.ieClearSelectedFile();
+                        } else{
+                            AlertService.removeAlert(uploadingAlert);
+                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment.'));
+                        }
+
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
