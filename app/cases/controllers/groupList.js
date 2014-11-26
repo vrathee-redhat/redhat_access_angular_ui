@@ -43,6 +43,12 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             GroupService.reloadTable = function () {
                 $scope.tableParams.reload();
             };
+            GroupService.reloadTableAndClearPagination = function () {
+                if($scope.tableParams !== undefined){
+                    $scope.tableParams.$params.page = 1;
+                }
+                $scope.tableParams.reload();
+            };
             tableBuilt = true;
         };
         
