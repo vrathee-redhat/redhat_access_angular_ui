@@ -411,9 +411,6 @@ angular.module('RedhatAccess.cases').controller('New', [
                     } else if (iframeId.contentWindow && iframeId.contentWindow.document.body !== null) {
                         content = iframeId.contentWindow.document.body.innerText;
                     }
-                    //else if (iframeId.document) {
-                    //  content = iframeId.document.body.innerText;
-                    //}
                     if (content !== undefined && content.length) {
                         var parser = document.createElement('a');
                         parser.href = content;
