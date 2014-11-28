@@ -41,11 +41,10 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
             form.action = 'https://' + window.location.host + '/rs/cases/' + CaseService.kase.case_number + '/attachments';
 
             var eventHandler = function () {
-                if (iframeId.detachEvent){
-                    iframeId.detachEvent('onload', eventHandler);
-                }
                 if (iframeId.removeEventListener){
                     iframeId.removeEventListener('load', eventHandler, false);
+                }else if (iframeId.detachEvent){
+                    iframeId.detachEvent('onload', eventHandler);
                 }
                 if(!$scope.ie8){
                     var content;
@@ -54,9 +53,6 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                     } else if (iframeId.contentWindow && iframeId.contentWindow.document.body !== null) {
                         content = iframeId.contentWindow.document.body.innerText;
                     }
-                    //else if (iframeId.document) {
-                    //  content = iframeId.document.body.innerText;
-                    //}
                     if (content !== undefined && content.length) {
                         var parser = document.createElement('a');
                         parser.href = content;
@@ -100,14 +96,13 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                     });
                 }
                 setTimeout(function(){
-                    iframeId.contentDocument.clear();
                 },
                     100
                 );
             };
 
             if (iframeId.addEventListener){
-                iframeId.addEventListener('load', eventHandler, true);
+                iframeId.addEventListener('load', eventHandler, false);
             } else if (iframeId.attachEvent){
                 iframeId.attachEvent('onload', eventHandler);
             }
