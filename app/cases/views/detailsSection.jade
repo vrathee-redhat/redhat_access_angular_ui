@@ -52,6 +52,7 @@ form(name='caseDetails')
                         name='severity',
                         style='width: 100%;',
                         ng-model='CaseService.kase.severity',
+                        ng-change='CaseService.onChangeFTSCheck()',
                         ng-options='s.name for s in CaseService.severities track by s.name')
               tr(ng-show='CaseService.showFts()')
                 th.rha-detail-table-header
