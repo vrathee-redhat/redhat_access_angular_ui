@@ -108,7 +108,7 @@ div#redhat-access-case
               select#rha-severity.form-control(
                 style='width: 100%;',
                 ng-model='CaseService.kase.severity',
-                ng-change='CaseService.onChangeSeverity()',
+                ng-change='CaseService.onChangeFTSCheck()',
                 ng-disabled='submittingCase',
                 ng-options='s.name for s in CaseService.severities track by s.name')
         div(ng-show='CaseService.showFts()')

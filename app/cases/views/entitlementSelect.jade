@@ -2,6 +2,6 @@ div(rha-selectloadingindicator='', loading='CaseService.entitlementsLoading', ty
   select#rha-entitlement-select(
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.entitlement',
-    ng-change='CaseService.onSelectChanged()',
+    ng-change='CaseService.onChangeFTSCheck()',
     width='"100%"',
     ng-options='entitlement as entitlement for entitlement in CaseService.entitlements')

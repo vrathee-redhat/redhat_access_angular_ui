@@ -231,34 +231,11 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
 
 
-        this.onChangeSeverity = function () {
-            var showFtsCheckbox = false;
-            if (RHAUtils.isNotEmpty(this.severities)) {
-                if (this.entitlements !== undefined && this.entitlements.length === 1) {
-                    if (this.entitlements[0] === 'PREMIUM' || this.entitlements[0] === 'AMC') {
-                        showFtsCheckbox = true;
-                    }
-                } else if (this.entitlement === 'PREMIUM' || this.entitlement === 'AMC') {
-                    showFtsCheckbox = true;
-                } else if (RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC')) {
-                    showFtsCheckbox = true;
-                }
-                if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
-                    this.fts = true;
-                    return true;
-                } else {
-                    this.fts = false;
-                    this.fts_contact = '';
-                    if (this.kase.fts !== undefined) {
-                        this.kase.fts = false;
-                    }
-                    if (this.kase.contact_info24_x7 !== undefined) {
-                        this.kase.contact_info24_x7 = '';
-                    }
-                    return false;
-                }
+        this.onChangeFTSCheck = function () {
+            if(this.showFts()) {
+                this.fts = true;
+                this.kase.fts=true;
             }
-            return false;
         };
 
 
@@ -271,7 +248,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     }
                 } else if (this.entitlement === 'PREMIUM' || this.entitlement === 'AMC') {
                     showFtsCheckbox = true;
-
                 } else if (RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC')) {
                     showFtsCheckbox = true;
                 }
@@ -279,12 +255,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     return true;
                 } else {
                     this.fts = false;
-                    this.fts_contact = '';
                     if (this.kase.fts !== undefined) {
                         this.kase.fts = false;
-                    }
-                    if (this.kase.contact_info24_x7 !== undefined) {
-                        this.kase.contact_info24_x7 = '';
                     }
                     return false;
                 }
