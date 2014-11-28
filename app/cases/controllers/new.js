@@ -387,7 +387,6 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
 
         $scope.ieFileUpload = function(caseNumber) {
-            var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachment...'));
             var form = document.getElementById('fileUploaderForm');
             var iframeId = document.getElementById('upload_target');
             form.action = 'https://' + window.location.host + '/rs/cases/' + caseNumber + '/attachments';
@@ -417,23 +416,19 @@ angular.module('RedhatAccess.cases').controller('New', [
                         parser.href = content;
                         var splitPath = parser.pathname.split('/');
                         if(splitPath !== undefined && splitPath[4] !== undefined){
-                            AlertService.removeAlert(uploadingAlert);
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         } else {
-                            AlertService.removeAlert(uploadingAlert);
                             AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         }
                     } else {
-                        AlertService.removeAlert(uploadingAlert);
                         AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
                         redirectToCase(caseNumber);
                         $scope.$apply();
                     }
                 }else {
-                    AlertService.removeAlert(uploadingAlert);
                     redirectToCase(caseNumber);
                     $scope.$apply();
                 }
