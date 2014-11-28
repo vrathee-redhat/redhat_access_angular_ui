@@ -37,6 +37,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
         $scope.ie8 = window.ie8;
+        $scope.ie9 = window.ie9;
         $scope.ie8Message='We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
 
 
@@ -356,6 +357,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             if (RHAUtils.isNotEmpty(CaseService.owner)) {
                 caseJSON.contactSsoUsername = CaseService.owner;
             }
+
             $scope.submittingCase = true;
             AlertService.addWarningMessage('Creating case...');
             var redirectToCase = function (caseNumber) {
@@ -373,7 +375,9 @@ angular.module('RedhatAccess.cases').controller('New', [
                         AlertService.addStrataErrorMessage(error);
                         $scope.submittingCase = false;
                     });
-                } else {
+                } else if(NEW_CASE_CONFIG.showAttachments && $scope.ie8 || NEW_CASE_CONFIG.showAttachments && $scope.ie9 ) {
+                    $scope.ieFileUpload(caseNumber);
+                }else {
                     redirectToCase(caseNumber);
                 }
             }, function (error) {
@@ -381,6 +385,63 @@ angular.module('RedhatAccess.cases').controller('New', [
                 $scope.submittingCase = false;
             });
         };
+
+        $scope.ieFileUpload = function(caseNumber) {
+            var form = document.getElementById('fileUploaderForm');
+            var iframeId = document.getElementById('upload_target');
+            form.action = 'https://' + window.location.host + '/rs/cases/' + caseNumber + '/attachments';
+
+            var redirectToCase = function (caseNumber) {
+                $state.go('edit', { id: caseNumber });
+                AlertService.clearAlerts();
+                $scope.submittingCase = false;
+            };
+
+            var eventHandler = function () {
+                if (iframeId.detachEvent){
+                    iframeId.detachEvent('onload', eventHandler);
+                }
+                if (iframeId.removeEventListener){
+                    iframeId.removeEventListener('load', eventHandler, false);
+                }
+                if(!$scope.ie8){
+                    var content;
+                    if (iframeId.contentDocument && iframeId.contentDocument.body !== null) {
+                        content = iframeId.contentDocument.body.innerText;
+                    } else if (iframeId.contentWindow && iframeId.contentWindow.document.body !== null) {
+                        content = iframeId.contentWindow.document.body.innerText;
+                    }
+                    if (content !== undefined && content.length) {
+                        var parser = document.createElement('a');
+                        parser.href = content;
+                        var splitPath = parser.pathname.split('/');
+                        if(splitPath !== undefined && splitPath[4] !== undefined){
+                            redirectToCase(caseNumber);
+                            $scope.$apply();
+                        } else {
+                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                            redirectToCase(caseNumber);
+                            $scope.$apply();
+                        }
+                    } else {
+                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                        redirectToCase(caseNumber);
+                        $scope.$apply();
+                    }
+                }else {
+                    redirectToCase(caseNumber);
+                    $scope.$apply();
+                }
+            };
+
+            if (iframeId.addEventListener){
+                iframeId.addEventListener('load', eventHandler, true);
+            } else if (iframeId.attachEvent){
+                iframeId.attachEvent('onload', eventHandler);
+            }
+            form.submit();
+        };
+
         $scope.gotoPage(1);
 
         $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
