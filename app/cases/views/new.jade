@@ -4,18 +4,22 @@ div#redhat-access-case
     div.pull-right
         div(rha-chatbutton='' style='margin-right: 10px;')
   div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
-  div.row.no-margin-bottom.full-border(style='margin-bottom: 0px;' ng-hide='!NEW_CASE_CONFIG.isPCM')
-    div.col-md-4.center 
+
+  // start
+  div.row.no-margin-bottom.full-border.clearfix(style='margin: 0; padding-top: 12px; padding-bottom: 24px', ng-hide='!NEW_CASE_CONFIG.isPCM')
+    div.col-md-4.center
       label {{'Product & Topic'|translate}}
       div(ng-attr-class="{{isPage1 && 'no-fun' || 'fun' }}")
-    div.col-md-4.center 
+    div.col-md-4.center
       label {{'Case Details'|translate}}
       div(ng-attr-class="{{(isPage2 && !submittingCase) && 'no-fun' || 'fun' }}")
-    div.col-md-4.center 
+    div.col-md-4.center
       label {{'Creating Case'|translate}}
       div(ng-attr-class="{{submittingCase && 'no-fun' || 'fun' }}")
-  div.row(ng-class="{'partial-border': NEW_CASE_CONFIG.isPCM}")
-    div.col-xs-6(style='border-right: 1px solid; border-color: #cccccc;')
+
+  // start
+  div.row.clearfix(style='margin: 0;', ng-class="{'partial-border': NEW_CASE_CONFIG.isPCM}")
+    div.col-xs-6(style='border-right: 1px solid; padding-top: 24px; border-color: #cccccc;')
       div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
         div(ng-if='securityService.loginStatus.authedUser.is_internal')
           div.row.rha-create-field
@@ -185,7 +189,7 @@ div#redhat-access-case
               ng-show='submittingCase',
               style='float: right')
     div.col-xs-6(
-      style='overflow: auto;',
+      style='overflow: auto; padding-top: 24px',
       ng-show='NEW_CASE_CONFIG.showRecommendations')
       div(
         ng-controller='SearchController',
