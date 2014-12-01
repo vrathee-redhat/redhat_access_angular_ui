@@ -5,6 +5,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
     '$scope',
     '$rootScope',
     'strataService',
+    'CaseService',
     'AlertService',
     '$filter',
     'ngTableParams',
@@ -15,8 +16,9 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
     'RHAUtils',
     'AUTH_EVENTS',
     'translate',
-    function ($scope, $rootScope, strataService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, translate) {
+    function ($scope, $rootScope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, translate) {
         $scope.GroupUserService = GroupUserService;
+        $scope.CaseService = CaseService;
         $scope.listEmpty = false;
         $scope.selectedGroup = {};
         $scope.usersOnScreen = [];

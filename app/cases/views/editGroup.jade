@@ -1,6 +1,6 @@
 div#redhat-access-case.container-offset
   div(rha-header='', page='editGroup' ng-controller='EditGroup')
-  div.container-fluid.rha-side-padding
+  div.container-fluid.rha-side-padding(ng-show='CaseService.sfdcIsHealthy')
     div.row(style='padding-bottom: 20px;')
       div.container-fluid(style='padding-bottom: 20px;')
         div.col-xs-1 

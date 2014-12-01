@@ -16,6 +16,7 @@ angular.module('RedhatAccess.cases').controller('List', [
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
+        $scope.CaseService = CaseService;
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         AlertService.clearAlerts();
         var tableBuilt = false;

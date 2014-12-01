@@ -1,5 +1,10 @@
 <div class="rha-page-header">
     <div rha-titletemplate page="{{page}}"></div>
     <div rha-loginstatus></div>
-    <div rha-alert></div>
+    <div class="row" style='margin-bottom: 0px;' ng-controller='HeaderController'>
+    	<div ng-show='!HeaderService.sfdcIsHealthy' ng-bind-html='parseSfdcOutageHtml()'/>
+    	<div class="col-xs-12" ng-show='HeaderService.sfdcIsHealthy'>
+    		<div rha-alert></div>
+    	</div>
+    </div>
 </div>

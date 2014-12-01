@@ -143,13 +143,20 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
 }).controller('HeaderController', [
     '$scope',
     'AlertService',
-    function ($scope, AlertService) {
+    'HeaderService',
+    'CaseService',
+    'COMMON_CONFIG',
+    'RHAUtils',
+    '$interval',
+    '$sce',
+    function ($scope, AlertService , HeaderService , CaseService , COMMON_CONFIG , RHAUtils, $interval , $sce) {
         /**
        * For some reason the rhaAlert directive's controller is not binding to the view.
        * Hijacking rhaAlert's parent controller (HeaderController) works
        * until a real solution is found.
        */
         $scope.AlertService = AlertService;
+        $scope.HeaderService = HeaderService;
         $scope.closeable = true;
         $scope.closeAlert = function (index) {
             AlertService.alerts.splice(index, 1);
@@ -157,5 +164,57 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
         $scope.dismissAlerts = function () {
             AlertService.clearAlerts();
         };
+        $scope.init = function () {
+            CaseService.sfdcIsHealthy = COMMON_CONFIG.sfdcIsHealthy;
+            HeaderService.sfdcIsHealthy = COMMON_CONFIG.sfdcIsHealthy;
+            if (COMMON_CONFIG.doSfdcHealthCheck) {
+                $scope.healthTimer = $interval(HeaderService.checkSfdcHealth, COMMON_CONFIG.healthCheckInterval);
+            }
+        };
+        $scope.init();
+        $scope.parseSfdcOutageHtml = function () {
+            var parsedHtml = '';
+            if (RHAUtils.isNotEmpty(COMMON_CONFIG.sfdcOutageMessage)) {
+                var rawHtml = COMMON_CONFIG.sfdcOutageMessage;
+                parsedHtml = $sce.trustAsHtml(rawHtml);
+            }
+            return parsedHtml;
+        };
+        $scope.$on('$destroy', function () {
+            $interval.cancel($scope.healthTimer);
+        });
+    }
+]).factory('HeaderService', [
+    'COMMON_CONFIG',
+    'strataService',
+    'CaseService',
+    'securityService',
+    'AlertService',
+    '$q',
+    function (COMMON_CONFIG , strataService , CaseService, securityService , AlertService , $q) {
+        var service = {
+            sfdcIsHealthy: COMMON_CONFIG.sfdcIsHealthy,
+            checkSfdcHealth: function() {
+                if (securityService.loginStatus.isLoggedIn) {
+                    var deferred = $q.defer();
+                    strataService.health.sfdc().then(angular.bind(this, function (response) {
+                        if (response.name === 'SFDC' && response.status === true) {
+                            service.sfdcIsHealthy = true;
+                            CaseService.sfdcIsHealthy = true;
+                        }
+                        deferred.resolve(response);
+                    }), angular.bind(this, function (error) {
+                        if (error.xhr.status === 502) {
+                            service.sfdcIsHealthy = false;
+                            CaseService.sfdcIsHealthy = false;
+                        }
+                        AlertService.addStrataErrorMessage(error);
+                        deferred.reject();
+                    }));
+                    return deferred.promise;
+                }
+            }
+        };
+        return service;
     }
 ]);

@@ -1,5 +1,5 @@
 div#redhat-access-case
-  div.container-fluid#redhat-access-compact-list
+  div.container-fluid#redhat-access-compact-list(ng-hide='!CaseService.sfdcIsHealthy')
     div.row
       div.col-xs-12.rha-col-no-padding
         div(rha-listfilter='')

@@ -5,13 +5,15 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
     '$scope',
     '$rootScope',
     'strataService',
+    'CaseService',
     'AlertService',
     '$location',
     'securityService',
     'AUTH_EVENTS',
     'translate',
-    function ($scope, $rootScope, strataService, AlertService, $location, securityService, AUTH_EVENTS, translate) {
+    function ($scope, $rootScope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, translate) {
         $scope.securityService = securityService;
+        $scope.CaseService = CaseService;
         $scope.listEmpty = false;
         $scope.selectedGroup = {};
         $scope.selectedUser = '';

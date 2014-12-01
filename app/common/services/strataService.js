@@ -634,6 +634,15 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         return deferred.promise;
                     }
                 }
+            },
+            health: {
+                sfdc: function () {
+                    var deferred = $q.defer();
+                    strata.health.sfdc(function (response) {
+                        deferred.resolve(response);
+                    }, angular.bind(deferred, errorHandler));
+                    return deferred.promise;
+                }
             }
         };
         return service;
