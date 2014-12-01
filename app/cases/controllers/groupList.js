@@ -30,7 +30,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             }, {
                 total: CaseService.groups.length,
                 getData: function ($defer, params) {
-                    var orderedData = $filter('filter')(CaseService.groups, SearchBoxService.searchTerm);
+                    var orderedData = $filter('filter')(CaseService.groups, {name:SearchBoxService.searchTerm});
                     orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
                     orderedData.length < 1 ? $scope.listEmpty = true : $scope.listEmpty = false;
                     var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
