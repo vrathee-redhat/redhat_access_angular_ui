@@ -23,15 +23,17 @@ angular.module('RedhatAccess.cases').controller('List', [
         var buildTable = function () {
             /*jshint newcap: false*/
             $scope.tableParams = new ngTableParams({
-                page: 1,
-                count: 10,
+                page: SearchCaseService.caseListPage,
+                count: SearchCaseService.caseListPageSize,
                 sorting: { last_modified_date: 'desc' }
             }, {
                 total: SearchCaseService.totalCases,
                 getData: function ($defer, params) {
+                    SearchCaseService.caseListPage = params.page();
+                    SearchCaseService.caseListPageSize = params.count();
                     if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.total) {
                         SearchCaseService.doFilter().then(function () {
-                            $scope.tableParams.$params.page = (SearchCaseService.total - SearchCaseService.count) / params.count();
+                            //$scope.tableParams.$params.page = (SearchCaseService.total - SearchCaseService.count) / params.count();
                             var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
                             var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
                             $scope.tableParams.total(SearchCaseService.totalCases);
@@ -50,7 +52,10 @@ angular.module('RedhatAccess.cases').controller('List', [
         SearchBoxService.doSearch = CaseService.onSelectChanged = CaseService.onOwnerSelectChanged = CaseService.onGroupSelectChanged = function () {
             SearchCaseService.clearPagination();
             if($scope.tableParams !== undefined){
-                $scope.tableParams.$params.page = 1;
+                SearchCaseService.caseListPage = 1;
+                SearchCaseService.caseListPageSize = 10;
+                $scope.tableParams.$params.page = SearchCaseService.caseListPage;
+                $scope.tableParams.$params.count = SearchCaseService.caseListPageSize;
             }
             if(CaseService.groups.length === 0){
                 CaseService.populateGroups().then(function (){

@@ -1045,13 +1045,13 @@ describe('Case Controllers', function () {
     });
     //Suite for ListFilter
     describe('ListFilter', function () {
-        it('should default case filter status to both OPEN and CLOSED', inject(function ($controller) {
+        it('should default case filter status to OPEN', inject(function ($controller) {
             $controller('ListFilter', {
                 $scope: mockScope,
                 STATUS: mockStrataDataService.mockStatus,
                 CaseService: mockCaseService
             });
-            expect(mockCaseService.status).toEqual(mockStrataDataService.mockStatus.both);
+            expect(mockCaseService.status).toEqual(mockStrataDataService.mockStatus.open);
         }));
     });
     //Suite for CreateGroupButton
