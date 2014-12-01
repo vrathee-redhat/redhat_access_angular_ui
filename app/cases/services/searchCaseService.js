@@ -22,6 +22,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.count = 100;
         this.total = 0;
         this.allCasesDownloaded = false;
+        this.caseListPage = 1;
+        this.caseListPageSize = 10;
         var getIncludeClosed = function () {
             if (CaseService.status === STATUS.open) {
                 return false;

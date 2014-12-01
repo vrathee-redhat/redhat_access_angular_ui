@@ -7,7 +7,7 @@ angular.module('RedhatAccess.cases').controller('ListFilter', [
     'securityService',
     function ($scope, STATUS, CaseService, securityService) {
         $scope.securityService = securityService;
-        CaseService.status = STATUS.both;
+        CaseService.status = STATUS.open;
         $scope.showsearchoptions = CaseService.showsearchoptions;
         $scope.setSearchOptions = function (showsearchoptions) {
             CaseService.showsearchoptions = showsearchoptions;
