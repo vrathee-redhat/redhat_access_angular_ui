@@ -110,7 +110,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                             caseJSON.contactInfo24X7 = '';
                         }
                     }
-                    if (CaseService.kase.fts && RHAUtils.isNotEmpty(CaseService.kase.contact_info24_x7)) {
+                    if (CaseService.kase.fts) {
                         caseJSON.contactInfo24X7 = CaseService.kase.contact_info24_x7;
                     }
                     if (CaseService.kase.notes !== null) {

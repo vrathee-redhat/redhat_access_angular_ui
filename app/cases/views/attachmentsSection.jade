@@ -34,8 +34,7 @@ div(ng-show='!loading && ie8 || ie9 && isPCM')
     div.container-fluid
       div.row.rha-create-field
         div.col-xs-6
-          div(style='height: 0px; width:0px; ')
-              input(id='fileUploader', type='file', value='upload',name='file')
+          input(id='fileUploader', type='file', value='upload',name='file')
         div.col-xs-6
           div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
       div.row.rha-create-field
@@ -58,5 +57,5 @@ div(ng-show='!loading && ie8 || ie9 && isPCM')
           button.btn.btn-add(
             style='float: right;',
             ng-click = 'ieUpload($event)',
-            translate='') Add
+            translate='') Upload Attachments
   iframe#upload_target(name='upload_target', src='#', style='width: 0; height: 0; border: 0px solid #fff;')

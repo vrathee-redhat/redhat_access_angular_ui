@@ -229,6 +229,16 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 AlertService.addStrataErrorMessage(error);
             }));
         };
+
+
+        this.onChangeFTSCheck = function () {
+            if(this.showFts()) {
+                this.fts = true;
+                this.kase.fts=true;
+            }
+        };
+
+
         this.showFts = function () {
             var showFtsCheckbox = false;
             if (RHAUtils.isNotEmpty(this.severities)) {
@@ -245,12 +255,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     return true;
                 } else {
                     this.fts = false;
-                    this.fts_contact = '';
                     if (this.kase.fts !== undefined) {
                         this.kase.fts = false;
-                    }
-                    if (this.kase.contact_info24_x7 !== undefined) {
-                        this.kase.contact_info24_x7 = '';
                     }
                     return false;
                 }
