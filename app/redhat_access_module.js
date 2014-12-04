@@ -20,13 +20,11 @@ angular.module('RedhatAccess', [
         });
     }
 ]).run([
-    'TITLE_VIEW_CONFIG',
     '$http',
     'securityService',
     'gettextCatalog',
     'CHAT_SUPPORT',
-    function (TITLE_VIEW_CONFIG, $http, securityService, gettextCatalog, CHAT_SUPPORT) {
-        TITLE_VIEW_CONFIG.show = true;
+    function ($http, securityService, gettextCatalog, CHAT_SUPPORT) {
         CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
         CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
         CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
