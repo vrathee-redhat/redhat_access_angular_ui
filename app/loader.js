@@ -56,13 +56,15 @@
               $urlRouterProvider.otherwise('case/list')
             }
             ]).run([
+                'COMMON_CONFIG',
                 'CHAT_SUPPORT', 
                 'EDIT_CASE_CONFIG', 
                 'NEW_CASE_CONFIG', 
                 'SECURITY_CONFIG',
                 'securityService',  
                 'gettextCatalog', 
-                function (CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog){
+                function (TITLE_VIEW_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog){
+                  TITLE_VIEW_CONFIG.show = false;
                   SECURITY_CONFIG.autoCheckLogin = false;
                   SECURITY_CONFIG.displayLoginStatus = false;
                   NEW_CASE_CONFIG.showServerSideAttachments = false;

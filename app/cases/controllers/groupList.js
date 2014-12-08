@@ -51,7 +51,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             };
             tableBuilt = true;
         };
-        
+
         $scope.onMasterCheckboxClicked = function () {
             for (var i = 0; i < GroupService.groupsOnScreen.length; i++) {
                 if (this.masterSelected) {
@@ -66,6 +66,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
         CaseService.clearCase();
 
         $scope.init = function() {
+            SearchBoxService.searchTerm='';
             strataService.groups.list().then(function (groups) {
                 CaseService.groups = groups;
                 $scope.canManageGroups = securityService.loginStatus.account.has_group_acls && securityService.loginStatus.authedUser.org_admin;

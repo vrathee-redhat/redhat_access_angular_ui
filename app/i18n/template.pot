@@ -4,6 +4,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: app/cases/views/attachLocalFile.html
+#: app/cases/views/attachmentsSection.html
+#: app/cases/views/new.html
 msgid "(More info)"
 msgstr ""
 
@@ -211,6 +213,7 @@ msgid "Diagnose"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
 msgid "Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case."
 msgstr ""
 
@@ -226,6 +229,15 @@ msgstr ""
 msgid "Environment"
 msgstr ""
 
+#: app/cases/controllers/attachmentsSection.js
+msgid "Error: Failed to upload attachment."
+msgstr ""
+
+#: app/cases/controllers/attachmentsSection.js
+#: app/cases/controllers/new.js
+msgid "Error: Failed to upload attachment. Message:"
+msgstr ""
+
 #: app/cases/views/exportCSVButton.html
 msgid "Export All as CSV"
 msgstr ""
@@ -239,10 +251,14 @@ msgid "Failed to upload attachment"
 msgstr ""
 
 #: app/cases/views/attachLocalFile.html
+#: app/cases/views/attachmentsSection.html
+#: app/cases/views/new.html
 msgid "File description"
 msgstr ""
 
 #: app/cases/views/attachLocalFile.html
+#: app/cases/views/attachmentsSection.html
+#: app/cases/views/new.html
 msgid "File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
 msgstr ""
 
@@ -609,6 +625,10 @@ msgstr ""
 msgid "Successfully uploaded attachment"
 msgstr ""
 
+#: app/cases/controllers/attachmentsSection.js
+msgid "Successfully uploaded attachment."
+msgstr ""
+
 #: app/cases/views/list.html
 msgid "Summary"
 msgstr ""
@@ -682,6 +702,10 @@ msgstr ""
 msgid "Upload Attachments"
 msgstr ""
 
+#: app/cases/controllers/attachmentsSection.js
+msgid "Uploading attachment..."
+msgstr ""
+
 #: app/cases/services/attachmentsService.js
 msgid "Uploading attachments..."
 msgstr ""
@@ -707,6 +731,7 @@ msgid "User does not have proper credentials to manage default groups."
 msgstr ""
 
 #: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
 msgid "View Production Support Service Level Agreement"
 msgstr ""
 
