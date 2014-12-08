@@ -5,6 +5,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
     '$stateParams',
     '$filter',
     '$q',
+    '$location',
     'AttachmentsService',
     'CaseService',
     'strataService',
@@ -16,7 +17,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
     'EDIT_CASE_CONFIG',
     'RHAUtils',
     'CASE_EVENTS',
-    function ($scope, $stateParams, $filter, $q, AttachmentsService, CaseService, strataService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS) {
+    function ($scope, $stateParams, $filter, $q, $location, AttachmentsService, CaseService, strataService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS) {
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
@@ -144,6 +145,19 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         $scope.loadingRecWatcher = $scope.$watch('recommendationsLoading', function(newVal) {
             if(newVal === false) {
                 caseSettled();
+            }
+        });
+
+        $rootScope.$on('$locationChangeSuccess', function(event){
+            var splitUrl = $location.path().split('/');
+            if(splitUrl[2] !== undefined){
+                var newCaseId = splitUrl[2];
+                var oldCaseId = $scope.CaseService.kase.case_number;
+                if(newCaseId !== oldCaseId){
+                    $stateParams.id = newCaseId;
+                    CaseService.clearCase();
+                    $scope.init();
+                }
             }
         });
 
