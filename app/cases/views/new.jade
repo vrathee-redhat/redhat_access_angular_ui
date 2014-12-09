@@ -101,12 +101,9 @@ div#redhat-access-case
             div(rha-entitlementselect='')
         div.row.rha-create-field
           div.col-md-4
-            table.table.details-table
-              tr
-                  td.rha-detail-table-header
-                      div(style='vertical-align: 50%; display: inline-block;')
-                          label(for='rha-case-severity') {{'Severity:'|translate}}
-                          span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
+            div(style='vertical-align: 50%; display: inline-block;')
+               label(for='rha-case-severity') {{'Severity:'|translate}}
+               span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
           div.col-md-8
             div(rha-loadingindicator='', loading='severitiesLoading')
               select#rha-severity.form-control(
