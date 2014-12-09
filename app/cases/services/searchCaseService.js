@@ -53,7 +53,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.cases = [];
         };
         this.oldParams = {};
-        this.doFilter = function () {
+        this.doFilter = function (checkIsInternal) {
             if (angular.isFunction(this.prefilter)) {
                 this.prefilter();
             }
@@ -107,7 +107,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 var that = this;
                 var cases = null;
                 if (securityService.loginStatus.isLoggedIn) {
-                    if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal) {
+                    if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
                         params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                         params.view = 'internal';
                     }
@@ -132,11 +132,18 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                             }
                         }
                         that.searching = false;
+                        deferred.resolve(cases);
                     }), angular.bind(that, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                        that.searching = false;
+                        if(error.xhr.status === 404){
+                            this.doFilter(false).then(function () {
+                                deferred.resolve(cases);
+                            });
+                        } else{
+                            AlertService.addStrataErrorMessage(error);
+                            that.searching = false;
+                            deferred.resolve(cases);
+                        }
                     }));
-                    deferred.resolve(cases);
                 } else {
                     $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
                         if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal) {
