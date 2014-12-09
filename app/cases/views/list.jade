@@ -1,5 +1,5 @@
 div#redhat-access-case
-  div(rha-header='', page='caseList', ng-hide='NEW_CASE_CONFIG.isPCM')
+  div(rha-header='', page='caseList')
   div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
     div {{'User does not have permissions to manage cases.'|translate}}
   div.row(ng-hide='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn || !CaseService.sfdcIsHealthy')
