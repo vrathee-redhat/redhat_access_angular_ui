@@ -511,7 +511,12 @@ angular.module('RedhatAccess.mock', [])
           filter: function (params) {
             var deferred = $q.defer();
             if (that.rejectCall) {
-              deferred.reject();
+              var error = {
+                    xhr: {
+                        status: 401
+                    }
+                };
+              deferred.reject(error);
             } else {
               deferred.resolve(MockStrataDataService.mockFilterCase);
             }

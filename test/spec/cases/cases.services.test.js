@@ -248,6 +248,7 @@ describe('Case Services', function () {
                     count: 100,
                     start: 0
                 };
+
             mockStrataService.rejectCalls();
             spyOn(mockStrataService.cases, 'filter').andCallThrough();
             searchCaseService.doFilter();
