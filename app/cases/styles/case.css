@@ -463,3 +463,7 @@ div#rha-recommendation-section .hand-picked {
     height:auto;
     display:inline-block;
 }
+
+#redhat-access-case table {
+    font-size: 14px;
+}
