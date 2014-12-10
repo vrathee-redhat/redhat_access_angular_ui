@@ -81,11 +81,12 @@
                     CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
                     CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
                   }
+                  //strata.setStrataHostname('https://' + 'access.us.devgssci.devlab.phx1.redhat.com');
                   securityService.validateLogin(false).then(function (authedUser) {
                     var account = securityService.loginStatus.account;
                     if(account.is_secured_support !== undefined && account.is_secured_support === true){
                       strata.setRedhatClientID("secure_case_management_1.0");
-                      strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
+                      //strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
                       NEW_CASE_CONFIG.showRecommendations = false;
                       NEW_CASE_CONFIG.showAttachments = false;
                       EDIT_CASE_CONFIG.showBugzillas = false;
