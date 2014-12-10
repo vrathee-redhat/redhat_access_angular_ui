@@ -14,7 +14,8 @@ angular.module('RedhatAccess.common', [
     'doSfdcHealthCheck' : false,
     'sfdcIsHealthy': true, // This property should be made false only when 'doSfdcHealthCheck' is set to false
     'healthCheckInterval': 60000,
-    'showTitle': true
+    'showTitle': true,
+    'isGS4': false
 }).factory('configurationService', [
 	'$q',
 	function($q) {
