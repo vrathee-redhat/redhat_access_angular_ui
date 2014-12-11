@@ -5,17 +5,18 @@ angular.module('RedhatAccess.cases').controller('DeleteGroupButton', [
     'strataService',
     'AlertService',
     'CaseService',
+    'securityService',
     '$q',
     '$filter',
     'GroupService',
     'translate',
-    function ($scope, strataService, AlertService, CaseService, $q, $filter, GroupService, translate) {
+    function ($scope, strataService, AlertService, CaseService, securityService, $q, $filter, GroupService, translate) {
         $scope.GroupService = GroupService;
         $scope.deleteGroups = function () {
             var promises = [];
             angular.forEach(CaseService.groups, function (group, index) {
                 if (group.selected) {
-                    var promise = strataService.groups.remove(group.number);
+                    var promise = strataService.groups.remove(group.number, securityService.loginStatus.authedUser.sso_username);
                     promise.then(function (success) {
                         var groups = $filter('filter')(CaseService.groups, function (g) {
                                 if (g.number !== group.number) {

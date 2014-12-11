@@ -67,7 +67,8 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
 
         $scope.init = function() {
             SearchBoxService.searchTerm='';
-            strataService.groups.list().then(function (groups) {
+            var userName = securityService.loginStatus.authedUser.sso_username;
+            strataService.groups.list(userName, false).then(function (groups) {
                 CaseService.groups = groups;
                 $scope.canManageGroups = securityService.loginStatus.account.has_group_acls && securityService.loginStatus.authedUser.org_admin;
                 $scope.groupsLoading = false;
