@@ -105,7 +105,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.status = undefined;
             this.severity = undefined;
             this.type = undefined;
-            this.group = undefined;
+            this.group = '';
             this.owner = undefined;
             this.product = undefined;
             this.originalNotifiedUsers = [];
@@ -125,7 +125,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
             strataService.groups.list(ssoUsername, flushCache).then(angular.bind(this, function (groups) {
                 that.groups = groups;
-                that.group = '';
+                if (that.groups.length > 0) {
+                    that.group = '';
+                }
                 that.buildGroupOptions(that);
                 that.groupsLoading = false;
                 deferred.resolve(groups);
@@ -297,9 +299,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 }, {
                     value: 'ungrouped',
                     label: translate('Ungrouped Cases')
-                }, {
-                    isDisabled: true,
-                    label: sep
                 });
             } else {
                 this.groupOptions.push({
@@ -307,7 +306,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     label: translate('Ungrouped Case')
                 });
             }
-
+            if (this.showsearchoptions === true && this.groups.length > 0) {
+                this.groupOptions.push({
+                    isDisabled: true,
+                    label: sep
+                });
+            }
             angular.forEach(this.groups, function(group){
                 this.groupOptions.push({
                     value: group.number,
