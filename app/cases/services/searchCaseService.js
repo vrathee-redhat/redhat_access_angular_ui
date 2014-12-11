@@ -12,7 +12,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
     '$rootScope',
     'SearchBoxService',
     'securityService',
-    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $state, $rootScope, SearchBoxService, securityService) {
+    'COMMON_CONFIG',
+    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $state, $rootScope, SearchBoxService, securityService, COMMON_CONFIG) {
         this.cases = [];
         this.totalCases = 0;
         this.searching = true;
@@ -64,6 +65,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 count: this.count,
                 include_closed: getIncludeClosed(),
             };
+            if(COMMON_CONFIG.isGS4 === true){
+                params.account_number = "639769";
+            }
             params.start = this.start;
             var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
@@ -107,7 +111,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 var that = this;
                 var cases = null;
                 if (securityService.loginStatus.isLoggedIn) {
-                    if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
+                    if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
                         params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                         params.view = 'internal';
                     }

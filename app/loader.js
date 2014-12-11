@@ -56,14 +56,16 @@
               $urlRouterProvider.otherwise('case/list')
             }
             ]).run([
+                '$rootScope',
                 'COMMON_CONFIG',
                 'CHAT_SUPPORT', 
                 'EDIT_CASE_CONFIG', 
                 'NEW_CASE_CONFIG', 
                 'SECURITY_CONFIG',
+                'AUTH_EVENTS',
                 'securityService',  
                 'gettextCatalog', 
-                function (COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog){
+                function ($rootScope, COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, AUTH_EVENTS, securityService, gettextCatalog){
                   COMMON_CONFIG.showTitle = false;
                   SECURITY_CONFIG.autoCheckLogin = false;
                   SECURITY_CONFIG.displayLoginStatus = false;
@@ -93,6 +95,8 @@
                       EDIT_CASE_CONFIG.showRecommendations = false;
                       EDIT_CASE_CONFIG.showEmailNotifications = false;
                       CHAT_SUPPORT.enableChat = false;
+                      COMMON_CONFIG.isGS4 = true;
+                      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     }
                   }, function (error) {
                         window.location.replace(redirectURL);
