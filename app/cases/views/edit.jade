@@ -1,5 +1,6 @@
 doctype html
 div#redhat-access-case.container-offset
+  span.rha-search-spinner(ng-show='loading.kase')
   div(rha-header='', page='caseView')
   div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn && !failedToLoadCase && CaseService.sfdcIsHealthy')
     div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
