@@ -291,17 +291,19 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     }
                     return deferred.promise;
                 },
-                remove: function (groupNum) {
+                remove: function (groupNum, ssoUserName) {
                     var deferred = $q.defer();
                     strata.groups.remove(groupNum, function (response) {
                         deferred.resolve(response);
+                        clearCache('groups' + ssoUserName);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 },
-                create: function (groupName) {
+                create: function (groupName, ssoUserName) {
                     var deferred = $q.defer();
                     strata.groups.create(groupName, function (response) {
                         deferred.resolve(response);
+                        clearCache('groups' + ssoUserName);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 },
