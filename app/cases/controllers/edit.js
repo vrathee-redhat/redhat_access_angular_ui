@@ -148,9 +148,9 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             }
         });
 
-        $rootScope.$on('$locationChangeSuccess', function(event){
+        $scope.locationChange = $rootScope.$on('$locationChangeSuccess', function(event){
             var splitUrl = $location.path().split('/');
-            if(splitUrl[2] !== undefined){
+            if(splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1){
                 var newCaseId = splitUrl[2];
                 var oldCaseId = $scope.CaseService.kase.case_number;
                 if(newCaseId !== oldCaseId){
@@ -165,6 +165,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             // Clean up listeners
             CaseService.clearCase();
             $scope.authLoginEvent();
+            $scope.locationChange();
             $scope.loadingWatcher();
             $scope.loadingRecWatcher();
             RecommendationsService.clear();
