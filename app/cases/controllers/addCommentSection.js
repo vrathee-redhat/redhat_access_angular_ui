@@ -22,6 +22,11 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.isCommentPublic = true;
             }
             var onSuccess = function (response) {
+                CaseService.draftCommentOnServerExists=false;
+                if(CaseService.localStorageCache)
+                {
+                    CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
+                }
                 if (RHAUtils.isNotEmpty($scope.saveDraftPromise)) {
                     $timeout.cancel($scope.saveDraftPromise);
                 }
@@ -45,7 +50,6 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                         CaseService.kase.status = status;
                     }
                 }
-                
 
                 CaseService.populateComments(CaseService.kase.case_number).then(function (comments) {
                     $scope.addingComment = false;
@@ -69,25 +73,75 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.addingComment = false;
                 $scope.progressCount = 0;
             };
-            if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
-                strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
-            } else {
-                strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
+            if(CaseService.localStorageCache) {
+                if(CaseService.draftCommentOnServerExists)
+                {
+                    strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
+                }
+                else {
+                    strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
+                }
+            }
+            else {
+                if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
+                    strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
+                } else {
+                    strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
+                }
             }
         };
         $scope.saveDraftPromise;
         $scope.onNewCommentKeypress = function () {
-            if (RHAUtils.isNotEmpty(CaseService.commentText) && !$scope.addingComment) {
+            if(CaseService.localStorageCache)
+            {
+                if(CaseService.draftCommentOnServerExists)
+                {
+                    CaseService.draftCommentLocalStorage = {'text': CaseService.commentText,
+                        'id': CaseService.draftComment.id,
+                        'draft': true,
+                        'public': CaseService.isCommentPublic,
+                        'case_number': CaseService.kase.case_number
+                    };
+                }
+                else {
+                    CaseService.draftCommentLocalStorage = {
+                        'text': CaseService.commentText,
+                        'draft': true,
+                        'public': CaseService.isCommentPublic,
+                        'case_number': CaseService.kase.case_number
+                    };
+                }
+                if(RHAUtils.isEmpty(CaseService.commentText))
+                {
+                    CaseService.draftCommentLocalStorage.public=false;
+                }
+                CaseService.localStorageCache.put(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username,CaseService.draftCommentLocalStorage);
                 CaseService.disableAddComment = false;
-                $timeout.cancel($scope.saveDraftPromise);
-                $scope.saveDraftPromise = $timeout(function () {
-                    if (!$scope.addingComment && CaseService.commentText !== '') {
-                        $scope.saveDraft();
-                    }
-                }, 5000);
-            } else if (RHAUtils.isEmpty(CaseService.commentText)) {
-                CaseService.disableAddComment = true;
+                if (RHAUtils.isEmpty(CaseService.commentText)) {
+                    CaseService.disableAddComment = true;
+                }
             }
+            else {
+                if (RHAUtils.isNotEmpty(CaseService.commentText) && !$scope.addingComment) {
+                    CaseService.disableAddComment = false;
+                    $timeout.cancel($scope.saveDraftPromise);
+                    $scope.saveDraftPromise = $timeout(function () {
+                        if (!$scope.addingComment && CaseService.commentText !== '') {
+                            $scope.saveDraft();
+                        }
+                    }, 5000);
+                } else if (RHAUtils.isEmpty(CaseService.commentText)) {
+                    CaseService.disableAddComment = true;
+                }
+            }
+        };
+
+        $scope.onCommentPublicChange = function () {
+            if(RHAUtils.isNotEmpty(CaseService.commentText))
+            {
+                $scope.onNewCommentKeypress();
+            }
+
         };
         $scope.$watch('CaseService.commentText', function() {
             $scope.maxCharacterCheck();
