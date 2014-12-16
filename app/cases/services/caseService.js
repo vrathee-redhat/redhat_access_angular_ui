@@ -130,7 +130,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if(username === undefined){
                 username = securityService.loginStatus.authedUser.sso_username;
             }
-            strataService.groups.list(userName, flushCache).then(angular.bind(this, function (groups) {
+            strataService.groups.list(username, flushCache).then(angular.bind(this, function (groups) {
                 that.groups = groups;
                 if (that.groups.length > 0) {
                     that.group = '';
