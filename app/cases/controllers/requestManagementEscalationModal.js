@@ -13,7 +13,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
     function ($scope, $modalInstance, AlertService, CaseService, strataService, $q, $stateParams, RHAUtils) {
         $scope.CaseService = CaseService;
         $scope.submittingRequest = false;
-        if(CaseService.draftComment && RHAUtils.isNotEmpty(CaseService.draftComment.text)){
+        if(RHAUtils.isNotEmpty(CaseService.commentText)){
             $scope.disableSubmitRequest = false;
             CaseService.escalationCommentText = CaseService.commentText;
         }else{
@@ -42,11 +42,24 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
                 AlertService.addStrataErrorMessage(error);
             };
 
-            if (CaseService.draftComment) {
-                strataService.cases.comments.put(CaseService.kase.case_number, fullComment, false, true, CaseService.draftComment.id).then(onSuccess, onError);
-            } else {
-                strataService.cases.comments.post(CaseService.kase.case_number, fullComment, true, false).then(onSuccess, onError);
+            if(CaseService.localStorageCache) {
+                if(CaseService.draftCommentOnServerExists)
+                {
+                    strataService.cases.comments.put(CaseService.kase.case_number,  fullComment, false, true, CaseService.draftComment.id).then(onSuccess, onError);
+                }
+                else {
+                    strataService.cases.comments.post(CaseService.kase.case_number,  fullComment, true, false).then(onSuccess, onError);
+                }
             }
+            else {
+                if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
+                    strataService.cases.comments.put(CaseService.kase.case_number,  fullComment, false, true, CaseService.draftComment.id).then(onSuccess, onError);
+                } else {
+                    strataService.cases.comments.post(CaseService.kase.case_number,  fullComment, true, false).then(onSuccess, onError);
+                }
+            }
+
+
         });
         $scope.closeModal = function () {
             CaseService.escalationCommentText = undefined;

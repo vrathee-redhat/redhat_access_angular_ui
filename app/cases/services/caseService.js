@@ -12,13 +12,17 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$timeout',
     '$filter',
     'translate',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter,translate ) {
+    '$angularCacheFactory',
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter,translate,$angularCacheFactory) {
+        $angularCacheFactory('localStorageCache', {
+            storageMode: 'localStorage',
+            verifyIntegrity: true
+        });
         this.kase = {};
         this.caseDataReady = false;
         this.isCommentPublic = false;
         this.versions = [];
         this.products = [];
-        //this.statuses = [];
         this.severities = [];
         this.groups = [];
         this.users = [];
@@ -27,6 +31,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.updatedNotifiedUsers = [];
         this.account = {};
         this.draftComment = {};
+        this.draftCommentOnServerExists=false;
         this.commentText = '';
         this.escalationCommentText = '';
         this.status = '';
@@ -45,11 +50,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.fts = false;
         this.fts_contact = '';
         this.draftSaved = false;
+        this.localStorageCache = $angularCacheFactory.get('localStorageCache');
         /**
-       * Add the necessary wrapper objects needed to properly display the data.
-       *
-       * @param rawCase
-       */
+         * Add the necessary wrapper objects needed to properly display the data.
+         *
+         * @param rawCase
+         */
         this.defineCase = function (rawCase) {
             /*jshint camelcase: false */
             rawCase.severity = { 'name': rawCase.severity };
@@ -100,6 +106,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.comments = [];
             this.bugzillaList = {};
             this.draftComment = undefined;
+            this.draftCommentLocalStorage = undefined;
             this.commentText = undefined;
             this.escalationCommentText = undefined;
             this.status = undefined;
@@ -140,9 +147,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.usersLoading = false;
         /**
-       *  Intended to be called only after user is logged in and has account details
-       *  See securityService.
-       */
+         *  Intended to be called only after user is logged in and has account details
+         *  See securityService.
+         */
         this.populateUsers = angular.bind(this, function () {
             var promise = null;
             if (securityService.loginStatus.authedUser.org_admin) {
@@ -183,11 +190,13 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.populateComments = function (caseNumber) {
             var promise = strataService.cases.comments.get(caseNumber);
+            var draftId;
             promise.then(angular.bind(this, function (comments) {
-                //pull out the draft comment
                 angular.forEach(comments, angular.bind(this, function (comment, index) {
                     if (comment.draft === true) {
                         this.draftComment = comment;
+                        this.draftCommentOnServerExists=true;
+                        draftId=this.draftComment.id;
                         this.commentText = comment.text;
                         this.isCommentPublic = comment.public;
                         if (RHAUtils.isNotEmpty(this.commentText)) {
@@ -198,6 +207,23 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                         comments.slice(index, index + 1);
                     }
                 }));
+                if(this.localStorageCache) {
+                    if (this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username))
+                    {
+                        this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
+                        this.commentText = this.draftComment.text;
+                        this.isCommentPublic = this.draftComment.public;
+                        if(this.draftCommentOnServerExists)
+                        {
+                            this.draftComment.id=draftId;
+                        }
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                    }
+                }
                 this.comments = comments;
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
