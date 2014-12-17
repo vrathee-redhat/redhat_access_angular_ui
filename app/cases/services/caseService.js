@@ -190,7 +190,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.populateComments = function (caseNumber) {
             var promise = strataService.cases.comments.get(caseNumber);
-            var draftId=undefined;
+            var draftId;
             promise.then(angular.bind(this, function (comments) {
                 angular.forEach(comments, angular.bind(this, function (comment, index) {
                     if (comment.draft === true) {
