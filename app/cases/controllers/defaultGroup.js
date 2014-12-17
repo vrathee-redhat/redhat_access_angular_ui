@@ -62,6 +62,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
         $scope.defaultGroupChanged = function () {
             $scope.usersLoading = true;
             $scope.usersOnAccount = [];
+            $scope.selectedUser.sso_username = undefined;
             strataService.accounts.users($scope.account.number, $scope.selectedGroup.number).then(function (users) {
                 $scope.usersLoading = false;
                 $scope.usersLoaded = true;
@@ -91,6 +92,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
                 contactSsoName: $scope.selectedUser.sso_username
             };
             strataService.groups.createDefault(tmpGroup).then(function () {
+                $scope.usersAndGroupsFinishedLoading = false;
                 AlertService.addSuccessMessage('Successfully set ' + tmpGroup.name + ' as ' + $scope.selectedUser.sso_username + '\'s default group.');
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
