@@ -92,7 +92,7 @@ div#redhat-access-case
               div.rha-bold(style='font-size: 90%; margin-bottom: 4px;') {{CaseService.kase.summary}}
           div.row
             div.col-xs-12
-              div(style='font-size: 85%') {{CaseService.kase.description}}
+              div(style='font-size: 85%; white-space:pre-wrap') {{CaseService.kase.description}}
         div.row.rha-create-field
           div.col-md-4
             label(for='rha-entitlement-select') {{'Support Level:'|translate}}
