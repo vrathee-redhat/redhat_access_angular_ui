@@ -25,7 +25,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.draftCommentOnServerExists=false;
                 if(CaseService.localStorageCache)
                 {
-                    CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
+                    CaseService.localStorageCache.remove(CaseService.kase.case_number);
                 }
                 if (RHAUtils.isNotEmpty($scope.saveDraftPromise)) {
                     $timeout.cancel($scope.saveDraftPromise);
@@ -115,7 +115,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 {
                     CaseService.draftCommentLocalStorage.public=false;
                 }
-                CaseService.localStorageCache.put(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username,CaseService.draftCommentLocalStorage);
+                CaseService.localStorageCache.put(CaseService.kase.case_number,CaseService.draftCommentLocalStorage);
                 CaseService.disableAddComment = false;
                 if (RHAUtils.isEmpty(CaseService.commentText)) {
                     CaseService.disableAddComment = true;

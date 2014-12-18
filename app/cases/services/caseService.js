@@ -208,9 +208,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     }
                 }));
                 if(this.localStorageCache) {
-                    if (this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username))
+                    if (this.localStorageCache.get(caseNumber))
                     {
-                        this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
+                        this.draftComment = this.localStorageCache.get(caseNumber);
                         this.commentText = this.draftComment.text;
                         this.isCommentPublic = this.draftComment.public;
                         if(this.draftCommentOnServerExists)
