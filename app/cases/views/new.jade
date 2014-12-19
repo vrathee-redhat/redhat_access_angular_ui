@@ -64,6 +64,7 @@ div#redhat-access-case
           div.col-md-9
             input#rha-case-summary.form-control(
               style='width: 100%;',
+              maxlength='255',
               ng-disabled='!securityService.loginStatus.isLoggedIn',
               ng-change='CaseService.validateNewCasePage1()',
               ng-model='CaseService.kase.summary')
