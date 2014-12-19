@@ -1,3 +1,4 @@
+'use strict';
 // Karma configuration
 // http://karma-runner.github.io/0.10/config/configuration-file.html
 
@@ -23,7 +24,6 @@ module.exports = function(config) {
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-            'bower_components/js-markdown-extra/js-markdown-extra.js',
             'bower_components/stratajs/strata.js',
             'bower_components/ng-table/ng-table.js',
             'bower_components/angular-mocks/angular-mocks.js',
@@ -70,9 +70,8 @@ module.exports = function(config) {
 
         reporters: ['progress', 'coverage'],
 
-        autoWatch: true,
         coverageReporter: {
-             type: 'lcov',
+            type: 'lcov',
             dir: 'test/coverage'
         },
 
