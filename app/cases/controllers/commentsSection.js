@@ -19,8 +19,8 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
 
-        $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            $scope.firePageLoadEvent();
+
+        var populateComments = function () {
             CaseService.populateComments($stateParams.id).then(function (comments) {
                 $scope.$on('rhaCaseSettled', function() {
                     $scope.$evalAsync(function() {
@@ -28,28 +28,15 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
                     });
                 });
             });
-        });
-
-        $scope.firePageLoadEvent = function () {
-            if (window.chrometwo_require !== undefined) {
-                chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
-                    attrs.harvest();
-                    paf.report();
-                });
-            }
         };
 
-        if (securityService.loginStatus.isLoggedIn) {
-            $scope.firePageLoadEvent();
-            CaseService.populateComments($stateParams.id).then(function (comments) {
-                $scope.$on('rhaCaseSettled', function() {
-                    $scope.$evalAsync(function() {
-                        CaseService.scrollToComment($location.search().commentId);
-                    });
-                });
-            });
-        }
+        $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            populateComments();
+        });
 
+        if (securityService.loginStatus.isLoggedIn) {
+            populateComments();
+        }
 
         $scope.requestManagementEscalation = function () {
             $modal.open({
