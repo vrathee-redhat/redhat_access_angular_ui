@@ -33,7 +33,9 @@ angular.module('RedhatAccess.cases').controller('List', [
                     SearchCaseService.caseListPageSize = params.count();
                     if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.total) {
                         SearchCaseService.doFilter().then(function () {
-                            $scope.tableParams.$params.page = (SearchCaseService.total - SearchCaseService.count) / params.count();
+                            if($scope.tableParams.$params.page * params.count() >= SearchCaseService.total){
+                                $scope.tableParams.$params.page = (params.count() + SearchCaseService.count) / params.count();
+                            }
                             var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
                             var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
                             $scope.tableParams.total(SearchCaseService.totalCases);
