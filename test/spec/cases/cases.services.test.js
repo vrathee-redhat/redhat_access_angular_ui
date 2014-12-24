@@ -246,9 +246,7 @@ describe('Case Services', function () {
             var filterParams = {
                     include_closed: true,
                     count: 100,
-                    start: 0,
-                    sort_field:'lastModifiedDate',
-                    sort_order:'desc'
+                    start: 0
                 };
 
             mockStrataService.rejectCalls();

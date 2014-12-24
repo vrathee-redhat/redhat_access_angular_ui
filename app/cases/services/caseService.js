@@ -50,9 +50,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.fts = false;
         this.fts_contact = '';
         this.draftSaved = false;
-        this.sortBy='lastModifiedDate';
-        this.sortOrder='desc';
-
         this.localStorageCache = $angularCacheFactory.get('localStorageCache');
         /**
          * Add the necessary wrapper objects needed to properly display the data.

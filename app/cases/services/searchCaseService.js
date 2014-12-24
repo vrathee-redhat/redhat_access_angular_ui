@@ -92,12 +92,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             if (!isObjectNothing(CaseService.product)) {
                 params.product = CaseService.product;
             }
-            if (!isObjectNothing(CaseService.sortBy)) {
-                params.sort_field = CaseService.sortBy;
-            }
-            if (!isObjectNothing(CaseService.sortOrder)) {
-                params.sort_order = CaseService.sortOrder;
-            }
             if (!isObjectNothing(CaseService.owner)) {
                 params.owner_ssoname = CaseService.owner;
             }
