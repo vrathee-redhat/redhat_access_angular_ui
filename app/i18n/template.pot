@@ -127,8 +127,8 @@ msgstr ""
 msgid "Case Group:"
 msgstr ""
 
-#: app/cases/controllers/list.js
-msgid "Case Id"
+#: app/cases/views/list.html
+msgid "Case ID"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
@@ -424,7 +424,7 @@ msgstr ""
 msgid "Open and Closed"
 msgstr ""
 
-#: app/cases/controllers/list.js
+#: app/cases/views/list.html
 msgid "Opened"
 msgstr ""
 
@@ -432,8 +432,8 @@ msgstr ""
 msgid "Opened:"
 msgstr ""
 
+#: app/cases/views/list.html
 #: app/cases/views/search.html
-#: app/cases/controllers/list.js
 msgid "Owner"
 msgstr ""
 
@@ -467,7 +467,7 @@ msgstr ""
 msgid "Product Version:"
 msgstr ""
 
-#: app/cases/controllers/list.js
+#: app/cases/views/list.html
 msgid "Product/Version"
 msgstr ""
 
@@ -556,8 +556,8 @@ msgstr ""
 msgid "Server File(s) To Attach:"
 msgstr ""
 
+#: app/cases/views/list.html
 #: app/cases/views/search.html
-#: app/cases/controllers/list.js
 msgid "Severity"
 msgstr ""
 
@@ -583,8 +583,8 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+#: app/cases/views/list.html
 #: app/cases/views/search.html
-#: app/cases/controllers/list.js
 msgid "Status"
 msgstr ""
 
@@ -629,7 +629,7 @@ msgstr ""
 msgid "Successfully uploaded attachment."
 msgstr ""
 
-#: app/cases/controllers/list.js
+#: app/cases/views/list.html
 msgid "Summary"
 msgstr ""
 
@@ -690,7 +690,7 @@ msgstr ""
 msgid "Update Details"
 msgstr ""
 
-#: app/cases/controllers/list.js
+#: app/cases/views/list.html
 msgid "Updated"
 msgstr ""
 
