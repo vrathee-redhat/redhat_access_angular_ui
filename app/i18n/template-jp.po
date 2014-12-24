@@ -4,235 +4,365 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2014-10-14 08:27-0400\n"
+"PO-Revision-Date: 2014-12-04 10:39+0000\n"
 "Last-Translator: asasaki <asasaki@redhat.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
 "X-Generator: Zanata 3.5.1\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
+#: app/cases/views/attachLocalFile.html
+#: app/cases/views/attachmentsSection.html
+#: app/cases/views/new.html
+msgid "(More info)"
+msgstr "(詳細情報)"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Contact:"
 msgstr "24x7 のお問い合わせ先:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Support:"
 msgstr "24x7 サポート:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
 "Case"
 msgstr "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;サポートケースを新規作成"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
 msgstr "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;ログの選択"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Account Name:"
 msgstr "アカウント名:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Account Number:"
 msgstr "アカウント番号:"
 
+#: app/cases/controllers/accountSelect.js
+msgid "Account not found."
+msgstr "アカウントが見つかりません。"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/new.html
 msgid "Account:"
 msgstr "アカウント:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
 msgstr "追加"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/addCommentSection.html
 msgid "Add Comment"
 msgstr "コメントの追加"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Advanced Mission Critical"
 msgstr "Advanced Mission Critical"
 
+#: app/cases/services/caseService.js
+msgid "All Groups"
+msgstr "すべてのグループ"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Alternate Case ID:"
 msgstr "代替ケース ID:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/attachProductLogs.html
 msgid "Attach Foreman logs:"
 msgstr "Foreman のログを添付:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/attachLocalFile.html
 msgid "Attach local file"
 msgstr "ローカルファイルを添付します"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listAttachments.html
 msgid "Attached"
 msgstr "添付"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listAttachments.html
 msgid "Attached By"
 msgstr "作成者"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listAttachments.html
 msgid "Attached Files"
 msgstr "添付ファイル"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/attachmentsSection.html
 msgid "Attachments"
 msgstr "添付ファイル"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/new.html
 msgid "Attachments:"
 msgstr "添付ファイル:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
 msgstr "利用可能なログファイル"
 
+#: app/cases/views/defaultGroup.html
+msgid "Back"
+msgstr "戻る"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Number"
 msgstr "Bugzilla 番号"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Tickets"
 msgstr "Bugzilla チケット"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_form.html
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/editGroup.html
 msgid "Cancel"
 msgstr "キャンセル"
 
+#: app/cases/views/new.html
+msgid "Case Details"
+msgstr "ケースの詳細"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/commentsSection.html
 msgid "Case Discussion"
 msgstr "ケースコメント"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/new.html
 msgid "Case Group:"
 msgstr "ケースグループ:"
 
+#: app/cases/views/list.html
+msgid "Case ID"
+msgstr "ケース ID"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Case Type:"
 msgstr "ケースタイプ:"
 
+#: app/cases/controllers/editGroup.js
+msgid "Case group successfully updated."
+msgstr "ケースグループが正常に更新されました。"
+
+#: app/cases/controllers/editGroup.js
+msgid "Case users successfully updated."
+msgstr "ケースユーザーが正常に更新されました。"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/chatButton.html
 msgid "Chat offline"
 msgstr "オフラインのチャット"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/chatButton.html
 msgid "Chat with support"
 msgstr "サポート担当者とチャットする"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/common/views/treeview-selector.html
 msgid "Choose File(s) To Attach:"
 msgstr "添付するファイルの選択:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/common/views/alert.html
 msgid "Close messages"
 msgstr "メッセージを閉じる"
 
+#: app/cases/controllers/statusSelect.js
+msgid "Closed"
+msgstr "クローズ"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
 msgstr "コメント:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/createGroupModal.html
 msgid "Create Case Group"
 msgstr "ケースグループの作成"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/createGroupButton.html
 msgid "Create New Case Group"
 msgstr "ケースグループの新規作成"
 
+#: app/cases/views/new.html
+msgid "Creating Case"
+msgstr "ケースの作成中"
+
+#: app/cases/controllers/createGroupModal.js
+msgid "Creating group"
+msgstr "グループの作成中"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listAttachments.html
 msgid "Delete"
 msgstr "削除"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/deleteGroupButton.html
 msgid "Delete Group"
 msgstr "グループの削除"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/services/attachmentsService.js
 msgid "Deleting attachment:"
 msgstr "添付ファイルの削除:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/descriptionSection.html
 #: app/cases/views/listAttachments.html
 msgid "Description"
 msgstr "詳細"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/new.html
 msgid "Description:"
 msgstr "詳細:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Details"
 msgstr "詳細"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Diagnose"
 msgstr "診断"
 
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid ""
+"Different support-level options might be available based on your account "
+"subscriptions. Your support level determines the type of response you can "
+"expect for your support case."
+msgstr ""
+"お使いのアカウントのサブスクリプションで利用できるサポートレベルの別のオプションがあります。サポートレベルによって、サポートケースの応答タイプが異なります。"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/addCommentSection.html
 msgid "Draft saved"
 msgstr "ドラフトを保存しました"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/emailNotifySelect.html
 msgid "Email Notification Recipients"
 msgstr "電子メール通知の受信者"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/search/views/resultDetail.html
 msgid "Environment"
 msgstr "環境"
 
+#: app/cases/controllers/attachmentsSection.js
+msgid "Error: Failed to upload attachment."
+msgstr "エラー: 添付ファイルをアップロードできません。"
+
+#: app/cases/controllers/attachmentsSection.js
+#: app/cases/controllers/new.js
+msgid "Error: Failed to upload attachment. Message:"
+msgstr "エラー: 添付ファイルをアップロードできません。メッセージ:"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/exportCSVButton.html
 msgid "Export All as CSV"
 msgstr "すべてを CSV でエクスポート"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/exportCSVButton.html
 msgid "Exporting CSV..."
 msgstr "CSV をエクスポート中..."
 
+#: app/cases/services/attachmentsService.js
+msgid "Failed to upload attachment"
+msgstr "添付ファイルをアップロードできません"
+
 #: app/cases/views/attachLocalFile.html
+#: app/cases/views/attachmentsSection.html
+#: app/cases/views/new.html
+msgid "File description"
+msgstr "ファイルの詳細"
+
+#: app/cases/views/attachLocalFile.html
+#: app/cases/views/attachmentsSection.html
+#: app/cases/views/new.html
 msgid ""
 "File names must be less than 80 characters. Maximum file size for web-"
-"uploaded attachments is 250 MB. Please FTP larger files to dropbox.redhat."
-"com."
+"uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
 msgstr ""
-"ファイル名は 80 文字未満にしてください。Web にアップロードする添付ファイルの最大サイズは 250 MBです。それ以上の場合は、FTP で "
+"ファイル名は 80 文字未満にしてください。Web にアップロードする添付ファイルの最大サイズは 1 GB です。それ以上の場合は、FTP で "
 "dropbox.redhat.com にアップロードしてください。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listAttachments.html
 msgid "Filename"
 msgstr "ファイル名"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listNewAttachments.html
 msgid "Files to Attach"
 msgstr "添付するファイル"
 
+#: app/cases/views/listFilter.html
+msgid "Filtering by case groups helps you find related cases."
+msgstr "ケースグループによるフィルタリングにより、関連ケースを見つけやすくなります。"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/editGroup.html
 msgid "First Name"
 msgstr "氏名 (名)"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/search.html
 msgid "Group"
 msgstr "グループ"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Group:"
 msgstr "グループ:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/requestManagementEscalationModal.html
 msgid ""
 "If you feel the issue has become more severe or the case should be a higher "
 "priority, please provide a detailed comment, and the case will be reviewed "
 "by a support manager."
 msgstr ""
-"問題がより深刻になったか、またはケースの優先度を高くする必要があると思われる場合は、詳細なコメントを入力してください。サポートマネージャーがケースを確認します。"
+"問題の重大度レベルが上がったか、またはケースの優先度を高くする必要があると思われる場合は、詳細なコメントを入力してください。サポートマネージャーがケースを確認します。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "In the event that you would still like to open a support case, select 'Open "
@@ -241,83 +371,134 @@ msgid ""
 msgstr ""
 "サポートケースをまだ作成する必要がある場合には、「サポートケースを新規作成」を選択します。ケースにはログのすでに選択されている部分が事前設定されます。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/addCommentSection.html
 msgid "Is Public:"
 msgstr "公開:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/editGroup.html
 msgid "Last Name"
 msgstr "氏名 (姓):"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Last Updated:"
 msgstr "最終更新日時:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Learn more"
 msgstr "詳細情報"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Log File Viewer"
 msgstr "ログファイルビューアー"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_status.html
 msgid "Log In"
 msgstr "ログイン"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_status.html
 msgid "Log Out"
 msgstr "ログアウト"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_status.html
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr "Red Hat カスタマーポータルにログイン中: "
 
+#: app/common/header.module.js
+#: app/i18n/placeholder.html
+msgid "Logs"
+msgstr "ログ"
+
+#: app/common/header.module.js
+#: app/cases/services/caseService.js
+msgid "Manage Case Groups"
+msgstr "ケースグループを管理"
+
+#: app/cases/views/group.html
+#: app/common/header.module.js
+msgid "Manage Default Case Groups"
+msgstr "デフォルトケースグループを管理"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/accountSelect.html
 msgid "My Account"
 msgstr "自分のアカウント"
 
+#: app/i18n/placeholder.html
+msgid "My Cases"
+msgstr "自分のケース"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/groupList.html
 msgid "Name"
 msgstr "名前"
 
+#: app/common/header.module.js
+msgid "New Support Case"
+msgstr "新規サポートケース"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/new.html
 msgid "Next"
 msgstr "次へ"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
 msgstr "添付ファイルが追加されていません"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
 msgstr "指定のフィルターでケースが見つかりませんでした。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/search.html
 msgid "No cases found with given search criteria."
 msgstr "指定の検索条件でケースが見つかりませんでした。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/groupList.html
 msgid "No groups found."
 msgstr "グループが見つかりませんでした。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listBugzillas.html
 msgid "No linked bugzillas"
 msgstr "リンクされた Bugzilla がありません"
 
+#: app/cases/views/ownerSelect.html
+msgid "No match found"
+msgstr "一致するものが見つかりませんでした"
+
+#: app/search/services/searchResultsService.js
+msgid "No solutions found."
+msgstr "ソリューションが見つかりません。"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
 msgstr "Red Hat カスタマーポータルにログインしていません"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_form.html
 msgid "Note:"
 msgstr "注意:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Notes:"
 msgstr "注意:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Once you have selected your log file then you may diagnose any part of the "
@@ -327,53 +508,93 @@ msgstr ""
 "ログファイルを選択すると、ファイルのすべての部分を診断することができます。また「Red Hat 診断」ボタンをクリックすると、Red Hat "
 "ナレッジベースの関連記事やソリューションが表示されます。"
 
+#: app/cases/controllers/statusSelect.js
+msgid "Open"
+msgstr "オープン"
+
+#: app/i18n/placeholder.html
+msgid "Open New Case"
+msgstr "ケースを新規作成"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/search/views/accordion_search_results.html
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Open a New Support Case"
 msgstr "サポートケースを新規作成"
 
+#: app/cases/controllers/statusSelect.js
+msgid "Open and Closed"
+msgstr "オープンとクローズ"
+
+#: app/cases/views/list.html
+msgid "Opened"
+msgstr "作成済み"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Opened:"
 msgstr "作成日時:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
+#: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Owner"
 msgstr "担当者"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Owner:"
 msgstr "担当者:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_form.html
 msgid "Password"
 msgstr "パスワード"
 
+#: app/log_viewer/controllers/DropdownCtrl.js
+msgid "Please Select the Machine"
+msgstr "マシンを選択してください"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/new.html
 msgid "Previous"
 msgstr "前へ"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/search.html
 msgid "Product"
 msgstr "製品"
 
+#: app/cases/views/new.html
+msgid "Product & Topic"
+msgstr "製品とトピック"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product Version:"
 msgstr "製品バージョン:"
 
+#: app/cases/views/list.html
+msgid "Product/Version"
+msgstr "製品/バージョン"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product:"
 msgstr "製品:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr "推奨項目"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Access makes it easy for you to self-solve issues, diagnose "
@@ -384,126 +605,207 @@ msgstr ""
 "Hat にお問い合わせいただいたりすることがより簡単になります。Red Hat "
 "カスタマーポータルの各種リソースにアクセスするには、有効なポータルの資格情報を入力する必要があります。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Customer Portal credentials differ from the credentials used to log "
 "into this product."
 msgstr "Red Hat カスタマーポータルの資格情報は、この製品にログインするために使用される資格情報とは異なります。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logTabs.html
 msgid "Red Hat Diagnose"
 msgstr "Red Hat 診断"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_form.html
 msgid "Red Hat Login"
 msgstr "Red Hat ログイン"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Red Hat Owner:"
 msgstr "Red Hat 担当者:"
 
 #: app/cases/views/commentsSection.html
+msgid "Reply"
+msgstr "返信"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
+#: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
 msgstr "マネージメントエスカレーションをリクエスト"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "解決方法"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/createGroupModal.html
 msgid "Save"
 msgstr "保存"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
+#: app/cases/views/defaultGroup.html
 #: app/cases/views/editGroup.html
 msgid "Save Group"
 msgstr "グループの保存"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/addCommentSection.html
 msgid "Saving draft..."
 msgstr "下書きの保存中..."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/search/views/search_form.html
+#: app/cases/views/listFilter.html
+#: app/cases/views/searchBox.html
+#: app/common/header.module.js
+#: app/i18n/placeholder.html
 msgid "Search"
 msgstr "検索"
 
+#: app/search/views/search_form.html
+msgid "Search Articles and Solutions"
+msgstr "記事およびソリューションの検索"
+
+#: app/common/header.module.js
+msgid "Search Support Case"
+msgstr "サポートケースの検索"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/search.html
 msgid "Searching..."
 msgstr "検索中..."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
 msgstr "ファイルの選択"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr "添付するサーバーファイル:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
+#: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Severity"
 msgstr "重大度"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 #: app/cases/views/searchResult.html
 msgid "Severity:"
 msgstr "重大度:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_form.html
 msgid "Sign in"
 msgstr "サインイン"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/security/views/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
 msgstr "Red Hat カスタマーポータルにサインインします"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Simply navigate to and select a log file from the list on the left and click "
 "the 'Select File' button."
 msgstr "左側にある一覧に移動し、一覧からログファイルを選択して「ファイルの選択」ボタンをクリックします。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listAttachments.html
 msgid "Size"
 msgstr "サイズ"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
+#: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Status"
 msgstr "ステータス"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 #: app/cases/views/searchResult.html
 msgid "Status:"
 msgstr "ステータス:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/new.html
 msgid "Submit"
 msgstr "送信"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Submit Request"
 msgstr "リクエストの送信"
 
+#: app/cases/controllers/new.js
+msgid "Successfully created case number"
+msgstr "ケース番号が正しく作成されました"
+
+#: app/cases/controllers/createGroupModal.js
+msgid "Successfully created group"
+msgstr "グループが正しく作成されました"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:"
 msgstr "添付ファイルが正しく削除されました:"
 
+#: app/cases/controllers/deleteGroupButton.js
+msgid "Successfully deleted group"
+msgstr "グループが正しく削除されました"
+
+#: app/cases/controllers/deleteGroupButton.js
+msgid "Successfully deleted groups."
+msgstr "グループが正しく削除されました。"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/services/attachmentsService.js
 msgid "Successfully uploaded attachment"
 msgstr "添付ファイルが正しくアップロードされました:"
 
+#: app/cases/controllers/attachmentsSection.js
+msgid "Successfully uploaded attachment."
+msgstr "添付ファイルが正しくアップロードされました。"
+
+#: app/cases/views/list.html
+msgid "Summary"
+msgstr "概要"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/listBugzillas.html
 msgid "Summary of Request"
-msgstr "リクエストの要約"
+msgstr "リクエストの概要"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/new.html
 msgid "Summary:"
 msgstr "概要:"
 
+#: app/i18n/placeholder.html
+msgid "Support"
+msgstr "サポート"
+
+#: app/common/header.module.js
+msgid "Support Cases"
+msgstr "サポートケース"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
 msgid "Support Level:"
 msgstr "サポートレベル:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "The log file viewer gives the ability to diagnose application logs as well "
@@ -512,58 +814,150 @@ msgstr ""
 "ログファイルビューアーは、Red Hat グローバルサポートサービス (GSS) "
 "にサポートケースを報告する機能と共に、アプリケーションのログを診断する機能を提供します。"
 
+#: app/cases/views/detailsSection.html
+msgid ""
+"This field allows Red Hat customers to make private notes pertinent to their "
+"case or account.  Contents of this field are not visible to  support "
+"professionals within Red Hat, and submitting updates to this field will not "
+"generate any notifications or case comments."
+msgstr ""
+"このフィールドには、Red Hat "
+"のお客様がそれぞれのケースまたはアカウントに関連する非公開メモを書き込むことができます。このフィールドの内容は、Red Hat "
+"内のサポートプロフェッショナルには表示されず、このフィールドの更新が送信されても、通知やケースコメントは生成されません。"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/new.html
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
 "filing a case"
 msgstr "本リリースは現在使用中止になっています。ケースを作成する前に、推奨されている FAQ を参照してください。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
 msgstr "推奨項目を閲覧するには、その項目をクリックします。"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/search.html
 msgid "Type"
 msgstr "タイプ"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "承認されていません。"
 
+#: app/cases/services/caseService.js
+msgid "Ungrouped Case"
+msgstr "グループ化されていないケース"
+
+#: app/cases/services/caseService.js
+msgid "Ungrouped Cases"
+msgstr "グループ化されていないケース"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/detailsSection.html
 msgid "Update Details"
 msgstr "更新の詳細"
 
+#: app/cases/views/list.html
+msgid "Updated"
+msgstr "更新済み"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/searchResult.html
 msgid "Updated:"
 msgstr "更新日:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
 msgstr "添付ファイルのアップロード"
 
+#: app/cases/controllers/attachmentsSection.js
+msgid "Uploading attachment..."
+msgstr "添付ファイルをアップロード中..."
+
+#: app/cases/services/attachmentsService.js
+msgid "Uploading attachments..."
+msgstr "添付ファイルをアップロード中..."
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/editGroup.html
 msgid "User Name"
 msgstr "ユーザー名"
 
+#: app/cases/views/list.html
+msgid "User does not have permissions to manage cases."
+msgstr "ユーザーにはケースを管理する権限がありません。"
+
+#: app/cases/views/defaultGroup.html
+msgid "User does not have permissions to set default case group."
+msgstr "ユーザーにはデフォルトのケースグループを設定する権限がありません。"
+
+#: app/cases/controllers/editGroup.js
+msgid "User does not have proper credentials to manage case groups."
+msgstr "ユーザーには、ケースグループを管理するための適切な資格情報がありません。"
+
+#: app/cases/controllers/defaultGroup.js
+msgid "User does not have proper credentials to manage default groups."
+msgstr "ユーザーには、デフォルトのグループを管理するための適切な資格情報がありません。"
+
+#: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
+msgid "View Production Support Service Level Agreement"
+msgstr "製品サポートのサービスレベルアグリーメントを表示する"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
 msgstr "記事の全文を新規ウィンドウで表示する"
 
+#: app/common/header.module.js
+msgid "View/Modify Case"
+msgstr "ケースの表示/変更"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/commentsSection.html
 msgid ""
 "Would you like a Red Hat support manager to contact you regarding this case?"
 msgstr "このケースについて、Red Hat のサポートマネージャーからの連絡を希望されますか?"
 
-#: app/cases/views/addCommentSection.html
-msgid "You have used 0% of the 32KB maximum description size."
-msgstr "コメントの最大サイズ 32KB の 0% を使用しています。"
+#: app/common/header.module.js
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr "Red Hat カスタマーポータルから正常にログアウトしました。"
 
+#: app/cases/views/addCommentSection.html
+#: app/cases/views/detailsSection.html
+msgid "You have used"
+msgstr "使用済み:"
+
+#: app/search/services/searchResultsService.js
+msgid "You must be logged in to use this functionality."
+msgstr "この機能を使用するには、ログインする必要があります。"
+
+#: app/cases/controllers/attachLocalFile.js
+msgid ""
+"cannot be attached because it is larger the 1 GB. Please FTP large files to "
+"dropbox.redhat.com."
+msgstr ""
+"サイズが 1 GB を超えるため、添付することができません。それ以上のサイズのファイルは FTP で dropbox.redhat.com "
+"にアップロードしてください。"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
 msgstr "選択済み"
 
+#: app/cases/views/detailsSection.html
+msgid "of the 255 maximum character size."
+msgstr "文字の最大サイズ 255 文字中"
+
+#: app/cases/views/addCommentSection.html
+msgid "of the 32K maximum description size."
+msgstr "コメントの最大サイズ 32K 中"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/services/attachmentsService.js
 msgid "to case"
 msgstr "対象のケース"
-
