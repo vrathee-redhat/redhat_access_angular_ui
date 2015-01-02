@@ -22,6 +22,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-angular-gettext');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-sonar-runner');
     // Define the configuration for all the tasks
     grunt.initConfig({
         distdir: 'dist',
@@ -473,6 +474,25 @@ module.exports = function (grunt) {
             unit: {
                 configFile: 'karma.conf.js',
                 singleRun: true
+            }
+        },
+        sonarRunner: {
+            analysis: {
+                options: {
+                    debug: true,
+                    separator: '\n',
+                    sonar: {
+                        host: {
+                            url: 'http://localhost:9000/sonar/'
+                        },
+                        projectKey: 'sonar:redhat_access_angular_ui:0.9.68',
+                        projectName: 'redhat_access_angular_ui',
+                        projectVersion: '0.9.68',
+                        sources: ['app'].join(','),
+                        language: 'js',
+                        sourceEncoding: 'UTF-8'
+                    }
+                }
             }
         }
     });
