@@ -23,6 +23,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-angular-gettext');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-sonar-runner');
+    grunt.loadNpmTasks('grunt-karma-sonar');
     // Define the configuration for all the tasks
     grunt.initConfig({
         distdir: 'dist',
@@ -493,6 +494,22 @@ module.exports = function (grunt) {
                         sourceEncoding: 'UTF-8'
                     }
                 }
+            }
+        },
+        karma_sonar: {
+            default_options: {
+                project: {
+                    key: 'sonar:redhat_access_angular_ui:0.9.68',
+                    name: 'redhat_access_angular_ui',
+                    version: '0.9.68'
+                },
+                sources: [
+                    {
+                        path: 'app',
+                        coverageReport: 'test/coverage/PhantomJS 1.9.8 (Linux)/lcov.info'
+                    }
+                ],
+                exclusions: []
             }
         }
     });

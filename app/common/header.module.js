@@ -99,7 +99,7 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
                 }
                 var existingMessage = $filter('filter')(this.alerts, {
                         type: ALERT_TYPES.DANGER,
-                        message: errorText,
+                        message: errorText
                     });
                 if (existingMessage.length < 1) {
                     this.addDangerMessage(errorText);

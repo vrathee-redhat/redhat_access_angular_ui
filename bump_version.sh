@@ -5,7 +5,7 @@ if  [ "$1" = "" ] ; then
     exit
 fi
 
-versiony --version=$1 --to=package.json,bower.json
+versiony --version=$1 --to=Gruntfile.js
 git commit -am "Publish version $1"
 git tag $1
 git push
