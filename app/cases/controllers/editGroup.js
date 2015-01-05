@@ -101,14 +101,18 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
 
         $scope.onMasterReadCheckboxClicked = function (masterReadSelected) {
             for(var i = 0; i < $scope.usersOnAccount.length; i++){
-                $scope.usersOnAccount[i].access = masterReadSelected;
+                if (!$scope.usersOnAccount[i].org_admin) {
+                    $scope.usersOnAccount[i].access = masterReadSelected;
+                }
             }
             $scope.isUsersPrestine = false;
         };
         
         $scope.onMasterWriteCheckboxClicked = function (masterWriteSelected) {
             for(var i = 0; i < $scope.usersOnAccount.length; i++){
-                $scope.usersOnAccount[i].write = masterWriteSelected;
+                if (!$scope.usersOnAccount[i].org_admin) {
+                    $scope.usersOnAccount[i].write = masterWriteSelected;
+                }
             }
             $scope.isUsersPrestine = false;
         };
