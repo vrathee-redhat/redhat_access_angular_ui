@@ -17,31 +17,26 @@ div#redhat-access-case
       table.table.table-bordered.table-striped(
           ng-table='tableParams',
           style='text-align: left')
-       thead(style='text-align: center')
-         tr
-           th(ng-repeat='header in headers')
-             | {{header.title}}
-             a
-               i.glyphicon.glyphicon-sort-by-attributes(ng-click='sortColumn(header.value);',ng-show='showAscDescBoth(header.value)=="asc"')
-               i.glyphicon.glyphicon-sort-by-attributes-alt(ng-click='sortColumn(header.value);',ng-show='showAscDescBoth(header.value)=="desc"')
-               i.glyphicon.glyphicon-sort(ng-click='sortColumn(header.value);',ng-show='showAscDescBoth(header.value)=="both"')
-       tbody
-         tr(ng-repeat='case in $data')
-           td(
+        tr(ng-repeat='case in $data')
+          td(data-title="'Case ID'|translate",
+              sortable='"caseNumber"',
               style='width: 10%')
-             a(href='#/case/{{case.case_number}}') {{case.case_number}}
-           td(
+            a(href='#/case/{{case.case_number}}') {{case.case_number}}
+          td(data-title='"Summary"|translate',
+              sortable='"summary"',
               style='width: 15%') {{case.summary}}
-           td(
-              ) {{case.product}} / {{case.version}}
-           td(
-             ) {{case.status}}
-            td(
-              ) {{case.severity}}
-            td(
-              ) {{case.contact_name}}
-            td(
+          td(data-title='"Product/Version"|translate',
+              sortable='"product"') {{case.product}} / {{case.version}}
+          td(data-title='"Status"|translate',
+              sortable='"status"') {{case.status}}
+          td(data-title='"Severity"|translate',
+              sortable='"severity"') {{case.severity}}
+          td(data-title='"Owner"|translate',
+              sortable='"contactName"') {{case.contact_name}}
+          td(data-title='"Opened"|translate',
+              sortable='"createdDate"',
               style='width: 10%') {{case.created_date | date:'longDate'}}
-            td(
+          td(data-title='"Updated"|translate',
+              sortable='"lastModifiedDate"',
               style='width: 10%') {{case.last_modified_date | date:'longDate'}}
       div(rha-exportcsvbutton='')

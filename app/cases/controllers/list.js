@@ -12,45 +12,63 @@ angular.module('RedhatAccess.cases').controller('List', [
     'AUTH_EVENTS',
     'SearchBoxService',
     'NEW_CASE_CONFIG',
-    'translate',
-    function ($scope, $filter, ngTableParams, securityService, AlertService, $rootScope, SearchCaseService, CaseService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG,translate) {
+    function ($scope, $filter, ngTableParams, securityService, AlertService, $rootScope, SearchCaseService, CaseService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
         $scope.CaseService = CaseService;
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
-
         AlertService.clearAlerts();
         var tableBuilt = false;
         var buildTable = function () {
             /*jshint newcap: false*/
             $scope.tableParams = new ngTableParams({
                 page: SearchCaseService.caseListPage,
-                count: SearchCaseService.caseListPageSize
-
+                count: SearchCaseService.caseListPageSize,
+                sorting: { lastModifiedDate: 'desc' }
             }, {
                 total: SearchCaseService.totalCases,
                 getData: function ($defer, params) {
-                    SearchCaseService.caseListPage = params.page();
-                    SearchCaseService.caseListPageSize = params.count();
-                    if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.total) {
+                    var sort_field;
+                    var sort_order;
+                    for (var key in $scope.tableParams.$params.sorting) {
+                        sort_field = key;
+                        sort_order = $scope.tableParams.$params.sorting[key];
+                    }
+                    if (CaseService.sortBy !== sort_field || CaseService.sortOrder !== sort_order) {
+                        SearchCaseService.clearPagination();
+                        SearchCaseService.caseListPage = 1;
+                        $scope.tableParams.$params.page = SearchCaseService.caseListPage;
+                        CaseService.sortBy = sort_field;
+                        CaseService.sortOrder = sort_order;
                         SearchCaseService.doFilter().then(function () {
-                            if($scope.tableParams.$params.page * params.count() >= SearchCaseService.total){
-                                $scope.tableParams.$params.page = (params.count() + SearchCaseService.count) / params.count();
-                            }
-                         //   var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
+                            $scope.tableParams.$params.page = 1;
                             var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
                             $scope.tableParams.total(SearchCaseService.totalCases);
                             $defer.resolve(pageData);
                         });
-                    } else {
-                       // var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
-                        var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                        $scope.tableParams.total(SearchCaseService.totalCases);
-                        $defer.resolve(pageData);
+                    }
+                    else {
+                        SearchCaseService.caseListPage = params.page();
+                        SearchCaseService.caseListPageSize = params.count();
+                        if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.total) {
+                            SearchCaseService.doFilter().then(function () {
+                                if ($scope.tableParams.$params.page * params.count() >= SearchCaseService.total) {
+                                    $scope.tableParams.$params.page = (params.count() + SearchCaseService.count) / params.count();
+                                }
+                                var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                                $scope.tableParams.total(SearchCaseService.totalCases);
+                                $defer.resolve(pageData);
+                            });
+                        } else {
+                            var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                            $scope.tableParams.total(SearchCaseService.totalCases);
+                            $defer.resolve(pageData);
+                        }
                     }
                 }
             });
+
             tableBuilt = true;
         };
         SearchBoxService.doSearch = CaseService.onSelectChanged = CaseService.onOwnerSelectChanged = CaseService.onGroupSelectChanged = function () {
@@ -81,99 +99,6 @@ angular.module('RedhatAccess.cases').controller('List', [
                     }
                 });
             }
-        };
-
-        $scope.showAscDescBoth=function(columnName)
-        {
-            if(columnName===CaseService.sortBy)
-            {
-              if(CaseService.sortOrder==="asc")
-              {
-                  return "asc";
-              }
-              else
-              {
-                  return "desc";
-              }
-            }
-            else
-            {
-                return "both";
-            }
-        };
-
-        $scope.headers=[
-            {
-
-               title:translate('Case Id'),
-               value:'caseNumber'
-            },
-            {
-
-                title:translate('Summary'),
-                value:'summary'
-            },
-            {
-
-                title:translate('Product/Version'),
-                value:'product'
-            },
-            {
-
-                title:translate('Status'),
-                value:'status'
-            },
-            {
-
-                title:translate('Severity'),
-                value:'severity'
-            },
-            {
-
-                title:translate('Owner'),
-                value:'contactName'
-            },
-            {
-
-                title:translate('Opened'),
-                value:'createdDate'
-            },
-            {
-
-                title:translate('Updated'),
-                value:'lastModifiedDate'
-            }
-
-        ];
-
-        $scope.sortColumn=function(sortColumnName){
-
-
-            if(sortColumnName!==CaseService.sortBy) {
-                CaseService.sortOrder = 'asc';
-
-            }
-            else
-            {
-                if (CaseService.sortOrder === "asc") {
-                    CaseService.sortOrder = 'desc';
-                }
-                else {
-
-                    CaseService.sortOrder = 'asc';
-                }
-            }
-            CaseService.sortBy=sortColumnName;
-
-
-            SearchCaseService.clearPagination();
-            SearchCaseService.doFilter().then(function () {
-            if (!tableBuilt) {
-                    buildTable();
-                } else {
-                    $scope.tableParams.reload();
-                }
-            });
         };
 
         $scope.firePageLoadEvent = function () {
