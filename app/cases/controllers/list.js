@@ -25,30 +25,50 @@ angular.module('RedhatAccess.cases').controller('List', [
             $scope.tableParams = new ngTableParams({
                 page: SearchCaseService.caseListPage,
                 count: SearchCaseService.caseListPageSize,
-                sorting: { last_modified_date: 'desc' }
+                sorting: { lastModifiedDate: 'desc' }
             }, {
                 total: SearchCaseService.totalCases,
                 getData: function ($defer, params) {
-                    SearchCaseService.caseListPage = params.page();
-                    SearchCaseService.caseListPageSize = params.count();
-                    if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.total) {
+                    var sort_field;
+                    var sort_order;
+                    for (var key in $scope.tableParams.$params.sorting) {
+                        sort_field = key;
+                        sort_order = $scope.tableParams.$params.sorting[key];
+                    }
+                    if (CaseService.sortBy !== sort_field || CaseService.sortOrder !== sort_order) {
+                        SearchCaseService.clearPagination();
+                        SearchCaseService.caseListPage = 1;
+                        $scope.tableParams.$params.page = SearchCaseService.caseListPage;
+                        CaseService.sortBy = sort_field;
+                        CaseService.sortOrder = sort_order;
                         SearchCaseService.doFilter().then(function () {
-                            if($scope.tableParams.$params.page * params.count() >= SearchCaseService.total){
-                                $scope.tableParams.$params.page = (params.count() + SearchCaseService.count) / params.count();
-                            }
-                            var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
-                            var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                            $scope.tableParams.$params.page = 1;
+                            var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
                             $scope.tableParams.total(SearchCaseService.totalCases);
                             $defer.resolve(pageData);
                         });
-                    } else {
-                        var orderedData = params.sorting() ? $filter('orderBy')(SearchCaseService.cases, params.orderBy()) : SearchCaseService.cases;
-                        var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                        $scope.tableParams.total(SearchCaseService.totalCases);
-                        $defer.resolve(pageData);
+                    }
+                    else {
+                        SearchCaseService.caseListPage = params.page();
+                        SearchCaseService.caseListPageSize = params.count();
+                        if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() >= SearchCaseService.total) {
+                            SearchCaseService.doFilter().then(function () {
+                                if ($scope.tableParams.$params.page * params.count() >= SearchCaseService.total) {
+                                    $scope.tableParams.$params.page = (params.count() + SearchCaseService.count) / params.count();
+                                }
+                                var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                                $scope.tableParams.total(SearchCaseService.totalCases);
+                                $defer.resolve(pageData);
+                            });
+                        } else {
+                            var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                            $scope.tableParams.total(SearchCaseService.totalCases);
+                            $defer.resolve(pageData);
+                        }
                     }
                 }
             });
+
             tableBuilt = true;
         };
         SearchBoxService.doSearch = CaseService.onSelectChanged = CaseService.onOwnerSelectChanged = CaseService.onGroupSelectChanged = function () {

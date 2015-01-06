@@ -19,7 +19,7 @@ div#redhat-access-case
           style='text-align: left')
         tr(ng-repeat='case in $data')
           td(data-title="'Case ID'|translate",
-              sortable='"case_number"',
+              sortable='"caseNumber"',
               style='width: 10%')
             a(href='#/case/{{case.case_number}}') {{case.case_number}}
           td(data-title='"Summary"|translate',
@@ -32,11 +32,11 @@ div#redhat-access-case
           td(data-title='"Severity"|translate',
               sortable='"severity"') {{case.severity}}
           td(data-title='"Owner"|translate',
-              sortable='"owner"') {{case.contact_name}}
+              sortable='"contactName"') {{case.contact_name}}
           td(data-title='"Opened"|translate',
-              sortable='"created_date"',
+              sortable='"createdDate"',
               style='width: 10%') {{case.created_date | date:'longDate'}}
           td(data-title='"Updated"|translate',
-              sortable='"last_modified_date"',
+              sortable='"lastModifiedDate"',
               style='width: 10%') {{case.last_modified_date | date:'longDate'}}
       div(rha-exportcsvbutton='')
