@@ -485,7 +485,7 @@ module.exports = function (grunt) {
                         host: {
                             url: 'http://localhost:9000/sonar/'
                         },
-                        projectKey: 'sonar:redhat_access_angular_ui:0.9.68',
+                        projectKey: 'sonar:redhat_access_angular_ui',
                         projectName: 'redhat_access_angular_ui',
                         projectVersion: '<%= pkg.version %>',
                         sources: ['app'].join(','),
