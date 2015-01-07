@@ -4,8 +4,9 @@ form(name='caseDetails')
       div
         h3.case-id(style='margin-top: 0px;') Case {{CaseService.kase.case_number}} 
          span.amc(ng-show="CaseService.kase.entitlement.sla=='AMC'") {{'Advanced Mission Critical'|translate}}
-      input.form-control(
+      input#rha-summary.form-control(
         style='width: 100%; display: inline-block;',
+        maxlength='255',
         ng-model='CaseService.kase.summary',
         name='summary')
       span.glyphicon.glyphicon-asterisk(
