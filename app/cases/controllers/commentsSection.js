@@ -30,6 +30,34 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
             });
         };
 
+        $scope.commentReply = function(id,browserIE) {
+            var text = '';
+            if (browserIE === true) {
+                text = $('#'+id+' .browserIE').text();
+            } else {
+                text = $('#'+id+' .browserNotIE').text();
+            }
+            var person = $('#'+id+' .personNameBlock').text();
+            var originalText = $('#case-comment-box').val();
+            var lines = text.split(/\n/);
+            text = '(In reply to ' + person + ')\n';
+            for (var i = 0, max = lines.length; i < max; i++) {
+                text = text + '> '+ lines[i] + '\n';
+            }
+            if (originalText.trim() !== '') {
+                text = '\n' + text;
+            }
+            $('#case-comment-box').val($('#case-comment-box').val()+text).keyup();
+
+            //Copying the code from the link to comment method
+            var old = $location.hash();
+            $location.hash('case-comment-box');
+            $anchorScroll();
+            $location.hash(old);
+            $location.search('commentBox', 'commentBox');
+            CaseService.commentText=text;
+        };
+
         $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             populateComments();
         });
