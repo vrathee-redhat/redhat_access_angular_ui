@@ -107,12 +107,12 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             if (!isObjectNothing(CaseService.severity)) {
                 params.severity = CaseService.severity;
             }
-            this.searching = true;
             //TODO: hack to get around onchange() firing at page load for each select.
             //Need to prevent initial onchange() event instead of handling here.
             var promises = [];
             var deferred = $q.defer();
             if (!angular.equals(params, this.oldParams)) {
+                this.searching = true;
                 this.oldParams = params;
                 var that = this;
                 var cases = null;
