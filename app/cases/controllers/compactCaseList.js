@@ -12,7 +12,8 @@ angular.module('RedhatAccess.cases').controller('CompactCaseList', [
     'SearchBoxService',
     'RHAUtils',
     '$filter',
-    function ($scope, $stateParams, strataService, CaseService, $rootScope, AUTH_EVENTS, securityService, SearchCaseService, AlertService, SearchBoxService, RHAUtils, $filter) {
+    'CASE_EVENTS',
+    function ($scope, $stateParams, strataService, CaseService, $rootScope, AUTH_EVENTS, securityService, SearchCaseService, AlertService, SearchBoxService, RHAUtils, $filter, CASE_EVENTS) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.selectedCaseIndex = -1;
@@ -23,8 +24,9 @@ angular.module('RedhatAccess.cases').controller('CompactCaseList', [
             }
         };
         $scope.domReady = false;
+
         //used to notify resizable directive that the page has loaded
-        SearchBoxService.doSearch = CaseService.onSelectChanged = CaseService.onOwnerSelectChanged = CaseService.onGroupSelectChanged = function () {
+        $scope.doSearch = function () {
             SearchCaseService.doFilter().then(function () {
                 if (RHAUtils.isNotEmpty($stateParams.id) && $scope.selectedCaseIndex === -1) {
                     var selectedCase = $filter('filter')(SearchCaseService.cases, { 'case_number': $stateParams.id });
@@ -33,14 +35,20 @@ angular.module('RedhatAccess.cases').controller('CompactCaseList', [
                 $scope.domReady = true;
             });
         };
+        $scope.doSearchDeregister = $rootScope.$on(CASE_EVENTS.searchSubmit, function () {
+            $scope.doSearch();
+        });
         if (securityService.loginStatus.isLoggedIn) {
             CaseService.populateGroups();
-            SearchBoxService.doSearch();
+            $scope.doSearch();
         }
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             CaseService.populateGroups();
-            SearchBoxService.doSearch();
+            $scope.doSearch();
             AlertService.clearAlerts();
+        });
+        $scope.$on('$destroy', function () {
+            $scope.doSearchDeregister();
         });
     }
 ]);

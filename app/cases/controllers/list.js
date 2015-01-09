@@ -73,7 +73,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             tableBuilt = true;
         };
 
-        $scope.doSearchDeregister = $rootScope.$on(CASE_EVENTS.caseSearch, function () {
+        $scope.doSearchDeregister = $rootScope.$on(CASE_EVENTS.searchSubmit, function () {
             $scope.doSearch();
         });
 

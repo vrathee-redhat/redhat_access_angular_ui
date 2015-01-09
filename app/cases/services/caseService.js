@@ -44,13 +44,13 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.product = '';
         this.bugzillaList = {};
         this.onSelectChanged = function(){
-            $rootScope.$broadcast(CASE_EVENTS.caseSearch);
+            $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.onOwnerSelectChanged = function(){
-            $rootScope.$broadcast(CASE_EVENTS.caseSearch);
+            $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.onGroupSelectChanged = function(){
-            $rootScope.$broadcast(CASE_EVENTS.caseSearch);
+            $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.groupOptions = [];
         this.showsearchoptions = false;

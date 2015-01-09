@@ -9,7 +9,8 @@ angular.module('RedhatAccess.cases').controller('Search', [
     'STATUS',
     'SearchBoxService',
     'AlertService',
-    function ($scope, $rootScope, AUTH_EVENTS, securityService, SearchCaseService, CaseService, STATUS, SearchBoxService, AlertService) {
+    'CASE_EVENTS',
+    function ($scope, $rootScope, AUTH_EVENTS, securityService, SearchCaseService, CaseService, STATUS, SearchBoxService, AlertService, CASE_EVENTS) {
         $scope.securityService = securityService;
         $scope.SearchCaseService = SearchCaseService;
         $scope.CaseService = CaseService;
@@ -30,7 +31,12 @@ angular.module('RedhatAccess.cases').controller('Search', [
                 $scope.casesOnScreen = SearchCaseService.cases.slice(start, end);
             }
         };
-        SearchBoxService.doSearch = CaseService.onSelectChanged = CaseService.onOwnerSelectChanged = CaseService.onGroupSelectChanged = function () {
+
+        $scope.doSearchDeregister = $rootScope.$on(CASE_EVENTS.searchSubmit, function () {
+            $scope.doSearch();
+        });
+
+        $scope.doSearch = function () {
             SearchCaseService.clearPagination();
             SearchCaseService.doFilter().then(function () {
                 $scope.selectPage(1);
@@ -39,10 +45,10 @@ angular.module('RedhatAccess.cases').controller('Search', [
         if (securityService.loginStatus.isLoggedIn) {
             CaseService.clearCase();
             SearchCaseService.clear();
-            SearchBoxService.doSearch();
+            $scope.doSearch();
         }
         $scope.authEventLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            SearchBoxService.doSearch();
+            $scope.doSearch();
             AlertService.clearAlerts();
         });
         $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
@@ -51,6 +57,7 @@ angular.module('RedhatAccess.cases').controller('Search', [
         });
 
         $scope.$on('$destroy', function () {
+            $scope.doSearchDeregister();
             $scope.authEventLoginSuccess();
             $scope.authEventLogoutSuccess();
         });
