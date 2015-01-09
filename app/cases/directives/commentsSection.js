@@ -35,6 +35,7 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','
                 $anchorScroll();
                 $location.hash(old);
                 $location.search('commentBox', 'commentBox');
+                scope.assignCommentsText(text);
             };
         }
     };

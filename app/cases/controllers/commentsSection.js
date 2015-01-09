@@ -30,6 +30,10 @@ angular.module('RedhatAccess.cases').controller('CommentsSection', [
             });
         };
 
+        $scope.assignCommentsText=function(text) {
+                CaseService.commentText=text;
+            };
+
         $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             populateComments();
         });

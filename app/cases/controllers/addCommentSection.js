@@ -152,6 +152,10 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 parseInt(count);
                 $scope.progressCount = Math.round(count * 100) / 100;
             }
+            else if(CaseService.commentText===undefined)
+            {
+                $scope.progressCount=0;
+            }
         };
         $scope.saveDraft = function () {
             $scope.savingDraft = true;
