@@ -5,7 +5,7 @@ div#rha-new-recommendation-section.row.rha-bottom-border
         h4(style="padding-left: 10px; display: inline-block;") Red Hat Access Recommendations
       span.rha-search-spinner(ng-show='searchInProgress.value', style='float: right;')
 div.col-xs-12
-  div.recommendations-inner
+  div.recommendations-inner(ng-show='results.length')
     ul.recommendations(style="display: block;")
       li(ng-repeat="result in results")
         a(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank')
@@ -26,3 +26,5 @@ div.col-xs-12
           next-text='>',
           first-text='<<',
           last-text='>>')
+  div#emptyRecommendation(ng-hide='results.length || searchInProgress.value')
+    span(style='display: inline-block; padding-right: 10px;') {{'No recommendations are available.' | translate}}

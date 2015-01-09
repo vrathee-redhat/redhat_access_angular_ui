@@ -40,11 +40,16 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.ie9 = window.ie9;
         $scope.ie8Message='We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
 
+        $scope.showRecommendationPanel = false;
 
         // Instantiate these variables outside the watch
         var waiting = false;
         $scope.$watch('CaseService.kase.description + CaseService.kase.summary', function () {
             if (!waiting){
+                if(CaseService.kase.description != undefined || CaseService.kase.summary != undefined)
+                {
+                    $scope.makeRecommendationPanelVisible();
+                }
                 waiting = true;
                 $timeout(function() {
                     waiting = false;
@@ -201,17 +206,19 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.kase.description = desc;
                 $scope.getRecommendations();
             };
-            if (searchObject.data) {
-                setDesc(searchObject.data);
-            } else {
-                //angular does not  handle params before hashbang
-                //@see https://github.com/angular/angular.js/issues/6172
-                var queryParamsStr = window.location.search.substring(1);
-                var parameters = queryParamsStr.split('&');
-                for (var i = 0; i < parameters.length; i++) {
-                    var parameterName = parameters[i].split('=');
-                    if (parameterName[0] === 'data') {
-                        setDesc(decodeURIComponent(parameterName[1]));
+            if(!$scope.NEW_CASE_CONFIG.isPCM) {
+                if (searchObject.data) {
+                    setDesc(searchObject.data);
+                } else {
+                    //angular does not  handle params before hashbang
+                    //@see https://github.com/angular/angular.js/issues/6172
+                    var queryParamsStr = window.location.search.substring(1);
+                    var parameters = queryParamsStr.split('&');
+                    for (var i = 0; i < parameters.length; i++) {
+                        var parameterName = parameters[i].split('=');
+                        if (parameterName[0] === 'data') {
+                            setDesc(decodeURIComponent(parameterName[1]));
+                        }
                     }
                 }
             }
@@ -450,5 +457,8 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.$on('$destroy', function () {
             CaseService.clearCase();
         });
+        $scope.makeRecommendationPanelVisible =function(){
+            $scope.showRecommendationPanel = true;
+        };
     }
 ]);
