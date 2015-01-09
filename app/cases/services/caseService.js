@@ -13,7 +13,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$filter',
     'translate',
     '$angularCacheFactory',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter,translate,$angularCacheFactory) {
+    '$rootScope',
+    'CASE_EVENTS',
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, translate, $angularCacheFactory, $rootScope, CASE_EVENTS) {
         $angularCacheFactory('localStorageCache', {
             storageMode: 'localStorage',
             verifyIntegrity: true
@@ -41,9 +43,15 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.owner = '';
         this.product = '';
         this.bugzillaList = {};
-        this.onSelectChanged = null;
-        this.onOwnerSelectChanged = null;
-        this.onGroupSelectChanged = null;
+        this.onSelectChanged = function(){
+            $rootScope.$broadcast(CASE_EVENTS.caseSearch);
+        };
+        this.onOwnerSelectChanged = function(){
+            $rootScope.$broadcast(CASE_EVENTS.caseSearch);
+        };
+        this.onGroupSelectChanged = function(){
+            $rootScope.$broadcast(CASE_EVENTS.caseSearch);
+        };
         this.groupOptions = [];
         this.showsearchoptions = false;
         this.disableAddComment = true;

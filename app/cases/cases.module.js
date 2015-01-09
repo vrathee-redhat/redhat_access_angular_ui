@@ -11,7 +11,8 @@ angular.module('RedhatAccess.cases', [
     'RedhatAccess.common',
     'RedhatAccess.header'
 ]).constant('CASE_EVENTS', {
-    received: 'case-received'
+    received: 'case-received',
+    caseSearch: 'case-search'
 }).constant('CHAT_SUPPORT', {
     enableChat: false,
     chatButtonToken: '573A0000000GmiP',
