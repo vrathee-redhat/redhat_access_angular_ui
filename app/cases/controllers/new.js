@@ -46,7 +46,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         var waiting = false;
         $scope.$watch('CaseService.kase.description + CaseService.kase.summary', function () {
             if (!waiting){
-                if(CaseService.kase.description != undefined || CaseService.kase.summary != undefined)
+                if(RHAUtils.isNotEmpty(CaseService.kase.description) || RHAUtils.isNotEmpty(CaseService.kase.summary))
                 {
                     $scope.makeRecommendationPanelVisible();
                 }
