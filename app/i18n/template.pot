@@ -386,6 +386,10 @@ msgstr ""
 msgid "No match found"
 msgstr ""
 
+#: app/cases/views/newRecommendationsSection.html
+msgid "No recommendations are available."
+msgstr ""
+
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
 msgstr ""
