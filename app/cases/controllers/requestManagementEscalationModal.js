@@ -7,10 +7,11 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
     'AlertService',
     'CaseService',
     'strataService',
+    'securityService',
     '$q',
     '$stateParams',
     'RHAUtils',
-    function ($scope, $modalInstance, AlertService, CaseService, strataService, $q, $stateParams, RHAUtils) {
+    function ($scope, $modalInstance, AlertService, CaseService, strataService,securityService, $q, $stateParams, RHAUtils) {
         $scope.CaseService = CaseService;
         $scope.submittingRequest = false;
         if(RHAUtils.isNotEmpty(CaseService.commentText)){
@@ -32,6 +33,10 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
 
                 CaseService.populateComments($stateParams.id).then(function (comments) {
                     $scope.closeModal();
+                    if(CaseService.localStorageCache)
+                    {
+                        CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
+                    }
                     $scope.submittingRequest = false;
                     CaseService.draftSaved = false;
                     CaseService.draftComment = undefined;
