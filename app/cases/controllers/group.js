@@ -23,13 +23,11 @@ angular.module('RedhatAccess.cases').controller('Group', [
         SearchBoxService.onKeyPress = function () {
             GroupService.reloadTableAndClearPagination();
         };
-        $scope.$on('$destroy', function () {
-            $scope.onChange();
-        });
         $scope.defaultCaseGroup = function(){
             $location.path('/case/group/default');
         };
         $scope.$on('$destroy', function () {
+            $scope.onChange();
             $scope.doSearchDeregister();
             $scope.doChangeDeregister();
         });
