@@ -19,7 +19,7 @@ div#redhat-access-case
 
   // start
   div.row.clearfix(style='margin: 0;', ng-class="{'partial-border': NEW_CASE_CONFIG.isPCM}" , ng-hide='!CaseService.sfdcIsHealthy')
-    div.col-xs-6(style='border-right: 1px solid; padding-top: 24px; border-color: #cccccc;')
+    div(ng-class='{"col-xs-6": showRecommendationPanel , "col-xs-12": !showRecommendationPanel}', style='border-right: 1px solid; padding-top: 24px; border-color: #cccccc;')
       div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
         div(ng-if='securityService.loginStatus.authedUser.is_internal')
           div.row.rha-create-field
@@ -41,7 +41,7 @@ div#redhat-access-case
                 ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
                 style='width: 100%;',
                 ng-model='CaseService.kase.product',
-                ng-change='getProductVersions(CaseService.kase.product);getRecommendations()',
+                ng-change='getProductVersions(CaseService.kase.product);getRecommendations();makeRecommendationPanelVisible()',
                 ng-options='p.value as p.label for p in products',
                 options-disabled='p.isDisabled for p in products')
         div.row.rha-create-field
@@ -54,7 +54,7 @@ div#redhat-access-case
                   style='width: 100%;',
                   ng-model='CaseService.kase.version',
                   ng-options='v for v in versions',
-                  ng-change='CaseService.validateNewCasePage1();getRecommendations()',
+                  ng-change='CaseService.validateNewCasePage1();getRecommendations();makeRecommendationPanelVisible()',
                   ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase')
               div.versionSunsetMessage(ng-show='CaseService.showVersionSunset()')
                 span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
@@ -186,12 +186,12 @@ div#redhat-access-case
             span.rha-search-spinner(
               ng-show='submittingCase',
               style='float: right')
-    div.col-xs-6(
+    div(ng-class='{"col-xs-6": showRecommendationPanel}'
       style='overflow: auto; padding-top: 24px',
       ng-show='NEW_CASE_CONFIG.showRecommendations')
       div(
         ng-controller='SearchController',
         style='overflow: vertical;')
-        div(ng-hide='!NEW_CASE_CONFIG.isPCM', rha-newrecommendations='')
+        div(ng-hide='!NEW_CASE_CONFIG.isPCM && showRecommendationPanel', rha-newrecommendations='')
         div(ng-hide='NEW_CASE_CONFIG.isPCM', rha-accordionsearchresults='')
 
