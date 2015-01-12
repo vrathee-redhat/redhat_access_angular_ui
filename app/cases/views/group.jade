@@ -8,7 +8,7 @@ div#redhat-access-case.container-offset
         div.pull-right(rha-creategroupbutton='')
         div.pull-right(rha-deletegroupbutton='', style='padding-right: 20px;')
         div.pull-right(style='padding-right: 20px;')
-         button.btn.btn-primary.btn-slim.btn-small(type="button" translate='' ng-show='canManageGroups' ng-click='defaultCaseGroup()') Manage Default Case Groups
+         button.btn.btn-primary.btn-slim.btn-small(type="button" translate='' ng-show='securityService.loginStatus.authedUser.org_admin' ng-click='defaultCaseGroup()') Manage Default Case Groups
     div.row
       div.col-xs-12
         div(rha-grouplist='')

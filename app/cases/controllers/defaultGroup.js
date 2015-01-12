@@ -16,7 +16,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
         $scope.selectedGroup = {};
-        $scope.selectedUser = '';
+        $scope.selectedUser = {};
         $scope.usersOnAccount = [];
         $scope.account = null;
         $scope.groups = [];
