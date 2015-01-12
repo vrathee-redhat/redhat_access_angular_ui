@@ -21,13 +21,14 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
         $scope.account = null;
         $scope.groups = [];
         $scope.ssoName = null;
-        $scope.groupsLoading = false;
+        $scope.groupsLoading = true;
         $scope.usersLoading = false;
         $scope.usersLoaded = false;
         $scope.usersAndGroupsFinishedLoading = false;
+        $scope.userCanManageDefaultGroups = true;
         
         $scope.init = function() {
-            if(securityService.userAllowedToManageGroups()){
+            if(securityService.userAllowedToManageDefaultGroups()){
                 $scope.groupsLoading = true;
                 var loc = $location.url().split('/');
                 $scope.ssoName = securityService.loginStatus.authedUser.sso_username;
@@ -47,7 +48,8 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             }else{
                 $scope.usersLoading = false;
                 $scope.groupsLoading = false;
-                AlertService.addStrataErrorMessage(translate('User does not have proper credentials to manage default groups.'));
+                $scope.userCanManageDefaultGroups = false;
+                //AlertService.addStrataErrorMessage(translate('User does not have proper credentials to manage default groups.'));
             }
         };
 

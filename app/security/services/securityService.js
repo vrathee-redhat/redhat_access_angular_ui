@@ -76,6 +76,13 @@ angular.module('RedhatAccess.security').factory('securityService', [
                     return false;
                 }
             },
+            userAllowedToManageDefaultGroups: function(user) {
+                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && (service.loginStatus.authedUser.org_admin)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
             getBasicAuthToken: function() {
                 var defer = $q.defer();
                 var token = localStorage.getItem('rhAuthToken');
