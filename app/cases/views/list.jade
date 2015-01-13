@@ -16,7 +16,7 @@ div#redhat-access-case
     div(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching || !securityService.loginStatus.isLoggedIn')
       table.table.table-bordered.table-striped(
           ng-table='tableParams',
-          style='text-align: left')
+          style='text-align: left;table-layout: fixed;')
         tr(ng-repeat='case in $data')
           td(data-title="'Case ID'|translate",
               sortable='"caseNumber"',
@@ -24,7 +24,7 @@ div#redhat-access-case
             a(href='#/case/{{case.case_number}}') {{case.case_number}}
           td(data-title='"Summary"|translate',
               sortable='"summary"',
-              style='width: 15%') {{case.summary}}
+              style='width: 15%;word-wrap:break-word') {{case.summary}}
           td(data-title='"Product/Version"|translate',
               sortable='"product"') {{case.product}} / {{case.version}}
           td(data-title='"Status"|translate',
