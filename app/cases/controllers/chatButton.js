@@ -82,6 +82,9 @@ angular.module('RedhatAccess.cases').controller('ChatButton', [
             liveagent.addCustomDetail('Account Number', accountNumber).map('Account', 'AccountNumber', true, true, true);
             liveagent.setName(name);
             liveagent.addCustomDetail('Name', name);
+            if(gettextCatalog.currentLanguage !== undefined){
+                liveagent.addCustomDetail('rh_locale', gettextCatalog.currentLanguage);
+            }
             liveagent.setChatWindowHeight('552');
             //liveagent.enableLogging();
             liveagent.init(CHAT_SUPPORT.chatLiveAgentUrlPrefix, CHAT_SUPPORT.chatInitHashOne, CHAT_SUPPORT.chatInitHashTwo);
