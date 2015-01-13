@@ -21,7 +21,8 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
             div.private(ng-if='comment.public !== undefined && comment.public === false') Private
           div.col-md-9.rha-comment-text
             pre.pcmTextBlock.browserNotIE(ng-hide="ie8 || ie9" ng-bind-html="comment.text | linky:'_blank'")
-            div.pcmTextBlock.browserIE(ng-show="ie8 || ie9") {{ comment.text}}
+            div(id='{{comment.id}}text')
+              div.pcmTextBlock.browserIE(ng-show="ie8 || ie9") {{ comment.text}}
             a.commentReply(ng-click='commentReply(comment.id,(ie8 || ie9))') {{'Reply'|translate}}
           div.col-md-1.rha-comment-link
             a.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(comment.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{comment.id}}')
