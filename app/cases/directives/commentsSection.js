@@ -13,10 +13,11 @@ angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','
             scope.commentReply = function(id,browserIE) {
                 var text = '';
                 if (browserIE === true) {
-                    text = $('#'+id+' .browserIE').text();
+                    text = document.getElementById(id + 'text').innerText;
                 } else {
                     text = $('#'+id+' .browserNotIE').text();
                 }
+
                 var person = $('#'+id+' .personNameBlock').text();
                 var originalText = $('#case-comment-box').val();
                 var lines = text.split(/\n/);
