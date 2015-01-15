@@ -7,7 +7,7 @@ div.container-fluid.rha-side-padding(ng-hide='loading')
   div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; padding-bottom: 10px;')
     div.col-xs-12
       span(style='display: inline-block; padding-right: 10px;') {{'Would you like a Red Hat support manager to contact you regarding this case?'|translate}}
-      button.btn.btn-open(
+      button.btn.btn-open(id='rha-case-requestEscalation-button',
         style='display: inline-block',
         ng-click='requestManagementEscalation()', translate='') Request Management Escalation
   div.rha-comments-section(ng-hide='CaseService.comments.length <= 0 || CaseService.comments === undefined', style='border-top: 1px solid #dddddd;')
