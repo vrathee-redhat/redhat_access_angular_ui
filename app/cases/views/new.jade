@@ -186,7 +186,7 @@ div#redhat-access-case
             span.rha-search-spinner(
               ng-show='submittingCase',
               style='float: right')
-    div(div='rha-new-recommendations',ng-class='{"col-xs-6": showRecommendationPanel}'
+    div(id='rha-new-recommendations',ng-class='{"col-xs-6": showRecommendationPanel}'
       style='overflow: auto; padding-top: 24px',
       ng-show='NEW_CASE_CONFIG.showRecommendations')
       div(
