@@ -464,6 +464,10 @@ div#rha-recommendation-section .hand-picked {
     display:inline-block;
 }
 
+.console-error{
+    color: #c00;
+}
+
 #redhat-access-case table {
     font-size: 14px;
 }
