@@ -87,13 +87,13 @@ div#redhat-access-case
         div.rha-bottom-border
           div.row
             div.col-xs-12
-              div.rha-bold(style='margin-bottom: 10px;') {{CaseService.kase.product}} {{CaseService.kase.version}}
+              div.rha-bold(id='rha-newPage2-productVersion',style='margin-bottom: 10px;') {{CaseService.kase.product}} {{CaseService.kase.version}}
           div.row
             div.col-xs-12
-              div.rha-bold(style='font-size: 90%; margin-bottom: 4px;word-wrap: break-word') {{CaseService.kase.summary}}
+              div.rha-bold(id='rha-newPage2-caseSummary',style='font-size: 90%; margin-bottom: 4px;word-wrap: break-word') {{CaseService.kase.summary}}
           div.row
             div.col-xs-12
-              div(style='font-size: 85%; white-space:pre-wrap;word-wrap: break-word') {{CaseService.kase.description}}
+              div(id='rha-newPage2-caseDescription', style='font-size: 85%; white-space:pre-wrap;word-wrap: break-word') {{CaseService.kase.description}}
         div.row.rha-create-field
           div.col-md-4
             label(for='rha-entitlement-select') {{'Support Level:'|translate}}
@@ -186,7 +186,7 @@ div#redhat-access-case
             span.rha-search-spinner(
               ng-show='submittingCase',
               style='float: right')
-    div(ng-class='{"col-xs-6": showRecommendationPanel}'
+    div(div='rha-new-recommendations',ng-class='{"col-xs-6": showRecommendationPanel}'
       style='overflow: auto; padding-top: 24px',
       ng-show='NEW_CASE_CONFIG.showRecommendations')
       div(
