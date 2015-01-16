@@ -329,7 +329,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             });
 
             var defaultGroup = '';
-            if (this.showsearchoptions) {
+            if (this.showsearchoptions === true) {
                 this.groupOptions.push({
                     value: '',
                     label: translate('All Groups')
@@ -343,7 +343,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     label: translate('Ungrouped Case')
                 });
             }
-            if (this.showsearchoptions && this.groups.length > 0) {
+            if (this.showsearchoptions === true && this.groups.length > 0) {
                 this.groupOptions.push({
                     isDisabled: true,
                     label: sep
@@ -359,7 +359,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     this.group = group.number;
                 }
             }, this);
-            if (this.showsearchoptions) {
+            if (this.showsearchoptions === true) {
                 this.groupOptions.push({
                     isDisabled: true,
                     label: sep
