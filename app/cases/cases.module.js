@@ -95,5 +95,13 @@ angular.module('RedhatAccess.cases', [
             controller: 'EditGroup',
             templateUrl: 'cases/views/editGroup.html'
         });
+        $stateProvider.state('404', {
+            url: '/404',
+            templateUrl: 'cases/views/404.html'
+        });
+        $stateProvider.state('403', {
+            url: '/403',
+            templateUrl: 'cases/views/403.html'
+        });
     }
 ]);

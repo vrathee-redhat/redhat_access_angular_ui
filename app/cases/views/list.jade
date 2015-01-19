@@ -1,8 +1,11 @@
-div#redhat-access-case
+
+div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.userAllowedToManageCases')
+  div(rha-403error='')
+div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManageCases')
   div(rha-header='', page='caseList')
   div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
     div {{'User does not have permissions to manage cases.'|translate}}
-  div.row(ng-hide='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn || !CaseService.sfdcIsHealthy')
+  div.row(ng-hide='securityService.loginStatus.isLoggedIn || !CaseService.sfdcIsHealthy')
     div.col-md-8
       div(rha-listfilter='')
     div.col-md-4.text-right

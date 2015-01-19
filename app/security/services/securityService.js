@@ -16,7 +16,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
             loginStatus: {
                 isLoggedIn: false,
                 verifying: false,
-                userAllowedToManageCases: false,
+                userAllowedToManageCases: true,
                 authedUser: {}
             },
             loginURL: SECURITY_CONFIG.loginURL,

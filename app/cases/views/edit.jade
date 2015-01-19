@@ -1,5 +1,9 @@
 doctype html
-div#redhat-access-case.container-offset
+div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.userAllowedToManageCases')
+  div(rha-403error='')
+div#redhat-access-case.container-offset(ng-show='failedToLoadCase && securityService.loginStatus.userAllowedToManageCases')
+  div(rha-404error='')
+div#redhat-access-case.container-offset(ng-hide='failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases')
   span.rha-search-spinner(ng-show='loading.kase')
   div(rha-header='', page='caseView')
   div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn && !failedToLoadCase && CaseService.sfdcIsHealthy')
