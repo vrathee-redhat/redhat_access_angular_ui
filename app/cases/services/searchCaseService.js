@@ -161,7 +161,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         }
                         cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                             that.totalCases = response.total_count;
-
                             that.cases = that.cases.concat(response['case']);
                             that.searching = false;
                             that.start = that.start + that.count;
