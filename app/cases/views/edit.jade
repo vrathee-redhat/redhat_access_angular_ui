@@ -1,4 +1,3 @@
-doctype html
 div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.userAllowedToManageCases')
   div(rha-403error='')
 div#redhat-access-case.container-offset(ng-show='failedToLoadCase && securityService.loginStatus.userAllowedToManageCases')
@@ -6,25 +5,33 @@ div#redhat-access-case.container-offset(ng-show='failedToLoadCase && securitySer
 div#redhat-access-case.container-offset(ng-hide='failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases')
   span.rha-search-spinner(ng-show='loading.kase')
   div(rha-header='', page='caseView')
-  div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn && !failedToLoadCase && CaseService.sfdcIsHealthy')
-    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
-      div.pull-right
-          div(rha-chatbutton='')
-    div.row(ng-show='EDIT_CASE_CONFIG.showDetails')
-      div.col-xs-12
-        div(rha-casedetails='', compact='false', loading='loading.kase')
-    div.row(ng-show='EDIT_CASE_CONFIG.showDescription')
-      div.col-xs-12
-        div(rha-casedescription='', loading='loading.kase')
-    div.row(ng-show='EDIT_CASE_CONFIG.showBugzillas')
-      div.col-xs-12
-        div(rha-listbugzillas='', loading='loading.kase')
-    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
-      div.col-xs-12
-        div(rha-caseattachments='', loading='loading.attachments')
-    div.row(ng-show='EDIT_CASE_CONFIG.showRecommendations')
-      div.col-xs-12
-        div(rha-caserecommendations='', loading='recommendationsLoading')
-    div.row(ng-show='EDIT_CASE_CONFIG.showComments')
-      div.col-xs-12
-        div(rha-casecomments='', loading='loading.comments')
+  div(ng-show='securityService.loginStatus.isLoggedIn && !failedToLoadCase && CaseService.sfdcIsHealthy')
+    .row
+      main.col-md-8(role='main')
+        div.row(ng-show='EDIT_CASE_CONFIG.showDescription')
+          div(rha-casedescription='', loading='loading.kase')
+        div.row(ng-show='EDIT_CASE_CONFIG.showDetails')
+          div(rha-casedetails='', compact='false', loading='loading.kase')
+        //- div.row(ng-show='EDIT_CASE_CONFIG.showBugzillas')
+        //-   div.col-xs-12
+        //-     div(rha-listbugzillas='', loading='loading.kase')
+        section.case-discussion
+        header
+          h2 Case Discussion
+          div(rha-emailnotifyselect='')
+          .block
+            textarea.comment(placeholder='Add a comment...', type='text', name='comment')
+          div.row(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
+            div(rha-caseattachments='', loading='loading.attachments')
+          div.row(ng-show='EDIT_CASE_CONFIG.showComments')
+            div(rha-casecomments='', loading='loading.comments')
+      aside.col-md-4
+        div(rha-newrecommendations='')
+        section.case-escalation
+          div
+            h3
+              | Need to raise a concern to Red Hat Support
+              | management? 
+              a.link(href='#') Learn More
+          // <a href="#">Request escalation</a>
+          a.btn.btn-light(href='#') Request escalation

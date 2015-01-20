@@ -29,7 +29,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 });
             }
             strataService.values.cases.status().then(function (response) {
-                $scope.statuses = response;
+                CaseService.statuses = response;
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });

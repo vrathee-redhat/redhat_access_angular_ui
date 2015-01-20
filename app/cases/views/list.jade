@@ -1,45 +1,44 @@
 
-div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.userAllowedToManageCases')
+div#redhat-access-case(ng-show='!securityService.loginStatus.userAllowedToManageCases')
   div(rha-403error='')
 div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManageCases')
   div(rha-header='', page='caseList')
   div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
     div {{'User does not have permissions to manage cases.'|translate}}
-  div.row(ng-hide='!CaseService.sfdcIsHealthy')
-    div.col-md-8
-      div(rha-listfilter='')
-    div.col-md-4.text-right
-        span.pad-r-l(rha-chatbutton='')
-        button.btn.btn-primary.btn-slim.btn-sm(
-          ng-disabled='!securityService.loginStatus.isLoggedIn',
-          ui-sref='new', translate='') Open a New Support Case
-  div.rha-bottom-border(ng-show='CaseService.sfdcIsHealthy')
-    div.spinner.spinner-inline(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
-    div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
-    div(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching || !securityService.loginStatus.isLoggedIn')
-      table.table.table-bordered.table-striped(
-          ng-table='tableParams',
-          style='text-align: left;table-layout: fixed;')
-        tr(ng-repeat='case in $data')
-          td(data-title="'Case ID'|translate",
-              sortable='"caseNumber"',
-              style='width: 10%')
-            a(href='#/case/{{case.case_number}}') {{case.case_number}}
-          td(data-title='"Summary"|translate',
-              sortable='"summary"',
-              style='width: 15%;word-wrap:break-word') {{case.summary}}
-          td(data-title='"Product/Version"|translate',
-              sortable='"product"') {{case.product}} / {{case.version}}
-          td(data-title='"Status"|translate',
-              sortable='"status"') {{case.status}}
-          td(data-title='"Severity"|translate',
-              sortable='"severity"') {{case.severity}}
-          td(data-title='"Owner"|translate',
-              sortable='"contactName"') {{case.contact_name}}
-          td(data-title='"Opened"|translate',
-              sortable='"createdDate"',
-              style='width: 10%') {{case.created_date | date:'longDate'}}
-          td(data-title='"Updated"|translate',
-              sortable='"lastModifiedDate"',
-              style='width: 10%') {{case.last_modified_date | date:'longDate'}}
-      div(rha-exportcsvbutton='')
+  div.row.row-align-bottom(ng-hide='!CaseService.sfdcIsHealthy')
+    div.col-sm-8(rha-listfilter='')
+    div.col-sm-4
+      div.actions
+        a.btn.btn-blue(href='new-case.php') Create a New Support Case
+        div(rha-exportcsvbutton='')
+  
+  div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
+  div#case-list.table-list.case-list
+      div.list-item(ng-repeat='case in SearchCaseService.cases')
+        div.row
+          div.col-sm-5.col-md-3.item-group
+            div.block-icon
+              div.severity
+                i.fa.fa-beer.icon.severity-level1
+              div.case-id
+                b {{case.case_number}}
+              div.status.light
+                span {{case.status}}
+          div.col-sm-7.col-md-5.item-group
+            div
+              b
+                | {{case.product}}
+                span.sep |
+                | {{case.version}}
+            div.description.light
+              | {{case.description}}
+              //- a.fa.fa-comments(href='#')
+              //-   span.count 2
+              //-Field does not exist
+          div.col-sm-12.col-md-4
+            div.item-group.change-log
+              div.filed-on
+                | Last Modified: 
+                b {{case.comments.comment[0].last_modified_date | date:'longDate'}}
+                i  by 
+                a(href='#') {{case.last_modified_by}}

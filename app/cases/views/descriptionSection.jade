@@ -1,7 +1,31 @@
-h4.rha-section-header(translate='') Description
-span.rha-search-spinner(ng-show='loading')
-div.container-fluid.rha-side-padding(ng-hide='loading')
-  div.row
-    div.col-md-2
-      strong {{CaseService.kase.created_by}}
-    div.col-md-10.pcmTextBlock {{CaseService.kase.description}}
+header.page-header
+  .row
+    .col-sm-6.col-md-8
+      h1.page-title(translate='') Case {{CaseService.kase.case_number}}
+    .col-sm-6.col-md-4
+      .chat
+        a.link(href='#')
+          | Chat with Support 
+          i.fa.fa-comments
+section.filters
+  .row
+    .col-sm-4
+      select(
+        name='status',
+        ng-model='CaseService.kase.status',
+        ng-options='s.name for s in CaseService.statuses track by s.name')
+    .col-sm-4
+      span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
+      select(
+        name='severity',
+        ng-model='CaseService.kase.severity',
+        ng-change='CaseService.onChangeFTSCheck()',
+        ng-options='s.name for s in CaseService.severities track by s.name')
+
+//- h4.rha-section-header(translate='') Description
+//- span.rha-search-spinner(ng-show='loading')
+//- div.container-fluid.rha-side-padding(ng-hide='loading')
+//-   div.row
+//-     div.col-md-2
+//-       strong {{CaseService.kase.created_by}}
+//-     div.col-md-10.pcmTextBlock {{CaseService.kase.description}}
