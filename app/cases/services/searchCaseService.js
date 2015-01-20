@@ -63,7 +63,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             // }
             var params = {
                 count: this.count,
-                include_closed: getIncludeClosed(),
+                include_closed: getIncludeClosed()
             };
             if(COMMON_CONFIG.isGS4 === true){
                 params.account_number = "639769";
@@ -161,7 +161,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         }
                         cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                             that.totalCases = response.total_count;
-                            
+
                             that.cases = that.cases.concat(response['case']);
                             that.searching = false;
                             that.start = that.start + that.count;
