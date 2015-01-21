@@ -1,0 +1,125 @@
+.login-status-container:before,
+.login-status-container:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */ }
+
+.login-status-container:after {
+  clear: both; }
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.login-status-container {
+  *zoom: 1; }
+
+.valign {
+  display: block;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+.center {
+  text-align: center; }
+
+.navbar, .page-header {
+  margin: 0;
+  padding: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0; }
+
+* {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s; }
+
+html, body {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 22.4px;
+  line-height: 1.4rem;
+  color: #4d4d4d; }
+
+.row + .row {
+  margin-top: 20px; }
+
+div + .alert, h1 + .alert, h2 + .alert, h3 + .alert, h4 + .alert, h5 + .alert, h6 + .alert, p + .alert, span + .alert {
+  margin-top: 12px; }
+
+.masthead {
+  padding: 12px 0;
+  padding: 0.75rem 0;
+  background: #f7f7f7; }
+  @media (min-width: 768px) {
+    .masthead {
+      text-align: center; } }
+  @media (min-width: 768px) {
+    .masthead .navbar {
+      display: inline-block; } }
+  @media (min-width: 768px) {
+    .masthead .navbar-nav > li {
+      width: 16.6666667%;
+      display: table;
+      height: 70px; } }
+  @media (min-width: 1200px) {
+    .masthead .navbar-nav > li {
+      width: auto;
+      height: auto;
+      margin-left: 12px;
+      margin-right: 12px;
+      display: inline-block;
+      float: none; } }
+  @media (min-width: 768px) {
+    .masthead .navbar-nav > li a {
+      display: table-cell;
+      vertical-align: middle; } }
+  @media (min-width: 1200px) {
+    .masthead .navbar-nav > li a {
+      display: block; } }
+  .masthead .navbar-nav > li a:hover {
+    background: rgba(122, 122, 122, 0.1); }
+
+.navbar {
+  min-height: 0;
+  border: none; }
+
+.navbar-nav {
+  float: none;
+  display: inline-block; }
+  .navbar-nav li a {
+    color: #fff; }
+
+.page-header {
+  background: #ededed;
+  padding: 12px 0;
+  padding: 0.75rem 0;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 19.6px;
+  line-height: 1.225rem;
+  line-height: 1;
+  color: #4d4d4d; }
+  .page-header .message-container .message {
+    padding-left: 15px; }
+    .page-header .message-container .message li {
+      margin-bottom: 8px; }
+  .page-header h1 {
+    margin: 0 0 12px;
+    margin: 0 0 0.75rem; }
+
+@media (min-width: 768px) {
+  .login-status {
+    text-align: right; } }

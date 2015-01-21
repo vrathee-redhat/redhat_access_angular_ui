@@ -1,0 +1,18 @@
+.navbar {
+	@extend %reset;
+	min-height: 0;
+	border: none;
+}
+
+.navbar-nav {
+	float: none;
+	display: inline-block;
+
+	li {
+
+		a {
+			color: #fff;
+		}
+	}
+}
+

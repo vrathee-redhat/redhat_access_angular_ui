@@ -1,10 +1,12 @@
-<div class="rha-page-header">
-    <div rha-titletemplate page="{{page}}"></div>
-    <div rha-loginstatus></div>
-    <div class="row" style='margin-bottom: 0px;' ng-controller='HeaderController'>
-    	<div ng-show='!HeaderService.sfdcIsHealthy' ng-bind-html='parseSfdcOutageHtml()'/>
-    	<div class="col-xs-12" ng-show='HeaderService.sfdcIsHealthy'>
-    		<div rha-alert></div>
-    	</div>
-    </div>
-</div>
+<section class="page-header">
+	<div class="container">
+		<div class="login-status" rha-loginstatus></div>
+		<div class="header-controller" ng-controller='HeaderController'>
+			<div ng-show='!HeaderService.sfdcIsHealthy' ng-bind-html='parseSfdcOutageHtml()'/>
+			<div ng-show='HeaderService.sfdcIsHealthy'>
+				<div rha-alert></div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--<div class="page-title" rha-titletemplate page="{{page}}"></div>-->

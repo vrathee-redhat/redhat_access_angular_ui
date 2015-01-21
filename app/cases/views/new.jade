@@ -1,5 +1,4 @@
 div#redhat-access-case
-  div(rha-header='', page='newCase')
   div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy')
     div.pull-right
         div(rha-chatbutton='' style='margin-right: 10px;')

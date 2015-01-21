@@ -1,16 +1,16 @@
 div#redhat-access-case
-  div(rha-header='', page='caseList')
   div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
     div {{'User does not have permissions to manage cases.'|translate}}
   div.row(ng-hide='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn || !CaseService.sfdcIsHealthy')
     div.col-md-8
       div(rha-listfilter='')
     div.col-md-4.text-right
-        span.pad-r-l(rha-chatbutton='')
-        button.btn.btn-primary.btn-slim.btn-sm(
-          ng-disabled='!securityService.loginStatus.isLoggedIn',
-          ui-sref='new', translate='') Open a New Support Case
+      span.pad-r-l(rha-chatbutton='')
+      button.btn.btn-primary.btn-slim.btn-sm(
+        ng-disabled='!securityService.loginStatus.isLoggedIn',
+        ui-sref='new', translate='') Open a New Support Case
   div.rha-bottom-border(ng-show='CaseService.sfdcIsHealthy')
+    h1 testing
     div.spinner.spinner-inline(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
     div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
     div(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching || !securityService.loginStatus.isLoggedIn')

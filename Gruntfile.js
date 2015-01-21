@@ -95,6 +95,18 @@ module.exports = function (grunt) {
                 generated: ['<%= yeoman.app %>/i18n/translations.js']
             }
         },
+	    sass: {
+		    options: {
+			    compass: true,
+			    require: 'breakpoint',
+			    style: 'nested'
+			    //lineNumbers: true
+		    },
+		    files: {
+			    src: '<%= yeoman.app %>/assets/sass/**/*.scss',
+			    dest: '<%= yeoman.app %>/assets/css/app.min.css'
+		    }
+	    },
         watch: {
             js: {
                 files: ['<%= yeoman.app %>/{,*/}*.js'],
@@ -120,6 +132,18 @@ module.exports = function (grunt) {
             gruntfile: {
                 files: ['Gruntfile.js']
             },
+	        css: {
+		        files: [
+			        '<%= yeoman.app %>/assets/sass/components/*.scss',
+			        '<%= yeoman.app %>/assets/sass/elements/*.scss',
+			        '<%= yeoman.app %>/assets/sass/includes/*.scss',
+			        '<%= yeoman.app %>/assets/sass/base.scss'
+		        ],
+		        tasks: ['sass'],
+		        options: {
+			        livereload: true
+		        }
+	        },
             jade: {
                 files: ['<%= yeoman.app %>/**/*.jade'],
                 tasks: ['newer:jade']

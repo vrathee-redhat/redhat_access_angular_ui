@@ -1,0 +1,13 @@
+* {
+	@include border-radius(0);
+	@include transition(.2s);
+}
+
+html, body {
+	@include font-size($base_font_size);
+	color: $text_color;
+}
+
+.row + .row {
+	margin-top: 20px;
+}

@@ -1,0 +1,38 @@
+.page-header {
+	@extend %reset;
+	background: #ededed;
+	@include rem('padding', 12px 0);
+	@include font-size(14px);
+	line-height: 1;
+	color: $text_color;
+
+	.message-container {
+
+		.message {
+			padding-left: 15px;
+
+			li {
+				margin-bottom: 8px;
+			}
+		}
+	}
+
+	.alert {
+
+	}
+
+	h1 {
+		@include rem('margin', 0 0 12px);
+	}
+}
+
+.login-status-container {
+	@extend %clearfix;
+}
+
+.login-status {
+
+	@include media-query (sm) {
+		text-align: right;
+	}
+}

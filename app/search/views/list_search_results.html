@@ -1,4 +1,4 @@
-<div class="col-sm-4">
+<div class="col-sm-6 col-md-4">
     <div class="panel panel-default" ng-show='results.length > 0'>
         <!--pagination on-select-page="pageChanged(page)" total-items="totalItems" page="currentPage" max-size="maxSize"></pagination-->
 
@@ -12,7 +12,7 @@
         </div>
     </div>
 </div>
-<div id="rha-solution-display" class="col-sm-8" style="overflow: auto;" rha-resizable rha-domready="domReady">
+<div id="rha-solution-display" class="col-sm-6 col-md-8" rha-resizable rha-domready="domReady">
     <div class="alert alert-info" ng-show='selectedSolution.index === -1 && results.length > 0'>
         {{'To view a recommendation, click on it.'|translate}}
     </div>

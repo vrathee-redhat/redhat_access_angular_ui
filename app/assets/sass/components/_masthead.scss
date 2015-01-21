@@ -1,0 +1,53 @@
+.masthead {
+	@include rem('padding', 12px 0);
+	background: #f7f7f7;
+
+	@include media-query(sm) {
+		text-align: center;
+//		@include rem('margin-bottom', 20px);
+	}
+
+	.navbar {
+
+		@include media-query(sm) {
+			display: inline-block;
+		}
+	}
+
+	.navbar-nav {
+
+		> li {
+
+			@include media-query(sm) {
+				width: 16.6666667%;
+				display: table;
+				height: 70px;
+			}
+
+			@include media-query(lg) {
+				width: auto;
+				height: auto;
+				margin-left: 12px;
+				margin-right: 12px;
+				display: inline-block;
+				float: none;
+			}
+
+		}
+
+		> li a {
+			@include media-query (sm) {
+				display: table-cell;
+				vertical-align: middle;
+			}
+
+			@include media-query (lg) {
+				display: block;
+			}
+
+			&:hover {
+				background: rgba(122, 122, 122, .1);
+			}
+		}
+	}
+}

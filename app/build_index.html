@@ -20,7 +20,7 @@
     <!-- build:css({.tmp,app}) styles/case.css -->
     <link rel="stylesheet" href="dist/styles/redhat_access_angular_ui-embedded-images.css"/>
     <link rel="stylesheet" href="dist/styles/redhat_access_angular_ui-deps-embedded-images.css"/>
-
+    <link rel="stylesheet" href="assets/css/app.min.css">
   </head>
   <body ng-app="RedhatAccess">
     <!--[if lt IE 7]>
@@ -29,20 +29,20 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-     <ul id="nav">
-      <a class="navbar-brand" href="#search">Search Demo</a>
-      <a class="navbar-brand" href="#case/new">New Case Demo</a>
-      <a class="navbar-brand" href="#logviewer">Diagnose Log Demo</a>
-      <a class="navbar-brand" href="#case/list">List Case Demo</a>
-      <a class="navbar-brand" href="#case/compact">Compact List Case Demo</a>
-      <a class="navbar-brand" href="#case/search">Search Case Demo</a>
-     </ul>
+	    <ul id="nav" class="nav navbar-nav">
+		    <li class="active"><a href="#search">testSearch Demo</a></li>
+		    <li><a href="#case/new">New Case Demo</a></li>
+		    <li><a href="#logviewer">Diagnose Log Demo</a></li>
+		    <li><a href="#case/list">List Case Demo</a></li>
+		    <li><a href="#case/compact">Compact List Case Demo</a></li>
+		    <li><a href="#case/search">Search Case Demo</a></li>
+	    </ul>
     </div>
-    <div style="padding-top: 10px;" ng-view="">
+    <div class="test" ng-view="">
         <div ui-view id="rha-content" autoscroll="false"></div>
     </div>
 
-    <script src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
+    <script src="https://c  .la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>

@@ -1,0 +1,9 @@
+.alert {
+
+}
+
+div, h1, h2, h3, h4, h5, h6, p, span {
+	+ .alert {
+		margin-top: 12px;
+	}
+}
