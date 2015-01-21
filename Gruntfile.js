@@ -484,14 +484,9 @@ module.exports = function (grunt) {
                     separator: '\n',
                     sonar: {
                         host: {
-                            url: 'http://10.65.193.10:9000/sonar/'
+                            url: 'http://localhost:9000/sonar/'
                         },
-                        jdbc: {
-                            url: 'jdbc:mysql://10.65.193.10:3306/sonar',
-                            username: 'sonar',
-                            password: 'sonar'
-                        },
-                        projectKey: 'portal:pcm:redhat_access_angular_ui',
+                        projectKey: 'sonar:redhat_access_angular_ui',
                         projectName: 'redhat_access_angular_ui',
                         projectVersion: '<%= pkg.version %>',
                         sources: ['app'].join(','),
@@ -502,17 +497,9 @@ module.exports = function (grunt) {
             }
         },
         karma_sonar: {
-            options: {
-                instance: {
-                    hostUrl: 'http://10.65.193.10:9000/sonar/',
-                    jdbcUrl: 'jdbc:mysql://10.65.193.10:3306/sonar',
-                    login: 'admin',
-                    password: 'admin'
-                }
-            },
-            your_target: {
+            default_options: {
                 project: {
-                    key: 'portal:pcm:redhat_access_angular_ui',
+                    key: 'sonar:redhat_access_angular_ui',
                     name: 'redhat_access_angular_ui',
                     version: '<%= pkg.version %>'
                 },
@@ -582,6 +569,7 @@ module.exports = function (grunt) {
         'build'
     ]);
     grunt.registerTask('sonar', [
-        'sonarRunner:analysis'
+        'sonarRunner:analysis',
+        'karma_sonar'
     ]);
 };
