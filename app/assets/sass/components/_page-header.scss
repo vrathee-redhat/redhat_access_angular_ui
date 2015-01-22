@@ -1,0 +1,23 @@
+.page-header {
+	margin: 0 0 40px;
+	padding: 0;
+	border: none;
+
+//	@include media-query (md) { margin: 0; }
+
+	.chat {
+		@include rem('margin', 8px 0 0 0);
+
+		@include media-query (sm) {
+			text-align: right;
+		}
+	}
+
+	.change-log {
+		@include rem('margin', 20px 0);
+	}
+}
+
+.page-title {
+	margin: 0;
+}

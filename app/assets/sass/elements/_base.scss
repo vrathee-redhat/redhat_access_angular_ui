@@ -1,0 +1,78 @@
+html { font-size: 100%; }
+*:hover, *:focus, *:active {
+	text-decoration: none;
+	outline: 0;
+}
+[class^="col-md"] {
+	@include transition(.2s);
+}
+
+body {
+	font-size: 90%;
+//	@include media-query (sm) { font-size: 90%; }
+	@include media-query (lg) { font-size: 100%; }
+}
+
+.container.page {
+	@include rem('padding-top', 60px);
+	@include rem('padding-bottom', 30px);
+}
+
+.sep {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+[class^="col-"], [class*=" col-"] {
+
+	& + .col-sm-12 {
+		margin-top: 8px;
+
+		@include media-query (sm) {
+			margin-top: 0;
+		}
+	}
+}
+
+section > header {
+	margin-bottom: $header_bottom_margin;
+}
+
+// Make this a component
+//==================================================================*/
+$box-dark-background: #333336;
+$box-dark-padding: 40px;
+$box-dark-title-background: #adadad;
+$box-dark-title-color: #fff;
+$box-dark-paragraph-color: #fff;
+$box-dark-link-color: #0bc0fc;
+$box-dark-link-size: 18px;
+
+.box-dark {
+	@include rem('padding', $box-dark-padding);
+	background: $box-dark-background;
+	color: $box-dark-paragraph-color;
+	@include font-size(14px);
+
+	.title {
+		@include rem('padding', $box-dark-padding $box-dark-padding 0);
+		@include rem('margin', -40px -40px 30px);
+		@include font-size($paragraph_font_size);
+		color: $box-dark-title-color;
+		@include font-size(28px);
+		font-weight: 100;
+	}
+
+	a {
+		color: $box-dark-link-color;
+	}
+}
+
+
+.block, .block-link {
+	display: block;
+
+	input, textarea {
+		width: 100%;
+	}
+}

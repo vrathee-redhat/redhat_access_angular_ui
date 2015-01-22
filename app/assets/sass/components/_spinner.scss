@@ -1,0 +1,35 @@
+.spinner.spinner-inline {
+	display: inline-block;
+	margin-right: 3px;
+	vertical-align: middle;
+}
+
+.spinner.spinner-lg {
+	border-width: 5px;
+	height: 40px;
+	height: 2.5rem;
+	width: 40px;
+	width: 2.5rem;
+}
+
+
+.spinner {
+	@include animation(rotation .6s infinite linear);
+//	-webkit-animation: rotation 0.6s infinite linear;
+//	-o-animation: rotation 0.6s infinite linear;
+//	animation: rotation 0.6s infinite linear;
+	border-bottom: 4px solid rgba(0, 0, 0, 0.25);
+	border-left: 4px solid rgba(0, 0, 0, 0.25);
+	border-right: 4px solid rgba(0, 0, 0, 0.25);
+	border-top: 4px solid rgba(0, 0, 0, 0.75);
+	-moz-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+	margin: 0 auto;
+	position: relative;
+	display: block;
+	height: 32px;
+	height: 2rem;
+	width: 32px;
+	width: 2rem;
+}

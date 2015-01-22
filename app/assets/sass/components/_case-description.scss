@@ -1,0 +1,52 @@
+$case-description-bg: #f7f7f7;
+$case-description-global-margin-bottom: 30px;
+
+.case-description {
+	position: relative;
+	@include rem('margin-bottom', 40px);
+	@include rem('padding', 40px);
+	background: $case-description-bg;
+
+	h1, h2, h3, h4 {
+		@include rem('margin', 0 0 $case-description-global-margin-bottom);
+	}
+
+	.title {
+		margin-bottom: 20px;
+		font-weight: 100;
+		@include font-size(28px);
+	}
+
+	.section-icon {
+		bottom: auto;
+		top: -20px;
+		border-color: #bababa;
+		color: #7e7e7e;
+	}
+
+	.actions {
+		margin-top: 40px;
+	}
+
+	.description {
+		@include font-size(20px);
+		line-height: 1;
+		@include rem('margin-bottom', $case-description-global-margin-bottom);
+	}
+
+	p {
+		@include rem('margin-bottom', 28px);
+	}
+
+	.case-description-extra-info {
+		height: 0;
+		overflow: hidden;
+		@include opacity(0);
+		@include transition(2s);
+
+		&.active {
+			height: auto;
+			@include opacity(1);
+		}
+	}
+}

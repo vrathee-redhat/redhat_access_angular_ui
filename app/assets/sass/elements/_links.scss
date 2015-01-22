@@ -1,0 +1,10 @@
+.link {
+
+}
+
+.link-chat {
+
+	@include media-query (sm) {
+		float:right;
+	}
+}

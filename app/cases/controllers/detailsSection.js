@@ -11,10 +11,16 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
     'AlertService',
     'RHAUtils',
     function ($scope, strataService, CaseService, securityService, $rootScope, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
-        $scope.CaseService = CaseService;
+        $scope.showExtraInfo = false;
+	    $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.maxNotesLength = '255';
         $scope.progressCount = 0;
+
+		$scope.toggleExtraInfo = function() {
+			$scope.showExtraInfo = !$scope.showExtraInfo;
+		}
+
         $scope.init = function () {
             if (!$scope.compact) {
                 strataService.values.cases.types().then(function (response) {

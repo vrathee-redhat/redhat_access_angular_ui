@@ -1,0 +1,17 @@
+.chosen-container {
+	width: 100%;
+}
+
+.chosen-select {
+
+}
+
+.chosen-container-single .chosen-single {
+	@include border-radius(0);
+	background: #fff;
+	@include box-shadow(none);
+}
+
+.localytics-chosen {
+	@include border-radius(0);
+}

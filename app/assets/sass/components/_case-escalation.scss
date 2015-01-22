@@ -1,0 +1,36 @@
+$escalation-background: $recommendations-background;
+$escalation-title-background: $recommendations-title-background;
+$escalation-title-color: $header_font_color;
+$escalation-paragraph-color: #4D4D4D;
+
+$escalation-padding: $recommendations-padding;
+$escalation-link-size: $recommendations-link-size;
+
+.case-escalation {
+	@include rem('padding', 20px);
+	position: relative;
+//	background: $escalation-background;
+	border: 4px solid #F2F2F2;
+	color: $escalation-paragraph-color;
+	@include font-size(14px);
+
+	h1, h2, h3, h4 {
+		@include font-size(18px);
+		@include rem('margin', 0 0 $case-description-global-margin-bottom);
+		font-weight: 100;
+	}
+
+	.title {
+		margin-bottom: 20px;
+		font-weight: 100;
+		@include font-size(28px);
+	}
+
+	p {
+		@include rem('margin-bottom', 28px);
+	}
+
+	.btn {
+		width: 100%;
+	}
+}

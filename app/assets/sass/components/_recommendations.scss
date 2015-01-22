@@ -1,0 +1,108 @@
+// Colors
+//==================================================================*/
+$recommendations-background: #F7F7F7;
+$recommendations-title-background: #adadad;
+$recommendations-title-color: $header_font_color;
+$recommendations-paragraph-color: $base_font_color;
+
+$recommendations-padding: 40px;
+$recommendations-link-size: 18px;
+
+
+.recommendations {
+	position: relative;
+	background: $recommendations-background;
+	color: $recommendations-paragraph-color;
+	@include font-size(14px);
+
+	.link {
+		display: block;
+		font-weight: 500;
+		@include font-size($recommendations-link-size);
+	}
+
+	article {
+		@include rem('padding', 20px $recommendations-padding);
+		@include transition-duration(.2s);
+		@include transition-timing-function("easeOutCubic");
+
+		&:hover {
+			background: darken($recommendations-background, 2);
+		}
+
+		.article-content {
+			a {
+				color: $base_font_color;
+			}
+		}
+
+		footer {
+			color: #A9A9A9;
+
+			span {
+				margin: 0;
+			}
+		}
+	}
+
+	.title {
+		position: relative;
+		@include rem('padding', $recommendations-padding $recommendations-padding 0);
+		margin: 0;
+		color: $recommendations-title-color;
+		@include font-size(28px);
+		font-weight: 100;
+
+		&.blue {
+			@include rem('padding', $recommendations-padding);
+//			@include rem('margin-bottom', 10px);
+			background: #0085cf;
+			color: #fff;
+		}
+	}
+
+	.btn {
+		@include rem('padding', 2px 12px);
+		@include rem('margin-top', 8px);
+		background: #0BC0FC;
+		color: $blue_dark;
+	}
+}
+
+$recommendations-dark-background: #333336;
+$recommendations-dark-title-background: #adadad;
+$recommendations-dark-title-color: #fff;
+$recommendations-dark-paragraph-color: #fff;
+$recommendations-dark-link-color: #0bc0fc;
+
+.recommendations.dark {
+	background: $recommendations-dark-background;
+	color: $recommendations-dark-paragraph-color;
+
+	.title { color: $recommendations-dark-title-color; }
+	a { color: $recommendations-dark-link-color; }
+
+	.link {  }
+
+	i {  }
+
+	.btn {
+		background: #0BC0FC;
+		color: $blue_dark;
+	}
+}
+
+.recommendations-inline {
+	@include rem('margin', 40px -40px);
+	@include rem('padding', 40px 40px);
+	background: #fff;
+	border: 1px solid #ddd;
+
+	article {
+		padding: 0;
+
+		&:hover {
+			background: none;
+		}
+	}
+}

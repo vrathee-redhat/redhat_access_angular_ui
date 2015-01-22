@@ -1,0 +1,14 @@
+.case-discussion {
+
+	.comment {
+		@include rem('margin-bottom', 40px);
+
+		h2, h3, h4 {
+			font-weight: 500;
+		}
+
+		.comment {
+			@include rem('padding-left', 28px);
+		}
+	}
+}

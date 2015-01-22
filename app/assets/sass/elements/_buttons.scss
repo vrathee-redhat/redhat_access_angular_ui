@@ -1,0 +1,53 @@
+.btn {
+	@include rem('padding', 9px 40px);
+	color: #fff;
+	background: $btn-bg_default;
+	@include border-radius(0);
+	@include transition(.2s);
+	font-weight: bold;
+	text-transform: uppercase;
+	border: none;
+
+	&.btn-outline {
+//		@include rem('padding', 4px 12px);
+		background: rgba(255,255,255,.4);
+		color: $blue_dark;
+		border: 2px solid $blue_light;
+		@include transition(.3s);
+		font-weight: 500;
+
+		&:hover {
+			color: $blue_dark;
+			background: rgba(255,255,255,.8);
+		}
+	}
+
+	&.btn-accent {
+		color: #FFF;
+		background: $blue;
+		border-color: $blue;
+
+		&:hover {
+			background: darken($blue, 4);
+		}
+	}
+
+	&.btn-open {
+		color: $blue;
+		@include box-shadow(inset 0 0 0 2px $blue);
+		border: none;
+		background: #fff;
+
+		&:hover {
+			background: $blue;
+			color: #fff;
+		}
+	}
+
+	&.btn-light {
+		text-transform: none;
+		background: #F7F7F7;
+		color: #989898;
+		font-weight: 100;
+	}
+}

@@ -1,0 +1,77 @@
+$case-border: $border-gray;
+
+
+.table-list {
+	@include rem('margin', 20px 0);
+	border-top: 1px solid $border-gray;
+
+	//	base resets for table-list
+	//	@include reset-row();
+
+	h1, h2, h3 {
+		@include rem('margin', 0 0 4px);
+		line-height: 1;
+	}
+
+	.list-item {
+		@extend %clearfix;
+		@include rem('padding-top', 30px);
+		@include rem('padding-bottom', 30px);
+		border-bottom: 1px solid $border-gray;
+
+//		&:nth-child(odd) { background: #eee; }
+
+		&.no-border { border: none; }
+	}
+
+	.change-log {
+		@include font-size(13px);
+		@include rem('padding', 16px);
+//		@extend .box-dark;
+		background: #ddd;
+
+		&.item-group {
+			margin-bottom: 0;
+
+			@include media-query (md) {
+//				@include rem('margin', -12px 0);
+			}
+		}
+	}
+
+	.light {
+		color: #8c8c8c;
+	}
+
+	.item-group {
+		margin-bottom: 20px;
+
+		@include media-query (md) {
+			margin-bottom: 0;
+		}
+	}
+	.item-group-small { @include font-size(13px); }
+
+
+	// Icon block - use this to pad a cell and absolute position an icon
+	//==================================================================*/
+	.block-icon {
+		position: relative;
+
+		@include rem('padding-left', 50px);
+
+		@include media-query (sm) {
+		}
+
+		.icon {
+			position: absolute;
+			left: 0;
+			top: 0;
+			@include font-size(44px);
+			line-height: 1;
+
+			@include media-query (sm) {
+			}
+		}
+	}
+}

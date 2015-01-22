@@ -105,6 +105,13 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             },
+	        sass: {
+		        files: [
+			        'app/assets/sass/*.scss',
+			        'app/assets/sass/**/*.scss'
+		        ],
+		        tasks: ['sass']
+	        },
             jsTest: {
                 files: ['test/spec/{,*/}*.js'],
                 tasks: [
@@ -134,8 +141,9 @@ module.exports = function (grunt) {
                     '<%= src.tpl.app %>',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
-                ]
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+					'app/assets/css/main.min.css'
+				]
             }
         },
         connect: {
@@ -194,6 +202,21 @@ module.exports = function (grunt) {
                 }
             }
         },
+	    sass: {
+		    dist: {
+			    options: {
+				    style: 'expanded',
+				    compass: true,
+				    require: 'breakpoint',
+				    lineNumbers: true
+			    },
+			    files: {
+				    'app/assets/css/main.min.css': [
+					    'app/assets/sass/main.scss'
+				    ]
+			    }
+		    }
+	    },
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
@@ -531,6 +554,24 @@ module.exports = function (grunt) {
             'watch'
         ]);
     });
+	grunt.registerTask('dev', function (target) {
+		//if (target === 'dist') {
+		//	return grunt.task.run([
+		//		'build',
+		//		'connect:dist:keepalive'
+		//	]);
+		//}
+		grunt.task.run([
+			//'clean:server',
+			//'bower-install',
+			//'newer:jade',
+			'build',
+			//'concurrent:server',
+			//'autoprefixer',
+			'connect:livereload',
+			'watch'
+		]);
+	});
     grunt.registerTask('server', function () {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
         grunt.task.run(['serve']);
@@ -546,7 +587,8 @@ module.exports = function (grunt) {
         'clean:dist',
         'bower-install',
         'newer:jade',
-        'useminPrepare',
+	    'sass',
+	    'useminPrepare',
         'html2js',
         'concurrent:dist',
         'autoprefixer',

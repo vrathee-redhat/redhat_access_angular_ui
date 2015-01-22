@@ -1,53 +1,56 @@
-html
-  body
-    section.case-description
-      i#case-description-toggle.fa.fa-caret-square-o-down.case-description-toggle
-      i.fa.fa-bug.section-icon
-      h3.title {{CaseService.kase.summary}}
-      p.description {{CaseService.kase.description}}
-      div#case-description-extra-info.case-description-extra-info
-        //- p
-        //-   | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore.
-        section.config-options
-          .row
-            .col-xs-4.col-md-4
-              .label {{'Product'|translate}}
-            .col-xs-4.col-md-4
-              select#rha-product.form-control(
-                name='product',
-                ng-model='CaseService.kase.product',
-                ng-change='getProductVersions()',
-                ng-options='s.name for s in products track by s.name',
-                required)
-          .row
-            .col-xs-4.col-md-4
-              .label {{'Product Version'|translate}}
-            .col-xs-4.col-md-4
-              select#rha-product-version.form-control(
-                name='version',
-                ng-options='v for v in CaseService.versions track by v',
-                ng-model='CaseService.kase.version',
-                required)
-          .row
-            .col-xs-4.col-md-4
-              .label Related Case ID
-            .col-xs-4.col-md-4
-              input#rha-case-alt-id.form-control(
-                ng-model='CaseService.kase.alternate_id',
-                name='alternate_id')
-          .row
-            .col-xs-4.col-md-4
-              .label Case Group
-            .col-xs-4.col-md-4
-              select#rha-group-select.form-control(
-                name='group',
-                ng-options='g.name for g in groups track by g.number',
-                ng-model='CaseService.kase.group')
-                option(value="") Ungrouped Case
-        .row.actions
-          .col-xs-12
-            button.btn.btn-accent Save Changes
-            button.btn.btn-open Cancel
+section.case-description
+  i#case-description-toggle.fa.fa-caret-square-o-down.case-description-toggle(ng-click='toggleExtraInfo()') test
+  h3.title {{CaseService.kase.summary}}
+  p.description {{CaseService.kase.description}}
+  div#case-description-extra-info(ng-class="showExtraInfo ? 'case-description-extra-info active' : 'case-description-extra-info'")
+    //- p
+    //-   | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore.
+    section.config-options
+      .row
+        .col-xs-4.col-md-4
+          .label {{'Product'|translate}}
+        .col-xs-4.col-md-6
+          select#rha-product.form-control(
+            chosen,
+            width="100%",
+            name='product',
+            ng-model='CaseService.kase.product',
+            ng-change='getProductVersions()',
+            ng-options='s.name for s in products track by s.name',
+            required)
+      .row
+        .col-xs-4.col-md-4
+          .label {{'Product Version'|translate}}
+        .col-xs-4.col-md-6
+          select#rha-product-version.form-control(
+            chosen,
+            width="100%",
+            name='version',
+            ng-options='v for v in CaseService.versions track by v',
+            ng-model='CaseService.kase.version',
+            required)
+      .row
+        .col-xs-4.col-md-4
+          .label Related Case ID
+        .col-xs-4.col-md-6
+          input#rha-case-alt-id.form-control(
+            ng-model='CaseService.kase.alternate_id',
+            name='alternate_id')
+      .row
+        .col-xs-4.col-md-4
+          .label Case Group
+        .col-xs-4.col-md-6
+          select#rha-group-select.form-control(
+            chosen,
+            width="100%",
+            name='group',
+            ng-options='g.name for g in groups track by g.number',
+            ng-model='CaseService.kase.group')
+            option(value="") Ungrouped Case
+    .row.actions
+      .col-xs-12
+        button.btn.btn-accent Save Changes
+        button.btn.btn-open Cancel
 
 
 

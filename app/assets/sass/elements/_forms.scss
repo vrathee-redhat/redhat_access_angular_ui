@@ -1,0 +1,23 @@
+input, select, textarea {
+	max-width: 100%;
+}
+
+input[type="text"], textarea {
+	width: 100%;
+	@include rem('padding', 4px 8px);
+	border: 1px solid $border-gray;
+	color: #808080;
+	@include transition(.2s);
+
+	&:active, &:focus {
+		border-color: darken($border-gray, 20);
+	}
+}
+
+label {
+	@include rem('margin-bottom', 8px);
+}
+
+input.margin {
+	margin-bottom: 20px;
+}

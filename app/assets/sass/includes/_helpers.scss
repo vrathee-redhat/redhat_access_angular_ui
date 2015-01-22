@@ -1,0 +1,20 @@
+.center {
+	text-align: center;
+}
+
+.blue { color: $blue; }
+.block { display: block; }
+
+.row-align-bottom {
+
+	@include media-query (sm) {
+		& > [class^="col-"], & > [class*=" col-"] {
+			display: table-cell;
+			vertical-align: bottom;
+			float: none;
+		}
+	}
+}
+
+.light { color: #808080; }
+.inline { display: inline; }
