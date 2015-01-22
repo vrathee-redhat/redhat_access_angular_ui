@@ -50,7 +50,8 @@
         "sinon": "~1.10.0",
         "time-grunt": "~0.2.1",
         "versiony-cli": "~1.3.0",
-        "grunt-sonar-runner": "~2.4.0"
+        "grunt-sonar-runner": "~2.4.0",
+        "grunt-karma-sonar": "~0.1.5"
     },
     "engines": {
         "node": ">=0.8.0"
