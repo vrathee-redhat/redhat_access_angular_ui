@@ -14,9 +14,25 @@
 		background: #fff;
 		@include box-shadow(none);
 		@include rem('padding', 2px 8px);
+		border-color: #C3C3C3;
+		background-image: none;
 	}
 }
 
 .localytics-chosen {
 	@include border-radius(0);
+}
+
+.chosen-container.chosen-with-drop {
+
+	.chosen-container-active {
+
+		.chosen-single {
+			background: none;
+		}
+	}
+
+	.chosen-drop {
+		@include border-radius(0);
+	}
 }

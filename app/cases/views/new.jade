@@ -6,93 +6,160 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
     div.pull-right
         div(rha-chatbutton='' style='margin-right: 10px;')
   #case-single.case-single
-  div.row
-    main.col-md-6(role='main')
-      section.case-description
-        section.config-options
-          div.row
-            div.col-sm-4.col-md-4
-              div.label {{'Product'|translate}}
-            div.col-sm-4.col-md-8
-               select#rha-product-select.form-control(
-                 ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
-                 style='width: 100%;',
-                 ng-model='CaseService.kase.product',
-                 ng-change='getProductVersions(CaseService.kase.product);getRecommendations();makeRecommendationPanelVisible()',
-                 ng-options='p.value as p.label for p in products',
-                 options-disabled='p.isDisabled for p in products')
-          div.row
-            div.col-sm-4.col-md-4
-              div.label {{'Product Version'|translate}}
-            div.col-sm-4.col-md-8
-              select#rha-product-version-select.form-control(
-                  style='width: 100%;',
-                  ng-model='CaseService.kase.version',
-                  ng-options='v for v in versions',
-                  ng-change='CaseService.validateNewCasePage1();getRecommendations();makeRecommendationPanelVisible()',
-                  ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase')
-              div.versionSunsetMessage(ng-show='CaseService.showVersionSunset()')
-                span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
-          div.row
-            div.col-sm-4.col-md-4
-              div.label {{'Case Name'|translate}}
-            div.col-sm-4.col-md-8
-              input#rha-case-summary.form-control(
-              maxlength='255',
-              ng-disabled='!securityService.loginStatus.isLoggedIn',
+  main(role='main')
+    header.page-header
+      .row
+        .col-sm-8.col-md-8
+          h1.page-title Create a New Support Case
+        .col-sm-4.col-md-4
+          .chat
+            a.link(href='#') Chat with Support&nbsp;
+              i.fa.fa-comments
+    section.case-description
+      section.config-options
+        div.row
+          div.col-sm-4.col-md-4
+            div.label {{'Product'|translate}}
+          div.col-sm-7.col-md-8
+             select#rha-product-select.form-control(
+               chosen,
+               width='"100%"',
+               ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
+               ng-model='CaseService.kase.product',
+               ng-change='getProductVersions(CaseService.kase.product);getRecommendations();makeRecommendationPanelVisible()',
+               ng-options='p.value as p.label for p in products',
+               options-disabled='p.isDisabled for p in products')
+        div.row
+          div.col-sm-4.col-md-4
+            div.label {{'Product Version'|translate}}
+          div.col-sm-7.col-md-8
+            select#rha-product-version-select.form-control(
+              chosen,
+              width='"100%"',
+              ng-model='CaseService.kase.version',
+              ng-options='v for v in versions',
+              ng-change='CaseService.validateNewCasePage1();getRecommendations();makeRecommendationPanelVisible()',
+              ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase')
+            div.versionSunsetMessage(ng-show='CaseService.showVersionSunset()')
+              span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
+        div.row
+          div.col-sm-4.col-md-4
+            div.label {{'Case Name'|translate}}
+          div.col-sm-7.col-md-8
+            input#rha-case-summary.form-control(
+            maxlength='255',
+            ng-disabled='!securityService.loginStatus.isLoggedIn',
+            ng-change='CaseService.validateNewCasePage1()',
+            ng-model='CaseService.kase.summary')
+        div.row
+          div.col-sm-4.col-md-4
+            div.label Case Description
+          div.col-sm-7.col-md-8
+            textarea(name='', id='', cols='30', rows='10',
+              style='width: 100%; height: 200px; max-width: 100%;',
+              ng-model='CaseService.kase.description',
               ng-change='CaseService.validateNewCasePage1()',
-              ng-model='CaseService.kase.summary')
-          div.row
-            div.col-sm-4.col-md-4
-              div.label Case Description
-            div.col-sm-4.col-md-8
-              textarea(name='', id='', cols='30', rows='10',
-                style='width: 100%; height: 200px; max-width: 100%;',
-                ng-model='CaseService.kase.description',
-                ng-change='CaseService.validateNewCasePage1()',
-                ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase')
-          div.row
-            div.col-sm-4.col-md-4
-              div.label Severity
-                span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
+              ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase')
 
-            div.col-sm-4.col-md-8
-              select#rha-severity.form-control(
-                style='width: 100%;',
-                ng-model='CaseService.kase.severity',
-                ng-change='CaseService.onChangeFTSCheck()',
-                ng-disabled='submittingCase',
-                ng-options='s.name for s in CaseService.severities track by s.name')
-          div.row
-            div.col-sm-4.col-md-4
-              div.label(for='email-notifications') Send Email Notifications to
-            div.col-sm-4.col-md-8
-              input.email-notification.margin(placeholder='type ahead..', type='text', name='email-notifications')
-          div.row
-            div.col-sm-4.col-md-4
-              div.label Case Group
-            div.col-sm-4.col-md-8
-              div(rha-groupselect='')
-        div.row.actions
-          div.col-xs-12
-            button.btn.btn-primary.btn-submit(
-              style='float: right',
+        section.recommendations.recommendations-inline
+          .row
+            .col-xs-12
+              h3
+                span.inline Based on your description, here are some possible solutions
+                .spinner.spinner-sm.spinner-inline
+                | Updating Recommendations
+              .row
+                .col-sm-4
+                  article
+                    header
+                      a.link(href='#') Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                    p.article-content
+                      a(href='#')
+                        | Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numqua...
+                    footer
+                      span.user-action
+                        | Updated 
+                        date
+                          b 06/22/14
+                        |  at 
+                        time
+                          b 4:31pm
+                .col-sm-4
+                  article
+                    a(href='#')
+                    header
+                      a(href='#')
+                      a.link(href='#') Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                    p.article-content
+                      a(href='#')
+                        | Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numqua...
+                    footer
+                      span.user-action
+                        | Updated 
+                        date
+                          b 06/22/14
+                        |  at 
+                        time
+                          b 4:31pm
+                .col-sm-4
+                  article
+                    header
+                      a.link(href='#') Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                    p.article-content
+                      a(href='#')
+                        | Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numqua...
+                    footer
+                      span.user-action
+                        | Updated 
+                        date
+                          b 06/22/14
+                        |  at 
+                        time
+                          b 4:31pm
+
+        div.row
+          div.col-sm-4.col-md-4
+            div.label Severity
+              span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
+
+          div.col-sm-7.col-md-8
+            select#rha-severity.form-control(
+              chosen,
+              width='"100%"',
+              ng-model='CaseService.kase.severity',
+              ng-change='CaseService.onChangeFTSCheck()',
               ng-disabled='submittingCase',
-              ng-hide='submittingCase',
-              ng-click='doSubmit($event)', translate='') Submit
-            button.btn.btn-open Cancel
-    aside.col-md-6
-      section.recommendations
-        // <div class="spinner spinner-lg spinner-inline"></div>
-        h3.title.blue
-          | Here Are Some Possible Solutions
-          i.fa.fa-flash.section-icon
-        div(rha-newrecommendations='')
-      section.case-escalation
-        div
-          h3
-            | Need to raise a concern to Red Hat Support
-            | management? 
-            a.link(href='#') Learn More
-        // <a href="#">Request escalation</a>
-        a.btn.btn-light(href='#') Request escalation
+              ng-options='s.name for s in CaseService.severities track by s.name')
+        div.row
+          div.col-sm-4.col-md-4
+            div.label(for='email-notifications') Send Email Notifications to
+          div.col-sm-7.col-md-8
+            input.email-notification.margin(placeholder='type ahead..', type='text', name='email-notifications')
+        div.row
+          div.col-sm-4.col-md-4
+            div.label Case Group
+          div.col-sm-7.col-md-8
+            div(rha-groupselect='')
+
+      div.row.actions
+        div.col-xs-12.col-sm-11.col-md-12
+          button.btn.btn-open Cancel
+          button.btn.btn-primary.btn-submit(
+          ng-disabled='submittingCase',
+          ng-hide='submittingCase',
+          ng-click='doSubmit($event)', translate='') Submit
+  //aside.col-md-6
+    //  section.recommendations
+    //    // <div class="spinner spinner-lg spinner-inline"></div>
+    //    h3.title.blue
+    //      | Here Are Some Possible Solutions
+    //      i.fa.fa-flash.section-icon
+    //    div(rha-newrecommendations='')
+    //  section.case-escalation
+    //    div
+    //      h3
+    //        | Need to raise a concern to Red Hat Support
+    //        | management?
+    //        a.link(href='#') Learn More
+    //    // <a href="#">Request escalation</a>
+    //    a.btn.btn-light(href='#') Request escalation

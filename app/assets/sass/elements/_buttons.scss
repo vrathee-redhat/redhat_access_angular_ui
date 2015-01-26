@@ -5,7 +5,6 @@
 	@include border-radius(0);
 	@include transition(.2s);
 	font-weight: bold;
-//	text-transform: uppercase;
 	border: none;
 
 	&:hover {
@@ -13,9 +12,8 @@
 	}
 
 	&.btn-outline {
-//		@include rem('padding', 4px 12px);
 		background: rgba(255,255,255,.4);
-		color: $blue_dark;
+		color: $blue;
 		@include box-shadow(inset 0 0 0 2px $blue);
 		@include transition(.3s);
 		font-weight: 500;

@@ -3,7 +3,6 @@ select(chosen,
 	  ng-disabled='!securityService.loginStatus.isLoggedIn',
     ng-model='CaseService.status',
     ng-change='CaseService.onSelectChanged()',
-    width='"100%"',
     ng-options='status.value as status.name for status in statuses')
 
 //- div(style='display: block')
