@@ -1,5 +1,34 @@
-.severity-level1 { color: red; }
-.severity-level2 { color: orange; }
-.severity-level3 { color: yellow; }
-.severity-level4 { color: green; }
-.severity-level5 { color: blue; }
+.icon-severity {
+	position: absolute;
+	top: -2px;
+	left: 0;
+	width: 50px;
+	height: 50px;
+	color: #231f20;
+	text-align: center;
+	@include font-size(28px);
+	line-height: 1.6;
+	font-weight: 3200;
+	font-style: normal;
+	border: 2px solid $red;
+	@include border-radius(50%);
+	@include transition(.2s);
+
+	&.level2 { border-color: #F2AA1D; }
+	&.level3 { border-color: #04A7E0; }
+	&.level4 { border-color: #78848C; }
+}
+
+a {
+	.icon-severity {
+
+		&:hover {
+			background: $red;
+			color: #fff;
+
+			&.level2 { background: #F2AA1D; }
+			&.level3 { background: #04A7E0; }
+			&.level4 { background: #78848C; }
+		}
+	}
+}

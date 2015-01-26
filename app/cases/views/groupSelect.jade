@@ -1,6 +1,7 @@
 div
 	select#rha-group-select(
 	    chosen,
+      width='"100%"',
 	    ng-disabled='!securityService.loginStatus.isLoggedIn',
 	    ng-model='CaseService.group',
 	    ng-change='CaseService.onGroupSelectChanged()',

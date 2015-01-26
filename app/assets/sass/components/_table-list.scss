@@ -5,9 +5,6 @@ $case-border: $border-gray;
 	@include rem('margin', 20px 0);
 	border-top: 1px solid $border-gray;
 
-	//	base resets for table-list
-	//	@include reset-row();
-
 	h1, h2, h3 {
 		@include rem('margin', 0 0 4px);
 		line-height: 1;
@@ -19,36 +16,24 @@ $case-border: $border-gray;
 		@include rem('padding-bottom', 30px);
 		border-bottom: 1px solid $border-gray;
 
-//		&:nth-child(odd) { background: #eee; }
-
 		&.no-border { border: none; }
 	}
 
 	.change-log {
-		@include font-size(13px);
-		@include rem('padding', 16px);
-//		@extend .box-dark;
-		background: #ddd;
+//		@include font-size(13px);
 
-		&.item-group {
-			margin-bottom: 0;
-
-			@include media-query (md) {
-//				@include rem('margin', -12px 0);
-			}
+		a {
+			color: $blue;
 		}
+		&.item-group { margin-bottom: 0; }
 	}
 
-	.light {
-		color: #8c8c8c;
-	}
+	.light { color: #8c8c8c; }
 
 	.item-group {
 		margin-bottom: 20px;
 
-		@include media-query (md) {
-			margin-bottom: 0;
-		}
+		@include media-query (md) { margin-bottom: 0; }
 	}
 	.item-group-small { @include font-size(13px); }
 
@@ -58,10 +43,7 @@ $case-border: $border-gray;
 	.block-icon {
 		position: relative;
 
-		@include rem('padding-left', 50px);
-
-		@include media-query (sm) {
-		}
+		@include rem('padding-left', 66px);
 
 		.icon {
 			position: absolute;
@@ -72,6 +54,12 @@ $case-border: $border-gray;
 
 			@include media-query (sm) {
 			}
+		}
+	}
+
+	.actions {
+		@include media-query (sm) {
+			text-align: right;
 		}
 	}
 }

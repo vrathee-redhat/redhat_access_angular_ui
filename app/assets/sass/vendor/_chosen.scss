@@ -6,10 +6,15 @@
 
 }
 
-.chosen-container-single .chosen-single {
-	@include border-radius(0);
-	background: #fff;
-	@include box-shadow(none);
+.chosen-container-single {
+
+	.chosen-single {
+		@include border-radius(0);
+		height: auto;
+		background: #fff;
+		@include box-shadow(none);
+		@include rem('padding', 2px 8px);
+	}
 }
 
 .localytics-chosen {

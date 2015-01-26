@@ -1,0 +1,20 @@
+.actions {
+
+	@include media-query (md) {
+		text-align: right;
+	}
+
+	.btn {
+		display: block;
+
+		@include media-query (md) {
+			display: inline-block;
+			@include rem('margin-left', 4px);
+		}
+
+		+ .btn {
+			@include rem('margin-top', 6px);
+			@include media-query (md) { margin-top: 0; }
+		}
+	}
+}
