@@ -1,3 +1,4 @@
+'use strict';
 angular.module('RedhatAccess', [
     'ngSanitize',
     'localytics.directives',
@@ -26,10 +27,10 @@ angular.module('RedhatAccess', [
     'CHAT_SUPPORT',
     function ($http, securityService, gettextCatalog, CHAT_SUPPORT) {
         CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
-        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
+        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la6cs.salesforceliveagent.com/chat';
         CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
-        CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
-        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs9.force.com/chatHidden';
+        CHAT_SUPPORT.chatInitHashTwo = '00DJ0000003OR6V';
+        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs10.force.com/chatHidden';
         //gettextCatalog.currentLanguage ='fr';
         //gettextCatalog.debug = true;
     }
