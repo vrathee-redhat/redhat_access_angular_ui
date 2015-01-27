@@ -60,6 +60,8 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
               ng-model='CaseService.kase.description',
               ng-change='CaseService.validateNewCasePage1()',
               ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase')
+            p Get faster results. Attaching logos or other diagnostics files typically results in faster resolution.
+              a(href="#") Attach File
 
         section.recommendations.recommendations-inline
           .row
@@ -163,3 +165,10 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
     //        a.link(href='#') Learn More
     //    // <a href="#">Request escalation</a>
     //    a.btn.btn-light(href='#') Request escalation
+
+button.btn.btn-primary(type='button', data-toggle='modal', data-target='.bs-example-modal-lg') Large modal
+
+.modal.fade.bs-example-modal-lg(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+  .modal-dialog.modal-lg
+    .modal-content
+      | ...

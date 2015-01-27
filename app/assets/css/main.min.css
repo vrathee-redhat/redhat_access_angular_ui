@@ -942,12 +942,6 @@ a .icon-severity:hover.level4 {
   color: gray;
 }
 
-@media (min-width: 768px) {
-  /* line 1, ../sass/components/_actions.scss */
-  .actions {
-    text-align: right;
-  }
-}
 /* line 5, ../sass/components/_actions.scss */
 .actions .btn {
   display: block;
