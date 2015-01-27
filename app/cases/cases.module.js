@@ -13,7 +13,8 @@ angular.module('RedhatAccess.cases', [
 ]).constant('CASE_EVENTS', {
     received: 'case-received',
     searchSubmit: 'search-submit',
-    searchBoxChange: 'search-box-change'
+    searchBoxChange: 'search-box-change',
+    fetchProductsForContact: 'fetch-products-for-contact'
 }).constant('CHAT_SUPPORT', {
     enableChat: false,
     chatButtonToken: '573A0000000GmiP',

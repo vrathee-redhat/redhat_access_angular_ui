@@ -38,11 +38,13 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-            strataService.products.list().then(function (response) {
-                $scope.products = response;
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
+            if (CaseService.kase.contact_sso_username !== undefined) {
+                strataService.products.list(CaseService.kase.contact_sso_username).then(function (response) {
+                    $scope.products = response;
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                });
+            }
             $scope.userIsCaseOwner = true;
             var ownerOptions = [];
             //Assuming the full name matches the owner name, strata does not support getting that through case object
