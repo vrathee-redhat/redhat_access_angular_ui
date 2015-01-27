@@ -8,6 +8,7 @@ section.filters
     .col-sm-4
       select(
         chosen,
+        width="'100%'",
         name='status',
         ng-model='CaseService.kase.status',
         ng-options='s.name for s in CaseService.statuses track by s.name')
@@ -15,6 +16,7 @@ section.filters
       span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
       select(
         chosen,
+        width="'100%'",
         name='severity',
         ng-model='CaseService.kase.severity',
         ng-change='CaseService.onChangeFTSCheck()',
