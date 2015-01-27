@@ -9,7 +9,7 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
     div.col-sm-8(rha-listfilter='')
     div.col-sm-4
       div.actions
-        a.btn.btn-xs(href='/chromed.html#/case/new') Create a New Support Case
+        a.btn.btn-xs(href='#/case/new') Create a New Support Case
         a.btn.btn-xs.btn-outline(ng-click='exports()', ng-hide='exporting || ie8 || ie9', translate='') Export
         //div(ng-show='exporting')
         //  span.rha-search-spinner
@@ -23,8 +23,11 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
             div.block-icon
               div.severity
                 //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
-                a(href='https://access.redhat.com/knowledge/solutions/')
-                  i.icon-severity.level1 1
+                a(href='#/case/{{case.case_number}}')
+                  i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
+                  i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
+                  i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
+                  i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
               div.case-id
                 a(href='https://access.redhat.com/knowledge/solutions/')
                   b {{case.case_number}}
@@ -36,7 +39,7 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
                 span.sep |
                 | {{case.version}}
             div.description.light
-              | {{case.description}}
+              | {{case.summary}}
               //- a.fa.fa-comments(href='#')
               //-   span.count 2
               //-Field does not exist

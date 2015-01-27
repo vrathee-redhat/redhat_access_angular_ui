@@ -2,11 +2,7 @@ header.page-header
   .row
     .col-sm-6.col-md-8
       h1.page-title(translate='') Case {{CaseService.kase.case_number}}
-    .col-sm-6.col-md-4
-      .chat
-        a.link(href='#')
-          | Chat with Support 
-          i.fa.fa-comments
+    .col-sm-6.col-md-4(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy', rha-chatbutton='')
 section.filters
   .row
     .col-sm-4

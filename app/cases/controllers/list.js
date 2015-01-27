@@ -9,11 +9,12 @@ angular.module('RedhatAccess.cases').controller('List', [
     '$rootScope',
     'SearchCaseService',
     'CaseService',
+    'strataService',
     'AUTH_EVENTS',
     'SearchBoxService',
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
-    function ($scope, $filter, ngTableParams, securityService, AlertService, $rootScope, SearchCaseService, CaseService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS) {
+    function ($scope, $filter, ngTableParams, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
