@@ -36,3 +36,7 @@
 		@include border-radius(0);
 	}
 }
+
+.chosen-container-active.chosen-with-drop .chosen-single {
+	background: #fff
+}

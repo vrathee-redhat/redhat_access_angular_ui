@@ -57,11 +57,11 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
             p Get faster results. Attaching logos or other diagnostics files typically results in faster resolution.
               a(href="#") Attach File
 
-        div(rha-newrecommendations='')
+        section#rha-recommendation-section.recommendations.recommendations-inline(rha-newrecommendations='')
         div.row
           div.col-sm-4.col-md-4
-            div.label Severity
-              span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
+            div.label.inline-tooltip Severity
+              span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
 
           div.col-sm-7.col-md-8
             select#rha-severity.form-control(
@@ -82,10 +82,10 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
           div.col-sm-7.col-md-8
             div(rha-groupselect='')
 
-      div.row.actions.justif-right
-        .col-sm-12.col-md-4
+      div.row.actions.justify-right
+        .col-sm-6.col-md-2
           button.btn.btn-open Cancel
-        .col-sm-12.col-md-4
+        .col-xs-12.col-sm-6.col-md-2
           button.btn.btn-primary.btn-submit(
           ng-disabled='submittingCase',
           ng-hide='submittingCase',

@@ -3,6 +3,7 @@ $case-description-global-margin-bottom: 30px;
 
 .case-description {
 	position: relative;
+	overflow: hidden;
 	@include rem('margin-bottom', 40px);
 	@include rem('padding', 40px);
 	background: $case-description-bg;
@@ -36,7 +37,7 @@ $case-description-global-margin-bottom: 30px;
 
 	.case-description-extra-info {
 		height: 0;
-		overflow: hidden;
+//		overflow: hidden;
 		@include opacity(0);
 		@include transition(2s);
 

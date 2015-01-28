@@ -1,37 +1,36 @@
-div.row
-  section.recommendations.recommendations-inline(ng-show='results.length || searchInProgress.value')
-    div.col-xs-12
-      h3
-        span.inline(ng-show='results.length || searchInProgress.value') Based on your description, here are some possible solutions
-        span.spinner.spinner-sm.spinner-inline(ng-show='searchInProgress.value')
-        span(ng-show='searchInProgress.value') Updating Recommendations
-      .row()
-        div.col-sm-4(ng-show='results.length', ng-repeat="result in results")
-          article
-            header
-              a.link(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title}}
-            p.article-content
-              a(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank', ng-bind-html='result.abstract')
-            footer
-              span.user-action.unavailable
-                | Updated 
-                date
-                  b 06/22/14
-                |  at 
-                time
-                  b 4:31pm
+.row(ng-show='results.length || searchInProgress.value')
+  div.col-xs-12
+    h3
+      span.inline(ng-show='results.length || searchInProgress.value') Based on your description, here are some possible solutions
+      span.spinner.spinner-sm.spinner-inline(ng-show='searchInProgress.value')
+      span(ng-show='searchInProgress.value') Updating Recommendations
+    .row()
+      div.col-sm-4(ng-show='results.length', ng-repeat="result in results")
+        article
+          header
+            a.link(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title}}
+          p.article-content
+            a(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank', ng-bind-html='result.abstract')
+          footer
+            span.user-action.unavailable
+              | Updated 
+              date
+                b 06/22/14
+              |  at 
+              time
+                b 4:31pm
 
-    //- div.row(style='padding-top: 10px;', ng-hide='results.length == 0')
-    //-   div.col-xs-12
-    //-     pagination.pagination-sm(
-    //-       boundary-links='true',
-    //-       total-items='SearchResultsService.results.length',
-    //-       on-select-page='selectPage(page)',
-    //-       items-per-page='itemsPerPage',
-    //-       page='currentPage',
-    //-       rotate='false',
-    //-       max-size='maxPagerSize',
-    //-       previous-text='<',
-    //-       next-text='>',
-    //-       first-text='<<',
-    //-       last-text='>>')
+  //- div.row(style='padding-top: 10px;', ng-hide='results.length == 0')
+  //-   div.col-xs-12
+  //-     pagination.pagination-sm(
+  //-       boundary-links='true',
+  //-       total-items='SearchResultsService.results.length',
+  //-       on-select-page='selectPage(page)',
+  //-       items-per-page='itemsPerPage',
+  //-       page='currentPage',
+  //-       rotate='false',
+  //-       max-size='maxPagerSize',
+  //-       previous-text='<',
+  //-       next-text='>',
+  //-       first-text='<<',
+  //-       last-text='>>')

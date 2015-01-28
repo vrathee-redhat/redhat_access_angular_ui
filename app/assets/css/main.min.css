@@ -72,6 +72,8 @@
 
 /* line 22, ../sass/includes/_helpers.scss */
 .unavailable {
+  padding: 12px;
+  padding: 0.75rem;
   background: red;
   color: #fff;
 }
@@ -87,7 +89,7 @@ html {
   outline: 0;
 }
 
-/* line 6, ../sass/elements/_base.scss */
+/* line 11, ../sass/elements/_base.scss */
 [class^="col-md"] {
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
@@ -95,18 +97,33 @@ html {
   transition: 0.2s;
 }
 
-/* line 10, ../sass/elements/_base.scss */
+/* line 15, ../sass/elements/_base.scss */
 body {
   font-size: 90%;
 }
 @media (min-width: 1200px) {
-  /* line 10, ../sass/elements/_base.scss */
+  /* line 15, ../sass/elements/_base.scss */
   body {
     font-size: 100%;
   }
 }
 
-/* line 16, ../sass/elements/_base.scss */
+/* line 21, ../sass/elements/_base.scss */
+.inline-tooltip {
+  position: relative;
+}
+/* line 24, ../sass/elements/_base.scss */
+.inline-tooltip span {
+  margin-left: 8px;
+}
+/* line 30, ../sass/elements/_base.scss */
+.inline-tooltip.right > span {
+  position: absolute;
+  right: -24px;
+  top: 4px;
+}
+
+/* line 38, ../sass/elements/_base.scss */
 .container.page {
   padding-top: 60px;
   padding-top: 3.75rem;
@@ -114,29 +131,29 @@ body {
   padding-bottom: 1.875rem;
 }
 
-/* line 21, ../sass/elements/_base.scss */
+/* line 43, ../sass/elements/_base.scss */
 .sep {
   margin-left: 3px;
   margin-right: 3px;
 }
 
-/* line 28, ../sass/elements/_base.scss */
+/* line 50, ../sass/elements/_base.scss */
 [class^="col-"] + .col-sm-12, [class*=" col-"] + .col-sm-12 {
   margin-top: 8px;
 }
 @media (min-width: 768px) {
-  /* line 28, ../sass/elements/_base.scss */
+  /* line 50, ../sass/elements/_base.scss */
   [class^="col-"] + .col-sm-12, [class*=" col-"] + .col-sm-12 {
     margin-top: 0;
   }
 }
 
-/* line 37, ../sass/elements/_base.scss */
+/* line 59, ../sass/elements/_base.scss */
 section > header {
   margin-bottom: 40px;
 }
 
-/* line 51, ../sass/elements/_base.scss */
+/* line 73, ../sass/elements/_base.scss */
 .box-dark {
   padding: 40px;
   padding: 2.5rem;
@@ -147,7 +164,7 @@ section > header {
   line-height: 19.6px;
   line-height: 1.225rem;
 }
-/* line 57, ../sass/elements/_base.scss */
+/* line 79, ../sass/elements/_base.scss */
 .box-dark .title {
   padding: 40px 40px 0;
   padding: 2.5rem 2.5rem 0;
@@ -164,16 +181,16 @@ section > header {
   line-height: 2.45rem;
   font-weight: 100;
 }
-/* line 66, ../sass/elements/_base.scss */
+/* line 88, ../sass/elements/_base.scss */
 .box-dark a {
   color: #0bc0fc;
 }
 
-/* line 72, ../sass/elements/_base.scss */
+/* line 94, ../sass/elements/_base.scss */
 .block, .block-link {
   display: block;
 }
-/* line 75, ../sass/elements/_base.scss */
+/* line 97, ../sass/elements/_base.scss */
 .block input, .block textarea, .block-link input, .block-link textarea {
   width: 100%;
 }
@@ -449,18 +466,19 @@ aside section + section {
 /* line 4, ../sass/components/_case-description.scss */
 .case-description {
   position: relative;
+  overflow: hidden;
   margin-bottom: 40px;
   margin-bottom: 2.5rem;
   padding: 40px;
   padding: 2.5rem;
   background: #f7f7f7;
 }
-/* line 10, ../sass/components/_case-description.scss */
+/* line 11, ../sass/components/_case-description.scss */
 .case-description h1, .case-description h2, .case-description h3, .case-description h4 {
   margin: 0 0 30px;
   margin: 0 0 1.875rem;
 }
-/* line 14, ../sass/components/_case-description.scss */
+/* line 15, ../sass/components/_case-description.scss */
 .case-description .title {
   margin-bottom: 20px;
   font-weight: 100;
@@ -469,14 +487,14 @@ aside section + section {
   line-height: 39.2px;
   line-height: 2.45rem;
 }
-/* line 20, ../sass/components/_case-description.scss */
+/* line 21, ../sass/components/_case-description.scss */
 .case-description .section-icon {
   bottom: auto;
   top: -20px;
   border-color: #bababa;
   color: #7e7e7e;
 }
-/* line 27, ../sass/components/_case-description.scss */
+/* line 28, ../sass/components/_case-description.scss */
 .case-description .description {
   font-size: 20px;
   font-size: 1.25rem;
@@ -486,15 +504,14 @@ aside section + section {
   margin-bottom: 30px;
   margin-bottom: 1.875rem;
 }
-/* line 33, ../sass/components/_case-description.scss */
+/* line 34, ../sass/components/_case-description.scss */
 .case-description p {
   margin-bottom: 28px;
   margin-bottom: 1.75rem;
 }
-/* line 37, ../sass/components/_case-description.scss */
+/* line 38, ../sass/components/_case-description.scss */
 .case-description .case-description-extra-info {
   height: 0;
-  overflow: hidden;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   -moz-transition: 2s;
@@ -502,7 +519,7 @@ aside section + section {
   -webkit-transition: 2s;
   transition: 2s;
 }
-/* line 43, ../sass/components/_case-description.scss */
+/* line 44, ../sass/components/_case-description.scss */
 .case-description .case-description-extra-info.active {
   height: auto;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
@@ -959,6 +976,13 @@ a .icon-severity:hover.level4 {
     text-align: right;
   }
 }
+@media (min-width: 992px) {
+  /* line 16, ../sass/components/_actions.scss */
+  .actions.justify-right [class^="col-md-"], .actions.justify-right [class*=" col-md-"] {
+    float: none !important;
+    display: inline-block !important;
+  }
+}
 
 /* line 1, ../sass/vendor/_chosen.scss */
 .chosen-container {
@@ -997,6 +1021,11 @@ a .icon-severity:hover.level4 {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
+}
+
+/* line 40, ../sass/vendor/_chosen.scss */
+.chosen-container-active.chosen-with-drop .chosen-single {
+  background: #fff;
 }
 
 /*# sourceMappingURL=main.min.css.map */

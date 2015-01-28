@@ -20,6 +20,7 @@
 .inline { display: inline; }
 
 .unavailable {
+	@include rem('padding', 12px);
 	background: red;
 	color: #fff;
 }
