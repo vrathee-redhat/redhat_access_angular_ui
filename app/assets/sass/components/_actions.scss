@@ -1,20 +1,30 @@
 .actions {
-
-//	@include media-query (sm) { text-align: right; }
+	margin-top: 40px;
 
 	.btn {
 		display: block;
 		width: 100%;
+	}
 
-		@include media-query (sm) {
-			width: auto;
-			display: inline-block;
-			@include rem('margin-left', 4px);
-		}
 
-		+ .btn {
-			@include rem('margin-top', 6px);
-			@include media-query (sm) { margin-top: 0; }
-		}
+	&.justify-right {
+
+		@include media-query (md) { text-align: right; }
+
+//		.btn {
+//			display: block;
+//			width: 100%;
+//
+//			@include media-query (md) {
+//				width: auto;
+//				display: inline-block;
+//				@include rem('margin-left', 4px);
+//			}
+//
+//			.btn {
+//				@include rem('margin-top', 6px);
+//				@include media-query (md) { margin-top: 0; }
+//			}
+//		}
 	}
 }

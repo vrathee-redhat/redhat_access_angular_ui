@@ -2,8 +2,7 @@ div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.us
   div(rha-403error='')
 div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManageCases')
   div(rha-header='', page='newCase')
-  #case-single.case-single
-  main(role='main')
+  main#case-single.case-single(role='main')
     header.page-header
       .row
         .col-sm-8.col-md-8
@@ -83,9 +82,10 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
           div.col-sm-7.col-md-8
             div(rha-groupselect='')
 
-      div.row.actions
-        div.col-xs-12.col-sm-11.col-md-12
+      div.row.actions.justif-right
+        .col-sm-12.col-md-4
           button.btn.btn-open Cancel
+        .col-sm-12.col-md-4
           button.btn.btn-primary.btn-submit(
           ng-disabled='submittingCase',
           ng-hide='submittingCase',

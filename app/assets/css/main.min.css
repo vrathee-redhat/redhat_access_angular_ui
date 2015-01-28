@@ -70,6 +70,12 @@
   display: inline;
 }
 
+/* line 22, ../sass/includes/_helpers.scss */
+.unavailable {
+  background: red;
+  color: #fff;
+}
+
 /* line 1, ../sass/elements/_base.scss */
 html {
   font-size: 100%;
@@ -471,10 +477,6 @@ aside section + section {
   color: #7e7e7e;
 }
 /* line 27, ../sass/components/_case-description.scss */
-.case-description .actions {
-  margin-top: 40px;
-}
-/* line 31, ../sass/components/_case-description.scss */
 .case-description .description {
   font-size: 20px;
   font-size: 1.25rem;
@@ -484,12 +486,12 @@ aside section + section {
   margin-bottom: 30px;
   margin-bottom: 1.875rem;
 }
-/* line 37, ../sass/components/_case-description.scss */
+/* line 33, ../sass/components/_case-description.scss */
 .case-description p {
   margin-bottom: 28px;
   margin-bottom: 1.75rem;
 }
-/* line 41, ../sass/components/_case-description.scss */
+/* line 37, ../sass/components/_case-description.scss */
 .case-description .case-description-extra-info {
   height: 0;
   overflow: hidden;
@@ -500,7 +502,7 @@ aside section + section {
   -webkit-transition: 2s;
   transition: 2s;
 }
-/* line 47, ../sass/components/_case-description.scss */
+/* line 43, ../sass/components/_case-description.scss */
 .case-description .case-description-extra-info.active {
   height: auto;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
@@ -862,12 +864,12 @@ a .icon-severity:hover.level4 {
   margin-bottom: 1.25rem;
 }
 /* line 4, ../sass/components/_filters.scss */
-.filters [class^="col-sm"] + [class^="col-sm"], .filters [class*="col-sm"] + [class*="col-sm"] {
+.filters .col-sm-12 + .col-sm-12 {
   margin-top: 12px;
 }
 @media (min-width: 992px) {
   /* line 4, ../sass/components/_filters.scss */
-  .filters [class^="col-sm"] + [class^="col-sm"], .filters [class*="col-sm"] + [class*="col-sm"] {
+  .filters .col-sm-12 + .col-sm-12 {
     margin-top: 0;
   }
 }
@@ -942,29 +944,19 @@ a .icon-severity:hover.level4 {
   color: gray;
 }
 
-/* line 5, ../sass/components/_actions.scss */
+/* line 1, ../sass/components/_actions.scss */
+.actions {
+  margin-top: 40px;
+}
+/* line 4, ../sass/components/_actions.scss */
 .actions .btn {
   display: block;
   width: 100%;
 }
-@media (min-width: 768px) {
-  /* line 5, ../sass/components/_actions.scss */
-  .actions .btn {
-    width: auto;
-    display: inline-block;
-    margin-left: 4px;
-    margin-left: 0.25rem;
-  }
-}
-/* line 15, ../sass/components/_actions.scss */
-.actions .btn + .btn {
-  margin-top: 6px;
-  margin-top: 0.375rem;
-}
-@media (min-width: 768px) {
-  /* line 15, ../sass/components/_actions.scss */
-  .actions .btn + .btn {
-    margin-top: 0;
+@media (min-width: 992px) {
+  /* line 10, ../sass/components/_actions.scss */
+  .actions.justify-right {
+    text-align: right;
   }
 }
 

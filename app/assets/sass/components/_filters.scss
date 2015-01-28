@@ -1,7 +1,7 @@
 .filters {
 	@include rem('margin-bottom', 20px);
 
-	[class^="col-sm"] + [class^="col-sm"], [class*="col-sm"] + [class*="col-sm"] {
+	.col-sm-12 + .col-sm-12 {
 		margin-top: 12px;
 
 		@include media-query (md) { margin-top: 0; }
