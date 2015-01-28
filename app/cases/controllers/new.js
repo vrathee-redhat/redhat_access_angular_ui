@@ -462,7 +462,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.showRecommendationPanel = true;
         };
 
-        $rootScope.$on(CASE_EVENTS.fetchProductsForContact, function() {
+        $scope.$on(CASE_EVENTS.fetchProductsForContact, function() {
             $scope.productsLoading = true;
             strataService.products.list(CaseService.owner).then(function (products) {
                 $scope.buildProductOptions(products);
