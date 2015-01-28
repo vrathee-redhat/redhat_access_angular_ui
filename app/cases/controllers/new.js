@@ -260,6 +260,17 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.versionDisabled = true;
             $scope.versionLoading = true;
             strataService.products.versions(product).then(function (response) {
+                response.sort(function (a, b) {  //Added because of wrong order of version for RHEL from SFDC
+                    var result;
+                    a = a.split('.');
+                    b = b.split('.');
+                    while (a.length) {
+                        if (result = a.shift() - (b.shift() || 0)) {
+                            return result;
+                        }
+                    }
+                    return -b.length;
+                });
                 $scope.versions = response;
                 CaseService.validateNewCasePage1();
                 $scope.versionDisabled = false;
