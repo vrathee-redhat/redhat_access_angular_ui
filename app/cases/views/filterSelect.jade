@@ -1,0 +1,7 @@
+select#rha-filter-select(chosen, 
+	width='"100%"',
+	ng-init="CaseService.filterSelect = statuses[0]"
+	ng-disabled='!securityService.loginStatus.isLoggedIn',
+	ng-model='CaseService.filterSelect',
+    ng-change='CaseService.onFilterSelectChanged()',
+    ng-options='status as status.name for status in statuses')

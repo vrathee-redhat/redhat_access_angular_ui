@@ -16,37 +16,38 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
         //  span {{'Exporting CSV...'|translate}}
 
   div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
-  div#case-list.table-list.case-list
-      div.list-item(ng-repeat='case in SearchCaseService.cases')
-        div.row.case
-          div.col-sm-4.col-md-3.item-group
-            div.block-icon
-              div.severity
-                //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
-                a(href='#/case/{{case.case_number}}')
-                  i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
-                  i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
-                  i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
-                  i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
-              div.case-id
-                a(href='https://access.redhat.com/knowledge/solutions/')
-                  b {{case.case_number}}
-                div.status.light {{case.status}}
-          div.col-sm-8.col-md-6.item-group
-            div
-              b
-                | {{case.product}}
-                span.sep |
-                | {{case.version}}
-            div.description.light
-              | {{case.summary}}
-              //- a.fa.fa-comments(href='#')
-              //-   span.count 2
-              //-Field does not exist
-          div.col-sm-12.col-md-3
-            div.item-group.change-log
-              div.filed-on
-                | Last Modified: 
-                b {{case.comments.comment[0].last_modified_date | date:'longDate'}}
-                i  by 
-                a(href='#') {{case.last_modified_by}}
+  div#case-list.table-list.case-list(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='10')
+    div.list-item(ng-repeat='case in SearchCaseService.cases')
+      div.row.case
+        div.col-sm-4.col-md-3.item-group
+          div.block-icon
+            div.severity
+              //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
+              a(href='#/case/{{case.case_number}}')
+                i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
+                i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
+                i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
+                i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
+            div.case-id
+              a(href='https://access.redhat.com/knowledge/solutions/')
+                b {{case.case_number}}
+              div.status.light {{case.status}}
+        div.col-sm-8.col-md-6.item-group
+          div
+            b
+              | {{case.product}}
+              span.sep |
+              | {{case.version}}
+          div.description.light
+            | {{case.summary}}
+            //- a.fa.fa-comments(href='#')
+            //-   span.count 2
+            //-Field does not exist
+        div.col-sm-12.col-md-3
+          div.item-group.change-log
+            div.filed-on
+              | Last Modified: 
+              b {{case.comments.comment[0].last_modified_date | date:'longDate'}}
+              i  by 
+              a(href='#') {{case.last_modified_by}}
+    div(ng-show='SearchCaseService.searching') Loading cases...  

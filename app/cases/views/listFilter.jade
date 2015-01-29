@@ -3,23 +3,4 @@ div.row.filters
     input(type='text', placeholder='Type to Filter')
   div.col-sm-12.col-md-3(rha-groupselect='')
   div.col-sm-12.col-md-3(rha-statusselect='')
-  div.col-sm-12.col-md-3
-    select(name='', id='', chosen, width='"100%"')
-      option(value='All Groups') Sort by last updated:
-      option(value='') Group 1
-      option(value='') Group 2
-      option(value='') Group with really long name. Testing length fallbacks.
-
-//- div.row
-//-   div.col-md-6
-//-     div(rha-searchbox='', placeholder="'Search'|translate")
-//-   div.col-md-3
-//-     div
-//-       span.glyphicon.glyphicon-question-sign.pull-right(
-//-         popover="{{'Filtering by case groups helps you find related cases.'|translate}}",
-//-         tabindex='0',
-//-         popover-append-to-body='true',
-//-         popover-trigger='mouseenter')
-//-       div(rha-groupselect='', ng-init="setSearchOptions(true)")
-//-   div.col-md-3
-//-     div(rha-statusselect='')
+  div.col-sm-12.col-md-3(rha-filterselect='')

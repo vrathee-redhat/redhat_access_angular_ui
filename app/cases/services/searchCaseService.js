@@ -107,6 +107,14 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             if (!isObjectNothing(CaseService.severity)) {
                 params.severity = CaseService.severity;
             }
+            if(!CaseService.filterSelect !== undefined){
+                if (CaseService.filterSelect.sortField !== undefined){
+                    params.sort_field = CaseService.filterSelect.sortField;
+                }
+                if (CaseService.filterSelect.sortOrder !== undefined){
+                    params.sort_order = CaseService.filterSelect.sortOrder;
+                }
+            }
             //TODO: hack to get around onchange() firing at page load for each select.
             //Need to prevent initial onchange() event instead of handling here.
             var promises = [];

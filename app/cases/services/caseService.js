@@ -43,6 +43,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.owner = '';
         this.product = '';
         this.bugzillaList = {};
+        this.onFilterSelectChanged = function(){
+            $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
+        };
         this.onSelectChanged = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
@@ -60,6 +63,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.draftSaved = false;
         this.sortBy='lastModifiedDate';
         this.sortOrder='desc';
+        this.filterSelect = '';
 
         this.localStorageCache = $angularCacheFactory.get('localStorageCache');
         /**
