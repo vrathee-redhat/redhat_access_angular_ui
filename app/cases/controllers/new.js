@@ -41,6 +41,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.ie8Message='We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
 
         $scope.showRecommendationPanel = false;
+        $scope.notifiedUsers = [];
 
         // Instantiate these variables outside the watch
         var waiting = false;
@@ -185,6 +186,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
+            CaseService.populateUsers();
             $scope.severitiesLoading = true;
             strataService.values.cases.severity().then(function (severities) {
                 CaseService.severities = severities;
@@ -375,6 +377,15 @@ angular.module('RedhatAccess.cases').controller('New', [
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+
+                angular.forEach($scope.notifiedUsers, function (user) {
+                    strataService.cases.notified_users.add(caseNumber, user).then(function () {
+                        AlertService.addSuccessMessage(translate('Successfully added ') + ' ' + user + translate(' to receieve email notifications.'));
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
+                });
+
                 if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && NEW_CASE_CONFIG.showAttachments) {
                     AttachmentsService.updateAttachments(caseNumber).then(function () {
                         redirectToCase(caseNumber);

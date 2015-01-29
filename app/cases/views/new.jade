@@ -116,7 +116,15 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
           div.col-sm-4.col-md-4
             div.label(for='email-notifications') Send Email Notifications to
           div.col-sm-7.col-md-8
-            div(rha-emailnotifyselect='')
+            span.rha-search-spinner(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
+            select(
+              chosen,
+              multiple,
+              ng-disabled='updatingList',
+              ng-model='notifiedUsers',
+              id='rha-email-notify-select',
+              width='"100%"',
+              ng-options='user.sso_username as user.sso_username for user in CaseService.users')
         div.row
           div.col-sm-4.col-md-4
             div.label Case Group
