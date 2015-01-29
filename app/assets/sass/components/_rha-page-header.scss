@@ -1,0 +1,28 @@
+.rha-page-header {
+
+	.row {
+		margin-left: -7.5px;
+		margin-right: -7.5px;
+
+		[class^="col-"], [class*=" col-"] {
+			padding-right: 7.5px;
+			padding-left: 7.5px;
+		}
+	}
+
+
+	.actions {
+		text-align: right;
+		margin-top: 0;
+
+		.btn {
+			display: inline-block;
+			width: auto;
+			margin-left: 15px;
+
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+	}
+}
