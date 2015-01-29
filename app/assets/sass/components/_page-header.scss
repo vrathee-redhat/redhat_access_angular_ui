@@ -16,8 +16,21 @@
 	.change-log {
 		@include rem('margin', 20px 0);
 	}
+
+	.page-title {
+		@include font-size(22px);
+		text-transform: uppercase;
+		color: $brand-gray;
+		margin: 0;
+	}
 }
 
-.page-title {
-	margin: 0;
+h1.page-title {
+	@include font-size(22px);
+	line-height: 1;
+	margin-bottom: $base-vertical-pad;
+	text-transform: uppercase;
+	color: $brand-gray;
 }
+
+

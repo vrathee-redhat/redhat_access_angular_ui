@@ -6,10 +6,29 @@ $main-sm-columns:       $grid-columns;
 $sidebar-sm-columns:    4;
 
 
+$base-vertical-pad: 30px;
+
 // Brand colors
 // -------------------------
 
+$brand-gray: #4c4c4c;
+
+
+
+
+$red: #c00;
+
+$link-color: #0085cf;
+
 $brand-primary:         #27ae60;
+
+$blue_dark: #102c3b;
+$blue_light: #9ac0de;
+$blue: #03AFE8;
+
+$gray: #ddd;
+
+$btn-bg_default: gray;
 
 
 // Glyphicons path
@@ -20,7 +39,7 @@ $icon-font-path:        "../vendor/bootstrap-sass-official/assets/fonts/";
 
 // Borders
 //==================================================================*/
-$border-gray: #c3c3c3;
+$border-gray: #cacaca;
 //$border-gray: #ddd;
 
 
@@ -43,19 +62,6 @@ $base_font_family: 'Helvetica', sans-serif;
 
 
 $line-height-computed:    floor(($base_font_size * $base_line_height)) !default; // ~20px
-
-
-// Colors
-//==================================================================*/
-$blue_dark: #102c3b;
-$blue_light: #9ac0de;
-$blue: #03AFE8;
-
-$gray: #ddd;
-
-$red: #c00;
-
-$btn-bg_default: gray;
 
 
 // Typography Settings

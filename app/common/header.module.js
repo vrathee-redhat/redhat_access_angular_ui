@@ -135,7 +135,7 @@ angular.module('RedhatAccess.header', []).value('TITLE_VIEW_CONFIG', {
     }
 ]).directive('rhaHeader', function () {
     return {
-        templateUrl: 'common/views/header.html',
+	        templateUrl: 'common/views/header.html',
         restrict: 'A',
         scope: { page: '@' },
         controller: 'HeaderController'

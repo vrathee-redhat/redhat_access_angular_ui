@@ -24,3 +24,9 @@
 	background: red;
 	color: #fff;
 }
+
+.normal { @include font-size(16px); }
+.small { @include font-size(14px); }
+.large {
+
+}

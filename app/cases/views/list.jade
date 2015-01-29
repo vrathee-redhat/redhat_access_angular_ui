@@ -2,24 +2,25 @@
 div#redhat-access-case(ng-show='!securityService.loginStatus.userAllowedToManageCases')
   div(rha-403error='')
 div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManageCases')
-  div(rha-header='', page='caseList')
-  div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
-    div {{'User does not have permissions to manage cases.'|translate}}
-  div.row(ng-hide='!CaseService.sfdcIsHealthy')
-    div.col-sm-8(rha-listfilter='')
-    div.col-sm-4
-      div.actions
-        a.btn.btn-xs(href='#/case/new') Create a New Support Case
-        a.btn.btn-xs.btn-outline(ng-click='exports()', ng-hide='exporting || ie8 || ie9', translate='') Export
-        //div(ng-show='exporting')
-        //  span.rha-search-spinner
-        //  span {{'Exporting CSV...'|translate}}
-
+  .rha-page-header
+    h1.page-title Support Cases
+    div(rha-header='')
+    div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
+      div {{'User does not have permissions to manage cases.'|translate}}
+    div.row(ng-hide='!CaseService.sfdcIsHealthy')
+      div.col-sm-8(rha-listfilter='')
+      div.col-sm-4
+        div.actions
+          a.btn.btn-info.btn-xs(href='#/case/new') Create a New Support Case
+          a.btn.btn-info.btn-xs(ng-click='exports()', ng-hide='exporting || ie8 || ie9', translate='') Export
+          //div(ng-show='exporting')
+          //  span.rha-search-spinner
+          //  span {{'Exporting CSV...'|translate}}
   div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
   div#case-list.table-list.case-list(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='10')
     div.list-item(ng-repeat='case in SearchCaseService.cases')
       div.row.case
-        div.col-sm-4.col-md-3.item-group
+        div.col-sm-4.col-md-2.item-group
           div.block-icon
             div.severity
               //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
@@ -29,16 +30,15 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
                 i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
                 i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
             div.case-id
-              a(href='https://access.redhat.com/knowledge/solutions/')
+              a.subheading(href='https://access.redhat.com/knowledge/solutions/')
                 b {{case.case_number}}
-              div.status.light {{case.status}}
-        div.col-sm-8.col-md-6.item-group
-          div
-            b
-              | {{case.product}}
-              span.sep |
-              | {{case.version}}
-          div.description.light
+              div.status.small {{case.status}}
+        div.col-sm-8.col-md-7.item-group
+          div.subheading
+            | {{case.product}}
+            span.sep |
+            | {{case.version}}
+          div.description.small
             | {{case.summary}}
             //- a.fa.fa-comments(href='#')
             //-   span.count 2

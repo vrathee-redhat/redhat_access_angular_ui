@@ -2,15 +2,23 @@ input, select, textarea {
 	max-width: 100%;
 }
 
+input, input[type="text"], select, textarea, ::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
+	font-family: "Overpass", sans-serif;
+	font-weight: 100;
+	color: $brand-gray;
+	@include font-size(14px);
+}
+
 input[type="text"], textarea {
+	@include font-size(14px);
+	line-height: 1.25;
 	width: 100%;
-	@include rem('padding', 4px 8px);
+	@include rem('padding', 6px 5px 3px 5px);
 	border: 1px solid $border-gray;
-	color: #808080;
 	@include transition(.2s);
 
 	&:active, &:focus {
-		border-color: darken($border-gray, 20);
+		border-color: $border-gray;
 	}
 }
 
