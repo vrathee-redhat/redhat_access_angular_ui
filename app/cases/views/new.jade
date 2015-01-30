@@ -139,25 +139,3 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
           ng-disabled='submittingCase',
           ng-hide='submittingCase',
           ng-click='doSubmit($event)', translate='') Submit
-  //aside.col-md-6
-    //  section.recommendations
-    //    // <div class="spinner spinner-lg spinner-inline"></div>
-    //    h3.title.blue
-    //      | Here Are Some Possible Solutions
-    //      i.fa.fa-flash.section-icon
-    //    div(rha-newrecommendations='')
-    //  section.case-escalation
-    //    div
-    //      h3
-    //        | Need to raise a concern to Red Hat Support
-    //        | management?
-    //        a.link(href='#') Learn More
-    //    // <a href="#">Request escalation</a>
-    //    a.btn.btn-light(href='#') Request escalation
-
-button.btn.btn-primary(type='button', data-toggle='modal', data-target='.bs-example-modal-lg') Large modal
-
-.modal.fade.bs-example-modal-lg(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-  .modal-dialog.modal-lg
-    .modal-content
-      | ...
