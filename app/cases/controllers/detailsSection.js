@@ -82,7 +82,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.updateCase = function () {
             $scope.updatingDetails = true;
             var caseJSON = {};
-            if ($scope.caseDetailsChanged() === true) {
+            //if ($scope.caseDetailsChanged() === true) {
                 if (CaseService.kase !== undefined) {
                     if (CaseService.kase.type !== undefined) {
                         caseJSON.type = CaseService.kase.type.name;
@@ -102,9 +102,6 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                     if (CaseService.kase.version !== undefined) {
                         caseJSON.version = CaseService.kase.version;
                     }
-                    if (CaseService.kase.summary !== undefined) {
-                        caseJSON.summary = CaseService.kase.summary;
-                    }
                     if (CaseService.kase.group !== null && CaseService.kase.group !== undefined && CaseService.kase.group.number !== undefined) {
                         caseJSON.folderNumber = CaseService.kase.group.number;
                     } else {
@@ -123,18 +120,18 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         caseJSON.notes = CaseService.kase.notes;
                     }
                     strataService.cases.put(CaseService.kase.case_number, caseJSON).then(function () {
-                        if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-                            $scope.changeCaseOwner();
-                        }
-                        $scope.caseDetails.$setPristine();
+                        // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
+                        //     $scope.changeCaseOwner();
+                        // }
+                        //$scope.caseDetails.$setPristine();
                         $scope.updatingDetails = false;
                         if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                             $scope.$apply();
                         }
                     }, function (error) {
-                        if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-                            $scope.changeCaseOwner();
-                        }
+                        // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
+                        //     $scope.changeCaseOwner();
+                        // }
                         AlertService.addStrataErrorMessage(error);
                         $scope.updatingDetails = false;
                         if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
@@ -142,11 +139,11 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         }
                     });
                 }
-            } else {
-                if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-                    $scope.changeCaseOwner();
-                }
-            }
+            // } else {
+            //     if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
+            //         $scope.changeCaseOwner();
+            //     }
+            // }
         };
         $scope.getProductVersions = function () {
             CaseService.versions = [];
@@ -171,11 +168,8 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             });
         };
         $scope.caseDetailsChanged = function () {
-            if ($scope.caseDetails.summary.$dirty || $scope.caseDetails.type.$dirty || $scope.caseDetails.severity.$dirty
-                    || $scope.caseDetails.status.$dirty || $scope.caseDetails.alternate_id.$dirty || $scope.caseDetails.product.$dirty
-                    || $scope.caseDetails.version.$dirty || $scope.caseDetails.group.$dirty || ($scope.caseDetails.notes !== undefined && $scope.caseDetails.notes.$dirty)
-                    || ($scope.caseDetails.ftsCheckbox !== undefined && $scope.caseDetails.ftsCheckbox.$dirty)
-                    || ($scope.caseDetails.ftsContact !== undefined && $scope.caseDetails.ftsContact.$dirty)) {
+            if ($scope.caseDetails.alternate_id.$dirty || $scope.caseDetails.product.$dirty
+                    || $scope.caseDetails.version.$dirty || $scope.caseDetails.group.$dirty) {
                 return true;
             } else {
                 return false;

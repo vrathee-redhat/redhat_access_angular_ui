@@ -13,19 +13,15 @@ div#redhat-access-case.container-offset(ng-hide='failedToLoadCase || !securitySe
         div(ng-show='EDIT_CASE_CONFIG.showDetails')
           div(rha-casedetails='', compact='false', loading='loading.kase')
             rha-casedetails
-        //- div.row(ng-show='EDIT_CASE_CONFIG.showBugzillas')
-        //-   div.col-xs-12
-        //-     div(rha-listbugzillas='', loading='loading.kase')
         section.case-discussion
           header
             h2 Case Discussion
           div(rha-emailnotifyselect='')
-          .block
-            textarea.comment(placeholder='Add a comment...', type='text', name='comment')
           div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
             div(rha-caseattachments='', loading='loading.attachments')
           div(ng-show='EDIT_CASE_CONFIG.showComments')
-            div(rha-casecomments='', loading='loading.comments')
+            div(rha-Addcommentsection='', loading='loading.comments')
+            div(rha-commentssection='', loading='loading.comments')
       aside.col-md-4
         div(rha-newrecommendations='')
         section.case-escalation

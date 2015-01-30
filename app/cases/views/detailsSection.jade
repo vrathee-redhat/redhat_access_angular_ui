@@ -49,9 +49,13 @@ section.case-description
             option(value="") Ungrouped Case
     .row.actions
       .col-sm-6.col-md-4
-        button.btn.btn-accent Save Changes
+        button.btn.btn-accent(
+          name='updateButton',
+          ng-disabled='updatingDetails',
+          ng-click='updateCase()', translate='') Save Changes 
       .col-sm-6.col-md-4
-        button.btn.btn-open Cancel
+        button.btn.btn-open(
+          ng-disabled='updatingDetails') Cancel
 
 
 
