@@ -6,4 +6,10 @@
 
 		@include media-query (md) { margin-top: 0; }
 	}
+
+	.form-control {
+		height: auto;
+
+		input { @include rem('padding', 5px 12px 4px); }
+	}
 }

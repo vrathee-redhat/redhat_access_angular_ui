@@ -12,7 +12,7 @@ div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManage
       div.col-sm-4
         div.actions
           a.btn.btn-info.btn-xs(href='#/case/new') Create a New Support Case
-          a.btn.btn-info.btn-xs(ng-click='exports()', ng-hide='exporting || ie8 || ie9', translate='') Export
+          a.btn.btn-info.btn-xs(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export
           //div(ng-show='exporting')
           //  span.rha-search-spinner
           //  span {{'Exporting CSV...'|translate}}
