@@ -24,11 +24,4 @@ div#redhat-access-case.container-offset(ng-hide='failedToLoadCase || !securitySe
             div(rha-casecomments='', loading='loading.comments')
       aside.col-md-4
         div(rha-newrecommendations='')
-        section.case-escalation
-          div
-            h3
-              | Need to raise a concern to Red Hat Support
-              | management? 
-              a.link(href='#') Learn More
-          // <a href="#">Request escalation</a>
-          a.btn.btn-light(href='#') Request escalation
+        div(rha-requestescalation='')
