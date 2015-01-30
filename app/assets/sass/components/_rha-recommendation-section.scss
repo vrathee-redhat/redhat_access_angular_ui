@@ -1,12 +1,8 @@
-
 .rha-recommendation-section {
 
-	.pinned, .not-pinned {
-	    display: block;
+	.pin {
 	    position: absolute;
 	    top: 0px;
 	    left: -16px;
-	    overflow: hidden;
-	    clip: rect(0px, 30px, 16px, 15px);
 	}
 }

@@ -12,7 +12,7 @@ section.filters
         name='status',
         ng-model='CaseService.kase.status',
         ng-options='s.name for s in CaseService.statuses track by s.name')
-    .col-sm-4
+    .col-sm-4.inline-tooltip.right
       span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
       select(
         chosen,

@@ -37,6 +37,7 @@ $case-description-global-margin-bottom: 30px;
 
 	.case-description-extra-info {
 		height: 0;
+		display: none;
 //		overflow: hidden;
 		@include opacity(0);
 		@include transition(2s);
@@ -44,6 +45,7 @@ $case-description-global-margin-bottom: 30px;
 		&.active {
 			height: auto;
 			@include opacity(1);
+			display: block;
 		}
 	}
 }

@@ -1,5 +1,5 @@
 section.case-description
-  i#case-description-toggle.fa.fa-caret-square-o-down.case-description-toggle(ng-click='toggleExtraInfo()') test
+  i#case-description-toggle.fa.fa-caret-square-o-down.case-description-toggle(ng-click='toggleExtraInfo()', ng-class="showExtraInfo ? 'fa fa-caret-square-o-down case-description-toggle active' : 'fa fa-caret-square-o-down case-description-toggle'")
   h3.title {{CaseService.kase.summary}}
   p.description {{CaseService.kase.description}}
   div#case-description-extra-info(ng-class="showExtraInfo ? 'case-description-extra-info active' : 'case-description-extra-info'")

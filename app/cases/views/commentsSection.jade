@@ -2,8 +2,6 @@ div(ng-repeat='comment in CaseService.comments', ng-if='!comment.draft')
   div(id="{{comment.id}}")
     article.comment
       h4
-        span.avatar
-          img(src='https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQjIMQWD7oVOZtHb4FA9aqJg0bpf2jlGu_BXghkJ-yA7zvrEG8P', alt='Person')
         span.author {{comment.created_by}}
         span.date.light  {{comment.created_date | date:'mediumDate'}}
         |  at
@@ -12,34 +10,3 @@ div(ng-repeat='comment in CaseService.comments', ng-if='!comment.draft')
         p
           | {{ comment.text}}
 
-
-
-
-//- h4.rha-section-header(translate='') Case Discussion
-//- span.rha-search-spinner(ng-show='loading')
-//- div.container-fluid.rha-side-padding(ng-hide='loading')
-//-   div.row.rha-create-field
-//-     div.col-xs-12
-//-       div(rha-addcommentsection='')
-//-   div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; padding-bottom: 10px;')
-//-     div.col-xs-12
-//-       span(style='display: inline-block; padding-right: 10px;') {{'Would you like a Red Hat support manager to contact you regarding this case?'|translate}}
-//-       button.btn.btn-open(id='rha-case-requestEscalation-button',
-//-         style='display: inline-block',
-//-         ng-click='requestManagementEscalation()', translate='') Request Management Escalation
-//-   div.rha-comments-section(ng-hide='CaseService.comments.length <= 0 || CaseService.comments === undefined', style='border-top: 1px solid #dddddd;')
-//-     div(ng-repeat='comment in CaseService.comments', ng-if='!comment.draft')
-//-       div(id="{{comment.id}}")
-//-         div.row(style='padding-bottom: 10px;')
-//-           div.col-md-2
-//-             div.rha-bold.personNameBlock {{comment.created_by}}
-//-             div {{comment.created_date | date:'mediumDate'}}
-//-             div {{comment.created_date | date:'h:mm:ss a Z'}}
-//-             div.private(ng-if='comment.public !== undefined && comment.public === false') Private
-//-           div.col-md-9.rha-comment-text
-//-             pre.pcmTextBlock.browserNotIE(ng-hide="ie8 || ie9" ng-bind-html="comment.text | linky:'_blank'")
-//-             div(id='{{comment.id}}text')
-//-               div.pcmTextBlock.browserIE(ng-show="ie8 || ie9") {{ comment.text}}
-//-             a.commentReply(ng-click='commentReply(comment.id,(ie8 || ie9))') {{'Reply'|translate}}
-//-           div.col-md-1.rha-comment-link
-//-             a.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(comment.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{comment.id}}')

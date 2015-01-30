@@ -2,18 +2,19 @@ div.rha-section-header(style='margin-bottom: 10px;')
   h4(style='display: inline; padding-right: 10px;', translate='') Recommendations
   span.rha-search-spinner-sm(style='display: inline-block; height: 11px; width: 11px;', ng-show='RecommendationsService.loadingRecommendations')
 span.rha-search-spinner(ng-show='loading')
-div.container-fluid.rha-side-padding(ng-hide='loading')
-  div.row
-    div(ng-repeat='recommendation in RecommendationsService.recommendationsOnScreen')
-      div.fa.fa-thumb(
+.container-fluid.rha-side-padding(ng-hide='loading')
+  .row
+    .block(ng-repeat='recommendation in RecommendationsService.recommendationsOnScreen')
+      .fa.fa-thumb-tack(
         ng-class='{fa.fa-thumb: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
         ng-click='pinRecommendation(recommendation, $index, $event)',
         style='cursor: pointer;') &nbsp;
-      div.rha-bold(style='overflow: hidden;') {{recommendation.title}}
-        span(
-          ng-show='recommendation.handPicked' ng-class='{"hand-picked": recommendation.handPicked}', translate='') handpicked
-        div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
-        a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank') {{'View full article in new window'|translate}}
+      strong(style='overflow: hidden;') {{recommendation.title}}
+      span.handpicked(ng-show='recommendation.handPicked', translate='')
+        .fa.fa-check
+        | Handpicked
+      div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
+      a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank') {{'View full article in new window'|translate}}
   div.row(style='padding-top: 10px;', ng-hide='RecommendationsService.recommendationsOnScreen.length == 0')
     div.col-xs-12
       pagination.pagination-sm(

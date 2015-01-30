@@ -19,6 +19,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
 
 		$scope.toggleExtraInfo = function() {
 			$scope.showExtraInfo = !$scope.showExtraInfo;
+
 		}
 
         $scope.init = function () {

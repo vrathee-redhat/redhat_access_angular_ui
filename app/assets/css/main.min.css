@@ -136,7 +136,7 @@ body {
 /* line 31, ../sass/elements/_base.scss */
 .inline-tooltip.right > span {
   position: absolute;
-  right: -24px;
+  right: 2px;
   top: 4px;
 }
 
@@ -582,6 +582,7 @@ aside section + section {
 /* line 38, ../sass/components/_case-description.scss */
 .case-description .case-description-extra-info {
   height: 0;
+  display: none;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   -moz-transition: 2s;
@@ -589,11 +590,12 @@ aside section + section {
   -webkit-transition: 2s;
   transition: 2s;
 }
-/* line 44, ../sass/components/_case-description.scss */
+/* line 45, ../sass/components/_case-description.scss */
 .case-description .case-description-extra-info.active {
   height: auto;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
+  display: block;
 }
 
 @media (min-width: 768px) {
@@ -1106,26 +1108,21 @@ a .icon-severity:hover.level4 {
 }
 
 /* line 1, ../sass/components/_pinned.scss */
-.pinned, .not-pinned {
-  background: url(../img/bg-recommendations.png) no-repeat 0 0;
-  height: 16px;
-  width: 30px;
-  display: block;
+.pin.active {
+  color: #c00;
 }
 
-/* line 8, ../sass/components/_pinned.scss */
-.not-pinned {
-  background-position: 0 -15px;
+/* line 5, ../sass/components/_pinned.scss */
+.handpicked {
+  color: #078700;
+  text-transform: small-caps;
 }
 
-/* line 4, ../sass/components/_rha-recommendation-section.scss */
-.rha-recommendation-section .pinned, .rha-recommendation-section .not-pinned {
-  display: block;
+/* line 3, ../sass/components/_rha-recommendation-section.scss */
+.rha-recommendation-section .pin {
   position: absolute;
   top: 0px;
   left: -16px;
-  overflow: hidden;
-  clip: rect(0px, 30px, 16px, 15px);
 }
 
 /* line 1, ../sass/vendor/_chosen.scss */
