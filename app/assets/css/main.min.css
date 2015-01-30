@@ -1095,6 +1095,29 @@ a .icon-severity:hover.level4 {
   margin-left: 0;
 }
 
+/* line 1, ../sass/components/_pinned.scss */
+.pinned, .not-pinned {
+  background: url(../img/bg-recommendations.png) no-repeat 0 0;
+  height: 16px;
+  width: 30px;
+  display: block;
+}
+
+/* line 8, ../sass/components/_pinned.scss */
+.not-pinned {
+  background-position: 0 -15px;
+}
+
+/* line 4, ../sass/components/_rha-recommendation-section.scss */
+.rha-recommendation-section .pinned, .rha-recommendation-section .not-pinned {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: -16px;
+  overflow: hidden;
+  clip: rect(0px, 30px, 16px, 15px);
+}
+
 /* line 1, ../sass/vendor/_chosen.scss */
 .chosen-container {
   width: 100%;

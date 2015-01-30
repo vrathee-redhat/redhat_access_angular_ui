@@ -1,0 +1,10 @@
+.pinned, .not-pinned {
+    background: url(../img/bg-recommendations.png) no-repeat 0 0;
+    height: 16px;
+    width: 30px;
+    display: block;
+}
+
+.not-pinned {
+    background-position: 0 -15px;
+}

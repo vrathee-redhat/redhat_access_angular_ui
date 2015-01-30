@@ -23,5 +23,5 @@ div#redhat-access-case.container-offset(ng-hide='failedToLoadCase || !securitySe
             div(rha-addcommentsection='', loading='loading.comments')
             div(rha-casecomments='', loading='loading.comments')
       aside.col-md-4
-        div(rha-newrecommendations='')
+        #rha-recommendation-section.rha-recommendation-section(rha-caserecommendations='')
         div(rha-requestescalation='')
