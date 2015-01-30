@@ -20,8 +20,8 @@ div#redhat-access-case.container-offset(ng-hide='failedToLoadCase || !securitySe
           div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
             div(rha-caseattachments='', loading='loading.attachments')
           div(ng-show='EDIT_CASE_CONFIG.showComments')
-            div(rha-Addcommentsection='', loading='loading.comments')
-            div(rha-commentssection='', loading='loading.comments')
+            div(rha-addcommentsection='', loading='loading.comments')
+            div(rha-casecomments='', loading='loading.comments')
       aside.col-md-4
         div(rha-newrecommendations='')
         section.case-escalation
