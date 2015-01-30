@@ -30,7 +30,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             this.recommendations = [];
             this.pinnedRecommendations = [];
             this.handPickedRecommendations = [];
-            var currentData = {
+            currentData = {
                 product: null,
                 version: null,
                 summary: null,
@@ -72,21 +72,41 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                     var promise = {};
                     angular.forEach(CaseService.kase.recommendations.recommendation, angular.bind(this, function (rec) {
                         if (rec.pinned_at) {
-                            promise = strataService.solutions.get(rec.resource_id).then(angular.bind(this, function (solution) {
+                            if(rec.resource_type === 'Article')
+                            {
+                                promise = strataService.articles.get(rec.resource_id).then(angular.bind(this, function (article) {
+                                    article.pinned = true;
+                                    this.pinnedRecommendations.push(article);
+                                }), function (error) {
+                                    AlertService.addStrataErrorMessage(error);
+                                });
+                            }else {
+                                promise = strataService.solutions.get(rec.resource_id).then(angular.bind(this, function (solution) {
                                     solution.pinned = true;
                                     this.pinnedRecommendations.push(solution);
                                 }), function (error) {
                                     AlertService.addStrataErrorMessage(error);
                                 });
+                            }
                             promises.push(promise);
                         } else if (rec.linked) {
-                            promise = strataService.solutions.get(rec.resource_id).then(angular.bind(this, function (solution) {
+                            if(rec.resource_type === 'Article')
+                            {
+                                promise = strataService.articles.get(rec.resource_id).then(angular.bind(this, function (article) {
+                                    article.handPicked = true;
+                                    this.handPickedRecommendations.push(article);
+                                }), function (error) {
+                                    AlertService.addStrataErrorMessage(error);
+                                });
+                            }else {
+                                promise = strataService.solutions.get(rec.resource_id).then(angular.bind(this, function (solution) {
                                     //solution.pinned = true;
                                     solution.handPicked = true;
                                     this.handPickedRecommendations.push(solution);
                                 }), function (error) {
                                     AlertService.addStrataErrorMessage(error);
                                 });
+                            }
                             promises.push(promise);
                         }
                     }));
