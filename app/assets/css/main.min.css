@@ -529,6 +529,7 @@ aside section + section {
   line-height: 1.375rem;
   font-weight: 500;
   margin-bottom: 8px;
+  display: block;
 }
 
 /* line 4, ../sass/components/_case-description.scss */
