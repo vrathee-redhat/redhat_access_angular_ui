@@ -16,6 +16,7 @@ angular.module('RedhatAccess.header').controller('HeaderController', [
        */
         $scope.AlertService = AlertService;
         $scope.HeaderService = HeaderService;
+        $scope.CaseService = CaseService;
         $scope.closeable = true;
         $scope.closeAlert = function (index) {
             AlertService.alerts.splice(index, 1);
