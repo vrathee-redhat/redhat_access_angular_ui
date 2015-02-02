@@ -58,11 +58,11 @@ module.exports = function (grunt) {
             },
             css: {
                 app: [
-                    'app/common/**/*.css',
-                    'app/security/**/*.css',
-                    'app/search/**/*.css',
-                    'app/cases/**/*.css',
-                    'app/log_viewer/**/*.css'
+                    'app/assets/css/main.min.css'
+                    // 'app/security/**/*.css',
+                    // 'app/search/**/*.css',
+                    // 'app/cases/**/*.css',
+                    // 'app/log_viewer/**/*.css'
                 ]
             },
             img: ['<%= yeoman.app %>/**/img/*'],
@@ -81,7 +81,8 @@ module.exports = function (grunt) {
                     '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js',
                     '<%= yeoman.bowerDir %>/angular-chosen-localytics/chosen.js',
                     '<%= yeoman.bowerDir %>/angular-cache/dist/angular-cache.js',
-                    '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js'
+                    '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js',
+                    '<%= yeoman.bowerDir %>/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
                 ],
                 css: [
                     '<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
@@ -598,8 +599,8 @@ module.exports = function (grunt) {
         'copy:images',
         'cssmin',
         'imageEmbed',
-        'htmlmin',
-        'test'
+        'htmlmin'
+        //'test'
     ]);
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('inithooks', [
