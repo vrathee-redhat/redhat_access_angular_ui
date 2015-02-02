@@ -1,27 +1,21 @@
-div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.userAllowedToManageCases')
-  div(rha-403error='')
-div#redhat-access-case.container-offset(ng-show='failedToLoadCase && securityService.loginStatus.userAllowedToManageCases')
-  div(rha-404error='')
-div#redhat-access-case.container-offset(ng-hide='failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases')
-  span.rha-search-spinner(ng-show='loading.kase')
-  div(rha-header='', page='caseView')
-  div(ng-show='securityService.loginStatus.isLoggedIn && !failedToLoadCase && CaseService.sfdcIsHealthy')
-    .row
-      main.col-md-8(role='main')
-        div(ng-show='EDIT_CASE_CONFIG.showDescription')
-          div(rha-casedescription='', loading='loading.kase')
-        div(ng-show='EDIT_CASE_CONFIG.showDetails')
-          div(rha-casedetails='', compact='false', loading='loading.kase')
-            rha-casedetails
-        section.case-discussion
-          header
-            h2 Case Discussion
-          div(rha-emailnotifyselect='')
-          div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
-            div(rha-caseattachments='', loading='loading.attachments')
-          div(ng-show='EDIT_CASE_CONFIG.showComments')
-            div(rha-addcommentsection='', loading='loading.comments')
-            div(rha-casecomments='', loading='loading.comments')
-      aside.col-md-4
-        #rha-recommendation-section.rha-recommendation-section(rha-caserecommendations='')
-        div(rha-requestescalation='')
+div(rha-header='', page='caseView')
+div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
+  .row
+    main.col-md-8(role='main')
+      div(ng-show='EDIT_CASE_CONFIG.showDescription')
+        div(rha-casedescription='', loading='loading.kase')
+      div(ng-show='EDIT_CASE_CONFIG.showDetails')
+        div(rha-casedetails='', compact='false', loading='loading.kase')
+          rha-casedetails
+      section.case-discussion
+        header
+          h2 Case Discussion
+        div(rha-emailnotifyselect='')
+        div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
+          div(rha-caseattachments='', loading='loading.attachments')
+        div(ng-show='EDIT_CASE_CONFIG.showComments')
+          div(rha-addcommentsection='', loading='loading.comments')
+          div(rha-casecomments='', loading='loading.comments')
+    aside.col-md-4
+      #rha-recommendation-section.rha-recommendation-section(rha-caserecommendations='')
+      div(rha-requestescalation='')

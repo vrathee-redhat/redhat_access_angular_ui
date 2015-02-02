@@ -28,7 +28,9 @@ angular.module('RedhatAccess.header').factory('HeaderService', [
                     }));
                     return deferred.promise;
                 }
-            }
+            },
+            pageLoading: false,
+            pageLoadFailure: false
         };
         return service;
     }

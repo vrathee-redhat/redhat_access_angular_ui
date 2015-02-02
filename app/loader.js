@@ -66,7 +66,7 @@
                 'securityService',  
                 'gettextCatalog', 
                 function ($rootScope, COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, AUTH_EVENTS, securityService, gettextCatalog){
-                  COMMON_CONFIG.showTitle = false;
+                  COMMON_CONFIG.showTitle = true;
                   SECURITY_CONFIG.autoCheckLogin = false;
                   SECURITY_CONFIG.displayLoginStatus = false;
                   NEW_CASE_CONFIG.showServerSideAttachments = false;

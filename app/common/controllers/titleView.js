@@ -1,21 +1,24 @@
 'use strict';
 angular.module('RedhatAccess.header').controller('TitleViewCtrl', [
-    'TITLE_VIEW_CONFIG',
+    'COMMON_CONFIG',
     '$scope',
     'translate',
-    function (TITLE_VIEW_CONFIG, $scope, translate) {
-        $scope.showTitle = TITLE_VIEW_CONFIG.show;
-        $scope.titlePrefix = TITLE_VIEW_CONFIG.titlePrefix;
+    'CaseService',
+    function (COMMON_CONFIG, $scope, translate, CaseService) {
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
+        $scope.showTitle = COMMON_CONFIG.show;
+        $scope.titlePrefix = COMMON_CONFIG.titlePrefix;
+        $scope.CaseService = CaseService;
         $scope.getPageTitle = function () {
             switch ($scope.page) {
             case 'search':
                 return translate('Search');
             case 'caseList':
-                return translate('Support Cases');
+                return translate('SUPPORT CASES');
             case 'caseView':
-                return translate('View/Modify Case');
+                return translate('CASE ') + CaseService.kase.case_number;
             case 'newCase':
-                return translate('New Support Case');
+                return translate('CREATE A NEW SUPPORT CASE');
             case 'logViewer':
                 return translate('Logs');
             case 'searchCase':

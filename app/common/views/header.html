@@ -1,8 +1,1 @@
-<!--<div rha-titletemplate page="{{page}}"></div>-->
-<!--<div rha-loginstatus></div>-->
-<!--<div class="row" style='margin-bottom: 0px;' ng-controller='HeaderController'>-->
-    <!--<div ng-show='!HeaderService.sfdcIsHealthy' ng-bind-html='parseSfdcOutageHtml()'/>-->
-    <!--<div class="col-xs-12" ng-show='HeaderService.sfdcIsHealthy'>-->
-        <!--<div rha-alert></div>-->
-    <!--</div>-->
-<!--</div>-->
+<div rha-403error=""></div><div rha-404error=""></div><div ng-hide="failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases"><span ng-show="pageLoading" class="rha-search-spinner"></span></div><div class="row page-header"><div class="col-sm-8 col-md-8"><div rha-titletemplate="" page="{{page}}"></div></div><div ng-show="securityService.loginStatus.isLoggedIn &amp;&amp; securityService.loginStatus.authedUser.has_chat &amp;&amp; CaseService.sfdcIsHealthy" rha-chatbutton="" class="col-sm-4 col-md-4"></div></div><div rha-loginstatus=""></div><div class="row"><div ng-show="!HeaderService.sfdcIsHealthy" ng-bind-html="parseSfdcOutageHtml()"></div><div ng-show="HeaderService.sfdcIsHealthy" class="col-xs-12"><div rha-alert=""></div></div></div>

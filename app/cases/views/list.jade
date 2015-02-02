@@ -1,21 +1,14 @@
-
-div#redhat-access-case(ng-show='!securityService.loginStatus.userAllowedToManageCases')
-  div(rha-403error='')
-div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManageCases')
-  .rha-page-header
-    h1.page-title Support Cases
-    div(rha-header='')
-    div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
-      div {{'User does not have permissions to manage cases.'|translate}}
-    div.row(ng-hide='!CaseService.sfdcIsHealthy')
-      div.col-sm-8(rha-listfilter='')
-      div.col-sm-4
-        div.actions
-          a.btn.btn-info.btn-xs(href='#/case/new') Create a New Support Case
-          a.btn.btn-info.btn-xs(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export
-          //div(ng-show='exporting')
-          //  span.rha-search-spinner
-          //  span {{'Exporting CSV...'|translate}}
+div(rha-header='', page='newCase')
+div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
+  div.row(ng-hide='!CaseService.sfdcIsHealthy')
+    div.col-sm-8(rha-listfilter='')
+    div.col-sm-4
+      div.actions
+        a.btn.btn-info.btn-xs(href='#/case/new') Create a New Support Case
+        a.btn.btn-info.btn-xs(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export
+        //div(ng-show='exporting')
+        //  span.rha-search-spinner
+        //  span {{'Exporting CSV...'|translate}}
   div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
   div#case-list.table-list.case-list(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='10')
     div.list-item(ng-repeat='case in SearchCaseService.cases')

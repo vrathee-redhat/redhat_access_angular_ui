@@ -9,6 +9,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
     'AttachmentsService',
     'CaseService',
     'strataService',
+    'HeaderService',
     'RecommendationsService',
     '$rootScope',
     'AUTH_EVENTS',
@@ -17,19 +18,20 @@ angular.module('RedhatAccess.cases').controller('Edit', [
     'EDIT_CASE_CONFIG',
     'RHAUtils',
     'CASE_EVENTS',
-    function ($scope, $stateParams, $filter, $q, $location, AttachmentsService, CaseService, strataService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS) {
+    function ($scope, $stateParams, $filter, $q, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS) {
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
+        $scope.HeaderService = HeaderService;
         CaseService.clearCase();
         $scope.loading = {};
-        $scope.failedToLoadCase = false;
         $scope.init = function () {
+            HeaderService.pageLoadFailure = false;
             $scope.loading.kase = true;
             $scope.recommendationsLoading = true;
             strataService.cases.get($stateParams.id).then(function (resp) {
-                $scope.failedToLoadCase = false;
+                HeaderService.pageLoadFailure = false;
                 var caseJSON = resp[0];
                 var cacheHit = resp[1];
                 if (!cacheHit) {
@@ -99,8 +101,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     });
                 }
             }, function (error) {
-                AlertService.addDangerMessage('Unable to retrieve case.  Please be sure case number is valid.');
-                $scope.failedToLoadCase = true;
+                HeaderService.pageLoadFailure = true;
             });
         };
 
@@ -137,7 +138,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     allLoaded = false;
                 }
             }
-            if(allLoaded && !$scope.failedToLoadCase) {
+            if(allLoaded && !HeaderService.pageLoadFailure) {
                 caseSettled();
             }
         }, true);

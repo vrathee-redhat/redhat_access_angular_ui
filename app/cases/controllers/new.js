@@ -12,6 +12,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     'RecommendationsService',
     'CaseService',
     'AlertService',
+    'HeaderService',
     'securityService',
     '$rootScope',
     'AUTH_EVENTS',
@@ -21,7 +22,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     'NEW_CASE_CONFIG',
     '$http',
     'translate',
-    function ($scope, $state, $q, $timeout, $sanitize, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, $http, translate) {
+    function ($scope, $state, $q, $timeout, $sanitize, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, $http, translate) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -36,6 +37,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.CaseService = CaseService;
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
+        $scope.HeaderService = HeaderService;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
         $scope.ie8Message='We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
