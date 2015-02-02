@@ -82,7 +82,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
         };
         $scope.saveGroup = function () {
             if(!$scope.isGroupPrestine){
-                strataService.groups.update($scope.selectedGroup).then(function (response) {
+                strataService.groups.update($scope.selectedGroup.name, $scope.selectedGroup.number).then(function (response) {
                     AlertService.addSuccessMessage(translate('Case group successfully updated.'));
                     $scope.isGroupPrestine = true;
                 }, function (error) {

@@ -328,9 +328,9 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 },
-                update: function(group){
+                update: function(groupName, groupnum){
                     var deferred = $q.defer();
-                    strata.groups.update(group, function (response) {
+                    strata.groups.update(groupName, groupnum, function (response) {
                         deferred.resolve(response);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
