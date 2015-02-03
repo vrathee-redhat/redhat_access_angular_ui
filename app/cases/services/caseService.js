@@ -75,7 +75,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             /*jshint camelcase: false */
             rawCase.severity = { 'name': rawCase.severity };
             rawCase.status = { 'name': rawCase.status };
-            rawCase.product = { 'name': rawCase.product };
+            rawCase.product = rawCase.product;
             rawCase.group = { 'number': rawCase.folder_number };
             rawCase.type = { 'name': rawCase.type };
             this.kase = rawCase;
@@ -313,14 +313,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             } else {
                 this.newCasePage1Incomplete = false;
             }
-        };
-        this.showVersionSunset = function () {
-            if (RHAUtils.isNotEmpty(this.kase.product) && RHAUtils.isNotEmpty(this.kase.version)) {
-                if ((this.kase.version).toLowerCase().indexOf('- eol') > -1) {
-                    return true;
-                }
-            }
-            return false;
         };
 
         this.buildGroupOptions = function() {

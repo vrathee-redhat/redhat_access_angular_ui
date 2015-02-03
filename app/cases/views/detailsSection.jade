@@ -10,25 +10,12 @@ section.case-description
         .col-xs-4.col-md-4
           .label {{'Product'|translate}}
         .col-xs-4.col-md-6
-          select#rha-product.form-control(
-            chosen,
-            width="'100%'",
-            name='product',
-            ng-model='CaseService.kase.product',
-            ng-change='getProductVersions()',
-            ng-options='s.name for s in products track by s.name',
-            required)
+          div(rha-productselect='')
       .row
         .col-xs-4.col-md-4
           .label {{'Product Version'|translate}}
         .col-xs-4.col-md-6
-          select#rha-product-version.form-control(
-            chosen,
-            width="'100%'",
-            name='version',
-            ng-options='v for v in CaseService.versions track by v',
-            ng-model='CaseService.kase.version',
-            required)
+          div(rha-versionselect='')
       .row
         .col-xs-4.col-md-4
           .label Related Case ID

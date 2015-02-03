@@ -13,6 +13,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     'CaseService',
     'AlertService',
     'HeaderService',
+    'ProductsService',
     'securityService',
     '$rootScope',
     'AUTH_EVENTS',
@@ -20,9 +21,8 @@ angular.module('RedhatAccess.cases').controller('New', [
     'RHAUtils',
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
-    '$http',
     'translate',
-    function ($scope, $state, $q, $timeout, $sanitize, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, $http, translate) {
+    function ($scope, $state, $q, $timeout, $sanitize, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, translate) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -106,90 +106,13 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
 
         /**
-        * Add the top sorted products to list
-        */
-        $scope.buildProductOptions = function(originalProductList) {
-            var productOptions = [];
-            var productSortList = [];
-            if($scope.NEW_CASE_CONFIG.isPCM){
-                $http.get($scope.NEW_CASE_CONFIG.productSortListFile).then(function (response) {
-                    if (response.status === 200 && response.data !== undefined) {
-                        productSortList = response.data.split(',');
-
-                        for(var i = 0; i < productSortList.length; i++) {
-                            for (var j = 0 ; j < originalProductList.length ; j++) {
-                                if (productSortList[i] === originalProductList[j].code) {
-                                    var sortProduct = productSortList[i];
-                                    productOptions.push({
-                                        value: sortProduct,
-                                        label: sortProduct
-                                    });
-                                    break;
-                                }
-                            }
-                        }
-
-                        var sep = '────────────────────────────────────────';
-                        if (productOptions.length > 0) {
-                            productOptions.push({
-                                isDisabled: true,
-                                label: sep
-                            });
-                        }
-
-                        angular.forEach(originalProductList, function(product){
-                            productOptions.push({
-                                value: product.code,
-                                label: product.name
-                            });
-                        }, this);
-
-                        $scope.products = productOptions;
-                    } else {
-                        angular.forEach(originalProductList, function(product){
-                            productOptions.push({
-                                value: product.code,
-                                label: product.name
-                            });
-                        }, this);
-                        $scope.products = productOptions;
-                    }
-                });
-            } else {
-                angular.forEach(originalProductList, function(product){
-                    productOptions.push({
-                        value: product.code,
-                        label: product.name
-                    });
-                }, this);
-                $scope.products = productOptions;
-            }
-        };
-
-        /**
        * Populate the selects
        */
         $scope.initSelects = function () {
             CaseService.clearCase();
-            $scope.productsLoading = true;
-            strataService.products.list(securityService.loginStatus.authedUser.sso_username).then(function (products) {
-                $scope.buildProductOptions(products);
-                $scope.productsLoading = false;
-                if (RHAUtils.isNotEmpty(NEW_DEFAULTS.product)) {
-                    for(var i = 0; i < $scope.products.length; i++){
-                        if($scope.products[i].label === NEW_DEFAULTS.product){
-                            CaseService.kase.product = $scope.products[i].value;
-                            break;
-                        }
-                    }
-                    $scope.getRecommendations();
-                    $scope.getProductVersions(CaseService.kase.product);
-                }
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
             CaseService.populateUsers();
             $scope.severitiesLoading = true;
+            ProductsService.getProducts();
             strataService.values.cases.severity().then(function (severities) {
                 CaseService.severities = severities;
                 CaseService.kase.severity = severities[severities.length - 1];
@@ -253,51 +176,6 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.$on('$destroy', function () {
             $scope.authLoginSuccess();
         });
-        /**
-       * Retrieve product's versions from strata
-       *
-       * @param product
-       */
-        $scope.getProductVersions = function (product) {
-            CaseService.kase.version = '';
-            $scope.versionDisabled = true;
-            $scope.versionLoading = true;
-            strataService.products.versions(product).then(function (response) {
-                $scope.versions = response;
-                CaseService.validateNewCasePage1();
-                $scope.versionDisabled = false;
-                $scope.versionLoading = false;
-                if (RHAUtils.isNotEmpty(NEW_DEFAULTS.version)) {
-                    CaseService.kase.version = NEW_DEFAULTS.version;
-                    $scope.getRecommendations();
-                }
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
-
-            //Retrieve the product detail, basically finding the attachment artifact
-            $scope.fetchProductDetail(product);
-        };
-
-        /**
-        * Fetch the product details for the selected product
-        **/
-        $scope.fetchProductDetail = function (productCode) {
-            AttachmentsService.suggestedArtifact = {};
-            strataService.products.get(productCode).then(angular.bind(this, function (product) {
-                if (product !== undefined && product.suggested_artifacts !== undefined && product.suggested_artifacts.suggested_artifact !== undefined) {
-                    if (product.suggested_artifacts.suggested_artifact.length > 0) {
-                        var description = product.suggested_artifacts.suggested_artifact[0].description;
-                        if (description.indexOf('<a') > -1) {
-                            description = description.replace("<a","<a target='_blank'");
-                        }
-                        AttachmentsService.suggestedArtifact.description = description;
-                    }
-                }
-            }), function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
-        };
 
         /**
        * Go to a page in the wizard

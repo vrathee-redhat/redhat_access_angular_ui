@@ -1,5 +1,5 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('ProductSelect', [
+angular.module('RedhatAccess.cases').controller('VersionSelect', [
     '$scope',
     'securityService',
     'SearchCaseService',

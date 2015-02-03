@@ -41,13 +41,6 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 }
                 $rootScope.$broadcast(CASE_EVENTS.received);
                 $scope.loading.kase = false;
-                if ('product' in caseJSON && 'name' in caseJSON.product && caseJSON.product.name) {
-                    strataService.products.versions(caseJSON.product.name).then(function (versions) {
-                        CaseService.versions = versions;
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                    });
-                }
                 if (caseJSON.account_number !== undefined) {
                     strataService.accounts.get(caseJSON.account_number).then(function (account) {
                         CaseService.defineAccount(account);

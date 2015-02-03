@@ -5,12 +5,13 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
     'strataService',
     'CaseService',
     'securityService',
+    'ProductsService',
     '$rootScope',
     'AUTH_EVENTS',
     'CASE_EVENTS',
     'AlertService',
     'RHAUtils',
-    function ($scope, strataService, CaseService, securityService, $rootScope, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
+    function ($scope, strataService, CaseService, securityService, ProductsService, $rootScope, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
         $scope.showExtraInfo = false;
 	    $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -45,11 +46,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-            strataService.products.list().then(function (response) {
-                $scope.products = response;
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
+            ProductsService.getProducts();
             $scope.userIsCaseOwner = true;
             var ownerOptions = [];
             //Assuming the full name matches the owner name, strata does not support getting that through case object
@@ -98,7 +95,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         caseJSON.alternateId = CaseService.kase.alternate_id;
                     }
                     if (CaseService.kase.product !== undefined) {
-                        caseJSON.product = CaseService.kase.product.name;
+                        caseJSON.product = CaseService.kase.product;
                     }
                     if (CaseService.kase.version !== undefined) {
                         caseJSON.version = CaseService.kase.version;

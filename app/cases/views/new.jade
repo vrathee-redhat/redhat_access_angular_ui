@@ -6,27 +6,12 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
         div.col-sm-4.col-md-4
           div.label {{'Product'|translate}}
         div.col-sm-7.col-md-8
-           select#rha-product-select.form-control(
-             chosen,
-             width='"100%"',
-             ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
-             ng-model='CaseService.kase.product',
-             ng-change='getProductVersions(CaseService.kase.product);getRecommendations();makeRecommendationPanelVisible()',
-             ng-options='p.value as p.label for p in products',
-             options-disabled='p.isDisabled for p in products')
+          div(rha-productselect='')
       div.row
         div.col-sm-4.col-md-4
           div.label {{'Product Version'|translate}}
         div.col-sm-7.col-md-8
-          select#rha-product-version-select.form-control(
-            chosen,
-            width='"100%"',
-            ng-model='CaseService.kase.version',
-            ng-options='v for v in versions',
-            ng-change='CaseService.validateNewCasePage1();getRecommendations();makeRecommendationPanelVisible()',
-            ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase')
-          div.versionSunsetMessage(ng-show='CaseService.showVersionSunset()')
-            span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
+          div(rha-versionselect='')
       div.row
         div.col-sm-4.col-md-4
           div.label {{'Case Name'|translate}}
