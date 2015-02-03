@@ -29,6 +29,13 @@
 		@extend %vertical-align;
 	}
 
+	%fa {
+		display: inline-block;
+		font: normal normal normal 14px/1 FontAwesome;
+		text-rendering: auto;
+		@include transform(translate(0, 0));
+	}
+
 	%center {
 		text-align: center;
 	}

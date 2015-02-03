@@ -30,3 +30,8 @@
 .large {
 
 }
+
+.alert-slim {
+	@include rem('margin', 20px 0);
+	padding: 0;
+}

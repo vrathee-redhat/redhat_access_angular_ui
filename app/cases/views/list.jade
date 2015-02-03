@@ -1,42 +1,43 @@
 div(rha-header='', page='caseList')
-div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
-  div.row(ng-hide='!CaseService.sfdcIsHealthy')
-    div.col-sm-8(rha-listfilter='')
-    div.col-sm-4
-      div.actions
+.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
+  .row(ng-hide='!CaseService.sfdcIsHealthy')
+    .col-sm-8(rha-listfilter='')
+    .col-sm-4
+      .actions
         a.btn.btn-info.btn-xs(href='#/case/new') Create a New Support Case
         a.btn.btn-info.btn-xs(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export
         //div(ng-show='exporting')
         //  span.rha-search-spinner
         //  span {{'Exporting CSV...'|translate}}
-  div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
-  div#case-list.table-list.case-list(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='10')
-    div.list-item(ng-repeat='case in SearchCaseService.cases')
-      div.row.case
-        div.col-sm-4.col-md-2.item-group
-          div.block-icon
-            div.severity
+  .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
+  .alert.alert-slim(ng-show='SearchCaseService.searching') Loading cases...
+  #case-list.table-list.case-list(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='10')
+    .list-item(ng-repeat='case in SearchCaseService.cases')
+      .row.case
+        .col-sm-4.col-md-2.item-group
+          .block-icon
+            .severity
               //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
               a(href='#/case/{{case.case_number}}')
                 i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
                 i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
                 i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
                 i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
-            div.case-id
+            .case-id
               a.subheading(href='#/case/{{case.case_number}}') {{case.case_number}}
               div.status.small {{case.status}}
-        div.col-sm-8.col-md-7.item-group
-          div.subheading
+        .col-sm-8.col-md-6.item-group
+          a.subheading(href='#/case/{{case.case_number}}')
             | {{case.product}}
             span.sep |
             | {{case.version}}
-          div.description.small
+          .description.small
             | {{case.summary}}
-        div.col-sm-12.col-md-3
-          div.item-group.change-log
-            div.filed-on
+        .col-sm-12.col-md-4
+          .item-group.change-log
+            .filed-on
               | Last Modified: 
-              b {{case.comments.comment[0].last_modified_date | date:'longDate'}}
+              span {{case.comments.comment[0].last_modified_date | date:'longDate'}}
               i  by 
               a(href='#') {{case.last_modified_by}}
-    div(ng-show='SearchCaseService.searching') Loading cases...  
+

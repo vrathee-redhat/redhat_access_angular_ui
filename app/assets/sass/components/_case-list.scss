@@ -10,9 +10,16 @@
 	}
 
 	.subheading {
-		@include font-size(16px, 22px);
+		@include font-size(16px);
+		line-height: 1;
 		font-weight: 500;
 		margin-bottom: 8px;
 		display: block;
+	}
+
+	.description {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }

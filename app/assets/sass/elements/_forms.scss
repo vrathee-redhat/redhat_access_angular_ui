@@ -1,24 +1,36 @@
+*:active, *:focus {
+	@include box-shadow(none);
+	ouline: none;
+}
+
 input, select, textarea {
 	max-width: 100%;
 }
 
-input, input[type="text"], select, textarea, ::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
-	font-family: "Overpass", sans-serif;
-	font-weight: 100;
-	color: $brand-gray;
+input[type="text"], textarea, .form-control {
 	@include font-size(14px);
-}
-
-input[type="text"], textarea {
-	@include font-size(14px);
-	line-height: 1.25;
+	line-height: 1;
 	width: 100%;
-	@include rem('padding', 6px 5px 3px 5px);
+	@include rem('padding', 8px 5px);
 	border: 1px solid $border-gray;
 	@include transition(.2s);
 
 	&:active, &:focus {
 		border-color: $border-gray;
+	}
+}
+
+.form-control {
+
+	&::-webkit-input-placeholder,
+	&:-moz-placeholder,
+	&::-moz-placeholder,
+	&:-ms-input-placeholder {
+		font-family: "Overpass", sans-serif;
+		font-weight: 100;
+		//	@include rem('padding', 8px 5px);
+		@include font-size(14px);
+		line-height: 1.4;
 	}
 }
 
