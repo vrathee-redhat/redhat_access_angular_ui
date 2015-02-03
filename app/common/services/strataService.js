@@ -504,6 +504,20 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     }
                     return deferred.promise;
                 },
+                search: function (query, isSolr) {
+                    var deferred = $q.defer();
+                    if (!ie8 && strataCache.get('search' + query)) {
+                        deferred.resolve(strataCache.get('search' + query));
+                    } else {
+                        strata.cases.search(function (response) {
+                            if (!ie8) {
+                                strataCache.put('search' + query, response);
+                            }
+                            deferred.resolve(response);
+                        }, angular.bind(deferred, errorHandler), query, isSolr);
+                    }
+                    return deferred.promise;
+                },
                 filter: function (params) {
                     var deferred = $q.defer();
                     if (RHAUtils.isEmpty(params)) {
