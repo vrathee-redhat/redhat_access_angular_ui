@@ -17,7 +17,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.cases = [];
         this.totalCases = 0;
         this.searching = true;
-        this.prefilter = {};
         this.postfilter = {};
         this.start = 0;
         this.count = 100;
@@ -43,7 +42,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.total = 0;
             this.totalCases = 0;
             this.allCasesDownloaded = false;
-            this.prefilter = {};
             this.postfilter = {};
             this.searching = true;
         };
@@ -55,19 +53,12 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         };
         this.oldParams = {};
         this.doFilter = function (checkIsInternal) {
-            if (angular.isFunction(this.prefilter)) {
-                this.prefilter();
-            }
-            // if(this.start > 0){
-            //     this.count = this.totalCases - this.start;
+            var queryString = "start=" + this.start "&rows=" + this.count;
+
+            //include_closed: getIncludeClosed(),
+            // if(COMMON_CONFIG.isGS4 === true){
+            //     params.account_number = "639769";
             // }
-            var params = {
-                count: this.count,
-                include_closed: getIncludeClosed(),
-            };
-            if(COMMON_CONFIG.isGS4 === true){
-                params.account_number = "639769";
-            }
             params.start = this.start;
             var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
@@ -129,7 +120,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                         params.view = 'internal';
                     }
-                    cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
+                    cases = strataService.cases.search(queryString, true).then(angular.bind(that, function (response) {
                         if(response['case'] === undefined ){
                             that.totalCases = 0;
                             that.total = 0;
