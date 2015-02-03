@@ -77,12 +77,14 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                         if (rec.pinned_at) {
                             rec.pinned = true;
                             this.pinnedRecommendations.push(rec);
+                            this.recommendations.unshift(rec);
                                 
                         } else if (rec.linked) {
                             rec.handPicked = true;
                             this.handPickedRecommendations.push(rec);
+                            this.recommendations.unshift(rec);
                         } else{
-                            this.recommendations.push(rec);
+                            this.recommendations.unshift(rec);
                         }
                     }));
                 }
