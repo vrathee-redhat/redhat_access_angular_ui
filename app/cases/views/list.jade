@@ -23,7 +23,7 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
                 i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
                 i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
             div.case-id
-              a.subheading(href='https://access.redhat.com/knowledge/solutions/') {{case.case_number}}
+              a.subheading(href='#/case/{{case.case_number}}') {{case.case_number}}
               div.status.small {{case.status}}
         div.col-sm-8.col-md-7.item-group
           div.subheading

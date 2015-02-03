@@ -40,8 +40,6 @@
       <a class="navbar-brand" href="#case/new">New Case Demo</a>
       <a class="navbar-brand" href="#logviewer">Diagnose Log Demo</a>
       <a class="navbar-brand" href="#case/list">List Case Demo</a>
-      <a class="navbar-brand" href="#case/compact">Compact List Case Demo</a>
-      <a class="navbar-brand" href="#case/search">Search Case Demo</a>
      </ul>
     </div>
     <div class="container" style="padding-top: 10px;" ng-view="">
@@ -92,10 +90,7 @@
     <script src="cases/controllers/attachLocalFile.js"></script>
     <script src="cases/controllers/attachmentsSection.js"></script>
     <script src="cases/controllers/backendAttachments.js"></script>
-    <script src="cases/controllers/chatButton.js"></script>
     <script src="cases/controllers/commentsSection.js"></script>
-    <script src="cases/controllers/compactCaseList.js"></script>
-    <script src="cases/controllers/compactEdit.js"></script>
     <script src="cases/controllers/createGroupButton.js"></script>
     <script src="cases/controllers/createGroupModal.js"></script>
     <script src="cases/controllers/deleteGroupButton.js"></script>
@@ -121,7 +116,6 @@
     <script src="cases/controllers/recommendationsSection.js"></script>
     <script src="cases/controllers/requestManagementEscalationModal.js"></script>
     <script src="cases/controllers/requestEscalation.js"></script>
-    <script src="cases/controllers/search.js"></script>
     <script src="cases/controllers/searchBox.js"></script>
     <script src="cases/controllers/severitySelect.js"></script>
     <script src="cases/controllers/statusSelect.js"></script>
@@ -132,9 +126,7 @@
     <script src="cases/directives/attachLocalFile.js"></script>
     <script src="cases/directives/attachmentsSection.js"></script>
     <script src="cases/directives/attachProductLogs.js"></script>
-    <script src="cases/directives/chatButton.js"></script>
     <script src="cases/directives/commentsSection.js"></script>
-    <script src="cases/directives/compactCaseList.js"></script>
     <script src="cases/directives/createGroupButton.js"></script>
     <script src="cases/directives/deleteGroupButton.js"></script>
     <script src="cases/directives/descriptionSection.js"></script>
@@ -174,6 +166,26 @@
     <script src="common/services/strataService.js"></script>
     <script src="common/header.module.js"></script>
     <script src="common/ui-utils.module.js"></script>
+
+    <script src="common/common.module.js"></script>
+    <script src="common/header.module.js"></script>
+    <script src="common/ui-utils.module.js"></script>
+    <script src="common/controllers/403.js"></script>
+    <script src="common/controllers/404.js"></script>
+    <script src="common/controllers/alert.js"></script>
+    <script src="common/controllers/chatButton.js"></script>
+    <script src="common/controllers/header.js"></script>
+    <script src="common/controllers/titleView.js"></script>
+    <script src="common/directives/403.js"></script>
+    <script src="common/directives/404.js"></script>
+    <script src="common/directives/alert.js"></script>
+    <script src="common/directives/chatButton.js"></script>
+    <script src="common/directives/header.js"></script>
+    <script src="common/directives/titleTemplate.js"></script>
+    <script src="common/services/alertService.js"></script>
+    <script src="common/services/headerService.js"></script>
+    <script src="common/services/strataService.js"></script>
+
     <script src="i18n/translations.js"></script>
     <script src="log_viewer/log_viewer.module.js"></script>
     <script src="log_viewer/controllers/AccordionDemoCtrl.js"></script>
