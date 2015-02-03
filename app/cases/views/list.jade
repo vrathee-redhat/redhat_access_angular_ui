@@ -1,4 +1,4 @@
-div(rha-header='', page='newCase')
+div(rha-header='', page='caseList')
 div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
   div.row(ng-hide='!CaseService.sfdcIsHealthy')
     div.col-sm-8(rha-listfilter='')
