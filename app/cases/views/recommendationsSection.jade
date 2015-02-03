@@ -6,7 +6,7 @@ span.rha-search-spinner(ng-show='loading')
   .row
     .block(ng-repeat='recommendation in RecommendationsService.recommendationsOnScreen')
       .fa.fa-thumb-tack(
-        ng-class='{fa.fa-thumb: recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
+        ng-class='{"fa.fa-thumb": recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
         ng-click='pinRecommendation(recommendation, $index, $event)',
         style='cursor: pointer;') &nbsp;
       strong(style='overflow: hidden;') {{recommendation.title}}
