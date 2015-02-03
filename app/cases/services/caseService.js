@@ -55,6 +55,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.onGroupSelectChanged = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
+        this.onProductSelectChange = function(){
+            $rootScope.$broadcast(CASE_EVENTS.productSelectChange);
+        }
         this.groupOptions = [];
         this.showsearchoptions = false;
         this.disableAddComment = true;
@@ -81,6 +84,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.kase = rawCase;
             this.bugzillaList = rawCase.bugzillas;
             this.caseDataReady = true;
+            this.onProductSelectChange();
         };
         this.setCase = function (jsonCase) {
             this.kase = jsonCase;

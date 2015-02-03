@@ -8,14 +8,20 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
 	'RHAUtils',
 	'NEW_CASE_CONFIG',
 	'NEW_DEFAULTS',
-	function ($http, securityService, strataService, CaseService, AttachmentsService, RHAUtils, NEW_CASE_CONFIG, NEW_DEFAULTS) {
+    'CASE_EVENTS',
+	function ($http, securityService, strataService, CaseService, AttachmentsService, RHAUtils, NEW_CASE_CONFIG, NEW_DEFAULTS, CASE_EVENTS) {
     this.products = [];
     this.productsDisabled = false;
     this.productsLoading = false
     this.versions = [];
     this.versionDisabled = false;
     this.versionLoading = false;
+    this.clear = function(){
+       this.products = [];
+       this.versions = []; 
+    }
     this.getProducts = function () {
+        this.clear();
         this.productsLoading = true;
         strataService.products.list(securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function(response) {
         	this.products = response;
@@ -28,10 +34,8 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                         break;
                     }
                 }
-                //$scope.getRecommendations();
-                //TODO wire up recommendations service
+                this.getVersions(CaseService.kase.product);
             } 
-            this.getVersions(CaseService.kase.product);
         }), function (error) {
             AlertService.addStrataErrorMessage(error);
         });

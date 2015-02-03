@@ -1,11 +1,11 @@
-.row(ng-show='results.length || searchInProgress.value')
+.row#rha-recommendation-section.recommendations.recommendations-inline(ng-hide='RecommendationsService.recommendations.length === 0')
   div.col-xs-12
     h3
-      span.inline(ng-show='results.length || searchInProgress.value') Based on your description, here are some possible solutions
+      span.inline() Based on your description, here are some possible solutions
       span.spinner.spinner-sm.spinner-inline(ng-show='searchInProgress.value')
       span(ng-show='searchInProgress.value') Updating Recommendations
     .row()
-      div.col-sm-4(ng-show='results.length', ng-repeat="result in results")
+      div.col-sm-4(ng-show='RecommendationsService.recommendations.length', ng-repeat="result in RecommendationsService.recommendations")
         article
           header
             a.link(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title}}

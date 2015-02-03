@@ -13,7 +13,7 @@ span.rha-search-spinner(ng-show='loading')
       span.handpicked(ng-show='recommendation.handPicked', translate='')
         .fa.fa-check
         | Handpicked
-      div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.resolution.text | recommendationsResolution}}
+      div(style='padding: 8px 0;word-wrap:break-word;') {{recommendation.abstract}}
       a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank') {{'View full article in new window'|translate}}
   div.row(style='padding-top: 10px;', ng-hide='RecommendationsService.recommendationsOnScreen.length == 0')
     div.col-xs-12

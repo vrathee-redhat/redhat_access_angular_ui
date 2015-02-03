@@ -7,15 +7,15 @@ angular.module('RedhatAccess.cases').controller('PcmRecommendationsController', 
     'SEARCH_CONFIG',
     'securityService',
     'AlertService',
-    function ($scope, $location, SearchResultsService, SEARCH_CONFIG, securityService, AlertService) {
+    'RecommendationsService',
+    function ($scope, $location, SearchResultsService, SEARCH_CONFIG, securityService, AlertService, RecommendationsService) {
         $scope.SearchResultsService = SearchResultsService;
-        $scope.results = {};
         $scope.selectedSolution = SearchResultsService.currentSelection;
-        $scope.searchInProgress = SearchResultsService.searchInProgress;
         $scope.currentSearchData = SearchResultsService.currentSearchData;
         $scope.itemsPerPage = 3;
         $scope.maxPagerSize = 5;
         $scope.currentPage = 1;
+        $scope.RecommendationsService = RecommendationsService;
         $scope.selectPage = function (pageNum) {
 
             var start = $scope.itemsPerPage * (pageNum - 1);

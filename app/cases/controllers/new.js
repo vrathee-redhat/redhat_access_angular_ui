@@ -56,47 +56,12 @@ angular.module('RedhatAccess.cases').controller('New', [
                 waiting = true;
                 $timeout(function() {
                     waiting = false;
-                    $scope.getRecommendations();
+                    RecommendationsService.getRecommendations();
                 }, 500); // delay 500 ms
             }
         });
 
-        $scope.getRecommendations = function () {
-            if ($scope.NEW_CASE_CONFIG.showRecommendations) {
-                SearchResultsService.searchInProgress.value = true;
-                var numRecommendations = 5;
-                if($scope.NEW_CASE_CONFIG.isPCM){
-                    numRecommendations = 30;
-                    RecommendationsService.populatePCMRecommendations(numRecommendations).then(function () {
-                        SearchResultsService.clear();
-                        RecommendationsService.recommendations.forEach(function (recommendation) {
-                            try {
-                                recommendation.abstract = $sanitize(recommendation.abstract);
-                            }
-                            catch(err) {
-                                recommendation.abstract = '';
-                            }
-                            SearchResultsService.add(recommendation);
-                        });
-                        SearchResultsService.searchInProgress.value = false;
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                        SearchResultsService.searchInProgress.value = false;
-                    });
-                } else {
-                    RecommendationsService.populateRecommendations(numRecommendations).then(function () {
-                        SearchResultsService.clear();
-                        RecommendationsService.recommendations.forEach(function (recommendation) {
-                            SearchResultsService.add(recommendation);
-                        });
-                        SearchResultsService.searchInProgress.value = false;
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                        SearchResultsService.searchInProgress.value = false;
-                    });
-                }
-            }
-        };
+        
         CaseService.onOwnerSelectChanged = function () {
             if (CaseService.owner !== undefined) {
                 CaseService.populateEntitlements(CaseService.owner);
@@ -110,6 +75,7 @@ angular.module('RedhatAccess.cases').controller('New', [
        */
         $scope.initSelects = function () {
             CaseService.clearCase();
+            RecommendationsService.clear();
             CaseService.populateUsers();
             $scope.severitiesLoading = true;
             ProductsService.getProducts();
