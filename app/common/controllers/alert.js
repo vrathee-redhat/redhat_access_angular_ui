@@ -4,7 +4,7 @@ angular.module('RedhatAccess.header').controller('AlertController', [
     'AlertService',
     'HeaderService',
     'securityService',
-    function ($scope, AlertService) {
+    function ($scope, AlertService, HeaderService, securityService) {
         $scope.AlertService = AlertService;
         $scope.HeaderService = HeaderService;
         $scope.securityService = securityService;
