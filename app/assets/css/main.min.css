@@ -513,7 +513,7 @@ aside section + section {
 .table-list .list-item.no-border {
   border: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 26, ../sass/components/_table-list.scss */
   .table-list .change-log {
     text-align: right;
