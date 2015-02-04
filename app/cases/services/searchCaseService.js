@@ -19,7 +19,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.searching = true;
         this.postfilter = {};
         this.start = 0;
-        this.count = 100;
+        this.count = 5;
         this.total = 0;
         this.allCasesDownloaded = false;
         this.caseListPage = 1;
@@ -120,6 +120,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     //params.sort_order = CaseService.filterSelect.sortOrder;
                 }
             }
+            queryString = queryString + "&start=" + this.start + "&rows=" + this.count;
             // if (!isObjectNothing(CaseService.sortBy)) {
             //     params.sort_field = CaseService.sortBy;
             // }
@@ -141,26 +142,26 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     //     params.view = 'internal';
                     // }
                     cases = strataService.cases.search(queryString, true).then(angular.bind(that, function (response) {
-                        if(response.length === 0 ){
+                        if(response.length !== 50 ){
                             that.totalCases = 0;
                             that.total = 0;
                             that.allCasesDownloaded = true;
-                        } else {
+                        } //else {
                             //TODO fix broken case scrolling
                             //that.totalCases = response.total_count;
                             // if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
                             //     that.allCasesDownloaded = true;
                             // }
                             //if (response['case'] !== undefined){
-                            that.cases = that.cases.concat(response);
-                            //that.count = response['case'].length + that.total
-                            that.start = that.start + that.count;
-                            that.total = that.total + response.length;
+                        that.cases = that.cases.concat(response);
+                        //that.count = response['case'].length + that.total
+                        that.start = that.start + that.count;
+                        that.total = that.total + response.length;
                             //}
                             //if (angular.isFunction(that.postFilter)) {
                             //    that.postFilter();
                             //}
-                        }
+                        //}
                         that.searching = false;
                         deferred.resolve(cases);
                     }), angular.bind(that, function (error) {
