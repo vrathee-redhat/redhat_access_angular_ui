@@ -37,7 +37,7 @@ div(rha-header='', page='caseList')
           .item-group.change-log
             .filed-on
               | Last Modified: 
-              span {{case.comments.comment[0].last_modified_date | date:'longDate'}}
+              span {{case.last_modified_date | date:'longDate'}}
               i  by 
               a(href='#') {{case.last_modified_by}}
 
