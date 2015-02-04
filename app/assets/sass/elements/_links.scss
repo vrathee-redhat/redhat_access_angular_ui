@@ -1,10 +1,4 @@
-.link {
-	color: $link-color;
-}
-
+.link { color: $link-color; }
 .link-chat {
-
-	@include media-query (sm) {
-		float:right;
-	}
+	@include media-query (sm) { float:right; }
 }

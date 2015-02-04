@@ -14,7 +14,10 @@ $escalation-link-size: $recommendations-link-size;
 	color: $escalation-paragraph-color;
 	@include font-size(14px);
 
-	h1, h2, h3, h4 {
+	h1,
+	h2,
+	h3,
+	h4 {
 		@include font-size(18px);
 		@include rem('margin', 0 0 $case-description-global-margin-bottom);
 		font-weight: 100;

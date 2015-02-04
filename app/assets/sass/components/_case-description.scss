@@ -8,7 +8,10 @@ $case-description-global-margin-bottom: 30px;
 	@include rem('padding', 40px);
 	background: $case-description-bg;
 
-	h1, h2, h3, h4 {
+	h1,
+	h2,
+	h3,
+	h4 {
 		@include rem('margin', 0 0 $case-description-global-margin-bottom);
 	}
 

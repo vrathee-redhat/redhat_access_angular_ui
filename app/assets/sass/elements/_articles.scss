@@ -5,13 +5,13 @@ article {
 		@include rem('margin-bottom', 15px);
 	}
 
-	p, .link, .user-action {
+	p,
+	.link,
+	.user-action {
 		@include rem('margin-bottom', 15px);
 	}
 
-	.article-content {
-
-	}
+	.article-content {  }
 
 	.comment {
 		@include font-size($comment-font-size);

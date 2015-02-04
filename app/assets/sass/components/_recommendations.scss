@@ -55,7 +55,6 @@ $recommendations-link-size: 18px;
 
 		&.blue {
 			@include rem('padding', $recommendations-padding);
-//			@include rem('margin-bottom', 10px);
 			background: #0085cf;
 			color: #fff;
 		}

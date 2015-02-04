@@ -1,55 +1,62 @@
-// Grid settings
-// -------------------------
-
+// Grid Settings
+//==================================================================*/
 $grid-columns:          12;
 $main-sm-columns:       $grid-columns;
 $sidebar-sm-columns:    4;
+$base-vertical-pad:     30px;
 
 
-$base-vertical-pad: 30px;
+// Brand Colors
+//==================================================================*/
+	$brand-gray:            #4c4c4c;
+	$gray:                  #ddd;
 
-// Brand colors
-// -------------------------
+	// Red
+	$red:                   #c00;
 
-$brand-gray: #4c4c4c;
+	// Blue
+	$blue:                  #03AFE8;
+	$blue_dark:             #102c3b;
+	$blue_light:            #9ac0de;
+	$brand-primary:         #27ae60;
+
+	$form-color:            #4a4a4a;
 
 
+// Links
+//==================================================================*/
+$link-color:            #0085cf;
 
 
-$red: #c00;
+// Buttons
+//==================================================================*/
+$btn-bg_default:        gray;
 
-$link-color: #0085cf;
 
-$brand-primary:         #27ae60;
+// Case List
+//==================================================================*/
+$case-list-color: $brand-gray;
 
-$blue_dark: #102c3b;
-$blue_light: #9ac0de;
-$blue: #03AFE8;
 
-$gray: #ddd;
-
-$btn-bg_default: gray;
+// Chosen
+//==================================================================*/
+$chosen-color: $form-color;
 
 
 // Glyphicons path
 // -------------------------
-
 $icon-font-path:        "../vendor/bootstrap-sass-official/assets/fonts/";
 
 
 // Borders
 //==================================================================*/
 $border-gray: #cacaca;
-//$border-gray: #ddd;
 
 
 // Forms
 //==================================================================*/
 $form-icon-color: #c7c7c7;
 
-
-// Layout Settings
-//==================================================================*/
 
 // Media Queries
 //--------------------------------------------------------------*/
@@ -58,6 +65,9 @@ $sm: 768px;
 $md: 992px;
 $lg: 1200px;
 
+
+// Fonts
+//==================================================================*/
 $base_font_size: 16px;
 $base_line_height: 22px;
 $base_font_color: #333;

@@ -46,14 +46,13 @@ body {
 	margin-right: 3px;
 }
 
-[class^="col-"], [class*=" col-"] {
+[class^="col-"],
+[class*=" col-"] {
 
 	& + .col-sm-12 {
 		margin-top: 8px;
 
-		@include media-query (sm) {
-			margin-top: 0;
-		}
+		@include media-query (sm) { margin-top: 0; }
 	}
 }
 
@@ -86,18 +85,15 @@ $box-dark-link-size: 18px;
 		font-weight: 100;
 	}
 
-	a {
-		color: $box-dark-link-color;
-	}
+	a { color: $box-dark-link-color; }
 }
 
 
 .block, .block-link {
 	display: block;
 
-	input, textarea {
-		width: 100%;
-	}
+	input,
+	textarea { width: 100%; }
 }
 
 a { color: $link-color; }

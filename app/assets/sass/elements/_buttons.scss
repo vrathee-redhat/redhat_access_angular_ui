@@ -12,9 +12,7 @@ $brand_blue_dark: #0075B5;
 	border: 1px solid $btn-bg_default;
 	text-transform: capitalize;
 
-	&:hover {
-		color: #fff;
-	}
+	&:hover { color: #fff; }
 
 	&.btn-outline {
 		background: rgba(255,255,255,.4);
@@ -75,7 +73,8 @@ $brand_blue_dark: #0075B5;
 		}
 	}
 
-	&.btn[disabled], .btn.disabled {
+	&.btn[disabled],
+	.btn.disabled {
 		background: $btn-disabled-gray;
 		color: $brand-gray;
 		border: 1px solid #999;

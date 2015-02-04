@@ -4,45 +4,36 @@ $chosen-border-color: $border-gray;
 	width: 100%;
 }
 
-.chosen-select {
-
-}
-
 .chosen-container-single {
 
+	// Base Styling
 	.chosen-single {
 		@include border-radius(0);
 		height: auto;
 		background: #fff;
 		@include box-shadow(none);
-		@include rem('padding', 8px 5px);
+		@include rem('padding', 8px);
 		border-color: $chosen-border-color;
 		background-image: none;
 		color: #cacaca;
 		font-weight: 400;
 
+		// Text Formatting
 		a,
 		span {
 			@include font-size(14px);
 			line-height: 1;
-			color: #cacaca;
+			color: $chosen-color;
 		}
 
-		span {
-			@include font-size(14px);
-			line-height: 1;
-		}
-
-		// This is the caret
+		// Replace Caret
 		div b {
 			@extend %fa;
 			background: none;
 			line-height: 2.2;
-			color: $form-icon-color;
+			color: $chosen-color;
 
-			&:before {
-				content: "\f0d7";
-			}
+			&:before { content: "\f0d7"; }
 		}
 	}
 }
@@ -50,11 +41,21 @@ $chosen-border-color: $border-gray;
 
 .chosen-results {
 
-	li:hover, li.result-selected, li.active-result.highlighted {
+	li { @include transition(.2s); }
+
+	li:hover,
+	li.result-selected,
+	li.active-result.highlighted {
 		background: #f0f0f0;
-		color: #cacaca;
+		color: $chosen-color;
 	}
 
+	li:hover,
+	li.active-result.highlighted {
+		background: #f0f0f0;
+		padding-left: 10px;
+		padding-right: 4px;
+	}
 }
 
 .localytics-chosen {
@@ -84,5 +85,5 @@ $chosen-border-color: $border-gray;
 }
 
 .chosen-container-single .chosen-single span {
-	color: #cacaca;
+	color: $chosen-color;
 }

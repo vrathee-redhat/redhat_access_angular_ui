@@ -13,28 +13,12 @@
 			text-align: right;
 		}
 
-		[class^="col-md-"], [class*=" col-md-"] {
+		[class^="col-md-"],
+		[class*=" col-md-"] {
 			@include media-query (md) {
 				float: none !important;
 				display: inline-block !important;
 			}
 		}
-
-
-//		.btn {
-//			display: block;
-//			width: 100%;
-//
-//			@include media-query (md) {
-//				width: auto;
-//				display: inline-block;
-//				@include rem('margin-left', 4px);
-//			}
-//
-//			.btn {
-//				@include rem('margin-top', 6px);
-//				@include media-query (md) { margin-top: 0; }
-//			}
-//		}
 	}
 }

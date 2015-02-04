@@ -2,12 +2,14 @@ $case-border: $border-gray;
 
 
 .table-list {
+	@include rem('margin', 15px 0);
 	@include font-size(14px);
 	line-height: 1;
-	@include rem('margin', 15px 0);
 	border-top: 1px solid $border-gray;
 
-	h1, h2, h3 {
+	h1,
+	h2,
+	h3 {
 		@include rem('margin', 0 0 4px);
 		line-height: 1;
 	}
@@ -22,12 +24,9 @@ $case-border: $border-gray;
 	}
 
 	.change-log {
-//		@include font-size(13px);
 		text-align: right;
 
-		a {
-			color: $blue;
-		}
+		a { color: $blue; }
 		&.item-group { margin-bottom: 0; }
 	}
 
@@ -38,6 +37,7 @@ $case-border: $border-gray;
 
 		@include media-query (md) { margin-bottom: 0; }
 	}
+
 	.item-group-small { @include font-size(13px); }
 
 
@@ -45,7 +45,6 @@ $case-border: $border-gray;
 	//==================================================================*/
 	.block-icon {
 		position: relative;
-
 		@include rem('padding-left', 66px);
 
 		.icon {
@@ -54,15 +53,10 @@ $case-border: $border-gray;
 			top: 0;
 			@include font-size(44px);
 			line-height: 1;
-
-			@include media-query (sm) {
-			}
 		}
 	}
 
 	.actions {
-		@include media-query (sm) {
-			text-align: right;
-		}
+		@include media-query (sm) { text-align: right; }
 	}
 }
