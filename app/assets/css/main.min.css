@@ -513,46 +513,48 @@ aside section + section {
 .table-list .list-item.no-border {
   border: none;
 }
-/* line 26, ../sass/components/_table-list.scss */
-.table-list .change-log {
-  text-align: right;
+@media (min-width: 768px) {
+  /* line 26, ../sass/components/_table-list.scss */
+  .table-list .change-log {
+    text-align: right;
+  }
 }
-/* line 29, ../sass/components/_table-list.scss */
+/* line 32, ../sass/components/_table-list.scss */
 .table-list .change-log a {
   color: #03AFE8;
 }
-/* line 30, ../sass/components/_table-list.scss */
+/* line 33, ../sass/components/_table-list.scss */
 .table-list .change-log.item-group {
   margin-bottom: 0;
 }
-/* line 33, ../sass/components/_table-list.scss */
+/* line 36, ../sass/components/_table-list.scss */
 .table-list .light {
   color: #8c8c8c;
 }
-/* line 35, ../sass/components/_table-list.scss */
+/* line 38, ../sass/components/_table-list.scss */
 .table-list .item-group {
   margin-bottom: 20px;
 }
 @media (min-width: 992px) {
-  /* line 35, ../sass/components/_table-list.scss */
+  /* line 38, ../sass/components/_table-list.scss */
   .table-list .item-group {
     margin-bottom: 0;
   }
 }
-/* line 41, ../sass/components/_table-list.scss */
+/* line 44, ../sass/components/_table-list.scss */
 .table-list .item-group-small {
   font-size: 13px;
   font-size: 0.8125rem;
   line-height: 18.2px;
   line-height: 1.1375rem;
 }
-/* line 46, ../sass/components/_table-list.scss */
+/* line 49, ../sass/components/_table-list.scss */
 .table-list .block-icon {
   position: relative;
-  padding-left: 66px;
-  padding-left: 4.125rem;
+  padding-left: 40px;
+  padding-left: 2.5rem;
 }
-/* line 50, ../sass/components/_table-list.scss */
+/* line 53, ../sass/components/_table-list.scss */
 .table-list .block-icon .icon {
   position: absolute;
   left: 0;
@@ -564,32 +566,54 @@ aside section + section {
   line-height: 1;
 }
 @media (min-width: 768px) {
-  /* line 59, ../sass/components/_table-list.scss */
+  /* line 62, ../sass/components/_table-list.scss */
   .table-list .actions {
     text-align: right;
   }
 }
 
-/* line 4, ../sass/components/_case-list.scss */
-.case-list .case-id a {
-  color: #333;
-}
-/* line 12, ../sass/components/_case-list.scss */
+/* line 5, ../sass/components/_case-list.scss */
 .case-list .subheading {
   font-size: 16px;
   font-size: 1rem;
   line-height: 22.4px;
   line-height: 1.4rem;
-  line-height: 1;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   display: block;
+  color: #4c4c4c;
 }
-/* line 20, ../sass/components/_case-list.scss */
+@media (min-width: 768px) {
+  /* line 5, ../sass/components/_case-list.scss */
+  .case-list .subheading {
+    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+  }
+}
+/* line 18, ../sass/components/_case-list.scss */
 .case-list .description {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1;
+}
+/* line 27, ../sass/components/_case-list.scss */
+.case-list .case-id .subheading {
+  font-weight: 700;
+  margin-bottom: 0;
+}
+@media (min-width: 768px) {
+  /* line 27, ../sass/components/_case-list.scss */
+  .case-list .case-id .subheading {
+    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+}
+/* line 37, ../sass/components/_case-list.scss */
+.case-list .case-id a {
+  color: #4c4c4c;
 }
 
 /* line 4, ../sass/components/_case-description.scss */

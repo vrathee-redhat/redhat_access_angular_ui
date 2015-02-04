@@ -24,7 +24,10 @@ $case-border: $border-gray;
 	}
 
 	.change-log {
-		text-align: right;
+
+		@include media-query (sm) {
+			text-align: right;
+		}
 
 		a { color: $blue; }
 		&.item-group { margin-bottom: 0; }
@@ -45,7 +48,7 @@ $case-border: $border-gray;
 	//==================================================================*/
 	.block-icon {
 		position: relative;
-		@include rem('padding-left', 66px);
+		@include rem('padding-left', 40px);
 
 		.icon {
 			position: absolute;

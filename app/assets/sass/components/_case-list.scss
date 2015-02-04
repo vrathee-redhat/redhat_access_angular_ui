@@ -1,25 +1,44 @@
+$subheading-margin-bottom: 12px;
+
 .case-list {
-
-	.case-id {
-		a {
-			color: #333;
-		}
-	}
-
-	.case {
-	}
 
 	.subheading {
 		@include font-size(16px);
-		line-height: 1;
 		font-weight: 500;
-		margin-bottom: 8px;
+		margin-bottom: 12px;
 		display: block;
+		color: $case-list-color;
+
+		@include media-query (sm) {
+			@include rem('margin-bottom', $subheading-margin-bottom);
+			line-height: 1;
+		}
 	}
 
 	.description {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		line-height: 1;
+	}
+
+	.case-id {
+
+		.subheading {
+			font-weight: 700;
+			margin-bottom: 0;
+
+			@include media-query (sm) {
+				@include rem('margin-bottom', $subheading-margin-bottom);
+				font-weight: 500;
+			}
+		}
+
+		a {
+			color: $case-list-color;
+		}
+	}
+
+	.case {
 	}
 }
