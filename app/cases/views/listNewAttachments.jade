@@ -5,7 +5,7 @@ ul.attachment-list.block-list.block-list-gray
     .fa.fa-close(type='button', style='float: right', ng-click='removeLocalAttachment($index)')
     input#rha-case-attachement-fileDescription.form-control.description(
       placeholder="Please Add File Description",
-      ng-model='{{attachment.description}}',
+      ng-model='attachment.description',
       ng-disabled='disabled')
 
 

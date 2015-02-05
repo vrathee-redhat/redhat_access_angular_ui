@@ -40,6 +40,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 file: data
             });
             $scope.clearSelectedFile();
+            $scope.$apply();
         };
         $scope.getFile = function () {
             $('#fileUploader').click();
