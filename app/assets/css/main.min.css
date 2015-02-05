@@ -503,10 +503,10 @@ aside section + section {
 }
 /* line 17, ../sass/components/_table-list.scss */
 .table-list .list-item {
-  padding-top: 15px;
-  padding-top: 0.9375rem;
-  padding-bottom: 15px;
-  padding-bottom: 0.9375rem;
+  padding-top: 13px;
+  padding-top: 0.8125rem;
+  padding-bottom: 10px;
+  padding-bottom: 0.625rem;
   border-bottom: 1px solid #cacaca;
 }
 /* line 23, ../sass/components/_table-list.scss */
@@ -579,15 +579,15 @@ aside section + section {
   line-height: 22.4px;
   line-height: 1.4rem;
   font-weight: 500;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   display: block;
   color: #4c4c4c;
 }
 @media (min-width: 768px) {
   /* line 5, ../sass/components/_case-list.scss */
   .case-list .subheading {
-    margin-bottom: 12px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 4px;
+    margin-bottom: 0.25rem;
     line-height: 1;
   }
 }
@@ -606,8 +606,8 @@ aside section + section {
 @media (min-width: 768px) {
   /* line 27, ../sass/components/_case-list.scss */
   .case-list .case-id .subheading {
-    margin-bottom: 12px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 4px;
+    margin-bottom: 0.25rem;
     font-weight: 500;
   }
 }
@@ -1054,8 +1054,8 @@ a .icon-severity:hover.level4 {
 
 /* line 1, ../sass/components/_filters.scss */
 .filters {
-  margin-bottom: 20px;
-  margin-bottom: 1.25rem;
+  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
 }
 /* line 4, ../sass/components/_filters.scss */
 .filters .col-sm-12 + .col-sm-12 {
@@ -1183,17 +1183,32 @@ a .icon-severity:hover.level4 {
   padding-left: 7.5px;
 }
 /* line 15, ../sass/components/_rha-page-header.scss */
+.rha-page-header .filters {
+  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
+}
+/* line 18, ../sass/components/_rha-page-header.scss */
+.rha-page-header .filters .col-sm-12 + .col-sm-12 {
+  margin-top: 12px;
+}
+@media (min-width: 992px) {
+  /* line 18, ../sass/components/_rha-page-header.scss */
+  .rha-page-header .filters .col-sm-12 + .col-sm-12 {
+    margin-top: 0;
+  }
+}
+/* line 27, ../sass/components/_rha-page-header.scss */
 .rha-page-header .actions {
   text-align: right;
   margin-top: 0;
 }
-/* line 19, ../sass/components/_rha-page-header.scss */
+/* line 31, ../sass/components/_rha-page-header.scss */
 .rha-page-header .actions .btn {
   display: inline-block;
   width: auto;
   margin-left: 15px;
 }
-/* line 24, ../sass/components/_rha-page-header.scss */
+/* line 36, ../sass/components/_rha-page-header.scss */
 .rha-page-header .actions .btn:first-child {
   margin-left: 0;
 }

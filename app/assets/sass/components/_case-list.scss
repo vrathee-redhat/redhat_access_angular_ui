@@ -1,11 +1,11 @@
-$subheading-margin-bottom: 12px;
+$subheading-margin-bottom: 4px;
 
 .case-list {
 
 	.subheading {
 		@include font-size(16px);
 		font-weight: 500;
-		margin-bottom: 12px;
+		margin-bottom: $subheading-margin-bottom;
 		display: block;
 		color: $case-list-color;
 

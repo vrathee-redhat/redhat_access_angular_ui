@@ -16,8 +16,8 @@ $case-border: $border-gray;
 
 	.list-item {
 		@extend %clearfix;
-		@include rem('padding-top', 15px);
-		@include rem('padding-bottom', 15px);
+		@include rem('padding-top', 13px);
+		@include rem('padding-bottom', 10px);
 		border-bottom: 1px solid $border-gray;
 
 		&.no-border { border: none; }

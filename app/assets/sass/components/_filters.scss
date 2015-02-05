@@ -1,5 +1,5 @@
 .filters {
-	@include rem('margin-bottom', 20px);
+	@include rem('margin-bottom', 15px);
 
 	.col-sm-12 + .col-sm-12 {
 		margin-top: 12px;
