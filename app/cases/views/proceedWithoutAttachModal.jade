@@ -1,0 +1,15 @@
+div.modal-header
+  h3(translate='') No File Uploaded with Case
+div.container-fluid(style='padding: 20px;')
+  div.row
+    div.col-sm-12
+      div To get faster results. Attaching logos or other diagnostics files typically results in faster resolution. <br>
+      div(ng-bind-html='parseArtifactHtml()')
+  div.row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
+    div.col-sm-12
+      div.pull-right
+        button.btn-secondary.btn(
+          style='margin-left: 10px;', 
+          ng-click='closeModal(true)')
+          span {{'Continue Without Attaching'|translate}}
+      button.btn-secondary.btn.pull-right(ng-click='closeModal(false)') {{'Go Back'|translate}}

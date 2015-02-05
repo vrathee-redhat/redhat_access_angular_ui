@@ -9,10 +9,6 @@ div.container-fluid
   div.row.rha-create-field
     div.col-xs-12(style='font-size: 80%;')      
       div(ng-bind-html='parseArtifactHtml()')
-    div.col-xs-12(style='font-size: 80%;')
-      span {{'File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com.'|translate}}&nbsp;
-      span
-        a(href='https://access.redhat.com/knowledge/solutions/2112', target='_blank') {{'(More info)'|translate}}
   div.row.rha-create-field
     div.col-xs-12
       input#rha-case-attachement-fileDescription.form-control(

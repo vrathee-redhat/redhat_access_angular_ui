@@ -6,6 +6,8 @@ angular.module('RedhatAccess.cases').controller('New', [
     '$q',
     '$timeout',
     '$sanitize',
+    '$modal',
+    '$sce',
     'SearchResultsService',
     'AttachmentsService',
     'strataService',
@@ -22,7 +24,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
     'translate',
-    function ($scope, $state, $q, $timeout, $sanitize, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, translate) {
+    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, translate) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -176,54 +178,25 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.buildGroupOptions();
             }
         };
+
         /**
        * Create the case with attachments
        */
         $scope.doSubmit = function ($event) {
-            if (window.chrometwo_require !== undefined) {
-                chrometwo_require(['analytics/main'], function (analytics) {
-                    analytics.trigger('OpenSupportCaseSubmit', $event);
-                });
-            }
-            /*jshint camelcase: false */
-            var caseJSON = {
-                    'product': CaseService.kase.product,
-                    'version': CaseService.kase.version,
-                    'summary': CaseService.kase.summary,
-                    'description': CaseService.kase.description,
-                    'severity': CaseService.kase.severity.name
-                };
-            if (RHAUtils.isNotEmpty(CaseService.group)) {
-                caseJSON.folderNumber = CaseService.group;
-            }
-            if (RHAUtils.isNotEmpty(CaseService.entitlement)) {
-                caseJSON.entitlement = {};
-                caseJSON.entitlement.sla = CaseService.entitlement;
-            }
-            if (RHAUtils.isNotEmpty(CaseService.account)) {
-                caseJSON.accountNumber = CaseService.account.number;
-            }
-            if (CaseService.fts) {
-                caseJSON.fts = true;
-                if (CaseService.fts_contact) {
-                    caseJSON.contactInfo24X7 = CaseService.fts_contact;
-                }
-            }
-            if (RHAUtils.isNotEmpty(CaseService.owner)) {
-                caseJSON.contactSsoUsername = CaseService.owner;
-            }
+            AttachmentsService.proceedWithoutAttachments = false;
 
-            $scope.submittingCase = true;
-            AlertService.addWarningMessage('Creating case...');
             var redirectToCase = function (caseNumber) {
                 $state.go('edit', { id: caseNumber });
                 AlertService.clearAlerts();
-                $scope.submittingCase = false;
+                CaseService.submittingCase = false;
             };
-            strataService.cases.post(caseJSON).then(function (caseNumber) {
-                AlertService.clearAlerts();
-                AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
 
+            var caseUploadsAndUpdates = function(caseNumber){
+                if (window.chrometwo_require !== undefined) {
+                    chrometwo_require(['analytics/main'], function (analytics) {
+                        analytics.trigger('OpenSupportCaseSubmit', $event);
+                    });
+                }
                 angular.forEach($scope.notifiedUsers, function (user) {
                     strataService.cases.notified_users.add(caseNumber, user).then(function () {
                         AlertService.addSuccessMessage(translate('Successfully added ') + ' ' + user + translate(' to receieve email notifications.'));
@@ -237,17 +210,38 @@ angular.module('RedhatAccess.cases').controller('New', [
                         redirectToCase(caseNumber);
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
-                        $scope.submittingCase = false;
+                        this.submittingCase = false;
                     });
                 } else if(NEW_CASE_CONFIG.showAttachments && $scope.ie8 || NEW_CASE_CONFIG.showAttachments && $scope.ie9 ) {
                     $scope.ieFileUpload(caseNumber);
-                }else {
+                } else {
                     redirectToCase(caseNumber);
                 }
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-                $scope.submittingCase = false;
-            });
+            }
+
+            if(AttachmentsService.updatedAttachments.length == 0){
+                var proceedWithoutAttachModal = $modal.open({
+                    templateUrl: 'cases/views/proceedWithoutAttachModal.html',
+                    controller: 'ProceedWithoutAttachModal'
+                });
+                proceedWithoutAttachModal.result.then(function(){
+                    if(AttachmentsService.proceedWithoutAttachments){
+                        CaseService.createCase().then(function (caseNumber) {
+                            caseUploadsAndUpdates(caseNumber)
+                        }, function (error) {
+                            AlertService.addStrataErrorMessage(error);
+                            this.submittingCase = false;
+                        });
+                    }
+                });
+            } else{
+                CaseService.createCase().then(function (caseNumber) {
+                    caseUploadsAndUpdates(caseNumber)
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                    this.submittingCase = false;
+                });
+            }
         };
 
         $scope.ieFileUpload = function(caseNumber) {

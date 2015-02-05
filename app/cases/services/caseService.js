@@ -20,6 +20,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             storageMode: 'localStorage',
             verifyIntegrity: true
         });
+        this.submittingCase = false;
         this.kase = {};
         this.caseDataReady = false;
         this.isCommentPublic = false;
@@ -369,5 +370,51 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 });
             }
         };
+
+        this.createCase = function(){
+            var promise = null;
+            var deferred = $q.defer();
+            
+            /*jshint camelcase: false */
+            var caseJSON = {
+                    'product': this.kase.product,
+                    'version': this.kase.version,
+                    'summary': this.kase.summary,
+                    'description': this.kase.description,
+                    'severity': this.kase.severity.name
+                };
+            if (RHAUtils.isNotEmpty(this.group)) {
+                caseJSON.folderNumber = this.group;
+            }
+            if (RHAUtils.isNotEmpty(this.entitlement)) {
+                caseJSON.entitlement = {};
+                caseJSON.entitlement.sla = this.entitlement;
+            }
+            if (RHAUtils.isNotEmpty(this.account)) {
+                caseJSON.accountNumber = this.account.number;
+            }
+            if (this.fts) {
+                caseJSON.fts = true;
+                if (this.fts_contact) {
+                    caseJSON.contactInfo24X7 = this.fts_contact;
+                }
+            }
+            if (RHAUtils.isNotEmpty(this.owner)) {
+                caseJSON.contactSsoUsername = this.owner;
+            }
+
+            this.submittingCase = true;
+            AlertService.addWarningMessage('Creating case...');
+            strataService.cases.post(caseJSON).then(function (caseNumber) {
+                AlertService.clearAlerts();
+                AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+                deferred.resolve(caseNumber);
+            }, function (error) {
+                AlertService.addStrataErrorMessage(error);
+                this.submittingCase = false;
+                deferred.reject();
+            });
+            return deferred.promise;
+        }
     }
 ]);

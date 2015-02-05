@@ -15,6 +15,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
         this.updatedAttachments = [];
         this.backendAttachments = [];
         this.suggestedArtifact = {};
+        this.proceedWithoutAttachments = false;
         this.clear = function () {
             this.originalAttachments = [];
             this.updatedAttachments = [];
