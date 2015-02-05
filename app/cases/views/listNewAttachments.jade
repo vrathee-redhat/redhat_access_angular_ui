@@ -1,13 +1,26 @@
-div.container-fluid
-  div.row
-    div.col-xs-12
-      div.panel.panel-default
-        div.panel-heading {{'Files to Attach'|translate}}
-        ul.list-group
-          li.list-group-item(
-            ng-repeat='attachment in AttachmentsService.updatedAttachments',
-            ng-hide='AttachmentsService.updatedAttachments.length <= 0') {{attachment.file_name}} ({{attachment.length | bytes}}) - {{attachment.description}}
-            button.close(type='button', style='float: right', ng-click='removeLocalAttachment($index)') &times;
-          li.list-group-item(
-            ng-repeat='attachment in TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments)',
-            ng-hide='TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0') {{attachment}}
+ul.attachment-list.block-list.block-list-gray
+  li(
+    ng-repeat='attachment in AttachmentsService.updatedAttachments',
+    ng-hide='AttachmentsService.updatedAttachments.length <= 0') {{attachment.file_name}} ({{attachment.length | bytes}})
+    .fa.fa-close(type='button', style='float: right', ng-click='removeLocalAttachment($index)')
+    input#rha-case-attachement-fileDescription.form-control.description(
+      placeholder="Please Add File Description",
+      ng-model='{{attachment.description}}',
+      ng-disabled='disabled')
+
+
+    //li(
+    //  ng-repeat='attachment in TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments)',
+    //  ng-hide='TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0') {{attachment}}
+
+    //a.filename Testing.jpg
+    //| span.size (1234)
+    //.description Add Description
+    //  ul.list-group
+    //    li.list-group-item(
+    //      ng-repeat='attachment in AttachmentsService.updatedAttachments',
+    //      ng-hide='AttachmentsService.updatedAttachments.length <= 0') {{attachment.file_name}} ({{attachment.length | bytes}}) - {{attachment.description}}
+    //      button.close(type='button', style='float: right', ng-click='removeLocalAttachment($index)') &times;
+    //    li.list-group-item(
+    //      ng-repeat='attachment in TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments)',
+    //      ng-hide='TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0') {{attachment}}

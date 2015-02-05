@@ -1,0 +1,28 @@
+.block-list {
+	@include rem('margin', 15px 0 0);
+	padding: 0;
+	list-style-type: none;
+
+	li {
+		margin: 0;
+		@include rem('padding', 15px);
+	}
+
+	&.block-list-gray {
+
+		li {
+			background: #ddd;
+		}
+	}
+
+	.description {
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: none;
+		@include box-shadow(none);
+
+		@include rem('margin', 4px 0 0);
+		@include font-size(14px, 18px);
+	}
+}

@@ -123,7 +123,13 @@ html {
   outline: 0;
 }
 
-/* line 11, ../sass/elements/_base.scss */
+/* line 7, ../sass/elements/_base.scss */
+.row + .row {
+  margin-top: 15px;
+  margin-top: 0.9375rem;
+}
+
+/* line 15, ../sass/elements/_base.scss */
 [class^="col-md"] {
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
@@ -131,34 +137,34 @@ html {
   transition: 0.2s;
 }
 
-/* line 15, ../sass/elements/_base.scss */
+/* line 19, ../sass/elements/_base.scss */
 body {
   font-size: 90%;
 }
 @media (min-width: 1200px) {
-  /* line 15, ../sass/elements/_base.scss */
+  /* line 19, ../sass/elements/_base.scss */
   body {
     font-size: 100%;
   }
 }
 
-/* line 21, ../sass/elements/_base.scss */
+/* line 25, ../sass/elements/_base.scss */
 .inline-tooltip {
   position: relative;
   padding-right: 30px;
 }
-/* line 25, ../sass/elements/_base.scss */
+/* line 29, ../sass/elements/_base.scss */
 .inline-tooltip span {
   margin-left: 8px;
 }
-/* line 31, ../sass/elements/_base.scss */
+/* line 35, ../sass/elements/_base.scss */
 .inline-tooltip.right > span {
   position: absolute;
   right: 2px;
   top: 4px;
 }
 
-/* line 39, ../sass/elements/_base.scss */
+/* line 43, ../sass/elements/_base.scss */
 .container.page {
   padding-top: 60px;
   padding-top: 3.75rem;
@@ -166,31 +172,31 @@ body {
   padding-bottom: 1.875rem;
 }
 
-/* line 44, ../sass/elements/_base.scss */
+/* line 48, ../sass/elements/_base.scss */
 .sep {
   margin-left: 3px;
   margin-right: 3px;
 }
 
-/* line 52, ../sass/elements/_base.scss */
+/* line 56, ../sass/elements/_base.scss */
 [class^="col-"] + .col-sm-12,
 [class*=" col-"] + .col-sm-12 {
   margin-top: 8px;
 }
 @media (min-width: 768px) {
-  /* line 52, ../sass/elements/_base.scss */
+  /* line 56, ../sass/elements/_base.scss */
   [class^="col-"] + .col-sm-12,
   [class*=" col-"] + .col-sm-12 {
     margin-top: 0;
   }
 }
 
-/* line 59, ../sass/elements/_base.scss */
+/* line 63, ../sass/elements/_base.scss */
 section > header {
   margin-bottom: 40px;
 }
 
-/* line 73, ../sass/elements/_base.scss */
+/* line 77, ../sass/elements/_base.scss */
 .box-dark {
   padding: 40px;
   padding: 2.5rem;
@@ -201,7 +207,7 @@ section > header {
   line-height: 19.6px;
   line-height: 1.225rem;
 }
-/* line 79, ../sass/elements/_base.scss */
+/* line 83, ../sass/elements/_base.scss */
 .box-dark .title {
   padding: 40px 40px 0;
   padding: 2.5rem 2.5rem 0;
@@ -218,23 +224,23 @@ section > header {
   line-height: 2.45rem;
   font-weight: 100;
 }
-/* line 88, ../sass/elements/_base.scss */
+/* line 92, ../sass/elements/_base.scss */
 .box-dark a {
   color: #0bc0fc;
 }
 
-/* line 92, ../sass/elements/_base.scss */
+/* line 96, ../sass/elements/_base.scss */
 .block, .block-link {
   display: block;
 }
-/* line 95, ../sass/elements/_base.scss */
+/* line 99, ../sass/elements/_base.scss */
 .block input,
 .block textarea, .block-link input,
 .block-link textarea {
   width: 100%;
 }
 
-/* line 99, ../sass/elements/_base.scss */
+/* line 103, ../sass/elements/_base.scss */
 a {
   color: #0085cf;
 }
@@ -320,6 +326,10 @@ input.margin {
   color: #fff;
 }
 /* line 17, ../sass/elements/_buttons.scss */
+.btn.btn-primary {
+  background: #c00;
+}
+/* line 21, ../sass/elements/_buttons.scss */
 .btn.btn-outline {
   background: rgba(255, 255, 255, 0.4);
   color: #03AFE8;
@@ -332,23 +342,23 @@ input.margin {
   transition: 0.3s;
   font-weight: 500;
 }
-/* line 24, ../sass/elements/_buttons.scss */
+/* line 28, ../sass/elements/_buttons.scss */
 .btn.btn-outline:hover {
   color: #102c3b;
   background: rgba(255, 255, 255, 0.8);
 }
-/* line 30, ../sass/elements/_buttons.scss */
+/* line 34, ../sass/elements/_buttons.scss */
 .btn.btn-accent {
   color: #FFF;
   background: #03AFE8;
   border-color: #03AFE8;
 }
-/* line 35, ../sass/elements/_buttons.scss */
+/* line 39, ../sass/elements/_buttons.scss */
 .btn.btn-accent:hover {
   background: #03a0d4;
   border-color: #03a0d4;
 }
-/* line 41, ../sass/elements/_buttons.scss */
+/* line 45, ../sass/elements/_buttons.scss */
 .btn.btn-open {
   color: #03AFE8;
   -moz-box-shadow: inset 0 0 0 2px #03AFE8;
@@ -356,19 +366,19 @@ input.margin {
   box-shadow: inset 0 0 0 2px #03AFE8;
   background: #fff;
 }
-/* line 46, ../sass/elements/_buttons.scss */
+/* line 50, ../sass/elements/_buttons.scss */
 .btn.btn-open:hover {
   background: #03AFE8;
   color: #fff;
 }
-/* line 52, ../sass/elements/_buttons.scss */
+/* line 56, ../sass/elements/_buttons.scss */
 .btn.btn-light {
   text-transform: none;
   background: #F7F7F7;
   color: #989898;
   font-weight: 100;
 }
-/* line 59, ../sass/elements/_buttons.scss */
+/* line 63, ../sass/elements/_buttons.scss */
 .btn.btn-xs {
   font-size: 12px;
   font-size: 0.75rem;
@@ -378,18 +388,18 @@ input.margin {
   padding: 8px 10px;
   padding: 0.5rem 0.625rem;
 }
-/* line 65, ../sass/elements/_buttons.scss */
+/* line 69, ../sass/elements/_buttons.scss */
 .btn.btn-info {
   background: #0075B5;
   border-color: #0075B5;
 }
-/* line 69, ../sass/elements/_buttons.scss */
+/* line 73, ../sass/elements/_buttons.scss */
 .btn.btn-info:hover {
   color: #fff;
   background: #00659c;
   border-color: #00659c;
 }
-/* line 76, ../sass/elements/_buttons.scss */
+/* line 80, ../sass/elements/_buttons.scss */
 .btn.btn[disabled],
 .btn .btn.disabled {
   background: #e3e3e3;
@@ -1234,6 +1244,40 @@ a .icon-severity:hover.level4 {
 /* line 1, ../sass/components/_modal.scss */
 .modal {
   background: rgba(0, 0, 0, 0.3);
+}
+
+/* line 1, ../sass/components/_block-list.scss */
+.block-list {
+  margin: 15px 0 0;
+  margin: 0.9375rem 0 0;
+  padding: 0;
+  list-style-type: none;
+}
+/* line 6, ../sass/components/_block-list.scss */
+.block-list li {
+  margin: 0;
+  padding: 15px;
+  padding: 0.9375rem;
+}
+/* line 13, ../sass/components/_block-list.scss */
+.block-list.block-list-gray li {
+  background: #ddd;
+}
+/* line 18, ../sass/components/_block-list.scss */
+.block-list .description {
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin: 4px 0 0;
+  margin: 0.25rem 0 0;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 18px;
+  line-height: 1.125rem;
 }
 
 /* line 3, ../sass/vendor/_chosen.scss */

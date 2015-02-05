@@ -1,25 +1,16 @@
-div.container-fluid
-  div.row.rha-create-field
-    div.col-xs-6
-      button.btn.btn-attach(style='float: left;', ng-click='getFile()', ng-disabled='disabled', translate='') Attach local file
-      div(style='height: 0px; width:0px; overflow:hidden;')
-        input(id='fileUploader', type='file', value='upload', rha-onchange='selectFile', ng-model='file', ng-disabled='disabled')
-    div.col-xs-6
-      div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
-  div.row.rha-create-field
-    div.col-xs-12(style='font-size: 80%;')      
-      div(ng-bind-html='parseArtifactHtml()')
-  div.row.rha-create-field
-    div.col-xs-12
-      input#rha-case-attachement-fileDescription.form-control(
-        style='float: left;',
-        placeholder="{{'File description'|translate}}",
-        ng-model='fileDescription',
-        ng-disabled='disabled')
-  div.row.rha-create-field
-    div.col-xs-12
-      button.btn.btn-add(
-        ng-disabled='fileName == NO_FILE_CHOSEN || disabled',
-        style='float: right;',
-        ng-click='addFile(fileUploaderForm)', translate='') Add
+a.link(ng-click='getFile()', ng-disabled='disabled', translate='', ng-hide='AttachmentsService.updatedAttachments.length == 0') Attach Another File
+a.link(ng-click='getFile()', ng-disabled='disabled', translate='', ng-hide='AttachmentsService.updatedAttachments.length > 0') Attach File
+div(style='height: 0px; width:0px; overflow:hidden;')
+  input(id='fileUploader', type='file', value='upload', rha-onchange='selectFile', ng-model='file', ng-disabled='disabled')
+//.pull-left(style='margin-top: 12px; margin-left: 12px;'){{fileName}}
+div(ng-bind-html='parseArtifactHtml()')
+//input#rha-case-attachement-fileDescription.form-control(
+//  style='float: left;',
+//  placeholder="{{'File description'|translate}}",
+//  ng-model='fileDescription',
+////  ng-disabled='disabled')
+//button.btn.btn-add(
+//  ng-disabled='fileName == NO_FILE_CHOSEN || disabled',
+//  style='float: right;',
+//  ng-click='addFile(fileUploaderForm)', translate='') Add
 

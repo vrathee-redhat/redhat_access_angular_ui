@@ -50,6 +50,7 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
                 $scope.$apply();
+	            $scope.addFile();
             } else {
                 AlertService.addDangerMessage($('#fileUploader')[0].files[0].name + translate(' cannot be attached because it is larger the 1 GB. Please FTP large files to dropbox.redhat.com.'));
             }
