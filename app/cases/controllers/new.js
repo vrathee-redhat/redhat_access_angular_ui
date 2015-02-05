@@ -203,6 +203,10 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
+            {
+                CaseService.kase.description = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text;
+            }
             var setDesc = function (desc) {
                 CaseService.kase.description = desc;
                 $scope.getRecommendations();
@@ -387,6 +391,10 @@ angular.module('RedhatAccess.cases').controller('New', [
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+                if(CaseService.localStorageCache && RHAUtils.isNotEmpty(CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)))
+                {
+                    CaseService.localStorageCache.remove(securityService.loginStatus.authedUser.sso_username);
+                }
                 if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && NEW_CASE_CONFIG.showAttachments) {
                     AttachmentsService.updateAttachments(caseNumber).then(function () {
                         redirectToCase(caseNumber);

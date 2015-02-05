@@ -310,6 +310,13 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 this.newCasePage1Incomplete = false;
             }
         };
+        this.updateLocalStorageForDesc = function(){
+            if(this.localStorageCache && !RHAUtils.isEmpty(this.kase.description))
+            {
+                var newCaseDescLocalStorage = {'text': this.kase.description};
+                this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username,newCaseDescLocalStorage);
+            }
+        };
         this.showVersionSunset = function () {
             if (RHAUtils.isNotEmpty(this.kase.product) && RHAUtils.isNotEmpty(this.kase.version)) {
                 if ((this.kase.version).toLowerCase().indexOf('- eol') > -1) {
