@@ -626,7 +626,7 @@ aside section + section {
   padding: 2.5rem;
   background: #f7f7f7;
 }
-/* line 11, ../sass/components/_case-description.scss */
+/* line 12, ../sass/components/_case-description.scss */
 .case-description h1,
 .case-description h2,
 .case-description h3,
@@ -634,7 +634,7 @@ aside section + section {
   margin: 0 0 30px;
   margin: 0 0 1.875rem;
 }
-/* line 18, ../sass/components/_case-description.scss */
+/* line 19, ../sass/components/_case-description.scss */
 .case-description .title {
   margin-bottom: 20px;
   font-weight: 100;
@@ -643,14 +643,14 @@ aside section + section {
   line-height: 39.2px;
   line-height: 2.45rem;
 }
-/* line 24, ../sass/components/_case-description.scss */
+/* line 25, ../sass/components/_case-description.scss */
 .case-description .section-icon {
   bottom: auto;
   top: -20px;
   border-color: #bababa;
   color: #7e7e7e;
 }
-/* line 31, ../sass/components/_case-description.scss */
+/* line 32, ../sass/components/_case-description.scss */
 .case-description .description {
   font-size: 20px;
   font-size: 1.25rem;
@@ -660,12 +660,12 @@ aside section + section {
   margin-bottom: 30px;
   margin-bottom: 1.875rem;
 }
-/* line 37, ../sass/components/_case-description.scss */
+/* line 38, ../sass/components/_case-description.scss */
 .case-description p {
   margin-bottom: 28px;
   margin-bottom: 1.75rem;
 }
-/* line 41, ../sass/components/_case-description.scss */
+/* line 42, ../sass/components/_case-description.scss */
 .case-description .case-description-extra-info {
   height: 0;
   display: none;
@@ -676,7 +676,7 @@ aside section + section {
   -webkit-transition: 2s;
   transition: 2s;
 }
-/* line 48, ../sass/components/_case-description.scss */
+/* line 49, ../sass/components/_case-description.scss */
 .case-description .case-description-extra-info.active {
   height: auto;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
@@ -1229,6 +1229,11 @@ a .icon-severity:hover.level4 {
   position: absolute;
   top: 0px;
   left: -16px;
+}
+
+/* line 1, ../sass/components/_modal.scss */
+.modal {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* line 3, ../sass/vendor/_chosen.scss */
