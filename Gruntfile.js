@@ -41,7 +41,8 @@ module.exports = function (grunt) {
                 'app/security/**/*.js',
                 'app/search/**/*.js',
                 'app/cases/**/*.js',
-                'app/log_viewer/**/*.js'
+                'app/log_viewer/**/*.js',
+                'app/escalation/**/*.js'
             ],
             jsTpl: ['.tmp/templates/**/*.js'],
             specs: ['test/**/*.spec.js'],
@@ -53,7 +54,8 @@ module.exports = function (grunt) {
                     'app/security/**/*.html',
                     'app/search/**/*.html',
                     'app/cases/**/*.html',
-                    'app/log_viewer/**/*.html'
+                    'app/log_viewer/**/*.html',
+                    'app/escalation/**/*.html'
                 ]
             },
             css: {
@@ -62,7 +64,8 @@ module.exports = function (grunt) {
                     'app/security/**/*.css',
                     'app/search/**/*.css',
                     'app/cases/**/*.css',
-                    'app/log_viewer/**/*.css'
+                    'app/log_viewer/**/*.css',
+                    'app/escalation/**/*.css'
                 ]
             },
             img: ['<%= yeoman.app %>/**/img/*'],
