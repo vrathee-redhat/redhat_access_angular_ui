@@ -2,7 +2,7 @@ div(rha-403error='')
 div(rha-404error='')
 div(ng-hide='failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases')
 	span.rha-search-spinner(ng-show='pageLoading')
-.row.page-header
+.row.page-header(ng-hide='HeaderService.pageLoadFailure || !securityService.loginStatus.userAllowedToManageCases')
 	.col-sm-8.col-md-8
 		div(rha-titletemplate='', page="{{page}}")
 	.col-sm-4.col-md-4(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy', rha-chatbutton='')
