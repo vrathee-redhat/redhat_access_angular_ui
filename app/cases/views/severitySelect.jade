@@ -1,7 +1,7 @@
 div(rha-selectloadingindicator='', loading='severitiesLoading', type='select2')
   select(
     chosen,
-    ng-disabled='!securityService.loginStatus.isLoggedIn',
+    ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
     ng-model='CaseService.severity',
     ng-change='CaseService.onSelectChanged()',
     width='"100%"',

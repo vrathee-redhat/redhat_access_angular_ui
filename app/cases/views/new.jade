@@ -18,7 +18,7 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
         div.col-sm-7.col-md-8
           input#rha-case-summary.form-control(
           maxlength='255',
-          ng-disabled='!securityService.loginStatus.isLoggedIn',
+          ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
           ng-change='CaseService.validateNewCase()',
           ng-model='CaseService.kase.summary')
       div.row
@@ -45,12 +45,6 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
           //  div.col-xs-12
           //    label {{'Attachments:'|translate}}
           div.rha-bottom-border(ng-hide='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
-            //div.row.rha-create-field(style='overflow: auto')
-            //  div.col-xs-12
-                //div(rha-listnewattachments='')
-            div.row.rha-create-field(ng-hide='CaseService.submittingCase')
-              div.col-xs-12
-
             div.row.rha-create-field(ng-hide='CaseService.submittingCase')
               div.col-xs-12
                 div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
@@ -105,7 +99,7 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
           select(
             chosen,
             multiple,
-            ng-disabled='updatingList',
+            ng-disabled='updatingList || CaseService.submittingCase',
             ng-model='notifiedUsers',
             id='rha-email-notify-select',
             width='"100%"',
@@ -117,8 +111,9 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
           div(rha-groupselect='')
 
     div.row.actions.justify-right
+      //- TODO make remove local storage once implemented
       .col-sm-6.col-md-2
-        button.btn.btn-open Cancel
+        a.button.btn.btn-open(href='#/case/list') Cancel
       .col-xs-12.col-sm-6.col-md-2
         button.btn.btn-primary.btn-submit(
         ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',

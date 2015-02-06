@@ -6,10 +6,12 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
     'RHAUtils',
     'AlertService',
     'AttachmentsService',
+    'CaseService',
     'securityService',
     'translate',
-    function ($scope, $sce, RHAUtils,AlertService, AttachmentsService, securityService, translate) {
+    function ($scope, $sce, RHAUtils,AlertService, AttachmentsService, CaseService, securityService, translate) {
         $scope.AttachmentsService = AttachmentsService;
+        $scope.CaseService = CaseService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
         $scope.fileDescription = '';
         var maxFileSize = 1000000000;

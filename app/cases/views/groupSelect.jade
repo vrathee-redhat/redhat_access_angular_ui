@@ -2,7 +2,7 @@ div
 	select#rha-group-select(
 	    chosen,
       width='"100%"',
-	    ng-disabled='!securityService.loginStatus.isLoggedIn',
+	    ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
 	    ng-model='CaseService.group',
 	    ng-change='CaseService.onGroupSelectChanged()',
 	    placeholder='Select a Group',

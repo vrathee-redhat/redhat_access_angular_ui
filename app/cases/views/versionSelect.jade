@@ -4,6 +4,6 @@ select#rha-product-version-select.form-control(
 	ng-model='CaseService.kase.version',
 	ng-options='v for v in ProductsService.versions',
 	ng-change='RecommendationsService.getRecommendations(); CaseService.validateNewCase()',
-	ng-disabled='ProductsService.versionDisabled || CaseService.kase.product === undefined || !securityService.loginStatus.isLoggedIn || submittingCase')
+	ng-disabled='ProductsService.versionDisabled || CaseService.kase.product === undefined || !securityService.loginStatus.isLoggedIn || CaseService.submittingCase')
 div.versionSunsetMessage(ng-show='ProductsService.showVersionSunset()')
 	span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
