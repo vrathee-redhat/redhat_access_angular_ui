@@ -28,16 +28,13 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
         };
         $scope.addFile = function () {
             /*jshint camelcase: false */
-            var data = new FormData();
-            data.append('file', $scope.fileObj);
-            data.append('description', $scope.fileDescription);
             AttachmentsService.addNewAttachment({
                 file_name: $scope.fileName,
                 description: $scope.fileDescription,
+                fileObj: $scope.fileObj,
                 length: $scope.fileSize,
                 created_by: securityService.loginStatus.authedUser.loggedInUser,
-                created_date: new Date().getTime(),
-                file: data
+                created_date: new Date().getTime()
             });
             $scope.clearSelectedFile();
             $scope.$apply();

@@ -101,7 +101,11 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                     //find new attachments
                     angular.forEach(updatedAttachments, function (attachment) {
                         if (!attachment.hasOwnProperty('uuid')) {
-                            var promise = strataService.cases.attachments.post(attachment.file, caseId);
+                            var formdata = new FormData();
+                            formdata.append('file', attachment.fileObj);
+                            formdata.append('description', attachment.description);
+
+                            var promise = strataService.cases.attachments.post(formdata, caseId);
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);

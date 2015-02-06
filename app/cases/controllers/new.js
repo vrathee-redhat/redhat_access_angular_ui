@@ -145,28 +145,6 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.$on('$destroy', function () {
             $scope.authLoginSuccess();
         });
-
-        /**
-       * Go to a page in the wizard
-       *
-       * @param page
-       */
-        $scope.gotoPage = function (page) {
-            $scope.isPage1 = page === 1 ? true : false;
-            $scope.isPage2 = page === 2 ? true : false;
-        };
-        /**
-       * Navigate forward in the wizard
-       */
-        $scope.doNext = function () {
-            $scope.gotoPage(2);
-        };
-        /**
-       * Navigate back in the wizard
-       */
-        $scope.doPrevious = function () {
-            $scope.gotoPage(1);
-        };
         $scope.submittingCase = false;
 
         $scope.setSearchOptions = function (showsearchoptions) {
@@ -300,8 +278,6 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
             form.submit();
         };
-
-        $scope.gotoPage(1);
 
         $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
             CaseService.clearCase();
