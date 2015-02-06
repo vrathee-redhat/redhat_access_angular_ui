@@ -311,12 +311,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
             return false;
         };
-        this.newCasePage1Incomplete = true;
-        this.validateNewCasePage1 = function () {
+        this.newCaseIncomplete = true;
+        this.validateNewCase = function () {
             if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary) || RHAUtils.isEmpty(this.kase.description)) {
-                this.newCasePage1Incomplete = true;
+                this.newCaseIncomplete = true;
             } else {
-                this.newCasePage1Incomplete = false;
+                this.newCaseIncomplete = false;
             }
         };
 

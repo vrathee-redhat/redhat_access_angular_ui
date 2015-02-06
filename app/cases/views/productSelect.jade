@@ -3,6 +3,6 @@ select#rha-product-select.form-control(
 	width='"100%"',
 	ng-disabled='ProductsService.products.length === 0 || !securityService.loginStatus.isLoggedIn',
 	ng-model='CaseService.kase.product',
-	ng-change='ProductsService.getVersions(CaseService.kase.product); RecommendationsService.getRecommendations()',
+	ng-change='ProductsService.getVersions(CaseService.kase.product); RecommendationsService.getRecommendations(); CaseService.validateNewCase()',
 	ng-options='p.value as p.label for p in ProductsService.products',
 	options-disabled='p.isDisabled for p in ProductsService.products')

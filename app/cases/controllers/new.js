@@ -76,6 +76,7 @@ angular.module('RedhatAccess.cases').controller('New', [
        * Populate the selects
        */
         $scope.initSelects = function () {
+            CaseService.newCaseIncomplete = true;
             CaseService.clearCase();
             RecommendationsService.clear();
             CaseService.populateUsers();

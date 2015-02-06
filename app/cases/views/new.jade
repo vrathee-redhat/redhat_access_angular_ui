@@ -19,7 +19,7 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
           input#rha-case-summary.form-control(
           maxlength='255',
           ng-disabled='!securityService.loginStatus.isLoggedIn',
-          ng-change='CaseService.validateNewCasePage1()',
+          ng-change='CaseService.validateNewCase()',
           ng-model='CaseService.kase.summary')
       div.row
         div.col-sm-4.col-md-4
@@ -28,7 +28,7 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
           textarea(name='', id='', cols='30', rows='10',
             style='width: 100%; height: 200px; max-width: 100%;',
             ng-model='CaseService.kase.description',
-            ng-change='CaseService.validateNewCasePage1()',
+            ng-change='CaseService.validateNewCase()',
             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase')
           div(style="margin-top: 15px")
             b Get faster results.
@@ -121,6 +121,6 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
         button.btn.btn-open Cancel
       .col-xs-12.col-sm-6.col-md-2
         button.btn.btn-primary.btn-submit(
-        ng-disabled='CaseService.submittingCase',
+        ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
         ng-hide='CaseService.submittingCase',
         ng-click='doSubmit($event)', translate='') Submit
