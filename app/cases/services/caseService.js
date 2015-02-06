@@ -310,10 +310,27 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 this.newCasePage1Incomplete = false;
             }
         };
-        this.updateLocalStorageForDesc = function(){
-            if(this.localStorageCache && !RHAUtils.isEmpty(this.kase.description))
+        this.updateLocalStorageForNewCase = function(){
+            if(this.localStorageCache)
             {
-                var newCaseDescLocalStorage = {'text': this.kase.description};
+                var draftNewCase = {};
+                if(!RHAUtils.isEmpty(this.kase.description))
+                {
+                    draftNewCase.description = this.kase.description;
+                }
+                if(!RHAUtils.isEmpty(this.kase.summary))
+                {
+                    draftNewCase.summary = this.kase.summary;
+                }
+                if(!RHAUtils.isEmpty(this.kase.product))
+                {
+                    draftNewCase.product = this.kase.product;
+                }
+                if(!RHAUtils.isEmpty(this.kase.version))
+                {
+                    draftNewCase.version = this.kase.version;
+                }
+                var newCaseDescLocalStorage = {'text': draftNewCase};
                 this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username,newCaseDescLocalStorage);
             }
         };

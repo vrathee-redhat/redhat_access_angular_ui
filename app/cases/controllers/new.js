@@ -229,6 +229,21 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
+        $scope.getLocalStorageForNewCase = function(){
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
+            {
+                var draftNewCase = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text
+                CaseService.kase.description = draftNewCase.description;
+                CaseService.kase.summary = draftNewCase.summary;
+                if(RHAUtils.isNotEmpty(draftNewCase.product))
+                {
+                    CaseService.kase.product = draftNewCase.product;
+                    $scope.getProductVersions(CaseService.kase.product);
+                }
+                CaseService.kase.version = draftNewCase.version;
+            }
+        };
+
         $scope.firePageLoadEvent = function () {
             if (window.chrometwo_require !== undefined) {
                 chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
@@ -242,11 +257,13 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
+            $scope.getLocalStorageForNewCase();
         }
         $scope.authLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
+            $scope.getLocalStorageForNewCase();
             AlertService.clearAlerts();
             RecommendationsService.failureCount = 0;
         });
