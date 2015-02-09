@@ -7,6 +7,6 @@ div(ng-repeat='comment in CaseService.comments', ng-if='!comment.draft')
         |  at
         time.light  {{comment.created_date | date:'h:mm:ss a Z'}}
       blockquote.comment
-        p
+        div(style='white-space: pre-wrap;')
           | {{ comment.text}}
 

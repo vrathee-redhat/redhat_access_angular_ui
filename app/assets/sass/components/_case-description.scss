@@ -33,6 +33,7 @@ $case-description-global-margin-bottom: 30px;
 		@include font-size(20px);
 		line-height: 1;
 		@include rem('margin-bottom', $case-description-global-margin-bottom);
+		white-space: pre-wrap;
 	}
 
 	p {
