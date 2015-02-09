@@ -1,10 +1,10 @@
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaCaserecommendations', function () {
+angular.module('RedhatAccess.cases').directive('rhaEditcaserecommendations', function () {
     return {
-        templateUrl: 'cases/views/recommendationsSection.html',
+        templateUrl: 'cases/views/editCaseRecommendationsSection.html',
         restrict: 'A',
-        controller: 'RecommendationsSection',
+        controller: 'EditCaseRecommendationsController',
         transclude: true,
         scope: { loading: '=' },
         link: function postLink(scope, element, attrs) {

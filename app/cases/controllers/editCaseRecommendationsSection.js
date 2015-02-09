@@ -1,6 +1,6 @@
 'use strict';
 /*jshint camelcase: false*/
-angular.module('RedhatAccess.cases').controller('RecommendationsSection', [
+angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsController', [
     'RecommendationsService',
     '$scope',
     'strataService',

@@ -1,6 +1,6 @@
 'use strict';
 /*jshint camelcase: false, expr: true*/
-angular.module('RedhatAccess.cases').controller('PcmRecommendationsController', [
+angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsController', [
     '$scope',
     '$location',
     'SearchResultsService',

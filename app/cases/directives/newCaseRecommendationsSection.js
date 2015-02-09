@@ -1,10 +1,10 @@
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaNewrecommendations', function () {
+angular.module('RedhatAccess.cases').directive('rhaNewcaserecommendations', function () {
     return {
-        templateUrl: 'cases/views/newRecommendationsSection.html',
+        templateUrl: 'cases/views/newCaseRecommendationsSection.html',
         restrict: 'A',
-        controller: 'PcmRecommendationsController',
+        controller: 'NewCaseRecommendationsController',
         link: function postLink(scope, element, attrs) {
             scope.$on('$destroy', function () {
                 element.remove();
