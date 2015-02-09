@@ -32,7 +32,7 @@ div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderSe
             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase')
           div(style="margin-top: 15px")
             b Get faster results.
-            | &nbsp; Attaching logos or other diagnostics files typically results in faster resolution.
+            | &nbsp; Attaching logs or other diagnostics files typically results in faster resolution.
 
 
             div(ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
