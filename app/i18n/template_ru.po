@@ -1,10 +1,11 @@
-# ypoyarko <ypoyarko@redhat.com>, 2014. #zanata
+# ypoyarko <ypoyarko@redhat.com>, 2015. #zanata
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2014-12-05 12:31+0000\n"
+"PO-Revision-Date: 2015-02-05 12:13+0000\n"
 "Last-Translator: ypoyarko <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -18,38 +19,32 @@ msgstr ""
 msgid "(More info)"
 msgstr "(подробнее)"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Contact:"
 msgstr "Круглосуточная связь:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Support:"
 msgstr "Круглосуточная поддержка:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
 "Case"
 msgstr ""
-"<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Открыть новый запрос"
+"<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Создать запрос "
+"поддержки"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
-msgstr ""
-"<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Выберите журнал"
+msgstr "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Выбрать журнал"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Account Name:"
 msgstr "Имя учетной записи:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Account Number:"
 msgstr "Номер учетной записи:"
@@ -58,72 +53,59 @@ msgstr "Номер учетной записи:"
 msgid "Account not found."
 msgstr "Учетная запись не найдена."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/new.html
 msgid "Account:"
 msgstr "Учетная запись:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
 msgstr "Добавить"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/addCommentSection.html
 msgid "Add Comment"
 msgstr "Добавить комментарий"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Advanced Mission Critical"
-msgstr "Программа критического обслуживания"
+msgstr "Программа обслуживания критических окружений"
 
 #: app/cases/services/caseService.js
 msgid "All Groups"
 msgstr "Все группы"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Alternate Case ID:"
 msgstr "Дополнительный идентификатор запроса:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/attachProductLogs.html
 msgid "Attach Foreman logs:"
 msgstr "Добавить журналы Foreman:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/attachLocalFile.html
 msgid "Attach local file"
-msgstr "Добавить локальный файл"
+msgstr "Добавить файл"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listAttachments.html
 msgid "Attached"
-msgstr "Добавлено"
+msgstr "Добавлен"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listAttachments.html
 msgid "Attached By"
 msgstr "Добавил "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listAttachments.html
 msgid "Attached Files"
 msgstr "Добавленные файлы"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/attachmentsSection.html
 msgid "Attachments"
 msgstr "Вложения"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/new.html
 msgid "Attachments:"
 msgstr "Вложения:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
 msgstr "Доступные журналы"
@@ -132,33 +114,29 @@ msgstr "Доступные журналы"
 msgid "Back"
 msgstr "Назад"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Number"
 msgstr "Номер Bugzilla"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Tickets"
 msgstr "Отчеты Bugzilla"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_form.html
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/editGroup.html
+#: app/cases/views/requestManagementEscalationModal.html
 msgid "Cancel"
 msgstr "Отмена"
 
 #: app/cases/views/new.html
 msgid "Case Details"
-msgstr "Свойства запроса"
+msgstr "Подробности"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/commentsSection.html
 msgid "Case Discussion"
-msgstr "Обсуждение"
+msgstr "Обсуждение запроса"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/new.html
 msgid "Case Group:"
@@ -166,59 +144,51 @@ msgstr "Группа:"
 
 #: app/cases/views/list.html
 msgid "Case ID"
-msgstr "Идентификатор запроса"
+msgstr "Идентификатор"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Case Type:"
 msgstr "Тип запроса:"
 
 #: app/cases/controllers/editGroup.js
 msgid "Case group successfully updated."
-msgstr "Группа создана."
+msgstr "Группа настроена."
 
 #: app/cases/controllers/editGroup.js
 msgid "Case users successfully updated."
-msgstr "Пользователи обновлены."
+msgstr "Пользователи настроены."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/chatButton.html
 msgid "Chat offline"
-msgstr "Офлайн чат"
+msgstr "Связь с поддержкой"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/chatButton.html
 msgid "Chat with support"
 msgstr "Чат с поддержкой"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/common/views/treeview-selector.html
 msgid "Choose File(s) To Attach:"
 msgstr "Выберите файлы:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/common/views/alert.html
 msgid "Close messages"
 msgstr "Закрыть сообщения"
 
 #: app/cases/controllers/statusSelect.js
 msgid "Closed"
-msgstr "Закрыто"
+msgstr "Закрытые"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
 msgstr "Комментарий:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/createGroupModal.html
 msgid "Create Case Group"
 msgstr "Создать группу"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/createGroupButton.html
 msgid "Create New Case Group"
-msgstr "Создать новую группу запросов"
+msgstr "Создать группу"
 
 #: app/cases/views/new.html
 msgid "Creating Case"
@@ -228,38 +198,31 @@ msgstr "Создание запроса"
 msgid "Creating group"
 msgstr "Создание группы"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listAttachments.html
 msgid "Delete"
 msgstr "Удалить"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/deleteGroupButton.html
 msgid "Delete Group"
 msgstr "Удалить группу"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/services/attachmentsService.js
 msgid "Deleting attachment:"
 msgstr "Удаление вложения:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/descriptionSection.html
 #: app/cases/views/listAttachments.html
 msgid "Description"
 msgstr "Описание"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/new.html
 msgid "Description:"
 msgstr "Описание:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Details"
 msgstr "Свойства"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Diagnose"
 msgstr "Диагностика"
@@ -274,36 +237,31 @@ msgstr ""
 "Уровень поддержки может отличаться в зависимости от того, какие подписки "
 "были вами приобретены."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/addCommentSection.html
 msgid "Draft saved"
 msgstr "Черновик сохранен"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/emailNotifySelect.html
 msgid "Email Notification Recipients"
 msgstr "Получатели уведомлений"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/search/views/resultDetail.html
 msgid "Environment"
 msgstr "Окружение"
 
 #: app/cases/controllers/attachmentsSection.js
 msgid "Error: Failed to upload attachment."
-msgstr "Ошибка. Не удалось добавить вложение."
+msgstr "Не удалось добавить вложение."
 
 #: app/cases/controllers/attachmentsSection.js
 #: app/cases/controllers/new.js
 msgid "Error: Failed to upload attachment. Message:"
-msgstr "Не удалось добавить вложение. Ошибка:"
+msgstr "Не удалось добавить вложение: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/exportCSVButton.html
 msgid "Export All as CSV"
 msgstr "Экспорт в CSV"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/exportCSVButton.html
 msgid "Exporting CSV..."
 msgstr "Экспорт в CSV..."
@@ -325,95 +283,95 @@ msgid ""
 "File names must be less than 80 characters. Maximum file size for web-"
 "uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
 msgstr ""
-"Имена файлов не могут содержать больше 80 знаков, а размер вложения не "
-"должен превышать 1 ГБ. Для больших файлов рекомендуется использовать dropbox."
-"redhat.com."
+"Имя файла не должно содержать больше 80 знаков, а размер вложения не может "
+"превышать 1 ГБ. Для больших файлов рекомендуется использовать dropbox.redhat."
+"com."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listAttachments.html
 msgid "Filename"
 msgstr "Имя файла"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listNewAttachments.html
 msgid "Files to Attach"
-msgstr "Файлы для добавления"
+msgstr "Файлы"
 
 #: app/cases/views/listFilter.html
 msgid "Filtering by case groups helps you find related cases."
-msgstr "Фильтрация по группам запросов поможет найти аналогичные запросы."
+msgstr "Фильтрация по группам вернет однотипные запросы."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/editGroup.html
 msgid "First Name"
 msgstr "Имя"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/search.html
 msgid "Group"
 msgstr "Группа"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Group:"
 msgstr "Группа:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
+#: app/cases/views/403.html
+msgid ""
+"If you believe you should have permission to view this resource, please <a "
+"href=\"/support/contact/customerService.html\">contact Customer Service</a> "
+"for assistance. Your Red Hat login might not be associated with the right "
+"account for your organization, or there might be an issue with your "
+"subscription. Either way, Customer Service should be able to help you "
+"resolve the problem."
+msgstr ""
+"Если вы считаете, что у вас должен быть доступ к этой странице, обратитесь в "
+"<a href=\"/support/contact/customerService.html\">службу поддержки</a>. "
+"Возможно, ваше имя пользователя Red Hat не было связано с нужной учетной "
+"записью, или возникли проблемы с подпиской. Служба поддержки поможет "
+"ответить на эти вопросы."
+
 #: app/cases/views/requestManagementEscalationModal.html
 msgid ""
 "If you feel the issue has become more severe or the case should be a higher "
 "priority, please provide a detailed comment, and the case will be reviewed "
 "by a support manager."
 msgstr ""
-"Если вы считаете, что ваш запрос должен иметь высокий приоритет, объясните "
-"причину в комментариях."
+"Если вы считаете, что ваш запрос должен иметь высокий приоритет, добавьте "
+"комментарий и объясните причину."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "In the event that you would still like to open a support case, select 'Open "
 "a New Support Case'. The case will be pre-populated with the portion of the "
 "log previously selected."
 msgstr ""
-"Если вы все же хотите открыть запрос, нажмите «Открыть новый запрос». Данные "
-"из выбранного журнала будут автоматически добавлены в отчет."
+"Если вы все же хотите открыть запрос, нажмите «Создать запрос». Информация "
+"из выбранного журнала будет добавлена автоматически."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/addCommentSection.html
 msgid "Is Public:"
 msgstr "Общий доступ:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/editGroup.html
 msgid "Last Name"
 msgstr "Фамилия"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Last Updated:"
 msgstr "Обновлен:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Learn more"
 msgstr "Узнать больше"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Log File Viewer"
 msgstr "Просмотр журналов"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_status.html
 msgid "Log In"
 msgstr "Вход"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_status.html
 msgid "Log Out"
 msgstr "Выход"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_status.html
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr "Пользователь:"
@@ -431,9 +389,8 @@ msgstr "Управление группами запросов"
 #: app/cases/views/group.html
 #: app/common/header.module.js
 msgid "Manage Default Case Groups"
-msgstr "Управление исходными группами запросов"
+msgstr "Исходные группы запросов"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/accountSelect.html
 msgid "My Account"
 msgstr "Моя учетная запись"
@@ -442,7 +399,6 @@ msgstr "Моя учетная запись"
 msgid "My Cases"
 msgstr "Мои запросы"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/groupList.html
 msgid "Name"
 msgstr "Имя"
@@ -451,80 +407,76 @@ msgstr "Имя"
 msgid "New Support Case"
 msgstr "Новый запрос поддержки"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/new.html
 msgid "Next"
 msgstr "Вперед"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
 msgstr "Нет вложений"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
-msgstr "Нет запросов."
+msgstr "Нет результатов."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/search.html
 msgid "No cases found with given search criteria."
-msgstr "Нет запросов."
+msgstr "Нет результатов."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/groupList.html
 msgid "No groups found."
-msgstr "Нет групп."
+msgstr "Группы не найдены."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listBugzillas.html
 msgid "No linked bugzillas"
-msgstr "Нет запросов Bugzilla"
+msgstr "Нет запросов Bugzilla."
 
 #: app/cases/views/ownerSelect.html
 msgid "No match found"
 msgstr "Нет совпадений"
 
+#: app/cases/views/newRecommendationsSection.html
+msgid "No recommendations are available."
+msgstr "Нет рекомендаций."
+
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
-msgstr "Решения не найдены"
+msgstr "Нет решений."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
+#: app/cases/views/404.html
+msgid "Not Found"
+msgstr "Нет результатов."
+
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
 msgstr "Не авторизован на портале пользователей"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_form.html
 msgid "Note:"
 msgstr "Примечание:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Notes:"
 msgstr "Примечания:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Once you have selected your log file then you may diagnose any part of the "
 "log file and clicking the 'Red Hat Diagnose' button. This will then display "
 "relevant articles and solutons from our Red Hat Knowledge base."
 msgstr ""
-"После выбора журнала можно проверить наличие подходящих статей, нажав кнопку "
-"«Диагностика Red Hat». Будут показаны подходящие статьи и решения из базы "
-"знаний Red Hat."
+"Нажмите кнопку «Диагностика Red Hat» для просмотра статей и решений из базы "
+"данных Red Hat."
 
 #: app/cases/controllers/statusSelect.js
 msgid "Open"
-msgstr "Открыть"
+msgstr "Открытые"
 
 #: app/i18n/placeholder.html
 msgid "Open New Case"
-msgstr "Открыть новый запрос"
+msgstr "Создать запрос"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/search/views/accordion_search_results.html
 #: app/cases/views/list.html
 #: app/cases/views/search.html
@@ -537,26 +489,22 @@ msgstr "Открытые и закрытые"
 
 #: app/cases/views/list.html
 msgid "Opened"
-msgstr "Открыто"
+msgstr "Открытые"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Opened:"
-msgstr "Открыт: "
+msgstr "Открытые:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Owner"
 msgstr "Владелец"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Owner:"
 msgstr "Владелец:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_form.html
 msgid "Password"
 msgstr "Пароль"
@@ -565,12 +513,10 @@ msgstr "Пароль"
 msgid "Please Select the Machine"
 msgstr "Выберите компьютер"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/new.html
 msgid "Previous"
 msgstr "Назад"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/search.html
 msgid "Product"
 msgstr "Продукт"
@@ -579,7 +525,6 @@ msgstr "Продукт"
 msgid "Product & Topic"
 msgstr "Продукт и тема"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product Version:"
@@ -589,86 +534,73 @@ msgstr "Версия:"
 msgid "Product/Version"
 msgstr "Продукт и версия"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product:"
 msgstr "Продукт:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr "Рекомендации"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Access makes it easy for you to self-solve issues, diagnose "
 "problems, and engage with us via the Red Hat Customer Portal. To access Red "
 "Hat Customer Portal resources, you must enter valid portal credentials."
 msgstr ""
-"Red Hat Access облегчает самостоятельную диагностику конфликтов и "
-"предоставляет каналы связи с Red Hat через портал пользователей. Для доступа "
-"к ресурсам надо будет авторизоваться на портале."
+"Red Hat Access облегчает диагностику конфликтов и предоставляет каналы связи "
+"с Red Hat через портал пользователей. Для доступа к ресурсам портала надо "
+"будет авторизоваться."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Customer Portal credentials differ from the credentials used to log "
 "into this product."
 msgstr ""
-"Имя пользователя и пароль доступа к порталу отличаются от имени и пароля, "
+"Имя и пароль доступа к порталу отличаются от имени пользователя и пароля, "
 "связанных с продуктом."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logTabs.html
 msgid "Red Hat Diagnose"
 msgstr "Диагностика Red Hat"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_form.html
 msgid "Red Hat Login"
-msgstr "Учетная запись Red Hat"
+msgstr "Имя пользователя Red Hat"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Red Hat Owner:"
-msgstr "Владелец Red Hat:"
+msgstr "Владелец:"
 
 #: app/cases/views/commentsSection.html
 msgid "Reply"
 msgstr "Ответить"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
 msgstr "Связаться с менеджером"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "Решение"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/createGroupModal.html
 msgid "Save"
 msgstr "Сохранить"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/defaultGroup.html
 #: app/cases/views/editGroup.html
 msgid "Save Group"
-msgstr "Сохранить группу"
+msgstr "Сохранить"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/addCommentSection.html
 msgid "Saving draft..."
 msgstr "Сохранение черновика..."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/search/views/search_form.html
 #: app/cases/views/listFilter.html
 #: app/cases/views/searchBox.html
@@ -685,103 +617,88 @@ msgstr "Поиск статей и решений"
 msgid "Search Support Case"
 msgstr "Поиск запросов поддержки"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/search.html
 msgid "Searching..."
 msgstr "Поиск..."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
 msgstr "Выбрать файл"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr "Файлы на сервере:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Severity"
-msgstr "Степень"
+msgstr "Приоритет"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 #: app/cases/views/searchResult.html
 msgid "Severity:"
-msgstr "Степень:"
+msgstr "Приоритет:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_form.html
 msgid "Sign in"
 msgstr "Вход"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/security/views/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
 msgstr "Авторизация на портале пользователей Red Hat"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Simply navigate to and select a log file from the list on the left and click "
 "the 'Select File' button."
 msgstr "Выберите журнал из списка и нажмите «Выбрать файл»."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listAttachments.html
 msgid "Size"
 msgstr "Размер"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Status"
 msgstr "Статус"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 #: app/cases/views/searchResult.html
 msgid "Status:"
 msgstr "Статус:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/new.html
 msgid "Submit"
 msgstr "Отправить"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Submit Request"
 msgstr "Отправить запрос"
 
 #: app/cases/controllers/new.js
 msgid "Successfully created case number"
-msgstr "Запрос создан: "
+msgstr "Создан запрос под номером "
 
 #: app/cases/controllers/createGroupModal.js
 msgid "Successfully created group"
-msgstr "Создана группа"
+msgstr "Создана группа:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:"
 msgstr "Вложение удалено:"
 
 #: app/cases/controllers/deleteGroupButton.js
 msgid "Successfully deleted group"
-msgstr "Группа удалена"
+msgstr "Группа удалена:"
 
 #: app/cases/controllers/deleteGroupButton.js
 msgid "Successfully deleted groups."
 msgstr "Группы удалены"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/services/attachmentsService.js
 msgid "Successfully uploaded attachment"
-msgstr "Вложение добавлено:"
+msgstr "Вложение добавлено: "
 
 #: app/cases/controllers/attachmentsSection.js
 msgid "Successfully uploaded attachment."
@@ -789,17 +706,15 @@ msgstr "Вложение добавлено."
 
 #: app/cases/views/list.html
 msgid "Summary"
-msgstr "Краткое описание:"
+msgstr "Тема"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/listBugzillas.html
 msgid "Summary of Request"
-msgstr "Сводка запроса"
+msgstr "Краткое описание запроса"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/new.html
 msgid "Summary:"
-msgstr "Сводка:"
+msgstr "Тема:"
 
 #: app/i18n/placeholder.html
 msgid "Support"
@@ -809,20 +724,39 @@ msgstr "Поддержка"
 msgid "Support Cases"
 msgstr "Запросы поддержки"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Support Level:"
 msgstr "Уровень поддержки:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
+#: app/cases/views/403.html
+msgid "Support Subscription Required"
+msgstr "Требуется действительная подписка"
+
+#: app/cases/views/403.html
+msgid ""
+"The credentials you provided are valid, but you do not have <b>direct "
+"support from Red Hat.</b>"
+msgstr ""
+"Учетные данные действительны, но нет доступа к <b>прямой поддержке Red Hat</"
+"b>."
+
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "The log file viewer gives the ability to diagnose application logs as well "
 "as file a support case with Red Hat Global Support Services."
 msgstr ""
-"В окне просмотра можно проверить журналы и создать запрос обслуживания в "
-"службе поддержки Red Hat."
+"В окне просмотра можно проверить журналы программ и создать запрос "
+"обслуживания в службе поддержки Red Hat."
+
+#: app/cases/views/404.html
+msgid ""
+"The page you are looking for is not here. It might have been moved, removed, "
+"or had its name and address changed. It might otherwise be temporarily "
+"unavailable for technical reasons."
+msgstr ""
+"Страница недоступна. Возможно, ее адрес изменился, она была перемещена или "
+"недоступна по техническим причинам."
 
 #: app/cases/views/detailsSection.html
 msgid ""
@@ -831,57 +765,50 @@ msgid ""
 "professionals within Red Hat, and submitting updates to this field will not "
 "generate any notifications or case comments."
 msgstr ""
-"В этом поле можно добавить закрытые комментарии. Его содержимое  будет "
-"доступно только вам, а специалисты поддержки Red Hat не смогут их увидеть и "
-"не будут получать уведомления о добавлении новой информации."
+"Это поле содержит закрытые комментарии, которые будут доступны только вам. "
+"Специалисты поддержки Red Hat их не увидят и не будут получать уведомления о "
+"добавлении новой информации."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/new.html
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
 "filing a case"
 msgstr ""
-"Жизненный цикл этого выпуска подошел к концу.  Прежде чем создать запрос, "
+"Жизненный цикл этого релиза подошел к концу.  Прежде чем создать запрос, "
 "ознакомьтесь с секцией вопросов и ответов."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
-msgstr "Выберите рекомендацию для просмотра."
+msgstr "Щелкните на рекомендации для ее просмотра."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/search.html
 msgid "Type"
 msgstr "Тип"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "Не авторизован."
 
 #: app/cases/services/caseService.js
 msgid "Ungrouped Case"
-msgstr "Запрос без группы"
+msgstr "Нет"
 
 #: app/cases/services/caseService.js
 msgid "Ungrouped Cases"
 msgstr "Несгруппированные запросы"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/detailsSection.html
 msgid "Update Details"
 msgstr "Обновить свойства"
 
 #: app/cases/views/list.html
 msgid "Updated"
-msgstr "Обновлен(о)"
+msgstr "Обновлено"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/searchResult.html
 msgid "Updated:"
 msgstr "Обновлено:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
 msgstr "Добавить вложения"
@@ -894,7 +821,6 @@ msgstr "Добавление вложения..."
 msgid "Uploading attachments..."
 msgstr "Добавление вложений..."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/editGroup.html
 msgid "User Name"
 msgstr "Имя пользователя"
@@ -905,25 +831,18 @@ msgstr "У пользователя недостаточно разрешени�
 
 #: app/cases/views/defaultGroup.html
 msgid "User does not have permissions to set default case group."
-msgstr ""
-"У пользователя недостаточно разрешений, чтобы изменить исходную группу."
+msgstr "У пользователя недостаточно разрешений для настройки исходной группы."
 
 #: app/cases/controllers/editGroup.js
 msgid "User does not have proper credentials to manage case groups."
 msgstr ""
 "У пользователя недостаточно разрешений для управления группами запросов."
 
-#: app/cases/controllers/defaultGroup.js
-msgid "User does not have proper credentials to manage default groups."
-msgstr ""
-"У пользователя недостаточно разрешений для управления исходными группами."
-
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "View Production Support Service Level Agreement"
-msgstr "Посмотреть соглашение об обслуживании"
+msgstr "Соглашение об обслуживании"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
 msgstr "Открыть статью в новом окне"
@@ -932,15 +851,14 @@ msgstr "Открыть статью в новом окне"
 msgid "View/Modify Case"
 msgstr "Просмотреть/ Изменить запрос"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/commentsSection.html
 msgid ""
 "Would you like a Red Hat support manager to contact you regarding this case?"
-msgstr "Вы согласны, чтобы менеджер поддержки Red Hat с вами связался?"
+msgstr "Вы согласны, чтобы менеджер службы поддержки Red Hat с вами связался?"
 
 #: app/common/header.module.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
-msgstr "Ваш сеанс завершен."
+msgstr "Сеанс завершен."
 
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/detailsSection.html
@@ -957,22 +875,20 @@ msgid ""
 "dropbox.redhat.com."
 msgstr ""
 "не может быть добавлен, так как его размер превышает 1 ГБ. Для больших "
-"файлов рекомендуется использовать dropbox.redhat.com."
+"файлов используйте dropbox.redhat.com."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
 msgstr "подобрано"
 
 #: app/cases/views/detailsSection.html
 msgid "of the 255 maximum character size."
-msgstr "из максимально допустимых 255 знаков."
+msgstr "из допустимых 255 знаков."
 
 #: app/cases/views/addCommentSection.html
 msgid "of the 32K maximum description size."
-msgstr "из максимально допустимых 32 КБ описания."
+msgstr "из допустимых 32 КБ."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/services/attachmentsService.js
 msgid "to case"
 msgstr "к запросу"
