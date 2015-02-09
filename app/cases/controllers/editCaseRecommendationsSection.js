@@ -17,7 +17,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                     recommendations: {
                         recommendation: [{
                             linked: linked.toString(),
-                            resourceId: recommendation.id,
+                            resourceId: recommendation.resource_id,
                             resourceType: 'Solution'
                         }]
                     }
