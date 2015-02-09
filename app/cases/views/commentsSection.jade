@@ -6,7 +6,5 @@ div(ng-repeat='comment in CaseService.comments', ng-if='!comment.draft')
         span.date.light  {{comment.created_date | date:'mediumDate'}}
         |  at
         time.light  {{comment.created_date | date:'h:mm:ss a Z'}}
-      blockquote.comment
-        div(style='white-space: pre-wrap;')
-          | {{ comment.text}}
-
+      blockquote.pre-wrap
+        | {{ comment.text}}

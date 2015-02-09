@@ -1,7 +1,7 @@
 div(rha-header='', page='caseView')
 div.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
   .row
-    main.col-md-8(role='main')
+    main.col-md-8(role='0main')
       div(ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
       div(ng-show='EDIT_CASE_CONFIG.showDetails')

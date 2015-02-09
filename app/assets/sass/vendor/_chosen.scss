@@ -29,7 +29,7 @@ $chosen-border-color: $border-gray;
 		// Replace Caret
 		div b {
 			@extend %fa;
-			background: none;
+			background: none !important;
 			line-height: 2.2;
 			color: $chosen-color;
 

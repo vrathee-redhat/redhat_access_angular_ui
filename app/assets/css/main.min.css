@@ -112,6 +112,11 @@
   padding: 0;
 }
 
+/* line 39, ../sass/includes/_helpers.scss */
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
 /* line 1, ../sass/elements/_base.scss */
 html {
   font-size: 100%;
@@ -977,7 +982,7 @@ nav.home-links ul li {
 /* line 1, ../sass/components/_severity-level.scss */
 .icon-severity {
   position: absolute;
-  top: -2px;
+  top: 0;
   left: 0;
   width: 32px;
   height: 32px;
@@ -1315,7 +1320,7 @@ a .icon-severity:hover.level4 {
 }
 /* line 30, ../sass/vendor/_chosen.scss */
 .chosen-container-single .chosen-single div b {
-  background: none;
+  background: none !important;
   line-height: 2.2;
   color: #4a4a4a;
 }
