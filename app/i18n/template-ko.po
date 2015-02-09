@@ -1,10 +1,11 @@
-# eukim <eukim@redhat.com>, 2014. #zanata
+# eukim <eukim@redhat.com>, 2015. #zanata
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2014-12-08 03:26+0000\n"
+"PO-Revision-Date: 2015-02-09 12:42+0000\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -17,36 +18,30 @@ msgstr ""
 msgid "(More info)"
 msgstr "(상세 정보) "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Contact:"
 msgstr "24x7 연락처:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Support:"
 msgstr "24x7 지원:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
 "Case"
 msgstr "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;새 기술 문의 생성 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
 msgstr "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;로그 선택 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Account Name:"
 msgstr "계정 이름:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Account Number:"
 msgstr "계정 번호:"
@@ -55,23 +50,19 @@ msgstr "계정 번호:"
 msgid "Account not found."
 msgstr "계정을 찾을 수 없습니다. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/new.html
 msgid "Account:"
 msgstr "계정:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
 msgstr "추가 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/addCommentSection.html
 msgid "Add Comment"
 msgstr "코멘트 추가"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Advanced Mission Critical"
 msgstr "고급 미션 크리티컬"
@@ -80,69 +71,58 @@ msgstr "고급 미션 크리티컬"
 msgid "All Groups"
 msgstr "전체 그룹 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Alternate Case ID:"
 msgstr "대체 기술 문의 ID:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachProductLogs.html
 msgid "Attach Foreman logs:"
 msgstr "Foreman 로그 첨부:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachLocalFile.html
 msgid "Attach local file"
 msgstr "로컬 파일 첨부 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Attached"
 msgstr "첨부됨  "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Attached By"
 msgstr "첨부자"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Attached Files"
 msgstr "첨부된 파일 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachmentsSection.html
 msgid "Attachments"
 msgstr "첨부 파일"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/new.html
 msgid "Attachments:"
 msgstr "첨부 파일: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
 msgstr "사용 가능한 로그 파일 "
 
 #: app/cases/views/defaultGroup.html
 msgid "Back"
-msgstr "뒤로"
+msgstr "이전"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Number"
 msgstr "Bugzilla 번호 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Tickets"
 msgstr "Bugzilla 티켓 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/editGroup.html
+#: app/cases/views/requestManagementEscalationModal.html
 msgid "Cancel"
 msgstr "취소 "
 
@@ -150,12 +130,10 @@ msgstr "취소 "
 msgid "Case Details"
 msgstr "기술문의 상세 내용"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/commentsSection.html
 msgid "Case Discussion"
 msgstr "기술 문의 토론 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/new.html
 msgid "Case Group:"
@@ -165,7 +143,6 @@ msgstr "기술문의 그룹:"
 msgid "Case ID"
 msgstr "기술문의 ID"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Case Type:"
 msgstr "기술문의 유형: "
@@ -178,22 +155,18 @@ msgstr "기술 문의 그룹이 성공적으로 업데이트되었습니다. "
 msgid "Case users successfully updated."
 msgstr "기술 문의 사용자가 성공적으로 업데이트되었습니다. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/chatButton.html
 msgid "Chat offline"
 msgstr "오프라인 채팅 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/chatButton.html
 msgid "Chat with support"
 msgstr "지원 담당자와 채팅"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/common/views/treeview-selector.html
 msgid "Choose File(s) To Attach:"
 msgstr "첨부할 파일 선택:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/common/views/alert.html
 msgid "Close messages"
 msgstr "메세지 종료 "
@@ -202,17 +175,14 @@ msgstr "메세지 종료 "
 msgid "Closed"
 msgstr "종료됨 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
-msgstr "코멘트: "
+msgstr "설명:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/createGroupModal.html
 msgid "Create Case Group"
 msgstr "기술문의 그룹 생성"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/createGroupButton.html
 msgid "Create New Case Group"
 msgstr "새 기술문의 그룹 생성"
@@ -225,38 +195,31 @@ msgstr "기술 문의 생성 중 "
 msgid "Creating group"
 msgstr "그룹 생성 중 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Delete"
 msgstr "삭제 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/deleteGroupButton.html
 msgid "Delete Group"
 msgstr "그룹 삭제"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "Deleting attachment:"
 msgstr "첨부 파일 삭제 중: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/descriptionSection.html
 #: app/cases/views/listAttachments.html
 msgid "Description"
 msgstr "설명 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/new.html
 msgid "Description:"
 msgstr "설명: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Details"
 msgstr "상세 정보 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Diagnose"
 msgstr "진단 "
@@ -270,17 +233,14 @@ msgid ""
 msgstr ""
 "계정 서브스크립션에 따라 각각 다른 지원 수준 옵션을 사용할 수 있습니다. 지원 수준은 기술 지원 사례에 따른 응답 유형을 결정합니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/addCommentSection.html
 msgid "Draft saved"
 msgstr "초안 저장됨"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/emailNotifySelect.html
 msgid "Email Notification Recipients"
 msgstr "이메일 알림 수신자 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/search/views/resultDetail.html
 msgid "Environment"
 msgstr "환경 "
@@ -294,15 +254,13 @@ msgstr "오류: 첨부파일 업로드에 실패했습니다."
 msgid "Error: Failed to upload attachment. Message:"
 msgstr "오류: 첨부파일 업로드에 실패했습니다. 메세지: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/exportCSVButton.html
 msgid "Export All as CSV"
 msgstr "CSV로 모두 내보내기 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/exportCSVButton.html
 msgid "Exporting CSV..."
-msgstr "CSV 내보내기..."
+msgstr "CSV로 내보내는 중..."
 
 #: app/cases/services/attachmentsService.js
 msgid "Failed to upload attachment"
@@ -324,12 +282,10 @@ msgstr ""
 "파일명은 80자 미만이어야 합니다. 웹에 업로드될 최대 첨부 파일크기는 1 GB입니다. 용량이 더 큰 파일은 FTP를(dropbox."
 "redhat.com) 이용해 주시기 바랍니다. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Filename"
 msgstr "파일명"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listNewAttachments.html
 msgid "Files to Attach"
 msgstr "첨부할 파일 "
@@ -338,22 +294,31 @@ msgstr "첨부할 파일 "
 msgid "Filtering by case groups helps you find related cases."
 msgstr "기술 문의 그룹을 필터링하여 관련 기술 문의를 검색합니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/editGroup.html
 msgid "First Name"
 msgstr "이름"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/search.html
 msgid "Group"
 msgstr "그룹"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Group:"
 msgstr "그룹:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
+#: app/cases/views/403.html
+msgid ""
+"If you believe you should have permission to view this resource, please <a "
+"href=\"/support/contact/customerService.html\">contact Customer Service</a> "
+"for assistance. Your Red Hat login might not be associated with the right "
+"account for your organization, or there might be an issue with your "
+"subscription. Either way, Customer Service should be able to help you "
+"resolve the problem."
+msgstr ""
+"이 리소스를 볼 수 있는 권한을 가지고 있는 경우 <a href=\"/support/contact/customerService."
+"html\">고객 서비스에 문의</a>하십시오. Red Hat 로그인이 귀사에 대해 올바른 계정과 연계되어 있지 않거나, 서브스크립션에 "
+"문제가 있습니다. 어떤 경우이든, 고객 서비스가 문제 해결을 위한 도움을 드릴 수 있습니다."
+
 #: app/cases/views/requestManagementEscalationModal.html
 msgid ""
 "If you feel the issue has become more severe or the case should be a higher "
@@ -363,7 +328,6 @@ msgstr ""
 "문제가 더 심각해지거나 기술 문의 사항의 우선 순위가 더 높아야 한다고 생각되는 경우, 자세한 설명을 제공하면 지원 관리자가 검토할 "
 "것입니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "In the event that you would still like to open a support case, select 'Open "
@@ -373,42 +337,34 @@ msgstr ""
 "기술 문의 사항을 아직 열어 두어야 할 경우 '새 기술 문의 생성'을 선택합니다. 기술 문의는 이전에 선택한 로그의 일부로 사전 "
 "작성됩니다. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/addCommentSection.html
 msgid "Is Public:"
 msgstr "공개:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/editGroup.html
 msgid "Last Name"
-msgstr "성"
+msgstr "성(姓)"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Last Updated:"
 msgstr "마지막 업데이트:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Learn more"
-msgstr "자세한 정보"
+msgstr "자세히 알아보기"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Log File Viewer"
 msgstr "로그 파일 뷰어 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_status.html
 msgid "Log In"
-msgstr "로그인"
+msgstr "로그인 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_status.html
 msgid "Log Out"
 msgstr "로그 아웃 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_status.html
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr "Red Hat 고객 포털로 로그인 "
@@ -428,7 +384,6 @@ msgstr "기술문의 그룹 관리"
 msgid "Manage Default Case Groups"
 msgstr "기본 기술문의 그룹 관리"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/accountSelect.html
 msgid "My Account"
 msgstr "내 계정"
@@ -437,7 +392,6 @@ msgstr "내 계정"
 msgid "My Cases"
 msgstr "내 기술문의"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/groupList.html
 msgid "Name"
 msgstr "이름 "
@@ -446,33 +400,27 @@ msgstr "이름 "
 msgid "New Support Case"
 msgstr "새 기술 지원 문의 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/new.html
 msgid "Next"
 msgstr "다음"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
 msgstr "추가된 첨부 파일이 없습니다 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
 msgstr "지정된 필터에 맞는 기술 문의 사항이 없습니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/search.html
 msgid "No cases found with given search criteria."
 msgstr "지정된 검색 조건에 맞는 기술 문의 사항이 없습니다. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/groupList.html
 msgid "No groups found."
 msgstr "그룹을 찾을 수 없습니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listBugzillas.html
 msgid "No linked bugzillas"
 msgstr "링크된 Bugzilla가 없습니다 "
@@ -481,26 +429,30 @@ msgstr "링크된 Bugzilla가 없습니다 "
 msgid "No match found"
 msgstr "해당 사항이 없습니다"
 
+#: app/cases/views/newRecommendationsSection.html
+msgid "No recommendations are available."
+msgstr "사용 가능한 추천이 없습니다."
+
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
 msgstr "해결 방법을 찾을 수 없습니다. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
+#: app/cases/views/404.html
+msgid "Not Found"
+msgstr "찾을 수 없음"
+
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
 msgstr "Red Hat 고객 포털에 로그인되어 있지 않습니다 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html
 msgid "Note:"
 msgstr "알림: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Notes:"
-msgstr "알림: "
+msgstr "알림:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Once you have selected your log file then you may diagnose any part of the "
@@ -518,12 +470,11 @@ msgstr "열기"
 msgid "Open New Case"
 msgstr "새 기술문의 생성 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/search/views/accordion_search_results.html
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Open a New Support Case"
-msgstr "새 기술 지원 문의 생성 "
+msgstr "새 기술문의 생성"
 
 #: app/cases/controllers/statusSelect.js
 msgid "Open and Closed"
@@ -533,24 +484,20 @@ msgstr "생성 및 종료됨 "
 msgid "Opened"
 msgstr "생성됨"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Opened:"
 msgstr "생성일: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Owner"
-msgstr "소유자 "
+msgstr "소유자"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Owner:"
 msgstr "소유자:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html
 msgid "Password"
 msgstr "암호 "
@@ -559,12 +506,10 @@ msgstr "암호 "
 msgid "Please Select the Machine"
 msgstr "시스템을 선택하십시오 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/new.html
 msgid "Previous"
 msgstr "이전"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/search.html
 msgid "Product"
 msgstr "제품"
@@ -573,7 +518,6 @@ msgstr "제품"
 msgid "Product & Topic"
 msgstr "제품 및 항목"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product Version:"
@@ -583,20 +527,17 @@ msgstr "제품 버전:"
 msgid "Product/Version"
 msgstr "제품/버전"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product:"
 msgstr "제품:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr "권장 사항 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Access makes it easy for you to self-solve issues, diagnose "
@@ -606,24 +547,20 @@ msgstr ""
 "Red Hat Access를 사용하여 문제를 직접 해결하고, 문제를 진단하거나 Red Hat  고객 포털을 통해 보다 쉽게 지원 문의할 "
 "수 있습니다. Red Hat 고객 포털 리소스에 액세스하려면 유효한 포털 인증을 입력해야 합니다. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Customer Portal credentials differ from the credentials used to log "
 "into this product."
 msgstr "Red Hat 고객 포털 인증은 제품에 로그인하는데 사용되는 인증과 다릅니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logTabs.html
 msgid "Red Hat Diagnose"
 msgstr "Red Hat 진단"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html
 msgid "Red Hat Login"
 msgstr "Red Hat 로그인"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Red Hat Owner:"
 msgstr "Red Hat 소유자:"
@@ -632,34 +569,28 @@ msgstr "Red Hat 소유자:"
 msgid "Reply"
 msgstr "회신"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
 msgstr "관리 에스컬레이션 요청"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "해결 방법 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/createGroupModal.html
 msgid "Save"
 msgstr "저장"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/defaultGroup.html
 #: app/cases/views/editGroup.html
 msgid "Save Group"
 msgstr "그룹 저장"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/addCommentSection.html
 msgid "Saving draft..."
 msgstr "초안 저장 중..."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/search/views/search_form.html
 #: app/cases/views/listFilter.html
 #: app/cases/views/searchBox.html
@@ -676,74 +607,61 @@ msgstr "문서 및 해결 방법 검색 "
 msgid "Search Support Case"
 msgstr "기술 지원 문의 검색 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/search.html
 msgid "Searching..."
 msgstr "검색 중.. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
 msgstr "파일 선택 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr "첨부할 서버 파일: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Severity"
 msgstr "심각성 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 #: app/cases/views/searchResult.html
 msgid "Severity:"
 msgstr "심각성:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html
 msgid "Sign in"
-msgstr "로그인 "
+msgstr "로그인"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
 msgstr "Red Hat 고객 포털로 로그인 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Simply navigate to and select a log file from the list on the left and click "
 "the 'Select File' button."
 msgstr "왼쪽에 있는 목록으로 이동하여 로그 파일을 선택한 후 '파일 선택' 버튼을 클릭합니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Size"
 msgstr "크기 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Status"
 msgstr "상태"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 #: app/cases/views/searchResult.html
 msgid "Status:"
 msgstr "상태: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/new.html
 msgid "Submit"
 msgstr "제출"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Submit Request"
 msgstr "요청 제출"
@@ -756,7 +674,6 @@ msgstr "기술 문의 번호가 성공적으로 생성되었습니다 "
 msgid "Successfully created group"
 msgstr "그룹을 성공적으로 생성했습니다 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:"
 msgstr "첨부 파일을 성공적으로 삭제했습니다:"
@@ -767,9 +684,8 @@ msgstr "그룹을 성공적으로 삭제했습니다 "
 
 #: app/cases/controllers/deleteGroupButton.js
 msgid "Successfully deleted groups."
-msgstr "그룹을 성공적으로 삭제했습니다 "
+msgstr "그룹을 성공적으로 삭제했습니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "Successfully uploaded attachment"
 msgstr "첨부 파일을 성공적으로 업로드했습니다 "
@@ -782,15 +698,13 @@ msgstr "첨부 파일을 성공적으로 업로드했습니다."
 msgid "Summary"
 msgstr "요약"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listBugzillas.html
 msgid "Summary of Request"
 msgstr "요청 요약 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/new.html
 msgid "Summary:"
-msgstr "요약: "
+msgstr "요약"
 
 #: app/i18n/placeholder.html
 msgid "Support"
@@ -800,13 +714,21 @@ msgstr "지원 "
 msgid "Support Cases"
 msgstr "기술 문의 지원 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Support Level:"
 msgstr "지원 수준: "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
+#: app/cases/views/403.html
+msgid "Support Subscription Required"
+msgstr "지원 서브스크립션 필요"
+
+#: app/cases/views/403.html
+msgid ""
+"The credentials you provided are valid, but you do not have <b>direct "
+"support from Red Hat.</b>"
+msgstr "입력한 자격 증명은 유효하나, <b>Red Hat의 직접적인 지원</b>은 제공되지 않습니다."
+
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "The log file viewer gives the ability to diagnose application logs as well "
@@ -814,6 +736,15 @@ msgid ""
 msgstr ""
 "로그 파일 뷰어는 Red Hat  글로벌 지원 서비스 (GSS)를 통해 기술 지원 사항을 저장할 수 있는 기능과 함께 애플리케이션을 "
 "진단할 수 있는 기능을 제공합니다."
+
+#: app/cases/views/404.html
+msgid ""
+"The page you are looking for is not here. It might have been moved, removed, "
+"or had its name and address changed. It might otherwise be temporarily "
+"unavailable for technical reasons."
+msgstr ""
+"찾고 계신 페이지가 없습니다. 이동 또는 삭제되었거나 이름 및 주소가 변경되었을 수 있습니다. 또는 기술적인 원인으로 일시적으로 사용하지 "
+"못하는 것일 수 도 있습니다. "
 
 #: app/cases/views/detailsSection.html
 msgid ""
@@ -825,24 +756,20 @@ msgstr ""
 "이 필드에는 Red Hat 고객이 관련된 기술 문의 또는 계정에 대해 개인 메모를 작성할 수 있습니다. 이 필드의 내용은 Red Hat "
 "내의 지원 전문가가 볼 수 없으며 이 필드에 업데이트가 전송되어도 통지 또는 기술 문의에 대한 답글이 생성되지 않습니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/new.html
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
 "filing a case"
 msgstr "이 릴리즈는 현재 만료되었습니다. 기술 문의를 작성하기 전 FAQ를 참조하십시오."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
 msgstr "권장 사항을 확인하려면 해당 항목을 클릭합니다."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/search.html
 msgid "Type"
 msgstr "유형 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "인증되지 않았습니다."
@@ -855,7 +782,6 @@ msgstr "그룹화되지 않은 기술문의"
 msgid "Ungrouped Cases"
 msgstr "그룹화되지 않은 기술문의"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/detailsSection.html
 msgid "Update Details"
 msgstr "업데이트 상세 정보 "
@@ -864,12 +790,10 @@ msgstr "업데이트 상세 정보 "
 msgid "Updated"
 msgstr "업데이트됨"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/searchResult.html
 msgid "Updated:"
 msgstr "업데이트된 날짜:"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
 msgstr "첨부 파일 업로드 "
@@ -882,7 +806,6 @@ msgstr "첨부 파일 업로드 중..."
 msgid "Uploading attachments..."
 msgstr "첨부 파일 업로드 중..."
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/editGroup.html
 msgid "User Name"
 msgstr "사용자 이름"
@@ -899,16 +822,11 @@ msgstr "사용자에게는 기본 기술 문의 그룹 설정 권한이 없습�
 msgid "User does not have proper credentials to manage case groups."
 msgstr "사용자에게는 기술 문의 그룹을 관리할 적절한 인증이 없습니다. "
 
-#: app/cases/controllers/defaultGroup.js
-msgid "User does not have proper credentials to manage default groups."
-msgstr "사용자에게는 기본 그룹을 관리할 적절한 인증이 없습니다. "
-
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "View Production Support Service Level Agreement"
 msgstr "제품 지원 서비스 수준 약관 보기 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
 msgstr "새 창에서 전체 기사 보기"
@@ -917,7 +835,6 @@ msgstr "새 창에서 전체 기사 보기"
 msgid "View/Modify Case"
 msgstr "기술 문의 보기/수정 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/commentsSection.html
 msgid ""
 "Would you like a Red Hat support manager to contact you regarding this case?"
@@ -943,7 +860,6 @@ msgid ""
 msgstr ""
 "용량이 1 GB 보다 커서 첨부할 수 없습니다. 용량이 큰 파일은 FTP를(dropbox.redhat.com) 이용해 주시기 바랍니다. "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
 msgstr "엄선"
@@ -956,7 +872,6 @@ msgstr "최대 문자 크기인 255자 중 "
 msgid "of the 32K maximum description size."
 msgstr "최대 설명 크기인 32 중 "
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "to case"
 msgstr "기술 문의 사항 "
