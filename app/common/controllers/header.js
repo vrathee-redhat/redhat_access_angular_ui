@@ -25,6 +25,7 @@ angular.module('RedhatAccess.header').controller('HeaderController', [
             AlertService.clearAlerts();
         };
         $scope.init = function () {
+            HeaderService.pageLoadFailure = false;
             CaseService.sfdcIsHealthy = COMMON_CONFIG.sfdcIsHealthy;
             HeaderService.sfdcIsHealthy = COMMON_CONFIG.sfdcIsHealthy;
             if (COMMON_CONFIG.doSfdcHealthCheck) {
