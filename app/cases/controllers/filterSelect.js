@@ -17,7 +17,7 @@ angular.module('RedhatAccess.cases').controller('FilterSelect', [
                 sortOrder: 'DESC'
             },
             {
-                name: translate('Sort by Last Modified: Asecnding'),
+                name: translate('Sort by Last Modified: Ascending'),
                 sortField: 'lastModifiedDate',
                 sortOrder: 'ASC'
             },
@@ -37,7 +37,7 @@ angular.module('RedhatAccess.cases').controller('FilterSelect', [
                 sortOrder: 'DESC'
             },
             {
-                name: translate('Sort by Created: Asecnding'),
+                name: translate('Sort by Created: Ascending'),
                 sortField: 'createdDate',
                 sortOrder: 'ASC'
             }
