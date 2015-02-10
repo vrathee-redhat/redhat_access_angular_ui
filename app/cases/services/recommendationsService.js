@@ -100,7 +100,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         this.getRecommendations = function (refreshRecommendations, max) {
             if (NEW_CASE_CONFIG.showRecommendations) {
                 if(max === undefined){
-                    max = 3;
+                    max = 6;
                 }
                 var masterDeferred = $q.defer();
                 masterDeferred.promise.then(angular.bind(this, function() {this.selectPage(1);}));

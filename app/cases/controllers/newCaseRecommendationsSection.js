@@ -20,8 +20,8 @@ angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsControlle
 
             var start = $scope.itemsPerPage * (pageNum - 1);
             var end = start + $scope.itemsPerPage;
-            end = end > SearchResultsService.results.length ? SearchResultsService.results.length : end;
-            $scope.results = SearchResultsService.results.slice(start, end);
+            end = end > RecommendationsService.recommendations.length ? RecommendationsService.recommendations.length : end;
+            $scope.results = RecommendationsService.recommendations.slice(start, end);
         };
         $scope.triggerAnalytics = function ($event) {
             if (window.chrometwo_require !== undefined && $location.path() === '/case/new') {
@@ -37,7 +37,7 @@ angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsControlle
         });
 
         $scope.$watch(function () {
-            return SearchResultsService.results;
+            return RecommendationsService.recommendations;
         }, function () {
             $scope.currentPage = 1;
             $scope.selectPage($scope.currentPage);
