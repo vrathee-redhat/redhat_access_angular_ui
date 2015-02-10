@@ -19,7 +19,7 @@ $escalation-link-size: $recommendations-link-size;
 	h3,
 	h4 {
 		@include font-size(18px);
-		@include rem('margin', 0 0 $case-description-global-margin-bottom);
+		@include rem('margin', 0 0 $case-description-margin-bottom);
 		font-weight: 100;
 	}
 

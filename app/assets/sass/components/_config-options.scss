@@ -1,4 +1,5 @@
 .config-options {
+	@include rem('margin-top', $global-margin);
 
 	.label {
 		display: block;

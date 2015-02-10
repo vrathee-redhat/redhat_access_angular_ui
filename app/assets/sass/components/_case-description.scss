@@ -1,11 +1,12 @@
 $case-description-bg: #f7f7f7;
-$case-description-global-margin-bottom: 30px;
+$case-description-margin-bottom: $global-padding;
+$case-description-padding: $global-padding;
 
 .case-description {
 	position: relative;
 	overflow: hidden;
-	@include rem('margin-bottom', 40px);
-	@include rem('padding', 40px);
+	@include rem('margin-bottom', 30px);
+	@include rem('padding', $case-description-padding);
 	background: $case-description-bg;
 
 
@@ -13,27 +14,31 @@ $case-description-global-margin-bottom: 30px;
 	h2,
 	h3,
 	h4 {
-		@include rem('margin', 0 0 $case-description-global-margin-bottom);
+		margin-bottom: 0;
 	}
 
-	.title {
-		margin-bottom: 20px;
+	.product-name {
+		margin-bottom: 0;
 		font-weight: 100;
-		@include font-size(28px);
+		@include font-size(16px);
+	}
+
+	.case-name {
+		font-weight: 600;
 	}
 
 	.section-icon {
 		bottom: auto;
 		top: -20px;
 		border-color: #bababa;
-		color: #7e7e7e;
+//		color: #7e7e7e;
 	}
 
 	.description {
-		@include font-size(20px);
-		line-height: 1;
-		@include rem('margin-bottom', $case-description-global-margin-bottom);
+		@include font-size(14px, 20px);
+		@include rem('margin', $case-description-margin-bottom 0 0);
 		white-space: pre-wrap;
+		font-weight: 100;
 	}
 
 	p {

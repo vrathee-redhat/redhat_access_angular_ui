@@ -1,4 +1,6 @@
 .rha-recommendation-section {
+	@include rem('padding', 30px);
+	background: #f0f0f0;
 
 	.pin {
 	    position: absolute;

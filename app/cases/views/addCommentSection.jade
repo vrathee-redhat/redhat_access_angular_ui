@@ -1,27 +1,25 @@
-div(style='margin-left: 60px; margin-right: 60px;')
-  div.well(style='margin-bottom: 10px;')
-    textarea.comment#case-comment-box.form-control(
-      ng-disabled='addingComment',
-      maxlength='32000',
-      rows='5',
-      ng-model='CaseService.commentText',
-      style='max-width: 100%',
-      ng-change='onNewCommentKeypress()')
-    span#commentNotice.uploadNotice  
-        span {{'You have used'|translate}}
-        span.progressBarWrap
-          span.progressCount {{progressCount}} %
-        span {{'of the 32K maximum description size.'|translate}}
-    div(style='padding-top: 10px;')
-      div(ng-if='securityService.loginStatus.authedUser.is_internal')
-        span(style='float: left;') {{'Is Public:'|translate}}
-        input#rha-case-comment-isPublic(type='checkbox', ng-model='CaseService.isCommentPublic',ng-change= 'onCommentPublicChange()',style='display: inline-block;')
-      span.pull-right.rha-bold(ng-show='savingDraft') {{'Saving draft...'|translate}}
-      span.pull-right.rha-bold(ng-show='CaseService.draftSaved && !savingDraft') {{'Draft saved'|translate}}
-  div(style='float: right;')
-    span.rha-search-spinner(ng-show='addingComment')
-    button#rha-case-addcommentbutton.btn.btn-primary(
-      ng-hide='addingComment',
-      ng-disabled='CaseService.disableAddComment',
-      ng-click='addComment()',
-      style='float: right;',translate='') Add Comment
+textarea.comment#case-comment-box.form-control(
+  ng-disabled='addingComment',
+  maxlength='32000',
+  rows='5',
+  ng-model='CaseService.commentText',
+  style='max-width: 100%',
+  ng-change='onNewCommentKeypress()')
+span#commentNotice.uploadNotice
+    span {{'You have used'|translate}}
+    span.progressBarWrap
+      span.progressCount {{progressCount}} %
+    span {{'of the 32K maximum description size.'|translate}}
+div
+  div(ng-if='securityService.loginStatus.authedUser.is_internal')
+    span {{'Is Public:'|translate}}
+    input#rha-case-comment-isPublic(type='checkbox', ng-model='CaseService.isCommentPublic',ng-change= 'onCommentPublicChange()',style='display: inline-block;')
+  span.pull-right.rha-bold(ng-show='savingDraft') {{'Saving draft...'|translate}}
+  span.pull-right.rha-bold(ng-show='CaseService.draftSaved && !savingDraft') {{'Draft saved'|translate}}
+div
+  span.rha-search-spinner(ng-show='addingComment')
+  button#rha-case-addcommentbutton.btn.btn-primary(
+    ng-hide='addingComment',
+    ng-disabled='CaseService.disableAddComment',
+    ng-click='addComment()',
+    style='float: right;',translate='') Add Comment

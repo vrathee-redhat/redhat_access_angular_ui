@@ -1,6 +1,7 @@
-.main-content .page-header {
+.page-header {
+	@include font-size(14px);
 	margin-top: 0;
-	margin-bottom: 30px;
+	margin-bottom: $base-vertical-pad;
 	padding: 0;
 	border: none;
 
@@ -17,21 +18,4 @@
 	.change-log {
 		@include rem('margin', 20px 0);
 	}
-
-	.page-title {
-		@include font-size(22px);
-		text-transform: uppercase;
-		color: $brand-gray;
-		margin: 0;
-	}
 }
-
-h1.page-title {
-	@include font-size(22px);
-	line-height: 1;
-	margin-bottom: $base-vertical-pad;
-	text-transform: uppercase;
-	color: $brand-gray;
-}
-
-

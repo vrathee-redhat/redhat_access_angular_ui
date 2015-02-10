@@ -12,4 +12,15 @@
 
 		input { @include rem('padding', 5px 12px 4px); }
 	}
+
+	.row {
+		margin-left: -7.5px;
+		margin-right: -7.5px;
+		margin-bottom: 0;
+
+		[class^="col-"], [class*=" col-"] {
+			padding-right: 7.5px;
+			padding-left: 7.5px;
+		}
+	}
 }

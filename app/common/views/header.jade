@@ -1,13 +1,18 @@
 div(rha-403error='')
 div(rha-404error='')
 div(ng-hide='failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases')
-	span.rha-search-spinner(ng-show='pageLoading')
-.row.page-header(ng-hide='HeaderService.pageLoadFailure || !securityService.loginStatus.userAllowedToManageCases')
-	.col-sm-8.col-md-8
-		div(rha-titletemplate='', page="{{page}}")
-	.col-sm-4.col-md-4(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy', rha-chatbutton='')
+  span.rha-search-spinner(ng-show='pageLoading')
+div.page-header(ng-hide='HeaderService.pageLoadFailure || !securityService.loginStatus.userAllowedToManageCases')
+  div(rha-titletemplate='', page="{{page}}")
+  //{{CaseService.kase.entitlement.sla}} Support Level
+    Filed on {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}} by {{CaseService.kase.contact_name}} | Assigned to {{CaseService.kase.owner}}, Red Hat Support
+  div(ng-show='page === "caseView"') Filed on&nbsp;
+    span {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}} by {{CaseService.kase.contact_name}}
+    span.sep |
+    | Assigned to {{CaseService.kase.owner}}
+  strong.blue(ng-show='page === "caseView"') {{CaseService.kase.entitlement.sla}} Support Level
+  div(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy', rha-chatbutton='')
 div(rha-loginstatus='')
-.row
-	div(ng-show='!HeaderService.sfdcIsHealthy', ng-bind-html='parseSfdcOutageHtml()')
-	.col-xs-12(ng-show='HeaderService.sfdcIsHealthy')
-		div(rha-alert='')
+div(ng-show='!HeaderService.sfdcIsHealthy', ng-bind-html='parseSfdcOutageHtml()')
+div(ng-show='HeaderService.sfdcIsHealthy')
+  div(rha-alert='')

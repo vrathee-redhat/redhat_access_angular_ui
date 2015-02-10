@@ -15,7 +15,7 @@ article {
 
 	.comment {
 		@include font-size($comment-font-size);
-		@include rem('margin-bottom', 40px);
+		@include rem('margin-bottom', 6px);
 	}
 }
 

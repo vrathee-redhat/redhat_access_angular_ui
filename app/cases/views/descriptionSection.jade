@@ -1,11 +1,5 @@
 section.filters
   .row
-    .col-sm-8
-      p Filed on {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}} by {{CaseService.kase.contact_name}} | Assigned to {{CaseService.kase.owner}}, Red Hat Support
-  .row
-    .col-sm-8
-      p {{CaseService.kase.entitlement.sla}} Support Level
-  .row
     .col-sm-4
       select(
         chosen,
