@@ -5,49 +5,50 @@ section.case-description
   div#case-description-extra-info(ng-class="showExtraInfo ? 'case-description-extra-info active' : 'case-description-extra-info'")
     //- p
     //-   | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore.
-    section.config-options
-      .row
-        .col-xs-4.col-md-4
-          .label {{'Product'|translate}}
-        .col-xs-4.col-md-6
-          div(rha-productselect='')
-      .row
-        .col-xs-4.col-md-4
-          .label {{'Product Version'|translate}}
-        .col-xs-4.col-md-6
-          div(rha-versionselect='')
-      .row
-        .col-xs-4.col-md-4
-          .label Related Case ID
-        .col-xs-4.col-md-6
-          input#rha-case-alt-id.form-control(
-            ng-model='CaseService.kase.alternate_id',
-            name='alternate_id')
-      .row
-        .col-xs-4.col-md-4
-          .label Case Group
-        .col-xs-4.col-md-6
-          select#rha-group-select.form-control(
-            chosen,
-            width="'100%'",
-            name='group',
-            ng-options='g.name for g in groups track by g.number',
-            ng-model='CaseService.kase.group')
-            option(value="") Ungrouped Case
-      .row
-        .col-xs-4.col-md-4
-          .label {{'Case Type'|translate}}
-        .col-xs-4.col-md-6
-          div(rha-typeselect='')
-    .row.actions
-      .col-sm-6.col-md-4
-        button.btn.btn-accent(
-          name='updateButton',
-          ng-disabled='updatingDetails',
-          ng-click='updateCase()', translate='') Save Changes 
-      .col-sm-6.col-md-4
-        button.btn.btn-open(
-          ng-disabled='updatingDetails') Cancel
+    form(name='detailsForm')
+      section.config-options
+        .row
+          .col-xs-4.col-md-4
+            .label {{'Product'|translate}}
+          .col-xs-4.col-md-6
+            div(rha-productselect='')
+        .row
+          .col-xs-4.col-md-4
+            .label {{'Product Version'|translate}}
+          .col-xs-4.col-md-6
+            div(rha-versionselect='')
+        .row
+          .col-xs-4.col-md-4
+            .label Related Case ID
+          .col-xs-4.col-md-6
+            input#rha-case-alt-id.form-control(
+              ng-model='CaseService.kase.alternate_id',
+              name='alternate_id')
+        .row
+          .col-xs-4.col-md-4
+            .label Case Group
+          .col-xs-4.col-md-6
+            select#rha-group-select.form-control(
+              chosen,
+              width="'100%'",
+              name='group',
+              ng-options='g.name for g in groups track by g.number',
+              ng-model='CaseService.kase.group')
+              option(value="") Ungrouped Case
+        .row
+          .col-xs-4.col-md-4
+            .label {{'Case Type'|translate}}
+          .col-xs-4.col-md-6
+            div(rha-typeselect='')
+      .row.actions
+        .col-sm-6.col-md-4
+          button.btn.btn-accent(
+            name='updateButton',
+            ng-disabled='updatingDetails || !detailsForm.$dirty',
+            ng-click='updateCase()', translate='') Save Changes 
+        .col-sm-6.col-md-4
+          button.btn.btn-open(
+            ng-disabled='updatingDetails || !detailsForm.$dirty') Cancel
 
 
 
