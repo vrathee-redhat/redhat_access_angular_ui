@@ -1,8 +1,6 @@
-div(rha-selectloadingindicator='', loading='typesLoading', type='select2')
-  select(
-    chosen,
-    ng-disabled='!securityService.loginStatus.isLoggedIn',
-    ng-model='CaseService.type',
-    ng-change='CaseService.onSelectChanged()',
-    width='"100%"',
-    ng-options='type.name as type.name for type in CaseService.types')
+select(
+	chosen,
+	ng-model='CaseService.kase.type',
+	ng-change='CaseService.onSelectChanged()',
+	width='"100%"',
+	ng-options='type.name for type in CaseService.types track by type.name')

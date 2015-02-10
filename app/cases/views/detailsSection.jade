@@ -34,6 +34,11 @@ section.case-description
             ng-options='g.name for g in groups track by g.number',
             ng-model='CaseService.kase.group')
             option(value="") Ungrouped Case
+      .row
+        .col-xs-4.col-md-4
+          .label {{'Case Type'|translate}}
+        .col-xs-4.col-md-6
+          div(rha-typeselect='')
     .row.actions
       .col-sm-6.col-md-4
         button.btn.btn-accent(
