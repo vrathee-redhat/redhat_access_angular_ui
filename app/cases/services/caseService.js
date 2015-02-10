@@ -22,6 +22,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         });
         this.submittingCase = false;
         this.kase = {};
+        this.prestineKase = {};
         this.caseDataReady = false;
         this.isCommentPublic = false;
         this.versions = [];
@@ -83,12 +84,17 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             rawCase.group = { 'number': rawCase.folder_number };
             rawCase.type = { 'name': rawCase.type };
             this.kase = rawCase;
+            angular.copy(this.kase, this.prestineKase)
             this.bugzillaList = rawCase.bugzillas;
             this.caseDataReady = true;
             this.onProductSelectChange();
         };
+        this.resetCase = function(){
+            angular.copy(this.prestineKase, this.kase);
+        };
         this.setCase = function (jsonCase) {
             this.kase = jsonCase;
+            angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = jsonCase.bugzillas;
             this.caseDataReady = true;
         };
@@ -117,6 +123,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.caseDataReady = false;
             this.isCommentPublic = false;
             this.kase = {};
+            this.prestineKase = {};
             this.versions = [];
             this.products = [];
             this.statuses = [];

@@ -48,7 +48,7 @@ section.case-description
             ng-click='updateCase()', translate='') Save Changes 
         .col-sm-6.col-md-4
           button.btn.btn-open(
-            ng-disabled='updatingDetails || !detailsForm.$dirty') Cancel
+            ng-disabled='updatingDetails || !detailsForm.$dirty', ng-click='resetData()') Cancel
 
 
 

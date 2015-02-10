@@ -23,6 +23,12 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
 
 		}
 
+        $scope.resetData = function(){
+            CaseService.resetCase();
+            ProductsService.getVersions(CaseService.kase.product);
+            $scope.detailsForm.$setPristine();
+        }
+
         $scope.init = function () {
             if (!$scope.compact) {
                 strataService.values.cases.types().then(function (response) {
@@ -126,6 +132,9 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                             $scope.$apply();
                         }
+                        //TODO move into service
+                        angular.copy(CaseService.kase, CaseService.prestineKase);
+                        $scope.detailsForm.$setPristine();
                     }, function (error) {
                         // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
                         //     $scope.changeCaseOwner();
@@ -143,14 +152,14 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             //     }
             // }
         };
-        $scope.getProductVersions = function () {
-            CaseService.versions = [];
-            strataService.products.versions(CaseService.kase.product.code).then(function (versions) {
-                CaseService.versions = versions;
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
-        };
+        // $scope.getProductVersions = function () {
+        //     CaseService.versions = [];
+        //     strataService.products.versions(CaseService.kase.product.code).then(function (versions) {
+        //         CaseService.versions = versions;
+        //     }, function (error) {
+        //         AlertService.addStrataErrorMessage(error);
+        //     });
+        // };
         $scope.changeCaseOwner = function () {
             strataService.cases.owner.update(CaseService.kase.case_number,CaseService.kase.owner).then(function () {
                 CaseService.kase.owner = securityService.loginStatus.authedUser.first_name+' '+securityService.loginStatus.authedUser.last_name;
