@@ -1,14 +1,13 @@
 /* Partner Escalation Form" */
 /*#partner-case-escalation label.checkbox { margin-top: 2em; }*/
-#rha-partner-case-escalation textarea { height: 8em; width: 60%; }
-#rha-partner-case-escalation.form-horizontal label.control-label { margin-right: 1em; }
+#rha-partner-case-escalation textarea { height: 8em;}
 .form-horizontal .control-checkbox { margin-left: 180px; }
 .form-horizontal .control-checkbox label { text-align: left; float: none; width: auto; }
 .form-horizontal .control-checkbox input[type="radio"],
 .form-horizontal .control-checkbox input[type="checkbox"] { margin-top: 0; }
-#rha-partner-case-escalation.form-horizontal .help-block { margin-left: 172px; color: #8c8c8c; font-size: 0.846em; }
+#rha-partner-case-escalation.form-horizontal .help-block {color: #8c8c8c; font-size: 0.846em; }
 
-#rha-partner-case-escalation { margin-top: 2em; }
+#rha-partner-case-escalation { margin-top: 2em; margin-bottom: 2em;}
 #rha-partner-case-escalation fieldset { }
 #rha-partner-case-escalation .number {
     position: relative;

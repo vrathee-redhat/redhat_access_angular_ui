@@ -37,7 +37,8 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
 
 	    this.sendEscalationRequest = function() {
 	    	var escalationJSON = {
-	    		'record_type': ESCALATION_TYPE.partner
+	    		'record_type': ESCALATION_TYPE.partner,
+                'subject': 'Partner Escalation through Portal Case Management'
 	    	};
 	    	var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
@@ -46,6 +47,7 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
                     return false;
                 }
             };
+
             if (!isObjectNothing(this.accountNumber)) {
                 escalationJSON.account_number = this.accountNumber;
             }
@@ -68,7 +70,7 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
                 escalationJSON.requestor_phone = this.requestorPhone;
             }
             if (!isObjectNothing(this.issueDescription)) {
-                escalationJSON.issue_decription = this.issueDescription;
+                escalationJSON.issue_description = this.issueDescription;
             }
             if (!isObjectNothing(this.alreadyEscalated)) {
                 escalationJSON.already_escalated = this.alreadyEscalated;
@@ -80,7 +82,7 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
                 escalationJSON.expectations = this.expectations;
             }
 
-	    	strataService.escalationRequest.create(escalationJSON).then(function (escalationNum) {
+	    	strataService.escalationRequest.create(escalationJSON).then(angular.bind(this,function (escalationNum) {
                 AlertService.clearAlerts();
                 if (escalationNum !== undefined) {
                 	AlertService.addSuccessMessage(translate('Your Partner Escalation request has been sent successfully'));
@@ -88,7 +90,7 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
                 }
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
-            });
+            }));
 	    };
 	}
 ]);
