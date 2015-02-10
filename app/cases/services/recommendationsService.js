@@ -97,7 +97,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         };
         this.failureCount = 0;
 
-        this.getRecommendations = function (max) {
+        this.getRecommendations = function (refreshRecommendations, max) {
             if (NEW_CASE_CONFIG.showRecommendations) {
                 if(max === undefined){
                     max = 3;
@@ -118,7 +118,9 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                     var deferreds = [];
                     strataService.recommendationsXmlHack(currentData, max, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
                         //retrieve details for each solution
-                        //this.recommendations = [];
+                        if(refreshRecommendations){
+                            this.recommendations = [];
+                        }
                         solutions.forEach(angular.bind(this, function (solution) {
                             if (solution !== undefined) {
                                 solution.resource_type = 'Solution';

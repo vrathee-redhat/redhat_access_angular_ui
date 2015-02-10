@@ -55,7 +55,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     pinnedDfd = RecommendationsService.populatePinnedRecommendations().then(angular.noop, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
-                    reccomendDfd = RecommendationsService.getRecommendations().then(angular.noop, function (error) {
+                    reccomendDfd = RecommendationsService.getRecommendations(false).then(angular.noop, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
                     // reccomendDfd = RecommendationsService.populateRecommendations(12);

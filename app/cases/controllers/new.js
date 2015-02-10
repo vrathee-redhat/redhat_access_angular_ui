@@ -58,7 +58,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 waiting = true;
                 $timeout(function() {
                     waiting = false;
-                    RecommendationsService.getRecommendations();
+                    RecommendationsService.getRecommendations(true);
                 }, 500); // delay 500 ms
             }
         });
