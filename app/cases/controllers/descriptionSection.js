@@ -4,5 +4,12 @@ angular.module('RedhatAccess.cases').controller('DescriptionSection', [
     'CaseService',
     function ($scope, CaseService) {
         $scope.CaseService = CaseService;
+
+        $scope.updateCase = function(){
+        	CaseService.updateCase().then(function () {
+            }, function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
     }
 ]);

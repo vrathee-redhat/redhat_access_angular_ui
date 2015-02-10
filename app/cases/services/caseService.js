@@ -422,6 +422,56 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 deferred.reject();
             });
             return deferred.promise;
-        }
+        };
+
+        this.updateCase = function(){
+            var deferred = $q.defer();
+            var caseJSON = {};
+            if (this.kase.type !== undefined) {
+                caseJSON.type = this.kase.type.name;
+            }
+            if (this.kase.severity !== undefined) {
+                caseJSON.severity = this.kase.severity.name;
+            }
+            if (this.kase.status !== undefined) {
+                caseJSON.status = this.kase.status.name;
+            }
+            if (this.kase.alternate_id !== undefined) {
+                caseJSON.alternateId = this.kase.alternate_id;
+            }
+            if (this.kase.product !== undefined) {
+                caseJSON.product = this.kase.product;
+            }
+            if (this.kase.version !== undefined) {
+                caseJSON.version = this.kase.version;
+            }
+            if (this.kase.group !== null && this.kase.group !== undefined && this.kase.group.number !== undefined) {
+                caseJSON.folderNumber = this.kase.group.number;
+            } else {
+                caseJSON.folderNumber = '';
+            }
+            if (RHAUtils.isNotEmpty(this.kase.fts)) {
+                caseJSON.fts = this.kase.fts;
+                if (!this.kase.fts) {
+                    caseJSON.contactInfo24X7 = '';
+                }
+            }
+            if (this.kase.fts) {
+                caseJSON.contactInfo24X7 = this.kase.contact_info24_x7;
+            }
+            if (this.kase.notes !== null) {
+                caseJSON.notes = this.kase.notes;
+            }
+            strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
+                //$scope.updatingDetails = false;
+                angular.copy(this.kase, this.prestineKase);
+                deferred.resolve();
+                //$scope.detailsForm.$setPristine();
+            }), function (error) {
+                deferred.reject(error);
+                //$scope.updatingDetails = false;
+            });
+            return deferred.promise;
+        };
     }
 ]);
