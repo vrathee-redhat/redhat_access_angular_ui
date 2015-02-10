@@ -203,6 +203,10 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
+            {
+                CaseService.kase.description = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text;
+            }
             var setDesc = function (desc) {
                 CaseService.kase.description = desc;
                 $scope.getRecommendations();
@@ -225,6 +229,21 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
+        $scope.getLocalStorageForNewCase = function(){
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
+            {
+                var draftNewCase = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text
+                CaseService.kase.description = draftNewCase.description;
+                CaseService.kase.summary = draftNewCase.summary;
+                if(RHAUtils.isNotEmpty(draftNewCase.product))
+                {
+                    CaseService.kase.product = draftNewCase.product;
+                    $scope.getProductVersions(CaseService.kase.product);
+                }
+                CaseService.kase.version = draftNewCase.version;
+            }
+        };
+
         $scope.firePageLoadEvent = function () {
             if (window.chrometwo_require !== undefined) {
                 chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
@@ -238,11 +257,13 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
+            $scope.getLocalStorageForNewCase();
         }
         $scope.authLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
+            $scope.getLocalStorageForNewCase();
             AlertService.clearAlerts();
             RecommendationsService.failureCount = 0;
         });
@@ -387,6 +408,10 @@ angular.module('RedhatAccess.cases').controller('New', [
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+                if(CaseService.localStorageCache && RHAUtils.isNotEmpty(CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)))
+                {
+                    CaseService.localStorageCache.remove(securityService.loginStatus.authedUser.sso_username);
+                }
                 if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && NEW_CASE_CONFIG.showAttachments) {
                     AttachmentsService.updateAttachments(caseNumber).then(function () {
                         redirectToCase(caseNumber);

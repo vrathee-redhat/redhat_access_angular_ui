@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
 
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachmentsSection.html
@@ -286,6 +287,10 @@ msgstr ""
 msgid "Group:"
 msgstr ""
 
+#: app/cases/views/403.html
+msgid "If you believe you should have permission to view this resource, please <a href=\"/support/contact/customerService.html\">contact Customer Service</a> for assistance. Your Red Hat login might not be associated with the right account for your organization, or there might be an issue with your subscription. Either way, Customer Service should be able to help you resolve the problem."
+msgstr ""
+
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "If you feel the issue has become more severe or the case should be a higher priority, please provide a detailed comment, and the case will be reviewed by a support manager."
 msgstr ""
@@ -392,6 +397,10 @@ msgstr ""
 
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
+msgstr ""
+
+#: app/cases/views/404.html
+msgid "Not Found"
 msgstr ""
 
 #: app/security/views/login_status.html
@@ -658,8 +667,20 @@ msgstr ""
 msgid "Support Level:"
 msgstr ""
 
+#: app/cases/views/403.html
+msgid "Support Subscription Required"
+msgstr ""
+
+#: app/cases/views/403.html
+msgid "The credentials you provided are valid, but you do not have <b>direct support from Red Hat.</b>"
+msgstr ""
+
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "The log file viewer gives the ability to diagnose application logs as well as file a support case with Red Hat Global Support Services."
+msgstr ""
+
+#: app/cases/views/404.html
+msgid "The page you are looking for is not here. It might have been moved, removed, or had its name and address changed. It might otherwise be temporarily unavailable for technical reasons."
 msgstr ""
 
 #: app/cases/views/detailsSection.html
@@ -728,10 +749,6 @@ msgstr ""
 
 #: app/cases/controllers/editGroup.js
 msgid "User does not have proper credentials to manage case groups."
-msgstr ""
-
-#: app/cases/controllers/defaultGroup.js
-msgid "User does not have proper credentials to manage default groups."
 msgstr ""
 
 #: app/cases/views/detailsSection.html
