@@ -9,6 +9,16 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
     function (RecommendationsService, $scope, strataService, CaseService, AlertService) {
         $scope.RecommendationsService = RecommendationsService;
         $scope.currentRecPin = {};
+        $scope.itemsPerPage = 5;
+        $scope.maxPagerSize = 5;
+        $scope.currentPage = 1;
+        $scope.selectPage = function (pageNum) {
+
+            var start = $scope.itemsPerPage * (pageNum - 1);
+            var end = start + $scope.itemsPerPage;
+            end = end > RecommendationsService.recommendations.length ? RecommendationsService.recommendations.length : end;
+            $scope.results = RecommendationsService.recommendations.slice(start, end);
+        };
         $scope.pinRecommendation = function (recommendation, $index, $event) {
             $scope.currentRecPin = recommendation;
             $scope.currentRecPin.pinning = true;
@@ -39,7 +49,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                     }
                     $scope.currentRecPin.pinning = false;
                     $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
-                    RecommendationsService.selectPage(1);
+                    $scope.selectPage(1);
                 }, function (error) {
                     $scope.currentRecPin.pinning = false;
                     AlertService.addStrataErrorMessage(error);
@@ -58,5 +68,12 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                 });
             }
         };
+
+        $scope.$watch(function () {
+            return RecommendationsService.recommendations;
+        }, function () {
+            $scope.currentPage = 1;
+            $scope.selectPage($scope.currentPage);
+        }, true);
     }
 ]);

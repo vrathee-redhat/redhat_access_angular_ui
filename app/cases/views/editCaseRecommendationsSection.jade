@@ -2,7 +2,7 @@ h3.section-title(translate='') Here Are Some Possible Solutions
 .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
 .spinner.spinner-inline(ng-show='loading')
 div(ng-hide='loading')
-  .block(ng-repeat='recommendation in RecommendationsService.recommendationsOnScreen')
+  .block(ng-repeat='recommendation in results')
     .title
       .fa.fa-thumb-tack(
         ng-class='{"fa.fa-thumb": recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
@@ -15,15 +15,16 @@ div(ng-hide='loading')
         | Handpicked
     div(ng-bind-html='recommendation.abstract')
 
-  div(style='padding-top: 10px;', ng-hide='RecommendationsService.recommendationsOnScreen.length == 0')
+  div(style='padding-top: 10px;', ng-hide='RecommendationsService.recommendations.length == 0')
     pagination.pagination-sm(
-      boundary-links='true'
-      total-items='RecommendationsService.recommendations.length'
-      on-select-page='RecommendationsService.selectPage(page)'
-      items-per-page='RecommendationsService.pageSize'
-      page='RecommendationsService.currentPage'
-      max-size='RecommendationsService.maxSize'
-      previous-text='<'
-      next-text='>'
-      first-text='<<'
+      boundary-links='true',
+      total-items='RecommendationsService.recommendations.length',
+      on-select-page='selectPage(page)',
+      items-per-page='itemsPerPage',
+      page='currentPage',
+      rotate='false',
+      max-size='maxPagerSize',
+      previous-text='<',
+      next-text='>',
+      first-text='<<',
       last-text='>>')

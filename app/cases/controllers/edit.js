@@ -50,18 +50,10 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     });
                 }
                 if (EDIT_CASE_CONFIG.showRecommendations) {
-                    var pinnedDfd;
-                    var reccomendDfd;
-                    pinnedDfd = RecommendationsService.populatePinnedRecommendations().then(angular.noop, function (error) {
+                    RecommendationsService.populatePinnedRecommendations();
+                    RecommendationsService.getRecommendations(false).then(angular.noop, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
-                    reccomendDfd = RecommendationsService.getRecommendations(false).then(angular.noop, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                    });
-                    // reccomendDfd = RecommendationsService.populateRecommendations(12);
-                    // $q.all([pinnedDfd, reccomendDfd]).then(function () {
-                    //     $scope.recommendationsLoading = false;
-                    // });
                 }
                 if (EDIT_CASE_CONFIG.showEmailNotifications && !cacheHit) {
                     CaseService.defineNotifiedUsers();
