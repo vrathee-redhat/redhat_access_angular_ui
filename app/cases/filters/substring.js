@@ -1,10 +1,12 @@
 'use strict';
-angular.module('RedhatAccess.cases').filter('recommendationsResolution', function () {
-    return function (text) {
+angular.module('RedhatAccess.cases').filter('substring', function () {
+    return function (text, length) {
         var shortText = '';
-        var maxTextLength = 150;
-        if (text !== undefined && text.length > maxTextLength) {
-            shortText = text.substr(0, maxTextLength);
+        if(length === undefined){
+            length = 150;
+        }
+        if (text !== undefined && text.length > length) {
+            shortText = text.substr(0, length);
             // var lastSpace = shortText.lastIndexOf(' ');
             // shortText = shortText.substr(0, lastSpace);
             shortText = shortText.concat('...');

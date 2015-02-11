@@ -152,14 +152,6 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             //     }
             // }
         };
-        // $scope.getProductVersions = function () {
-        //     CaseService.versions = [];
-        //     strataService.products.versions(CaseService.kase.product.code).then(function (versions) {
-        //         CaseService.versions = versions;
-        //     }, function (error) {
-        //         AlertService.addStrataErrorMessage(error);
-        //     });
-        // };
         $scope.changeCaseOwner = function () {
             strataService.cases.owner.update(CaseService.kase.case_number,CaseService.kase.owner).then(function () {
                 CaseService.kase.owner = securityService.loginStatus.authedUser.first_name+' '+securityService.loginStatus.authedUser.last_name;
