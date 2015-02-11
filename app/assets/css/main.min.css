@@ -115,6 +115,7 @@
 /* line 39, ../sass/includes/_helpers.scss */
 .pre-wrap {
   white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 /* line 1, ../sass/elements/_base.scss */
