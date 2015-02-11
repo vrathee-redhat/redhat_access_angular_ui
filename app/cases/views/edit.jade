@@ -1,6 +1,6 @@
 div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
   .row
-    main.col-md-8(role='0main')
+    section.main.col-md-8
       .page-header(rha-header='', page='caseView')
       div(ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
@@ -10,8 +10,7 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
       section.case-discussion
         .row
           .col-xs-12
-            header
-              h2 Case Discussion
+            h2.section-title Case Discussion
         .row
           .col-xs-12(rha-emailnotifyselect='')
         .row
@@ -22,5 +21,5 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
             div(rha-addcommentsection='', loading='loading.comments')
             div(rha-casecomments='', loading='loading.comments')
     aside.col-md-4
-      #rha-recommendation-section.rha-recommendation-section(rha-editcaserecommendations='')
-      div(rha-requestescalation='')
+      section#rha-recommendation-section.recommendations(rha-editcaserecommendations='')
+      section#case-escalation.case-escalation(rha-requestescalation='')

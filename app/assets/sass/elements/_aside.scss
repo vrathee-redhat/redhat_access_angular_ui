@@ -1,7 +1,32 @@
 aside {
 
+	section {
+		@include rem('padding', $global-margin);
+		background: $aside-bg;
+	}
+
 	section + section {
 		margin-top: 40px;
+	}
+
+	.section-title {
+		text-transform: none;
+		@include font-size(18px);
+		line-height: 1;
+		@include rem('margin-bottom', $global-padding);
+
+		.link {
+			@include font-size(14px);
+			font-weight: 500;
+		}
+	}
+
+	.block {
+		@include rem('margin-bottom', $global-margin);
+	}
+
+	.pagination {
+		margin: 0;
 	}
 }
 

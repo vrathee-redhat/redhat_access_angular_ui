@@ -257,6 +257,11 @@ a {
   color: #0085cf;
 }
 
+/* line 116, ../sass/elements/_base.scss */
+.main .row .section-title {
+  margin: 0;
+}
+
 /* line 1, ../sass/elements/_forms.scss */
 input,
 input:focus,
@@ -448,6 +453,15 @@ h6 {
 }
 
 /* line 15, ../sass/elements/_typography.scss */
+h2 {
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 25.2px;
+  line-height: 1.575rem;
+  line-height: 1;
+}
+
+/* line 20, ../sass/elements/_typography.scss */
 h3 {
   font-size: 16px;
   font-size: 1rem;
@@ -456,7 +470,7 @@ h3 {
   line-height: 1;
 }
 
-/* line 20, ../sass/elements/_typography.scss */
+/* line 25, ../sass/elements/_typography.scss */
 h4 {
   font-size: 14px;
   font-size: 0.875rem;
@@ -465,7 +479,7 @@ h4 {
   font-weight: 500;
 }
 
-/* line 25, ../sass/elements/_typography.scss */
+/* line 30, ../sass/elements/_typography.scss */
 .page-title {
   font-size: 22px;
   font-size: 1.375rem;
@@ -524,8 +538,42 @@ article .comment {
 }
 
 /* line 3, ../sass/elements/_aside.scss */
+aside section {
+  padding: 30px;
+  padding: 1.875rem;
+  background: #f0f0f0;
+}
+/* line 8, ../sass/elements/_aside.scss */
 aside section + section {
   margin-top: 40px;
+}
+/* line 12, ../sass/elements/_aside.scss */
+aside .section-title {
+  text-transform: none;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 25.2px;
+  line-height: 1.575rem;
+  line-height: 1;
+  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
+}
+/* line 18, ../sass/elements/_aside.scss */
+aside .section-title .link {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 19.6px;
+  line-height: 1.225rem;
+  font-weight: 500;
+}
+/* line 24, ../sass/elements/_aside.scss */
+aside .block {
+  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
+}
+/* line 28, ../sass/elements/_aside.scss */
+aside .pagination {
+  margin: 0;
 }
 
 /* line 1, ../sass/elements/_blockquote.scss */
@@ -838,14 +886,13 @@ nav.home-links ul li {
 /* line 12, ../sass/components/_recommendations.scss */
 .recommendations {
   position: relative;
-  background: #F7F7F7;
   color: #4c4c4c;
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 19.6px;
   line-height: 1.225rem;
 }
-/* line 18, ../sass/components/_recommendations.scss */
+/* line 17, ../sass/components/_recommendations.scss */
 .recommendations .link {
   display: block;
   font-weight: 500;
@@ -854,7 +901,7 @@ nav.home-links ul li {
   line-height: 25.2px;
   line-height: 1.575rem;
 }
-/* line 24, ../sass/components/_recommendations.scss */
+/* line 23, ../sass/components/_recommendations.scss */
 .recommendations article {
   padding: 20px 40px;
   padding: 1.25rem 2.5rem;
@@ -867,23 +914,23 @@ nav.home-links ul li {
   -webkit-transition-timing-function: "easeOutCubic";
   transition-timing-function: "easeOutCubic";
 }
-/* line 29, ../sass/components/_recommendations.scss */
+/* line 28, ../sass/components/_recommendations.scss */
 .recommendations article:hover {
   background: #f2f2f2;
 }
-/* line 34, ../sass/components/_recommendations.scss */
+/* line 33, ../sass/components/_recommendations.scss */
 .recommendations article .article-content a {
   color: #4c4c4c;
 }
-/* line 39, ../sass/components/_recommendations.scss */
+/* line 38, ../sass/components/_recommendations.scss */
 .recommendations article footer {
   color: #A9A9A9;
 }
-/* line 42, ../sass/components/_recommendations.scss */
+/* line 41, ../sass/components/_recommendations.scss */
 .recommendations article footer span {
   margin: 0;
 }
-/* line 48, ../sass/components/_recommendations.scss */
+/* line 47, ../sass/components/_recommendations.scss */
 .recommendations .title {
   position: relative;
   padding: 40px 40px 0;
@@ -896,14 +943,14 @@ nav.home-links ul li {
   line-height: 2.45rem;
   font-weight: 100;
 }
-/* line 56, ../sass/components/_recommendations.scss */
+/* line 55, ../sass/components/_recommendations.scss */
 .recommendations .title.blue {
   padding: 40px;
   padding: 2.5rem;
   background: #0085cf;
   color: #fff;
 }
-/* line 63, ../sass/components/_recommendations.scss */
+/* line 62, ../sass/components/_recommendations.scss */
 .recommendations .btn {
   padding: 2px 12px;
   padding: 0.125rem 0.75rem;
@@ -913,27 +960,28 @@ nav.home-links ul li {
   color: #102c3b;
 }
 
-/* line 77, ../sass/components/_recommendations.scss */
+/* line 76, ../sass/components/_recommendations.scss */
 .recommendations.dark {
   background: #333336;
   color: #fff;
 }
-/* line 81, ../sass/components/_recommendations.scss */
+/* line 80, ../sass/components/_recommendations.scss */
 .recommendations.dark .title {
   color: #fff;
 }
-/* line 82, ../sass/components/_recommendations.scss */
+/* line 81, ../sass/components/_recommendations.scss */
 .recommendations.dark a {
   color: #0bc0fc;
 }
-/* line 88, ../sass/components/_recommendations.scss */
+/* line 87, ../sass/components/_recommendations.scss */
 .recommendations.dark .btn {
   background: #0BC0FC;
   color: #102c3b;
 }
 
-/* line 94, ../sass/components/_recommendations.scss */
+/* line 93, ../sass/components/_recommendations.scss */
 .recommendations-inline {
+  background: #F7F7F7;
   margin: 40px -40px;
   margin: 2.5rem -2.5rem;
   padding: 40px 40px;
@@ -950,6 +998,24 @@ nav.home-links ul li {
   background: none;
 }
 
+/* line 111, ../sass/components/_recommendations.scss */
+aside .recommendations .pin {
+  position: absolute;
+  top: 0px;
+  left: -16px;
+}
+/* line 119, ../sass/components/_recommendations.scss */
+aside .recommendations .block .title {
+  padding: 0;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 19.6px;
+  line-height: 1.225rem;
+  line-height: 1;
+  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
+}
+
 /* line 3, ../sass/components/_case-discussion.scss */
 .case-discussion h1,
 .case-discussion h2,
@@ -959,48 +1025,31 @@ nav.home-links ul li {
   margin: 0;
   text-transform: none;
 }
-/* line 12, ../sass/components/_case-discussion.scss */
-.case-discussion .comment {
+/* line 14, ../sass/components/_case-discussion.scss */
+.case-discussion .comment + .comment {
+  margin-top: 30px;
+  margin-top: 1.875rem;
+}
+/* line 18, ../sass/components/_case-discussion.scss */
+.case-discussion .comment .meta {
   margin-bottom: 15px;
   margin-bottom: 0.9375rem;
 }
-/* line 15, ../sass/components/_case-discussion.scss */
-.case-discussion .comment .meta {
-  margin-bottom: 30px;
-  margin-bottom: 1.875rem;
-}
-/* line 19, ../sass/components/_case-discussion.scss */
+/* line 22, ../sass/components/_case-discussion.scss */
 .case-discussion .comment .comment {
   padding-left: 28px;
   padding-left: 1.75rem;
 }
+/* line 26, ../sass/components/_case-discussion.scss */
+.case-discussion .comment blockquote {
+  margin-bottom: 0;
+}
 
 /* line 9, ../sass/components/_case-escalation.scss */
 .case-escalation {
-  padding: 20px;
-  padding: 1.25rem;
-  position: relative;
-  border: 4px solid #F2F2F2;
   color: #4D4D4D;
-  font-size: 14px;
-  font-size: 0.875rem;
-  line-height: 19.6px;
-  line-height: 1.225rem;
 }
-/* line 17, ../sass/components/_case-escalation.scss */
-.case-escalation h1,
-.case-escalation h2,
-.case-escalation h3,
-.case-escalation h4 {
-  font-size: 18px;
-  font-size: 1.125rem;
-  line-height: 25.2px;
-  line-height: 1.575rem;
-  margin: 0 0 15px;
-  margin: 0 0 0.9375rem;
-  font-weight: 100;
-}
-/* line 26, ../sass/components/_case-escalation.scss */
+/* line 22, ../sass/components/_case-escalation.scss */
 .case-escalation .title {
   margin-bottom: 20px;
   font-weight: 100;
@@ -1009,12 +1058,12 @@ nav.home-links ul li {
   line-height: 39.2px;
   line-height: 2.45rem;
 }
-/* line 32, ../sass/components/_case-escalation.scss */
+/* line 28, ../sass/components/_case-escalation.scss */
 .case-escalation p {
   margin-bottom: 28px;
   margin-bottom: 1.75rem;
 }
-/* line 36, ../sass/components/_case-escalation.scss */
+/* line 32, ../sass/components/_case-escalation.scss */
 .case-escalation .btn {
   width: 100%;
 }
@@ -1318,19 +1367,6 @@ a .icon-severity:hover.level4 {
 .handpicked {
   color: #078700;
   text-transform: small-caps;
-}
-
-/* line 1, ../sass/components/_rha-recommendation-section.scss */
-.rha-recommendation-section {
-  padding: 30px;
-  padding: 1.875rem;
-  background: #f0f0f0;
-}
-/* line 5, ../sass/components/_rha-recommendation-section.scss */
-.rha-recommendation-section .pin {
-  position: absolute;
-  top: 0px;
-  left: -16px;
 }
 
 /* line 1, ../sass/components/_modal.scss */
