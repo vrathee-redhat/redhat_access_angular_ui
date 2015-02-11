@@ -4,10 +4,10 @@ $chosen-border-color: $border-gray;
 	width: 100%;
 }
 
-.chosen-container-single {
+.chosen-container-single, .chosen-container-multi {
 
 	// Base Styling
-	.chosen-single {
+	.chosen-single, .chosen-choices {
 		@include border-radius(0);
 		height: auto;
 		background: #fff;

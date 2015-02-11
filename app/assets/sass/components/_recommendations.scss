@@ -92,10 +92,10 @@ $recommendations-dark-link-color: #0bc0fc;
 
 .recommendations-inline {
 	background: $recommendations-background;
-	@include rem('margin', 40px -40px);
-	@include rem('padding', 40px 40px);
-	background: #fff;
-	border: 1px solid #ddd;
+//	@include rem('margin', 40px -40px);
+//	@include rem('padding', 40px 40px);
+//	background: #fff;
+//	border: 1px solid #ddd;
 
 	article {
 		padding: 0;

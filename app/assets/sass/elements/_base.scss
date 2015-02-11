@@ -8,13 +8,14 @@ html { font-size: 100%; }
 	@include rem('margin-top', $global-margin);
 }
 
-.row + .row.short {
+.row.row-short {
 	@include rem('margin-top', $global-padding);
 }
 
-//[class^="col-"] {
-//	position: relative;
-//}
+.main-content .row {
+//	margin-top: auto;
+	margin-bottom: auto;
+}
 
 [class^="col-md"] {
 	@include transition(.2s);

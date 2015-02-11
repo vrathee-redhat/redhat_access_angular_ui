@@ -32,7 +32,7 @@
 }
 
 /* line 32, ../sass/includes/_functions.scss */
-.chosen-container-single .chosen-single div b {
+.chosen-container-single .chosen-single div b, .chosen-container-single .chosen-choices div b, .chosen-container-multi .chosen-single div b, .chosen-container-multi .chosen-choices div b {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   text-rendering: auto;
@@ -136,12 +136,17 @@ html {
 }
 
 /* line 11, ../sass/elements/_base.scss */
-.row + .row.short {
+.row.row-short {
   margin-top: 15px;
   margin-top: 0.9375rem;
 }
 
-/* line 19, ../sass/elements/_base.scss */
+/* line 15, ../sass/elements/_base.scss */
+.main-content .row {
+  margin-bottom: auto;
+}
+
+/* line 20, ../sass/elements/_base.scss */
 [class^="col-md"] {
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
@@ -149,34 +154,34 @@ html {
   transition: 0.2s;
 }
 
-/* line 23, ../sass/elements/_base.scss */
+/* line 24, ../sass/elements/_base.scss */
 body {
   font-size: 90%;
 }
 @media (min-width: 1200px) {
-  /* line 23, ../sass/elements/_base.scss */
+  /* line 24, ../sass/elements/_base.scss */
   body {
     font-size: 100%;
   }
 }
 
-/* line 29, ../sass/elements/_base.scss */
+/* line 30, ../sass/elements/_base.scss */
 .inline-tooltip {
   position: relative;
   padding-right: 30px;
 }
-/* line 33, ../sass/elements/_base.scss */
+/* line 34, ../sass/elements/_base.scss */
 .inline-tooltip span {
   margin-left: 8px;
 }
-/* line 39, ../sass/elements/_base.scss */
+/* line 40, ../sass/elements/_base.scss */
 .inline-tooltip.right > span {
   position: absolute;
   right: 2px;
   top: 4px;
 }
 
-/* line 47, ../sass/elements/_base.scss */
+/* line 48, ../sass/elements/_base.scss */
 .container.page {
   padding-top: 60px;
   padding-top: 3.75rem;
@@ -184,31 +189,31 @@ body {
   padding-bottom: 1.875rem;
 }
 
-/* line 52, ../sass/elements/_base.scss */
+/* line 53, ../sass/elements/_base.scss */
 .sep {
   margin-left: 3px;
   margin-right: 3px;
 }
 
-/* line 60, ../sass/elements/_base.scss */
+/* line 61, ../sass/elements/_base.scss */
 [class^="col-"] + .col-sm-12,
 [class*=" col-"] + .col-sm-12 {
   margin-top: 8px;
 }
 @media (min-width: 768px) {
-  /* line 60, ../sass/elements/_base.scss */
+  /* line 61, ../sass/elements/_base.scss */
   [class^="col-"] + .col-sm-12,
   [class*=" col-"] + .col-sm-12 {
     margin-top: 0;
   }
 }
 
-/* line 67, ../sass/elements/_base.scss */
+/* line 68, ../sass/elements/_base.scss */
 section > header {
   margin-bottom: 30px;
 }
 
-/* line 81, ../sass/elements/_base.scss */
+/* line 82, ../sass/elements/_base.scss */
 .box-dark {
   padding: 40px;
   padding: 2.5rem;
@@ -219,7 +224,7 @@ section > header {
   line-height: 19.6px;
   line-height: 1.225rem;
 }
-/* line 87, ../sass/elements/_base.scss */
+/* line 88, ../sass/elements/_base.scss */
 .box-dark .title {
   padding: 40px 40px 0;
   padding: 2.5rem 2.5rem 0;
@@ -236,28 +241,28 @@ section > header {
   line-height: 2.45rem;
   font-weight: 100;
 }
-/* line 96, ../sass/elements/_base.scss */
+/* line 97, ../sass/elements/_base.scss */
 .box-dark a {
   color: #0bc0fc;
 }
 
-/* line 100, ../sass/elements/_base.scss */
+/* line 101, ../sass/elements/_base.scss */
 .block, .block-link {
   display: block;
 }
-/* line 103, ../sass/elements/_base.scss */
+/* line 104, ../sass/elements/_base.scss */
 .block input,
 .block textarea, .block-link input,
 .block-link textarea {
   width: 100%;
 }
 
-/* line 107, ../sass/elements/_base.scss */
+/* line 108, ../sass/elements/_base.scss */
 a {
   color: #0085cf;
 }
 
-/* line 116, ../sass/elements/_base.scss */
+/* line 117, ../sass/elements/_base.scss */
 .main .row .section-title {
   margin: 0;
 }
@@ -272,16 +277,17 @@ button:focus {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  box-shadow: none;
 }
 
-/* line 10, ../sass/elements/_forms.scss */
+/* line 11, ../sass/elements/_forms.scss */
 input,
 select,
 textarea {
   max-width: 100%;
 }
 
-/* line 14, ../sass/elements/_forms.scss */
+/* line 15, ../sass/elements/_forms.scss */
 input[type="text"], textarea, .form-control {
   width: 100%;
   padding: 8px;
@@ -298,25 +304,25 @@ input[type="text"], textarea, .form-control {
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 23, ../sass/elements/_forms.scss */
+/* line 24, ../sass/elements/_forms.scss */
 input[type="text"]:active, input[type="text"]:focus, textarea:active, textarea:focus, .form-control:active, .form-control:focus {
   border-color: #cacaca;
 }
 
-/* line 31, ../sass/elements/_forms.scss */
+/* line 32, ../sass/elements/_forms.scss */
 .form-control::-webkit-input-placeholder, .form-control:-moz-placeholder, .form-control::-moz-placeholder, .form-control:-ms-input-placeholder {
   padding: 8px;
   padding: 0.5rem;
   color: #4a4a4a;
 }
 
-/* line 44, ../sass/elements/_forms.scss */
+/* line 45, ../sass/elements/_forms.scss */
 label {
   margin-bottom: 8px;
   margin-bottom: 0.5rem;
 }
 
-/* line 46, ../sass/elements/_forms.scss */
+/* line 47, ../sass/elements/_forms.scss */
 input.margin {
   margin-bottom: 20px;
 }
@@ -982,12 +988,6 @@ nav.home-links ul li {
 /* line 93, ../sass/components/_recommendations.scss */
 .recommendations-inline {
   background: #F7F7F7;
-  margin: 40px -40px;
-  margin: 2.5rem -2.5rem;
-  padding: 40px 40px;
-  padding: 2.5rem 2.5rem;
-  background: #fff;
-  border: 1px solid #ddd;
 }
 /* line 100, ../sass/components/_recommendations.scss */
 .recommendations-inline article {
@@ -1414,7 +1414,7 @@ a .icon-severity:hover.level4 {
 }
 
 /* line 10, ../sass/vendor/_chosen.scss */
-.chosen-container-single .chosen-single {
+.chosen-container-single .chosen-single, .chosen-container-single .chosen-choices, .chosen-container-multi .chosen-single, .chosen-container-multi .chosen-choices {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -1432,7 +1432,10 @@ a .icon-severity:hover.level4 {
 }
 /* line 22, ../sass/vendor/_chosen.scss */
 .chosen-container-single .chosen-single a,
-.chosen-container-single .chosen-single span {
+.chosen-container-single .chosen-single span, .chosen-container-single .chosen-choices a,
+.chosen-container-single .chosen-choices span, .chosen-container-multi .chosen-single a,
+.chosen-container-multi .chosen-single span, .chosen-container-multi .chosen-choices a,
+.chosen-container-multi .chosen-choices span {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 19.6px;
@@ -1441,13 +1444,13 @@ a .icon-severity:hover.level4 {
   color: #4a4a4a;
 }
 /* line 30, ../sass/vendor/_chosen.scss */
-.chosen-container-single .chosen-single div b {
+.chosen-container-single .chosen-single div b, .chosen-container-single .chosen-choices div b, .chosen-container-multi .chosen-single div b, .chosen-container-multi .chosen-choices div b {
   background: none !important;
   line-height: 2.2;
   color: #4a4a4a;
 }
 /* line 36, ../sass/vendor/_chosen.scss */
-.chosen-container-single .chosen-single div b:before {
+.chosen-container-single .chosen-single div b:before, .chosen-container-single .chosen-choices div b:before, .chosen-container-multi .chosen-single div b:before, .chosen-container-multi .chosen-choices div b:before {
   content: "\f0d7";
 }
 
