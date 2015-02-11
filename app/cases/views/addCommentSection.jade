@@ -5,19 +5,20 @@ textarea.comment#case-comment-box.form-control(
   ng-model='CaseService.commentText',
   style='max-width: 100%',
   ng-change='onNewCommentKeypress()')
-span#commentNotice.uploadNotice
+#commentNotice.uploadNotice
     span {{'You have used'|translate}}
     span.progressBarWrap
       span.progressCount {{progressCount}} %
     span {{'of the 32K maximum description size.'|translate}}
+//div(ng-if='securityService.loginStatus.authedUser.is_internal')
 div
-  div(ng-if='securityService.loginStatus.authedUser.is_internal')
+  div
     span {{'Is Public:'|translate}}
     input#rha-case-comment-isPublic(type='checkbox', ng-model='CaseService.isCommentPublic',ng-change= 'onCommentPublicChange()',style='display: inline-block;')
   span.pull-right.rha-bold(ng-show='savingDraft') {{'Saving draft...'|translate}}
   span.pull-right.rha-bold(ng-show='CaseService.draftSaved && !savingDraft') {{'Draft saved'|translate}}
 div
-  span.rha-search-spinner(ng-show='addingComment')
+  .spinner.spinner-inline(ng-show='addingComment')
   button#rha-case-addcommentbutton.btn.btn-primary(
     ng-hide='addingComment',
     ng-disabled='CaseService.disableAddComment',

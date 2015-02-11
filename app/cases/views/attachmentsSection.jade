@@ -1,39 +1,38 @@
-span.rha-search-spinner(ng-show='loading')
-  div(rha-listattachments='')
+.spinner.spinner-inline(ng-show='loading')
+div(rha-listattachments='')
 div(ng-hide='loading || ie8 || ie9  && isPCM')
   div(ng-hide='AttachmentsService.updatedAttachments.length <= 0 && TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0')
     div(rha-listnewattachments)
-    span.rha-search-spinner(ng-show='updatingAttachments')
-    button.btn.btn-primary(
-      ng-hide='updatingAttachments',
-      ng-click='doUpdate()', translate='') Upload Attachments
-    div(rha-attachlocalfile='')
+    .spinner.spinner-inline(ng-show='updatingAttachments')
+  button.btn.btn-primary(
+    ng-hide='updatingAttachments',
+    ng-click='doUpdate()', translate='') Upload Attachments
+  div(rha-attachlocalfile='')
   div(ng-show='showServerSideAttachments')
     .server-attach-header {{'Server File(s) To Attach:'|translate}}
     div(rha-choicetree='',
       ng-model='attachmentTree',
       ng-controller='BackEndAttachmentsCtrl',
       rhaDisabled='rhaDisabled')
-div(ng-show='!loading && ie8 || ie9 && isPCM')
-  form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
-    .row.rha-create-field
-      .col-xs-6 input(id='fileUploader', type='file', value='upload',name='file')
-      .col-xs-6 {{fileName}}
-    .row.rha-create-field
-      .col-xs-12(style='font-size: 80%;')
-        div(ng-bind-html='parseArtifactHtml()')
-    .row.rha-create-field
-      .col-xs-12
-          input#fileDescription.form-control(
-          style='float: left;',
-          type='text',
-          name='description',
-          ng-model='ieFileDescription',
-          placeholder="{{'File description'|translate}}")
-        .row.rha-create-field
-      .col-xs-12
-        button.btn.btn-add(
-          style='float: right;',
-          ng-click = 'ieUpload($event)',
-          translate='') Upload Attachments
-  iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
+form#fileUploaderForm(ng-show='!loading && ie8 || ie9 && isPCM', enctype="multipart/form-data", method="post",target="upload_target")
+  .row
+    .col-xs-6 input(id='fileUploader', type='file', value='upload',name='file')
+    .col-xs-6 {{fileName}}
+  .row
+    .col-xs-12(style='font-size: 80%;')
+      div(ng-bind-html='parseArtifactHtml()')
+  .row
+    .col-xs-12
+        input#fileDescription.form-control(
+        style='float: left;',
+        type='text',
+        name='description',
+        ng-model='ieFileDescription',
+        placeholder="{{'File description'|translate}}")
+  .row
+    .col-xs-12
+      button.btn.btn-add(
+        style='float: right;',
+        ng-click = 'ieUpload($event)',
+        translate='') Upload Attachments
+  iframe#upload_target(name='upload_target')

@@ -135,7 +135,13 @@ html {
   margin-top: 1.875rem;
 }
 
-/* line 15, ../sass/elements/_base.scss */
+/* line 11, ../sass/elements/_base.scss */
+.row + .row.short {
+  margin-top: 15px;
+  margin-top: 0.9375rem;
+}
+
+/* line 19, ../sass/elements/_base.scss */
 [class^="col-md"] {
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
@@ -143,34 +149,34 @@ html {
   transition: 0.2s;
 }
 
-/* line 19, ../sass/elements/_base.scss */
+/* line 23, ../sass/elements/_base.scss */
 body {
   font-size: 90%;
 }
 @media (min-width: 1200px) {
-  /* line 19, ../sass/elements/_base.scss */
+  /* line 23, ../sass/elements/_base.scss */
   body {
     font-size: 100%;
   }
 }
 
-/* line 25, ../sass/elements/_base.scss */
+/* line 29, ../sass/elements/_base.scss */
 .inline-tooltip {
   position: relative;
   padding-right: 30px;
 }
-/* line 29, ../sass/elements/_base.scss */
+/* line 33, ../sass/elements/_base.scss */
 .inline-tooltip span {
   margin-left: 8px;
 }
-/* line 35, ../sass/elements/_base.scss */
+/* line 39, ../sass/elements/_base.scss */
 .inline-tooltip.right > span {
   position: absolute;
   right: 2px;
   top: 4px;
 }
 
-/* line 43, ../sass/elements/_base.scss */
+/* line 47, ../sass/elements/_base.scss */
 .container.page {
   padding-top: 60px;
   padding-top: 3.75rem;
@@ -178,31 +184,31 @@ body {
   padding-bottom: 1.875rem;
 }
 
-/* line 48, ../sass/elements/_base.scss */
+/* line 52, ../sass/elements/_base.scss */
 .sep {
   margin-left: 3px;
   margin-right: 3px;
 }
 
-/* line 56, ../sass/elements/_base.scss */
+/* line 60, ../sass/elements/_base.scss */
 [class^="col-"] + .col-sm-12,
 [class*=" col-"] + .col-sm-12 {
   margin-top: 8px;
 }
 @media (min-width: 768px) {
-  /* line 56, ../sass/elements/_base.scss */
+  /* line 60, ../sass/elements/_base.scss */
   [class^="col-"] + .col-sm-12,
   [class*=" col-"] + .col-sm-12 {
     margin-top: 0;
   }
 }
 
-/* line 63, ../sass/elements/_base.scss */
+/* line 67, ../sass/elements/_base.scss */
 section > header {
   margin-bottom: 30px;
 }
 
-/* line 77, ../sass/elements/_base.scss */
+/* line 81, ../sass/elements/_base.scss */
 .box-dark {
   padding: 40px;
   padding: 2.5rem;
@@ -213,7 +219,7 @@ section > header {
   line-height: 19.6px;
   line-height: 1.225rem;
 }
-/* line 83, ../sass/elements/_base.scss */
+/* line 87, ../sass/elements/_base.scss */
 .box-dark .title {
   padding: 40px 40px 0;
   padding: 2.5rem 2.5rem 0;
@@ -230,23 +236,23 @@ section > header {
   line-height: 2.45rem;
   font-weight: 100;
 }
-/* line 92, ../sass/elements/_base.scss */
+/* line 96, ../sass/elements/_base.scss */
 .box-dark a {
   color: #0bc0fc;
 }
 
-/* line 96, ../sass/elements/_base.scss */
+/* line 100, ../sass/elements/_base.scss */
 .block, .block-link {
   display: block;
 }
-/* line 99, ../sass/elements/_base.scss */
+/* line 103, ../sass/elements/_base.scss */
 .block input,
 .block textarea, .block-link input,
 .block-link textarea {
   width: 100%;
 }
 
-/* line 103, ../sass/elements/_base.scss */
+/* line 107, ../sass/elements/_base.scss */
 a {
   color: #0085cf;
 }
@@ -692,14 +698,15 @@ blockquote {
 /* line 20, ../sass/components/_case-description.scss */
 .case-description .product-name {
   margin-bottom: 0;
-  font-weight: 100;
   font-size: 16px;
   font-size: 1rem;
   line-height: 22.4px;
   line-height: 1.4rem;
 }
-/* line 26, ../sass/components/_case-description.scss */
-.case-description .case-name {
+/* line 25, ../sass/components/_case-description.scss */
+.case-description .case-name, .case-description .product-name {
+  padding-right: 40px;
+  padding-right: 2.5rem;
   font-weight: 600;
 }
 /* line 30, ../sass/components/_case-description.scss */
@@ -954,13 +961,13 @@ nav.home-links ul li {
 }
 /* line 12, ../sass/components/_case-discussion.scss */
 .case-discussion .comment {
-  margin-bottom: 30px;
-  margin-bottom: 1.875rem;
+  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
 }
 /* line 15, ../sass/components/_case-discussion.scss */
 .case-discussion .comment .meta {
-  margin-bottom: 15px;
-  margin-bottom: 0.9375rem;
+  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
 }
 /* line 19, ../sass/components/_case-discussion.scss */
 .case-discussion .comment .comment {
@@ -1067,28 +1074,39 @@ a .icon-severity:hover.level4 {
   background: #78848C;
 }
 
-/* line 1, ../sass/components/_spinner.scss */
-.spinner.spinner-inline {
-  display: inline-block;
-  margin-right: 3px;
-  vertical-align: middle;
+@-moz-keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
-
-/* line 7, ../sass/components/_spinner.scss */
-.spinner.spinner-lg {
-  border-width: 5px;
-  height: 40px;
-  height: 2.5rem;
-  width: 40px;
-  width: 2.5rem;
+@-webkit-keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
-
-/* line 14, ../sass/components/_spinner.scss */
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+/* line 16, ../sass/components/_spinner.scss */
 .spinner {
   -moz-animation: rotation 0.6s infinite linear;
   -webkit-animation: rotation 0.6s infinite linear;
   animation: rotation 0.6s infinite linear;
-  border: 4px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.25);
+  border-left: 4px solid rgba(0, 0, 0, 0.25);
+  border-right: 4px solid rgba(0, 0, 0, 0.25);
+  border-top: 4px solid rgba(0, 0, 0, 0.75);
   -moz-border-radius: 100%;
   -webkit-border-radius: 100%;
   border-radius: 100%;
@@ -1099,6 +1117,36 @@ a .icon-severity:hover.level4 {
   height: 2rem;
   width: 32px;
   width: 2rem;
+}
+/* line 32, ../sass/components/_spinner.scss */
+.spinner.spinner-inline {
+  display: inline-block;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+/* line 37, ../sass/components/_spinner.scss */
+.spinner.spinner-lg {
+  border-width: 5px;
+  height: 40px;
+  height: 2.5rem;
+  width: 40px;
+  width: 2.5rem;
+}
+/* line 42, ../sass/components/_spinner.scss */
+.spinner.spinner-sm {
+  border-width: 3px;
+  height: 24px;
+  height: 1.5rem;
+  width: 24px;
+  width: 1.5rem;
+}
+/* line 47, ../sass/components/_spinner.scss */
+.spinner.spinner-xs {
+  border-width: 2px;
+  height: 16px;
+  height: 1rem;
+  width: 16px;
+  width: 1rem;
 }
 
 /* line 1, ../sass/components/_filters.scss */

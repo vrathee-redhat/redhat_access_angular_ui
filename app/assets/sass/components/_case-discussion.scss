@@ -10,10 +10,10 @@
 	}
 
 	.comment {
-		@include rem('margin-bottom', 30px);
+		@include rem('margin-bottom', $global-padding);
 
 		.meta {
-			@include rem('margin-bottom', 15px);
+			@include rem('margin-bottom', $global-margin);
 		}
 
 		.comment {

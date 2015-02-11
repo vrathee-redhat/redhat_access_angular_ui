@@ -1,5 +1,5 @@
 section.case-description
-  i#case-description-toggle.fa.fa-caret-square-o-down.case-description-toggle(ng-click='toggleExtraInfo()', ng-class="showExtraInfo ? 'fa fa-caret-square-o-down case-description-toggle active' : 'fa fa-caret-square-o-down case-description-toggle'")
+  i#case-description-toggle.fa.fa-caret-chevron.case-description-toggle(ng-click='toggleExtraInfo()', ng-class="showExtraInfo ? 'fa fa-chevron-down case-description-toggle active' : 'fa fa-chevron-down case-description-toggle'")
   h3.product-name {{CaseService.kase.product}}
   h4.case-name {{CaseService.kase.summary}}
   .description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | recommendationsResolution}}
