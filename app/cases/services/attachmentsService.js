@@ -109,7 +109,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
-                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment ') + attachment.file_name + ' to case ' + caseId);
+                                //AlertService.addSuccessMessage(translate('Successfully uploaded attachment ') + attachment.file_name + ' to case ' + caseId);
                             }, function (error) {
                                 AlertService.addStrataErrorMessage(error);
                             });
@@ -117,15 +117,15 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                         }
                     });
                 }
-                var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachments...'));
+                //var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachments...'));
                 var parentPromise = $q.all(promises);
                 parentPromise.then(angular.bind(this, function () {
                     this.originalAttachments = this.originalAttachments.concat(this.updatedAttachments);
                     this.updatedAttachments = [];
-                    AlertService.removeAlert(uploadingAlert);
+                    //AlertService.removeAlert(uploadingAlert);
                 }), function (error) {
                     AlertService.addStrataErrorMessage(error);
-                    AlertService.removeAlert(uploadingAlert);
+                    //AlertService.removeAlert(uploadingAlert);
                 });
                 return parentPromise;
             }
