@@ -102,7 +102,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.firePageLoadEvent();
             $scope.init();
-            AlertService.clearAlerts();
+            //AlertService.clearAlerts();
         });
 
         var caseSettled = function() {

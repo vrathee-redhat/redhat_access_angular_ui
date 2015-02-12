@@ -1,3 +1,3 @@
 div(ng-hide='HeaderService.pageLoadFailure || !securityService.loginStatus.userAllowedToManageCases')
   a(style="float: right", ng-show="AlertService.alerts.length > 1", ng-href="", ng-click="dismissAlerts()") {{'Close messages'|translate}}
-  div(alert, ng-repeat='alert in AlertService.alerts', type='alert.type', close='closeAlert($index)') {{alert.message}}
+  div(alert, ng-repeat='alert in AlertService.alerts', type='alert.type', close='closeAlert($index)', ng-bind-html='alert.message')

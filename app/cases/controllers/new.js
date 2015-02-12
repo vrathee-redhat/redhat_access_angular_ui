@@ -31,11 +31,11 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.versionLoading = false;
         $scope.incomplete = true;
         $scope.submitProgress = 0;
-        AttachmentsService.clear();
+        //AttachmentsService.clear();
         CaseService.clearCase();
         RecommendationsService.clear();
         SearchResultsService.clear();
-        AlertService.clearAlerts();
+        //AlertService.clearAlerts();
         $scope.CaseService = CaseService;
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
@@ -138,7 +138,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
-            AlertService.clearAlerts();
+            //AlertService.clearAlerts();
             RecommendationsService.failureCount = 0;
         });
 

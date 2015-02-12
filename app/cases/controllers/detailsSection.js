@@ -179,7 +179,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         }
         $scope.caseEventDeregister = $rootScope.$on(CASE_EVENTS.received, function () {
             $scope.init();
-            AlertService.clearAlerts();
+            //AlertService.clearAlerts();
         });
         $scope.$on('$destroy', function () {
             $scope.caseEventDeregister();

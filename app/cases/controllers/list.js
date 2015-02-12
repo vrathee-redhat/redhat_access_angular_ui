@@ -32,7 +32,7 @@ angular.module('RedhatAccess.cases').controller('List', [
 			    AlertService.addStrataErrorMessage(error);
 		    });
 	    };
-        AlertService.clearAlerts();
+        //AlertService.clearAlerts();
                 // getData: function ($defer, params) {
                 //     if(!SearchCaseService.searching){
                 //         var sort_field;
@@ -122,7 +122,7 @@ angular.module('RedhatAccess.cases').controller('List', [
                 $scope.firePageLoadEvent();
                 CaseService.status = 'open';
                 $scope.doSearch();
-                AlertService.clearAlerts();
+                //AlertService.clearAlerts();
             }
         });
 

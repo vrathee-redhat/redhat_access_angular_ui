@@ -9,7 +9,8 @@ angular.module('RedhatAccess.header').service('AlertService', [
         var ALERT_TYPES = {
                 DANGER: 'danger',
                 SUCCESS: 'success',
-                WARNING: 'warning'
+                WARNING: 'warning',
+                INFO: 'info'
             };
         this.alerts = [];
         //array of {message: 'some alert', type: '<type>'} objects
@@ -30,6 +31,9 @@ angular.module('RedhatAccess.header').service('AlertService', [
         };
         this.addWarningMessage = function (message) {
             return this.addMessage(message, ALERT_TYPES.WARNING);
+        };
+        this.addInfoMessage = function (message) {
+            return this.addMessage(message, ALERT_TYPES.INFO);
         };
         this.addMessage = function (message, type) {
             var alert = {
@@ -71,6 +75,7 @@ angular.module('RedhatAccess.header').service('AlertService', [
         }));
         $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this, function () {
             this.clearAlerts();
+            this.addInfoMessage("Let us know what you think of our new search experience by taking a <a href=\"https://access.redhat.com/eform/submit/what-do-you-think-case-managemen\">short survey.</a>");
         }));
     }
 ])
