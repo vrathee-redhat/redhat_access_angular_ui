@@ -18,16 +18,14 @@
 	&.level4 { border-color: #78848C; }
 }
 
-a {
-	.icon-severity {
+.icon-severity {
 
-		&:hover {
-			background: $red;
-			color: #fff;
+	.list-item:hover &, &:hover {
+		background: $red;
+		color: #fff;
 
-			&.level2 { background: #F2AA1D; }
-			&.level3 { background: #04A7E0; }
-			&.level4 { background: #78848C; }
-		}
+		&.level2 { background: #F2AA1D; }
+		&.level3 { background: #04A7E0; }
+		&.level4 { background: #78848C; }
 	}
 }

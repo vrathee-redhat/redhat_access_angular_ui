@@ -12,21 +12,20 @@ div(rha-header='', page='caseList')
   .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
   #case-list.table-list.case-list(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='10')
     .list-item(ng-repeat='case in SearchCaseService.cases')
-      .row.case
+      .row.case(ng-click='caseLink(case.case_number)')
         .col-sm-4.col-md-2.item-group
           .block-icon
             .severity
               //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
-              a(href='#/case/{{case.case_number}}')
-                i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
-                i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
-                i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
-                i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
+              i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
+              i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
+              i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
+              i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
             .case-id
-              a.subheading(href='#/case/{{case.case_number}}') {{case.case_number}}
+              a.subheading {{case.case_number}}
               div.status.small {{case.status}}
         .col-sm-8.col-md-6.item-group
-          a.subheading(href='#/case/{{case.case_number}}')
+          a.subheading
             | {{case.product}}
             span.sep |
             | {{case.version}}
@@ -38,6 +37,9 @@ div(rha-header='', page='caseList')
               | Last Modified: 
               span {{case.last_modified_date | date:'longDate'}}
               i  by 
-              a(href='#') {{case.last_modified_by}}
-  .alert.alert-slim(ng-show='SearchCaseService.searching') Loading cases...
+              span.blue {{case.last_modified_by}}
+  div(ng-show='SearchCaseService.searching')
+    .spinner
+    p.center Loading cases...
+    .backdrop
 

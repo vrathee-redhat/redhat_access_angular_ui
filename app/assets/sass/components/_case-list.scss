@@ -43,6 +43,14 @@ $subheading-margin-bottom: 4px;
 		margin-top: 12px;
 	}
 
-	.case {
+	.list-item {
+		@include transition(.2s);
+
+		&:hover {
+//			@include rem('padding-left', 4px);
+//			@include rem('padding-right', 4px);
+			cursor: pointer;
+			background: #f0f0f0;
+		}
 	}
 }

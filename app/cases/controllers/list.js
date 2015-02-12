@@ -3,6 +3,7 @@
 angular.module('RedhatAccess.cases').controller('List', [
     '$scope',
     '$filter',
+	'$location',
     'securityService',
     'AlertService',
     '$rootScope',
@@ -13,7 +14,7 @@ angular.module('RedhatAccess.cases').controller('List', [
     'SearchBoxService',
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
-    function ($scope, $filter, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS) {
+    function ($scope, $filter, $location, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -136,5 +137,9 @@ angular.module('RedhatAccess.cases').controller('List', [
             $scope.authEventLogoutSuccess();
             CaseService.clearCase();
         });
+
+	    $scope.caseLink = function (caseNumber) {
+		    $location.path('/case/' + caseNumber);
+	    }
     }
 ]);
