@@ -1,5 +1,7 @@
 div(rha-403error='')
 div(rha-404error='')
+div(ng-show='HeaderService.sfdcIsHealthy')
+div(rha-alert='')
 div(ng-hide='failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases')
   .spinner.spinner-inline(ng-show='pageLoading')
 div.page-header(ng-hide='HeaderService.pageLoadFailure || !securityService.loginStatus.userAllowedToManageCases')
@@ -14,5 +16,3 @@ div.page-header(ng-hide='HeaderService.pageLoadFailure || !securityService.login
   div(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy', rha-chatbutton='')
 div(rha-loginstatus='')
 div(ng-show='!HeaderService.sfdcIsHealthy', ng-bind-html='parseSfdcOutageHtml()')
-div(ng-show='HeaderService.sfdcIsHealthy')
-  div(rha-alert='')
