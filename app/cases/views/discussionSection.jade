@@ -7,4 +7,4 @@ article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.dis
   blockquote.pre-wrap(ng-hide="element.file_name")
     | {{ element.text}}
   .fa.fa-file-image-o.file-upload(ng-show="element.file_name") {{element.file_name}} ({{element.length | bytes}})
-    .fa.fa-close.pull-right(type='button', style='float: right', ng-click='deleteAttachment(element)')
+    .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
