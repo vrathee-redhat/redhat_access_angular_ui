@@ -8,26 +8,26 @@ section.case-description
     form(name='detailsForm')
       section.config-options
         .row
-          .col-xs-4.col-md-4
+          .col-xs-4.col-sm-3.col-md-4
             .label {{'Product'|translate}}
-          .col-xs-4.col-md-6
+          .col-xs-4.col-sm-5.col-md-6
             div(rha-productselect='')
         .row
-          .col-xs-4.col-md-4
+          .col-xs-4.col-sm-3.col-md-4
             .label {{'Product Version'|translate}}
-          .col-xs-4.col-md-6
+          .col-xs-4.col-sm-5.col-md-6
             div(rha-versionselect='')
         .row
-          .col-xs-4.col-md-4
+          .col-xs-4.col-sm-3.col-md-4
             .label Related Case ID
-          .col-xs-4.col-md-6
+          .col-xs-4.col-sm-5.col-md-6
             input#rha-case-alt-id.form-control(
               ng-model='CaseService.kase.alternate_id',
               name='alternate_id')
         .row
-          .col-xs-4.col-md-4
+          .col-xs-4.col-sm-3.col-md-4
             .label Case Group
-          .col-xs-4.col-md-6
+          .col-xs-4.col-sm-5.col-md-6
             select#rha-group-select.form-control(
               chosen,
               width="'100%'",
@@ -36,16 +36,16 @@ section.case-description
               ng-model='CaseService.kase.group')
               option(value="") Ungrouped Case
         .row
-          .col-xs-4.col-md-4
+          .col-xs-4.col-sm-3.col-md-4
             .label {{'Case Type'|translate}}
-          .col-xs-4.col-md-6
+          .col-xs-4.col-sm-5.col-md-6
             div(rha-typeselect='')
-      .row.actions
-        .col-sm-6.col-md-4
-          button.btn.btn-accent(
-            name='updateButton',
-            ng-disabled='updatingDetails || !detailsForm.$dirty',
-            ng-click='updateCase()', translate='') Save Changes 
-        .col-sm-6.col-md-4
-          button.btn.btn-open(
-            ng-disabled='updatingDetails || !detailsForm.$dirty', ng-click='resetData()') Cancel
+        .row
+          .col-xs-12
+            button.btn.btn-accent(
+              name='updateButton',
+              ng-disabled='updatingDetails || !detailsForm.$dirty',
+              ng-click='updateCase()', translate='') Save Changes
+            a.link(
+              ng-disabled='updatingDetails || !detailsForm.$dirty',
+              ng-click='resetData()') Cancel

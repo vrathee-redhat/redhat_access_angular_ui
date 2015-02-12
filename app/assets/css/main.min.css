@@ -283,6 +283,12 @@ a {
   z-index: 9999;
 }
 
+/* line 142, ../sass/elements/_base.scss */
+.file-upload:before {
+  color: #afafaf;
+  margin-right: 8px;
+}
+
 /* line 1, ../sass/elements/_forms.scss */
 input,
 input:focus,
@@ -1054,21 +1060,25 @@ aside .recommendations .block .title {
   text-transform: none;
 }
 /* line 14, ../sass/components/_case-discussion.scss */
+.case-discussion .comment textarea {
+  min-height: 250px;
+}
+/* line 18, ../sass/components/_case-discussion.scss */
 .case-discussion .comment + .comment {
   margin-top: 30px;
   margin-top: 1.875rem;
 }
-/* line 18, ../sass/components/_case-discussion.scss */
+/* line 22, ../sass/components/_case-discussion.scss */
 .case-discussion .comment .meta {
   margin-bottom: 15px;
   margin-bottom: 0.9375rem;
 }
-/* line 22, ../sass/components/_case-discussion.scss */
+/* line 26, ../sass/components/_case-discussion.scss */
 .case-discussion .comment .comment {
   padding-left: 28px;
   padding-left: 1.75rem;
 }
-/* line 26, ../sass/components/_case-discussion.scss */
+/* line 30, ../sass/components/_case-discussion.scss */
 .case-discussion .comment blockquote {
   margin-bottom: 0;
 }

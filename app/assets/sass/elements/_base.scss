@@ -135,3 +135,12 @@ section {
 	background: rgba(0,0,0,.2);
 	z-index: 9999;
 }
+
+.file-upload {
+
+
+	&:before {
+		color: #afafaf;
+		margin-right: 8px;
+	}
+}

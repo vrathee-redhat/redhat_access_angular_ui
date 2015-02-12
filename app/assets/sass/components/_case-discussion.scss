@@ -11,6 +11,10 @@
 
 	.comment {
 
+		textarea {
+			min-height: 250px;
+		}
+
 		& + .comment {
 			@include rem('margin-top', $global-margin);
 		}
