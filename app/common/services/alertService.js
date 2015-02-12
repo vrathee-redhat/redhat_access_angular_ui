@@ -75,7 +75,7 @@ angular.module('RedhatAccess.header').service('AlertService', [
         }));
         $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this, function () {
             this.clearAlerts();
-            this.addInfoMessage("Let us know what you think of our new search experience by taking a <a href=\"https://access.redhat.com/eform/submit/what-do-you-think-case-managemen\">short survey.</a>");
+            this.addInfoMessage("Let us know what you think of our new search experience by taking a <a target=\"_blank\" href=\"https://access.redhat.com/eform/submit/what-do-you-think-case-managemen\">short survey.</a>");
         }));
     }
 ])
