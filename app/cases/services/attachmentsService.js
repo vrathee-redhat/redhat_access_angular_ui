@@ -114,6 +114,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
+                                attachment.last_modified_date = new Date();
                                 //AlertService.addSuccessMessage(translate('Successfully uploaded attachment ') + attachment.file_name + ' to case ' + caseId);
                             }, function (error) {
                                 AlertService.addStrataErrorMessage(error);

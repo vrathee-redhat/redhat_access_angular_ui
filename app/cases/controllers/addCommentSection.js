@@ -75,7 +75,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.addingComment = false;
                 $scope.progressCount = 0;
             };
-            if(CaseService.commentText !== undefined){
+            if(!CaseService.disableAddComment){
                 $scope.addingComment = true;
                 if(CaseService.localStorageCache) {
                     if(CaseService.draftCommentOnServerExists)
