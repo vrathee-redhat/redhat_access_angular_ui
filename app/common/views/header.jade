@@ -1,7 +1,7 @@
 div(rha-403error='')
 div(rha-404error='')
 div(ng-hide='failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases')
-  span.rha-search-spinner(ng-show='pageLoading')
+  .spinner.spinner-inline(ng-show='pageLoading')
 div.page-header(ng-hide='HeaderService.pageLoadFailure || !securityService.loginStatus.userAllowedToManageCases')
   div(rha-titletemplate='', page="{{page}}")
   //{{CaseService.kase.entitlement.sla}} Support Level

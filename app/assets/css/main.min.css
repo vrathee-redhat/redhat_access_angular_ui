@@ -130,23 +130,28 @@ html {
 }
 
 /* line 7, ../sass/elements/_base.scss */
+.masthead .utility-bar {
+  z-index: 9;
+}
+
+/* line 9, ../sass/elements/_base.scss */
 .row + .row {
   margin-top: 30px;
   margin-top: 1.875rem;
 }
 
-/* line 11, ../sass/elements/_base.scss */
+/* line 13, ../sass/elements/_base.scss */
 .row.row-short {
   margin-top: 15px;
   margin-top: 0.9375rem;
 }
 
-/* line 15, ../sass/elements/_base.scss */
+/* line 17, ../sass/elements/_base.scss */
 .main-content .row {
   margin-bottom: auto;
 }
 
-/* line 20, ../sass/elements/_base.scss */
+/* line 22, ../sass/elements/_base.scss */
 [class^="col-md"] {
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
@@ -154,34 +159,34 @@ html {
   transition: 0.2s;
 }
 
-/* line 24, ../sass/elements/_base.scss */
+/* line 26, ../sass/elements/_base.scss */
 body {
   font-size: 90%;
 }
 @media (min-width: 1200px) {
-  /* line 24, ../sass/elements/_base.scss */
+  /* line 26, ../sass/elements/_base.scss */
   body {
     font-size: 100%;
   }
 }
 
-/* line 30, ../sass/elements/_base.scss */
+/* line 32, ../sass/elements/_base.scss */
 .inline-tooltip {
   position: relative;
   padding-right: 30px;
 }
-/* line 34, ../sass/elements/_base.scss */
+/* line 36, ../sass/elements/_base.scss */
 .inline-tooltip span {
   margin-left: 8px;
 }
-/* line 40, ../sass/elements/_base.scss */
+/* line 42, ../sass/elements/_base.scss */
 .inline-tooltip.right > span {
   position: absolute;
   right: 2px;
   top: 4px;
 }
 
-/* line 48, ../sass/elements/_base.scss */
+/* line 50, ../sass/elements/_base.scss */
 .container.page {
   padding-top: 60px;
   padding-top: 3.75rem;
@@ -189,31 +194,31 @@ body {
   padding-bottom: 1.875rem;
 }
 
-/* line 53, ../sass/elements/_base.scss */
+/* line 55, ../sass/elements/_base.scss */
 .sep {
   margin-left: 3px;
   margin-right: 3px;
 }
 
-/* line 61, ../sass/elements/_base.scss */
+/* line 63, ../sass/elements/_base.scss */
 [class^="col-"] + .col-sm-12,
 [class*=" col-"] + .col-sm-12 {
   margin-top: 8px;
 }
 @media (min-width: 768px) {
-  /* line 61, ../sass/elements/_base.scss */
+  /* line 63, ../sass/elements/_base.scss */
   [class^="col-"] + .col-sm-12,
   [class*=" col-"] + .col-sm-12 {
     margin-top: 0;
   }
 }
 
-/* line 68, ../sass/elements/_base.scss */
+/* line 70, ../sass/elements/_base.scss */
 section > header {
   margin-bottom: 30px;
 }
 
-/* line 82, ../sass/elements/_base.scss */
+/* line 84, ../sass/elements/_base.scss */
 .box-dark {
   padding: 40px;
   padding: 2.5rem;
@@ -224,7 +229,7 @@ section > header {
   line-height: 19.6px;
   line-height: 1.225rem;
 }
-/* line 88, ../sass/elements/_base.scss */
+/* line 90, ../sass/elements/_base.scss */
 .box-dark .title {
   padding: 40px 40px 0;
   padding: 2.5rem 2.5rem 0;
@@ -241,33 +246,33 @@ section > header {
   line-height: 2.45rem;
   font-weight: 100;
 }
-/* line 97, ../sass/elements/_base.scss */
+/* line 99, ../sass/elements/_base.scss */
 .box-dark a {
   color: #0bc0fc;
 }
 
-/* line 101, ../sass/elements/_base.scss */
+/* line 103, ../sass/elements/_base.scss */
 .block, .block-link {
   display: block;
 }
-/* line 104, ../sass/elements/_base.scss */
+/* line 106, ../sass/elements/_base.scss */
 .block input,
 .block textarea, .block-link input,
 .block-link textarea {
   width: 100%;
 }
 
-/* line 108, ../sass/elements/_base.scss */
+/* line 110, ../sass/elements/_base.scss */
 a {
   color: #0085cf;
 }
 
-/* line 117, ../sass/elements/_base.scss */
+/* line 119, ../sass/elements/_base.scss */
 .main .row .section-title {
   margin: 0;
 }
 
-/* line 127, ../sass/elements/_base.scss */
+/* line 129, ../sass/elements/_base.scss */
 .backdrop {
   position: fixed;
   left: 0;
@@ -275,7 +280,7 @@ a {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
-  z-index: 9;
+  z-index: 9999;
 }
 
 /* line 1, ../sass/elements/_forms.scss */
