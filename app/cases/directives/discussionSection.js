@@ -1,9 +1,9 @@
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaCasecomments', ['$location','$anchorScroll' ,function ($location, $anchorScroll) {
+angular.module('RedhatAccess.cases').directive('rhaCasediscussion', ['$location','$anchorScroll' ,function ($location, $anchorScroll) {
     return {
-        templateUrl: 'cases/views/commentsSection.html',
-        controller: 'CommentsSection',
+        templateUrl: 'cases/views/discussionSection.html',
+        controller: 'DiscussionSection',
         scope: { loading: '=' },
         restrict: 'A',
         link: function postLink(scope, element, attrs) {

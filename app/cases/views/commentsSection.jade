@@ -1,8 +1,0 @@
-article.comment(id="{{comment.id}}", ng-repeat='comment in CaseService.comments', ng-if='!comment.draft')
-  h4.meta
-    span.author.blue {{comment.created_by}}
-    date.light  {{comment.created_date | date:'mediumDate'}}
-    |  at
-    time.light  {{comment.created_date | date:'h:mm:ss a Z'}}
-  blockquote.pre-wrap
-    | {{ comment.text}}

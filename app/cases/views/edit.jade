@@ -19,7 +19,7 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
         .row
           .col-xs-12(ng-show='EDIT_CASE_CONFIG.showComments')
             div(rha-addcommentsection='', loading='loading.comments')
-            div(rha-casecomments='', loading='loading.comments')
+            div(rha-casediscussion='', loading='loading.comments')
     aside.col-md-4
       section#rha-recommendation-section.recommendations(rha-editcaserecommendations='')
       section#case-escalation.case-escalation(rha-requestescalation='')

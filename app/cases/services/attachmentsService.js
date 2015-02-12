@@ -30,13 +30,18 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
         this.removeUpdatedAttachment = function ($index) {
             this.updatedAttachments.splice($index, 1);
         };
-        this.removeOriginalAttachment = function ($index) {
-            var attachment = this.originalAttachments[$index];
+        this.removeOriginalAttachment = function (attachment) {
             var progressMessage = AlertService.addWarningMessage(translate('Deleting attachment:') + ' ' + attachment.file_name);
             strataService.cases.attachments.remove(attachment.uuid, CaseService.kase.case_number).then(angular.bind(this, function () {
                 AlertService.removeAlert(progressMessage);
                 AlertService.addSuccessMessage(translate('Successfully deleted attachment:') + ' ' + attachment.file_name);
-                this.originalAttachments.splice($index, 1);
+                var i = 0;
+                for(i; i < this.originalAttachments.length; i++){
+                    if(this.originalAttachments[i].uuid === attachment.uuid){
+                        break;
+                    }
+                }
+                this.originalAttachments.splice(i, 1);
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
