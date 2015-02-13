@@ -20,6 +20,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             storageMode: 'localStorage',
             verifyIntegrity: true
         });
+        this.updatingCase = false;
         this.submittingCase = false;
         this.kase = {};
         this.prestineKase = {};
@@ -122,6 +123,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.clearCase = function () {
             this.caseDataReady = false;
             this.isCommentPublic = false;
+            this.updatingCase = false;
             this.kase = {};
             this.prestineKase = {};
             this.versions = [];
@@ -425,6 +427,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
 
         this.updateCase = function(){
+            this.updatingCase = true;
             var deferred = $q.defer();
             var caseJSON = {};
             if (this.kase.type !== undefined) {
@@ -463,13 +466,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 caseJSON.notes = this.kase.notes;
             }
             strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
-                //$scope.updatingDetails = false;
+                this.updatingCase = false;
                 angular.copy(this.kase, this.prestineKase);
                 deferred.resolve();
-                //$scope.detailsForm.$setPristine();
             }), function (error) {
                 deferred.reject(error);
-                //$scope.updatingDetails = false;
+                this.updatingCase = false;
             });
             return deferred.promise;
         };
