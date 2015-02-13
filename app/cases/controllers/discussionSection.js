@@ -3,6 +3,7 @@
 /*jshint camelcase: false */
 angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     '$scope',
+    '$timeout',
     'AttachmentsService',
     'CaseService',
     'DiscussionService',
@@ -16,7 +17,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     '$location',
     '$anchorScroll',
     'RHAUtils',
-    function ($scope, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope,AUTH_EVENTS, AlertService, $modal, $location, $anchorScroll, RHAUtils) {
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope,AUTH_EVENTS, AlertService, $modal, $location, $anchorScroll, RHAUtils) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.ie8 = window.ie8;
@@ -30,7 +31,13 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         };
 
         $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            DiscussionService.getDiscussionElements($stateParams.id);
+            DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function (attachmentsJSON) {
+                //TODO make more better
+                $timeout(function() {
+                    CaseService.scrollToComment($location.search().commentId);
+                }, 1000);
+            }, function (error) {
+            }));
         });
 
         if (securityService.loginStatus.isLoggedIn) {

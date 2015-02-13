@@ -1,21 +1,25 @@
 'use strict';
 /*jshint camelcase: false */
 angular.module('RedhatAccess.cases').service('DiscussionService', [
+    '$location',
+    '$q',
     'AlertService',
     'AttachmentsService',
     'CaseService',
     'strataService',
-    function (AlertService, AttachmentsService, CaseService, strataService) {
+    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService) {
         this.discussionElements = [];
         this.comments = CaseService.comments
         this.attachments = AttachmentsService.originalAttachments;
         this.loadingAttachments = false;
         this.loadingComments = false;
         this.getDiscussionElements = function(caseId){
+            var attachPromise = null;
+            var commentsPromise = null;
             this.discussionElements = [];
             //if (EDIT_CASE_CONFIG.showAttachments) {
             this.loadingAttachments = true;
-            strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
+            attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
                 AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                 //this.attachments = AttachmentsService.originalAttachments;
                 //this.discussionElements = this.discussionElements.concat(this.attachments);
@@ -24,7 +28,7 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
                 AlertService.addStrataErrorMessage(error);
                 this.loadingAttachments= false;
             }));
-            CaseService.populateComments(caseId);
+            commentsPromise = CaseService.populateComments(caseId)
             //}
             //if (EDIT_CASE_CONFIG.showComments) {
             //TODO should this be done in case service???
@@ -38,6 +42,9 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
             //     this.loadingComments = false;
             // });
             //}
+
+
+            return $q.all([attachPromise, commentsPromise]);
         };
         this.updateElements = function(){
             this.comments = CaseService.comments
