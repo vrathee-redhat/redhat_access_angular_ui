@@ -40,12 +40,25 @@ section.case-description
             .label {{'Case Type'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             div(rha-typeselect='')
+        .row(ng-show="CaseService.showFts()")
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'24x7 Support'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            input(ng-model="CaseService.kase.fts",
+            type="checkbox",
+            name="ftsCheckbox")
+        .row(ng-show="CaseService.showFts() && CaseService.kase.fts")
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'24x7 Contact'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            input(
+              ng-model="CaseService.kase.contact_info24_x7")
         .row
           .col-xs-12
             button.btn.btn-accent(
               name='updateButton',
               ng-disabled='updatingDetails || !detailsForm.$dirty',
               ng-click='updateCase()', translate='') Save Changes
-            a.link(
+            button.btn.btn-accent(
               ng-disabled='updatingDetails || !detailsForm.$dirty',
               ng-click='resetData()') Cancel

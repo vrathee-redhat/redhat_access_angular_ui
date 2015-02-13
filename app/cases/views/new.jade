@@ -106,6 +106,29 @@ div(rha-header='', page='newCase')
           .label Case Group
         .col-sm-7.col-md-4
           div(rha-groupselect='')
+      .row.row-short
+        .col-sm-4.col-md-2
+          .label Support Level
+        .col-sm-7.col-md-4
+          select(
+            ng-model="CaseService.entitlement",
+            ng-change="CaseService.onChangeFTSCheck()",
+            width="'100%'",
+            ng-options="entitlement as entitlement for entitlement in CaseService.entitlements",
+            class="ng-scope ng-pristine ng-valid")
+      .row.row-short(ng-show="CaseService.showFts()")
+        .col-sm-4.col-md-2
+          .label 24x7 Support
+        .col-sm-7.col-md-4
+          input(
+            type="checkbox",
+            ng-model="CaseService.fts")
+      .row.row-short(ng-show="CaseService.showFts()")
+        .col-sm-4.col-md-2
+          .label 24x7 Contact
+        .col-sm-7.col-md-4
+          input(
+            ng-model="CaseService.fts_contact")
 
     .row.actions
       //- TODO make remove local storage once implemented

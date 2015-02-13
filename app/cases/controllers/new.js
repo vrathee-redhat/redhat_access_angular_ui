@@ -64,13 +64,13 @@ angular.module('RedhatAccess.cases').controller('New', [
         });
 
         
-        CaseService.onOwnerSelectChanged = function () {
-            if (CaseService.owner !== undefined) {
-                CaseService.populateEntitlements(CaseService.owner);
-                CaseService.populateGroups(CaseService.owner);
-            }
-            CaseService.validateNewCasePage1();
-        };
+        // CaseService.onOwnerSelectChanged = function () {
+        //     if (CaseService.owner !== undefined) {
+        //         CaseService.populateEntitlements(CaseService.owner);
+        //         CaseService.populateGroups(CaseService.owner);
+        //     }
+        //     CaseService.validateNewCasePage1();
+        // };
 
         /**
        * Populate the selects
@@ -82,6 +82,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.populateUsers();
             $scope.severitiesLoading = true;
             ProductsService.getProducts();
+            CaseService.populateEntitlements(securityService.loginStatus.authedUser.sso_username);
             strataService.values.cases.severity().then(function (severities) {
                 CaseService.severities = severities;
                 CaseService.kase.severity = severities[severities.length - 1];
