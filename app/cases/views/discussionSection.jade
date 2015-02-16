@@ -20,7 +20,7 @@ tabset(justified="true")
 				time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
 			.fa.fa-file-image-o.file-upload(ng-show="attachment.file_name") {{attachment.file_name}} ({{attachment.length | bytes}})
 				.fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
-	tab(ng-if="!securityService.loginStatus.authedUser.is_internal", heading="Private Notes") 
+	tab(ng-if="!securityService.loginStatus.authedUser.is_internal", heading="Private Notes")
 		form(name='notesForm')
 			label(for='rha-case-notes') {{'Notes:'|translate}}
 			textarea#rha-case-notes(
@@ -37,3 +37,5 @@ tabset(justified="true")
 				span {{' of the 255 maximum character size.'|translate}}
 			button.btn.btn-open.pull-right(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Discard Changes
 			button.btn.btn-accent.pull-right(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Update
+	tab(ng-if="securityService.loginStatus.authedUser.is_internal", heading="Bugzilla Tickets")
+		div(rha-listbugzillas)
