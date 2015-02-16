@@ -126,7 +126,6 @@ angular.module('RedhatAccess.cases').controller('New', [
                                 }
                             }
                         }
-
                         var sep = '────────────────────────────────────────';
                         if (productOptions.length > 0) {
                             productOptions.push({
@@ -237,10 +236,15 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.kase.summary = draftNewCase.summary;
                 if(RHAUtils.isNotEmpty(draftNewCase.product))
                 {
-                    CaseService.kase.product = draftNewCase.product;
-                    $scope.getProductVersions(CaseService.kase.product);
+                    //if we directly call $scope.getProductVersions function without product list in strata service it return error
+                    strataService.products.list(CaseService.owner).then(function (products) {
+                        CaseService.kase.product = draftNewCase.product;
+                        $scope.getProductVersions(CaseService.kase.product);
+                        CaseService.kase.version = draftNewCase.version;  //setting version after product check, as without product, version don't have any meaning
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
                 }
-                CaseService.kase.version = draftNewCase.version;
             }
         };
 
