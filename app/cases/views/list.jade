@@ -31,13 +31,20 @@ div(rha-header='', page='caseList')
             | {{case.version}}
           .description.small
             | {{case.summary}}
-        .col-sm-12.col-md-4
+        .col-sm-12.col-md-4(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
           .item-group.change-log
             .filed-on
               | Last Modified: 
               span {{case.last_modified_date | date:'longDate'}}
               i  by 
               span.blue {{case.last_modified_by}}
+        .col-sm-12.col-md-4(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
+          .item-group.change-log
+            .filed-on
+              | Created: 
+              span {{case.created_date | date:'longDate'}}
+              i  by 
+              span.blue {{case.created_by}}
   div(ng-show='SearchCaseService.searching')
     .spinner
     p.center Loading cases...
