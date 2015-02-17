@@ -57,7 +57,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                 SearchBoxService.searchTerm='';
                 var loc = $location.url().split('/');
                 $scope.accountNumber = securityService.loginStatus.authedUser.account_number;
-                strataService.groups.get(loc[3]).then(function (group) {
+                strataService.groups.get(loc[3], securityService.loginStatus.authedUser.sso_username).then(function (group) {
                     $scope.selectedGroup = group;
                     strataService.accounts.users($scope.accountNumber, $scope.selectedGroup.number).then(function (users) {
                         $scope.usersOnAccount = users;
@@ -81,8 +81,9 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             }
         };
         $scope.saveGroup = function () {
+            var userName = securityService.loginStatus.authedUser.sso_username;
             if(!$scope.isGroupPrestine){
-                strataService.groups.update($scope.selectedGroup).then(function (response) {
+                strataService.groups.update($scope.selectedGroup, userName).then(function (response) {
                     AlertService.addSuccessMessage(translate('Case group successfully updated.'));
                     $scope.isGroupPrestine = true;
                 }, function (error) {
