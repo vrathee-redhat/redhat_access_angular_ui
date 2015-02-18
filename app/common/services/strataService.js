@@ -222,12 +222,13 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         }
                         $q.all(deferreds).then(
                             function (results) {
+                                var _results = [];
                                 results.forEach(function (result) {
                                     if (result !== undefined) {
-                                        results.push(result);
+                                        _results.push(result);
                                     }
                                 });
-                                resultsDeferred.resolve(results);
+                                resultsDeferred.resolve(_results);
                             },
                             angular.bind(resultsDeferred, errorHandler));
                     },
