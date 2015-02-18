@@ -26,6 +26,7 @@ angular.module('RedhatAccess.logViewer').controller('DropdownCtrl', [
         };
         $scope.machineSelected = function () {
             $scope.loading = true;
+            files.setRetrieveFileButtonIsDisabled(true);
             var sessionId = $location.search().sessionId;
             var userId = $location.search().userId;
             files.selectedHost = this.choice;
