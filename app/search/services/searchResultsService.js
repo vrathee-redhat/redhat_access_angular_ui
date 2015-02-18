@@ -32,11 +32,7 @@ angular.module('RedhatAccess.search').factory('SearchResultsService', [
                     if (results.length === 0) {
                         AlertService.addSuccessMessage(translate('No solutions found.'));
                     }
-                    results.forEach(function (result) {
-                        if (result !== undefined) {
-                            service.add(result);
-                        }
-                    });
+                    results.forEach(service.add);
                     service.searchInProgress.value = false;
                 }, function (error) {
                     service.searchInProgress.value = false;
