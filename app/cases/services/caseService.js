@@ -293,10 +293,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
                     return true;
                 } else {
-                    this.fts = false;
-                    if (this.kase.fts !== undefined) {
-                        this.kase.fts = false;
-                    }
+//                    this.fts = false;
+//                    if (this.kase.fts !== undefined) {
+//                        this.kase.fts = false;
+//                    }
                     return false;
                 }
             }
