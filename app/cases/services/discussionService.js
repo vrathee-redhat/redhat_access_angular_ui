@@ -24,7 +24,7 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
                 //this.attachments = AttachmentsService.originalAttachments;
                 //this.discussionElements = this.discussionElements.concat(this.attachments);
                 this.loadingAttachments= false;
-            }, function (error) {
+            }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
                 this.loadingAttachments= false;
             }));

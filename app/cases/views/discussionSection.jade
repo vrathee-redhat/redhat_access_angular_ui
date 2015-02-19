@@ -9,7 +9,8 @@ tabset(justified="true")
 				time.light  {{element.created_date | date:'h:mm:ss a Z'}}
 			blockquote.pre-wrap(ng-hide="element.file_name")
 				| {{ element.text}}
-			.fa.fa-file-image-o.file-upload(ng-show="element.file_name") {{element.file_name}} ({{element.length | bytes}})
+			.fa.fa-file-image-o.file-upload(ng-show="element.file_name")
+				a(href="{{element.uri}}") {{element.file_name}} ({{element.length | bytes}})
 				.fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
 	tab(heading="All Attachments")
 		article.comment(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
@@ -18,7 +19,8 @@ tabset(justified="true")
 				date.light  {{attachment.created_date | date:'mediumDate'}}
 				|  at
 				time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
-			.fa.fa-file-image-o.file-upload(ng-show="attachment.file_name") {{attachment.file_name}} ({{attachment.length | bytes}})
+			.fa.fa-file-image-o.file-upload(ng-show="attachment.file_name")
+				a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
 				.fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
 	tab(ng-if="!securityService.loginStatus.authedUser.is_internal", heading="Private Notes")
 		form(name='notesForm')

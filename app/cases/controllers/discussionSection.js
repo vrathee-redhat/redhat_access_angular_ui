@@ -75,7 +75,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.updateNotes = function(){
             CaseService.updateCase().then(angular.bind(this, function (attachmentsJSON) {
                 this.notesForm.$setPristine();
-            }, function (error) {
+            }) ,angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
             }));
         };
