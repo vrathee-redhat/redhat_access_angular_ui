@@ -90,8 +90,8 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 }
                 if (EDIT_CASE_CONFIG.showComments) {
                     $scope.loading.comments = true;
-                    strataService.cases.comments.get($stateParams.id).then(function (commentsJSON) {
-                        $scope.comments = commentsJSON;
+                    CaseService.populateComments($stateParams.id).then(function (commentsJSON) {
+                        $scope.comments = commentsJSON;  // This might not be required
                         $scope.loading.comments = false;
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
