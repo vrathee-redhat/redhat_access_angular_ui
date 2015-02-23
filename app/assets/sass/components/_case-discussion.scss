@@ -10,25 +10,10 @@
 	}
 
 	.comment {
-
-		textarea {
-			min-height: 250px;
-		}
-
-		& + .comment {
-			@include rem('margin-top', $global-margin);
-		}
-
-		.meta {
-			@include rem('margin-bottom', $global-padding);
-		}
-
-		.comment {
-			@include rem('padding-left', 28px);
-		}
-
-		blockquote {
-			margin-bottom: 0;
-		}
+		textarea { min-height: 250px; }
+		& + .comment { @include rem('margin-top', $global-margin); }
+		.meta { @include rem('margin-bottom', $global-padding); }
+		.comment { @include rem('padding-left', 28px); }
+		blockquote { margin-bottom: 0; }
 	}
 }

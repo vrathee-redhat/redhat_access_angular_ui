@@ -4,7 +4,7 @@ $case-description-padding: $global-padding;
 
 .case-description {
 	position: relative;
-	overflow: hidden;
+//	overflow: hidden;
 	@include rem('margin-bottom', 30px);
 	@include rem('padding', $case-description-padding);
 	background: $case-description-bg;
