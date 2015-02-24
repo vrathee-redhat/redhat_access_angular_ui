@@ -32,48 +32,6 @@ angular.module('RedhatAccess.cases').controller('List', [
 			    AlertService.addStrataErrorMessage(error);
 		    });
 	    };
-        //AlertService.clearAlerts();
-                // getData: function ($defer, params) {
-                //     if(!SearchCaseService.searching){
-                //         var sort_field;
-                //         var sort_order;
-                //         for (var key in $scope.tableParams.$params.sorting) {
-                //             sort_field = key;
-                //             sort_order = $scope.tableParams.$params.sorting[key];
-                //         }
-                //         if (CaseService.sortBy !== sort_field || CaseService.sortOrder !== sort_order) {
-                //             SearchCaseService.clearPagination();
-                //             SearchCaseService.caseListPage = 1;
-                //             $scope.tableParams.$params.page = SearchCaseService.caseListPage;
-                //             CaseService.sortBy = sort_field;
-                //             CaseService.sortOrder = sort_order;
-                //             SearchCaseService.doFilter().then(function () {
-                //                 $scope.tableParams.$params.page = 1;
-                //                 var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                //                 $scope.tableParams.total(SearchCaseService.totalCases);
-                //                 $defer.resolve(pageData);
-                //             });
-                //         }
-                //         else {
-                //             SearchCaseService.caseListPage = params.page();
-                //             SearchCaseService.caseListPageSize = params.count();
-                //             if (!SearchCaseService.allCasesDownloaded && params.count() * params.page() > SearchCaseService.total) {
-                //                 SearchCaseService.doFilter().then(function () {
-                //                     if ($scope.tableParams.$params.page * params.count() >= SearchCaseService.total) {
-                //                         $scope.tableParams.$params.page = (params.count() + SearchCaseService.count) / params.count();
-                //                     }
-                //                     var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                //                     $scope.tableParams.total(SearchCaseService.totalCases);
-                //                     $defer.resolve(pageData);
-                //                 });
-                //             } else {
-                //                 var pageData = SearchCaseService.cases.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                //                 $scope.tableParams.total(SearchCaseService.totalCases);
-                //                 $defer.resolve(pageData);
-                //             }
-                //         }
-                //     }
-                // }
 
         $scope.doSearchDeregister = $rootScope.$on(CASE_EVENTS.searchSubmit, function () {
             $scope.doSearch();
@@ -140,6 +98,24 @@ angular.module('RedhatAccess.cases').controller('List', [
 
 	    $scope.caseLink = function (caseNumber) {
 		    $location.path('/case/' + caseNumber);
+	    }
+
+	    $scope.caseChosen = function() {
+	        var trues = $filter("filter")( SearchCaseService.cases, {selected:true} );
+	        return trues.length;
+	    }
+
+	    $scope.closeCases = function() {
+	        angular.forEach(SearchCaseService.cases, angular.bind(this, function (kase) {
+	        	if(kase.selected){
+	        		strataService.cases.put(kase.case_number, {status: 'Closed'}).then( angular.bind(kase, function (response) {
+					    AlertService.clearAlerts();
+					    AlertService.addSuccessMessage("Case " + kase.case_number + " successfully closed.");
+				    }), function (error) {
+					    AlertService.addStrataErrorMessage(error);
+				    });
+	        	}
+	        }));
 	    }
     }
 ]);
