@@ -4,6 +4,7 @@ angular.module('RedhatAccess.cases').controller('List', [
     '$scope',
     '$filter',
 	'$location',
+	'$state',
     'securityService',
     'AlertService',
     '$rootScope',
@@ -14,7 +15,8 @@ angular.module('RedhatAccess.cases').controller('List', [
     'SearchBoxService',
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
-    function ($scope, $filter, $location, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS) {
+    'CASE_GROUPS',
+    function ($scope, $filter, $location, $state, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -39,22 +41,19 @@ angular.module('RedhatAccess.cases').controller('List', [
 
         $scope.doSearch = function () {
             SearchCaseService.clearPagination();
-            // if($scope.tableParams !== undefined){
-            //     SearchCaseService.caseListPage = 1;
-            //     SearchCaseService.caseListPageSize = 10;
-            //     $scope.tableParams.$params.page = SearchCaseService.caseListPage;
-            //     $scope.tableParams.$params.count = SearchCaseService.caseListPageSize;
-            // }
-            if(CaseService.groups.length === 0){
-                CaseService.populateGroups().then(function (){
-                    SearchCaseService.doFilter().then(function () {
-
-                    });
-                });
+            if (CaseService.group === CASE_GROUPS.manage) {
+                $state.go('group');
             } else {
-                //CaseService.buildGroupOptions();
-                SearchCaseService.doFilter();
-            }
+	            if(CaseService.groups.length === 0){
+	                CaseService.populateGroups().then(function (){
+	                    SearchCaseService.doFilter().then(function () {
+
+	                    });
+	                });
+	            } else {
+	                SearchCaseService.doFilter();
+	            }
+	        }
         };
 
         $scope.firePageLoadEvent = function () {

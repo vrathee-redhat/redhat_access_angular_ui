@@ -8,12 +8,11 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
     'CASE_GROUPS',
     'AUTH_EVENTS',
     '$q',
-    '$state',
     '$rootScope',
     'SearchBoxService',
     'securityService',
     'COMMON_CONFIG',
-    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $state, $rootScope, SearchBoxService, securityService, COMMON_CONFIG) {
+    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $rootScope, SearchBoxService, securityService, COMMON_CONFIG) {
         this.cases = [];
         this.totalCases = 0;
         this.searching = true;
@@ -80,9 +79,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 concatQueryString("allText:" + SearchBoxService.searchTerm);
             }
             if(!securityService.loginStatus.authedUser.is_internal){
-                if (CaseService.group === CASE_GROUPS.manage) {
-                    $state.go('group');
-                } else if (CaseService.group === CASE_GROUPS.ungrouped) {
+                if (CaseService.group === CASE_GROUPS.ungrouped) {
                     concatQueryString("+case_hasGroup:false")
                 } else if (!isObjectNothing(CaseService.group)) {
                     //TODO add support for case group
