@@ -52,9 +52,6 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
         };
         this.postBackEndAttachments = function (caseId) {
             var selectedFiles = TreeViewSelectorUtils.getSelectedLeaves(this.backendAttachments);
-            var translateSuccUploaded=translate('Successfully uploaded attachment');
-            var translateFailUploaded=translate('Failed to upload attachment');
-            var toCaseTranslation=translate('to case');
             return securityService.getBasicAuthToken().then(function (auth) {
                 /*jshint unused:false */
                 //we post each attachment separately
@@ -68,7 +65,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                     var deferred = $q.defer();
                     $http.post('attachments', jsonData).success(function (data, status, headers, config) {
                         deferred.resolve(data);
-                        AlertService.addSuccessMessage(translateSuccUploaded + ' ' + jsonData.attachment + ' ' +  toCaseTranslation + ' ' + caseId);
+                        AlertService.addSuccessMessage(translate('Successfully uploaded attachment') + ' ' + jsonData.attachment + ' ' + translate('to case') + ' ' + caseId);
                     }).error(function (data, status, headers, config) {
                         var errorMsg = '';
                         switch (status) {
@@ -82,7 +79,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             errorMsg = ' : Internal server error';
                             break;
                         }
-                        AlertService.addDangerMessage(translateFailUploaded + ' '+jsonData.attachment + ' '+toCaseTranslation + caseId + errorMsg);
+                        AlertService.addDangerMessage(translate('Failed to upload attachment ') + jsonData.attachment + translate(' to case ') + caseId + errorMsg);
                         deferred.reject(data);
                     });
                     promises.push(deferred.promise);
@@ -93,8 +90,6 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
         this.updateAttachments = function (caseId) {
             var hasServerAttachments = this.hasBackEndSelections();
             var hasLocalAttachments = !angular.equals(this.updatedAttachments.length, 0);
-            var translateSuccUploaded=translate('Successfully uploaded attachment');
-            var toCaseTranslation=translate('to case');
             if (hasLocalAttachments || hasServerAttachments) {
                 var promises = [];
                 var updatedAttachments = this.updatedAttachments;
@@ -109,7 +104,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
-                                AlertService.addSuccessMessage(translateSuccUploaded + ' '+ attachment.file_name + ' '+toCaseTranslation + caseId);
+                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment ') + attachment.file_name + ' to case ' + caseId);
                             }, function (error) {
                                 AlertService.addStrataErrorMessage(error);
                             });
