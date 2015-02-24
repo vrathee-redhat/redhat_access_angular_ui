@@ -19,6 +19,12 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.progressCount = 0;
         $scope.maxCommentLength = '32000';
 
+        $scope.clearComment = function(){
+        	CaseService.commentText = '';
+        	CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
+        	AttachmentsService.updatedAttachments = [];
+        };
+
         $scope.addComment = function () {
             if (!securityService.loginStatus.authedUser.is_internal) {
                 CaseService.isCommentPublic = true;

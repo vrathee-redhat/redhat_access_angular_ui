@@ -17,13 +17,15 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     '$location',
     '$anchorScroll',
     'RHAUtils',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope,AUTH_EVENTS, AlertService, $modal, $location, $anchorScroll, RHAUtils) {
+    'EDIT_CASE_CONFIG',
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope,AUTH_EVENTS, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
         $scope.progressCount = 0;
+        $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
 
         $scope.DiscussionService = DiscussionService;
 

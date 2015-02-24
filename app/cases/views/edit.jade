@@ -9,16 +9,7 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
           rha-casedetails
       section.case-discussion
         .row
-          .col-xs-12
-            h2.section-title Case Discussion
-        .row
           .col-xs-12(rha-emailnotifyselect='')
-        //- .row
-        //-   .col-xs-12(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
-        //-     div(rha-caseattachments='', loading='loading.attachments')
-        .row
-          .col-xs-12(ng-show='EDIT_CASE_CONFIG.showComments')
-            div(rha-addcommentsection='', loading='loading.comments')
         .row
           .col-xs-12
             div(rha-casediscussion='', loading='loading.comments')

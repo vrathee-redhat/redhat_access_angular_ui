@@ -1,5 +1,8 @@
 tabset(justified="true")
 	tab(heading="Case Discussion")
+		.row
+			.col-xs-12(ng-show='EDIT_CASE_CONFIG.showComments')
+				div(rha-addcommentsection='', loading='loading.comments')
 		article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':'reverse'", ng-if='!element.draft')
 			a.glyphicon.glyphicon-link(ng-hide="element.file_name", style='float: right;', ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
 			h4.meta
