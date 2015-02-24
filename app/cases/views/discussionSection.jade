@@ -12,7 +12,7 @@ tabset(justified="true")
 				time.light  {{element.created_date | date:'h:mm:ss a Z'}}
 			blockquote.pre-wrap(ng-hide="element.file_name")
 				| {{ element.text}}
-				a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))') {{'Reply'|translate}}
+				a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}
 			.fa.fa-file-image-o.file-upload(ng-show="element.file_name")
 				a(href="{{element.uri}}") {{element.file_name}} ({{element.length | bytes}})
 				.fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
