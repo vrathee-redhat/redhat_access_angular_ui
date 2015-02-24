@@ -79,11 +79,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             errorMsg = ' : Internal server error';
                             break;
                         }
-<<<<<<< HEAD
                         AlertService.addDangerMessage(translate('Failed to upload attachment') + ' '+jsonData.attachment + ' '+translate('to case') + caseId + ' '+errorMsg);
-=======
-                        AlertService.addDangerMessage(translate('Failed to upload attachment ') + jsonData.attachment + translate(' to case ') + caseId + errorMsg);
->>>>>>> upstream/master
                         deferred.reject(data);
                     });
                     promises.push(deferred.promise);
@@ -108,12 +104,8 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
-<<<<<<< HEAD
                                 AlertService.addSuccessMessage(translate('Successfully uploaded attachment') + ' '+ attachment.file_name + translate('to case') +' ' + caseId);
 
-=======
-                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment ') + attachment.file_name + ' to case ' + caseId);
->>>>>>> upstream/master
                             }, function (error) {
                                 AlertService.addStrataErrorMessage(error);
                             });
