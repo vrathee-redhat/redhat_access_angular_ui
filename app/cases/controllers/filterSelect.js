@@ -12,32 +12,32 @@ angular.module('RedhatAccess.cases').controller('FilterSelect', [
         $scope.STATUS = STATUS;
         $scope.statuses = [
             {
-                name: translate('Sort by Newest Date Modified'),
+                name: translate('Newest Date Modified'),
                 sortField: 'lastModifiedDate',
                 sortOrder: 'DSC'
             },
             {
-                name: translate('Sort by Oldest Date Modified'),
+                name: translate('Oldest Date Modified'),
                 sortField: 'lastModifiedDate',
                 sortOrder: 'ASC'
             },
             {
-                name: translate('Sort by Highest Severity'),
+                name: translate('Highest Severity'),
                 sortField: 'severity',
                 sortOrder: 'DESC'
             },
             {
-                name: translate('Sort by Lowest Severity'),
+                name: translate('Lowest Severity'),
                 sortField: 'severity',
                 sortOrder: 'ASC'
             },
             {
-                name: translate('Sort by Newest Date Created'),
+                name: translate('Newest Date Created'),
                 sortField: 'createdDate',
                 sortOrder: 'DESC'
             },
             {
-                name: translate('Sort by Oldest Date Created'),
+                name: translate('Oldest Date Created'),
                 sortField: 'createdDate',
                 sortOrder: 'ASC'
             }

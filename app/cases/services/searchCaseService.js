@@ -151,21 +151,26 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     //     //params.view = 'internal';
                     // }
                     cases = strataService.cases.search(queryString, true).then(angular.bind(that, function (response) {
-                        if(response.length !== 50 ){
+                        if(response.case === undefined){
                             that.totalCases = 0;
                             that.total = 0;
                             that.allCasesDownloaded = true;
-                        } //else {
+                        } else {
                             //TODO fix broken case scrolling
                             //that.totalCases = response.total_count;
                             // if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
                             //     that.allCasesDownloaded = true;
                             // }
                             //if (response['case'] !== undefined){
-                        that.cases = that.cases.concat(response);
-                        //that.count = response['case'].length + that.total
-                        that.start = that.start + that.count;
-                        that.total = that.total + response.length;
+	                        that.totalCases = response.total_count;
+	                        that.cases = that.cases.concat(response.case);
+	                        //that.count = response['case'].length + that.total
+	                        that.start = that.start + that.count;
+	                        that.total = that.total + response.case.length;
+	                        if(response.case.length !== 50){
+                        		that.allCasesDownloaded = true;
+                        	}
+                    	}
                             //}
                             //if (angular.isFunction(that.postFilter)) {
                             //    that.postFilter();
