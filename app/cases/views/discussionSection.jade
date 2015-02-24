@@ -12,11 +12,12 @@ tabset(justified="true")
 				time.light  {{element.created_date | date:'h:mm:ss a Z'}}
 			blockquote.pre-wrap(ng-hide="element.file_name")
 				| {{ element.text}}
+				a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))') {{'Reply'|translate}}
 			.fa.fa-file-image-o.file-upload(ng-show="element.file_name")
 				a(href="{{element.uri}}") {{element.file_name}} ({{element.length | bytes}})
 				.fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
 	tab(heading="All Attachments")
-		article.comment(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
+		article(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
 			h4.meta
 				span.author.blue {{attachment.created_by}}
 				date.light  {{attachment.created_date | date:'mediumDate'}}

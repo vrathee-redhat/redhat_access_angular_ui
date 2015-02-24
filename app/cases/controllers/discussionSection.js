@@ -29,10 +29,6 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.DiscussionService = DiscussionService;
 
-        $scope.assignCommentsText=function(text) {
-            CaseService.commentText=text;
-        };
-
         $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function (attachmentsJSON) {
                 //TODO make more better
@@ -42,6 +38,29 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             }, function (error) {
             }));
         });
+
+        $scope.commentReply = function(comment,browserIE) {
+            var person = comment.created_by;
+            var originalText = CaseService.commentText;
+            var text = comment.text;
+            var lines = text.split(/\n/);
+            text = '(In reply to ' + person + ')\n';
+            for (var i = 0, max = lines.length; i < max; i++) {
+                text = text + '> '+ lines[i] + '\n';
+            }
+            if (originalText.trim() !== '') {
+                text = '\n' + text;
+            }
+            //$('#case-comment-box').val($('#case-comment-box').val()+text).keyup();
+            
+            //Copying the code from the link to comment method
+            var old = $location.hash();
+            $location.hash('case-comment-box');
+            $anchorScroll();
+            $location.hash(old);
+            $location.search('commentBox', 'commentBox');
+            CaseService.commentText=text;
+        };
 
         if (securityService.loginStatus.isLoggedIn) {
             DiscussionService.getDiscussionElements($stateParams.id);
