@@ -28,5 +28,14 @@ aside {
 	.pagination {
 		margin: 0;
 	}
+
+	ul {
+
+	}
+
+	li {
+		@include rem('margin-bottom', $global-margin);
+		@include rem('padding', 0 $global-margin);
+	}
 }
 

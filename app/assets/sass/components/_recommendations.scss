@@ -5,7 +5,7 @@ $recommendations-title-background: #adadad;
 $recommendations-title-color: $header_font_color;
 $recommendations-paragraph-color: $base_font_color;
 
-$recommendations-padding: 40px;
+$recommendations-padding: 30px;
 $recommendations-link-size: 18px;
 
 
@@ -111,10 +111,19 @@ aside .recommendations {
 	.pin {
 		position: absolute;
 		top: 0px;
-		left: -16px;
+		left: -18px;
+		@include opacity(0);
+		@include font-size(18px);
+		line-height: 1;
 	}
 
-	.block {
+	ul {
+		list-style-type: none;
+		@include rem('margin', 0 -30px);
+		padding: 0;
+	}
+
+	li {
 
 		.title {
 			padding: 0;
@@ -122,5 +131,22 @@ aside .recommendations {
 			line-height: 1;
 			@include rem('margin-bottom', $global-padding);
 		}
+
+		// set the pinned and pinning states to be visible always
+		.pinned, .spinner-xs {
+			@include opacity(1);
+		}
+
+		.not-pinned { @include transition(0); }
+		.spinner { margin-left: -2px; }
+	}
+
+	li:hover {
+		.pin {
+			@include opacity(1);
+//			@include transition(.2s);
+		}
+
+		.spinner { margin-left: -2px; }
 	}
 }

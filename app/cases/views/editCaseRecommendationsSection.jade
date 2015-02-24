@@ -1,19 +1,20 @@
 h3.section-title(translate='') Here Are Some Possible Solutions
 .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
 .spinner.spinner-inline(ng-show='loading')
-div(ng-hide='loading')
-  .block(ng-repeat='recommendation in results')
-    .title
-      .fa.fa-thumb-tack(
-        ng-class='{"fa.fa-thumb": recommendation.pinned && !recommendation.pinning, "not-pinned": !recommendation.pinned && !recommendation.pinning, "rha-search-spinner-sm": recommendation.pinning}',
-        ng-click='pinRecommendation(recommendation, $index, $event)',
-        style='cursor: pointer;') &nbsp;
-      a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
-        strong {{recommendation.title}}
-      span.handpicked(ng-show='recommendation.handPicked', translate='')
-        .fa.fa-check
-        | Handpicked
-    div(ng-bind-html='recommendation.abstract')
+.recommendations(ng-hide='loading')
+  ul
+    li.recommendation(ng-repeat='recommendation in results')
+      .title
+        .fa.pin(
+          ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
+          ng-click='pinRecommendation(recommendation, $index, $event)',
+          style='cursor: pointer;') &nbsp;
+        a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
+          strong {{recommendation.title}}
+        span.handpicked(ng-show='recommendation.handPicked', translate='')
+          .fa.fa-check
+          | Handpicked
+      div(ng-bind-html='recommendation.abstract')
 
   div(style='padding-top: 10px;', ng-hide='RecommendationsService.recommendations.length == 0')
     pagination.pagination-sm(

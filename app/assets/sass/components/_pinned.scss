@@ -1,5 +1,14 @@
-.pin.active {
-	color: $red;
+.not-pinned {
+	color: $brand-gray;
+}
+
+.pinned {
+	color: $brand-gray;
+	@include opacity(1);
+}
+
+.pin {
+
 }
 
 .handpicked {
