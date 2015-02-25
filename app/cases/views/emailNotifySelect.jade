@@ -6,6 +6,7 @@
     select(
       chosen,
       multiple,
+      data-placeholder='Select a User',
       ng-disabled='updatingList',
       ng-model='CaseService.updatedNotifiedUsers',
       ng-change='updateNotifyUsers()',

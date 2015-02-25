@@ -3,6 +3,17 @@ div(rha-header='', page='newCase')
   //section.case-description
   section.case-new
     section.config-options
+      div(ng-if='securityService.loginStatus.authedUser.is_internal')
+        .row.row-short
+          .col-sm-4.col-md-2
+            label(for='rha-account-number') {{'Account:'|translate}}
+          .col-sm-7.col-md-4
+            div(rha-accountselect='')
+        .row.row-short
+          .col-sm-4.col-md-2
+            label(for='rha-owners-select') {{'Owner:'|translate}}
+          .col-sm-7.col-md-4
+            div(rha-ownerselect='')
       .row.row-short
         .col-sm-4.col-md-2
           .label {{'Product'|translate}}
@@ -77,9 +88,19 @@ div(rha-header='', page='newCase')
           section(rha-newcaserecommendations='')
       .row.row-short
         .col-sm-4.col-md-2
+          .label Support Level
+        .col-sm-7.col-md-4
+          select(
+          	chosen,
+            ng-model="CaseService.entitlement",
+            ng-change="CaseService.onChangeFTSCheck()",
+            width="'100%'",
+            ng-options="entitlement as entitlement for entitlement in CaseService.entitlements",
+            class="ng-scope ng-pristine ng-valid")
+      .row.row-short
+        .col-sm-4.col-md-2
           .label.inline-tooltip Severity
             span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
-
         .col-sm-7.col-md-4
           select#rha-severity.form-control(
             chosen,
@@ -88,34 +109,6 @@ div(rha-header='', page='newCase')
             ng-change='CaseService.onChangeFTSCheck()',
             ng-disabled='CaseService.submittingCase',
             ng-options='s.name for s in CaseService.severities track by s.name')
-      .row.row-short
-        .col-sm-4.col-md-2
-          .label(for='email-notifications') Send Email Notifications to
-        .col-sm-7.col-md-4
-          .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
-          select(
-            chosen,
-            multiple,
-            ng-disabled='updatingList || CaseService.submittingCase',
-            ng-model='notifiedUsers',
-            id='rha-email-notify-select',
-            width='"100%"',
-            ng-options='user.sso_username as user.sso_username for user in CaseService.users')
-      .row.row-short
-        .col-sm-4.col-md-2
-          .label Case Group
-        .col-sm-7.col-md-4
-          div(rha-groupselect='')
-      .row.row-short
-        .col-sm-4.col-md-2
-          .label Support Level
-        .col-sm-7.col-md-4
-          select(
-            ng-model="CaseService.entitlement",
-            ng-change="CaseService.onChangeFTSCheck()",
-            width="'100%'",
-            ng-options="entitlement as entitlement for entitlement in CaseService.entitlements",
-            class="ng-scope ng-pristine ng-valid")
       .row.row-short(ng-show="CaseService.showFts()")
         .col-sm-4.col-md-2
           .label 24x7 Support
@@ -129,13 +122,33 @@ div(rha-header='', page='newCase')
         .col-sm-7.col-md-4
           input(
             ng-model="CaseService.fts_contact")
+      .row.row-short
+        .col-sm-4.col-md-2
+          .label(for='email-notifications') Send Email Notifications to
+        .col-sm-7.col-md-4
+          .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
+          select(
+            chosen,
+            multiple,
+            data-placeholder='Select a User',
+            ng-disabled='updatingList || CaseService.submittingCase',
+            ng-model='notifiedUsers',
+            id='rha-email-notify-select',
+            width='"100%"',
+            ng-options='user.sso_username as user.sso_username for user in CaseService.users')
+      .row.row-short
+        .col-sm-4.col-md-2
+          .label Case Group
+        .col-sm-7.col-md-4
+          div(rha-groupselect='')
 
     .row.actions
       //- TODO make remove local storage once implemented
-      .col-sm-6.col-md-2
-        a.button.btn.btn-open(href='#/case/list') Cancel
       .col-xs-12.col-sm-6.col-md-2
         button.btn.btn-primary.btn-submit(
         ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
         ng-hide='CaseService.submittingCase',
         ng-click='doSubmit($event)', translate='') Submit
+      .col-sm-6.col-md-2
+        a(href='#/case/list') Cancel
+      

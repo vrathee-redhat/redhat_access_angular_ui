@@ -79,7 +79,9 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.newCaseIncomplete = true;
             CaseService.clearCase();
             RecommendationsService.clear();
-            CaseService.populateUsers();
+            CaseService.populateUsers().then(function (){
+            	$scope.notifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
+        	});
             $scope.severitiesLoading = true;
             ProductsService.getProducts();
             CaseService.populateEntitlements(securityService.loginStatus.authedUser.sso_username);
