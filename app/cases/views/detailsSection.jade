@@ -55,10 +55,10 @@ section.case-description
               ng-model="CaseService.kase.contact_info24_x7")
         .row
           .col-xs-12
-            button.btn.btn-accent(
+            button.btn(
               name='updateButton',
               ng-disabled='updatingDetails || !detailsForm.$dirty',
               ng-click='updateCase()', translate='') Save Changes
-            button.btn.btn-accent(
+            button.btn.btn-secondary(
               ng-disabled='updatingDetails || !detailsForm.$dirty',
               ng-click='resetData()') Cancel

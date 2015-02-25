@@ -54,3 +54,17 @@ $subheading-margin-bottom: 4px;
 		}
 	}
 }
+
+.bulk-closure.case-list {
+
+	.list-item {
+		position: relative;
+		@include rem('padding-left', 30px);
+
+		input.closure {
+			position: absolute;
+			left: 0;
+			top: 18px;
+		}
+	}
+}

@@ -118,6 +118,12 @@
   word-wrap: break-word;
 }
 
+/* line 44, ../sass/includes/_helpers.scss */
+.margin-left {
+  margin-left: 15px;
+  margin-left: 0.9375rem;
+}
+
 /* line 1, ../sass/elements/_base.scss */
 html {
   font-size: 100%;
@@ -312,19 +318,6 @@ textarea {
 /* line 15, ../sass/elements/_forms.scss */
 input[type="text"], textarea, .form-control {
   width: 100%;
-  padding: 8px;
-  padding: 0.5rem;
-  font-size: 14px;
-  font-size: 0.875rem;
-  line-height: 19.6px;
-  line-height: 1.225rem;
-  color: #4a4a4a;
-  line-height: 1;
-  border: 1px solid #cacaca;
-  -moz-transition: 0.2s;
-  -o-transition: 0.2s;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
 }
 /* line 24, ../sass/elements/_forms.scss */
 input[type="text"]:active, input[type="text"]:focus, textarea:active, textarea:focus, .form-control:active, .form-control:focus {
@@ -414,8 +407,6 @@ h4 {
   font-weight: 600;
   text-transform: uppercase;
   color: #4c4c4c;
-  margin-bottom: 6px;
-  margin-bottom: 0.375rem;
 }
 
 /* line 3, ../sass/elements/_articles.scss */
@@ -670,6 +661,19 @@ blockquote {
   background: #f0f0f0;
 }
 
+/* line 60, ../sass/components/_case-list.scss */
+.bulk-closure.case-list .list-item {
+  position: relative;
+  padding-left: 30px;
+  padding-left: 1.875rem;
+}
+/* line 64, ../sass/components/_case-list.scss */
+.bulk-closure.case-list .list-item input.closure {
+  position: absolute;
+  left: 0;
+  top: 18px;
+}
+
 /* line 5, ../sass/components/_case-description.scss */
 .case-description {
   position: relative;
@@ -799,8 +803,8 @@ blockquote {
 }
 /* line 18, ../sass/components/_page-header.scss */
 .page-header .change-log {
-  margin: 20px 0;
-  margin: 1.25rem 0;
+  margin: 10px 0;
+  margin: 0.625rem 0;
 }
 
 /* line 1, ../sass/components/_nav.scss */
@@ -980,16 +984,12 @@ aside .recommendations li .not-pinned {
 }
 /* line 141, ../sass/components/_recommendations.scss */
 aside .recommendations li .spinner {
-  margin-left: -2px;
+  margin-left: -4px;
 }
 /* line 145, ../sass/components/_recommendations.scss */
 aside .recommendations li:hover .pin {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
-}
-/* line 150, ../sass/components/_recommendations.scss */
-aside .recommendations li:hover .spinner {
-  margin-left: -2px;
 }
 
 /* line 3, ../sass/components/_case-discussion.scss */
@@ -1185,7 +1185,7 @@ aside .recommendations li:hover .spinner {
 }
 /* line 4, ../sass/components/_filters.scss */
 .filters .col-sm-12 + .col-sm-12 {
-  margin-top: 12px;
+  margin-top: 15px;
 }
 @media (min-width: 992px) {
   /* line 4, ../sass/components/_filters.scss */
@@ -1312,30 +1312,41 @@ aside .recommendations li:hover .spinner {
 }
 
 /* line 3, ../sass/components/_rha-page-header.scss */
-.rha-page-header .row {
+.page-header .row {
   margin-left: -7.5px;
   margin-right: -7.5px;
   margin-bottom: 0;
 }
 /* line 8, ../sass/components/_rha-page-header.scss */
-.rha-page-header .row [class^="col-"], .rha-page-header .row [class*=" col-"] {
+.page-header .row [class^="col-"], .page-header .row [class*=" col-"] {
   padding-right: 7.5px;
   padding-left: 7.5px;
 }
 /* line 14, ../sass/components/_rha-page-header.scss */
-.rha-page-header .actions {
+.page-header .actions {
   text-align: right;
   margin-top: 0;
 }
 /* line 18, ../sass/components/_rha-page-header.scss */
-.rha-page-header .actions .btn {
+.page-header .actions .btn {
   display: inline-block;
   width: auto;
-  margin-left: 15px;
+  margin: 15px 0 0 15px;
+  margin: 0.9375rem 0 0 0.9375rem;
 }
-/* line 23, ../sass/components/_rha-page-header.scss */
-.rha-page-header .actions .btn:first-child {
+@media (min-width: 768px) {
+  /* line 18, ../sass/components/_rha-page-header.scss */
+  .page-header .actions .btn {
+    margin-top: 0;
+  }
+}
+/* line 27, ../sass/components/_rha-page-header.scss */
+.page-header .actions .btn:first-child {
   margin-left: 0;
+}
+/* line 34, ../sass/components/_rha-page-header.scss */
+.page-header .filter-list label {
+  margin-right: 8px;
 }
 
 /* line 1, ../sass/components/_pinned.scss */
@@ -1439,23 +1450,25 @@ aside .recommendations li:hover .spinner {
 /* line 36, ../sass/vendor/_chosen.scss */
 .chosen-container-single .chosen-single div b:before, .chosen-container-single .chosen-choices div b:before, .chosen-container-multi .chosen-single div b:before, .chosen-container-multi .chosen-choices div b:before {
   content: "\f0d7";
+  positin: absolute;
+  left: 0;
 }
 
-/* line 44, ../sass/vendor/_chosen.scss */
+/* line 48, ../sass/vendor/_chosen.scss */
 .chosen-results li {
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 46, ../sass/vendor/_chosen.scss */
+/* line 50, ../sass/vendor/_chosen.scss */
 .chosen-results li:hover,
 .chosen-results li.result-selected,
 .chosen-results li.active-result.highlighted {
   background: #f0f0f0;
   color: #4a4a4a;
 }
-/* line 53, ../sass/vendor/_chosen.scss */
+/* line 57, ../sass/vendor/_chosen.scss */
 .chosen-results li:hover,
 .chosen-results li.active-result.highlighted {
   background: #f0f0f0;
@@ -1463,18 +1476,18 @@ aside .recommendations li:hover .spinner {
   padding-right: 4px;
 }
 
-/* line 61, ../sass/vendor/_chosen.scss */
+/* line 65, ../sass/vendor/_chosen.scss */
 .localytics-chosen {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
 }
 
-/* line 69, ../sass/vendor/_chosen.scss */
+/* line 73, ../sass/vendor/_chosen.scss */
 .chosen-container.chosen-with-drop .chosen-container-active .chosen-single {
   background: none;
 }
-/* line 74, ../sass/vendor/_chosen.scss */
+/* line 78, ../sass/vendor/_chosen.scss */
 .chosen-container.chosen-with-drop .chosen-drop {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
@@ -1485,7 +1498,7 @@ aside .recommendations li:hover .spinner {
   border-color: #cacaca;
 }
 
-/* line 81, ../sass/vendor/_chosen.scss */
+/* line 85, ../sass/vendor/_chosen.scss */
 .chosen-container-active.chosen-with-drop .chosen-single {
   background: #fff;
   border-color: #cacaca;
@@ -1494,7 +1507,7 @@ aside .recommendations li:hover .spinner {
   box-shadow: none;
 }
 
-/* line 87, ../sass/vendor/_chosen.scss */
+/* line 91, ../sass/vendor/_chosen.scss */
 .chosen-container-single .chosen-single span {
   color: #4a4a4a;
 }

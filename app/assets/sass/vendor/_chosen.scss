@@ -33,7 +33,11 @@ $chosen-border-color: $border-gray;
 			line-height: 2.2;
 			color: $chosen-color;
 
-			&:before { content: "\f0d7"; }
+			&:before {
+				content: "\f0d7";
+				positin: absolute;
+				left: 0;
+			}
 		}
 	}
 }

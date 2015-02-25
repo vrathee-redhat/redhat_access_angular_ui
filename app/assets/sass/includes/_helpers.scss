@@ -40,3 +40,7 @@
 	white-space: pre-wrap;
 	word-wrap: break-word;
 }
+
+.margin-left {
+	@include rem('margin-left', $global-padding);
+}

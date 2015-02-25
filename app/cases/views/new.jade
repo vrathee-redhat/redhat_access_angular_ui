@@ -142,13 +142,12 @@ div(rha-header='', page='newCase')
         .col-sm-7.col-md-4
           div(rha-groupselect='')
 
-    .row.actions
-      //- TODO make remove local storage once implemented
-      .col-xs-12.col-sm-6.col-md-2
-        button.btn.btn-primary.btn-submit(
-        ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
-        ng-hide='CaseService.submittingCase',
-        ng-click='doSubmit($event)', translate='') Submit
-      .col-sm-6.col-md-2
-        a(href='#/case/list') Cancel
-      
+      .row
+        //- TODO make remove local storage once implemented
+        .col-sm-12
+          button.btn.btn-primary.btn-submit(
+            ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
+            ng-hide='CaseService.submittingCase',
+            ng-click='doSubmit($event)', translate='') Submit
+          a.margin-left(href='#/case/list') Cancel
+

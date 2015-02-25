@@ -1,22 +1,23 @@
 div(rha-header='', page='caseList')
-.rha-page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
+.page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
   .row(ng-hide='!CaseService.sfdcIsHealthy')
     .col-sm-8(rha-listfilter='')
     .col-sm-4
       .actions
-        a.btn.btn-info.btn-xs(href='#/case/new') Create a New Support Case
-        a.btn.btn-info.btn-xs(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close Cases
+        .row
+          .col-xs-12
+            a.btn.btn-info.btn-sm(href='#/case/new') Create a New Support Case
+            a.btn.btn-info.btn-sm(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close Cases
+        .row
+          .col-xs-12.filter-list(rha-filterselect='')
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.cases.length == 0')
     .col-sm-12.col-md-9
-      div {{SearchCaseService.totalCases}} Open Support Cases 
+      span {{SearchCaseService.totalCases}} Open Support Cases &nbsp;
       a.href(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export as CSV
-    .col-sm-12.col-md-3
-      p Sort By
-      div(rha-filterselect='')
   .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
-  #case-list.table-list.case-list(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
+  #case-list.table-list.case-list.bulk-closure(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
     .list-item(ng-repeat='case in SearchCaseService.cases')
-      input(type="checkbox", ng-model='case.selected')
+      input.closure(type="checkbox", ng-model='case.selected')
       .row.case(ng-click='caseLink(case.case_number)')
         .col-sm-4.col-md-2.item-group
           .block-icon
@@ -53,5 +54,5 @@ div(rha-header='', page='caseList')
   div(ng-show='SearchCaseService.searching')
     .spinner
     p.center Loading cases...
-    //.backdrop
+    .backdrop
 
