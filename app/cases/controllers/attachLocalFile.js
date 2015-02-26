@@ -2,28 +2,18 @@
 /*global $ */
 angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
     '$scope',
-    '$sce',
-    'RHAUtils',
     'AlertService',
     'AttachmentsService',
     'CaseService',
     'securityService',
     'translate',
-    function ($scope, $sce, RHAUtils,AlertService, AttachmentsService, CaseService, securityService, translate) {
+    function ($scope, AlertService, AttachmentsService, CaseService, securityService, translate) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
         $scope.fileDescription = '';
         var maxFileSize = 1000000000;
 
-        $scope.parseArtifactHtml = function () {
-            var parsedHtml = '';
-            if (RHAUtils.isNotEmpty(AttachmentsService.suggestedArtifact.description)) {
-                var rawHtml = AttachmentsService.suggestedArtifact.description.toString();
-                parsedHtml = $sce.trustAsHtml(rawHtml);
-            }
-            return parsedHtml;
-        };
         $scope.clearSelectedFile = function () {
             $scope.fileName = $scope.NO_FILE_CHOSEN;
             $scope.fileDescription = '';

@@ -45,6 +45,7 @@ div(rha-header='', page='newCase')
           div(style="margin-top: 15px")
             b Get faster results.
             | &nbsp; Attaching logs or other diagnostics files typically results in faster resolution.
+            div(ng-bind-html='AttachmentsService.parseArtifactHtml()')
             div(ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
               div(rha-listnewattachments='')
             div(ng-hide='ie8 || ie9', rha-attachlocalfile='', disabled='CaseService.submittingCase')

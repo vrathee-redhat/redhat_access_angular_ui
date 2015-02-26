@@ -31,7 +31,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.versionLoading = false;
         $scope.incomplete = true;
         $scope.submitProgress = 0;
-        //AttachmentsService.clear();
+        $scope.AttachmentsService = AttachmentsService;
         CaseService.clearCase();
         RecommendationsService.clear();
         SearchResultsService.clear();
@@ -76,6 +76,7 @@ angular.module('RedhatAccess.cases').controller('New', [
        * Populate the selects
        */
         $scope.initSelects = function () {
+        	AttachmentsService.clear();
             CaseService.newCaseIncomplete = true;
             CaseService.clearCase();
             RecommendationsService.clear();

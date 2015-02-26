@@ -3,6 +3,8 @@
 angular.module('RedhatAccess.cases').service('AttachmentsService', [
     '$filter',
     '$q',
+    '$sce',
+    'RHAUtils',
     'strataService',
     'TreeViewSelectorUtils',
     '$http',
@@ -10,7 +12,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     'AlertService',
     'CaseService',
     'translate',
-    function ($filter, $q, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
+    function ($filter, $q, $sce, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
@@ -20,6 +22,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
             this.originalAttachments = [];
             this.updatedAttachments = [];
             this.backendAttachments = [];
+            this.suggestedArtifact = {};
         };
         this.updateBackEndAttachments = function (selected) {
             this.backendAttachments = selected;
@@ -135,6 +138,14 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                 });
                 return parentPromise;
             }
+        };
+        this.parseArtifactHtml = function () {
+            var parsedHtml = '';
+            if (RHAUtils.isNotEmpty(this.suggestedArtifact.description)) {
+                var rawHtml = this.suggestedArtifact.description.toString();
+                parsedHtml = $sce.trustAsHtml(rawHtml);
+            }
+            return parsedHtml;
         };
     }
 ]);
