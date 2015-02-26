@@ -118,6 +118,24 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
         this.versionDisabled = true;
         this.versionLoading = true;
         strataService.products.versions(product).then(angular.bind(this, function (response) {
+        	response.sort(function (a, b) { //Added because of wrong order of versions
+				var result;
+				a = a.split('.');
+				b = b.split('.');
+				for( var i = 0; i < a.length; i++){
+					if(a[i] < b[i]){
+						return 1;
+					} else if(b[i] < a[i]){
+						return -1;
+					}
+				}
+				if(a.length > b.length){
+					return 1
+				} else if (b.length > a.length){
+					return -1;
+				}
+				return 0;
+			});
             this.versions = response;
             this.versionDisabled = false;
             this.versionLoading = false;
