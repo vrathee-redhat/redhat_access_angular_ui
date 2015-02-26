@@ -1,19 +1,20 @@
 div(rha-header='', page='caseList')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
   .row(ng-hide='!CaseService.sfdcIsHealthy')
-    .col-sm-8(rha-listfilter='')
-    .col-sm-4
+    .col-sm-7(rha-listfilter='')
+    .col-sm-5
       .actions
         .row
           .col-xs-12
             a.btn.btn-info.btn-sm(href='#/case/new') Create a New Support Case
             a.btn.btn-info.btn-sm(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close Cases
-        .row
-          .col-xs-12.filter-list(rha-filterselect='')
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.cases.length == 0')
-    .col-sm-12.col-md-9
-      span {{SearchCaseService.totalCases}} Open Support Cases &nbsp;
-      a.href(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export as CSV
+    .col-sm-6
+      .case-count
+        span {{SearchCaseService.totalCases}} Open Support Cases &nbsp;
+        a.href(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export as CSV
+    .col-sm-6
+      .pull-right.filter-list(rha-filterselect='')
   .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
   #case-list.table-list.case-list.bulk-closure(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
     .list-item(ng-repeat='case in SearchCaseService.cases')
@@ -28,22 +29,24 @@ div(rha-header='', page='caseList')
               i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
               i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
             .case-id
-              a.subheading {{case.case_number}}
-              div.status.small {{case.status}}
+              .subheading {{case.case_number}}
+              .status {{case.status}}
         .col-sm-8.col-md-6.item-group
-          a.subheading
+          .subheading
             | {{case.product}}
             span.sep |
             | {{case.version}}
-          .description.small
+          .description
             | {{case.summary}}
         .col-sm-12.col-md-4(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
           .item-group.change-log
             .filed-on
-              | Last Modified: 
-              span {{case.last_modified_date | date:'longDate'}}
-              i  by 
-              span.blue {{case.last_modified_by}}
+              | Modified by: &nbsp;
+              span.blue {{case.last_modified_by}} &nbsp;
+              span on &nbsp;
+              span {{case.last_modified_date | date:'longDate'}} &nbsp;
+
+
         .col-sm-12.col-md-4(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
           .item-group.change-log
             .filed-on

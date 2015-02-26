@@ -3,8 +3,8 @@ $subheading-margin-bottom: 4px;
 .case-list {
 
 	.subheading {
-		@include font-size(16px);
-		font-weight: 500;
+		@include font-size(14px);
+		font-weight: 700;
 		margin-bottom: $subheading-margin-bottom;
 		display: block;
 		color: $case-list-color;
@@ -30,7 +30,7 @@ $subheading-margin-bottom: 4px;
 
 			@include media-query (sm) {
 				@include rem('margin-bottom', $subheading-margin-bottom);
-				font-weight: 500;
+//				font-weight: 500;
 			}
 		}
 
@@ -44,6 +44,7 @@ $subheading-margin-bottom: 4px;
 	}
 
 	.list-item {
+		@include rem('padding-right', $global-padding);
 		@include transition(.2s);
 
 		&:hover {

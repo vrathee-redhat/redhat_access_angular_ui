@@ -1,9 +1,14 @@
 
 
-//$btn-disabled-gray: #e3e3e3;
-//$brand_blue_dark: #0075B5;
+$btn-disabled-gray: #e3e3e3;
+$brand_blue_dark: #0075B5;
 //
 //
+
+.btn {
+	text-transform: capitalize;
+}
+
 //.btn {
 //	@include rem('padding', 9px 40px);
 //	color: #fff;

@@ -342,6 +342,11 @@ input.margin {
   margin-bottom: 20px;
 }
 
+/* line 8, ../sass/elements/_buttons.scss */
+.btn {
+  text-transform: capitalize;
+}
+
 /* line 1, ../sass/elements/_links.scss */
 .link {
   color: #0085cf;
@@ -603,11 +608,11 @@ blockquote {
 
 /* line 5, ../sass/components/_case-list.scss */
 .case-list .subheading {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 22.4px;
-  line-height: 1.4rem;
-  font-weight: 500;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 19.6px;
+  line-height: 1.225rem;
+  font-weight: 700;
   margin-bottom: 4px;
   display: block;
   color: #4c4c4c;
@@ -637,7 +642,6 @@ blockquote {
   .case-list .case-id .subheading {
     margin-bottom: 4px;
     margin-bottom: 0.25rem;
-    font-weight: 500;
   }
 }
 /* line 37, ../sass/components/_case-list.scss */
@@ -650,24 +654,26 @@ blockquote {
 }
 /* line 46, ../sass/components/_case-list.scss */
 .case-list .list-item {
+  padding-right: 15px;
+  padding-right: 0.9375rem;
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 49, ../sass/components/_case-list.scss */
+/* line 50, ../sass/components/_case-list.scss */
 .case-list .list-item:hover {
   cursor: pointer;
   background: #f0f0f0;
 }
 
-/* line 60, ../sass/components/_case-list.scss */
+/* line 61, ../sass/components/_case-list.scss */
 .bulk-closure.case-list .list-item {
   position: relative;
   padding-left: 30px;
   padding-left: 1.875rem;
 }
-/* line 64, ../sass/components/_case-list.scss */
+/* line 65, ../sass/components/_case-list.scss */
 .bulk-closure.case-list .list-item input.closure {
   position: absolute;
   left: 0;
@@ -790,18 +796,60 @@ blockquote {
   padding: 0;
   border: none;
 }
-/* line 10, ../sass/components/_page-header.scss */
+/* line 8, ../sass/components/_page-header.scss */
+.page-header .row {
+  margin-left: -7.5px;
+  margin-right: -7.5px;
+  margin-bottom: 0;
+}
+/* line 13, ../sass/components/_page-header.scss */
+.page-header .row [class^="col-"], .page-header .row [class*=" col-"] {
+  padding-right: 7.5px;
+  padding-left: 7.5px;
+}
+/* line 19, ../sass/components/_page-header.scss */
+.page-header .actions {
+  text-align: right;
+  margin-top: 0;
+}
+/* line 23, ../sass/components/_page-header.scss */
+.page-header .actions .btn {
+  display: inline-block;
+  width: auto;
+  margin: 15px 0 0 15px;
+  margin: 0.9375rem 0 0 0.9375rem;
+}
+@media (min-width: 768px) {
+  /* line 23, ../sass/components/_page-header.scss */
+  .page-header .actions .btn {
+    margin-top: 0;
+  }
+}
+/* line 32, ../sass/components/_page-header.scss */
+.page-header .actions .btn:first-child {
+  margin-left: 0;
+}
+/* line 38, ../sass/components/_page-header.scss */
+.page-header .case-count {
+  margin-top: 8px;
+  margin-top: 0.5rem;
+}
+/* line 43, ../sass/components/_page-header.scss */
+.page-header .filter-list label {
+  margin-right: 8px;
+}
+/* line 48, ../sass/components/_page-header.scss */
 .page-header .chat {
   margin: 8px 0 0 0;
   margin: 0.5rem 0 0 0;
 }
 @media (min-width: 768px) {
-  /* line 10, ../sass/components/_page-header.scss */
+  /* line 48, ../sass/components/_page-header.scss */
   .page-header .chat {
     text-align: right;
   }
 }
-/* line 18, ../sass/components/_page-header.scss */
+/* line 56, ../sass/components/_page-header.scss */
 .page-header .change-log {
   margin: 10px 0;
   margin: 0.625rem 0;
@@ -1309,44 +1357,6 @@ aside .recommendations li:hover .pin {
     float: none !important;
     display: inline-block !important;
   }
-}
-
-/* line 3, ../sass/components/_rha-page-header.scss */
-.page-header .row {
-  margin-left: -7.5px;
-  margin-right: -7.5px;
-  margin-bottom: 0;
-}
-/* line 8, ../sass/components/_rha-page-header.scss */
-.page-header .row [class^="col-"], .page-header .row [class*=" col-"] {
-  padding-right: 7.5px;
-  padding-left: 7.5px;
-}
-/* line 14, ../sass/components/_rha-page-header.scss */
-.page-header .actions {
-  text-align: right;
-  margin-top: 0;
-}
-/* line 18, ../sass/components/_rha-page-header.scss */
-.page-header .actions .btn {
-  display: inline-block;
-  width: auto;
-  margin: 15px 0 0 15px;
-  margin: 0.9375rem 0 0 0.9375rem;
-}
-@media (min-width: 768px) {
-  /* line 18, ../sass/components/_rha-page-header.scss */
-  .page-header .actions .btn {
-    margin-top: 0;
-  }
-}
-/* line 27, ../sass/components/_rha-page-header.scss */
-.page-header .actions .btn:first-child {
-  margin-left: 0;
-}
-/* line 34, ../sass/components/_rha-page-header.scss */
-.page-header .filter-list label {
-  margin-right: 8px;
 }
 
 /* line 1, ../sass/components/_pinned.scss */

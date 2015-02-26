@@ -6,12 +6,12 @@ div(rha-header='', page='newCase')
       div(ng-if='securityService.loginStatus.authedUser.is_internal')
         .row.row-short
           .col-sm-4.col-md-2
-            label(for='rha-account-number') {{'Account:'|translate}}
+            label(for='rha-account-number') {{'Account'|translate}}
           .col-sm-7.col-md-4
             div(rha-accountselect='')
         .row.row-short
           .col-sm-4.col-md-2
-            label(for='rha-owners-select') {{'Owner:'|translate}}
+            label(for='rha-owners-select') {{'Owner'|translate}}
           .col-sm-7.col-md-4
             div(rha-ownerselect='')
       .row.row-short
