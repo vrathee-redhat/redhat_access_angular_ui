@@ -13,8 +13,8 @@ angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsControlle
         $scope.selectedSolution = SearchResultsService.currentSelection;
         $scope.currentSearchData = SearchResultsService.currentSearchData;
         $scope.itemsPerPage = 3;
-        $scope.maxPagerSize = 5;
         $scope.currentPage = 1;
+        $scope.lastPage = 1;
         $scope.RecommendationsService = RecommendationsService;
         $scope.selectPage = function (pageNum) {
 
@@ -22,6 +22,7 @@ angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsControlle
             var end = start + $scope.itemsPerPage;
             end = end > RecommendationsService.recommendations.length ? RecommendationsService.recommendations.length : end;
             $scope.results = RecommendationsService.recommendations.slice(start, end);
+            $scope.currentPage = pageNum;
         };
         $scope.triggerAnalytics = function ($event) {
             if (window.chrometwo_require !== undefined && $location.path() === '/case/new') {
@@ -29,6 +30,9 @@ angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsControlle
                     analytics.trigger('OpenSupportCaseRecommendationClick', $event);
                 });
             }
+        };
+        $scope.findLastPage = function () {
+            $scope.lastPage = Math.ceil(RecommendationsService.recommendations.length / $scope.itemsPerPage);
         };
         $scope.$watch(function () {
             return SearchResultsService.currentSelection;
@@ -41,6 +45,7 @@ angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsControlle
         }, function () {
             $scope.currentPage = 1;
             $scope.selectPage($scope.currentPage);
+            $scope.findLastPage();
         }, true);
     }
 ]);
