@@ -104,7 +104,7 @@
                 }
               ]);
       // Bootstrap angular app
-      angular.bootstrap(document, ['RedhatAccess']);
+      angular.bootstrap(document, ['RedhatAccess.cases', 'RedhatAccess.escalation']);
       // Fade in main element
       jq('#pcm').fadeIn();
     });
