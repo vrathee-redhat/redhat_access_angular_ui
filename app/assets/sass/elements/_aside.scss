@@ -37,5 +37,26 @@ aside {
 		@include rem('margin-bottom', $global-margin);
 		@include rem('padding', 0 $global-margin);
 	}
+
+	accordion {
+
+		.panel-group .panel {
+			@include border-radius(0);
+			border: none;
+		}
+
+		.panel-heading {
+			padding: 0;
+			background: #f0f0f0;
+			border: none;
+			@include border-radius(0);
+			@include box-shadow(none);
+
+			a {
+				display: block;
+				@include rem('padding', 10px 15px);
+			}
+		}
+	}
 }
 

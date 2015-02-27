@@ -1,4 +1,11 @@
-.link { color: $link-color; }
+.link {
+	color: $link-color;
+
+	&:hover {
+		cursor: pointer;
+		color: darken($link-color, 5);
+	}
+}
 .link-chat {
 	@include media-query (sm) { float:right; }
 }

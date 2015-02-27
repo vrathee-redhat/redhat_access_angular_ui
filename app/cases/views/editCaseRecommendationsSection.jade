@@ -1,7 +1,9 @@
-h3.section-title(translate='') Here Are Some Possible Solutions
 .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
 accordion(ng-hide='RecommendationsService.loadingRecommendations')
-  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0', is-open="true", heading="Handpicked For You")
+  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0', is-open="true")
+    accordion-heading
+      i.fa.fa-chevron-down
+      | Handpicked For You
     ul
       li.recommendation(ng-repeat='recommendation in handPickedResults.array')
         .title
