@@ -54,7 +54,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             tableBuilt = true;
         };
         $scope.$on(CASE_EVENTS.searchBoxChange, function () {
-            GroupUserService.reloadTable();
+            $scope.tableParams.reload();
         });
         $scope.init = function() {
             if(securityService.userAllowedToManageGroups()){
