@@ -60,12 +60,12 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                     angular.forEach(tmpRec, angular.bind(this, function (rec) {
                         this.recommendations.unshift(rec);
                     }));
-                    angular.forEach(this.pinnedRecommendations, angular.bind(this, function (rec) {
-                        this.recommendations.unshift(rec);
-                    }));
-                    angular.forEach(this.handPickedRecommendations, angular.bind(this, function (rec) {
-                        this.recommendations.unshift(rec);
-                    }));
+                    // angular.forEach(this.pinnedRecommendations, angular.bind(this, function (rec) {
+                    //     this.recommendations.unshift(rec);
+                    // }));
+                    // angular.forEach(this.handPickedRecommendations, angular.bind(this, function (rec) {
+                    //     this.recommendations.unshift(rec);
+                    // }));
 
                 }
             }

@@ -1,31 +1,63 @@
 h3.section-title(translate='') Here Are Some Possible Solutions
 .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
-.spinner.spinner-inline(ng-show='loading')
-.recommendations(ng-hide='loading')
-  ul
-    li.recommendation(ng-repeat='recommendation in results')
-      .title
-        .fa.pin(
-          ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
-          ng-click='pinRecommendation(recommendation, $index, $event)',
-          style='cursor: pointer;') &nbsp;
-        a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
-          strong {{recommendation.title}}
-        span.handpicked(ng-show='recommendation.handPicked', translate='')
-          .fa.fa-check
-          | Handpicked
-      div(ng-bind-html='recommendation.abstract')
-
-  div(style='padding-top: 10px;', ng-hide='RecommendationsService.recommendations.length == 0')
-    pagination.pagination-sm(
-      boundary-links='true',
-      total-items='RecommendationsService.recommendations.length',
-      on-select-page='selectPage(page)',
-      items-per-page='itemsPerPage',
-      page='currentPage',
-      rotate='false',
-      max-size='maxPagerSize',
-      previous-text='<',
-      next-text='>',
-      first-text='<<',
-      last-text='>>')
+accordion(ng-hide='RecommendationsService.loadingRecommendations')
+  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0', is-open="true", heading="Handpicked For You")
+    ul
+      li.recommendation(ng-repeat='recommendation in handPickedResults.array')
+        .title
+          .fa.pin(
+            ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
+            ng-click='pinRecommendation(recommendation, $index, $event)',
+            style='cursor: pointer;') &nbsp;
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
+            strong {{recommendation.title}}
+          span.handpicked(ng-show='recommendation.handPicked', translate='')
+            .fa.fa-check
+            | Handpicked
+        div(ng-bind-html='recommendation.abstract')
+      li
+        button.btn-primary.btn-sm.pull-right(ng-disabled="handPickedResultsPage >= findLastPage(RecommendationsService.handPickedRecommendations)", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage + 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
+          span NEXT
+          i.fa.fa-long-arrow-right
+        button.btn-secondary.btn-sm.pull-right(ng-disabled="handPickedResultsPage === 1", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage - 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
+          i.fa.fa-long-arrow-left
+  accordion-group(ng-hide='RecommendationsService.recommendations.length === 0', is-open="RecommendationsService.handPickedRecommendations.length === 0", heading="Top Solutions")
+    ul
+      li.recommendation(ng-repeat='recommendation in results.array')
+        .title
+          .fa.pin(
+            ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
+            ng-click='pinRecommendation(recommendation, $index, $event)',
+            style='cursor: pointer;') &nbsp;
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
+            strong {{recommendation.title}}
+          span.handpicked(ng-show='recommendation.handPicked', translate='')
+            .fa.fa-check
+            | Handpicked
+        div(ng-bind-html='recommendation.abstract')
+      li
+        button.btn-primary.btn-sm.pull-right(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="selectPage(resultsPage = resultsPage + 1, RecommendationsService.recommendations, results)")
+          span NEXT
+          i.fa.fa-long-arrow-right
+        button.btn-secondary.btn-sm.pull-right(ng-disabled="resultsPage === 1", ng-click="selectPage(resultsPage = resultsPage - 1, RecommendationsService.recommendations, results)")
+          i.fa.fa-long-arrow-left
+  accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0', heading="Your Pins")
+    ul
+      li.recommendation(ng-repeat='recommendation in pinnedResults.array')
+        .title
+          .fa.pin(
+            ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
+            ng-click='pinRecommendation(recommendation, $index, $event)',
+            style='cursor: pointer;') &nbsp;
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
+            strong {{recommendation.title}}
+          span.handpicked(ng-show='recommendation.handPicked', translate='')
+            .fa.fa-check
+            | Handpicked
+        div(ng-bind-html='recommendation.abstract')
+      li
+        button.btn-primary.btn-sm.pull-right(ng-disabled="pinnedResultsPage >= findLastPage(RecommendationsService.pinnedRecommendations)", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage + 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
+          span NEXT
+          i.fa.fa-long-arrow-right
+        button.btn-secondary.btn-sm.pull-right(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
+          i.fa.fa-long-arrow-left

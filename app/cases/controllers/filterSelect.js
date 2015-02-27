@@ -14,7 +14,7 @@ angular.module('RedhatAccess.cases').controller('FilterSelect', [
             {
                 name: translate('Newest Date Modified'),
                 sortField: 'lastModifiedDate',
-                sortOrder: 'DSC'
+                sortOrder: 'DESC'
             },
             {
                 name: translate('Oldest Date Modified'),

@@ -9,15 +9,25 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
     function (RecommendationsService, $scope, strataService, CaseService, AlertService) {
         $scope.RecommendationsService = RecommendationsService;
         $scope.currentRecPin = {};
-        $scope.itemsPerPage = 5;
-        $scope.maxPagerSize = 5;
-        $scope.currentPage = 1;
-        $scope.selectPage = function (pageNum) {
+        $scope.itemsPerPage = 3;
+        //$scope.currentPage = 1;
 
+        $scope.pinnedResults = {};
+        $scope.handPickedResults = {};
+        $scope.results = {};
+        $scope.pinnedResultsPage = 1;
+        $scope.handPickedResultsPage = 1;
+        $scope.resultsPage = 1;
+        
+        $scope.selectPage = function (pageNum, recommendationsList, results) {
             var start = $scope.itemsPerPage * (pageNum - 1);
             var end = start + $scope.itemsPerPage;
-            end = end > RecommendationsService.recommendations.length ? RecommendationsService.recommendations.length : end;
-            $scope.results = RecommendationsService.recommendations.slice(start, end);
+            end = end > recommendationsList.length ? recommendationsList.length : end;
+            results.array = recommendationsList.slice(start, end);
+        };
+
+        $scope.findLastPage = function (recommendationsList) {
+            return Math.ceil(recommendationsList.length / $scope.itemsPerPage);
         };
         $scope.pinRecommendation = function (recommendation, $index, $event) {
             $scope.currentRecPin = recommendation;
@@ -49,7 +59,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                     }
                     $scope.currentRecPin.pinning = false;
                     $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
-                    $scope.selectPage(1);
+                    //$scope.selectPage(1);
                 }, function (error) {
                     $scope.currentRecPin.pinning = false;
                     AlertService.addStrataErrorMessage(error);
@@ -72,8 +82,18 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
         $scope.$watch(function () {
             return RecommendationsService.recommendations;
         }, function () {
-            $scope.currentPage = 1;
-            $scope.selectPage($scope.currentPage);
+            $scope.selectPage(1, RecommendationsService.recommendations, $scope.results);
+        }, true);
+        $scope.$watch(function () {
+            return RecommendationsService.pinnedRecommendations;
+        }, function () {
+            $scope.selectPage(1, RecommendationsService.pinnedRecommendations, $scope.pinnedResults);
+        }, true);
+        $scope.$watch(function () {
+            return RecommendationsService.handPickedRecommendations;
+        }, function () {
+            $scope.selectPage(1, RecommendationsService.handPickedRecommendations, $scope.handPickedResults);
+
         }, true);
     }
 ]);
