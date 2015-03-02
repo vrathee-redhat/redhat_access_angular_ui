@@ -4,12 +4,10 @@
     </h3>
 </div>
 <div class="container-fluid">
-    <form ng-submit="modalOptions.ok()">
-        <div class="modal-body form-horizontal" id="rha-login-modal-body">
-            <!--form ng-submit="modalOptions.ok()"  method="post"-->
-            <div class="form-group" ng-show='useVerboseLoginView'>
-            {{'Red Hat Access makes it easy for you to self-solve issues, diagnose problems, and engage with us via the Red Hat Customer Portal. To access Red Hat Customer Portal resources, you must enter valid portal credentials.'|translate}}
-            </div>
+    <div class="modal-body form-horizontal" ng-keydown="modalOptions.keyDown($event, modalOptions.ok)" id="rha-login-modal-body">
+        <div class="form-group" ng-show='useVerboseLoginView'>
+        {{'Red Hat Access makes it easy for you to self-solve issues, diagnose problems, and engage with us via the Red Hat Customer Portal. To access Red Hat Customer Portal resources, you must enter valid portal credentials.'|translate}}
+        </div>
 
             <div class="alert alert-danger" ng-show="authError">
                 {{authError}}
@@ -31,14 +29,13 @@
                     &nbsp;</strong>{{'Red Hat Customer Portal credentials differ from the credentials used to log into this product.'|translate}}
             </div>
 
+    </div>
+    <div class="modal-footer">
+        <div class="form-group" id="rha-login-modal-buttons">
+            <span class="pull-right">
+                <button class="btn  btn-md cancel" ng-click="modalOptions.close()" type="button" translate>Cancel</button>
+                <button class="btn btn-primary btn-md login" ng-click="modalOptions.ok()" type="button" translate ng-disabled="status.authenticating">Sign in</button>
+            </span>
         </div>
-        <div class="modal-footer">
-            <div class="form-group" id="rha-login-modal-buttons">
-                <span class="pull-right">
-                    <button class="btn  btn-md cancel" ng-click="modalOptions.close()" type="submit" translate>Cancel</button>
-                    <button class="btn btn-primary btn-md login" type="submit" translate ng-disabled="status.authenticating">Sign in</button>
-                </span>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
