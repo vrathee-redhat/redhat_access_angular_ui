@@ -20,6 +20,7 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
 	    this.geo = '';
 	    this.expectations = '';
 	    this.issueDescription = '';
+        this.notPartnerLogin = false;
 
 	    this.clearEscalationFields = function() {
             this.accountNumber = '';
@@ -35,10 +36,16 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
             this.issueDescription = '';
         };
 
-	    this.sendEscalationRequest = function() {
-	    	var escalationJSON = {
-	    		'record_type': ESCALATION_TYPE.partner,
-                'subject': 'Partner Escalation through Portal Case Management'
+	    this.sendEscalationRequest = function(recordType) {
+	    	var subject = '';
+            if (recordType === ESCALATION_TYPE.partner) {
+               subject = 'Partner Escalation through Portal Case Management';
+            } else {
+                subject = 'Ice Escalation through Portal Case Management';
+            }
+            var escalationJSON = {
+	    		'record_type': recordType,
+                'subject': subject
 	    	};
 	    	var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
@@ -81,14 +88,26 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
             if (!isObjectNothing(this.expectations)) {
                 escalationJSON.expectations = this.expectations;
             }
-
+            if (recordType === ESCALATION_TYPE.partner) {
+                AlertService.addSuccessMessage(translate('Creating Partner Escalation request .....'));
+            } else {
+                AlertService.addSuccessMessage(translate('Creating Ice Escalation request .....'));
+            }
+            
 	    	strataService.escalationRequest.create(escalationJSON).then(angular.bind(this,function (escalationNum) {
                 AlertService.clearAlerts();
                 if (escalationNum !== undefined) {
-                	AlertService.addSuccessMessage(translate('Your Partner Escalation request has been sent successfully'));
+                    if (recordType === ESCALATION_TYPE.partner) {
+                        AlertService.addSuccessMessage(translate('Your Partner Escalation request has been sent successfully'));
+                    } else {
+                        AlertService.addSuccessMessage(translate('Your Ice Escalation request has been sent successfully'));
+                    }
                 	this.clearEscalationFields();
                 }
-            }, function (error) {
+            }), angular.bind(this, function (error) {
+                if (error.xhr.status === 403) {
+                    this.notPartnerLogin = true;
+                }
                 AlertService.addStrataErrorMessage(error);
             }));
 	    };
