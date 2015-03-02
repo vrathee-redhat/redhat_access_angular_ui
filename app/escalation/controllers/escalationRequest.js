@@ -16,7 +16,7 @@ angular.module('RedhatAccess.cases').controller('EscalationRequest', [
         $scope.disableSendRequest = true;
         $scope.ESCALATION_TYPE = ESCALATION_TYPE;
         $scope.partnerGeoList = ['NA','EMEA','LATAM','APAC'];
-        $scope.iceGeoList = ['NA','EMEA','LATAM','APAC','Combo'];        
+        $scope.iceGeoList = ['NA','EMEA','LATAM','APAC','Combo'];
         
         $scope.submitEscalationRequest = function(escalationType) {
             var recordType = '';
@@ -62,9 +62,9 @@ angular.module('RedhatAccess.cases').controller('EscalationRequest', [
                 }
             } else {
                 AlertService.addWarningMessage(translate('Email address is incorrect'));
-            }            
+            }
             return false;
-        }        
+        };
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             AlertService.clearAlerts();
         });

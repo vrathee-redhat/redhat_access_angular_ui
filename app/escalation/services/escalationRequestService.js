@@ -37,17 +37,17 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
         };
 
 	    this.sendEscalationRequest = function(recordType) {
-	    	var subject = '';
+            var subject = '';
             if (recordType === ESCALATION_TYPE.partner) {
-               subject = 'Partner Escalation through Portal Case Management';
+                subject = 'Partner Escalation through Portal Case Management';
             } else {
                 subject = 'Ice Escalation through Portal Case Management';
             }
             var escalationJSON = {
-	    		'record_type': recordType,
+                'record_type': recordType,
                 'subject': subject
-	    	};
-	    	var isObjectNothing = function (object) {
+            };
+            var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
                     return true;
                 } else {
@@ -93,8 +93,7 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
             } else {
                 AlertService.addSuccessMessage(translate('Creating Ice Escalation request .....'));
             }
-            
-	    	strataService.escalationRequest.create(escalationJSON).then(angular.bind(this,function (escalationNum) {
+            strataService.escalationRequest.create(escalationJSON).then(angular.bind(this,function (escalationNum) {
                 AlertService.clearAlerts();
                 if (escalationNum !== undefined) {
                     if (recordType === ESCALATION_TYPE.partner) {
@@ -102,7 +101,7 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
                     } else {
                         AlertService.addSuccessMessage(translate('Your Ice Escalation request has been sent successfully'));
                     }
-                	this.clearEscalationFields();
+                    this.clearEscalationFields();
                 }
             }), angular.bind(this, function (error) {
                 if (error.xhr.status === 403) {

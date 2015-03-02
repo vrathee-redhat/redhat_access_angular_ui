@@ -1,7 +1,7 @@
 'use strict';
 angular.module('RedhatAccess.escalation', [
     'RedhatAccess.template',
-    'RedhatAccess.security',    
+    'RedhatAccess.security',
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
     'RedhatAccess.header'
