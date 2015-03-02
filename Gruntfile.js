@@ -123,8 +123,8 @@ module.exports = function (grunt) {
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: [
-                    'newer:copy:styles',
-                    'autoprefixer'
+                    'newer:copy:styles'
+                    //'autoprefixer'
                 ]
             },
             gruntfile: {
@@ -248,19 +248,19 @@ module.exports = function (grunt) {
             server: '.tmp',
             hooks: ['.git/hooks/pre-commit']
         },
-        autoprefixer: {
-            options: {
-                browsers: ['last 1 version']
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/styles/',
-                    src: '{,*/}*.css',
-                    dest: '.tmp/styles/'
-                }]
-            }
-        },
+        // autoprefixer: {
+        //     options: {
+        //         browsers: ['last 1 version']
+        //     },
+        //     dist: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: '.tmp/styles/',
+        //             src: '{,*/}*.css',
+        //             dest: '.tmp/styles/'
+        //         }]
+        //     }
+        // },
         'bower-install': {
             app: {
                 html: '<%= yeoman.app %>/index.html',
@@ -550,7 +550,7 @@ module.exports = function (grunt) {
             'newer:jade',
             'build',
             'concurrent:server',
-            'autoprefixer',
+            //'autoprefixer',
             'connect:livereload',
             'watch'
         ]);
@@ -580,7 +580,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'html2js',
         'concurrent:test',
-        'autoprefixer',
+        //'autoprefixer',
         'connect:test',
         'karma'
     ]);
@@ -592,7 +592,7 @@ module.exports = function (grunt) {
 	    'useminPrepare',
         'html2js',
         'concurrent:dist',
-        'autoprefixer',
+        //'autoprefixer',
         'nggettext_compile',
         'concat',
         'ngAnnotate',

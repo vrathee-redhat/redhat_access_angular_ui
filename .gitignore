@@ -13,5 +13,7 @@ app/cases/views/*.html
 test/coverage
 Gemfile.lock
 app/assets/vendor
+app/assets/css/main.min.*
+app/assets/css/main.min.css
 app/assets/css/main.min.css.map
 
