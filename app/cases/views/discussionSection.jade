@@ -13,20 +13,18 @@ ul.nav.nav-tabs(role="tablist")
       .col-xs-12(ng-show='EDIT_CASE_CONFIG.showComments')
         div(rha-addcommentsection='', loading='loading.comments')
         article.row.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':'reverse'", ng-if='!element.draft')
-      .col-sm-6.col-md-4
-        a.glyphicon.glyphicon-link(ng-hide="element.file_name", style='float: right;', ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
-      .col-sm-6.col-md-8
-        h4.meta
-          span.author.blue {{element.created_by}}
-          date.light  {{element.created_date | date:'mediumDate'}}
-          |  at
-          time.light  {{element.created_date | date:'h:mm:ss a Z'}}
-        blockquote.pre-wrap(ng-hide="element.file_name")
-          | {{ element.text}}
-          a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}
-        .fa.fa-file-image-o.file-upload(ng-show="element.file_name")
-          a(href="{{element.uri}}") {{element.file_name}} ({{element.length | bytes}})
-          .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
+          a.glyphicon.glyphicon-link(ng-hide="element.file_name", style='float: right;', ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
+          h4.meta
+            span.author.blue {{element.created_by}}
+            date.light  {{element.created_date | date:'mediumDate'}}
+            |  at
+            time.light  {{element.created_date | date:'h:mm:ss a Z'}}
+          blockquote.pre-wrap(ng-hide="element.file_name")
+            | {{ element.text}}
+            a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}
+          .fa.fa-file-image-o.file-upload(ng-show="element.file_name")
+            a(href="{{element.uri}}") {{element.file_name}} ({{element.length | bytes}})
+            .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
   #pane2.tab-pane
     article(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
       h4.meta
