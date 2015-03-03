@@ -6,7 +6,6 @@ angular.module('RedhatAccess.cases').controller('SearchBox', [
     function ($scope, SearchBoxService, securityService) {
         $scope.securityService = securityService;
         $scope.SearchBoxService = SearchBoxService;
-        //$scope.hideButton = $scope.hideButton || 'default name';
         $scope.onFilterKeyPress = function ($event) {
             if ($event.keyCode === 13) {
                 SearchBoxService.doSearch();
