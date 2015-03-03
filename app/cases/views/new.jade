@@ -173,7 +173,7 @@ div(rha-header='', page='newCase')
       .row
         //- TODO make remove local storage once implemented
         .col-sm-12
-          button.btn.btn-primary.btn-submit(
+          button.btn.btn-accent.btn-submit(
             ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
             ng-hide='CaseService.submittingCase',
             ng-click='doSubmit($event)', translate='') Submit

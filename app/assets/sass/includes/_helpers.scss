@@ -6,6 +6,9 @@
 	text-align: right;
 }
 
+.margin-top { @include rem('margin-top', $global-margin); }
+.margin-top-short { @include rem('margin-top', $global-padding); }
+
 .blue { color: #0083d2; }
 .block { display: block; }
 
@@ -47,4 +50,30 @@
 
 .margin-left {
 	@include rem('margin-left', $global-padding);
+}
+
+.dialog-box, .comment blockquote.dialog-box {
+	position: relative;
+	@include rem('padding', $global-padding);
+	border: 1px solid #ddd;
+
+	&:before {
+		content: '';
+		position: absolute;
+		left: -12px;
+		top: 8px;
+		border-top: 12px solid transparent;
+		border-bottom: 12px solid transparent;
+		border-right: 12px solid #ddd;
+	}
+
+	&:after {
+		content: '';
+		position: absolute;
+		left: -11px;
+		top: 9px;
+		border-top: 11px solid transparent;
+		border-bottom: 11px solid transparent;
+		border-right: 11px solid #fff;
+	}
 }

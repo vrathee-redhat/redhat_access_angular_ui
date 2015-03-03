@@ -16,4 +16,8 @@
 		.comment { @include rem('padding-left', 28px); }
 		blockquote { margin-bottom: 0; }
 	}
+
+	.tab-pane {
+		padding: 0;
+	}
 }

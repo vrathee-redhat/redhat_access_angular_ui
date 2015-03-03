@@ -55,8 +55,8 @@ accordion(ng-hide='RecommendationsService.loadingRecommendations')
             | Handpicked
         div(ng-bind-html='recommendation.abstract')
       li
-        button.btn-primary.btn-sm.pull-right(ng-disabled="pinnedResultsPage >= findLastPage(RecommendationsService.pinnedRecommendations)", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage + 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
+        button.btn.btn-primary.btn-sm.pull-right(ng-disabled="pinnedResultsPage >= findLastPage(RecommendationsService.pinnedRecommendations)", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage + 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
           span NEXT
           i.fa.fa-long-arrow-right
-        button.btn-secondary.btn-sm.pull-right(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
+        button.btn.btn-secondary.btn-sm.pull-right(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
           i.fa.fa-long-arrow-left

@@ -158,7 +158,7 @@ aside .recommendations {
 
 	li:hover {
 		.pin {
-			@include opacity(1);
+			@include opacity(.5);
 //			@include transition(.2s);
 		}
 	}
