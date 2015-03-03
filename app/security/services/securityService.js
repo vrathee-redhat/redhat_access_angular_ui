@@ -175,6 +175,11 @@ angular.module('RedhatAccess.security').factory('securityService', [
                             };
                             $scope.useVerboseLoginView = LOGIN_VIEW_CONFIG.verbose;
                             $scope.modalOptions = tempModalOptions;
+                            $scope.modalOptions.keyDown = function($event, onEnter) {
+                                if ($event.keyCode === 13) {
+                                    onEnter();
+                                }
+                            };
                             $scope.modalOptions.ok = function(result) {
                                 //Hack below is needed to handle autofill issues
                                 //@see https://github.com/angular/angular.js/issues/1460
