@@ -16,7 +16,8 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
     'RHAUtils',
     'AUTH_EVENTS',
     'translate',
-    function ($scope, $rootScope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, translate) {
+    'CASE_EVENTS',
+    function ($scope, $rootScope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, translate, CASE_EVENTS) {
         $scope.GroupUserService = GroupUserService;
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
@@ -52,6 +53,9 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             };
             tableBuilt = true;
         };
+        $scope.$on(CASE_EVENTS.searchBoxChange, function () {
+            $scope.tableParams.reload();
+        });
         $scope.init = function() {
             if(securityService.userAllowedToManageGroups()){
                 SearchBoxService.searchTerm='';
