@@ -109,6 +109,15 @@ $recommendations-dark-link-color: #0bc0fc;
 
 aside .recommendations {
 
+	.panel-heading .panel-title a.accordion-toggle {
+		@include rem('padding', 10px $global-padding 10px $global-margin);
+
+		i {
+			position: absolute;
+			left: 10px;
+		}
+	}
+
 	.pin {
 		position: absolute;
 		top: 0px;
@@ -120,8 +129,13 @@ aside .recommendations {
 
 	ul {
 		list-style-type: none;
-		@include rem('margin', 0 -30px);
+//		@include rem('margin', 0 -30px);
 		padding: 0;
+	}
+
+	.panel-body {
+		padding: 0;
+		border: 1px solid $aside-border-color;
 	}
 
 	li {
@@ -130,7 +144,7 @@ aside .recommendations {
 			padding: 0;
 			@include font-size(14px);
 			line-height: 1;
-			@include rem('margin-bottom', $global-padding);
+			@include rem('margin-top', $global-margin);
 		}
 
 		// set the pinned and pinning states to be visible always

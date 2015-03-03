@@ -33,11 +33,12 @@ div(rha-header='', page='caseList')
               .status {{case.status}}
         .col-sm-8.col-md-6.item-group
           .subheading
+            | {{case.summary}}
+          .description
             | {{case.product}}
             span.sep |
             | {{case.version}}
-          .description
-            | {{case.summary}}
+
         .col-sm-12.col-md-4(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
           .item-group.change-log
             .filed-on
@@ -45,8 +46,6 @@ div(rha-header='', page='caseList')
               span.blue {{case.last_modified_by}} &nbsp;
               span on &nbsp;
               span {{case.last_modified_date | date:'longDate'}} &nbsp;
-
-
         .col-sm-12.col-md-4(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
           .item-group.change-log
             .filed-on

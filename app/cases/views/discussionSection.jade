@@ -1,47 +1,108 @@
-tabset(justified="true")
-	tab(heading="Case Discussion")
-		.row
-			.col-xs-12(ng-show='EDIT_CASE_CONFIG.showComments')
-				div(rha-addcommentsection='', loading='loading.comments')
-		article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':'reverse'", ng-if='!element.draft')
-			a.glyphicon.glyphicon-link(ng-hide="element.file_name", style='float: right;', ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
-			h4.meta
-				span.author.blue {{element.created_by}}
-				date.light  {{element.created_date | date:'mediumDate'}}
-				|  at
-				time.light  {{element.created_date | date:'h:mm:ss a Z'}}
-			blockquote.pre-wrap(ng-hide="element.file_name")
-				| {{ element.text}}
-				a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}
-			.fa.fa-file-image-o.file-upload(ng-show="element.file_name")
-				a(href="{{element.uri}}") {{element.file_name}} ({{element.length | bytes}})
-				.fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
-	tab(heading="All Attachments")
-		article(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
-			h4.meta
-				span.author.blue {{attachment.created_by}}
-				date.light  {{attachment.created_date | date:'mediumDate'}}
-				|  at
-				time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
-			.fa.fa-file-image-o.file-upload(ng-show="attachment.file_name")
-				a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
-				.fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
-	tab(ng-if="!securityService.loginStatus.authedUser.is_internal", heading="Private Notes")
-		form(name='notesForm')
-			label(for='rha-case-notes') {{'Notes:'|translate}}
-			textarea#rha-case-notes(
-				tooltip='{{"This field allows Red Hat customers to make private notes pertinent to their case or account. Contents of this field are not visible to support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."|translate}}',
-				tooltip-placement='bottom',
-				style='width: 100%; height: 70px; max-width: 100%;',
-				ng-model='CaseService.kase.notes',
-				maxlength='255',
-				name='notes')
-			span#notesNotice.uploadNotice
-				span {{'You have used '|translate}}
-				span.progressBarWrapNotes
-				span.progressCount {{progressCount}}
-				span {{' of the 255 maximum character size.'|translate}}
-			button.btn.btn-open.pull-right(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Discard Changes
-			button.btn.btn-accent.pull-right(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Update
-	tab(ng-if="securityService.loginStatus.authedUser.is_internal", heading="Bugzilla Tickets")
-		div(rha-listbugzillas)
+ul.nav.nav-tabs(role="tablist")
+  li.active
+    a(href="#pane1", data-toggle="tab") Case Discussion
+  li
+    a(href="#pane2", data-toggle="tab") All Attachments
+  li(ng-hide="securityService.loginStatus.authedUser.is_internal")
+    a(href="#pane3", data-toggle="tab") Private Notes
+  li(ng-show="securityService.loginStatus.authedUser.is_internal")
+    a(href="#pane4", data-toggle="tab") Bugzilla Tickets
+.tab-content
+  #pane1.tab-pane.active
+    .row
+      .col-xs-12(ng-show='EDIT_CASE_CONFIG.showComments')
+        div(rha-addcommentsection='', loading='loading.comments')
+        article.row.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':'reverse'", ng-if='!element.draft')
+      .col-sm-6.col-md-4
+        a.glyphicon.glyphicon-link(ng-hide="element.file_name", style='float: right;', ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
+      .col-sm-6.col-md-8
+        h4.meta
+          span.author.blue {{element.created_by}}
+          date.light  {{element.created_date | date:'mediumDate'}}
+          |  at
+          time.light  {{element.created_date | date:'h:mm:ss a Z'}}
+        blockquote.pre-wrap(ng-hide="element.file_name")
+          | {{ element.text}}
+          a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}
+        .fa.fa-file-image-o.file-upload(ng-show="element.file_name")
+          a(href="{{element.uri}}") {{element.file_name}} ({{element.length | bytes}})
+          .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
+  #pane2.tab-pane
+    article(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
+      h4.meta
+        span.author.blue {{attachment.created_by}}
+        date.light  {{attachment.created_date | date:'mediumDate'}}
+        |  at
+        time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
+      .fa.fa-file-image-o.file-upload(ng-show="attachment.file_name")
+        a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
+        .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
+  #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal")
+    form(name='notesForm')
+      label(for='rha-case-notes') {{'Notes:'|translate}}
+      textarea#rha-case-notes(
+      tooltip='{{"This field allows Red Hat customers to make private notes pertinent to their case or account. Contents of this field are not visible to support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."|translate}}',
+      tooltip-placement='bottom',
+      style='width: 100%; height: 70px; max-width: 100%;',
+      ng-model='CaseService.kase.notes',
+      maxlength='255',
+      name='notes')
+      span#notesNotice.uploadNotice
+        span {{'You have used '|translate}}
+        span.progressBarWrapNotes
+        span.progressCount {{progressCount}}
+        span {{' of the 255 maximum character size.'|translate}}
+      button.btn.btn-open.pull-right(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Discard Changes
+      button.btn.btn-accent.pull-right(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Update
+  #pane4.tab-pane(ng-if="securityService.loginStatus.authedUser.is_internal")
+    div(rha-listbugzillas)
+
+//tabset(justified="false")
+//  tab(heading="Case Discussion")
+//    .row
+//      .col-xs-12(ng-show='EDIT_CASE_CONFIG.showComments')
+//        div(rha-addcommentsection='', loading='loading.comments')
+//        article.row.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':'reverse'", ng-if='!element.draft')
+//      .col-sm-6.col-md-4
+//        a.glyphicon.glyphicon-link(ng-hide="element.file_name", style='float: right;', ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
+//      .col-sm-6.col-md-8
+//        h4.meta
+//          span.author.blue {{element.created_by}}
+//          date.light  {{element.created_date | date:'mediumDate'}}
+//          |  at
+//          time.light  {{element.created_date | date:'h:mm:ss a Z'}}
+//        blockquote.pre-wrap(ng-hide="element.file_name")
+//          | {{ element.text}}
+//          a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}
+//        .fa.fa-file-image-o.file-upload(ng-show="element.file_name")
+//          a(href="{{element.uri}}") {{element.file_name}} ({{element.length | bytes}})
+//          .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
+//  tab(heading="All Attachments")
+//    article(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
+//      h4.meta
+//        span.author.blue {{attachment.created_by}}
+//        date.light  {{attachment.created_date | date:'mediumDate'}}
+//        |  at
+//        time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
+//      .fa.fa-file-image-o.file-upload(ng-show="attachment.file_name")
+//        a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
+//        .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
+//  tab(ng-if="!securityService.loginStatus.authedUser.is_internal", heading="Private Notes")
+//    form(name='notesForm')
+//      label(for='rha-case-notes') {{'Notes:'|translate}}
+//      textarea#rha-case-notes(
+//        tooltip='{{"This field allows Red Hat customers to make private notes pertinent to their case or account. Contents of this field are not visible to support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."|translate}}',
+//        tooltip-placement='bottom',
+//        style='width: 100%; height: 70px; max-width: 100%;',
+//        ng-model='CaseService.kase.notes',
+//        maxlength='255',
+//        name='notes')
+//      span#notesNotice.uploadNotice
+//        span {{'You have used '|translate}}
+//        span.progressBarWrapNotes
+//        span.progressCount {{progressCount}}
+//        span {{' of the 255 maximum character size.'|translate}}
+//      button.btn.btn-open.pull-right(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Discard Changes
+//      button.btn.btn-accent.pull-right(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Update
+//  tab(ng-if="securityService.loginStatus.authedUser.is_internal", heading="Bugzilla Tickets")
+//    div(rha-listbugzillas)

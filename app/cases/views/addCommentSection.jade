@@ -54,9 +54,9 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
         iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
   .col-xs-5
     .spinner.spinner-inline(ng-show='addingComment || addingattachment')
-    button#rha-case-addcommentbutton.btn.btn-primary(
-      ng-hide='addingComment || addingattachment',
-      ng-disabled='CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections()',
-      ng-click='addComment()',
-      style='float: right;',translate='') Post
-    button#rha-case-addcommentbutton.btn.btn-primary.pull-right(ng-click='clearComment()') Cancel
+    a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()') Cancel
+    button#rha-case-addcommentbutton.btn.btn-primary.btn-submit(
+        ng-hide='addingComment || addingattachment',
+        ng-disabled='CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections()',
+        ng-click='addComment()',
+        style='float: right;',translate='') Post

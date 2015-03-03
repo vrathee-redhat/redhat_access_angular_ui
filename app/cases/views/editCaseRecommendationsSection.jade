@@ -13,9 +13,6 @@ accordion(ng-hide='RecommendationsService.loadingRecommendations')
             style='cursor: pointer;') &nbsp;
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
             strong {{recommendation.title}}
-          span.handpicked(ng-show='recommendation.handPicked', translate='')
-            .fa.fa-check
-            | Handpicked
         div(ng-bind-html='recommendation.abstract')
       li
         button.btn-primary.btn-sm.pull-right(ng-disabled="handPickedResultsPage >= findLastPage(RecommendationsService.handPickedRecommendations)", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage + 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
