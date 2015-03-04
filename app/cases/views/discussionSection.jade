@@ -34,20 +34,18 @@ ul.nav.nav-tabs(role="tablist")
                   span {{element.file_name}} ({{element.length | bytes}})
                 .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
   #pane2.tab-pane
-    article(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
-      .row
-        .col-sm-4
-          h4.meta
-            .author.blue {{attachment.created_by}}
-            .margin-top-short
-              date.light  {{attachment.created_date | date:'mediumDate'}}
-              |  at
-              time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
-        .col-sm-8
-          .dialog-box
-            .fa.fa-file-image-o.file-upload(ng-show="attachment.file_name")
-              a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
-              .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
+    article.row(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
+      .col-sm-4
+        h4.meta
+          .author.blue {{attachment.created_by}}
+          date.light  {{attachment.created_date | date:'mediumDate'}}
+          |  at
+          time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
+      .col-sm-8
+        .dialog-box
+          .fa.fa-file-image-o.file-upload(ng-show="attachment.file_name")
+            a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
+            .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal")
     form(name='notesForm')
       label(for='rha-case-notes') {{'Notes:'|translate}}

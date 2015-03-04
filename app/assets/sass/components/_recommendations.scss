@@ -60,12 +60,12 @@ $recommendations-link-size: 18px;
 		}
 	}
 
-	.btn {
-		@include rem('padding', 2px 12px);
-		@include rem('margin-top', 8px);
-		background: #0BC0FC;
-		color: $blue_dark;
-	}
+//	.btn {
+//		@include rem('padding', 2px 12px);
+//		@include rem('margin-top', 8px);
+//		background: #0BC0FC;
+//		color: $blue_dark;
+//	}
 }
 
 $recommendations-dark-background: #333336;
@@ -85,10 +85,10 @@ $recommendations-dark-link-color: #0bc0fc;
 
 	i {  }
 
-	.btn {
-		background: #0BC0FC;
-		color: $blue_dark;
-	}
+//	.btn {
+//		background: #0BC0FC;
+//		color: $blue_dark;
+//	}
 }
 
 .recommendations-inline {
@@ -125,6 +125,10 @@ aside .recommendations {
 		@include opacity(0);
 		@include font-size(18px);
 		line-height: 1;
+
+		&:hover {
+			@include opacity(1);
+		}
 	}
 
 	ul {
@@ -160,6 +164,9 @@ aside .recommendations {
 		.pin {
 			@include opacity(.5);
 //			@include transition(.2s);
+			&:hover {
+				@include opacity(1);
+			}
 		}
 	}
 }
