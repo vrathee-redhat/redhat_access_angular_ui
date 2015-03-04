@@ -8,6 +8,7 @@ $recommendations-paragraph-color: $base_font_color;
 $recommendations-padding: 30px;
 $recommendations-link-size: 18px;
 
+$aside-border-color: #d3d3d3;
 
 .recommendations {
 	position: relative;
@@ -60,12 +61,11 @@ $recommendations-link-size: 18px;
 		}
 	}
 
-//	.btn {
-//		@include rem('padding', 2px 12px);
-//		@include rem('margin-top', 8px);
-//		background: #0BC0FC;
-//		color: $blue_dark;
-//	}
+	.pagination {
+		@include clearfix();
+		@include rem('padding', $global-margin);
+		display: block;
+	}
 }
 
 $recommendations-dark-background: #333336;
@@ -108,14 +108,33 @@ $recommendations-dark-link-color: #0bc0fc;
 }
 
 aside .recommendations {
+	border: 1px solid $aside-border-color;
 
-	.panel-heading .panel-title a.accordion-toggle {
-		@include rem('padding', 10px $global-padding 10px $global-margin);
+	.panel-group {
+		padding: 0;
+		margin: 0;
 
-		i {
-			position: absolute;
-			left: 10px;
+		.panel + .panel {
+			margin: 0;
 		}
+	}
+
+	.panel-heading {
+//		border-bottom: 1px solid $aside-border-color;
+		border: none;
+
+		.panel-title a.accordion-toggle {
+			@include rem('padding', 10px $global-padding 10px $global-margin);
+
+			i {
+				position: absolute;
+				left: 10px;
+			}
+		}
+	}
+
+	.panel-heading + .panel-body {
+		border-top: 1px solid $aside-border-color;
 	}
 
 	.pin {
@@ -139,7 +158,7 @@ aside .recommendations {
 
 	.panel-body {
 		padding: 0;
-		border: 1px solid $aside-border-color;
+		border-bottom: 1px solid $aside-border-color;
 	}
 
 	li {

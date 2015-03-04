@@ -14,6 +14,7 @@ accordion(ng-hide='RecommendationsService.loadingRecommendations')
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
             strong {{recommendation.title}}
         div(ng-bind-html='recommendation.abstract')
+    .pagination
       .pull-right
         button.btn.btn-secondary.btn-slim(ng-disabled="handPickedResultsPage === 1", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage - 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
           i.fa.fa-long-arrow-left
@@ -37,13 +38,13 @@ accordion(ng-hide='RecommendationsService.loadingRecommendations')
             .fa.fa-check
             | Handpicked
         div(ng-bind-html='recommendation.abstract')
+    .pagination
       .pull-right
         button.btn.btn-secondary.btn-slim.pull-right(ng-disabled="resultsPage === 1", ng-click="selectPage(resultsPage = resultsPage - 1, RecommendationsService.recommendations, results)")
           i.fa.fa-long-arrow-left
         button.btn.btn-primary.btn-slim.pull-right(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="selectPage(resultsPage = resultsPage + 1, RecommendationsService.recommendations, results)")
           span NEXT
           i.fa.fa-long-arrow-right
-
   accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0')
     accordion-heading
       i.fa.fa-chevron-down
@@ -61,6 +62,7 @@ accordion(ng-hide='RecommendationsService.loadingRecommendations')
             .fa.fa-check
             | Handpicked
         div(ng-bind-html='recommendation.abstract')
+    .pagination
       .pull-right
         button.btn.btn-secondary.btn-slim.pull-right(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
           i.fa.fa-long-arrow-left

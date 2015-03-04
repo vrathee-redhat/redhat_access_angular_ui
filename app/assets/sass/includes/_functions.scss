@@ -44,11 +44,22 @@
 		@extend %center;
 	}
 
-	@mixin roboto($size, $color:"") {
-		font-family: 'Roboto', Arial, sans-serif;
-		color: blue;
-		color: #{$color};
-		@include font-size($size);
+	@mixin clearfix() {
+		&:before,
+		&:after {
+			content: " "; /* 1 */
+			display: table; /* 2 */
+		}
+
+		&:after {
+			clear: both;
+		}
+
+		/**
+		 * For IE 6/7 only
+		 * Include this rule to trigger hasLayout and contain floats.
+		 */
+		*zoom: 1;
 	}
 
 	@mixin margin-columns($margin) {
