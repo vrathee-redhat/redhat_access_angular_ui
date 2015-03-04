@@ -1,3 +1,8 @@
+//div
+//  .spinner
+//  p.center Loading cases...
+//  .backdrop
+
 .content-loading-notification
   .container
     .loader
@@ -130,20 +135,31 @@ div(rha-header='', page='newCase')
           .label.inline-tooltip Severity
             span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
         .col-sm-7.col-md-4
-          select#rha-severity.form-control(
-            chosen,
-            width='"100%"',
-            ng-model='CaseService.kase.severity',
-            ng-change='CaseService.onChangeFTSCheck()',
-            ng-disabled='CaseService.submittingCase',
-            ng-options='s.name for s in CaseService.severities track by s.name')
-      .row.row-short(ng-show="CaseService.showFts()")
-        .col-sm-4.col-md-2
-          .label 24x7 Support
-        .col-sm-7.col-md-4
-          input(
-            type="checkbox",
-            ng-model="CaseService.fts")
+          .row
+            .col-xs-12
+              select#rha-severity.form-control(
+                chosen,
+                width='"100%"',
+                ng-model='CaseService.kase.severity',
+                ng-change='CaseService.onChangeFTSCheck()',
+                ng-disabled='CaseService.submittingCase',
+                ng-options='s.name for s in CaseService.severities track by s.name')
+          .row.row-short(ng-show="CaseService.showFts()")
+            .col-xs-1
+              input.pull-left(
+                type="checkbox",
+                ng-model="CaseService.fts")
+            .col-xs-11
+              .row
+                .col-xs-12
+                  .label.pull-left 24x7 Support
+              .row.row-short(ng-show="CaseService.showFts()")
+                .col-xs-12
+                  .label.pull-left 24x7 Contact
+                  input.pull-left.margin-left(
+                    ng-model="CaseService.fts_contact")
+
+
       .row.row-short(ng-show="CaseService.showFts()")
         .col-sm-4.col-md-2
           .label 24x7 Contact

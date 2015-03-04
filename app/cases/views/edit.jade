@@ -1,7 +1,7 @@
-.page-header(rha-header='', page='caseView')
 div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
   .row
     section.main.col-md-8
+      .page-header(rha-header='', page='caseView')
       div(ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
       div(ng-show='EDIT_CASE_CONFIG.showDetails')
@@ -14,5 +14,6 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
           .col-xs-12
             div(rha-casediscussion='', loading='loading.comments')
     aside.col-md-4
-      section#rha-recommendation-section.recommendations(rha-editcaserecommendations='')
+      .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
+      section#rha-recommendation-section.recommendations(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
       section#case-escalation.case-escalation(rha-requestescalation='')
