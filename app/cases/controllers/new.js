@@ -51,15 +51,17 @@ angular.module('RedhatAccess.cases').controller('New', [
         var waiting = false;
         $scope.$watch('CaseService.kase.description + CaseService.kase.summary', function () {
             if (!waiting){
-                if(RHAUtils.isNotEmpty(CaseService.kase.description) || RHAUtils.isNotEmpty(CaseService.kase.summary))
-                {
-                    $scope.makeRecommendationPanelVisible();
+                if(RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(CaseService.kase.description) || RHAUtils.isNotEmpty(CaseService.kase.summary)){
+                    if(RHAUtils.isNotEmpty(CaseService.kase.description) || RHAUtils.isNotEmpty(CaseService.kase.summary))
+                    {
+                        $scope.makeRecommendationPanelVisible();
+                    }
+                    waiting = true;
+                    $timeout(function() {
+                        waiting = false;
+                        RecommendationsService.getRecommendations(true);
+                    }, 500); // delay 500 ms
                 }
-                waiting = true;
-                $timeout(function() {
-                    waiting = false;
-                    RecommendationsService.getRecommendations(true);
-                }, 500); // delay 500 ms
             }
         });
 
