@@ -1,4 +1,5 @@
 $chosen-border-color: $border-gray;
+$chosen-button-bg-color: $brand-gray;
 
 .chosen-container {
 	width: 100%;
@@ -90,4 +91,34 @@ $chosen-border-color: $border-gray;
 
 .chosen-container-single .chosen-single span {
 	color: $chosen-color;
+}
+
+.chosen-container-multi {
+
+	.chosen-choices {
+		@include rem('padding', 2px);
+
+		li.search-choice {
+			background: $chosen-button-bg-color;
+			@include border-radius(0);
+			@include box-shadow(none);
+			border: none;
+
+			span { color: #f0f0f0; }
+
+			.search-choice-close {
+				color: #f0f0f0;
+				background-image: none !important;
+				font: normal normal normal 12px/1 FontAwesome;
+
+				&:after {
+					content: "\f00d";
+				}
+
+				&:after:hover {
+					color: lighten(#f0f0f0, 5);
+				}
+			}
+		}
+	}
 }

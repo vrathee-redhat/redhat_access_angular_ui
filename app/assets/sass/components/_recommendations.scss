@@ -6,7 +6,7 @@ $recommendations-title-color: $header_font_color;
 $recommendations-paragraph-color: $base_font_color;
 
 $recommendations-padding: 30px;
-$recommendations-link-size: 18px;
+$recommendations-link-size: 14px;
 
 $aside-border-color: #d3d3d3;
 
@@ -93,6 +93,7 @@ $recommendations-dark-link-color: #0bc0fc;
 
 .recommendations-inline {
 	background: $recommendations-background;
+	@include rem('padding', $global-padding 0 0);
 //	@include rem('margin', 40px -40px);
 //	@include rem('padding', 40px 40px);
 //	background: #fff;
