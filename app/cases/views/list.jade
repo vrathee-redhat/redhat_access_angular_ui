@@ -18,7 +18,7 @@ div(rha-header='', page='caseList')
   .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
   #case-list.table-list.case-list.bulk-closure(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
     .list-item(ng-repeat='case in SearchCaseService.cases')
-      input.closure(type="checkbox", ng-model='case.selected')
+      input.closure(ng-hide='case.status === "Closed"', type="checkbox", ng-model='case.selected')
       .row.case(ng-click='caseLink(case.case_number)')
         .col-sm-4.col-md-2.item-group
           .block-icon
