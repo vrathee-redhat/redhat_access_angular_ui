@@ -1,14 +1,15 @@
 'use strict';
 angular.module('RedhatAccess.cases').controller('DescriptionSection', [
     '$scope',
+    '$modal',
     'CaseService',
-    function ($scope, CaseService) {
+    function ($scope, $modal, CaseService) {
         $scope.CaseService = CaseService;
 
         $scope.updateCase = function(){
-        	CaseService.updateCase().then(function () {
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
+        	$modal.open({
+                templateUrl: 'cases/views/confirmCaseStateChangeModal.html',
+                controller: 'ConfirmCaseStateChangeModal'
             });
         };
     }
