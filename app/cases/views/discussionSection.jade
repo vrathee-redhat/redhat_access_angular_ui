@@ -16,7 +16,6 @@ ul#tab_list.nav.nav-tabs(role="tablist")
     .row
       .col-xs-12
         article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':'reverse'", ng-if='!element.draft')
-          //a.glyphicon.glyphicon-link.pull-right(ng-hide="element.file_name", ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
           .row
             .col-sm-4
               h4.meta
@@ -27,7 +26,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .col-sm-8
               blockquote.dialog-box.pre-wrap(ng-hide="element.file_name")
                 | {{ element.text}}
-                a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}
+                a.glyphicon.glyphicon-link.pull-right(ng-hide="element.file_name", ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}') 
+                a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}} &nbsp;
               .dialog-box(ng-show="element.file_name")
                 a(href="{{element.uri}}")
                   .fa.fa-file-image-o.file-upload
