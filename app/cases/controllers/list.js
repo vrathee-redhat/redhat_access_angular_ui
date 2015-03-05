@@ -110,16 +110,6 @@ angular.module('RedhatAccess.cases').controller('List', [
                 templateUrl: 'cases/views/confirmCaseCloseModal.html',
                 controller: 'ConfirmCaseCloseModal'
             });
-	       //  angular.forEach(SearchCaseService.cases, angular.bind(this, function (kase) {
-	       //  	if(kase.selected){
-	       //  		strataService.cases.put(kase.case_number, {status: 'Closed'}).then( angular.bind(kase, function (response) {
-					   //  AlertService.clearAlerts();
-					   //  AlertService.addSuccessMessage("Case " + kase.case_number + " successfully closed.");
-				    // }), function (error) {
-					   //  AlertService.addStrataErrorMessage(error);
-				    // });
-	       //  	}
-	       //  }));
 	    }
     }
 ]);
