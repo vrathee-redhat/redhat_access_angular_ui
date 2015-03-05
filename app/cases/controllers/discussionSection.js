@@ -49,10 +49,10 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
                 text = text + '> '+ lines[i] + '\n';
             }
             var old = $location.hash();
-            $location.hash('case-comment-box');
-            $anchorScroll();
-            $location.hash(old);
-            $location.search('commentBox', 'commentBox');
+            var commentsSection = document.getElementById("tab_list");
+            if(commentsSection) {
+                commentsSection.scrollIntoView(true);
+            }
             CaseService.commentText=text;
         };
 

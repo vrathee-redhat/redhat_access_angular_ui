@@ -1,4 +1,4 @@
-ul.nav.nav-tabs(role="tablist")
+ul#tab_list.nav.nav-tabs(role="tablist")
   li.active
     a(href="#pane1", data-toggle="tab") Case Discussion
   li
@@ -10,7 +10,7 @@ ul.nav.nav-tabs(role="tablist")
 .tab-content
   #pane1.tab-pane.active
     .row
-      .col-xs-12(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
+      .col-xs-12
         // Add Comment Section
         div(rha-addcommentsection='', loading='loading.comments')
     .row

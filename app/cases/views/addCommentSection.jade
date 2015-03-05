@@ -16,7 +16,7 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
         span.progressBarWrap
           span.progressCount {{progressCount}} %
         span {{'of the 32K maximum description size.'|translate}}
-    div(ng-hide='ie8 || ie9', rha-attachlocalfile='', disabled='CaseService.submittingCase')
+    div(ng-hide='ie8 || ie9 || !EDIT_CASE_CONFIG.showAttachments || !securityService.loginStatus.authedUser.can_add_attachments', rha-attachlocalfile='', disabled='CaseService.submittingCase')
       .margin-top-short(ng-bind-html='AttachmentsService.parseArtifactHtml()')
     div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
       .rha-bottom-border(ng-hide='ie8 && EDIT_CASE_CONFIG.isPCM || ie9 && EDIT_CASE_CONFIG.isPCM')
