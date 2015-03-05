@@ -70,23 +70,21 @@ div(rha-header='', page='newCase')
             ng-model='CaseService.kase.description',
             ng-change='CaseService.validateNewCase()',
             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase')
-          div(style="margin-top: 15px")
+          div(style="margin-top: 15px", ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
             b Get faster results.
             | &nbsp; Attaching logs or other diagnostics files typically results in faster resolution.
             div(ng-bind-html='AttachmentsService.parseArtifactHtml()')
-            div(ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
-              div(rha-listnewattachments='')
+            div(rha-listnewattachments='')
             div(ng-hide='ie8 || ie9', rha-attachlocalfile='', disabled='CaseService.submittingCase')
 
-            div(ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
-              .rha-bottom-border(ng-hide='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
-                .row.rha-create-field(ng-hide='CaseService.submittingCase')
-                  .col-xs-12
-                    div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
-                      .server-attach-header Server File(s) To Attach:
-                       div(rha-choicetree='',
-                         ng-model='attachmentTree',
-                         ng-controller='BackEndAttachmentsCtrl')
+            .rha-bottom-border(ng-hide='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
+              .row.rha-create-field(ng-hide='CaseService.submittingCase')
+                .col-xs-12
+                  div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
+                    .server-attach-header Server File(s) To Attach:
+                     div(rha-choicetree='',
+                       ng-model='attachmentTree',
+                       ng-controller='BackEndAttachmentsCtrl')
               div(ng-show='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
                 form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
                   div

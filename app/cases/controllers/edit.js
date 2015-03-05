@@ -27,6 +27,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         CaseService.clearCase();
         $scope.loading = {};
         $scope.init = function () {
+            AttachmentsService.clear();
             RecommendationsService.clear();
             HeaderService.pageLoadFailure = false;
             $scope.loading.kase = true;
