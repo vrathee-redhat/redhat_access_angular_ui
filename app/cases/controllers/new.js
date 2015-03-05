@@ -227,6 +227,30 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
+        $scope.getLocatingSolutionText = function(){
+            var text = 'Locating top solutions'
+            var numFieldsSelected = 0;
+            if(!RHAUtils.isEmpty(CaseService.kase.product)){
+                text = text.concat(' for ' + CaseService.kase.product);
+                numFieldsSelected++;
+            }
+            if(!RHAUtils.isEmpty(CaseService.kase.version)){
+                text = text.concat(' ' + CaseService.kase.version);
+                numFieldsSelected++;
+            }
+            if(!RHAUtils.isEmpty(CaseService.kase.summary)){
+                numFieldsSelected++;
+            }
+            if(!RHAUtils.isEmpty(CaseService.kase.description)){
+                numFieldsSelected++;
+            }
+
+            if(numFieldsSelected > 2){
+                text = text.replace('Locating', 'Refining');
+            }
+            return text;
+        };
+
         $scope.ieFileUpload = function(caseNumber) {
             var form = document.getElementById('fileUploaderForm');
             var iframeId = document.getElementById('upload_target');

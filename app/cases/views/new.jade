@@ -1,15 +1,12 @@
-//div
-//  .spinner
-//  p.center Loading cases...
-//  .backdrop
-
-.content-loading-notification
-  .container
+.content-loading-notification(ng-hide='RecommendationsService.recommendations.length === 0 && !RecommendationsService.loadingRecommendations')
+  .container(ng-show='RecommendationsService.loadingRecommendations')
     .loader
       .circle &nbsp
       .circle &nbsp
       .circle &nbsp
-    | Locating top solutions for Red Hat Enterprise Linux
+    | {{(getLocatingSolutionText())}}
+  .container(ng-hide='RecommendationsService.loadingRecommendations')
+    | Based on details you provided, we found some likely solutions.
 
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
@@ -32,21 +29,21 @@ div(rha-header='', page='newCase')
           .label {{'Product'|translate}}
         .col-sm-7.col-md-4
           div(rha-productselect='')
-        .col-sm-1
-          .loader
-            .circle &nbsp
-            .circle &nbsp
-            .circle &nbsp
+        //- .col-sm-1
+        //-   .loader
+        //-     .circle &nbsp
+        //-     .circle &nbsp
+        //-     .circle &nbsp
       .row.row-short
         .col-sm-4.col-md-2
           .label {{'Product Version'|translate}}
         .col-sm-7.col-md-4
           div(rha-versionselect='')
-        .col-sm-1
-          .loader
-            .circle &nbsp
-            .circle &nbsp
-            .circle &nbsp
+        //- .col-sm-1
+        //-   .loader
+        //-     .circle &nbsp
+        //-     .circle &nbsp
+        //-     .circle &nbsp
       .row.row-short
         .col-sm-4.col-md-2
           .label {{'Case Name'|translate}}
@@ -56,11 +53,11 @@ div(rha-header='', page='newCase')
           ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
           ng-change='CaseService.validateNewCase()',
           ng-model='CaseService.kase.summary')
-        .col-sm-1
-          .loader
-            .circle &nbsp
-            .circle &nbsp
-            .circle &nbsp
+        //- .col-sm-1
+        //-   .loader
+        //-     .circle &nbsp
+        //-     .circle &nbsp
+        //-     .circle &nbsp
       .row.row-short
         .col-sm-4.col-md-2
           .label Case Description
@@ -111,11 +108,11 @@ div(rha-header='', page='newCase')
                         ng-model='ieFileDescription',
                         placeholder="{{'File description'|translate}}")
                 iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
-        .col-sm-1
-          .loader
-            .circle &nbsp
-            .circle &nbsp
-            .circle &nbsp
+        //- .col-sm-1
+        //-   .loader
+        //-     .circle &nbsp
+        //-     .circle &nbsp
+        //-     .circle &nbsp
       .row
         .col-xs-12
           section(rha-newcaserecommendations='')
