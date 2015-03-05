@@ -24,7 +24,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.securityService = securityService;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
-        $scope.progressCount = 0;
+        $scope.noteCharactersLeft = 255;
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
 
         $scope.DiscussionService = DiscussionService;
@@ -71,21 +71,21 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             AttachmentsService.removeOriginalAttachment(element);
         };
 
+        $scope.maxNotesCharacterCheck = function() {
+            if (CaseService.kase.notes !== undefined ) {
+               $scope.noteCharactersLeft = 255 - CaseService.kase.notes.length;
+            }
+        };
+
         $scope.$watch('AttachmentsService.originalAttachments', function (val) {
             DiscussionService.updateElements();                  
         }, true);
         $scope.$watch('CaseService.comments', function (val) {
             DiscussionService.updateElements();                    
         }, true);
-
-        $scope.$watch('CaseService.kase.notes', function() {
-            $scope.maxCharacterCheck();
-        });
-        $scope.maxCharacterCheck = function() {
-            if (CaseService.kase.notes !== undefined ) {
-               $scope.progressCount = CaseService.kase.notes.length;
-            }
-        };
+        $scope.$watch('CaseService.kase.notes', function(val) {
+            $scope.maxNotesCharacterCheck();
+        }, true);
 
         $scope.updateNotes = function(){
             CaseService.updateCase().then(angular.bind(this, function (attachmentsJSON) {

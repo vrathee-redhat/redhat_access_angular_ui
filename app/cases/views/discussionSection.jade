@@ -57,10 +57,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
       maxlength='255',
       name='notes')
       span#notesNotice.uploadNotice
-        span {{'You have used '|translate}}
-        span.progressBarWrapNotes
-        span.progressCount {{progressCount}}
-        span {{' of the 255 maximum character size.'|translate}}
+        span.progressCount {{noteCharactersLeft}}
+        span {{' characters left.'|translate}}
       button.btn.btn-open.pull-right(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Discard Changes
       button.btn.btn-accent.pull-right(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Update
   #pane4.tab-pane(ng-if="securityService.loginStatus.authedUser.is_internal")
