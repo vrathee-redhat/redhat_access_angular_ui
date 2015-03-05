@@ -1,0 +1,15 @@
+.modal-header
+  h3(translate='') Closing Cases
+.modal-body
+  .row
+    .col-sm-12
+      div Are you sure you want to close the selected cases?
+      div(ng-bind-html='parseArtifactHtml()')
+  .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
+    .col-sm-12
+      .pull-right
+        button.btn-secondary.btn(
+          style='margin-left: 10px;', 
+          ng-click='closeCases()')
+          span {{'Close Cases'|translate}}
+        a.margin-left(style='cursor: pointer;', ng-click='closeModal()') {{'Go Back'|translate}}

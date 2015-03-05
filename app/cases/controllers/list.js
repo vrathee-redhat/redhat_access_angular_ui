@@ -5,6 +5,7 @@ angular.module('RedhatAccess.cases').controller('List', [
     '$filter',
 	'$location',
 	'$state',
+    '$modal',
     'securityService',
     'AlertService',
     '$rootScope',
@@ -16,7 +17,7 @@ angular.module('RedhatAccess.cases').controller('List', [
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
     'CASE_GROUPS',
-    function ($scope, $filter, $location, $state, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS) {
+    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -105,16 +106,20 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    }
 
 	    $scope.closeCases = function() {
-	        angular.forEach(SearchCaseService.cases, angular.bind(this, function (kase) {
-	        	if(kase.selected){
-	        		strataService.cases.put(kase.case_number, {status: 'Closed'}).then( angular.bind(kase, function (response) {
-					    AlertService.clearAlerts();
-					    AlertService.addSuccessMessage("Case " + kase.case_number + " successfully closed.");
-				    }), function (error) {
-					    AlertService.addStrataErrorMessage(error);
-				    });
-	        	}
-	        }));
+            $modal.open({
+                templateUrl: 'cases/views/confirmCaseCloseModal.html',
+                controller: 'ConfirmCaseCloseModal'
+            });
+	       //  angular.forEach(SearchCaseService.cases, angular.bind(this, function (kase) {
+	       //  	if(kase.selected){
+	       //  		strataService.cases.put(kase.case_number, {status: 'Closed'}).then( angular.bind(kase, function (response) {
+					   //  AlertService.clearAlerts();
+					   //  AlertService.addSuccessMessage("Case " + kase.case_number + " successfully closed.");
+				    // }), function (error) {
+					   //  AlertService.addStrataErrorMessage(error);
+				    // });
+	       //  	}
+	       //  }));
 	    }
     }
 ]);
