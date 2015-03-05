@@ -11,7 +11,7 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
   div(rha-listnewattachments='')
 .row
   .col-xs-7
-    #commentNotice.uploadNotice
+    #commentNotice.uploadNotice(ng-hide='progressCount < 90')
         span {{'You have used &nbsp;'|translate}}
         span.progressBarWrap
           span.progressCount {{progressCount}} %
