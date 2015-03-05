@@ -81,6 +81,10 @@ $box-dark-paragraph-color: #fff;
 $box-dark-link-color: #0bc0fc;
 $box-dark-link-size: 18px;
 
+.tooltip-inner {
+	white-space: normal;
+}
+
 .box-dark {
 	@include rem('padding', $box-dark-padding);
 	background: $box-dark-background;

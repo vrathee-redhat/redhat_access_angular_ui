@@ -51,6 +51,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal")
     form(name='notesForm')
       label(for='rha-case-notes') {{'Notes:'|translate}}
+<<<<<<< Updated upstream
       textarea#rha-case-notes(
       tooltip='{{"This field allows Red Hat customers to make private notes pertinent to their case or account. Contents of this field are not visible to support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."|translate}}',
       tooltip-placement='bottom',
@@ -63,5 +64,27 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         span {{' characters left.'|translate}}
       button.btn.btn-open.pull-right(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Discard Changes
       button.btn.btn-accent.pull-right(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Update
+=======
+      .row
+        .col-xs-12
+          textarea#rha-case-notes(
+            tooltip='{{"This field allows Red Hat customers to make private notes pertinent to their case or account. Contents of this field are not visible to support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."|translate}}',
+            tooltip-placement='bottom',
+            style='width: 100%; height: 70px; max-width: 100%;',
+            ng-model='CaseService.kase.notes',
+            maxlength='255',
+            name='notes')
+      .row.row-short
+        .col-sm-7
+          span#notesNotice.uploadNotice
+            span {{'You have used '|translate}}
+            span.progressBarWrapNotes
+            span.progressCount {{progressCount}}
+            span {{' of the 255 maximum character size.'|translate}}
+        .col-sm-5
+          .pull-right
+            button.btn.btn-accent.btn-submit(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Update
+            a.margin-left(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Discard Changes
+>>>>>>> Stashed changes
   #pane4.tab-pane(ng-if="securityService.loginStatus.authedUser.is_internal")
     div(rha-listbugzillas)
