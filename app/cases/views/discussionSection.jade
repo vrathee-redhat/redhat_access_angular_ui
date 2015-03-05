@@ -33,6 +33,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                   .fa.fa-file-image-o.file-upload
                   span {{element.file_name}} ({{element.length | bytes}})
                 .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
+                span {{element.description}}
   #pane2.tab-pane
     article.row(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
       .col-sm-4
@@ -46,6 +47,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
           .fa.fa-file-image-o.file-upload(ng-show="attachment.file_name")
             a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
             .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
+            span {{attachment.description}}
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal")
     form(name='notesForm')
       label(for='rha-case-notes') {{'Notes:'|translate}}
