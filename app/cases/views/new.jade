@@ -6,7 +6,10 @@
       .circle &nbsp
     | {{(getLocatingSolutionText())}}
   .container(ng-hide='RecommendationsService.loadingRecommendations')
+    .loader
+      i.fa.fa-check-circle
     | Based on details you provided, we found some likely solutions.
+    a(ng-click='scrollToRecommendations()') View Recommendations
 
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
@@ -114,7 +117,7 @@ div(rha-header='', page='newCase')
         //-     .circle &nbsp
         //-     .circle &nbsp
       .row
-        .col-xs-12
+        .col-xs-12#recommendations_section
           section(rha-newcaserecommendations='')
       .row.row-short
         .col-sm-4.col-md-2
@@ -179,7 +182,7 @@ div(rha-header='', page='newCase')
             ng-options='user.sso_username as user.sso_username for user in CaseService.users')
       .row.row-short
         .col-sm-4.col-md-2
-          .label Case Group
+          .label Case Group (Optional)
         .col-sm-7.col-md-4
           div(rha-groupselect='')
 

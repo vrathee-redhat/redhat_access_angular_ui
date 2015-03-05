@@ -162,6 +162,12 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
+        $scope.scrollToRecommendations = function(){
+            var recommendationsSection = document.getElementById("recommendations_section");
+            if(recommendationsSection) {
+                recommendationsSection.scrollIntoView(true);
+            }
+        }
         /**
        * Create the case with attachments
        */
