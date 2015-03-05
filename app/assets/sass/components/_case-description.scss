@@ -1,4 +1,4 @@
-$case-description-bg: #f7f7f7;
+$case-description-bg: #f0f0f0;
 $case-description-margin-bottom: $global-padding;
 $case-description-padding: $global-padding;
 
@@ -8,7 +8,7 @@ $case-description-padding: $global-padding;
 	@include rem('margin-bottom', 30px);
 	@include rem('padding', $case-description-padding);
 	background: $case-description-bg;
-
+	border: 1px solid #ddd;
 
 	h1,
 	h2,

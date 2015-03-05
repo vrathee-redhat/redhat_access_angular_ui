@@ -1,0 +1,15 @@
+.carousel-nav {
+	position: absolute;
+	top: 50%;
+	@include font-size(24px);
+	line-height: 1;
+	color: $brand-gray;
+
+	&.next {
+		right: -20px;
+	}
+
+	&.prev {
+		left: -20px;
+	}
+}

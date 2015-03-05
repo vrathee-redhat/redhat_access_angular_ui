@@ -39,9 +39,9 @@ accordion
         div(ng-bind-html='recommendation.abstract')
     .pagination
       .pull-right
-        button.btn.btn-secondary.btn-slim.pull-right(ng-disabled="resultsPage === 1", ng-click="selectPage(resultsPage = resultsPage - 1, RecommendationsService.recommendations, results)")
+        button.btn.btn-secondary.btn-slim(ng-disabled="resultsPage === 1", ng-click="selectPage(resultsPage = resultsPage - 1, RecommendationsService.recommendations, results)")
           i.fa.fa-long-arrow-left
-        button.btn.btn-primary.btn-slim.pull-right(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="selectPage(resultsPage = resultsPage + 1, RecommendationsService.recommendations, results)")
+        button.btn.btn-primary.btn-slim(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="selectPage(resultsPage = resultsPage + 1, RecommendationsService.recommendations, results)")
           span NEXT
           i.fa.fa-long-arrow-right
   accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0')
@@ -63,8 +63,8 @@ accordion
         div(ng-bind-html='recommendation.abstract')
     .pagination
       .pull-right
-        button.btn.btn-secondary.btn-slim.pull-right(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
+        button.btn.btn-secondary.btn-slim(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
           i.fa.fa-long-arrow-left
-        button.btn.btn-primary.btn-sm.pull-right(ng-disabled="pinnedResultsPage >= findLastPage(RecommendationsService.pinnedRecommendations)", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage + 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
+        button.btn.btn-primary.btn-slim(ng-disabled="pinnedResultsPage >= findLastPage(RecommendationsService.pinnedRecommendations)", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage + 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
           span NEXT
           i.fa.fa-long-arrow-right

@@ -22,7 +22,7 @@ ul.nav.nav-tabs(role="tablist")
               h4.meta
                 .author.blue {{element.created_by}}
                 date.light {{element.created_date | date:'mediumDate'}} &nbsp;
-                | at &nbsp;
+                span.light at &nbsp;
                 time.light {{element.created_date | date:'h:mm:ss a Z'}}
             .col-sm-8
               blockquote.dialog-box.pre-wrap(ng-hide="element.file_name")
@@ -39,7 +39,7 @@ ul.nav.nav-tabs(role="tablist")
         h4.meta
           .author.blue {{attachment.created_by}}
           date.light  {{attachment.created_date | date:'mediumDate'}}
-          |  at
+          span.light at
           time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
       .col-sm-8
         .dialog-box

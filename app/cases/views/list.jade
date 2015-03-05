@@ -7,7 +7,7 @@ div(rha-header='', page='caseList')
         .row
           .col-xs-12
             a.btn.btn-info.btn-sm(href='#/case/new') Create a New Support Case
-            a.btn.btn-info.btn-sm(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close Cases
+            a.btn.btn-info.btn-sm(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.cases.length == 0')
     .col-sm-6
       .case-count
@@ -56,5 +56,5 @@ div(rha-header='', page='caseList')
   div(ng-show='SearchCaseService.searching')
     .spinner
     p.center Loading cases...
-    .backdrop
+    //.backdrop
 

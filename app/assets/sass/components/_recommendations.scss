@@ -63,7 +63,7 @@ $aside-border-color: #d3d3d3;
 
 	.pagination {
 		@include clearfix();
-		@include rem('padding', $global-margin);
+		@include rem('padding', 0 $global-margin $global-margin);
 		display: block;
 	}
 }
@@ -98,6 +98,16 @@ $recommendations-dark-link-color: #0bc0fc;
 //	background: #fff;
 //	border: 1px solid #ddd;
 
+	.link {
+		display: block;
+		font-weight: 600;
+		//		@include font-size($recommendations-link-size);
+
+		@include media-query (md) {
+			height: 40px;
+		}
+	}
+
 	article {
 		padding: 0;
 
@@ -116,12 +126,19 @@ aside .recommendations {
 
 		.panel + .panel {
 			margin: 0;
+			border-top: 1px solid $aside-border-color;
 		}
 	}
 
+
 	.panel-heading {
+		background-color: #F0F0F0;
 //		border-bottom: 1px solid $aside-border-color;
 		border: none;
+
+		& + .panel-heading {
+//			border-top: 1px solid $aside-border-color;
+		}
 
 		.panel-title a.accordion-toggle {
 			@include rem('padding', 10px $global-padding 10px $global-margin);
@@ -135,6 +152,7 @@ aside .recommendations {
 
 	.panel-heading + .panel-body {
 		border-top: 1px solid $aside-border-color;
+		border-top: none;
 	}
 
 	.pin {
@@ -156,9 +174,13 @@ aside .recommendations {
 		padding: 0;
 	}
 
+	.panel-title {
+		@include font-size(14px);
+	}
+
 	.panel-body {
 		padding: 0;
-		border-bottom: 1px solid $aside-border-color;
+		border: none;
 	}
 
 	li {
