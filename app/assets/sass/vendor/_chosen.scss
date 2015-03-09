@@ -99,6 +99,7 @@ $chosen-button-bg-color: $brand-gray;
 		@include rem('padding', 2px);
 
 		li.search-choice {
+			@include rem('margin', 3px 5px 3px 0);
 			background: $chosen-button-bg-color;
 			@include border-radius(0);
 			@include box-shadow(none);

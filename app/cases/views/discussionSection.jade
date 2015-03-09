@@ -32,9 +32,15 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 a(href="{{element.uri}}")
                   .fa.fa-file-image-o.file-upload
                   span {{element.file_name}} ({{element.length | bytes}})
+<<<<<<< Updated upstream
                 .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
                 span {{element.description}}
   #pane2.tab-pane(ng-class='{"active": attachments}')
+=======
+                .fa.fa-close.pull-right(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
+                .description.margin-top(ng-show="element.description") {{element.description}}
+  #pane2.tab-pane
+>>>>>>> Stashed changes
     article.row(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
       .col-sm-4
         h4.meta
