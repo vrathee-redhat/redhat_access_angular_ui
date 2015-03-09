@@ -1,5 +1,5 @@
 accordion
-  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0', is-open="true")
+  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0', is-open="RecommendationsService.handPickedRecommendations.length")
     accordion-heading
       i.fa.fa-chevron-down
       | Handpicked For You
