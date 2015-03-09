@@ -26,6 +26,10 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.ie9 = window.ie9;
         $scope.noteCharactersLeft = 255;
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
+        $scope.discussion = true;
+        $scope.attachments = false;
+        $scope.notes = false;
+        $scope.bugzillas = false;
 
         $scope.DiscussionService = DiscussionService;
 
@@ -98,5 +102,29 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             CaseService.kase.notes = CaseService.prestineKase.notes;
             this.notesForm.$setPristine();
         };
+        $scope.toggleDiscussion = function(){
+            $scope.discussion = true;
+            $scope.attachments = false;
+            $scope.notes = false;
+            $scope.bugzillas = false;
+        }
+        $scope.toggleAttachments= function(){
+            $scope.discussion = false;
+            $scope.attachments = true;
+            $scope.notes = false;
+            $scope.bugzillas = false;
+        }
+        $scope.toggleNotes = function(){
+            $scope.discussion = false;
+            $scope.attachments = false;
+            $scope.notes = true;
+            $scope.bugzillas = false;
+        }
+        $scope.toggleBugzillas = function(){
+            $scope.discussion = false;
+            $scope.attachments = false;
+            $scope.notes = false;
+            $scope.bugzillas = true;
+        }
     }
 ]);

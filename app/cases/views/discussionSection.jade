@@ -1,14 +1,14 @@
 ul#tab_list.nav.nav-tabs(role="tablist")
   li.active
-    a(href="#pane1", data-toggle="tab") Case Discussion
+    a(ng-click='toggleDiscussion()', data-toggle="tab") Case Discussion
   li
-    a(href="#pane2", data-toggle="tab") All Attachments
+    a(ng-click='toggleAttachments()',  data-toggle="tab") All Attachments
   li(ng-hide="securityService.loginStatus.authedUser.is_internal")
-    a(href="#pane3", data-toggle="tab") Private Notes
+    a(ng-click='toggleNotes()', data-toggle="tab") Private Notes
   li(ng-show="securityService.loginStatus.authedUser.is_internal")
-    a(href="#pane4", data-toggle="tab") Bugzilla Tickets
+    a(ng-click='toggleBugzillas()', data-toggle="tab") Bugzilla Tickets
 .tab-content
-  #pane1.tab-pane.active
+  #pane1.tab-pane(ng-class='{"active": discussion}')
     .row
       .col-xs-12
         // Add Comment Section
@@ -34,7 +34,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                   span {{element.file_name}} ({{element.length | bytes}})
                 .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(element)')
                 span {{element.description}}
-  #pane2.tab-pane
+  #pane2.tab-pane(ng-class='{"active": attachments}')
     article.row(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
       .col-sm-4
         h4.meta
@@ -48,7 +48,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
             .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
             span {{attachment.description}}
-  #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal")
+  #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')
     form(name='notesForm')
       label(for='rha-case-notes') {{'Notes:'|translate}}
       .row
@@ -70,5 +70,5 @@ ul#tab_list.nav.nav-tabs(role="tablist")
           .pull-right
             button.btn.btn-accent.btn-submit(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Update
             a.margin-left(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') Discard Changes
-  #pane4.tab-pane(ng-if="securityService.loginStatus.authedUser.is_internal")
+  #pane4.tab-pane(ng-if="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": bugzillas}')
     div(rha-listbugzillas)
