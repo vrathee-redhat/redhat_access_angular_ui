@@ -1,0 +1,28 @@
+.alert {
+}
+
+.alert.alert-sticky {
+	position: fixed;
+	top: 194px;
+	right: 0;
+	margin: 0;
+//	background: $red;
+	background: #D9EDF7;
+	color: #31708F;
+	@include rem('padding', 10px);
+	z-index: 2;
+
+	i {
+//		color: #fff;
+		@include font-size(24px);
+		line-height: 1;
+		float: left;
+	}
+
+	.msg {
+		display: none;
+		margin-left: 12px;
+		margin-top: 6px;
+		float: left;
+	}
+}
