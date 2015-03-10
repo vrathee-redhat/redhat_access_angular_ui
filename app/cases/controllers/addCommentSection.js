@@ -18,6 +18,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.addingComment = false;
         $scope.progressCount = 0;
         $scope.maxCommentLength = '32000';
+        $scope.textBoxSelected = false;
 
         $scope.clearComment = function(){
         	CaseService.commentText = '';
