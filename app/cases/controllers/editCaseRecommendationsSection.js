@@ -18,6 +18,8 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
         $scope.pinnedResultsPage = 1;
         $scope.handPickedResultsPage = 1;
         $scope.resultsPage = 1;
+        $scope.isHandpickedSolutionsOpen = {val:false};
+        $scope.isTopSolutionsOpen = {val:true};
         
         $scope.selectPage = function (pageNum, recommendationsList, results) {
             var start = $scope.itemsPerPage * (pageNum - 1);
@@ -79,6 +81,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
             }
         };
 
+
         $scope.$watch(function () {
             return RecommendationsService.recommendations;
         }, function () {
@@ -93,7 +96,13 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
             return RecommendationsService.handPickedRecommendations;
         }, function () {
             $scope.selectPage(1, RecommendationsService.handPickedRecommendations, $scope.handPickedResults);
-
+            if(RecommendationsService.handPickedRecommendations.length !== 0){
+                $scope.isHandpickedSolutionsOpen.val = true;
+                $scope.isTopSolutionsOpen.val = false;
+            } else {
+                $scope.isHandpickedSolutionsOpen.val = false;
+                $scope.isTopSolutionsOpen.val = true;
+            }
         }, true);
     }
 ]);

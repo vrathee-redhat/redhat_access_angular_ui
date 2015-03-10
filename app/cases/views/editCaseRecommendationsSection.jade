@@ -1,5 +1,5 @@
 accordion
-  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0', is-open="RecommendationsService.handPickedRecommendations.length")
+  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0;', is-open="isHandpickedSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down
       | Handpicked For You
@@ -20,7 +20,7 @@ accordion
         button.btn.btn-primary.btn-slim(ng-disabled="handPickedResultsPage >= findLastPage(RecommendationsService.handPickedRecommendations)", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage + 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
           span NEXT
           i.fa.fa-long-arrow-right
-  accordion-group(ng-hide='RecommendationsService.recommendations.length === 0', is-open="RecommendationsService.handPickedRecommendations.length === 0")
+  accordion-group(ng-hide='RecommendationsService.recommendations.length === 0', is-open="isTopSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down
       | Top Solutions
