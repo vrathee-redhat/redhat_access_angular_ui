@@ -52,10 +52,11 @@
 	@include rem('margin-left', $global-padding);
 }
 
-.dialog-box, .comment blockquote.dialog-box {
+.dialog-box {
 	position: relative;
 	@include rem('padding', $global-padding);
 	border: 1px solid #ddd;
+	min-height: 120px;
 
 	&:before {
 		content: '';

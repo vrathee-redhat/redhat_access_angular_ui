@@ -147,6 +147,11 @@ aside .recommendations {
 			i {
 				position: absolute;
 				left: 10px;
+				@include transition(.2s);
+
+				&.active {
+					@include transform(rotate(180deg));
+				}
 			}
 		}
 	}
