@@ -30,7 +30,8 @@ angular.module('RedhatAccess.header').factory('HeaderService', [
                 }
             },
             pageLoading: false,
-            pageLoadFailure: false
+            pageLoadFailure: false,
+            showSurvey: true
         };
         return service;
     }
