@@ -9,9 +9,8 @@ textarea.comment.expand#case-comment-box.form-control(
   rows='5',
   ng-model='CaseService.commentText',
   ng-change='onNewCommentKeypress()',
-  ng-click='textBoxSelected=true',
-  ng-blur='textBoxSelected=false',
-  ng-class='{"expanded": textBoxSelected}')
+  ng-click='textBoxEnlarge=true',
+  ng-class='{"expanded": textBoxEnlarge}')
 div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
   div(rha-listnewattachments='')
 .row

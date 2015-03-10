@@ -18,7 +18,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.addingComment = false;
         $scope.progressCount = 0;
         $scope.maxCommentLength = '32000';
-        $scope.textBoxSelected = false;
+        $scope.textBoxEnlarge = false;
 
         $scope.clearComment = function(){
         	CaseService.commentText = '';
@@ -65,6 +65,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     $scope.savingDraft = false;
                     CaseService.draftSaved = false;
                     CaseService.draftComment = undefined;
+                    $scope.textBoxEnlarge = false;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
