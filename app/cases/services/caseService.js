@@ -46,6 +46,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.owner = '';
         this.product = '';
         this.bugzillaList = {};
+        this.entitlement = '';
         this.onFilterSelectChanged = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
@@ -149,6 +150,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.groupOptions = [];
             this.fts = false;
             this.fts_contact = '';
+            this.entitlement = '';
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
@@ -280,9 +282,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     entitlements.splice(unknownIndex, 1);
                 }
                 this.entitlements = entitlements;
-                if(entitlements.length !== 0){
-                    this.entitlement = entitlements[0];
-                }
                 this.entitlementsLoading = false;
             }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);

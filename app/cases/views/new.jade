@@ -129,6 +129,7 @@ div(rha-header='', page='newCase')
               ng-change="CaseService.onChangeFTSCheck()",
               width="'100%'",
               ng-options="entitlement as entitlement for entitlement in CaseService.entitlements")
+              option(value="")
         .row.row-short
           .col-sm-4.col-md-2
             .label.inline-tooltip Severity
