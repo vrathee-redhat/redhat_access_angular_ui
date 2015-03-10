@@ -255,7 +255,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 }
                 this.comments = comments;
             }), function (error) {
-                AlertService.addStrataErrorMessage(error);
             });
             return promise;
         };

@@ -44,5 +44,10 @@ angular.module('RedhatAccess.header').controller('HeaderController', [
         $scope.$on('$destroy', function () {
             $interval.cancel($scope.healthTimer);
         });
+        $scope.pageLoadFailureWatcher = $scope.$watch('HeaderService.pageLoadFailure', function() {
+            if(HeaderService.pageLoadFailure) {
+                $scope.dismissAlerts();
+            }
+        });
     }
 ])

@@ -59,29 +59,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 if (EDIT_CASE_CONFIG.showEmailNotifications && !cacheHit) {
                     CaseService.defineNotifiedUsers();
                 }
-                
-                //TODO
-                // if (EDIT_CASE_CONFIG.showAttachments) {
-                //     $scope.loading.attachments = true;
-                //     strataService.cases.attachments.list($stateParams.id).then(function (attachmentsJSON) {
-                //         AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                //         $scope.loading.attachments= false;
-                //     }, function (error) {
-                //         AlertService.addStrataErrorMessage(error);
-                //         $scope.loading.attachments= false;
-                //     });
-                // }
-                // //TODO
-                // if (EDIT_CASE_CONFIG.showComments) {
-                //     $scope.loading.comments = true;
-                //     strataService.cases.comments.get($stateParams.id).then(function (commentsJSON) {
-                //         $scope.comments = commentsJSON;
-                //         $scope.loading.comments = false;
-                //     }, function (error) {
-                //         AlertService.addStrataErrorMessage(error);
-                //         $scope.loading.comments = false;
-                //     });
-                // }
+
             }, function (error) {
                 HeaderService.pageLoadFailure = true;
             });

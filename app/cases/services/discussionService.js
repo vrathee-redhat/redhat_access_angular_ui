@@ -7,7 +7,8 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
     'AttachmentsService',
     'CaseService',
     'strataService',
-    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService) {
+    'HeaderService',
+    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService) {
         this.discussionElements = [];
         this.comments = CaseService.comments
         this.attachments = AttachmentsService.originalAttachments;
@@ -25,10 +26,17 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
                 //this.discussionElements = this.discussionElements.concat(this.attachments);
                 this.loadingAttachments= false;
             }), angular.bind(this, function (error) {
-                AlertService.addStrataErrorMessage(error);
+                if(!HeaderService.pageLoadFailure) {
+                    AlertService.addStrataErrorMessage(error);
+                }
                 this.loadingAttachments= false;
             }));
-            commentsPromise = CaseService.populateComments(caseId)
+            commentsPromise = CaseService.populateComments(caseId).then(function (comments) {
+            }, function (error) {
+                if(!HeaderService.pageLoadFailure) {
+                    AlertService.addStrataErrorMessage(error);
+                }
+            });
             //}
             //if (EDIT_CASE_CONFIG.showComments) {
             //TODO should this be done in case service???
