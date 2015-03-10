@@ -2,7 +2,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
   li.active
     a(ng-click='toggleDiscussion()', data-toggle="tab") Case Discussion
   li
-    a(ng-click='toggleAttachments()',  data-toggle="tab") All Attachments
+    a(ng-click='toggleAttachments()',  data-toggle="tab", ng-hide="DiscussionService.attachments.length === 0") All Attachments
   li(ng-hide="securityService.loginStatus.authedUser.is_internal")
     a(ng-click='toggleNotes()', data-toggle="tab") Private Notes
   li(ng-show="securityService.loginStatus.authedUser.is_internal")
@@ -39,15 +39,16 @@ ul#tab_list.nav.nav-tabs(role="tablist")
       .col-sm-4
         h4.meta
           .author.blue {{attachment.created_by}}
-          date.light  {{attachment.created_date | date:'mediumDate'}}
-          span.light at
-          time.light  {{attachment.created_date | date:'h:mm:ss a Z'}}
+          date.light {{attachment.created_date | date:'mediumDate'}} 
+          span.light at &nbsp;
+          time.light {{attachment.created_date | date:'h:mm:ss a Z'}}
       .col-sm-8
         .dialog-box
-          .fa.fa-file-image-o.file-upload(ng-show="attachment.file_name")
-            a(href="{{attachment.uri}}") {{attachment.file_name}} ({{attachment.length | bytes}})
+            a(href="{{attachment.uri}}")
+              .fa.fa-file-image-o.file-upload
+              span{{attachment.file_name}} ({{attachment.length | bytes}})
             .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
-            span {{attachment.description}}
+            .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')
     form(name='notesForm')
       label(for='rha-case-notes') {{'Notes:'|translate}}
