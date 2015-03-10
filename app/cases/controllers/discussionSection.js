@@ -11,14 +11,14 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     'securityService',
     '$stateParams',
     '$rootScope',
-    'AUTH_EVENTS',
     'AlertService',
     '$modal',
     '$location',
     '$anchorScroll',
     'RHAUtils',
     'EDIT_CASE_CONFIG',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope,AUTH_EVENTS, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG) {
+    'CASE_EVENTS',
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, CASE_EVENTS) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -33,15 +33,22 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.DiscussionService = DiscussionService;
 
-        $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-            DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function (attachmentsJSON) {
+        if (CaseService.caseDataReady) {
+            $scope.init();
+        }
+        $scope.$on(CASE_EVENTS.received, function () {
+            $scope.init();
+        });
+
+        $scope.init = function() {
+            DiscussionService.getDiscussionElements(CaseService.kase.case_number).then(angular.bind(this, function (attachmentsJSON) {
                 //TODO make more better
                 $timeout(function() {
                     CaseService.scrollToComment($location.search().commentId);
                 }, 1000);
             }, function (error) {
             }));
-        });
+        };
 
         $scope.commentReply = function(comment,browserIE) {
             var person = comment.created_by;
@@ -126,5 +133,6 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             $scope.notes = false;
             $scope.bugzillas = true;
         }
+
     }
 ]);

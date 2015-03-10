@@ -66,7 +66,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     CaseService.draftSaved = false;
                     CaseService.draftComment = undefined;
                 }, function (error) {
-                    //AlertService.addStrataErrorMessage(error);
+                    AlertService.addStrataErrorMessage(error);
                 });
                 $scope.progressCount = 0;
 
