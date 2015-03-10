@@ -77,3 +77,15 @@
 		border-right: 11px solid #fff;
 	}
 }
+
+textarea.expand {
+	@include transition(.2s);
+}
+
+textarea.expand:focus {
+	height: 300px;
+	
+	@include media-query (sm) {
+		height: 500px;
+	}
+}

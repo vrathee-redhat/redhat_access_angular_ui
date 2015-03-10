@@ -11,8 +11,8 @@
 	z-index: 2;
 
 	@include media-query (sm) {
-		position: fixed;
-		top: 194px;
+		position: absolute;
+		top: 165px;
 	}
 
 	i {
@@ -28,7 +28,8 @@
 
 		@include media-query (sm) {
 			display: none;
-			margin-top: 6px;
+			margin-top: 4px;
+			margin-right: 8px;
 			float: left;
 		}
 
