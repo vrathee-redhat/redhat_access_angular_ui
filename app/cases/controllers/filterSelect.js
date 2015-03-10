@@ -24,12 +24,12 @@ angular.module('RedhatAccess.cases').controller('FilterSelect', [
             {
                 name: translate('Highest Severity'),
                 sortField: 'severity',
-                sortOrder: 'DESC'
+                sortOrder: 'ASC'
             },
             {
                 name: translate('Lowest Severity'),
                 sortField: 'severity',
-                sortOrder: 'ASC'
+                sortOrder: 'DESC'
             },
             {
                 name: translate('Newest Date Created'),
