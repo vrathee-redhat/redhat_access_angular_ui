@@ -78,13 +78,12 @@
 	}
 }
 
-textarea.expand {
-	@include transition(.2s);
-}
+textarea { @include transition(.2s); }
+textarea:hover { cursor: text; }
 
-textarea.expand:focus {
+textarea.expanded {
 	height: 300px;
-	
+
 	@include media-query (sm) {
 		height: 500px;
 	}
