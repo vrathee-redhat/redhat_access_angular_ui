@@ -128,8 +128,7 @@ div(rha-header='', page='newCase')
               ng-model="CaseService.entitlement",
               ng-change="CaseService.onChangeFTSCheck()",
               width="'100%'",
-              ng-options="entitlement as entitlement for entitlement in CaseService.entitlements",
-              class="ng-scope ng-pristine ng-valid")
+              ng-options="entitlement as entitlement for entitlement in CaseService.entitlements")
         .row.row-short
           .col-sm-4.col-md-2
             .label.inline-tooltip Severity
@@ -158,14 +157,6 @@ div(rha-header='', page='newCase')
                     .label.pull-left 24x7 Contact
                     input.pull-left.margin-left(
                       ng-model="CaseService.fts_contact")
-
-
-        .row.row-short(ng-show="CaseService.showFts()")
-          .col-sm-4.col-md-2
-            .label 24x7 Contact
-          .col-sm-7.col-md-4
-            input(
-              ng-model="CaseService.fts_contact")
         .row.row-short
           .col-sm-4.col-md-2
             .label(for='email-notifications') Send Email Notifications to

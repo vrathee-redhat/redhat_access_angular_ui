@@ -281,6 +281,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     entitlements.splice(unknownIndex, 1);
                 }
                 this.entitlements = entitlements;
+                if(entitlements.length !== 0){
+                    this.entitlement = entitlements[0];
+                }
                 this.entitlementsLoading = false;
             }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
