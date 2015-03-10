@@ -20,6 +20,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
         $scope.resultsPage = 1;
         $scope.isHandpickedSolutionsOpen = {val:false};
         $scope.isTopSolutionsOpen = {val:true};
+        $scope.isPinnedSolutionsOpen = {val:false};
         
         $scope.selectPage = function (pageNum, recommendationsList, results) {
             var start = $scope.itemsPerPage * (pageNum - 1);
