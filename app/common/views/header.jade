@@ -1,7 +1,7 @@
 .alert.alert-sticky.survey(ng-click="HeaderService.showSurvey = !HeaderService.showSurvey")
   i.icon-innov-prev
   span.msg(ng-class="{'active' : HeaderService.showSurvey}") Let us know what you think of our new case experience by taking a &nbsp;
-    a(href="https://access.redhat.com/eform/submit/what-do-you-think-case-managemen") short survey.
+    a(href="https://access.redhat.com/eform/submit/what-do-you-think-case-managemen", target='_blank') short survey.
 div(rha-403error='')
 div(rha-404error='')
 div(ng-show='HeaderService.sfdcIsHealthy')
