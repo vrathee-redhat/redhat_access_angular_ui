@@ -33,13 +33,6 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.DiscussionService = DiscussionService;
 
-        if (CaseService.caseDataReady) {
-            $scope.init();
-        }
-        $scope.$on(CASE_EVENTS.received, function () {
-            $scope.init();
-        });
-
         $scope.init = function() {
             DiscussionService.getDiscussionElements(CaseService.kase.case_number).then(angular.bind(this, function (attachmentsJSON) {
                 //TODO make more better
@@ -49,6 +42,13 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             }, function (error) {
             }));
         };
+        
+        if (CaseService.caseDataReady) {
+            $scope.init();
+        }
+        $scope.$on(CASE_EVENTS.received, function () {
+            $scope.init();
+        });
 
         $scope.commentReply = function(comment,browserIE) {
             var person = comment.created_by;
