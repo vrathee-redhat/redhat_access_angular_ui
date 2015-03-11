@@ -17,8 +17,8 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     '$anchorScroll',
     'RHAUtils',
     'EDIT_CASE_CONFIG',
-    'CASE_EVENTS',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, CASE_EVENTS) {
+    'AUTH_EVENTS',
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -34,7 +34,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.DiscussionService = DiscussionService;
 
         $scope.init = function() {
-            DiscussionService.getDiscussionElements(CaseService.kase.case_number).then(angular.bind(this, function (attachmentsJSON) {
+            DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function (attachmentsJSON) {
                 //TODO make more better
                 $timeout(function() {
                     CaseService.scrollToComment($location.search().commentId);
@@ -43,10 +43,10 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             }));
         };
         
-        if (CaseService.caseDataReady) {
+        if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
         }
-        $scope.$on(CASE_EVENTS.received, function () {
+        $scope.authLoginEvent = $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
         });
 
@@ -133,6 +133,19 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             $scope.notes = false;
             $scope.bugzillas = true;
         }
+
+        $scope.$on('$locationChangeSuccess', function(event){
+            var splitUrl = $location.path().split('/');
+            if(splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1){
+                var newCaseId = splitUrl[2];
+                var oldCaseId = $scope.CaseService.kase.case_number;
+                if(newCaseId !== oldCaseId){
+                    $stateParams.id = newCaseId;
+                    CaseService.clearCase();
+                    $scope.init();
+                }
+            }
+        });
 
     }
 ]);
