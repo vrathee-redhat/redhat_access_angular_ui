@@ -30,18 +30,29 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.attachments = false;
         $scope.notes = false;
         $scope.bugzillas = false;
+        $scope.hasScrolled = false;
 
         $scope.DiscussionService = DiscussionService;
 
         $scope.init = function() {
             DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function (attachmentsJSON) {
-                //TODO make more better
-                $timeout(function() {
-                    CaseService.scrollToComment($location.search().commentId);
-                }, 1000);
+                if($location.search().commentId !== undefined){
+                    scroll($location.search().commentId);
+                }
             }, function (error) {
             }));
         };
+
+        var scroll = function(commentId){
+            $timeout(function() {
+                if(!$scope.hasScrolled && angular.element(commentId)){
+                    CaseService.scrollToComment(commentId);
+                }
+                else{
+                    scroll(commentId);
+                }
+            }, 150);
+        }
         
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
