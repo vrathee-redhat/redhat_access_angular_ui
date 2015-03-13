@@ -1,8 +1,8 @@
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.escalation').directive('rha403error', function () {
+angular.module('RedhatAccess.escalation').directive('rha403escalationerror', function () {
     return {
-        templateUrl: 'cases/views/403.html',
+        templateUrl: 'escallation/views/403.html',
         restrict: 'A'
     };
 });
