@@ -23,6 +23,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 date.light {{element.created_date | date:'mediumDate'}} &nbsp;
                 span.light at &nbsp;
                 time.light {{element.created_date | date:'h:mm:ss a Z'}}
+                .private(ng-if="element.public !== undefined && element.public === false") Private
             .col-sm-8
               blockquote.dialog-box.pre-wrap(ng-hide="element.file_name")
                 | {{ element.text}}
