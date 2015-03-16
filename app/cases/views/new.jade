@@ -12,7 +12,7 @@
     a(ng-click='scrollToRecommendations()') View Recommendations
 
 div(rha-header='', page='newCase')
-.page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
+.page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
   div(ng-show='ProductsService.productsLoading')
     .spinner
   div(ng-hide='ProductsService.productsLoading')
