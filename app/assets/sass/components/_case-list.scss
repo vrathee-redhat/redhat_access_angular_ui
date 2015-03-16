@@ -8,6 +8,8 @@ $subheading-margin-bottom: 4px;
 		margin-bottom: $subheading-margin-bottom;
 		display: block;
 		color: $case-list-color;
+		overflow: hidden;
+		text-overflow: ellipses;
 
 		@include media-query (sm) {
 			@include rem('margin-bottom', $subheading-margin-bottom);

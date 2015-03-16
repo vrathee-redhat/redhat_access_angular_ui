@@ -61,6 +61,8 @@
 	&:before {
 		content: '';
 		position: absolute;
+		width: 0;
+		height: 0;
 		left: -12px;
 		top: 8px;
 		border-top: 12px solid transparent;
@@ -71,6 +73,8 @@
 	&:after {
 		content: '';
 		position: absolute;
+		width: 0;
+		height: 0;
 		left: -11px;
 		top: 9px;
 		border-top: 11px solid transparent;
