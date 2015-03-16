@@ -23,8 +23,9 @@ angular.module('RedhatAccess.cases').controller('New', [
     'RHAUtils',
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
+    'CASE_EVENTS',
     'translate',
-    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, translate) {
+    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, translate) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -66,13 +67,12 @@ angular.module('RedhatAccess.cases').controller('New', [
         });
 
 
-        // CaseService.onOwnerSelectChanged = function () {
-        //     if (CaseService.owner !== undefined) {
-        //         CaseService.populateEntitlements(CaseService.owner);
-        //         CaseService.populateGroups(CaseService.owner);
-        //     }
-        //     CaseService.validateNewCasePage1();
-        // };
+        $scope.$on(CASE_EVENTS.ownerChange, function () {
+            if (CaseService.owner !== undefined) {
+                CaseService.populateEntitlements(CaseService.owner);
+                CaseService.populateGroups(CaseService.owner);
+            }
+        });
 
         /**
        * Populate the selects

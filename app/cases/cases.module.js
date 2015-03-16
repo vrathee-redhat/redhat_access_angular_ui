@@ -15,7 +15,8 @@ angular.module('RedhatAccess.cases', [
     received: 'case-received',
     searchSubmit: 'search-submit',
     searchBoxChange: 'search-box-change',
-    productSelectChange: 'product-select-change'
+    productSelectChange: 'product-select-change',
+    ownerChange: 'owner-change'
 }).constant('CHAT_SUPPORT', {
     enableChat: false,
     chatButtonToken: '573A0000000GmiP',

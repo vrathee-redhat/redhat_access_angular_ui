@@ -54,7 +54,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.onOwnerSelectChanged = function(){
-            $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
+            $rootScope.$broadcast(CASE_EVENTS.ownerChange);
         };
         this.onGroupSelectChanged = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
