@@ -5,7 +5,7 @@ div.input-group
     ng-model='SearchBoxService.searchTerm',
     ng-keypress='onFilterKeyPress($event)',
     ng-change='SearchBoxService.onChange()')
-  span.input-group-btn
+  span.input-group-btn(ng-hide='hidebutton')
     button#rha-searchform-searchbutton.btn.btn-info.btn-xs(
       ng-click='SearchBoxService.doSearch()', 
       ng-disabled='!securityService.loginStatus.isLoggedIn')
