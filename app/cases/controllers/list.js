@@ -17,7 +17,8 @@ angular.module('RedhatAccess.cases').controller('List', [
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
     'CASE_GROUPS',
-    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS) {
+    'STATUS',
+    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -27,6 +28,7 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    $scope.ie9 = window.ie9;
 	    $scope.exporting = false;
         $scope.fetching = false;
+        $scope.displayedCaseText = 'Open Support Cases';
 	    $scope.exports = function () {
 		    $scope.exporting = true;
 		    strataService.cases.csv().then(function (response) {
@@ -111,5 +113,19 @@ angular.module('RedhatAccess.cases').controller('List', [
                 controller: 'ConfirmCaseCloseModal'
             });
 	    }
+
+        $scope.getCasesText = function(){
+            if(CaseService.status === STATUS.open){
+                $scope.displayedCaseText = 'Open Support Cases';
+            } else if(CaseService.status === STATUS.closed){
+                $scope.displayedCaseText = 'Closed Support Cases';
+            } else if(CaseService.status === STATUS.both){
+                $scope.displayedCaseText = 'Open and Closed Support Cases';
+            }
+        }
+
+        $scope.loadingRecWatcher = $scope.$watch('CaseService.status', function(newVal) {
+            $scope.getCasesText();
+        });
     }
 ]);

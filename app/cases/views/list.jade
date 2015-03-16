@@ -11,7 +11,7 @@ div(rha-header='', page='caseList')
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.cases.length == 0')
     .col-sm-6
       .case-count
-        span {{SearchCaseService.totalCases}} Open Support Cases &nbsp;
+        span {{SearchCaseService.totalCases}} {{displayedCaseText}} &nbsp;
         a.href(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export as CSV
     .col-sm-6
       .pull-right.filter-list(rha-filterselect='')
