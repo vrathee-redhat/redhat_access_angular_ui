@@ -65,7 +65,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         });
 
-        
+
         // CaseService.onOwnerSelectChanged = function () {
         //     if (CaseService.owner !== undefined) {
         //         CaseService.populateEntitlements(CaseService.owner);
@@ -104,6 +104,10 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
+            {
+                CaseService.kase.description = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text;
+            }
             var setDesc = function (desc) {
                 CaseService.kase.description = desc;
                 $scope.getRecommendations();
@@ -125,6 +129,26 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
             }
         };
+        $scope.getLocalStorageForNewCase = function(){
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
+            {
+                var draftNewCase = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text
+                CaseService.kase.description = draftNewCase.description;
+                CaseService.kase.summary = draftNewCase.summary;
+                if(RHAUtils.isNotEmpty(draftNewCase.product))
+                {
+                    //if we directly call $scope.getProductVersions function without product list in strata service it return error
+                    strataService.products.list(CaseService.owner).then(function (products) {
+                        CaseService.kase.product = draftNewCase.product;
+                        ProductsService.getVersions(CaseService.kase.product);
+                        CaseService.kase.version = draftNewCase.version; //setting version after product check, as without product, version don't have any meaning
+                        CaseService.validateNewCase();
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
+                }
+            }
+        };
 
         $scope.firePageLoadEvent = function () {
             if (window.chrometwo_require !== undefined) {
@@ -139,11 +163,13 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
+            $scope.getLocalStorageForNewCase();
         }
         $scope.authLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
+            $scope.getLocalStorageForNewCase();
             //AlertService.clearAlerts();
             RecommendationsService.failureCount = 0;
         });
@@ -169,7 +195,8 @@ angular.module('RedhatAccess.cases').controller('New', [
             if(recommendationsSection) {
                 recommendationsSection.scrollIntoView(true);
             }
-        }
+        };
+
         /**
        * Create the case with attachments
        */

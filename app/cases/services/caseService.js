@@ -61,7 +61,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.onProductSelectChange = function(){
             $rootScope.$broadcast(CASE_EVENTS.productSelectChange);
-        }
+        };
         this.groupOptions = [];
         this.showsearchoptions = false;
         this.disableAddComment = true;
@@ -86,7 +86,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             rawCase.group = { 'number': rawCase.folder_number };
             rawCase.type = { 'name': rawCase.type };
             this.kase = rawCase;
-            angular.copy(this.kase, this.prestineKase)
+            angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = rawCase.bugzillas;
             this.caseDataReady = true;
             this.onProductSelectChange();
@@ -381,10 +381,18 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
         };
 
+        this.clearLocalStorageCacheForNewCase = function(){
+            if(this.localStorageCache && RHAUtils.isNotEmpty(this.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)))
+            {
+                this.localStorageCache.remove(securityService.loginStatus.authedUser.sso_username);
+            }
+        };
+
         this.createCase = function(){
             var promise = null;
+            var self = this;
             var deferred = $q.defer();
-            
+
             /*jshint camelcase: false */
             var caseJSON = {
                     'product': this.kase.product,
@@ -418,6 +426,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+                self.clearLocalStorageCacheForNewCase();
                 deferred.resolve(caseNumber);
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
@@ -475,6 +484,30 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 this.updatingCase = false;
             });
             return deferred.promise;
+        };
+        this.updateLocalStorageForNewCase = function(){
+            if(this.localStorageCache)
+            {
+                var draftNewCase = {};
+                if(!RHAUtils.isEmpty(this.kase.description))
+                {
+                    draftNewCase.description = this.kase.description;
+                }
+                if(!RHAUtils.isEmpty(this.kase.summary))
+                {
+                    draftNewCase.summary = this.kase.summary;
+                }
+                if(!RHAUtils.isEmpty(this.kase.product))
+                {
+                    draftNewCase.product = this.kase.product;
+                }
+                if(!RHAUtils.isEmpty(this.kase.version))
+                {
+                    draftNewCase.version = this.kase.version;
+                }
+                var newCaseDescLocalStorage = {'text': draftNewCase};
+                this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username,newCaseDescLocalStorage);
+            }
         };
     }
 ]);
