@@ -101,6 +101,13 @@ angular.module('RedhatAccess.cases').controller('New', [
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
+            if (window.chrometwo_require !== undefined) {
+                breadcrumbs = [
+                  ['Support', '/support/'],
+                  ['Support Cases',  '/support/cases/'],
+                  ['New']];
+                updateBreadCrumb();
+            }
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();

@@ -68,6 +68,16 @@ angular.module('RedhatAccess.cases').controller('List', [
             }
         };
 
+        $scope.setBreadcrumbs = function(){
+            if (window.chrometwo_require !== undefined) {
+                breadcrumbs = [
+                  ['Support', '/support/'],
+                  ['Support Cases',  '/support/cases/'],
+                  ['List']];
+                updateBreadCrumb();
+            }
+        }
+
         /**
        * Callback after user login. Load the cases and clear alerts
        */
@@ -76,13 +86,14 @@ angular.module('RedhatAccess.cases').controller('List', [
             SearchCaseService.clear();
             CaseService.status = 'open';
             $scope.doSearch();
+            $scope.setBreadcrumbs();
         }
         $scope.listAuthEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             if(securityService.loginStatus.userAllowedToManageCases){
                 $scope.firePageLoadEvent();
                 CaseService.status = 'open';
                 $scope.doSearch();
-                //AlertService.clearAlerts();
+                $scope.setBreadcrumbs();
             }
         });
 

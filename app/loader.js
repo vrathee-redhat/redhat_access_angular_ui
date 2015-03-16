@@ -48,6 +48,10 @@
     }
     // Once all modules have loaded bootstrap it
     jq.when.apply(jq, dfds).always(function() {
+      breadcrumbs = [
+      ['Support', '/support/'],
+      ['Support Cases',  '/support/cases/']
+      ];
       var host = window.location.host;
       strata.setStrataHostname('https://' + host);
       $.support.cors = true;

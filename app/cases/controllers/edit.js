@@ -63,6 +63,13 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             }, function (error) {
                 HeaderService.pageLoadFailure = true;
             });
+            if (window.chrometwo_require !== undefined) {
+                breadcrumbs = [
+                  ['Support', '/support/'],
+                  ['Support Cases',  '/support/cases/'],
+                  [$stateParams.id]];
+                updateBreadCrumb();
+            }
         };
 
         $scope.firePageLoadEvent = function () {
