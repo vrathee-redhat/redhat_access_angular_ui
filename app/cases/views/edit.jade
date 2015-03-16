@@ -1,5 +1,5 @@
 .page-header(rha-header='', page='')
-div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy')
+div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
   .row
     section.main.col-md-8
       h1.page-title CASE {{CaseService.kase.case_number}}
