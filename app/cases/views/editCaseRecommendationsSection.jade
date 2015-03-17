@@ -10,7 +10,7 @@ accordion
             ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
             ng-click='pinRecommendation(recommendation, $index, $event)',
             style='cursor: pointer;') &nbsp;
-          a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title | substring:100 }}
         div(ng-bind-html='recommendation.abstract')
     .pagination
@@ -31,7 +31,7 @@ accordion
             ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
             ng-click='pinRecommendation(recommendation, $index, $event)',
             style='cursor: pointer;') &nbsp;
-          a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title}}
           span.handpicked(ng-show='recommendation.handPicked', translate='')
             .fa.fa-check
@@ -55,7 +55,7 @@ accordion
             ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
             ng-click='pinRecommendation(recommendation, $index, $event)',
             style='cursor: pointer;') &nbsp;
-          a(ng-click='triggerAnalytics($event)', href='{{recommendation.view_uri}}', target='_blank')
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title}}
           span.handpicked(ng-show='recommendation.handPicked', translate='')
             .fa.fa-check
