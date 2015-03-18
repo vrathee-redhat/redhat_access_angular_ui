@@ -9,6 +9,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
     'AttachmentsService',
     'CaseService',
     'strataService',
+    'HeaderService',
     'RecommendationsService',
     '$rootScope',
     'AUTH_EVENTS',
@@ -17,19 +18,22 @@ angular.module('RedhatAccess.cases').controller('Edit', [
     'EDIT_CASE_CONFIG',
     'RHAUtils',
     'CASE_EVENTS',
-    function ($scope, $stateParams, $filter, $q, $location, AttachmentsService, CaseService, strataService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS) {
+    function ($scope, $stateParams, $filter, $q, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS) {
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
+        $scope.HeaderService = HeaderService;
         CaseService.clearCase();
         $scope.loading = {};
-        $scope.failedToLoadCase = false;
         $scope.init = function () {
+            AttachmentsService.clear();
+            RecommendationsService.clear();
+            HeaderService.pageLoadFailure = false;
             $scope.loading.kase = true;
             $scope.recommendationsLoading = true;
             strataService.cases.get($stateParams.id).then(function (resp) {
-                $scope.failedToLoadCase = false;
+                HeaderService.pageLoadFailure = false;
                 var caseJSON = resp[0];
                 var cacheHit = resp[1];
                 if (!cacheHit) {
@@ -39,13 +43,6 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 }
                 $rootScope.$broadcast(CASE_EVENTS.received);
                 $scope.loading.kase = false;
-                if ('product' in caseJSON && 'name' in caseJSON.product && caseJSON.product.name) {
-                    strataService.products.versions(caseJSON.product.name).then(function (versions) {
-                        CaseService.versions = versions;
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                    });
-                }
                 if (caseJSON.account_number !== undefined) {
                     strataService.accounts.get(caseJSON.account_number).then(function (account) {
                         CaseService.defineAccount(account);
@@ -54,54 +51,25 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     });
                 }
                 if (EDIT_CASE_CONFIG.showRecommendations) {
-                    var pinnedDfd;
-                    var reccomendDfd;
-                    if ($scope.EDIT_CASE_CONFIG.isPCM) {
-                        pinnedDfd = RecommendationsService.populatePinnedRecommendations().then(angular.noop, function (error) {
-                            AlertService.addStrataErrorMessage(error);
-                        });
-                        reccomendDfd = RecommendationsService.populatePCMRecommendationsForEdit(12);
-                        $q.all([pinnedDfd, reccomendDfd]).then(function () {
-                            $scope.recommendationsLoading = false;
-                        });
-                    } else {
-                        pinnedDfd = RecommendationsService.populatePinnedRecommendations().then(angular.noop, function (error) {
-                            AlertService.addStrataErrorMessage(error);
-                        });
-                        reccomendDfd = RecommendationsService.populateRecommendations(12);
-                        $q.all([pinnedDfd, reccomendDfd]).then(function () {
-                            $scope.recommendationsLoading = false;
-                        });
-                    }
+                    RecommendationsService.populatePinnedRecommendations();
+                    RecommendationsService.getRecommendations(false).then(angular.noop, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
                 }
                 if (EDIT_CASE_CONFIG.showEmailNotifications && !cacheHit) {
                     CaseService.defineNotifiedUsers();
                 }
 
-                if (EDIT_CASE_CONFIG.showAttachments) {
-                    $scope.loading.attachments = true;
-                    strataService.cases.attachments.list($stateParams.id).then(function (attachmentsJSON) {
-                        AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                        $scope.loading.attachments= false;
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                        $scope.loading.attachments= false;
-                    });
-                }
-                if (EDIT_CASE_CONFIG.showComments) {
-                    $scope.loading.comments = true;
-                    CaseService.populateComments($stateParams.id).then(function (commentsJSON) {
-                        $scope.comments = commentsJSON;  // This might not be required
-                        $scope.loading.comments = false;
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                        $scope.loading.comments = false;
-                    });
-                }
             }, function (error) {
-                AlertService.addDangerMessage('Unable to retrieve case.  Please be sure case number is valid.');
-                $scope.failedToLoadCase = true;
+                HeaderService.pageLoadFailure = true;
             });
+            if (window.chrometwo_require !== undefined) {
+                breadcrumbs = [
+                  ['Support', '/support/'],
+                  ['Support Cases',  '/support/cases/'],
+                  [$stateParams.id]];
+                updateBreadCrumb();
+            }
         };
 
         $scope.firePageLoadEvent = function () {
@@ -120,7 +88,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.firePageLoadEvent();
             $scope.init();
-            AlertService.clearAlerts();
+            //AlertService.clearAlerts();
         });
 
         var caseSettled = function() {
@@ -137,7 +105,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     allLoaded = false;
                 }
             }
-            if(allLoaded && !$scope.failedToLoadCase) {
+            if(allLoaded && !HeaderService.pageLoadFailure) {
                 caseSettled();
             }
         }, true);

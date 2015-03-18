@@ -1,0 +1,125 @@
+$chosen-border-color: $border-gray;
+$chosen-button-bg-color: $brand-gray;
+
+.chosen-container {
+	width: 100%;
+}
+
+.chosen-container-single, .chosen-container-multi {
+
+	// Base Styling
+	.chosen-single, .chosen-choices {
+		@include border-radius(0);
+		height: auto;
+		background: #fff;
+		@include box-shadow(none);
+		@include rem('padding', 8px);
+		border-color: $chosen-border-color;
+		background-image: none;
+		color: #cacaca;
+		font-weight: 400;
+
+		// Text Formatting
+		a,
+		span {
+			@include font-size(14px);
+			line-height: 1;
+			color: $chosen-color;
+		}
+
+		// Replace Caret
+		div b {
+			@extend %fa;
+			background: none !important;
+			line-height: 2.2;
+			color: $chosen-color;
+
+			&:before {
+				content: "\f0d7";
+				positin: absolute;
+				left: 0;
+			}
+		}
+	}
+}
+
+
+.chosen-results {
+
+	li { @include transition(.2s); }
+
+	li:hover,
+	li.result-selected,
+	li.active-result.highlighted {
+		background: #f0f0f0;
+		color: $chosen-color;
+	}
+
+	li:hover,
+	li.active-result.highlighted {
+		background: #f0f0f0;
+		padding-left: 10px;
+		padding-right: 4px;
+	}
+}
+
+.localytics-chosen {
+	@include border-radius(0);
+}
+
+.chosen-container.chosen-with-drop {
+
+	.chosen-container-active {
+
+		.chosen-single {
+			background: none;
+		}
+	}
+
+	.chosen-drop {
+		@include border-radius(0);
+		@include box-shadow(none);
+		border-color: $chosen-border-color;
+	}
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single {
+	background: #fff;
+	border-color: $chosen-border-color;
+	@include box-shadow(none);
+}
+
+.chosen-container-single .chosen-single span {
+	color: $chosen-color;
+}
+
+.chosen-container-multi {
+
+	.chosen-choices {
+		@include rem('padding', 2px);
+
+		li.search-choice {
+			@include rem('margin', 3px 5px 3px 0);
+			background: $chosen-button-bg-color;
+			@include border-radius(0);
+			@include box-shadow(none);
+			border: none;
+
+			span { color: #f0f0f0; }
+
+			.search-choice-close {
+				color: #f0f0f0;
+				background-image: none !important;
+				font: normal normal normal 12px/1 FontAwesome;
+
+				&:after {
+					content: "\f00d";
+				}
+
+				&:after:hover {
+					color: lighten(#f0f0f0, 5);
+				}
+			}
+		}
+	}
+}

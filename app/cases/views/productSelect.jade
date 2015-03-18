@@ -1,8 +1,8 @@
-div(rha-selectloadingindicator='', loading='productsLoading', type='select2')
-  select(
-    chosen,
-    ng-disabled='!securityService.loginStatus.isLoggedIn',
-    ng-model='CaseService.product',
-    ng-change='CaseService.onSelectChanged()',
-    width='"100%"',
-    ng-options='product.name as product.name for product in CaseService.products')
+select#rha-product-select.form-control(
+	chosen,
+	width='"100%"',
+	ng-disabled='ProductsService.products.length === 0 || !securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
+	ng-model='CaseService.kase.product',
+	ng-change='ProductsService.getVersions(CaseService.kase.product); RecommendationsService.getRecommendations(true); CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
+	ng-options='p.value as p.label for p in ProductsService.products',
+	options-disabled='p.isDisabled for p in ProductsService.products')

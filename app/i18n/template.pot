@@ -2,7 +2,6 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
 
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachmentsSection.html
@@ -61,10 +60,6 @@ msgstr ""
 msgid "All Groups"
 msgstr ""
 
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Already Escalated?"
-msgstr ""
-
 #: app/cases/views/detailsSection.html
 msgid "Alternate Case ID:"
 msgstr ""
@@ -116,7 +111,6 @@ msgstr ""
 #: app/security/views/login_form.html
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/editGroup.html
-#: app/cases/views/requestManagementEscalationModal.html
 msgid "Cancel"
 msgstr ""
 
@@ -135,10 +129,6 @@ msgstr ""
 
 #: app/cases/views/list.html
 msgid "Case ID"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Case Information"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
@@ -191,30 +181,6 @@ msgstr ""
 
 #: app/cases/controllers/createGroupModal.js
 msgid "Creating group"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Customer"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Customer Account Number *"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Customer Contact Email"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Customer Contact Name"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Customer Contact Number"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Customer GEO *"
 msgstr ""
 
 #: app/cases/views/listAttachments.html
@@ -272,10 +238,6 @@ msgstr ""
 msgid "Error: Failed to upload attachment. Message:"
 msgstr ""
 
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Expectation"
-msgstr ""
-
 #: app/cases/views/exportCSVButton.html
 msgid "Export All as CSV"
 msgstr ""
@@ -316,20 +278,12 @@ msgstr ""
 msgid "First Name"
 msgstr ""
 
-#: app/escalation/views/partnerEscalationForm.html
-msgid "For example: 1-888-467-3342"
-msgstr ""
-
 #: app/cases/views/search.html
 msgid "Group"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
 msgid "Group:"
-msgstr ""
-
-#: app/cases/views/403.html
-msgid "If you believe you should have permission to view this resource, please <a href=\"/support/contact/customerService.html\">contact Customer Service</a> for assistance. Your Red Hat login might not be associated with the right account for your organization, or there might be an issue with your subscription. Either way, Customer Service should be able to help you resolve the problem."
 msgstr ""
 
 #: app/cases/views/requestManagementEscalationModal.html
@@ -342,10 +296,6 @@ msgstr ""
 
 #: app/cases/views/addCommentSection.html
 msgid "Is Public:"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Issue Description *"
 msgstr ""
 
 #: app/cases/views/editGroup.html
@@ -444,10 +394,6 @@ msgstr ""
 msgid "No solutions found."
 msgstr ""
 
-#: app/cases/views/404.html
-msgid "Not Found"
-msgstr ""
-
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
 msgstr ""
@@ -462,10 +408,6 @@ msgstr ""
 
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Once you have selected your log file then you may diagnose any part of the log file and clicking the 'Red Hat Diagnose' button. This will then display relevant articles and solutons from our Red Hat Knowledge base."
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Once your request is submitted, a partner escalation case will be opened with GSS and the GSS leadership team will be notified. You will then receive an email at the email address provided below with the partner escalation case number and additional information on how to track progress."
 msgstr ""
 
 #: app/cases/controllers/statusSelect.js
@@ -512,24 +454,8 @@ msgstr ""
 msgid "Please Select the Machine"
 msgstr ""
 
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Please provide as much detail as possible to help us understand the issue, for example:Reason for the escalation, the business context, the competitive situation, past support experience"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Please provide as much information as possible in the form."
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Please provide expectations and desired outcomes from yourself and from the customer"
-msgstr ""
-
 #: app/cases/views/new.html
 msgid "Previous"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Priority Customer Support Routing"
 msgstr ""
 
 #: app/cases/views/search.html
@@ -572,20 +498,12 @@ msgstr ""
 msgid "Red Hat Diagnose"
 msgstr ""
 
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Red Hat Global Support Services (GSS) and Red Hat Global Partner Enablement have  established Partner Escalation to enable our strategic partners to escalate unresolved or mission critical customer support cases to GSS leadership. This process will help you and Red Hat to better manage your customers issues and provide a process for driving these issues to resolution."
-msgstr ""
-
 #: app/security/views/login_form.html
 msgid "Red Hat Login"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
 msgid "Red Hat Owner:"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Red Hat Support Ticket Number *"
 msgstr ""
 
 #: app/cases/views/commentsSection.html
@@ -595,10 +513,6 @@ msgstr ""
 #: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Requestor"
 msgstr ""
 
 #: app/search/views/resultDetail.html
@@ -744,36 +658,16 @@ msgstr ""
 msgid "Support Level:"
 msgstr ""
 
-#: app/cases/views/403.html
-msgid "Support Subscription Required"
-msgstr ""
-
-#: app/cases/views/403.html
-msgid "The credentials you provided are valid, but you do not have <b>direct support from Red Hat.</b>"
-msgstr ""
-
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "The log file viewer gives the ability to diagnose application logs as well as file a support case with Red Hat Global Support Services."
-msgstr ""
-
-#: app/cases/views/404.html
-msgid "The page you are looking for is not here. It might have been moved, removed, or had its name and address changed. It might otherwise be temporarily unavailable for technical reasons."
 msgstr ""
 
 #: app/cases/views/detailsSection.html
 msgid "This field allows Red Hat customers to make private notes pertinent to their case or account.  Contents of this field are not visible to  support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."
 msgstr ""
 
-#: app/escalation/views/partnerEscalationForm.html
-msgid "This is your 8 digit Red Hat Support ticket number"
-msgstr ""
-
 #: app/cases/views/new.html
 msgid "This release is now retired, please refer to the recommended FAQ prior to filing a case"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "This should be the email address associated with your Red Hat Customer Portal or Partner Center login"
 msgstr ""
 
 #: app/search/views/list_search_results.html
@@ -836,6 +730,10 @@ msgstr ""
 msgid "User does not have proper credentials to manage case groups."
 msgstr ""
 
+#: app/cases/controllers/defaultGroup.js
+msgid "User does not have proper credentials to manage default groups."
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "View Production Support Service Level Agreement"
@@ -866,28 +764,12 @@ msgstr ""
 msgid "You must be logged in to use this functionality."
 msgstr ""
 
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Your Email Address"
-msgstr ""
-
-#: app/escalation/services/escalationRequestService.js
-msgid "Your Partner Escalation request has been sent successfully"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "Your Phone Number"
-msgstr ""
-
 #: app/cases/controllers/attachLocalFile.js
 msgid "cannot be attached because it is larger the 1 GB. Please FTP large files to dropbox.redhat.com."
 msgstr ""
 
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
-msgstr ""
-
-#: app/escalation/views/partnerEscalationForm.html
-msgid "marked fields are mandatory fields."
 msgstr ""
 
 #: app/cases/views/detailsSection.html

@@ -1,0 +1,24 @@
+.actions {
+	margin-top: 40px;
+
+	.btn {
+		display: block;
+		width: 100%;
+	}
+
+
+	&.justify-right {
+
+		@include media-query (md) {
+			text-align: right;
+		}
+
+		[class^="col-md-"],
+		[class*=" col-md-"] {
+			@include media-query (md) {
+				float: none !important;
+				display: inline-block !important;
+			}
+		}
+	}
+}

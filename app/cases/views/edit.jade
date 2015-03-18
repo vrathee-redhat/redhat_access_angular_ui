@@ -1,30 +1,25 @@
-doctype html
-div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.userAllowedToManageCases')
-  div(rha-403error='')
-div#redhat-access-case.container-offset(ng-show='failedToLoadCase && securityService.loginStatus.userAllowedToManageCases')
-  div(rha-404error='')
-div#redhat-access-case.container-offset(ng-hide='failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases')
-  span.rha-search-spinner(ng-show='loading.kase')
-  div(rha-header='', page='caseView')
-  div.container-fluid.rha-side-padding(ng-show='securityService.loginStatus.isLoggedIn && !failedToLoadCase && CaseService.sfdcIsHealthy')
-    div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat')
-      div.pull-right
-          div(rha-chatbutton='')
-    div.row(ng-show='EDIT_CASE_CONFIG.showDetails')
-      div.col-xs-12
-        div(rha-casedetails='', compact='false', loading='loading.kase')
-    div.row(ng-show='EDIT_CASE_CONFIG.showDescription')
-      div.col-xs-12
+.page-header(rha-header='', page='')
+div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
+  .row
+    section.main.col-md-8
+      h1.page-title CASE {{CaseService.kase.case_number}}
+      div Filed on&nbsp;
+        span {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}} by {{CaseService.kase.contact_name}}
+        span.sep |
+        | Assigned to {{CaseService.kase.owner}}
+      strong.blue {{CaseService.kase.entitlement.sla}} Support Level
+      div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
-    div.row(ng-show='EDIT_CASE_CONFIG.showBugzillas')
-      div.col-xs-12
-        div(rha-listbugzillas='', loading='loading.kase')
-    div.row(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
-      div.col-xs-12
-        div(rha-caseattachments='', loading='loading.attachments')
-    div.row(ng-show='EDIT_CASE_CONFIG.showRecommendations')
-      div.col-xs-12
-        div(rha-caserecommendations='', loading='recommendationsLoading')
-    div.row(ng-show='EDIT_CASE_CONFIG.showComments')
-      div.col-xs-12
-        div(rha-casecomments='', loading='loading.comments')
+      div(ng-show='EDIT_CASE_CONFIG.showDetails')
+        div(rha-casedetails='', compact='false', loading='loading.kase')
+          rha-casedetails
+      section.case-discussion
+        .row
+          .col-xs-12(rha-emailnotifyselect='')
+        .row
+          .col-xs-12
+            div(rha-casediscussion='', loading='loading.comments')
+    aside.col-md-4
+      .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
+      section#rha-recommendation-section.recommendations(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
+      section#case-escalation.case-escalation(rha-requestescalation='')

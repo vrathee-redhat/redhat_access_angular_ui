@@ -1,11 +1,10 @@
-# gguerrer <gguerrer@redhat.com>, 2015. #zanata
+# gguerrer <gguerrer@redhat.com>, 2014. #zanata
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-02-05 12:20+0000\n"
+"PO-Revision-Date: 2014-12-22 01:10+0000\n"
 "Last-Translator: gguerrer <gguerrer@redhat.com>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -18,16 +17,19 @@ msgstr ""
 msgid "(More info)"
 msgstr "(Más información)"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Contact:"
 msgstr "Contacto 24x7: "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Support:"
-msgstr "Soporte 24x7:"
+msgstr "Soporte 24x7::"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
@@ -36,16 +38,19 @@ msgstr ""
 "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Abrir un nuevo caso de "
 "soporte"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
 msgstr ""
 "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Seleccionar "
 "registro"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Account Name:"
 msgstr "Nombre de cuenta"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Account Number:"
 msgstr "Número de cuenta"
@@ -54,19 +59,23 @@ msgstr "Número de cuenta"
 msgid "Account not found."
 msgstr "No se encontró la cuenta."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/new.html
 msgid "Account:"
 msgstr "Cuenta:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
-msgstr "Añadir"
+msgstr "Añadir   "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/addCommentSection.html
 msgid "Add Comment"
 msgstr "Agregar un comentario"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Advanced Mission Critical"
 msgstr "Misión crítica avanzada"
@@ -75,38 +84,47 @@ msgstr "Misión crítica avanzada"
 msgid "All Groups"
 msgstr "Todos los grupos"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Alternate Case ID:"
 msgstr "ID de caso alternativo: "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/attachProductLogs.html
 msgid "Attach Foreman logs:"
 msgstr "Adjuntar registros Foreman:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/attachLocalFile.html
 msgid "Attach local file"
-msgstr "Adjuntar archivo local"
+msgstr "Adjuntar archivos locales"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listAttachments.html
 msgid "Attached"
 msgstr "Adjuntado"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listAttachments.html
 msgid "Attached By"
 msgstr "Adjuntado por"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listAttachments.html
 msgid "Attached Files"
 msgstr "Archivos adjuntos"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/attachmentsSection.html
 msgid "Attachments"
 msgstr "Adjuntos"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/new.html
 msgid "Attachments:"
 msgstr "Adjuntos: "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
 msgstr "Archivos de registro disponibles"
@@ -115,29 +133,33 @@ msgstr "Archivos de registro disponibles"
 msgid "Back"
 msgstr "Atrás"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Number"
 msgstr "Número de Bugzilla"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Tickets"
 msgstr "Tiquetes de Bugzilla"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_form.html
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/editGroup.html
-#: app/cases/views/requestManagementEscalationModal.html
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: app/cases/views/new.html
 msgid "Case Details"
-msgstr "Detalles del caso"
+msgstr "Detalles de caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/commentsSection.html
 msgid "Case Discussion"
 msgstr "Discusión del caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/new.html
 msgid "Case Group:"
@@ -147,9 +169,10 @@ msgstr "Grupo de caso:"
 msgid "Case ID"
 msgstr "ID de caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Case Type:"
-msgstr "Tipo de caso:"
+msgstr "Tipo de caso"
 
 #: app/cases/controllers/editGroup.js
 msgid "Case group successfully updated."
@@ -159,18 +182,22 @@ msgstr "Grupo de caso se actualizó correctamente."
 msgid "Case users successfully updated."
 msgstr "Usuarios de caso se actualizaron correctamente."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/chatButton.html
 msgid "Chat offline"
 msgstr "Chat desconectado"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/chatButton.html
 msgid "Chat with support"
-msgstr "Chat con soporte"
+msgstr "Chat sin soporte"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/common/views/treeview-selector.html
 msgid "Choose File(s) To Attach:"
 msgstr "Elegir  archivo(s) a adjuntar:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/common/views/alert.html
 msgid "Close messages"
 msgstr "Cerrar mensajes"
@@ -179,14 +206,17 @@ msgstr "Cerrar mensajes"
 msgid "Closed"
 msgstr "Cerrado"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
 msgstr "Comentario:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/createGroupModal.html
 msgid "Create Case Group"
 msgstr "Crear un grupo de casos"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/createGroupButton.html
 msgid "Create New Case Group"
 msgstr "Crear un nuevo grupo de casos"
@@ -199,31 +229,38 @@ msgstr "Creando caso"
 msgid "Creating group"
 msgstr "Creando grupo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listAttachments.html
 msgid "Delete"
 msgstr "Borrar"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/deleteGroupButton.html
 msgid "Delete Group"
 msgstr "Borrar grupo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/services/attachmentsService.js
 msgid "Deleting attachment:"
 msgstr "Borrar adjunto: "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/descriptionSection.html
 #: app/cases/views/listAttachments.html
 msgid "Description"
 msgstr "Descripción"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/new.html
 msgid "Description:"
-msgstr "Descripción:"
+msgstr "Descripción"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Details"
 msgstr "Información"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Diagnose"
 msgstr "Diagnóstico"
@@ -235,42 +272,47 @@ msgid ""
 "subscriptions. Your support level determines the type of response you can "
 "expect for your support case."
 msgstr ""
-"Diferentes opciones de niveles de soporte podrían estar disponibles según "
-"las suscripciones de su cuenta. El nivel de soporte determina el tipo de "
+"Diferentes opciones de niveles de soporte podrían estar disponibles en las "
+"suscripciones de su cuenta. El nivel de soporte determina el tipo de "
 "respuesta que puede esperar para su caso de soporte. "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/addCommentSection.html
 msgid "Draft saved"
-msgstr "Borrador guardado"
+msgstr "Borrar guardado"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/emailNotifySelect.html
 msgid "Email Notification Recipients"
 msgstr "Destinatarios de notificación por correo-e"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/search/views/resultDetail.html
 msgid "Environment"
 msgstr "Entorno"
 
 #: app/cases/controllers/attachmentsSection.js
 msgid "Error: Failed to upload attachment."
-msgstr "Error: No se pudo cargar anexo."
+msgstr "Error: No se puede cargar anexo."
 
 #: app/cases/controllers/attachmentsSection.js
 #: app/cases/controllers/new.js
 msgid "Error: Failed to upload attachment. Message:"
-msgstr "Error: No se pudo cargar anexo. Mensaje:"
+msgstr "Error: No se puede cargar anexo. Mensaje:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/exportCSVButton.html
 msgid "Export All as CSV"
-msgstr "Exportar Todo como CSV"
+msgstr "Exportar todos como CSV"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/exportCSVButton.html
 msgid "Exporting CSV..."
 msgstr "Exportando CSV.."
 
 #: app/cases/services/attachmentsService.js
 msgid "Failed to upload attachment"
-msgstr "No se pudo actualizar el anexo"
+msgstr "Falló actualizar el anexo."
 
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachmentsSection.html
@@ -286,13 +328,15 @@ msgid ""
 "uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
 msgstr ""
 "Los nombres de los archivos deben tener un límite de 80 caracteres. El "
-"tamaño máximo para anexos de archivos cargados a la red es de 1 GB. Para "
+"tamaño máximo para adjuntos de archivos cargados a la red es de 1 GB. Para "
 "archivos más grandes, por favor expórtelos en FTP a dropbox.redhat.com."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listAttachments.html
 msgid "Filename"
-msgstr "Nombre del archivo"
+msgstr "Nombre de archivo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listNewAttachments.html
 msgid "Files to Attach"
 msgstr "Archivos a adjuntar"
@@ -302,82 +346,79 @@ msgid "Filtering by case groups helps you find related cases."
 msgstr ""
 "El filtraje por grupos de casos le ayuda a encontrar los casos relacionados."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/editGroup.html
 msgid "First Name"
 msgstr "Nombre"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/search.html
 msgid "Group"
 msgstr "Grupo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Group:"
 msgstr "Grupo:"
 
-#: app/cases/views/403.html
-msgid ""
-"If you believe you should have permission to view this resource, please <a "
-"href=\"/support/contact/customerService.html\">contact Customer Service</a> "
-"for assistance. Your Red Hat login might not be associated with the right "
-"account for your organization, or there might be an issue with your "
-"subscription. Either way, Customer Service should be able to help you "
-"resolve the problem."
-msgstr ""
-"Si cree que debería tener acceso a este recurso, por favor <a href=\"/"
-"support/contact/customerService.html\">contacte a Servicio al c liente</a>.  "
-"Es posible que su nombre de usuario de Red Hat no esté asociado a la cuenta "
-"correcta de su organización, o puede que haya algún problema con la "
-"suscripción. En cualquier caso, el Servicio al cliente le ayudará a resolver "
-"su problema. "
-
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/requestManagementEscalationModal.html
 msgid ""
 "If you feel the issue has become more severe or the case should be a higher "
 "priority, please provide a detailed comment, and the case will be reviewed "
 "by a support manager."
 msgstr ""
-"Si siente que el problema se ha agravado o que su caso debería  tener más  "
+"Si siente que el problema ha empeorado o que su caso debería tener más "
 "prioridad, por favor, proporcione un comentario detallado y su caso será "
 "revisado por un gerente de soporte."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "In the event that you would still like to open a support case, select 'Open "
 "a New Support Case'. The case will be pre-populated with the portion of the "
 "log previously selected."
 msgstr ""
-"Si aún considera que debe abrir un caso de soporte, seleccione 'Abrir un "
-"nuevo caso de soporte'. El caso será prellenado con la porción del registro "
-"anteriormente seleccionado."
+"Si usted aún considera que debe abrir un caso de soporte, seleccione 'Abrir "
+"un nuevo caso de soporte'. El caso será prellenado con la porción del "
+"registro anteriormente seleccionada."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/addCommentSection.html
 msgid "Is Public:"
 msgstr "Es público:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/editGroup.html
 msgid "Last Name"
 msgstr "Apellido"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Last Updated:"
 msgstr "Última actualización"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Learn more"
 msgstr "Aprender más"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Log File Viewer"
-msgstr "Visor de archivo de registro"
+msgstr "Archivo de archivo de registro"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_status.html
 msgid "Log In"
-msgstr "Inicio de sesión"
+msgstr "Ingresar"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_status.html
 msgid "Log Out"
-msgstr "Cerrar sesión"
+msgstr "Salir "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_status.html
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr "Ingresó al Portal del cliente de Red Hat como"
@@ -397,6 +438,7 @@ msgstr "Administrar grupos de casos"
 msgid "Manage Default Case Groups"
 msgstr "Administrar grupos de casos predeterminados"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/accountSelect.html
 msgid "My Account"
 msgstr "Mi cuenta"
@@ -405,6 +447,7 @@ msgstr "Mi cuenta"
 msgid "My Cases"
 msgstr "Mis casos "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/groupList.html
 msgid "Name"
 msgstr "Nombre"
@@ -413,59 +456,61 @@ msgstr "Nombre"
 msgid "New Support Case"
 msgstr "Nuevo caso de soporte"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/new.html
 msgid "Next"
 msgstr "Siguiente"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
 msgstr "No se han agregado adjuntos"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
 msgstr "No se encontraron casos con los filtros proporcionados. "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/search.html
 msgid "No cases found with given search criteria."
 msgstr "No se encontraron casos con dichos criterios."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/groupList.html
 msgid "No groups found."
 msgstr "No se encontraron grupos."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listBugzillas.html
 msgid "No linked bugzillas"
-msgstr "No hay Buzillas vinculados"
+msgstr "No hay Bugzillas vinculados"
 
 #: app/cases/views/ownerSelect.html
 msgid "No match found"
 msgstr "No se encontró ninguna coincidencia"
 
-#: app/cases/views/newRecommendationsSection.html
-msgid "No recommendations are available."
-msgstr "No hay recomendaciones disponibles"
-
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
 msgstr "No se encontraron soluciones"
 
-#: app/cases/views/404.html
-msgid "Not Found"
-msgstr "No se pudo encontrar"
-
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
 msgstr "No ha ingresado al Portal del cliente de Red Hat"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_form.html
 msgid "Note:"
 msgstr "Nota:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Notes:"
 msgstr "Notas:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Once you have selected your log file then you may diagnose any part of the "
@@ -485,6 +530,7 @@ msgstr "Abrir"
 msgid "Open New Case"
 msgstr "Abrir un caso de soporte"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/search/views/accordion_search_results.html
 #: app/cases/views/list.html
 #: app/cases/views/search.html
@@ -497,22 +543,26 @@ msgstr "Abiertos y cerrados"
 
 #: app/cases/views/list.html
 msgid "Opened"
-msgstr "Abierto"
+msgstr "Abiertos"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Opened:"
 msgstr "Abierto: "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Owner"
 msgstr "Propietario"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Owner:"
 msgstr "Propietario:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_form.html
 msgid "Password"
 msgstr "Contraseña"
@@ -521,10 +571,12 @@ msgstr "Contraseña"
 msgid "Please Select the Machine"
 msgstr "Por favor, seleccione la máquina"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/new.html
 msgid "Previous"
 msgstr "Anterior"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/search.html
 msgid "Product"
 msgstr "Producto"
@@ -533,37 +585,42 @@ msgstr "Producto"
 msgid "Product & Topic"
 msgstr "Producto & Tema"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product Version:"
-msgstr "Versión del producto:"
+msgstr "Versión del producto"
 
 #: app/cases/views/list.html
 msgid "Product/Version"
 msgstr "Producto/Versión"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product:"
 msgstr "Producto:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr "Recomendaciones"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Access makes it easy for you to self-solve issues, diagnose "
 "problems, and engage with us via the Red Hat Customer Portal. To access Red "
 "Hat Customer Portal resources, you must enter valid portal credentials."
 msgstr ""
-"Red Hat Access facilita la resolución y diagnóstico de problemas, e "
-"interactúa con nosotros  a través del Portal del cliente de Red Hat. Para "
-"acceder a los recursos de Portal del cliente de Red Hat, deberá  ingresar "
-"credenciales válidas del portal. "
+"El acceso de Red Hat le facilita la resolución de problemas, diagnostica "
+"problemas y se encarga con nosotros  a través del Portal del cliente de Red "
+"Hat. Para acceder a los recursos de Portal del cliente de Red Hat, deberá "
+"validar las credenciales del portal. "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Customer Portal credentials differ from the credentials used to log "
@@ -572,14 +629,17 @@ msgstr ""
 "Las credenciales del Portal del cliente de Red Hat difieren de las "
 "credenciales utilizadas para ingresar dentro de este producto."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logTabs.html
 msgid "Red Hat Diagnose"
 msgstr "Diagnosis de Red Hat"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_form.html
 msgid "Red Hat Login"
 msgstr "Nombre de usuario de Red Hat"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Red Hat Owner:"
 msgstr "Propietario Red Hat: "
@@ -588,35 +648,41 @@ msgstr "Propietario Red Hat: "
 msgid "Reply"
 msgstr "Responder"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
 msgstr "Solicitar escalamiento administrativo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "Resolución"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/createGroupModal.html
 msgid "Save"
 msgstr "Guardar"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/defaultGroup.html
 #: app/cases/views/editGroup.html
 msgid "Save Group"
 msgstr "Guardar grupo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/addCommentSection.html
 msgid "Saving draft..."
 msgstr "Guardando borrador..."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/search/views/search_form.html
 #: app/cases/views/listFilter.html
 #: app/cases/views/searchBox.html
 #: app/common/header.module.js
 #: app/i18n/placeholder.html
 msgid "Search"
-msgstr "Buscar"
+msgstr "Búsqueda"
 
 #: app/search/views/search_form.html
 msgid "Search Articles and Solutions"
@@ -626,37 +692,45 @@ msgstr "Búsqueda de artículos y soluciones"
 msgid "Search Support Case"
 msgstr "Buscar un caso de soporte"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/search.html
 msgid "Searching..."
 msgstr "Buscando..."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
 msgstr "Seleccionar archivo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr "Archivo(s) de servidor a adjuntar: "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Severity"
 msgstr "Gravedad"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 #: app/cases/views/searchResult.html
 msgid "Severity:"
-msgstr "Gravedad:"
+msgstr "Gravedad: "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_form.html
 msgid "Sign in"
 msgstr "Iniciar sesión"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/security/views/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
 msgstr "Ingresar al Portal del cliente Red Hat"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Simply navigate to and select a log file from the list on the left and click "
@@ -665,24 +739,29 @@ msgstr ""
 "Navegue y seleccione un archivo de registro de la lista a la izquierda y "
 "haga clic en el botón 'Seleccionar archivo'."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listAttachments.html
 msgid "Size"
 msgstr "Tamaño"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Status"
 msgstr "Estatus"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 #: app/cases/views/searchResult.html
 msgid "Status:"
 msgstr "Estatus:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/new.html
 msgid "Submit"
 msgstr "Enviar"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Submit Request"
 msgstr "Enviar solicitud"
@@ -695,6 +774,7 @@ msgstr "Se creó un número de caso"
 msgid "Successfully created group"
 msgstr "Se creó un grupo "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:"
 msgstr "Ha borrado los adjuntos con éxito."
@@ -707,6 +787,7 @@ msgstr "Se borró un grupo"
 msgid "Successfully deleted groups."
 msgstr "Se borraron los grupos."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/services/attachmentsService.js
 msgid "Successfully uploaded attachment"
 msgstr "Ha cargado el adjunto con éxito"
@@ -719,10 +800,12 @@ msgstr "Se cargó el anexo con éxito."
 msgid "Summary"
 msgstr "Resumen"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/listBugzillas.html
 msgid "Summary of Request"
 msgstr "Resumen de solicitud"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/new.html
 msgid "Summary:"
 msgstr "Resumen:"
@@ -735,40 +818,21 @@ msgstr "Soporte"
 msgid "Support Cases"
 msgstr "Casos de soporte"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Support Level:"
 msgstr "Nivel de soporte:"
 
-#: app/cases/views/403.html
-msgid "Support Subscription Required"
-msgstr "Se requiere una suscripción de soporte"
-
-#: app/cases/views/403.html
-msgid ""
-"The credentials you provided are valid, but you do not have <b>direct "
-"support from Red Hat.</b>"
-msgstr ""
-"Las credenciales proporcionadas son válidas,  pero <b>usted no tiene soporte "
-"directo de Red Hat.</b>"
-
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "The log file viewer gives the ability to diagnose application logs as well "
 "as file a support case with Red Hat Global Support Services."
 msgstr ""
 "El visor del archivo de registro ofrece la capacidad de diagnosticar "
-"registros y de radicar casos de soporte en Red Hat Global Support Services."
-
-#: app/cases/views/404.html
-msgid ""
-"The page you are looking for is not here. It might have been moved, removed, "
-"or had its name and address changed. It might otherwise be temporarily "
-"unavailable for technical reasons."
-msgstr ""
-"La página que busca no está aquí. Es probable que se haya movido o quitado, "
-"o que  el nombre y dirección hayan cambiado. Podría estar no disponible por "
-"el momento debido a motivos de carácter técnico."
+"registros como también radicar un caso de soporte en Red Hat Global Support "
+"Services."
 
 #: app/cases/views/detailsSection.html
 msgid ""
@@ -780,8 +844,9 @@ msgstr ""
 "Este campo permite a los clientes de Red Hat crear notas privadas "
 "pertinentes a su cuenta o caso. El contenido de este campo no es visible a "
 "los profesionales de soporte dentro de Red Hat, y al enviar actualizaciones "
-"a este campo no se generarán notificaciones o comentarios de caso."
+"a este campo no generarán notificaciones o comentarios de caso."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/new.html
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
@@ -790,14 +855,17 @@ msgstr ""
 "Este lanzamiento ha sido retirado, por favor consulte las preguntas "
 "frecuentes antes de llenar el caso."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
 msgstr "Para ver una recomendación, haga clic en ella."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/search.html
 msgid "Type"
 msgstr "Tipo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "No autorizado."
@@ -810,6 +878,7 @@ msgstr "Caso desagrupado"
 msgid "Ungrouped Cases"
 msgstr "Casos desagrupados"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Update Details"
 msgstr "Actualizar información"
@@ -818,10 +887,12 @@ msgstr "Actualizar información"
 msgid "Updated"
 msgstr "Actualizado"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/searchResult.html
 msgid "Updated:"
 msgstr "Actualizada:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
 msgstr "Cargar adjuntos"
@@ -834,9 +905,10 @@ msgstr "Cargando anexo..."
 msgid "Uploading attachments..."
 msgstr "Cargando anexos..."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/editGroup.html
 msgid "User Name"
-msgstr "Nombre del usuario"
+msgstr "Nombre de usuario"
 
 #: app/cases/views/list.html
 msgid "User does not have permissions to manage cases."
@@ -850,11 +922,18 @@ msgstr "El usuario no tiene permisos para grupo de casos predeterminados."
 msgid "User does not have proper credentials to manage case groups."
 msgstr "El usuario no tiene credenciales  para manejar  grupo de casos."
 
+#: app/cases/controllers/defaultGroup.js
+msgid "User does not have proper credentials to manage default groups."
+msgstr ""
+"El usuario no tiene credenciales adecuadas para manejar casos "
+"predeterminados."
+
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "View Production Support Service Level Agreement"
 msgstr "Ver el acuerdo a nivel de servicio de soporte de producción"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
 msgstr "Ver artículo completo en una nueva ventana"
@@ -863,12 +942,12 @@ msgstr "Ver artículo completo en una nueva ventana"
 msgid "View/Modify Case"
 msgstr "Ver o Modificar caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/commentsSection.html
 msgid ""
 "Would you like a Red Hat support manager to contact you regarding this case?"
 msgstr ""
-"¿Le gustaría que un gerente de soporte de Red Hat lo contacte para este "
-"caso?"
+"¿Desearía que un gerente de soporte de Red Hat  lo contacte para este caso? "
 
 #: app/common/header.module.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
@@ -881,7 +960,7 @@ msgstr "Ha utilizado"
 
 #: app/search/services/searchResultsService.js
 msgid "You must be logged in to use this functionality."
-msgstr "Debe ingresar para poder usar esta funcionalidad."
+msgstr "Debe haber ingresado para poder usar esta funcionalidad."
 
 #: app/cases/controllers/attachLocalFile.js
 msgid ""
@@ -891,9 +970,10 @@ msgstr ""
 "No se puede anexar porque tiene más de 1 GB. Envíe por FTP los archivos "
 "grandes a dropbox.redhat.com."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
-msgstr "seleccionado a mano"
+msgstr "Seleccionado a mano"
 
 #: app/cases/views/detailsSection.html
 msgid "of the 255 maximum character size."
@@ -901,8 +981,10 @@ msgstr "Máximo de 255 caracteres."
 
 #: app/cases/views/addCommentSection.html
 msgid "of the 32K maximum description size."
-msgstr "Máximo de 32 KB"
+msgstr "Máximo de 36 KB"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/services/attachmentsService.js
 msgid "to case"
 msgstr "para caso"
+

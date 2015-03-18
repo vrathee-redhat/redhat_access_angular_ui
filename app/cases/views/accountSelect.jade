@@ -1,5 +1,5 @@
 div(style='display: inline-block; padding-right: 10px;')
   input#rha-account-number.form-control(style='width: 100%', ng-model='CaseService.account.number', ng-blur='populateAccountSpecificFields()')
 div(style='display: inline-block;')
-  button.btn.btn-secondary(ng-click='selectUserAccount()', ng-hide='loadingAccountNumber', translate='') My Account
-  span.rha-search-spinner(ng-show='loadingAccountNumber') &nbsp;
+  span.link(ng-click='selectUserAccount()', ng-hide='loadingAccountNumber', translate='') Find My Account Number
+  .spinner.spinner-inline(ng-show='loadingAccountNumber') &nbsp;

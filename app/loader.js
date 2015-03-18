@@ -48,6 +48,10 @@
     }
     // Once all modules have loaded bootstrap it
     jq.when.apply(jq, dfds).always(function() {
+      breadcrumbs = [
+      ['Support', '/support/'],
+      ['Support Cases',  '/support/cases/']
+      ];
       var host = window.location.host;
       strata.setStrataHostname('https://' + host);
       $.support.cors = true;
@@ -66,7 +70,7 @@
                 'securityService',  
                 'gettextCatalog', 
                 function ($rootScope, COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, AUTH_EVENTS, securityService, gettextCatalog){
-                  COMMON_CONFIG.showTitle = false;
+                  COMMON_CONFIG.showTitle = true;
                   SECURITY_CONFIG.autoCheckLogin = false;
                   SECURITY_CONFIG.displayLoginStatus = false;
                   NEW_CASE_CONFIG.showServerSideAttachments = false;
@@ -104,7 +108,7 @@
                 }
               ]);
       // Bootstrap angular app
-      angular.bootstrap(document, ['RedhatAccess.cases', 'RedhatAccess.escalation']);
+      angular.bootstrap(document, ['RedhatAccess']);
       // Fade in main element
       jq('#pcm').fadeIn();
     });

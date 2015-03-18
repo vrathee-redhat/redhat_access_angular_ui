@@ -4,19 +4,15 @@ angular.module('RedhatAccess.cases').controller('ProductSelect', [
     'securityService',
     'SearchCaseService',
     'CaseService',
+    'ProductsService',
     'strataService',
     'AlertService',
-    function ($scope, securityService, SearchCaseService, CaseService, strataService, AlertService) {
+    'RecommendationsService',
+    function ($scope, securityService, SearchCaseService, CaseService, ProductsService, strataService, AlertService, RecommendationsService) {
         $scope.securityService = securityService;
         $scope.SearchCaseService = SearchCaseService;
         $scope.CaseService = CaseService;
-        $scope.productsLoading = true;
-        strataService.products.list().then(function (products) {
-            $scope.productsLoading = false;
-            CaseService.products = products;
-        }, function (error) {
-            $scope.productsLoading = false;
-            AlertService.addStrataErrorMessage(error);
-        });
+        $scope.ProductsService = ProductsService;
+        $scope.RecommendationsService = RecommendationsService;
     }
 ]);

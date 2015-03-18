@@ -1,0 +1,61 @@
+$case-description-bg: #f0f0f0;
+$case-description-margin-bottom: $global-padding;
+$case-description-padding: $global-padding;
+
+.case-description {
+	position: relative;
+//	overflow: hidden;
+	@include rem('margin-bottom', 30px);
+	@include rem('padding', $case-description-padding);
+	background: $case-description-bg;
+	border: 1px solid #ddd;
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		margin-bottom: 0;
+	}
+
+	.product-name {
+		margin-bottom: 0;
+		@include font-size(16px);
+	}
+
+	.case-name, .product-name {
+		@include rem('padding-right', 40px);
+		font-weight: 600;
+	}
+
+	.section-icon {
+		bottom: auto;
+		top: -20px;
+		border-color: #bababa;
+//		color: #7e7e7e;
+	}
+
+	.description {
+		@include font-size(14px, 20px);
+		@include rem('margin', $case-description-margin-bottom 0 0);
+		white-space: pre-wrap;
+		font-weight: 100;
+	}
+
+	p {
+		@include rem('margin-bottom', 28px);
+	}
+
+	.case-description-extra-info {
+		height: 0;
+		display: none;
+//		overflow: hidden;
+		@include opacity(0);
+		@include transition(2s);
+
+		&.active {
+			height: auto;
+			@include opacity(1);
+			display: block;
+		}
+	}
+}

@@ -6,7 +6,9 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
     'CaseService',
     'AlertService',
     '$q',
-    function (strataService, CaseService, AlertService, $q) {
+    '$sanitize',
+    'NEW_CASE_CONFIG',
+    function (strataService, CaseService, AlertService, $q, $sanitize, NEW_CASE_CONFIG) {
         this.recommendations = [];
         this.pinnedRecommendations = [];
         this.handPickedRecommendations = [];
@@ -30,123 +32,77 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             this.recommendations = [];
             this.pinnedRecommendations = [];
             this.handPickedRecommendations = [];
-            currentData = {
+            var currentData = {
                 product: null,
                 version: null,
                 summary: null,
                 description: null
             };
         };
-        this.pageSize = 4;
-        this.maxSize = 10;
-        this.recommendationsOnScreen = [];
-        this.selectPage = function (pageNum) {
-            //filter out pinned recommendations
-            angular.forEach(this.pinnedRecommendations, angular.bind(this, function (pinnedRec) {
-                angular.forEach(this.recommendations, angular.bind(this, function (rec, index) {
-                    if (angular.equals(rec.id, pinnedRec.id)) {
-                        this.recommendations.splice(index, 1);
-                    }
-                }));
-            }));
-            angular.forEach(this.handPickedRecommendations, angular.bind(this, function (handPickedRec) {
-                angular.forEach(this.recommendations, angular.bind(this, function (rec, index) {
-                    if (angular.equals(rec.id, handPickedRec.id)) {
-                        this.recommendations.splice(index, 1);
-                    }
-                }));
-            }));
-            var recommendations = this.pinnedRecommendations.concat(this.recommendations);
-            recommendations = this.handPickedRecommendations.concat(recommendations);
-            var start = this.pageSize * (pageNum - 1);
-            var end = start + this.pageSize;
-            end = end > recommendations.length ? recommendations.length : end;
-            this.recommendationsOnScreen = recommendations.slice(start, end);
-            this.currentPage = pageNum;
-        };
+
         this.populatePinnedRecommendations = function () {
-            var promises = [];
             if (CaseService.kase.recommendations) {
                 //Push any pinned recommendations to the front of the array
                 if (CaseService.kase.recommendations.recommendation) {
-                    var promise = {};
+                    var tmpRec = []
                     angular.forEach(CaseService.kase.recommendations.recommendation, angular.bind(this, function (rec) {
                         if (rec.pinned_at) {
-                            if(rec.resource_type === 'Article')
-                            {
-                                promise = strataService.articles.get(rec.resource_id).then(angular.bind(this, function (article) {
-                                    article.pinned = true;
-                                    this.pinnedRecommendations.push(article);
-                                }), function (error) {
-                                    AlertService.addStrataErrorMessage(error);
-                                });
-                            }else {
-                                promise = strataService.solutions.get(rec.resource_id).then(angular.bind(this, function (solution) {
-                                    solution.pinned = true;
-                                    this.pinnedRecommendations.push(solution);
-                                }), function (error) {
-                                    AlertService.addStrataErrorMessage(error);
-                                });
-                            }
-                            promises.push(promise);
+                            rec.pinned = true;
+                            this.pinnedRecommendations.push(rec);
+                                
                         } else if (rec.linked) {
-                            if(rec.resource_type === 'Article')
-                            {
-                                promise = strataService.articles.get(rec.resource_id).then(angular.bind(this, function (article) {
-                                    article.handPicked = true;
-                                    this.handPickedRecommendations.push(article);
-                                }), function (error) {
-                                    AlertService.addStrataErrorMessage(error);
-                                });
-                            }else {
-                                promise = strataService.solutions.get(rec.resource_id).then(angular.bind(this, function (solution) {
-                                    //solution.pinned = true;
-                                    solution.handPicked = true;
-                                    this.handPickedRecommendations.push(solution);
-                                }), function (error) {
-                                    AlertService.addStrataErrorMessage(error);
-                                });
-                            }
-                            promises.push(promise);
+                            rec.handPicked = true;
+                            this.handPickedRecommendations.push(rec);
+                        } else{
+                            tmpRec.push(rec);
                         }
                     }));
+                    angular.forEach(tmpRec, angular.bind(this, function (rec) {
+                        this.recommendations.unshift(rec);
+                    }));
+                    // angular.forEach(this.pinnedRecommendations, angular.bind(this, function (rec) {
+                    //     this.recommendations.unshift(rec);
+                    // }));
+                    // angular.forEach(this.handPickedRecommendations, angular.bind(this, function (rec) {
+                    //     this.recommendations.unshift(rec);
+                    // }));
+
                 }
             }
-            var masterPromise = $q.all(promises);
-            masterPromise.then(angular.bind(this, function () {
-                this.selectPage(1);
-            }));
-            return masterPromise;
         };
-        this.failureCount = 0;
-        this.populateRecommendations = function (max) {
-            var masterDeferred = $q.defer();
-            masterDeferred.promise.then(angular.bind(this, function() {this.selectPage(1);}));
-            var productName;
-            if(CaseService.kase.product !== undefined && CaseService.kase.product.name !== undefined){
-                productName = CaseService.kase.product.name;
-            }
-            var newData = {
-                product: productName,
-                version: CaseService.kase.version,
-                summary: CaseService.kase.summary,
-                description: CaseService.kase.description
-            };
-            if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations || this.recommendations.length < 1)) && this.failureCount < 10) {
-                this.loadingRecommendations = true;
-                setCurrentData();
-                var deferreds = [];
-                strataService.recommendations(currentData, max).then(angular.bind(this, function (solutions) {
-                    //retrieve details for each solution
-                    solutions.forEach(function (solution) {
-                        var deferred = strataService.solutions.get(solution.resource_uri);
-                        deferreds.push(deferred);
-                    });
-                    $q.all(deferreds).then(angular.bind(this, function (solutions) {
-                        this.recommendations = [];
+
+        this.getRecommendations = function (refreshRecommendations, max) {
+            if (NEW_CASE_CONFIG.showRecommendations) {
+                if(max === undefined){
+                    max = 6;
+                }
+                var masterDeferred = $q.defer();
+
+                var newData = {
+                    product: CaseService.kase.product,
+                    version: CaseService.kase.version,
+                    summary: CaseService.kase.summary,
+                    description: CaseService.kase.description
+                };
+
+                if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations))) {
+                    this.loadingRecommendations = true;
+                    setCurrentData();
+                    var deferreds = [];
+                    strataService.recommendationsXmlHack(currentData, max, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
+                        //retrieve details for each solution
+                        if(refreshRecommendations){
+                            this.recommendations = [];
+                        }
                         solutions.forEach(angular.bind(this, function (solution) {
                             if (solution !== undefined) {
                                 solution.resource_type = 'Solution';
+                                try {
+                                    solution.abstract = $sanitize(solution.abstract);
+                                }
+                                catch(err) {
+                                    solution.abstract = '';
+                                }
                                 this.recommendations.push(solution);
                             }
                         }));
@@ -154,121 +110,13 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                         masterDeferred.resolve();
                     }), angular.bind(this, function (error) {
                         this.loadingRecommendations = false;
-                        masterDeferred.resolve();
+                        masterDeferred.reject();
                     }));
-                }), angular.bind(this, function (error) {
-                    this.loadingRecommendations = false;
-                    masterDeferred.reject();
-                    this.failureCount++;
-                    this.populateRecommendations(12);
-                }));
-            } else {
-                masterDeferred.resolve();
+                } else {
+                    masterDeferred.resolve();
+                }
+                return masterDeferred.promise;
             }
-            return masterDeferred.promise;
-        };
-
-        this.populatePCMRecommendationsForEdit = function (max) {
-            var masterDeferred = $q.defer();
-            masterDeferred.promise.then(angular.bind(this, function() {this.selectPage(1);}));
-            var productName;
-            if(CaseService.kase.product !== undefined && CaseService.kase.product.name !== undefined){
-                productName = CaseService.kase.product.name;
-            }
-
-            var newData = {
-                product: productName,
-                version: CaseService.kase.version,
-                summary: CaseService.kase.summary,
-                description: CaseService.kase.description
-            };
-
-            if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations)) && this.failureCount < 10) {
-                this.loadingRecommendations = true;
-                setCurrentData();
-                var deferreds = [];
-                strataService.recommendationsXmlHack(currentData, max, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
-                    //retrieve details for each solution
-                    solutions.forEach(function (solution) {
-                        var deferred = strataService.solutions.get(solution.resource_uri);
-                        deferreds.push(deferred);
-                    });
-                    $q.all(deferreds).then(angular.bind(this, function (solutions) {
-                        this.recommendations = [];
-                        solutions.forEach(angular.bind(this, function (solution) {
-                            if (solution !== undefined) {
-                                solution.resource_type = 'Solution';
-                                this.recommendations.push(solution);
-                            }
-                        }));
-                        this.loadingRecommendations = false;
-                        masterDeferred.resolve();
-                    }), angular.bind(this, function (error) {
-                        this.loadingRecommendations = false;
-                        masterDeferred.resolve();
-                    }));
-                }), angular.bind(this, function (error) {
-                    this.loadingRecommendations = false;
-                    masterDeferred.reject();
-                    this.failureCount++;
-                    this.populatePCMRecommendations(12);
-                }));
-            } else {
-                masterDeferred.resolve();
-            }
-            return masterDeferred.promise;
-        };
-
-
-        this.populatePCMRecommendations = function (max) {
-            var masterDeferred = $q.defer();
-            masterDeferred.promise.then(angular.bind(this, function() {this.selectPage(1);}));
-            var productName;
-            if(CaseService.kase.product !== undefined && CaseService.kase.product.name !== undefined){
-                productName = CaseService.kase.product.name;
-            }
-
-            var newData = {
-                product: productName,
-                version: CaseService.kase.version,
-                summary: CaseService.kase.summary,
-                description: CaseService.kase.description
-            };
-
-            if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations)) && this.failureCount < 10) {
-                this.loadingRecommendations = true;
-                setCurrentData();
-                var deferreds = [];
-                strataService.recommendationsXmlHack(currentData, max, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
-                    //retrieve details for each solution
-                    solutions.forEach(function (solution) {
-                        //var deferred = strataService.solutions.get(solution.resource_uri);
-                        deferreds.push(solution);
-                    });
-                    $q.all(deferreds).then(angular.bind(this, function (solutions) {
-                        this.recommendations = [];
-                        solutions.forEach(angular.bind(this, function (solution) {
-                            if (solution !== undefined) {
-                                solution.resource_type = 'Solution';
-                                this.recommendations.push(solution);
-                            }
-                        }));
-                        this.loadingRecommendations = false;
-                        masterDeferred.resolve();
-                    }), angular.bind(this, function (error) {
-                        this.loadingRecommendations = false;
-                        masterDeferred.resolve();
-                    }));
-                }), angular.bind(this, function (error) {
-                    this.loadingRecommendations = false;
-                    masterDeferred.reject();
-                    this.failureCount++;
-                    this.populatePCMRecommendations(12);
-                }));
-            } else {
-                masterDeferred.resolve();
-            }
-            return masterDeferred.promise;
         };
     }
 ]);

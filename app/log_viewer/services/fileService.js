@@ -29,7 +29,7 @@ angular.module('RedhatAccess.logViewer').factory('files', function () {
             retrieveFileButtonIsDisabled.check = isDisabled;
         },
         getRetrieveFileButtonIsDisabled: function () {
-            return retrieveFileButtonIsDisabled;
+            return retrieveFileButtonIsDisabled.check;
         },
         setFileClicked: function (isClicked) {
             fileClicked.check = isClicked;

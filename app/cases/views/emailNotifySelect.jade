@@ -1,14 +1,15 @@
-h4.rha-section-header(translate='') Email Notification Recipients
-span.rha-search-spinner(
-  ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn',
-  style='margin-left: 5px;')
-div
-  select(
-    chosen,
-    multiple,
-    ng-disabled='updatingList',
-    ng-model='CaseService.updatedNotifiedUsers',
-    ng-change='updateNotifyUsers()',
-    id='rha-email-notify-select',
-    width='"100%"',
-    ng-options='user.sso_username as user.sso_username for user in CaseService.users')
+.spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
+.row
+  .col-sm-4
+    label Send Email Notifications to
+  .col-sm-8
+    select(
+      chosen,
+      multiple,
+      data-placeholder='Select a User',
+      ng-disabled='updatingList',
+      ng-model='CaseService.updatedNotifiedUsers',
+      ng-change='updateNotifyUsers()',
+      id='rha-email-notify-select',
+      width='"100%"',
+      ng-options='user.sso_username as user.sso_username for user in CaseService.users')

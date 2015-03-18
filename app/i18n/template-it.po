@@ -1,11 +1,10 @@
-# fvalen <fvalen@redhat.com>, 2015. #zanata
+# fvalen <fvalen@redhat.com>, 2014. #zanata
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-02-05 03:24+0000\n"
+"PO-Revision-Date: 2014-12-04 10:48+0000\n"
 "Last-Translator: fvalen <fvalen@redhat.com>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -18,16 +17,19 @@ msgstr ""
 msgid "(More info)"
 msgstr "(Maggiori informazioni)"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Contact:"
 msgstr "Contatto 24x7:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "24x7 Support:"
 msgstr "Supporto 24x7:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
@@ -36,15 +38,18 @@ msgstr ""
 "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Apri un nuovo caso con "
 "il supporto tecnico"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
 msgstr ""
 "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Seleziona il log"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Account Name:"
 msgstr "Nome account:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Account Number:"
 msgstr "Numero account:"
@@ -53,19 +58,23 @@ msgstr "Numero account:"
 msgid "Account not found."
 msgstr "Account non trovato."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/new.html
 msgid "Account:"
 msgstr "Account:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/attachLocalFile.html
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
 msgstr "Aggiungi"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/addCommentSection.html
 msgid "Add Comment"
 msgstr "Aggiungi commento"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Advanced Mission Critical"
 msgstr "Advanced Mission Critical"
@@ -74,38 +83,47 @@ msgstr "Advanced Mission Critical"
 msgid "All Groups"
 msgstr "Tutti i gruppi"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Alternate Case ID:"
 msgstr "ID alternativo del caso:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/attachProductLogs.html
 msgid "Attach Foreman logs:"
 msgstr "Allega log di Foreman:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/attachLocalFile.html
 msgid "Attach local file"
 msgstr "Allega un file locale"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listAttachments.html
 msgid "Attached"
 msgstr "Allegato"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listAttachments.html
 msgid "Attached By"
 msgstr "Allegato da"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listAttachments.html
 msgid "Attached Files"
 msgstr "File allegati"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/attachmentsSection.html
 msgid "Attachments"
 msgstr "Allegati"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/new.html
 msgid "Attachments:"
 msgstr "Allegati:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
 msgstr "File di log disponibili"
@@ -114,18 +132,20 @@ msgstr "File di log disponibili"
 msgid "Back"
 msgstr "Indietro"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Number"
 msgstr "Numero bugzilla "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Tickets"
 msgstr "Ticket di bugzilla"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_form.html
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/editGroup.html
-#: app/cases/views/requestManagementEscalationModal.html
 msgid "Cancel"
 msgstr "Cancella"
 
@@ -133,10 +153,12 @@ msgstr "Cancella"
 msgid "Case Details"
 msgstr "Dettagli del caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/commentsSection.html
 msgid "Case Discussion"
-msgstr "Discussione sul caso"
+msgstr "Discussione del caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/new.html
 msgid "Case Group:"
@@ -146,6 +168,7 @@ msgstr "Gruppo casi:"
 msgid "Case ID"
 msgstr "ID del caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Case Type:"
 msgstr "Tipo di caso:"
@@ -158,18 +181,22 @@ msgstr "Gruppo casi aggiornato con successo."
 msgid "Case users successfully updated."
 msgstr "Utenti caso aggiornati con successo."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/chatButton.html
 msgid "Chat offline"
 msgstr "Avvia una chat offline"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/chatButton.html
 msgid "Chat with support"
 msgstr "Avvia una chat con il supporto"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/common/views/treeview-selector.html
 msgid "Choose File(s) To Attach:"
 msgstr "Seleziona i fila da allegare:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/common/views/alert.html
 msgid "Close messages"
 msgstr "Chiudi i messaggi"
@@ -178,17 +205,20 @@ msgstr "Chiudi i messaggi"
 msgid "Closed"
 msgstr "Chiuso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
 msgstr "Commento:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/createGroupModal.html
 msgid "Create Case Group"
-msgstr "Crea un gruppo di casi"
+msgstr "Crea un gruppo casi"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/createGroupButton.html
 msgid "Create New Case Group"
-msgstr "Crea un nuovo gruppo di casi"
+msgstr "Crea un nuovo gruppo casi"
 
 #: app/cases/views/new.html
 msgid "Creating Case"
@@ -198,31 +228,38 @@ msgstr "Creazione caso"
 msgid "Creating group"
 msgstr "Creazione gruppo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listAttachments.html
 msgid "Delete"
 msgstr "Cancella"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/deleteGroupButton.html
 msgid "Delete Group"
 msgstr "Elimina gruppo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/services/attachmentsService.js
 msgid "Deleting attachment:"
 msgstr "Elimina allegato:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/descriptionSection.html
 #: app/cases/views/listAttachments.html
 msgid "Description"
 msgstr "Descrizione"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/new.html
 msgid "Description:"
 msgstr "Descrizione:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Details"
 msgstr "Dettagli"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Diagnose"
 msgstr "Diagnosi"
@@ -238,14 +275,17 @@ msgstr ""
 "seconda delle sottoscrizioni dell'account. Il livello di assistenza "
 "determina il tipo di risposta prevista per la richiesta di supporto."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/addCommentSection.html
 msgid "Draft saved"
 msgstr "Bozza salvata"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/emailNotifySelect.html
 msgid "Email Notification Recipients"
 msgstr "Destinatari delle notifiche email"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/search/views/resultDetail.html
 msgid "Environment"
 msgstr "Ambiente"
@@ -259,10 +299,12 @@ msgstr "Errore: Impossibile caricare l'allegato."
 msgid "Error: Failed to upload attachment. Message:"
 msgstr "Errore: Impossibile caricare l'allegato. Messaggio:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/exportCSVButton.html
 msgid "Export All as CSV"
 msgstr "Esporta tutti come CSV"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/exportCSVButton.html
 msgid "Exporting CSV..."
 msgstr "Esportazione CSV in corso..."
@@ -288,10 +330,12 @@ msgstr ""
 "come allegato è di 1 GB. Per file più grandi usare FTP per dropbox.redhat."
 "com. "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listAttachments.html
 msgid "Filename"
 msgstr "Nome del file"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listNewAttachments.html
 msgid "Files to Attach"
 msgstr "File da allegare"
@@ -301,44 +345,33 @@ msgid "Filtering by case groups helps you find related cases."
 msgstr ""
 "Il filtraggio in base ai gruppi ti aiuterà a trovare i casi correlati."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/editGroup.html
 msgid "First Name"
 msgstr "Nome"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/search.html
 msgid "Group"
 msgstr "Gruppo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Group:"
 msgstr "Gruppo:"
 
-#: app/cases/views/403.html
-msgid ""
-"If you believe you should have permission to view this resource, please <a "
-"href=\"/support/contact/customerService.html\">contact Customer Service</a> "
-"for assistance. Your Red Hat login might not be associated with the right "
-"account for your organization, or there might be an issue with your "
-"subscription. Either way, Customer Service should be able to help you "
-"resolve the problem."
-msgstr ""
-"Se credi di essere in possesso dei permessi per visualizzare questa risorsa "
-"<a href=\"/support/contact/customerService.html\">contatta il Servizio "
-"clienti</a> per assistenza. Il tuo login di Red Hat potrebbe non essere "
-"associato con l'account corretto per la tua organizzazione, oppure è "
-"presente un problema con la tua sottoscrizione. In ogni caso il Servizio "
-"clienti sará in grado di aiutarti a risolvere questo problema."
-
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/requestManagementEscalationModal.html
 msgid ""
 "If you feel the issue has become more severe or the case should be a higher "
 "priority, please provide a detailed comment, and the case will be reviewed "
 "by a support manager."
 msgstr ""
-"Se ritieni che il problema si sia aggravato o che il tuo caso debba essere "
+"Se ritieni che il problema si sia aggravato o che il caso debba essere "
 "classificato con una priorità più elevata, fornisci un commento dettagliato, "
-"e il caso verrà esaminato da un responsabile dell'assistenza."
+"e il caso in questione verrà esaminato da un responsabile del supporto."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "In the event that you would still like to open a support case, select 'Open "
@@ -349,34 +382,42 @@ msgstr ""
 "nuovo caso con il supporto'. Così facendo il nuovo caso verrà popolato con "
 "la sezione del log precedentemente selezionato."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/addCommentSection.html
 msgid "Is Public:"
 msgstr "È pubblico:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/editGroup.html
 msgid "Last Name"
 msgstr "Cognome"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Last Updated:"
 msgstr "Ultimo aggiornamento:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Learn more"
 msgstr "Maggiori informazioni"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Log File Viewer"
 msgstr "Visualizzatore file di log"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_status.html
 msgid "Log In"
 msgstr "Accedi"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_status.html
 msgid "Log Out"
 msgstr "Esci"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_status.html
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr "Accesso eseguito nel Portale clienti di Red Hat come"
@@ -396,6 +437,7 @@ msgstr "Gestisci Gruppi casi"
 msgid "Manage Default Case Groups"
 msgstr "Gestisci Gruppi casi predefiniti"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/accountSelect.html
 msgid "My Account"
 msgstr "Account"
@@ -404,6 +446,7 @@ msgstr "Account"
 msgid "My Cases"
 msgstr "I miei casi"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/groupList.html
 msgid "Name"
 msgstr "Nome"
@@ -412,27 +455,33 @@ msgstr "Nome"
 msgid "New Support Case"
 msgstr "Nuovo caso con il supporto tecnico"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/new.html
 msgid "Next"
-msgstr "Avanti"
+msgstr "Successivo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
 msgstr "Nessun allegato aggiunto"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
 msgstr "Nessun caso trovato con il filtro usato."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/search.html
 msgid "No cases found with given search criteria."
 msgstr "Nessun caso trovato con i criteri di ricerca specificati."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/groupList.html
 msgid "No groups found."
 msgstr "Nessun gruppo trovato."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listBugzillas.html
 msgid "No linked bugzillas"
 msgstr "Nessun bugzilla collegato"
@@ -441,30 +490,26 @@ msgstr "Nessun bugzilla collegato"
 msgid "No match found"
 msgstr "Nessun risultato trovato"
 
-#: app/cases/views/newRecommendationsSection.html
-msgid "No recommendations are available."
-msgstr "Non è disponibile alcun consiglio."
-
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
 msgstr "Nessuna soluzione trovata."
 
-#: app/cases/views/404.html
-msgid "Not Found"
-msgstr "Non trovata"
-
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
-msgstr "Accesso non eseguito nel Portale clienti di Red Hat"
+msgstr "Accesso non eseguito nel Portale clienti di Red Hat come"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_form.html
 msgid "Note:"
 msgstr "Nota Bene:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Notes:"
-msgstr "Note:"
+msgstr "Nota Bene:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Once you have selected your log file then you may diagnose any part of the "
@@ -484,6 +529,7 @@ msgstr "Apri"
 msgid "Open New Case"
 msgstr "Apri un nuovo caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/search/views/accordion_search_results.html
 #: app/cases/views/list.html
 #: app/cases/views/search.html
@@ -498,20 +544,24 @@ msgstr "Aperti e chiusi"
 msgid "Opened"
 msgstr "Aperto"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Opened:"
 msgstr "Aperto: "
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Owner"
 msgstr "Proprietario"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Owner:"
 msgstr "Proprietario:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_form.html
 msgid "Password"
 msgstr "Password"
@@ -520,18 +570,21 @@ msgstr "Password"
 msgid "Please Select the Machine"
 msgstr "Selezionare la macchina"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/new.html
 msgid "Previous"
 msgstr "Precedente"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/search.html
 msgid "Product"
 msgstr "Prodotto"
 
 #: app/cases/views/new.html
 msgid "Product & Topic"
-msgstr "Prodotto & Argomento"
+msgstr "Prodotto & argomento"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product Version:"
@@ -541,17 +594,20 @@ msgstr "Versione del prodotto:"
 msgid "Product/Version"
 msgstr "Prodotto/Versione"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product:"
 msgstr "Prodotto:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr "Consigli"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Access makes it easy for you to self-solve issues, diagnose "
@@ -562,6 +618,7 @@ msgstr ""
 "l'interazione con Red Hat tramite il Portale clienti. Per accedere alle "
 "risorse del Portale clienti è necessario inserire le credenziali valide."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Customer Portal credentials differ from the credentials used to log "
@@ -570,14 +627,17 @@ msgstr ""
 "Le credenziali del Portale clienti di Red Hat differiscono da quelle usate "
 "per l'accesso a questo prodotto."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logTabs.html
 msgid "Red Hat Diagnose"
 msgstr "Diagnostica Red Hat"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_form.html
 msgid "Red Hat Login"
 msgstr "Login di Red Hat"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Red Hat Owner:"
 msgstr "Proprietario Red Hat:"
@@ -586,28 +646,34 @@ msgstr "Proprietario Red Hat:"
 msgid "Reply"
 msgstr "Rispondi"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
-msgstr "Richiesta aumento prioritá a livello Manager"
+msgstr "Richiesta aumento prioritá livello Manager"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "Risoluzione"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/createGroupModal.html
 msgid "Save"
 msgstr "Salva"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/defaultGroup.html
 #: app/cases/views/editGroup.html
 msgid "Save Group"
 msgstr "Salva gruppo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/addCommentSection.html
 msgid "Saving draft..."
 msgstr "Salvataggio bozza..."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/search/views/search_form.html
 #: app/cases/views/listFilter.html
 #: app/cases/views/searchBox.html
@@ -624,37 +690,45 @@ msgstr "Cerca articoli e soluzioni"
 msgid "Search Support Case"
 msgstr "Cerca un caso con il supporto tecnico"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/search.html
 msgid "Searching..."
 msgstr "Ricerca in corso..."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
 msgstr "Seleziona un file"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr "File del server da allegare:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Severity"
-msgstr "Severitá"
+msgstr "Severity"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 #: app/cases/views/searchResult.html
 msgid "Severity:"
-msgstr "Severitá:"
+msgstr "Severity:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_form.html
 msgid "Sign in"
 msgstr "Accedi"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/security/views/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
 msgstr "Accedi al Portale clienti di Red Hat"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Simply navigate to and select a log file from the list on the left and click "
@@ -663,24 +737,29 @@ msgstr ""
 "Vai alla ricerca e seleziona un file di log dall'elenco sulla sinistra e "
 "fare clic sul pulsante 'Seleziona file'."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listAttachments.html
 msgid "Size"
 msgstr "Dimensione"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/list.html
 #: app/cases/views/search.html
 msgid "Status"
 msgstr "Stato"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 #: app/cases/views/searchResult.html
 msgid "Status:"
 msgstr "Stato:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/new.html
 msgid "Submit"
 msgstr "Invia"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Submit Request"
 msgstr "Invia una richiesta"
@@ -693,6 +772,7 @@ msgstr "Numero del caso creato con successo"
 msgid "Successfully created group"
 msgstr "Gruppo creato con successo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:"
 msgstr "Allegato rimosso con successo:"
@@ -705,6 +785,7 @@ msgstr "Gruppo rimosso con successo"
 msgid "Successfully deleted groups."
 msgstr ".Gruppi rimossi con successo."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/services/attachmentsService.js
 msgid "Successfully uploaded attachment"
 msgstr "Allegato caricato con successo"
@@ -717,10 +798,12 @@ msgstr "Allegato caricato con successo."
 msgid "Summary"
 msgstr "Sommario"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/listBugzillas.html
 msgid "Summary of Request"
 msgstr "Sommario della richiesta"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/new.html
 msgid "Summary:"
 msgstr "Sommario:"
@@ -733,23 +816,13 @@ msgstr "Supporto"
 msgid "Support Cases"
 msgstr "Casi con il supporto tecnico"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Support Level:"
 msgstr "Livello di supporto:"
 
-#: app/cases/views/403.html
-msgid "Support Subscription Required"
-msgstr "Sottoscrizione di supporto necessaria"
-
-#: app/cases/views/403.html
-msgid ""
-"The credentials you provided are valid, but you do not have <b>direct "
-"support from Red Hat.</b>"
-msgstr ""
-"Le credenziali fornite sono valide, ma non sei in possesso di un <b>supporto "
-"diretto con Red Hat</b>."
-
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "The log file viewer gives the ability to diagnose application logs as well "
@@ -758,16 +831,6 @@ msgstr ""
 "Il visualizzatore del file di log permette di eseguire una diagnosi dei log "
 "dell'applicazione, e di aprire un caso per il supporto con il Red Hat Global "
 "Support Services."
-
-#: app/cases/views/404.html
-msgid ""
-"The page you are looking for is not here. It might have been moved, removed, "
-"or had its name and address changed. It might otherwise be temporarily "
-"unavailable for technical reasons."
-msgstr ""
-"La pagina che si sta cercando non è disponibile. È possibile che sia stata "
-"spostata, rimossa, rinominata o che ne sia stato modificato l'indirizzo. "
-"Oppure potrebbe essere temporaneamente non disponibile per motivi tecnici."
 
 #: app/cases/views/detailsSection.html
 msgid ""
@@ -781,6 +844,7 @@ msgstr ""
 "possono essere visualizzati dal personale di supporto di Red Hat. Gli "
 "aggiornamenti di questo campo non genereranno alcuna notifica o commento."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/new.html
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
@@ -789,14 +853,17 @@ msgstr ""
 "Questa versione è stata rimossa, consultare le FAQ prima di completare una "
 "richiesta di supporto"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
 msgstr "Selezionare il consiglio desiderato per poterlo visualizzare."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/search.html
 msgid "Type"
 msgstr "Tipo"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "Non autorizzato."
@@ -809,6 +876,7 @@ msgstr "Caso non raggruppato"
 msgid "Ungrouped Cases"
 msgstr "Casi non raggruppati"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/detailsSection.html
 msgid "Update Details"
 msgstr "Aggiorna le informazioni"
@@ -817,13 +885,15 @@ msgstr "Aggiorna le informazioni"
 msgid "Updated"
 msgstr "Aggiornato"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/searchResult.html
 msgid "Updated:"
 msgstr "Aggiornato:"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
-msgstr "Carica gli allegati"
+msgstr "Carica allegati"
 
 #: app/cases/controllers/attachmentsSection.js
 msgid "Uploading attachment..."
@@ -833,6 +903,7 @@ msgstr "Caricamento allegato..."
 msgid "Uploading attachments..."
 msgstr "Caricamento allegati..."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/editGroup.html
 msgid "User Name"
 msgstr "Nome utente"
@@ -853,11 +924,18 @@ msgstr ""
 "L'utente non possiede le credenziali corrette per la gestione dei gruppi di "
 "casi."
 
+#: app/cases/controllers/defaultGroup.js
+msgid "User does not have proper credentials to manage default groups."
+msgstr ""
+"L'utente non possiede le credenziali corrette per la gestione dei gruppi "
+"predefiniti."
+
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "View Production Support Service Level Agreement"
 msgstr "Visualizza il Contratto del livello di servizio per il supporto"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/recommendationsSection.html
 msgid "View full article in new window"
 msgstr "Visualizza tutto l'articolo in una nuova finestra"
@@ -866,11 +944,12 @@ msgstr "Visualizza tutto l'articolo in una nuova finestra"
 msgid "View/Modify Case"
 msgstr "Visualizza/Modifica caso"
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/commentsSection.html
 msgid ""
 "Would you like a Red Hat support manager to contact you regarding this case?"
 msgstr ""
-"Desideri che un responsabile dell'Assistenza di Red Hat ti contatti con "
+"Desideri che un responsabile per il supporto di Red Hat ti contatti con "
 "riferimento a questo caso?"
 
 #: app/common/header.module.js
@@ -895,6 +974,7 @@ msgstr ""
 "impossibile eseguire l'allegato poichè la dimensione è maggiore di 1GB. "
 "Usare FTP per dropbox.redhat.com se si utilizzano file più grandi."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/recommendationsSection.html
 msgid "handpicked"
 msgstr "scelto"
@@ -907,6 +987,7 @@ msgstr "dei 255 stabiliti come dimensione di caratteri massima."
 msgid "of the 32K maximum description size."
 msgstr "dei 32 K stabiliti come dimensione massima per le descrizioni."
 
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/services/attachmentsService.js
 msgid "to case"
 msgstr "per il caso"
