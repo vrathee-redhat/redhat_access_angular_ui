@@ -36,7 +36,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
-                strataService.groups.list(CaseService.kase.contact_sso_username).then(function (response) {
+                strataService.groups.list(securityService.loginStatus.authedUser.sso_username).then(function (response) {
                     $scope.groups = response;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
