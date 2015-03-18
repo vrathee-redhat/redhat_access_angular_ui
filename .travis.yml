@@ -2,8 +2,11 @@ sudo: false
 language: node_js
 node_js:
   - '0.10'
-before_install: npm install -g bower grunt-cli
+before_install: 
+  - 'npm install -g bower grunt-cli'
+  - 'gem install bundler'
 before_script:
+  - 'bundle install'
   - 'bower install -V'
 
 notifications:
