@@ -7,21 +7,24 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
     'CaseService',
     'AlertService',
     'AttachmentsService',
+    'DiscussionService',
     'securityService',
     '$timeout',
     'RHAUtils',
     'EDIT_CASE_CONFIG',
-    function ($scope, strataService, CaseService, AlertService, AttachmentsService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG) {
+    function ($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG) {
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
+        $scope.DiscussionService = DiscussionService;
         $scope.addingComment = false;
         $scope.progressCount = 0;
         $scope.maxCommentLength = '32000';
-        $scope.textBoxEnlarge = false;
+        DiscussionService.commentTextBoxEnlargen = false;
 
         $scope.clearComment = function(){
         	CaseService.commentText = '';
+            DiscussionService.commentTextBoxEnlargen = false;
         	CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
         	AttachmentsService.updatedAttachments = [];
         };
@@ -65,7 +68,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     $scope.savingDraft = false;
                     CaseService.draftSaved = false;
                     CaseService.draftComment = undefined;
-                    $scope.textBoxEnlarge = false;
+                    DiscussionService.commentTextBoxEnlargen = false;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
@@ -211,5 +214,10 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, true).then(onSuccess, onFailure);
             }
         };
+        $scope.shouldTextboxMinimize = function(){
+            if(CaseService.commentText === undefined || CaseService.commentText === ''){
+                DiscussionService.commentTextBoxEnlargen=false;
+            }
+        }
     }
 ]);

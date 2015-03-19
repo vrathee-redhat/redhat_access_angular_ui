@@ -14,6 +14,7 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
         this.attachments = AttachmentsService.originalAttachments;
         this.loadingAttachments = false;
         this.loadingComments = false;
+        this.commentTextBoxEnlargen = false;
         this.getDiscussionElements = function(caseId){
             var attachPromise = null;
             var commentsPromise = null;
