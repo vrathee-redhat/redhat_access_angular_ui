@@ -1,5 +1,5 @@
 div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.authedUser.is_internal')
-  div(rha-403error='')
+  div(rha-403escalationerror='')
 div#redhat-access-escalations.container-offset(ng-show='securityService.loginStatus.authedUser.is_internal')
   div(rha-header='', page='iceEscalationView')
   h1
