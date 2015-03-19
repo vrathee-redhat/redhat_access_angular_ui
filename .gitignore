@@ -9,6 +9,7 @@ app/redhat_access_angular_ui.js
 *.swp
 .idea
 app/cases/views/*.html
+app/ascension/views/*.html
 !app/cases/views/compact.html
 test/coverage
 Gemfile.lock
