@@ -8,7 +8,8 @@ angular.module('RedhatAccess', [
     'RedhatAccess.security',
     'RedhatAccess.search',
     'RedhatAccess.logViewer',
-    'RedhatAccess.ui-utils'
+    'RedhatAccess.ui-utils',
+    'RedhatAccess.ascension'
 ]).config([
     '$provide',
     function ($provide) {
