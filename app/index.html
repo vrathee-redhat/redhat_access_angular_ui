@@ -18,13 +18,13 @@
     <link rel="stylesheet" href="bower_components/chosen/chosen.css" />
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/case.css -->
-    <!--<link rel="stylesheet" href="cases/styles/case.css">-->
-    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="stylesheet" href="cases/styles/case.css">
     <link rel="stylesheet" href="log_viewer/styles/log_viewer.css">
     <link rel="stylesheet" href="security/styles/security.css">
     <link rel="stylesheet" href="common/styles/treeviewselector.css">
     <link rel="stylesheet" href="common/styles/helpers.css">
     <link rel="stylesheet" href="search/styles/search.css">
+    <link rel="stylesheet" href="escalation/styles/escalation.css">
     <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
     <!-- endbuild -->
   </head>
@@ -40,6 +40,8 @@
       <a class="navbar-brand" href="#case/new">New Case Demo</a>
       <a class="navbar-brand" href="#logviewer">Diagnose Log Demo</a>
       <a class="navbar-brand" href="#case/list">List Case Demo</a>
+      <a class="navbar-brand" href="#case/compact">Compact List Case Demo</a>
+      <a class="navbar-brand" href="#case/search">Search Case Demo</a>
      </ul>
     </div>
     <div class="container" style="padding-top: 10px;" ng-view="">
@@ -75,7 +77,6 @@
     <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
     <script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>
     <script src="bower_components/angular-chosen-localytics/chosen.js"></script>
-    <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -90,7 +91,10 @@
     <script src="cases/controllers/attachLocalFile.js"></script>
     <script src="cases/controllers/attachmentsSection.js"></script>
     <script src="cases/controllers/backendAttachments.js"></script>
+    <script src="cases/controllers/chatButton.js"></script>
     <script src="cases/controllers/commentsSection.js"></script>
+    <script src="cases/controllers/compactCaseList.js"></script>
+    <script src="cases/controllers/compactEdit.js"></script>
     <script src="cases/controllers/createGroupButton.js"></script>
     <script src="cases/controllers/createGroupModal.js"></script>
     <script src="cases/controllers/deleteGroupButton.js"></script>
@@ -98,7 +102,6 @@
     <script src="cases/controllers/descriptionSection.js"></script>
     <script src="cases/controllers/detailsSection.js"></script>
     <script src="cases/controllers/edit.js"></script>
-    <script src="cases/controllers/editCaseRecommendationsSection.js"></script>
     <script src="cases/controllers/editGroup.js"></script>
     <script src="cases/controllers/emailNotifySelect.js"></script>
     <script src="cases/controllers/entitlementSelect.js"></script>
@@ -116,7 +119,7 @@
     <script src="cases/controllers/productSelect.js"></script>
     <script src="cases/controllers/recommendationsSection.js"></script>
     <script src="cases/controllers/requestManagementEscalationModal.js"></script>
-    <script src="cases/controllers/requestEscalation.js"></script>
+    <script src="cases/controllers/search.js"></script>
     <script src="cases/controllers/searchBox.js"></script>
     <script src="cases/controllers/severitySelect.js"></script>
     <script src="cases/controllers/statusSelect.js"></script>
@@ -127,12 +130,13 @@
     <script src="cases/directives/attachLocalFile.js"></script>
     <script src="cases/directives/attachmentsSection.js"></script>
     <script src="cases/directives/attachProductLogs.js"></script>
+    <script src="cases/directives/chatButton.js"></script>
     <script src="cases/directives/commentsSection.js"></script>
+    <script src="cases/directives/compactCaseList.js"></script>
     <script src="cases/directives/createGroupButton.js"></script>
     <script src="cases/directives/deleteGroupButton.js"></script>
     <script src="cases/directives/descriptionSection.js"></script>
     <script src="cases/directives/detailsSection.js"></script>
-    <script src="cases/directives/editCaseRecommendationsSection.js"></script>
     <script src="cases/directives/emailNotifySelect.js"></script>
     <script src="cases/directives/entitlementSelect.js"></script>
     <script src="cases/directives/exportCSVButton.js"></script>
@@ -154,41 +158,19 @@
     <script src="cases/directives/typeSelect.js"></script>
     <script src="cases/directives/listBugzillas.js"></script>
     <script src="cases/directives/newRecommendationsSection.js"></script>
-    <script src="cases/directives/requestEscalation.js"></script>
     <script src="cases/filters/bytes.js"></script>
-    <script src="cases/filters/substring.js"></script>
+    <script src="cases/filters/recommendationsResolution.js"></script>
     <script src="cases/services/attachmentsService.js"></script>
     <script src="cases/services/caseListService.js"></script>
     <script src="cases/services/caseService.js"></script>
     <script src="cases/services/groupService.js"></script>
     <script src="cases/services/groupUserService.js"></script>
     <script src="cases/services/recommendationsService.js"></script>
-    <script src="cases/services/productsService.js"></script>
     <script src="cases/services/searchBoxService.js"></script>
     <script src="cases/services/searchCaseService.js"></script>
     <script src="common/services/strataService.js"></script>
     <script src="common/header.module.js"></script>
     <script src="common/ui-utils.module.js"></script>
-
-    <script src="common/common.module.js"></script>
-    <script src="common/header.module.js"></script>
-    <script src="common/ui-utils.module.js"></script>
-    <script src="common/controllers/403.js"></script>
-    <script src="common/controllers/404.js"></script>
-    <script src="common/controllers/alert.js"></script>
-    <script src="common/controllers/chatButton.js"></script>
-    <script src="common/controllers/header.js"></script>
-    <script src="common/controllers/titleView.js"></script>
-    <script src="common/directives/403.js"></script>
-    <script src="common/directives/404.js"></script>
-    <script src="common/directives/alert.js"></script>
-    <script src="common/directives/chatButton.js"></script>
-    <script src="common/directives/header.js"></script>
-    <script src="common/directives/titleTemplate.js"></script>
-    <script src="common/services/alertService.js"></script>
-    <script src="common/services/headerService.js"></script>
-    <script src="common/services/strataService.js"></script>
-
     <script src="i18n/translations.js"></script>
     <script src="log_viewer/log_viewer.module.js"></script>
     <script src="log_viewer/controllers/AccordionDemoCtrl.js"></script>
@@ -218,6 +200,11 @@
     <script src="search/directives/searchForm.js"></script>
     <script src="search/directives/standardSearch.js"></script>
     <script src="search/services/searchResultsService.js"></script>
+
+    <script src="escalation/escalation.module.js"></script>
+    <script src="escalation/controllers/escalationRequest.js"></script>
+    <script src="escalation/services/escalationRequestService.js"></script>
+    <script src="escalation/directives/403.js"></script>
 
     <script src="redhat_access_module.js"></script>
     <!-- endbuild -->

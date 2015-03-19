@@ -159,6 +159,27 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     return deferred.promise;
                 }
             },
+            articles: {
+                get: function (uri) {
+                    var deferred = $q.defer();
+                    var splitUri = uri.split('/');
+                    uri = splitUri[splitUri.length - 1];
+                    if (!ie8 && strataCache.get('articles' + uri)) {
+                        deferred.resolve(strataCache.get('articles' + uri));
+                    } else {
+                        strata.articles.get(uri, function (article) {
+                            article.resource_type = RESOURCE_TYPES.article; //Needed upstream
+                            if (!ie8) {
+                                strataCache.put('articles' + uri, article);
+                            }
+                            deferred.resolve(article);
+                        }, function () {
+                            deferred.resolve();
+                        });
+                    }
+                    return deferred.promise;
+                }
+            },
             search: function (searchString, max) {
                 var resultsDeferred = $q.defer();
                 var deferreds = [];
@@ -201,12 +222,13 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         }
                         $q.all(deferreds).then(
                             function (results) {
+                                var _results = [];
                                 results.forEach(function (result) {
                                     if (result !== undefined) {
-                                        results.push(result);
+                                        _results.push(result);
                                     }
                                 });
-                                resultsDeferred.resolve(results);
+                                resultsDeferred.resolve(_results);
                             },
                             angular.bind(resultsDeferred, errorHandler));
                     },
@@ -307,10 +329,12 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 },
-                update: function(groupName, groupnum){
+                update: function(group, ssoUserName){
                     var deferred = $q.defer();
-                    strata.groups.update(groupName, groupnum, function (response) {
+                    strata.groups.update(group, function (response) {
                         deferred.resolve(response);
+                        clearCache('groups' + ssoUserName);
+                        clearCache('groups' + group.number + ssoUserName);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 },
@@ -504,20 +528,6 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     }
                     return deferred.promise;
                 },
-                search: function (query, isSolr) {
-                    var deferred = $q.defer();
-                    if (!ie8 && strataCache.get('search' + query)) {
-                        deferred.resolve(strataCache.get('search' + query));
-                    } else {
-                        strata.cases.search(function (response) {
-                            if (!ie8) {
-                                strataCache.put('search' + query, response);
-                            }
-                            deferred.resolve(response);
-                        }, angular.bind(deferred, errorHandler), query, isSolr);
-                    }
-                    return deferred.promise;
-                },
                 filter: function (params) {
                     var deferred = $q.defer();
                     if (RHAUtils.isEmpty(params)) {
@@ -656,6 +666,15 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     var deferred = $q.defer();
                     strata.health.sfdc(function (response) {
                         deferred.resolve(response);
+                    }, angular.bind(deferred, errorHandler));
+                    return deferred.promise;
+                }
+            },
+            escalationRequest: {
+                create: function (escalationJSON) {
+                    var deferred = $q.defer();
+                    strata.escalation.create(escalationJSON, function (escalationNum) {
+                        deferred.resolve(escalationNum);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 }

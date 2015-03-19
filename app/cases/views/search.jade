@@ -1,0 +1,57 @@
+div#rha-case-search.container-offset
+  div(rha-header='', page='searchCase')
+  div.container-fluid
+    div.row(style='padding-bottom: 10px;')
+      div.col-xs-6
+        div(rha-searchbox='', placeholder='Search')
+      div.col-xs-3
+        button.btn.btn-secondary.pull-right(
+          ng-disabled='!securityService.loginStatus.isLoggedIn',
+          ui-sref='new', translate='') Open a New Support Case
+    div.rha-bottom-border
+    div.row(style='padding-bottom: 10px;')
+      div.col-sm-2
+        label(translate='') Status
+        div(rha-statusselect='')
+      div.col-sm-2
+        label(translate='') Severity
+        div(rha-severityselect='')
+      div.col-sm-2
+        label(translate='') Type
+        div(rha-typeselect='')
+      div.col-sm-2
+        label(translate='') Group
+        div(rha-groupselect='', show-search-options='true')
+      div.col-sm-2
+        label(translate='') Owner
+        div(rha-ownerselect='')
+      div.col-sm-2
+        label(translate='') Product
+        div(rha-productselect='')
+    div(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
+      div.row(style='padding-bottom: 4px;')
+        div.col-xs-12
+          span.rha-search-spinner
+          h3(style='display: inline-block; padding-left: 4px;', translate='') Searching...
+    div(ng-show='SearchCaseService.cases.length === 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
+      div.row
+        div.col-xs-12
+          div {{'No cases found with given search criteria.'|translate}}
+    div(ng-repeat='case in casesOnScreen') 
+      div.row
+        div.col-xs-12
+          div(rha-casesearchresult='', case='case')
+    div(ng-hide='SearchCaseService.cases.length === 0', style='border-top: 1px solid #cccccc')
+      div.row
+        div.col-xs-6.pull-right
+          pagination.pagination-sm(
+            style='float: right; cursor: pointer;',
+            boundary-links='false',
+            total-items='SearchCaseService.cases.length',
+            on-select-page='selectPage(page)',
+            items-per-page='itemsPerPage',
+            page='currentPage',
+            max-size='maxPagerSize',
+            rotate='true')
+        div.col-xs-6.pull-left(style='padding-top: 20px;')
+          div(rha-exportcsvbutton='')

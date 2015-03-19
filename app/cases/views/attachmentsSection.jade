@@ -1,38 +1,61 @@
-.spinner.spinner-inline(ng-show='loading')
-div(rha-listattachments='')
+h4.rha-section-header(translate='') Attachments
+span.rha-search-spinner(ng-show='loading')
+div.container-fluid.rha-side-padding
+  div.row.rha-side-padding
+    div.col-xs-12.rha-col-no-padding
+      div(rha-listattachments='')
 div(ng-hide='loading || ie8 || ie9  && isPCM')
+  div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; margin: 0;')
   div(ng-hide='AttachmentsService.updatedAttachments.length <= 0 && TreeViewSelectorUtils.getSelectedLeaves(AttachmentsService.backendAttachments).length <= 0')
-    div(rha-listnewattachments)
-    .spinner.spinner-inline(ng-show='updatingAttachments')
-  button.btn.btn-primary(
-    ng-hide='updatingAttachments',
-    ng-click='doUpdate()', translate='') Upload Attachments
-  div(rha-attachlocalfile='')
+    div.row.rha-side-padding
+      div.col-xs-12.rha-col-no-padding
+        div(rha-listnewattachments)
+    div.row.rha-side-padding
+      div.col-xs-12.rha-col-no-padding(style='padding-bottom: 14px;')
+        div(style='float: right')
+          span.rha-search-spinner(ng-show='updatingAttachments')
+          button.btn.btn-primary(
+            ng-hide='updatingAttachments',
+            ng-click='doUpdate()', translate='') Upload Attachments
+    div.row(style='border-top: 1px solid #cccccc; padding-top: 10px; margin: 0;')
+  div.row
+    div.col-xs-12
+      div(rha-attachlocalfile='')
   div(ng-show='showServerSideAttachments')
-    .server-attach-header {{'Server File(s) To Attach:'|translate}}
-    div(rha-choicetree='',
-      ng-model='attachmentTree',
-      ng-controller='BackEndAttachmentsCtrl',
-      rhaDisabled='rhaDisabled')
-form#fileUploaderForm(ng-show='!loading && ie8 || ie9 && isPCM', enctype="multipart/form-data", method="post",target="upload_target")
-  .row
-    .col-xs-6 input(id='fileUploader', type='file', value='upload',name='file')
-    .col-xs-6 {{fileName}}
-  .row
-    .col-xs-12(style='font-size: 80%;')
-      div(ng-bind-html='parseArtifactHtml()')
-  .row
-    .col-xs-12
-        input#fileDescription.form-control(
-        style='float: left;',
-        type='text',
-        name='description',
-        ng-model='ieFileDescription',
-        placeholder="{{'File description'|translate}}")
-  .row
-    .col-xs-12
-      button.btn.btn-add(
-        style='float: right;',
-        ng-click = 'ieUpload($event)',
-        translate='') Upload Attachments
-  iframe#upload_target(name='upload_target')
+    div.row
+      div.col-xs-12
+        div.server-attach-header {{'Server File(s) To Attach:'|translate}}
+        div(rha-choicetree='',
+          ng-model='attachmentTree',
+          ng-controller='BackEndAttachmentsCtrl',
+          rhaDisabled='rhaDisabled')
+div(ng-show='!loading && ie8 || ie9 && isPCM')
+  form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
+    div.container-fluid
+      div.row.rha-create-field
+        div.col-xs-6
+          input(id='fileUploader', type='file', value='upload',name='file')
+        div.col-xs-6
+          div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
+      div.row.rha-create-field
+        div.col-xs-12(style='font-size: 80%;')
+          div(ng-bind-html='parseArtifactHtml()')
+        div.col-xs-12(style='font-size: 80%;')
+          span {{'File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com.'|translate}}&nbsp;
+          span
+            a(href='https://access.redhat.com/knowledge/solutions/2112', target='_blank') {{'(More info)'|translate}}
+      div.row.rha-create-field
+        div.col-xs-12
+            input#fileDescription.form-control(
+            style='float: left;',
+            type='text',
+            name='description',
+            ng-model='ieFileDescription',
+            placeholder="{{'File description'|translate}}")
+          div.row.rha-create-field
+        div.col-xs-12
+          button.btn.btn-add(
+            style='float: right;',
+            ng-click = 'ieUpload($event)',
+            translate='') Upload Attachments
+  iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')

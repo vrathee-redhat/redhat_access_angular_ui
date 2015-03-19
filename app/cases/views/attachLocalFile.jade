@@ -1,7 +1,29 @@
-.row
-  .col-xs-12
-    button.btn.btn-accent(ng-click='getFile()', ng-disabled='disabled', translate='', ng-hide='AttachmentsService.updatedAttachments.length == 0') Attach Another File
-    button.btn.btn-accent(ng-click='getFile()', ng-disabled='disabled', translate='', ng-hide='AttachmentsService.updatedAttachments.length > 0') Attach File
-    div(style='height: 0px; width:0px; overflow:hidden;')
-      input(id='fileUploader', type='file', value='upload', rha-onchange='selectFile', ng-model='file', ng-disabled='disabled || CaseService.submittingCase')
+div.container-fluid
+  div.row.rha-create-field
+    div.col-xs-6
+      button.btn.btn-attach(style='float: left;', ng-click='getFile()', ng-disabled='disabled', translate='') Attach local file
+      div(style='height: 0px; width:0px; overflow:hidden;')
+        input(id='fileUploader', type='file', value='upload', rha-onchange='selectFile', ng-model='file', ng-disabled='disabled')
+    div.col-xs-6
+      div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
+  div.row.rha-create-field
+    div.col-xs-12(style='font-size: 80%;')      
+      div(ng-bind-html='parseArtifactHtml()')
+    div.col-xs-12(style='font-size: 80%;')
+      span {{'File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com.'|translate}}&nbsp;
+      span
+        a(href='https://access.redhat.com/knowledge/solutions/2112', target='_blank') {{'(More info)'|translate}}
+  div.row.rha-create-field
+    div.col-xs-12
+      input#rha-case-attachement-fileDescription.form-control(
+        style='float: left;',
+        placeholder="{{'File description'|translate}}",
+        ng-model='fileDescription',
+        ng-disabled='disabled')
+  div.row.rha-create-field
+    div.col-xs-12
+      button.btn.btn-add(
+        ng-disabled='fileName == NO_FILE_CHOSEN || disabled',
+        style='float: right;',
+        ng-click='addFile(fileUploaderForm)', translate='') Add
 

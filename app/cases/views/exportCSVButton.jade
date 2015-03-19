@@ -1,4 +1,6 @@
-a.btn.btn-blue.btn-sm.btn-slim(ng-click='exports()', ng-hide='exporting || ie8 || ie9', translate='') Export
+button.btn.btn-secondary(ng-click='exports()', ng-hide='exporting || ie8 || ie9', translate='') Export All as CSV
 div(ng-show='exporting')
   span.rha-search-spinner
   span {{'Exporting CSV...'|translate}}
+
+

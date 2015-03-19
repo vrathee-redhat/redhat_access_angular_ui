@@ -3,8 +3,6 @@
 angular.module('RedhatAccess.cases').service('AttachmentsService', [
     '$filter',
     '$q',
-    '$sce',
-    'RHAUtils',
     'strataService',
     'TreeViewSelectorUtils',
     '$http',
@@ -12,17 +10,15 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     'AlertService',
     'CaseService',
     'translate',
-    function ($filter, $q, $sce, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
+    function ($filter, $q, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
         this.suggestedArtifact = {};
-        this.proceedWithoutAttachments = false;
         this.clear = function () {
             this.originalAttachments = [];
             this.updatedAttachments = [];
             this.backendAttachments = [];
-            this.suggestedArtifact = {};
         };
         this.updateBackEndAttachments = function (selected) {
             this.backendAttachments = selected;
@@ -33,18 +29,13 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
         this.removeUpdatedAttachment = function ($index) {
             this.updatedAttachments.splice($index, 1);
         };
-        this.removeOriginalAttachment = function (attachment) {
+        this.removeOriginalAttachment = function ($index) {
+            var attachment = this.originalAttachments[$index];
             var progressMessage = AlertService.addWarningMessage(translate('Deleting attachment:') + ' ' + attachment.file_name);
             strataService.cases.attachments.remove(attachment.uuid, CaseService.kase.case_number).then(angular.bind(this, function () {
                 AlertService.removeAlert(progressMessage);
                 AlertService.addSuccessMessage(translate('Successfully deleted attachment:') + ' ' + attachment.file_name);
-                var i = 0;
-                for(i; i < this.originalAttachments.length; i++){
-                    if(this.originalAttachments[i].uuid === attachment.uuid){
-                        break;
-                    }
-                }
-                this.originalAttachments.splice(i, 1);
+                this.originalAttachments.splice($index, 1);
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
@@ -88,7 +79,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             errorMsg = ' : Internal server error';
                             break;
                         }
-                        AlertService.addDangerMessage(translate('Failed to upload attachment ') + jsonData.attachment + translate(' to case ') + caseId + errorMsg);
+                        AlertService.addDangerMessage(translate('Failed to upload attachment') + ' ' + jsonData.attachment + ' ' + translate('to case') +' '+ caseId + ' '+errorMsg);
                         deferred.reject(data);
                     });
                     promises.push(deferred.promise);
@@ -109,16 +100,11 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                     //find new attachments
                     angular.forEach(updatedAttachments, function (attachment) {
                         if (!attachment.hasOwnProperty('uuid')) {
-                            var formdata = new FormData();
-                            formdata.append('file', attachment.fileObj);
-                            formdata.append('description', attachment.description);
-
-                            var promise = strataService.cases.attachments.post(formdata, caseId);
+                            var promise = strataService.cases.attachments.post(attachment.file, caseId);
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
-                                attachment.last_modified_date = new Date();
-                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment ') + attachment.file_name + ' to case ' + caseId);
+                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment') + ' '+attachment.file_name + ' '+translate('to case') + ' '+caseId);
                             }, function (error) {
                                 AlertService.addStrataErrorMessage(error);
                             });
@@ -138,14 +124,6 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                 });
                 return parentPromise;
             }
-        };
-        this.parseArtifactHtml = function () {
-            var parsedHtml = '';
-            if (RHAUtils.isNotEmpty(this.suggestedArtifact.description)) {
-                var rawHtml = this.suggestedArtifact.description.toString();
-                parsedHtml = $sce.trustAsHtml(rawHtml);
-            }
-            return parsedHtml;
         };
     }
 ]);

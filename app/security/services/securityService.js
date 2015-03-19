@@ -12,6 +12,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
     'AlertService',
     'RHAUtils',
     function($rootScope, $modal, AUTH_EVENTS, $q, LOGIN_VIEW_CONFIG, SECURITY_CONFIG, strataService, AlertService, RHAUtils) {
+        var isLoginDisplayed = false;
         var service = {
             loginStatus: {
                 isLoggedIn: false,
@@ -153,7 +154,14 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             },
             showLogin: function(customModalDefaults, customModalOptions) {
-                //var that = this;
+                if (isLoginDisplayed) {
+                    // We already have a login dialog up, no need to show another
+                    var defer = $q.defer();
+                    defer.reject();
+                    return defer.promise;
+                }
+                isLoginDisplayed = true;
+
                 //Create temp objects to work with since we're in a singleton service
                 var tempModalDefaults = {};
                 var tempModalOptions = {};
@@ -174,7 +182,16 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                 authenticating: false
                             };
                             $scope.useVerboseLoginView = LOGIN_VIEW_CONFIG.verbose;
+                            function resetStatus() {
+                                $scope.status.authenticating = false;
+                                isLoginDisplayed = false;
+                            }
                             $scope.modalOptions = tempModalOptions;
+                            $scope.modalOptions.keyDown = function($event, onEnter) {
+                                if ($event.keyCode === 13) {
+                                    onEnter();
+                                }
+                            };
                             $scope.modalOptions.ok = function(result) {
                                 //Hack below is needed to handle autofill issues
                                 //@see https://github.com/angular/angular.js/issues/1460
@@ -192,7 +209,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                             try {
                                                 $modalInstance.close(authedUser);
                                             } catch (err) {}
-                                            $scope.status.authenticating = false;
+                                            resetStatus();
                                         },
                                         function(error) {
                                             if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
@@ -202,16 +219,16 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                             } else {
                                                 $scope.authError = 'Login Failed!';
                                             }
-                                            $scope.status.authenticating = false;
+                                            resetStatus();
                                         }
                                     );
                                 }else {
                                     $scope.authError = 'Login Failed!';
-                                    $scope.status.authenticating = false;
+                                    resetStatus();
                                 }
                             };
                             $scope.modalOptions.close = function() {
-                                $scope.status.authenticating = false;
+                                resetStatus();
                                 $modalInstance.dismiss('User Canceled Login');
                             };
                         }

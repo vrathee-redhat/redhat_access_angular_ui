@@ -41,8 +41,6 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
                     CaseService.draftSaved = false;
                     CaseService.draftComment = undefined;
                     CaseService.commentText = undefined;
-                }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
                 });
             };
             var onError = function (error) {

@@ -1,189 +1,199 @@
-.content-loading-notification(ng-hide='RecommendationsService.recommendations.length === 0 && !RecommendationsService.loadingRecommendations')
-  .container(ng-show='RecommendationsService.loadingRecommendations')
-    .loader
-      .circle &nbsp
-      .circle &nbsp
-      .circle &nbsp
-    | {{(getLocatingSolutionText())}}
-  .container(ng-hide='RecommendationsService.loadingRecommendations')
-    .loader
-      i.fa.fa-check-circle
-    | Based on details you provided, we found some likely solutions. &nbsp
-    a(ng-click='scrollToRecommendations()') View Recommendations
+div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.userAllowedToManageCases')
+  div(rha-403error='')
+div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManageCases')
+  div(rha-header='', page='newCase')
+  div.row(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy')
+    div.pull-right
+        div(rha-chatbutton='' style='margin-right: 10px;')
+  div.rha-bottom-border(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CaseService.sfdcIsHealthy')
 
-div(rha-header='', page='newCase')
-.page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
-  div(ng-show='ProductsService.productsLoading')
-    .spinner
-  div(ng-hide='ProductsService.productsLoading')
-    section.case-new
-      section.config-options
+  // start
+  div.row.no-margin-bottom.full-border.clearfix(style='margin: 0; padding-top: 12px; padding-bottom: 24px', ng-hide='!NEW_CASE_CONFIG.isPCM || !CaseService.sfdcIsHealthy')
+    div.col-md-4.center
+      label {{'Product & Topic'|translate}}
+      div(ng-attr-class="{{isPage1 && 'no-fun' || 'fun' }}")
+    div.col-md-4.center
+      label {{'Case Details'|translate}}
+      div(ng-attr-class="{{(isPage2 && !submittingCase) && 'no-fun' || 'fun' }}")
+    div.col-md-4.center
+      label {{'Creating Case'|translate}}
+      div(ng-attr-class="{{submittingCase && 'no-fun' || 'fun' }}")
+
+  // start
+  div.row.clearfix(style='margin: 0;', ng-class="{'partial-border': NEW_CASE_CONFIG.isPCM}" , ng-hide='!CaseService.sfdcIsHealthy')
+    div(ng-class='{"col-xs-6": showRecommendationPanel , "col-xs-12": !showRecommendationPanel}', style='border-right: 1px solid; padding-top: 24px; border-color: #cccccc;')
+      div.rha-create-case-section(ng-class='{"hidden": isPage2}', id='rha-case-wizard-page-1')
         div(ng-if='securityService.loginStatus.authedUser.is_internal')
-          .row.row-short
-            .col-sm-4.col-md-2
-              label(for='rha-account-number') {{'Account'|translate}}
-            .col-sm-7.col-md-4
+          div.row.rha-create-field
+            div.col-md-3
+              label(for='rha-account-number') {{'Account:'|translate}}
+            div.col-md-9
               div(rha-accountselect='')
-          .row.row-short
-            .col-sm-4.col-md-2
-              label(for='rha-owners-select') {{'Owner'|translate}}
-            .col-sm-7.col-md-4
+          div.row.rha-create-field
+            div.col-md-3
+              label(for='rha-owners-select') {{'Owner:'|translate}}
+            div.col-md-9
               div(rha-ownerselect='')
-        .row.row-short
-          .col-sm-4.col-md-2
-            .label {{'Product'|translate}}
-          .col-sm-7.col-md-4
-            div(rha-productselect='')
-          //- .col-sm-1
-          //-   .loader
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-        .row.row-short
-          .col-sm-4.col-md-2
-            .label {{'Product Version'|translate}}
-          .col-sm-7.col-md-4
-            div(rha-versionselect='')
-          //- .col-sm-1
-          //-   .loader
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-        .row.row-short
-          .col-sm-4.col-md-2
-            .label {{'Case Name'|translate}}
-          .col-sm-7.col-md-4
+        div.row.rha-create-field
+          div.col-md-3
+            label(for='rha-product-select') {{'Product:'|translate}}
+          div.col-md-9
+            div(rha-selectloadingindicator='', loading='productsLoading', type='bootstrap')
+              select#rha-product-select.form-control(
+                ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase',
+                style='width: 100%;',
+                ng-model='CaseService.kase.product',
+                ng-change='getProductVersions(CaseService.kase.product);getRecommendations();makeRecommendationPanelVisible();CaseService.updateLocalStorageForNewCase()',
+                ng-options='p.value as p.label for p in products',
+                options-disabled='p.isDisabled for p in products')
+        div.row.rha-create-field
+          div.col-md-3
+            label(for='rha-product-version-select') {{'Product Version:'|translate}}
+          div.col-md-9
+            div
+              div(rha-selectloadingindicator='', loading='versionLoading', type='bootstrap')
+                select#rha-product-version-select.form-control(
+                  style='width: 100%;',
+                  ng-model='CaseService.kase.version',
+                  ng-options='v for v in versions',
+                  ng-change='CaseService.validateNewCasePage1();getRecommendations();makeRecommendationPanelVisible();CaseService.updateLocalStorageForNewCase()',
+                  ng-disabled='versionDisabled || !securityService.loginStatus.isLoggedIn || submittingCase')
+              div.versionSunsetMessage(ng-show='CaseService.showVersionSunset()')
+                span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
+        div.row.rha-create-field
+          div.col-md-3
+            label(for='rha-case-summary') {{'Summary:'|translate}}
+          div.col-md-9
             input#rha-case-summary.form-control(
-            maxlength='255',
-            ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
-            ng-change='CaseService.validateNewCase();;CaseService.updateLocalStorageForNewCase()',
-            ng-model='CaseService.kase.summary')
-          //- .col-sm-1
-          //-   .loader
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-        .row.row-short
-          .col-sm-4.col-md-2
-            .label Case Description
-          .col-sm-7.col-md-8
-            textarea(name='', id='', cols='30', rows='10',
+              style='width: 100%;',
+              maxlength='255',
+              ng-disabled='!securityService.loginStatus.isLoggedIn',
+              ng-change='CaseService.validateNewCasePage1();CaseService.updateLocalStorageForNewCase()',
+              ng-model='CaseService.kase.summary')
+        div.row.rha-create-field
+          div.col-md-3
+            label(for='rha-case-description') {{'Description:'|translate}}
+          div.col-md-9
+            textarea#rha-case-description.form-control.description-box(
               style='width: 100%; height: 200px; max-width: 100%;',
               ng-model='CaseService.kase.description',
-              ng-change='CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
-              ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase')
-            div(style="margin-top: 15px", ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
-              b Get faster results.
-              | &nbsp; Attaching logs or other diagnostics files typically results in faster resolution.
-              div(ng-bind-html='AttachmentsService.parseArtifactHtml()')
-              div(rha-listnewattachments='')
-              div(ng-hide='ie8 || ie9', rha-attachlocalfile='', disabled='CaseService.submittingCase')
-
-              .rha-bottom-border(ng-hide='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
-                .row.rha-create-field(ng-hide='CaseService.submittingCase')
-                  .col-xs-12
-                    div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
-                      .server-attach-header Server File(s) To Attach:
-                       div(rha-choicetree='',
-                         ng-model='attachmentTree',
-                         ng-controller='BackEndAttachmentsCtrl')
-                div(ng-show='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
-                  form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
-                    div
-                      .row.rha-create-field
-                        .col-xs-6
-                          input(id='fileUploader', type='file', value='upload',name='file')
-                        .col-xs-6
-                          div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
-                      .row.rha-create-field
-                        .col-xs-12(style='font-size: 80%;')
-                          div(ng-bind-html='parseArtifactHtml()')
-                        .col-xs-12(style='font-size: 80%;')
-                          span {{'File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com.'|translate}}&nbsp;
-                          span
-                            a(href='https://access.redhat.com/knowledge/solutions/2112', target='_blank') {{'(More info)'|translate}}
-                      .row.rha-create-field
-                        .col-xs-12
-                          input#fileDescription.form-control(
-                          style='float: left;',
-                          type='text',
-                          name='description',
-                          ng-model='ieFileDescription',
-                          placeholder="{{'File description'|translate}}")
-                  iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
-          //- .col-sm-1
-          //-   .loader
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-        .row
-          .col-xs-12#recommendations_section
-            section(rha-newcaserecommendations='')
-        .row.row-short
-          .col-sm-4.col-md-2
-            .label Support Level
-          .col-sm-7.col-md-4
-            select(
-            	chosen,
-              ng-model="CaseService.entitlement",
-              ng-change="CaseService.onChangeFTSCheck()",
-              width="'100%'",
-              ng-options="entitlement as entitlement for entitlement in CaseService.entitlements")
-              option(value="")
-        .row.row-short
-          .col-sm-4.col-md-2
-            .label.inline-tooltip Severity
-              span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="hover")
-          .col-sm-7.col-md-4
-            .row
-              .col-xs-12
-                select#rha-severity.form-control(
-                  chosen,
-                  width='"100%"',
-                  ng-model='CaseService.kase.severity',
-                  ng-change='CaseService.onChangeFTSCheck()',
-                  ng-disabled='CaseService.submittingCase',
-                  ng-options='s.name for s in CaseService.severities track by s.name')
-            .row.row-short(ng-show="CaseService.showFts()")
-              .col-xs-1
-                input.pull-left(
-                  type="checkbox",
-                  ng-model="CaseService.fts")
-              .col-xs-11
-                .row
-                  .col-xs-12
-                    .label.pull-left 24x7 Support
-                .row.row-short(ng-show="CaseService.showFts()")
-                  .col-xs-12
-                    .label.pull-left 24x7 Contact
-                    input.pull-left.margin-left(
-                      ng-model="CaseService.fts_contact")
-        .row.row-short
-          .col-sm-4.col-md-2
-            .label(for='email-notifications') Send Email Notifications to
-          .col-sm-7.col-md-4
-            .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
-            select(
-              chosen,
-              multiple,
-              data-placeholder='Select a User',
-              ng-disabled='updatingList || CaseService.submittingCase',
-              ng-model='notifiedUsers',
-              id='rha-email-notify-select',
-              width='"100%"',
-              ng-options='user.sso_username as user.sso_username for user in CaseService.users')
-        .row.row-short
-          .col-sm-4.col-md-2
-            .label Case Group (Optional)
-          .col-sm-7.col-md-4
-            div(rha-groupselect='')
-
-        .row
-          //- TODO make remove local storage once implemented
-          .col-sm-12
-            button.btn.btn-accent.btn-submit(
-              ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
-              ng-hide='CaseService.submittingCase',
+              ng-change='CaseService.validateNewCasePage1();CaseService.updateLocalStorageForDesc();CaseService.updateLocalStorageForNewCase()',
+              ng-disabled='!securityService.loginStatus.isLoggedIn || submittingCase')
+        div.row
+          div.col-xs-12(ng-class='{"hidden": isPage2}')
+            button.btn.btn-primary.btn-next(
+              style='float: right',
+              ng-click='doNext()',
+              ng-disabled='CaseService.newCasePage1Incomplete', translate='') Next
+      div.rha-create-case-section(ng-class='{hidden: isPage1}', id='rha-case-wizard-page-2')
+        div.rha-bottom-border
+          div.row
+            div.col-xs-12
+              div.rha-bold(id='rha-newPage2-productVersion',style='margin-bottom: 10px;') {{CaseService.kase.product}} {{CaseService.kase.version}}
+          div.row
+            div.col-xs-12
+              div.rha-bold(id='rha-newPage2-caseSummary',style='font-size: 90%; margin-bottom: 4px;word-wrap: break-word') {{CaseService.kase.summary}}
+          div.row
+            div.col-xs-12
+              div(id='rha-newPage2-caseDescription', style='font-size: 85%; white-space:pre-wrap;word-wrap: break-word') {{CaseService.kase.description}}
+        div.row.rha-create-field
+          div.col-md-4
+            label(for='rha-entitlement-select') {{'Support Level:'|translate}}
+          div.col-md-8(ng-show='CaseService.entitlements.length <= 1') {{CaseService.entitlements[0]}}
+          div.col-md-8(ng-hide='CaseService.entitlements.length <= 1')
+            div(rha-entitlementselect='')
+        div.row.rha-create-field
+          div.col-md-4
+            div(style='vertical-align: 50%; display: inline-block;')
+               label(for='rha-case-severity') {{'Severity:'|translate}}
+               span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
+          div.col-md-8
+            div(rha-loadingindicator='', loading='severitiesLoading')
+              select#rha-severity.form-control(
+                style='width: 100%;',
+                ng-model='CaseService.kase.severity',
+                ng-change='CaseService.onChangeFTSCheck()',
+                ng-disabled='submittingCase',
+                ng-options='s.name for s in CaseService.severities track by s.name')
+        div(ng-show='CaseService.showFts()')
+          div.row.rha-create-field
+            div.col-md-4
+              label(for='rha-ftsCheck') {{'24x7 Support:'|translate}}
+            div.col-md-8
+              input#rha-ftsCheck(type='checkbox', ng-model='CaseService.fts', style='display: inline-block;')
+          div.row.rha-create-field(ng-show='CaseService.fts')
+            div.col-md-4
+              label(for='rha-ftsContact') {{'24x7 Contact:'|translate}}
+            div.col-md-8
+              input#rha-ftsContact.form-control(ng-model='CaseService.fts_contact', style='display: inline-block;')
+        div.row.rha-create-field
+          div.col-md-4
+            label(for='rha-group-select') {{'Case Group:'|translate}}
+          div.col-md-8
+            div(rha-groupselect='', ng-init="setSearchOptions('false')")
+        div(ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
+          div.row.rha-create-field
+            div.col-xs-12
+              label {{'Attachments:'|translate}}
+          div.rha-bottom-border(ng-hide='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
+            div.row.rha-create-field(style='overflow: auto')
+              div.col-xs-12
+                div(rha-listnewattachments='')
+            div.row.rha-create-field(ng-hide='submittingCase')
+              div.col-xs-12
+                div(rha-attachlocalfile='', disabled='submittingCase')
+            div.row.rha-create-field(ng-hide='submittingCase')
+              div.col-xs-12
+                div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
+                  div.server-attach-header Server File(s) To Attach:
+                   div(rha-choicetree='',
+                     ng-model='attachmentTree',
+                     ng-controller='BackEndAttachmentsCtrl')
+          div(ng-show='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
+            form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
+              div.container-fluid
+                div.row.rha-create-field
+                  div.col-xs-6
+                    input(id='fileUploader', type='file', value='upload',name='file')
+                  div.col-xs-6
+                    div(style='float: left; word-wrap: break-word; width: 100%;') {{fileName}}
+                div.row.rha-create-field
+                  div.col-xs-12(style='font-size: 80%;')
+                    div(ng-bind-html='parseArtifactHtml()')
+                  div.col-xs-12(style='font-size: 80%;')
+                    span {{'File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com.'|translate}}&nbsp;
+                    span
+                      a(href='https://access.redhat.com/knowledge/solutions/2112', target='_blank') {{'(More info)'|translate}}
+                div.row.rha-create-field
+                  div.col-xs-12
+                    input#fileDescription.form-control(
+                    style='float: left;',
+                    type='text',
+                    name='description',
+                    ng-model='ieFileDescription',
+                    placeholder="{{'File description'|translate}}")
+            iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
+        div.row(style='margin-top: 20px;')
+          div.col-xs-6
+            button.btn.btn-primary.btn-previous(
+              style='float: left',
+              ng-click='doPrevious()',
+              ng-disabled='submittingCase', translate='') Previous
+          div.col-xs-6()
+            button.btn.btn-primary.btn-submit(
+              style='float: right',
+              ng-disabled='submittingCase',
+              ng-hide='submittingCase',
               ng-click='doSubmit($event)', translate='') Submit
-            a.margin-left(href='#/case/list') Cancel
+            span.rha-search-spinner(
+              ng-show='submittingCase',
+              style='float: right')
+    div(id='rha-new-recommendations',ng-class='{"col-xs-6": showRecommendationPanel}'
+      style='overflow: auto; padding-top: 24px',
+      ng-show='NEW_CASE_CONFIG.showRecommendations')
+      div(
+        ng-controller='SearchController',
+        style='overflow: vertical;')
+        div(ng-hide='!NEW_CASE_CONFIG.isPCM && showRecommendationPanel', rha-newrecommendations='')
+        div(ng-hide='NEW_CASE_CONFIG.isPCM', rha-accordionsearchresults='')
 

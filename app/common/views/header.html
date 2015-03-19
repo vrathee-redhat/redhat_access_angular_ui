@@ -1,1 +1,10 @@
-<div ng-click="HeaderService.showSurvey = !HeaderService.showSurvey" class="alert alert-sticky survey"><i class="icon-innov-prev"></i><span ng-class="{'active' : HeaderService.showSurvey}" class="msg">Let us know what you think of our new case experience by taking a &nbsp;<a href="https://access.redhat.com/eform/submit/what-do-you-think-case-managemen" target="_blank">short survey.</a></span></div><div rha-403error=""></div><div rha-404error=""></div><div ng-show="HeaderService.sfdcIsHealthy"></div><div rha-alert=""></div><div ng-hide="failedToLoadCase || !securityService.loginStatus.userAllowedToManageCases"><div ng-show="pageLoading" class="spinner spinner-inline"></div></div><div ng-hide="HeaderService.pageLoadFailure || !securityService.loginStatus.userAllowedToManageCases" class="page-header"><div ng-hide="page ===&quot;&quot;" rha-titletemplate="" page="{{page}}"></div><div ng-show="page === &quot;caseView&quot;">Filed on&nbsp;</div><div ng-show="securityService.loginStatus.isLoggedIn &amp;&amp; securityService.loginStatus.authedUser.has_chat &amp;&amp; CaseService.sfdcIsHealthy" rha-chatbutton=""></div></div><div rha-loginstatus=""></div><div ng-show="!HeaderService.sfdcIsHealthy" ng-bind-html="parseSfdcOutageHtml()"></div>
+<div class="rha-page-header">
+    <div rha-titletemplate page="{{page}}"></div>
+    <div rha-loginstatus></div>
+    <div class="row" style='margin-bottom: 0px;' ng-controller='HeaderController'>
+    	<div ng-show='!HeaderService.sfdcIsHealthy' ng-bind-html='parseSfdcOutageHtml()'/>
+    	<div class="col-xs-12" ng-show='HeaderService.sfdcIsHealthy'>
+    		<div rha-alert></div>
+    	</div>
+    </div>
+</div>

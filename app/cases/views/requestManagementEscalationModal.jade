@@ -1,27 +1,26 @@
-.modal-header
+div.modal-header
   h3(translate='') Request Management Escalation
-.container-fluid(style='padding: 20px;')
-  .row
-    .col-sm-12
+div.container-fluid(style='padding: 20px;')
+  div.row
+    div.col-sm-12
       span {{'If you feel the issue has become more severe or the case should be a higher priority, please provide a detailed comment, and the case will be reviewed by a support manager.'|translate}}
       a(href='https://access.redhat.com/site/support/policy/mgt_escalation', target='_blank') {{'Learn more'|translate}}
-  .row(style='padding-top: 10px;')
-    .col-sm-12
+  div.row(style='padding-top: 10px;')
+    div.col-sm-12
       div {{'Comment:'|translate}}
       textarea(
         style='width: 100%; max-width: 100%; height: 200px;',
         maxlength='32000',
-        ng-model='CaseService.escalationCommentText', 
+        ng-model='CaseService.escalationCommentText',
         ng-disabled='submittingRequest',
-        ng-change='onNewEscalationComment()',
-        auto-focus='')
-  .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
-    .col-sm-12
-      .pull-right
+        ng-change='onNewEscalationComment()')
+  div.row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
+    div.col-sm-12
+      div.pull-right
         button#rha-case-escalation-submitbutton.btn-secondary.btn(
-          style='margin-left: 10px;', 
-          ng-click='submitRequestClick(CaseService.escalationCommentText)', 
-          ng-disabled='submittingRequest || disableSubmitRequest') 
+          style='margin-left: 10px;',
+          ng-click='submitRequestClick(CaseService.escalationCommentText)',
+          ng-disabled='submittingRequest || disableSubmitRequest')
           span {{'Submit Request'|translate}}
-        button.btn-primary.btn(ng-click='closeModal()', ng-disabled='submittingRequest') Cancel
-        span.rha-search-spinner(ng-show='submittingRequest')
+      button.btn-secondary.btn.pull-right(ng-click='closeModal()', ng-disabled='submittingRequest') {{'Cancel'|translate}}
+      span.rha-search-spinner(ng-show='submittingRequest')

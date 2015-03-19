@@ -9,8 +9,7 @@ div#rha-create-group-modal
           input#rha-case-groupName.form-control(
             ng-model='groupName', 
             style='display: table-cell; width: 100%;', 
-            ng-keypress='onGroupNameKeyPress($event)',
-            auto-focus='')
+            ng-keypress='onGroupNameKeyPress($event)')
     div.row
       div.col-sm-12
         button.btn-primary.btn.pull-right(ng-click='createGroup()', style='margin-left: 10px;', translate='') Save

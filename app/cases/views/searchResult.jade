@@ -1,0 +1,30 @@
+div#rha-case-search-result
+  div.hover(
+    ng-class='{hascomment: theCase.comments.comment !== undefined}',
+    style='padding-top: 10px; border-top: 1px solid #cccccc; display: table; width: 100%;')
+      span.glyphicon.glyphicon-briefcase(style='display: table-cell; vertical-align: top; width: 20px;')
+      div(style='display: table-cell; padding-right: 20px;')
+        div.container-fluid
+          div.row(style='padding-bottom: 6px;')
+            div.col-xs-12
+              div(style='display: inline-block; font-weight: bold;') 
+                a(ng-href='#/case/{{theCase.case_number}}') {{theCase.case_number}} - {{theCase.summary}}
+          div.row(style='padding-bottom: 10px;')
+            div.col-xs-4
+              span(style='padding-right: 4px;').detail-name {{'Updated:'|translate}}
+              span.detail-value {{theCase.last_modified_date | date: 'medium'}}
+            div.col-xs-4
+              span(style='padding-right: 4px;').detail-name {{'Status:'|translate}}
+              span.detail-value.status(
+                ng-class='{closed: theCase.status === "Closed", redhat: theCase.status === "Waiting on Red Hat", customer: theCase.status === "Waiting on Customer"}') {{theCase.status}}
+            div.col-xs-4
+              span(style='padding-right: 4px;').detail-name {{'Severity:'|translate}}
+              span.detail-value {{theCase.severity}}
+          div.row(ng-show='theCase.comments.comment !== undefined')
+            div.col-xs-12
+              div.well {{theCase.comments.comment[0].text}}
+              span.comment-tip
+              div.comment-user
+                span.avatar
+                div.commenter {{theCase.comments.comment[0].created_by}}
+                div.comment-date {{theCase.comments.comment[0].created_date | date: 'medium'}}

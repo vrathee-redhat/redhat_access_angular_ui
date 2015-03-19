@@ -5,30 +5,16 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
     'strataService',
     'CaseService',
     'securityService',
-    'ProductsService',
     '$rootScope',
     'AUTH_EVENTS',
     'CASE_EVENTS',
     'AlertService',
     'RHAUtils',
-    function ($scope, strataService, CaseService, securityService, ProductsService, $rootScope, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
-        $scope.showExtraInfo = false;
-	    $scope.CaseService = CaseService;
+    function ($scope, strataService, CaseService, securityService, $rootScope, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
+        $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.maxNotesLength = '255';
         $scope.progressCount = 0;
-
-		$scope.toggleExtraInfo = function() {
-			$scope.showExtraInfo = !$scope.showExtraInfo;
-
-		}
-
-        $scope.resetData = function(){
-            CaseService.resetCase();
-            ProductsService.getVersions(CaseService.kase.product);
-            $scope.detailsForm.$setPristine();
-        }
-
         $scope.init = function () {
             if (!$scope.compact) {
                 strataService.values.cases.types().then(function (response) {
@@ -36,14 +22,14 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
-                strataService.groups.list(CaseService.kase.contact_sso_username).then(function (response) {
+                strataService.groups.list(securityService.loginStatus.authedUser.sso_username).then(function (response) {
                     $scope.groups = response;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
             }
             strataService.values.cases.status().then(function (response) {
-                CaseService.statuses = response;
+                $scope.statuses = response;
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
@@ -52,7 +38,13 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-            ProductsService.getProducts();
+            if (CaseService.kase.contact_sso_username !== undefined) {
+                strataService.products.list(CaseService.kase.contact_sso_username).then(function (response) {
+                    $scope.products = response;
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                });
+            }
             $scope.userIsCaseOwner = true;
             var ownerOptions = [];
             //Assuming the full name matches the owner name, strata does not support getting that through case object
@@ -86,7 +78,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.updateCase = function () {
             $scope.updatingDetails = true;
             var caseJSON = {};
-            //if ($scope.caseDetailsChanged() === true) {
+            if ($scope.caseDetailsChanged() === true) {
                 if (CaseService.kase !== undefined) {
                     if (CaseService.kase.type !== undefined) {
                         caseJSON.type = CaseService.kase.type.name;
@@ -101,10 +93,13 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         caseJSON.alternateId = CaseService.kase.alternate_id;
                     }
                     if (CaseService.kase.product !== undefined) {
-                        caseJSON.product = CaseService.kase.product;
+                        caseJSON.product = CaseService.kase.product.name;
                     }
                     if (CaseService.kase.version !== undefined) {
                         caseJSON.version = CaseService.kase.version;
+                    }
+                    if (CaseService.kase.summary !== undefined) {
+                        caseJSON.summary = CaseService.kase.summary;
                     }
                     if (CaseService.kase.group !== null && CaseService.kase.group !== undefined && CaseService.kase.group.number !== undefined) {
                         caseJSON.folderNumber = CaseService.kase.group.number;
@@ -124,21 +119,18 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         caseJSON.notes = CaseService.kase.notes;
                     }
                     strataService.cases.put(CaseService.kase.case_number, caseJSON).then(function () {
-                        // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-                        //     $scope.changeCaseOwner();
-                        // }
-                        //$scope.caseDetails.$setPristine();
+                        if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
+                            $scope.changeCaseOwner();
+                        }
+                        $scope.caseDetails.$setPristine();
                         $scope.updatingDetails = false;
                         if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                             $scope.$apply();
                         }
-                        //TODO move into service
-                        angular.copy(CaseService.kase, CaseService.prestineKase);
-                        $scope.detailsForm.$setPristine();
                     }, function (error) {
-                        // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-                        //     $scope.changeCaseOwner();
-                        // }
+                        if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
+                            $scope.changeCaseOwner();
+                        }
                         AlertService.addStrataErrorMessage(error);
                         $scope.updatingDetails = false;
                         if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
@@ -146,11 +138,19 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         }
                     });
                 }
-            // } else {
-            //     if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-            //         $scope.changeCaseOwner();
-            //     }
-            // }
+            } else {
+                if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
+                    $scope.changeCaseOwner();
+                }
+            }
+        };
+        $scope.getProductVersions = function () {
+            CaseService.versions = [];
+            strataService.products.versions(CaseService.kase.product.code).then(function (versions) {
+                CaseService.versions = versions;
+            }, function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
         };
         $scope.changeCaseOwner = function () {
             strataService.cases.owner.update(CaseService.kase.case_number,CaseService.kase.owner).then(function () {
@@ -167,8 +167,11 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             });
         };
         $scope.caseDetailsChanged = function () {
-            if ($scope.caseDetails.alternate_id.$dirty || $scope.caseDetails.product.$dirty
-                    || $scope.caseDetails.version.$dirty || $scope.caseDetails.group.$dirty) {
+            if ($scope.caseDetails.summary.$dirty || $scope.caseDetails.type.$dirty || $scope.caseDetails.severity.$dirty
+                    || $scope.caseDetails.status.$dirty || $scope.caseDetails.alternate_id.$dirty || $scope.caseDetails.product.$dirty
+                    || $scope.caseDetails.version.$dirty || $scope.caseDetails.group.$dirty || ($scope.caseDetails.notes !== undefined && $scope.caseDetails.notes.$dirty)
+                    || ($scope.caseDetails.ftsCheckbox !== undefined && $scope.caseDetails.ftsCheckbox.$dirty)
+                    || ($scope.caseDetails.ftsContact !== undefined && $scope.caseDetails.ftsContact.$dirty)) {
                 return true;
             } else {
                 return false;
@@ -179,7 +182,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         }
         $scope.caseEventDeregister = $rootScope.$on(CASE_EVENTS.received, function () {
             $scope.init();
-            //AlertService.clearAlerts();
+            AlertService.clearAlerts();
         });
         $scope.$on('$destroy', function () {
             $scope.caseEventDeregister();

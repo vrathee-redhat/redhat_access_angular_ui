@@ -1,0 +1,93 @@
+div#redhat-access-case.container-offset(ng-show='EscalationRequestService.notPartnerLogin')
+  div(rha-403error='')
+div#redhat-access-escalations.container-offset(ng-hide='EscalationRequestService.notPartnerLogin')
+  div(rha-header='', page='partnerEscalationView')
+  h1
+    span.rha-bold {{'Priority Customer Support Routing'|translate}}
+  span {{'Red Hat Global Support Services (GSS) and Red Hat Global Partner Enablement have  established Partner Escalation to enable our strategic partners to escalate unresolved or mission critical customer support cases to GSS leadership. This process will help you and Red Hat to better manage your customers issues and provide a process for driving these issues to resolution.'|translate}}
+  p {{'Once your request is submitted, a partner escalation case will be opened with GSS and the GSS leadership team will be notified. You will then receive an email at the email address provided below with the partner escalation case number and additional information on how to track progress.'|translate}}
+  p  
+    span {{'Please'|translate}}
+    a(target='_blank' , href='https://access.redhat.com/site/articles/546553') {{' click here '|translate}}
+    span {{'for more information.'|translate}}
+  p
+    span {{'Please provide as much information as possible in the form.'|translate}}  
+  p
+    span#requireFieldInfo.rha-bold {{'* marked fields are mandatory fields.'|translate}} 
+
+  form#rha-case-escalation.form-horizontal
+    div#rha-escalation.row.ng-scope(ng-controller = 'EscalationRequest')
+      div.col-md-7.col-md-offset-1.push-bottom
+        fieldset
+          legend
+            span.number 1
+            {{'Requestor'|translate}}
+          div.form-group
+            label.col-sm-5.control-label(for='rha-requestor-email') {{'Your Email address'|translate}}
+            div.col-sm-7
+              input#rha-requestor-email.form-control.nonEmpty(ng-model='EscalationRequestService.requestorEmail')
+              span.help-block {{'This should be the email address associated with your Red Hat Customer Portal or Partner Center login'|translate}}
+          div.form-group
+            label.col-sm-5.control-label(for='rha-requestor-phone') {{'Your Phone Number'|translate}}
+            div.col-sm-7
+              input#rha-requestor-phone.form-control.nonEmpty(ng-model='EscalationRequestService.requestorPhone')
+      div.col-md-7.col-md-offset-1.push-bottom
+        fieldset
+          legend
+            span.number 2
+            {{'Customer'|translate}}
+          div.form-group
+            label.col-sm-5.control-label(for='rha-account-number') {{'Customer Account Number'|translate}} *
+            div.col-sm-7
+              input#rha-account-number.form-control.nonEmpty(ng-model='EscalationRequestService.accountNumber' ng-change="partnerMandatoryFieldCheck()")
+              span.help-block {{'Please request the account number from the customer if possible, otherwise use your Red Hat account number.The account number can be found by clicking on the username in the top right corner of this page.'|translate}}
+          div.form-group
+            label.col-sm-5.control-label(for='rha-customer-name') {{'Customer Contact Name'|translate}}
+            div.col-sm-7
+              input#rha-customer-name.form-control.nonEmpty(ng-model='EscalationRequestService.customerName')
+          div.form-group
+            label.col-sm-5.control-label(for='rha-customer-contact-email') {{'Customer Contact Email'|translate}}
+            div.col-sm-7
+              input#rha-customer-contact-email.form-control.nonEmpty(ng-model='EscalationRequestService.customerEmail')
+          div.form-group
+            label.col-sm-5.control-label(for='rha-customer-contact-phone-number') {{'Customer Contact Number'|translate}}
+            div.col-sm-7
+              input#rha-customer-contact-phone-number.form-control.nonEmpty(ng-model='EscalationRequestService.customerPhone')
+              span.help-block {{'For example: 1-888-467-3342'|translate}}
+          div.form-group
+            label.col-sm-5.control-label(for='rha-geo') {{'Customer GEO'|translate}} *
+            div.col-sm-7
+              select#rha-geo.form-control.productSelect.nonEmpty(
+              ng-model='EscalationRequestService.geo' 
+              ng-options='geo for geo in partnerGeoList'
+              ng-change="partnerMandatoryFieldCheck()")              
+              span.help-block NA-North America, EMEA-Europe,the Middle East and Africa, LATAM-Latin America, APAC-Asia Pacific
+      div.col-md-7.col-md-offset-1.push-bottom
+        fieldset
+          legend
+            span.number 3
+            {{'Case Information'|translate}}
+          div.form-group
+            label.col-sm-5.control-label(for='rha-case-number') {{'Red Hat Support Ticket Number'|translate}} *
+            div.col-sm-7
+              input#rha-case-number.form-control.nonEmpty(ng-model='EscalationRequestService.caseNumber' ng-change="partnerMandatoryFieldCheck()")
+              span.help-block {{'This is your 8 digit Red Hat Support ticket number'|translate}}
+          div.form-group
+            label.col-sm-5.control-label(for='rha-already-escalated') {{'Already Escalated?'|translate}}
+            div.col-sm-7
+              input#rha-already-escalated.nonEmpty(type='checkbox' ng-model='EscalationRequestService.alreadyEscalated')
+          div.form-group
+            label.col-sm-5.control-label(for='rha-issue-description') {{'Issue Description'|translate}} *
+            div.col-sm-7
+              textarea#rha-issue-description.form-control.nonEmpty(ng-model='EscalationRequestService.issueDescription' ng-change="partnerMandatoryFieldCheck()")
+              span.help-block {{'Please provide as much detail as possible to help us understand the issue, for example:Reason for the escalation, the business context, the competitive situation, past support experience'|translate}}
+          div.form-group
+            label.col-sm-5.control-label(for='rha-expectations') {{'Expectation'|translate}}
+            div.col-sm-7
+              textarea#rha-expectations.form-control.nonEmpty(ng-model='EscalationRequestService.expectations')
+              span.help-block {{'Please provide expectations and desired outcomes from yourself and from the customer'|translate}}
+      div.clear
+      div.col-md-7.col-md-offset-1.push-bottom
+        button.btn.btn-primary(
+           ng-click='submitEscalationRequest(ESCALATION_TYPE.partner)',
+           ng-disabled='disableSendRequest', translate='') Send Request

@@ -1,7 +1,8 @@
-span.glyphicon.glyphicon-question-sign.tooltip.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="hover")
-select(
-	chosen,
-	width="'100%'",
-	name='severity',
-	ng-model='CaseService.kase.severity',
-	ng-options='s.name for s in CaseService.severities track by s.name')
+div(rha-selectloadingindicator='', loading='severitiesLoading', type='select2')
+  select(
+    chosen,
+    ng-disabled='!securityService.loginStatus.isLoggedIn',
+    ng-model='CaseService.severity',
+    ng-change='CaseService.onSelectChanged()',
+    width='"100%"',
+    ng-options='severity.name as severity.name for severity in CaseService.severities')

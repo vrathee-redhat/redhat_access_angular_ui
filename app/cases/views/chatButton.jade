@@ -1,0 +1,5 @@
+span(ng-show='showChat')
+  iframe(style='display: none;' ng-src='{{chatHackUrl}}')
+  button.btn.btn-primary.btn-slim.btn-sm(ng-show='chatAvailable'
+    ng-click='openChatWindow()', translate=''  ) Chat with support
+  button.btn.btn-secondary.btn-slim.btn-sm(ng-show='!chatAvailable' disabled , translate='') Chat offline

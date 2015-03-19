@@ -41,7 +41,8 @@ module.exports = function (grunt) {
                 'app/security/**/*.js',
                 'app/search/**/*.js',
                 'app/cases/**/*.js',
-                'app/log_viewer/**/*.js'
+                'app/log_viewer/**/*.js',
+                'app/escalation/**/*.js'
             ],
             jsTpl: ['.tmp/templates/**/*.js'],
             specs: ['test/**/*.spec.js'],
@@ -53,16 +54,18 @@ module.exports = function (grunt) {
                     'app/security/**/*.html',
                     'app/search/**/*.html',
                     'app/cases/**/*.html',
-                    'app/log_viewer/**/*.html'
+                    'app/log_viewer/**/*.html',
+                    'app/escalation/**/*.html'
                 ]
             },
             css: {
                 app: [
-                    'app/assets/css/main.min.css'
-                    // 'app/security/**/*.css',
-                    // 'app/search/**/*.css',
-                    // 'app/cases/**/*.css',
-                    // 'app/log_viewer/**/*.css'
+                    'app/common/**/*.css',
+                    'app/security/**/*.css',
+                    'app/search/**/*.css',
+                    'app/cases/**/*.css',
+                    'app/log_viewer/**/*.css',
+                    'app/escalation/**/*.css'
                 ]
             },
             img: ['<%= yeoman.app %>/**/img/*'],
@@ -81,8 +84,7 @@ module.exports = function (grunt) {
                     '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js',
                     '<%= yeoman.bowerDir %>/angular-chosen-localytics/chosen.js',
                     '<%= yeoman.bowerDir %>/angular-cache/dist/angular-cache.js',
-                    '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js',
-                    '<%= yeoman.bowerDir %>/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
+                    '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js'
                 ],
                 css: [
                     '<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
@@ -106,13 +108,6 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             },
-	        sass: {
-		        files: [
-			        'app/assets/sass/*.scss',
-			        'app/assets/sass/**/*.scss'
-		        ],
-		        tasks: ['sass']
-	        },
             jsTest: {
                 files: ['test/spec/{,*/}*.js'],
                 tasks: [
@@ -123,8 +118,8 @@ module.exports = function (grunt) {
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: [
-                    'newer:copy:styles'
-                    //'autoprefixer'
+                    'newer:copy:styles',
+                    'autoprefixer'
                 ]
             },
             gruntfile: {
@@ -142,9 +137,8 @@ module.exports = function (grunt) {
                     '<%= src.tpl.app %>',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-					'app/assets/css/main.min.css'
-				]
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
+                ]
             }
         },
         connect: {
@@ -203,21 +197,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-	    sass: {
-		    dist: {
-			    options: {
-				    style: 'expanded',
-				    compass: true,
-				    require: 'breakpoint',
-				    lineNumbers: true
-			    },
-			    files: {
-				    'app/assets/css/main.min.css': [
-					    'app/assets/sass/main.scss'
-				    ]
-			    }
-		    }
-	    },
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
@@ -248,19 +227,19 @@ module.exports = function (grunt) {
             server: '.tmp',
             hooks: ['.git/hooks/pre-commit']
         },
-        // autoprefixer: {
-        //     options: {
-        //         browsers: ['last 1 version']
-        //     },
-        //     dist: {
-        //         files: [{
-        //             expand: true,
-        //             cwd: '.tmp/styles/',
-        //             src: '{,*/}*.css',
-        //             dest: '.tmp/styles/'
-        //         }]
-        //     }
-        // },
+        autoprefixer: {
+            options: {
+                browsers: ['last 1 version']
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/styles/',
+                    src: '{,*/}*.css',
+                    dest: '.tmp/styles/'
+                }]
+            }
+        },
         'bower-install': {
             app: {
                 html: '<%= yeoman.app %>/index.html',
@@ -508,9 +487,14 @@ module.exports = function (grunt) {
                     separator: '\n',
                     sonar: {
                         host: {
-                            url: 'http://localhost:9000/sonar/'
+                            url: 'http://jenkins.gsslab.pnq.redhat.com:9100/sonar/'
                         },
-                        projectKey: 'sonar:redhat_access_angular_ui',
+                        jdbc: {
+                            url: 'jdbc:mysql://jenkins.gsslab.pnq.redhat.com:3306/sonar',
+                            username: 'sonar',
+                            password: 'sonar'
+                        },
+                        projectKey: 'portal:pcm:redhat_access_angular_ui',
                         projectName: 'redhat_access_angular_ui',
                         projectVersion: '<%= pkg.version %>',
                         sources: ['app'].join(','),
@@ -521,9 +505,17 @@ module.exports = function (grunt) {
             }
         },
         karma_sonar: {
-            default_options: {
+            options: {
+                instance: {
+                    hostUrl: 'http://jenkins.gsslab.pnq.redhat.com:9100/sonar/',
+                    jdbcUrl: 'jdbc:mysql://jenkins.gsslab.pnq.redhat.com:3306/sonar',
+                    login: 'admin',
+                    password: 'admin'
+                }
+            },
+            your_target: {
                 project: {
-                    key: 'sonar:redhat_access_angular_ui',
+                    key: 'portal:pcm:redhat_access_angular_ui',
                     name: 'redhat_access_angular_ui',
                     version: '<%= pkg.version %>'
                 },
@@ -550,29 +542,11 @@ module.exports = function (grunt) {
             'newer:jade',
             'build',
             'concurrent:server',
-            //'autoprefixer',
+            'autoprefixer',
             'connect:livereload',
             'watch'
         ]);
     });
-	grunt.registerTask('dev', function (target) {
-		//if (target === 'dist') {
-		//	return grunt.task.run([
-		//		'build',
-		//		'connect:dist:keepalive'
-		//	]);
-		//}
-		grunt.task.run([
-			//'clean:server',
-			//'bower-install',
-			//'newer:jade',
-			'build',
-			//'concurrent:server',
-			//'autoprefixer',
-			'connect:livereload',
-			'watch'
-		]);
-	});
     grunt.registerTask('server', function () {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
         grunt.task.run(['serve']);
@@ -580,7 +554,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'html2js',
         'concurrent:test',
-        //'autoprefixer',
+        'autoprefixer',
         'connect:test',
         'karma'
     ]);
@@ -588,19 +562,18 @@ module.exports = function (grunt) {
         'clean:dist',
         'bower-install',
         'newer:jade',
-	    'sass',
-	    'useminPrepare',
+        'useminPrepare',
         'html2js',
         'concurrent:dist',
-        //'autoprefixer',
+        'autoprefixer',
         'nggettext_compile',
         'concat',
         'ngAnnotate',
         'copy:images',
         'cssmin',
         'imageEmbed',
-        'htmlmin'
-        //'test'
+        'htmlmin',
+        'test'
     ]);
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('inithooks', [
@@ -612,7 +585,6 @@ module.exports = function (grunt) {
         'build'
     ]);
     grunt.registerTask('sonar', [
-        'sonarRunner:analysis',
-        'karma_sonar'
+        'sonarRunner:analysis'
     ]);
 };

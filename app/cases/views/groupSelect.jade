@@ -1,15 +1,11 @@
-div
-	select#rha-group-select(
-	    chosen,
-      width='"100%"',
-	    ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
-	    ng-model='CaseService.group',
-	    ng-change='CaseService.onGroupSelectChanged()',
-	    placeholder='Select a Group',
-	    ng-options='option.value as option.label for option in CaseService.groupOptions',
-	    options-disabled="option.isDisabled for option in CaseService.groupOptions")
-	//span.glyphicon.glyphicon-question-sign(
-	//         popover="{{'Filtering by case groups helps you find related cases.'|translate}}",
-	//         tabindex='0',
-	//         popover-append-to-body='true',
-	//         popover-trigger='mouseenter')
+div.group-select(rha-selectloadingindicator='', loading='CaseService.groupsLoading', type='select2')
+  select#rha-group-select(
+    chosen,
+    ng-disabled='!securityService.loginStatus.isLoggedIn',
+    ng-model='CaseService.group',
+    ng-change='CaseService.onGroupSelectChanged()',
+    placeholder='Select a Group',
+    width='"100%"',
+    ng-options='option.value as option.label for option in CaseService.groupOptions',
+    options-disabled="option.isDisabled for option in CaseService.groupOptions")
+

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="bootstrap3 legacyfalse chrometwo">
+<html class="bootstrap3 legacyfalse chrometwo pafoff">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,14 +16,13 @@
     <link rel="stylesheet" href="bower_components/chosen/chosen.css" />
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/case.css -->
-    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="stylesheet" href="cases/styles/case.css">
     <link rel="stylesheet" href="log_viewer/styles/log_viewer.css">
     <link rel="stylesheet" href="security/styles/security.css">
     <link rel="stylesheet" href="common/styles/treeviewselector.css">
     <link rel="stylesheet" href="common/styles/helpers.css">
     <link rel="stylesheet" href="search/styles/search.css">
     <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <!-- endbuild -->
     <!--[if lte IE 8]>
     <script type="text/javascript"> var ie8 = true;</script>
@@ -56,21 +55,22 @@
     window.deps.push("/bower_components/angular-gettext/dist/angular-gettext.js");
     window.deps.push("/bower_components/angular-cache/dist/angular-cache.min.js");
     window.deps.push("/bower_components/angular-chosen-localytics/chosen.js");
-    window.deps.push("/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js");
 
 
     window.deps.push("/bower_components/chosen/chosen.jquery.js");
     window.deps.push("/bower_components/angular-treeview/angular.treeview.min.js");
 
+    window.deps.push("/common/common.module.js");
     window.deps.push("/cases/cases.module.js");
     window.deps.push("/cases/controllers/accountSelect.js");
     window.deps.push("/cases/controllers/addCommentSection.js");
     window.deps.push("/cases/controllers/attachLocalFile.js");
     window.deps.push("/cases/controllers/attachmentsSection.js");
     window.deps.push("/cases/controllers/backendAttachments.js");
-    window.deps.push("/cases/controllers/discussionSection.js");
-    window.deps.push("/cases/controllers/confirmCaseCloseModal.js");
-    window.deps.push("/cases/controllers/confirmCaseStateChangeModal.js");    
+    window.deps.push("/cases/controllers/chatButton.js");
+    window.deps.push("/cases/controllers/commentsSection.js");
+    window.deps.push("/cases/controllers/compactCaseList.js");
+    window.deps.push("/cases/controllers/compactEdit.js");
     window.deps.push("/cases/controllers/createGroupButton.js");
     window.deps.push("/cases/controllers/createGroupModal.js");
     window.deps.push("/cases/controllers/deleteGroupButton.js");
@@ -82,7 +82,6 @@
     window.deps.push("/cases/controllers/emailNotifySelect.js");
     window.deps.push("/cases/controllers/entitlementSelect.js");
     window.deps.push("/cases/controllers/exportCSVButton.js");
-    window.deps.push("/cases/controllers/filterSelect.js");
     window.deps.push("/cases/controllers/group.js");
     window.deps.push("/cases/controllers/groupList.js");
     window.deps.push("/cases/controllers/groupSelect.js");
@@ -92,24 +91,26 @@
     window.deps.push("/cases/controllers/listNewAttachments.js");
     window.deps.push("/cases/controllers/new.js");
     window.deps.push("/cases/controllers/ownerSelect.js");
-    window.deps.push("/cases/controllers/newCaseRecommendationsSection.js");
-    window.deps.push("/cases/controllers/proceedWithoutAttachModal.js");
+    window.deps.push("/cases/controllers/pcmRecommendations.js");
     window.deps.push("/cases/controllers/productSelect.js");
-    window.deps.push("/cases/controllers/editCaseRecommendationsSection.js");
+    window.deps.push("/cases/controllers/recommendationsSection.js");
     window.deps.push("/cases/controllers/requestManagementEscalationModal.js");
-    window.deps.push("/cases/controllers/requestEscalation.js");
+    window.deps.push("/cases/controllers/search.js");
     window.deps.push("/cases/controllers/searchBox.js");
     window.deps.push("/cases/controllers/severitySelect.js");
     window.deps.push("/cases/controllers/statusSelect.js");
     window.deps.push("/cases/controllers/typeSelect.js");
     window.deps.push("/cases/controllers/listBugzillas.js");
-    window.deps.push("/cases/controllers/versionSelect.js");
+    window.deps.push("/cases/directives/403.js");
+    window.deps.push("/cases/directives/404.js");
     window.deps.push("/cases/directives/accountSelect.js");
     window.deps.push("/cases/directives/addCommentSection.js");
     window.deps.push("/cases/directives/attachLocalFile.js");
     window.deps.push("/cases/directives/attachmentsSection.js");
     window.deps.push("/cases/directives/attachProductLogs.js");
-    window.deps.push("/cases/directives/discussionSection.js");
+    window.deps.push("/cases/directives/chatButton.js");
+    window.deps.push("/cases/directives/commentsSection.js");
+    window.deps.push("/cases/directives/compactCaseList.js");
     window.deps.push("/cases/directives/createGroupButton.js");
     window.deps.push("/cases/directives/deleteGroupButton.js");
     window.deps.push("/cases/directives/descriptionSection.js");
@@ -117,7 +118,6 @@
     window.deps.push("/cases/directives/emailNotifySelect.js");
     window.deps.push("/cases/directives/entitlementSelect.js");
     window.deps.push("/cases/directives/exportCSVButton.js");
-    window.deps.push("/cases/directives/filterSelect.js");
     window.deps.push("/cases/directives/groupList.js");
     window.deps.push("/cases/directives/groupSelect.js");
     window.deps.push("/cases/directives/listAttachments.js");
@@ -126,48 +126,29 @@
     window.deps.push("/cases/directives/onChange.js");
     window.deps.push("/cases/directives/ownerSelect.js");
     window.deps.push("/cases/directives/productSelect.js");
-    window.deps.push("/cases/directives/newCaseRecommendationsSection.js");
-    window.deps.push("/cases/directives/requestEscalation.js");
+    window.deps.push("/cases/directives/pageHeader.js");
+    window.deps.push("/cases/directives/recommendationsSection.js");
     window.deps.push("/cases/directives/searchBox.js");
+    window.deps.push("/cases/directives/searchResult.js");
     window.deps.push("/cases/directives/selectLoadingIndicator.js");
     window.deps.push("/cases/directives/severitySelect.js");
     window.deps.push("/cases/directives/statusSelect.js");
     window.deps.push("/cases/directives/typeSelect.js");
     window.deps.push("/cases/directives/listBugzillas.js");
-    window.deps.push("/cases/directives/editCaseRecommendationsSection.js");
-    window.deps.push("/cases/directives/versionSelect.js");
+    window.deps.push("/cases/directives/newRecommendationsSection.js");
     window.deps.push("/cases/filters/bytes.js");
-    window.deps.push("/cases/filters/substring.js");
+    window.deps.push("/cases/filters/recommendationsResolution.js");
     window.deps.push("/cases/services/attachmentsService.js");
     window.deps.push("/cases/services/caseListService.js");
     window.deps.push("/cases/services/caseService.js");
-    window.deps.push("/cases/services/discussionService.js");
     window.deps.push("/cases/services/groupService.js");
     window.deps.push("/cases/services/groupUserService.js");
-    window.deps.push("/cases/services/productsService.js");
     window.deps.push("/cases/services/recommendationsService.js");
     window.deps.push("/cases/services/searchBoxService.js");
     window.deps.push("/cases/services/searchCaseService.js");
-
-    window.deps.push("/common/common.module.js");
+    window.deps.push("/common/services/strataService.js");
     window.deps.push("/common/header.module.js");
     window.deps.push("/common/ui-utils.module.js");
-    window.deps.push("/common/controllers/403.js");
-    window.deps.push("/common/controllers/404.js");
-    window.deps.push("/common/controllers/alert.js");
-    window.deps.push("/common/controllers/chatButton.js");
-    window.deps.push("/common/controllers/header.js");
-    window.deps.push("/common/controllers/titleView.js");
-    window.deps.push("/common/directives/403.js");
-    window.deps.push("/common/directives/404.js");
-    window.deps.push("/common/directives/alert.js");
-    window.deps.push("/common/directives/autoFocus.js");
-    window.deps.push("/common/directives/chatButton.js");
-    window.deps.push("/common/directives/header.js");
-    window.deps.push("/common/directives/titleTemplate.js");
-    window.deps.push("/common/services/alertService.js");
-    window.deps.push("/common/services/headerService.js");
-    window.deps.push("/common/services/strataService.js");
     window.deps.push("/i18n/translations.js");
     window.deps.push("/log_viewer/log_viewer.module.js");
     window.deps.push("/log_viewer/controllers/AccordionDemoCtrl.js");
@@ -183,6 +164,9 @@
     window.deps.push("/log_viewer/services/accordianService.js");
     window.deps.push("/log_viewer/services/fileService.js");
 
+    window.deps.push("/escalation/escalation.module.js");
+    window.deps.push("/escalation/controllers/escalationRequest.js");
+    window.deps.push("/escalation/services/escalationRequestService.js");
 
     window.deps.push("/security/security.module.js");
     window.deps.push("/security/directives/loginStatus.js");

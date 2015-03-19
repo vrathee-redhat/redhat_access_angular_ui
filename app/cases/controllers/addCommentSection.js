@@ -6,27 +6,18 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
     'strataService',
     'CaseService',
     'AlertService',
-    'AttachmentsService',
     'securityService',
     '$timeout',
     'RHAUtils',
-    'EDIT_CASE_CONFIG',
-    function ($scope, strataService, CaseService, AlertService, AttachmentsService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG) {
+    function ($scope, strataService, CaseService, AlertService, securityService, $timeout, RHAUtils) {
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
-        $scope.AttachmentsService = AttachmentsService;
         $scope.addingComment = false;
         $scope.progressCount = 0;
         $scope.maxCommentLength = '32000';
-        $scope.textBoxEnlarge = false;
-
-        $scope.clearComment = function(){
-        	CaseService.commentText = '';
-        	CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
-        	AttachmentsService.updatedAttachments = [];
-        };
 
         $scope.addComment = function () {
+            $scope.addingComment = true;
             if (!securityService.loginStatus.authedUser.is_internal) {
                 CaseService.isCommentPublic = true;
             }
@@ -65,9 +56,6 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     $scope.savingDraft = false;
                     CaseService.draftSaved = false;
                     CaseService.draftComment = undefined;
-                    $scope.textBoxEnlarge = false;
-                }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
                 });
                 $scope.progressCount = 0;
 
@@ -85,35 +73,21 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.addingComment = false;
                 $scope.progressCount = 0;
             };
-            if(!CaseService.disableAddComment){
-                $scope.addingComment = true;
-                if(CaseService.localStorageCache) {
-                    if(CaseService.draftCommentOnServerExists)
-                    {
-                        strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
-                    }
-                    else {
-                        strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
-                    }
+            if(CaseService.localStorageCache) {
+                if(CaseService.draftCommentOnServerExists)
+                {
+                    strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
                 }
                 else {
-                    if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
-                        strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
-                    } else {
-                        strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
-                    }
+                    strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
                 }
             }
-            if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && EDIT_CASE_CONFIG.showAttachments) {
-                $scope.addingattachment = true;
-                AttachmentsService.updateAttachments(CaseService.kase.case_number).then(function () {
-                    $scope.addingattachment = false;
-                }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
-                    $scope.addingattachment = false;
-                });
-            } else if(EDIT_CASE_CONFIG.showAttachments && $scope.ie8 || EDIT_CASE_CONFIG.showAttachments && $scope.ie9 ) {
-                $scope.ieFileUpload(CaseService.kase.case_number);
+            else {
+                if (RHAUtils.isNotEmpty(CaseService.draftComment)) {
+                    strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
+                } else {
+                    strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, false).then(onSuccess, onError);
+                }
             }
         };
         $scope.saveDraftPromise;

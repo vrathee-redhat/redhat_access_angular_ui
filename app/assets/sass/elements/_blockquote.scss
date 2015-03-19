@@ -1,7 +1,0 @@
-blockquote {
-	@include font-size(14px);
-
-	.comment & {
-		padding: $global-padding;
-	}
-}

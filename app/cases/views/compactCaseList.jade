@@ -1,0 +1,23 @@
+div#redhat-access-case
+  div.container-fluid#redhat-access-compact-list(ng-hide='!CaseService.sfdcIsHealthy')
+    div.row
+      div.col-xs-12.rha-col-no-padding
+        div(rha-listfilter='')
+    div.row
+      div.col-xs-12
+        div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
+        span(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn').rha-search-spinner
+    div.row(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching', style='border-top: 1px solid #dddddd;')
+      div.col-xs-12(
+        style='overflow: auto;',
+        rha-resizable,
+        rha-domready='domReady',
+        class='rha-col-no-padding')
+        div(
+          style='margin-bottom: 0px; overflow: auto;')
+          ul.list-group(style='margin-bottom: 0px;')
+            a.list-group-item(
+              ng-repeat='case in SearchCaseService.cases',
+              ui-sref='.edit({id: "{{case.case_number}}"})',
+              ng-class='{"active": $index == selectedCaseIndex}',
+              ng-click='selectCase($index)') {{case.case_number}} {{case.summary}}

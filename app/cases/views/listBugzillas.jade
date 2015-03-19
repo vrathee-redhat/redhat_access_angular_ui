@@ -1,12 +1,14 @@
-span.rha-search-spinner(ng-show='loading')
-div(ng-hide='CaseService.bugzillaList.bugzilla.length > 0' , style='padding-bottom: 10px;') {{'No linked bugzillas'|translate}}
-div.panel.panel-default(ng-show='CaseService.bugzillaList.bugzilla.length > 0')
-  table.table.table-hover.table-bordered
-    thead
-      th {{'Bugzilla Number'|translate}}
-      th {{'Summary of Request'|translate}}
-    tbody
-      tr(ng-repeat='bugzilla in CaseService.bugzillaList.bugzilla')
-        td
-          a(href='{{bugzilla.resource_view_uri}}', target='_blank') {{bugzilla.bugzilla_number}}
-        td {{bugzilla.summary}}
+div.redhat-access-bz(ng-show='securityService.loginStatus.authedUser.is_internal')
+  h4.rha-section-header(style='padding-top: 20px;') {{'Bugzilla Tickets'|translate}}
+  span.rha-search-spinner(ng-show='loading')
+  div(ng-hide='CaseService.bugzillaList.bugzilla.length > 0' , style='padding-bottom: 10px;') {{'No linked bugzillas'|translate}}
+  div.panel.panel-default(ng-show='CaseService.bugzillaList.bugzilla.length > 0')
+    table.table.table-hover.table-bordered
+      thead
+        th {{'Bugzilla Number'|translate}}
+        th {{'Summary of Request'|translate}}
+      tbody   
+        tr(ng-repeat='bugzilla in CaseService.bugzillaList.bugzilla')
+          td 
+            a(href='{{bugzilla.resource_view_uri}}', target='_blank') {{bugzilla.bugzilla_number}}
+          td {{bugzilla.summary}}

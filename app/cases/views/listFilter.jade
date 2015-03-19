@@ -1,5 +1,14 @@
-.row
-  .filters
-    div.col-sm-12.col-md-4(rha-searchbox='', placeholder="'Search'|translate")
-    div.col-sm-12.col-md-4(rha-groupselect='', ng-init="setSearchOptions(true)")
-    div.col-sm-12.col-md-4(rha-statusselect='')
+div.row
+  div.col-md-6
+    div(rha-searchbox='', placeholder="'Search'|translate")
+  div.col-md-3
+    div
+      span.glyphicon.glyphicon-question-sign.pull-right(
+        popover="{{'Filtering by case groups helps you find related cases.'|translate}}",
+        popover-placement="bottom",
+        tabindex='0',
+        popover-append-to-body='true',
+        popover-trigger='mouseenter')
+      div(rha-groupselect='', ng-init="setSearchOptions(true)")
+  div.col-md-3
+    div(rha-statusselect='')

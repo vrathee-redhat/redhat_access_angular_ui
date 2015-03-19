@@ -8,30 +8,42 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
     'CASE_GROUPS',
     'AUTH_EVENTS',
     '$q',
+    '$state',
     '$rootScope',
     'SearchBoxService',
     'securityService',
     'COMMON_CONFIG',
-    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $rootScope, SearchBoxService, securityService, COMMON_CONFIG) {
+    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $state, $rootScope, SearchBoxService, securityService, COMMON_CONFIG) {
         this.cases = [];
         this.totalCases = 0;
         this.searching = true;
+        this.prefilter = {};
         this.postfilter = {};
         this.start = 0;
-        this.count = 50;
+        this.count = 100;
         this.total = 0;
         this.allCasesDownloaded = false;
         this.caseListPage = 1;
         this.caseListPageSize = 10;
+        var getIncludeClosed = function () {
+            if (CaseService.status === STATUS.open) {
+                return false;
+            } else if (CaseService.status === STATUS.closed) {
+                return true;
+            } else if (CaseService.status === STATUS.both) {
+                return true;
+            }
+            return true;
+        };
         this.clear = function () {
             this.cases = [];
-            //this.oldParams = {};
-            this.oldQueryString = ""
+            this.oldParams = {};
             SearchBoxService.searchTerm = '';
             this.start = 0;
             this.total = 0;
             this.totalCases = 0;
             this.allCasesDownloaded = false;
+            this.prefilter = {};
             this.postfilter = {};
             this.searching = true;
         };
@@ -41,32 +53,22 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.allCasesDownloaded = false;
             this.cases = [];
         };
-        //this.oldParams = {};
-        this.oldQueryString = ""
-
-        var queryString = "";
-        var concatQueryString = function(param){
-            if(queryString === ""){
-                queryString = param;
-            }else{
-                queryString = queryString.concat(" AND " + param);
-            }
-        }
+        this.oldParams = {};
         this.doFilter = function (checkIsInternal) {
-            queryString = "";// "start=" + this.start "&rows=" + this.count + "&query=";
-
-            if (CaseService.status === STATUS.open) {
-                concatQueryString("+case_status:Waiting*")
-            } else if (CaseService.status === STATUS.closed) {
-                concatQueryString("+case_status:Closed")
-            } else{
-                concatQueryString("+case_status:*")
+            if (angular.isFunction(this.prefilter)) {
+                this.prefilter();
             }
-            //TODO add internal and GS4
-            // if(COMMON_CONFIG.isGS4 === true){
-            //     params.account_number = "639769";
+            // if(this.start > 0){
+            //     this.count = this.totalCases - this.start;
             // }
-            //params.start = this.start;
+            var params = {
+                count: this.count,
+                include_closed: getIncludeClosed()
+            };
+            if(COMMON_CONFIG.isGS4 === true){
+                params.account_number = "639769";
+            }
+            params.start = this.start;
             var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
                     return true;
@@ -75,104 +77,70 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 }
             };
             if (!isObjectNothing(SearchBoxService.searchTerm)) {
-                //params.keyword = SearchBoxService.searchTerm;
-                concatQueryString("allText:" + SearchBoxService.searchTerm);
+                params.keyword = SearchBoxService.searchTerm;
             }
-            if(!securityService.loginStatus.authedUser.is_internal){
-                if (CaseService.group === CASE_GROUPS.ungrouped) {
-                    concatQueryString("+case_hasGroup:false")
-                } else if (!isObjectNothing(CaseService.group)) {
-                    //TODO add support for case group
-                    concatQueryString("+case_folderNumber:" + CaseService.group)
-                    //params.group_numbers = { group_number: [CaseService.group] };
-                }
+            if (CaseService.group === CASE_GROUPS.manage) {
+                $state.go('group');
+            } else if (CaseService.group === CASE_GROUPS.ungrouped) {
+                params.only_ungrouped = true;
+            } else if (!isObjectNothing(CaseService.group)) {
+                params.group_numbers = { group_number: [CaseService.group] };
             }
-            if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
-                concatQueryString("+case_owner:\"" + securityService.loginStatus.authedUser.first_name + " " + securityService.loginStatus.authedUser.last_name + "\"");
-                //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                //params.view = 'internal';
+            if (CaseService.status === STATUS.closed) {
+                params.status = STATUS.closed;
             }
-            // if (CaseService.status === STATUS.closed) {
-            //     params.status = STATUS.closed;
-            // }
-            // if (!isObjectNothing(CaseService.product)) {
-            //     concatQueryString(queryString, "+case_hasGroup:" + CaseService.product)
-            //     //params.product = CaseService.product;
-            // }
-            //Should get for free
-            // if (!isObjectNothing(CaseService.owner)) {
-            //     params.owner_ssoname = CaseService.owner;
-            // }
-            //TODO what is case type
-            // if (!isObjectNothing(CaseService.type)) {
-            //     params.type = CaseService.type;
-            // }
-            // if (!isObjectNothing(CaseService.severity)) {
-            //     params.severity = CaseService.severity;
-            // }
-            if(!CaseService.filterSelect !== undefined){
-                if (CaseService.filterSelect.sortField !== undefined){
-                    if(queryString === ""){
-                        queryString = "sort=case_" + CaseService.filterSelect.sortField;
-                    } else{
-                        queryString = queryString + "&sort=case_" + CaseService.filterSelect.sortField;
-                    }
-                    //params.sort_field = CaseService.filterSelect.sortField;
-                }
-                if (CaseService.filterSelect.sortOrder !== undefined){
-                    queryString = queryString + " " +CaseService.filterSelect.sortOrder;
-                    //params.sort_order = CaseService.filterSelect.sortOrder;
-                }
+            if (!isObjectNothing(CaseService.product)) {
+                params.product = CaseService.product;
             }
-            queryString = queryString + "&offset=" + this.start + "&limit=" + this.count;
-            // if (!isObjectNothing(CaseService.sortBy)) {
-            //     params.sort_field = CaseService.sortBy;
-            // }
-            // if (!isObjectNothing(CaseService.sortOrder)) {
-            //     params.sort_order = CaseService.sortOrder;
-            // }
+            if (!isObjectNothing(CaseService.sortBy)) {
+                params.sort_field = CaseService.sortBy;
+            }
+            if (!isObjectNothing(CaseService.sortOrder)) {
+                params.sort_order = CaseService.sortOrder;
+            }
+            if (!isObjectNothing(CaseService.owner)) {
+                params.owner_ssoname = CaseService.owner;
+            }
+            if (!isObjectNothing(CaseService.type)) {
+                params.type = CaseService.type;
+            }
+            if (!isObjectNothing(CaseService.severity)) {
+                params.severity = CaseService.severity;
+            }
+            //TODO: hack to get around onchange() firing at page load for each select.
+            //Need to prevent initial onchange() event instead of handling here.
             var promises = [];
             var deferred = $q.defer();
-            //if (!angular.equals(params, this.oldParams)) {
-            if (!angular.equals(queryString, this.oldQueryString)) {
+            if (!angular.equals(params, this.oldParams)) {
                 this.searching = true;
-                this.oldQueryString = queryString;
+                this.oldParams = params;
                 var that = this;
                 var cases = null;
                 if (securityService.loginStatus.isLoggedIn) {
-                    //TODO add internal pallet
-                    // if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
-                    //     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                    //     //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                    //     //params.view = 'internal';
-                    // }
-                    cases = strataService.cases.search(queryString, true).then(angular.bind(that, function (response) {
-                        if(response.case === undefined){
+                    if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
+                        params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
+                        params.view = 'internal';
+                    }
+                    cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
+                        if(response['case'] === undefined ){
                             that.totalCases = 0;
                             that.total = 0;
                             that.allCasesDownloaded = true;
                         } else {
-                            //TODO fix broken case scrolling
-                            //that.totalCases = response.total_count;
-                            // if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
-                            //     that.allCasesDownloaded = true;
-                            // }
-                            //if (response['case'] !== undefined){
-	                        that.totalCases = response.total_count;
-	                        that.cases = that.cases.concat(response.case);
-	                        //that.count = response['case'].length + that.total
-	                        that.start = that.start + that.count;
-	                        that.total = that.total + response.case.length;
-	                        if(response.case.length !== 50){
-                        		that.allCasesDownloaded = true;
-                        	}
-                    	}
-                            //}
-                            //if (angular.isFunction(that.postFilter)) {
-                            //    that.postFilter();
-                            //}
-                        //}
+                            that.totalCases = response.total_count;
+                            if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
+                                that.allCasesDownloaded = true;
+                            }
+                            if (response['case'] !== undefined){
+                                that.cases = that.cases.concat(response['case']);
+                                //that.count = response['case'].length + that.total
+                                that.start = that.start + that.count;
+                                that.total = that.total + response['case'].length;
+                            }
+                            if (angular.isFunction(that.postFilter)) {
+                                that.postFilter();
+                            }
+                        }
                         that.searching = false;
                         deferred.resolve(cases);
                     }), angular.bind(that, function (error) {
@@ -193,7 +161,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         }
                         cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                             that.totalCases = response.total_count;
-                            
                             that.cases = that.cases.concat(response['case']);
                             that.searching = false;
                             that.start = that.start + that.count;
