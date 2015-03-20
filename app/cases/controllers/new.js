@@ -71,6 +71,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             if (CaseService.owner !== undefined) {
                 CaseService.populateEntitlements(CaseService.owner);
                 CaseService.populateGroups(CaseService.owner);
+                ProductsService.getProducts(true);
             }
         });
 
@@ -86,7 +87,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             	$scope.notifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
         	});
             $scope.severitiesLoading = true;
-            ProductsService.getProducts();
+            ProductsService.getProducts(false);
             CaseService.populateEntitlements(securityService.loginStatus.authedUser.sso_username);
             strataService.values.cases.severity().then(function (severities) {
                 CaseService.severities = severities;

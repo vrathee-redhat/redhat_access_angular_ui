@@ -20,10 +20,24 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
        this.products = [];
        this.versions = []; 
     }
-    this.getProducts = function () {
+    this.getProducts = function (fetchForContact) {
         this.clear();
-        this.productsLoading = true;
-        strataService.products.list(securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function(response) {
+        var contact = securityService.loginStatus.authedUser.sso_username;
+        if(fetchForContact === true) {
+            if (securityService.loginStatus.authedUser.is_internal) {
+                if (RHAUtils.isNotEmpty(CaseService.owner)) {
+                    contact = CaseService.owner;  // When internal user creates case for another account
+                }
+            }
+        } else {
+            this.productsLoading = true;
+            if (securityService.loginStatus.authedUser.is_internal) {
+                if (RHAUtils.isNotEmpty(CaseService.kase.contact_sso_username)) {
+                    contact = CaseService.kase.contact_sso_username; // When internal user views case of another account
+                }
+            }
+        }
+        strataService.products.list(contact).then(angular.bind(this, function(response) {
         	this.products = response;
             this.buildProductOptions();
             this.productsLoading = false;
