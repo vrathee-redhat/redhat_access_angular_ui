@@ -52,7 +52,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-            ProductsService.getProducts();
+            ProductsService.getProducts(false);
             $scope.userIsCaseOwner = true;
             var ownerOptions = [];
             //Assuming the full name matches the owner name, strata does not support getting that through case object
