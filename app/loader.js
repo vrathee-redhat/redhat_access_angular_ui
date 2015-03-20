@@ -7,7 +7,8 @@
     'use strict';
     window.require.config({
       paths: {
-        'strata': '/bower_components/stratajs/strata'
+        'strata': '/bower_components/stratajs/strata',
+        'uds': '/bower_components/udsjs/uds'
       },
       map: {
         '*': {
@@ -16,9 +17,10 @@
       }
     });
 
-    window.chrometwo_require(['strata'], function(strata) {
-      // export strata
+    window.chrometwo_require(['strata','uds'], function(strata,uds) {
+      // export strata and uds
       window.strata = strata;
+      window.uds = uds;
     });
 
     // keep track of deferreds we are loading
@@ -62,13 +64,13 @@
             ]).run([
                 '$rootScope',
                 'COMMON_CONFIG',
-                'CHAT_SUPPORT', 
-                'EDIT_CASE_CONFIG', 
-                'NEW_CASE_CONFIG', 
+                'CHAT_SUPPORT',
+                'EDIT_CASE_CONFIG',
+                'NEW_CASE_CONFIG',
                 'SECURITY_CONFIG',
                 'AUTH_EVENTS',
-                'securityService',  
-                'gettextCatalog', 
+                'securityService',
+                'gettextCatalog',
                 function ($rootScope, COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, AUTH_EVENTS, securityService, gettextCatalog){
                   COMMON_CONFIG.showTitle = true;
                   SECURITY_CONFIG.autoCheckLogin = false;
