@@ -307,10 +307,12 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 },
-                update: function(groupName, groupnum){
+                update: function(group, ssoUserName){
                     var deferred = $q.defer();
-                    strata.groups.update(groupName, groupnum, function (response) {
+                    strata.groups.update(group, function (response) {
                         deferred.resolve(response);
+                        clearCache('groups' + ssoUserName);
+                        clearCache('groups' + group.number + ssoUserName);
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 },
