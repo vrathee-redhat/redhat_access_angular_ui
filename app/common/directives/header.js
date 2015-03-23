@@ -6,4 +6,4 @@ angular.module('RedhatAccess.header').directive('rhaHeader', function () {
         scope: { page: '@' },
         controller: 'HeaderController'
     };
-})
+});

@@ -6,4 +6,4 @@ angular.module('RedhatAccess.header').directive('rhaTitletemplate', function () 
         templateUrl: 'common/views/title.html',
         controller: 'TitleViewCtrl'
     };
-})
+});

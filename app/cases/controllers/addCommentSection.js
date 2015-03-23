@@ -81,7 +81,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                         AlertService.addStrataErrorMessage(error);
                     });
                 }
-                
+
             };
             var onError = function (error) {
                 AlertService.addStrataErrorMessage(error);
@@ -218,6 +218,6 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             if(CaseService.commentText === undefined || CaseService.commentText === ''){
                 DiscussionService.commentTextBoxEnlargen=false;
             }
-        }
+        };
     }
 ]);

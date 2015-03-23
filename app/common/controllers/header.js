@@ -51,4 +51,4 @@ angular.module('RedhatAccess.header').controller('HeaderController', [
             }
         });
     }
-])
+]);

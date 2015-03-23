@@ -143,7 +143,7 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
 					}
 				}
 				if(a.length > b.length){
-					return 1
+					return 1;
 				} else if (b.length > a.length){
 					return -1;
 				}
