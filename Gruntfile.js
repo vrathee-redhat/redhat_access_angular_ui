@@ -42,7 +42,8 @@ module.exports = function (grunt) {
                 'app/search/**/*.js',
                 'app/cases/**/*.js',
                 'app/log_viewer/**/*.js',
-                'app/ascension/**/*.js'
+                'app/ascension/**/*.js',
+                'app/escalation/**/*.js'
             ],
             jsTpl: ['.tmp/templates/**/*.js'],
             specs: ['test/**/*.spec.js'],
@@ -55,7 +56,8 @@ module.exports = function (grunt) {
                     'app/search/**/*.html',
                     'app/cases/**/*.html',
                     'app/log_viewer/**/*.html',
-                    'app/ascension/**/*.html'
+                    'app/ascension/**/*.html',
+                    'app/escalation/**/*.html'
                 ]
             },
             css: {

@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="common/styles/treeviewselector.css">
     <link rel="stylesheet" href="common/styles/helpers.css">
     <link rel="stylesheet" href="search/styles/search.css">
+    <link rel="stylesheet" href="escalation/styles/escalation.css">
     <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <!-- endbuild -->
@@ -203,6 +204,10 @@
     window.deps.push("/ascension/controllers/caseQueue.js");
     window.deps.push("/ascension/services/caseQueueService.js");
     window.deps.push("/ascension/directives/caseQueue.js");
+
+    window.deps.push("escalation/escalation.module.js");
+    window.deps.push("escalation/controllers/escalationRequest.js");
+    window.deps.push("escalation/services/escalationRequestService.js");
 
     window.deps.push("/redhat_access_module.js");
 

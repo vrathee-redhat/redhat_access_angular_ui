@@ -26,6 +26,7 @@ angular.module('RedhatAccess.header').controller('HeaderController', [
         };
         $scope.init = function () {
             HeaderService.pageLoadFailure = false;
+            HeaderService.showPartnerEscalationError = false;
             CaseService.sfdcIsHealthy = COMMON_CONFIG.sfdcIsHealthy;
             HeaderService.sfdcIsHealthy = COMMON_CONFIG.sfdcIsHealthy;
             if (COMMON_CONFIG.doSfdcHealthCheck) {
