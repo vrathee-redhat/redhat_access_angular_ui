@@ -76,7 +76,7 @@ angular.module('RedhatAccess.cases').controller('List', [
                   ['List']];
                 updateBreadCrumb();
             }
-        }
+        };
 
         /**
        * Callback after user login. Load the cases and clear alerts
@@ -101,7 +101,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             CaseService.clearCase();
             SearchCaseService.clear();
         });
-        
+
         $scope.$on('$destroy', function () {
             $scope.doSearchDeregister();
             $scope.listAuthEventDeregister();
@@ -111,19 +111,19 @@ angular.module('RedhatAccess.cases').controller('List', [
 
 	    $scope.caseLink = function (caseNumber) {
 		    $location.path('/case/' + caseNumber);
-	    }
+	    };
 
 	    $scope.caseChosen = function() {
 	        var trues = $filter("filter")( SearchCaseService.cases, {selected:true} );
 	        return trues.length;
-	    }
+	    };
 
 	    $scope.closeCases = function() {
             $modal.open({
                 templateUrl: 'cases/views/confirmCaseCloseModal.html',
                 controller: 'ConfirmCaseCloseModal'
             });
-	    }
+	    };
 
         $scope.getCasesText = function(){
             if(CaseService.status === STATUS.open){
@@ -133,7 +133,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             } else if(CaseService.status === STATUS.both){
                 $scope.displayedCaseText = 'Open and Closed Support Cases';
             }
-        }
+        };
 
         $scope.loadingRecWatcher = $scope.$watch('CaseService.status', function(newVal) {
             $scope.getCasesText();

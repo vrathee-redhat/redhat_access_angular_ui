@@ -44,7 +44,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             if (CaseService.kase.recommendations) {
                 //Push any pinned recommendations to the front of the array
                 if (CaseService.kase.recommendations.recommendation) {
-                    var tmpRec = []
+                    var tmpRec = [];
                     angular.forEach(CaseService.kase.recommendations.recommendation, angular.bind(this, function (rec) {
                         if (rec.pinned_at) {
                             rec.pinned = true;

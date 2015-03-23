@@ -26,7 +26,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.clear = function () {
             this.cases = [];
             //this.oldParams = {};
-            this.oldQueryString = ""
+            this.oldQueryString = "";
             SearchBoxService.searchTerm = '';
             this.start = 0;
             this.total = 0;
@@ -42,7 +42,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.cases = [];
         };
         //this.oldParams = {};
-        this.oldQueryString = ""
+        this.oldQueryString = "";
 
         var queryString = "";
         var concatQueryString = function(param){
@@ -51,16 +51,16 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             }else{
                 queryString = queryString.concat(" AND " + param);
             }
-        }
+        };
         this.doFilter = function (checkIsInternal) {
             queryString = "";// "start=" + this.start "&rows=" + this.count + "&query=";
 
             if (CaseService.status === STATUS.open) {
-                concatQueryString("+case_status:Waiting*")
+                concatQueryString("+case_status:Waiting*");
             } else if (CaseService.status === STATUS.closed) {
-                concatQueryString("+case_status:Closed")
+                concatQueryString("+case_status:Closed");
             } else{
-                concatQueryString("+case_status:*")
+                concatQueryString("+case_status:*");
             }
             //TODO add internal and GS4
             // if(COMMON_CONFIG.isGS4 === true){
@@ -80,10 +80,10 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             }
             if(!securityService.loginStatus.authedUser.is_internal){
                 if (CaseService.group === CASE_GROUPS.ungrouped) {
-                    concatQueryString("+case_hasGroup:false")
+                    concatQueryString("+case_hasGroup:false");
                 } else if (!isObjectNothing(CaseService.group)) {
                     //TODO add support for case group
-                    concatQueryString("+case_folderNumber:" + CaseService.group)
+                    concatQueryString("+case_folderNumber:" + CaseService.group);
                     //params.group_numbers = { group_number: [CaseService.group] };
                 }
             }
@@ -193,7 +193,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         }
                         cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                             that.totalCases = response.total_count;
-                            
+
                             that.cases = that.cases.concat(response['case']);
                             that.searching = false;
                             that.start = that.start + that.count;
