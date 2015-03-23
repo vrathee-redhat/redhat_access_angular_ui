@@ -14,5 +14,21 @@ angular.module('RedhatAccess.ascension').controller('CaseQueue', [
         $scope.securityService = securityService;
         $scope.HeaderService = HeaderService;
         $scope.CaseQueueService = CaseQueueService;
+        $scope.securityService = securityService;
+
+        $scope.init = function () {
+
+        };
+
+
+        if (securityService.loginStatus.isLoggedIn) {
+
+            $scope.init();
+        }
+
+        $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            $scope.init();
+
+        });
     }
 ]);
