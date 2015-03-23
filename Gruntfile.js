@@ -511,9 +511,14 @@ module.exports = function (grunt) {
                     separator: '\n',
                     sonar: {
                         host: {
-                            url: 'http://localhost:9000/sonar/'
+                            url: 'http://jenkins.gsslab.pnq.redhat.com:9100/sonar/'
                         },
-                        projectKey: 'sonar:redhat_access_angular_ui',
+                        jdbc: {
+                            url: 'jdbc:mysql://jenkins.gsslab.pnq.redhat.com:3306/sonar',
+                            username: 'sonar',
+                            password: 'sonar'
+                        },
+                        projectKey: 'portal:pcm:redhat_access_angular_ui',
                         projectName: 'redhat_access_angular_ui',
                         projectVersion: '<%= pkg.version %>',
                         sources: ['app'].join(','),
@@ -524,9 +529,17 @@ module.exports = function (grunt) {
             }
         },
         karma_sonar: {
-            default_options: {
+            options: {
+                instance: {
+                    hostUrl: 'http://jenkins.gsslab.pnq.redhat.com:9100/sonar/',
+                    jdbcUrl: 'jdbc:mysql://jenkins.gsslab.pnq.redhat.com:3306/sonar',
+                    login: 'admin',
+                    password: 'admin'
+                }
+            },
+            your_target: {
                 project: {
-                    key: 'sonar:redhat_access_angular_ui',
+                    key: 'portal:pcm:redhat_access_angular_ui',
                     name: 'redhat_access_angular_ui',
                     version: '<%= pkg.version %>'
                 },
@@ -615,7 +628,6 @@ module.exports = function (grunt) {
         'build'
     ]);
     grunt.registerTask('sonar', [
-        'sonarRunner:analysis',
-        'karma_sonar'
+        'sonarRunner:analysis'
     ]);
 };
