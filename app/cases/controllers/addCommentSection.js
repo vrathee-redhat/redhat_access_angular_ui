@@ -44,24 +44,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 }
                 CaseService.commentText = '';
                 CaseService.disableAddComment = true;
-                //TODO: find better way than hard code
-                var status = {};
-                if (!securityService.loginStatus.authedUser.is_internal && CaseService.kase.status.name === 'Closed') {
-                    status = { name: 'Waiting on Red Hat' };
-                    CaseService.kase.status = status;
-                }
-
-                if(securityService.loginStatus.authedUser.is_internal){
-                    if (CaseService.kase.status.name === 'Waiting on Red Hat') {
-                        status = { name: 'Waiting on Customer' };
-                        CaseService.kase.status = status;
-                    }
-                }else {
-                    if (CaseService.kase.status.name === 'Waiting on Customer') {
-                        status = { name: 'Waiting on Red Hat' };
-                        CaseService.kase.status = status;
-                    }
-                }
+                CaseService.checkForCaseStatusToggleOnAttachOrComment();
 
                 CaseService.populateComments(CaseService.kase.case_number).then(function (comments) {
                     $scope.addingComment = false;
@@ -88,7 +71,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.addingComment = false;
                 $scope.progressCount = 0;
             };
-            if(!CaseService.disableAddComment){
+            if(!CaseService.disableAddComment && CaseService.commentText !== 'undefined'){
                 $scope.addingComment = true;
                 if(CaseService.localStorageCache) {
                     if(CaseService.draftCommentOnServerExists)
@@ -111,6 +94,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.addingattachment = true;
                 AttachmentsService.updateAttachments(CaseService.kase.case_number).then(function () {
                     $scope.addingattachment = false;
+                    CaseService.checkForCaseStatusToggleOnAttachOrComment();
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                     $scope.addingattachment = false;

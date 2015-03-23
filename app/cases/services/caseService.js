@@ -503,5 +503,24 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username,newCaseDescLocalStorage);
             }
         };
+        this.checkForCaseStatusToggleOnAttachOrComment = function(){
+            var status = {};
+            if (!securityService.loginStatus.authedUser.is_internal && this.kase.status.name === 'Closed') {
+                status = { name: 'Waiting on Red Hat' };
+                this.kase.status = status;
+            }
+
+            if(securityService.loginStatus.authedUser.is_internal){
+                if (this.kase.status.name === 'Waiting on Red Hat') {
+                    status = { name: 'Waiting on Customer' };
+                    this.kase.status = status;
+                }
+            }else {
+                if (this.kase.status.name === 'Waiting on Customer') {
+                    status = { name: 'Waiting on Red Hat' };
+                    this.kase.status = status;
+                }
+            }
+        }
     }
 ]);
