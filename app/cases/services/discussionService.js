@@ -10,6 +10,7 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
     'HeaderService',
     function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService) {
         this.discussionElements = [];
+        this.chatTranscriptList = [];
         this.comments = CaseService.comments
         this.attachments = AttachmentsService.originalAttachments;
         this.loadingAttachments = false;
@@ -56,9 +57,12 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
             return $q.all([attachPromise, commentsPromise]);
         };
         this.updateElements = function(){
-            this.comments = CaseService.comments
+            this.comments = CaseService.comments;
             this.attachments = AttachmentsService.originalAttachments;
             this.discussionElements = this.comments.concat(this.attachments);
+            if (this.chatTranscriptList !== undefined && this.chatTranscriptList.length > 0) {
+                this.discussionElements = this.discussionElements.concat(this.chatTranscriptList);
+            }
         }
     }
 ]);

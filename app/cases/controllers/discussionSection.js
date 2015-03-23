@@ -18,7 +18,10 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     'RHAUtils',
     'EDIT_CASE_CONFIG',
     'AUTH_EVENTS',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
+    'CASE_EVENTS',
+    '$sce',
+    'translate',
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, translate) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -31,6 +34,17 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.notes = false;
         $scope.bugzillas = false;
         $scope.hasScrolled = false;
+        $scope.commentSortOrder = true;
+        $scope.commentSortOrderList = [
+            {
+                name: translate('Newest Comment Added'),
+                sortOrder: 'DESC'
+            },
+            {
+                name: translate('Oldest Comment Added'),
+                sortOrder: 'ASC'
+            },
+        ];
 
         $scope.DiscussionService = DiscussionService;
 
@@ -155,6 +169,40 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
                 }
             }
         });
+
+        $scope.$on(CASE_EVENTS.received, function () {
+            if (CaseService.kase.chats !== undefined && CaseService.kase.chats.chat !== undefined) {
+                angular.forEach(CaseService.kase.chats.chat, angular.bind(this, function (chat) {
+                    chat.last_modified_date = chat.start_time;
+                    chat.comment_type = 'chat';
+                    DiscussionService.chatTranscriptList.push(chat);
+                }));
+            } else {
+                DiscussionService.chatTranscriptList = [];
+            }
+            DiscussionService.updateElements();
+        });
+
+        $scope.parseCommentHtml = function (comment) {
+            var parsedHtml = '';
+            if (comment.body !== undefined) {
+                if (RHAUtils.isNotEmpty(comment.body)) {
+                    var rawHtml = comment.body.toString();
+                    parsedHtml = $sce.trustAsHtml(rawHtml);
+                }
+            }
+            return parsedHtml;
+        };
+
+        $scope.onSortOrderChange = function () {
+            if (RHAUtils.isNotEmpty(DiscussionService.commentSortOrder)) {
+                if (DiscussionService.commentSortOrder.sortOrder === 'ASC') {
+                    $scope.commentSortOrder = false;
+                } else if (DiscussionService.commentSortOrder.sortOrder === 'DESC') {
+                    $scope.commentSortOrder = true;
+                }
+            }
+        };
 
     }
 ]);

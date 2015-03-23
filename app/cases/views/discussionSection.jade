@@ -14,18 +14,36 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         // Add Comment Section
         div(rha-addcommentsection='', loading='loading.comments')
     .row
-      .col-xs-12
-        article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':'reverse'", ng-if='!element.draft')
+      .col-sm-7
+        label Sort By
+        select#rha-comment-sort(chosen,
+          width='"auto"',
+          ng-init="DiscussionService.commentSortOrder = commentSortOrderList[0]"
+          ng-model='DiscussionService.commentSortOrder',
+          ng-change='onSortOrderChange()',
+          ng-options='commentOrder as commentOrder.name for commentOrder in commentSortOrderList')
+    .row
+      .col-xs-12        
+        article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':commentSortOrder", ng-if='!element.draft')
           .row
             .col-sm-4
-              h4.meta
+              h4.meta(ng-if="element.comment_type === 'chat'") 
+                span Transcript of chat between
+                .author.blue {{element.agent_name}}
+                span and 
+                .author.blue {{element.visitor_name}}
+                date.light {{element.last_modified_date | date:'mediumDate'}} &nbsp;
+                span.light at &nbsp;
+                time.light {{element.last_modified_date | date:'h:mm:ss a Z'}}
+              h4.meta(ng-if="element.comment_type !== 'chat'")
                 .author.blue {{element.created_by}}
                 date.light {{element.created_date | date:'mediumDate'}} &nbsp;
                 span.light at &nbsp;
                 time.light {{element.created_date | date:'h:mm:ss a Z'}}
                 .private(ng-if="element.public !== undefined && element.public === false") Private
             .col-sm-8
-              blockquote.dialog-box.pre-wrap(ng-hide="element.file_name")
+              blockquote.dialog-box.pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
+              blockquote.dialog-box.pre-wrap(ng-hide="element.file_name || element.comment_type === 'chat'")
                 | {{ element.text}}
                 a.glyphicon.glyphicon-link.pull-right(ng-hide="element.file_name", ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}') 
                 a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}} &nbsp;
