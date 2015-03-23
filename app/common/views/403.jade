@@ -1,4 +1,4 @@
-div#outageHead(ng-show='!securityService.loginStatus.userAllowedToManageCases')
+div#outageHead(ng-show='!securityService.loginStatus.userAllowedToManageCases || HeaderService.showPartnerEscalationError')
 	div#errornoDirectSupport403
 		h1(translate='') Support Subscription Required
 		p(translate='') The credentials you provided are valid, but you do not have <b>direct support from Red Hat.</b>

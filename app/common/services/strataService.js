@@ -661,6 +661,15 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     }, angular.bind(deferred, errorHandler));
                     return deferred.promise;
                 }
+            },
+            escalationRequest: {
+                create: function (escalationJSON) {
+                    var deferred = $q.defer();
+                    strata.escalation.create(escalationJSON, function (escalationNum) {
+                        deferred.resolve(escalationNum);
+                    }, angular.bind(deferred, errorHandler));
+                    return deferred.promise;
+                }
             }
         };
         return service;

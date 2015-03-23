@@ -31,7 +31,8 @@ angular.module('RedhatAccess.header').factory('HeaderService', [
             },
             pageLoading: false,
             pageLoadFailure: false,
-            showSurvey: true
+            showSurvey: true,
+            showPartnerEscalationError: false
         };
         return service;
     }

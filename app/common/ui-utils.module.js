@@ -27,6 +27,14 @@ app.service('RHAUtils', function () {
     this.isNotEmpty = function (object) {
         return !this.isEmpty(object);
     };
+    this.isEmailValid = function (object) {
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (object.match(mailformat)) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 });
 //Wrapper service for translations
 app.service('translate', [
