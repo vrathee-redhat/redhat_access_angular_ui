@@ -52,8 +52,8 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
                     scroll(commentId);
                 }
             }, 150);
-        }
-        
+        };
+
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
         }
@@ -63,14 +63,12 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.commentReply = function(comment,browserIE) {
             var person = comment.created_by;
-            var originalText = CaseService.commentText;
             var text = comment.text;
             var lines = text.split(/\n/);
             text = '(In reply to ' + person + ')\n';
             for (var i = 0, max = lines.length; i < max; i++) {
                 text = text + '> '+ lines[i] + '\n';
             }
-            var old = $location.hash();
             var commentsSection = document.getElementById("tab_list");
             if(commentsSection) {
                 commentsSection.scrollIntoView(true);
@@ -100,10 +98,10 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         };
 
         $scope.$watch('AttachmentsService.originalAttachments', function (val) {
-            DiscussionService.updateElements();                  
+            DiscussionService.updateElements();
         }, true);
         $scope.$watch('CaseService.comments', function (val) {
-            DiscussionService.updateElements();                    
+            DiscussionService.updateElements();
         }, true);
         $scope.$watch('CaseService.kase.notes', function(val) {
             $scope.maxNotesCharacterCheck();
@@ -125,25 +123,25 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             $scope.attachments = false;
             $scope.notes = false;
             $scope.bugzillas = false;
-        }
+        };
         $scope.toggleAttachments= function(){
             $scope.discussion = false;
             $scope.attachments = true;
             $scope.notes = false;
             $scope.bugzillas = false;
-        }
+        };
         $scope.toggleNotes = function(){
             $scope.discussion = false;
             $scope.attachments = false;
             $scope.notes = true;
             $scope.bugzillas = false;
-        }
+        };
         $scope.toggleBugzillas = function(){
             $scope.discussion = false;
             $scope.attachments = false;
             $scope.notes = false;
             $scope.bugzillas = true;
-        }
+        };
 
         $scope.$on('$locationChangeSuccess', function(event){
             var splitUrl = $location.path().split('/');

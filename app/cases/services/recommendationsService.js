@@ -32,7 +32,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             this.recommendations = [];
             this.pinnedRecommendations = [];
             this.handPickedRecommendations = [];
-            var currentData = {
+            currentData = {
                 product: null,
                 version: null,
                 summary: null,
@@ -49,7 +49,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                         if (rec.pinned_at) {
                             rec.pinned = true;
                             this.pinnedRecommendations.push(rec);
-                                
+
                         } else if (rec.linked) {
                             rec.handPicked = true;
                             this.handPickedRecommendations.push(rec);
@@ -88,7 +88,6 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                 if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations))) {
                     this.loadingRecommendations = true;
                     setCurrentData();
-                    var deferreds = [];
                     strataService.recommendationsXmlHack(currentData, max, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
                         //retrieve details for each solution
                         if(refreshRecommendations){
