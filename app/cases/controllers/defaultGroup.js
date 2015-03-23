@@ -26,11 +26,9 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
         $scope.usersLoaded = false;
         $scope.usersAndGroupsFinishedLoading = false;
         $scope.userCanManageDefaultGroups = true;
-        
         $scope.init = function() {
             if(securityService.userAllowedToManageDefaultGroups()){
                 $scope.groupsLoading = true;
-                var loc = $location.url().split('/');
                 $scope.ssoName = securityService.loginStatus.authedUser.sso_username;
                 $scope.account = securityService.loginStatus.account;
                 strataService.groups.list($scope.ssoName).then(function (groups) {
@@ -86,7 +84,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
         };
 
         $scope.setDefaultGroup = function () {
-            //Remove old group is_default            
+            //Remove old group is_default
             var tmpGroup = {
                 name: $scope.selectedGroup.name,
                 number: $scope.selectedGroup.number,

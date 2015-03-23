@@ -62,7 +62,7 @@ angular.module('RedhatAccess.header').service('AlertService', [
                 }
                 var existingMessage = $filter('filter')(this.alerts, {
                         type: ALERT_TYPES.DANGER,
-                        message: errorText,
+                        message: errorText
                     });
                 if (existingMessage.length < 1) {
                     this.addDangerMessage(errorText);
@@ -77,4 +77,4 @@ angular.module('RedhatAccess.header').service('AlertService', [
             this.clearAlerts();
         }));
     }
-])
+]);

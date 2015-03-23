@@ -335,7 +335,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 return 0;
             });
 
-            var defaultGroup = '';
             if (this.showsearchoptions === true) {
                 this.groupOptions.push({
                     value: '',
@@ -385,7 +384,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
 
         this.createCase = function(){
-            var promise = null;
             var self = this;
             var deferred = $q.defer();
 

@@ -129,6 +129,27 @@ app.factory('TreeViewSelectorData', [
     }
 ]);
 app.factory('TreeViewSelectorUtils', function () {
+    var removeParams = function (path) {
+        if (path) {
+            var split = path.split('?');
+            return split[0];
+        }
+        return path;
+    };
+    var isLeafChecked = function (path) {
+        if (path) {
+            var split = path.split('?');
+            if (split[1]) {
+                var params = split[1].split('&');
+                for (var i = 0; i < params.length; i++) {
+                    if (params[i].indexOf('checked=true') !== -1) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    };
     var parseTreeNode = function (splitPath, tree, fullFilePath) {
         if (splitPath[0] !== undefined) {
             if (splitPath[0] !== '') {
@@ -160,27 +181,6 @@ app.factory('TreeViewSelectorUtils', function () {
                 parseTreeNode(splitPath, tree, fullFilePath);
             }
         }
-    };
-    var removeParams = function (path) {
-        if (path) {
-            var split = path.split('?');
-            return split[0];
-        }
-        return path;
-    };
-    var isLeafChecked = function (path) {
-        if (path) {
-            var split = path.split('?');
-            if (split[1]) {
-                var params = split[1].split('&');
-                for (var i = 0; i < params.length; i++) {
-                    if (params[i].indexOf('checked=true') !== -1) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     };
     var hasSelectedLeaves = function (tree) {
         for (var i = 0; i < tree.length; i++) {

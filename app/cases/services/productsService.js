@@ -12,14 +12,14 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
 	function ($http, securityService, strataService, CaseService, AttachmentsService, RHAUtils, NEW_CASE_CONFIG, NEW_DEFAULTS, CASE_EVENTS) {
     this.products = [];
     this.productsDisabled = false;
-    this.productsLoading = false
+    this.productsLoading = false;
     this.versions = [];
     this.versionDisabled = false;
     this.versionLoading = false;
     this.clear = function(){
        this.products = [];
-       this.versions = []; 
-    }
+       this.versions = [];
+    };
     this.getProducts = function (fetchForContact) {
         this.clear();
         var contact = securityService.loginStatus.authedUser.sso_username;
@@ -49,7 +49,7 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                     }
                 }
                 this.getVersions(CaseService.kase.product);
-            } 
+            }
         }), function (error) {
             AlertService.addStrataErrorMessage(error);
         });
@@ -133,7 +133,6 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
         this.versionLoading = true;
         strataService.products.versions(product).then(angular.bind(this, function (response) {
         	response.sort(function (a, b) { //Added because of wrong order of versions
-				var result;
 				a = a.split('.');
 				b = b.split('.');
 				for( var i = 0; i < a.length; i++){
