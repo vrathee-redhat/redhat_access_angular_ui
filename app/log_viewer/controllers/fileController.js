@@ -1,13 +1,12 @@
 'use strict';
 angular.module('RedhatAccess.logViewer').controller('fileController', [
     '$scope',
-    '$rootScope',
     '$http',
     '$location',
     'files',
     'AlertService',
     'LOGVIEWER_EVENTS',
-    function ($scope, $rootScope, $http, $location, files, AlertService, LOGVIEWER_EVENTS) {
+    function ($scope, $http, $location, files, AlertService, LOGVIEWER_EVENTS) {
         $scope.roleList = '';
         $scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
         $scope.$watch(function () {
@@ -50,7 +49,7 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
                 AlertService.addDangerMessage(data);
             });
         };
-        $rootScope.$on(LOGVIEWER_EVENTS.allTabsClosed, function () {
+        $scope.$on(LOGVIEWER_EVENTS.allTabsClosed, function () {
             $scope.$parent.$parent.sidePaneToggle = !$scope.$parent.$parent.sidePaneToggle;
         });
     }

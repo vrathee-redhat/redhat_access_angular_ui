@@ -85,7 +85,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             $scope.firePageLoadEvent();
             $scope.init();
         }
-        $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.firePageLoadEvent();
             $scope.init();
             //AlertService.clearAlerts();
@@ -116,7 +116,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             }
         });
 
-        $scope.locationChange = $rootScope.$on('$locationChangeSuccess', function(event){
+        $scope.$on('$locationChangeSuccess', function(event){
             var splitUrl = $location.path().split('/');
             if(splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1){
                 var newCaseId = splitUrl[2];
@@ -127,16 +127,6 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     $scope.init();
                 }
             }
-        });
-
-        $scope.$on('$destroy', function () {
-            // Clean up listeners
-            CaseService.clearCase();
-            $scope.authLoginEvent();
-            $scope.locationChange();
-            $scope.loadingWatcher();
-            $scope.loadingRecWatcher();
-            RecommendationsService.clear();
         });
     }
 ]);

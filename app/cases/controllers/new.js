@@ -17,7 +17,6 @@ angular.module('RedhatAccess.cases').controller('New', [
     'HeaderService',
     'ProductsService',
     'securityService',
-    '$rootScope',
     'AUTH_EVENTS',
     '$location',
     'RHAUtils',
@@ -25,7 +24,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
     'translate',
-    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, $rootScope, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, translate) {
+    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, translate) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -173,7 +172,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.initDescription();
             $scope.getLocalStorageForNewCase();
         }
-        $scope.authLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
@@ -182,9 +181,6 @@ angular.module('RedhatAccess.cases').controller('New', [
             RecommendationsService.failureCount = 0;
         });
 
-        $scope.$on('$destroy', function () {
-            $scope.authLoginSuccess();
-        });
         $scope.submittingCase = false;
 
         $scope.setSearchOptions = function (showsearchoptions) {
@@ -350,12 +346,10 @@ angular.module('RedhatAccess.cases').controller('New', [
             form.submit();
         };
 
-        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             CaseService.clearCase();
         });
-        $scope.$on('$destroy', function () {
-            CaseService.clearCase();
-        });
+
         $scope.makeRecommendationPanelVisible =function(){
             $scope.showRecommendationPanel = true;
         };

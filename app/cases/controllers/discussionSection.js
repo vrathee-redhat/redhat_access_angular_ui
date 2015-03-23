@@ -10,7 +10,6 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     'strataService',
     'securityService',
     '$stateParams',
-    '$rootScope',
     'AlertService',
     '$modal',
     '$location',
@@ -18,7 +17,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     'RHAUtils',
     'EDIT_CASE_CONFIG',
     'AUTH_EVENTS',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams,$rootScope, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;

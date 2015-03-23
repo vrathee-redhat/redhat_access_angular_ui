@@ -105,11 +105,8 @@ angular.module('RedhatAccess.header').controller('ChatButton', [
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
         } else {
-            $scope.authEventLoginSuccess = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            $scope.$on(AUTH_EVENTS.loginSuccess, function () {
                 $scope.init();
-            });
-            $scope.$on('$destroy', function () {
-                $scope.authEventLoginSuccess();
             });
         }
 

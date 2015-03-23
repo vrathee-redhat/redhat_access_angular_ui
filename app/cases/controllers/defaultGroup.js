@@ -3,7 +3,6 @@
 /*jshint expr: true, camelcase: false, newcap: false */
 angular.module('RedhatAccess.cases').controller('DefaultGroup', [
     '$scope',
-    '$rootScope',
     'strataService',
     'CaseService',
     'AlertService',
@@ -11,7 +10,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
     'securityService',
     'AUTH_EVENTS',
     'translate',
-    function ($scope, $rootScope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, translate) {
+    function ($scope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, translate) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
@@ -107,20 +106,15 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             $scope.init();
 
         }
-        $scope.authEventLogin = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
         });
 
-        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             $scope.selectedGroup = {};
             $scope.usersOnScreen = [];
             $scope.usersOnAccount = [];
             $scope.accountNumber = null;
-        });
-
-        $scope.$on('$destroy', function () {
-            $scope.authEventLogoutSuccess();
-            $scope.authEventLogin();
         });
     }
 ]);

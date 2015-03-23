@@ -6,12 +6,11 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
     'CaseService',
     'securityService',
     'ProductsService',
-    '$rootScope',
     'AUTH_EVENTS',
     'CASE_EVENTS',
     'AlertService',
     'RHAUtils',
-    function ($scope, strataService, CaseService, securityService, ProductsService, $rootScope, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
+    function ($scope, strataService, CaseService, securityService, ProductsService, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
         $scope.showExtraInfo = false;
 	    $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -177,12 +176,9 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         if (CaseService.caseDataReady) {
             $scope.init();
         }
-        $scope.caseEventDeregister = $rootScope.$on(CASE_EVENTS.received, function () {
+        $scope.$on(CASE_EVENTS.received, function () {
             $scope.init();
             //AlertService.clearAlerts();
-        });
-        $scope.$on('$destroy', function () {
-            $scope.caseEventDeregister();
         });
     }
 ]);
