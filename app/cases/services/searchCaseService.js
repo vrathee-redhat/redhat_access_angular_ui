@@ -70,16 +70,16 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     //     //params.view = 'internal';
                     // }
                     cases = strataService.cases.search(CaseService.status, caseOwner, CaseService.group, SearchBoxService.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
-                        if(response.case === undefined){
+                        if(response['case'] === undefined){
                             that.totalCases = 0;
                             that.total = 0;
                             that.allCasesDownloaded = true;
                         } else {
 	                        that.totalCases = response.total_count;
-	                        that.cases = that.cases.concat(response.case);
+	                        that.cases = that.cases.concat(response['case']);
 	                        that.start = that.start + that.count;
-	                        that.total = that.total + response.case.length;
-	                        if(response.case.length !== 50){
+	                        that.total = that.total + response['case'].length;
+	                        if(response['case'].length !== 50){
                         		that.allCasesDownloaded = true;
                         	}
                     	}
