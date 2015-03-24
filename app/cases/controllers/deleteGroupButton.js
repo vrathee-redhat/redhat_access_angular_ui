@@ -26,6 +26,7 @@ angular.module('RedhatAccess.cases').controller('DeleteGroupButton', [
                                 }
                             });
                         CaseService.groups = groups;
+                        GroupService.disableDeleteGroup = true;
                         GroupService.reloadTable();
                         AlertService.addSuccessMessage(translate('Successfully deleted group') + ' ' + group.name);
                     }, function (error) {

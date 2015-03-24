@@ -139,7 +139,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.getLocalStorageForNewCase = function(){
             if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
             {
-                var draftNewCase = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text
+                var draftNewCase = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text;
                 CaseService.kase.description = draftNewCase.description;
                 CaseService.kase.summary = draftNewCase.summary;
                 if(RHAUtils.isNotEmpty(draftNewCase.product))
@@ -239,7 +239,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 } else {
                     redirectToCase(caseNumber);
                 }
-            }
+            };
 
             if(AttachmentsService.updatedAttachments.length == 0){
                 var proceedWithoutAttachModal = $modal.open({
@@ -249,7 +249,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 proceedWithoutAttachModal.result.then(function(){
                     if(AttachmentsService.proceedWithoutAttachments){
                         CaseService.createCase().then(function (caseNumber) {
-                            caseUploadsAndUpdates(caseNumber)
+                            caseUploadsAndUpdates(caseNumber);
                         }, function (error) {
                             AlertService.addStrataErrorMessage(error);
                             this.submittingCase = false;
@@ -258,7 +258,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 });
             } else{
                 CaseService.createCase().then(function (caseNumber) {
-                    caseUploadsAndUpdates(caseNumber)
+                    caseUploadsAndUpdates(caseNumber);
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                     this.submittingCase = false;
@@ -267,7 +267,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
 
         $scope.getLocatingSolutionText = function(){
-            var text = 'Locating top solutions'
+            var text = 'Locating top solutions';
             var numFieldsSelected = 0;
             if(!RHAUtils.isEmpty(CaseService.kase.product)){
                 text = text.concat(' for ' + CaseService.kase.product);

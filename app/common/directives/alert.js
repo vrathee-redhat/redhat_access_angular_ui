@@ -5,4 +5,4 @@ angular.module('RedhatAccess.header').directive('rhaAlert', function () {
         restrict: 'A',
         controller: 'AlertController'
     };
-})
+});

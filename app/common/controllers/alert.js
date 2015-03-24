@@ -16,4 +16,4 @@ angular.module('RedhatAccess.header').controller('AlertController', [
             AlertService.clearAlerts();
         };
     }
-])
+]);

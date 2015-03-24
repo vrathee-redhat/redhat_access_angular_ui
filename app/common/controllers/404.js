@@ -5,4 +5,4 @@ angular.module('RedhatAccess.header').controller('404', [
     function ($scope, securityService) {
         $scope.securityService = securityService;
     }
-])
+]);

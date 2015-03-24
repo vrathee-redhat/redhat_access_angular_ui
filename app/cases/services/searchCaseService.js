@@ -25,8 +25,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.caseListPageSize = 10;
         this.clear = function () {
             this.cases = [];
-            //this.oldParams = {};
-            this.oldQueryString = ""
+            this.oldQueryString = "";
             SearchBoxService.searchTerm = '';
             this.start = 0;
             this.total = 0;
@@ -41,101 +40,24 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.allCasesDownloaded = false;
             this.cases = [];
         };
-        //this.oldParams = {};
-        this.oldQueryString = ""
-
+        this.oldQueryString = "";
         var queryString = "";
-        var concatQueryString = function(param){
-            if(queryString === ""){
-                queryString = param;
-            }else{
-                queryString = queryString.concat(" AND " + param);
-            }
-        }
-        this.doFilter = function (checkIsInternal) {
-            queryString = "";// "start=" + this.start "&rows=" + this.count + "&query=";
 
-            if (CaseService.status === STATUS.open) {
-                concatQueryString("+case_status:Waiting*")
-            } else if (CaseService.status === STATUS.closed) {
-                concatQueryString("+case_status:Closed")
-            } else{
-                concatQueryString("+case_status:*")
-            }
+        this.doFilter = function (checkIsInternal) {
+            queryString = "";
+
             //TODO add internal and GS4
             // if(COMMON_CONFIG.isGS4 === true){
             //     params.account_number = "639769";
             // }
-            //params.start = this.start;
-            var isObjectNothing = function (object) {
-                if (object === '' || object === undefined || object === null) {
-                    return true;
-                } else {
-                    return false;
-                }
-            };
-            if (!isObjectNothing(SearchBoxService.searchTerm)) {
-                //params.keyword = SearchBoxService.searchTerm;
-                concatQueryString("allText:" + SearchBoxService.searchTerm);
-            }
-            if(!securityService.loginStatus.authedUser.is_internal){
-                if (CaseService.group === CASE_GROUPS.ungrouped) {
-                    concatQueryString("+case_hasGroup:false")
-                } else if (!isObjectNothing(CaseService.group)) {
-                    //TODO add support for case group
-                    concatQueryString("+case_folderNumber:" + CaseService.group)
-                    //params.group_numbers = { group_number: [CaseService.group] };
-                }
-            }
+            var caseOwner = '';
             if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
-                concatQueryString("+case_owner:\"" + securityService.loginStatus.authedUser.first_name + " " + securityService.loginStatus.authedUser.last_name + "\"");
-                //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                //params.view = 'internal';
+                caseOwner = "\"" + securityService.loginStatus.authedUser.first_name + " " + securityService.loginStatus.authedUser.last_name + "\"";
             }
-            // if (CaseService.status === STATUS.closed) {
-            //     params.status = STATUS.closed;
-            // }
-            // if (!isObjectNothing(CaseService.product)) {
-            //     concatQueryString(queryString, "+case_hasGroup:" + CaseService.product)
-            //     //params.product = CaseService.product;
-            // }
-            //Should get for free
-            // if (!isObjectNothing(CaseService.owner)) {
-            //     params.owner_ssoname = CaseService.owner;
-            // }
-            //TODO what is case type
-            // if (!isObjectNothing(CaseService.type)) {
-            //     params.type = CaseService.type;
-            // }
-            // if (!isObjectNothing(CaseService.severity)) {
-            //     params.severity = CaseService.severity;
-            // }
-            if(!CaseService.filterSelect !== undefined){
-                if (CaseService.filterSelect.sortField !== undefined){
-                    if(queryString === ""){
-                        queryString = "sort=case_" + CaseService.filterSelect.sortField;
-                    } else{
-                        queryString = queryString + "&sort=case_" + CaseService.filterSelect.sortField;
-                    }
-                    //params.sort_field = CaseService.filterSelect.sortField;
-                }
-                if (CaseService.filterSelect.sortOrder !== undefined){
-                    queryString = queryString + " " +CaseService.filterSelect.sortOrder;
-                    //params.sort_order = CaseService.filterSelect.sortOrder;
-                }
-            }
-            queryString = queryString + "&offset=" + this.start + "&limit=" + this.count;
-            // if (!isObjectNothing(CaseService.sortBy)) {
-            //     params.sort_field = CaseService.sortBy;
-            // }
-            // if (!isObjectNothing(CaseService.sortOrder)) {
-            //     params.sort_order = CaseService.sortOrder;
-            // }
+
             var promises = [];
             var deferred = $q.defer();
-            //if (!angular.equals(params, this.oldParams)) {
-            if (!angular.equals(queryString, this.oldQueryString)) {
+            //if (!angular.equals(queryString, this.oldQueryString)) {
                 this.searching = true;
                 this.oldQueryString = queryString;
                 var that = this;
@@ -147,32 +69,20 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     //     //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                     //     //params.view = 'internal';
                     // }
-                    cases = strataService.cases.search(queryString, true).then(angular.bind(that, function (response) {
+                    cases = strataService.cases.search(CaseService.status, caseOwner, CaseService.group, SearchBoxService.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
                         if(response.case === undefined){
                             that.totalCases = 0;
                             that.total = 0;
                             that.allCasesDownloaded = true;
                         } else {
-                            //TODO fix broken case scrolling
-                            //that.totalCases = response.total_count;
-                            // if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
-                            //     that.allCasesDownloaded = true;
-                            // }
-                            //if (response['case'] !== undefined){
 	                        that.totalCases = response.total_count;
 	                        that.cases = that.cases.concat(response.case);
-	                        //that.count = response['case'].length + that.total
 	                        that.start = that.start + that.count;
 	                        that.total = that.total + response.case.length;
 	                        if(response.case.length !== 50){
                         		that.allCasesDownloaded = true;
                         	}
                     	}
-                            //}
-                            //if (angular.isFunction(that.postFilter)) {
-                            //    that.postFilter();
-                            //}
-                        //}
                         that.searching = false;
                         deferred.resolve(cases);
                     }), angular.bind(that, function (error) {
@@ -193,7 +103,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         }
                         cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                             that.totalCases = response.total_count;
-                            
+
                             that.cases = that.cases.concat(response['case']);
                             that.searching = false;
                             that.start = that.start + that.count;
@@ -212,10 +122,10 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     });
                 }
                 promises.push(deferred.promise);
-            } else {
-                deferred.resolve();
-                promises.push(deferred.promise);
-            }
+            // } else {
+            //     deferred.resolve();
+            //     promises.push(deferred.promise);
+            // }
             return $q.all(promises);
         };
     }
