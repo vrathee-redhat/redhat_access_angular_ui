@@ -39,20 +39,25 @@ div(rha-header='', page='caseList')
             span.sep |
             | {{case.version}}
 
-        .col-sm-12.col-md-4(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
+        .col-sm-12.col-md-2(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
           .item-group.change-log
             .filed-on
               | Modified by: &nbsp;
               span.blue {{case.last_modified_by}} &nbsp;
               span on &nbsp;
               span {{case.last_modified_date | date:'longDate'}} &nbsp;
-        .col-sm-12.col-md-4(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
+        .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
           .item-group.change-log
             .filed-on
               | Created: 
               span {{case.created_date | date:'longDate'}}
               i  by 
               span.blue {{case.created_by}}
+        .col-sm-12.col-md-2
+          .item-group.change-log
+            .filed-on
+              | Owned by: &nbsp;
+              span.blue {{case.contact_name}} &nbsp;
   div(ng-show='SearchCaseService.searching')
     .spinner
     p.center Loading cases...

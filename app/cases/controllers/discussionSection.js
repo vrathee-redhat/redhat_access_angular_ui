@@ -48,15 +48,6 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.DiscussionService = DiscussionService;
 
-        $scope.init = function() {
-            DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function (attachmentsJSON) {
-                if($location.search().commentId !== undefined){
-                    scroll($location.search().commentId);
-                }
-            }, function (error) {
-            }));
-        };
-
         var scroll = function(commentId){
             $timeout(function() {
                 if(!$scope.hasScrolled && angular.element(commentId)){
@@ -66,6 +57,15 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
                     scroll(commentId);
                 }
             }, 150);
+        };
+
+        $scope.init = function() {
+            DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function (attachmentsJSON) {
+                if($location.search().commentId !== undefined){
+                    scroll($location.search().commentId);
+                }
+            }, function (error) {
+            }));
         };
 
         if (securityService.loginStatus.isLoggedIn) {

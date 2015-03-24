@@ -11,7 +11,7 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
     function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService) {
         this.discussionElements = [];
         this.chatTranscriptList = [];
-        this.comments = CaseService.comments
+        this.comments = CaseService.comments;
         this.attachments = AttachmentsService.originalAttachments;
         this.loadingAttachments = false;
         this.loadingComments = false;
@@ -63,6 +63,6 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
             if (this.chatTranscriptList !== undefined && this.chatTranscriptList.length > 0) {
                 this.discussionElements = this.discussionElements.concat(this.chatTranscriptList);
             }
-        }
+        };
     }
 ]);
