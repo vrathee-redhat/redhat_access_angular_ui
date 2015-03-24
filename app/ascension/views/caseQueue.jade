@@ -1,7 +1,6 @@
 .page-header(rha-header='', page='')
 //-replace the ng-how wiht the security service and sfdc health check and header parameter
 div(ng-show='true')
-    .row
         .row
             .col-sm-12(rha-topcases='')
         section.main.col-md-9
@@ -10,9 +9,9 @@ div(ng-show='true')
                 .col-sm-5
                     a.btn.btn-info.btn-sm(href='#/case/new'){{'Edit'|translate}}
                     &nbsp;
-                    a.btn.btn-info.btn-sm(translate='', ng-click='', ng-disabled=''){{'Close'|translate}}
+                    a.btn.btn-info.btn-sm(ng-click='', ng-disabled=''){{'Close'|translate}}
                     &nbsp;
-                    a.btn.btn-info.btn-sm(translate='', ng-click='', ng-disabled=''){{'More'|translate}}
+                    a.btn.btn-info.btn-sm(ng-click='', ng-disabled=''){{'More'|translate}}
             .row
             div(style="margin-top:15px;", ng-show='true')
             div(rha-internalcasedescription='', loading='loading.kase')
