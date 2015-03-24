@@ -8,7 +8,6 @@ angular.module('RedhatAccess.cases').controller('List', [
     '$modal',
     'securityService',
     'AlertService',
-    '$rootScope',
     'SearchCaseService',
     'CaseService',
     'strataService',
@@ -18,7 +17,7 @@ angular.module('RedhatAccess.cases').controller('List', [
     'CASE_EVENTS',
     'CASE_GROUPS',
     'STATUS',
-    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, $rootScope, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS) {
+    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -38,7 +37,7 @@ angular.module('RedhatAccess.cases').controller('List', [
 		    });
 	    };
 
-        $scope.doSearchDeregister = $rootScope.$on(CASE_EVENTS.searchSubmit, function () {
+        $scope.$on(CASE_EVENTS.searchSubmit, function () {
             $scope.doSearch();
         });
 
@@ -88,7 +87,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             $scope.doSearch();
             $scope.setBreadcrumbs();
         }
-        $scope.listAuthEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             if(securityService.loginStatus.userAllowedToManageCases){
                 $scope.firePageLoadEvent();
                 CaseService.status = 'open';
@@ -97,16 +96,9 @@ angular.module('RedhatAccess.cases').controller('List', [
             }
         });
 
-        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             CaseService.clearCase();
             SearchCaseService.clear();
-        });
-
-        $scope.$on('$destroy', function () {
-            $scope.doSearchDeregister();
-            $scope.listAuthEventDeregister();
-            $scope.authEventLogoutSuccess();
-            CaseService.clearCase();
         });
 
 	    $scope.caseLink = function (caseNumber) {

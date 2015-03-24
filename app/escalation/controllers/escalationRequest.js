@@ -2,7 +2,6 @@
 angular.module('RedhatAccess.escalation').controller('EscalationRequest', [
     '$scope',
     'EscalationRequestService',
-    '$rootScope',
     '$location',
     'RHAUtils',
     'ESCALATION_TYPE',
@@ -11,7 +10,7 @@ angular.module('RedhatAccess.escalation').controller('EscalationRequest', [
     'securityService',
     'HeaderService',
     'translate',
-    function ($scope, EscalationRequestService, $rootScope, $location, RHAUtils, ESCALATION_TYPE, AUTH_EVENTS, AlertService , securityService , HeaderService, translate) {
+    function ($scope, EscalationRequestService, $location, RHAUtils, ESCALATION_TYPE, AUTH_EVENTS, AlertService , securityService , HeaderService, translate) {
         $scope.EscalationRequestService = EscalationRequestService;
         $scope.HeaderService = HeaderService;
         $scope.securityService = securityService;
@@ -67,7 +66,7 @@ angular.module('RedhatAccess.escalation').controller('EscalationRequest', [
             }
             return false;
         };
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             AlertService.clearAlerts();
         });
     }

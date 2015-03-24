@@ -2,7 +2,6 @@
 /*global $ */
 /*jshint expr: true, camelcase: false, newcap: false*/
 angular.module('RedhatAccess.cases').controller('GroupList', [
-    '$rootScope',
     '$scope',
     'strataService',
     'AlertService',
@@ -13,7 +12,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
     'securityService',
     'SearchBoxService',
     'AUTH_EVENTS',
-    function ($rootScope, $scope, strataService, AlertService, CaseService, $filter, ngTableParams, GroupService, securityService, SearchBoxService, AUTH_EVENTS) {
+    function ($scope, strataService, AlertService, CaseService, $filter, ngTableParams, GroupService, securityService, SearchBoxService, AUTH_EVENTS) {
         $scope.CaseService = CaseService;
         $scope.GroupService = GroupService;
         $scope.listEmpty = false;
@@ -97,21 +96,15 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             $scope.init();
 
         }
-        $scope.authEventLogin = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
         });
 
-        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             CaseService.clearCase();
             $scope.groupsOnScreen = [];
             GroupService.groupsOnScreen = [];
             reloadTable = true;
-        });
-
-        $scope.$on('$destroy', function () {
-            CaseService.clearCase();
-            $scope.authEventLogoutSuccess();
-            $scope.authEventLogin();
         });
     }
 ]);
