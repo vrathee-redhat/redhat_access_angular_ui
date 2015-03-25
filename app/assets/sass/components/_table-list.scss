@@ -25,10 +25,6 @@ $case-border: $border-gray;
 
 	.change-log {
 
-		@include media-query (md) {
-			text-align: right;
-		}
-
 		a { color: $blue; }
 		&.item-group { margin-bottom: 0; }
 	}
