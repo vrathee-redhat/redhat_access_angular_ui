@@ -176,9 +176,26 @@ angular.module('RedhatAccess.mock', [])
         "solution_case_count": 3
       };
 
+      this.mockSolutionLinked = {
+        'linked': true,
+        'pinned_at': false,
+        'handPicked':true,
+        'last_suggested_date': 1398756612000,
+        'lucene_score': 155,
+        'resource_id': '637583',
+        'resource_type': 'Solution',
+        'resource_uri': 'https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583',
+        'solution_title': 'test solution title 2',
+        'solution_abstract': 'test solution abstract 2',
+        'solution_url': 'https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583',
+        'title': 'test title 2',
+        'solution_case_count': 14
+      };
+
       this.mockRecommendations = [{
         "linked": false,
         "pinned_at": true,
+        "pinned": true,
         "last_suggested_date": 1398756627000,
         "lucene_score": 141.0,
         "resource_id": "27450",
@@ -223,6 +240,11 @@ angular.module('RedhatAccess.mock', [])
         "account_name": 'test_account',
         "account_number": '12345'
       }];
+
+      this.mockAttachment = {
+        'file_name': 'abc.txt',
+        'uuid': '1234'
+      };
 
       this.mockAttachments = [{
         "filename": "test1.txt",
@@ -516,6 +538,15 @@ angular.module('RedhatAccess.mock', [])
                         status: 401
                     }
                 };
+              deferred.reject(error);
+            } else {
+              deferred.resolve(MockStrataDataService.mockFilterCase);
+            }
+            return deferred.promise;
+          },
+          search: function (caseStatus, caseOwner, caseGroup, searchString, sortField, sortOrder, offset, limit, queryParams, addlQueryParams) {
+            var deferred = $q.defer();
+            if (that.rejectCall) {              
               deferred.reject(error);
             } else {
               deferred.resolve(MockStrataDataService.mockFilterCase);
