@@ -1,11 +1,11 @@
-aside {
+.aside {
 
-	section {
+	.section {
 		@include rem('padding', $global-margin);
 		background: $aside-bg;
 	}
 
-	section + section {
+	.section + .section {
 		margin-top: 40px;
 	}
 

@@ -1,7 +1,7 @@
 .page-header(rha-header='', page='')
 div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
   .row
-    section.main.col-md-8
+    div.section.main.col-md-8
       h1.page-title CASE {{CaseService.kase.case_number}}
       div Filed on&nbsp;
         span {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}} by {{CaseService.kase.contact_name}}
@@ -19,7 +19,7 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
         .row
           .col-xs-12
             div(rha-casediscussion='', loading='loading.comments')
-    aside.col-md-4
+    .aside.col-md-4
       .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
-      section#rha-recommendation-section.recommendations(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
-      section#case-escalation.case-escalation(rha-requestescalation='')
+      #rha-recommendation-section.recommendations(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
+      .section#case-escalation.case-escalation(rha-requestescalation='')
