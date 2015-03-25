@@ -21,7 +21,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                     return deferred.promise;
                 }
             },
-            case:{
+            kase:{
                 details: {
                     get: function(caseNumber) {
                         var deferred = $q.defer();
