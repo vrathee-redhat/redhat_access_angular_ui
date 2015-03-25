@@ -43,6 +43,7 @@ module.exports = function(config) {
             'bower_components/sinon/lib/sinon/test_case.js',
             'bower_components/sinon/lib/sinon/assert.js',
             'bower_components/sinon/lib/sinon/match.js',
+            'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
             '.tmp/templates/RedhatAccess.template.js',
             'app/**/*.module.js', //define all modules first!
             'app/common/**/*.js',
