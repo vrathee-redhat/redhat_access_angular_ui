@@ -25,7 +25,7 @@ angular.module('RedhatAccess.ascension').controller('CaseQueue', [
             $scope.init();
         }
 
-        $scope.authLoginEvent = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
 
         });
