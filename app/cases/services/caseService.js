@@ -521,6 +521,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     this.kase.status = status;
                 }
             }
-        }
+        };
     }
 ]);

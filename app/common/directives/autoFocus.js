@@ -1,3 +1,4 @@
+'use strict';
 app.directive('autoFocus', function($timeout) {
     return {
         restrict: 'AC',

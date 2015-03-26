@@ -82,7 +82,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             for (var i = 0, max = lines.length; i < max; i++) {
                 text = text + '> '+ lines[i] + '\n';
             }
-            var commentsSection = document.getElementById("tab_list");
+            var commentsSection = document.getElementById('tab_list');
             if(commentsSection) {
                 commentsSection.scrollIntoView(true);
             }
@@ -106,7 +106,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.maxNotesCharacterCheck = function() {
             if (CaseService.kase.notes !== undefined ) {
-               $scope.noteCharactersLeft = 255 - CaseService.kase.notes.length;
+                $scope.noteCharactersLeft = 255 - CaseService.kase.notes.length;
             }
         };
 

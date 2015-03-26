@@ -86,43 +86,44 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             $scope.updatingDetails = true;
             var caseJSON = {};
             //if ($scope.caseDetailsChanged() === true) {
-                if (CaseService.kase !== undefined) {
-                    if (CaseService.kase.type !== undefined) {
-                        caseJSON.type = CaseService.kase.type.name;
+            if (CaseService.kase !== undefined) {
+                if (CaseService.kase.type !== undefined) {
+                    caseJSON.type = CaseService.kase.type.name;
+                }
+                if (CaseService.kase.severity !== undefined) {
+                    caseJSON.severity = CaseService.kase.severity.name;
+                }
+                if (CaseService.kase.status !== undefined) {
+                    caseJSON.status = CaseService.kase.status.name;
+                }
+                if (CaseService.kase.alternate_id !== undefined) {
+                    caseJSON.alternateId = CaseService.kase.alternate_id;
+                }
+                if (CaseService.kase.product !== undefined) {
+                    caseJSON.product = CaseService.kase.product;
+                }
+                if (CaseService.kase.version !== undefined) {
+                    caseJSON.version = CaseService.kase.version;
+                }
+                if (CaseService.kase.group !== null && CaseService.kase.group !== undefined && CaseService.kase.group.number !== undefined) {
+                    caseJSON.folderNumber = CaseService.kase.group.number;
+                } else
+                {
+                    caseJSON.folderNumber = '';
+                }
+                if (RHAUtils.isNotEmpty(CaseService.kase.fts)) {
+                    caseJSON.fts = CaseService.kase.fts;
+                    if (!CaseService.kase.fts) {
+                        caseJSON.contactInfo24X7 = '';
                     }
-                    if (CaseService.kase.severity !== undefined) {
-                        caseJSON.severity = CaseService.kase.severity.name;
-                    }
-                    if (CaseService.kase.status !== undefined) {
-                        caseJSON.status = CaseService.kase.status.name;
-                    }
-                    if (CaseService.kase.alternate_id !== undefined) {
-                        caseJSON.alternateId = CaseService.kase.alternate_id;
-                    }
-                    if (CaseService.kase.product !== undefined) {
-                        caseJSON.product = CaseService.kase.product;
-                    }
-                    if (CaseService.kase.version !== undefined) {
-                        caseJSON.version = CaseService.kase.version;
-                    }
-                    if (CaseService.kase.group !== null && CaseService.kase.group !== undefined && CaseService.kase.group.number !== undefined) {
-                        caseJSON.folderNumber = CaseService.kase.group.number;
-                    } else {
-                        caseJSON.folderNumber = '';
-                    }
-                    if (RHAUtils.isNotEmpty(CaseService.kase.fts)) {
-                        caseJSON.fts = CaseService.kase.fts;
-                        if (!CaseService.kase.fts) {
-                            caseJSON.contactInfo24X7 = '';
-                        }
-                    }
-                    if (CaseService.kase.fts) {
-                        caseJSON.contactInfo24X7 = CaseService.kase.contact_info24_x7;
-                    }
-                    if (CaseService.kase.notes !== null) {
-                        caseJSON.notes = CaseService.kase.notes;
-                    }
-                    strataService.cases.put(CaseService.kase.case_number, caseJSON).then(function () {
+                }
+                if (CaseService.kase.fts) {
+                    caseJSON.contactInfo24X7 = CaseService.kase.contact_info24_x7;
+                }
+                if (CaseService.kase.notes !== null) {
+                    caseJSON.notes = CaseService.kase.notes;
+                }
+                strataService.cases.put(CaseService.kase.case_number, caseJSON).then(function () {
                         // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
                         //     $scope.changeCaseOwner();
                         // }
@@ -144,7 +145,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                             $scope.$apply();
                         }
                     });
-                }
+            }
             // } else {
             //     if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
             //         $scope.changeCaseOwner();
