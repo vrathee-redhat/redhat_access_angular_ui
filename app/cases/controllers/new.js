@@ -103,9 +103,10 @@ angular.module('RedhatAccess.cases').controller('New', [
             });
             if (window.chrometwo_require !== undefined) {
                 breadcrumbs = [
-                  ['Support', '/support/'],
-                  ['Support Cases',  '/support/cases/'],
-                  ['New']];
+                    ['Support', '/support/'],
+                    ['Support Cases',  '/support/cases/'],
+                    ['New']
+                ];
                 updateBreadCrumb();
             }
         };
@@ -195,7 +196,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
 
         $scope.scrollToRecommendations = function(){
-            var recommendationsSection = document.getElementById("recommendations_section");
+            var recommendationsSection = document.getElementById('recommendations_section');
             if(recommendationsSection) {
                 recommendationsSection.scrollIntoView(true);
             }
@@ -241,7 +242,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
             };
 
-            if(AttachmentsService.updatedAttachments.length == 0){
+            if(AttachmentsService.updatedAttachments.length === 0){
                 var proceedWithoutAttachModal = $modal.open({
                     templateUrl: 'cases/views/proceedWithoutAttachModal.html',
                     controller: 'ProceedWithoutAttachModal'

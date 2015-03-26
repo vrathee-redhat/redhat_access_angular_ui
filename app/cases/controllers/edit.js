@@ -65,9 +65,10 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             });
             if (window.chrometwo_require !== undefined) {
                 breadcrumbs = [
-                  ['Support', '/support/'],
-                  ['Support Cases',  '/support/cases/'],
-                  [$stateParams.id]];
+                    ['Support', '/support/'],
+                    ['Support Cases',  '/support/cases/'],
+                    [$stateParams.id]
+                ];
                 updateBreadCrumb();
             }
         };

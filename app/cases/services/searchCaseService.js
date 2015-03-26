@@ -25,7 +25,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.caseListPageSize = 10;
         this.clear = function () {
             this.cases = [];
-            this.oldQueryString = "";
+            this.oldQueryString = '';
             SearchBoxService.searchTerm = '';
             this.start = 0;
             this.total = 0;
@@ -40,11 +40,11 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.allCasesDownloaded = false;
             this.cases = [];
         };
-        this.oldQueryString = "";
-        var queryString = "";
+        this.oldQueryString = '';
+        var queryString = '';
 
         this.doFilter = function (checkIsInternal) {
-            queryString = "";
+            queryString = '';
 
             //TODO add internal and GS4
             // if(COMMON_CONFIG.isGS4 === true){
@@ -58,18 +58,18 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             var promises = [];
             var deferred = $q.defer();
             //if (!angular.equals(queryString, this.oldQueryString)) {
-                this.searching = true;
-                this.oldQueryString = queryString;
-                var that = this;
-                var cases = null;
-                if (securityService.loginStatus.isLoggedIn) {
+            this.searching = true;
+            this.oldQueryString = queryString;
+            var that = this;
+            var cases = null;
+            if (securityService.loginStatus.isLoggedIn) {
                     //TODO add internal pallet
                     // if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
                     //     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                     //     //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                     //     //params.view = 'internal';
                     // }
-                    cases = strataService.cases.search(CaseService.status, caseOwner, CaseService.group, SearchBoxService.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+                cases = strataService.cases.search(CaseService.status, caseOwner, CaseService.group, SearchBoxService.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
                         if(response['case'] === undefined){
                             that.totalCases = 0;
                             that.total = 0;
@@ -96,8 +96,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                             deferred.resolve(cases);
                         }
                     }));
-                } else {
-                    $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            } else {
+                $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
                         if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal) {
                             params.owner_ssoname = securityService.loginStatus.authedUser.sso_username;
                         }
@@ -120,8 +120,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         }));
                         deferred.resolve(cases);
                     });
-                }
-                promises.push(deferred.promise);
+            }
+            promises.push(deferred.promise);
             // } else {
             //     deferred.resolve();
             //     promises.push(deferred.promise);

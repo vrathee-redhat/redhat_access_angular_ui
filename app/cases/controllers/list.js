@@ -70,9 +70,10 @@ angular.module('RedhatAccess.cases').controller('List', [
         $scope.setBreadcrumbs = function(){
             if (window.chrometwo_require !== undefined) {
                 breadcrumbs = [
-                  ['Support', '/support/'],
-                  ['Support Cases',  '/support/cases/'],
-                  ['List']];
+                    ['Support', '/support/'],
+                    ['Support Cases',  '/support/cases/'],
+                    ['List']
+                ];
                 updateBreadCrumb();
             }
         };
@@ -106,7 +107,7 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    };
 
 	    $scope.caseChosen = function() {
-	        var trues = $filter("filter")( SearchCaseService.cases, {selected:true} );
+	        var trues = $filter('filter')( SearchCaseService.cases, {selected:true} );
 	        return trues.length;
 	    };
 
