@@ -1,6 +1,6 @@
 'use strict';
 /*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('TopCases', [
+angular.module('RedhatAccess.ascension').controller('TopCases', [
     '$scope',
     'STATUS',
     'CaseService',

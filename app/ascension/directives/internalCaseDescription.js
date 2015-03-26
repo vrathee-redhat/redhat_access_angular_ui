@@ -1,6 +1,6 @@
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaInternalcasedescription', function () {
+angular.module('RedhatAccess.ascension').directive('rhaInternalcasedescription', function () {
     return {
         templateUrl: 'ascension/views/internalCaseDescription.html',
         restrict: 'A',
