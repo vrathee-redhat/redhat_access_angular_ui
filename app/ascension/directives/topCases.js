@@ -1,7 +1,7 @@
 /*global angular*/
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaTopcases', function () {
+angular.module('RedhatAccess.ascension').directive('rhaTopcases', function () {
     return {
         templateUrl: 'ascension/views/topCases.html',
         restrict: 'A',

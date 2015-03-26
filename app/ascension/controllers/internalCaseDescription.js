@@ -1,8 +1,7 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('InternalCaseDescription', [
+angular.module('RedhatAccess.ascension').controller('InternalCaseDescription', [
     '$scope',
     '$modal',
-
     function ($scope, $modal) {
 
 

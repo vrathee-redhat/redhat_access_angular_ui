@@ -1,6 +1,6 @@
 'use strict';
 /*global $ */
-angular.module('RedhatAccess.cases').controller('OwnerInfo', [
+angular.module('RedhatAccess.ascension').controller('OwnerInfo', [
     '$scope',
     '$modal',
     function ($scope, $modal) {
