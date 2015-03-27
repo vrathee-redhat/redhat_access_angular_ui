@@ -1,7 +1,7 @@
 section.filters
   .row
     .col-sm-4
-      select(
+      select#rha-status-select(
         chosen,
         width="'100%'",
         name='status',
@@ -9,7 +9,7 @@ section.filters
         ng-change="updateCase()",
         ng-options='s.name for s in CaseService.statuses track by s.name')
     .col-sm-4
-      select(
+      select#rha-severity-select(
         chosen,
         width="'100%'",
         name='severity',
