@@ -1,8 +1,8 @@
 div(rha-header='', page='caseList')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
   .row(ng-hide='!CaseService.sfdcIsHealthy')
-    .col-sm-7(rha-listfilter='')
-    .col-sm-5
+    .col-sm-8(rha-listfilter='')
+    .col-sm-4
       .actions
         .row
           .col-xs-12
@@ -19,7 +19,6 @@ div(rha-header='', page='caseList')
   #case-list.table-list.case-list.bulk-closure(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
     .list-item(ng-repeat='case in SearchCaseService.cases')
       input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected')
-      //input.closure(ng-class='case.status === "Closed"', type="checkbox", ng-model='case.selected')
       .row.case(ng-click='caseLink(case.case_number)')
         .col-sm-4.col-md-2.item-group
           .block-icon

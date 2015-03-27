@@ -14,12 +14,6 @@ textarea { max-width: 100%; }
 
 input[type="text"], textarea, .form-control {
 	width: 100%;
-//	@include rem('padding', 8px);
-//	@include font-size(14px);
-//	color: $form-color;
-//	line-height: 1;
-//	border: 1px solid $border-gray;
-//	@include transition(.2s);
 
 	&:active,
 	&:focus {
@@ -35,13 +29,22 @@ input[type="text"], textarea, .form-control {
 	&:-ms-input-placeholder {
 		@include rem('padding', 8px);
 		color: $form-color;
-//		font-family: "Overpass", sans-serif;
-//		font-weight: 100;
-//		@include font-size(14px);
-//		line-height: 1.4;
 	}
 }
 
 label { @include rem('margin-bottom', 8px); }
 
 input.margin { margin-bottom: 20px; }
+
+.input-group-btn .close {
+	position: absolute;
+	z-index: 10;
+	top: 7px;
+	right: auto;
+	left: -30px;
+	padding: 0 1px;
+}
+
+input.with-close {
+	@include rem('padding-right', 40px);
+}
