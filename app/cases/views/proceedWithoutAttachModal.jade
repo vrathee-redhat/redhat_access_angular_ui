@@ -8,8 +8,9 @@
   .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     .col-sm-12
       .pull-right
-        button.btn-secondary.btn(
-          style='margin-left: 10px;', 
+        button#rha-btn-continue.btn-secondary.btn(
+          style='margin-left: 10px;',
           ng-click='closeModal(true)')
           span {{'Continue Without Attaching'|translate}}
-        button.btn.btn-primary.margin-left(ng-click='closeModal(false)') {{'Go Back'|translate}}
+        button#rha-btn-goBack.btn.btn-primary.margin-left(ng-click='closeModal(false)') {{'Go Back'|translate}}
+:

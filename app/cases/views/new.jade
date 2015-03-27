@@ -67,7 +67,7 @@ div(rha-header='', page='newCase')
           .col-sm-4.col-md-2
             .label Case Description
           .col-sm-7.col-md-8
-            textarea(name='', id='', cols='30', rows='10',
+            textarea(name='', id='rha-description', cols='30', rows='10',
               style='width: 100%; height: 200px; max-width: 100%;',
               ng-model='CaseService.kase.description',
               ng-change='CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
@@ -123,8 +123,8 @@ div(rha-header='', page='newCase')
           .col-sm-4.col-md-2
             .label Support Level
           .col-sm-7.col-md-4
-            select(
-            	chosen,
+            select#rha-supportLevel-select(
+              chosen,
               ng-model="CaseService.entitlement",
               ng-change="CaseService.onChangeFTSCheck()",
               width="'100%'",
