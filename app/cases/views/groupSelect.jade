@@ -8,8 +8,3 @@ div
 	    placeholder='Select a Group',
 	    ng-options='option.value as option.label for option in CaseService.groupOptions',
 	    options-disabled="option.isDisabled for option in CaseService.groupOptions")
-	//span.glyphicon.glyphicon-question-sign(
-	//         popover="{{'Filtering by case groups helps you find related cases.'|translate}}",
-	//         tabindex='0',
-	//         popover-append-to-body='true',
-	//         popover-trigger='mouseenter')

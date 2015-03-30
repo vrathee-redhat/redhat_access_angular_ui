@@ -33,9 +33,9 @@ angular.module('RedhatAccess.common').factory('strataService', [
         var errorHandler = function (message, xhr, response, status) {
             var translatedMsg = message;
             switch (status) {
-            case 'Unauthorized':
-                translatedMsg = translate('Unauthorized.');
-                break; // case n:
+                case 'Unauthorized':
+                    translatedMsg = translate('Unauthorized.');
+                    break; // case n:
                 //   code block
                 //   break;
             }
@@ -642,6 +642,19 @@ angular.module('RedhatAccess.common').factory('strataService', [
                                 deferred.resolve(response);
                             }, angular.bind(deferred, errorHandler));
                         }
+                        return deferred.promise;
+                    }
+                }
+            },
+            chats: {
+                chatSessionKey: {
+                    post: function(chat){
+                        var deferred = $q.defer();
+
+                        strata.chats.chatSessionKey.post(chat,function (response) {
+                            deferred.resolve(response);
+                        }, angular.bind(deferred, errorHandler));
+
                         return deferred.promise;
                     }
                 }

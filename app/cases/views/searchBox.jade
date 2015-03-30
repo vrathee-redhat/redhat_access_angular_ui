@@ -1,13 +1,15 @@
-div.input-group
-  input#rha-searchform-searchbox.form-control(
+.input-group
+  input#rha-searchform-searchbox.form-control.with-close(
     ng-disabled='!securityService.loginStatus.isLoggedIn',
     placeholder='{{placeholder}}',
     ng-model='SearchBoxService.searchTerm',
     ng-keypress='onFilterKeyPress($event)',
     ng-change='SearchBoxService.onChange()')
   span.input-group-btn(ng-hide='hidebutton')
-    button#rha-searchform-searchbutton.btn.btn-info.btn-xs(
-      ng-click='SearchBoxService.doSearch()', 
+    a.close(ng-show="query !== ''", ng-click="clearSearch()")
+      span.web-icon-close
+    button#rha-searchform-searchbutton.btn.btn-app(
+      ng-click='SearchBoxService.doSearch()',
       ng-disabled='!securityService.loginStatus.isLoggedIn')
       i.glyphicon.glyphicon-search
-      |  {{''}}
+      | {{''}}

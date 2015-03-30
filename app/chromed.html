@@ -1,6 +1,6 @@
 <!doctype html>
 <html class="bootstrap3 legacyfalse chrometwo">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="/chrome_themes/nimbus/css/chrometwo.css" rel="stylesheet" />
@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="escalation/styles/escalation.css">
     <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://remotesupport.redhat.com/api/start_session.js"></script>
+    <script type="text/javascript">BG.setSite("remotesupport.redhat.com");</script>
     <!-- endbuild -->
     <!--[if lte IE 8]>
     <script type="text/javascript"> var ie8 = true;</script>
@@ -32,18 +34,18 @@
     <!--[if IE 9]>
     <script type="text/javascript"> var ie9 = true;</script>
     <![endif]-->
-  </head>
-  <body>
+</head>
+<body>
 
-    <div id="chrometwo">
-      <div id="chromed-app-content">
+<div id="chrometwo">
+    <div id="chromed-app-content">
         <div id="pcm" ng-view="">
             <div ui-view id="rha-content" autoscroll="false" class="container"></div>
         </div>
-      </div>
     </div>
+</div>
 
-    <script>
+<script>
     window.deps = [];
     window.deps.push("/bower_components/jsUri/Uri.min.js");
 
@@ -229,7 +231,7 @@
     window.deps.push("/redhat_access_module.js");
 
     window.deps.push("https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js");
-    </script>
-    <script type="text/javascript" src="loader.js"></script>
+</script>
+<script type="text/javascript" src="loader.js"></script>
 </body>
 </html>

@@ -26,74 +26,54 @@ angular.module('RedhatAccess.header').controller('ChatButton', [
         if (window.chatInitialized === undefined) {
             window.chatInitialized = false;
         }
-        $scope.checkChatButtonStates = function () {
-            $scope.chatAvailable = window.fakeOnlineButton.style.display !== 'none';
+        $scope.enableChat = function () {
+            //check for has_chat attribure
+            //securityService.loginStatus.authedUser.has_chat comment it now and uncomment later to be included in condition
+            $scope.showChat = securityService.loginStatus.isLoggedIn && CHAT_SUPPORT.enableChat;
+           // console.log("security check" +securityService.loginStatus.isLoggedIn)
+           // console.log("authed user" +securityService.loginStatus.authedUser.has_chat)
+           // console.log("enable chat" +CHAT_SUPPORT.enableChat)
+           // console.log("show chat is "+$scope.showChat);
+           // console.log("locale is "+$scope.showChat);
+            return $scope.showChat;
         };
-        $scope.timer = null;
-        $scope.chatHackUrl = $sce.trustAsResourceUrl(CHAT_SUPPORT.chatIframeHackUrlPrefix);
-        $scope.setChatIframeHackUrl = function () {
-            strataService.users.chatSession.post().then(angular.bind(this, function (sessionId) {
-                var url = CHAT_SUPPORT.chatIframeHackUrlPrefix + '?sessionId=' + sessionId + '&ssoName=' + securityService.loginStatus.authedUser.sso_username;
-                $scope.chatHackUrl = $sce.trustAsResourceUrl(url);
+        $scope.showChat = false;
+
+        $scope.initializeChat = function () {
+
+        };
+        $scope.openChatWindow = function () {
+           var ssoName = securityService.loginStatus.authedUser.sso_username;
+           var name = securityService.loginStatus.authedUser.loggedInUser;
+           var chat={};
+           chat.case_id=CaseService.kase.id;
+           chat.customer_ssoname=ssoName;
+           chat.customer_name=name;
+           var locale=getCookieValue('rh_locale');
+           //console.log("locale is "+locale);
+           if(locale==='es')
+           {
+               chat.queue_id='issue:es_Chat';
+           }
+            else
+           {
+               chat.queue_id='issue:en_Chat';
+
+           }
+           //chat.queue_id='general';
+            strataService.chats.chatSessionKey.post(chat).then(angular.bind(this, function (sessionKeyFromStrata) {
+                BG.start(BG.START_TYPE.CHAT, {
+                    sessionKey: sessionKeyFromStrata,
+                    uiOptions: {
+                        fallbackToFullWindow: false
+                    }
+                });
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
         };
-        $scope.enableChat = function () {
-            $scope.showChat = securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.has_chat && CHAT_SUPPORT.enableChat;
-            return $scope.showChat;
-        };
-        $scope.showChat = false;
-        // determines whether we should show buttons at all
-        $scope.chatAvailable = false;
-        //Availability of chat as determined by live agent, toggles chat buttons
-        $scope.initializeChat = function () {
-            if (!$scope.enableChat() || window.chatInitialized === true) {
-                //function should only be called when chat is enabled, and only once per page load
-                return;
-            }
-            if (!window._laq) {
-                window._laq = [];
-            }
-            window._laq.push(function () {
-                liveagent.showWhenOnline(CHAT_SUPPORT.chatButtonToken, window.fakeOnlineButton);
-                liveagent.showWhenOffline(CHAT_SUPPORT.chatButtonToken, window.fakeOfflineButton);
-            });
-            //var chatToken = securityService.loginStatus.sessionId;
-            var ssoName = securityService.loginStatus.authedUser.sso_username;
-            var name = securityService.loginStatus.authedUser.loggedInUser;
-            //var currentCaseNumber;
-            var accountNumber = securityService.loginStatus.authedUser.account_number;
-            // if (currentCaseNumber) {
-            //   liveagent
-            //     .addCustomDetail('Case Number', currentCaseNumber)
-            //     .map('Case', 'CaseNumber', false, false, false)
-            //     .saveToTranscript('CaseNumber__c');
-            // }
-            // if (chatToken) {
-            //   liveagent
-            //     .addCustomDetail('Session ID', chatToken)
-            //     .map('Contact', 'SessionId__c', false, false, false);
-            // }
-            liveagent.addCustomDetail('Contact Login', ssoName).map('Contact', 'SSO_Username__c', true, true, true).saveToTranscript('SSO_Username__c');
-            //liveagent
-            //  .addCustomDetail('Contact E-mail', email)
-            //  .map('Contact', 'Email', false, false, false);
-            liveagent.addCustomDetail('Account Number', accountNumber).map('Account', 'AccountNumber', true, true, true);
-            liveagent.setName(name);
-            liveagent.addCustomDetail('Name', name);
-            liveagent.setChatWindowHeight('552');
-            //liveagent.enableLogging();
-            liveagent.init(CHAT_SUPPORT.chatLiveAgentUrlPrefix, CHAT_SUPPORT.chatInitHashOne, CHAT_SUPPORT.chatInitHashTwo);
-            window.chatInitialized = true;
-        };
-        $scope.openChatWindow = function () {
-            liveagent.startChat(CHAT_SUPPORT.chatButtonToken);
-        };
         $scope.init = function () {
             if ($scope.enableChat()) {
-                $scope.setChatIframeHackUrl();
-                $scope.timer = $interval($scope.checkChatButtonStates, 5000);
                 $scope.initializeChat();
             }
         };
