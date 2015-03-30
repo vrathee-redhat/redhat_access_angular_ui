@@ -44,7 +44,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .col-sm-8
               blockquote.dialog-box.pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
               blockquote.dialog-box.pre-wrap(ng-hide="element.file_name || element.comment_type === 'chat'")
-                | {{ element.text}}
+                span(ng-bind-html="parseCommentHtml(element)")
                 a.glyphicon.glyphicon-link.pull-right(ng-hide="element.file_name", ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}') 
                 a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}} &nbsp;
               .dialog-box(ng-show="element.file_name")
