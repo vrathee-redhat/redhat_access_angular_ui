@@ -20,7 +20,8 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     'CASE_EVENTS',
     '$sce',
     'translate',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, translate) {
+    '$filter',
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, translate, $filter) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -188,6 +189,10 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
                 if (RHAUtils.isNotEmpty(comment.body)) {
                     var rawHtml = comment.body.toString();
                     parsedHtml = $sce.trustAsHtml(rawHtml);
+                }
+            } else if (comment.text !== undefined) {
+                if (RHAUtils.isNotEmpty(comment.text)) {
+                    parsedHtml = $filter('linky')(comment.text,'_blank');
                 }
             }
             return parsedHtml;
