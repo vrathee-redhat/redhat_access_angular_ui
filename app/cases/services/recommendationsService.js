@@ -44,29 +44,15 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
             if (CaseService.kase.recommendations) {
                 //Push any pinned recommendations to the front of the array
                 if (CaseService.kase.recommendations.recommendation) {
-                    var tmpRec = [];
                     angular.forEach(CaseService.kase.recommendations.recommendation, angular.bind(this, function (rec) {
                         if (rec.pinned_at) {
                             rec.pinned = true;
                             this.pinnedRecommendations.push(rec);
-
-                        } else if (rec.linked) {
+                        } if (rec.linked) {
                             rec.handPicked = true;
                             this.handPickedRecommendations.push(rec);
-                        } else{
-                            tmpRec.push(rec);
                         }
                     }));
-                    angular.forEach(tmpRec, angular.bind(this, function (rec) {
-                        this.recommendations.unshift(rec);
-                    }));
-                    // angular.forEach(this.pinnedRecommendations, angular.bind(this, function (rec) {
-                    //     this.recommendations.unshift(rec);
-                    // }));
-                    // angular.forEach(this.handPickedRecommendations, angular.bind(this, function (rec) {
-                    //     this.recommendations.unshift(rec);
-                    // }));
-
                 }
             }
         };
