@@ -18,6 +18,7 @@ angular.module('RedhatAccess.cases').controller('ConfirmCaseStateChangeModal', [
         };
         $scope.closeModal = function () {
             CaseService.kase.status = CaseService.prestineKase.status;
+            CaseService.kase.severity = CaseService.prestineKase.severity;
             $modalInstance.close();
         };
     }
