@@ -16,13 +16,22 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.cases = [];
         this.totalCases = 0;
         this.searching = true;
-        this.postfilter = {};
         this.start = 0;
         this.count = 50;
         this.total = 0;
         this.allCasesDownloaded = false;
         this.caseListPage = 1;
         this.caseListPageSize = 10;
+        var getIncludeClosed = function () {
+            if (CaseService.status === STATUS.open) {
+                return false;
+            } else if (CaseService.status === STATUS.closed) {
+                return true;
+            } else if (CaseService.status === STATUS.both) {
+                return true;
+            }
+            return true;
+        };
         this.clear = function () {
             this.cases = [];
             this.oldQueryString = '';
@@ -31,7 +40,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.total = 0;
             this.totalCases = 0;
             this.allCasesDownloaded = false;
-            this.postfilter = {};
             this.searching = true;
         };
         this.clearPagination = function () {
@@ -62,64 +70,122 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.oldQueryString = queryString;
             var that = this;
             var cases = null;
-            if (securityService.loginStatus.isLoggedIn) {
-                    //TODO add internal pallet
-                    // if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
-                    //     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                    //     //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                    //     //params.view = 'internal';
-                    // }
-                cases = strataService.cases.search(CaseService.status, caseOwner, CaseService.group, SearchBoxService.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
-                        if(response['case'] === undefined){
-                            that.totalCases = 0;
-                            that.total = 0;
-                            that.allCasesDownloaded = true;
-                        } else {
-	                        that.totalCases = response.total_count;
-	                        that.cases = that.cases.concat(response['case']);
-	                        that.start = that.start + that.count;
-	                        that.total = that.total + response['case'].length;
-	                        if(response['case'].length !== 50){
-                        		that.allCasesDownloaded = true;
-                        	}
-                    	}
-                        that.searching = false;
-                        deferred.resolve(cases);
-                    }), angular.bind(that, function (error) {
-                        if(error.xhr.status === 404){
-                            this.doFilter(false).then(function () {
-                                deferred.resolve(cases);
-                            });
-                        } else{
-                            AlertService.addStrataErrorMessage(error);
-                            that.searching = false;
-                            deferred.resolve(cases);
-                        }
-                    }));
-            } else {
-                $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
-                        if (securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal) {
-                            params.owner_ssoname = securityService.loginStatus.authedUser.sso_username;
-                        }
-                        cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
-                            that.totalCases = response.total_count;
+                //TODO add internal pallet
+                // if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
+                //     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
+                //     //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
+                //     //params.view = 'internal';
+                // }
 
+            if(SearchBoxService.searchTerm === undefined || SearchBoxService.searchTerm === ''){
+                var params = {
+                    count: this.count,
+                    include_closed: getIncludeClosed()
+                };
+                if(COMMON_CONFIG.isGS4 === true){
+                    params.account_number = "639769";
+                }
+                params.start = this.start;
+                var isObjectNothing = function (object) {
+                    if (object === '' || object === undefined || object === null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+                if (!isObjectNothing(SearchBoxService.searchTerm)) {
+                    params.keyword = SearchBoxService.searchTerm;
+                }
+                if (CaseService.group === CASE_GROUPS.manage) {
+                    $state.go('group');
+                } else if (CaseService.group === CASE_GROUPS.ungrouped) {
+                    params.only_ungrouped = true;
+                } else if (!isObjectNothing(CaseService.group)) {
+                    params.group_numbers = { group_number: [CaseService.group] };
+                }
+                if (CaseService.status === STATUS.closed) {
+                    params.status = STATUS.closed;
+                }
+                if (!isObjectNothing(CaseService.product)) {
+                    params.product = CaseService.product;
+                }
+                if (!isObjectNothing(CaseService.sortBy)) {
+                    params.sort_field = CaseService.sortBy;
+                }
+                if (!isObjectNothing(CaseService.sortOrder)) {
+                    params.sort_order = CaseService.sortOrder;
+                }
+                if (!isObjectNothing(CaseService.owner)) {
+                    params.owner_ssoname = CaseService.owner;
+                }
+                if (!isObjectNothing(CaseService.type)) {
+                    params.type = CaseService.type;
+                }
+                if (!isObjectNothing(CaseService.severity)) {
+                    params.severity = CaseService.severity;
+                }
+                if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
+                    params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
+                    params.view = 'internal';
+                }
+                cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
+                    if(response['case'] === undefined ){
+                        that.totalCases = 0;
+                        that.total = 0;
+                        that.allCasesDownloaded = true;
+                    } else {
+                        that.totalCases = response.total_count;
+                        if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
+                            that.allCasesDownloaded = true;
+                        }
+                        if (response['case'] !== undefined){
                             that.cases = that.cases.concat(response['case']);
-                            that.searching = false;
+                            //that.count = response['case'].length + that.total
                             that.start = that.start + that.count;
                             that.total = that.total + response['case'].length;
-                            if (that.total >= that.totalCases) {
-                                that.allCasesDownloaded = true;
-                            }
-                            if (angular.isFunction(that.postFilter)) {
-                                that.postFilter();
-                            }
-                        }), angular.bind(that, function (error) {
-                            AlertService.addStrataErrorMessage(error);
-                            that.searching = false;
-                        }));
+                        }
+                    }
+                    that.searching = false;
+                    deferred.resolve(cases);
+                }), angular.bind(that, function (error) {
+                    if(error.xhr.status === 404){
+                        this.doFilter(false).then(function () {
+                            deferred.resolve(cases);
+                        });
+                    } else{
+                        AlertService.addStrataErrorMessage(error);
+                        that.searching = false;
                         deferred.resolve(cases);
-                    });
+                    }
+                }));
+            } else{
+                cases = strataService.cases.search(CaseService.status, caseOwner, CaseService.group, SearchBoxService.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+                    if(response['case'] === undefined){
+                        that.totalCases = 0;
+                        that.total = 0;
+                        that.allCasesDownloaded = true;
+                    } else {
+                        that.totalCases = response.total_count;
+                        that.cases = that.cases.concat(response['case']);
+                        that.start = that.start + that.count;
+                        that.total = that.total + response['case'].length;
+                        if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
+                            that.allCasesDownloaded = true;
+                        }
+                    }
+                    that.searching = false;
+                    deferred.resolve(cases);
+                }), angular.bind(that, function (error) {
+                    if(error.xhr.status === 404){
+                        this.doFilter(false).then(function () {
+                            deferred.resolve(cases);
+                        });
+                    } else{
+                        AlertService.addStrataErrorMessage(error);
+                        that.searching = false;
+                        deferred.resolve(cases);
+                    }
+                }));
             }
             promises.push(deferred.promise);
             // } else {
