@@ -70,10 +70,11 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')
     form(name='notesForm')
-      label(for='rha-case-notes') {{'Notes:'|translate}}
-      <br />
-      span#notesTooltip.uploadNotice
-        span {{"Please note, contents of this field are not visible to Red Hat Support professionals."|translate}}
+      div
+        label(for='rha-case-notes') {{'Notes:'|translate}}
+      div
+        span#notesTooltip.uploadNotice
+          span {{"Please note, contents of this field are not visible to Red Hat Support professionals."|translate}}
       .row
         .col-xs-12
           textarea#rha-case-notes(
