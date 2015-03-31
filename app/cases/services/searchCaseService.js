@@ -22,6 +22,12 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.allCasesDownloaded = false;
         this.caseListPage = 1;
         this.caseListPageSize = 10;
+        this.caseParameters = {
+            searchTerm: '',
+            status: STATUS.open,
+            group: ''
+
+        };
         var getIncludeClosed = function () {
             if (CaseService.status === STATUS.open) {
                 return false;
@@ -52,6 +58,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         var queryString = '';
 
         this.doFilter = function (checkIsInternal) {
+            if(this.caseParameters.group === ''){
+                this.caseParameters.group = CaseService.group;
+            }
             queryString = '';
 
             //TODO add internal and GS4
@@ -77,7 +86,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 //     //params.view = 'internal';
                 // }
 
-            if(SearchBoxService.searchTerm === undefined || SearchBoxService.searchTerm === ''){
+            if(this.caseParameters.searchTerm === undefined || this.caseParameters.searchTerm === ''){
                 var params = {
                     count: this.count,
                     include_closed: getIncludeClosed()
@@ -93,22 +102,22 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         return false;
                     }
                 };
-                if (!isObjectNothing(SearchBoxService.searchTerm)) {
-                    params.keyword = SearchBoxService.searchTerm;
+                if (!isObjectNothing(this.caseParameters.searchTerm)) {
+                    params.keyword = this.caseParameters.searchTerm;
                 }
-                if (CaseService.group === CASE_GROUPS.manage) {
+                if (this.caseParameters.group === CASE_GROUPS.manage) {
                     $state.go('group');
-                } else if (CaseService.group === CASE_GROUPS.ungrouped) {
+                } else if (this.caseParameters.group === CASE_GROUPS.ungrouped) {
                     params.only_ungrouped = true;
                 } else if (!isObjectNothing(CaseService.group)) {
-                    params.group_numbers = { group_number: [CaseService.group] };
+                    params.group_numbers = { group_number: [this.caseParameters.group] };
                 }
-                if (CaseService.status === STATUS.closed) {
+                if (this.caseParameters.status === STATUS.closed) {
                     params.status = STATUS.closed;
                 }
-                if (!isObjectNothing(CaseService.product)) {
-                    params.product = CaseService.product;
-                }
+                // if (!isObjectNothing(CaseService.product)) {
+                //     params.product = CaseService.product;
+                // }
                 if (!isObjectNothing(CaseService.sortBy)) {
                     params.sort_field = CaseService.sortBy;
                 }
@@ -159,7 +168,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     }
                 }));
             } else{
-                cases = strataService.cases.search(CaseService.status, caseOwner, CaseService.group, SearchBoxService.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+                cases = strataService.cases.search(this.caseParameters.status, caseOwner, this.caseParameters.group, this.caseParameters.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
                     if(response['case'] === undefined){
                         that.totalCases = 0;
                         that.total = 0;

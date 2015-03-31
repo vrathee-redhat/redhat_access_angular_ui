@@ -48,6 +48,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             } else {
 	            if(CaseService.groups.length === 0){
 	                CaseService.populateGroups().then(function (){
+                        SearchCaseService.caseParemeters.group = CaseService.group;
 	                    SearchCaseService.doFilter().then(function () {
 
 	                    });
@@ -83,9 +84,13 @@ angular.module('RedhatAccess.cases').controller('List', [
        */
         if (securityService.loginStatus.isLoggedIn && securityService.loginStatus.userAllowedToManageCases) {
             $scope.firePageLoadEvent();
-            SearchCaseService.clear();
-            CaseService.status = 'open';
-            $scope.doSearch();
+            //SearchCaseService.clear();
+            if(CaseService.status === undefined){
+                CaseService.status = 'open';
+            }
+            if(SearchCaseService.cases.length > 0){
+                $scope.doSearch();
+            }
             $scope.setBreadcrumbs();
         }
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
@@ -119,16 +124,16 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    };
 
         $scope.getCasesText = function(){
-            if(CaseService.status === STATUS.open){
+            if(SearchCaseService.caseParameters.status === STATUS.open){
                 $scope.displayedCaseText = 'Open Support Cases';
-            } else if(CaseService.status === STATUS.closed){
+            } else if(SearchCaseService.caseParameters.status === STATUS.closed){
                 $scope.displayedCaseText = 'Closed Support Cases';
-            } else if(CaseService.status === STATUS.both){
+            } else if(SearchCaseService.caseParameters.status === STATUS.both){
                 $scope.displayedCaseText = 'Open and Closed Support Cases';
             }
         };
 
-        $scope.loadingRecWatcher = $scope.$watch('CaseService.status', function(newVal) {
+        $scope.loadingRecWatcher = $scope.$watch('SearchCaseService.caseParameters.status', function(newVal) {
             $scope.getCasesText();
         });
     }
