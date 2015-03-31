@@ -12,5 +12,12 @@ angular.module('RedhatAccess.cases').controller('DescriptionSection', [
                 controller: 'ConfirmCaseStateChangeModal'
             });
         };
+
+        $scope.updateSeverity = function(){
+            $modal.open({
+                templateUrl: 'cases/views/confirmCaseSeverityChangeModal.html',
+                controller: 'ConfirmCaseStateChangeModal'
+            });
+        };
     }
 ]);
