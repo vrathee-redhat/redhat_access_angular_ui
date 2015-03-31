@@ -113,6 +113,9 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.$watch('AttachmentsService.originalAttachments', function (val) {
             DiscussionService.updateElements();
+            if(AttachmentsService.originalAttachments.length ===0 ){ //if we are deleting last attachment, we should default to case discussion tab
+                $scope.toggleDiscussion();
+            }
         }, true);
         $scope.$watch('CaseService.comments', function (val) {
             DiscussionService.updateElements();
