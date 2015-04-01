@@ -176,7 +176,7 @@ div(rha-header='', page='newCase')
           .col-sm-4.col-md-3
             .label Case Group (Optional)
           .col-sm-7.col-md-4
-            div(rha-groupselect='')
+            div(rha-groupselect='', ng-init="setSearchOptions('false')")
 
         .row
           //- TODO make remove local storage once implemented
