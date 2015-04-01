@@ -7,7 +7,7 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
         span {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}} by {{CaseService.kase.contact_name}}
         span.sep |
         | Assigned to {{CaseService.kase.owner}}
-      strong.blue {{CaseService.kase.entitlement.sla}} Support Level
+      a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} Support Level
       div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
       div(ng-show='EDIT_CASE_CONFIG.showDetails')

@@ -1,11 +1,11 @@
 ul#tab_list.nav.nav-tabs(role="tablist")
-  li.active
+  li(ng-class='{"active": discussion}')
     a(ng-click='toggleDiscussion()', data-toggle="tab") Case Discussion
-  li
+  li(ng-class='{"active": attachments}')
     a(ng-click='toggleAttachments()',  data-toggle="tab", ng-hide="DiscussionService.attachments.length === 0") All Attachments
-  li(ng-hide="securityService.loginStatus.authedUser.is_internal")
+  li(ng-class='{"active": notes}', ng-hide="securityService.loginStatus.authedUser.is_internal")
     a(ng-click='toggleNotes()', data-toggle="tab") Private Notes
-  li(ng-show="securityService.loginStatus.authedUser.is_internal")
+  li(ng-class='{"active": bugzillas}', ng-show="securityService.loginStatus.authedUser.is_internal")
     a(ng-click='toggleBugzillas()', data-toggle="tab") Bugzilla Tickets
 .tab-content
   #pane1.tab-pane(ng-class='{"active": discussion}')
@@ -23,14 +23,14 @@ ul#tab_list.nav.nav-tabs(role="tablist")
           ng-change='onSortOrderChange()',
           ng-options='commentOrder as commentOrder.name for commentOrder in commentSortOrderList')
     .row
-      .col-xs-12        
+      .col-xs-12
         article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':commentSortOrder", ng-if='!element.draft')
           .row
             .col-sm-4
-              h4.meta(ng-if="element.comment_type === 'chat'") 
+              h4.meta(ng-if="element.comment_type === 'chat'")
                 span Transcript of chat between
                 .author.blue {{element.agent_name}}
-                span and 
+                span and
                 .author.blue {{element.visitor_name}}
                 date.light {{element.last_modified_date | date:'mediumDate'}} &nbsp;
                 span.light at &nbsp;
@@ -45,7 +45,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
               blockquote.dialog-box.pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
               blockquote.dialog-box.pre-wrap(ng-hide="element.file_name || element.comment_type === 'chat'")
                 span(ng-bind-html="parseCommentHtml(element)")
-                a.glyphicon.glyphicon-link.pull-right(ng-hide="element.file_name", ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}') 
+                a.glyphicon.glyphicon-link.pull-right(ng-hide="element.file_name", ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
                 a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}} &nbsp;
               .dialog-box(ng-show="element.file_name")
                 a(href="{{element.uri}}")
@@ -58,7 +58,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
       .col-sm-4
         h4.meta
           .author.blue {{attachment.created_by}}
-          date.light {{attachment.created_date | date:'mediumDate'}} 
+          date.light {{attachment.created_date | date:'mediumDate'}}
           span.light at &nbsp;
           time.light {{attachment.created_date | date:'h:mm:ss a Z'}}
       .col-sm-8
@@ -70,12 +70,14 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')
     form(name='notesForm')
-      label(for='rha-case-notes') {{'Notes:'|translate}}
+      div
+        label(for='rha-case-notes') {{'Notes:'|translate}}
+      div
+        span#notesTooltip.uploadNotice
+          span {{"Please note, contents of this field are not visible to Red Hat Support professionals."|translate}}
       .row
         .col-xs-12
           textarea#rha-case-notes(
-            tooltip='{{"This field allows Red Hat customers to make private notes pertinent to their case or account. Contents of this field are not visible to support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."|translate}}',
-            tooltip-placement='bottom',
             style='width: 100%; height: 70px; max-width: 100%;',
             ng-model='CaseService.kase.notes',
             maxlength='255',

@@ -19,6 +19,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.DiscussionService = DiscussionService;
         $scope.addingComment = false;
         $scope.progressCount = 0;
+        $scope.charactersLeft = 0;
         $scope.maxCommentLength = '32000';
         DiscussionService.commentTextBoxEnlargen = false;
 
@@ -56,6 +57,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     AlertService.addStrataErrorMessage(error);
                 });
                 $scope.progressCount = 0;
+                $scope.charactersLeft = 0;
 
                 if(securityService.loginStatus.authedUser.sso_username !== undefined && CaseService.updatedNotifiedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) === -1){
                     strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.authedUser.sso_username).then(function () {
@@ -70,6 +72,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 AlertService.addStrataErrorMessage(error);
                 $scope.addingComment = false;
                 $scope.progressCount = 0;
+                $scope.charactersLeft = 0;
             };
             if(!CaseService.disableAddComment && CaseService.commentText !== 'undefined'){
                 $scope.addingComment = true;
@@ -160,14 +163,16 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             $scope.maxCharacterCheck();
         });
         $scope.maxCharacterCheck = function() {
-            if (CaseService.commentText !== undefined && $scope.maxCommentLength  > CaseService.commentText.length) {
+            if (CaseService.commentText !== undefined && $scope.maxCommentLength  >= CaseService.commentText.length) {
                 var count = CaseService.commentText.length * 100 / $scope.maxCommentLength ;
                 parseInt(count);
                 $scope.progressCount = Math.round(count * 100) / 100;
+                $scope.charactersLeft = $scope.maxCommentLength - CaseService.commentText.length;
             }
             else if(CaseService.commentText===undefined)
             {
                 $scope.progressCount=0;
+                $scope.charactersLeft = 0;
             }
         };
         $scope.saveDraft = function () {
