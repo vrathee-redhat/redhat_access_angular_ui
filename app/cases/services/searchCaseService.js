@@ -12,7 +12,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
     'SearchBoxService',
     'securityService',
     'COMMON_CONFIG',
-    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $rootScope, SearchBoxService, securityService, COMMON_CONFIG) {
+    'RHAUtils',
+    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $rootScope, SearchBoxService, securityService, COMMON_CONFIG, RHAUtils) {
         this.cases = [];
         this.totalCases = 0;
         this.searching = true;
@@ -86,42 +87,36 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     params.account_number = "639769";
                 }
                 params.start = this.start;
-                var isObjectNothing = function (object) {
-                    if (object === '' || object === undefined || object === null) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                };
-                if (!isObjectNothing(SearchBoxService.searchTerm)) {
+
+                if (!RHAUtils.isEmpty(SearchBoxService.searchTerm)) {
                     params.keyword = SearchBoxService.searchTerm;
                 }
                 if (CaseService.group === CASE_GROUPS.manage) {
                     $state.go('group');
                 } else if (CaseService.group === CASE_GROUPS.ungrouped) {
                     params.only_ungrouped = true;
-                } else if (!isObjectNothing(CaseService.group)) {
+                } else if (!RHAUtils.isEmpty(CaseService.group)) {
                     params.group_numbers = { group_number: [CaseService.group] };
                 }
                 if (CaseService.status === STATUS.closed) {
                     params.status = STATUS.closed;
                 }
-                if (!isObjectNothing(CaseService.product)) {
+                if (!RHAUtils.isEmpty(CaseService.product)) {
                     params.product = CaseService.product;
                 }
-                if (!isObjectNothing(CaseService.sortBy)) {
+                if (!RHAUtils.isEmpty(CaseService.sortBy)) {
                     params.sort_field = CaseService.sortBy;
                 }
-                if (!isObjectNothing(CaseService.sortOrder)) {
+                if (!RHAUtils.isEmpty(CaseService.sortOrder)) {
                     params.sort_order = CaseService.sortOrder;
                 }
-                if (!isObjectNothing(CaseService.owner)) {
+                if (!RHAUtils.isEmpty(CaseService.owner)) {
                     params.owner_ssoname = CaseService.owner;
                 }
-                if (!isObjectNothing(CaseService.type)) {
+                if (!RHAUtils.isEmpty(CaseService.type)) {
                     params.type = CaseService.type;
                 }
-                if (!isObjectNothing(CaseService.severity)) {
+                if (!RHAUtils.isEmpty(CaseService.severity)) {
                     params.severity = CaseService.severity;
                 }
                 if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
