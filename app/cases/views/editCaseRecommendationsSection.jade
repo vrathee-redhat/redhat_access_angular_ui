@@ -57,9 +57,6 @@ accordion
             style='cursor: pointer;') &nbsp;
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title}}
-          span.handpicked(ng-show='recommendation.handPicked', translate='')
-            .fa.fa-check
-            | Handpicked
         div.pre-wrap(ng-bind-html='recommendation.abstract')
     .pagination
       .pull-right

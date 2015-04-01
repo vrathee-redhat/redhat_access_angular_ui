@@ -18,6 +18,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
         this.backendAttachments = [];
         this.suggestedArtifact = {};
         this.proceedWithoutAttachments = false;
+        this.maxAttachmentSize;
         this.clear = function () {
             this.originalAttachments = [];
             this.updatedAttachments = [];
@@ -146,6 +147,15 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                 parsedHtml = $sce.trustAsHtml(rawHtml);
             }
             return parsedHtml;
+        };
+        this.fetchMaxAttachmentSize = function () {
+            strataService.values.cases.attachment.size().then(angular.bind(this, function (response) {
+                if (RHAUtils.isNotEmpty(response)) {
+                    this.maxAttachmentSize = response.match(/\d+/)[0];
+                }
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
         };
     }
 ]);
