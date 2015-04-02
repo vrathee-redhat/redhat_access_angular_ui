@@ -7,11 +7,12 @@ angular.module('RedhatAccess.cases').controller('EmailNotifySelect', [
     'securityService',
     'AlertService',
     'strataService',
+    'CASE_EVENTS',
     '$filter',
     'RHAUtils',
     'EDIT_CASE_CONFIG',
     'AUTH_EVENTS',
-    function ($scope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
+    function ($scope, CaseService, securityService, AlertService, strataService,CASE_EVENTS, $filter, RHAUtils,EDIT_CASE_CONFIG, AUTH_EVENTS) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
@@ -45,10 +46,10 @@ angular.module('RedhatAccess.cases').controller('EmailNotifySelect', [
                 });
             }
         };
-        if (securityService.loginStatus.isLoggedIn) {
+        if (CaseService.caseDataReady) {
             CaseService.populateUsers();
         }
-        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(CASE_EVENTS.received, function () {
             CaseService.populateUsers();
         });
 

@@ -185,7 +185,13 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             var promise = null;
             if (securityService.loginStatus.authedUser.org_admin) {
                 this.usersLoading = true;
-                var accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.authedUser.account_number : this.account.number;
+                var accountNumber;
+                if(this.kase.account_number) {
+                    accountNumber = this.kase.account_number;
+                }
+                else {
+                    accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.authedUser.account_number : this.account.number;
+                }
                 promise = strataService.accounts.users(accountNumber);
                 promise.then(angular.bind(this, function (users) {
                     angular.forEach(users, function(user){
