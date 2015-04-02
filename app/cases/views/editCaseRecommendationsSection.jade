@@ -12,7 +12,7 @@ accordion
             style='cursor: pointer;') &nbsp;
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title | substring:100 }}
-        div(ng-bind-html='recommendation.abstract')
+        div.pre-wrap(ng-bind-html='recommendation.abstract')
     .pagination
       .pull-right
         button.btn.btn-secondary.btn-slim(ng-disabled="handPickedResultsPage === 1", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage - 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
@@ -36,7 +36,7 @@ accordion
           span.handpicked(ng-show='recommendation.handPicked', translate='')
             .fa.fa-check
             | Handpicked
-        div(ng-bind-html='recommendation.abstract')
+        div.pre-wrap(ng-bind-html='recommendation.abstract')
     .pagination
       .pull-right
         button.btn.btn-secondary.btn-slim(ng-disabled="resultsPage === 1", ng-click="selectPage(resultsPage = resultsPage - 1, RecommendationsService.recommendations, results)")
@@ -57,10 +57,7 @@ accordion
             style='cursor: pointer;') &nbsp;
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title}}
-          span.handpicked(ng-show='recommendation.handPicked', translate='')
-            .fa.fa-check
-            | Handpicked
-        div(ng-bind-html='recommendation.abstract')
+        div.pre-wrap(ng-bind-html='recommendation.abstract')
     .pagination
       .pull-right
         button.btn.btn-secondary.btn-slim(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")

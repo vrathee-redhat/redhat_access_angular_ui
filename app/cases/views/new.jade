@@ -20,17 +20,17 @@ div(rha-header='', page='newCase')
       section.config-options
         div(ng-if='securityService.loginStatus.authedUser.is_internal')
           .row.row-short
-            .col-sm-4.col-md-2
+            .col-sm-4.col-md-3
               label(for='rha-account-number') {{'Account'|translate}}
             .col-sm-7.col-md-4
               div(rha-accountselect='')
           .row.row-short
-            .col-sm-4.col-md-2
+            .col-sm-4.col-md-3
               label(for='rha-owners-select') {{'Owner'|translate}}
             .col-sm-7.col-md-4
               div(rha-ownerselect='')
         .row.row-short
-          .col-sm-4.col-md-2
+          .col-sm-4.col-md-3
             .label {{'Product'|translate}}
           .col-sm-7.col-md-4
             div(rha-productselect='')
@@ -40,7 +40,7 @@ div(rha-header='', page='newCase')
           //-     .circle &nbsp
           //-     .circle &nbsp
         .row.row-short
-          .col-sm-4.col-md-2
+          .col-sm-4.col-md-3
             .label {{'Product Version'|translate}}
           .col-sm-7.col-md-4
             div(rha-versionselect='')
@@ -50,7 +50,7 @@ div(rha-header='', page='newCase')
           //-     .circle &nbsp
           //-     .circle &nbsp
         .row.row-short
-          .col-sm-4.col-md-2
+          .col-sm-4.col-md-3
             .label {{'Case Name'|translate}}
           .col-sm-7.col-md-4
             input#rha-case-summary.form-control(
@@ -64,7 +64,7 @@ div(rha-header='', page='newCase')
           //-     .circle &nbsp
           //-     .circle &nbsp
         .row.row-short
-          .col-sm-4.col-md-2
+          .col-sm-4.col-md-3
             .label Case Description
           .col-sm-7.col-md-8
             textarea(name='', id='rha-description', cols='30', rows='10',
@@ -120,7 +120,7 @@ div(rha-header='', page='newCase')
           .col-xs-12#recommendations_section
             .section(rha-newcaserecommendations='')
         .row.row-short
-          .col-sm-4.col-md-2
+          .col-sm-4.col-md-3
             .label Support Level
           .col-sm-7.col-md-4
             select#rha-supportLevel-select(
@@ -131,7 +131,7 @@ div(rha-header='', page='newCase')
               ng-options="entitlement as entitlement for entitlement in CaseService.entitlements")
               option(value="")
         .row.row-short
-          .col-sm-4.col-md-2
+          .col-sm-4.col-md-3
             .label.inline-tooltip Severity
               span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="hover")
           .col-sm-7.col-md-4
@@ -159,7 +159,7 @@ div(rha-header='', page='newCase')
                     input.pull-left.margin-left(
                       ng-model="CaseService.fts_contact")
         .row.row-short
-          .col-sm-4.col-md-2
+          .col-sm-4.col-md-3
             .label(for='email-notifications') Send Email Notifications to
           .col-sm-7.col-md-4
             .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
@@ -173,10 +173,10 @@ div(rha-header='', page='newCase')
               width='"100%"',
               ng-options='user.sso_username as user.sso_username for user in CaseService.users')
         .row.row-short
-          .col-sm-4.col-md-2
+          .col-sm-4.col-md-3
             .label Case Group (Optional)
           .col-sm-7.col-md-4
-            div(rha-groupselect='')
+            div(rha-groupselect='', ng-init="setSearchOptions('false')")
 
         .row
           //- TODO make remove local storage once implemented
