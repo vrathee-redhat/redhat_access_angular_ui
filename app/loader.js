@@ -2,8 +2,11 @@
 (function() {
   window.chrometwo_require([
     'angular128',
-    'jquery'
-  ], function(angular, jq) {
+    'jquery',
+     'moment',
+
+
+  ], function(angular, jq,moment) {
     'use strict';
     window.require.config({
       paths: {

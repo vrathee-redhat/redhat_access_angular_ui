@@ -8,7 +8,9 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
     'CaseService',
     'strataService',
     'HeaderService',
-    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService) {
+    'RHAUtils',
+    'securityService',
+    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService,RHAUtils,securityService) {
         this.discussionElements = [];
         this.chatTranscriptList = [];
         this.comments = CaseService.comments;
@@ -63,6 +65,12 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
             if (this.chatTranscriptList !== undefined && this.chatTranscriptList.length > 0) {
                 this.discussionElements = this.discussionElements.concat(this.chatTranscriptList);
             }
+            angular.forEach(this.discussionElements , angular.bind(this, function (element) {
+                element.timezone_last_modified_date=RHAUtils.convertToTimezone(element.last_modified_date,securityService.loginStatus.authedUser.timezone,'MMM DD YYYY');
+                element.timezone_last_modified_time=RHAUtils.convertToTimezone(element.last_modified_date,securityService.loginStatus.authedUser.timezone,'hh:mm A Z');
+                element.timezone_created_date=RHAUtils.convertToTimezone(element.created_date,securityService.loginStatus.authedUser.timezone,'MMM DD YYYY');
+                element.timezone_created_time=RHAUtils.convertToTimezone(element.created_date,securityService.loginStatus.authedUser.timezone,'hh:mm A Z');
+            }));
         };
     }
 ]);

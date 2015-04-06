@@ -139,6 +139,10 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                             that.start = that.start + that.count;
                             that.total = that.total + response['case'].length;
                         }
+                        angular.forEach(that.cases, angular.bind(this, function (kase) {
+                            kase.localTzCreatedDate=RHAUtils.convertToTimezone(kase.created_date,securityService.loginStatus.authedUser.timezone,'MMM dd YYYY');
+                            kase.localTzModifiedDate=RHAUtils.convertToTimezone(kase.last_modified_date,securityService.loginStatus.authedUser.timezone,'MMM dd YYYY');
+                        }));
                     }
                     that.searching = false;
                     deferred.resolve(cases);
@@ -167,8 +171,14 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
                             that.allCasesDownloaded = true;
                         }
+                        angular.forEach(that.cases, angular.bind(this, function (kase) {
+                            kase.localTzCreatedDate=RHAUtils.convertToTimezone(kase.created_date,'MMM DD YYYY');
+                            kase.localTzModifiedDate=RHAUtils.convertToTimezone(kase.last_modified_date,'MMM DD YYYY');
+                        }));
                     }
                     that.searching = false;
+
+
                     deferred.resolve(cases);
                 }), angular.bind(that, function (error) {
                     if(error.xhr.status === 404){
@@ -182,6 +192,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     }
                 }));
             }
+
+
+
             promises.push(deferred.promise);
             // } else {
             //     deferred.resolve();

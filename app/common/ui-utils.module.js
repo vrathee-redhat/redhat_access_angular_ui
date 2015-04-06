@@ -14,7 +14,8 @@ var app = angular.module('RedhatAccess.ui-utils', ['gettext']);
 //             });
 //     }
 // ]);
-app.service('RHAUtils', function () {
+app.service('RHAUtils'
+    , function () {
     /**
      * Generic function to decide if a simple object should be considered nothing
      */
@@ -34,6 +35,15 @@ app.service('RHAUtils', function () {
         } else {
             return false;
         }
+    };
+
+    this.convertToTimezone=function(date,timezone,formatter)
+    {
+        console.log("timezone is "+timezone);
+        console.log("date is "+date);
+        console.log("formatter is "+formatter);
+        var timezoneDate=moment(date).tz(timezone).format(formatter);
+        return timezoneDate;
     };
 });
 //Wrapper service for translations
