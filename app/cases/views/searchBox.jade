@@ -10,6 +10,6 @@
       span.web-icon-close
     button#rha-searchform-searchbutton.btn.btn-app(
       ng-click='SearchBoxService.doSearch()',
-      ng-disabled='!securityService.loginStatus.isLoggedIn')
+      ng-disabled='!securityService.loginStatus.isLoggedIn || SearchBoxService.disableSearchButton')
       i.glyphicon.glyphicon-search
       | {{''}}

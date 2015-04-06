@@ -486,7 +486,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             return deferred.promise;
         };
         this.updateLocalStorageForNewCase = function(){
-            if(this.localStorageCache)
+            if(this.localStorageCache && RHAUtils.isEmpty(this.kase.case_number)) //as we have common component for product and version, adding extra condition for confirming its on new case
             {
                 var draftNewCase = {};
                 if(!RHAUtils.isEmpty(this.kase.description))
