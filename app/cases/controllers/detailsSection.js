@@ -16,6 +16,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.securityService = securityService;
         $scope.maxNotesLength = '255';
         $scope.progressCount = 0;
+        $scope.caseSummaryEditable = false;
 
 		$scope.toggleExtraInfo = function() {
 			$scope.showExtraInfo = !$scope.showExtraInfo;
@@ -123,6 +124,9 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 if (CaseService.kase.notes !== null) {
                     caseJSON.notes = CaseService.kase.notes;
                 }
+                if (CaseService.kase.summary !== null) {
+                    caseJSON.summary = CaseService.kase.summary;
+                }
                 strataService.cases.put(CaseService.kase.case_number, caseJSON).then(function () {
                         // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
                         //     $scope.changeCaseOwner();
@@ -173,6 +177,15 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             } else {
                 return false;
             }
+        };
+        $scope.editCaseSummary = function (editSummary) {
+            if (editSummary === true) {
+                $scope.caseSummaryEditable = true;
+            } else {
+                CaseService.kase.summary = CaseService.prestineKase.summary;
+                $scope.caseSummaryEditable = false;
+            }
+            
         };
         if (CaseService.caseDataReady) {
             $scope.init();
