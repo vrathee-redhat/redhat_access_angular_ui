@@ -34,21 +34,11 @@ div(rha-header='', page='newCase')
             .label {{'Product'|translate}}
           .col-sm-7.col-md-4
             div(rha-productselect='')
-          //- .col-sm-1
-          //-   .loader
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-          //-     .circle &nbsp
         .row.row-short
           .col-sm-4.col-md-3
             .label {{'Product Version'|translate}}
           .col-sm-7.col-md-4
             div(rha-versionselect='')
-          //- .col-sm-1
-          //-   .loader
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-          //-     .circle &nbsp
         .row.row-short
           .col-sm-4.col-md-3
             .label {{'Case Name'|translate}}
@@ -57,12 +47,14 @@ div(rha-header='', page='newCase')
             maxlength='255',
             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
             ng-change='CaseService.validateNewCase();;CaseService.updateLocalStorageForNewCase()',
-            ng-model='CaseService.kase.summary')
-          //- .col-sm-1
-          //-   .loader
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-          //-     .circle &nbsp
+            ng-model='CaseService.kase.summary'
+            ng-focus="CaseService.updatingNewCaseSummary=true",
+            ng-blur="CaseService.updatingNewCaseSummary=false")
+          .col-sm-1(ng-show='CaseService.updatingNewCaseSummary')
+            .loader
+              .circle &nbsp
+              .circle &nbsp
+              .circle &nbsp
         .row.row-short
           .col-sm-4.col-md-3
             .label Case Description
@@ -71,7 +63,9 @@ div(rha-header='', page='newCase')
               style='width: 100%; height: 200px; max-width: 100%;',
               ng-model='CaseService.kase.description',
               ng-change='CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
-              ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase')
+              ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
+              ng-focus="CaseService.updatingNewCaseDescription=true",
+              ng-blur="CaseService.updatingNewCaseDescription=false")
             div(style="margin-top: 15px", ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
               b Get faster results.
               | &nbsp; Attaching logs or other diagnostics files typically results in faster resolution.
@@ -111,11 +105,11 @@ div(rha-header='', page='newCase')
                           ng-model='ieFileDescription',
                           placeholder="{{'File description'|translate}}")
                   iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
-          //- .col-sm-1
-          //-   .loader
-          //-     .circle &nbsp
-          //-     .circle &nbsp
-          //-     .circle &nbsp
+          .col-sm-1(ng-show='CaseService.updatingNewCaseDescription')
+            .loader
+              .circle &nbsp
+              .circle &nbsp
+              .circle &nbsp
         .row
           .col-xs-12#recommendations_section
             .section(rha-newcaserecommendations='')
