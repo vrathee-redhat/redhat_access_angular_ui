@@ -22,4 +22,4 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
     .aside.col-md-4
       .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
       #rha-recommendation-section.recommendations(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
-      .section#case-escalation.case-escalation(rha-requestescalation='')
+      #case-escalation.section.case-escalation.margin-top(rha-requestescalation='')

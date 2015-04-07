@@ -1,20 +1,22 @@
 #rha-recommendation-section.recommendations(ng-hide='RecommendationsService.recommendations.length === 0')
-  h3
-    span.inline() Based on your description, here are some possible solutions
-    .spinner.spinner-sm.spinner-inline(ng-show='searchInProgress.value')
-    span(ng-show='searchInProgress.value') Updating Recommendations
-  div(ng-show='RecommendationsService.recommendations.length', ng-repeat="result in results")
-    article
-      header
-        a.link(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title | substring:100 }}
-      p.article-content
-        a(style="word-wrap: break-word;", ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank', ng-bind-html='result.abstract')
-    //- a.carousel-nav.prev.fa.fa-chevron-left(ng-hide="currentPage == 1", ng-click="selectPage(currentPage - 1)")
-    //- a.carousel-nav.next.fa.fa-chevron-right(ng-hide="currentPage == lastPage", ng-click="selectPage(currentPage + 1)")
+  .panel-heading
+    h4.panel-title
+      span.inline() Based on your description, here are some possible solutions
+      .spinner.spinner-sm.spinner-inline(ng-show='searchInProgress.value')
+      span(ng-show='searchInProgress.value') Updating Recommendations
+  .panel-body
+    ul
+      li(ng-show='RecommendationsService.recommendations.length', ng-repeat="result in results")
+        article
+          header.title
+            a.link
+              strong(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title | substring:100 }}
+          p.article-content
+            a(style="word-wrap: break-word;", ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank', ng-bind-html='result.abstract')
   .pagination
     .pull-right
       button.btn.btn-secondary.btn-slim(ng-hide="currentPage == 1", ng-click="selectPage(currentPage - 1)")
         i.fa.fa-long-arrow-left
-      button.btn.btn-primary.btn-slim(ng-hide="currentPage == lastPage", ng-click="selectPage(currentPage + 1)")
+      button.btn.btn-app.btn-slim(ng-hide="currentPage == lastPage", ng-click="selectPage(currentPage + 1)")
         span NEXT
         i.fa.fa-long-arrow-right

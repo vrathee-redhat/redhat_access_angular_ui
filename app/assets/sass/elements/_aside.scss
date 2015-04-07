@@ -54,7 +54,6 @@
 
 			a {
 				display: block;
-				@include rem('padding', 10px 15px);
 				color: $base_font_color;
 
 				&:hover {
