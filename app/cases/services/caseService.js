@@ -426,7 +426,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
 
             this.submittingCase = true;
-            AlertService.addWarningMessage('Creating case...');
+            AlertService.addWarningMessage(translate('Creating case...'));
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);

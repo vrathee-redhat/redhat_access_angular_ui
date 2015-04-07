@@ -14,7 +14,7 @@ section.case-description
         ng-click='updateCase()', translate='') Save
       a.margin-left(
         ng-disabled='updatingDetails',
-        ng-click='editCaseSummary(false)') Cancel
+        ng-click='editCaseSummary(false)', translate='') Cancel
   h4.product-name {{CaseService.kase.product}}
   .description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | substring:150 }}
   .description.pre-wrap(ng-show='showExtraInfo') {{CaseService.kase.description}}
@@ -33,14 +33,14 @@ section.case-description
             div(rha-versionselect='')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
-            .label Alternate Case ID
+            .label {{'Alternate Case ID'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             input#rha-case-alt-id.form-control(
               ng-model='CaseService.kase.alternate_id',
               name='alternate_id')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
-            .label Case Group
+            .label {{'Case Group'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             select#rha-group-select.form-control(
               chosen,

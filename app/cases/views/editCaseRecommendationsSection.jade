@@ -2,7 +2,7 @@ accordion
   accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0;', is-open="isHandpickedSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isHandpickedSolutionsOpen.val}')
-      | Handpicked For You
+      | {{'Handpicked For You'|translate}}
     ul
       li.recommendation(ng-repeat='recommendation in handPickedResults.array')
         .title
@@ -18,12 +18,12 @@ accordion
         button.btn.btn-secondary.btn-slim(ng-disabled="handPickedResultsPage === 1", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage - 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
           i.fa.fa-long-arrow-left
         button.btn.btn-primary.btn-slim(ng-disabled="handPickedResultsPage >= findLastPage(RecommendationsService.handPickedRecommendations)", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage + 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
-          span NEXT
+          span {{'NEXT'|translate}}
           i.fa.fa-long-arrow-right
   accordion-group(ng-hide='RecommendationsService.recommendations.length === 0', is-open="isTopSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isTopSolutionsOpen.val}')
-      | Top Solutions
+      | {{'Top Solutions'|translate}}
     ul
       li.recommendation(ng-repeat='recommendation in results.array')
         .title
@@ -47,7 +47,7 @@ accordion
   accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0', is-open="isPinnedSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isPinnedSolutionsOpen.val}')
-      | Your Pins
+      | {{'Your Pins'|translate}}
     ul
       li.recommendation(ng-repeat='recommendation in pinnedResults.array')
         .title

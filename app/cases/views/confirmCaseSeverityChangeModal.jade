@@ -3,7 +3,7 @@
 .modal-body
   .row
     .col-sm-12
-      div Are you sure you want to change this case severity to {{CaseService.kase.severity.name}}?
+      div {{'Are you sure you want to change this case severity to'|translate}} {{CaseService.kase.severity.name}}?
       div(ng-bind-html='parseArtifactHtml()')
   .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     .col-sm-12

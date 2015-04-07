@@ -61,4 +61,4 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
         ng-disabled='CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections()',
         ng-click='addComment()',
         translate='') Post
-      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()') Cancel
+      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()',translate='') Cancel

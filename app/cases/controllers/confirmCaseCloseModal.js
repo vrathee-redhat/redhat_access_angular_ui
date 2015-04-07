@@ -10,7 +10,7 @@ angular.module('RedhatAccess.cases').controller('ConfirmCaseCloseModal', [
     function ($scope, $modalInstance, SearchCaseService, strataService, AlertService) {
         $scope.closeCases = function () {
             $modalInstance.close();
-            AlertService.addWarningMessage('Closing cases.');
+            AlertService.addWarningMessage(translate('Closing cases.'));
             angular.forEach(SearchCaseService.cases, angular.bind(this, function (kase) {
                 if(kase.selected){
                     strataService.cases.put(kase.case_number, {status: 'Closed'}).then( angular.bind(kase, function (response) {
