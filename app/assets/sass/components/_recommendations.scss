@@ -90,7 +90,7 @@ $recommendations-dark-link-color: #0bc0fc;
 }
 
 .recommendations-inline {
-	background: $recommendations-background;
+//	background: $recommendations-background;
 	@include rem('padding', $global-padding 0 0);
 
 	.link {
@@ -103,10 +103,8 @@ $recommendations-dark-link-color: #0bc0fc;
 	}
 
 	article {
-		padding: 0;
-
-		&:hover {
-			background: none;
+		a {
+			color: #fff;
 		}
 	}
 }

@@ -3,9 +3,9 @@
     span.inline() Based on your description, here are some possible solutions
     .spinner.spinner-sm.spinner-inline(ng-show='searchInProgress.value')
     span(ng-show='searchInProgress.value') Updating Recommendations
-  .row()
-    .col-sm-4(ng-show='RecommendationsService.recommendations.length', ng-repeat="result in results")
-      article
+  .row.equal-heights
+    .col-sm-4.set(ng-show='RecommendationsService.recommendations.length', ng-repeat="result in results")
+      article.card
         header
           a
             strong(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title | substring:100 }}
