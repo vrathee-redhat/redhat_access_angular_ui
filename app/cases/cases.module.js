@@ -62,12 +62,7 @@ angular.module('RedhatAccess.cases', [
         $stateProvider.state('new', {
             url: '/case/new',
             templateUrl: 'cases/views/new.html',
-            controller: 'New'
-        });
-        $stateProvider.state('newAlternate', {
-            url: '/case/new-alternate',
-            templateUrl: 'cases/views/newAlternate.html',
-            controller: 'New'
+            controller: 'NewRouter'
         });
         $stateProvider.state('list', {
             url: '/case/list',
