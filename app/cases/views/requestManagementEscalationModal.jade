@@ -18,10 +18,10 @@
   .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     .col-sm-12
       .pull-right
-        button#rha-case-escalation-submitbutton.btn-secondary.btn(
+        button#rha-case-escalation-submitbutton.btn-app(
           style='margin-left: 10px;', 
           ng-click='submitRequestClick(CaseService.escalationCommentText)', 
           ng-disabled='submittingRequest || disableSubmitRequest') 
           span {{'Submit Request'|translate}}
-        button.btn-primary.btn(ng-click='closeModal()', ng-disabled='submittingRequest') Cancel
+        button.btn-app(ng-click='closeModal()', ng-disabled='submittingRequest') Cancel
         span.rha-search-spinner(ng-show='submittingRequest')

@@ -27,9 +27,9 @@ $aside-border-color: #d3d3d3;
 		@include transition-duration(.2s);
 		@include transition-timing-function("easeOutCubic");
 
-		&:hover {
-			background: darken($recommendations-background, 2);
-		}
+//		&:hover {
+//			background: darken($recommendations-background, 2);
+//		}
 
 		.article-content {
 			a {
@@ -92,12 +92,8 @@ $recommendations-dark-link-color: #0bc0fc;
 }
 
 .recommendations-inline {
-	background: $recommendations-background;
+//	background: $recommendations-background;
 	@include rem('padding', $global-padding 0 0);
-//	@include rem('margin', 40px -40px);
-//	@include rem('padding', 40px 40px);
-//	background: #fff;
-//	border: 1px solid #ddd;
 
 	.link {
 		display: block;
@@ -110,10 +106,8 @@ $recommendations-dark-link-color: #0bc0fc;
 	}
 
 	article {
-		padding: 0;
-
-		&:hover {
-			background: none;
+		a {
+			color: #fff;
 		}
 	}
 }

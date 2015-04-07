@@ -65,3 +65,6 @@
 	}
 }
 
+.aside-section + .aside-section {
+	@include rem('margin-top', $global-padding);
+}
