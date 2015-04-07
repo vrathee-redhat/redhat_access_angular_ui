@@ -5,12 +5,12 @@
     'jquery'
   ], function(angular, jq) {
     'use strict';
+    window.require.undef('moment');
     window.require.config({
       paths: {
         'strata': '/bower_components/stratajs/strata',
         'uds': '/bower_components/udsjs/uds',
         'moment': '/bower_components/moment/moment'
-
       },
       map: {
         '*': {
@@ -18,12 +18,10 @@
         }
       }
     });
-
-    window.chrometwo_require(['strata','uds','moment'], function(strata,uds,moment) {
+    window.chrometwo_require(['strata','uds','moment'], function(strata,uds, moment) {
       // export strata and uds
       window.strata = strata;
       window.uds = uds;
-      window.moment = moment;
     });
 
     // keep track of deferreds we are loading
