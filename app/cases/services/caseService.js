@@ -230,6 +230,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             var draftId;
             promise.then(angular.bind(this, function (comments) {
                 angular.forEach(comments, angular.bind(this, function (comment, index) {
+                    var lastModifiedDate=RHAUtils.convertToTimezone(comment.last_modified_date,securityService.loginStatus.authedUser.timezone);
+                    comment.timezone_last_modified_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
+                    comment.timezone_last_modified_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm A Z');
+                    var createdDate=RHAUtils.convertToTimezone(comment.created_date,securityService.loginStatus.authedUser.timezone);
+                    comment.timezone_created_date=RHAUtils.formatDate(createdDate,'MMM DD YYYY');
+                    comment.timezone_created_time=RHAUtils.formatDate(createdDate,'hh:mm A Z');
                     if (comment.draft === true) {
                         this.draftComment = comment;
                         this.draftCommentOnServerExists=true;

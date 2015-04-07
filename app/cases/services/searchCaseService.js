@@ -140,8 +140,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                             that.total = that.total + response['case'].length;
                         }
                         angular.forEach(that.cases, angular.bind(this, function (kase) {
-                            kase.localTzCreatedDate=RHAUtils.convertToTimezone(kase.created_date,securityService.loginStatus.authedUser.timezone,'MMM dd YYYY');
-                            kase.localTzModifiedDate=RHAUtils.convertToTimezone(kase.last_modified_date,securityService.loginStatus.authedUser.timezone,'MMM dd YYYY');
+                            kase.localTzCreatedDate=RHAUtils.formatDate(RHAUtils.convertToTimezone(kase.created_date,securityService.loginStatus.authedUser.timezone),'MMM DD YYYY');
+                            kase.localTzModifiedDate=RHAUtils.formatDate(RHAUtils.convertToTimezone(kase.last_modified_date,securityService.loginStatus.authedUser.timezone),'MMM DD YYYY');
                         }));
                     }
                     that.searching = false;

@@ -41,10 +41,8 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 } else {
                     CaseService.setCase(caseJSON);
                 }
-
-
-                CaseService.kase.localTzCreatedDate=RHAUtils.convertToTimezone(CaseService.kase.created_date,securityService.loginStatus.authedUser.timezone,'');
-
+                var tzDate=RHAUtils.convertToTimezone(CaseService.kase.created_date,securityService.loginStatus.authedUser.timezone);
+                CaseService.kase.localTzCreatedDate=RHAUtils.formatDate(tzDate,'MMM DD YYYY HH:mm:ss A Z');
                 $rootScope.$broadcast(CASE_EVENTS.received);
                 $scope.loading.kase = false;
                 if (caseJSON.account_number !== undefined) {

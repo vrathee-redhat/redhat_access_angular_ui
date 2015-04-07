@@ -14,8 +14,7 @@ var app = angular.module('RedhatAccess.ui-utils', ['gettext']);
 //             });
 //     }
 // ]);
-app.service('RHAUtils'
-    , function () {
+app.service('RHAUtils', function () {
     /**
      * Generic function to decide if a simple object should be considered nothing
      */
@@ -37,13 +36,15 @@ app.service('RHAUtils'
         }
     };
 
-    this.convertToTimezone=function(date,timezone,formatter)
+    this.convertToTimezone=function(date,timezone)
     {
-        console.log("timezone is "+timezone);
-        console.log("date is "+date);
-        console.log("formatter is "+formatter);
-        var timezoneDate=moment(date).tz(timezone).format(formatter);
+        var timezoneDate=window.moment(date).tz(timezone);
         return timezoneDate;
+    };
+
+    this.formatDate=function(date,formatter)
+    {
+        return date.format(formatter);
     };
 });
 //Wrapper service for translations
