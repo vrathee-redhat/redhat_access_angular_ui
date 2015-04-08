@@ -6,7 +6,6 @@ article {
 	}
 
 	p,
-	.link,
 	.user-action {
 		@include rem('margin-bottom', 15px);
 	}

@@ -23,27 +23,3 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
       .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
       #rha-recommendation-section.recommendations.aside-section(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
       .section#case-escalation.case-escalation.aside-section(rha-requestescalation='')
-
-//.row(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
-//  .section.main.col-md-8
-//    h1.page-title CASE {{CaseService.kase.case_number}}
-//    div Filed on&nbsp;
-//      span {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}} by {{CaseService.kase.contact_name}}
-//      span.sep |
-//      | Assigned to {{CaseService.kase.owner}}
-//    strong.blue {{CaseService.kase.entitlement.sla}} Support Level
-//    div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
-//      div(rha-casedescription='', loading='loading.kase')
-//    div(ng-show='EDIT_CASE_CONFIG.showDetails')
-//      div(rha-casedetails='', compact='false', loading='loading.kase')
-//        rha-casedetails
-//    section.case-discussion
-//      .row
-//        .col-xs-12(rha-emailnotifyselect='')
-//      .row
-//        .col-xs-12
-//          div(rha-casediscussion='', loading='loading.comments')
-//  .aside.col-md-4
-//    .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
-//    #rha-recommendation-section.recommendations(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
-//    .section#case-escalation.case-escalation.margin-top(rha-requestescalation='')
