@@ -47,6 +47,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.product = '';
         this.bugzillaList = {};
         this.entitlement = '';
+        this.updatingNewCaseSummary = false;
+        this.updatingNewCaseDescription = false;
         this.onFilterSelectChanged = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
@@ -151,6 +153,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.fts = false;
             this.fts_contact = '';
             this.entitlement = '';
+            this.updatingNewCaseSummary = false;
+            this.updatingNewCaseDescription = false;
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {

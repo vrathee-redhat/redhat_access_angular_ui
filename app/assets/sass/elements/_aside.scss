@@ -54,7 +54,6 @@
 
 			a {
 				display: block;
-				@include rem('padding', 10px 15px);
 				color: $base_font_color;
 
 				&:hover {
@@ -65,3 +64,6 @@
 	}
 }
 
+.aside-section + .aside-section {
+	@include rem('margin-top', $global-padding);
+}
