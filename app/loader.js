@@ -5,6 +5,7 @@
     'jquery'
   ], function(angular, jq) {
     'use strict';
+    window.require.undef('moment');
     window.require.config({
       paths: {
         'strata': '/bower_components/stratajs/strata',
@@ -23,7 +24,7 @@
       // export strata and uds
       window.strata = strata;
       window.uds = uds;
-      window.moment = moment;
+      window.moment=moment;
     });
 
     // keep track of deferreds we are loading
