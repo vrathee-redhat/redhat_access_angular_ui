@@ -40,6 +40,16 @@ angular.module('RedhatAccess.cases').controller('FilterSelect', [
                 name: translate('Oldest Date Created'),
                 sortField: 'createdDate',
                 sortOrder: 'ASC'
+            },
+            {
+                name: translate('Case Owner (A-Z)'),
+                sortField: 'owner',
+                sortOrder: 'DESC'
+            },
+            {
+                name: translate('Case Owner (Z-A)'),
+                sortField: 'owner',
+                sortOrder: 'ASC'
             }
         ];
     }
