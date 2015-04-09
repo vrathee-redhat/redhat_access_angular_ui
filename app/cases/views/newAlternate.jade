@@ -8,8 +8,8 @@
   .container(ng-hide='RecommendationsService.loadingRecommendations')
     .loader
       i.fa.fa-check-circle
-    | Based on details you provided, we found some likely solutions. &nbsp
-    a(ng-click='scrollToRecommendations()') View Recommendations
+    | {{'Based on details you provided, we found some likely solutions.'|translate}} &nbsp
+    a(ng-click='scrollToRecommendations()') {{'View Recommendations'|translate}}
 
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
@@ -59,7 +59,7 @@ div(rha-header='', page='newCase')
                   .circle &nbsp
             .row.row-short
               .col-sm-4.col-md-3
-                .label Case Description
+                .label {{'Case Description'|translate}}
               .col-sm-7.col-md-8
                 textarea(name='', id='rha-description', cols='30', rows='10',
                   style='width: 100%; height: 200px; max-width: 100%;',
@@ -69,8 +69,8 @@ div(rha-header='', page='newCase')
                   ng-focus="CaseService.updatingNewCaseDescription=true",
                   ng-blur="CaseService.updatingNewCaseDescription=false")
                 div(style="margin-top: 15px", ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
-                  b Get faster results.
-                  | &nbsp; Attaching logs or other diagnostics files typically results in faster resolution.
+                  b {{'Get faster results.'|translate}}
+                  | &nbsp; 'Attaching logs or other diagnostics files typically results in faster resolution.'|translate}}
                   div(ng-bind-html='AttachmentsService.parseArtifactHtml()')
                   div(rha-listnewattachments='')
                   div(ng-hide='ie8 || ie9', rha-attachlocalfile='', disabled='CaseService.submittingCase')
@@ -79,7 +79,7 @@ div(rha-header='', page='newCase')
                     .row.rha-create-field(ng-hide='CaseService.submittingCase')
                       .col-xs-12
                         div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
-                          .server-attach-header Server File(s) To Attach:
+                          .server-attach-header {{'Server File(s) To Attach:'|translate}}
                            div(rha-choicetree='',
                              ng-model='attachmentTree',
                              ng-controller='BackEndAttachmentsCtrl')
@@ -114,7 +114,7 @@ div(rha-header='', page='newCase')
                   .circle &nbsp
             .row.row-short
               .col-sm-4.col-md-3
-                .label Support Level
+                .label {{'Support Level'|translate}}
               .col-sm-7.col-md-6
                 select#rha-supportLevel-select(
                   chosen,
@@ -125,7 +125,7 @@ div(rha-header='', page='newCase')
                   option(value="")
             .row.row-short
               .col-sm-4.col-md-3
-                .label.inline-tooltip Severity
+                .label.inline-tooltip {{'Severity'|translate}}
                   span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="hover")
               .col-sm-7.col-md-6
                 .row
@@ -145,21 +145,21 @@ div(rha-header='', page='newCase')
                   .col-xs-11
                     .row
                       .col-xs-12
-                        .label.pull-left 24x7 Support
+                        .label.pull-left {{'24x7 Support'|translate}}
                     .row.row-short(ng-show="CaseService.showFts()")
                       .col-xs-12
-                        .label.pull-left 24x7 Contact
+                        .label.pull-left {{'24x7 Contact'|translate}}
                         input.pull-left.margin-left(
                           ng-model="CaseService.fts_contact")
             .row.row-short
               .col-sm-4.col-md-3
-                .label(for='email-notifications') Send Email Notifications to
+                .label(for='email-notifications') {{'Send Email Notifications to'|translate}}
               .col-sm-7.col-md-6
                 .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
                 select(
                   chosen,
                   multiple,
-                  data-placeholder='Select a User',
+                  data-placeholder="{{'Select a User'|translate",
                   ng-disabled='updatingList || CaseService.submittingCase',
                   ng-model='notifiedUsers',
                   id='rha-email-notify-select',
@@ -167,7 +167,7 @@ div(rha-header='', page='newCase')
                   ng-options='user.sso_username as user.sso_username for user in CaseService.users')
             .row.row-short
               .col-sm-4.col-md-3
-                .label Case Group (Optional)
+                .label {{'Case Group (Optional)'|translate}}
               .col-sm-7.col-md-6
                 div(rha-groupselect='', ng-init="setSearchOptions('false')")
 
@@ -178,6 +178,6 @@ div(rha-header='', page='newCase')
                   ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
                   ng-hide='CaseService.submittingCase',
                   ng-click='doSubmit($event)', translate='') Submit
-                a.margin-left(href='#/case/list') Cancel
+                a.margin-left(href='#/case/list') {{'Cancel'|translate}}
     .aside.col-sm-4(ng-hide="RecommendationsService.recommendations.length === 0")
       div(rha-newcaserecommendationsalternate='')

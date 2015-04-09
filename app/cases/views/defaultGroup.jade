@@ -4,8 +4,8 @@ div#redhat-access-case.container-offset
   div.rha-side-padding(ng-show='userCanManageDefaultGroups')
     div.row(style='padding-bottom: 20px;')
       div.col-xs-12(style='padding-bottom: 20px;')
-        div.col-xs-2 
-          label Case Group Name: 
+        div.col-xs-2
+          label {{'Case Group Name:'|translate}}
         div.col-xs-9
           select#rha-defaultgroup-groupselect.form-control(
             ng-disabled='!securityService.loginStatus.isLoggedIn || groupsLoading',
@@ -16,8 +16,8 @@ div#redhat-access-case.container-offset
           div(style='width: 100%')
             span.rha-search-spinner(ng-show='groupsLoading')
       div.col-xs-12(style='padding-bottom: 20px;')
-        div.col-xs-2 
-          label Group Users: 
+        div.col-xs-2
+          label {{'Group Users:'|translate}}
         div.col-xs-9
           select#rha-defaultgroup-userselect.form-control(
             ng-disabled='!securityService.loginStatus.isLoggedIn || !usersLoaded',

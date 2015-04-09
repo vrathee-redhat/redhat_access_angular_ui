@@ -2,7 +2,7 @@ accordion
   accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0;', is-open="isHandpickedSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isHandpickedSolutionsOpen.val}')
-      | Handpicked For You
+      | {{'Handpicked For You'|translate}}
     ul
       li.recommendation(ng-repeat='recommendation in handPickedResults.array')
         .title
@@ -18,12 +18,12 @@ accordion
         button.btn.btn-app(ng-disabled="handPickedResultsPage === 1", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage - 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
           i.fa.fa-long-arrow-left
         button.btn.btn-app(ng-disabled="handPickedResultsPage >= findLastPage(RecommendationsService.handPickedRecommendations)", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage + 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
-          span NEXT
+          span {{'NEXT'|translate}}
           i.fa.fa-long-arrow-right
   accordion-group(ng-hide='RecommendationsService.recommendations.length === 0', is-open="isTopSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isTopSolutionsOpen.val}')
-      | Top Solutions
+      | {{'Top Solutions'|translate}}
     ul
       li.recommendation(ng-repeat='recommendation in results.array')
         .title
@@ -33,21 +33,21 @@ accordion
             style='cursor: pointer;') &nbsp;
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title}}
-          span.handpicked(ng-show='recommendation.handPicked', translate='')
+          span.handpicked(ng-show='recommendation.handPicked')
             .fa.fa-check
-            | Handpicked
+            | {{'Handpicked'|translate}}
         div.pre-wrap(ng-bind-html='recommendation.abstract')
     .pagination
       .pull-right
         button.btn.btn-app(ng-disabled="resultsPage === 1", ng-click="selectPage(resultsPage = resultsPage - 1, RecommendationsService.recommendations, results)")
           i.fa.fa-long-arrow-left
         button.btn.btn-app(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="selectPage(resultsPage = resultsPage + 1, RecommendationsService.recommendations, results)")
-          span NEXT
+          span {{'NEXT'|translate}}
           i.fa.fa-long-arrow-right
   accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0', is-open="isPinnedSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isPinnedSolutionsOpen.val}')
-      | Your Pins
+      | {{'Your Pins'|translate}}
     ul
       li.recommendation(ng-repeat='recommendation in pinnedResults.array')
         .title
@@ -63,5 +63,5 @@ accordion
         button.btn.btn-app(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
           i.fa.fa-long-arrow-left
         button.btn.btn-app(ng-disabled="pinnedResultsPage >= findLastPage(RecommendationsService.pinnedRecommendations)", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage + 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
-          span NEXT
+          span {{'NEXT'|translate}}
           i.fa.fa-long-arrow-right

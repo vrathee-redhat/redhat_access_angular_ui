@@ -27,7 +27,7 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
         .row(ng-hide='CaseService.submittingCase')
           .col-xs-12
             div(ng-show='EDIT_CASE_CONFIG.showServerSideAttachments')
-              .server-attach-header Server File(s) To Attach:
+              .server-attach-header {{'Server File(s) To Attach:'|translate}}
                div(rha-choicetree='',
                  ng-model='attachmentTree',
                  ng-controller='BackEndAttachmentsCtrl')
@@ -61,4 +61,4 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
         ng-disabled='CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections()',
         ng-click='addComment()',
         translate='') Post
-      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()') Cancel
+      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()',translate='') Cancel
