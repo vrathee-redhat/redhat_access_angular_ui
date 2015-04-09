@@ -44,7 +44,7 @@ div(rha-header='', page='caseList')
             .filed-on
               | {{'Modified by:'|translate}} &nbsp;
               span.blue {{case.last_modified_by}} &nbsp;
-              span {{'on:'|translate}} &nbsp;
+              span {{'on'|translate}}:&nbsp;
               span {{case.last_modified_date | date:'longDate'}} &nbsp;
         .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
           .item-group.change-log

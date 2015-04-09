@@ -33,16 +33,16 @@ accordion
             style='cursor: pointer;') &nbsp;
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title}}
-          span.handpicked(ng-show='recommendation.handPicked', translate='')
+          span.handpicked(ng-show='recommendation.handPicked')
             .fa.fa-check
-            | Handpicked
+            | {{'Handpicked'|translate}}
         div.pre-wrap(ng-bind-html='recommendation.abstract')
     .pagination
       .pull-right
         button.btn.btn-secondary.btn-slim(ng-disabled="resultsPage === 1", ng-click="selectPage(resultsPage = resultsPage - 1, RecommendationsService.recommendations, results)")
           i.fa.fa-long-arrow-left
         button.btn.btn-primary.btn-slim(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="selectPage(resultsPage = resultsPage + 1, RecommendationsService.recommendations, results)")
-          span NEXT
+          span {{'NEXT'|translate}}
           i.fa.fa-long-arrow-right
   accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0', is-open="isPinnedSolutionsOpen.val")
     accordion-heading
@@ -63,5 +63,5 @@ accordion
         button.btn.btn-secondary.btn-slim(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
           i.fa.fa-long-arrow-left
         button.btn.btn-primary.btn-slim(ng-disabled="pinnedResultsPage >= findLastPage(RecommendationsService.pinnedRecommendations)", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage + 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
-          span NEXT
+          span {{'NEXT'|translate}}
           i.fa.fa-long-arrow-right

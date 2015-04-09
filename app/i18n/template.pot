@@ -23,27 +23,17 @@ msgid "* marked fields are mandatory fields."
 msgstr ""
 
 #: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
 msgid "24x7 Contact"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
+#: app/cases/views/new.html
 msgid "24x7 Support"
 msgstr ""
 
 #: app/ascension/views/internalCaseDescription.html
 msgid "24x7 coverage"
-msgstr ""
-
-#: app/cases/views/editCaseRecommendationsSection.html
-msgid "<div class=\"fa fa-check\"></div>Handpicked"
-msgstr ""
-
-#: app/log_viewer/views/logsInstructionPane.html
-msgid "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support Case"
-msgstr ""
-
-#: app/log_viewer/views/logsInstructionPane.html
-msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
 msgstr ""
 
 #: app/cases/views/new.html
@@ -64,6 +54,10 @@ msgstr ""
 
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
+msgstr ""
+
+#: app/cases/views/discussionSection.html
+msgid "All Attachments"
 msgstr ""
 
 #: app/cases/services/caseService.js
@@ -123,6 +117,10 @@ msgstr ""
 msgid "Attaching logs and diagnostics files greatly improves time to resolution."
 msgstr ""
 
+#: app/cases/views/new.html
+msgid "Attaching logs or other diagnostics files typically results in faster resolution."
+msgstr ""
+
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
 msgstr ""
@@ -133,6 +131,10 @@ msgstr ""
 
 #: app/ascension/views/breachInformation.html
 msgid "Based on Severity Level 3(Normal)"
+msgstr ""
+
+#: app/cases/views/new.html
+msgid "Based on details you provided, we found some likely solutions."
 msgstr ""
 
 #: app/cases/views/newCaseRecommendationsSection.html
@@ -151,10 +153,15 @@ msgstr ""
 msgid "Bugzilla Number"
 msgstr ""
 
+#: app/cases/views/discussionSection.html
+msgid "Bugzilla Tickets"
+msgstr ""
+
 #: app/ascension/views/internalCaseDiscussion.html
 msgid "Bugzillas"
 msgstr ""
 
+#: app/cases/views/edit.html
 #: app/common/controllers/titleView.js
 msgid "CASE"
 msgstr ""
@@ -168,20 +175,31 @@ msgstr ""
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/detailsSection.html
 #: app/cases/views/editGroup.html
+#: app/cases/views/new.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Cancel"
 msgstr ""
 
 #: app/ascension/views/topCases.html
+#: app/cases/controllers/confirmCaseCloseModal.js
 msgid "Case"
 msgstr ""
 
+#: app/cases/views/new.html
 #: app/ascension/views/internalCaseDescription.html
 msgid "Case Description"
 msgstr ""
 
+#: app/cases/views/discussionSection.html
+msgid "Case Discussion"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
 msgid "Case Group"
+msgstr ""
+
+#: app/cases/views/new.html
+msgid "Case Group (Optional)"
 msgstr ""
 
 #: app/cases/views/defaultGroup.html
@@ -206,7 +224,6 @@ msgid "Case Name"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
-#: app/cases/views/internalCaseDetails.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Case Type"
 msgstr ""
@@ -247,7 +264,6 @@ msgstr ""
 msgid "Choose File(s) To Attach:"
 msgstr ""
 
-#: app/cases/views/editAscension.html
 #: app/cases/views/list.html
 #: app/ascension/views/caseQueue.html
 msgid "Close"
@@ -263,6 +279,10 @@ msgstr ""
 
 #: app/cases/controllers/statusSelect.js
 msgid "Closed"
+msgstr ""
+
+#: app/cases/controllers/list.js
+msgid "Closed Support Cases"
 msgstr ""
 
 #: app/cases/views/confirmCaseCloseModal.html
@@ -281,10 +301,6 @@ msgstr ""
 msgid "Continue Without Attaching"
 msgstr ""
 
-#: app/cases/views/ownerInfo.html
-msgid "Contributors:"
-msgstr ""
-
 #: app/cases/views/createGroupModal.html
 msgid "Create Case Group"
 msgstr ""
@@ -297,9 +313,12 @@ msgstr ""
 msgid "Create a New Support Case"
 msgstr ""
 
-#: app/cases/views/internalCaseDetails.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Created By"
+msgstr ""
+
+#: app/cases/views/list.html
+msgid "Created:"
 msgstr ""
 
 #: app/escalation/services/escalationRequestService.js
@@ -476,15 +495,15 @@ msgstr ""
 msgid "GSS is currently working on enhancing the ICE process through the use of email. Watch this space for more details as they become available."
 msgstr ""
 
+#: app/cases/views/new.html
+msgid "Get faster results."
+msgstr ""
+
 #: app/cases/views/confirmCaseCloseModal.html
 #: app/cases/views/confirmCaseSeverityChangeModal.html
 #: app/cases/views/confirmCaseStateChangeModal.html
 #: app/cases/views/proceedWithoutAttachModal.html
 msgid "Go Back"
-msgstr ""
-
-#: app/cases/views/search.html
-msgid "Group"
 msgstr ""
 
 #: app/cases/views/editGroup.html
@@ -493,6 +512,10 @@ msgstr ""
 
 #: app/cases/views/defaultGroup.html
 msgid "Group Users:"
+msgstr ""
+
+#: app/cases/views/editCaseRecommendationsSection.html
+msgid "Handpicked"
 msgstr ""
 
 #: app/cases/views/editCaseRecommendationsSection.html
@@ -515,13 +538,6 @@ msgstr ""
 msgid "If you are requesting an account review, if this is related to aspecific problem/ticket or a series of problems/tickets or if this is a general or generic complain"
 msgstr ""
 
-#: app/cases/views/403.html
-msgid ""
-"If you believe you should have permission to view this resource, please <a href=\"/support/contact/customerService.html\">contact Customer Service</a> for assistance. Your Red Hat login\n"
-"            might not be associated with the right account for your organization, or there might be an issue with your\n"
-"            subscription. Either way, Customer Service should be able to help you resolve the problem."
-msgstr ""
-
 #: app/common/views/403.html
 #: app/escalation/views/403.html
 msgid "If you believe you should have permission to view this resource, please <a href=\"/support/contact/customerService.html\">contact Customer Service</a> for assistance. Your Red Hat login might not be associated with the right account for your organization, or there might be an issue with your subscription. Either way, Customer Service should be able to help you resolve the problem."
@@ -539,12 +555,10 @@ msgstr ""
 msgid "In the event that you would still like to open a support case, select 'Open a New Support Case'. The case will be pre-populated with the portion of the log previously selected."
 msgstr ""
 
-#: app/cases/views/internalCaseDetails.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Internal Priority"
 msgstr ""
 
-#: app/cases/views/internalCaseDetails.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Internal Status"
 msgstr ""
@@ -566,9 +580,12 @@ msgstr ""
 msgid "Last Name"
 msgstr ""
 
-#: app/cases/views/internalCaseDetails.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Last Updated By"
+msgstr ""
+
+#: app/cases/views/requestEscalation.html
+msgid "Learn More"
 msgstr ""
 
 #: app/cases/views/requestManagementEscalationModal.html
@@ -577,6 +594,10 @@ msgstr ""
 
 #: app/cases/views/list.html
 msgid "Loading cases..."
+msgstr ""
+
+#: app/cases/controllers/new.js
+msgid "Locating top solutions"
 msgstr ""
 
 #: app/log_viewer/views/logsInstructionPane.html
@@ -618,7 +639,6 @@ msgstr ""
 msgid "Modified by:"
 msgstr ""
 
-#: app/cases/views/editAscension.html
 #: app/ascension/views/caseQueue.html
 msgid "More"
 msgstr ""
@@ -663,10 +683,6 @@ msgstr ""
 msgid "No cases found with given filters."
 msgstr ""
 
-#: app/cases/views/search.html
-msgid "No cases found with given search criteria."
-msgstr ""
-
 #: app/cases/views/groupList.html
 msgid "No groups found."
 msgstr ""
@@ -679,16 +695,11 @@ msgstr ""
 msgid "No match found"
 msgstr ""
 
-#: app/cases/views/newRecommendationsSection.html
-msgid "No recommendations are available."
-msgstr ""
-
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
 msgstr ""
 
 #: app/common/views/404.html
-#: app/cases/views/404.html
 msgid "Not Found"
 msgstr ""
 
@@ -701,12 +712,7 @@ msgid "Note:"
 msgstr ""
 
 #: app/cases/views/discussionSection.html
-#: app/cases/views/internalCaseDiscussion.html
 msgid "Notes:"
-msgstr ""
-
-#: app/cases/views/ownerInfo.html
-msgid "Observers:"
 msgstr ""
 
 #: app/cases/controllers/discussionSection.js
@@ -741,8 +747,12 @@ msgstr ""
 msgid "Open New Case"
 msgstr ""
 
+#: app/cases/controllers/list.js
+msgid "Open Support Cases"
+msgstr ""
+
 #: app/search/views/accordion_search_results.html
-#: app/cases/views/search.html
+#: app/log_viewer/views/logsInstructionPane.html
 msgid "Open a New Support Case"
 msgstr ""
 
@@ -750,13 +760,15 @@ msgstr ""
 msgid "Open and Closed"
 msgstr ""
 
+#: app/cases/controllers/list.js
+msgid "Open and Closed Support Cases"
+msgstr ""
+
 #: app/cases/views/list.html
 msgid "Owned by:"
 msgstr ""
 
 #: app/cases/views/new.html
-#: app/cases/views/ownerInfo.html
-#: app/cases/views/search.html
 msgid "Owner"
 msgstr ""
 
@@ -770,6 +782,10 @@ msgstr ""
 
 #: app/escalation/views/partnerEscalation.html
 msgid "Please"
+msgstr ""
+
+#: app/cases/views/listNewAttachments.html
+msgid "Please Add File Description"
 msgstr ""
 
 #: app/log_viewer/controllers/DropdownCtrl.js
@@ -814,10 +830,6 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
-#: app/cases/views/entitlementInfo.html
-msgid "Premium:"
-msgstr ""
-
 #: app/escalation/views/partnerEscalation.html
 msgid "Priority Customer Support Routing"
 msgstr ""
@@ -826,10 +838,12 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
+#: app/cases/views/discussionSection.html
+msgid "Private Notes"
+msgstr ""
+
 #: app/cases/views/detailsSection.html
-#: app/cases/views/internalCaseDetails.html
 #: app/cases/views/new.html
-#: app/cases/views/search.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Product"
 msgstr ""
@@ -849,7 +863,6 @@ msgstr ""
 
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
-#: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr ""
 
@@ -878,8 +891,11 @@ msgstr ""
 msgid "Red Hat Support Ticket Number"
 msgstr ""
 
+#: app/cases/controllers/new.js
+msgid "Refining top solutions"
+msgstr ""
+
 #: app/cases/views/discussionSection.html
-#: app/cases/views/internalCaseDiscussion.html
 msgid "Reply"
 msgstr ""
 
@@ -900,17 +916,8 @@ msgstr ""
 msgid "Resolution"
 msgstr ""
 
-#: app/cases/views/internalCaseDetails.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "SBR Group"
-msgstr ""
-
-#: app/cases/views/entitlementInfo.html
-msgid "SBT state:"
-msgstr ""
-
-#: app/cases/views/entitlementInfo.html
-msgid "SBT:"
 msgstr ""
 
 #: app/common/controllers/titleView.js
@@ -946,15 +953,16 @@ msgstr ""
 msgid "Search Support Case"
 msgstr ""
 
-#: app/cases/views/search.html
-msgid "Searching..."
-msgstr ""
-
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
 msgstr ""
 
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "Select Log"
+msgstr ""
+
 #: app/cases/views/emailNotifySelect.html
+#: app/cases/views/new.html
 msgid "Send Email Notifications to"
 msgstr ""
 
@@ -963,23 +971,18 @@ msgstr ""
 msgid "Send Request"
 msgstr ""
 
+#: app/cases/views/addCommentSection.html
 #: app/cases/views/attachmentsSection.html
 msgid "Server File(s) To Attach:"
 msgstr ""
 
-#: app/cases/views/internalCaseDetails.html
-#: app/cases/views/search.html
+#: app/cases/views/new.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Severity"
 msgstr ""
 
-#: app/cases/views/internalCaseDescription.html
 #: app/ascension/views/internalCaseDescription.html
 msgid "Severity 1 (High)"
-msgstr ""
-
-#: app/cases/views/searchResult.html
-msgid "Severity:"
 msgstr ""
 
 #: app/security/views/login_form.html
@@ -1003,17 +1006,10 @@ msgstr ""
 msgid "Sort By"
 msgstr ""
 
-#: app/cases/views/internalCaseDetails.html
-#: app/cases/views/search.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Status"
 msgstr ""
 
-#: app/cases/views/searchResult.html
-msgid "Status:"
-msgstr ""
-
-#: app/cases/views/internalCaseDescription.html
 #: app/ascension/views/internalCaseDescription.html
 msgid "Strategic"
 msgstr ""
@@ -1071,21 +1067,16 @@ msgid "Support"
 msgstr ""
 
 #: app/cases/views/edit.html
+#: app/cases/views/new.html
 msgid "Support Level"
 msgstr ""
 
 #: app/common/views/403.html
-#: app/cases/views/403.html
 #: app/escalation/views/403.html
 msgid "Support Subscription Required"
 msgstr ""
 
-#: app/cases/views/entitlementInfo.html
-msgid "Target Date:"
-msgstr ""
-
 #: app/common/views/403.html
-#: app/cases/views/403.html
 #: app/escalation/views/403.html
 msgid "The credentials you provided are valid, but you do not have <b>direct support from Red Hat.</b>"
 msgstr ""
@@ -1095,7 +1086,6 @@ msgid "The log file viewer gives the ability to diagnose application logs as wel
 msgstr ""
 
 #: app/common/views/404.html
-#: app/cases/views/404.html
 msgid "The page you are looking for is not here. It might have been moved, removed, or had its name and address changed. It might otherwise be temporarily unavailable for technical reasons."
 msgstr ""
 
@@ -1105,10 +1095,6 @@ msgstr ""
 
 #: app/escalation/views/iceEscalation.html
 msgid "This Internal Customer Escalation submission form can be used by any Red Hat associate to obtain management support for issues that require attention outside of the standard support process. Please visit the"
-msgstr ""
-
-#: app/cases/views/internalCaseDiscussion.html
-msgid "This field allows Red Hat customers to make private notes pertinent to their case or account. Contents of this field are not visible to support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html
@@ -1136,10 +1122,6 @@ msgstr ""
 msgid "Transcript of chat between"
 msgstr ""
 
-#: app/cases/views/search.html
-msgid "Type"
-msgstr ""
-
 #: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr ""
@@ -1154,10 +1136,6 @@ msgstr ""
 
 #: app/cases/views/discussionSection.html
 msgid "Update"
-msgstr ""
-
-#: app/cases/views/searchResult.html
-msgid "Updated:"
 msgstr ""
 
 #: app/cases/views/newCaseRecommendationsSection.html
@@ -1188,7 +1166,6 @@ msgstr ""
 msgid "User does not have proper credentials to manage case groups."
 msgstr ""
 
-#: app/cases/views/internalCaseDetails.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Version"
 msgstr ""
@@ -1199,8 +1176,8 @@ msgstr ""
 msgid "View Production Support Service Level Agreement"
 msgstr ""
 
-#: app/cases/views/recommendationsSection.html
-msgid "View full article in new window"
+#: app/cases/views/new.html
+msgid "View Recommendations"
 msgstr ""
 
 #: app/cases/views/editGroup.html
@@ -1257,6 +1234,7 @@ msgstr ""
 msgid "at"
 msgstr ""
 
+#: app/cases/views/edit.html
 #: app/cases/views/list.html
 msgid "by"
 msgstr ""
@@ -1267,7 +1245,6 @@ msgstr ""
 
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/discussionSection.html
-#: app/cases/views/internalCaseDiscussion.html
 msgid "characters left."
 msgstr ""
 
@@ -1283,12 +1260,8 @@ msgstr ""
 msgid "for more information."
 msgstr ""
 
-#: app/cases/views/recommendationsSection.html
-msgid "handpicked"
-msgstr ""
-
 #: app/cases/views/list.html
-msgid "on:' &nbsp;</span><span>{{case.last_modified_date | date:'longDate'}} &nbsp;</span></div></div></div><div ng-hide=\"CaseService.filterSelect.sortField === &quot;lastModifiedDate&quot;\" class=\"col-sm-12 col-md-2\"><div class=\"item-group change-log\"><div class=\"filed-on\">{{'Created:"
+msgid "on"
 msgstr ""
 
 #: app/cases/services/attachmentsService.js

@@ -14,7 +14,7 @@ section.case-description
         ng-click='updateCase()', translate='') Save
       a.margin-left(
         ng-disabled='updatingDetails',
-        ng-click='editCaseSummary(false)', translate='') Cancel
+        ng-click='editCaseSummary(false)') {{'Cancel'|translate}}
   h4.product-name {{CaseService.kase.product}}
   .description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | substring:150 }}
   .description.pre-wrap(ng-show='showExtraInfo') {{CaseService.kase.description}}
