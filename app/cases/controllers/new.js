@@ -290,12 +290,10 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
             if(text.contains('Locating'))
             {
-                console.log("under locating");
                 text=translate('Locating top solutions');
             }
             else
             {
-                console.log("under refining");
                 text=translate('Refining top solutions');
             }
             return text;
