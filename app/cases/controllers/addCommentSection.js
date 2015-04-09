@@ -284,7 +284,6 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         };
         $scope.ieClearSelectedFile = function () {
             $scope.ieFileDescription = '';
-            document.getElementById("filename").value = '';
         };
         $scope.submitIEAttachment = function () {
             if(EDIT_CASE_CONFIG.showAttachments && $scope.ie8 || EDIT_CASE_CONFIG.showAttachments && $scope.ie9 ) {
