@@ -14,38 +14,41 @@ var app = angular.module('RedhatAccess.ui-utils', ['gettext']);
 //             });
 //     }
 // ]);
-app.service('RHAUtils', function () {
+app.service('RHAUtils',
+
+    function () {
     /**
      * Generic function to decide if a simple object should be considered nothing
      */
-    this.isEmpty = function (object) {
+      this.userTimeZone;
+      this.isEmpty = function (object) {
         if (object === undefined || object === null || object === '' || object.length === 0 || object === {}) {
             return true;
         }
         return false;
-    };
-    this.isNotEmpty = function (object) {
+      };
+      this.isNotEmpty = function (object) {
         return !this.isEmpty(object);
-    };
-    this.isEmailValid = function (object) {
+      };
+      this.isEmailValid = function (object) {
         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (object.match(mailformat)) {
             return true;
         } else {
             return false;
         }
-    };
+      };
 
-    this.convertToTimezone=function(date,timezone)
-    {
-        var timezoneDate=window.moment(date).tz(timezone);
+      this.convertToTimezone=function(date,timezone)
+      {
+        var timezoneDate=window.moment(date).tz(this.userTimeZone);
         return timezoneDate;
-    };
+      };
 
-    this.formatDate=function(date,formatter)
-    {
+       this.formatDate=function(date,formatter)
+      {
         return date.format(formatter);
-    };
+      };
 });
 //Wrapper service for translations
 app.service('translate', [

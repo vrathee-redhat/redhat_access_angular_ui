@@ -25,6 +25,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 service.loginStatus.isLoggedIn = isLoggedIn;
                 service.loginStatus.verifying = verifying;
                 service.loginStatus.authedUser = authedUser;
+                RHAUtils.userTimeZone=authedUser.timezone;
                 service.userAllowedToManageCases();
             },
             clearLoginStatus: function() {
@@ -32,6 +33,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 service.loginStatus.verifying = false;
                 service.loginStatus.userAllowedToManageCases = false;
                 service.loginStatus.authedUser = {};
+                RHAUtils.userTimeZone='';
             },
             setAccount: function(accountJSON) {
                 service.loginStatus.account = accountJSON;

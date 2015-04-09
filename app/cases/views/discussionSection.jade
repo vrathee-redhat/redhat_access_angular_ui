@@ -32,14 +32,14 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 .author.blue {{element.agent_name}}
                 span {{'and'|translate}}
                 .author.blue {{element.visitor_name}}
-                date.light {{element.timezone_last_modified_date'}} &nbsp;
+                date.light {{element.timezone_last_modified_date}} &nbsp;
                 span.light {{'at'|translate}} &nbsp;
-                time.light {{element.timezone_last_modified_time'}}
+                time.light {{element.timezone_last_modified_time}}
               h4.meta(ng-if="element.comment_type !== 'chat'")
                 .author.blue {{element.created_by}}
-                date.light {{element.timezone_created_date'}} &nbsp;
+                date.light {{element.timezone_created_date}} &nbsp;
                 span.light {{'at'|translate}} &nbsp;
-                time.light {{element.timezone_created_time'}}
+                time.light {{element.timezone_created_time}}
                 .private(ng-if="element.public !== undefined && element.public === false") {{'Private'|translate}}
             .col-sm-8
               blockquote.dialog-box.pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
