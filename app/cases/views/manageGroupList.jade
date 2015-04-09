@@ -1,0 +1,18 @@
+span.rha-search-spinner(ng-show='groupsLoading') 
+span(ng-show='groupsLoading') {{'Groups Loading...'|translate}}
+div(ng-show='!groupsLoading && groupsOnScreen.length < 1') {{'No groups found.'|translate}}
+.row.panel.panel-default.ng-isolate-scope(ng-hide='groupsLoading')
+  .row
+    .col-sm-4.col-md-4 {{'Case Groups'|translate}}
+    .col-sm-4.col-md-4
+      button.btn.btn-primary(ng-click='addNewGroup()', translate='') Add Group
+  .row(ng-show='showCreateGroup')
+    .col-sm-4.col-md-6
+      input.form-control(type='text', ng-model='newGroupName', placeholder='Untitled Case Group')
+    .col-sm-4.col-md-6
+      button.btn.btn-primary(ng-click='createGroup()', translate='') Create Group
+  #group-list.table-list
+    .list-item(ng-repeat='group in groupsOnScreen')
+      .row
+        .col-sm-4.col-md-6
+          a(ng-click='loadUsersInGroup(group)', ng-href='') {{group.name}}
