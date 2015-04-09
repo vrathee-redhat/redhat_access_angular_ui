@@ -177,9 +177,6 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             if (CaseService.kase.chats !== undefined && CaseService.kase.chats.chat !== undefined) {
                 angular.forEach(CaseService.kase.chats.chat, angular.bind(this, function (chat) {
                     chat.last_modified_date = chat.start_time;
-                    var lastModifiedDate=RHAUtils.convertToTimezone(chat.last_modified_date,securityService.loginStatus.authedUser.timezone);
-                    chat.timezone_last_modified_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
-                    chat.timezone_last_modified_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm A Z');
                     chat.comment_type = 'chat';
                     DiscussionService.chatTranscriptList.push(chat);
                 }));
