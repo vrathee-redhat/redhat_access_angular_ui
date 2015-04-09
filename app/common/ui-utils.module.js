@@ -35,6 +35,17 @@ app.service('RHAUtils', function () {
             return false;
         }
     };
+
+    this.convertToTimezone=function(date,timezone)
+    {
+        var timezoneDate=window.moment(date).tz(timezone);
+        return timezoneDate;
+    };
+
+    this.formatDate=function(date,formatter)
+    {
+        return date.format(formatter);
+    };
 });
 //Wrapper service for translations
 app.service('translate', [

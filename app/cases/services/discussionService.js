@@ -8,7 +8,9 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
     'CaseService',
     'strataService',
     'HeaderService',
-    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService) {
+    'RHAUtils',
+    'securityService',
+    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService,RHAUtils,securityService) {
         this.discussionElements = [];
         this.chatTranscriptList = [];
         this.comments = CaseService.comments;
@@ -24,6 +26,15 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
             this.loadingAttachments = true;
             attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
                 AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                angular.forEach(AttachmentsService.originalAttachments , angular.bind(this, function (element) {
+                    var lastModifiedDate=RHAUtils.convertToTimezone(element.last_modified_date,securityService.loginStatus.authedUser.timezone);
+                    element.timezone_last_modified_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
+                    element.timezone_last_modified_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm A Z');
+                    var createdDate=RHAUtils.convertToTimezone(element.created_date,securityService.loginStatus.authedUser.timezone);
+                    element.timezone_created_date=RHAUtils.formatDate(createdDate,'MMM DD YYYY');
+                    element.timezone_created_time=RHAUtils.formatDate(createdDate,'hh:mm A Z');
+
+                }));
                 //this.attachments = AttachmentsService.originalAttachments;
                 //this.discussionElements = this.discussionElements.concat(this.attachments);
                 this.loadingAttachments= false;
@@ -63,6 +74,7 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
             if (this.chatTranscriptList !== undefined && this.chatTranscriptList.length > 0) {
                 this.discussionElements = this.discussionElements.concat(this.chatTranscriptList);
             }
+
         };
     }
 ]);
