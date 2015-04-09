@@ -10,7 +10,8 @@ msgstr ""
 
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/list.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "(More info)"
 msgstr ""
 
@@ -23,12 +24,14 @@ msgid "* marked fields are mandatory fields."
 msgstr ""
 
 #: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "24x7 Contact"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "24x7 Support"
 msgstr ""
 
@@ -36,7 +39,8 @@ msgstr ""
 msgid "24x7 coverage"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Account"
 msgstr ""
 
@@ -117,7 +121,7 @@ msgstr ""
 msgid "Attaching logs and diagnostics files greatly improves time to resolution."
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newBase.html
 msgid "Attaching logs or other diagnostics files typically results in faster resolution."
 msgstr ""
 
@@ -133,10 +137,12 @@ msgstr ""
 msgid "Based on Severity Level 3(Normal)"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Based on details you provided, we found some likely solutions."
 msgstr ""
 
+#: app/cases/views/newCaseRecommendationsAlternateSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "Based on your description, here are some possible solutions"
 msgstr ""
@@ -175,7 +181,8 @@ msgstr ""
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/detailsSection.html
 #: app/cases/views/editGroup.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Cancel"
 msgstr ""
@@ -185,7 +192,8 @@ msgstr ""
 msgid "Case"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 #: app/ascension/views/internalCaseDescription.html
 msgid "Case Description"
 msgstr ""
@@ -198,7 +206,7 @@ msgstr ""
 msgid "Case Group"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newBase.html
 msgid "Case Group (Optional)"
 msgstr ""
 
@@ -219,7 +227,8 @@ msgstr ""
 msgid "Case Information"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Case Name"
 msgstr ""
 
@@ -388,7 +397,8 @@ msgid "Diagnose"
 msgstr ""
 
 #: app/cases/views/descriptionSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 #: app/cases/views/severitySelect.html
 msgid "Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case."
 msgstr ""
@@ -449,12 +459,14 @@ msgstr ""
 
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/attachmentsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "File description"
 msgstr ""
 
 #: app/cases/views/addCommentSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
 msgstr ""
 
@@ -495,7 +507,8 @@ msgstr ""
 msgid "GSS is currently working on enhancing the ICE process through the use of email. Watch this space for more details as they become available."
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Get faster results."
 msgstr ""
 
@@ -648,6 +661,7 @@ msgid "My Cases"
 msgstr ""
 
 #: app/cases/views/editCaseRecommendationsSection.html
+#: app/cases/views/newCaseRecommendationsAlternateSection.html
 msgid "NEXT"
 msgstr ""
 
@@ -768,7 +782,8 @@ msgstr ""
 msgid "Owned by:"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Owner"
 msgstr ""
 
@@ -843,13 +858,15 @@ msgid "Private Notes"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Product"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Product Version"
 msgstr ""
 
@@ -961,8 +978,17 @@ msgstr ""
 msgid "Select Log"
 msgstr ""
 
+#: app/cases/views/newBase.html
+msgid "Select a User"
+msgstr ""
+
+#: app/cases/views/newAlternate.html
+msgid "Select a User'|translate\" ng-disabled=\"updatingList || CaseService.submittingCase\" ng-model=\"notifiedUsers\" id=\"rha-email-notify-select\" width=\"&quot;100%&quot;\" ng-options=\"user.sso_username as user.sso_username for user in CaseService.users\"></select></div></div><div class=\"row row-short\"><div class=\"col-sm-4 col-md-3\"><div class=\"label\">{{'Case Group (Optional)"
+msgstr ""
+
 #: app/cases/views/emailNotifySelect.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Send Email Notifications to"
 msgstr ""
 
@@ -973,10 +999,13 @@ msgstr ""
 
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/attachmentsSection.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Server File(s) To Attach:"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Severity"
 msgstr ""
@@ -1014,7 +1043,8 @@ msgstr ""
 msgid "Strategic"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Submit"
 msgstr ""
 
@@ -1067,7 +1097,8 @@ msgid "Support"
 msgstr ""
 
 #: app/cases/views/edit.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Support Level"
 msgstr ""
 
@@ -1138,6 +1169,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+#: app/cases/views/newCaseRecommendationsAlternateSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "Updating Recommendations"
 msgstr ""
@@ -1171,12 +1203,14 @@ msgid "Version"
 msgstr ""
 
 #: app/cases/views/descriptionSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 #: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr ""
 
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "View Recommendations"
 msgstr ""
 
