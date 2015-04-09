@@ -4,7 +4,7 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
     div.section.main.col-md-8
       h1.page-title {{'CASE'|translate}} {{CaseService.kase.case_number}}
       div {{'Filed on'|translate}}&nbsp;
-        span {{CaseService.kase.localTzCreatedDate}} {{'by'|translate}} {{CaseService.kase.contact_name}}
+        span {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}} {{'by'|translate}} {{CaseService.kase.contact_name}}
         span.sep |
         | {{'Assigned to'|translate}} {{CaseService.kase.owner}}
       a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
