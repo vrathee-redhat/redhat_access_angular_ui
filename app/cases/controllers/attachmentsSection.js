@@ -73,12 +73,12 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                             });
                         } else {
                             AlertService.removeAlert(uploadingAlert);
-                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' + content));
                             $scope.$apply();
                         }
                     } else {
                         AlertService.removeAlert(uploadingAlert);
-                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' + content));
                         $scope.$apply();
                     }
                 }else {

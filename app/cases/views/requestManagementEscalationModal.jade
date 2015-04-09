@@ -11,7 +11,7 @@
       textarea(
         style='width: 100%; max-width: 100%; height: 200px;',
         maxlength='32000',
-        ng-model='CaseService.escalationCommentText', 
+        ng-model='CaseService.escalationCommentText',
         ng-disabled='submittingRequest',
         ng-change='onNewEscalationComment()',
         auto-focus='')
@@ -19,9 +19,9 @@
     .col-sm-12
       .pull-right
         button#rha-case-escalation-submitbutton.btn-app(
-          style='margin-left: 10px;', 
-          ng-click='submitRequestClick(CaseService.escalationCommentText)', 
-          ng-disabled='submittingRequest || disableSubmitRequest') 
+          style='margin-left: 10px;',
+          ng-click='submitRequestClick(CaseService.escalationCommentText)',
+          ng-disabled='submittingRequest || disableSubmitRequest')
           span {{'Submit Request'|translate}}
-        button.btn-app(ng-click='closeModal()', ng-disabled='submittingRequest') Cancel
+        button.btn-app(ng-click='closeModal()', ng-disabled='submittingRequest') {{'Cancel'|translate}}
         span.rha-search-spinner(ng-show='submittingRequest')

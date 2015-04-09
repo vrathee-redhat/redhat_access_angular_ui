@@ -79,7 +79,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             var person = comment.created_by;
             var text = comment.text;
             var lines = text.split(/\n/);
-            text = '(In reply to ' + person + ')\n';
+            text = '('+translate('In reply to')+' '+ person + ')\n';
             for (var i = 0, max = lines.length; i < max; i++) {
                 text = text + '> '+ lines[i] + '\n';
             }

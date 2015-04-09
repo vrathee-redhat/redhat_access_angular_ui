@@ -1,9 +1,9 @@
 #rha-recommendation-section.recommendations(ng-hide='RecommendationsService.recommendations.length === 0')
   .panel-heading
     h4.panel-title
-      span.inline() Based on your description, here are some possible solutions
+      span.inline() {{'Based on your description, here are some possible solutions'|translate}}
       .spinner.spinner-sm.spinner-inline(ng-show='searchInProgress.value')
-      span(ng-show='searchInProgress.value') Updating Recommendations
+      span(ng-show='searchInProgress.value') {{'Updating Recommendations'|translate}}
   .panel-body
     ul
       li(ng-show='RecommendationsService.recommendations.length', ng-repeat="result in results")
@@ -18,5 +18,5 @@
       button.btn.btn-secondary.btn-slim(ng-hide="currentPage == 1", ng-click="selectPage(currentPage - 1)")
         i.fa.fa-long-arrow-left
       button.btn.btn-app.btn-slim(ng-hide="currentPage == lastPage", ng-click="selectPage(currentPage + 1)")
-        span NEXT
+        span {{'NEXT'|translate}}
         i.fa.fa-long-arrow-right

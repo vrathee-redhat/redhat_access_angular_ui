@@ -2,12 +2,12 @@
 div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
   .row
     div.section.main.col-md-8
-      h1.page-title CASE {{CaseService.kase.case_number}}
-      div Filed on&nbsp;
-        span {{CaseService.kase.localTzCreatedDate}} by {{CaseService.kase.contact_name}}
+      h1.page-title {{'CASE'|translate}} {{CaseService.kase.case_number}}
+      div {{'Filed on'|translate}}&nbsp;
+        span {{CaseService.kase.localTzCreatedDate}} {{'by'|translate}} {{CaseService.kase.contact_name}}
         span.sep |
-        | Assigned to {{CaseService.kase.owner}}
-      a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} Support Level
+        | {{'Assigned to'|translate}} {{CaseService.kase.owner}}
+      a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
       div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
       div(ng-show='EDIT_CASE_CONFIG.showDetails')

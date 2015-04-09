@@ -222,7 +222,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
                 angular.forEach($scope.notifiedUsers, function (user) {
                     strataService.cases.notified_users.add(caseNumber, user).then(function () {
-                        AlertService.addSuccessMessage(translate('Successfully added ') + ' ' + user + translate(' to receieve email notifications.'));
+                        AlertService.addSuccessMessage(translate('Successfully added') + ' ' + user + ' '+translate('to receieve email notifications.'));
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
@@ -288,6 +288,14 @@ angular.module('RedhatAccess.cases').controller('New', [
             if(numFieldsSelected > 2){
                 text = text.replace('Locating', 'Refining');
             }
+            if(text.contains('Locating'))
+            {
+                text=translate('Locating top solutions');
+            }
+            else
+            {
+                text=translate('Refining top solutions');
+            }
             return text;
         };
 
@@ -324,12 +332,12 @@ angular.module('RedhatAccess.cases').controller('New', [
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         } else {
-                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' +' '+ content));
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         }
                     } else {
-                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' +' '+ content));
                         redirectToCase(caseNumber);
                         $scope.$apply();
                     }
