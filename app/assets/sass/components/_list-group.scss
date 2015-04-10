@@ -1,0 +1,25 @@
+$list-group-border-color: #ddd;
+$list-group-list-title-bg: $aside-bg;
+
+.list-group, ul.list-group {
+	border: 1px solid $list-group-border-color;
+//	@include font-size(14px);
+
+	> li, .list-item {
+		@include rem('padding', 10px $global-padding);
+	}
+
+	.list-title {
+		background: $list-group-list-title-bg;
+		border-bottom: 1px solid $list-group-border-color;
+	}
+
+}
+
+.list-group.list-group-case {
+
+}
+
+.ng-table th {
+	text-align: left;
+}

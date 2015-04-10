@@ -1,0 +1,43 @@
+table {
+	@include font-size(14px);
+
+	thead th {
+		text-align: left;
+		background: #4c4c4c;
+		color: #fff;
+	}
+
+	tbody {
+		tr:nth-child(odd) {
+			background: #fff;
+		}
+	}
+}
+
+.toggle-switch {
+	position: relative;
+	height: 20px;
+	@include border-radius(4px);
+	background: red;
+	@include transition(.4s);
+
+	&:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 6px;
+		height: 100%;
+		display: block;
+		background: blue;
+		@include transition(.2s);
+	}
+
+	&.active {
+		background: green;
+
+		&:after {
+			left: 100%;
+		}
+	}
+}

@@ -1,13 +1,13 @@
-span.rha-search-spinner(ng-show='usersLoading') 
+span.spinner.spinner-inline(ng-show='usersLoading')
 span(ng-show='usersLoading') {{'Users Loading...'|translate}}
-.row.panel.panel-default.ng-isolate-scope(ng-hide='usersLoading')
+.ng-isolate-scope(ng-hide='usersLoading')
   .row
     .col-sm-12.col-md-6
       div(rha-searchbox='', placeholder='"Search Users"')
   .row
     .col-sm-12
-      table.table.table-bordered(ng-table='tableParams')
-        thead(style='text-align: center')
+      table.table.table-cp(ng-table='tableParams')
+        thead
           th
             div {{'Login'|translate}}
           th
@@ -18,7 +18,7 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
             div {{'Access'|translate}}
           th
             div {{'Make Default Group'|translate}}
-        tbody(style='text-align: center')
+        tbody
           tr(ng-repeat='user in usersOnScreen')
             td(data-title='', sortable='')
               p(ng-disabled='user.org_admin') {{user.sso_username}}
@@ -36,4 +36,6 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
                 ng-change='setUserPermission(user)',
                 ng-options='option.value as option.label for option in accessOptions')
             td
+              .toggle-switch(ng-click="active=!active", ng-class='{"active": active}')
+
               button.btn.btn-primary(ng-click='toggleDefaultGroup(user)') {{user.hasDefaultGroup}}

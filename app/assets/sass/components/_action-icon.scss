@@ -1,0 +1,42 @@
+.action-icon {
+
+	i + i {
+		margin-left: 4px;
+	}
+}
+
+.menu-subcontext {
+	position: relative;
+
+	.dropdown {
+		position: absolute;
+		right: 0;
+		z-index: 9;
+		margin: 0;
+		padding: 0;
+		background: #fff;
+		border: 1px solid #ddd;
+		list-style-type: none;
+
+		display: none;
+		@include opacity(0);
+		@include transition(.2s);
+
+		li {
+			min-width: 120px;
+			margin: 0;
+			@include rem('padding', 4px 8px);
+			@include transition(.2s);
+
+			&:hover {
+				cursor: pointer;
+				background: #F0F0F0;
+			}
+		}
+	}
+
+	.dropdown.active {
+		 display: block;
+		@include opacity(1);
+	}
+}
