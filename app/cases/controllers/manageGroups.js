@@ -9,18 +9,17 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
     'SearchBoxService',
     'GroupService',
     'AUTH_EVENTS',
+    'RHAUtils',
     'translate',
     '$filter',
     'ngTableParams',
     'CASE_EVENTS',
-    function ($scope, $location, securityService, strataService, AlertService, SearchBoxService, GroupService, AUTH_EVENTS, translate, $filter, ngTableParams, CASE_EVENTS) {
+    function ($scope, $location, securityService, strataService, AlertService, SearchBoxService, GroupService, AUTH_EVENTS, RHAUtils, translate, $filter, ngTableParams, CASE_EVENTS) {
         $scope.securityService = securityService;
         $scope.usersOnScreen = [];
         $scope.usersOnGroup = [];
         $scope.usersLoading = true;
         $scope.groupsLoading = true;
-        $scope.masterSelected = false;
-        $scope.userSelected = false;
         $scope.isUsersPrestine = true;
         $scope.isGroupPrestine = true;
         $scope.listEmpty = false;
@@ -38,6 +37,20 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
             {
                 value: 'NONE',
                 label: translate('No access')
+            }
+        ];
+        $scope.actionOptions = [
+            {
+                value: 'rename',
+                label: translate('Rename')
+            },
+            {
+                value: 'delete',
+                label: translate('Delete')
+            },
+            {
+                value: 'duplicate',
+                label: translate('Duplicate')
             }
         ];
 
@@ -75,6 +88,7 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
             var userName = securityService.loginStatus.authedUser.sso_username;
             strataService.groups.list(userName, false).then(function (groups) {
                 $scope.groupsOnScreen = groups;
+                $scope.sortGroups();
                 $scope.selectedGroup = groups[0];
                 $scope.groupsLoading = false;
                 $scope.loadUsersInGroup($scope.selectedGroup);
@@ -83,14 +97,28 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
             });
         };
 
+        $scope.sortGroups = function() {
+            $scope.groupsOnScreen.sort(function(a, b){
+                if(a.name < b.name) { return -1; }
+                if(a.name > b.name) { return 1; }
+                return 0;
+            });
+        };
+
         $scope.loadUsersInGroup = function(group) {
             $scope.selectedGroup = group;
+            $scope.isUsersPrestine = true;
+            $scope.isGroupPrestine = true;
             $scope.usersLoading = true;
             if(securityService.userAllowedToManageGroups()){                
                 strataService.accounts.users($scope.accountNumber,group.number).then(function (users) {
                     $scope.usersOnGroup = users;
                     $scope.manipulateAccess();
-                    buildTable();
+                    if (tableBuilt) {
+                        $scope.tableParams.reload();
+                    } else {
+                        buildTable();
+                    }   
                     $scope.usersLoading = false;
                 }, function (error) {
                     $scope.usersLoading = false;
@@ -111,6 +139,7 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
                 } else if (user.access === false && user.write === false) {
                     user.permission = 'NONE';
                 }
+                user.hasDefaultGroup = 'Off';
             }));
         };
 
@@ -133,21 +162,9 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
                 });
             }
         };
-
-        $scope.onMasterCheckboxClicked = function (masterSelected) {
-            for(var i = 0; i < $scope.usersOnScreen.length; i++){
-                if (!$scope.usersOnScreen[i].org_admin) {
-                    $scope.usersOnScreen[i].userSelected = masterSelected;
-                }
-            }
-            $scope.isUsersPrestine = false;
-        };
-
-        $scope.toggleUsersPrestine = function() {
-            $scope.isUsersPrestine = false;
-        };
-
+        
         $scope.setUserPermission = function(user) {
+            $scope.isUsersPrestine = false;
             for(var i = 0; i < $scope.usersOnScreen.length; i++){
                 if ($scope.usersOnScreen[i].sso_username === user.sso_username) {
                     if (user.permission === 'WRITE') {
@@ -163,30 +180,31 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
                     break;
                 }
             }
+            $scope.saveGroup();
         };
 
         $scope.createGroup = function () {
+            if (RHAUtils.isEmpty($scope.newGroupName)) {
+                $scope.newGroupName = 'Untitled Case Group';
+            }
             AlertService.addWarningMessage(translate('Creating group') + ' ' + $scope.newGroupName + '...');
             strataService.groups.create($scope.newGroupName, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
                 if(success !== null){
-                    $scope.usersOnGroup.push({
+                    $scope.groupsOnScreen.push({
                         name: $scope.newGroupName,
                         number: success
                     });
+                    $scope.sortGroups();
+                    $scope.selectedGroup = {
+                        name: $scope.newGroupName,
+                        number: success
+                    };
+                    $scope.showCreateGroup = false;
+                    $scope.newGroupName = '';
+                    $scope.loadUsersInGroup($scope.selectedGroup);
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + $scope.newGroupName);
-                    
-                } 
-                //else {
-                //     CaseService.populateGroups(securityService.loginStatus.authedUser.sso_username, true).then(angular.bind(this, function (groups) {
-                //         AlertService.clearAlerts();
-                //         AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + $scope.newGroupName);
-                //         GroupService.reloadTable();
-                //     }), function (error) {
-                //         AlertService.clearAlerts();
-                //         AlertService.addStrataErrorMessage(error);
-                //     });
-                // }
+                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + $scope.newGroupName);                    
+                }
             }), function (error) {
                 AlertService.clearAlerts();
                 AlertService.addStrataErrorMessage(error);
@@ -195,6 +213,38 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
 
         $scope.addNewGroup = function() {
             $scope.showCreateGroup = true;
+        };
+
+        $scope.toggleDefaultGroup = function(user) {
+            for(var i = 0; i < $scope.usersOnScreen.length; i++){
+                if ($scope.usersOnScreen[i].sso_username === user.sso_username) {
+                    if ($scope.usersOnScreen[i].hasDefaultGroup === 'On') {
+                        $scope.usersOnScreen[i].hasDefaultGroup = 'Off';
+                    } else {
+                        $scope.usersOnScreen[i].hasDefaultGroup = 'On';
+                    }                    
+                    break;
+                }
+            }
+        };
+
+        $scope.groupAction = function(group) {
+            if(group.action === 'delete') {
+                strataService.groups.remove(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
+                    var groups = $filter('filter')($scope.groupsOnScreen, function (g) {
+                        if (g.number !== group.number) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                    $scope.groupsOnScreen = groups;
+                    AlertService.addSuccessMessage(translate('Successfully deleted group') + ' ' + group.name);
+                }), function (error) {
+                    AlertService.clearAlerts();
+                    AlertService.addStrataErrorMessage(error);
+                });
+            }            
         };
 
         if (securityService.loginStatus.isLoggedIn) {

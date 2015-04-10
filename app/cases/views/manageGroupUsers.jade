@@ -4,14 +4,10 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
   .row
     .col-sm-12.col-md-6
       div(rha-searchbox='', placeholder='"Search Users"')
-    .col-sm-8.col-md-4
-      button.btn.btn-primary(ng-click='saveGroup()' ng-disabled='isUsersPrestine', translate='') Remove User
   .row
     .col-sm-12
       table.table.table-bordered(ng-table='tableParams')
         thead(style='text-align: center')
-          th
-            input(type='checkbox', style='width: 25px;', ng-model='masterSelected', ng-change='onMasterCheckboxClicked(masterSelected)')
           th
             div {{'Login'|translate}}
           th
@@ -20,10 +16,10 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
             div {{'Last Name'|translate}}
           th
             div {{'Access'|translate}}
-        tbody
+          th
+            div {{'Make Default Group'|translate}}
+        tbody(style='text-align: center')
           tr(ng-repeat='user in usersOnScreen')
-            td(style='text-align: center; width: 25px;')
-              input(type='checkbox', ng-model='user.userSelected', ng-change='toggleUsersPrestine()', ng-disabled='user.org_admin')
             td(data-title='', sortable='')
               p(ng-disabled='user.org_admin') {{user.sso_username}}
             td(data-title='', sortable='')
@@ -38,5 +34,6 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
                 ng-if='!user.org_admin',
                 ng-model='user.permission',
                 ng-change='setUserPermission(user)',
-                placeholder='Select a Group',
                 ng-options='option.value as option.label for option in accessOptions')
+            td
+              button.btn.btn-primary(ng-click='toggleDefaultGroup(user)') {{user.hasDefaultGroup}}

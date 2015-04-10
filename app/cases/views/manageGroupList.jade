@@ -15,4 +15,11 @@ div(ng-show='!groupsLoading && groupsOnScreen.length < 1') {{'No groups found.'|
     .list-item(ng-repeat='group in groupsOnScreen')
       .row
         .col-sm-4.col-md-6
-          a(ng-click='loadUsersInGroup(group)', ng-href='') {{group.name}}
+          a(ng-click='loadUsersInGroup(group)', ng-href='', ng-class='group.name === selectedGroup.name ? "groupSelected" : "groupNotSelected"') {{group.name}}
+        .col-sm-4.col-md-4
+          select#rha-group-action-select(
+                chosen,
+                width='"100%"',
+                ng-model='group.action',
+                ng-change='groupAction(group)',
+                ng-options='action.value as action.label for action in actionOptions')
