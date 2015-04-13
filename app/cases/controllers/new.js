@@ -288,7 +288,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             if(numFieldsSelected > 2){
                 text = text.replace('Locating', 'Refining');
             }
-            if(text.contains('Locating'))
+            if(text.indexOf('Locating') !== -1)
             {
                 text=translate('Locating top solutions');
             }

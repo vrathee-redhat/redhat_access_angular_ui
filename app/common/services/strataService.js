@@ -514,11 +514,11 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         strata.cases.get(id, function (response) {
                             var kase=response;
                             var tzDate=RHAUtils.convertToTimezone(response.created_date);
-                            response.localTzCreatedDate=RHAUtils.formatDate(tzDate,'MMM DD YYYY HH:mm:ss A Z');
+                            response.created_date=RHAUtils.formatDate(tzDate,'MMM DD YYYY HH:mm:ss A Z');
                             angular.forEach(response.chats.chat, angular.bind(this, function (chat) {
                                 var lastModifiedDate=RHAUtils.convertToTimezone(chat.start_time);
-                                chat.timezone_last_modified_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
-                                chat.timezone_last_modified_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm:ss A Z');
+                                chat.last_modified_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
+                                chat.last_modified_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm:ss A Z');
                             }));
                             if (!ie8) {
                                 strataCache.put('case' + id, response);

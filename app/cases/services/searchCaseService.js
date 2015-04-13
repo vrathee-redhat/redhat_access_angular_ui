@@ -139,7 +139,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                             that.start = that.start + that.count;
                             that.total = that.total + response['case'].length;
                         }
-
                     }
                     that.searching = false;
                     deferred.resolve(cases);
@@ -170,8 +169,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         }
                     }
                     that.searching = false;
-
-
                     deferred.resolve(cases);
                 }), angular.bind(that, function (error) {
                     if(error.xhr.status === 404){
@@ -185,9 +182,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     }
                 }));
             }
-
-
-
             promises.push(deferred.promise);
             // } else {
             //     deferred.resolve();

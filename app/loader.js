@@ -11,7 +11,6 @@
         'strata': '/bower_components/stratajs/strata',
         'uds': '/bower_components/udsjs/uds',
         'moment': '/bower_components/moment/moment'
-
       },
       map: {
         '*': {
