@@ -12,7 +12,8 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
     '$timeout',
     'RHAUtils',
     'EDIT_CASE_CONFIG',
-    function ($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG) {
+    'translate',
+    function ($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG, translate) {
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
@@ -21,6 +22,8 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         $scope.progressCount = 0;
         $scope.charactersLeft = 0;
         $scope.maxCommentLength = '32000';
+        $scope.ieFileDescription = '';
+
         DiscussionService.commentTextBoxEnlargen = false;
 
         $scope.clearComment = function(){
@@ -102,8 +105,6 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     AlertService.addStrataErrorMessage(error);
                     $scope.addingattachment = false;
                 });
-            } else if(EDIT_CASE_CONFIG.showAttachments && $scope.ie8 || EDIT_CASE_CONFIG.showAttachments && $scope.ie9 ) {
-                $scope.ieFileUpload(CaseService.kase.case_number);
             }
         };
         $scope.saveDraftPromise;
@@ -208,5 +209,87 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 DiscussionService.commentTextBoxEnlargen=false;
             }
         };
+        $scope.ieFileUpload = function($event) {
+            var form = document.getElementById('fileUploaderForm');
+            var iframeId = document.getElementById('upload_target');
+            form.action = 'https://' + window.location.host + '/rs/cases/' + CaseService.kase.case_number + '/attachments';
+
+            var eventHandler = function () {
+                if (iframeId.removeEventListener){
+                    iframeId.removeEventListener('load', eventHandler, false);
+                }else if (iframeId.detachEvent){
+                    iframeId.detachEvent('onload', eventHandler);
+                }
+                if(!$scope.ie8){
+                    var content;
+                    if (iframeId.contentDocument && iframeId.contentDocument.body !== null) {
+                        content = iframeId.contentDocument.body.innerText;
+                    } else if (iframeId.contentWindow && iframeId.contentWindow.document.body !== null) {
+                        content = iframeId.contentWindow.document.body.innerText;
+                    }
+                    if (content !== undefined && content.length) {
+                        var parser = document.createElement('a');
+                        parser.href = content;
+                        var splitPath = parser.pathname.split('/');
+                        if(splitPath !== undefined && splitPath[4] !== undefined){
+                            AttachmentsService.clear();
+                            strataService.cache.clr('attachments' + CaseService.kase.case_number);
+                            strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
+                                $scope.addingComment = false;
+                                AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                                $scope.ieClearSelectedFile();
+
+                            }, function (error) {
+                                $scope.addingComment = false;
+                                AlertService.addStrataErrorMessage(error);
+                            });
+                        } else {
+                            $scope.addingComment = false;
+                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                            $scope.$apply();
+                        }
+                    } else {
+                        $scope.addingComment = false;
+                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                        $scope.$apply();
+                    }
+                }else {
+                    strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
+                        $scope.addingComment = false;
+                        if(attachmentsJSON.length !== AttachmentsService.originalAttachments.length){
+                            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                            $scope.ieClearSelectedFile();
+                        } else{
+                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment.'));
+                        }
+
+                    }, function (error) {
+                        $scope.addingComment = false;
+                        AlertService.addStrataErrorMessage(error);
+                    });
+                }
+                setTimeout(function(){
+                },
+                    100
+                );
+            };
+
+            if (iframeId.addEventListener){
+                iframeId.addEventListener('load', eventHandler, false);
+            } else if (iframeId.attachEvent){
+                iframeId.attachEvent('onload', eventHandler);
+            }
+            $scope.addingComment = true;
+            form.submit();
+        };
+        $scope.ieClearSelectedFile = function () {
+            $scope.ieFileDescription = '';
+        };
+        $scope.submitIEAttachment = function () {
+            if(EDIT_CASE_CONFIG.showAttachments && $scope.ie8 || EDIT_CASE_CONFIG.showAttachments && $scope.ie9 ) {
+                $scope.ieFileUpload(CaseService.kase.case_number);
+            }
+        }
     }
+
 ]);

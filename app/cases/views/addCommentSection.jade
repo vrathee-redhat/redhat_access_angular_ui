@@ -31,19 +31,21 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
                div(rha-choicetree='',
                  ng-model='attachmentTree',
                  ng-controller='BackEndAttachmentsCtrl')
-      div(ng-show='ie8 && EDIT_CASE_CONFIG.isPCM || ie9 && EDIT_CASE_CONFIG.isPCM')
+  .col-xs-5
+    .pull-right
+      .spinner.spinner-inline(ng-show='addingComment || addingattachment')
+      button#rha-case-addcommentbutton.btn.btn-accent.btn-submit(
+        ng-hide='addingComment || addingattachment',
+        ng-disabled='!ie8 && !ie9 && (CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections())',
+        ng-click='addComment()',
+        translate='') Post
+      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()',translate='') Cancel
+.row
+  .col-xs-12(ng-show='ie8 && EDIT_CASE_CONFIG.isPCM || ie9 && EDIT_CASE_CONFIG.isPCM')
         form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
           .row
-            .col-xs-6
+            .col-xs-12
               input(id='fileUploader', type='file', value='upload',name='file')
-            .col-xs-6 {{fileName}}
-          .row
-            .col-xs-12(style='font-size: 80%;')
-              div(ng-bind-html='parseArtifactHtml()')
-            .col-xs-12(style='font-size: 80%;')
-              span {{'File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com.'|translate}}&nbsp;
-              span
-                a(href='https://access.redhat.com/knowledge/solutions/2112', target='_blank') {{'(More info)'|translate}}
           .row
             .col-xs-12
               input#fileDescription.form-control(
@@ -53,12 +55,6 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
                 ng-model='ieFileDescription',
                 placeholder="{{'File description'|translate}}")
         iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
-  .col-xs-5
-    .pull-right
-      .spinner.spinner-inline(ng-show='addingComment || addingattachment')
-      button#rha-case-addcommentbutton.btn.btn-accent.btn-submit(
-        ng-hide='addingComment || addingattachment',
-        ng-disabled='CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections()',
-        ng-click='addComment()',
-        translate='') Post
-      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()',translate='') Cancel
+        button#rha-case-addcommentbutton.btn.btn-accent.btn-submit(
+          ng-click='submitIEAttachment()',
+          translate='') {{'Submit Attachment'|translate}}
