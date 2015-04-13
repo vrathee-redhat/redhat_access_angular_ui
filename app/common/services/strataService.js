@@ -397,11 +397,11 @@ angular.module('RedhatAccess.common').factory('strataService', [
                             strata.cases.attachments.list(id, function (response) {
                                 angular.forEach(response , angular.bind(this, function (element) {
                                     var lastModifiedDate=RHAUtils.convertToTimezone(element.last_modified_date);
-                                    element.timezone_last_modified_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
-                                    element.timezone_last_modified_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm A Z');
+                                    element.last_modified_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
+                                    element.last_modified_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm A Z');
                                     var createdDate=RHAUtils.convertToTimezone(element.created_date);
-                                    element.timezone_created_date=RHAUtils.formatDate(createdDate,'MMM DD YYYY');
-                                    element.timezone_created_time=RHAUtils.formatDate(createdDate,'hh:mm A Z');
+                                    element.created_date=RHAUtils.formatDate(createdDate,'MMM DD YYYY');
+                                    element.created_time=RHAUtils.formatDate(createdDate,'hh:mm A Z');
 
                                 }));
                                 if (!ie8) {
