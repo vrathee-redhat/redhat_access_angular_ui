@@ -442,11 +442,11 @@ angular.module('RedhatAccess.common').factory('strataService', [
                             strata.cases.comments.get(id, function (response) {
                                 angular.forEach(response, angular.bind(this, function (comment) {
                                     var lastModifiedDate = RHAUtils.convertToTimezone(comment.last_modified_date);
-                                    comment.timezone_last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
-                                    comment.timezone_last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                                    comment.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                                    comment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                     var createdDate = RHAUtils.convertToTimezone(comment.created_date);
-                                    comment.timezone_created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
-                                    comment.timezone_created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
+                                    comment.created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
+                                    comment.created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
                                 }));
                                 if (!ie8) {
                                     strataCache.put('comments' + id, response);
@@ -517,8 +517,8 @@ angular.module('RedhatAccess.common').factory('strataService', [
                             response.created_date=RHAUtils.formatDate(tzDate,'MMM DD YYYY HH:mm:ss A Z');
                             angular.forEach(response.chats.chat, angular.bind(this, function (chat) {
                                 var lastModifiedDate=RHAUtils.convertToTimezone(chat.start_time);
-                                chat.last_modified_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
-                                chat.last_modified_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm:ss A Z');
+                                chat.start_time=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
+                                chat.start_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm:ss A Z');
                             }));
                             if (!ie8) {
                                 strataCache.put('case' + id, response);
@@ -535,8 +535,10 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     var deferred = $q.defer();
                     strata.cases.search(function (response) {
                         angular.forEach(response['case'], angular.bind(this, function (kase) {
-                            kase.created_date=RHAUtils.convertToTimezone(kase.created_date)
-                            kase.last_modified_date=RHAUtils.convertToTimezone(kase.last_modified_date);
+                           var createdDate=RHAUtils.convertToTimezone(kase.created_date);
+                           kase.created_date=RHAUtils.formatDate(createdDate,'MMM DD YYYY');
+                           var modifiedDate=RHAUtils.convertToTimezone(kase.last_modified_date);
+                           kase.last_modified_date=RHAUtils.formatDate(modifiedDate,'MMM DD YYYY');
                         }));
                         deferred.resolve(response);
                     }, angular.bind(deferred, errorHandler), caseStatus, caseOwner, caseGroup, searchString, sortField, sortOrder, offset, limit, queryParams, addlQueryParams);
@@ -555,8 +557,10 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     } else {
                         strata.cases.filter(params, function (response) {
                             angular.forEach(response['case'], angular.bind(this, function (kase) {
-                                kase.created_date=RHAUtils.convertToTimezone(kase.created_date)
-                                kase.last_modified_date=RHAUtils.convertToTimezone(kase.last_modified_date);
+                                var createdDate=RHAUtils.convertToTimezone(kase.created_date);
+                                kase.created_date=RHAUtils.formatDate(createdDate,'MMM DD YYYY');
+                                var modifiedDate=RHAUtils.convertToTimezone(kase.last_modified_date);
+                                kase.last_modified_date=RHAUtils.formatDate(modifiedDate,'MMM DD YYYY');
                             }));
                             if (!ie8) {
                                 strataCache.put('filter' + JSON.stringify(params), response);
