@@ -6,7 +6,7 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
       div(rha-searchbox='', placeholder='"Search Users"')
   .row
     .col-sm-12
-      table.table.table-cp(ng-table='tableParams')
+      table.table.table-cp.table-vertical-center(ng-table='tableParams')
         thead
           th
             div {{'Login'|translate}}
@@ -21,13 +21,13 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
         tbody
           tr(ng-repeat='user in usersOnScreen')
             td(data-title='', sortable='')
-              p(ng-disabled='user.org_admin') {{user.sso_username}}
+              span(ng-disabled='user.org_admin') {{user.sso_username}}
             td(data-title='', sortable='')
               {{user.first_name}}
             td(data-title='', sortable='')
               {{user.last_name}}
             td(data-title='', sortable='')
-              p(ng-show='user.org_admin') {{'Read and Write'|translate}}
+              span(ng-show='user.org_admin') {{'Read and Write'|translate}}
               select#rha-access-select(
                 chosen,
                 width='"100%"',
@@ -36,6 +36,7 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
                 ng-change='setUserPermission(user)',
                 ng-options='option.value as option.label for option in accessOptions')
             td
-              .toggle-switch(ng-click="active=!active", ng-class='{"active": active}')
-
-              button.btn.btn-primary(ng-click='toggleDefaultGroup(user)') {{user.hasDefaultGroup}}
+              .row
+                .col-sm-6
+                  .toggle-switch(ng-click="active=!active", ng-class='{"active": active}')
+                    .switch

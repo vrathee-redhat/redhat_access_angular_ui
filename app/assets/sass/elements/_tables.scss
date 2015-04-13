@@ -14,30 +14,6 @@ table {
 	}
 }
 
-.toggle-switch {
-	position: relative;
-	height: 20px;
-	@include border-radius(4px);
-	background: red;
-	@include transition(.4s);
-
-	&:after {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 6px;
-		height: 100%;
-		display: block;
-		background: blue;
-		@include transition(.2s);
-	}
-
-	&.active {
-		background: green;
-
-		&:after {
-			left: 100%;
-		}
-	}
+table.table-vertical-center tbody tr td {
+	vertical-align: middle;
 }

@@ -3,23 +3,39 @@ $list-group-list-title-bg: $aside-bg;
 
 .list-group, ul.list-group {
 	border: 1px solid $list-group-border-color;
+	@include font-size(14px);
 //	@include font-size(14px);
-
-	> li, .list-item {
-		@include rem('padding', 10px $global-padding);
-	}
 
 	.list-title {
 		background: $list-group-list-title-bg;
 		border-bottom: 1px solid $list-group-border-color;
+		@include transition(.2s);
 	}
 
+	> li, .list-item {
+		@include rem('padding', 10px $global-padding);
+
+		&.delete {
+			background: #fef8e5;
+		}
+	}
 }
 
 .list-group.list-group-case {
 
 }
 
-.ng-table th {
-	text-align: left;
+.list-item.with-actions, li.with-actions {
+	position: relative;
+	@include rem('padding-right', 40px);
+	word-wrap: break-word;
+
+	.menu-subcontext {
+		position: absolute;
+		right: 14px;
+		top: 10px;
+	}
 }
+
+.ng-table th { text-align: left; }
+.list-group-input-group, .list-title.list-group-input-group { @include rem('padding', 10px); }

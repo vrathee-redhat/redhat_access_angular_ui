@@ -1,45 +1,32 @@
-//span.rha-search-spinner(ng-show='groupsLoading')
-//span(ng-show='groupsLoading') {{'Groups Loading...'|translate}}
-//div(ng-show='!groupsLoading && groupsOnScreen.length < 1') {{'No groups found.'|translate}}
-//.row.panel.panel-default.ng-isolate-scope(ng-hide='groupsLoading')
-//  .row
-//    .col-sm-4.col-md-4 {{'Case Groups'|translate}}
-//    .col-sm-4.col-md-4
-//      button.btn.btn-primary(ng-click='addNewGroup()', translate='') Add Group
-//  .row(ng-show='showCreateGroup')
-//    .col-sm-4.col-md-6
-//      input.form-control(type='text', ng-model='newGroupName', placeholder='Untitled Case Group')
-//    .col-sm-4.col-md-6
-//      button.btn.btn-primary(ng-click='createGroup()', translate='') Create Group
-  #group-list.table-list
-    .list-item(ng-repeat='group in groupsOnScreen')
-      .row
-        .col-sm-4.col-md-6
-          a(ng-click='loadUsersInGroup(group)', ng-href='', ng-class='group.name === selectedGroup.name ? "groupSelected" : "groupNotSelected"') {{group.name}}
-        .col-sm-4.col-md-4
-          select#rha-group-action-select(
-                chosen,
-                width='"100%"',
-                ng-model='group.action',
-                ng-change='groupAction(group)',
-                ng-options='action.value as action.label for action in actionOptions')
-
-//testetsetetes rtsetes ts ete t
 span.spinner.spinner-inline(ng-show='groupsLoading')
 span(ng-show='groupsLoading') {{'Groups Loading...'|translate}}
 div(ng-show='!groupsLoading && groupsOnScreen.length < 1') {{'No groups found.'|translate}}
 #list-group-case.list-group.list-group-case.ng-isolate-scope(ng-hide='groupsLoading')
   .list-item.list-title
     .action-icon {{'Case Groups'|translate}}
-      i.fa.fa-plus.pull-right(ng-click='addNewGroup()', translate='')
-    div(ng-show='showCreateGroup')
+      a(ng-click='addNewGroup()', translate='')
+        i.fa.fa-plus.pull-right
+  .list-item.list-title.list-group-input-group(ng-show='showCreateGroup')
+    .input-group
       input.form-control(type='text', ng-model='newGroupName', placeholder='Untitled Case Group')
-      button.btn.btn-primary(ng-click='createGroup()', translate='') Create Group
-  .list-item(ng-repeat='group in groupsOnScreen')
-    span(ng-click='loadUsersInGroup(group)', ng-href='', ng-class='group.name === selectedGroup.name ? "groupSelected" : "groupNotSelected"') {{group.name}}
-    .menu-subcontext.pull-right
+      span.input-group-btn
+        button.btn.btn-app(ng-click='createGroup()', translate='') Create
+  .list-item.with-actions(ng-repeat='group in groupsOnScreen')
+    div(ng-click='loadUsersInGroup(group)', ng-href='', ng-class='group.name === selectedGroup.name ? "groupSelected" : "groupNotSelected"') {{group.name}}
+    .menu-subcontext
       a.action-icon(ng-click="active=!active", ng-blur="active=!active")
         i.fa.fa-cog
         i.fa.fa-caret-down
       ul.dropdown(ng-class='{"active": active}')
         li(ng-repeat='action in actionOptions') {{action.label}}
+
+  // This is an example of a list-item that's about to be deleted
+  .list-item.with-actions.delete
+    div Example to be deleted
+    .menu-subcontext
+      a.action-icon(ng-click="active=!active", ng-blur="active=!active")
+        i.fa.fa-cog
+        i.fa.fa-caret-down
+    div.margin-top-short
+      button.btn.btn-primary.btn-sm Delete
+      a.margin-left Cancel

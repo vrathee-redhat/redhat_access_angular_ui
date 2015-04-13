@@ -1,7 +1,7 @@
 .page-header(rha-header='', page='manageGroups')
 div(ng-show='securityService.loginStatus.isLoggedIn && securityService.loginStatus.userAllowedToManageCases')
   .row
-    .aside.col-sm-4.col-md-4
+    .aside.col-sm-12.col-md-3
       div(rha-managegrouplist='')
-    div.section.main.col-md-8      
+    div.section.main.col-sm-12.col-md-9
       div(rha-managegroupusers='')
