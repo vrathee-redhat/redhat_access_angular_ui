@@ -3,7 +3,6 @@
 angular.module('RedhatAccess.cases').directive('rhaNewbase', function () {
     return {
         templateUrl: 'cases/views/newBase.html',
-        restrict: 'A',
-        controller: 'New'
+        restrict: 'A'
     };
 });
