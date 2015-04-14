@@ -21,6 +21,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.count = 50;
         this.total = 0;
         this.allCasesDownloaded = false;
+        this.refreshFilterCache=false;
         this.caseListPage = 1;
         this.caseListPageSize = 10;
         var getIncludeClosed = function () {
@@ -122,6 +123,11 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
                     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                     params.view = 'internal';
+                }
+                if(this.refreshFilterCache===true)
+                {
+                    strataService.cache.clr('filter'+ JSON.stringify(params));
+                    this.refreshFilterCache=false;
                 }
                 cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
                     if(response['case'] === undefined ){
