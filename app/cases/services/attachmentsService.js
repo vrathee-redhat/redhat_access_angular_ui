@@ -118,7 +118,11 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
-                                attachment.last_modified_date = new Date();
+                                var currentDate =new Date();
+                                var lastModifiedDate = RHAUtils.convertToTimezone(currentDate);
+                                attachment.sortModifiedDate=currentDate;
+                                attachment.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                                attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                 AlertService.addSuccessMessage(translate('Successfully uploaded attachment')+' ' + attachment.file_name + ' '+'to case' +' '+ caseId);
                             }, function (error) {
                                 AlertService.addStrataErrorMessage(error);

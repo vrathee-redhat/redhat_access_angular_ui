@@ -176,7 +176,8 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.$on(CASE_EVENTS.received, function () {
             if (CaseService.kase.chats !== undefined && CaseService.kase.chats.chat !== undefined) {
                 angular.forEach(CaseService.kase.chats.chat, angular.bind(this, function (chat) {
-                    chat.last_modified_date = chat.start_time;
+                    chat.last_modified_date = chat.start_date;
+                    chat.last_modified_time = chat.start_time;
                     chat.comment_type = 'chat';
                     DiscussionService.chatTranscriptList.push(chat);
                 }));
