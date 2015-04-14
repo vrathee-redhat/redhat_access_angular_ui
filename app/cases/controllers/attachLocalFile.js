@@ -7,7 +7,8 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
     'CaseService',
     'securityService',
     'translate',
-    function ($scope, AlertService, AttachmentsService, CaseService, securityService, translate) {
+    'RHAUtils',
+    function ($scope, AlertService, AttachmentsService, CaseService, securityService, translate,RHAUtils) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
@@ -23,13 +24,15 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
         };
         $scope.addFile = function () {
             /*jshint camelcase: false */
+            var createdDate = RHAUtils.convertToTimezone(new Date());
             AttachmentsService.addNewAttachment({
                 file_name: $scope.fileName,
                 description: $scope.fileDescription,
                 fileObj: $scope.fileObj,
                 length: $scope.fileSize,
                 created_by: securityService.loginStatus.authedUser.loggedInUser,
-                created_date: new Date().getTime()
+                created_date:  RHAUtils.formatDate(createdDate, 'MMM DD YYYY'),
+                created_time:  RHAUtils.formatDate(createdDate, 'hh:mm A Z')
             });
             $scope.clearSelectedFile();
             $scope.$apply();

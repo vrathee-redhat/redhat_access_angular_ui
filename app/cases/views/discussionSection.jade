@@ -24,7 +24,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
           ng-options='commentOrder as commentOrder.name for commentOrder in commentSortOrderList')
     .row
       .col-xs-12
-        article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':commentSortOrder", ng-if='!element.draft')
+        article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder", ng-if='!element.draft')
           .row
             .col-sm-4
               h4.meta(ng-if="element.comment_type === 'chat'")
@@ -54,13 +54,13 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 .fa.fa-close.pull-right(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
                 .description.margin-top-short(ng-show="element.description") {{element.description}}
   #pane2.tab-pane(ng-class='{"active": attachments}')
-    article.row(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'last_modified_date':'reverse'")
+    article.row(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse'")
       .col-sm-4
         h4.meta
           .author.blue {{attachment.created_by}}
-          date.light {{attachment.created_date | date:'mediumDate'}}
+          date.light {{attachment.created_date}}
           span.light at &nbsp;
-          time.light {{attachment.created_date | date:'h:mm:ss a Z'}}
+          time.light {{attachment.created_time}}
       .col-sm-8
         .dialog-box
             a(href="{{attachment.uri}}")
