@@ -38,5 +38,7 @@ span(ng-show='usersLoading') {{'Users Loading...'|translate}}
             td
               .row
                 .col-sm-6
-                  .toggle-switch(ng-click="active=!active", ng-class='{"active": active}')
+                  .toggle-switch(ng-click='setDefaultGroup(user)', ng-class='{"active": user.groupIsdefault}')
                     .switch
+                .col-sm-4
+                  span.spinner.spinner-inline(ng-show='user.settingDefaultGroup')

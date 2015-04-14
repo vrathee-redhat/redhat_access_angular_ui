@@ -215,18 +215,30 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
             $scope.showCreateGroup = true;
         };
 
-        $scope.toggleDefaultGroup = function(user) {
-            for(var i = 0; i < $scope.usersOnScreen.length; i++){
-                if ($scope.usersOnScreen[i].sso_username === user.sso_username) {
-                    if ($scope.usersOnScreen[i].hasDefaultGroup === 'On') {
-                        $scope.usersOnScreen[i].hasDefaultGroup = 'Off';
-                    } else {
-                        $scope.usersOnScreen[i].hasDefaultGroup = 'On';
-                    }                    
-                    break;
-                }
-            }
-        };
+        $scope.setDefaultGroup = function (user) {
+            //Remove old group is_default
+            user.settingDefaultGroup = true;
+            if (user.groupIsdefault === true) {                
+                user.groupIsdefault = false;
+                user.settingDefaultGroup = false;
+                //TODO
+                // strata call to remove the default group for the user
+            } else {
+                var tmpGroup = {
+                    name: $scope.selectedGroup.name,
+                    number: $scope.selectedGroup.number,
+                    isDefault: true,
+                    contactSsoName: user.sso_username
+                };
+                strataService.groups.createDefault(tmpGroup).then(function () {
+                    user.groupIsdefault = true;
+                    user.settingDefaultGroup = false;
+                    AlertService.addSuccessMessage('Successfully set ' + tmpGroup.name + ' as ' + user.sso_username + '\'s default group.');
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                });
+            }            
+        };        
 
         $scope.groupAction = function(group) {
             if(group.action === 'delete') {
