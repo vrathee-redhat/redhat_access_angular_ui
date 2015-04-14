@@ -205,6 +205,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     }, this);
                     this.usersLoading = false;
                     this.users = users;
+
                 }), angular.bind(this, function (error) {
                     this.users = [];
                     this.usersLoading = false;
@@ -434,7 +435,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 deferred.resolve(caseNumber);
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
-                this.submittingCase = false;
+                self.submittingCase = false;
                 deferred.reject();
             });
             return deferred.promise;

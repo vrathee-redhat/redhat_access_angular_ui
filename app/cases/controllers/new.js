@@ -71,6 +71,11 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.populateEntitlements(CaseService.owner);
                 CaseService.populateGroups(CaseService.owner);
                 ProductsService.getProducts(true);
+
+                //as owner change, we might get different product and version list, so better to clear previous selection
+                CaseService.kase.product = undefined;
+                CaseService.kase.version = undefined;
+                CaseService.updateLocalStorageForNewCase();
             }
         });
 

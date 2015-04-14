@@ -48,6 +48,9 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                             break;
                         }
                     }
+                }
+                if(RHAUtils.isNotEmpty(CaseService.kase.product)) {
+                    //once we retrieve the product list, we should also retrieve versions
                     this.getVersions(CaseService.kase.product);
                 }
             }), function (error) {
@@ -151,10 +154,18 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                 this.versions = response;
                 this.versionDisabled = false;
                 this.versionLoading = false;
+
+                if(RHAUtils.isNotEmpty(CaseService.kase.version) && (this.versions.indexOf(CaseService.kase.version) === -1))
+                {
+                    //this will get executed when existing product version is not available in version list of the given product
+                    //in this case drop down value is shown as 'Select an Option' and at that point submit button should be disabled
+                    CaseService.newCaseIncomplete = true;
+                }
 			    //Fetch Recommendations
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
+
 
         //Retrieve the product detail, basically finding the attachment artifact
             this.fetchProductDetail(product);
