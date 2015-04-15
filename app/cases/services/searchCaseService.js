@@ -105,13 +105,17 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     params.product = CaseService.product;
                 }
                 if (!RHAUtils.isEmpty(CaseService.filterSelect.sortField)) {
-                    params.sort_field = CaseService.filterSelect.sortField;
+                    if(CaseService.filterSelect.sortField === 'owner'){
+                        params.sort_field = 'contactName';
+                    } else{
+                        params.sort_field = CaseService.filterSelect.sortField;
+                    }
                 }
                 if (!RHAUtils.isEmpty(CaseService.filterSelect.sortOrder)) {
                     //This is a hack because strata returns the severities in reverse order
-                    if(CaseService.filterSelect.sortField === 'severity' && CaseService.filterSelect.sortOrder === 'ASC'){
+                    if((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'owner') && CaseService.filterSelect.sortOrder === 'ASC'){
                         params.sort_order = 'DESC';
-                    } else if(CaseService.filterSelect.sortField === 'severity' && CaseService.filterSelect.sortOrder === 'DESC'){
+                    } else if((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'owner') && CaseService.filterSelect.sortOrder === 'DESC'){
                         params.sort_order = 'ASC';
                     } else{
                         params.sort_order = CaseService.filterSelect.sortOrder;
