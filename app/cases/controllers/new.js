@@ -247,7 +247,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
             };
 
-            if(AttachmentsService.updatedAttachments.length === 0){
+            if(AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9){
                 var proceedWithoutAttachModal = $modal.open({
                     templateUrl: 'cases/views/proceedWithoutAttachModal.html',
                     controller: 'ProceedWithoutAttachModal'
@@ -312,7 +312,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             var redirectToCase = function (caseNumber) {
                 $state.go('edit', { id: caseNumber });
                 AlertService.clearAlerts();
-                $scope.submittingCase = false;
+                CaseService.submittingCase = false;
             };
 
             var eventHandler = function () {
@@ -350,6 +350,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                     redirectToCase(caseNumber);
                     $scope.$apply();
                 }
+                AlertService.removeAlert(uploadingAlert);
             };
 
             if (iframeId.addEventListener){
@@ -357,6 +358,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             } else if (iframeId.attachEvent){
                 iframeId.attachEvent('onload', eventHandler);
             }
+            var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachments...'));
             form.submit();
         };
 
