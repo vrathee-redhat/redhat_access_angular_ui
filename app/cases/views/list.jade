@@ -17,47 +17,48 @@ div(rha-header='', page='caseList')
       .pull-right.filter-list(rha-filterselect='')
   .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
   #case-list.table-list.case-list.bulk-closure(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
-    .list-item(ng-repeat='case in SearchCaseService.cases')
-      input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
-      .row.case(ng-click='caseLink(case.case_number)')
-        .col-sm-4.col-md-2.item-group
-          .block-icon
-            .severity
-              //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
-              i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
-              i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
-              i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
-              i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
-            .case-id
-              .subheading {{case.case_number}}
-              .status {{case.status}}
-        .col-sm-8.col-md-6.item-group
-          .subheading
-            | {{case.summary}}
-          .description
-            | {{case.product}}
-            span.sep |
-            | {{case.version}}
+    .list-item(ng-repeat='case in SearchCaseService.cases', target='_blank')
+      a(href='#/case/{{case.case_number}}')
+        input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
+        .row.case()
+          .col-sm-4.col-md-2.item-group
+            .block-icon
+              .severity
+                //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
+                i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
+                i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
+                i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
+                i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
+              .case-id
+                .subheading {{case.case_number}}
+                .status {{case.status}}
+          .col-sm-8.col-md-6.item-group
+            .subheading
+              | {{case.summary}}
+            .description
+              | {{case.product}}
+              span.sep |
+              | {{case.version}}
 
-        .col-sm-12.col-md-2(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
-          .item-group.change-log
-            .filed-on
-              | {{'Modified by:'|translate}} &nbsp;
-              span.blue {{case.last_modified_by}} &nbsp;
-              span {{'on'|translate}}:&nbsp;
-              span {{case.last_modified_date}} &nbsp;
-        .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
-          .item-group.change-log
-            .filed-on
-              | {{'Created:'|translate}}
-              span {{case.created_date}}
-              i  {{'by'|translate}}&nbsp;
-              span.blue {{case.created_by}}
-        .col-sm-12.col-md-2
-          .item-group.change-log
-            .filed-on
-              | {{'Owned by:'|translate}} &nbsp;
-              span.blue {{case.contact_name}} &nbsp;
+          .col-sm-12.col-md-2(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
+            .item-group.change-log
+              .filed-on
+                | {{'Modified by:'|translate}} &nbsp;
+                span.blue {{case.last_modified_by}} &nbsp;
+                span {{'on'|translate}}:&nbsp;
+                span {{case.last_modified_date}} &nbsp;
+          .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
+            .item-group.change-log
+              .filed-on
+                | {{'Created:'|translate}}
+                span {{case.created_date}}
+                i  {{'by'|translate}}&nbsp;
+                span.blue {{case.created_by}}
+          .col-sm-12.col-md-2
+            .item-group.change-log
+              .filed-on
+                | {{'Owned by:'|translate}} &nbsp;
+                span.blue {{case.contact_name}} &nbsp;
   div(ng-show='SearchCaseService.searching')
     .spinner
     p.center {{'Loading cases...'|translate}}
