@@ -1,6 +1,6 @@
-span.spinner.spinner-inline(ng-show='usersLoading')
-span(ng-show='usersLoading') {{'Users Loading...'|translate}}
-.ng-isolate-scope(ng-hide='usersLoading')
+span.spinner.spinner-inline(ng-show='ManageGroupsService.usersLoading')
+span(ng-show='ManageGroupsService.usersLoading') {{'Users Loading...'|translate}}
+.ng-isolate-scope(ng-hide='ManageGroupsService.usersLoading')
   .row
     .col-sm-12.col-md-6
       div(rha-searchbox='', placeholder='"Search Users"')
