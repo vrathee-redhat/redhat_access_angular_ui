@@ -18,6 +18,8 @@ angular.module('RedhatAccess.mock', [])
         "selected": false
       }];
 
+      this.mockFileSize="5000";
+
       this.mockUsers = [{
         "title": "Denises Hughes",
         "type": "application/vnd.redhat.user",
@@ -632,6 +634,17 @@ angular.module('RedhatAccess.mock', [])
             }
           }
         },
+          cache: {
+              clr: function () {
+                  var deferred = $q.defer();
+                  if (that.rejectCall) {
+                      deferred.reject();
+                  } else {
+                      deferred.resolve();
+                  }
+                  return deferred.promise;
+              }
+          },
         entitlements: {
           get: function (showAll, ssoUserName) {
             var deferred = $q.defer();
@@ -729,6 +742,17 @@ angular.module('RedhatAccess.mock', [])
                 deferred.resolve(MockStrataDataService.mockTypes);
               }
               return deferred.promise;
+            },
+            attachment: {
+               size: function () {
+                      var deferred = $q.defer();
+                      if (that.rejectCall) {
+                         deferred.reject();
+                      } else {
+                         deferred.resolve(MockStrataDataService.mockFileSize);
+                      }
+                      return deferred.promise;
+                  }
             },
             status: function () {
               var deferred = $q.defer();
