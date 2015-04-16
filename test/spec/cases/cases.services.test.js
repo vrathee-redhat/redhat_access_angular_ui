@@ -569,7 +569,7 @@ describe('Case Services', function () {
             expect(attachmentsService.originalAttachments.length).toBe(2);
             caseService.kase.case_number = '12345';
             mockStrataService.rejectCalls();
-            spyOn(mockStrataService.cases.attachments, 'remove').antodCallThrough();
+            spyOn(mockStrataService.cases.attachments, 'remove').andCallThrough();
             attachmentsService.removeOriginalAttachment(mockStrataDataService.mockAttachment);
             scope.$root.$digest();
             expect(attachmentsService.originalAttachments.length).toBe(2);
