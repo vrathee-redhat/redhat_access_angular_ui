@@ -19,6 +19,7 @@ describe('Case Controllers', function () {
     var securityService;
     var mockProductsService;
     var mockHeaderService;
+    var mockRHAUtils;
 
     beforeEach(angular.mock.module('RedhatAccess.cases'));
     beforeEach(angular.mock.module('RedhatAccess.mock'));
@@ -38,6 +39,7 @@ describe('Case Controllers', function () {
         mockTreeViewSelectorData = $injector.get('MockTreeViewSelectorData');
         securityService = $injector.get('securityService');
         mockProductsService = $injector.get('MockProductsService');
+        mockRHAUtils=$injector.get('MockRHAUtils');
         mockScope = $rootScope.$new();
         rootScope = $rootScope;
         httpMock = $httpBackend;
@@ -655,7 +657,8 @@ describe('Case Controllers', function () {
             $controller('AttachLocalFile', {
                 $scope: mockScope,
                 AttachmentsService: mockAttachmentsService,
-                AlertService: mockAlertService
+                AlertService: mockAlertService,
+                RHAUtils:mockRHAUtils
             });
             var file = {
                 files: [{
@@ -665,13 +668,15 @@ describe('Case Controllers', function () {
             };
             var fileUploader = [file];
             spyOn(window, '$').andReturn(fileUploader);
+
             expect(mockScope.selectFile).toBeDefined();
             mockScope.selectFile();
         }));
         it('should add file to the list of attachments', inject(function ($controller) {
             $controller('AttachLocalFile', {
                 $scope: mockScope,
-                AttachmentsService: mockAttachmentsService
+                AttachmentsService: mockAttachmentsService,
+                RHAUtils:mockRHAUtils
             });
             mockScope.fileObj = 'test_data';
             mockScope.fileDescription = 'test_description';

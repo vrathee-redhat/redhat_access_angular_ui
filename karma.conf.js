@@ -44,6 +44,8 @@ module.exports = function(config) {
             'bower_components/sinon/lib/sinon/assert.js',
             'bower_components/sinon/lib/sinon/match.js',
             'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
+            'bower_components/moment/moment.js',
+            'bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
             '.tmp/templates/RedhatAccess.template.js',
             'app/**/*.module.js', //define all modules first!
             'app/common/**/*.js',
