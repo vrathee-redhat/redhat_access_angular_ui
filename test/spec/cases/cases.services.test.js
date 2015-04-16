@@ -355,7 +355,6 @@ describe('Case Services', function () {
             securityService.loginStatus.authedUser.sso_username="test";
             caseService.updateLocalStorageForNewCase();
             scope.$root.$digest();
-           //expect(caseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).toBeDefined());
 
         });
 
@@ -522,7 +521,6 @@ describe('Case Services', function () {
             recommendationsService.getRecommendations(true,5);
             spyOn(mockStrataService, 'recommendationsXmlHack').andCallThrough();
             scope.$root.$digest();
-            //expect(recommendationsService.handPickedRecommendations).toContain(mockStrataDataService.mockSolutionLinked);
         });
 
 
@@ -683,7 +681,6 @@ describe('Case Services', function () {
             expect(attachmentsService.parseArtifactHtml).toBeDefined();
             attachmentsService.suggestedArtifact.description="<b>test</b>";
             var parsedHTML=attachmentsService.parseArtifactHtml();
-           // expect(parsedHTML).toEqual(attachmentsService.suggestedArtifact.description);
 
         });
     });
