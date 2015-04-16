@@ -15,9 +15,10 @@ describe('Case Services', function () {
     var mockStrataService;
     var mockStrataDataService;
     var mockTreeViewSelectorUtils;
+    var rhaUtils;
     beforeEach(angular.mock.module('RedhatAccess.cases'));
     beforeEach(angular.mock.module('RedhatAccess.mock'));
-    beforeEach(inject(function (_CaseService_, _SearchCaseService_, _MockStrataDataService_, _strataService_, _SearchBoxService_, _RecommendationsService_, _CaseListService_, _AttachmentsService_, _GroupService_, _TreeViewSelectorUtils_, $injector, $q, $rootScope) {
+    beforeEach(inject(function (_CaseService_, _SearchCaseService_, _MockStrataDataService_, _strataService_, _SearchBoxService_, _RecommendationsService_, _CaseListService_, _AttachmentsService_, _GroupService_, _TreeViewSelectorUtils_, $injector, $q, $rootScope ){
         caseService = _CaseService_;
         searchCaseService = _SearchCaseService_;
         mockStrataDataService = _MockStrataDataService_;
@@ -32,6 +33,7 @@ describe('Case Services', function () {
         rootScope = $rootScope;
         securityService = $injector.get('securityService');
         q = $q;
+        rhaUtils=$injector.get('RHAUtils');
     }));
     //Suite for CaseService
     describe('CaseService', function () {
@@ -310,28 +312,7 @@ describe('Case Services', function () {
             scope.$root.$digest();
             expect(recommendationsService.handPickedRecommendations).toContain(mockStrataDataService.mockSolutionLinked);
         });
-        it('should have a method to populate non pinned & non linked recommendations', function () {
-            expect(recommendationsService.populatePinnedRecommendations).toBeDefined();
-            caseService.kase.recommendations = {
-                'recommendation': [{
-                        'linked': false,
-                        'pinned_at': false,
-                        'last_suggested_date': 1398756612000,
-                        'lucene_score': 155,
-                        'resource_id': '637583',
-                        'resource_type': 'Solution',
-                        'resource_uri': 'https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583',
-                        'solution_title': 'test solution title 2',
-                        'solution_abstract': 'test solution abstract 2',
-                        'solution_url': 'https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583',
-                        'title': 'test title 2',
-                        'solution_case_count': 14
-                    }]
-                };
-            recommendationsService.populatePinnedRecommendations();
-            scope.$root.$digest();
-            expect(recommendationsService.recommendations).toContain(mockStrataDataService.mockRecommendations[1]);
-        });
+
     });
     //Suite for CaseListService
     describe('CaseListService', function () {
@@ -436,6 +417,7 @@ describe('Case Services', function () {
                     }
                 ]
             };
+            rhaUtils.userTimeZone="Asia/Calcutta";
             attachmentsService.updateAttachments('12345');
             spyOn(mockStrataService.cases.attachments, 'post').andCallThrough();
             scope.$root.$digest();

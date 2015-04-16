@@ -218,7 +218,7 @@ angular.module('RedhatAccess.mock', [])
         "solution_abstract": "test solution abstract 2",
         "solution_url": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/solutions/637583",
         "title": "test title 2",
-        "solution_case_count": 14,
+        "solution_case_count": 14
       }];
 
       this.mockSolution = [{
@@ -931,6 +931,24 @@ angular.module('RedhatAccess.mock', [])
             };
         }
   ])
+    .service('MockRHAUtils', [
+        'MockStrataDataService',
+        '$q',
+        function (MockStrataDataService, $q) {
+
+            this.userTimeZone="Asia/Calcutta";
+            this.convertToTimezone=function(date)
+            {
+                var timezoneDate=window.moment(date).tz(this.userTimeZone);
+                return timezoneDate;
+            };
+
+            this.formatDate=function(date,formatter)
+            {
+                return date.format(formatter);
+            };
+        }
+    ])
   .service('MockSearchResultsService', [
     'MockStrataDataService',
     '$q',
@@ -954,6 +972,7 @@ angular.module('RedhatAccess.mock', [])
       this.originalAttachments = [];
       this.updatedAttachments = [];
       this.backendAttachments = [];
+      this.maxAttachmentSize=0;
       this.removeUpdatedAttachment = function ($index) {
         this.updatedAttachments.splice($index, 1);
       };
@@ -985,6 +1004,9 @@ angular.module('RedhatAccess.mock', [])
       this.updateBackEndAttachments = function (selected) {
         this.backendAttachments = selected;
       };
+      this.fetchMaxAttachmentSize = function () {
+         this.maxAttachmentSize =  45;
+       };
     }
   ])
   .service('MockGroupService', [
