@@ -21,7 +21,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
         $scope.isHandpickedSolutionsOpen = {val:false};
         $scope.isTopSolutionsOpen = {val:true};
         $scope.isPinnedSolutionsOpen = {val:false};
-        
+
         $scope.selectPage = function (pageNum, recommendationsList, results) {
             var start = $scope.itemsPerPage * (pageNum - 1);
             var end = start + $scope.itemsPerPage;
@@ -58,7 +58,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                         });
                         //add the de-pinned rec to the top of the list
                         //this allows the user to still view the rec, or re-pin it
-                        RecommendationsService.recommendations.splice(0, 0, $scope.currentRecPin);
+                        //RecommendationsService.recommendations.splice(0, 0, $scope.currentRecPin);
                     }
                     $scope.currentRecPin.pinning = false;
                     $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
