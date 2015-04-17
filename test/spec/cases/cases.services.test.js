@@ -212,6 +212,7 @@ describe('Case Services', function () {
         it('should have a method for checkForCaseStatusToggleOnAttachOrComment', function () {
             expect(caseService.checkForCaseStatusToggleOnAttachOrComment).toBeDefined();
             securityService.loginStatus.authedUser.is_internal=true;
+            //cannot use mockStrataCase as it has a different status field.
             caseService.kase={};
             caseService.kase.status={};
             caseService.kase.status.name = 'Waiting on Red Hat' ;
@@ -222,53 +223,19 @@ describe('Case Services', function () {
 
         it('should have a method for create case', function () {
             expect(caseService.createCase).toBeDefined();
-
-            caseService.kase=
-            {
-                "created_by": "Sunil Keshari",
-                "created_date": 1405416971000,
-                "last_modified_by": "Sunil Keshari",
-                "last_modified_date": 1405416972000,
-                "id": "500K0000006FeAaIAK",
-                "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01364190",
-                "summary": "test case notified users",
-                "description": "test",
-                "status": "Waiting on Red Hat",
-                "product": {
-                    "name": "Red Hat Enterprise Linux",
-                    "value": "RHEL"
-                },
-                "version": "7.0",
-                "account_number": "940527",
-                "escalated": false,
-                "contact_name": "Sunil Keshari",
-                "contact_sso_username": "skesharigit",
-                "origin": "Web",
-                "owner": "New Case Queue",
-                "severity":{
-                    "name": "Low"
-                },
-                "comments": {},
-                "notified_users": {},
-                "entitlement": {
-                    "sla": "UNKNOWN"
-                },
-                "fts": false,
-                "bugzillas": {},
-                "sbr_groups": {},
-                "case_number": "01364190",
-                "closed": false
-            };
+            caseService.kase=mockStrataDataService.mockCases[0];
+            caseService.kase.severity={name:"Low"};
             securityService.loginStatus.authedUser.sso_username="test";
             caseService.createCase();
             spyOn(mockStrataService.cases, 'post').andCallThrough();
             scope.$root.$digest();
+            expect(caseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)).toBeUndefined();
         });
 
         it('should have a method for update case', function () {
             expect(caseService.updateCase).toBeDefined();
-
-            caseService.kase=
+           // caseService.kase=mockStrataDataService.mockCases[0];
+           caseService.kase=
             {
                 "created_by": "Sunil Keshari",
                 "created_date": 1405416971000,
@@ -290,9 +257,7 @@ describe('Case Services', function () {
                 "contact_sso_username": "skesharigit",
                 "origin": "Web",
                 "owner": "New Case Queue",
-                "severity":{
-                    "name": "Low"
-                },
+                "severity": "4 (Low)",
                 "comments": {},
                 "notified_users": {},
                 "entitlement": {
@@ -315,46 +280,11 @@ describe('Case Services', function () {
 
         it('should have a method for update local storage for new case', function () {
             expect(caseService.updateLocalStorageForNewCase).toBeDefined();
-
-            caseService.kase=
-            {
-                "created_by": "Sunil Keshari",
-                "created_date": 1405416971000,
-                "last_modified_by": "Sunil Keshari",
-                "last_modified_date": 1405416972000,
-                "id": "500K0000006FeAaIAK",
-                "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01364190",
-                "summary": "test case notified users",
-                "description": "test",
-                "status": "Waiting on Red Hat",
-                "product": {
-                    "name": "Red Hat Enterprise Linux",
-                    "value": "RHEL"
-                },
-                "version": "7.0",
-                "account_number": "940527",
-                "escalated": false,
-                "contact_name": "Sunil Keshari",
-                "contact_sso_username": "skesharigit",
-                "origin": "Web",
-                "owner": "New Case Queue",
-                "severity":{
-                    "name": "Low"
-                },
-                "comments": {},
-                "notified_users": {},
-                "entitlement": {
-                    "sla": "UNKNOWN"
-                },
-                "fts": false,
-                "bugzillas": {},
-                "sbr_groups": {},
-                "case_number": "",
-                "closed": false
-            };
+            caseService.kase=mockStrataDataService.mockCases[0];
             securityService.loginStatus.authedUser.sso_username="test";
             caseService.updateLocalStorageForNewCase();
             scope.$root.$digest();
+            expect(caseService.localStorageCache).toBeDefined();
 
         });
 
@@ -482,45 +412,11 @@ describe('Case Services', function () {
 
         it('should have a method to get recommendations', function () {
             expect(recommendationsService.getRecommendations).toBeDefined();
-            caseService.kase=
-            {
-                "created_by": "Sunil Keshari",
-                "created_date": 1405416971000,
-                "last_modified_by": "Sunil Keshari",
-                "last_modified_date": 1405416972000,
-                "id": "500K0000006FeAaIAK",
-                "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01364190",
-                "summary": "test case notified users",
-                "description": "test",
-                "status": "Waiting on Red Hat",
-                "product": {
-                    "name": "Red Hat Enterprise Linux",
-                    "value": "RHEL"
-                },
-                "version": "7.0",
-                "account_number": "940527",
-                "escalated": false,
-                "contact_name": "Sunil Keshari",
-                "contact_sso_username": "skesharigit",
-                "origin": "Web",
-                "owner": "New Case Queue",
-                "severity":{
-                    "name": "Low"
-                },
-                "comments": {},
-                "notified_users": {},
-                "entitlement": {
-                    "sla": "UNKNOWN"
-                },
-                "fts": false,
-                "bugzillas": {},
-                "sbr_groups": {},
-                "case_number": "01364190",
-                "closed": false
-            };
+            caseService.kase=mockStrataDataService.mockCases[0];
             recommendationsService.getRecommendations(true,5);
-            spyOn(mockStrataService, 'recommendationsXmlHack').andCallThrough();
+            mockStrataService.recommendationsXmlHack();
             scope.$root.$digest();
+            expect(recommendationsService.loadingRecommendations).toBeFalsy();
         });
 
 
@@ -681,6 +577,7 @@ describe('Case Services', function () {
             expect(attachmentsService.parseArtifactHtml).toBeDefined();
             attachmentsService.suggestedArtifact.description="<b>test</b>";
             var parsedHTML=attachmentsService.parseArtifactHtml();
+            expect(parsedHTML).toBeDefined();
 
         });
     });
@@ -731,34 +628,8 @@ describe('Case Services', function () {
             expect(attachmentsService.originalAttachments ).toEqual(mockStrataDataService.mockAttachments);
         });
         it('should have a method to update elements', function () {
-            caseService.comments=[{
-                "created_by": "Robinson, David",
-                "created_date": 1205811351000,
-                "text": "comment1",
-                "draft": false,
-                "id": 1234
-            }, {
-                "created_by": "Napolis, Michael",
-                "created_date": 1205370090000,
-                "text": "comment2",
-                "draft": true,
-                "id": 2345
-            }];
-            attachmentsService.originalAttachments=[{
-                "filename": "test1.txt",
-                "description": "sample1 attachment",
-                "attached_by": "testUser",
-                "size": "10Mb",
-                "checked": true,
-                "fullPath": "https://api.access.devgssci.devlab.phx1.redhat.com/attachments/12345"
-            }, {
-                "filename": "test2.txt",
-                "description": "sample2 attachment",
-                "attached_by": "testUser",
-                "size": "50Mb",
-                "checked": true,
-                "fullPath": "https://api.access.devgssci.devlab.phx1.redhat.com/attachments/45678"
-            }];
+            caseService.comments=mockStrataDataService.mockComments;
+            attachmentsService.originalAttachments=mockStrataDataService.mockAttachments;
             expect(discussionService.updateElements).toBeDefined();
             discussionService.updateElements('12345');
             expect(discussionService.discussionElements).toEqual(caseService.comments.concat(attachmentsService.originalAttachments));
