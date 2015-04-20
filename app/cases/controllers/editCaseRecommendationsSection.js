@@ -52,7 +52,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                     } else {
                         //currently pinned, so remove from pinned list
                         angular.forEach(RecommendationsService.pinnedRecommendations, function (rec, index) {
-                            if (rec.id === $scope.currentRecPin.id) {
+                            if (rec.resource_id === $scope.currentRecPin.resource_id) {
                                 RecommendationsService.pinnedRecommendations.splice(index, 1);
                             }
                         });
