@@ -90,8 +90,10 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
                 escalationJSON.expectations = this.expectations;
             }
             if (recordType === ESCALATION_TYPE.partner) {
+                AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Creating Partner Escalation request .....'));
             } else {
+                AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Creating Ice Escalation request .....'));
             }
             strataService.escalationRequest.create(escalationJSON).then(angular.bind(this,function (escalationNum) {

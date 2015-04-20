@@ -92,6 +92,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             };
             strataService.groups.createDefault(tmpGroup).then(function () {
                 $scope.usersAndGroupsFinishedLoading = false;
+                AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Successfully set') +' '+ tmpGroup.name + ' '+translate('as') + ' '+$scope.selectedUser.sso_username + translate('\'s default group.'));
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);

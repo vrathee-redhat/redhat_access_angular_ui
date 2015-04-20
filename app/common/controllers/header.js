@@ -50,5 +50,8 @@ angular.module('RedhatAccess.header').controller('HeaderController', [
                 $scope.dismissAlerts();
             }
         });
+        $scope.$on('$locationChangeSuccess', function(event){
+            $scope.dismissAlerts();
+        });
     }
 ]);

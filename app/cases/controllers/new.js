@@ -227,6 +227,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
                 angular.forEach($scope.notifiedUsers, function (user) {
                     strataService.cases.notified_users.add(caseNumber, user).then(function () {
+                        AlertService.clearAlerts();
                         AlertService.addSuccessMessage(translate('Successfully added') + ' ' + user + ' '+translate('to receieve email notifications.'));
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
