@@ -9,6 +9,7 @@ describe('Case Services', function () {
     var caseListService;
     var attachmentsService;
     var groupService;
+    var groupUserService;
     var scope;
     var rootScope;
     var q;
@@ -16,9 +17,11 @@ describe('Case Services', function () {
     var mockStrataDataService;
     var mockTreeViewSelectorUtils;
     var rhaUtils;
+    var productsService;
+    var discussionService;
     beforeEach(angular.mock.module('RedhatAccess.cases'));
     beforeEach(angular.mock.module('RedhatAccess.mock'));
-    beforeEach(inject(function (_CaseService_, _SearchCaseService_, _MockStrataDataService_, _strataService_, _SearchBoxService_, _RecommendationsService_, _CaseListService_, _AttachmentsService_, _GroupService_, _TreeViewSelectorUtils_, $injector, $q, $rootScope ){
+    beforeEach(inject(function (_CaseService_, _SearchCaseService_, _MockStrataDataService_, _strataService_, _SearchBoxService_, _RecommendationsService_, _CaseListService_, _AttachmentsService_, _GroupService_,_GroupUserService_,_TreeViewSelectorUtils_, $injector, $q, $rootScope,_ProductsService_,_DiscussionService_){
         caseService = _CaseService_;
         searchCaseService = _SearchCaseService_;
         mockStrataDataService = _MockStrataDataService_;
@@ -28,7 +31,10 @@ describe('Case Services', function () {
         attachmentsService = _AttachmentsService_;
         caseListService = _CaseListService_;
         groupService = _GroupService_;
+        groupUserService = _GroupUserService_;
         mockTreeViewSelectorUtils = _TreeViewSelectorUtils_;
+        productsService = _ProductsService_;
+        discussionService=_DiscussionService_;
         scope = $rootScope.$new();
         rootScope = $rootScope;
         securityService = $injector.get('securityService');
@@ -190,10 +196,103 @@ describe('Case Services', function () {
             caseService.defineNotifiedUsers();
             expect(caseService.updatedNotifiedUsers).toContain('testUser', 'dhughesgit', 'customerportalQA');
         });
+
+        it('should have a method for clear case', function () {
+            expect(caseService.clearCase).toBeDefined();
+            caseService.clearCase();
+            expect(caseService.caseDataReady).toBeFalsy();
+            expect(caseService.isCommentPublic).toBeFalsy();
+            expect(caseService.updatingCase).toBeFalsy();
+            expect(caseService.updatingNewCaseSummary).toBeFalsy();
+            expect(caseService.updatingNewCaseDescription).toBeFalsy();
+            expect(caseService.draftComment).toBeUndefined();
+            expect(caseService.draftCommentLocalStorage).toBeUndefined();
+        });
+
+        it('should have a method for checkForCaseStatusToggleOnAttachOrComment', function () {
+            expect(caseService.checkForCaseStatusToggleOnAttachOrComment).toBeDefined();
+            securityService.loginStatus.authedUser.is_internal=true;
+            //cannot use mockStrataCase as it has a different status field.
+            caseService.kase={};
+            caseService.kase.status={};
+            caseService.kase.status.name = 'Waiting on Red Hat' ;
+            caseService.checkForCaseStatusToggleOnAttachOrComment();
+            var status=   { name: 'Waiting on Customer' };
+            expect(caseService.kase.status).toEqual(status);
+        });
+
+        it('should have a method for create case', function () {
+            expect(caseService.createCase).toBeDefined();
+            caseService.kase=mockStrataDataService.mockCases[0];
+            caseService.kase.severity={name:"Low"};
+            securityService.loginStatus.authedUser.sso_username="test";
+            caseService.createCase();
+            spyOn(mockStrataService.cases, 'post').andCallThrough();
+            scope.$root.$digest();
+            expect(caseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)).toBeUndefined();
+        });
+
+        it('should have a method for update case', function () {
+            expect(caseService.updateCase).toBeDefined();
+           // caseService.kase=mockStrataDataService.mockCases[0];
+           caseService.kase=
+            {
+                "created_by": "Sunil Keshari",
+                "created_date": 1405416971000,
+                "last_modified_by": "Sunil Keshari",
+                "last_modified_date": 1405416972000,
+                "id": "500K0000006FeAaIAK",
+                "uri": "https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01364190",
+                "summary": "test case notified users",
+                "description": "test",
+                "status": "Waiting on Red Hat",
+                "product": {
+                    "name": "Red Hat Enterprise Linux",
+                    "value": "RHEL"
+                },
+                "version": "7.0",
+                "account_number": "940527",
+                "escalated": false,
+                "contact_name": "Sunil Keshari",
+                "contact_sso_username": "skesharigit",
+                "origin": "Web",
+                "owner": "New Case Queue",
+                "severity": "4 (Low)",
+                "comments": {},
+                "notified_users": {},
+                "entitlement": {
+                    "sla": "UNKNOWN"
+                },
+                "fts": false,
+                "bugzillas": {},
+                "sbr_groups": {},
+                "case_number": "01364190",
+                "closed": false
+            };
+            securityService.loginStatus.authedUser.sso_username="test";
+            caseService.updateCase();
+            spyOn(mockStrataService.cases, 'put').andCallThrough();
+            scope.$root.$digest();
+            expect(caseService.updatingCase).toBeFalsy();
+            expect(caseService.prestineKase, caseService.kase);
+
+        });
+
+        it('should have a method for update local storage for new case', function () {
+            expect(caseService.updateLocalStorageForNewCase).toBeDefined();
+            caseService.kase=mockStrataDataService.mockCases[0];
+            securityService.loginStatus.authedUser.sso_username="test";
+            caseService.updateLocalStorageForNewCase();
+            scope.$root.$digest();
+            expect(caseService.localStorageCache).toBeDefined();
+
+        });
+
+
     });
     //Suite for SearchCaseService
     describe('searchCaseService', function () {
-        it('should have a method to Filter/Search cases resolved for loggedin user', function () {
+        it('should have a method for Search cases resolved for loggedin user', function () {
             expect(searchCaseService.doFilter).toBeDefined();
             searchCaseService.oldParams = {};
             securityService.loginStatus.login = 'testUser';
@@ -210,47 +309,29 @@ describe('Case Services', function () {
             expect(searchCaseService.searching).toBe(false);
             expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
         });
-    //     it('should have a method to Filter/Search cases resolved for login success event', function () {
-    //         expect(searchCaseService.doFilter).toBeDefined();
-    //         searchCaseService.oldParams = {};
-    //         securityService.loginStatus.login = 'testUser';
-    //         securityService.loginStatus.isLoggedIn = false;
-    //         securityService.loginStatus.authedUser.is_internal = true;
-    //         securityService.loginStatus.authedUser.sso_username = 'testSsoName';
-    //         searchBoxService.searchTerm = 'test';
-    //         caseService.status = 'closed';
-    //         caseService.product = 'Red Hat Enterprise Linux';
-    //         caseService.owner = 'testUser';
-    //         caseService.type = 'bug';
-    //         caseService.severity = '1';
-    //         searchCaseService.doFilter();
-    //         rootScope.$broadcast('auth-login-success');
-    //         spyOn(mockStrataService.cases, 'filter').andCallThrough();
-    //         scope.$root.$digest();
-    //         expect(searchCaseService.searching).toBe(false);
-    //         expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
-    //     });
-    //     it('should have a method to Filter/Search cases rejected', function () {
-    //         expect(searchCaseService.doFilter).toBeDefined();
-    //         searchCaseService.oldParams = {};
-    //         securityService.loginStatus.login = 'testUser';
-    //         securityService.loginStatus.isLoggedIn = true;
-    //         var filterParams = {
-    //                 include_closed: true,
-    //                 count: 100,
-    //                 start: 0,
-    //                 sort_field:'lastModifiedDate',
-    //                 sort_order:'desc'
-    //             };
 
-    //         mockStrataService.rejectCalls();
-    //         spyOn(mockStrataService.cases, 'filter').andCallThrough();
-    //         searchCaseService.doFilter();
-    //         scope.$root.$digest();
-    //         expect(mockStrataService.cases.filter).toHaveBeenCalledWith(filterParams);
-    //         expect(searchCaseService.searching).toBe(false);
-    //         expect(searchCaseService.cases).toEqual([]);
-    //     });
+        it('should have a method for Filter cases resolved for loggedin user', function () {
+            expect(searchCaseService.doFilter).toBeDefined();
+            searchCaseService.oldParams = {};
+            securityService.loginStatus.login = 'testUser';
+            securityService.loginStatus.isLoggedIn = true;
+            searchBoxService.searchTerm = '';
+            caseService.status = 'open';
+            caseService.product = 'Red Hat Enterprise Linux';
+            caseService.owner = 'testUser';
+            caseService.type = 'bug';
+            caseService.severity = '1';
+            caseService.group='ungrouped';
+            searchCaseService.refreshFilterCache=true;
+            searchCaseService.doFilter();
+            spyOn(mockStrataService.cases, 'filter').andCallThrough();
+            scope.$root.$digest();
+            spyOn(mockStrataService.cache, 'clr').andCallThrough();
+            scope.$root.$digest();
+            expect(searchCaseService.searching).toBe(false);
+            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
+        });
+
         it('should have a method to clear the search criteria and result', function () {
             expect(searchCaseService.clear).toBeDefined();
             searchCaseService.oldParams = {};
@@ -266,6 +347,22 @@ describe('Case Services', function () {
             expect(searchCaseService.cases).toEqual([]);
         });
     });
+
+    describe('searchBoxService', function () {
+        it('should have a method onChange() to enable search button', function () {
+            expect(searchBoxService.onChange).toBeDefined();
+            searchBoxService.searchTerm = 'test';
+            searchBoxService.onChange();
+            expect(searchBoxService.disableSearchButton).toBe(false);
+        });
+        it('should have a method onChange() to disable search button', function () {
+            expect(searchBoxService.onChange).toBeDefined();
+            searchBoxService.searchTerm = '';
+            searchBoxService.onChange();
+            expect(searchBoxService.disableSearchButton).toBe(true);
+        });
+    });
+
     //Suite for RecommendationsService
     describe('RecommendationsService', function () {
         it('should have a method to populate pinned recommendations but not linked', function () {
@@ -312,6 +409,16 @@ describe('Case Services', function () {
             scope.$root.$digest();
             expect(recommendationsService.handPickedRecommendations).toContain(mockStrataDataService.mockSolutionLinked);
         });
+
+        it('should have a method to get recommendations', function () {
+            expect(recommendationsService.getRecommendations).toBeDefined();
+            caseService.kase=mockStrataDataService.mockCases[0];
+            recommendationsService.getRecommendations(true,5);
+            mockStrataService.recommendationsXmlHack();
+            scope.$root.$digest();
+            expect(recommendationsService.loadingRecommendations).toBeFalsy();
+        });
+
 
     });
     //Suite for CaseListService
@@ -459,5 +566,74 @@ describe('Case Services', function () {
             attachmentsService.updateBackEndAttachments(mockStrataDataService.mockAttachments);
             expect(attachmentsService.backendAttachments).toEqual(mockStrataDataService.mockAttachments);
         });
+        it('should have a method to fetch maximum attachment size', function () {
+            expect(attachmentsService.fetchMaxAttachmentSize).toBeDefined();
+            attachmentsService.fetchMaxAttachmentSize();
+            spyOn(mockStrataService.values.cases.attachment, 'size').andCallThrough();
+            scope.$root.$digest();
+            expect(attachmentsService.maxAttachmentSize).toEqual(mockStrataDataService.mockFileSize);
+        });
+        it('should have a method to parse artifact html', function () {
+            expect(attachmentsService.parseArtifactHtml).toBeDefined();
+            attachmentsService.suggestedArtifact.description="<b>test</b>";
+            var parsedHTML=attachmentsService.parseArtifactHtml();
+            expect(parsedHTML).toBeDefined();
+
+        });
     });
+    //Suite for ProductsService
+
+    describe('ProductsService', function () {
+        it('should have a method to get products', function () {
+            expect(productsService.getProducts).toBeDefined();
+            caseService.kase={};
+            caseService.kase.product="Red Hat Enterprise Linux";
+            caseService.owner="skesharigit";
+            productsService.getProducts(true);
+            spyOn(mockStrataService.products, 'list').andCallThrough();
+            scope.$root.$digest();
+            var mockProducts = [{
+                "label": mockStrataDataService.mockProducts[0].name,
+                "value": mockStrataDataService.mockProducts[0].code
+            }];
+            expect(productsService.products).toEqual(mockProducts);
+        });
+        it('should have a method for version sunset having versions which are sunset', function () {
+            expect(productsService.showVersionSunset).toBeDefined();
+            caseService.kase={};
+            caseService.kase.product="Red Hat Enterprise Linux";
+            caseService.kase.version="1.1 - eol";
+            var returnValue=productsService.showVersionSunset();
+            scope.$root.$digest();
+            expect(returnValue).toEqual(true);
+        });
+        it('should have a method for version sunset having versions which are not sunset', function () {
+            expect(productsService.showVersionSunset).toBeDefined();
+            caseService.kase={};
+            caseService.kase.product="Red Hat Enterprise Linux";
+            caseService.kase.version="1.1";
+            var returnValue=productsService.showVersionSunset();
+            scope.$root.$digest();
+            expect(returnValue).toEqual(false);
+        });
+
+    });
+
+    describe('DiscussionService', function () {
+        it('should have a method to get discussion elements', function () {
+            expect(discussionService.getDiscussionElements).toBeDefined();
+            discussionService.getDiscussionElements('12345');
+            spyOn(mockStrataService.cases.attachments, 'list').andCallThrough();
+            scope.$root.$digest();
+            expect(attachmentsService.originalAttachments ).toEqual(mockStrataDataService.mockAttachments);
+        });
+        it('should have a method to update elements', function () {
+            caseService.comments=mockStrataDataService.mockComments;
+            attachmentsService.originalAttachments=mockStrataDataService.mockAttachments;
+            expect(discussionService.updateElements).toBeDefined();
+            discussionService.updateElements('12345');
+            expect(discussionService.discussionElements).toEqual(caseService.comments.concat(attachmentsService.originalAttachments));
+        });
+    });
+
 });
