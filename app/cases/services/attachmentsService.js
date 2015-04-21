@@ -75,6 +75,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                     var deferred = $q.defer();
                     $http.post('attachments', jsonData).success(function (data, status, headers, config) {
                         deferred.resolve(data);
+                        AlertService.clearAlerts();
                         AlertService.addSuccessMessage(translate('Successfully uploaded attachment') + ' ' + jsonData.attachment + ' ' + translate('to case') + ' ' + caseId);
                     }).error(function (data, status, headers, config) {
                         var errorMsg = '';
@@ -123,6 +124,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                                 attachment.sortModifiedDate=currentDate;
                                 attachment.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                                AlertService.clearAlerts();
                                 AlertService.addSuccessMessage(translate('Successfully uploaded attachment')+' ' + attachment.file_name + ' '+'to case' +' '+ caseId);
                             }, function (error) {
                                 AlertService.addStrataErrorMessage(error);
