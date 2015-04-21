@@ -239,7 +239,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                         redirectToCase(caseNumber);
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
-                        this.submittingCase = false;
+                        CaseService.submittingCase = false;
                     });
                 } else if(NEW_CASE_CONFIG.showAttachments && $scope.ie8 || NEW_CASE_CONFIG.showAttachments && $scope.ie9 ) {
                     $scope.ieFileUpload(caseNumber);
@@ -259,7 +259,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                             caseUploadsAndUpdates(caseNumber);
                         }, function (error) {
                             AlertService.addStrataErrorMessage(error);
-                            this.submittingCase = false;
+                            CaseService.submittingCase = false;
                         });
                     }
                 });
@@ -268,7 +268,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                     caseUploadsAndUpdates(caseNumber);
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
-                    this.submittingCase = false;
+                    CaseService.submittingCase = false;
                 });
             }
         };
