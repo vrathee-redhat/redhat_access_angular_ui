@@ -13,5 +13,8 @@ angular.module('RedhatAccess.cases').controller('SearchBox', [
                 SearchBoxService.onKeyPress();
             }
         };
+        $scope.clearSearch = function () {
+            SearchBoxService.searchTerm=undefined;
+        };
     }
 ]);
