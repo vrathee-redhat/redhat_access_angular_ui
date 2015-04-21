@@ -258,7 +258,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                             caseUploadsAndUpdates(caseNumber);
                         }, function (error) {
                             AlertService.addStrataErrorMessage(error);
-                            this.submittingCase = false;
+                            CaseService.submittingCase = false;
                         });
                     }
                 });
@@ -267,7 +267,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                     caseUploadsAndUpdates(caseNumber);
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
-                    this.submittingCase = false;
+                    CaseService.submittingCase = false;
                 });
             }
         };

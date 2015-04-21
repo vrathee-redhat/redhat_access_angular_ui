@@ -434,6 +434,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 self.clearLocalStorageCacheForNewCase();
                 deferred.resolve(caseNumber);
             }, function (error) {
+                AlertService.clearAlerts();
                 AlertService.addStrataErrorMessage(error);
                 self.submittingCase = false;
                 deferred.reject();
