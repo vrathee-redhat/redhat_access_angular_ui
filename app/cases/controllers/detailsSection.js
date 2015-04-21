@@ -36,7 +36,13 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
-                strataService.groups.list(securityService.loginStatus.authedUser.sso_username).then(function (response) {
+                var contact = securityService.loginStatus.authedUser.sso_username;
+                if (securityService.loginStatus.authedUser.is_internal) {
+                    if (RHAUtils.isNotEmpty(CaseService.kase.contact_sso_username)) {
+                        contact = CaseService.kase.contact_sso_username; // When internal user views case of another account
+                    }
+                }
+                strataService.groups.list(contact).then(function (response) {
                     $scope.groups = response;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
