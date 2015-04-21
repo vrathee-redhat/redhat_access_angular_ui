@@ -6,7 +6,7 @@
     ng-keypress='onFilterKeyPress($event)',
     ng-change='SearchBoxService.onChange()')
   span.input-group-btn(ng-hide='hidebutton')
-    a.close(ng-show="query !== ''", ng-click="clearSearch()")
+    a.close(ng-show="SearchBoxService.searchTerm && SearchBoxService.searchTerm!== ''", ng-click="clearSearch()")
       span.web-icon-close
     button#rha-searchform-searchbutton.btn.btn-app(
       ng-click='SearchBoxService.doSearch()',
