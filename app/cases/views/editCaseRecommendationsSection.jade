@@ -13,7 +13,7 @@ accordion
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title | substring:100 }}
         div.pre-wrap(ng-bind-html='recommendation.abstract')
-    .pagination
+    .pagination(ng-show='RecommendationsService.handPickedRecommendations.length > itemsPerPage')
       .pull-right
         button.btn.btn-app(ng-disabled="handPickedResultsPage === 1", ng-click="selectPage(handPickedResultsPage = handPickedResultsPage - 1, RecommendationsService.handPickedRecommendations, handPickedResults)")
           i.fa.fa-long-arrow-left
@@ -37,7 +37,7 @@ accordion
             .fa.fa-check
             | {{'Handpicked'|translate}}
         div.pre-wrap(ng-bind-html='recommendation.abstract')
-    .pagination
+    .pagination(ng-show='RecommendationsService.recommendations.length > itemsPerPage')
       .pull-right
         button.btn.btn-app(ng-disabled="resultsPage === 1", ng-click="selectPage(resultsPage = resultsPage - 1, RecommendationsService.recommendations, results)")
           i.fa.fa-long-arrow-left
@@ -58,7 +58,7 @@ accordion
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title}}
         div.pre-wrap(ng-bind-html='recommendation.abstract')
-    .pagination
+    .pagination(ng-show='RecommendationsService.pinnedRecommendations.length > itemsPerPage')
       .pull-right
         button.btn.btn-app(ng-disabled="pinnedResultsPage === 1", ng-click="selectPage(pinnedResultsPage = pinnedResultsPage - 1, RecommendationsService.pinnedRecommendations, pinnedResults)")
           i.fa.fa-long-arrow-left
