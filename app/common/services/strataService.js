@@ -518,7 +518,7 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         strata.cases.get(id, function (response) {
                             var kase=response;
                             var tzDate=RHAUtils.convertToTimezone(response.created_date);
-                            response.created_date=RHAUtils.formatDate(tzDate,'MMM DD YYYY HH:mm:ss A Z');
+                            response.created_date=RHAUtils.formatDate(tzDate,'MMM DD YYYY hh:mm:ss A Z');
                             angular.forEach(response.chats.chat, angular.bind(this, function (chat) {
                                 var lastModifiedDate=RHAUtils.convertToTimezone(chat.start_time);
                                 chat.start_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
