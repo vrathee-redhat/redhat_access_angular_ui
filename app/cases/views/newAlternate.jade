@@ -70,7 +70,7 @@ div(rha-header='', page='newCase')
                   ng-blur="CaseService.updatingNewCaseDescription=false")
                 div(style="margin-top: 15px", ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
                   b {{'Get faster results.'|translate}}
-                  | &nbsp; 'Attaching logs or other diagnostics files typically results in faster resolution.'|translate}}
+                  | &nbsp; {{'Attaching logs or other diagnostics files typically results in faster resolution.'|translate}}
                   div(ng-bind-html='AttachmentsService.parseArtifactHtml()')
                   div(rha-listnewattachments='')
                   div(ng-hide='ie8 || ie9', rha-attachlocalfile='', disabled='CaseService.submittingCase')
