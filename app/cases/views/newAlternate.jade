@@ -178,6 +178,6 @@ div(rha-header='', page='newCase')
                   ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
                   ng-hide='CaseService.submittingCase',
                   ng-click='doSubmit($event)', translate='') Submit
-                a.margin-left(href='#/case/list') {{'Cancel'|translate}}
+                a.margin-left(href='#/case/list',ng-hide='CaseService.submittingCase') {{'Cancel'|translate}}
     .aside.col-sm-4(ng-hide="RecommendationsService.recommendations.length === 0")
       div(rha-newcaserecommendationsalternate='')
