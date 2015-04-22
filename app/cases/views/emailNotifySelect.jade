@@ -6,7 +6,7 @@
     select(
       chosen,
       multiple,
-      data-placeholder='Select a User',
+      data-placeholder="{{'Select a User'|translate}}",
       ng-disabled='updatingList',
       ng-model='CaseService.updatedNotifiedUsers',
       ng-change='updateNotifyUsers()',
