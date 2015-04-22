@@ -39,7 +39,7 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
         ng-disabled='!ie8 && !ie9 && (CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections())',
         ng-click='addComment()',
         translate='') Post
-      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()',translate='') Cancel
+      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()',translate='',ng-hide='addingComment || addingattachment') Cancel
 .row
   .col-xs-12(ng-show='ie8 && EDIT_CASE_CONFIG.isPCM || ie9 && EDIT_CASE_CONFIG.isPCM')
         form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
