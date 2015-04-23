@@ -39,7 +39,7 @@ app.service('RHAUtils',
         }
       };
 
-      this.convertToTimezone=function(date,timezone)
+      this.convertToTimezone=function(date)
       {
         var timezoneDate=window.moment(date).tz(this.userTimeZone);
         return timezoneDate;
