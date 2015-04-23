@@ -8,7 +8,9 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
     '$q',
     '$sanitize',
     'NEW_CASE_CONFIG',
-    function (strataService, CaseService, AlertService, $q, $sanitize, NEW_CASE_CONFIG) {
+    '$filter',
+    'RHAUtils',
+    function (strataService, CaseService, AlertService, $q, $sanitize, NEW_CASE_CONFIG,$filter,RHAUtils) {
         this.recommendations = [];
         this.pinnedRecommendations = [];
         this.handPickedRecommendations = [];
@@ -58,6 +60,7 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
         };
 
         this.getRecommendations = function (refreshRecommendations, max) {
+            var self = this;
             if (NEW_CASE_CONFIG.showRecommendations) {
                 if(max === undefined){
                     max = 6;
@@ -87,6 +90,13 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                                 }
                                 catch(err) {
                                     solution.abstract = '';
+                                }
+                                //this is to sync the case detail pinned recommendation with /rs/problems recommendation w.r.t pinned flag so that red pin will appear in both section
+                                var pinnedRecommendation = $filter('filter')(self.pinnedRecommendations, function (rec) {return rec.resource_id === solution.resource_id;})[0];
+                                if (RHAUtils.isNotEmpty(pinnedRecommendation)) {
+                                    if (pinnedRecommendation.pinned_at) {
+                                        solution.pinned = true;
+                                    }
                                 }
                                 this.recommendations.push(solution);
                             }

@@ -41,7 +41,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                         recommendation: [{
                             linked: linked.toString(),
                             resourceId: recommendation.resource_id,
-                            resourceType: 'Solution'
+                            resourceType: recommendation.resource_type
                         }]
                     }
                 };
@@ -56,12 +56,20 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                                 RecommendationsService.pinnedRecommendations.splice(index, 1);
                             }
                         });
+
                         //add the de-pinned rec to the top of the list
                         //this allows the user to still view the rec, or re-pin it
                         //RecommendationsService.recommendations.splice(0, 0, $scope.currentRecPin);
                     }
                     $scope.currentRecPin.pinning = false;
                     $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
+
+                    //we need to update top solution section with pinned/unpinned recommendation
+                    angular.forEach(RecommendationsService.recommendations, function (rec, index) {
+                        if (rec.resource_id === $scope.currentRecPin.resource_id) {
+                            RecommendationsService.recommendations[index] = $scope.currentRecPin;
+                        }
+                    });
                     //$scope.selectPage(1);
                 }, function (error) {
                     $scope.currentRecPin.pinning = false;
@@ -81,7 +89,6 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                 });
             }
         };
-
 
         $scope.$watch(function () {
             return RecommendationsService.recommendations;
