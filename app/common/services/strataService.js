@@ -595,6 +595,11 @@ angular.module('RedhatAccess.common').factory('strataService', [
                     strata.cases.put(caseNumber, caseJSON, function (response) {
                         if (!ie8) {
                             strataCache.remove('case' + caseNumber);
+                            for (var k in strataCache.keySet()) {
+                                if (~k.indexOf('filter')) {
+                                    strataCache.remove(k);
+                                }
+                            }
                         }
                         deferred.resolve(response);
                     }, angular.bind(deferred, errorHandler));
