@@ -90,15 +90,11 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
             }
         };
         $scope.increment = function(page){
-            console.log("pranjal ... " + page + $scope[page]);
             $scope[page] = $scope[page] + 1;
-            //$scope.resultsPage = $scope.resultsPage + 1;
         };
 
         $scope.decrement = function(page){
-            console.log("pranjal ... " + page + $scope[page]);
             $scope[page] = $scope[page] - 1;
-            //$scope.resultsPage = $scope.resultsPage - 1;
         };
         $scope.$watch(function () {
             return RecommendationsService.recommendations;
