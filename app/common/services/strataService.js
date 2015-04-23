@@ -520,9 +520,8 @@ angular.module('RedhatAccess.common').factory('strataService', [
                             var tzDate=RHAUtils.convertToTimezone(response.created_date);
                             response.created_date=RHAUtils.formatDate(tzDate,'MMM DD YYYY HH:mm:ss A Z');
                             angular.forEach(response.chats.chat, angular.bind(this, function (chat) {
-                                var modifiedDate=chat.start_time;
+                                chat.sortModifiedDate=chat.start_time;
                                 var lastModifiedDate=RHAUtils.convertToTimezone(chat.start_time);
-                                chat.sortModifiedDate=modifiedDate;
                                 chat.start_date=RHAUtils.formatDate(lastModifiedDate,'MMM DD YYYY');
                                 chat.start_time=RHAUtils.formatDate(lastModifiedDate,'hh:mm:ss A Z');
                             }));
