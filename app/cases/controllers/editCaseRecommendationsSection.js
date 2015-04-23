@@ -67,7 +67,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                     //we need to update top solution section with pinned/unpinned recommendation
                     angular.forEach(RecommendationsService.recommendations, function (rec, index) {
                         if (rec.resource_id === $scope.currentRecPin.resource_id) {
-                            RecommendationsService.recommendations[index].pinned = !RecommendationsService.recommendations[index].pinned;
+                            RecommendationsService.recommendations[index] = $scope.currentRecPin;
                         }
                     });
                     //$scope.selectPage(1);
