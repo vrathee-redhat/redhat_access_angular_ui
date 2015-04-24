@@ -51,9 +51,16 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
         $scope.groupAction = function(group,action) {
             if(action === 'delete') {
                 group.deleteCaseGroup = true;
+                group.renameCaseGroup = false;
             }  else if (action === 'rename') {
                 group.renameCaseGroup = true;
-            }          
+                group.deleteCaseGroup = false;
+            } else if (action === 'duplicate') {
+                group.renameCaseGroup = false;
+                group.deleteCaseGroup = false;
+                $scope.showCreateGroup = true;
+                ManageGroupsService.newGroupName = group.name + ' Duplicate';
+            }         
         };
 
         $scope.deleteGroup = function(group) {

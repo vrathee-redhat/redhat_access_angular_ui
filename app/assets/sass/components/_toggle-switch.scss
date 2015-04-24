@@ -27,6 +27,12 @@ $switch-width: 14px;
 		border-color: $blue;
 	}
 
+	&.disabled .switch {
+		opacity: .5;
+    	pointer-events: none;
+    	cursor: none;
+	}
+
 	&:before, &:after {
 		position: absolute;
 		left: 0;
