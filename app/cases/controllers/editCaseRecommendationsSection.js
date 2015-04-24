@@ -89,21 +89,27 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                 });
             }
         };
+        $scope.increment = function(page){
+            $scope[page] = $scope[page] + 1;
+        };
 
+        $scope.decrement = function(page){
+            $scope[page] = $scope[page] - 1;
+        };
         $scope.$watch(function () {
             return RecommendationsService.recommendations;
         }, function () {
-            $scope.selectPage(1, RecommendationsService.recommendations, $scope.results);
+            $scope.selectPage($scope.resultsPage, RecommendationsService.recommendations, $scope.results);
         }, true);
         $scope.$watch(function () {
             return RecommendationsService.pinnedRecommendations;
         }, function () {
-            $scope.selectPage(1, RecommendationsService.pinnedRecommendations, $scope.pinnedResults);
+            $scope.selectPage($scope.pinnedResultsPage, RecommendationsService.pinnedRecommendations, $scope.pinnedResults);
         }, true);
         $scope.$watch(function () {
             return RecommendationsService.handPickedRecommendations;
         }, function () {
-            $scope.selectPage(1, RecommendationsService.handPickedRecommendations, $scope.handPickedResults);
+            $scope.selectPage($scope.handPickedResultsPage, RecommendationsService.handPickedRecommendations, $scope.handPickedResults);
             if(RecommendationsService.handPickedRecommendations.length !== 0){
                 $scope.isHandpickedSolutionsOpen.val = true;
                 $scope.isTopSolutionsOpen.val = false;
