@@ -27,10 +27,13 @@ $switch-width: 14px;
 		border-color: $blue;
 	}
 
-	&.disabled .switch {
-		opacity: .5;
-    	pointer-events: none;
-    	cursor: none;
+	&.disabled {
+		@include opacity(.35);
+		cursor: not-allowed;
+
+		.switch {
+			@include opacity(.5);
+		}
 	}
 
 	&:before, &:after {
