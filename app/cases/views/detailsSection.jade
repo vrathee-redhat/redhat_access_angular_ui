@@ -3,6 +3,7 @@ section.case-description
   h3.case-name.pre-wrap
     a(ng-click='editCaseSummary(true)' , ng-show='!caseSummaryEditable' , href='') {{CaseService.kase.summary}}
   .row(ng-show='caseSummaryEditable')
+   form(name='summaryForm')
     .col-xs-4.col-sm-3.col-md-8
       input#rha-case-summary.form-control(
         ng-model='CaseService.kase.summary',
@@ -10,10 +11,10 @@ section.case-description
     .col-xs-4.col-sm-3.col-md-4
       button.btn.btn-primary(
         name='saveButton',
-        ng-disabled='updatingDetails',
+        ng-disabled='updatingDetails || !summaryForm.$dirty',
         ng-click='updateCase()', translate='') Save
       a.margin-left(
-        ng-disabled='updatingDetails',
+        ng-hide='updatingDetails || !summaryForm.$dirty',
         ng-click='editCaseSummary(false)') {{'Cancel'|translate}}
   h4.product-name {{CaseService.kase.product}}&nbsp;{{CaseService.kase.version}}
   .description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | substring:150 }}
@@ -75,4 +76,4 @@ section.case-description
               ng-click='updateCase()', translate='') Save Changes
             a.margin-left(
               ng-hide='updatingDetails || !detailsForm.$dirty',
-              ng-click='resetData()') Cancel
+              ng-click='resetData()',translate='') Cancel
