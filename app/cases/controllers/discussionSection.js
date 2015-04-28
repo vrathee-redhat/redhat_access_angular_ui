@@ -76,18 +76,18 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         });
 
         $scope.commentReply = function(comment,browserIE) {
+            var truncatedText=comment.text.substring(0,1000);
             var person = comment.created_by;
-            var text = comment.text;
-            var lines = text.split(/\n/);
-            text = '('+translate('In reply to')+' '+ person + ')\n';
+            var lines = truncatedText.split(/\n/);
+            truncatedText = '(' + translate('In reply to') + ' ' + person + ')\n';
             for (var i = 0, max = lines.length; i < max; i++) {
-                text = text + '> '+ lines[i] + '\n';
+               truncatedText = truncatedText + '> ' + lines[i] + '\n';
             }
             var commentsSection = document.getElementById('tab_list');
-            if(commentsSection) {
-                commentsSection.scrollIntoView(true);
+            if (commentsSection) {
+                    commentsSection.scrollIntoView(true);
             }
-            CaseService.commentText=text;
+            CaseService.commentText = truncatedText;
         };
 
         if (securityService.loginStatus.isLoggedIn) {
