@@ -8,7 +8,6 @@ msgstr ""
 msgid "'s default group."
 msgstr ""
 
-#: app/cases/views/addCommentSection.html
 #: app/cases/views/list.html
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
@@ -121,6 +120,7 @@ msgstr ""
 msgid "Attaching logs and diagnostics files greatly improves time to resolution."
 msgstr ""
 
+#: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "Attaching logs or other diagnostics files typically results in faster resolution."
 msgstr ""
@@ -198,6 +198,7 @@ msgstr ""
 msgid "Case Description"
 msgstr ""
 
+#: app/cases/views/commentsSection.html
 #: app/cases/views/discussionSection.html
 msgid "Case Discussion"
 msgstr ""
@@ -206,6 +207,7 @@ msgstr ""
 msgid "Case Group"
 msgstr ""
 
+#: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "Case Group (Optional)"
 msgstr ""
@@ -230,6 +232,14 @@ msgstr ""
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "Case Name"
+msgstr ""
+
+#: app/cases/controllers/filterSelect.js
+msgid "Case Owner (A-Z)"
+msgstr ""
+
+#: app/cases/controllers/filterSelect.js
+msgid "Case Owner (Z-A)"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
@@ -262,11 +272,19 @@ msgid "Changing Case State"
 msgstr ""
 
 #: app/common/views/chatButton.html
-msgid "Chat Offline&nbsp;<!--i.fa.fa-comments-->"
+msgid "Chat Offline"
+msgstr ""
+
+#: app/cases/views/chatButton.html
+msgid "Chat offline"
 msgstr ""
 
 #: app/common/views/chatButton.html
-msgid "Chat with Support&nbsp;<!--i.fa.fa-comments-->"
+msgid "Chat with Support"
+msgstr ""
+
+#: app/cases/views/chatButton.html
+msgid "Chat with support"
 msgstr ""
 
 #: app/common/views/treeview-selector.html
@@ -427,10 +445,12 @@ msgstr ""
 msgid "Environment"
 msgstr ""
 
+#: app/cases/controllers/addCommentSection.js
 #: app/cases/controllers/attachmentsSection.js
 msgid "Error: Failed to upload attachment."
 msgstr ""
 
+#: app/cases/controllers/addCommentSection.js
 #: app/cases/controllers/attachmentsSection.js
 #: app/cases/controllers/new.js
 msgid "Error: Failed to upload attachment. Message:"
@@ -464,7 +484,6 @@ msgstr ""
 msgid "File description"
 msgstr ""
 
-#: app/cases/views/addCommentSection.html
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
@@ -519,6 +538,10 @@ msgstr ""
 msgid "Go Back"
 msgstr ""
 
+#: app/cases/views/search.html
+msgid "Group"
+msgstr ""
+
 #: app/cases/views/editGroup.html
 msgid "Group Name:"
 msgstr ""
@@ -552,6 +575,7 @@ msgid "If you are requesting an account review, if this is related to aspecific 
 msgstr ""
 
 #: app/common/views/403.html
+#: app/cases/views/403.html
 #: app/escalation/views/403.html
 msgid "If you believe you should have permission to view this resource, please <a href=\"/support/contact/customerService.html\">contact Customer Service</a> for assistance. Your Red Hat login might not be associated with the right account for your organization, or there might be an issue with your subscription. Either way, Customer Service should be able to help you resolve the problem."
 msgstr ""
@@ -693,8 +717,13 @@ msgstr ""
 msgid "No attachments added"
 msgstr ""
 
+#: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
+msgstr ""
+
+#: app/cases/views/search.html
+msgid "No cases found with given search criteria."
 msgstr ""
 
 #: app/cases/views/groupList.html
@@ -709,11 +738,16 @@ msgstr ""
 msgid "No match found"
 msgstr ""
 
+#: app/cases/views/newRecommendationsSection.html
+msgid "No recommendations are available."
+msgstr ""
+
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
 msgstr ""
 
 #: app/common/views/404.html
+#: app/cases/views/404.html
 msgid "Not Found"
 msgstr ""
 
@@ -766,6 +800,7 @@ msgid "Open Support Cases"
 msgstr ""
 
 #: app/search/views/accordion_search_results.html
+#: app/cases/views/search.html
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Open a New Support Case"
 msgstr ""
@@ -784,6 +819,7 @@ msgstr ""
 
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
+#: app/cases/views/search.html
 msgid "Owner"
 msgstr ""
 
@@ -860,6 +896,7 @@ msgstr ""
 #: app/cases/views/detailsSection.html
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
+#: app/cases/views/search.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Product"
 msgstr ""
@@ -880,6 +917,7 @@ msgstr ""
 
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
+#: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr ""
 
@@ -912,10 +950,12 @@ msgstr ""
 msgid "Refining top solutions"
 msgstr ""
 
+#: app/cases/views/commentsSection.html
 #: app/cases/views/discussionSection.html
 msgid "Reply"
 msgstr ""
 
+#: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
 msgstr ""
@@ -970,6 +1010,10 @@ msgstr ""
 msgid "Search Support Case"
 msgstr ""
 
+#: app/cases/views/search.html
+msgid "Searching..."
+msgstr ""
+
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
 msgstr ""
@@ -978,12 +1022,10 @@ msgstr ""
 msgid "Select Log"
 msgstr ""
 
+#: app/cases/views/emailNotifySelect.html
+#: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "Select a User"
-msgstr ""
-
-#: app/cases/views/newAlternate.html
-msgid "Select a User'|translate\" ng-disabled=\"updatingList || CaseService.submittingCase\" ng-model=\"notifiedUsers\" id=\"rha-email-notify-select\" width=\"&quot;100%&quot;\" ng-options=\"user.sso_username as user.sso_username for user in CaseService.users\"></select></div></div><div class=\"row row-short\"><div class=\"col-sm-4 col-md-3\"><div class=\"label\">{{'Case Group (Optional)"
 msgstr ""
 
 #: app/cases/views/emailNotifySelect.html
@@ -1006,12 +1048,17 @@ msgstr ""
 
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
+#: app/cases/views/search.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Severity"
 msgstr ""
 
 #: app/ascension/views/internalCaseDescription.html
 msgid "Severity 1 (High)"
+msgstr ""
+
+#: app/cases/views/searchResult.html
+msgid "Severity:"
 msgstr ""
 
 #: app/security/views/login_form.html
@@ -1035,8 +1082,13 @@ msgstr ""
 msgid "Sort By"
 msgstr ""
 
+#: app/cases/views/search.html
 #: app/ascension/views/internalCaseDetails.html
 msgid "Status"
+msgstr ""
+
+#: app/cases/views/searchResult.html
+msgid "Status:"
 msgstr ""
 
 #: app/ascension/views/internalCaseDescription.html
@@ -1046,6 +1098,10 @@ msgstr ""
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "Submit"
+msgstr ""
+
+#: app/cases/views/addCommentSection.html
+msgid "Submit Attachment"
 msgstr ""
 
 #: app/cases/views/requestManagementEscalationModal.html
@@ -1103,11 +1159,13 @@ msgid "Support Level"
 msgstr ""
 
 #: app/common/views/403.html
+#: app/cases/views/403.html
 #: app/escalation/views/403.html
 msgid "Support Subscription Required"
 msgstr ""
 
 #: app/common/views/403.html
+#: app/cases/views/403.html
 #: app/escalation/views/403.html
 msgid "The credentials you provided are valid, but you do not have <b>direct support from Red Hat.</b>"
 msgstr ""
@@ -1117,6 +1175,7 @@ msgid "The log file viewer gives the ability to diagnose application logs as wel
 msgstr ""
 
 #: app/common/views/404.html
+#: app/cases/views/404.html
 msgid "The page you are looking for is not here. It might have been moved, removed, or had its name and address changed. It might otherwise be temporarily unavailable for technical reasons."
 msgstr ""
 
@@ -1153,6 +1212,10 @@ msgstr ""
 msgid "Transcript of chat between"
 msgstr ""
 
+#: app/cases/views/search.html
+msgid "Type"
+msgstr ""
+
 #: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr ""
@@ -1169,6 +1232,10 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+#: app/cases/views/searchResult.html
+msgid "Updated:"
+msgstr ""
+
 #: app/cases/views/newCaseRecommendationsAlternateSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "Updating Recommendations"
@@ -1182,6 +1249,7 @@ msgstr ""
 msgid "Uploading attachment..."
 msgstr ""
 
+#: app/cases/controllers/new.js
 #: app/cases/services/attachmentsService.js
 msgid "Uploading attachments..."
 msgstr ""
@@ -1212,6 +1280,14 @@ msgstr ""
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "View Recommendations"
+msgstr ""
+
+#: app/cases/views/recommendationsSection.html
+msgid "View full article in new window"
+msgstr ""
+
+#: app/cases/views/commentsSection.html
+msgid "Would you like a Red Hat support manager to contact you regarding this case?"
 msgstr ""
 
 #: app/cases/views/editGroup.html
@@ -1292,6 +1368,10 @@ msgstr ""
 
 #: app/escalation/views/partnerEscalation.html
 msgid "for more information."
+msgstr ""
+
+#: app/cases/views/recommendationsSection.html
+msgid "handpicked"
 msgstr ""
 
 #: app/cases/views/list.html
