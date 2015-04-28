@@ -364,7 +364,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             } else if (iframeId.attachEvent){
                 iframeId.attachEvent('onload', eventHandler);
             }
-            var uploadingAlert = AlertService.addWarningMessage(translate('Uploading Attachment...'));
+            var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachment...'));
             form.submit();
         };
 

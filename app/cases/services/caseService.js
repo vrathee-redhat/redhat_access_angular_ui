@@ -430,7 +430,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             AlertService.addWarningMessage(translate('Creating case...'));
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
-                //AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+                AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
                 self.clearLocalStorageCacheForNewCase();
                 deferred.resolve(caseNumber);
             }, function (error) {
