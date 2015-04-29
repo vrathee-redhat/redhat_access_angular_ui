@@ -38,6 +38,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.isCommentPublic = true;
             }
             var onSuccess = function (response) {
+                CaseService.isCommentPublic = false;
                 CaseService.draftCommentOnServerExists=false;
                 if(CaseService.localStorageCache)
                 {
