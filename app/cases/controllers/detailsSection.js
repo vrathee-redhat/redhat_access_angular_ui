@@ -145,6 +145,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         //TODO move into service
                         angular.copy(CaseService.kase, CaseService.prestineKase);
                         $scope.detailsForm.$setPristine();
+                        $scope.summaryForm.$setPristine();
                     }, function (error) {
                         // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
                         //     $scope.changeCaseOwner();
@@ -191,7 +192,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 CaseService.kase.summary = CaseService.prestineKase.summary;
                 $scope.caseSummaryEditable = false;
             }
-            
+
         };
         if (CaseService.caseDataReady) {
             $scope.init();
