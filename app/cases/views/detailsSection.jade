@@ -74,5 +74,5 @@ section.case-description
               ng-disabled='updatingDetails || !detailsForm.$dirty',
               ng-click='updateCase()', translate='') Save Changes
             a.margin-left(
-              ng-disabled='updatingDetails || !detailsForm.$dirty',
+              ng-hide='updatingDetails || !detailsForm.$dirty',
               ng-click='resetData()') Cancel
