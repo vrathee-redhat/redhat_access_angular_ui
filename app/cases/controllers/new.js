@@ -88,7 +88,14 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.clearCase();
             RecommendationsService.clear();
             CaseService.populateUsers().then(function (){
-            	$scope.notifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
+                $scope.usersOnAccount = CaseService.users;
+                $scope.usersOnAccount = $scope.usersOnAccount.map(function(obj) {
+                    return obj.sso_username;
+                });
+                var index = $scope.usersOnAccount.indexOf(securityService.loginStatus.authedUser.sso_username);
+                if (index > -1) {
+                    $scope.usersOnAccount.splice(index, 1);
+                }
         	});
             $scope.severitiesLoading = true;
             ProductsService.getProducts(false);
