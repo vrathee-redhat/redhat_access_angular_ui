@@ -72,7 +72,7 @@ section.case-description
           .col-sm-12
             button.btn.btn-app.btn-submit(
               name='updateButton',
-              ng-disabled='updatingDetails || !detailsForm.$dirty',
+              ng-disabled='validatePage() || updatingDetails || !detailsForm.$dirty',
               ng-click='updateCase()', translate='') Save Changes
             a.margin-left(
               ng-hide='updatingDetails || !detailsForm.$dirty',
