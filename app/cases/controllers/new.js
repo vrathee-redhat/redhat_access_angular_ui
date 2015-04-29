@@ -226,9 +226,9 @@ angular.module('RedhatAccess.cases').controller('New', [
                     });
                 }
                 angular.forEach($scope.notifiedUsers, function (user) {
+                    var userMessage = AlertService.addWarningMessage(translate('Adding user') + ' ' + user + ' ' + translate('to case.'));
                     strataService.cases.notified_users.add(caseNumber, user).then(function () {
-                        AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(translate('Successfully added') + ' ' + user + ' '+translate('to receieve email notifications.'));
+                        AlertService.removeAlert(userMessage);
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
@@ -241,8 +241,13 @@ angular.module('RedhatAccess.cases').controller('New', [
                         AlertService.addStrataErrorMessage(error);
                         CaseService.submittingCase = false;
                     });
-                } else if(NEW_CASE_CONFIG.showAttachments && $scope.ie8 || NEW_CASE_CONFIG.showAttachments && $scope.ie9 ) {
-                    $scope.ieFileUpload(caseNumber);
+                } else if(NEW_CASE_CONFIG.showAttachments && $scope.ie8 || $scope.ie9 ) {
+                    var fileName = document.getElementById('newFileUploader').value;
+                    if(!RHAUtils.isEmpty(fileName)){
+                        $scope.ieFileUpload(caseNumber);
+                    } else{
+                        redirectToCase(caseNumber);
+                    }
                 } else {
                     redirectToCase(caseNumber);
                 }
@@ -359,7 +364,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             } else if (iframeId.attachEvent){
                 iframeId.attachEvent('onload', eventHandler);
             }
-            var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachments...'));
+            var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachment...'));
             form.submit();
         };
 
