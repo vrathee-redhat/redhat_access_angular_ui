@@ -110,13 +110,6 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
             return RecommendationsService.handPickedRecommendations;
         }, function () {
             $scope.selectPage($scope.handPickedResultsPage, RecommendationsService.handPickedRecommendations, $scope.handPickedResults);
-            if(RecommendationsService.handPickedRecommendations.length !== 0){
-                $scope.isHandpickedSolutionsOpen.val = true;
-                $scope.isTopSolutionsOpen.val = false;
-            } else {
-                $scope.isHandpickedSolutionsOpen.val = false;
-                $scope.isTopSolutionsOpen.val = true;
-            }
         }, true);
     }
 ]);
