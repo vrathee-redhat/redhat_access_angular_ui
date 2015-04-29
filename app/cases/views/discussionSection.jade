@@ -13,7 +13,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
       .col-xs-12
         // Add Comment Section
         div(rha-addcommentsection='', loading='loading.comments')
-    .row
+    .row(ng-hide="DiscussionService.discussionElements.length===0")
       .col-sm-7
         label {{'Sort By'|translate}}&nbsp;&nbsp;
         select#rha-comment-sort(chosen,
