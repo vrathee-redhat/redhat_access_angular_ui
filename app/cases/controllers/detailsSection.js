@@ -194,6 +194,19 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             }
 
         };
+        $scope.validatePage = function () {
+            if (ProductsService.versionLoading) {
+                return true;
+            } else {
+                if (RHAUtils.isEmpty(CaseService.kase.product) || RHAUtils.isEmpty(CaseService.kase.version)) {
+                    return true;
+                } else if (RHAUtils.isNotEmpty(CaseService.kase.version) && (ProductsService.versions.indexOf(CaseService.kase.version) === -1)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
         if (CaseService.caseDataReady) {
             $scope.init();
         }
