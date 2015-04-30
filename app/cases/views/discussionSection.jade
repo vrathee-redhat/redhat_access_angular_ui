@@ -44,7 +44,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .col-sm-8
               blockquote.dialog-box.pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
               blockquote.dialog-box.pre-wrap(ng-hide="element.file_name || element.comment_type === 'chat'")
-                span(ng-bind-html="parseCommentHtml(element)")
+                span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.text}}
+                span(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
                 a.glyphicon.glyphicon-link.pull-right(ng-hide="element.file_name", ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
                 a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}} &nbsp;
               .dialog-box(ng-show="element.file_name")
@@ -65,7 +66,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         .dialog-box
             a(href="{{attachment.uri}}")
               .fa.fa-file-image-o.file-upload
-              span{{attachment.file_name}} ({{attachment.length | bytes}})
+              span {{attachment.file_name}} ({{attachment.length | bytes}})
             .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
             .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')
@@ -84,7 +85,6 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             name='notes')
       .row.row-short
         .col-sm-7
-
           span#notesNotice.uploadNotice
             span.progressCount {{noteCharactersLeft}}
             span {{' characters left.'|translate}}
