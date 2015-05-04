@@ -93,7 +93,7 @@ describe('Case Controllers', function () {
                 CaseService: mockCaseService,
                 strataService: mockStrataService
             });
-            mockScope.caseDetails = {
+            mockScope.summaryForm = {
                 $valid: true,
                 $setPristine: function () {
                 }
@@ -103,15 +103,13 @@ describe('Case Controllers', function () {
                 $setPristine: function () {
                 }
             };
-            mockScope.caseDetails.summary = {
-                $dirty: function () {
-                    return true;
-                }
-            };
+            
             mockCaseService.kase.case_number = '1234';
             mockCaseService.kase.type = 'bug';
             mockCaseService.kase.severity = 'high';
-            mockCaseService.kase.status = 'open';
+            mockCaseService.kase.status = {
+                name: 'open'
+            };
             mockCaseService.kase.alternate_id = '12345';
             mockCaseService.kase.product = 'Red Hat Enterprise Linux';
             mockCaseService.kase.version = '6.0';
@@ -125,7 +123,6 @@ describe('Case Controllers', function () {
             expect(mockScope.updateCase).toBeDefined();
             mockScope.updateCase();
             spyOn(mockStrataService.cases, 'put').andCallThrough();
-            spyOn(mockStrataService.cases.owner, 'update').andCallThrough();
             mockScope.$root.$digest();
             expect(mockScope.updatingDetails).toBe(false);
         }));
@@ -162,7 +159,6 @@ describe('Case Controllers', function () {
             };
             expect(mockScope.caseDetailsChanged).toBeDefined();
             var mockVal=mockScope.caseDetailsChanged();
-            console.log("the mock object has"+mockVal)
             mockScope.$root.$digest();
             expect(mockVal).toEqual(true);
 
