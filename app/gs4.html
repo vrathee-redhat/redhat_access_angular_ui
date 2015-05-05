@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/chosen/chosen.css" />
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/case.css -->
+    <!--<link rel="stylesheet" href="cases/styles/case.css">-->
+    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="stylesheet" href="log_viewer/styles/log_viewer.css">
+    <link rel="stylesheet" href="security/styles/security.css">
+    <link rel="stylesheet" href="common/styles/treeviewselector.css">
+    <link rel="stylesheet" href="common/styles/helpers.css">
+    <link rel="stylesheet" href="search/styles/search.css">
+    <link rel="stylesheet" href="escalation/styles/escalation.css">
+    <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
+    <!-- endbuild -->
+  </head>
+  <body>
+
+    <script src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
+    <!--Use this for deployment :'https://c.la1w1.salesforceliveagent.com/content/g/js/31.0/deployment.js'-->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+    <script src="bower_components/ie-shiv/index.js"></script>
+    <script src="bower_components/json2/json2.js"></script>
+    <script src="bower_components/respond/dest/respond.src.js"></script>
+    <![endif]-->
+    <!-- Manually add uri and angular treeview due to bower issues -->
+
+    <script src="bower_components/jsUri/Uri.min.js"></script>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/stratajs/strata.js"></script>
+    <script src="bower_components/udsjs/uds.js"></script>
+    <script src="bower_components/ng-table/ng-table.js"></script>
+    <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
+    <script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>
+    <script src="bower_components/angular-chosen-localytics/chosen.js"></script>
+    <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <script type="text/javascript" src="bower_components/chosen/chosen.jquery.js"></script>
+    <script src="bower_components/angular-treeview/angular.treeview.min.js"></script>
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="common/common.module.js"></script>
+    <script src="cases/cases.module.js"></script>
+
+    <script src="cases/controllers/accountSelect.js")></script>
+    <script src="cases/controllers/addCommentSection.js")></script>
+    <script src="cases/controllers/attachLocalFile.js")></script>
+    <script src="cases/controllers/attachmentsSection.js")></script>
+    <script src="cases/controllers/backendAttachments.js")></script>
+
+    <script src="cases/controllers/discussionSection.js"></script>
+    <script src="cases/controllers/confirmCaseCloseModal.js"></script>
+    <script src="cases/controllers/confirmCaseStateChangeModal.js"></script>
+    <script src="cases/controllers/createGroupButton.js"></script>
+    <script src="cases/controllers/createGroupModal.js"></script>
+    <script src="cases/controllers/deleteGroupButton.js"></script>
+    <script src="cases/controllers/defaultGroup.js"></script>
+    <script src="cases/controllers/descriptionSection.js"></script>
+    <script src="cases/controllers/detailsSection.js"></script>
+    <script src="cases/controllers/edit.js"></script>
+    <script src="cases/controllers/editGroup.js"></script>
+    <script src="cases/controllers/emailNotifySelect.js"></script>
+    <script src="cases/controllers/entitlementSelect.js"></script>
+    <script src="cases/controllers/exportCSVButton.js"></script>
+    <script src="cases/controllers/filterSelect.js"></script>
+    <script src="cases/controllers/group.js"></script>
+    <script src="cases/controllers/groupList.js"></script>
+    <script src="cases/controllers/groupSelect.js"></script>
+    <script src="cases/controllers/list.js"></script>
+    <script src="cases/controllers/listAttachments.js"></script>
+    <script src="cases/controllers/listFilter.js"></script>
+    <script src="cases/controllers/listNewAttachments.js"></script>
+    <script src="cases/controllers/new.js"></script>
+    <script src="cases/controllers/ownerSelect.js"></script>
+    <script src="cases/controllers/newCaseRecommendationsSection.js"></script>
+    <script src="cases/controllers/newRouter.js"></script>
+    <script src="cases/controllers/proceedWithoutAttachModal.js"></script>
+    <script src="cases/controllers/productSelect.js"></script>
+    <script src="cases/controllers/editCaseRecommendationsSection.js"></script>
+    <script src="cases/controllers/requestManagementEscalationModal.js"></script>
+    <script src="cases/controllers/requestEscalation.js"></script>
+    <script src="cases/controllers/searchBox.js"></script>
+    <script src="cases/controllers/severitySelect.js"></script>
+    <script src="cases/controllers/statusSelect.js"></script>
+    <script src="cases/controllers/typeSelect.js"></script>
+    <script src="cases/controllers/listBugzillas.js"></script>
+    <script src="cases/controllers/addCommentSection.js"></script>
+    <script src="cases/controllers/versionSelect.js"></script>
+    <script src="cases/directives/accountSelect.js"></script>
+    <script src="cases/directives/addCommentSection.js"></script>
+    <script src="cases/directives/attachLocalFile.js"></script>
+    <script src="cases/directives/attachmentsSection.js"></script>
+    <script src="cases/directives/attachProductLogs.js"></script>
+    <script src="cases/directives/discussionSection.js"></script>
+    <script src="cases/directives/createGroupButton.js"></script>
+    <script src="cases/directives/deleteGroupButton.js"></script>
+    <script src="cases/directives/descriptionSection.js"></script>
+    <script src="cases/directives/detailsSection.js"></script>
+    <script src="cases/directives/emailNotifySelect.js"></script>
+    <script src="cases/directives/entitlementSelect.js"></script>
+    <script src="cases/directives/exportCSVButton.js"></script>
+    <script src="cases/directives/filterSelect.js"></script>
+    <script src="cases/directives/groupList.js"></script>
+    <script src="cases/directives/groupSelect.js"></script>
+    <script src="cases/directives/listAttachments.js"></script>
+    <script src="cases/directives/listFilter.js"></script>
+
+    <script src="cases/directives/listNewAttachments.js"></script>
+    <script src="cases/directives/newBase.js"></script>
+    <script src="cases/directives/newAlternate.js"></script>
+    <script src="cases/directives/onChange.js"></script>
+    <script src="cases/directives/ownerSelect.js"></script>
+    <script src="cases/directives/productSelect.js"></script>
+    <script src="cases/directives/newCaseRecommendationsSection.js"></script>
+    <script src="cases/directives/requestEscalation.js"></script>
+    <script src="cases/directives/searchBox.js"></script>
+    <script src="cases/directives/selectLoadingIndicator.js"></script>
+    <script src="cases/directives/severitySelect.js"></script>
+    <script src="cases/directives/statusSelect.js"></script>
+    <script src="cases/directives/typeSelect.js"></script>
+    <script src="cases/directives/listBugzillas.js"></script>
+    <script src="cases/directives/editCaseRecommendationsSection.js"></script>
+    <script src="cases/directives/versionSelect.js"></script>
+    <script src="cases/directives/chosenPlaceholder.js"></script>
+    <script src="cases/filters/bytes.js"></script>
+    <script src="cases/filters/substring.js"></script>
+    <script src="cases/services/attachmentsService.js"></script>
+    <script src="cases/services/caseListService.js"></script>
+    <script src="cases/services/caseService.js"></script>
+    <script src="cases/services/discussionService.js"></script>
+    <script src="cases/services/groupService.js"></script>
+    <script src="cases/services/groupUserService.js"></script>
+    <script src="cases/services/productsService.js"></script>
+    <script src="cases/services/recommendationsService.js"></script>
+    <script src="cases/services/searchBoxService.js"></script>
+    <script src="cases/services/searchCaseService.js"></script>
+
+    <script src="common/common.module.js"></script>
+    <script src="common/header.module.js"></script>
+    <script src="common/ui-utils.module.js"></script>
+    <script src="common/controllers/403.js"></script>
+    <script src="common/controllers/404.js"></script>
+    <script src="common/controllers/alert.js"></script>
+    <script src="common/controllers/chatButton.js"></script>
+    <script src="common/controllers/header.js"></script>
+    <script src="common/controllers/titleView.js"></script>
+    <script src="common/directives/403.js"></script>
+    <script src="common/directives/404.js"></script>
+    <script src="common/directives/alert.js"></script>
+    <script src="common/directives/chatButton.js"></script>
+    <script src="common/directives/header.js"></script>
+    <script src="common/directives/titleTemplate.js"></script>
+    <script src="common/services/alertService.js"></script>
+    <script src="common/services/headerService.js"></script>
+    <script src="common/services/strataService.js"></script>
+    <script src="common/services/udsService.js"></script>
+    <script src="i18n/translations.js"></script>
+    <script src="log_viewer/log_viewer.module.js"></script>
+    <script src="log_viewer/controllers/AccordionDemoCtrl.js"></script>
+    <script src="log_viewer/controllers/DropdownCtrl.js"></script>
+    <script src="log_viewer/controllers/fileController.js"></script>
+    <script src="log_viewer/controllers/logViewerController.js"></script>
+    <script src="log_viewer/controllers/TabsDemoCtrl.js"></script>
+    <script src="log_viewer/directives/fillDown.js"></script>
+    <script src="log_viewer/directives/logsInstructionPane.js"></script>
+    <script src="log_viewer/directives/logTabs.js"></script>
+    <script src="log_viewer/directives/navSideBar.js"></script>
+    <script src="log_viewer/directives/recommendations.js"></script>
+    <script src="log_viewer/services/accordianService.js"></script>
+    <script src="log_viewer/services/fileService.js"></script>
+
+
+    <script src="security/security.module.js"></script>
+    <script src="security/directives/loginStatus.js"></script>
+    <script src="security/controllers/securityController.js"></script>
+    <script src="security/services/securityService.js"></script>
+
+    <script src="search/search.module.js"></script>
+    <script src="search/controllers/searchController.js"></script>
+    <script src="search/directives/accordionSearchResults.js"></script>
+    <script src="search/directives/listSearchResults.js"></script>
+    <script src="search/directives/resultDetailDisplay.js"></script>
+    <script src="search/directives/searchForm.js"></script>
+    <script src="search/directives/standardSearch.js"></script>
+    <script src="search/services/searchResultsService.js"></script>
+
+    <script src="ascension/ascension.module.js"></script>
+    <script src="ascension/controllers/caseQueue.js"></script>
+    <script src="ascension/services/caseQueueService.js"></script>
+    <script src="ascension/directives/caseQueue.js"></script>
+
+    <script src="ascension/controllers/topCases.js")></script>
+    <script src="ascension/directives/topCases.js")></script>
+    <script src="ascension/directives/internalCaseDetails.js")></script>
+    <script src="ascension/controllers/internalCaseDetails.js")></script>
+    <script src="ascension/directives/internalCaseDiscussion.js")></script>
+    <script src="ascension/controllers/internalCaseDiscussion.js")></script>
+    <script src="ascension/directives/internalCaseDescription.js")></script>
+    <script src="ascension/controllers/internalCaseDescription.js")></script>
+    <script src="ascension/directives/breachInformation.js")></script>
+    <script src="ascension/controllers/breachInformation.js")></script>
+    <script src="ascension/directives/entitlementInfo.js")></script>
+    <script src="ascension/controllers/entitlementInfo.js")></script>
+    <script src="ascension/directives/ownerInfo.js")></script>
+    <script src="ascension/controllers/ownerInfo.js")></script>
+    <script src="ascension/directives/accountInfo.js")></script>
+    <script src="ascension/controllers/accountInfo.js")></script>
+
+
+
+    <script src="escalation/escalation.module.js"></script>
+    <script src="escalation/controllers/escalationRequest.js"></script>
+    <script src="escalation/services/escalationRequestService.js"></script>
+
+    <script src="redhat_access_module.js"></script>
+    <!-- endbuild -->
+</script>
+<script>
+    var host = window.location.host;
+    strata.setStrataHostname('https://access.us.stage.redhat.com');
+    strata.setRedhatClientID("secure_case_management_1.0");
+    if (window.ie8 !== undefined) {
+        $("head").append('<script type=\"text/javascript\" src=\"js/respond.min.js\"/>');
+        $.support.cors = true;
+    } else if (window.ie9 !== undefined) {
+        $.support.cors = true;
+    }
+
+    angular.module('RedhatAccess.cases').config(['$urlRouterProvider',
+    function($urlRouterProvider) {
+      $urlRouterProvider.otherwise('case/list')
+    }
+    ]).run([
+        'COMMON_CONFIG',
+        'CHAT_SUPPORT',
+        'EDIT_CASE_CONFIG',
+        'NEW_CASE_CONFIG',
+        'SECURITY_CONFIG',
+        'securityService',
+        'gettextCatalog',
+        function (COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog){
+            COMMON_CONFIG.isGS4 = true;
+            COMMON_CONFIG.showTitle = false;
+            COMMON_CONFIG.doSfdcHealthCheck = false;
+            COMMON_CONFIG.sfdcIsHealthy = true;
+            COMMON_CONFIG.sfdcOutageMessage = '<ul class="message"><li class="alertSystem">There is currently a scheduled outage to the Case Management areas of the Red Hat Customer Portal.  The case management functions are expected to be unavailable for 9 hours and should return around 9am ET (UTC -0500).  The outage is due to case management infrastructure maintenance.<br/><br/>During the planned outage window, users will not be able to perform any case-related actions, including creating new support cases and updating existing support cases. Other areas of the Customer Portal, including the Knowledgebase and product documentation, will continue to be available.<br/><br/>If you require assistance with your Red Hat Product during the scheduled maintenance outage, please <a target="_blank" href="https://access.redhat.com/support/contact/technicalSupport/">contact Red Hat support</a><br/><br/>We apologize for any inconvenience caused by this scheduled maintenance.</li></ul>';
+            SECURITY_CONFIG.autoCheckLogin = false;
+    	    SECURITY_CONFIG.displayLoginStatus = true;
+    	    securityService.loginURL = 'https://' + host.replace('us.', '') + '/login?redirectTo=' + window.location.href;
+    	    securityService.logoutURL = 'https://' + host.replace('us.', '') + '/logout';
+            NEW_CASE_CONFIG.showServerSideAttachments = false;
+            EDIT_CASE_CONFIG.showServerSideAttachments = false;
+            gettextCatalog.currentLanguage = getCookieValue('rh_locale');
+            CHAT_SUPPORT.enableChat = false;
+            NEW_CASE_CONFIG.isPCM = false;
+            NEW_CASE_CONFIG.productSortListFile = 'productSortList.txt';
+            EDIT_CASE_CONFIG.isPCM = false;
+            NEW_CASE_CONFIG.showRecommendations = false;
+            NEW_CASE_CONFIG.showAttachments = false;
+            EDIT_CASE_CONFIG.showBugzillas = false;
+            EDIT_CASE_CONFIG.showAttachments = false;
+            EDIT_CASE_CONFIG.showRecommendations = false;
+            EDIT_CASE_CONFIG.showEmailNotifications = false;
+            securityService.validateLogin(false);
+        }
+    ]);
+    angular.element(document).ready(function() {
+      window.angular.bootstrap(document, [ 'RedhatAccess.cases' ]);
+    });
+
+    function getCookieValue(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+        }
+        return "";
+    };
+</script>
+</head>
+    <div>
+        <div id="main">
+            <a href='https://access.us.redhat.com'><h1>Red Hat Secure Support</h1></a><a href='https://access.redhat.com'>Red Hat Customer Portal</a>
+            <div class='container' id='redhat-access-cases'>
+                <div ui-view autoscroll="false"></div>
+            </div>
+        </div>
+   </div>
+</body>
+</html>

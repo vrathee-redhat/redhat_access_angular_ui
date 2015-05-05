@@ -6,8 +6,8 @@ div(rha-header='', page='caseList')
       .actions
         .row
           .col-xs-12
-            a.btn.btn-app.btn-sm(href='#/case/new',translate='') Create a New Support Case
-            a.btn.btn-app.btn-sm(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close
+            a.btn.btn-primary.btn-app.btn-sm(href='#/case/new',translate='') Create a New Support Case
+            a.btn.btn-primary.btn-app.btn-sm(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.cases.length == 0')
     .col-sm-6
       .case-count
