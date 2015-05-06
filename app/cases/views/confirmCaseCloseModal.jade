@@ -1,5 +1,5 @@
 .modal-header
-  h3(translate='') Closing Cases
+  h3(translate='') Closing Cases.
 .modal-body
   .row
     .col-sm-12
@@ -8,8 +8,12 @@
   .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     .col-sm-12
       .pull-right
-        button.btn-secondary.btn(
+        button.btn-accent.btn(
           style='margin-left: 10px;',
           ng-click='closeCases()')
-          span {{'Close Cases'|translate}}
-        a.margin-left(style='cursor: pointer;', ng-click='closeModal()') {{'Go Back'|translate}}
+          span {{'Yes'|translate}}
+        button.btn-accent.btn(
+          style='margin-left: 10px;',
+          ng-click='closeModal()')
+          span {{'No'|translate}}
+
