@@ -169,7 +169,12 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 var count = CaseService.commentText.length * 100 / $scope.maxCommentLength ;
                 parseInt(count);
                 $scope.progressCount = Math.round(count * 100) / 100;
-                $scope.charactersLeft = $scope.maxCommentLength - CaseService.commentText.length;
+                var breakMatches = CaseService.commentText.match(/(\r\n|\n|\r)/g);
+                var numberOfLineBreaks = 0;
+                if(breakMatches){
+                    numberOfLineBreaks = breakMatches.length;
+                }
+                $scope.charactersLeft = $scope.maxCommentLength - CaseService.commentText.length - numberOfLineBreaks;
             }
             else if(CaseService.commentText===undefined)
             {
