@@ -812,8 +812,12 @@ angular.module('RedhatAccess.mock', [])
                 return deferred.promise;
 
             };
+            this.validateNewCase = function(){
 
+            };
+            this.clearProdVersionFromLS = function(){
 
+            };
 
             this.clearCase = function () {
                 this.kase = {};
