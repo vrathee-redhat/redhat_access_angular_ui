@@ -5,7 +5,7 @@
     span(ng-show='searchInProgress.value') {{'Updating Recommendations'|translate}}
   .row
     .col-sm-4.set(ng-show='RecommendationsService.recommendations.length', ng-repeat="result in results")
-      article.card.card-light
+      article.card.card-light(data-eh="cards-equalheight")
         header
           a
             strong(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title | substring:100 }}
