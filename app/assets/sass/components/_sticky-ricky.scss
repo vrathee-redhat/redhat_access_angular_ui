@@ -1,11 +1,16 @@
 .sticky-ricky {
+	@include transition(.1s);
 	h1, h2, h3 {
 		margin-bottom: 0;
 	}
 
-	i {
-		@include rem('margin-right', 20px);
-	}
+	i { @include rem('margin-right', 20px); }
+}
+
+.badsticky {
+	@include opacity(0);
+	z-index: 1;
+	pointer-events: none;
 }
 
 .content-loading-notification.sticky-ricky {

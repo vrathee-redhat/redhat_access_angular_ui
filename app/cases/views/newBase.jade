@@ -1,15 +1,14 @@
-div(ng-hide='hideSticky')
-  #sticky-ricky-sticky.content-loading-notification.sticky-ricky(ng-hide='RecommendationsService.recommendations.length === 0 && !RecommendationsService.loadingRecommendations')
-    .container
-      .loader(ng-show='RecommendationsService.loadingRecommendations')
-        .circle &nbsp
-        .circle &nbsp
-        .circle &nbsp
-        | {{(getLocatingSolutionText())}}
-      h3(ng-hide='RecommendationsService.loadingRecommendations')
-        i.fa.fa-check-circle
-        | {{'Based on your description, here are some possible solutions'|translate}}
-        a.scroll-to-link(ng-click='scrollToRecommendations()') {{'View Recommendations'|translate}}
+#sticky-ricky-sticky.content-loading-notification.sticky-ricky(ng-if='RecommendationsService.recommendations.length && !RecommendationsService.loadingRecommendations', scroll-hide="rha-recommendation-section", scroll-hide-class="badsticky", scroll-hide-pad="14")
+  .container
+    .loader(ng-show='RecommendationsService.loadingRecommendations')
+      .circle &nbsp
+      .circle &nbsp
+      .circle &nbsp
+      | {{(getLocatingSolutionText())}}
+    h3(ng-hide='RecommendationsService.loadingRecommendations')
+      i.fa.fa-check-circle
+      | {{'Based on your description, here are some possible solutions'|translate}}
+      a.scroll-to-link(ng-click='scrollToRecommendations()') {{'View Recommendations'|translate}}
 
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
