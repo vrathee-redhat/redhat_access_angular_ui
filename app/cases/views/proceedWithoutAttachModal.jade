@@ -1,15 +1,14 @@
 .modal-header
-  h3(translate='') No File Uploaded with Case
+  h3(translate='') No Files were attached to your case.
 .modal-body
   .row
     .col-sm-12
-      div {{'Attaching logs and diagnostics files greatly improves time to resolution.'|translate}}
-      div(ng-bind-html='parseArtifactHtml()')
+      div {{'Attaching logs and diagnostics files greatly improves time to resolution. Do you want to continue without attaching any files?'|translate}}
   .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     .col-sm-12
       .pull-right
-        button#rha-btn-continue.btn-secondary.btn(
+        button#rha-btn-continue.btn-accent.btn(
           style='margin-left: 10px;',
           ng-click='closeModal(true)')
-          span {{'Continue Without Attaching'|translate}}
-        button#rha-btn-goBack.btn.btn-primary.margin-left(ng-click='closeModal(false)') {{'Go Back'|translate}}
+          span {{'Yes, Submit'|translate}}
+        button#rha-btn-goBack.btn.btn-accent.margin-left(ng-click='closeModal(false)') {{'No, Go Back'|translate}}
