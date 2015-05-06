@@ -114,6 +114,17 @@ $recommendations-dark-link-color: #0bc0fc;
 		.article-content a {
 
 		}
+
+		.recommendations-title {
+			i {
+				margin-right: 8px;
+			}
+		}
+	}
+
+	.pagination {
+		padding: 0;
+		margin: 0;
 	}
 }
 

@@ -1,7 +1,8 @@
 'use strict';
 /*jshint unused:vars */
 angular.module('RedhatAccess.cases').directive('rhaNewcaserecommendations', function () {
-    return {
+
+	return {
         templateUrl: 'cases/views/newCaseRecommendationsSection.html',
         restrict: 'A',
         controller: 'NewCaseRecommendationsController',

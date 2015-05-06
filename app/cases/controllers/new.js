@@ -46,6 +46,7 @@ angular.module('RedhatAccess.cases').controller('New', [
 
         $scope.showRecommendationPanel = false;
         $scope.notifiedUsers = [];
+	    $scope.hideSticky = false;
 
         // Instantiate these variables outside the watch
         var waiting = false;
