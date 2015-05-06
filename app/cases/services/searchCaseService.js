@@ -122,9 +122,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         params.sort_order = CaseService.filterSelect.sortOrder;
                     }
                 }
-                if (!RHAUtils.isEmpty(CaseService.owner)) {
-                    params.owner_ssoname = CaseService.owner;
-                }
+                // if (!RHAUtils.isEmpty(CaseService.owner)) {
+                //     params.owner_ssoname = CaseService.owner;
+                // }
                 if (!RHAUtils.isEmpty(CaseService.type)) {
                     params.type = CaseService.type;
                 }
