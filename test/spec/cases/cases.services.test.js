@@ -221,7 +221,7 @@ describe('Case Services', function () {
             expect(caseService.draftCommentLocalStorage).toBeUndefined();
         });
 
-        it('should have a method for checkForCaseStatusToggleOnAttachOrComment', function () {
+        it('should have a method for toggling of case status On attachment and comment', function () {
             expect(caseService.checkForCaseStatusToggleOnAttachOrComment).toBeDefined();
             securityService.loginStatus.authedUser.is_internal=true;
             //cannot use mockStrataCase as it has a different status field.
@@ -233,7 +233,7 @@ describe('Case Services', function () {
             expect(caseService.kase.status).toEqual(status);
         });
 
-        it('should have a method for checkForCaseStatusToggleOnAttachOrComment with status as closed', function () {
+        it('should have a method for toggling of case status On attachment and comment with previous status as closed', function () {
             expect(caseService.checkForCaseStatusToggleOnAttachOrComment).toBeDefined();
             securityService.loginStatus.authedUser.is_internal=false;
             //cannot use mockStrataCase as it has a different status field.
@@ -244,7 +244,7 @@ describe('Case Services', function () {
             var status=   { name: 'Waiting on Red Hat' };
             expect(caseService.kase.status).toEqual(status);
         });
-        it('should have a method for checkForCaseStatusToggleOnAttachOrComment with Waiting on Customer', function () {
+        it('should have a method for toggling of case status On attachment and comment with previous status as Waiting on Customer', function () {
             expect(caseService.checkForCaseStatusToggleOnAttachOrComment).toBeDefined();
             securityService.loginStatus.authedUser.is_internal=false;
             //cannot use mockStrataCase as it has a different status field.
@@ -273,8 +273,7 @@ describe('Case Services', function () {
 
         it('should have a method for update case', function () {
             expect(caseService.updateCase).toBeDefined();
-           // caseService.kase=mockStrataDataService.mockCases[0];
-           caseService.kase=
+            caseService.kase=
             {
                 "created_by": "Sunil Keshari",
                 "created_date": 1405416971000,
@@ -328,7 +327,6 @@ describe('Case Services', function () {
 
         it('should have a method for update case with fts true', function () {
             expect(caseService.updateCase).toBeDefined();
-            // caseService.kase=mockStrataDataService.mockCases[0];
             caseService.kase=
             {
                 "created_by": "Sunil Keshari",
@@ -502,18 +500,25 @@ describe('Case Services', function () {
 
         });
 
-        it('should have a method for reset case and it should reset prestineKase', function () {
+        it('should have a method for reset case', function () {
             expect(caseService.resetCase).toBeDefined();
+            caseService.setCase(mockStrataDataService.mockCases[1]);
+            expect(caseService.prestineKase).toEqual(caseService.kase);
+            //change kase object so that it is not equal to prestineKase
+            caseService.kase = mockStrataDataService.mockCases[2];
+            expect(caseService.prestineKase).toNotEqual(caseService.kase);
             caseService.resetCase();
             expect(caseService.prestineKase, caseService.kase);
             expect(caseService.prestineKase).toEqual(caseService.kase);
         });
+
         it('should have a method for get groups case and it should return groups', function () {
             expect(caseService.getGroups).toBeDefined();
             caseService.groups = mockStrataDataService.mockGroups;
             var returnValue = caseService.getGroups();
             expect(returnValue).toEqual(mockStrataDataService.mockGroups);
         });
+
         it('should have a method for clearing product and version from local storage', function () {
             expect(caseService.clearProdVersionFromLS).toBeDefined();
             caseService.kase=mockStrataDataService.mockCases[0];
