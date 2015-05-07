@@ -164,7 +164,7 @@ div(rha-header='', page='newCase')
                   ng-model='notifiedUsers',
                   id='rha-email-notify-select',
                   width='"100%"',
-                  ng-options='user.sso_username as user.sso_username for user in CaseService.users')
+                  ng-options='user as user for user in usersOnAccount')
             .row.row-short
               .col-sm-4.col-md-3
                 .label {{'Case Group (Optional)'|translate}}

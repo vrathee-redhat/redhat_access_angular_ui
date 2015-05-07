@@ -197,6 +197,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.authedUser.account_number : this.account.number;
                 }
                 promise = strataService.accounts.users(accountNumber);
+                this.owner = undefined;
                 promise.then(angular.bind(this, function (users) {
                     angular.forEach(users, function(user){
                         if(user.sso_username === securityService.loginStatus.authedUser.sso_username) {
@@ -514,6 +515,11 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 var newCaseDescLocalStorage = {'text': draftNewCase};
                 this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username,newCaseDescLocalStorage);
             }
+        };
+        this.clearProdVersionFromLS = function(){
+            this.kase.product = undefined;
+            this.kase.version = undefined;
+            this.updateLocalStorageForNewCase();
         };
         this.checkForCaseStatusToggleOnAttachOrComment = function(){
             var status = {};
