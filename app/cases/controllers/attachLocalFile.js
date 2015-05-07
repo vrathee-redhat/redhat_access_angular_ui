@@ -35,7 +35,9 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 created_time:  RHAUtils.formatDate(createdDate, 'hh:mm A Z')
             });
             $scope.clearSelectedFile();
-            $scope.$apply();
+            if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
+                $scope.$apply();
+            }
         };
         $scope.getFile = function () {
             $('#fileUploader').click();
@@ -47,7 +49,9 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 $scope.fileObj = $('#fileUploader')[0].files[0];
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
-                $scope.$apply();
+                if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
+                    $scope.$apply();
+                }
 	            $scope.addFile();
             } else {
                 AlertService.addDangerMessage($('#fileUploader')[0].files[0].name + ' '+translate('cannot be attached because it is larger than') +' '+ (AttachmentsService.maxAttachmentSize/1024) + ' '+ translate('GB. Please FTP large files to dropbox.redhat.com.'));
