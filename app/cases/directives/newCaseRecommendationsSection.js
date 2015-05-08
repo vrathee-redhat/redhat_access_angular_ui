@@ -1,13 +1,18 @@
 'use strict';
 /*jshint unused:vars */
 angular.module('RedhatAccess.cases').directive('rhaNewcaserecommendations', function () {
-    return {
+
+	return {
         templateUrl: 'cases/views/newCaseRecommendationsSection.html',
         restrict: 'A',
         controller: 'NewCaseRecommendationsController',
         link: function postLink(scope, element, attrs) {
-            scope.$on('$destroy', function () {
-                element.remove();
+            scope.$watch( function() {
+                return element.height();
+            }, function() {
+                window.chrometwo_require(['data-eh'], function(eh){
+                    eh.apply('#rha-recommendation-section');
+                });
             });
         }
     };

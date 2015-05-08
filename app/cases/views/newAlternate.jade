@@ -115,6 +115,7 @@ div(rha-header='', page='newCase')
             .row.row-short
               .col-sm-4.col-md-3
                 .label {{'Support Level'|translate}}
+                  span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
               .col-sm-7.col-md-6
                 select#rha-supportLevel-select(
                   chosen,
@@ -126,7 +127,7 @@ div(rha-header='', page='newCase')
             .row.row-short
               .col-sm-4.col-md-3
                 .label.inline-tooltip {{'Severity'|translate}}
-                  span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="hover")
+                  span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To learn more, visit the " |translate }}</br><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a>',tabindex='0',tooltip-trigger="click")
               .col-sm-7.col-md-6
                 .row
                   .col-xs-12

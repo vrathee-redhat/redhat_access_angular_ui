@@ -1,15 +1,14 @@
-.content-loading-notification(ng-hide='RecommendationsService.recommendations.length === 0 && !RecommendationsService.loadingRecommendations')
-  .container(ng-show='RecommendationsService.loadingRecommendations')
-    .loader
+#sticky-ricky-sticky.content-loading-notification.sticky-ricky(ng-if='RecommendationsService.recommendations.length && !RecommendationsService.loadingRecommendations', scroll-hide="rha-recommendation-section", scroll-hide-class="badsticky", scroll-hide-pad="14")
+  .container
+    .loader(ng-show='RecommendationsService.loadingRecommendations')
       .circle &nbsp
       .circle &nbsp
       .circle &nbsp
-    | {{(getLocatingSolutionText())}}
-  .container(ng-hide='RecommendationsService.loadingRecommendations')
-    .loader
+      | {{(getLocatingSolutionText())}}
+    h3(ng-hide='RecommendationsService.loadingRecommendations')
       i.fa.fa-check-circle
-    | {{'Based on details you provided, we found some likely solutions.'|translate}} &nbsp
-    a(ng-click='scrollToRecommendations()') {{'View Recommendations'|translate}}
+      | {{'Based on your description, here are some possible solutions'|translate}}
+      a.scroll-to-link(ng-click='scrollToRecommendations()') {{'View Recommendations'|translate}}
 
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
@@ -116,6 +115,7 @@ div(rha-header='', page='newCase')
         .row.row-short
           .col-sm-4.col-md-3
             .label {{'Support Level'|translate}}
+              span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
           .col-sm-7.col-md-4
             select#rha-supportLevel-select(
               chosen,
@@ -127,7 +127,7 @@ div(rha-header='', page='newCase')
         .row.row-short
           .col-sm-4.col-md-3
             .label.inline-tooltip {{'Severity'|translate}}
-              span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="hover")
+              span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To learn more, visit the " |translate }}</br><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a>',tabindex='0',tooltip-trigger="click")
           .col-sm-7.col-md-4
             .row
               .col-xs-12
