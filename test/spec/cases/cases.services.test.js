@@ -21,6 +21,7 @@ describe('Case Services', function () {
     var discussionService;
     beforeEach(angular.mock.module('RedhatAccess.cases'));
     beforeEach(angular.mock.module('RedhatAccess.mock'));
+
     beforeEach(inject(function (_CaseService_, _SearchCaseService_, _MockStrataDataService_, _strataService_, _SearchBoxService_, _RecommendationsService_, _CaseListService_, _AttachmentsService_, _GroupService_,_GroupUserService_,_TreeViewSelectorUtils_, $injector, $q, $rootScope,_ProductsService_,_DiscussionService_){
         caseService = _CaseService_;
         searchCaseService = _SearchCaseService_;
@@ -548,12 +549,91 @@ describe('Case Services', function () {
             expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
         });
 
+        it('should have a method for Search cases resolved for loggedin user with status as closed and empty search term', function () {
+            expect(searchCaseService.doFilter).toBeDefined();
+            searchCaseService.oldParams = {};
+            securityService.loginStatus.login = 'testUser';
+            securityService.loginStatus.isLoggedIn = true;
+            searchBoxService.searchTerm = '';
+            caseService.group = mockStrataDataService.mockGroups[0];
+            caseService.status = 'closed';
+            caseService.filterSelect = {"sortField":"owner",
+                "sortOrder":"ASC"};
+            caseService.product = 'Red Hat Enterprise Linux';
+            caseService.owner = 'testUser';
+            caseService.type = 'bug';
+            caseService.severity = '1';
+            searchCaseService.doFilter();
+            spyOn(mockStrataService.cases, 'search').andCallThrough();
+            scope.$root.$digest();
+            expect(searchCaseService.searching).toBe(false);
+            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
+        });
+
+        it('should have a method for Search cases resolved for loggedin user with status as both and empty search term', function () {
+            expect(searchCaseService.doFilter).toBeDefined();
+            searchCaseService.oldParams = {};
+            securityService.loginStatus.login = 'testUser';
+            securityService.loginStatus.isLoggedIn = true;
+            searchBoxService.searchTerm = '';
+            caseService.filterSelect = {"sortField":"owner",
+                "sortOrder":"DESC"};
+            caseService.status = 'both';
+            caseService.product = 'Red Hat Enterprise Linux';
+            caseService.owner = 'testUser';
+            caseService.type = 'bug';
+            caseService.severity = '1';
+            searchCaseService.doFilter();
+            spyOn(mockStrataService.cases, 'search').andCallThrough();
+            scope.$root.$digest();
+            expect(searchCaseService.searching).toBe(false);
+            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
+        });
+        it('should have a method for Search cases resolved for loggedin user with status as empty and empty search term', function () {
+            expect(searchCaseService.doFilter).toBeDefined();
+            searchCaseService.oldParams = {};
+            securityService.loginStatus.login = 'testUser';
+            securityService.loginStatus.isLoggedIn = true;
+            searchBoxService.searchTerm = '';
+            caseService.filterSelect = {"sortField":"severity",
+                "sortOrder":"ASC"};
+            caseService.product = 'Red Hat Enterprise Linux';
+            caseService.owner = 'testUser';
+            caseService.type = 'bug';
+            caseService.severity = '1';
+            searchCaseService.doFilter();
+            spyOn(mockStrataService.cases, 'search').andCallThrough();
+            scope.$root.$digest();
+            expect(searchCaseService.searching).toBe(false);
+            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
+        });
+        it('should have a method for Search cases resolved for loggedin user with empty status,search term and sortField', function () {
+            expect(searchCaseService.doFilter).toBeDefined();
+            searchCaseService.oldParams = {};
+            securityService.loginStatus.login = 'testUser';
+            securityService.loginStatus.isLoggedIn = true;
+            searchBoxService.searchTerm = '';
+            caseService.filterSelect = {"sortField":"",
+                "sortOrder":"ASC"};
+            caseService.product = 'Red Hat Enterprise Linux';
+            caseService.owner = 'testUser';
+            caseService.type = 'bug';
+            caseService.severity = '1';
+            searchCaseService.doFilter();
+            spyOn(mockStrataService.cases, 'search').andCallThrough();
+            scope.$root.$digest();
+            expect(searchCaseService.searching).toBe(false);
+            expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
+        });
+
         it('should have a method for Filter cases resolved for loggedin user', function () {
             expect(searchCaseService.doFilter).toBeDefined();
             searchCaseService.oldParams = {};
             securityService.loginStatus.login = 'testUser';
             securityService.loginStatus.isLoggedIn = true;
             searchBoxService.searchTerm = '';
+            caseService.filterSelect = {"sortField":"severity",
+                "sortOrder":"DESC"};
             caseService.status = 'open';
             caseService.product = 'Red Hat Enterprise Linux';
             caseService.owner = 'testUser';
@@ -861,6 +941,7 @@ describe('Case Services', function () {
             caseService.kase={};
             caseService.kase.product="Red Hat Enterprise Linux";
             caseService.owner="skesharigit";
+            securityService.loginStatus.authedUser.is_internal=true;
             productsService.getProducts(true);
             spyOn(mockStrataService.products, 'list').andCallThrough();
             scope.$root.$digest();
@@ -875,7 +956,8 @@ describe('Case Services', function () {
             expect(productsService.getProducts).toBeDefined();
             caseService.kase={};
             caseService.kase.product="Red Hat Enterprise Linux";
-            caseService.owner="skesharigit";
+            securityService.loginStatus.authedUser.is_internal=true;
+            caseService.kase.contact_sso_username = "skesharigit";
             productsService.getProducts(false);
             expect(productsService.productsLoading).toEqual(true);
             spyOn(mockStrataService.products, 'list').andCallThrough();
@@ -895,13 +977,37 @@ describe('Case Services', function () {
             caseService.owner="skesharigit";
             productsService.getVersions(caseService.kase.product);
             spyOn(mockStrataService.products, 'versions').andCallThrough();
-            var returnValue=productsService.showVersionSunset();
             scope.$root.$digest();
-            var mockVersions = [{
-                "name": mockStrataDataService.mockVersions[0].name,
-                "value": mockStrataDataService.mockVersions[0].value
-            }];
-            expect(productsService.versions).toEqual(mockVersions);
+            var mockSortedVersions = [
+                "7.0",
+                "6.3.2",
+                "6.3.1",
+                "6.3.0",
+                "6.2.4",
+                "6.2.3"
+            ];
+            expect(productsService.versions).toEqual(mockSortedVersions);
+        });
+
+        it('should have a method to get versions with different kase version', function () {
+            expect(productsService.getVersions).toBeDefined();
+            caseService.kase={};
+            caseService.kase.product="Red Hat Enterprise Linux";
+            caseService.kase.version="6.0";
+            caseService.owner="skesharigit";
+            productsService.getVersions(caseService.kase.product);
+            spyOn(mockStrataService.products, 'versions').andCallThrough();
+            //var returnValue=productsService.showVersionSunset();
+            scope.$root.$digest();
+            var mockSortedVersions = [
+                "7.0",
+                "6.3.2",
+                "6.3.1",
+                "6.3.0",
+                "6.2.4",
+                "6.2.3"
+            ];
+            expect(productsService.versions).toEqual(mockSortedVersions);
         });
 
         it('should have a method for version sunset having versions which are sunset', function () {
@@ -933,12 +1039,22 @@ describe('Case Services', function () {
             scope.$root.$digest();
             expect(attachmentsService.originalAttachments ).toEqual(mockStrataDataService.mockAttachments);
         });
+        it('should have a method to get discussion elements rejected', function () {
+            expect(discussionService.getDiscussionElements).toBeDefined();
+            mockStrataService.rejectCalls();
+            discussionService.getDiscussionElements('12345');
+            spyOn(mockStrataService.cases.attachments, 'list').andCallThrough();
+            scope.$root.$digest();
+            expect(attachmentsService.originalAttachments.length).toEqual(0);
+        });
         it('should have a method to update elements', function () {
             caseService.comments=mockStrataDataService.mockComments;
             attachmentsService.originalAttachments=mockStrataDataService.mockAttachments;
             expect(discussionService.updateElements).toBeDefined();
+            discussionService.chatTranscriptList = ['ABC'];
             discussionService.updateElements('12345');
-            expect(discussionService.discussionElements).toEqual(caseService.comments.concat(attachmentsService.originalAttachments));
+            expect(discussionService.discussionElements).toEqual(caseService.comments.concat(attachmentsService.originalAttachments).concat(['ABC']));
+
         });
     });
 

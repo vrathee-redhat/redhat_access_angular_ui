@@ -274,14 +274,14 @@ angular.module('RedhatAccess.mock', [])
         "code": "RHEL"
       }];
 
-      this.mockproduct = {
+      this.mockProduct = {
         "name":"Red Hat Enterprise Linux",
         "suggested_artifacts":{
           "suggested_artifact":[{
             "name":"sosreport",
             "description":"Please attach an <a href=\"https://access.redhat.com/knowledge/node/3592\" class=\"help\">sosreport</a> (optional)"
           }]
-        }}
+        }};
 
       this.mockSortedProductList = [{
           "value" : "Red Hat Enterprise Linux",
@@ -304,11 +304,14 @@ angular.module('RedhatAccess.mock', [])
         "value": "RHEL",
         "label": "Red Hat Enterprise Linux"
       }];
-
-      this.mockVersions = [{
-        "name": "6.0",
-        "value": "6.0"
-      }];
+      this.mockVersions = [
+        "6.2.3",
+        "6.2.4",
+        "7.0",
+        "6.3.0",
+        "6.3.1",
+        "6.3.2"
+      ];
 
       this.mockSeverities = [{
         "name": "HIGH",
@@ -822,7 +825,7 @@ angular.module('RedhatAccess.mock', [])
             this.groups = [];
             this.users = [];
             this.comments = [];
-
+            this.filterSelect = '';
 
         //    this.localStorageCache = $angularCacheFactory.get('localStorageCache');
             this.localStorageCache=[];
@@ -830,13 +833,13 @@ angular.module('RedhatAccess.mock', [])
             {
 
 
-            }
+            };
 
             this.localStorageCache.put=function(key,val)
             {
 
 
-            }
+            };
             this.originalNotifiedUsers = [];
             this.updatedNotifiedUsers = [];
 
@@ -929,7 +932,7 @@ angular.module('RedhatAccess.mock', [])
                 var deferred = $q.defer();
                 this.updatingCase=false;
                 return deferred.promise;
-            }
+            };
 
 
             this.buildGroupOptions = function() {
