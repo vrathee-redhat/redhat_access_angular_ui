@@ -15,8 +15,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$angularCacheFactory',
     '$rootScope',
     'CASE_EVENTS',
-    'ConstantsService',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, translate, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService) {
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, translate, $angularCacheFactory, $rootScope, CASE_EVENTS) {
         $angularCacheFactory('localStorageCache', {
             storageMode: 'localStorage',
             verifyIntegrity: true
@@ -51,9 +50,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.updatingNewCaseSummary = false;
         this.updatingNewCaseDescription = false;
         this.onFilterSelectChanged = function(){
-            if(this.localStorageCache) {
-               this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect); 
-            }
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.onSelectChanged = function(){
@@ -541,29 +537,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 if (this.kase.status.name === 'Waiting on Customer') {
                     status = { name: 'Waiting on Red Hat' };
                     this.kase.status = status;
-                }
-            }
-        };
-        this.setFilterSelectModel = function(sortField,sortOrder) {
-            if(sortOrder === 'ASC') {
-                if(sortField === 'lastModifiedDate') {
-                    this.filterSelect = ConstantsService.sortByParams[1];
-                } else if(sortField === 'severity') {
-                    this.filterSelect = ConstantsService.sortByParams[2];
-                } else if(sortField === 'createdDate') {
-                    this.filterSelect = ConstantsService.sortByParams[5];
-                } else if(sortField === 'owner') {
-                    this.filterSelect = ConstantsService.sortByParams[7];
-                }
-            } else if(sortOrder === 'DESC') {
-                if(sortField === 'lastModifiedDate') {
-                    this.filterSelect = ConstantsService.sortByParams[0];
-                } else if(sortField === 'severity') {
-                    this.filterSelect = ConstantsService.sortByParams[3];
-                } else if(sortField === 'createdDate') {
-                    this.filterSelect = ConstantsService.sortByParams[4];
-                } else if(sortField === 'owner') {
-                    this.filterSelect = ConstantsService.sortByParams[6];
                 }
             }
         };
