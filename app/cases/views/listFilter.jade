@@ -1,5 +1,36 @@
 .row
-  .filters
-    div.col-sm-12.col-md-6(rha-searchbox='', placeholder="'Search'|translate")
-    div.col-sm-12.col-md-3(rha-groupselect='', ng-init="setSearchOptions(true)")
-    div.col-sm-12.col-md-3(rha-statusselect='')
+	.filters
+		div.col-sm-12.col-md-6()
+			.input-group
+				input#rha-searchform-searchbox.form-control.with-close(
+					ng-disabled='!securityService.loginStatus.isLoggedIn',
+					placeholder='{{placeholder}}',
+					ng-model='SearchCaseService.caseParameters.searchTerm',
+					ng-keypress='onFilterKeyPress($event)')
+				span.input-group-btn(ng-hide='hidebutton')
+					a.close(ng-show="query !== ''", ng-click="clearSearch()")
+						span.web-icon-close
+					button#rha-searchform-searchbutton.btn.btn-app(
+						ng-click='doSearch()',
+						ng-disabled='!securityService.loginStatus.isLoggedIn')
+						i.glyphicon.glyphicon-search
+						| Search
+		div.col-sm-12.col-md-3()
+			select#rha-group-select(
+				chosen,
+				width='"100%"',
+				ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
+				ng-model='SearchCaseService.caseParameters.group',
+				ng-change='CaseService.onGroupSelectChanged()',
+				placeholder='Select a Group',
+				ng-options='option.value as option.label for option in CaseService.groupOptions',
+				options-disabled="option.isDisabled for option in CaseService.groupOptions", 
+				ng-init="setSearchOptions(true)")
+		div.col-sm-12.col-md-3()
+			select#rha-status-select(chosen,
+				width='"100%"',
+				ng-disabled='!securityService.loginStatus.isLoggedIn',
+				ng-model='SearchCaseService.caseParameters.status',
+				ng-change='CaseService.onSelectChanged()',
+				ng-options='status.value as status.name for status in ConstantsService.statuses',
+				disable_search_threshold=10)
