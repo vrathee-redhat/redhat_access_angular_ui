@@ -280,13 +280,14 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 // to select it, regardless of the product.
                 // TODO: strata should respond with a filtered list given a product.
                 //       Adding the query param ?product=$PRODUCT does not work.
-                var uniqueEntitlements = function (a) {
-                    return a.reduce(function (p, c) {
-                        if (p.indexOf(c.sla) < 0) {
-                            p.push(c.sla);
+                var uniqueEntitlements = function (entitlements) {
+                    var uEntitlements = [];
+                    entitlements.forEach(function (e) {
+                        if (entitlements.indexOf(e.sla) < 0) {
+                            uEntitlements.push(e.sla);
                         }
-                        return p;
-                    }, []);
+                    });
+                    return uEntitlements;
                 };
                 var entitlements = uniqueEntitlements(entitlementsResponse.entitlement);
                 var unknownIndex = entitlements.indexOf('UNKNOWN');
