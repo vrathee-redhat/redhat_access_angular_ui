@@ -5,6 +5,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     '$q',
     '$sce',
     '$window',
+    '$location',
     'RHAUtils',
     'strataService',
     'TreeViewSelectorUtils',
@@ -13,7 +14,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     'AlertService',
     'CaseService',
     'translate',
-    function ($filter, $q, $sce, $window, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
+    function ($filter, $q, $sce, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
@@ -129,7 +130,9 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                                 AlertService.addSuccessMessage(translate('Successfully uploaded attachment')+' ' + attachment.file_name + ' '+'to case' +' '+ caseId);
                             }, function (error) {
                                 if (navigator.appVersion.indexOf("MSIE 10") !== -1){
-                                    $window.location.reload();
+                                    if($location.path() !== '/case/new'){
+                                        $window.location.reload();
+                                    }
                                 } else{
                                     AlertService.addStrataErrorMessage(error);
                                 }
