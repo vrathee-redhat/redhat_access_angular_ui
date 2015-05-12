@@ -422,6 +422,7 @@ describe('Case Controllers', function () {
             mockCaseService.commentText = 'test comment';
             expect(mockScope.onNewCommentKeypress).toBeDefined();
             mockScope.onNewCommentKeypress();
+            expect(mockCaseService.disableAddComment).toBe(false);
         }));
         it('should have a function for clearing comment', inject(function ($controller) {
             $controller('AddCommentSection', {
@@ -439,7 +440,37 @@ describe('Case Controllers', function () {
             mockScope.$root.$digest();
             expect(mockCaseService.commentText).toEqual('');
             expect(mockDiscussionService.commentTextBoxEnlargen).toBe(false);
+        }));
+        it('should have a function for comment public change', inject(function ($controller) {
+            $controller('AddCommentSection', {
+                $scope: mockScope,
+                CaseService: mockCaseService,
+                strataService: mockStrataService,
+                DiscussionService:mockDiscussionService,
+                AttachmentsService:mockAttachmentsService
+            });
+            mockCaseService.localStorageCache=false;
+            mockScope.addingComment=false;
+            mockCaseService.commentText = 'test comment';
+            expect(mockScope.onCommentPublicChange).toBeDefined();
+            mockScope.onCommentPublicChange();
+            mockScope.$root.$digest();
+            expect(mockCaseService.disableAddComment).toBe(false);
+        }));
+        it('should have a function for text box minimize', inject(function ($controller) {
+            $controller('AddCommentSection', {
+                $scope: mockScope,
+                CaseService: mockCaseService,
+                strataService: mockStrataService,
+                DiscussionService:mockDiscussionService,
+                AttachmentsService:mockAttachmentsService
+            });
 
+            mockCaseService.commentText = '';
+            expect(mockScope.shouldTextboxMinimize).toBeDefined();
+            mockScope.shouldTextboxMinimize();
+            mockScope.$root.$digest();
+            expect(mockDiscussionService.commentTextBoxEnlargen).toBe(false);
         }));
     });
     //Suite for New
@@ -748,6 +779,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.groups[0].number).toEqual(mockStrataDataService.mockGroups[0].number);
         }));
         it('should have a function to create a Group resolved with success null', inject(function ($controller) {
+            mockStrataService.returnNull();
             $controller('CreateGroupModal', {
                 $scope: mockScope,
                 CaseService: mockCaseService,
@@ -986,6 +1018,16 @@ describe('Case Controllers', function () {
             expect(mockScope.updatingAttachments).toEqual(false);
             expect(mockAttachmentsService.updatedAttachments).toContain(mockStrataDataService.mockAttachments[0]);
         }));
+        it('should have a function to clear selected file', inject(function ($controller) {
+            $controller('AttachmentsSection', {
+                $scope: mockScope,
+                AttachmentsService: mockAttachmentsService,
+                CaseService: mockCaseService
+            });
+            expect(mockScope.ieClearSelectedFile).toBeDefined();
+            mockScope.ieClearSelectedFile();
+            expect(mockScope.ieFileDescription).toEqual('');
+        }));
     });
 
     //Suite for EditGroup
@@ -1218,6 +1260,7 @@ describe('Case Controllers', function () {
             mockCaseService.kase.notes="this is a test note";
             expect(mockScope.maxNotesCharacterCheck).toBeDefined();
             mockScope.maxNotesCharacterCheck();
+            mockScope.$root.$digest();
             expect(mockScope.noteCharactersLeft).toEqual(236);
         }));
         it('should have a on sort order change function ascending', inject(function ($controller) {
@@ -1232,6 +1275,7 @@ describe('Case Controllers', function () {
             mockDiscussionService.commentSortOrder.sortOrder="ASC";
             expect(mockScope.onSortOrderChange).toBeDefined();
             mockScope.onSortOrderChange();
+            mockScope.$root.$digest();
             expect(mockScope.commentSortOrder).toBe(false);
         }));
         it('should have a on sort order change function descending', inject(function ($controller) {
@@ -1246,6 +1290,7 @@ describe('Case Controllers', function () {
             mockDiscussionService.commentSortOrder.sortOrder="DESC";
             expect(mockScope.onSortOrderChange).toBeDefined();
             mockScope.onSortOrderChange();
+            mockScope.$root.$digest();
             expect(mockScope.commentSortOrder).toBe(true);
         }));
         it('should have a function to toggle bugzillas', inject(function ($controller) {
@@ -1308,8 +1353,73 @@ describe('Case Controllers', function () {
             expect(mockScope.notes).toBe(false);
             expect(mockScope.bugzillas).toBe(false);
         }));
+        it('should have a function to parse comment html', inject(function ($controller) {
+            $controller('DiscussionSection', {
+                $scope: mockScope,
+                strataService: mockStrataService,
+                CaseService: mockCaseService,
+                AttachmentsService: mockAttachmentsService,
+                DiscussionService:mockDiscussionService,
+                $sce:mockStrataDataService.mockSce
+            });
+            var comment={};
+            comment.body="Title";
+            expect(mockScope.parseCommentHtml).toBeDefined();
+            var parsedHtml= mockScope.parseCommentHtml(comment);
+            expect(parsedHtml).toEqual("Title");
+        }));
+        it('should have a function to discard notes', inject(function ($controller) {
+            $controller('DiscussionSection', {
+                $scope: mockScope,
+                strataService: mockStrataService,
+                CaseService: mockCaseService,
+                AttachmentsService: mockAttachmentsService,
+                DiscussionService:mockDiscussionService
+            });
+            mockScope.notesForm = {
+                $valid: true,
+                $setPristine: function () {
+                }
+            };
+            mockCaseService.prestineKase={};
+            mockCaseService.prestineKase.notes="test";
+            expect(mockScope.discardNotes).toBeDefined();
+            mockScope.discardNotes();
+            expect(mockCaseService.kase.notes).toEqual("test");
+        }));
 
 
+
+    });
+
+    //Suite for NewRouter
+    describe('NewRouter', function () {
+        it('should have a function to route users based on even account number', inject(function ($controller) {
+            mockScope.shouldRoute = false;
+            securityService.loginStatus.isLoggedIn=true;
+            securityService.loginStatus.authedUser={};
+            securityService.loginStatus.authedUser.account_number="12";
+            $controller('NewRouter', {
+                $scope: mockScope,
+                strataService: mockStrataService,
+                AlertService: mockAlertService,
+                CaseService: mockCaseService
+            });
+            expect(mockScope.shouldRoute).toBe(false);
+        }));
+        it('should have a function to route users based on odd account number', inject(function ($controller) {
+            mockScope.shouldRoute = false;
+            securityService.loginStatus.isLoggedIn=true;
+            securityService.loginStatus.authedUser={};
+            securityService.loginStatus.authedUser.account_number="13";
+            $controller('NewRouter', {
+                $scope: mockScope,
+                strataService: mockStrataService,
+                AlertService: mockAlertService,
+                CaseService: mockCaseService
+            });
+            expect(mockScope.shouldRoute).toBe(true);
+        }));
     });
 
     //Suite for AccountSelect
@@ -1704,6 +1814,7 @@ describe('Case Controllers', function () {
             mockRecommendationsService.recommendations=mockStrataDataService.mockRecommendations;
             expect(mockScope.selectPage).toBeDefined();
             mockScope.selectPage(1);
+            mockScope.$root.$digest();
             expect(mockScope.currentPage).toEqual(1);
             expect(mockScope.results.length).toEqual(2);
         }));
@@ -1720,6 +1831,7 @@ describe('Case Controllers', function () {
             mockRecommendationsService.recommendations=mockStrataDataService.mockRecommendations;
             expect(mockScope.findLastPage).toBeDefined();
             mockScope.findLastPage();
+            mockScope.$root.$digest();
             expect(mockScope.lastPage).toEqual(1);
 
         }));
@@ -1854,6 +1966,23 @@ describe('Case Controllers', function () {
             expect(mockScope.groups).toEqual(mockStrataDataService.mockGroups);
 
         }));
+        it('should have a function for init when user is allowed to manage groups rejected', inject(function ($controller) {
+            mockStrataService.rejectCalls();
+            $controller('DefaultGroup', {
+                $scope: mockScope
+
+            });
+            securityService.loginStatus.authedUser.account="ABC";
+            securityService.loginStatus.authedUser.org_admin=true;
+            securityService.loginStatus.authedUser.has_group_acls=false;
+
+            expect(mockScope.init).toBeDefined();
+            spyOn(mockStrataService.groups, 'list').andCallThrough();
+            mockScope.init();
+            mockScope.$root.$digest();
+            expect(mockScope.groupsLoading).toBe(false);
+
+        }));
 
         it('should have a function for validate page when not finished loading', inject(function ($controller) {
             $controller('DefaultGroup', {
@@ -1903,6 +2032,18 @@ describe('Case Controllers', function () {
             mockScope.setDefaultGroup();
             mockScope.$root.$digest();
             expect(mockScope.usersAndGroupsFinishedLoading).toBe(false);
+        }));
+        it('should have a function for set default group rejected', inject(function ($controller) {
+            mockStrataService.rejectCalls();
+            $controller('DefaultGroup', {
+                $scope: mockScope
+            });
+            expect(mockScope.setDefaultGroup).toBeDefined();
+            mockScope.usersAndGroupsFinishedLoading=true;
+            spyOn(mockStrataService.groups, 'createDefault').andCallThrough();
+            mockScope.setDefaultGroup();
+            mockScope.$root.$digest();
+            //nothing to expect as it just adds error message
         }));
 
     });

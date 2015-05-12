@@ -476,6 +476,7 @@ angular.module('RedhatAccess.mock', [])
     '$q',
     function (MockStrataDataService, $q) {
       this.rejectCall = false;
+      this.returnNull=false;
       var that = this;
 
       return {
@@ -503,7 +504,13 @@ angular.module('RedhatAccess.mock', [])
             if (that.rejectCall) {
               deferred.reject("strata error");
             } else {
-              deferred.resolve(MockStrataDataService.mockGroups[0].number);
+                if(that.returnNull)                {
+
+                    deferred.resolve(null);
+                }
+                else{
+                    deferred.resolve(MockStrataDataService.mockGroups[0].number);
+                }
             }
             return deferred.promise;
            },
@@ -858,7 +865,10 @@ angular.module('RedhatAccess.mock', [])
         },
         rejectCalls: function () {
           that.rejectCall = true;
-        }
+        },
+        returnNull: function () {
+              that.returnNull = true;
+          }
       };
     }
   ])
@@ -1082,6 +1092,11 @@ angular.module('RedhatAccess.mock', [])
         function (MockStrataDataService, $q) {
 
             this.commentTextBoxEnlargen =false;
+            this.updateElements=function()
+            {
+
+
+            }
 
         }
     ])
@@ -1147,7 +1162,6 @@ angular.module('RedhatAccess.mock', [])
         var deferred = $q.defer();
         deferred.resolve();
         return deferred.promise;
-        mockAttachments
       };
       this.clear = function () {
         this.originalAttachments = [];
