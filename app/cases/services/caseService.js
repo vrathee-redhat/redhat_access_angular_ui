@@ -283,7 +283,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 var uniqueEntitlements = function (entitlements) {
                     var uEntitlements = [];
                     entitlements.forEach(function (e) {
-                        if (entitlements.indexOf(e.sla) < 0) {
+                        if (uEntitlements.indexOf(e.sla) < 0) {
                             uEntitlements.push(e.sla);
                         }
                     });
