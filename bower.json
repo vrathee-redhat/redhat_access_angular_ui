@@ -1,6 +1,6 @@
 {
     "name": "redhat-access-angular-ui",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "dependencies": {
         "angular": "1.2.1",
         "json3": "~3.2.6",
@@ -13,7 +13,7 @@
         "angular-ui-router": "0.2.8-bowratic-tedium",
         "angular-bootstrap": "0.10.0",
         "stratajs": "~1.2.1",
-        "udsjs":"*",
+        "udsjs": "*",
         "angular-treeview": "",
         "ng-table": "~0.3.3",
         "angular-gettext": "~0.2.9",
@@ -24,7 +24,7 @@
         "angular-cache": "~2.3.7",
         "angular-chosen-localytics": "~1.0.6",
         "ngInfiniteScroll": "1.2.0",
-        "moment-timezone":"0.3.0"
+        "moment-timezone": "0.3.0"
     },
     "devDependencies": {
         "angular-mocks": "1.2.1",
