@@ -3,7 +3,7 @@
     .col-sm-12
       h3#sticky-ricky-static.recommendations-title.sticky-ricky
         i.fa.fa-check-circle
-        span {{'Based on your description, here are some possible solutions'|translate}}&nbsp;
+        span {{'Based on your description, here are some possible solutions:'|translate}}&nbsp;
         .spinner.spinner-sm.spinner-inline(ng-show='searchInProgress.value')
         span(ng-show='searchInProgress.value') {{'Updating Recommendations'|translate}}
   .row
@@ -18,6 +18,6 @@
     .col-sm-12
       .pull-right.pagination
         button.btn.btn-app(ng-disabled="currentPage === 1", ng-click="selectPage(currentPage - 1)")
-          i.fa.fa-long-arrow-left
+          span {{'BACK'|translate}}
         button.btn.btn-app(ng-disabled="currentPage >= lastPage", ng-click="selectPage(currentPage + 1)")
           span {{'NEXT'|translate}}

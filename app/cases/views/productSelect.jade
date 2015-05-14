@@ -5,4 +5,5 @@ select#rha-product-select.form-control(
 	ng-model='CaseService.kase.product',
 	ng-change='ProductsService.getVersions(CaseService.kase.product); RecommendationsService.getRecommendations(true); CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
 	ng-options='p.value as p.label for p in ProductsService.products',
-	options-disabled='p.isDisabled for p in ProductsService.products')
+	options-disabled='p.isDisabled for p in ProductsService.products',
+  disable_search_threshold=10)

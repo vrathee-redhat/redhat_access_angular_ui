@@ -7,7 +7,7 @@
       | {{(getLocatingSolutionText())}}
     h3(ng-hide='RecommendationsService.loadingRecommendations')
       i.fa.fa-check-circle
-      | {{'Based on your description, here are some possible solutions'|translate}}
+      | {{'Based on your description, here are some possible solutions:'|translate}} &nbsp;
       a.scroll-to-link(ng-click='scrollToRecommendations()') {{'View Recommendations'|translate}}
 
 div(rha-header='', page='newCase')
@@ -19,27 +19,27 @@ div(rha-header='', page='newCase')
       section.config-options
         div(ng-if='securityService.loginStatus.authedUser.is_internal')
           .row.row-short
-            .col-sm-4.col-md-3
+            .col-sm-4.col-md-3.col-lg-2
               label(for='rha-account-number') {{'Account'|translate}}
             .col-sm-7.col-md-4
               div(rha-accountselect='')
           .row.row-short
-            .col-sm-4.col-md-3
+            .col-sm-4.col-md-3.col-lg-2
               label(for='rha-owners-select') {{'Owner'|translate}}
             .col-sm-7.col-md-4
               div(rha-ownerselect='')
         .row.row-short
-          .col-sm-4.col-md-3
+          .col-sm-4.col-md-3.col-lg-2
             .label {{'Product'|translate}}
           .col-sm-7.col-md-4
             div(rha-productselect='')
         .row.row-short
-          .col-sm-4.col-md-3
+          .col-sm-4.col-md-3.col-lg-2
             .label {{'Product Version'|translate}}
           .col-sm-7.col-md-4
             div(rha-versionselect='')
         .row.row-short
-          .col-sm-4.col-md-3
+          .col-sm-4.col-md-3.col-lg-2
             .label {{'Case Name'|translate}}
           .col-sm-7.col-md-4
             input#rha-case-summary.form-control(
@@ -55,7 +55,7 @@ div(rha-header='', page='newCase')
               .circle &nbsp
               .circle &nbsp
         .row.row-short
-          .col-sm-4.col-md-3
+          .col-sm-4.col-md-3.col-lg-2
             .label {{'Case Description'|translate}}
           .col-sm-7.col-md-8
             textarea(name='', id='rha-description', cols='30', rows='10',
@@ -113,8 +113,8 @@ div(rha-header='', page='newCase')
           .col-xs-12#recommendations_section
             .section(rha-newcaserecommendations='')
         .row.row-short
-          .col-sm-4.col-md-3
-            .label {{'Support Level'|translate}}
+          .col-sm-4.col-md-3.col-lg-2
+            .label.inline-tooltip {{'Support Level'|translate}}
               span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
           .col-sm-7.col-md-4
             select#rha-supportLevel-select(
@@ -122,10 +122,11 @@ div(rha-header='', page='newCase')
               ng-model="CaseService.entitlement",
               ng-change="CaseService.onChangeFTSCheck()",
               width="'100%'",
+              disable_search_threshold=10,
               ng-options="entitlement as entitlement for entitlement in CaseService.entitlements")
               option(value="")
         .row.row-short
-          .col-sm-4.col-md-3
+          .col-sm-4.col-md-3.col-lg-2
             .label.inline-tooltip {{'Severity'|translate}}
               span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To learn more, visit the " |translate }}</br><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a>',tabindex='0',tooltip-trigger="click")
           .col-sm-7.col-md-4
@@ -137,7 +138,8 @@ div(rha-header='', page='newCase')
                   ng-model='CaseService.kase.severity',
                   ng-change='CaseService.onChangeFTSCheck()',
                   ng-disabled='CaseService.submittingCase',
-                  ng-options='s.name for s in CaseService.severities track by s.name')
+                  ng-options='s.name for s in CaseService.severities track by s.name',
+                  disable_search_threshold=10)
             .row.row-short(ng-show="CaseService.showFts()")
               .col-xs-1
                 input.pull-left(
@@ -153,7 +155,7 @@ div(rha-header='', page='newCase')
                     input.pull-left.margin-left(
                       ng-model="CaseService.fts_contact")
         .row.row-short
-          .col-sm-4.col-md-3
+          .col-sm-4.col-md-3.col-lg-2
             .label(for='email-notifications') {{'Send Email Notifications to'|translate}}
           .col-sm-7.col-md-4
             .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
@@ -165,9 +167,10 @@ div(rha-header='', page='newCase')
               ng-model='notifiedUsers',
               id='rha-email-notify-select',
               width='"100%"',
-              ng-options='user as user for user in usersOnAccount')
+              ng-options='user as user for user in usersOnAccount',
+              disable_search_threshold=10)
         .row.row-short
-          .col-sm-4.col-md-3
+          .col-sm-4.col-md-3.col-lg-2
             .label {{'Case Group (Optional)'|translate}}
           .col-sm-7.col-md-4
             div(rha-groupselect='', ng-init="setSearchOptions('false')")
@@ -175,7 +178,7 @@ div(rha-header='', page='newCase')
         .row
           //- TODO make remove local storage once implemented
           .col-sm-12
-            button.btn.btn-accent.btn-submit(
+            button.btn.btn-app(
               ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
               ng-hide='CaseService.submittingCase',
               ng-click='doSubmit($event)', translate='') Submit

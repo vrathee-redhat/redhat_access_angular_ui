@@ -1,0 +1,6 @@
+.pagination {
+
+	button + button, .btn + .btn {
+		@include rem('margin-left', 8px);
+	}
+}

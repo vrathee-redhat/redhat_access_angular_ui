@@ -37,10 +37,9 @@ accordion
     .pagination(ng-show='RecommendationsService.recommendations.length > itemsPerPage')
       .pull-right
         button.btn.btn-app(ng-disabled="resultsPage === 1", ng-click="decrement('resultsPage');selectPage(resultsPage, RecommendationsService.recommendations, results)")
-          i.fa.fa-long-arrow-left
+          span {{'BACK'|translate}}
         button.btn.btn-app(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="increment('resultsPage');selectPage(resultsPage, RecommendationsService.recommendations, results)")
           span {{'NEXT'|translate}}
-          i.fa.fa-long-arrow-right
   accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0', is-open="isPinnedSolutionsOpen.val")
     accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isPinnedSolutionsOpen.val}')

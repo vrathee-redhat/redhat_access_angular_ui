@@ -1,0 +1,15 @@
+$tooltip-color: #f0f0f0;
+
+.tooltip {
+
+	.tooltip-inner {
+		text-align: left;
+		color: #333;
+		background: $tooltip-color;
+		@include rem('padding', 12px 18px);
+	}
+}
+
+.tooltip.top .tooltip-arrow {
+	border-top-color: $tooltip-color;
+}
