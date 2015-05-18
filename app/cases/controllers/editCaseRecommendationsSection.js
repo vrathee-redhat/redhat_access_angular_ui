@@ -54,6 +54,10 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                         angular.forEach(RecommendationsService.pinnedRecommendations, function (rec, index) {
                             if (rec.resource_id === $scope.currentRecPin.resource_id) {
                                 RecommendationsService.pinnedRecommendations.splice(index, 1);
+                                //after removal of recommendation from list, we should check for last page possibility if the current page is greater than last page, we should navigate to previous page
+                                if($scope.findLastPage(RecommendationsService.pinnedRecommendations) < $scope.pinnedResultsPage && $scope.pinnedResultsPage > 1) {
+                                    $scope.pinnedResultsPage = $scope.pinnedResultsPage - 1;
+                                }
                             }
                         });
 
