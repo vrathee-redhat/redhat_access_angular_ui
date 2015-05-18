@@ -10,8 +10,8 @@ angular.module('RedhatAccess.ascension', [
     function($stateProvider) {
         $stateProvider.state('ascension', {
             url: '/ascension',
-            controller: 'CaseQueue',
-            templateUrl: 'ascension/views/caseQueue.html'
+            controller: 'CaseView',
+            templateUrl: 'ascension/views/caseView.html'
         });
     }
 ]);
