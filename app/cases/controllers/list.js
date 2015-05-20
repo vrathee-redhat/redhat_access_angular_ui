@@ -33,6 +33,17 @@ angular.module('RedhatAccess.cases').controller('List', [
 		    $scope.exporting = true;
 		    strataService.cases.csv().then(function (response) {
 			    $scope.exporting = false;
+                var blob = new Blob([ response ], { type : 'text/csv' });
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(blob, "caseList.csv");
+                }
+                else {
+                    var blobURL = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var anchor = document.createElement("a");
+                    anchor.download = "caseList.csv";
+                    anchor.href = blobURL;
+                    anchor.click();
+                }
 		    }, function (error) {
 			    AlertService.addStrataErrorMessage(error);
 		    });
