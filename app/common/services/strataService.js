@@ -233,13 +233,17 @@ angular.module('RedhatAccess.common').factory('strataService', [
                 versions: function (productCode) {
                     var deferred = $q.defer();
                     if (!ie8 && strataCache.get('versions-' + productCode)) {
-                        deferred.resolve(strataCache.get('versions-' + productCode));
+                        var responseCopy = [];
+                        angular.copy(strataCache.get('versions-' + productCode), responseCopy);
+                        deferred.resolve(responseCopy);
                     } else {
                         strata.products.versions(productCode, function (response) {
                             if (!ie8) {
                                 strataCache.put('versions-' + productCode, response);
                             }
-                            deferred.resolve(response);
+                            var responseCopy = [];
+                            angular.copy(response, responseCopy);
+                            deferred.resolve(responseCopy);
                         }, angular.bind(deferred, errorHandler));
                     }
                     return deferred.promise;

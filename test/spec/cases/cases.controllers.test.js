@@ -101,7 +101,6 @@ describe('Case Controllers', function () {
             $controller('DetailsSection', {
                 $scope: mockScope,
                 CaseService: mockCaseService,
-                strataService: mockStrataService
             });
             mockScope.summaryForm = {
                 $valid: true,
@@ -131,7 +130,7 @@ describe('Case Controllers', function () {
             mockCaseService.kase.contact_info24_x7 = 'test@test.com';
             expect(mockScope.updateCase).toBeDefined();
             mockScope.updateCase();
-            spyOn(mockStrataService.cases, 'put').andCallThrough();
+            spyOn(mockCaseService, 'updateCase').andCallThrough();
             mockScope.$root.$digest();
             expect(mockScope.updatingDetails).toBe(false);
         }));
@@ -2160,7 +2159,7 @@ describe('Case Controllers', function () {
             expect(mockScope.submitRequestClick).toBeDefined();
             mockCaseService.draftCommentOnServerExists=false
             mockCaseService.localStorageCache=undefined;
-            mockCaseService.draftComment="test";
+            mockCaseService.draftComment.text="test";
             mockCaseService.draftComment.id=2;
             mockScope.submitRequestClick();
             spyOn(mockStrataService.cases.comments, 'post').andCallThrough();
