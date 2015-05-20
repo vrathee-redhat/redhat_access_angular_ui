@@ -23,6 +23,7 @@ describe('Case Controllers', function () {
     var rhaUtils;
     var mockDiscussionService;
     var searchBoxService;
+    var constantsService;
 
     beforeEach(angular.mock.module('RedhatAccess.cases'));
     beforeEach(angular.mock.module('RedhatAccess.mock'));
@@ -46,6 +47,7 @@ describe('Case Controllers', function () {
         mockDiscussionService= $injector.get('MockDiscussionService');
         mockRHAUtils=$injector.get('MockRHAUtils');
         rhaUtils=$injector.get('RHAUtils');
+        constantsService=$injector.get('ConstantsService');
         mockScope = $rootScope.$new();
         rootScope = $rootScope;
         httpMock = $httpBackend;
@@ -1004,7 +1006,7 @@ describe('Case Controllers', function () {
     });
     //Suite for AttachmentsSection
     describe('AttachmentsSection', function () {
-        it('should have a function to update attachement in attachment list', inject(function ($controller) {
+        it('should have a function to update attachment in attachment list', inject(function ($controller) {
             $controller('AttachmentsSection', {
                 $scope: mockScope,
                 AttachmentsService: mockAttachmentsService,
@@ -1587,7 +1589,7 @@ describe('Case Controllers', function () {
                 AlertService: mockAlertService,
                 SearchBoxService: mockSearchBoxService
             });
-            mockCaseService.status="closed";
+            mockSearchCaseService.caseParameters.status="closed";
             expect(mockScope.getCasesText).toBeDefined();
             mockScope.getCasesText();
             expect(mockScope.displayedCaseText).toEqual("Closed Support Cases");
@@ -1600,7 +1602,7 @@ describe('Case Controllers', function () {
                 AlertService: mockAlertService,
                 SearchBoxService: mockSearchBoxService
             });
-            mockCaseService.status="both";
+            mockSearchCaseService.caseParameters.status="both";
             expect(mockScope.getCasesText).toBeDefined();
             mockScope.getCasesText();
             expect(mockScope.displayedCaseText).toEqual("Open and Closed Support Cases");
@@ -1857,10 +1859,19 @@ describe('Case Controllers', function () {
         it('should have a controller for filter select', inject(function ($controller) {
             $controller('FilterSelect', {
                 $scope: mockScope,
-                CaseService: mockCaseService
+                CaseService: mockCaseService,
+                ConstantsService:constantsService
             });
-            expect(mockScope.statuses.length).toEqual(8);
+            expect(mockScope.init).toBeDefined();
+            mockCaseService.localStorageCache=undefined;
+            mockScope.init();
+            var sortParams= {
+                    name: 'Newest Date Modified',
+                    sortField: 'lastModifiedDate',
+                    sortOrder: 'DESC'
+                };
 
+            expect(mockCaseService.filterSelect).toEqual(sortParams);
         }));
     });
 

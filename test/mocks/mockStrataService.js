@@ -1239,6 +1239,11 @@ angular.module('RedhatAccess.mock', [])
     function (MockStrataDataService, $q) {
       this.cases = MockStrataDataService.mockCases;
       this.searching = false;
+      this.caseParameters = {
+            searchTerm: '',
+            status: "open",
+            group: ''
+      };
       this.prefilter;
       this.postfilter;
       this.start = 0;
