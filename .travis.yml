@@ -9,6 +9,7 @@ before_script:
   - 'bundle install'
   - 'bower install -V'
   - 'grunt build'
+  - 'grunt test'
 
 notifications:
   webhooks:
