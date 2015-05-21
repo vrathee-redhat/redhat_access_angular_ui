@@ -17,7 +17,7 @@ div(rha-header='', page='newCase')
   div(ng-hide='ProductsService.productsLoading')
     section.case-new
       section.config-options
-        div
+        #rha-case-main-options
           div(ng-if='securityService.loginStatus.authedUser.is_internal')
             .row.row-short
               .col-sm-4.col-md-3
@@ -113,7 +113,7 @@ div(rha-header='', page='newCase')
         .row
           .col-xs-12#recommendations_section
             .section(rha-newcaserecommendations='')
-        div
+        #rha-case-more-options
           .row.row-short
             .col-sm-4.col-md-3
               .label {{'Support Level'|translate}}

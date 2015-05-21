@@ -71,3 +71,17 @@ $subheading-margin-bottom: 4px;
 		}
 	}
 }
+
+.new-case-btn {
+    position: relative;
+
+    #rha-new-case-btn {
+        position: absolute;
+        display: inline-block;
+        height: 145%;
+        width: 110%;
+        left: -5%;
+        top: -19%;
+        padding: 10px;
+    }
+}
