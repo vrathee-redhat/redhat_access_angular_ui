@@ -9,15 +9,14 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
     'HeaderService',
     'translate',
     'CaseDetailsService',
-    function ($scope, $location, RHAUtils, AUTH_EVENTS, AlertService, securityService, HeaderService, translate,CaseDetailsService) {
+    function ($scope, $location, RHAUtils, AUTH_EVENTS, AlertService, securityService, HeaderService, translate, CaseDetailsService) {
         $scope.securityService = securityService;
         $scope.HeaderService = HeaderService;
         $scope.CaseDetailsService = CaseDetailsService;
         $scope.securityService = securityService;
         $scope.caseOverView = true;
 
-        $scope.init = function () {
-
+        $scope.init = function () {            
         };
 
         $scope.toggleCaseOverView = function(){
