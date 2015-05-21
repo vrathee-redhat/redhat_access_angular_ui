@@ -452,39 +452,37 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.updatingCase = true;
             var deferred = $q.defer();
             var caseJSON = {};
-            if (this.kase.type !== undefined) {
+            if (this.kase.type !== undefined && !angular.equals(this.prestineKase.type, this.kase.type)) {
                 caseJSON.type = this.kase.type.name;
             }
-            if (this.kase.severity !== undefined) {
+            if (this.kase.severity !== undefined && !angular.equals(this.prestineKase.severity, this.kase.severity)) {
                 caseJSON.severity = this.kase.severity.name;
             }
-            if (this.kase.status !== undefined) {
+            if (this.kase.status !== undefined && !angular.equals(this.prestineKase.status, this.kase.status)) {
                 caseJSON.status = this.kase.status.name;
             }
-            if (this.kase.alternate_id !== undefined) {
+            if (this.kase.alternate_id !== undefined && !angular.equals(this.prestineKase.alternate_id, this.kase.alternate_id)) {
                 caseJSON.alternateId = this.kase.alternate_id;
             }
-            if (this.kase.product !== undefined) {
+            if (this.kase.product !== undefined && !angular.equals(this.prestineKase.product, this.kase.product)) {
                 caseJSON.product = this.kase.product;
             }
-            if (this.kase.version !== undefined) {
+            if (this.kase.version !== undefined && !angular.equals(this.prestineKase.version, this.kase.version)) {
+                caseJSON.product = this.kase.product;
                 caseJSON.version = this.kase.version;
             }
-            if (this.kase.group !== null && this.kase.group !== undefined && this.kase.group.number !== undefined) {
+            if (RHAUtils.isNotEmpty(this.kase.group) && this.kase.group.number !== undefined && !angular.equals(this.prestineKase.group, this.kase.group)) {
                 caseJSON.folderNumber = this.kase.group.number;
-            } else {
+            }else if(!angular.equals(this.prestineKase.group, this.kase.group)){
                 caseJSON.folderNumber = '';
             }
-            if (RHAUtils.isNotEmpty(this.kase.fts)) {
+            if (RHAUtils.isNotEmpty(this.kase.fts) && !angular.equals(this.prestineKase.fts, this.kase.fts)) {
                 caseJSON.fts = this.kase.fts;
-                if (!this.kase.fts) {
-                    caseJSON.contactInfo24X7 = '';
-                }
             }
-            if (this.kase.fts) {
+            if (this.kase.fts && !angular.equals(this.prestineKase.contact_info24_x7, this.kase.contact_info24_x7)) {
                 caseJSON.contactInfo24X7 = this.kase.contact_info24_x7;
             }
-            if (this.kase.notes !== null) {
+            if (this.kase.notes !== null && !angular.equals(this.prestineKase.notes, this.kase.notes)) {
                 caseJSON.notes = this.kase.notes;
             }
             strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {

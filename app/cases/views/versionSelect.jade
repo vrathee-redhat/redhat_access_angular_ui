@@ -2,7 +2,7 @@ select#rha-product-version-select.form-control(
 	chosen,
 	width='"100%"',
 	ng-model='CaseService.kase.version',
-	ng-options='v for v in ProductsService.versions',
+	ng-options='v for v in versions',
 	ng-change='RecommendationsService.getRecommendations(true); CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
 	ng-disabled='ProductsService.versionDisabled || CaseService.kase.product === undefined || !securityService.loginStatus.isLoggedIn || CaseService.submittingCase')
 div.versionSunsetMessage(ng-show='ProductsService.showVersionSunset()')

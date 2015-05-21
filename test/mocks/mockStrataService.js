@@ -286,25 +286,25 @@ angular.module('RedhatAccess.mock', [])
         }};
 
       this.mockSortedProductList = [{
-          "value" : "Red Hat Enterprise Linux",
-          "label" : "Red Hat Enterprise Linux"
+          "name" : "Red Hat Enterprise Linux",
+          "code" : "Red Hat Enterprise Linux"
       },{
-          "value" : "Red Hat JBoss Enterprise Application Platform",
-          "label" : "Red Hat JBoss Enterprise Application Platform"
+          "name" : "Red Hat JBoss Enterprise Application Platform",
+          "code" : "Red Hat JBoss Enterprise Application Platform"
       },{
-          "value" : "Red Hat Satellite or Proxy",
-          "label" : "Red Hat Satellite or Proxy"
+          "name" : "Red Hat Satellite or Proxy",
+          "code" : "Red Hat Satellite or Proxy"
       },{
           "isDisabled" : true,
-          "label" : "────────────────────────────────────────"
+          "code" : "────────────────────────────────────────"
       },{
-          "value" : "RHEL",
-          "label" : "Red Hat Enterprise Linux"
+          "name" : "RHEL",
+          "code" : "Red Hat Enterprise Linux"
       }];
 
       this.mockProductList = [{
-        "value": "RHEL",
-        "label": "Red Hat Enterprise Linux"
+        "name": "RHEL",
+        "code": "Red Hat Enterprise Linux"
       }];
       this.mockVersions = [
         "6.2.3",
@@ -905,7 +905,7 @@ angular.module('RedhatAccess.mock', [])
 
             this.account = {};
 
-            this.draftComment = '';
+            this.draftComment = {};
             this.commentText = '';
             this.status = '';
             this.severity = '';
@@ -991,6 +991,7 @@ angular.module('RedhatAccess.mock', [])
             this.updateCase=function(){
                 var deferred = $q.defer();
                 this.updatingCase=false;
+                deferred.resolve();
                 return deferred.promise;
             };
 

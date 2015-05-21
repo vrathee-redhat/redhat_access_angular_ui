@@ -91,77 +91,20 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.updatingDetails = false;
         $scope.updateCase = function () {
             $scope.updatingDetails = true;
-            var caseJSON = {};
-            //if ($scope.caseDetailsChanged() === true) {
             if (CaseService.kase !== undefined) {
-                if (CaseService.kase.type !== undefined) {
-                    caseJSON.type = CaseService.kase.type.name;
+                CaseService.updateCase().then(function () {
+                    $scope.updatingDetails = false;
+                    $scope.detailsForm.$setPristine();
+                    $scope.summaryForm.$setPristine();
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                    $scope.updatingDetails = false;
+                });
+            } else {
+                if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
+                    $scope.changeCaseOwner();
                 }
-                if (CaseService.kase.severity !== undefined) {
-                    caseJSON.severity = CaseService.kase.severity.name;
-                }
-                if (CaseService.kase.status !== undefined) {
-                    caseJSON.status = CaseService.kase.status.name;
-                }
-                if (CaseService.kase.alternate_id !== undefined) {
-                    caseJSON.alternateId = CaseService.kase.alternate_id;
-                }
-                if (CaseService.kase.product !== undefined) {
-                    caseJSON.product = CaseService.kase.product;
-                }
-                if (CaseService.kase.version !== undefined) {
-                    caseJSON.version = CaseService.kase.version;
-                }
-                if (CaseService.kase.group !== null && CaseService.kase.group !== undefined && CaseService.kase.group.number !== undefined) {
-                    caseJSON.folderNumber = CaseService.kase.group.number;
-                } else
-                {
-                    caseJSON.folderNumber = '';
-                }
-                if (RHAUtils.isNotEmpty(CaseService.kase.fts)) {
-                    caseJSON.fts = CaseService.kase.fts;
-                    if (!CaseService.kase.fts) {
-                        caseJSON.contactInfo24X7 = '';
-                    }
-                }
-                if (CaseService.kase.fts) {
-                    caseJSON.contactInfo24X7 = CaseService.kase.contact_info24_x7;
-                }
-                if (CaseService.kase.notes !== null) {
-                    caseJSON.notes = CaseService.kase.notes;
-                }
-                if (CaseService.kase.summary !== null) {
-                    caseJSON.summary = CaseService.kase.summary;
-                }
-                strataService.cases.put(CaseService.kase.case_number, caseJSON).then(function () {
-                        // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-                        //     $scope.changeCaseOwner();
-                        // }
-                        //$scope.caseDetails.$setPristine();
-                        $scope.updatingDetails = false;
-                        if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
-                            $scope.$apply();
-                        }
-                        //TODO move into service
-                        angular.copy(CaseService.kase, CaseService.prestineKase);
-                        $scope.detailsForm.$setPristine();
-                        $scope.summaryForm.$setPristine();
-                    }, function (error) {
-                        // if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-                        //     $scope.changeCaseOwner();
-                        // }
-                        AlertService.addStrataErrorMessage(error);
-                        $scope.updatingDetails = false;
-                        if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
-                            $scope.$apply();
-                        }
-                    });
             }
-            // } else {
-            //     if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
-            //         $scope.changeCaseOwner();
-            //     }
-            // }
         };
         $scope.changeCaseOwner = function () {
             strataService.cases.owner.update(CaseService.kase.case_number,CaseService.kase.owner).then(function () {

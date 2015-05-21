@@ -86,6 +86,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.newCaseIncomplete = true;
             CaseService.clearCase();
             RecommendationsService.clear();
+            ProductsService.clear();
             CaseService.populateUsers().then(function (){
                 $scope.usersOnAccount = CaseService.users;
                 $scope.usersOnAccount = $scope.usersOnAccount.map(function(obj) {

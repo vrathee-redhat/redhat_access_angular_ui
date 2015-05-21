@@ -70,8 +70,8 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                                 if (productSortList[i] === this.products[j].code) {
                                     var sortProduct = productSortList[i];
                                     productOptions.push({
-                                        value: sortProduct,
-                                        label: sortProduct
+                                        code: sortProduct,
+                                        name: sortProduct
                                     });
                                     break;
                                 }
@@ -82,14 +82,14 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                         if (productOptions.length > 0) {
                             productOptions.push({
                                 isDisabled: true,
-                                label: sep
+                                name: sep
                             });
                         }
 
                         angular.forEach(this.products, function(product){
                             productOptions.push({
-                                value: product.code,
-                                label: product.name
+                                code: product.code,
+                                name: product.name
                             });
                         }, this);
 
@@ -97,8 +97,8 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                     } else {
                         angular.forEach(this.products, function(product){
                             productOptions.push({
-                                value: product.code,
-                                label: product.name
+                                code: product.code,
+                                name: product.name
                             });
                         }, this);
                         this.products = productOptions;
@@ -107,8 +107,8 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
             } else {
                 angular.forEach(this.products, function(product){
                     productOptions.push({
-                        value: product.code,
-                        label: product.name
+                        code: product.code,
+                        name: product.name
                     });
                 }, this);
                 this.products = productOptions;
@@ -155,12 +155,12 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                 this.versionDisabled = false;
                 this.versionLoading = false;
 
-                if(RHAUtils.isNotEmpty(CaseService.kase.version) && (this.versions.indexOf(CaseService.kase.version) === -1))
-                {
-                    //this will get executed when existing product version is not available in version list of the given product
-                    //in this case drop down value is shown as 'Select an Option' and at that point submit button should be disabled
-                    CaseService.newCaseIncomplete = true;
-                }
+                // if(RHAUtils.isNotEmpty(CaseService.kase.version) && (this.versions.indexOf(CaseService.kase.version) === -1))
+                // {
+                //     //this will get executed when existing product version is not available in version list of the given product
+                //     //in this case drop down value is shown as 'Select an Option' and at that point submit button should be disabled
+                //     CaseService.newCaseIncomplete = true;
+                // }
 			    //Fetch Recommendations
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
