@@ -3,16 +3,16 @@
 'use strict';
 angular.module('RedhatAccess.cases').controller('EmailNotifySelect', [
     '$scope',
-    '$rootScope',
     'CaseService',
     'securityService',
     'AlertService',
     'strataService',
+    'CASE_EVENTS',
     '$filter',
     'RHAUtils',
     'EDIT_CASE_CONFIG',
     'AUTH_EVENTS',
-    function ($scope, $rootScope, CaseService, securityService, AlertService, strataService, $filter, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS) {
+    function ($scope, CaseService, securityService, AlertService, strataService,CASE_EVENTS, $filter, RHAUtils,EDIT_CASE_CONFIG, AUTH_EVENTS) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
@@ -46,14 +46,12 @@ angular.module('RedhatAccess.cases').controller('EmailNotifySelect', [
                 });
             }
         };
-        if (securityService.loginStatus.isLoggedIn) {
+        if (CaseService.caseDataReady) {
             CaseService.populateUsers();
         }
-        $scope.authEventDeregister = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(CASE_EVENTS.received, function () {
             CaseService.populateUsers();
         });
-        $scope.$on('$destroy', function () {
-            $scope.authEventDeregister();
-        });
+
     }
 ]);

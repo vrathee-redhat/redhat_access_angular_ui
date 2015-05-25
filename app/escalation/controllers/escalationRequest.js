@@ -1,17 +1,18 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('EscalationRequest', [
+angular.module('RedhatAccess.escalation').controller('EscalationRequest', [
     '$scope',
     'EscalationRequestService',
-    '$rootScope',
     '$location',
     'RHAUtils',
     'ESCALATION_TYPE',
     'AUTH_EVENTS',
     'AlertService',
     'securityService',
+    'HeaderService',
     'translate',
-    function ($scope, EscalationRequestService, $rootScope, $location, RHAUtils, ESCALATION_TYPE, AUTH_EVENTS, AlertService , securityService , translate) {
+    function ($scope, EscalationRequestService, $location, RHAUtils, ESCALATION_TYPE, AUTH_EVENTS, AlertService , securityService , HeaderService, translate) {
         $scope.EscalationRequestService = EscalationRequestService;
+        $scope.HeaderService = HeaderService;
         $scope.securityService = securityService;
         $scope.disableSendRequest = true;
         $scope.ESCALATION_TYPE = ESCALATION_TYPE;
@@ -65,7 +66,7 @@ angular.module('RedhatAccess.cases').controller('EscalationRequest', [
             }
             return false;
         };
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             AlertService.clearAlerts();
         });
     }

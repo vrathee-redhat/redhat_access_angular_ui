@@ -1,45 +1,68 @@
+div(rha-header='', page='caseList')
+.page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
+  .row(ng-hide='!CaseService.sfdcIsHealthy')
+    .col-sm-8(rha-listfilter='')
+    .col-sm-4
+      .actions
+        .row
+          .col-xs-12
+            a.btn.btn-app.btn-sm.new-case-btn(href='#/case/new',translate='')
+              span#rha-new-case-btn
+              | Create a New Support Case
+            a.btn.btn-app.btn-sm(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close
+  .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.cases.length == 0')
+    .col-sm-6
+      .case-count
+        span {{SearchCaseService.totalCases}} {{displayedCaseText}} &nbsp;
+        a.href(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export as CSV
+    .col-sm-6
+      .pull-right.filter-list(rha-filterselect='')
+  .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
+  #case-list.table-list.case-list.bulk-closure(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
+    .list-item(ng-repeat='case in SearchCaseService.cases', target='_blank')      
+      input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
+      a(href='#/case/{{case.case_number}}')
+        .row.case()
+          .col-sm-4.col-md-2.item-group
+            .block-icon
+              .severity
+                //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
+                i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
+                i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
+                i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
+                i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
+              .case-id
+                .subheading {{case.case_number}}
+                .status {{case.status}}
+          .col-sm-8.col-md-6.item-group
+            .subheading
+              | {{case.summary}}
+            .description
+              | {{case.product}}
+              span.sep |
+              | {{case.version}}
 
-div#redhat-access-case.container-offset(ng-show='!securityService.loginStatus.userAllowedToManageCases')
-  div(rha-403error='')
-div#redhat-access-case(ng-hide='!securityService.loginStatus.userAllowedToManageCases')
-  div(rha-header='', page='caseList')
-  div.row(ng-show='!securityService.loginStatus.userAllowedToManageCases && securityService.loginStatus.isLoggedIn && CaseService.sfdcIsHealthy')
-    div {{'User does not have permissions to manage cases.'|translate}}
-  div.row(ng-hide='!CaseService.sfdcIsHealthy')
-    div.col-md-8
-      div(rha-listfilter='')
-    div.col-md-4.text-right
-        span.pad-r-l(rha-chatbutton='')
-        button.btn.btn-primary.btn-slim.btn-sm(
-          ng-disabled='!securityService.loginStatus.isLoggedIn',
-          ui-sref='new', translate='') Open a New Support Case
-  div.rha-bottom-border(ng-show='CaseService.sfdcIsHealthy')
-    div.spinner.spinner-inline(ng-show='SearchCaseService.searching && securityService.loginStatus.isLoggedIn')
-    div(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
-    div(ng-hide='SearchCaseService.cases.length == 0 || SearchCaseService.searching || !securityService.loginStatus.isLoggedIn')
-      table.table.table-bordered.table-striped(
-          ng-table='tableParams',
-          style='text-align: left;table-layout: fixed;')
-        tr(ng-repeat='case in $data')
-          td(data-title="'Case ID'|translate",
-              sortable='"caseNumber"',
-              style='width: 10%')
-            a(href='#/case/{{case.case_number}}') {{case.case_number}}
-          td(data-title='"Summary"|translate',
-              sortable='"summary"',
-              style='width: 15%;word-wrap:break-word') {{case.summary}}
-          td(data-title='"Product/Version"|translate',
-              sortable='"product"') {{case.product}} / {{case.version}}
-          td(data-title='"Status"|translate',
-              sortable='"status"') {{case.status}}
-          td(data-title='"Severity"|translate',
-              sortable='"severity"') {{case.severity}}
-          td(data-title='"Owner"|translate',
-              sortable='"contactName"') {{case.contact_name}}
-          td(data-title='"Opened"|translate',
-              sortable='"createdDate"',
-              style='width: 10%') {{case.created_date | date:'longDate'}}
-          td(data-title='"Updated"|translate',
-              sortable='"lastModifiedDate"',
-              style='width: 10%') {{case.last_modified_date | date:'longDate'}}
-      div(rha-exportcsvbutton='')
+          .col-sm-12.col-md-2(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
+            .item-group.change-log
+              .filed-on
+                | {{'Modified by:'|translate}} &nbsp;
+                span.blue {{case.last_modified_by}} &nbsp;
+                span {{'on'|translate}}:&nbsp;
+                span {{case.last_modified_date}} &nbsp;
+          .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
+            .item-group.change-log
+              .filed-on
+                | {{'Created:'|translate}}
+                span {{case.created_date}}
+                i  {{'by'|translate}}&nbsp;
+                span.blue {{case.created_by}}
+          .col-sm-12.col-md-2
+            .item-group.change-log
+              .filed-on
+                | {{'Owned by:'|translate}} &nbsp;
+                span.blue {{case.contact_name}} &nbsp;
+  div(ng-show='SearchCaseService.searching')
+    .spinner
+    p.center {{'Loading cases...'|translate}}
+    //.backdrop
+

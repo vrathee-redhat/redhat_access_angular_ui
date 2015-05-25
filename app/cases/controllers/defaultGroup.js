@@ -3,7 +3,6 @@
 /*jshint expr: true, camelcase: false, newcap: false */
 angular.module('RedhatAccess.cases').controller('DefaultGroup', [
     '$scope',
-    '$rootScope',
     'strataService',
     'CaseService',
     'AlertService',
@@ -11,7 +10,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
     'securityService',
     'AUTH_EVENTS',
     'translate',
-    function ($scope, $rootScope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, translate) {
+    function ($scope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, translate) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
@@ -26,11 +25,9 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
         $scope.usersLoaded = false;
         $scope.usersAndGroupsFinishedLoading = false;
         $scope.userCanManageDefaultGroups = true;
-        
         $scope.init = function() {
             if(securityService.userAllowedToManageDefaultGroups()){
                 $scope.groupsLoading = true;
-                var loc = $location.url().split('/');
                 $scope.ssoName = securityService.loginStatus.authedUser.sso_username;
                 $scope.account = securityService.loginStatus.account;
                 strataService.groups.list($scope.ssoName).then(function (groups) {
@@ -86,7 +83,7 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
         };
 
         $scope.setDefaultGroup = function () {
-            //Remove old group is_default            
+            //Remove old group is_default
             var tmpGroup = {
                 name: $scope.selectedGroup.name,
                 number: $scope.selectedGroup.number,
@@ -95,7 +92,8 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             };
             strataService.groups.createDefault(tmpGroup).then(function () {
                 $scope.usersAndGroupsFinishedLoading = false;
-                AlertService.addSuccessMessage('Successfully set ' + tmpGroup.name + ' as ' + $scope.selectedUser.sso_username + '\'s default group.');
+                AlertService.clearAlerts();
+                AlertService.addSuccessMessage(translate('Successfully set') +' '+ tmpGroup.name + ' '+translate('as') + ' '+$scope.selectedUser.sso_username + translate('\'s default group.'));
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
@@ -109,20 +107,15 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             $scope.init();
 
         }
-        $scope.authEventLogin = $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
         });
 
-        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             $scope.selectedGroup = {};
             $scope.usersOnScreen = [];
             $scope.usersOnAccount = [];
             $scope.accountNumber = null;
-        });
-
-        $scope.$on('$destroy', function () {
-            $scope.authEventLogoutSuccess();
-            $scope.authEventLogin();
         });
     }
 ]);

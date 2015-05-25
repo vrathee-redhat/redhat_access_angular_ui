@@ -15,12 +15,16 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$angularCacheFactory',
     '$rootScope',
     'CASE_EVENTS',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, translate, $angularCacheFactory, $rootScope, CASE_EVENTS) {
+    'ConstantsService',
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, translate, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService) {
         $angularCacheFactory('localStorageCache', {
             storageMode: 'localStorage',
             verifyIntegrity: true
         });
+        this.updatingCase = false;
+        this.submittingCase = false;
         this.kase = {};
+        this.prestineKase = {};
         this.caseDataReady = false;
         this.isCommentPublic = false;
         this.versions = [];
@@ -43,14 +47,26 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.owner = '';
         this.product = '';
         this.bugzillaList = {};
+        this.entitlement = '';
+        this.updatingNewCaseSummary = false;
+        this.updatingNewCaseDescription = false;
+        this.onFilterSelectChanged = function(){
+            if(this.localStorageCache) {
+               this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect); 
+            }
+            $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
+        };
         this.onSelectChanged = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.onOwnerSelectChanged = function(){
-            $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
+            $rootScope.$broadcast(CASE_EVENTS.ownerChange);
         };
         this.onGroupSelectChanged = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
+        };
+        this.onProductSelectChange = function(){
+            $rootScope.$broadcast(CASE_EVENTS.productSelectChange);
         };
         this.groupOptions = [];
         this.showsearchoptions = false;
@@ -60,6 +76,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.draftSaved = false;
         this.sortBy='lastModifiedDate';
         this.sortOrder='desc';
+        this.filterSelect = '';
 
         this.localStorageCache = $angularCacheFactory.get('localStorageCache');
         /**
@@ -71,15 +88,21 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             /*jshint camelcase: false */
             rawCase.severity = { 'name': rawCase.severity };
             rawCase.status = { 'name': rawCase.status };
-            rawCase.product = { 'name': rawCase.product };
+            rawCase.product = rawCase.product;
             rawCase.group = { 'number': rawCase.folder_number };
             rawCase.type = { 'name': rawCase.type };
             this.kase = rawCase;
+            angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = rawCase.bugzillas;
             this.caseDataReady = true;
+            this.onProductSelectChange();
+        };
+        this.resetCase = function(){
+            angular.copy(this.prestineKase, this.kase);
         };
         this.setCase = function (jsonCase) {
             this.kase = jsonCase;
+            angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = jsonCase.bugzillas;
             this.caseDataReady = true;
         };
@@ -107,7 +130,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.clearCase = function () {
             this.caseDataReady = false;
             this.isCommentPublic = false;
+            this.updatingCase = false;
             this.kase = {};
+            this.prestineKase = {};
             this.versions = [];
             this.products = [];
             this.statuses = [];
@@ -131,6 +156,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.groupOptions = [];
             this.fts = false;
             this.fts_contact = '';
+            this.entitlement = '';
+            this.updatingNewCaseSummary = false;
+            this.updatingNewCaseDescription = false;
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
@@ -165,8 +193,15 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             var promise = null;
             if (securityService.loginStatus.authedUser.org_admin) {
                 this.usersLoading = true;
-                var accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.authedUser.account_number : this.account.number;
+                var accountNumber;
+                if(this.kase.account_number) {
+                    accountNumber = this.kase.account_number;
+                }
+                else {
+                    accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.authedUser.account_number : this.account.number;
+                }
                 promise = strataService.accounts.users(accountNumber);
+                this.owner = undefined;
                 promise.then(angular.bind(this, function (users) {
                     angular.forEach(users, function(user){
                         if(user.sso_username === securityService.loginStatus.authedUser.sso_username) {
@@ -175,6 +210,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     }, this);
                     this.usersLoading = false;
                     this.users = users;
+
                 }), angular.bind(this, function (error) {
                     this.users = [];
                     this.usersLoading = false;
@@ -237,7 +273,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 }
                 this.comments = comments;
             }), function (error) {
-                AlertService.addStrataErrorMessage(error);
             });
             return promise;
         };
@@ -249,13 +284,14 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 // to select it, regardless of the product.
                 // TODO: strata should respond with a filtered list given a product.
                 //       Adding the query param ?product=$PRODUCT does not work.
-                var uniqueEntitlements = function (a) {
-                    return a.reduce(function (p, c) {
-                        if (p.indexOf(c.sla) < 0) {
-                            p.push(c.sla);
+                var uniqueEntitlements = function (entitlements) {
+                    var uEntitlements = [];
+                    entitlements.forEach(function (e) {
+                        if (uEntitlements.indexOf(e.sla) < 0) {
+                            uEntitlements.push(e.sla);
                         }
-                        return p;
-                    }, []);
+                    });
+                    return uEntitlements;
                 };
                 var entitlements = uniqueEntitlements(entitlementsResponse.entitlement);
                 var unknownIndex = entitlements.indexOf('UNKNOWN');
@@ -293,54 +329,18 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
                     return true;
                 } else {
-//                    this.fts = false;
-//                    if (this.kase.fts !== undefined) {
-//                        this.kase.fts = false;
-//                    }
                     return false;
                 }
             }
             return false;
         };
-        this.newCasePage1Incomplete = true;
-        this.validateNewCasePage1 = function () {
+        this.newCaseIncomplete = true;
+        this.validateNewCase = function () {
             if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary) || RHAUtils.isEmpty(this.kase.description)) {
-                this.newCasePage1Incomplete = true;
+                this.newCaseIncomplete = true;
             } else {
-                this.newCasePage1Incomplete = false;
+                this.newCaseIncomplete = false;
             }
-        };
-        this.updateLocalStorageForNewCase = function(){
-            if(this.localStorageCache)
-            {
-                var draftNewCase = {};
-                if(!RHAUtils.isEmpty(this.kase.description))
-                {
-                    draftNewCase.description = this.kase.description;
-                }
-                if(!RHAUtils.isEmpty(this.kase.summary))
-                {
-                    draftNewCase.summary = this.kase.summary;
-                }
-                if(!RHAUtils.isEmpty(this.kase.product))
-                {
-                    draftNewCase.product = this.kase.product;
-                }
-                if(!RHAUtils.isEmpty(this.kase.version))
-                {
-                    draftNewCase.version = this.kase.version;
-                }
-                var newCaseDescLocalStorage = {'text': draftNewCase};
-                this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username,newCaseDescLocalStorage);
-            }
-        };
-        this.showVersionSunset = function () {
-            if (RHAUtils.isNotEmpty(this.kase.product) && RHAUtils.isNotEmpty(this.kase.version)) {
-                if ((this.kase.version).toLowerCase().indexOf('- eol') > -1) {
-                    return true;
-                }
-            }
-            return false;
         };
 
         this.buildGroupOptions = function() {
@@ -352,7 +352,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 return 0;
             });
 
-            var defaultGroup = '';
             if (this.showsearchoptions === true) {
                 this.groupOptions.push({
                     value: '',
@@ -391,6 +390,180 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     value: 'manage',
                     label: translate('Manage Case Groups')
                 });
+            }
+        };
+
+        this.clearLocalStorageCacheForNewCase = function(){
+            if(this.localStorageCache && RHAUtils.isNotEmpty(this.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)))
+            {
+                this.localStorageCache.remove(securityService.loginStatus.authedUser.sso_username);
+            }
+        };
+
+        this.createCase = function(){
+            var self = this;
+            var deferred = $q.defer();
+
+            /*jshint camelcase: false */
+            var caseJSON = {
+                    'product': this.kase.product,
+                    'version': this.kase.version,
+                    'summary': this.kase.summary,
+                    'description': this.kase.description,
+                    'severity': this.kase.severity.name
+                };
+            if (RHAUtils.isNotEmpty(this.group)) {
+                caseJSON.folderNumber = this.group;
+            }
+            if (RHAUtils.isNotEmpty(this.entitlement)) {
+                caseJSON.entitlement = {};
+                caseJSON.entitlement.sla = this.entitlement;
+            }
+            if (RHAUtils.isNotEmpty(this.account)) {
+                caseJSON.accountNumber = this.account.number;
+            }
+            if (this.fts) {
+                caseJSON.fts = true;
+                if (this.fts_contact) {
+                    caseJSON.contactInfo24X7 = this.fts_contact;
+                }
+            }
+            if (RHAUtils.isNotEmpty(this.owner)) {
+                caseJSON.contactSsoUsername = this.owner;
+            }
+
+            this.submittingCase = true;
+            AlertService.addWarningMessage(translate('Creating case...'));
+            strataService.cases.post(caseJSON).then(function (caseNumber) {
+                AlertService.clearAlerts();
+                AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+                self.clearLocalStorageCacheForNewCase();
+                deferred.resolve(caseNumber);
+            }, function (error) {
+                AlertService.clearAlerts();
+                AlertService.addStrataErrorMessage(error);
+                self.submittingCase = false;
+                deferred.reject();
+            });
+            return deferred.promise;
+        };
+
+        this.updateCase = function(){
+            this.updatingCase = true;
+            var deferred = $q.defer();
+            var caseJSON = {};
+            if (this.kase.type !== undefined && !angular.equals(this.prestineKase.type, this.kase.type)) {
+                caseJSON.type = this.kase.type.name;
+            }
+            if (this.kase.severity !== undefined && !angular.equals(this.prestineKase.severity, this.kase.severity)) {
+                caseJSON.severity = this.kase.severity.name;
+            }
+            if (this.kase.status !== undefined && !angular.equals(this.prestineKase.status, this.kase.status)) {
+                caseJSON.status = this.kase.status.name;
+            }
+            if (this.kase.alternate_id !== undefined && !angular.equals(this.prestineKase.alternate_id, this.kase.alternate_id)) {
+                caseJSON.alternateId = this.kase.alternate_id;
+            }
+            if (this.kase.product !== undefined && !angular.equals(this.prestineKase.product, this.kase.product)) {
+                caseJSON.product = this.kase.product;
+            }
+            if (this.kase.version !== undefined && !angular.equals(this.prestineKase.version, this.kase.version)) {
+                caseJSON.product = this.kase.product;
+                caseJSON.version = this.kase.version;
+            }
+            if (RHAUtils.isNotEmpty(this.kase.group) && this.kase.group.number !== undefined && !angular.equals(this.prestineKase.group, this.kase.group)) {
+                caseJSON.folderNumber = this.kase.group.number;
+            }else if(!angular.equals(this.prestineKase.group, this.kase.group)){
+                caseJSON.folderNumber = '';
+            }
+            if (RHAUtils.isNotEmpty(this.kase.fts) && !angular.equals(this.prestineKase.fts, this.kase.fts)) {
+                caseJSON.fts = this.kase.fts;
+            }
+            if (this.kase.fts && !angular.equals(this.prestineKase.contact_info24_x7, this.kase.contact_info24_x7)) {
+                caseJSON.contactInfo24X7 = this.kase.contact_info24_x7;
+            }
+            if (this.kase.notes !== null && !angular.equals(this.prestineKase.notes, this.kase.notes)) {
+                caseJSON.notes = this.kase.notes;
+            }
+            strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
+                this.updatingCase = false;
+                angular.copy(this.kase, this.prestineKase);
+                deferred.resolve();
+            }), function (error) {
+                deferred.reject(error);
+                this.updatingCase = false;
+            });
+            return deferred.promise;
+        };
+        this.updateLocalStorageForNewCase = function(){
+            if(this.localStorageCache && RHAUtils.isEmpty(this.kase.case_number)) //as we have common component for product and version, adding extra condition for confirming its on new case
+            {
+                var draftNewCase = {};
+                if(!RHAUtils.isEmpty(this.kase.description))
+                {
+                    draftNewCase.description = this.kase.description;
+                }
+                if(!RHAUtils.isEmpty(this.kase.summary))
+                {
+                    draftNewCase.summary = this.kase.summary;
+                }
+                if(!RHAUtils.isEmpty(this.kase.product))
+                {
+                    draftNewCase.product = this.kase.product;
+                }
+                if(!RHAUtils.isEmpty(this.kase.version))
+                {
+                    draftNewCase.version = this.kase.version;
+                }
+                var newCaseDescLocalStorage = {'text': draftNewCase};
+                this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username,newCaseDescLocalStorage);
+            }
+        };
+        this.clearProdVersionFromLS = function(){
+            this.kase.product = undefined;
+            this.kase.version = undefined;
+            this.updateLocalStorageForNewCase();
+        };
+        this.checkForCaseStatusToggleOnAttachOrComment = function(){
+            var status = {};
+            if (!securityService.loginStatus.authedUser.is_internal && this.kase.status.name === 'Closed') {
+                status = { name: 'Waiting on Red Hat' };
+                this.kase.status = status;
+            }
+
+            if(securityService.loginStatus.authedUser.is_internal){
+                if (this.kase.status.name === 'Waiting on Red Hat') {
+                    status = { name: 'Waiting on Customer' };
+                    this.kase.status = status;
+                }
+            }else {
+                if (this.kase.status.name === 'Waiting on Customer') {
+                    status = { name: 'Waiting on Red Hat' };
+                    this.kase.status = status;
+                }
+            }
+        };
+        this.setFilterSelectModel = function(sortField,sortOrder) {
+            if(sortOrder === 'ASC') {
+                if(sortField === 'lastModifiedDate') {
+                    this.filterSelect = ConstantsService.sortByParams[1];
+                } else if(sortField === 'severity') {
+                    this.filterSelect = ConstantsService.sortByParams[2];
+                } else if(sortField === 'createdDate') {
+                    this.filterSelect = ConstantsService.sortByParams[5];
+                } else if(sortField === 'owner') {
+                    this.filterSelect = ConstantsService.sortByParams[7];
+                }
+            } else if(sortOrder === 'DESC') {
+                if(sortField === 'lastModifiedDate') {
+                    this.filterSelect = ConstantsService.sortByParams[0];
+                } else if(sortField === 'severity') {
+                    this.filterSelect = ConstantsService.sortByParams[3];
+                } else if(sortField === 'createdDate') {
+                    this.filterSelect = ConstantsService.sortByParams[4];
+                } else if(sortField === 'owner') {
+                    this.filterSelect = ConstantsService.sortByParams[6];
+                }
             }
         };
     }

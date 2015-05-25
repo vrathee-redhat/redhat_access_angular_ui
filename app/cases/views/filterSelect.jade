@@ -1,0 +1,9 @@
+label {{'Sort By'|translate}}
+select#rha-filter-select(chosen,
+  width='"auto"',
+	ng-init="init()"
+	ng-disabled='!securityService.loginStatus.isLoggedIn',
+	ng-model='CaseService.filterSelect',
+  ng-change='CaseService.onFilterSelectChanged()',
+  ng-options='sort as sort.name for sort in ConstantsService.sortByParams',
+  disable_search_threshold=10)

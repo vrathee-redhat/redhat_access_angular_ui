@@ -6,12 +6,13 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
     '$modalInstance',
     'AlertService',
     'CaseService',
+    'DiscussionService',
     'strataService',
     'securityService',
     '$q',
     '$stateParams',
     'RHAUtils',
-    function ($scope, $modalInstance, AlertService, CaseService, strataService,securityService, $q, $stateParams, RHAUtils) {
+    function ($scope, $modalInstance, AlertService, CaseService, DiscussionService, strataService,securityService, $q, $stateParams, RHAUtils) {
         $scope.CaseService = CaseService;
         $scope.submittingRequest = false;
         if(RHAUtils.isNotEmpty(CaseService.commentText)){
@@ -24,7 +25,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
             $scope.submittingRequest = true;
             var fullComment = 'Request Management Escalation: ' + commentText;
             var onSuccess  = function (response) {
-                var caseJSON = { "escalated": true };
+                var caseJSON = { 'escalated': true };
                 var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
                 updateCase.then(function (response) {
                 }, function (error) {
@@ -41,6 +42,9 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
                     CaseService.draftSaved = false;
                     CaseService.draftComment = undefined;
                     CaseService.commentText = undefined;
+                    DiscussionService.commentTextBoxEnlargen=false;
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
                 });
             };
             var onError = function (error) {

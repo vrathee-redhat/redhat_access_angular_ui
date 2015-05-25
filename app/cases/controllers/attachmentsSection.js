@@ -25,6 +25,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
             $scope.updatingAttachments = true;
             AttachmentsService.updateAttachments(CaseService.kase.case_number).then(function () {
                 $scope.updatingAttachments = false;
+                CaseService.checkForCaseStatusToggleOnAttachOrComment();
             }, function (error) {
                 $scope.updatingAttachments = false;
             });
@@ -64,6 +65,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                                 AlertService.removeAlert(uploadingAlert);
                                 AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                                 AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                                CaseService.checkForCaseStatusToggleOnAttachOrComment();
                                 $scope.ieClearSelectedFile();
 
                             }, function (error) {
@@ -71,12 +73,12 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                             });
                         } else {
                             AlertService.removeAlert(uploadingAlert);
-                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' + content));
                             $scope.$apply();
                         }
                     } else {
                         AlertService.removeAlert(uploadingAlert);
-                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' + content));
                         $scope.$apply();
                     }
                 }else {
@@ -85,6 +87,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                             AlertService.removeAlert(uploadingAlert);
                             AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                             AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                            CaseService.checkForCaseStatusToggleOnAttachOrComment();
                             $scope.ieClearSelectedFile();
                         } else{
                             AlertService.removeAlert(uploadingAlert);

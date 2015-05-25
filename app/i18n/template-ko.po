@@ -1,3 +1,5 @@
+# eukim <eukim@redhat.com>, 2013. #zanata
+# eukim <eukim@redhat.com>, 2014. #zanata
 # eukim <eukim@redhat.com>, 2015. #zanata
 msgid ""
 msgstr ""
@@ -5,227 +7,462 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-02-09 12:42+0000\n"
+"PO-Revision-Date: 2015-04-17 12:34+0000\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
-"X-Generator: Zanata 3.5.1\n"
+"X-Generator: Zanata 3.6.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: app/cases/views/attachLocalFile.html
-#: app/cases/views/attachmentsSection.html
-#: app/cases/views/new.html
+#: app/cases/controllers/defaultGroup.js
+msgid "'s default group."
+msgstr "기본 그룹"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/addCommentSection.html
+#: app/cases/views/list.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "(More info)"
 msgstr "(상세 정보) "
 
+#: app/escalation/views/iceEscalation.html
+msgid "* All fields are mandatory."
+msgstr "* 모든 필드는 필수 입력 필드입니다."
+
+#: app/escalation/views/partnerEscalation.html
+msgid "* marked fields are mandatory fields."
+msgstr "* 표시된 필드는 필수 입력 필드입니다."
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
 #: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-msgid "24x7 Contact:"
-msgstr "24x7 연락처:"
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "24x7 Contact"
+msgstr "24x7 연락처"
 
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
 #: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-msgid "24x7 Support:"
-msgstr "24x7 지원:"
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "24x7 Support"
+msgstr "연중무휴 24시간 지원"
 
-#: app/log_viewer/views/logsInstructionPane.html
-msgid ""
-"<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;Open a New Support "
-"Case"
-msgstr "<span class=\"glyphicon glyphicon-plus\"></span>&nbsp;새 기술 문의 생성 "
+#: app/ascension/views/internalCaseDescription.html
+msgid "24x7 coverage"
+msgstr "24x7 지원"
 
-#: app/log_viewer/views/logsInstructionPane.html
-msgid "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;Select Log"
-msgstr "<span class=\"glyphicon glyphicon-refresh\"></span>&nbsp;로그 선택 "
+# translation auto-copied from project Customer Portal Translations, version management_page, document Management_Prototype.html, author eukim
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "Account"
+msgstr "계정"
 
-#: app/cases/views/detailsSection.html
-msgid "Account Name:"
-msgstr "계정 이름:"
+# translation auto-copied from project control-center, version 3.8.6, document gnome-control-center-2.0
+#: app/ascension/views/accountInfo.html
+msgid "Account Information"
+msgstr "계정 정보"
 
-#: app/cases/views/detailsSection.html
-msgid "Account Number:"
-msgstr "계정 번호:"
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/accountSelect.js
 msgid "Account not found."
 msgstr "계정을 찾을 수 없습니다. "
 
-#: app/cases/views/new.html
-msgid "Account:"
-msgstr "계정:"
+#: app/ascension/views/internalCaseDiscussion.html
+msgid "Action Plan"
+msgstr "작업 계획"
 
-#: app/cases/views/attachLocalFile.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
 msgstr "추가 "
 
-#: app/cases/views/addCommentSection.html
-msgid "Add Comment"
-msgstr "코멘트 추가"
+#: app/cases/views/discussionSection.html
+msgid "All Attachments"
+msgstr "모든 첨부 파일"
 
-#: app/cases/views/detailsSection.html
-msgid "Advanced Mission Critical"
-msgstr "고급 미션 크리티컬"
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/caseService.js
 msgid "All Groups"
 msgstr "전체 그룹 "
 
-#: app/cases/views/detailsSection.html
-msgid "Alternate Case ID:"
-msgstr "대체 기술 문의 ID:"
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Already Escalated?"
+msgstr "이미 에스컬레이션되었습니까?"
 
+#: app/cases/views/detailsSection.html
+msgid "Alternate Case ID"
+msgstr "대체 기술 문의 ID"
+
+#: app/cases/views/confirmCaseSeverityChangeModal.html
+msgid "Are you sure you want to change this case severity to"
+msgstr "이 기술 문의의 심각도를 변경하시겠습니까"
+
+#: app/cases/views/confirmCaseStateChangeModal.html
+msgid "Are you sure you want to change this case status to"
+msgstr "이 기술 문의의 상태를 변경하시겠습니까"
+
+#: app/cases/views/confirmCaseCloseModal.html
+msgid "Are you sure you want to close the selected cases?"
+msgstr "선택한 기술 문의를 종료하시겠습니까?"
+
+#: app/cases/views/edit.html
+msgid "Assigned to"
+msgstr "할당 대상"
+
+#: app/cases/views/attachLocalFile.html
+msgid "Attach Another File"
+msgstr "다른 파일 첨부"
+
+#: app/cases/views/attachLocalFile.html
+msgid "Attach File"
+msgstr "파일 첨부"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/attachProductLogs.html
 msgid "Attach Foreman logs:"
 msgstr "Foreman 로그 첨부:"
 
-#: app/cases/views/attachLocalFile.html
-msgid "Attach local file"
-msgstr "로컬 파일 첨부 "
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Attached"
 msgstr "첨부됨  "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Attached By"
 msgstr "첨부자"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Attached Files"
 msgstr "첨부된 파일 "
 
-#: app/cases/views/attachmentsSection.html
-msgid "Attachments"
-msgstr "첨부 파일"
+#: app/cases/views/proceedWithoutAttachModal.html
+msgid ""
+"Attaching logs and diagnostics files greatly improves time to resolution."
+msgstr "로그 및 진단 파일을 첨부하여 문제 해결 시간을 크게 단축합니다."
 
-#: app/cases/views/new.html
-msgid "Attachments:"
-msgstr "첨부 파일: "
+#: app/cases/views/newBase.html
+#: app/cases/views/newAlternate.html
+msgid ""
+"Attaching logs or other diagnostics files typically results in faster "
+"resolution."
+msgstr "로그 또는 진단 파일을 첨부하면 일반적으로 해결 시간이 단축됩니다."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
 msgstr "사용 가능한 로그 파일 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/defaultGroup.html
 msgid "Back"
 msgstr "이전"
 
+#: app/ascension/views/breachInformation.html
+msgid "Based on Severity Level 3(Normal)"
+msgstr "심각도 레벨 3 (일반)에 기반"
+
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "Based on details you provided, we found some likely solutions."
+msgstr "제공해 주신 정보에 기반하여 해결 방법을 발견했습니다."
+
+#: app/cases/views/newCaseRecommendationsAlternateSection.html
+#: app/cases/views/newCaseRecommendationsSection.html
+msgid "Based on your description, here are some possible solutions"
+msgstr "제공해 주신 설명에 기반하여 가능한 해결 방법은 다음과 같습니다"
+
+#: app/ascension/views/internalCaseDiscussion.html
+msgid "Bomgar Chat"
+msgstr "Bomgar Chat"
+
+#: app/ascension/views/breachInformation.html
+msgid "Breach"
+msgstr "위반"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listBugzillas.html
 msgid "Bugzilla Number"
 msgstr "Bugzilla 번호 "
 
-#: app/cases/views/listBugzillas.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/discussionSection.html
 msgid "Bugzilla Tickets"
 msgstr "Bugzilla 티켓 "
 
+#: app/ascension/views/internalCaseDiscussion.html
+msgid "Bugzillas"
+msgstr "Bugzilla"
+
+#: app/cases/views/edit.html
+#: app/common/controllers/titleView.js
+msgid "CASE"
+msgstr "기술 문의"
+
+#: app/common/controllers/titleView.js
+msgid "CREATE A NEW SUPPORT CASE"
+msgstr "새 기술 지원 문의 생성"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_form.html
+#: app/cases/views/addCommentSection.html
 #: app/cases/views/createGroupModal.html
+#: app/cases/views/detailsSection.html
 #: app/cases/views/editGroup.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Cancel"
 msgstr "취소 "
 
-#: app/cases/views/new.html
-msgid "Case Details"
-msgstr "기술문의 상세 내용"
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/ascension/views/topCases.html
+#: app/cases/controllers/confirmCaseCloseModal.js
+msgid "Case"
+msgstr "사례"
 
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+#: app/ascension/views/internalCaseDescription.html
+msgid "Case Description"
+msgstr "기술문의 설명"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/discussionSection.html
 #: app/cases/views/commentsSection.html
 msgid "Case Discussion"
 msgstr "기술 문의 토론 "
 
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/cases/views/detailsSection.html
+msgid "Case Group"
+msgstr "기술문의 그룹"
+
+#: app/cases/views/newBase.html
+#: app/cases/views/newAlternate.html
+msgid "Case Group (Optional)"
+msgstr "기술문의 그룹 (옵션)"
+
+#: app/cases/views/defaultGroup.html
+msgid "Case Group Name:"
+msgstr "기술문의 그룹 이름:"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/createGroupModal.html
-#: app/cases/views/new.html
 msgid "Case Group:"
 msgstr "기술문의 그룹:"
 
-#: app/cases/views/list.html
-msgid "Case ID"
-msgstr "기술문의 ID"
+#: app/ascension/views/internalCaseDiscussion.html
+msgid "Case History"
+msgstr "기술 문의 내역"
 
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Case Information"
+msgstr "기술 문의 정보"
+
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "Case Name"
+msgstr "기술 문의 이름"
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
 #: app/cases/views/detailsSection.html
-msgid "Case Type:"
-msgstr "기술문의 유형: "
+#: app/ascension/views/internalCaseDetails.html
+msgid "Case Type"
+msgstr "기술문의 유형"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/editGroup.js
 msgid "Case group successfully updated."
 msgstr "기술 문의 그룹이 성공적으로 업데이트되었습니다. "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/editGroup.js
 msgid "Case users successfully updated."
 msgstr "기술 문의 사용자가 성공적으로 업데이트되었습니다. "
 
-#: app/cases/views/chatButton.html
-msgid "Chat offline"
-msgstr "오프라인 채팅 "
+#: app/cases/views/confirmCaseSeverityChangeModal.html
+msgid "Change Severity"
+msgstr "심각도 변경"
 
-#: app/cases/views/chatButton.html
-msgid "Chat with support"
+#: app/cases/views/confirmCaseStateChangeModal.html
+msgid "Change Status"
+msgstr "상태 변경"
+
+#: app/cases/views/confirmCaseSeverityChangeModal.html
+msgid "Changing Case Severity"
+msgstr "기술 문의 심각도 변경 중"
+
+#: app/cases/views/confirmCaseStateChangeModal.html
+msgid "Changing Case State"
+msgstr "기술 문의 상태 변경 중"
+
+#: app/common/views/chatButton.html
+msgid "Chat Offline"
+msgstr "오프라인 채팅"
+
+#: app/common/views/chatButton.html
+msgid "Chat with Support"
 msgstr "지원 담당자와 채팅"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/common/views/treeview-selector.html
 msgid "Choose File(s) To Attach:"
 msgstr "첨부할 파일 선택:"
 
+# translation auto-copied from project Satellite6 Katello, version 6.1, document katello
+#: app/cases/views/list.html
+#: app/ascension/views/caseQueue.html
+msgid "Close"
+msgstr "종료 "
+
+#: app/cases/views/confirmCaseCloseModal.html
+msgid "Close Cases"
+msgstr "기술 문의 종료"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/common/views/alert.html
 msgid "Close messages"
 msgstr "메세지 종료 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/statusSelect.js
 msgid "Closed"
 msgstr "종료됨 "
 
+#: app/cases/controllers/list.js
+msgid "Closed Support Cases"
+msgstr "종료된 기술 지원 문의"
+
+#: app/cases/views/confirmCaseCloseModal.html
+msgid "Closing Cases"
+msgstr "기술 문의 종료 중"
+
+#: app/cases/controllers/confirmCaseCloseModal.js
+msgid "Closing cases."
+msgstr "기술 문의를 종료하고 있습니다."
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
 msgstr "설명:"
 
+#: app/cases/views/proceedWithoutAttachModal.html
+msgid "Continue Without Attaching"
+msgstr "첨부하지 않고 계속 진행"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/createGroupModal.html
 msgid "Create Case Group"
 msgstr "기술문의 그룹 생성"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/createGroupButton.html
 msgid "Create New Case Group"
 msgstr "새 기술문의 그룹 생성"
 
-#: app/cases/views/new.html
-msgid "Creating Case"
-msgstr "기술 문의 생성 중 "
+#: app/cases/views/list.html
+msgid "Create a New Support Case"
+msgstr "새 기술 지원 문의 생성"
 
+# translation auto-copied from project nautilus, version 3.8.2, document nautilus
+#: app/ascension/views/internalCaseDetails.html
+msgid "Created By"
+msgstr "만든 사람:"
+
+# translation auto-copied from project evince, version 3.8.3, document evince
+#: app/cases/views/list.html
+msgid "Created:"
+msgstr "만든 날짜:"
+
+#: app/escalation/services/escalationRequestService.js
+msgid "Creating Ice Escalation request ....."
+msgstr "ICE 에스컬레이션 요청 생성 중 ....."
+
+#: app/escalation/services/escalationRequestService.js
+msgid "Creating Partner Escalation request ....."
+msgstr "파트너 에스컬레이션 요청 생성 중 ....."
+
+#: app/cases/services/caseService.js
+msgid "Creating case..."
+msgstr "기술 문의 생성 중..."
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/createGroupModal.js
 msgid "Creating group"
 msgstr "그룹 생성 중 "
 
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Customer"
+msgstr "고객"
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Customer Account Number"
+msgstr "고객 계정 번호 "
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Customer Contact Email"
+msgstr "고객의 이메일 연락처 "
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Customer Contact Name"
+msgstr "고객 연락처 이름 "
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Customer Contact Number"
+msgstr "고객 연락처 "
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Customer GEO"
+msgstr "고객 GEO"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Delete"
 msgstr "삭제 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/deleteGroupButton.html
 msgid "Delete Group"
 msgstr "그룹 삭제"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "Deleting attachment:"
 msgstr "첨부 파일 삭제 중: "
 
-#: app/cases/views/descriptionSection.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Description"
 msgstr "설명 "
 
-#: app/cases/views/new.html
-msgid "Description:"
-msgstr "설명: "
-
-#: app/cases/views/detailsSection.html
-msgid "Details"
-msgstr "상세 정보 "
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Diagnose"
 msgstr "진단 "
 
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/descriptionSection.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+#: app/cases/views/severitySelect.html
 msgid ""
 "Different support-level options might be available based on your account "
 "subscriptions. Your support level determines the type of response you can "
@@ -233,48 +470,80 @@ msgid ""
 msgstr ""
 "계정 서브스크립션에 따라 각각 다른 지원 수준 옵션을 사용할 수 있습니다. 지원 수준은 기술 지원 사례에 따른 응답 유형을 결정합니다."
 
-#: app/cases/views/addCommentSection.html
-msgid "Draft saved"
-msgstr "초안 저장됨"
+#: app/cases/views/discussionSection.html
+msgid "Discard Changes"
+msgstr "변경 사항 취소"
 
-#: app/cases/views/emailNotifySelect.html
-msgid "Email Notification Recipients"
-msgstr "이메일 알림 수신자 "
+#: app/ascension/views/internalCaseDiscussion.html
+msgid "Discussion"
+msgstr "토론"
 
+# translation auto-copied from project Satellite6 Bastion Katello, version 6.1, document bastion_katello
+#: app/ascension/views/caseQueue.html
+msgid "Edit"
+msgstr "수정"
+
+#: app/escalation/controllers/escalationRequest.js
+msgid "Email address is incorrect"
+msgstr "이메일 주소가 올바르지 않습니다"
+
+#: app/ascension/views/entitlementInfo.html
+msgid "Entitlement Information"
+msgstr "인타이틀먼트 정보"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/views/resultDetail.html
 msgid "Environment"
 msgstr "환경 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/attachmentsSection.js
 msgid "Error: Failed to upload attachment."
 msgstr "오류: 첨부파일 업로드에 실패했습니다."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/attachmentsSection.js
 #: app/cases/controllers/new.js
 msgid "Error: Failed to upload attachment. Message:"
 msgstr "오류: 첨부파일 업로드에 실패했습니다. 메세지: "
 
-#: app/cases/views/exportCSVButton.html
-msgid "Export All as CSV"
-msgstr "CSV로 모두 내보내기 "
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Expectation"
+msgstr "기대 "
 
+# translation auto-copied from project policycoreutils, version 2.1.14, document policycoreutils, author eukim
+#: app/cases/views/exportCSVButton.html
+msgid "Export"
+msgstr "내보내기 "
+
+#: app/cases/views/list.html
+msgid "Export as CSV"
+msgstr "CSV로 내보내기"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/exportCSVButton.html
 msgid "Exporting CSV..."
 msgstr "CSV로 내보내는 중..."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "Failed to upload attachment"
 msgstr "첨부파일 업로드에 실패했습니다"
 
-#: app/cases/views/attachLocalFile.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/addCommentSection.html
 #: app/cases/views/attachmentsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "File description"
 msgstr "파일 설명 "
 
-#: app/cases/views/attachLocalFile.html
-#: app/cases/views/attachmentsSection.html
-#: app/cases/views/new.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/addCommentSection.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid ""
 "File names must be less than 80 characters. Maximum file size for web-"
 "uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
@@ -282,31 +551,108 @@ msgstr ""
 "파일명은 80자 미만이어야 합니다. 웹에 업로드될 최대 첨부 파일크기는 1 GB입니다. 용량이 더 큰 파일은 FTP를(dropbox."
 "redhat.com) 이용해 주시기 바랍니다. "
 
+#: app/cases/views/edit.html
+msgid "Filed on"
+msgstr "제출일"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Filename"
 msgstr "파일명"
 
-#: app/cases/views/listNewAttachments.html
-msgid "Files to Attach"
-msgstr "첨부할 파일 "
+#: app/cases/views/accountSelect.html
+msgid "Find My Account Number"
+msgstr "내 계정 번호 검색"
 
-#: app/cases/views/listFilter.html
-msgid "Filtering by case groups helps you find related cases."
-msgstr "기술 문의 그룹을 필터링하여 관련 기술 문의를 검색합니다."
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/editGroup.html
 msgid "First Name"
 msgstr "이름"
 
-#: app/cases/views/search.html
-msgid "Group"
-msgstr "그룹"
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "For example: 1-888-467-3342"
+msgstr "예: 1-888-467-3342"
 
-#: app/cases/views/detailsSection.html
-msgid "Group:"
-msgstr "그룹:"
+#: app/cases/controllers/attachLocalFile.js
+msgid "GB. Please FTP large files to dropbox.redhat.com."
+msgstr "GB. 용량이 큰 파일은 FTP로 dropbox.redhat.com에 업로드하십시오."
 
+#: app/escalation/views/iceEscalation.html
+msgid "GSS ICE FAQ"
+msgstr "GSS ICE FAQ"
+
+#: app/escalation/views/iceEscalation.html
+msgid "GSS ICE Form"
+msgstr "GSS ICE 양식"
+
+#: app/escalation/views/iceEscalation.html
+msgid ""
+"GSS is currently working on enhancing the ICE process through the use of "
+"email. Watch this space for more details as they become available."
+msgstr ""
+"현재 GSS는 이메일을 사용하여 ICE 프로세스 강화에 노력하고 있습니다. 이 기능이 사용 가능하게 되면 여기서 보다 자세한 정보를 "
+"참조하십시오."
+
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "Get faster results."
+msgstr "보다 빠른 결과 구현."
+
+# translation auto-copied from project evolution, version 3.8.5, document evolution-3.8
+#: app/cases/views/confirmCaseCloseModal.html
+#: app/cases/views/confirmCaseSeverityChangeModal.html
+#: app/cases/views/confirmCaseStateChangeModal.html
+#: app/cases/views/proceedWithoutAttachModal.html
+msgid "Go Back"
+msgstr "뒤로 이동"
+
+#: app/cases/views/editGroup.html
+msgid "Group Name:"
+msgstr "그룹 이름:"
+
+#: app/cases/views/defaultGroup.html
+msgid "Group Users:"
+msgstr "그룹 사용자:"
+
+#: app/cases/views/editCaseRecommendationsSection.html
+msgid "Handpicked"
+msgstr "엄선"
+
+#: app/cases/views/editCaseRecommendationsSection.html
+msgid "Handpicked For You"
+msgstr "고객을 위해 엄선"
+
+#: app/cases/controllers/filterSelect.js
+msgid "Highest Severity"
+msgstr "가장 높은 심각도"
+
+#: app/escalation/views/iceEscalation.html
+msgid ""
+"If this form is not working for any reason please submit a ticket at "
+"helpdesk@redhat.com noting a problem with GSS Ticketing and the ICE form"
+msgstr ""
+"이 양식을 사용할 수 없는 경우 GSS 티켓 발행 및 ICE 양식 관련 문제에 대한 티켓을 helpdesk@redhat.com으로 "
+"보내주십시오."
+
+#: app/escalation/views/iceEscalation.html
+msgid ""
+"If this is a request for information from you or the customer and if you "
+"need us to contact you to discuss the issues."
+msgstr "사용자 또는 고객에 대한 정보 요청인 경우 및 문제에 대해 문의하기 위해 연락을 받고자 하는 경우."
+
+#: app/escalation/views/iceEscalation.html
+msgid ""
+"If you are requesting an account review, if this is related to aspecific "
+"problem/ticket or a series of problems/tickets or if this is a general or "
+"generic complain"
+msgstr "계정 검토를 요청하는 경우, 특정 문제/티켓 또는 일련의 문제/티켓에 관련되어 있거나 일반적인 문제인 경우 "
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/views/403.html
 #: app/cases/views/403.html
+#: app/escalation/views/403.html
 msgid ""
 "If you believe you should have permission to view this resource, please <a "
 "href=\"/support/contact/customerService.html\">contact Customer Service</a> "
@@ -319,15 +665,21 @@ msgstr ""
 "html\">고객 서비스에 문의</a>하십시오. Red Hat 로그인이 귀사에 대해 올바른 계정과 연계되어 있지 않거나, 서브스크립션에 "
 "문제가 있습니다. 어떤 경우이든, 고객 서비스가 문제 해결을 위한 도움을 드릴 수 있습니다."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
 msgid ""
 "If you feel the issue has become more severe or the case should be a higher "
 "priority, please provide a detailed comment, and the case will be reviewed "
 "by a support manager."
 msgstr ""
-"문제가 더 심각해지거나 기술 문의 사항의 우선 순위가 더 높아야 한다고 생각되는 경우, 자세한 설명을 제공하면 지원 관리자가 검토할 "
+"문제가 더 심각해지거나 기술 문의 사항의 우선 순위가 더 높아야 한다고 생각되는 경우, 자세한 정보를 알려주시면 지원 관리자가 검토할 "
 "것입니다."
 
+#: app/cases/controllers/discussionSection.js
+msgid "In reply to"
+msgstr "회신"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "In the event that you would still like to open a support case, select 'Open "
@@ -337,122 +689,213 @@ msgstr ""
 "기술 문의 사항을 아직 열어 두어야 할 경우 '새 기술 문의 생성'을 선택합니다. 기술 문의는 이전에 선택한 로그의 일부로 사전 "
 "작성됩니다. "
 
+#: app/ascension/views/internalCaseDetails.html
+msgid "Internal Priority"
+msgstr "내부 우선 순위"
+
+#: app/ascension/views/internalCaseDetails.html
+msgid "Internal Status"
+msgstr "내부 상태"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/addCommentSection.html
 msgid "Is Public:"
 msgstr "공개:"
 
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Issue Description"
+msgstr "문제 설명 "
+
+#: app/ascension/views/internalCaseDiscussion.html
+msgid "KCS"
+msgstr "KCS"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/editGroup.html
 msgid "Last Name"
 msgstr "성(姓)"
 
-#: app/cases/views/detailsSection.html
-msgid "Last Updated:"
-msgstr "마지막 업데이트:"
+#: app/ascension/views/internalCaseDetails.html
+msgid "Last Updated By"
+msgstr "최종 업데이트"
 
+# translation auto-copied from project Customer Portal Translations, version 012_June_RHEL, document downloads.html, author eukim
+#: app/cases/views/requestEscalation.html
+msgid "Learn More"
+msgstr "상세 정보 "
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Learn more"
 msgstr "자세히 알아보기"
 
+#: app/cases/views/list.html
+msgid "Loading cases..."
+msgstr "기술 문의 로딩 중..."
+
+#: app/cases/controllers/new.js
+msgid "Locating top solutions"
+msgstr "상위 솔루션 검색 중"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Log File Viewer"
 msgstr "로그 파일 뷰어 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_status.html
 msgid "Log In"
 msgstr "로그인 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_status.html
 msgid "Log Out"
 msgstr "로그 아웃 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_status.html
 msgid "Logged into the Red Hat Customer Portal as"
 msgstr "Red Hat 고객 포털로 로그인 "
 
-#: app/common/header.module.js
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/controllers/titleView.js
 #: app/i18n/placeholder.html
 msgid "Logs"
 msgstr "로그 "
 
-#: app/common/header.module.js
+#: app/cases/controllers/filterSelect.js
+msgid "Lowest Severity"
+msgstr "가장 낮은 심각도"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/controllers/titleView.js
 #: app/cases/services/caseService.js
 msgid "Manage Case Groups"
 msgstr "기술문의 그룹 관리"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/group.html
-#: app/common/header.module.js
+#: app/common/controllers/titleView.js
 msgid "Manage Default Case Groups"
 msgstr "기본 기술문의 그룹 관리"
 
-#: app/cases/views/accountSelect.html
-msgid "My Account"
-msgstr "내 계정"
+#: app/cases/views/list.html
+msgid "Modified by:"
+msgstr "수정자:"
 
+# translation auto-copied from project system-config-printer, version 1.4.1, document system-config-printer
+#: app/ascension/views/caseQueue.html
+msgid "More"
+msgstr "기타 "
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/i18n/placeholder.html
 msgid "My Cases"
 msgstr "내 기술문의"
 
+#: app/cases/views/editCaseRecommendationsSection.html
+#: app/cases/views/newCaseRecommendationsAlternateSection.html
+msgid "NEXT"
+msgstr "다음"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/groupList.html
 msgid "Name"
 msgstr "이름 "
 
-#: app/common/header.module.js
-msgid "New Support Case"
-msgstr "새 기술 지원 문의 "
+#: app/cases/views/requestEscalation.html
+msgid "Need to raise a concern to Red Hat Support management?"
+msgstr "Red Hat 지원 관리에 문제를 알려야 합니까?"
 
-#: app/cases/views/new.html
-msgid "Next"
-msgstr "다음"
+#: app/cases/controllers/discussionSection.js
+msgid "Newest Comment Added"
+msgstr "최신 코멘트가 추가되었습니다"
 
+#: app/cases/controllers/filterSelect.js
+msgid "Newest Date Created"
+msgstr "최신 날짜가 생성되었습니다"
+
+#: app/cases/controllers/filterSelect.js
+msgid "Newest Date Modified"
+msgstr "최신 날짜가 수정되었습니다"
+
+#: app/cases/views/proceedWithoutAttachModal.html
+msgid "No File Uploaded with Case"
+msgstr "기술 문의와 관련하여 업로드된 파일이 없습니다"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
 msgstr "추가된 첨부 파일이 없습니다 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
 msgstr "지정된 필터에 맞는 기술 문의 사항이 없습니다."
 
-#: app/cases/views/search.html
-msgid "No cases found with given search criteria."
-msgstr "지정된 검색 조건에 맞는 기술 문의 사항이 없습니다. "
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/groupList.html
 msgid "No groups found."
 msgstr "그룹을 찾을 수 없습니다."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listBugzillas.html
 msgid "No linked bugzillas"
 msgstr "링크된 Bugzilla가 없습니다 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/ownerSelect.html
 msgid "No match found"
 msgstr "해당 사항이 없습니다"
 
-#: app/cases/views/newRecommendationsSection.html
-msgid "No recommendations are available."
-msgstr "사용 가능한 추천이 없습니다."
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
-msgstr "해결 방법을 찾을 수 없습니다. "
+msgstr "솔루션을 찾을 수 없습니다. "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/views/404.html
 #: app/cases/views/404.html
 msgid "Not Found"
 msgstr "찾을 수 없음"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_status.html
 msgid "Not Logged into the Red Hat Customer Portal"
 msgstr "Red Hat 고객 포털에 로그인되어 있지 않습니다 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_form.html
 msgid "Note:"
 msgstr "알림: "
 
-#: app/cases/views/detailsSection.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/discussionSection.html
 msgid "Notes:"
 msgstr "알림:"
 
+#: app/cases/controllers/discussionSection.js
+msgid "Oldest Comment Added"
+msgstr "가장 오래된 코멘트가 추가되었습니다"
+
+#: app/cases/controllers/filterSelect.js
+msgid "Oldest Date Created"
+msgstr "가장 오래된 날짜가 생성되었습니다"
+
+#: app/cases/controllers/filterSelect.js
+msgid "Oldest Date Modified"
+msgstr "가장 오래된 날짜가 수정되었습니다"
+
+#: app/escalation/views/iceEscalation.html
+msgid ""
+"Once the request is submitted, and ICE ticket will be raised in the GSS case "
+"management system and brought to the attention of the GSS leadership team."
+msgstr "요청이 전송되면 ICE 티켓이 GSS 기술 문의 관리 시스템에 생성되고 GSS 리더십 팀에 통지됩니다."
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Once you have selected your log file then you may diagnose any part of the "
@@ -462,82 +905,182 @@ msgstr ""
 "로그 파일을 선택하면 로그 파일의 모든 부분을 진단할 수 있으므로 'Red Hat 진단' 버튼을 클릭합니다. 그러면 Red Hat 지식 "
 "기반에서 관련 기사 및 솔루션이 표시됩니다. "
 
+#: app/escalation/views/partnerEscalation.html
+msgid ""
+"Once your request is submitted, a partner escalation case will be opened "
+"with GSS and the GSS leadership team will be notified. You will then receive "
+"an email at the email address provided below with the partner escalation "
+"case number and additional information on how to track progress."
+msgstr ""
+"요청이 전송되면 파트너 에스컬레이션 기술 문의가 GSS에 생성되어 GSS 리더쉽 팀에 통지됩니다. 아래에 지정된 이메일 주소로 파트너 "
+"에스컬레이션 기술 문의 번호 및 진행 상황을 추적하는 방법에 대한 추가 정보가 들어 있는 이메일이 전송됩니다."
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/statusSelect.js
 msgid "Open"
 msgstr "열기"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/i18n/placeholder.html
 msgid "Open New Case"
 msgstr "새 기술문의 생성 "
 
+#: app/cases/controllers/list.js
+msgid "Open Support Cases"
+msgstr "기술 지원 문의 생성"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/views/accordion_search_results.html
-#: app/cases/views/list.html
 #: app/cases/views/search.html
+#: app/log_viewer/views/logsInstructionPane.html
 msgid "Open a New Support Case"
 msgstr "새 기술문의 생성"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/statusSelect.js
 msgid "Open and Closed"
 msgstr "생성 및 종료됨 "
 
-#: app/cases/views/list.html
-msgid "Opened"
-msgstr "생성됨"
-
-#: app/cases/views/detailsSection.html
-msgid "Opened:"
-msgstr "생성일: "
+#: app/cases/controllers/list.js
+msgid "Open and Closed Support Cases"
+msgstr "기술 지원 문의 생성 및 종료"
 
 #: app/cases/views/list.html
+msgid "Owned by:"
+msgstr "소유자:"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 #: app/cases/views/search.html
 msgid "Owner"
 msgstr "소유자"
 
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-msgid "Owner:"
-msgstr "소유자:"
+#: app/ascension/views/ownerInfo.html
+msgid "Owner Information"
+msgstr "소유자 정보"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_form.html
 msgid "Password"
 msgstr "암호 "
 
+#: app/escalation/views/partnerEscalation.html
+msgid "Please"
+msgstr " "
+
+#: app/cases/views/listNewAttachments.html
+msgid "Please Add File Description"
+msgstr "파일 설명을 추가하십시오"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/controllers/DropdownCtrl.js
 msgid "Please Select the Machine"
 msgstr "시스템을 선택하십시오 "
 
-#: app/cases/views/new.html
-msgid "Previous"
-msgstr "이전"
+#: app/escalation/controllers/escalationRequest.js
+msgid "Please check the requestor email address"
+msgstr "요청자의 이메일 주소를 확인하십시오"
 
-#: app/cases/views/search.html
+#: app/cases/views/discussionSection.html
+msgid ""
+"Please note, contents of this field are not visible to Red Hat Support "
+"professionals."
+msgstr "이 필드의 내용은 Red Hat 지원 담당자가 볼 수 없음에 유의하십시오."
+
+#: app/escalation/views/iceEscalation.html
+msgid ""
+"Please provide as much detail as possible to help us understand the issue, "
+"for example:"
+msgstr "문제를 이해하는데 도움이 될 수 있는 가능한 많은 세부 사항을 알려주십시오. 예:"
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/partnerEscalation.html
+msgid ""
+"Please provide as much detail as possible to help us understand the issue, "
+"for example:Reason for the escalation, the business context, the competitive "
+"situation, past support experience"
+msgstr ""
+"예를 들어 에스컬레이션 이유, 비즈니스 상황, 경쟁 상황, 과거 지원 경험등과 같이 문제를 이해하는데 도움이 될 수 있는 가능한 많은 "
+"세부 사항을 알려주십시오. "
+
+#: app/escalation/views/partnerEscalation.html
+msgid "Please provide as much information as possible in the form."
+msgstr "다음 양식에 가능한 많은 정보를 상세히 입력하십시오."
+
+#: app/escalation/views/iceEscalation.html
+msgid "Please provide as much information/detail as possible in the form."
+msgstr "다음 양식에 가능한 많은 정보를 상세히 입력하십시오."
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid ""
+"Please provide expectations and desired outcomes from yourself and from the "
+"customer"
+msgstr "파트너와 고객이 기대하는 대응 및 결과를 입력하십시오 "
+
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid ""
+"Please request the account number from the customer if possible, otherwise "
+"use your Red Hat account number.The account number can be found by clicking "
+"on the username in the top right corner of this page."
+msgstr ""
+"가능하면 고객에게 계정 번호를 요청하십시오. 그렇지 않을 경우 자신의 Red Hat 계정 번호를 사용하십시오. 계정 번호는 이 페이지의 "
+"오른쪽 상단 코너에 있는 사용자 이름을 클릭하면 알 수 있습니다."
+
+#: app/cases/views/addCommentSection.html
+msgid "Post"
+msgstr "게재"
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/partnerEscalation.html
+msgid "Priority Customer Support Routing"
+msgstr "Red Hat 파트너 에스컬레이션 요청 "
+
+# translation auto-copied from project Satellite6 Foreman, version 6.1, document foreman
+#: app/cases/views/discussionSection.html
+msgid "Private"
+msgstr "비공개"
+
+#: app/cases/views/discussionSection.html
+msgid "Private Notes"
+msgstr "비공개 메모"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/detailsSection.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+#: app/ascension/views/internalCaseDetails.html
 msgid "Product"
 msgstr "제품"
 
-#: app/cases/views/new.html
-msgid "Product & Topic"
-msgstr "제품 및 항목"
-
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
 #: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-msgid "Product Version:"
-msgstr "제품 버전:"
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "Product Version"
+msgstr "제품 버전 "
 
-#: app/cases/views/list.html
-msgid "Product/Version"
-msgstr "제품/버전"
+#: app/cases/views/editGroup.html
+msgid "Read Access"
+msgstr "읽기 액세스"
 
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-msgid "Product:"
-msgstr "제품:"
+#: app/escalation/views/iceEscalation.html
+msgid ""
+"Reason for the escalation, the business context, the competitive situation, "
+"past support experience"
+msgstr "에스컬레이션 이유, 비즈니스 상황, 경쟁 상태, 과거 지원 경험등"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
 #: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr "권장 사항 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Access makes it easy for you to self-solve issues, diagnose "
@@ -547,188 +1090,283 @@ msgstr ""
 "Red Hat Access를 사용하여 문제를 직접 해결하고, 문제를 진단하거나 Red Hat  고객 포털을 통해 보다 쉽게 지원 문의할 "
 "수 있습니다. Red Hat 고객 포털 리소스에 액세스하려면 유효한 포털 인증을 입력해야 합니다. "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_form.html
 msgid ""
 "Red Hat Customer Portal credentials differ from the credentials used to log "
 "into this product."
 msgstr "Red Hat 고객 포털 인증은 제품에 로그인하는데 사용되는 인증과 다릅니다."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/logTabs.html
 msgid "Red Hat Diagnose"
 msgstr "Red Hat 진단"
 
+#: app/escalation/views/partnerEscalation.html
+msgid ""
+"Red Hat Global Support Services (GSS) and Red Hat Global Partner Enablement "
+"have  established Partner Escalation to enable our strategic partners to "
+"escalate unresolved or mission critical customer support cases to GSS "
+"leadership. This process will help you and Red Hat to better manage your "
+"customers issues and provide a process for driving these issues to "
+"resolution."
+msgstr ""
+"Red Hat Global Support Services (GSS) 및 Red Hat Global Partner Enablement에서는 "
+"전략적 파트너를 활성화하여 GSS 리더쉽 팀에 해결되지 않은 지원 사례 및 미션 크리티컬한 고객 지원 사례를 에스컬레이션할 수 있는 "
+"파트너 에스컬레이션을 설립하였습니다. 이러한 프로세스를 통해 Red Hat은 고객의 문제를 보다 더 용이하게 관리하고 문제를 해결하기 "
+"위한 방법을 제공합니다."
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_form.html
 msgid "Red Hat Login"
 msgstr "Red Hat 로그인"
 
-#: app/cases/views/detailsSection.html
-msgid "Red Hat Owner:"
-msgstr "Red Hat 소유자:"
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Red Hat Support Ticket Number"
+msgstr "Red Hat 지원 티켓 번호 "
 
+#: app/cases/controllers/new.js
+msgid "Refining top solutions"
+msgstr "상위 솔루션 검색"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/discussionSection.html
 #: app/cases/views/commentsSection.html
 msgid "Reply"
 msgstr "회신"
 
-#: app/cases/views/commentsSection.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
+#: app/cases/views/commentsSection.html
 msgid "Request Management Escalation"
 msgstr "관리 에스컬레이션 요청"
 
+#: app/cases/views/requestEscalation.html
+msgid "Request escalation"
+msgstr "에스컬레이션 요청"
+
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Requestor"
+msgstr "요청자"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "해결 방법 "
 
+#: app/ascension/views/internalCaseDetails.html
+msgid "SBR Group"
+msgstr "SBR 그룹"
+
+#: app/common/controllers/titleView.js
+msgid "SUPPORT CASES"
+msgstr "기술 지원 문의"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/createGroupModal.html
+#: app/cases/views/detailsSection.html
 msgid "Save"
 msgstr "저장"
 
+# translation auto-copied from project totem, version 3.8.2, document totem
+#: app/cases/views/detailsSection.html
+msgid "Save Changes"
+msgstr "바뀐 사항 저장"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/defaultGroup.html
 #: app/cases/views/editGroup.html
 msgid "Save Group"
 msgstr "그룹 저장"
 
-#: app/cases/views/addCommentSection.html
-msgid "Saving draft..."
-msgstr "초안 저장 중..."
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/views/search_form.html
 #: app/cases/views/listFilter.html
-#: app/cases/views/searchBox.html
-#: app/common/header.module.js
+#: app/common/controllers/titleView.js
 #: app/i18n/placeholder.html
 msgid "Search"
 msgstr "검색 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/views/search_form.html
 msgid "Search Articles and Solutions"
 msgstr "문서 및 해결 방법 검색 "
 
-#: app/common/header.module.js
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/controllers/titleView.js
 msgid "Search Support Case"
 msgstr "기술 지원 문의 검색 "
 
-#: app/cases/views/search.html
-msgid "Searching..."
-msgstr "검색 중.. "
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/navSideBar.html
 msgid "Select File"
 msgstr "파일 선택 "
 
+#: app/log_viewer/views/logsInstructionPane.html
+msgid "Select Log"
+msgstr "로그 선택"
+
+#: app/cases/views/emailNotifySelect.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "Select a User"
+msgstr "사용자 선택"
+
+#: app/cases/views/emailNotifySelect.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "Send Email Notifications to"
+msgstr "이메일 통지 전송"
+
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Send Request"
+msgstr "요청 전송"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/addCommentSection.html
 #: app/cases/views/attachmentsSection.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Server File(s) To Attach:"
 msgstr "첨부할 서버 파일: "
 
-#: app/cases/views/list.html
-#: app/cases/views/search.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+#: app/ascension/views/internalCaseDetails.html
 msgid "Severity"
-msgstr "심각성 "
+msgstr "심각도"
 
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-#: app/cases/views/searchResult.html
-msgid "Severity:"
-msgstr "심각성:"
+#: app/ascension/views/internalCaseDescription.html
+msgid "Severity 1 (High)"
+msgstr "심각도 1 (높음)"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_form.html
 msgid "Sign in"
 msgstr "로그인"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/security/views/login_form.html
 msgid "Sign into the Red Hat Customer Portal"
 msgstr "Red Hat 고객 포털로 로그인 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "Simply navigate to and select a log file from the list on the left and click "
 "the 'Select File' button."
 msgstr "왼쪽에 있는 목록으로 이동하여 로그 파일을 선택한 후 '파일 선택' 버튼을 클릭합니다."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "Size"
 msgstr "크기 "
 
-#: app/cases/views/list.html
-#: app/cases/views/search.html
+#: app/cases/views/discussionSection.html
+#: app/cases/views/filterSelect.html
+msgid "Sort By"
+msgstr "정렬 기준"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/ascension/views/internalCaseDetails.html
 msgid "Status"
 msgstr "상태"
 
-#: app/cases/views/detailsSection.html
-#: app/cases/views/searchResult.html
-msgid "Status:"
-msgstr "상태: "
+#: app/ascension/views/internalCaseDescription.html
+msgid "Strategic"
+msgstr "전략"
 
-#: app/cases/views/new.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
 msgid "Submit"
 msgstr "제출"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Submit Request"
 msgstr "요청 제출"
 
 #: app/cases/controllers/new.js
+msgid "Successfully added"
+msgstr "성공적으로 추가되었습니다"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/services/caseService.js
 msgid "Successfully created case number"
 msgstr "기술 문의 번호가 성공적으로 생성되었습니다 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/createGroupModal.js
 msgid "Successfully created group"
 msgstr "그룹을 성공적으로 생성했습니다 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:"
 msgstr "첨부 파일을 성공적으로 삭제했습니다:"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/deleteGroupButton.js
 msgid "Successfully deleted group"
 msgstr "그룹을 성공적으로 삭제했습니다 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/deleteGroupButton.js
 msgid "Successfully deleted groups."
 msgstr "그룹을 성공적으로 삭제했습니다."
 
+#: app/cases/controllers/defaultGroup.js
+msgid "Successfully set"
+msgstr "성공적으로 설정되었습니다"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "Successfully uploaded attachment"
 msgstr "첨부 파일을 성공적으로 업로드했습니다 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/attachmentsSection.js
 msgid "Successfully uploaded attachment."
 msgstr "첨부 파일을 성공적으로 업로드했습니다."
 
-#: app/cases/views/list.html
-msgid "Summary"
-msgstr "요약"
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/listBugzillas.html
 msgid "Summary of Request"
 msgstr "요청 요약 "
 
-#: app/cases/views/new.html
-msgid "Summary:"
-msgstr "요약"
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/i18n/placeholder.html
 msgid "Support"
 msgstr "지원 "
 
-#: app/common/header.module.js
-msgid "Support Cases"
-msgstr "기술 문의 지원 "
+# translation auto-copied from project Satellite6 Bastion Katello, version 6.1, document bastion_katello
+#: app/cases/views/edit.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "Support Level"
+msgstr "지원 수준 "
 
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-msgid "Support Level:"
-msgstr "지원 수준: "
-
-#: app/cases/views/403.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/views/403.html
+#: app/escalation/views/403.html
 msgid "Support Subscription Required"
 msgstr "지원 서브스크립션 필요"
 
-#: app/cases/views/403.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/views/403.html
+#: app/escalation/views/403.html
 msgid ""
 "The credentials you provided are valid, but you do not have <b>direct "
 "support from Red Hat.</b>"
 msgstr "입력한 자격 증명은 유효하나, <b>Red Hat의 직접적인 지원</b>은 제공되지 않습니다."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
 "The log file viewer gives the ability to diagnose application logs as well "
@@ -737,7 +1375,8 @@ msgstr ""
 "로그 파일 뷰어는 Red Hat  글로벌 지원 서비스 (GSS)를 통해 기술 지원 사항을 저장할 수 있는 기능과 함께 애플리케이션을 "
 "진단할 수 있는 기능을 제공합니다."
 
-#: app/cases/views/404.html
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/views/404.html
 msgid ""
 "The page you are looking for is not here. It might have been moved, removed, "
 "or had its name and address changed. It might otherwise be temporarily "
@@ -746,132 +1385,228 @@ msgstr ""
 "찾고 계신 페이지가 없습니다. 이동 또는 삭제되었거나 이름 및 주소가 변경되었을 수 있습니다. 또는 기술적인 원인으로 일시적으로 사용하지 "
 "못하는 것일 수 도 있습니다. "
 
-#: app/cases/views/detailsSection.html
+#: app/escalation/views/iceEscalation.html
 msgid ""
-"This field allows Red Hat customers to make private notes pertinent to their "
-"case or account.  Contents of this field are not visible to  support "
-"professionals within Red Hat, and submitting updates to this field will not "
-"generate any notifications or case comments."
+"The requestor will then receive an email (at the email address provided "
+"below) with the ICE ticket number and additional information on how to track "
+"the progress of their issue."
 msgstr ""
-"이 필드에는 Red Hat 고객이 관련된 기술 문의 또는 계정에 대해 개인 메모를 작성할 수 있습니다. 이 필드의 내용은 Red Hat "
-"내의 지원 전문가가 볼 수 없으며 이 필드에 업데이트가 전송되어도 통지 또는 기술 문의에 대한 답글이 생성되지 않습니다."
+"요청자에게 ICE 티켓 번호 및 문제의 진행 상황을 추적하는 방법에 대한 추가 정보가 들어 있는 이메일이 (아래에 지정된 이메일 주소로) "
+"전송됩니다."
 
-#: app/cases/views/new.html
+#: app/escalation/views/iceEscalation.html
+msgid ""
+"This Internal Customer Escalation submission form can be used by any Red Hat "
+"associate to obtain management support for issues that require attention "
+"outside of the standard support process. Please visit the"
+msgstr ""
+"내부 고객의 에스컬레이션 제출 양식은  표준 지원 프로세스 이외의 주의를 요하는 문제에 대한 관리 지원을 위해 Red Hat 지원 "
+"담당자에 의해 사용됩니다."
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "This is your 8 digit Red Hat Support ticket number"
+msgstr "8 자리의 Red Hat 지원 티켓 번호입니다 "
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/versionSelect.html
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
 "filing a case"
 msgstr "이 릴리즈는 현재 만료되었습니다. 기술 문의를 작성하기 전 FAQ를 참조하십시오."
 
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages, author eukim
+#: app/escalation/views/partnerEscalation.html
+msgid ""
+"This should be the email address associated with your Red Hat Customer "
+"Portal or Partner Center login"
+msgstr "이는 귀하의 Red Hat 고객 포털 또는 파트너 센터 로그인에 연결된 이메일 주소여야 합니다."
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
 msgstr "권장 사항을 확인하려면 해당 항목을 클릭합니다."
 
-#: app/cases/views/search.html
-msgid "Type"
-msgstr "유형 "
+#: app/cases/views/editCaseRecommendationsSection.html
+msgid "Top Solutions"
+msgstr "상위 솔루션"
 
+#: app/cases/views/discussionSection.html
+msgid "Transcript of chat between"
+msgstr "채팅 내용"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "인증되지 않았습니다."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/caseService.js
 msgid "Ungrouped Case"
 msgstr "그룹화되지 않은 기술문의"
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/caseService.js
 msgid "Ungrouped Cases"
 msgstr "그룹화되지 않은 기술문의"
 
-#: app/cases/views/detailsSection.html
-msgid "Update Details"
-msgstr "업데이트 상세 정보 "
+# translation auto-copied from project Satellite6 Foreman, version 6.1, document foreman
+#: app/cases/views/discussionSection.html
+msgid "Update"
+msgstr "업데이트 "
 
-#: app/cases/views/list.html
-msgid "Updated"
-msgstr "업데이트됨"
+#: app/cases/views/newCaseRecommendationsAlternateSection.html
+#: app/cases/views/newCaseRecommendationsSection.html
+msgid "Updating Recommendations"
+msgstr "권장 사항 업데이트 중"
 
-#: app/cases/views/searchResult.html
-msgid "Updated:"
-msgstr "업데이트된 날짜:"
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
 msgstr "첨부 파일 업로드 "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/attachmentsSection.js
 msgid "Uploading attachment..."
 msgstr "첨부 파일 업로드 중..."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/attachmentsService.js
+#: app/cases/controllers/new.js
 msgid "Uploading attachments..."
 msgstr "첨부 파일 업로드 중..."
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/editGroup.html
 msgid "User Name"
 msgstr "사용자 이름"
 
-#: app/cases/views/list.html
-msgid "User does not have permissions to manage cases."
-msgstr "사용자에게는 기술 문의 관리 권한이 없습니다. "
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/views/defaultGroup.html
 msgid "User does not have permissions to set default case group."
 msgstr "사용자에게는 기본 기술 문의 그룹 설정 권한이 없습니다. "
 
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/controllers/editGroup.js
 msgid "User does not have proper credentials to manage case groups."
 msgstr "사용자에게는 기술 문의 그룹을 관리할 적절한 인증이 없습니다. "
 
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
+# translation auto-copied from project Satellite6 Katello, version 6.1, document katello
+#: app/ascension/views/internalCaseDetails.html
+msgid "Version"
+msgstr "버전 "
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/cases/views/descriptionSection.html
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+#: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr "제품 지원 서비스 수준 약관 보기 "
 
-#: app/cases/views/recommendationsSection.html
-msgid "View full article in new window"
-msgstr "새 창에서 전체 기사 보기"
+#: app/cases/views/newAlternate.html
+#: app/cases/views/newBase.html
+msgid "View Recommendations"
+msgstr "권장 사항 보기"
 
-#: app/common/header.module.js
-msgid "View/Modify Case"
-msgstr "기술 문의 보기/수정 "
+#: app/cases/views/editGroup.html
+msgid "Write Access"
+msgstr "쓰기 액세스"
 
-#: app/cases/views/commentsSection.html
-msgid ""
-"Would you like a Red Hat support manager to contact you regarding this case?"
-msgstr "이 기술 문의와 관련하여 Red Hat 지원 관리자가 귀하에게 연락하도록 하시겠습니까?"
-
-#: app/common/header.module.js
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
+#: app/common/services/alertService.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
 msgstr "Red Hat 고객 포털에서 성공적으로 로그아웃했습니다. "
 
-#: app/cases/views/addCommentSection.html
-#: app/cases/views/detailsSection.html
-msgid "You have used"
-msgstr "사용됨 "
-
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/search/services/searchResultsService.js
 msgid "You must be logged in to use this functionality."
 msgstr "이 기능을 사용하려면 로그인해야 합니다. "
 
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Your Email address"
+msgstr "사용자 이메일 주소"
+
+#: app/escalation/services/escalationRequestService.js
+msgid "Your Ice Escalation request has been sent successfully"
+msgstr "귀하의 ICE 에스컬레이션 요청이 성공적으로 전송되었습니다"
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/services/escalationRequestService.js
+msgid "Your Partner Escalation request has been sent successfully"
+msgstr "파트너 에스컬레이션 요청이 성공적으로 전송되었습니다 "
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/partnerEscalation.html
+msgid "Your Phone Number"
+msgstr "전화 번호 "
+
+#: app/cases/views/editCaseRecommendationsSection.html
+msgid "Your Pins"
+msgstr "사용자 핀"
+
+#: app/escalation/views/iceEscalation.html
+msgid "Your Red Hat Contact Phone Number"
+msgstr "Red Hat 전화 번호"
+
+#: app/escalation/views/iceEscalation.html
+msgid "Your Red Hat Email Address"
+msgstr "Red Hat 이메일 주소"
+
+# translation auto-copied from project Satellite6 Foreman, version 6.1, document foreman
+#: app/cases/views/discussionSection.html
+msgid "and"
+msgstr "및 "
+
+#: app/cases/controllers/defaultGroup.js
+msgid "as"
+msgstr "형식"
+
+# translation auto-copied from project RHN Satellite UI, version 5.6, document java/code/src/com/redhat/rhn/frontend/strings/jsp/StringResource, author eukim
+#: app/cases/views/discussionSection.html
+msgid "at"
+msgstr "에 "
+
+# translation auto-copied from project sushi, version 3.8.1, document sushi
+#: app/cases/views/edit.html
+#: app/cases/views/list.html
+msgid "by"
+msgstr "만든 이"
+
 #: app/cases/controllers/attachLocalFile.js
-msgid ""
-"cannot be attached because it is larger the 1 GB. Please FTP large files to "
-"dropbox.redhat.com."
-msgstr ""
-"용량이 1 GB 보다 커서 첨부할 수 없습니다. 용량이 큰 파일은 FTP를(dropbox.redhat.com) 이용해 주시기 바랍니다. "
-
-#: app/cases/views/recommendationsSection.html
-msgid "handpicked"
-msgstr "엄선"
-
-#: app/cases/views/detailsSection.html
-msgid "of the 255 maximum character size."
-msgstr "최대 문자 크기인 255자 중 "
+msgid "cannot be attached because it is larger than"
+msgstr "크기가 커서 첨부할 수 없습니다"
 
 #: app/cases/views/addCommentSection.html
-msgid "of the 32K maximum description size."
-msgstr "최대 설명 크기인 32 중 "
+#: app/cases/views/discussionSection.html
+msgid "characters left."
+msgstr "문자가 남아 있습니다."
 
+#: app/escalation/views/partnerEscalation.html
+msgid "click here"
+msgstr "여기를 클릭"
+
+#: app/escalation/views/iceEscalation.html
+msgid "for more information about the ICE process."
+msgstr "ICE 프로세스에 대한 자세한 정보"
+
+#: app/escalation/views/partnerEscalation.html
+msgid "for more information."
+msgstr "상세 정보"
+
+# translation auto-copied from project Satellite6 Foreman, version 6.1, document foreman
+#: app/cases/views/list.html
+msgid "on"
+msgstr "켜기 "
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/cases/services/attachmentsService.js
 msgid "to case"
 msgstr "기술 문의 사항 "
+
+#: app/cases/controllers/new.js
+msgid "to receieve email notifications."
+msgstr "이메일 통지 수신"

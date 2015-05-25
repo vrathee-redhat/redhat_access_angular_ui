@@ -1,0 +1,42 @@
+.alert {
+}
+
+.alert.alert-sticky {
+	right: 0;
+	margin: 0;
+//	background: $red;
+	background: #D9EDF7;
+	color: #31708F;
+	@include rem('padding', 10px);
+	z-index: 2;
+
+	@include media-query (sm) {
+		position: absolute;
+		top: 220px;
+	}
+
+	i {
+//		color: #fff;
+		@include font-size(24px);
+		line-height: 1;
+
+		@include media-query (sm) { float: left; }
+	}
+
+	.msg {
+		margin-left: 12px;
+
+		@include media-query (sm) {
+			display: none;
+			margin-top: 4px;
+			margin-right: 8px;
+			float: left;
+		}
+
+		&.active {
+			@include media-query (sm) {
+				display: block;
+			}
+		}
+	}
+}

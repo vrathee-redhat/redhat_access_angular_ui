@@ -5,9 +5,12 @@
     'jquery'
   ], function(angular, jq) {
     'use strict';
+    window.require.undef('moment');
     window.require.config({
       paths: {
-        'strata': '/bower_components/stratajs/strata'
+        'strata': '/bower_components/stratajs/strata',
+        'uds': '/bower_components/udsjs/uds',
+        'moment': '/bower_components/moment/moment'
       },
       map: {
         '*': {
@@ -16,9 +19,11 @@
       }
     });
 
-    window.chrometwo_require(['strata'], function(strata) {
-      // export strata
+    window.chrometwo_require(['strata','uds','moment'], function(strata,uds,moment) {
+      // export strata and uds
       window.strata = strata;
+      window.uds = uds;
+      window.moment=moment;
     });
 
     // keep track of deferreds we are loading
@@ -48,6 +53,10 @@
     }
     // Once all modules have loaded bootstrap it
     jq.when.apply(jq, dfds).always(function() {
+      breadcrumbs = [
+      ['Support', '/support/'],
+      ['Support Cases',  '/support/cases/']
+      ];
       var host = window.location.host;
       strata.setStrataHostname('https://' + host);
       $.support.cors = true;
@@ -58,15 +67,15 @@
             ]).run([
                 '$rootScope',
                 'COMMON_CONFIG',
-                'CHAT_SUPPORT', 
-                'EDIT_CASE_CONFIG', 
-                'NEW_CASE_CONFIG', 
+                'CHAT_SUPPORT',
+                'EDIT_CASE_CONFIG',
+                'NEW_CASE_CONFIG',
                 'SECURITY_CONFIG',
                 'AUTH_EVENTS',
-                'securityService',  
-                'gettextCatalog', 
+                'securityService',
+                'gettextCatalog',
                 function ($rootScope, COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, AUTH_EVENTS, securityService, gettextCatalog){
-                  COMMON_CONFIG.showTitle = false;
+                  COMMON_CONFIG.showTitle = true;
                   SECURITY_CONFIG.autoCheckLogin = false;
                   SECURITY_CONFIG.displayLoginStatus = false;
                   NEW_CASE_CONFIG.showServerSideAttachments = false;
@@ -85,7 +94,7 @@
                   }
                   securityService.validateLogin(false).then(function (authedUser) {
                     var account = securityService.loginStatus.account;
-                    if(account.is_secured_support !== undefined && account.is_secured_support === true){
+                    if(account !== undefined && account.is_secured_support !== undefined && account.is_secured_support === true){
                       strata.setRedhatClientID("secure_case_management_1.0");
                       strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
                       NEW_CASE_CONFIG.showRecommendations = false;
@@ -102,9 +111,17 @@
                         window.location.replace(redirectURL);
                   });
                 }
-              ]);
+              ])
+          .factory('$exceptionHandler', function() {
+              if (host !== 'access.redhat.com') {
+                  return function (exception, cause) {
+                      exception.message += ' (caused by "' + cause + '")';
+                      throw exception;
+                  };
+              }
+        });
       // Bootstrap angular app
-      angular.bootstrap(document, ['RedhatAccess.cases', 'RedhatAccess.escalation']);
+      angular.bootstrap(document, ['RedhatAccess']);
       // Fade in main element
       jq('#pcm').fadeIn();
     });

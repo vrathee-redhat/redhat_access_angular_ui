@@ -25,6 +25,7 @@ module.exports = function(config) {
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'bower_components/stratajs/strata.js',
+            'bower_components/udsjs/uds.js',
             'bower_components/ng-table/ng-table.js',
             'bower_components/angular-mocks/angular-mocks.js',
             'bower_components/angular-cache/dist/angular-cache.js',
@@ -42,6 +43,9 @@ module.exports = function(config) {
             'bower_components/sinon/lib/sinon/test_case.js',
             'bower_components/sinon/lib/sinon/assert.js',
             'bower_components/sinon/lib/sinon/match.js',
+            'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
+            'bower_components/moment/moment.js',
+            'bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
             '.tmp/templates/RedhatAccess.template.js',
             'app/**/*.module.js', //define all modules first!
             'app/common/**/*.js',

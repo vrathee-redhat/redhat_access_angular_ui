@@ -3,7 +3,6 @@
 /*jshint expr: true, camelcase: false, newcap: false */
 angular.module('RedhatAccess.cases').controller('EditGroup', [
     '$scope',
-    '$rootScope',
     'strataService',
     'CaseService',
     'AlertService',
@@ -17,7 +16,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
     'AUTH_EVENTS',
     'translate',
     'CASE_EVENTS',
-    function ($scope, $rootScope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, translate, CASE_EVENTS) {
+    function ($scope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, translate, CASE_EVENTS) {
         $scope.GroupUserService = GroupUserService;
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
@@ -53,9 +52,11 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             };
             tableBuilt = true;
         };
+
         $scope.$on(CASE_EVENTS.searchBoxChange, function () {
             $scope.tableParams.reload();
         });
+
         $scope.init = function() {
             if(securityService.userAllowedToManageGroups()){
                 SearchBoxService.searchTerm='';
@@ -88,6 +89,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             var userName = securityService.loginStatus.authedUser.sso_username;
             if(!$scope.isGroupPrestine){
                 strataService.groups.update($scope.selectedGroup, userName).then(function (response) {
+                    AlertService.clearAlerts();
                     AlertService.addSuccessMessage(translate('Case group successfully updated.'));
                     $scope.isGroupPrestine = true;
                 }, function (error) {
@@ -97,6 +99,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             if(!$scope.isUsersPrestine){
                 strataService.groupUsers.update($scope.usersOnAccount, $scope.accountNumber, $scope.selectedGroup.number).then(function(response) {
                     $scope.isUsersPrestine = true;
+                    AlertService.clearAlerts();
                     AlertService.addSuccessMessage(translate('Case users successfully updated.'));
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
@@ -146,21 +149,17 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             $scope.init();
 
         } else {
-            $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
+            $scope.$on(AUTH_EVENTS.loginSuccess, function () {
                 $scope.init();
             });
         }
 
-        $scope.authEventLogoutSuccess = $rootScope.$on(AUTH_EVENTS.logoutSuccess, function () {
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             $scope.selectedGroup = {};
             $scope.usersOnScreen = [];
             $scope.usersOnAccount = [];
             $scope.accountNumber = null;
             reloadTable = true;
-        });
-
-        $scope.$on('$destroy', function () {
-            $scope.authEventLogoutSuccess();
         });
     }
 ]);

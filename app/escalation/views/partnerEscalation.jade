@@ -1,7 +1,5 @@
-div#redhat-access-case.container-offset(ng-show='EscalationRequestService.notPartnerLogin')
-  div(rha-403escalationerror='')
-div#redhat-access-escalations.container-offset(ng-hide='EscalationRequestService.notPartnerLogin')
-  div(rha-header='', page='partnerEscalationView')
+.page-header(rha-header='', page='partnerEscalationView')
+div#redhat-access-escalations.container-offset(ng-hide='HeaderService.showPartnerEscalationError')
   h1
     span.rha-bold {{'Priority Customer Support Routing'|translate}}
   span {{'Red Hat Global Support Services (GSS) and Red Hat Global Partner Enablement have  established Partner Escalation to enable our strategic partners to escalate unresolved or mission critical customer support cases to GSS leadership. This process will help you and Red Hat to better manage your customers issues and provide a process for driving these issues to resolution.'|translate}}

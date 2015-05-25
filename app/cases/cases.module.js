@@ -4,6 +4,7 @@ angular.module('RedhatAccess.cases', [
     'ui.bootstrap',
     'localytics.directives',
     'ngTable',
+    'infinite-scroll',
     'RedhatAccess.template',
     'RedhatAccess.security',
     'RedhatAccess.search',
@@ -14,7 +15,8 @@ angular.module('RedhatAccess.cases', [
     received: 'case-received',
     searchSubmit: 'search-submit',
     searchBoxChange: 'search-box-change',
-    fetchProductsForContact: 'fetch-products-for-contact'
+    productSelectChange: 'product-select-change',
+    ownerChange: 'owner-change'
 }).constant('CHAT_SUPPORT', {
     enableChat: false,
     chatButtonToken: '573A0000000GmiP',
@@ -51,15 +53,6 @@ angular.module('RedhatAccess.cases', [
 }).config([
     '$stateProvider',
     function($stateProvider) {
-        $stateProvider.state('compact', {
-            url: '/case/compact?sessionId',
-            templateUrl: 'cases/views/compact.html'
-        });
-        $stateProvider.state('compact.edit', {
-            url: '/{id:[0-9]{1,8}}',
-            templateUrl: 'cases/views/compactEdit.html',
-            controller: 'CompactEdit'
-        });
         $stateProvider.state('edit', {
             url: '/case/{id:[0-9]{1,8}}?commentId',
             templateUrl: 'cases/views/edit.html',
@@ -69,17 +62,12 @@ angular.module('RedhatAccess.cases', [
         $stateProvider.state('new', {
             url: '/case/new',
             templateUrl: 'cases/views/new.html',
-            controller: 'New'
+            controller: 'NewRouter'
         });
         $stateProvider.state('list', {
             url: '/case/list',
             templateUrl: 'cases/views/list.html',
             controller: 'List'
-        });
-        $stateProvider.state('searchCases', {
-            url: '/case/search',
-            templateUrl: 'cases/views/search.html',
-            controller: 'Search'
         });
         $stateProvider.state('group', {
             url: '/case/group',

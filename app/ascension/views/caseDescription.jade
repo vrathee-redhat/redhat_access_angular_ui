@@ -1,0 +1,5 @@
+section.case-description    
+    h3.case-name.pre-wrap {{'Case Description'|translate}}
+    .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
+    h4(ng-show='!CaseDetailsService.caseDetailsLoading') {{CaseDetailsService.kase.description}}
+

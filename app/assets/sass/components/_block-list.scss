@@ -1,0 +1,39 @@
+$block-list-gray : #f0f0f0;
+
+.block-list {
+	@include rem('margin', $global-padding 0);
+	padding: 0;
+	list-style-type: none;
+
+	li {
+		@include rem('margin', 0 0 $global-padding);
+		@include rem('padding', $global-padding);
+	}
+
+	&.block-list-gray {
+
+		li {
+			background: $block-list-gray;
+		}
+	}
+
+	.description {
+		@include rem('margin', 4px 0 0);
+		@include rem('padding', 5px);
+		margin: 0;
+		background: #fff;
+		border: none;
+		@include box-shadow(none);
+
+		&.ng-dirty {
+			padding: 0;
+			background: none;
+		}
+
+		&.ng-dirty:focus {
+			@include rem('padding', 5px);
+			background: #fff;
+		}
+//		@include font-size(14px, 18px);
+	}
+}

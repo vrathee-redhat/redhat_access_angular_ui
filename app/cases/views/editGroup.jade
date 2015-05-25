@@ -3,10 +3,10 @@ div#redhat-access-case.container-offset
   div.container-fluid.rha-side-padding(ng-show='CaseService.sfdcIsHealthy')
     div.row(style='padding-bottom: 20px;')
       div.container-fluid(style='padding-bottom: 20px;')
-        div.col-xs-1 
-          label Group Name: 
+        div.col-xs-1
+          label {{'Group Name:'|translate}}
         div.col-xs-6
-          input(type='text' ng-model='selectedGroup.name' ng-change="toggleGroupPrestine()" class='form-control') 
+          input(type='text' ng-model='selectedGroup.name' ng-change="toggleGroupPrestine()" class='form-control')
       span.rha-search-spinner(ng-show='usersLoading')
       div(ng-hide='usersLoading')
         div.row(style='padding-bottom: 20px;')
@@ -18,11 +18,11 @@ div#redhat-access-case.container-offset
               ng-table='tableParams')
             thead(style='text-align: center')
               th
-                label Read Access
+                label {{'Read Access'|translate}}
                 input(type='checkbox', style='width: 25px;', ng-model='masterReadSelected', ng-change='onMasterReadCheckboxClicked(masterReadSelected)')
               th
-                label Write Access
-                input(type='checkbox', style='width: 25px;', ng-model='masterWriteSelected', ng-change='onMasterWriteCheckboxClicked(masterWriteSelected)') 
+                label {{'Write Access'|translate}}
+                input(type='checkbox', style='width: 25px;', ng-model='masterWriteSelected', ng-change='onMasterWriteCheckboxClicked(masterWriteSelected)')
               th.sortable(ng-class='{"sort-asc": table-params.isSortBy("sso_username", "asc"), "sort-desc": tableParams.isSortBy("sso_username", "desc")}', ng-click='tableParams.sorting({"sso_username": tableParams.isSortBy("sso_username", "asc") ? "desc" : "asc"})')
                 div {{'User Name'|translate}}
               th.sortable(ng-class='{"sort-asc": table-params.isSortBy("first_name", "asc"), "sort-desc": tableParams.isSortBy("first_name", "desc")}', ng-click='tableParams.sorting({"first_name": tableParams.isSortBy("first_name", "asc") ? "desc" : "asc"})')

@@ -1,13 +1,12 @@
 'use strict';
 angular.module('RedhatAccess.logViewer').controller('fileController', [
     '$scope',
-    '$rootScope',
     '$http',
     '$location',
     'files',
     'AlertService',
     'LOGVIEWER_EVENTS',
-    function ($scope, $rootScope, $http, $location, files, AlertService, LOGVIEWER_EVENTS) {
+    function ($scope, $http, $location, files, AlertService, LOGVIEWER_EVENTS) {
         $scope.roleList = '';
         $scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
         $scope.$watch(function () {
@@ -27,7 +26,7 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
         });
 
         $scope.selectItem = function(){
-            if(files.selectedFile !== undefined && !files.getRetrieveFileButtonIsDisabled().check){
+            if(files.selectedFile !== undefined && !files.getRetrieveFileButtonIsDisabled()){
                 $scope.fileSelected();
             }
         };
@@ -41,16 +40,16 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
                 method: 'GET',
                 url: 'logs?sessionId=' + encodeURIComponent(sessionId) + '&userId=' + encodeURIComponent(userId) + '&path=' + files.selectedFile + '&machine=' + files.selectedHost
             }).success(function (data, status, headers, config) {
-                if(data !== ''){
+                if(data !== ""){
                     files.file = data;
                 } else {
-                    files.file = ' ';
+                    files.file = " ";
                 }
             }).error(function (data, status, headers, config) {
                 AlertService.addDangerMessage(data);
             });
         };
-        $rootScope.$on(LOGVIEWER_EVENTS.allTabsClosed, function () {
+        $scope.$on(LOGVIEWER_EVENTS.allTabsClosed, function () {
             $scope.$parent.$parent.sidePaneToggle = !$scope.$parent.$parent.sidePaneToggle;
         });
     }

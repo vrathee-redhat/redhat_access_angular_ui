@@ -1,27 +1,60 @@
-div(style='margin-left: 60px; margin-right: 60px;')
-  div.well(style='margin-bottom: 10px;')
-    textarea#case-comment-box.form-control(
-      ng-disabled='addingComment',
-      maxlength='32000',
-      rows='5',
-      ng-model='CaseService.commentText',
-      style='max-width: 100%',
-      ng-change='onNewCommentKeypress()')
-    span#commentNotice.uploadNotice  
-        span {{'You have used'|translate}}
+.row
+  .col-sm-12
+    .pull-right(ng-if='securityService.loginStatus.authedUser.is_internal')
+      span &nbsp{{'Is Public:'|translate}}&nbsp;
+      input#rha-case-comment-isPublic(type='checkbox', ng-model='CaseService.isCommentPublic',ng-change= 'onCommentPublicChange()')
+textarea.comment.expand#case-comment-box.form-control(
+  ng-disabled='addingComment',
+  maxlength='32000',
+  rows='5',
+  ng-model='CaseService.commentText',
+  ng-change='onNewCommentKeypress()',
+  ng-click='DiscussionService.commentTextBoxEnlargen=true',
+  ng-class='{"expanded": DiscussionService.commentTextBoxEnlargen}',
+  ng-blur='shouldTextboxMinimize()')
+div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
+  div(rha-listnewattachments='')
+.row
+  .col-xs-7
+    #commentNotice.uploadNotice(ng-hide='progressCount < 90')
         span.progressBarWrap
-          span.progressCount {{progressCount}} %
-        span {{'of the 32K maximum description size.'|translate}}
-    div(style='padding-top: 10px;')
-      div(ng-if='securityService.loginStatus.authedUser.is_internal')
-        span(style='float: left;') {{'Is Public:'|translate}}
-        input#rha-case-comment-isPublic(type='checkbox', ng-model='CaseService.isCommentPublic',ng-change= 'onCommentPublicChange()',style='display: inline-block;')
-      span.pull-right.rha-bold(ng-show='savingDraft') {{'Saving draft...'|translate}}
-      span.pull-right.rha-bold(ng-show='CaseService.draftSaved && !savingDraft') {{'Draft saved'|translate}}
-  div(style='float: right;')
-    span.rha-search-spinner(ng-show='addingComment')
-    button#rha-case-addcommentbutton.btn.btn-primary(
-      ng-hide='addingComment',
-      ng-disabled='CaseService.disableAddComment',
-      ng-click='addComment()',
-      style='float: right;',translate='') Add Comment
+          span.progressCount {{charactersLeft}}
+        span {{' characters left.'|translate}}
+    div(ng-hide='ie8 || ie9 || !EDIT_CASE_CONFIG.showAttachments || !securityService.loginStatus.authedUser.can_add_attachments', rha-attachlocalfile='', disabled='CaseService.submittingCase')
+      .margin-top-short(ng-bind-html='AttachmentsService.parseArtifactHtml()')
+    div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
+      .rha-bottom-border(ng-hide='ie8 && EDIT_CASE_CONFIG.isPCM || ie9 && EDIT_CASE_CONFIG.isPCM')
+        .row(ng-hide='CaseService.submittingCase')
+          .col-xs-12
+            div(ng-show='EDIT_CASE_CONFIG.showServerSideAttachments')
+              .server-attach-header {{'Server File(s) To Attach:'|translate}}
+               div(rha-choicetree='',
+                 ng-model='attachmentTree',
+                 ng-controller='BackEndAttachmentsCtrl')
+  .col-xs-5
+    .pull-right
+      .spinner.spinner-inline(ng-show='addingComment || addingattachment')
+      button#rha-case-addcommentbutton.btn.btn-accent.btn-submit(
+        ng-hide='addingComment || addingattachment',
+        ng-disabled='!ie8 && !ie9 && (CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections())',
+        ng-click='addComment()',
+        translate='') Post
+      a.margin-left#rha-case-addcommentbutton(ng-click='clearComment()',translate='',ng-hide='addingComment || addingattachment') Cancel
+.row
+  .col-xs-12(ng-show='ie8 && EDIT_CASE_CONFIG.isPCM || ie9 && EDIT_CASE_CONFIG.isPCM')
+        form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
+          .row
+            .col-xs-12
+              input(id='fileUploader', type='file', value='upload',name='file')
+          .row
+            .col-xs-12
+              input#fileDescription.form-control(
+                style='float: left;',
+                type='text',
+                name='description',
+                ng-model='ieFileDescription',
+                placeholder="{{'File description'|translate}}")
+        iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
+        button#rha-case-addcommentbutton.btn.btn-accent.btn-submit(
+          ng-click='submitIEAttachment()',
+          translate='') Submit Attachment

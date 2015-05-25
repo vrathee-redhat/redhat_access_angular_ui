@@ -5,9 +5,9 @@ angular.module('RedhatAccess.cases').directive('rhaSearchbox', function () {
         templateUrl: 'cases/views/searchBox.html',
         restrict: 'A',
         controller: 'SearchBox',
-        scope: {
-			placeholder: '=',
-			hidebutton: '=?'
+        scope: { 
+        	placeholder: '=',
+        	hidebutton: '=?'
         }
     };
 });

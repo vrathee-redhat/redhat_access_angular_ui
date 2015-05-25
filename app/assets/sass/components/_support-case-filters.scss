@@ -1,0 +1,29 @@
+.support-case-filters {
+
+	.actions {
+
+		@include media-query (sm) {
+			text-align: right;
+		}
+
+		.btn {
+			width: 100%;
+			margin-top: 6px;
+
+			&:first-child { margin-top: 0; }
+
+			@include media-query (md) {
+				width: auto;
+				margin: 0;
+			}
+		}
+	}
+
+	.filters {
+		@include rem('margin-bottom', 20px);
+
+		@include media-query (sm) {
+			margin-bottom: 0;
+		}
+	}
+}

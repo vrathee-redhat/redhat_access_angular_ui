@@ -1,0 +1,64 @@
+accordion
+  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0;', is-open="isHandpickedSolutionsOpen.val")
+    accordion-heading
+      i.fa.fa-chevron-down(ng-class='{"active": isHandpickedSolutionsOpen.val}')
+      | {{'Handpicked For You'|translate}}
+    ul
+      li.recommendation(ng-repeat='recommendation in handPickedResults.array')
+        .title
+          .fa.pin(
+            ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
+            ng-click='pinRecommendation(recommendation, $index, $event)',
+            style='cursor: pointer;') &nbsp;
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
+            strong {{recommendation.title | substring:100 }}
+        div.pre-wrap(ng-bind-html='recommendation.abstract')
+    .pagination(ng-show='RecommendationsService.handPickedRecommendations.length > itemsPerPage')
+      .pull-right
+        button.btn.btn-app(ng-disabled="handPickedResultsPage === 1", ng-click="decrement('handPickedResultsPage');selectPage(handPickedResultsPage, RecommendationsService.handPickedRecommendations, handPickedResults)")
+          i.fa.fa-long-arrow-left
+        button.btn.btn-app(ng-disabled="handPickedResultsPage >= findLastPage(RecommendationsService.handPickedRecommendations)", ng-click="increment('handPickedResultsPage');selectPage(handPickedResultsPage, RecommendationsService.handPickedRecommendations, handPickedResults)")
+          span {{'NEXT'|translate}}
+          i.fa.fa-long-arrow-right
+  accordion-group(ng-hide='RecommendationsService.recommendations.length === 0', is-open="isTopSolutionsOpen.val")
+    accordion-heading
+      i.fa.fa-chevron-down(ng-class='{"active": isTopSolutionsOpen.val}')
+      | {{'Top Solutions'|translate}}
+    ul
+      li.recommendation(ng-repeat='recommendation in results.array')
+        .title
+          .fa.pin(
+            ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
+            ng-click='pinRecommendation(recommendation, $index, $event)',
+            style='cursor: pointer;') &nbsp;
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
+            strong {{recommendation.title}}
+        div.pre-wrap(ng-bind-html='recommendation.abstract')
+    .pagination(ng-show='RecommendationsService.recommendations.length > itemsPerPage')
+      .pull-right
+        button.btn.btn-app(ng-disabled="resultsPage === 1", ng-click="decrement('resultsPage');selectPage(resultsPage, RecommendationsService.recommendations, results)")
+          i.fa.fa-long-arrow-left
+        button.btn.btn-app(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="increment('resultsPage');selectPage(resultsPage, RecommendationsService.recommendations, results)")
+          span {{'NEXT'|translate}}
+          i.fa.fa-long-arrow-right
+  accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0', is-open="isPinnedSolutionsOpen.val")
+    accordion-heading
+      i.fa.fa-chevron-down(ng-class='{"active": isPinnedSolutionsOpen.val}')
+      | {{'Your Pins'|translate}}
+    ul
+      li.recommendation(ng-repeat='recommendation in pinnedResults.array')
+        .title
+          .fa.pin(
+            ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
+            ng-click='pinRecommendation(recommendation, $index, $event)',
+            style='cursor: pointer;') &nbsp;
+          a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
+            strong {{recommendation.title}}
+        div.pre-wrap(ng-bind-html='recommendation.abstract')
+    .pagination(ng-show='RecommendationsService.pinnedRecommendations.length > itemsPerPage')
+      .pull-right
+        button.btn.btn-app(ng-disabled="pinnedResultsPage === 1", ng-click="decrement('pinnedResultsPage');selectPage(pinnedResultsPage, RecommendationsService.pinnedRecommendations, pinnedResults)")
+          i.fa.fa-long-arrow-left
+        button.btn.btn-app(ng-disabled="pinnedResultsPage >= findLastPage(RecommendationsService.pinnedRecommendations)", ng-click="increment('pinnedResultsPage');selectPage(pinnedResultsPage, RecommendationsService.pinnedRecommendations, pinnedResults)")
+          span {{'NEXT'|translate}}
+          i.fa.fa-long-arrow-right

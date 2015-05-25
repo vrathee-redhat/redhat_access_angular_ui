@@ -1,13 +1,14 @@
 'use strict';
 /*jshint camelcase: false */
-angular.module('RedhatAccess.cases').service('EscalationRequestService', [
+angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
     'strataService',
     'AlertService',
     'RHAUtils',
     'ESCALATION_TYPE',
     'securityService',
+    'HeaderService',
     'translate',
-    function (strataService, AlertService, RHAUtils, ESCALATION_TYPE, securityService, translate) {
+    function (strataService, AlertService, RHAUtils, ESCALATION_TYPE, securityService, HeaderService, translate) {
 	    
 	    this.accountNumber = '';
 	    this.caseNumber = '';
@@ -89,8 +90,10 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
                 escalationJSON.expectations = this.expectations;
             }
             if (recordType === ESCALATION_TYPE.partner) {
+                AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Creating Partner Escalation request .....'));
             } else {
+                AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Creating Ice Escalation request .....'));
             }
             strataService.escalationRequest.create(escalationJSON).then(angular.bind(this,function (escalationNum) {
@@ -105,9 +108,11 @@ angular.module('RedhatAccess.cases').service('EscalationRequestService', [
                 }
             }), angular.bind(this, function (error) {
                 if (error.xhr.status === 403) {
-                    this.notPartnerLogin = true;
-                }
-                AlertService.addStrataErrorMessage(error);
+                    AlertService.clearAlerts();
+                    HeaderService.showPartnerEscalationError = true;
+                } else {
+                    AlertService.addStrataErrorMessage(error);
+                }                
             }));
 	    };
 	}

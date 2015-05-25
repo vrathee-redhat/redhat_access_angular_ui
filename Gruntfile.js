@@ -42,6 +42,7 @@ module.exports = function (grunt) {
                 'app/search/**/*.js',
                 'app/cases/**/*.js',
                 'app/log_viewer/**/*.js',
+                'app/ascension/**/*.js',
                 'app/escalation/**/*.js'
             ],
             jsTpl: ['.tmp/templates/**/*.js'],
@@ -55,17 +56,17 @@ module.exports = function (grunt) {
                     'app/search/**/*.html',
                     'app/cases/**/*.html',
                     'app/log_viewer/**/*.html',
+                    'app/ascension/**/*.html',
                     'app/escalation/**/*.html'
                 ]
             },
             css: {
                 app: [
-                    'app/common/**/*.css',
-                    'app/security/**/*.css',
-                    'app/search/**/*.css',
-                    'app/cases/**/*.css',
-                    'app/log_viewer/**/*.css',
-                    'app/escalation/**/*.css'
+                    'app/assets/css/main.min.css'
+                    // 'app/security/**/*.css',
+                    // 'app/search/**/*.css',
+                    // 'app/cases/**/*.css',
+                    // 'app/log_viewer/**/*.css'
                 ]
             },
             img: ['<%= yeoman.app %>/**/img/*'],
@@ -74,6 +75,7 @@ module.exports = function (grunt) {
                     '<%= yeoman.bowerDir %>/js-markdown-extra/js-markdown-extra.js',
                     '<%= yeoman.bowerDir %>/jsUri/Uri.js',
                     '<%= yeoman.bowerDir %>/stratajs/strata.js',
+                    '<%= yeoman.bowerDir %>/udsjs/uds.js',
                     '<%= yeoman.bowerDir %>/angular-resource/angular-resource.js',
                     '<%= yeoman.bowerDir %>/angular-sanitize/angular-sanitize.js',
                     '<%= yeoman.bowerDir %>/angular-route/angular-route.js',
@@ -84,7 +86,8 @@ module.exports = function (grunt) {
                     '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js',
                     '<%= yeoman.bowerDir %>/angular-chosen-localytics/chosen.js',
                     '<%= yeoman.bowerDir %>/angular-cache/dist/angular-cache.js',
-                    '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js'
+                    '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js',
+                    '<%= yeoman.bowerDir %>/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
                 ],
                 css: [
                     '<%= yeoman.bowerDir %>/angular-treeview/css/angular.treeview.css',
@@ -108,6 +111,13 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             },
+	        sass: {
+		        files: [
+			        'app/assets/sass/*.scss',
+			        'app/assets/sass/**/*.scss'
+		        ],
+		        tasks: ['sass']
+	        },
             jsTest: {
                 files: ['test/spec/{,*/}*.js'],
                 tasks: [
@@ -118,8 +128,8 @@ module.exports = function (grunt) {
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: [
-                    'newer:copy:styles',
-                    'autoprefixer'
+                    'newer:copy:styles'
+                    //'autoprefixer'
                 ]
             },
             gruntfile: {
@@ -137,8 +147,9 @@ module.exports = function (grunt) {
                     '<%= src.tpl.app %>',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
-                ]
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+					'app/assets/css/main.min.css'
+				]
             }
         },
         connect: {
@@ -197,6 +208,21 @@ module.exports = function (grunt) {
                 }
             }
         },
+	    sass: {
+		    dist: {
+			    options: {
+				    style: 'expanded',
+				    compass: true,
+				    require: 'breakpoint',
+				    lineNumbers: true
+			    },
+			    files: {
+				    'app/assets/css/main.min.css': [
+					    'app/assets/sass/main.scss'
+				    ]
+			    }
+		    }
+	    },
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
@@ -227,19 +253,19 @@ module.exports = function (grunt) {
             server: '.tmp',
             hooks: ['.git/hooks/pre-commit']
         },
-        autoprefixer: {
-            options: {
-                browsers: ['last 1 version']
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/styles/',
-                    src: '{,*/}*.css',
-                    dest: '.tmp/styles/'
-                }]
-            }
-        },
+        // autoprefixer: {
+        //     options: {
+        //         browsers: ['last 1 version']
+        //     },
+        //     dist: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: '.tmp/styles/',
+        //             src: '{,*/}*.css',
+        //             dest: '.tmp/styles/'
+        //         }]
+        //     }
+        // },
         'bower-install': {
             app: {
                 html: '<%= yeoman.app %>/index.html',
@@ -542,11 +568,29 @@ module.exports = function (grunt) {
             'newer:jade',
             'build',
             'concurrent:server',
-            'autoprefixer',
+            //'autoprefixer',
             'connect:livereload',
             'watch'
         ]);
     });
+	grunt.registerTask('dev', function (target) {
+		//if (target === 'dist') {
+		//	return grunt.task.run([
+		//		'build',
+		//		'connect:dist:keepalive'
+		//	]);
+		//}
+		grunt.task.run([
+			//'clean:server',
+			//'bower-install',
+			//'newer:jade',
+			'build',
+			//'concurrent:server',
+			//'autoprefixer',
+			'connect:livereload',
+			'watch'
+		]);
+	});
     grunt.registerTask('server', function () {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
         grunt.task.run(['serve']);
@@ -554,7 +598,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'html2js',
         'concurrent:test',
-        'autoprefixer',
+        //'autoprefixer',
         'connect:test',
         'karma'
     ]);
@@ -562,18 +606,19 @@ module.exports = function (grunt) {
         'clean:dist',
         'bower-install',
         'newer:jade',
-        'useminPrepare',
+	    'sass',
+	    'useminPrepare',
         'html2js',
         'concurrent:dist',
-        'autoprefixer',
+        //'autoprefixer',
         'nggettext_compile',
         'concat',
         'ngAnnotate',
         'copy:images',
         'cssmin',
         'imageEmbed',
-        'htmlmin',
-        'test'
+        'htmlmin'
+        //'test'
     ]);
     // Clean the .git/hooks/pre-commit file then copy in the latest version
     grunt.registerTask('inithooks', [

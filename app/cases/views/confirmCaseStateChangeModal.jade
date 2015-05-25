@@ -1,0 +1,18 @@
+.modal-header
+  h3(translate='') Case status was changed.
+.modal-body
+  .row
+    .col-sm-12
+      div {{'Are you sure you want to change this case status to'|translate}} {{CaseService.kase.status.name}}?
+  .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
+    .col-sm-12
+      .pull-right
+        button.btn-accent.btn(
+          style='margin-left: 10px;',
+          ng-click='closeCases()')
+          span {{'Yes'|translate}}
+        button.btn-accent.btn(
+          style='margin-left: 10px;',
+          ng-click='closeModal()')
+          span {{'No'|translate}}
+

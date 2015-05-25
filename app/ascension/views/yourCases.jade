@@ -1,0 +1,7 @@
+nav.navbar.navbar-default.navbar-static-top
+    .container-fluid
+        div
+            ul.nav.navbar-nav
+                li(ng-repeat='case in CaseDetailsService.cases',ng-show='true')
+                    a(href='', ng-click='fetchCaseDetail(case)') {{'Case'|translate}} {{case}}
+

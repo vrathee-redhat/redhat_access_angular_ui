@@ -1,0 +1,239 @@
+// Colors
+//==================================================================*/
+$recommendations-background: #F7F7F7;
+$recommendations-title-background: #adadad;
+$recommendations-title-color: $header_font_color;
+$recommendations-paragraph-color: $base_font_color;
+
+$recommendations-padding: 30px;
+$recommendations-link-size: 14px;
+
+$aside-border-color: #d3d3d3;
+
+.recommendations {
+	position: relative;
+	color: $recommendations-paragraph-color;
+	@include font-size(14px);
+	padding: 0;
+
+	.link {
+		display: block;
+		font-weight: 500;
+		@include font-size($recommendations-link-size);
+	}
+
+	article {
+		@include rem('padding', 20px $recommendations-padding);
+		@include transition-duration(.2s);
+		@include transition-timing-function("easeOutCubic");
+
+		.article-content {
+
+			a {
+				color: $base_font_color;
+			}
+		}
+
+		footer {
+			color: #A9A9A9;
+
+			span {
+				margin: 0;
+			}
+		}
+	}
+
+	.title {
+		position: relative;
+		@include rem('padding', $recommendations-padding $recommendations-padding 0);
+		margin: 0;
+		color: $recommendations-title-color;
+		@include font-size(28px);
+		font-weight: 100;
+
+		&.blue {
+			@include rem('padding', $recommendations-padding);
+			background: #0085cf;
+			color: #fff;
+		}
+	}
+
+	.pagination {
+		@include clearfix();
+		@include rem('padding', 0 $global-margin $global-margin);
+		display: block;
+	}
+}
+
+$recommendations-dark-background: #333336;
+$recommendations-dark-title-background: #adadad;
+$recommendations-dark-title-color: #fff;
+$recommendations-dark-paragraph-color: #fff;
+$recommendations-dark-link-color: #0bc0fc;
+
+.recommendations.dark {
+	background: $recommendations-dark-background;
+	color: $recommendations-dark-paragraph-color;
+
+	.title {
+		color: $recommendations-dark-title-color;
+	}
+
+	a {
+		color: $recommendations-dark-link-color;
+	}
+
+	.link {  }
+
+	i {  }
+
+}
+
+.recommendations-inline {
+	@include rem('padding-top', $global-margin);
+	@include rem('padding-bottom', $global-margin);
+
+	.section-title {
+		@include rem('margin-bottom', $global-margin);
+	}
+
+	.link {
+		display: block;
+		font-weight: 600;
+
+		@include media-query (md) {
+			height: 40px;
+		}
+	}
+
+	.card {
+		header {
+			@include rem('margin-bottom', $global-padding);
+		}
+
+		.article-content a {
+
+		}
+
+		.recommendations-title {
+			i {
+				margin-right: 8px;
+			}
+		}
+	}
+
+	.pagination {
+		padding: 0;
+		margin: 0;
+	}
+}
+
+.aside .recommendations {
+	border: 1px solid $aside-border-color;
+
+	.panel-group {
+		padding: 0;
+		margin: 0;
+
+		.panel + .panel {
+			margin: 0;
+			border-top: 1px solid $aside-border-color;
+		}
+	}
+
+
+	.panel-heading {
+		@include rem('padding', 10px $global-padding 10px $global-margin);
+		background-color: #F0F0F0;
+		border: none;
+
+		& + .panel-heading {
+
+		}
+
+		.panel-title a.accordion-toggle {
+
+			i {
+				position: absolute;
+				left: 10px;
+				@include transition(.2s);
+
+				&.active {
+					@include transform(rotate(180deg));
+				}
+			}
+		}
+	}
+
+	.panel-title {
+		@include font-size(14px);
+	}
+
+	.panel-body {
+		padding: 0;
+		border: none;
+	}
+
+	.panel-heading + .panel-body {
+		border-top: 1px solid $aside-border-color;
+	}
+
+	.pin {
+		position: absolute;
+		top: 0px;
+		left: -18px;
+		@include opacity(0);
+		@include font-size(18px);
+		line-height: 1;
+
+		&:hover {
+			@include opacity(1);
+		}
+	}
+
+	ul {
+		list-style-type: none;
+		@include rem('padding', $global-padding 0 );
+	}
+
+	li {
+
+		article {
+			padding: 0;
+		}
+
+		.title {
+			padding: 0;
+			@include font-size(14px);
+			line-height: 1;
+		}
+
+		// set the pinned and pinning states to be visible always
+		.pinned,
+		.spinner-xs {
+			@include opacity(1);
+		}
+
+		.not-pinned {
+			@include transition(0);
+		}
+
+		.spinner {
+			margin-left: -4px;
+		}
+	}
+
+	li + li {
+		@include rem('margin-top', $global-margin);
+	}
+
+	li:hover {
+		.pin {
+			@include opacity(.5);
+
+			&:hover {
+				@include opacity(1);
+			}
+		}
+	}
+}

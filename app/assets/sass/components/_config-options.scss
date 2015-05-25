@@ -1,0 +1,12 @@
+.config-options {
+	@include rem('margin-top', $global-margin);
+
+	.label {
+		display: block;
+		padding: 0;
+		font-weight: 700;
+		text-align: left;
+		@include font-size(13px);
+		color: $base_font_color;
+	}
+}

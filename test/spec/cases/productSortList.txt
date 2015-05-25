@@ -1,0 +1,1 @@
+Red Hat Enterprise Linux,Red Hat JBoss Enterprise Application Platform,Red Hat Satellite or Proxy

@@ -1,0 +1,156 @@
+// Grid Settings
+//==================================================================*/
+$grid-columns:          12;
+$main-sm-columns:       $grid-columns;
+$sidebar-sm-columns:    4;
+$base-vertical-pad:     30px;
+$global-padding:        15px;
+$global-margin:         30px;
+
+
+$aside-bg:              #f0f0f0;
+$aside-border-color:    #f0f0f0;
+
+// Brand Colors
+//==================================================================*/
+	$brand-gray:            #4c4c4c;
+	$gray:                  #ddd;
+
+	// Red
+	$red:                   #c00;
+
+	// Blue
+	$blue:                  #0083d2;
+	$blue_dark:             #102c3b;
+	$blue_light:            #9ac0de;
+	$brand-primary:         #27ae60;
+
+	$form-color:            #4a4a4a;
+
+
+// Links
+//==================================================================*/
+$link-color:            #0085cf;
+
+
+// Buttons
+//==================================================================*/
+$btn-bg_default:        gray;
+
+
+// Case List
+//==================================================================*/
+$case-list-color: $brand-gray;
+
+
+// Chosen
+//==================================================================*/
+$chosen-color: $form-color;
+
+
+// Glyphicons path
+// -------------------------
+$icon-font-path:        "../vendor/bootstrap-sass-official/assets/fonts/";
+
+
+// Borders
+//==================================================================*/
+$border-gray: #cacaca;
+
+
+// Forms
+//==================================================================*/
+$form-icon-color: #c7c7c7;
+
+
+// Media Queries
+//--------------------------------------------------------------*/
+$xs: 480px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+
+
+// Fonts
+//==================================================================*/
+$base_font_size: 16px;
+$base_line_height: 22px;
+$base_font_color: #333;
+$base_color: #656870;
+$base_font_family: 'Helvetica', sans-serif;
+
+
+$line-height-computed:    floor(($base_font_size * $base_line_height)) !default; // ~20px
+
+
+// Typography Settings
+//==================================================================*/
+$comment-font-size: 14px;
+
+
+// Headings
+//--------------------------------------------------------------*/
+$header_font_weight: normal;
+$header_font_style: normal;
+$header_line_height: 1.3;
+$header_top_margin: 5px;
+$header_bottom_margin: $global-margin;
+$header_text_rendering: optimizeLegibility;
+$header_font_color: $base_font_color;
+$header_font_family: 'Times New Roman', Times, serif;
+
+$h1_font_size: 20px;
+$h2_font_size: 49px;
+$h3_font_size: 20px;
+$h4_font_size: 23px;
+$h5_font_size: 18px;
+$h6_font_size: 16px;
+
+
+// Paragraphs
+//--------------------------------------------------------------*/
+$paragraph_font_weight: normal;
+$paragraph_font_size: $base_font_size;
+$paragraph_line_height: 24px;
+$paragraph_margin_bottom: 20px;
+$paragraph_text_rendering: optimizeLegibility;
+
+
+// Links
+//--------------------------------------------------------------*/
+$link_text_decoration: none;
+
+
+// Blockquotes
+//--------------------------------------------------------------*/
+$blockquote_padding: 10px 20px;
+$blockquote_margin: 0 0 20px;
+
+
+// Alerts Settings
+//==================================================================*/
+$alertbox_font_color: #fff;
+$alertbox_margin: 16px;
+
+
+// Media Settings
+//==================================================================*/
+$figure_background: #000;
+$figure_margin: 0 0 16px;
+$figure_opacity: .9;
+$figure_opacity_hover: 1;
+
+
+// Forms Settings
+//==================================================================*/
+$form_margin: 0 0 16px;
+
+
+// Table Settings
+//==================================================================*/
+$table_cell_padding: 8px;
+$table_cell_border: 1px solid $brand_primary;
+
+// Row Settings
+//==================================================================
+$row_margin: 0 15px;

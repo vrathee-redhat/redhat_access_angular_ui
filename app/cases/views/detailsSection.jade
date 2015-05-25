@@ -1,212 +1,80 @@
-form(name='caseDetails')
-  div(style='display: table; width: 100%; padding-bottom: 20px;')
-    div(style='display: table-cell; width: 50%;')
-      div
-        h3.case-id(style='margin-top: 0px;') Case {{CaseService.kase.case_number}} 
-         span.amc(ng-show="CaseService.kase.entitlement.sla=='AMC'") {{'Advanced Mission Critical'|translate}}
-      input#rha-summary.form-control(
-        style='width: 100%; display: inline-block;',
-        maxlength='255',
+section.case-description
+  i#case-description-toggle.fa.fa-caret-chevron.case-description-toggle(ng-click='toggleExtraInfo()', ng-class="showExtraInfo ? 'fa fa-chevron-down case-description-toggle active' : 'fa fa-chevron-down case-description-toggle'")
+  h3.case-name.pre-wrap
+    a(ng-click='editCaseSummary(true)' , ng-show='!caseSummaryEditable' , href='') {{CaseService.kase.summary}}
+  form(name='summaryForm')
+   .row(ng-show='caseSummaryEditable')
+    .col-xs-4.col-sm-3.col-md-8
+      input#rha-case-summary.form-control(
         ng-model='CaseService.kase.summary',
-        name='summary')
-      span.glyphicon.glyphicon-asterisk(
-        ng-show='caseDetails.summary.$dirty',
-        style='display: inline-block;')
-    div(ng-hide='compact', style='display: table-cell; vertical-align: bottom; width: 50%;')
-      div(ng-show='showEmailNotifications')
-        div.pull-right(style='width: 75%')
-          div(rha-emailnotifyselect='')
-  span.rha-search-spinner(ng-show='loading')
-  div.container-fluid.rha-side-padding(ng-hide='loading')
-    div#rha-case-details.row
-      div.col-sm-12.rha-section-header
-        h4(translate='') Details
-      div.container-fluid.rha-side-padding
-        div.row
-          div.col-md-4
-            table.table.details-table
-              tr(ng-hide='compact')
-                th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-case-type') {{'Case Type:'|translate}}
-                  span.glyphicon.glyphicon-asterisk(
-                    ng-show='caseDetails.type.$dirty',
-                    style='display: inline-block;float: right; vertical-align: 50%;')
-                td
-                  div(rha-selectloadingindicator='', loading='caseTypes === undefined', type='bootstrap')
-                      select#rha-case-type.form-control(
-                        name='type',
-                        style='width: 100%;',
-                        ng-model='CaseService.kase.type',
-                        ng-options='c.name for c in caseTypes track by c.name')
-              tr
-                th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-case-severity') {{'Severity:'|translate}}
-                    span.glyphicon.glyphicon-question-sign.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")
-                  span.glyphicon.glyphicon-asterisk(
-                    ng-show='caseDetails.severity.$dirty',
-                    style='display: inline-block;float: right; vertical-align: 50%;')
-                td
-                  div(rha-selectloadingindicator='', loading='CaseService.severities === undefined', type='bootstrap')
-                      select#rha-case-severity.form-control(
-                        name='severity',
-                        style='width: 100%;',
-                        ng-model='CaseService.kase.severity',
-                        ng-change='CaseService.onChangeFTSCheck()',
-                        ng-options='s.name for s in CaseService.severities track by s.name')
-              tr(ng-show='CaseService.showFts()')
-                th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Support:'|translate}}
-                td
-                  input#rha-case-ftsCheckboxEdit(ng-model='CaseService.kase.fts', type='checkbox', name='ftsCheckbox')
-              tr(ng-show='CaseService.showFts() && CaseService.kase.fts')
-                th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;') {{'24x7 Contact:'|translate}}
-                td
-                  input#rha-case-contact-24x7-edit.form-control(ng-model='CaseService.kase.contact_info24_x7', name='ftsContact')
-              tr
-                th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-case-status') {{'Status:'|translate}}
-                  span.glyphicon.glyphicon-asterisk(
-                  ng-show='caseDetails.status.$dirty',
-                  style='display: inline-block;float: right; vertical-align: 50%;')
-                td
-                  div(rha-selectloadingindicator='', loading='statuses === undefined', type='bootstrap')
-                      select#rha-case-status.form-control(
-                        name='status',
-                        style='width: 100%;',
-                        ng-model='CaseService.kase.status',
-                        ng-options='s.name for s in statuses track by s.name')
-              tr(ng-hide='compact')
-                th.rha-detail-table-header
-                  div(style='vertical-align:m 50%; display: inline-block;')
-                    label(for='rha-case-alt-id') {{'Alternate Case ID:'|translate}}
-                  span.glyphicon.glyphicon-asterisk(
-                  ng-show='caseDetails.alternate_id.$dirty',
-                  style='display: inline-block;float: right; vertical-align: 50%;')
-                td
-                  input#rha-case-alt-id.form-control(
-                    style='width: 100%',
-                    ng-model='CaseService.kase.alternate_id',
-                    name='alternate_id')
-          div.col-md-4
-            table.table.details-table
-              tr
-                th
-                  div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-product') {{'Product:'|translate}}
-                  span.glyphicon.glyphicon-asterisk(
-                    ng-show='caseDetails.product.$dirty',
-                    style='display: inline-block;float: right; vertical-align: 50%;')
-                td
-                  div(rha-selectloadingindicator='', loading='products === undefined', type='bootstrap')
-                      select#rha-product.form-control(
-                        name='product',
-                        style='width: 100%;',
-                        ng-model='CaseService.kase.product',
-                        ng-change='getProductVersions()',
-                        ng-options='s.name for s in products track by s.name',
-                        required)
-              tr
-                th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-product-version') {{'Product Version:'|translate}}
-                  span.glyphicon.glyphicon-asterisk(
-                  ng-show='caseDetails.version.$dirty',
-                  style='display: inline-block;float: right; vertical-align: 50%;')
-                td
-                  div(rha-selectloadingindicator='', loading='CaseService.versions.length === 0', type='bootstrap')
-                      select#rha-product-version.form-control(
-                        name='version',
-                        style='width: 100%;',
-                        ng-options='v for v in CaseService.versions track by v',
-                        ng-model='CaseService.kase.version',
-                        required)
-              tr(ng-hide='compact')
-                th.rha-detail-table-header
-                  label(for='rha-support-level') {{'Support Level:'|translate}}
-                td#rha-support-level {{CaseService.kase.entitlement.sla}}
-              tr(ng-hide='compact')
-                th.rha-detail-table-header
-                  label(for='rha-owner') {{'Owner:'|translate}}
-                td#rha-owner {{CaseService.kase.contact_name}} <{{CaseService.kase.contact_sso_username }}>
-              tr(ng-hide='compact')
-                th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-rh-owner') {{'Red Hat Owner:'|translate}}
-                td
-                  div
-                    span.glyphicon.glyphicon-asterisk(
-                    ng-show='caseDetails.owner.$dirty',
-                    style='display: inline-block;float: left; vertical-align: 50%;')
-                    span#rha-rh-owner(ng-if='userIsCaseOwner') {{CaseService.kase.owner}}
-                    select#rha-rh-owner.form-control(
-                      name='owner',
-                      style='width: 100%;',
-                      ng-model='CaseService.kase.owner'
-                      ng-if='!userIsCaseOwner',
-                      ng-options='owner.value as owner.label for owner in owners')
-          div.col-md-4
-            table.table.details-table
-              tr(ng-hide='compact')
-                th.rha-detail-table-header
-                  div(style='vertical-align: 50%; display: inline-block;')
-                    label(for='rha-group-select') {{'Group:'|translate}}
-                  span.glyphicon.glyphicon-asterisk(
-                    ng-show='caseDetails.group.$dirty',
-                    style='display: inline-block;float: right; vertical-align: 50%;')
-                td
-                  div(rha-selectloadingindicator='', loading='groups === undefined', type='bootstrap')
-                      select#rha-group-select.form-control(
-                        name='group',
-                        style='width: 100%;',
-                        ng-options='g.name for g in groups track by g.number',
-                        ng-model='CaseService.kase.group')
-                        option(value="") Ungrouped Case
-              tr(ng-hide='compact')
-                th.rha-detail-table-header
-                  label(for='rha-opened') {{'Opened:'|translate}}
-                td#rha-opened
-                  div {{CaseService.kase.created_date | date:'MMM d, y h:mm:ss a Z'}}
-                  div {{CaseService.kase.created_by}}
-              tr(ng-hide='compact')
-                th.rha-detail-table-header
-                  label(for='rha-last-updated') {{'Last Updated:'|translate}}
-                td#rha-last-updated
-                  div {{CaseService.kase.last_modified_date | date:'MMM d, y h:mm:ss a Z'}}
-                  div {{CaseService.kase.last_modified_by}}
-              tr.rha-detail-acc-number(ng-hide='compact',ng-if="securityService.loginStatus.authedUser.is_internal")
-                th.rha-detail-table-header
-                  label(for='rha-account-number') {{'Account Number:'|translate}}
-                td#rha-account-number {{CaseService.kase.account_number}}
-              tr.rha-detail-acc-name(ng-hide='compact',ng-if="securityService.loginStatus.authedUser.is_internal")
-                th.rha-detail-table-header
-                  label(for='rha-account-name') {{'Account Name:'|translate}}
-                td#rha-account-name {{CaseService.account.name}}        
-         div(ng-if="!securityService.loginStatus.authedUser.is_internal")
-            label(for='rha-case-notes') {{'Notes:'|translate}}
-            span.glyphicon.glyphicon-asterisk(
-                  ng-show='caseDetails.notes.$dirty')
-            textarea#rha-case-notes(
-                tooltip='{{"This field allows Red Hat customers to make private notes pertinent to their case or account.  Contents of this field are not visible to  support professionals within Red Hat, and submitting updates to this field will not generate any notifications or case comments."|translate}}',
-                tooltip-placement='bottom',
-              style='width: 100%; height: 70px; max-width: 100%;',
-            ng-model='CaseService.kase.notes',
-               maxlength='255',
-              name='notes')
-        span(ng-if="!securityService.loginStatus.authedUser.is_internal")#notesNotice.uploadNotice
-            span {{'You have used'|translate}}
-                span.progressBarWrapNotes
-                    span.progressCount {{progressCount}}
-                span {{'of the 255 maximum character size.'|translate}}
-        div.row(style='padding-top: 10px;')
-          div.col-xs-12
-            div(style='float: right;')
-              button#rha-caseupdateform-updatebutton.btn.btn-primary(
-                name='updateButton',
-                ng-disabled='!caseDetails.$dirty',
-                ng-hide='updatingDetails',
-                ng-click='updateCase()', translate='') Update Details
-              span.rha-search-spinner(ng-show='updatingDetails')
+        maxlength='255',
+        name='case_summary')
+    .col-xs-4.col-sm-3.col-md-4
+      button.btn.btn-primary(
+        name='saveButton',
+        ng-disabled='updatingDetails || !summaryForm.$dirty',
+        ng-click='updateCase()', translate='') Save
+      a.margin-left(
+        ng-hide='updatingDetails',
+        ng-click='editCaseSummary(false)') {{'Cancel'|translate}}
+  h4.product-name {{CaseService.kase.product}}&nbsp;{{CaseService.kase.version}}
+  .description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | substring:150 }}
+  .description.pre-wrap(ng-show='showExtraInfo') {{CaseService.kase.description}}
+  div#case-description-extra-info(ng-class="showExtraInfo ? 'case-description-extra-info active' : 'case-description-extra-info'")
+    form(name='detailsForm')
+      section.config-options
+        .row.row-short
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'Product'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            div(rha-productselect='')
+        .row.row-short
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'Product Version'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            div(rha-versionselect='')
+        .row.row-short
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'Alternate Case ID'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            input#rha-case-alt-id.form-control(
+              ng-model='CaseService.kase.alternate_id',
+              name='alternate_id')
+        .row.row-short
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'Case Group'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            select#rha-group-select.form-control(
+              chosen,
+              width="'100%'",
+              name='group',
+              ng-options='g.name for g in groups track by g.number',
+              ng-model='CaseService.kase.group')
+              option(value="") Ungrouped Case
+        .row.row-short
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'Case Type'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            div(rha-typeselect='')
+        .row.row-short(ng-show="CaseService.showFts()")
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'24x7 Support'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            input(ng-model="CaseService.kase.fts",
+            type="checkbox",
+            name="ftsCheckbox")
+        .row.row-short(ng-show="CaseService.showFts() && CaseService.kase.fts")
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'24x7 Contact'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            input(
+              ng-model="CaseService.kase.contact_info24_x7")
+        .row
+          .col-sm-12
+            button.btn.btn-app.btn-submit(
+              name='updateButton',
+              ng-disabled='validatePage() || updatingDetails || !detailsForm.$dirty',
+              ng-click='updateCase()', translate='') Save Changes
+            a.margin-left(
+              ng-hide='updatingDetails || !detailsForm.$dirty',
+              ng-click='resetData()',translate='') Cancel

@@ -12,7 +12,6 @@ angular.module('RedhatAccess.security').factory('securityService', [
     'AlertService',
     'RHAUtils',
     function($rootScope, $modal, AUTH_EVENTS, $q, LOGIN_VIEW_CONFIG, SECURITY_CONFIG, strataService, AlertService, RHAUtils) {
-        var isLoginDisplayed = false;
         var service = {
             loginStatus: {
                 isLoggedIn: false,
@@ -26,6 +25,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 service.loginStatus.isLoggedIn = isLoggedIn;
                 service.loginStatus.verifying = verifying;
                 service.loginStatus.authedUser = authedUser;
+                RHAUtils.userTimeZone=authedUser.timezone;
                 service.userAllowedToManageCases();
             },
             clearLoginStatus: function() {
@@ -33,6 +33,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 service.loginStatus.verifying = false;
                 service.loginStatus.userAllowedToManageCases = false;
                 service.loginStatus.authedUser = {};
+                RHAUtils.userTimeZone='';
             },
             setAccount: function(accountJSON) {
                 service.loginStatus.account = accountJSON;
@@ -53,7 +54,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
             },
             userAllowedToManageCases: function() {
                 var canManage = false;
-                if(service.loginStatus.authedUser.rights !== undefined){
+                if(service.loginStatus.authedUser.rights !== undefined && service.loginStatus.authedUser.is_entitled){
                     for(var i = 0; i < service.loginStatus.authedUser.rights.right.length; i++){
                         if(service.loginStatus.authedUser.rights.right[i].name === 'portal_manage_cases' && service.loginStatus.authedUser.rights.right[i].has_access === true){
                             canManage = true;
@@ -154,14 +155,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             },
             showLogin: function(customModalDefaults, customModalOptions) {
-                if (isLoginDisplayed) {
-                    // We already have a login dialog up, no need to show another
-                    var defer = $q.defer();
-                    defer.reject();
-                    return defer.promise;
-                }
-                isLoginDisplayed = true;
-
+                //var that = this;
                 //Create temp objects to work with since we're in a singleton service
                 var tempModalDefaults = {};
                 var tempModalOptions = {};
@@ -182,16 +176,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                 authenticating: false
                             };
                             $scope.useVerboseLoginView = LOGIN_VIEW_CONFIG.verbose;
-                            function resetStatus() {
-                                $scope.status.authenticating = false;
-                                isLoginDisplayed = false;
-                            }
                             $scope.modalOptions = tempModalOptions;
-                            $scope.modalOptions.keyDown = function($event, onEnter) {
-                                if ($event.keyCode === 13) {
-                                    onEnter();
-                                }
-                            };
                             $scope.modalOptions.ok = function(result) {
                                 //Hack below is needed to handle autofill issues
                                 //@see https://github.com/angular/angular.js/issues/1460
@@ -209,7 +194,7 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                             try {
                                                 $modalInstance.close(authedUser);
                                             } catch (err) {}
-                                            resetStatus();
+                                            $scope.status.authenticating = false;
                                         },
                                         function(error) {
                                             if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
@@ -219,16 +204,16 @@ angular.module('RedhatAccess.security').factory('securityService', [
                                             } else {
                                                 $scope.authError = 'Login Failed!';
                                             }
-                                            resetStatus();
+                                            $scope.status.authenticating = false;
                                         }
                                     );
                                 }else {
                                     $scope.authError = 'Login Failed!';
-                                    resetStatus();
+                                    $scope.status.authenticating = false;
                                 }
                             };
                             $scope.modalOptions.close = function() {
-                                resetStatus();
+                                $scope.status.authenticating = false;
                                 $modalInstance.dismiss('User Canceled Login');
                             };
                         }
