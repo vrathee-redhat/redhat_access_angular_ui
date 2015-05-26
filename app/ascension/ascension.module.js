@@ -5,7 +5,9 @@ angular.module('RedhatAccess.ascension', [
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
     'RedhatAccess.header'
-]).config([
+]).constant('TOPCASES_EVENTS', {
+        topCaseFetched: 'top-cases-fetched'
+    }).config([
     '$stateProvider',
     function($stateProvider) {
         $stateProvider.state('ascension', {
