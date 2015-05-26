@@ -13,7 +13,7 @@ div(ng-show='securityService.loginStatus.isLoggedIn')
         .row
             ul#tab_list.nav.nav-tabs(role="tablist")
               li(ng-class='{"active": caseOverView}')
-                a(ng-click='toggleCaseOverView()', data-toggle="tab") {{'Case OverView'|translate}}
+                a(ng-click='toggleCaseOverView()', data-toggle="tab") {{'Case Overview'|translate}}
               li(ng-class='{"active": caseDiscussion}')
                 a(ng-click='toggleCaseDiscussion()',  data-toggle="tab") {{'Discussion'|translate}}
               li(ng-class='{"active": caseSummary}')
@@ -58,7 +58,7 @@ div(ng-show='securityService.loginStatus.isLoggedIn')
         .tab-content
           #pane1.tab-pane(ng-class='{"active": escalations}')
             .row
-              div(rha-caseescalations='')            
+              div(rha-caseescalations='')
     aside.col-md-3
         .row
           section#breachinformation.breach-info(rha-breachstatus='')
