@@ -7,7 +7,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
     function ($q, RHAUtils, $angularCacheFactory) {
         var service = {
             cases: {
-                list: function(uql) {
+                list: function(uql,resourceProjection,limit) {
                     var deferred = $q.defer();
                     uds.fetchCases(
                         function (response) {
@@ -16,7 +16,9 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         function (error) {
                             deferred.reject(error);
                         },
-                        uql
+                        uql,
+                        resourceProjection,
+                        limit
                     );
                     return deferred.promise;
                 }
@@ -64,6 +66,19 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 }
             },
             user:{
+                get:function(uql){
+                    var deferred = $q.defer();
+                    uds.fetchUser(
+                        function (response) {
+                            deferred.resolve(response);
+                        },
+                        function (error) {
+                            deferred.reject(error);
+                        },
+                        uql
+                    );
+                    return deferred.promise
+                },
                 details:function(ssoUsername){
                     var deferred = $q.defer();
                     uds.fetchUserDetails(
