@@ -50,6 +50,8 @@ app.service('RHAUtils',
         return date.format(formatter);
       };
 });
+
+
 //Wrapper service for translations
 app.service('translate', [
     'gettextCatalog',
