@@ -24,17 +24,12 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.refreshFilterCache=false;
         this.caseListPage = 1;
         this.caseListPageSize = 10;
-        this.caseParameters = {
-            searchTerm: '',
-            status: STATUS.open,
-            group: ''
-        };
-        var getIncludeClosed = function (caseParameters) {
-            if (caseParameters.status === STATUS.open) {
+        var getIncludeClosed = function () {
+            if (CaseService.status === STATUS.open) {
                 return false;
-            } else if (caseParameters.status === STATUS.closed) {
+            } else if (CaseService.status === STATUS.closed) {
                 return true;
-            } else if (caseParameters.status === STATUS.both) {
+            } else if (CaseService.status === STATUS.both) {
                 return true;
             }
             return true;
@@ -59,9 +54,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         var queryString = '';
 
         this.doFilter = function (checkIsInternal) {
-            if(this.caseParameters.group === ''){
-                this.caseParameters.group = CaseService.group;
-            }
             queryString = '';
 
             //TODO add internal and GS4
@@ -87,40 +79,32 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 //     //params.view = 'internal';
                 // }
 
-            // Fetching the sort by parameter from localstorage
-            if(CaseService.localStorageCache) {
-                if (CaseService.localStorageCache.get('filterSelect'+securityService.loginStatus.authedUser.sso_username)) {
-                    var filterSelectCache = CaseService.localStorageCache.get('filterSelect'+securityService.loginStatus.authedUser.sso_username);
-                    CaseService.setFilterSelectModel(filterSelectCache.sortField,filterSelectCache.sortOrder);
-                }
-            }
-            if(this.caseParameters.searchTerm === undefined || this.caseParameters.searchTerm === ''){
+            if(SearchBoxService.searchTerm === undefined || SearchBoxService.searchTerm === ''){
                 var params = {
                     count: this.count,
-                    include_closed: getIncludeClosed(this.caseParameters)
+                    include_closed: getIncludeClosed()
                 };
                 if(COMMON_CONFIG.isGS4 === true){
                     params.account_number = "639769";
                 }
                 params.start = this.start;
 
-                if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
-                    params.keyword = this.caseParameters.searchTerm;
+                if (!RHAUtils.isEmpty(SearchBoxService.searchTerm)) {
+                    params.keyword = SearchBoxService.searchTerm;
                 }
-                if (this.caseParameters.group === CASE_GROUPS.manage) {
+                if (CaseService.group === CASE_GROUPS.manage) {
                     $state.go('group');
-                } else if (this.caseParameters.group === CASE_GROUPS.ungrouped) {
+                } else if (CaseService.group === CASE_GROUPS.ungrouped) {
                     params.only_ungrouped = true;
-                } else if (!RHAUtils.isEmpty(this.caseParameters.group)) {
-                    params.group_numbers = { group_number: [this.caseParameters.group] };
+                } else if (!RHAUtils.isEmpty(CaseService.group)) {
+                    params.group_numbers = { group_number: [CaseService.group] };
                 }
-                if (this.caseParameters.status === STATUS.closed) {
+                if (CaseService.status === STATUS.closed) {
                     params.status = STATUS.closed;
-                } 
-                // Not doing product based searching
-                // if (!RHAUtils.isEmpty(CaseService.product)) {
-                //     params.product = CaseService.product;
-                // }
+                }
+                if (!RHAUtils.isEmpty(CaseService.product)) {
+                    params.product = CaseService.product;
+                }
                 if (!RHAUtils.isEmpty(CaseService.filterSelect.sortField)) {
                     if(CaseService.filterSelect.sortField === 'owner'){
                         params.sort_field = 'contactName';
@@ -187,7 +171,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     }
                 }));
             } else{
-                cases = strataService.cases.search(this.caseParameters.status, caseOwner, this.caseParameters.group, this.caseParameters.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+                cases = strataService.cases.search(CaseService.status, caseOwner, CaseService.group, SearchBoxService.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
                     if(response['case'] === undefined){
                         that.totalCases = 0;
                         that.total = 0;
