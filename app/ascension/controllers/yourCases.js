@@ -12,7 +12,7 @@ angular.module('RedhatAccess.ascension').controller('YourCases', [
     	$scope.CaseDetailsService = CaseDetailsService;
 
         $scope.init = function () {
-        	CaseDetailsService.getYourcases();
+        	CaseDetailsService.getYourCases();
         };
         $scope.fetchCaseDetail = function(kase) {
             $rootScope.$broadcast(TOPCASES_EVENTS.topCaseFetched);
