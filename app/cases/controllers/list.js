@@ -95,13 +95,9 @@ angular.module('RedhatAccess.cases').controller('List', [
        */
         if (securityService.loginStatus.isLoggedIn && securityService.loginStatus.userAllowedToManageCases) {
             $scope.firePageLoadEvent();
-            //SearchCaseService.clear();
-            if(CaseService.status === undefined){
+            SearchCaseService.clear();
             CaseService.status = 'open';
-            }
-            if(SearchCaseService.cases.length > 0){
             $scope.doSearch();
-            }
             $scope.setBreadcrumbs();
         }
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
@@ -135,16 +131,16 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    };
 
         $scope.getCasesText = function(){
-            if(SearchCaseService.caseParameters.status === STATUS.open){
+            if(CaseService.status === STATUS.open){
                 $scope.displayedCaseText = translate('Open Support Cases');
-            } else if(SearchCaseService.caseParameters.status === STATUS.closed){
+            } else if(CaseService.status === STATUS.closed){
                 $scope.displayedCaseText = translate('Closed Support Cases');
-            } else if(SearchCaseService.caseParameters.status === STATUS.both){
+            } else if(CaseService.status === STATUS.both){
                 $scope.displayedCaseText = translate('Open and Closed Support Cases');
             }
         };
 
-        $scope.loadingRecWatcher = $scope.$watch('SearchCaseService.caseParameters.status', function(newVal) {
+        $scope.loadingRecWatcher = $scope.$watch('CaseService.status', function(newVal) {
             $scope.getCasesText();
         });
     }
