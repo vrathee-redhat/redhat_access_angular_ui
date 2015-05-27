@@ -1,5 +1,5 @@
 'use strict';
-angular.module('RedhatAccess.ascension', [
+var app = angular.module('RedhatAccess.ascension', [
     'RedhatAccess.template',
     'RedhatAccess.security',
     'RedhatAccess.ui-utils',
