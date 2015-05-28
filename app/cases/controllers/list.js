@@ -39,10 +39,12 @@ angular.module('RedhatAccess.cases').controller('List', [
                 }
                 else {
                     var blobURL = (window.URL || window.webkitURL).createObjectURL(blob);
-                    var anchor = document.createElement("a");
+                    var anchor = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
                     anchor.download = "caseList.csv";
                     anchor.href = blobURL;
-                    anchor.click();
+                    var event = document.createEvent("MouseEvents");
+                    event.initEvent("click", true, false);
+                    anchor.dispatchEvent(event);
                 }
 		    }, function (error) {
 			    AlertService.addStrataErrorMessage(error);
