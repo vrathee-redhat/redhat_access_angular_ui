@@ -1,4 +1,12 @@
-#case-solutions
-  h3.section-title {{'Search Knowledgebase Solutions'|translate}}
+.row#case-solutions
+	h3.section-title {{'Search Knowledgebase Solutions'|translate}}
 .row
-  .col-md-9(rha-searchbox='', placeholder="'Search Solutions'|translate")
+	.col-md-12(rha-searchstackedsolutions='')
+.row
+	.col-md-12
+	h3.section-title {{'Suggested Solutions'|translate}}
+.row
+	.col-md-12
+		li.recommendation(ng-repeat='recommendation in recommendations')
+			a.title(ng-href='recommendation.view_uri')
+				strong {{recommendation.title | substring:100 }}
