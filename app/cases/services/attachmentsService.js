@@ -130,7 +130,11 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                                 AlertService.addSuccessMessage(translate('Successfully uploaded attachment')+' ' + attachment.file_name + ' '+'to case' +' '+ caseId);
                             }, function (error) {
                                 if (navigator.appVersion.indexOf("MSIE 10") !== -1){
-                                    if($location.path() !== '/case/new'){
+                                    if($location.path() === '/case/new'){
+                                        $state.go('edit', { id: caseId });
+                                        AlertService.clearAlerts();
+                                        CaseService.submittingCase = false;
+                                    } else{
                                         $window.location.reload();
                                     }
                                 } else{
