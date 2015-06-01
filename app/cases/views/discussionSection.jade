@@ -24,52 +24,33 @@ ul#tab_list.nav.nav-tabs(role="tablist")
           ng-options='commentOrder as commentOrder.name for commentOrder in commentSortOrderList')
     .row.case-discussion
       .col-xs-12
-        article.comment.article-comment
-          i.fa.fa-comments-o
-          h4.meta Message From Associate
-          .byline
-            strong.author By Spenser Shumaker&nbsp;
-            strong.date 03/26/2015
-          .content Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra ipsum nec dolor interdum, sit amet molestie odio consequat. Donec molestie nulla sed arcu aliquam feugiat. Maecenas lorem risus, condimentum id porttitor ut, pulvinar lobortis ante. Nullam tellus ex, pellentesque ut diam eget, pellentesque malesuada erat. Pellentesque mauris velit, fringilla in tincidunt quis, molestie non ipsum. Integer tempus posuere venenatis. Sed ut aliquam neque.
-        article.comment.article-private-comment
-          i.fa.fa-comments-o
-          h4.meta Private Message From Associate
-          .byline
-            strong.author By Spenser Shumaker&nbsp;
-            strong.date 03/26/2015
-          .content Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra ipsum nec dolor interdum, sit amet molestie odio consequat. Donec molestie nulla sed arcu aliquam feugiat. Maecenas lorem risus, condimentum id porttitor ut, pulvinar lobortis ante. Nullam tellus ex, pellentesque ut diam eget, pellentesque malesuada erat. Pellentesque mauris velit, fringilla in tincidunt quis, molestie non ipsum. Integer tempus posuere venenatis. Sed ut aliquam neque.
-        article.comment.article-attachment
-          i.fa.fa-file-text-o
-          h4.meta Attachement
-          .byline
-            strong.author By Spenser Shumaker&nbsp;
-            strong.date 03/26/2015
-          .content Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra ipsum nec dolor interdum, sit amet molestie odio consequat. Donec molestie nulla sed arcu aliquam feugiat. Maecenas lorem risus, condimentum id porttitor ut, pulvinar lobortis ante. Nullam tellus ex, pellentesque ut diam eget, pellentesque malesuada erat. Pellentesque mauris velit, fringilla in tincidunt quis, molestie non ipsum. Integer tempus posuere venenatis. Sed ut aliquam neque.
-
         div(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder", ng-if='!element.draft')
-          article.comment(ng-if="!element.file_name || element.comment_type === 'chat' && element.public === true")
-            h4.meta
-              {{element.created_by}} {{'on'|translate}} &nbsp;
-              date.light {{element.created_date}} &nbsp;
-              span.light {{'at'|translate}} &nbsp;
-              time.light {{element.created_time}}
+          article.comment.article-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && element.public")
+            i.fa.fa-comments-o
+            h4.meta Message
+            .byline
+                strong.author {{element.created_by}} {{'on'|translate}} &nbsp;
+                strong.date {{element.created_time}}
             blockquote.dialog-box.pre-wrap
               span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.text}}
-              span(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
+              .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
               a.glyphicon.glyphicon-link.pull-right(ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
               a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}} &nbsp;
-          article.private-comment(ng-if="!element.file_name || element.comment_type === 'chat' && element.public === false")
-            h4.meta {{element.created_by}} {{'on'|translate}} &nbsp;
-              date.light {{element.created_date}} &nbsp;
-              span.light {{'at'|translate}} &nbsp;
-              time.light {{element.created_time}}
+          
+          article.comment.article-private-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.public")
+            i.fa.fa-comments-o
+            h4.meta Message
+            .byline
+              strong.author {{element.created_by}} {{'on'|translate}} &nbsp;
+              strong.date {{element.created_time}}
             blockquote.dialog-box.pre-wrap
               span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.text}}
-              span(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
+              .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
               a.glyphicon.glyphicon-link.pull-right(ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
               a.pull-right.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}} &nbsp;
-            .private {{'This element is Private'|translate}}
-          article.attachment(ng-if="element.file_name")
+          
+          article.comment.article-attachment(ng-if="element.file_name")
+            i.fa.fa-file-text-o
             h4.meta()
               {{element.created_by}} {{'on'|translate}} &nbsp;
               date.light {{element.created_date}} &nbsp;
@@ -81,7 +62,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 span {{element.file_name}} ({{element.length | bytes}})
               .fa.fa-close.pull-right(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
               .description.margin-top-short(ng-show="element.description") {{element.description}}
-          article.chat(ng-id="element.public === true")
+          
+          article.comment.article-chat(ng-if="element.comment_type === 'chat'")
             h4.meta(ng-if="element.comment_type === 'chat'")
               span {{'Transcript of chat between'|translate}}
               .author.blue {{element.agent_name}}
