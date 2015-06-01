@@ -16,10 +16,11 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
       section.case-discussion
         .row
           .col-xs-12(rha-emailnotifyselect='')
-        .row
-          .col-xs-12
-            div(rha-casediscussion='', loading='loading.comments')
+        
     .aside.col-md-4
       .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
       #rha-recommendation-section.recommendations.aside-section(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
       .section#case-escalation.case-escalation.aside-section(rha-requestescalation='')
+  .row
+    .col-xs-12
+      div(rha-casediscussion='', loading='loading.comments')
