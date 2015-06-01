@@ -10,7 +10,8 @@ angular.module('RedhatAccess.cases').controller('ListFilter', [
     'SearchCaseService',
     'GroupService',
     'ConstantsService',
-    function ($scope, STATUS, CaseService, securityService, $rootScope, CASE_EVENTS, SearchCaseService, GroupService, ConstantsService) {
+    'RHAUtils',
+    function ($scope, STATUS, CaseService, securityService, $rootScope, CASE_EVENTS, SearchCaseService, GroupService, ConstantsService, RHAUtils) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.GroupService = GroupService;
@@ -18,17 +19,22 @@ angular.module('RedhatAccess.cases').controller('ListFilter', [
         $scope.ConstantsService = ConstantsService;
         CaseService.status = STATUS.open;
         $scope.showsearchoptions = CaseService.showsearchoptions;
+        $scope.disableSearchButton = true;
         $scope.doSearch = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         }
         $scope.setSearchOptions = function (showsearchoptions) {
             CaseService.showsearchoptions = showsearchoptions;
-            if(CaseService.groups.length === 0){
-                CaseService.populateGroups().then(function (){
-                    CaseService.buildGroupOptions();
-                });
-            } else{
-                CaseService.buildGroupOptions();
+            CaseService.buildGroupOptions();            
+        };
+        $scope.clearSearch = function () {
+            SearchCaseService.caseParameters.searchTerm = undefined;
+        };
+        $scope.onChange = function(){
+            if (RHAUtils.isNotEmpty(SearchCaseService.caseParameters.searchTerm)) {
+                $scope.disableSearchButton = false;
+            } else {
+                $scope.disableSearchButton = true;
             }
         };
     }

@@ -57,16 +57,23 @@ angular.module('RedhatAccess.cases').controller('List', [
 
         $scope.doSearch = function () {
             SearchCaseService.clearPagination();
-            if (CaseService.group === CASE_GROUPS.manage) {
+            if (SearchCaseService.caseParameters.group === CASE_GROUPS.manage) {
+                SearchCaseService.caseParameters.group = SearchCaseService.previousGroupFilter;
                 $state.go('group');
             } else {
-	            if(CaseService.groups.length === 0){
-	                CaseService.populateGroups().then(function (){
-	                    SearchCaseService.doFilter().then(function () {
-
-	                    });
+                if(CaseService.groups.length === 0){
+                    CaseService.populateGroups().then(function (){
+                        if(SearchCaseService.previousGroupFilter === CASE_GROUPS.none) {
+                            SearchCaseService.caseParameters.group = CaseService.group;
+                        } else {
+                            SearchCaseService.caseParameters.group = SearchCaseService.previousGroupFilter;
+                        }                        
+	                    SearchCaseService.doFilter();
 	                });
 	            } else {
+                    if(SearchCaseService.previousGroupFilter === CASE_GROUPS.none) {
+                        SearchCaseService.caseParameters.group = CaseService.group;
+                    }
 	                SearchCaseService.doFilter();
 	            }
 	        }
@@ -99,11 +106,9 @@ angular.module('RedhatAccess.cases').controller('List', [
             $scope.firePageLoadEvent();
             //SearchCaseService.clear();
             if(CaseService.status === undefined){
-            CaseService.status = 'open';
+                CaseService.status = 'open';
             }
-            if(SearchCaseService.cases.length > 0){
             $scope.doSearch();
-            }
             $scope.setBreadcrumbs();
         }
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
