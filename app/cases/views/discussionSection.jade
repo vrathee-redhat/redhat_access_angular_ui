@@ -22,7 +22,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
           ng-model='DiscussionService.commentSortOrder',
           ng-change='onSortOrderChange()',
           ng-options='commentOrder as commentOrder.name for commentOrder in commentSortOrderList')
-    .row
+    .row.case-discussion
       .col-xs-12
         article.comment(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder", ng-if='!element.draft')
           h4.meta(ng-if="element.comment_type === 'chat'")
