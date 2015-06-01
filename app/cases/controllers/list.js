@@ -39,10 +39,12 @@ angular.module('RedhatAccess.cases').controller('List', [
                 }
                 else {
                     var blobURL = (window.URL || window.webkitURL).createObjectURL(blob);
-                    var anchor = document.createElement("a");
+                    var anchor = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
                     anchor.download = "caseList.csv";
                     anchor.href = blobURL;
-                    anchor.click();
+                    var event = document.createEvent("MouseEvents");
+                    event.initEvent("click", true, false);
+                    anchor.dispatchEvent(event);
                 }
 		    }, function (error) {
 			    AlertService.addStrataErrorMessage(error);
@@ -95,9 +97,13 @@ angular.module('RedhatAccess.cases').controller('List', [
        */
         if (securityService.loginStatus.isLoggedIn && securityService.loginStatus.userAllowedToManageCases) {
             $scope.firePageLoadEvent();
-            SearchCaseService.clear();
+            //SearchCaseService.clear();
+            if(CaseService.status === undefined){
             CaseService.status = 'open';
+            }
+            if(SearchCaseService.cases.length > 0){
             $scope.doSearch();
+            }
             $scope.setBreadcrumbs();
         }
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
@@ -131,16 +137,16 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    };
 
         $scope.getCasesText = function(){
-            if(CaseService.status === STATUS.open){
+            if(SearchCaseService.caseParameters.status === STATUS.open){
                 $scope.displayedCaseText = translate('Open Support Cases');
-            } else if(CaseService.status === STATUS.closed){
+            } else if(SearchCaseService.caseParameters.status === STATUS.closed){
                 $scope.displayedCaseText = translate('Closed Support Cases');
-            } else if(CaseService.status === STATUS.both){
+            } else if(SearchCaseService.caseParameters.status === STATUS.both){
                 $scope.displayedCaseText = translate('Open and Closed Support Cases');
             }
         };
 
-        $scope.loadingRecWatcher = $scope.$watch('CaseService.status', function(newVal) {
+        $scope.loadingRecWatcher = $scope.$watch('SearchCaseService.caseParameters.status', function(newVal) {
             $scope.getCasesText();
         });
     }

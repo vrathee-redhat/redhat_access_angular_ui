@@ -4,7 +4,8 @@ var app = angular.module('RedhatAccess.ascension', [
     'RedhatAccess.security',
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
-    'RedhatAccess.header'
+    'RedhatAccess.header',
+    'RedhatAccess.search'
 ]).constant('TOPCASES_EVENTS', {
         topCaseFetched: 'top-cases-fetched'
     }).config([
