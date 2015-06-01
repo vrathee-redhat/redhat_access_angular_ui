@@ -1,5 +1,6 @@
 .col-md-12
-	nav.navbar.navbar-default.navbar-static-top
-		ul.nav.navbar-nav
-			li(ng-repeat='case in CaseDetailsService.cases',ng-show='true')
-				a(href='', ng-click='fetchCaseDetail(case.resource.caseNumber)') {{'Case'|translate}} {{case.resource.caseNumber}} <br> {{case.resource.internalStatus}}
+    .spinner.spinner-inline(ng-show='CaseDetailsService.yourCasesLoading')
+    nav.navbar.navbar-default.navbar-static-top(ng-show='!CaseDetailsService.yourCasesLoading')
+        ul.nav.navbar-nav
+            li(ng-repeat='case in CaseDetailsService.cases',ng-show='true')
+                a(href='', ng-click='fetchCaseDetail(case.resource.caseNumber)') {{'Case'|translate}} {{case.resource.caseNumber}} <br> {{case.resource.internalStatus}}
