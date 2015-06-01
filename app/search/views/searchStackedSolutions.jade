@@ -1,13 +1,13 @@
-.row
-	.col-md-12
-		.form(role="form" id="rh-search")
-			.input-group
-				input(type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="{{'Search Solutions'|translate}}")
-				span.input-group-btn
-					button(ng-disabled="(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)" class="btn btn-default btn-primary" type='submit' ng-click="search(searchStr)")
-						i.glyphicon.glyphicon-search 
-.row
-	.col-md-12
-		li.recommendation(ng-repeat='result in SearchResultsService.results track by $index')
-			a.title(ng-href='result.view_uri')
-				strong {{result.title | substring:100 }}
+.col-md-12
+  h3.section-title {{'Search Knowledgebase Solutions'|translate}}
+  .form(role="form" id="rh-search")
+    .input-group
+      input(type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="{{'Search Solutions'|translate}}")
+      span.input-group-btn
+        button(ng-disabled="(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)" class="btn btn-default btn-primary" type='submit' ng-click="search(searchStr)")
+          i.glyphicon.glyphicon-search
+
+.col-md-12(ng-hide="SearchResultsService.results.length === 0")
+  li.recommendation(ng-repeat='result in SearchResultsService.results track by $index')
+    a.title(ng-href='result.view_uri')
+      strong {{result.title | substring:100 }}
