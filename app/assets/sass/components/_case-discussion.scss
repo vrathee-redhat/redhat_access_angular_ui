@@ -33,12 +33,15 @@
 			top: 14px;
 			width: 34px;
 			height: 34px;
+			background: #ddd;
 			@include font-size(18px);
 			line-height: 1.7;
 			color: #fff;
 			text-align: center;
 			@include border-radius(50%);
 		}
+
+		& + article { @include rem('margin-top', $global-margin); }
 	}
 
 	.article-comment {
@@ -65,6 +68,13 @@
 		.meta { color: #06bae2; }
 	}
 
+	.article-chat {
+		border-color: #1b6c36;
+
+		i { background-color: #24A552; }
+		.meta { color: #24A552; }
+	}
+
 	article {
 
 		h4 {
@@ -78,9 +88,14 @@
 
 	.byline {
 		font-family: 'Overpass';
+		font-weight: 700;
 		@include font-size(13px);
 		font-size: 13px;
 		line-height: 1;
 		@include rem('margin-bottom', $global-padding);
+	}
+
+	.article-private-comment, .article-comment, .article-attachment {
+//		display: none;
 	}
 }
