@@ -6,23 +6,28 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'RHAUtils',
     'securityService',
     'RoutingService',
+    'AccountService',
     'UQL',
-    function (udsService, AlertService, RHAUtils,securityService, RoutingService,UQL) {
-		this.caseDetailsLoading = false;
+    '$rootScope',
+    'TOPCASES_EVENTS',
+    function (udsService, AlertService, RHAUtils,securityService, RoutingService,AccountService,UQL,$rootScope,TOPCASES_EVENTS) {
+		this.caseDetailsLoading = true;
         this.yourCasesLoading = true;
 		this.kase = {};
         this.cases = {};
 
-		this.getCaseDetails = function(caseNumber) {
-			this.caseDetailsLoading = true;
-			udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
-				this.kase = response;
-				this.caseDetailsLoading = false;
-			}), angular.bind(this, function (error) {
-				AlertService.addUDSErrorMessage(error);
-				this.caseDetailsLoading = false;
-	        }));
-		};
+        this.getCaseDetails = function(caseNumber) {
+            AccountService.accountDetailsLoading = true;
+            this.caseDetailsLoading = true;
+            udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
+                this.kase = response;
+                $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
+                this.caseDetailsLoading = false;
+            }), angular.bind(this, function (error) {
+                AlertService.addUDSErrorMessage(error);
+                this.caseDetailsLoading = false;
+            }));
+        };
 
         this.extractRoutingRoles = function(user) {
             var roleNames, _ref;

@@ -1,5 +1,30 @@
-h3.section-title {{'Breach'|translate}}
-h4.breach-information {{'Based on Severity Level 3(Normal)'|translate}}
-.progress.nomar
-    .progress-bar.nomar(role='progressbar', aria-valuenow='70', aria-valuemin='0', aria-valuemax='100', style='width:70%')
-        | 70%
+section.nep
+   .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
+   h3.section-title(ng-show='!CaseDetailsService.caseDetailsLoading') {{getBreachInformationText()}}
+   h4.breach-information {{'Negotiated Entitlement Process'|translate}}
+     section.config-options
+        .row.row-short
+            .col-xs-4.col-sm-3.col-md-8
+                .label {{'Active'|translate}}
+            .col-xs-6.col-sm-5.col-md-4
+                span {{}}
+        .row.row-short
+            .col-xs-4.col-sm-3.col-md-8
+                .label {{'Life of Case'|translate}}
+            .col-xs-6.col-sm-5.col-md-4
+                span {{}}
+        .row.row-short
+            .col-xs-4.col-sm-3.col-md-8
+                .label {{'Start Time'|translate}}
+            .col-xs-6.col-sm-5.col-md-4
+                span {{}}
+        .row.row-short
+            .col-xs-4.col-sm-3.col-md-8
+                .label {{'Target Date'|translate}}
+            .col-xs-6.col-sm-5.col-md-4
+                span {{}}
+        .row.row-short
+            .col-xs-4.col-sm-3.col-md-8
+                .label {{'Violates SLA'|translate}}
+            .col-xs-6.col-sm-5.col-md-4
+                span {{}}
