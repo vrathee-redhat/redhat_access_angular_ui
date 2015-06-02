@@ -103,9 +103,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 }
                 params.start = this.start;
 
-                if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
-                    params.keyword = this.caseParameters.searchTerm;
-                }
+                //if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
+                //    params.keyword = this.caseParameters.searchTerm;
+                //}
                 if (this.caseParameters.group === CASE_GROUPS.ungrouped) {
                     params.only_ungrouped = true;
                 } else if (!RHAUtils.isEmpty(this.caseParameters.group)) {
@@ -113,7 +113,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 }
                 if (this.caseParameters.status === STATUS.closed) {
                     params.status = STATUS.closed;
-                } 
+                }
                 // Not doing product based searching
                 // if (!RHAUtils.isEmpty(CaseService.product)) {
                 //     params.product = CaseService.product;
