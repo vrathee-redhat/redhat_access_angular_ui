@@ -2,7 +2,8 @@
 /*jshint camelcase: false */
 angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     manage: 'manage',
-    ungrouped: 'ungrouped'
+    ungrouped: 'ungrouped',
+    none: 'none'
 }).service('CaseService', [
     'strataService',
     'AlertService',

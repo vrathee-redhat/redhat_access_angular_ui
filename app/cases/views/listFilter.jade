@@ -6,15 +6,15 @@
 					ng-disabled='!securityService.loginStatus.isLoggedIn',
 					placeholder='{{placeholder}}',
 					ng-model='SearchCaseService.caseParameters.searchTerm',
-					ng-keypress='onFilterKeyPress($event)')
+					ng-change='onChange()')
 				span.input-group-btn(ng-hide='hidebutton')
-					a.close(ng-show="query !== ''", ng-click="clearSearch()")
+					a.close(ng-show="SearchCaseService.caseParameters.searchTerm && SearchCaseService.caseParameters.searchTerm!== ''", ng-click="clearSearch()")
 						span.web-icon-close
 					button#rha-searchform-searchbutton.btn.btn-app(
 						ng-click='doSearch()',
-						ng-disabled='!securityService.loginStatus.isLoggedIn')
+						ng-disabled='!securityService.loginStatus.isLoggedIn || disableSearchButton')
 						i.glyphicon.glyphicon-search
-						| Search
+						| {{''}}
 		div.col-sm-12.col-md-3()
 			select#rha-group-select(
 				chosen,
