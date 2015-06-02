@@ -35,7 +35,7 @@ angular.module('RedhatAccess.ascension').service('RoutingService', [
 
         };
 
-        this._CONTRIBUTOR = function(user) {
+        this.CONTRIBUTOR = function(user) {
             var contributorCond, ownerCond, wocCond, worhCond;
             ownerCond = UQL.cond('userId', 'is', "\"" + user.id + "\"");
             worhCond = UQL.cond('caseStatus', 'is', '"Waiting on Red Hat"');
@@ -50,6 +50,35 @@ angular.module('RedhatAccess.ascension').service('RoutingService', [
             ftsRoleCond = UQL.cond('ftsRole', 'is', '""');
             return UQL.and(ftsCond, UQL.and(ftsRoleCond, makeSbrConds(user)));
         };
+        this.NNO_SUPER_REGION = function(user, super_region) {
+            "NNO = \"NA\"\nSBR Group includes \"<group1>,<group2>\"(Matches users current SBRs)";
+            var nnoRegionCond;
+            nnoRegionCond = UQL.cond('nnoSuperRegion', 'is', "\"" + super_region + "\"");
+            return UQL.and(nnoRegionCond, makeSbrConds(user));
+        };
+
+        this.NNO_NA = function(user) {
+            return this.NNO_SUPER_REGION(user, 'NA');
+        };
+
+        this.NNO_APAC = function(user) {
+            return this.NNO_SUPER_REGION(user, 'APAC');
+        };
+
+        this.NNO_INDIA = function(user) {
+            return this.NNO_SUPER_REGION(user, 'INDIA');
+        };
+
+        this.NNO_EMEA = function(user) {
+            return this.NNO_SUPER_REGION(user, 'EMEA');
+        };
+        this.NCQ = function(user) {
+            var notClosedCond, unassignedCond;
+            unassignedCond = UQL.cond('internalStatus', 'is', "\"Unassigned\"");
+            notClosedCond = UQL.cond('status', 'ne', "\"Closed\"");
+            return UQL.and(unassignedCond, UQL.and(notClosedCond, makeSbrConds(user)));
+        };
+
         this.key_mapping = {
             OWNED_CASES: "ascension-owned-cases",
             COLLABORATION: "ascension-collaboration",
@@ -66,18 +95,18 @@ angular.module('RedhatAccess.ascension').service('RoutingService', [
             "ascension-owned-cases": this.OWNED_CASES,
             "collaboration": this.COLLABORATION,
             "ascension-collaboration": this.COLLABORATION,
-            //"nno_apac": RoutingRoles.NNO_APAC,
-            //"ascension-nno-apac": RoutingRoles.NNO_APAC,
-            //"nno_na": RoutingRoles.NNO_NA,
-            //"ascension-nno-na": RoutingRoles.NNO_NA,
-            //"nno_india": RoutingRoles.NNO_INDIA,
-            //"ascension-nno-india": RoutingRoles.NNO_INDIA,
-            //"nno_emea": RoutingRoles.NNO_EMEA,
-            //"ascension-nno-emea": RoutingRoles.NNO_EMEA,
+            "nno_apac": this.NNO_APAC,
+            "ascension-nno-apac": this.NNO_APAC,
+            "nno_na": this.NNO_NA,
+            "ascension-nno-na": this.NNO_NA,
+            "nno_india": this.NNO_INDIA,
+            "ascension-nno-india": this.NNO_INDIA,
+            "nno_emea": this.NNO_EMEA,
+            "ascension-nno-emea": this.NNO_EMEA,
             "fts": this.FTS,
-            "ascension-fts": this.FTS
-            //"ncq": RoutingRoles.NCQ,
-            //"ascension-ncq": RoutingRoles.NCQ
+            "ascension-fts": this.FTS,
+            "ncq": this.NCQ,
+            "ascension-ncq": this.NCQ
         };
 
     }
