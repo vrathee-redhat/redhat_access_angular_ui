@@ -27,13 +27,15 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.extractRoutingRoles = function(user) {
             var roleNames, _ref;
             roleNames = [];
-            if ((user != null ? (_ref = user.roles) != null ? _ref.length : void 0 : void 0) > 0) {
-                angular.forEach(user.roles, function(r) {
-                    if (RoutingService.mapping[r.resource.name.toLowerCase()] != null) {
-                        return roleNames.push(r.resource.name.toLowerCase());
-                    }
-                });
-            }
+            angular.forEach(user, function(u) {
+                if ((u != null ? (_ref = u.resource.roles) != null ? _ref.length : void 0 : void 0) > 0) {
+                    angular.forEach(u.resource.roles, function (r) {
+                        if (RoutingService.mapping[r.resource.name.toLowerCase()] != null) {
+                            return roleNames.push(r.resource.name.toLowerCase());
+                        }
+                    });
+                }
+            });
             return roleNames;
         };
 		this.getYourCases = function() {
@@ -46,9 +48,10 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     AlertService.addDangerMessage("Was not able to fetch user given ssoUserName");
                 }
                 else{
-                    userRoles = this.extractRoutingRoles(user[0].resource);
+                    userRoles = this.extractRoutingRoles(user);
+
                     if ((userRoles != null ? userRoles.length : void 0) > 0) {
-                            //console.log("Discovered roles on the user: " + userRoles);
+                    //        console.log("Discovered roles on the user: " + userRoles);
                     //}else if (user.sbrs == null) {
                     //    console.log("No sbrs found on user.");
                     //    userRoles = [RoutingService.key_mapping.OWNED_CASES];
