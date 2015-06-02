@@ -23,27 +23,27 @@ div(rha-header='', page='newCase')
             #rha-case-main-options
               div(ng-if='securityService.loginStatus.authedUser.is_internal')
                 .row.row-short
-                  .col-sm-4.col-md-3
+                  .col-sm-3
                     label(for='rha-account-number') {{'Account'|translate}}
                   .col-sm-7.col-md-6
                     div(rha-accountselect='')
                 .row.row-short
-                  .col-sm-4.col-md-3
+                  .col-sm-3
                     label(for='rha-owners-select') {{'Owner'|translate}}
                   .col-sm-7.col-md-6
                     div(rha-ownerselect='')
               .row.row-short
-                .col-sm-4.col-md-3
+                .col-sm-3
                   .label {{'Product'|translate}}
                 .col-sm-7.col-md-6
                   div(rha-productselect='')
               .row.row-short
-                .col-sm-4.col-md-3
+                .col-sm-3
                   .label {{'Product Version'|translate}}
                 .col-sm-7.col-md-6
                   div(rha-versionselect='')
               .row.row-short
-                .col-sm-4.col-md-3
+                .col-sm-3
                   .label {{'Case Name'|translate}}
                 .col-sm-7.col-md-6
                   input#rha-case-summary.form-control(
@@ -59,7 +59,7 @@ div(rha-header='', page='newCase')
                     .circle &nbsp;
                     .circle &nbsp;
               .row.row-short
-                .col-sm-4.col-md-3
+                .col-sm-3
                   .label {{'Case Description'|translate}}
                 .col-sm-7.col-md-8
                   textarea(name='', id='rha-description', cols='30', rows='10',
@@ -115,7 +115,7 @@ div(rha-header='', page='newCase')
                     .circle &nbsp;
             #rha-case-more-options
               .row.row-short
-                .col-sm-4.col-md-3
+                .col-sm-3
                   .label {{'Support Level'|translate}}
                     span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
                 .col-sm-7.col-md-6
@@ -127,7 +127,7 @@ div(rha-header='', page='newCase')
                     ng-options="entitlement as entitlement for entitlement in CaseService.entitlements")
                     option(value="")
               .row.row-short
-                .col-sm-4.col-md-3
+                .col-sm-3
                   .label.inline-tooltip {{'Severity'|translate}}
                     span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To learn more, visit the " |translate }}</br><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a>',tabindex='0',tooltip-trigger="click")
                 .col-sm-7.col-md-6
@@ -155,7 +155,7 @@ div(rha-header='', page='newCase')
                           input.pull-left.margin-left(
                             ng-model="CaseService.fts_contact")
               .row.row-short
-                .col-sm-4.col-md-3
+                .col-sm-3
                   .label(for='email-notifications') {{'Send Email Notifications to'|translate}}
                 .col-sm-7.col-md-6
                   .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
@@ -169,7 +169,7 @@ div(rha-header='', page='newCase')
                     width='"100%"',
                     ng-options='user as user for user in usersOnAccount')
               .row.row-short
-                .col-sm-4.col-md-3
+                .col-sm-3
                   .label {{'Case Group (Optional)'|translate}}
                 .col-sm-7.col-md-6
                   div(rha-groupselect='', ng-init="setSearchOptions('false')")
@@ -177,7 +177,7 @@ div(rha-header='', page='newCase')
             .row
               //- TODO make remove local storage once implemented
               .col-sm-12
-                button.btn.btn-accent.btn-submit(
+                button.btn.btn-app(
                   ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
                   ng-hide='CaseService.submittingCase',
                   ng-click='doSubmit($event)', translate='') Submit

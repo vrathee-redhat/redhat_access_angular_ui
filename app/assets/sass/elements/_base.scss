@@ -56,6 +56,12 @@ body {
 	@include rem('padding-bottom', 30px);
 }
 
+[class*="col-"] ~ [class*="col-"] {
+//	margin-top: 0;
+	@include rem('margin-top', $global-padding);
+	@include media-query (sm) { margin-top: 0; }
+}
+
 .sep {
 	margin-left: 3px;
 	margin-right: 3px;
@@ -69,7 +75,10 @@ body {
 
 		@include media-query (sm) { margin-top: 0; }
 	}
+
 }
+
+.label { @include rem('margin-top', 6px); }
 
 section > header {
 	margin-bottom: $header_bottom_margin;
@@ -128,10 +137,6 @@ a { color: $link-color; }
 			margin: 0;
 		}
 	}
-}
-
-section {
-
 }
 
 .backdrop {
