@@ -7,7 +7,8 @@ var app = angular.module('RedhatAccess.ascension', [
     'RedhatAccess.header',
     'RedhatAccess.search'
 ]).constant('TOPCASES_EVENTS', {
-        topCaseFetched: 'top-cases-fetched'
+        topCaseFetched: 'top-cases-fetched',
+        caseDetailsFetched: 'case-details-fetched'
     }).config([
     '$stateProvider',
     function($stateProvider) {

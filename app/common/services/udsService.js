@@ -29,7 +29,9 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         var deferred = $q.defer();
                         uds.fetchCaseDetails(
                             function (response) {
-                                deferred.resolve(response);
+                               var targetDate= RHAUtils.convertToTimezone(response.target_date_time);
+                                response.target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm:ss A Z');
+                               deferred.resolve(response);
                             },
                             function (error) {
                                 deferred.reject(error);
@@ -63,6 +65,35 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         );
                         return deferred.promise;
                     }
+                }
+            },
+            account:{
+                get:function(accountNumber){
+                    var deferred = $q.defer();
+                    uds.fetchAccountDetails(
+                        function (response) {
+                            deferred.resolve(response);
+                        },
+                        function (error) {
+                            deferred.reject(error);
+                        },
+                        accountNumber
+                    );
+                    return deferred.promise;
+                },
+                notes:function(accountNumber){
+                    var deferred = $q.defer();
+                    uds.fetchAccountNotes(
+                        function (response) {
+                            deferred.resolve(response);
+                        },
+                        function (error) {
+                            deferred.reject(error);
+                        },
+                        accountNumber
+                    );
+                    return deferred.promise;
+
                 }
             },
             user:{
