@@ -9,7 +9,8 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
 	'NEW_CASE_CONFIG',
 	'NEW_DEFAULTS',
     'CASE_EVENTS',
-	function ($http, securityService, strataService, CaseService, AttachmentsService, RHAUtils, NEW_CASE_CONFIG, NEW_DEFAULTS, CASE_EVENTS) {
+    'AlertService',
+	function ($http, securityService, strataService, CaseService, AttachmentsService, RHAUtils, NEW_CASE_CONFIG, NEW_DEFAULTS, CASE_EVENTS,AlertService) {
         this.products = [];
         this.productsDisabled = false;
         this.productsLoading = false;
