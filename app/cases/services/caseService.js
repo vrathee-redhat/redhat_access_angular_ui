@@ -53,7 +53,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.updatingNewCaseDescription = false;
         this.onFilterSelectChanged = function(){
             if(this.localStorageCache) {
-               this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect); 
+               this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect);
             }
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
@@ -485,6 +485,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
             if (this.kase.notes !== null && !angular.equals(this.prestineKase.notes, this.kase.notes)) {
                 caseJSON.notes = this.kase.notes;
+            }
+            if (this.kase.summary !== null && !angular.equals(this.prestineKase.summary, this.kase.summary) ) {
+                caseJSON.summary = this.kase.summary;
             }
             strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
                 this.updatingCase = false;
