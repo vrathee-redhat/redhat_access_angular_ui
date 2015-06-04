@@ -1,16 +1,3 @@
-.content-loading-notification(ng-hide='RecommendationsService.recommendations.length === 0 || !RecommendationsService.loadingRecommendations')
-  .container(ng-show='RecommendationsService.loadingRecommendations')
-    .loader
-      .circle &nbsp;
-      .circle &nbsp;
-      .circle &nbsp;
-    | {{(getLocatingSolutionText())}}
-  .container(ng-hide='RecommendationsService.loadingRecommendations')
-    .loader
-      i.fa.fa-check-circle
-    | {{'Based on details you provided, we found some likely solutions.'|translate}} &nbsp;
-    a(ng-click='scrollToRecommendations()') {{'View Recommendations'|translate}}
-
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
   .row.row-short
@@ -53,7 +40,7 @@ div(rha-header='', page='newCase')
                   ng-model='CaseService.kase.summary'
                   ng-focus="CaseService.updatingNewCaseSummary=true",
                   ng-blur="CaseService.updatingNewCaseSummary=false")
-                .col-sm-1(ng-show='CaseService.updatingNewCaseSummary')
+                .col-sm-1(ng-show='CaseService.updatingNewCaseSummary && RecommendationsService.loadingRecommendations')
                   .loader
                     .circle &nbsp;
                     .circle &nbsp;
@@ -108,7 +95,7 @@ div(rha-header='', page='newCase')
                               ng-model='ieFileDescription',
                               placeholder="{{'File description'|translate}}")
                       iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
-                .col-sm-1(ng-show='CaseService.updatingNewCaseDescription')
+                .col-sm-1(ng-show='CaseService.updatingNewCaseDescription && RecommendationsService.loadingRecommendations')
                   .loader
                     .circle &nbsp;
                     .circle &nbsp;

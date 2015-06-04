@@ -1,13 +1,14 @@
-#sticky-ricky-sticky.content-loading-notification.sticky-ricky(ng-if='RecommendationsService.recommendations.length && !RecommendationsService.loadingRecommendations', scroll-hide="rha-recommendation-section", scroll-hide-class="badsticky", scroll-hide-pad="14")
+#sticky-ricky-sticky.content-loading-notification.sticky-ricky(ng-if='RecommendationsService.recommendations.length', scroll-hide="rha-recommendation-section", scroll-hide-class="badsticky", scroll-hide-pad="14")
   .container
-    .loader(ng-show='RecommendationsService.loadingRecommendations')
-      .circle &nbsp;
-      .circle &nbsp;
-      .circle &nbsp;
-      | {{(getLocatingSolutionText())}}
-    h3(ng-hide='RecommendationsService.loadingRecommendations')
+    div(ng-show='RecommendationsService.loadingRecommendations')
+      .loaders
+        .circle &nbsp;
+        .circle &nbsp;
+        .circle &nbsp;
+      h3 {{(getLocatingSolutionText())}}
+    h3.no(ng-hide='RecommendationsService.loadingRecommendations')
       i.fa.fa-check-circle
-      | {{'Based on your description, here are some possible solutions'|translate}}
+      | {{'Based on your description, here are some possible solutions'|translate}} &nbsp
       a.scroll-to-link(ng-click='scrollToRecommendations()') {{'View Recommendations'|translate}}
 
 div(rha-header='', page='newCase')
@@ -50,7 +51,7 @@ div(rha-header='', page='newCase')
               ng-model='CaseService.kase.summary'
               ng-focus="CaseService.updatingNewCaseSummary=true",
               ng-blur="CaseService.updatingNewCaseSummary=false")
-            .col-sm-1(ng-show='CaseService.updatingNewCaseSummary')
+            .col-sm-1(ng-show='CaseService.updatingNewCaseSummary && RecommendationsService.loadingRecommendations')
               .loader
                 .circle &nbsp;
                 .circle &nbsp;
@@ -105,7 +106,7 @@ div(rha-header='', page='newCase')
                           ng-model='ieFileDescription',
                           placeholder="{{'File description'|translate}}")
                   iframe#upload_target(name='upload_target', style='width: 0; height: 0; border: 0px solid #fff;')
-            .col-sm-1(ng-show='CaseService.updatingNewCaseDescription')
+            .col-sm-1(ng-show='CaseService.updatingNewCaseDescription && RecommendationsService.loadingRecommendations')
               .loader
                 .circle &nbsp;
                 .circle &nbsp;
