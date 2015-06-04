@@ -62,6 +62,10 @@ $aside-border-color: #d3d3d3;
 		@include clearfix();
 		@include rem('padding', 0 $global-margin $global-margin);
 		display: block;
+
+		.btn + .btn {
+			@include rem('margin-left', 6px);
+		}
 	}
 }
 
