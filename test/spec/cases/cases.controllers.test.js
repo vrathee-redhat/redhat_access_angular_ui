@@ -1710,6 +1710,7 @@ describe('Case Controllers', function () {
                 $modal:mockModal
             });
             expect(mockScope.updateCase).toBeDefined();
+            mockCaseService.kase.status = { name: 'Closed' };
             mockScope.updateCase();
             //nothing to expect as it just opens a modal
         }));
@@ -1720,6 +1721,7 @@ describe('Case Controllers', function () {
                 $modal:mockModal
             });
             expect(mockScope.updateSeverity).toBeDefined();
+            mockCaseService.kase.severity = { name: 'HIGH' };
             mockScope.updateSeverity();
             //nothing to expect as it just opens a modal
         }));
@@ -1886,31 +1888,67 @@ describe('Case Controllers', function () {
         }));
     });
 
-    //Suite for ConfirmCaseCloseModal
-    describe('ConfirmCaseCloseModal', function () {
-        it('should have a function for close cases', inject(function ($controller) {
-            $controller('ConfirmCaseCloseModal', {
+    //Suite for CommonConfirmationModal
+    describe('CommonConfirmationModal', function () {
+        it('should have a function for confirming status/severity change', inject(function ($controller) {
+            $controller('CommonConfirmationModal', {
                 $scope: mockScope,
                 $modalInstance:mockStrataDataService.mockModalInstance,
                 SearchCaseService: mockSearchCaseService,
                 CaseService: mockCaseService
             });
-            expect(mockScope.closeCases).toBeDefined();
+            expect(mockScope.confirm).toBeDefined();
+            mockCaseService.confirmationModal = 'case-status-change';
+            spyOn(mockCaseService, 'updateCase').andCallThrough();
+            mockScope.confirm();
+            mockScope.$root.$digest();
+            expect(mockCaseService.updatingCase).toBe(false);
+        }));
+        it('should have a function for closing cases confirmation', inject(function ($controller) {
+            $controller('CommonConfirmationModal', {
+                $scope: mockScope,
+                $modalInstance:mockStrataDataService.mockModalInstance,
+                SearchCaseService: mockSearchCaseService,
+                CaseService: mockCaseService
+            });
+            expect(mockScope.confirm).toBeDefined();
+            mockCaseService.confirmationModal = 'case-close';
             spyOn(mockStrataService.cases, 'put').andCallThrough();
-            mockScope.closeCases();
+            mockScope.confirm();
             mockScope.$root.$digest();
             expect(mockSearchCaseService.refreshFilterCache).toBe(true);
         }));
-        it('should have a function for close modal', inject(function ($controller) {
-            $controller('ConfirmCaseCloseModal', {
+        it('should have a function for closing modal after status change', inject(function ($controller) {
+            $controller('CommonConfirmationModal', {
                 $scope: mockScope,
                 $modalInstance:mockStrataDataService.mockModalInstance,
                 SearchCaseService: mockSearchCaseService,
                 CaseService: mockCaseService
             });
             expect(mockScope.closeModal).toBeDefined();
+            mockCaseService.confirmationModal = 'case-status-change';
+            mockCaseService.prestineKase={};
+            mockCaseService.prestineKase.status="Waiting on Red Hat";
+            mockCaseService.kase.status = "Waiting on Customer"
+            expect(mockScope.closeModal).toBeDefined();
             mockScope.closeModal();
-            //nothing to expect as it just closes the modal
+            expect(mockCaseService.kase.status).toEqual("Waiting on Red Hat");
+        }));
+        it('should have a function for closing modal after severity change', inject(function ($controller) {
+            $controller('CommonConfirmationModal', {
+                $scope: mockScope,
+                $modalInstance:mockStrataDataService.mockModalInstance,
+                SearchCaseService: mockSearchCaseService,
+                CaseService: mockCaseService
+            });
+            expect(mockScope.closeModal).toBeDefined();
+            mockCaseService.confirmationModal = 'case-severity-change';
+            mockCaseService.prestineKase={};
+            mockCaseService.prestineKase.severity="4 (Low)";
+            mockCaseService.kase.severity = "1 (High)"
+            expect(mockScope.closeModal).toBeDefined();
+            mockScope.closeModal();
+            expect(mockCaseService.kase.severity).toEqual("4 (Low)");
         }));
     });
 
@@ -2057,38 +2095,7 @@ describe('Case Controllers', function () {
         }));
 
     });
-
-    //Suite for ConfirmCaseStateChangeModal
-    describe('ConfirmCaseStateChangeModal', function () {
-        it('should have a function for close cases', inject(function ($controller) {
-            $controller('ConfirmCaseStateChangeModal', {
-                $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
-                SearchCaseService: mockSearchCaseService,
-                CaseService: mockCaseService
-            });
-            expect(mockScope.closeCases).toBeDefined();
-            spyOn(mockCaseService, 'updateCase').andCallThrough();
-            mockScope.closeCases();
-            mockScope.$root.$digest();
-            expect(mockCaseService.updatingCase).toBe(false);
-        }));
-        it('should have a function for close modal', inject(function ($controller) {
-            $controller('ConfirmCaseStateChangeModal', {
-                $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
-                SearchCaseService: mockSearchCaseService,
-                CaseService: mockCaseService
-            });
-            mockCaseService.prestineKase={};
-            mockCaseService.prestineKase.status="Waiting on Red Hat";
-            mockCaseService.prestineKase.severity="4 (Low)";
-            expect(mockScope.closeModal).toBeDefined();
-            mockScope.closeModal();
-            expect(mockCaseService.kase.status).toEqual("Waiting on Red Hat");
-            expect(mockCaseService.kase.severity).toEqual("4 (Low)");
-        }));
-    });
+    
     //Suite for RequestManagementEscalationModal
     describe('RequestManagementEscalationModal', function () {
         it('should have a function for new escalation comment with escalation comment text empty ', inject(function ($controller) {

@@ -51,6 +51,11 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.entitlement = '';
         this.updatingNewCaseSummary = false;
         this.updatingNewCaseDescription = false;
+        // Added common modal variables for Status/Severity/CaseClose confirmation
+        this.confirmationModal = '';
+        this.confirmationModalHeader = '';
+        this.confirmationModalMessage = '';
+        this.confirmationModalProperty = '';
         this.onFilterSelectChanged = function(){
             if(this.localStorageCache) {
                this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect); 
