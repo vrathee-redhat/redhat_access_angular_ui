@@ -135,9 +135,12 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    };
 
 	    $scope.closeCases = function() {
+            CaseService.confirmationModal = CASE_EVENTS.caseClose;
+            CaseService.confirmationModalHeader = translate('Closing Cases.');
+            CaseService.confirmationModalMessage = translate('Are you sure you want to close the selected cases');
             $modal.open({
-                templateUrl: 'cases/views/confirmCaseCloseModal.html',
-                controller: 'ConfirmCaseCloseModal'
+                templateUrl: 'cases/views/commonConfirmationModal.html',
+                controller: 'CommonConfirmationModal'
             });
 	    };
 
