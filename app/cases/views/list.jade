@@ -14,7 +14,7 @@ div(rha-header='', page='caseList')
     .col-sm-6
       .case-count
         span {{SearchCaseService.totalCases}} {{displayedCaseText}} &nbsp;
-        a.href(ng-click='exports()', ng-disabled='exporting || ie8 || ie9', translate='') Export as CSV
+        a.href(ng-click='exports()', ng-disabled='exporting', ng-hide='ie8 || ie9', translate='') Export as CSV
     .col-sm-6
       .pull-right.filter-list(rha-filterselect='')
   .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
