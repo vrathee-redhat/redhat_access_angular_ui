@@ -19,7 +19,7 @@ div(rha-header='', page='caseList')
       .pull-right.filter-list(rha-filterselect='')
   .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
   #case-list.table-list.case-list.bulk-closure(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
-    .list-item(ng-repeat='case in SearchCaseService.cases', target='_blank')      
+    .list-item(ng-repeat='case in SearchCaseService.cases', target='_blank')
       input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
       a(href='#/case/{{case.case_number}}')
         .row.case()
@@ -52,7 +52,7 @@ div(rha-header='', page='caseList')
           .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
             .item-group.change-log
               .filed-on
-                | {{'Created:'|translate}}
+                | {{'Created:'|translate}} &nbsp;
                 span {{case.created_date}}
                 i  {{'by'|translate}}&nbsp;
                 span.blue {{case.created_by}}
