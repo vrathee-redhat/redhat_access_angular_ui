@@ -4,6 +4,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     '$filter',
     '$q',
     '$sce',
+    '$state',
     '$window',
     '$location',
     'RHAUtils',
@@ -14,7 +15,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     'AlertService',
     'CaseService',
     'translate',
-    function ($filter, $q, $sce, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
+    function ($filter, $q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
