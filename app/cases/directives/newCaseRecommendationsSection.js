@@ -10,9 +10,11 @@ angular.module('RedhatAccess.cases').directive('rhaNewcaserecommendations', func
             scope.$watch( function() {
                 return element.height();
             }, function() {
-                window.chrometwo_require(['data-eh'], function(eh){
-                    eh.apply('#rha-recommendation-section');
-                });
+                if (window.chrometwo_require !== undefined) {
+                    window.chrometwo_require(['data-eh'], function(eh){
+                        eh.apply('#rha-recommendation-section');
+                    });
+                }
             });
         }
     };

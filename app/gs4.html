@@ -82,8 +82,6 @@
     <script src="cases/controllers/backendAttachments.js")></script>
 
     <script src="cases/controllers/discussionSection.js"></script>
-    <script src="cases/controllers/confirmCaseCloseModal.js"></script>
-    <script src="cases/controllers/confirmCaseStateChangeModal.js"></script>
     <script src="cases/controllers/createGroupButton.js"></script>
     <script src="cases/controllers/createGroupModal.js"></script>
     <script src="cases/controllers/deleteGroupButton.js"></script>
@@ -184,6 +182,7 @@
     <script src="common/directives/header.js"></script>
     <script src="common/directives/titleTemplate.js"></script>
     <script src="common/services/alertService.js"></script>
+    <script src="common/services/constantsService.js"></script>
     <script src="common/services/headerService.js"></script>
     <script src="common/services/strataService.js"></script>
     <script src="common/services/udsService.js"></script>
@@ -216,28 +215,6 @@
     <script src="search/directives/searchForm.js"></script>
     <script src="search/directives/standardSearch.js"></script>
     <script src="search/services/searchResultsService.js"></script>
-
-    <script src="ascension/ascension.module.js"></script>
-    <script src="ascension/controllers/caseQueue.js"></script>
-    <script src="ascension/services/caseQueueService.js"></script>
-    <script src="ascension/directives/caseQueue.js"></script>
-
-    <script src="ascension/controllers/topCases.js")></script>
-    <script src="ascension/directives/topCases.js")></script>
-    <script src="ascension/directives/internalCaseDetails.js")></script>
-    <script src="ascension/controllers/internalCaseDetails.js")></script>
-    <script src="ascension/directives/internalCaseDiscussion.js")></script>
-    <script src="ascension/controllers/internalCaseDiscussion.js")></script>
-    <script src="ascension/directives/internalCaseDescription.js")></script>
-    <script src="ascension/controllers/internalCaseDescription.js")></script>
-    <script src="ascension/directives/breachInformation.js")></script>
-    <script src="ascension/controllers/breachInformation.js")></script>
-    <script src="ascension/directives/entitlementInfo.js")></script>
-    <script src="ascension/controllers/entitlementInfo.js")></script>
-    <script src="ascension/directives/ownerInfo.js")></script>
-    <script src="ascension/controllers/ownerInfo.js")></script>
-    <script src="ascension/directives/accountInfo.js")></script>
-    <script src="ascension/controllers/accountInfo.js")></script>
 
 
 
@@ -279,8 +256,8 @@
             COMMON_CONFIG.sfdcOutageMessage = '<ul class="message"><li class="alertSystem">There is currently a scheduled outage to the Case Management areas of the Red Hat Customer Portal.  The case management functions are expected to be unavailable for 9 hours and should return around 9am ET (UTC -0500).  The outage is due to case management infrastructure maintenance.<br/><br/>During the planned outage window, users will not be able to perform any case-related actions, including creating new support cases and updating existing support cases. Other areas of the Customer Portal, including the Knowledgebase and product documentation, will continue to be available.<br/><br/>If you require assistance with your Red Hat Product during the scheduled maintenance outage, please <a target="_blank" href="https://access.redhat.com/support/contact/technicalSupport/">contact Red Hat support</a><br/><br/>We apologize for any inconvenience caused by this scheduled maintenance.</li></ul>';
             SECURITY_CONFIG.autoCheckLogin = false;
     	    SECURITY_CONFIG.displayLoginStatus = true;
-    	    securityService.loginURL = 'https://' + host.replace('us.', '') + '/login?redirectTo=' + window.location.href;
-    	    securityService.logoutURL = 'https://' + host.replace('us.', '') + '/logout';
+            securityService.loginURL = host.replace('us.', '') + '/login?redirectTo=' + window.location.href;
+            securityService.logoutURL = host.replace('us.', '') + '/logout';
             NEW_CASE_CONFIG.showServerSideAttachments = false;
             EDIT_CASE_CONFIG.showServerSideAttachments = false;
             gettextCatalog.currentLanguage = getCookieValue('rh_locale');
