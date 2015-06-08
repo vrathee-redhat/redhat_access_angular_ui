@@ -37,11 +37,11 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.commentSortOrder = true;
         $scope.commentSortOrderList = [
             {
-                name: translate('Newest Comment Added'),
+                name: translate('Newest to Oldest'),
                 sortOrder: 'DESC'
             },
             {
-                name: translate('Oldest Comment Added'),
+                name: translate('Oldest to Newest'),
                 sortOrder: 'ASC'
             },
         ];
