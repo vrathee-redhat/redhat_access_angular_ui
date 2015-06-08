@@ -946,8 +946,8 @@ describe('Case Services', function () {
             spyOn(mockStrataService.products, 'list').andCallThrough();
             scope.$root.$digest();
             var mockProducts = [{
-                "label": mockStrataDataService.mockProducts[0].name,
-                "value": mockStrataDataService.mockProducts[0].code
+                "name": mockStrataDataService.mockProducts[0].name,
+                "code": mockStrataDataService.mockProducts[0].code
             }];
             expect(productsService.products).toEqual(mockProducts);
         });
@@ -963,8 +963,8 @@ describe('Case Services', function () {
             spyOn(mockStrataService.products, 'list').andCallThrough();
             scope.$root.$digest();
             var mockProducts = [{
-                "label": mockStrataDataService.mockProducts[0].name,
-                "value": mockStrataDataService.mockProducts[0].code
+                "name": mockStrataDataService.mockProducts[0].name,
+                "code": mockStrataDataService.mockProducts[0].code
             }];
             expect(productsService.products).toEqual(mockProducts);
             expect(productsService.productsLoading).toEqual(false);

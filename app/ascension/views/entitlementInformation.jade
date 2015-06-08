@@ -1,0 +1,22 @@
+section.case-description
+    h3.entitlementinfoheader.pre-wrap {{'Entitlement Information'|translate}}
+    .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
+    section.config-options(ng-show='!CaseDetailsService.caseDetailsLoading')
+            .row.row-short
+                .col-xs-4.col-sm-5.col-md-8
+                    span {{CaseDetailsService.kase.entitlement.name}}
+            .row.row-short
+                .col-xs-4.col-sm-5.col-md-8
+                    .label {{'SBT'|translate}}
+                .col-xs-6.col-sm-3.col-md-4
+                    span {{CaseDetailsService.kase.sbt}}
+            .row.row-short
+                .col-xs-4.col-sm-5.col-md-8
+                    .label {{'Target Date'|translate}}
+                .col-xs-6.col-sm-3.col-md-4
+                    span {{CaseDetailsService.kase.target_date}}
+            .row.row-short
+                .col-xs-4.col-sm-5.col-md-8
+                    .label {{'SBT State'|translate}}
+                .col-xs-6.col-sm-3.col-md-4
+                    span {{CaseDetailsService.kase.sbt}}

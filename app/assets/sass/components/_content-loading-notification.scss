@@ -26,6 +26,15 @@
 //	height: 20px;
 //	@include rem('margin-top', 7px);
 //}
+.loaders {
+	position: absolute;
+	left: 0;
+	width: 45px;
+}
+
+.loaders + h3 {
+	padding-left: 50px;
+}
 
 /* ooo, css circles*/
 .circle {

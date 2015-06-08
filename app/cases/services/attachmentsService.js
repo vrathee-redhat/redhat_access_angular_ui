@@ -4,6 +4,9 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     '$filter',
     '$q',
     '$sce',
+    '$state',
+    '$window',
+    '$location',
     'RHAUtils',
     'strataService',
     'TreeViewSelectorUtils',
@@ -12,7 +15,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     'AlertService',
     'CaseService',
     'translate',
-    function ($filter, $q, $sce, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
+    function ($filter, $q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
@@ -127,7 +130,17 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                                 AlertService.clearAlerts();
                                 AlertService.addSuccessMessage(translate('Successfully uploaded attachment')+' ' + attachment.file_name + ' '+'to case' +' '+ caseId);
                             }, function (error) {
-                                AlertService.addStrataErrorMessage(error);
+                                if (navigator.appVersion.indexOf("MSIE 10") !== -1){
+                                    if($location.path() === '/case/new'){
+                                        $state.go('edit', { id: caseId });
+                                        AlertService.clearAlerts();
+                                        CaseService.submittingCase = false;
+                                    } else{
+                                        $window.location.reload();
+                                    }
+                                } else{
+                                    AlertService.addStrataErrorMessage(error);
+                                }
                             });
                             promises.push(promise);
                         }

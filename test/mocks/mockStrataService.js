@@ -9,13 +9,15 @@ angular.module('RedhatAccess.mock', [])
         "name": "sfWdBWa6La",
         "is_private": false,
         "is_default": false,
-        "selected": true
+        "selected": true,
+        "masterSelected":true
       }, {
         "number": "49496",
         "name": "groupTest:1398506570363",
         "is_private": false,
         "is_default": true,
-        "selected": false
+        "selected": false,
+        "masterSelected":false
       }];
 
       this.mockFileSize="5000";
@@ -284,25 +286,25 @@ angular.module('RedhatAccess.mock', [])
         }};
 
       this.mockSortedProductList = [{
-          "value" : "Red Hat Enterprise Linux",
-          "label" : "Red Hat Enterprise Linux"
+          "name" : "Red Hat Enterprise Linux",
+          "code" : "Red Hat Enterprise Linux"
       },{
-          "value" : "Red Hat JBoss Enterprise Application Platform",
-          "label" : "Red Hat JBoss Enterprise Application Platform"
+          "name" : "Red Hat JBoss Enterprise Application Platform",
+          "code" : "Red Hat JBoss Enterprise Application Platform"
       },{
-          "value" : "Red Hat Satellite or Proxy",
-          "label" : "Red Hat Satellite or Proxy"
+          "name" : "Red Hat Satellite or Proxy",
+          "code" : "Red Hat Satellite or Proxy"
       },{
           "isDisabled" : true,
-          "label" : "────────────────────────────────────────"
+          "code" : "────────────────────────────────────────"
       },{
-          "value" : "RHEL",
-          "label" : "Red Hat Enterprise Linux"
+          "name" : "RHEL",
+          "code" : "Red Hat Enterprise Linux"
       }];
 
       this.mockProductList = [{
-        "value": "RHEL",
-        "label": "Red Hat Enterprise Linux"
+        "name": "RHEL",
+        "code": "Red Hat Enterprise Linux"
       }];
       this.mockVersions = [
         "6.2.3",
@@ -352,6 +354,14 @@ angular.module('RedhatAccess.mock', [])
         "orgAdmin": true,
         "internal": false
       };
+      this.usersOnAccount = [{
+            "userName": "test@redhat.com",
+            "fullName": "test",
+            "org_admin": false,
+            "internal": false,
+             "access":false,
+             "write":false
+        }];
 
       this.mockOriginalNotifiedUsers = [{
         "userName": "test1@redhat.com",
@@ -419,6 +429,13 @@ angular.module('RedhatAccess.mock', [])
       };
 
       this.mockLocation = {
+            path:function (url) {
+
+            },
+            url: function () {
+              var url="http://access.qa.redhat.com/support/cases/0123456";
+              return url;
+            },
 
             search: function () {
                 var searchObject={};
@@ -426,6 +443,10 @@ angular.module('RedhatAccess.mock', [])
             }
 
       };
+      this.mockFilter = function(){
+            return "test";
+
+        };
 
       this.mockSce = {
 
@@ -455,6 +476,7 @@ angular.module('RedhatAccess.mock', [])
     '$q',
     function (MockStrataDataService, $q) {
       this.rejectCall = false;
+      this.returnNull=false;
       var that = this;
 
       return {
@@ -482,16 +504,51 @@ angular.module('RedhatAccess.mock', [])
             if (that.rejectCall) {
               deferred.reject("strata error");
             } else {
-              deferred.resolve(MockStrataDataService.mockGroups[0].number);
+                if(that.returnNull)                {
+
+                    deferred.resolve(null);
+                }
+                else{
+                    deferred.resolve(MockStrataDataService.mockGroups[0].number);
+                }
             }
             return deferred.promise;
            },
+           get: function (caseNumber,userName) {
+                var deferred = $q.defer();
+                if (that.rejectCall) {
+                    deferred.reject("strata error");
+                } else {
+                    deferred.resolve(MockStrataDataService.mockGroups[0]);
+                }
+                return deferred.promise;
+            },
            createDefault: function (groupName) {
                 var deferred = $q.defer();
                 if (that.rejectCall) {
                     deferred.reject("strata error");
                 } else {
                     deferred.resolve("temp group");
+                }
+                return deferred.promise;
+            },
+            update: function (group,userName) {
+                var deferred = $q.defer();
+                if (that.rejectCall) {
+                    deferred.reject("strata error");
+                } else {
+                    deferred.resolve("updated group");
+                }
+                return deferred.promise;
+            }
+        },
+        groupUsers: {
+            update: function (userOnAccount,accountNumber,groupNumber) {
+                var deferred = $q.defer();
+                if (that.rejectCall) {
+                    deferred.reject("strata error");
+                } else {
+                    deferred.resolve("updated group");
                 }
                 return deferred.promise;
             }
@@ -808,7 +865,10 @@ angular.module('RedhatAccess.mock', [])
         },
         rejectCalls: function () {
           that.rejectCall = true;
-        }
+        },
+        returnNull: function () {
+              that.returnNull = true;
+          }
       };
     }
   ])
@@ -845,7 +905,7 @@ angular.module('RedhatAccess.mock', [])
 
             this.account = {};
 
-            this.draftComment = '';
+            this.draftComment = {};
             this.commentText = '';
             this.status = '';
             this.severity = '';
@@ -931,6 +991,7 @@ angular.module('RedhatAccess.mock', [])
             this.updateCase=function(){
                 var deferred = $q.defer();
                 this.updatingCase=false;
+                deferred.resolve();
                 return deferred.promise;
             };
 
@@ -1032,6 +1093,11 @@ angular.module('RedhatAccess.mock', [])
         function (MockStrataDataService, $q) {
 
             this.commentTextBoxEnlargen =false;
+            this.updateElements=function()
+            {
+
+
+            }
 
         }
     ])
@@ -1097,7 +1163,6 @@ angular.module('RedhatAccess.mock', [])
         var deferred = $q.defer();
         deferred.resolve();
         return deferred.promise;
-        mockAttachments
       };
       this.clear = function () {
         this.originalAttachments = [];
@@ -1120,6 +1185,7 @@ angular.module('RedhatAccess.mock', [])
     '$q',
     function (MockStrataDataService, $q) {
       this.reloadTable = function () {};
+      this.reloadTableAndClearPagination=function(){};
       this.groupsOnScreen = [];
     }
   ])
@@ -1174,6 +1240,11 @@ angular.module('RedhatAccess.mock', [])
     function (MockStrataDataService, $q) {
       this.cases = MockStrataDataService.mockCases;
       this.searching = false;
+      this.caseParameters = {
+            searchTerm: '',
+            status: "open",
+            group: ''
+      };
       this.prefilter;
       this.postfilter;
       this.start = 0;

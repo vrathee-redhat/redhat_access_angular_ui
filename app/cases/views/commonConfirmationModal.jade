@@ -1,0 +1,18 @@
+.modal-header
+  h3 {{CaseService.confirmationModalHeader}}
+.modal-body
+  .row
+    .col-sm-12
+      div {{CaseService.confirmationModalMessage}} {{CaseService.confirmationModalProperty}}?
+  .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
+    .col-sm-12
+      .pull-right
+        button.btn.btn-app(
+          style='margin-left: 10px;',
+          ng-click='confirm()')
+          span {{'Yes'|translate}}
+        button.btn.btn-app(
+          style='margin-left: 10px;',
+          ng-click='closeModal()')
+          span {{'No'|translate}}
+
