@@ -46,6 +46,7 @@ angular.module('RedhatAccess.cases').controller('New', [
 
         $scope.showRecommendationPanel = false;
         $scope.notifiedUsers = [];
+	    //$scope.hideSticky = false;
 
         // Instantiate these variables outside the watch
         var waiting = false;
@@ -73,9 +74,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 ProductsService.getProducts(true);
 
                 //as owner change, we might get different product and version list, so better to clear previous selection
-                CaseService.kase.product = undefined;
-                CaseService.kase.version = undefined;
-                CaseService.updateLocalStorageForNewCase();
+                CaseService.clearProdVersionFromLS();
             }
         });
 
@@ -87,6 +86,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.newCaseIncomplete = true;
             CaseService.clearCase();
             RecommendationsService.clear();
+            ProductsService.clear();
             CaseService.populateUsers().then(function (){
                 $scope.usersOnAccount = CaseService.users;
                 $scope.usersOnAccount = $scope.usersOnAccount.map(function(obj) {
@@ -170,23 +170,12 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
-        $scope.firePageLoadEvent = function () {
-            if (window.chrometwo_require !== undefined) {
-                chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
-                    attrs.harvest();
-                    paf.report();
-                });
-            }
-        };
-
         if (securityService.loginStatus.isLoggedIn) {
-            $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
             $scope.getLocalStorageForNewCase();
         }
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
-            $scope.firePageLoadEvent();
             $scope.initSelects();
             $scope.initDescription();
             $scope.getLocalStorageForNewCase();

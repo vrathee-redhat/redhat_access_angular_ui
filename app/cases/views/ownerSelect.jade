@@ -5,6 +5,6 @@ div
       no_results_text="'No match found'|translate",
       ng-disabled='!securityService.loginStatus.isLoggedIn',
       ng-model='CaseService.owner',
-      ng-change='CaseService.onOwnerSelectChanged()',
+      ng-change='CaseService.onOwnerSelectChanged();CaseService.validateNewCase();',
       ng-options='user.sso_username as (user.first_name + " " + user.last_name + " <" + user.sso_username + ">") for user in CaseService.users',
       width='"100%"')

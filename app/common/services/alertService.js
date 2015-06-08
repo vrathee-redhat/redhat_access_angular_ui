@@ -69,6 +69,11 @@ angular.module('RedhatAccess.header').service('AlertService', [
                 }
             }
         };
+        this.addUDSErrorMessage = function (error) {
+            if (RHAUtils.isNotEmpty(error)) {
+                this.addDangerMessage(error);
+            }
+        };
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, angular.bind(this, function () {
             this.clearAlerts();
             this.addMessage(translate('You have successfully logged out of the Red Hat Customer Portal.'));

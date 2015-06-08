@@ -33,6 +33,19 @@ angular.module('RedhatAccess.cases').controller('List', [
 		    $scope.exporting = true;
 		    strataService.cases.csv().then(function (response) {
 			    $scope.exporting = false;
+                var blob = new Blob([ response ], { type : 'text/csv' });
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(blob, "caseList.csv");
+                }
+                else {
+                    var blobURL = (window.URL || window.webkitURL).createObjectURL(blob);
+                    var anchor = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+                    anchor.download = "caseList.csv";
+                    anchor.href = blobURL;
+                    var event = document.createEvent("MouseEvents");
+                    event.initEvent("click", true, false);
+                    anchor.dispatchEvent(event);
+                }
 		    }, function (error) {
 			    AlertService.addStrataErrorMessage(error);
 		    });
@@ -44,16 +57,23 @@ angular.module('RedhatAccess.cases').controller('List', [
 
         $scope.doSearch = function () {
             SearchCaseService.clearPagination();
-            if (CaseService.group === CASE_GROUPS.manage) {
+            if (SearchCaseService.caseParameters.group === CASE_GROUPS.manage) {
+                SearchCaseService.caseParameters.group = SearchCaseService.previousGroupFilter;
                 $state.go('group');
             } else {
-	            if(CaseService.groups.length === 0){
-	                CaseService.populateGroups().then(function (){
-	                    SearchCaseService.doFilter().then(function () {
-
-	                    });
+                if(CaseService.groups.length === 0){
+                    CaseService.populateGroups().then(function (){
+                        if(SearchCaseService.previousGroupFilter === CASE_GROUPS.none) {
+                            SearchCaseService.caseParameters.group = CaseService.group;
+                        } else {
+                            SearchCaseService.caseParameters.group = SearchCaseService.previousGroupFilter;
+                        }                        
+	                    SearchCaseService.doFilter();
 	                });
 	            } else {
+                    if(SearchCaseService.previousGroupFilter === CASE_GROUPS.none) {
+                        SearchCaseService.caseParameters.group = CaseService.group;
+                    }
 	                SearchCaseService.doFilter();
 	            }
 	        }
@@ -84,8 +104,10 @@ angular.module('RedhatAccess.cases').controller('List', [
        */
         if (securityService.loginStatus.isLoggedIn && securityService.loginStatus.userAllowedToManageCases) {
             $scope.firePageLoadEvent();
-            SearchCaseService.clear();
-            CaseService.status = 'open';
+            //SearchCaseService.clear();
+            if(CaseService.status === undefined){
+                CaseService.status = 'open';
+            }
             $scope.doSearch();
             $scope.setBreadcrumbs();
         }
@@ -113,23 +135,26 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    };
 
 	    $scope.closeCases = function() {
+            CaseService.confirmationModal = CASE_EVENTS.caseClose;
+            CaseService.confirmationModalHeader = translate('Closing Cases.');
+            CaseService.confirmationModalMessage = translate('Are you sure you want to close the selected cases');
             $modal.open({
-                templateUrl: 'cases/views/confirmCaseCloseModal.html',
-                controller: 'ConfirmCaseCloseModal'
+                templateUrl: 'cases/views/commonConfirmationModal.html',
+                controller: 'CommonConfirmationModal'
             });
 	    };
 
         $scope.getCasesText = function(){
-            if(CaseService.status === STATUS.open){
+            if(SearchCaseService.caseParameters.status === STATUS.open){
                 $scope.displayedCaseText = translate('Open Support Cases');
-            } else if(CaseService.status === STATUS.closed){
+            } else if(SearchCaseService.caseParameters.status === STATUS.closed){
                 $scope.displayedCaseText = translate('Closed Support Cases');
-            } else if(CaseService.status === STATUS.both){
+            } else if(SearchCaseService.caseParameters.status === STATUS.both){
                 $scope.displayedCaseText = translate('Open and Closed Support Cases');
             }
         };
 
-        $scope.loadingRecWatcher = $scope.$watch('CaseService.status', function(newVal) {
+        $scope.loadingRecWatcher = $scope.$watch('SearchCaseService.caseParameters.status', function(newVal) {
             $scope.getCasesText();
         });
     }

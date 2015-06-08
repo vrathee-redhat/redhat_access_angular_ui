@@ -9,14 +9,11 @@
       li(ng-show='RecommendationsService.recommendations.length', ng-repeat="result in results")
         article
           header.title
-            a.link
-              strong(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank') {{result.title | substring:100 }}
+            a(ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank')
+              strong {{result.title | substring:100 }}
           p.article-content
             a(style="word-wrap: break-word;", ng-click='triggerAnalytics($event)', href='{{result.resource_view_uri}}', target='_blank', ng-bind-html='result.abstract')
   .pagination
     .pull-right
-      button.btn.btn-secondary.btn-slim(ng-hide="currentPage == 1", ng-click="selectPage(currentPage - 1)")
-        i.fa.fa-long-arrow-left
-      button.btn.btn-app.btn-slim(ng-hide="currentPage == lastPage", ng-click="selectPage(currentPage + 1)")
-        span {{'NEXT'|translate}}
-        i.fa.fa-long-arrow-right
+      button.btn.btn-secondary.btn-slim(ng-hide="currentPage == 1", ng-click="selectPage(currentPage - 1)") {{'BACK'|translate}}
+      button.btn.btn-app.btn-slim(ng-hide="currentPage == lastPage", ng-click="selectPage(currentPage + 1)") {{'NEXT'|translate}}

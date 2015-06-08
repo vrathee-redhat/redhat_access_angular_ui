@@ -2,29 +2,38 @@
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	padding: 6px;
+	@include rem('padding', 15px 0);
 	z-index: 99;
 	width: 100%;
 	background: #ddd;
 
 	.container {
 		position: relative;
-		@include rem('padding-left', 60px);
+//		@include rem('padding-left', 60px);
 	}
 
-	.loader {
-		position: absolute;
-		left: 0;
-		top: 0;
-	}
+//	.loader {
+//		position: absolute;
+//		left: 0;
+//		top: 0;
+//	}
 }
 
-.loader {
-	position: relative;
-	display: block;
-	width: 70px;
-	height: 20px;
-	@include rem('margin-top', 7px);
+//.loader {
+//	position: relative;
+//	display: block;
+//	width: 70px;
+//	height: 20px;
+//	@include rem('margin-top', 7px);
+//}
+.loaders {
+	position: absolute;
+	left: 0;
+	width: 45px;
+}
+
+.loaders + h3 {
+	padding-left: 50px;
 }
 
 /* ooo, css circles*/

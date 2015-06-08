@@ -28,6 +28,7 @@ angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsControlle
             if (window.chrometwo_require !== undefined && $location.path() === '/case/new') {
                 chrometwo_require(['analytics/main'], function (analytics) {
                     analytics.trigger('OpenSupportCaseRecommendationClick', $event);
+                    analytics.trigger("ABTestSuccess", $event);
                 });
             }
         };

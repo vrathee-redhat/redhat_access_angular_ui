@@ -1,0 +1,8 @@
+#case-solutions
+.row(rha-searchstackedsolutions='')
+.row(ng-if='recommendations.length !== 0')
+  .col-md-12
+    h3.section-title {{'Suggested Solutions'|translate}}
+    li.recommendation(ng-repeat='recommendation in recommendations')
+      a.title(ng-href='recommendation.view_uri')
+        strong {{recommendation.title | substring:100 }}

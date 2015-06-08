@@ -1,0 +1,66 @@
+.page-header(rha-header='', page='')
+.row(rha-caseSearch='')
+.row(rha-yourcases='')
+.row
+  section.main.col-md-9
+      .row
+          .col-sm-12
+              a.btn.btn-info.btn-sm(href='#/case/new'){{'Edit'|translate}}
+              &nbsp;
+              a.btn.btn-info.btn-sm(ng-click='', ng-disabled=''){{'Close'|translate}}
+              &nbsp;
+              a.btn.btn-info.btn-sm(ng-click='', ng-disabled=''){{'More'|translate}}
+      .row
+        .col-sm-12
+          ul#tab_list.nav.nav-tabs(role="tablist")
+            li(ng-class='{"active": caseOverView}')
+              a(ng-click='toggleCaseOverView()', data-toggle="tab") {{'Case Overview'|translate}}
+            li(ng-class='{"active": caseDiscussion}')
+              a(ng-click='toggleCaseDiscussion()',  data-toggle="tab") {{'Discussion'|translate}}
+            li(ng-class='{"active": caseSummary}')
+              a(ng-click='toggleCaseSummary()', data-toggle="tab") {{'Case Summary'|translate}}
+            li(ng-class='{"active": caseHistory}',)
+              a(ng-click='toggleCaseHistory()', data-toggle="tab") {{'Case History'|translate}}
+            li(ng-class='{"active": bugzillas}')
+              a(ng-click='toggleBugzillas()', data-toggle="tab") {{'Bugzillas'|translate}}
+            li(ng-class='{"active": escalations}')
+              a(ng-click='toggleEscalations()', data-toggle="tab") {{'Escalations'|translate}}
+      .row
+        .col-sm-12
+          .tab-content
+            #pane1.tab-pane(ng-class='{"active": caseOverView}')
+              .row
+                .col-sm-12
+                  h3.case-name.pre-wrap CASE SUBJECT/NAME
+              .row
+                .col-sm-12
+                  div(rha-caseflags='')
+              .row
+                .col-md-5
+                  section#entitlementinformation.entitlement-info(rha-entitlementinformation='')
+                .col-md-5
+                  section#accountinformation.account-info(rha-accountinformation='')
+              .row
+                .col-sm-12(rha-internalcasedetails='')
+              .row
+                .col-sm-12(rha-internalcasedescription='')
+          .tab-content
+            #pane1.tab-pane(ng-class='{"active": caseDiscussion}')
+              div(rha-internalcasediscussion='')
+          .tab-content
+            #pane1.tab-pane(ng-class='{"active": caseSummary}')
+              div(rha-casesummary='')
+          .tab-content
+            #pane1.tab-pane(ng-class='{"active": caseHistory}')
+              div(rha-casehistory='')
+          .tab-content
+            #pane1.tab-pane(ng-class='{"active": bugzillas}')
+              div(rha-casebugzillas='')
+          .tab-content
+            #pane1.tab-pane(ng-class='{"active": escalations}')
+              div(rha-caseescalations='')
+  aside.col-md-3
+      section.row#breachinformation.breach-info
+        .col-sm-12(rha-breachstatus='')
+      section.row#caseSolutions
+        .col-sm-12(rha-searchsolutions='')

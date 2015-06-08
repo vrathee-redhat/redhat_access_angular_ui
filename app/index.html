@@ -97,8 +97,7 @@
     <script src="cases/controllers/backendAttachments.js")></script>
 
     <script src="cases/controllers/discussionSection.js"></script>
-    <script src="cases/controllers/confirmCaseCloseModal.js"></script>
-    <script src="cases/controllers/confirmCaseStateChangeModal.js"></script>
+    <script src="cases/controllers/commonConfirmationModal.js"></script>
     <script src="cases/controllers/createGroupButton.js"></script>
     <script src="cases/controllers/createGroupModal.js"></script>
     <script src="cases/controllers/deleteGroupButton.js"></script>
@@ -133,6 +132,10 @@
     <script src="cases/controllers/listBugzillas.js"></script>
     <script src="cases/controllers/addCommentSection.js"></script>
     <script src="cases/controllers/versionSelect.js"></script>
+    <script src="cases/controllers/newRouter.js"></script>
+    <script src="cases/directives/newBase.js"></script>
+    <script src="cases/directives/newAlternate.js"></script>
+
     <script src="cases/directives/accountSelect.js"></script>
     <script src="cases/directives/addCommentSection.js"></script>
     <script src="cases/directives/attachLocalFile.js"></script>
@@ -199,6 +202,7 @@
     <script src="common/services/headerService.js"></script>
     <script src="common/services/strataService.js"></script>
     <script src="common/services/udsService.js"></script>
+    <script src="common/services/constantsService.js"></script>
     <script src="i18n/translations.js"></script>
     <script src="log_viewer/log_viewer.module.js"></script>
     <script src="log_viewer/controllers/AccordionDemoCtrl.js"></script>
@@ -230,29 +234,42 @@
     <script src="search/services/searchResultsService.js"></script>
 
     <script src="ascension/ascension.module.js"></script>
-    <script src="ascension/controllers/caseQueue.js"></script>
-    <script src="ascension/services/caseQueueService.js"></script>
-    <script src="ascension/directives/caseQueue.js"></script>
-
-    <script src="ascension/controllers/topCases.js")></script>
-    <script src="ascension/directives/topCases.js")></script>
-    <script src="ascension/directives/internalCaseDetails.js")></script>
-    <script src="ascension/controllers/internalCaseDetails.js")></script>
-    <script src="ascension/directives/internalCaseDiscussion.js")></script>
-    <script src="ascension/controllers/internalCaseDiscussion.js")></script>
-    <script src="ascension/directives/internalCaseDescription.js")></script>
-    <script src="ascension/controllers/internalCaseDescription.js")></script>
-    <script src="ascension/directives/breachInformation.js")></script>
-    <script src="ascension/controllers/breachInformation.js")></script>
-    <script src="ascension/directives/entitlementInfo.js")></script>
-    <script src="ascension/controllers/entitlementInfo.js")></script>
-    <script src="ascension/directives/ownerInfo.js")></script>
-    <script src="ascension/controllers/ownerInfo.js")></script>
-    <script src="ascension/directives/accountInfo.js")></script>
-    <script src="ascension/controllers/accountInfo.js")></script>
-
-
-
+    <script src="ascension/controllers/caseView.js"></script>
+    <script src="ascension/controllers/yourCases.js"></script>
+    <script src="ascension/controllers/caseDetails.js"></script>
+    <script src="ascension/controllers/caseDiscussion.js"></script>
+    <script src="ascension/controllers/caseDescription.js"></script>
+    <script src="ascension/controllers/breachStatus.js"></script>
+    <script src="ascension/controllers/entitlementInformation.js"></script>
+    <script src="ascension/controllers/ownerInformation.js"></script>
+    <script src="ascension/controllers/accountInformation.js"></script>
+    <script src="ascension/controllers/caseSummary.js"></script>
+    <script src="ascension/controllers/caseHistory.js"></script>
+    <script src="ascension/controllers/caseBugzillas.js"></script>
+    <script src="ascension/controllers/caseFlags.js"></script>
+    <script src="ascension/controllers/caseEscalations.js"></script>
+    <script src="ascension/controllers/searchSolutions.js"></script>
+    <script src="ascension/directives/caseView.js"></script>
+    <script src="ascension/directives/yourCases.js"></script>
+    <script src="ascension/directives/caseDetails.js"></script>
+    <script src="ascension/directives/caseDiscussion.js"></script>
+    <script src="ascension/directives/caseDescription.js"></script>
+    <script src="ascension/directives/breachStatus.js"></script>
+    <script src="ascension/directives/entitlementInformation.js"></script>
+    <script src="ascension/directives/ownerInformation.js"></script>
+    <script src="ascension/directives/accountInformation.js"></script>
+    <script src="ascension/directives/caseSummary.js"></script>
+    <script src="ascension/directives/caseHistory.js"></script>
+    <script src="ascension/directives/caseBugzillas.js"></script>
+    <script src="ascension/directives/caseFlags.js"></script>
+    <script src="ascension/directives/caseEscalations.js"></script>
+    <script src="ascension/directives/searchSolutions.js"></script>
+    <script src="ascension/services/caseDetailsService.js"></script>
+    <script src="ascension/services/accountService.js"></script>
+    <script src="ascension/services/escalationsService.js"></script>
+    <script src="ascension/services/userDetailsService.js"></script>
+    <script src="ascension/services/caseDiscussionService.js"></script>
+    <script src="ascension/services/RoutingService.js"></script>
     <script src="escalation/escalation.module.js"></script>
     <script src="escalation/controllers/escalationRequest.js"></script>
     <script src="escalation/services/escalationRequestService.js"></script>
