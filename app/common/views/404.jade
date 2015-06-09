@@ -1,4 +1,4 @@
-div(ng-show='HeaderService.pageLoadFailure && securityService.loginStatus.userAllowedToManageCases')
+div(ng-show='HeaderService.pageLoadFailure && securityService.loginStatus.userAllowedToManageCases && !COMMON_CONFIG.isGS4')
 	pre.console 
 		|     d8888   .d8888b.      d8888  
 		|    d8P888  d88P  Y88b    d8P888  
