@@ -61,6 +61,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     //    console.log("No sbrs found on user.");
                     //    userRoles = [RoutingService.key_mapping.OWNED_CASES];
                     } else {
+                        AlertService.clearAlerts();
                         AlertService.addInfoMessage("No url roles or user roles found.");
                         userRoles = [RoutingService.key_mapping.OWNED_CASES, RoutingService.key_mapping.COLLABORATION, RoutingService.key_mapping.FTS];
                     }
@@ -81,9 +82,13 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                             });
                             //slice top 6 cases for display
                             self.cases = topCases.slice(0, 6);
-                            //get details for first top case
-                            self.getCaseDetails(topCases[0].resource.caseNumber);
+                            //if case is not yet viewed, then get the first case details
+                            if(RHAUtils.isObjectEmpty(self.kase)) {
+                                //get details for first top case
+                                self.getCaseDetails(topCases[0].resource.caseNumber);
+                            }
                         }else {
+                            AlertService.clearAlerts();
                             AlertService.addInfoMessage("No cases found.");
                         }
                         self.yourCasesLoading = false;

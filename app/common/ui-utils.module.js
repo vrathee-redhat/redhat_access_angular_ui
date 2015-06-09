@@ -30,6 +30,13 @@ app.service('RHAUtils',
       this.isNotEmpty = function (object) {
         return !this.isEmpty(object);
       };
+      this.isObjectEmpty =  function(obj) {
+        for(var prop in obj) {
+            if(obj.hasOwnProperty(prop))
+                return false;
+        }
+        return true;
+      };
       this.isEmailValid = function (object) {
         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (object.match(mailformat)) {
