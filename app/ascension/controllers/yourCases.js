@@ -8,7 +8,8 @@ angular.module('RedhatAccess.ascension').controller('YourCases', [
     'AUTH_EVENTS',
     '$rootScope',
     'TOPCASES_EVENTS',
-    function ($scope, STATUS, CaseDetailsService, securityService, AUTH_EVENTS,$rootScope,TOPCASES_EVENTS) {
+    '$interval',
+    function ($scope, STATUS, CaseDetailsService, securityService, AUTH_EVENTS,$rootScope,TOPCASES_EVENTS,$interval) {
     	$scope.CaseDetailsService = CaseDetailsService;
 
         $scope.init = function () {
@@ -22,6 +23,11 @@ angular.module('RedhatAccess.ascension').controller('YourCases', [
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
         }
+        //Put in interval, for 5 mins so that top cases list will get refreshed
+        $interval(function(){
+            CaseDetailsService.yourCasesLoading = true;
+            CaseDetailsService.getYourCases();
+        }.bind(this), 300000);
 
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
