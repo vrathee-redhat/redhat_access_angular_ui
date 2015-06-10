@@ -8,11 +8,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-04-23 12:17+0000\n"
+"PO-Revision-Date: 2015-06-05 05:05+0000\n"
 "Last-Translator: asasaki <asasaki@redhat.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
-"X-Generator: Zanata 3.6.0\n"
+"X-Generator: Zanata 3.6.2\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: app/cases/controllers/defaultGroup.js
@@ -111,7 +111,7 @@ msgstr "選択したケースをクローズしてもよろしいですか?"
 
 #: app/cases/views/edit.html
 msgid "Assigned to"
-msgstr "割り当て先"
+msgstr "担当者"
 
 #: app/cases/views/attachLocalFile.html
 msgid "Attach Another File"
@@ -206,7 +206,7 @@ msgstr "ケース"
 
 #: app/common/controllers/titleView.js
 msgid "CREATE A NEW SUPPORT CASE"
-msgstr "新規サポートケースの作成"
+msgstr "サポートケースの新規作成"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/security/views/login_form.html
@@ -339,7 +339,7 @@ msgstr "クローズ"
 
 #: app/cases/controllers/list.js
 msgid "Closed Support Cases"
-msgstr "クローズしたサポートケース"
+msgstr "サポートケース (クローズ)"
 
 #: app/cases/views/confirmCaseCloseModal.html
 msgid "Closing Cases"
@@ -784,7 +784,7 @@ msgstr "デフォルトケースグループを管理"
 
 #: app/cases/views/list.html
 msgid "Modified by:"
-msgstr "変更者"
+msgstr "変更者:"
 
 # translation auto-copied from project PressGang CCMS topics, version 1, document 26792-635853, author tnagamot
 #: app/ascension/views/caseQueue.html
@@ -808,19 +808,19 @@ msgstr "名前"
 
 #: app/cases/views/requestEscalation.html
 msgid "Need to raise a concern to Red Hat Support management?"
-msgstr "Red Hat サポート管理に懸念点を知らせる必要がありますか?"
+msgstr "Red Hat サポート管理に問題点を連絡されますか?"
 
 #: app/cases/controllers/discussionSection.js
 msgid "Newest Comment Added"
-msgstr "最新のコメントが追加されました"
+msgstr "最も新しいコメント追加日"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Newest Date Created"
-msgstr "最新の日付が作成されました"
+msgstr "最も新しい作成日"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Newest Date Modified"
-msgstr "最新の日付が変更されました"
+msgstr "最も新しい変更日"
 
 #: app/cases/views/proceedWithoutAttachModal.html
 msgid "No File Uploaded with Case"
@@ -832,8 +832,8 @@ msgid "No attachments added"
 msgstr "添付ファイルが追加されていません"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
-#: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
+#: app/cases/views/compactCaseList.html
 msgid "No cases found with given filters."
 msgstr "指定したフィルターではケースが見つかりませんでした。"
 
@@ -880,15 +880,15 @@ msgstr "注記:"
 
 #: app/cases/controllers/discussionSection.js
 msgid "Oldest Comment Added"
-msgstr "最も古いコメントが追加されました"
+msgstr "最も古いコメント追加日"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Oldest Date Created"
-msgstr "最も古い日付が作成されました"
+msgstr "最も古い作成日"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Oldest Date Modified"
-msgstr "最も古い日付が変更されました"
+msgstr "最も古い変更日"
 
 #: app/escalation/views/iceEscalation.html
 msgid ""
@@ -928,11 +928,10 @@ msgstr "ケースを新規作成"
 
 #: app/cases/controllers/list.js
 msgid "Open Support Cases"
-msgstr "サポートケースの作成"
+msgstr "サポートケース (オープン)"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/search/views/accordion_search_results.html
-#: app/cases/views/search.html
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Open a New Support Case"
 msgstr "サポートケースを新規作成"
@@ -940,11 +939,11 @@ msgstr "サポートケースを新規作成"
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/controllers/statusSelect.js
 msgid "Open and Closed"
-msgstr "作成とクローズ"
+msgstr "オープンとクローズ"
 
 #: app/cases/controllers/list.js
 msgid "Open and Closed Support Cases"
-msgstr "サポートケースの作成とクローズ"
+msgstr "サポートケース (オープンとクローズ)"
 
 #: app/cases/views/list.html
 msgid "Owned by:"
@@ -953,7 +952,6 @@ msgstr "所有者:"
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
-#: app/cases/views/search.html
 msgid "Owner"
 msgstr "所有者"
 
@@ -1212,11 +1210,27 @@ msgstr "ファイルの選択"
 msgid "Select Log"
 msgstr "ログの選択"
 
+#: app/cases/views/newBase.html
 #: app/cases/views/emailNotifySelect.html
 #: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
 msgid "Select a User"
 msgstr "ユーザーの選択"
+
+#: app/cases/views/newAlternate.html
+msgid ""
+"Select a User'|translate\" ng-disabled=\"updatingList || CaseService."
+"submittingCase\" ng-model=\"notifiedUsers\" id=\"rha-email-notify-select\" "
+"width=\"&quot;100%&quot;\" ng-options=\"user.sso_username as user."
+"sso_username for user in CaseService.users\"></select></div></div><div class="
+"\"row row-short\"><div class=\"col-sm-4 col-md-3\"><div class="
+"\"label\">{{'Case Group (Optional)"
+msgstr ""
+"ユーザーの選択'|translate\" ng-disabled=\"updatingList || CaseService."
+"submittingCase\" ng-model=\"notifiedUsers\" id=\"rha-email-notify-select\" "
+"width=\"&quot;100%&quot;\" ng-options=\"user.sso_username as user."
+"sso_username for user in CaseService.users\"></select></div></div><div class="
+"\"row row-short\"><div class=\"col-sm-4 col-md-3\"><div class="
+"\"label\">{{'ケースグループ (オプション)"
 
 #: app/cases/views/emailNotifySelect.html
 #: app/cases/views/newAlternate.html
@@ -1273,7 +1287,7 @@ msgstr "サイズ"
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
 msgid "Sort By"
-msgstr "並び替え基準"
+msgstr "表示順"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/ascension/views/internalCaseDetails.html
@@ -1415,7 +1429,7 @@ msgstr "8 桁の Red Hat サポートチケット番号"
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
 "filing a case"
-msgstr "本リリースは現在使用中止になっています。ケースを作成する前に、推奨されている FAQ を参照してください。"
+msgstr "本リリースは現在使用中止になっています。ケースを作成する前に、推奨されている FAQ 情報を参照してください。"
 
 # translation auto-copied from project Customer Portal Translations, version 004_messages, document messages, author kmoriguc
 #: app/escalation/views/partnerEscalation.html
@@ -1575,7 +1589,7 @@ msgstr "時間"
 #: app/cases/views/edit.html
 #: app/cases/views/list.html
 msgid "by"
-msgstr "期限/主体"
+msgstr "提出者"
 
 #: app/cases/controllers/attachLocalFile.js
 msgid "cannot be attached because it is larger than"
@@ -1584,7 +1598,7 @@ msgstr "を添付することができません。以下のサイズを超えて
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/discussionSection.html
 msgid "characters left."
-msgstr "文字残っています。"
+msgstr "文字 (残りの文字数)"
 
 #: app/escalation/views/partnerEscalation.html
 msgid "click here"
@@ -1596,7 +1610,7 @@ msgstr "ICE プロセスについての詳細情報"
 
 #: app/escalation/views/partnerEscalation.html
 msgid "for more information."
-msgstr "詳細情報が見つかります。"
+msgstr "詳細情報。"
 
 # translation auto-copied from project Satellite6 Foreman, version 6.1, document foreman
 #: app/cases/views/list.html
