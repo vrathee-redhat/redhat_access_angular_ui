@@ -15,7 +15,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         div(rha-addcommentsection='', loading='loading.comments')
     .row(ng-hide="DiscussionService.discussionElements.length===0")
       .col-sm-7
-        label {{'Sort By'|translate}}&nbsp;&nbsp;
+        label {{'Sort by'|translate}}&nbsp;&nbsp;
         select#rha-comment-sort(chosen,
           width='"auto"',
           ng-init="DiscussionService.commentSortOrder = commentSortOrderList[0]"

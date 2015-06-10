@@ -33,34 +33,33 @@ div(rha-header='', page='caseList')
                 i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
               .case-id
                 .subheading {{case.case_number}}
-                .status {{case.status}}
+                .description {{case.status}}
           .col-sm-8.col-md-6.item-group
             .subheading
               | {{case.summary}}
             .description
               | {{case.product}}
-              span.sep |
-              | {{case.version}}
-
+              span
+              | &nbsp;{{case.version}}
           .col-sm-12.col-md-2(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
             .item-group.change-log
               .filed-on
-                | {{'Modified by:'|translate}} &nbsp;
-                span.blue {{case.last_modified_by}} &nbsp;
-                span {{'on'|translate}}:&nbsp;
-                span {{case.last_modified_date}} &nbsp;
+                | {{'Modified by'|translate}}&nbsp;
+                span {{case.last_modified_by}}&nbsp;
+                span {{'on'|translate}}&nbsp;
+                span {{case.last_modified_date}}
           .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
             .item-group.change-log
               .filed-on
-                | {{'Created:'|translate}} &nbsp;
+                | {{'Created by'|translate}}&nbsp;
+                span {{case.created_by}}&nbsp;
+                span {{'on'|translate}}&nbsp;
                 span {{case.created_date}}
-                i  {{'by'|translate}}&nbsp;
-                span.blue {{case.created_by}}
           .col-sm-12.col-md-2
             .item-group.change-log
               .filed-on
-                | {{'Owned by:'|translate}} &nbsp;
-                span.blue {{case.contact_name}} &nbsp;
+                | {{'Owned by'|translate}}&nbsp;
+                span {{case.contact_name}}
   div(ng-show='SearchCaseService.searching')
     .spinner
     p.center {{'Loading cases...'|translate}}
