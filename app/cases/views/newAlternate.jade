@@ -1,6 +1,7 @@
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
   .row.row-short
+    div testing
     div(ng-class="RecommendationsService.recommendations.length === 0 ? 'col-sm-12' : 'col-sm-8'")
       div(ng-show='ProductsService.productsLoading')
         .spinner
@@ -11,27 +12,27 @@ div(rha-header='', page='newCase')
               div(ng-if='securityService.loginStatus.authedUser.is_internal')
                 .row.row-short
                   .col-sm-3
-                    .label(for='rha-account-number') {{'Account'|translate}}
+                    label(for='rha-account-number') {{'Account'|translate}}
                   .col-sm-7.col-md-6
                     div(rha-accountselect='')
                 .row.row-short
                   .col-sm-3
-                    .label(for='rha-owners-select') {{'Owner'|translate}}
+                    label(for='rha-owners-select') {{'Owner'|translate}}
                   .col-sm-7.col-md-6
                     div(rha-ownerselect='')
               .row.row-short
                 .col-sm-3
-                  .label {{'Product'|translate}}
+                  label {{'Product'|translate}}
                 .col-sm-7.col-md-6
                   div(rha-productselect='')
               .row.row-short
                 .col-sm-3
-                  .label {{'Product Version'|translate}}
+                  label {{'Product Version'|translate}}
                 .col-sm-7.col-md-6
                   div(rha-versionselect='')
               .row.row-short
                 .col-sm-3
-                  .label {{'Case Name'|translate}}
+                  label {{'Case Name'|translate}}
                 .col-sm-7.col-md-6
                   input#rha-case-summary.form-control(
                   maxlength='255',
@@ -103,7 +104,7 @@ div(rha-header='', page='newCase')
             #rha-case-more-options
               .row.row-short
                 .col-sm-3
-                  .label {{'Support Level'|translate}}
+                  label {{'Support Level'|translate}}
                     span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
                 .col-sm-7.col-md-6
                   select#rha-supportLevel-select(
@@ -115,7 +116,7 @@ div(rha-header='', page='newCase')
                     option(value="")
               .row.row-short
                 .col-sm-3
-                  .label.inline-tooltip {{'Severity'|translate}}
+                  label.inline-tooltip {{'Severity'|translate}}
                     span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To learn more, visit the " |translate }}</br><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a>',tabindex='0',tooltip-trigger="click")
                 .col-sm-7.col-md-6
                   .row
@@ -135,15 +136,15 @@ div(rha-header='', page='newCase')
                     .col-xs-11
                       .row
                         .col-xs-12
-                          .label.pull-left {{'24x7 Support'|translate}}
+                          label.pull-left {{'24x7 Support'|translate}}
                       .row.row-short(ng-show="CaseService.showFts()")
                         .col-xs-12
-                          .label.pull-left {{'24x7 Contact'|translate}}
+                          label.pull-left {{'24x7 Contact'|translate}}
                           input.pull-left.margin-left(
                             ng-model="CaseService.fts_contact")
               .row.row-short
                 .col-sm-3
-                  .label(for='email-notifications') {{'Send Email Notifications to'|translate}}
+                  label(for='email-notifications') {{'Send Email Notifications to'|translate}}
                 .col-sm-7.col-md-6
                   .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
                   select(
@@ -157,7 +158,7 @@ div(rha-header='', page='newCase')
                     ng-options='user as user for user in usersOnAccount')
               .row.row-short
                 .col-sm-3
-                  .label {{'Case Group (Optional)'|translate}}
+                  label {{'Case Group (Optional)'|translate}}
                 .col-sm-7.col-md-6
                   div(rha-groupselect='', ng-init="setSearchOptions('false')")
 
