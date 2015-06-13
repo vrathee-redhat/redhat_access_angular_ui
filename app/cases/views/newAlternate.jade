@@ -1,7 +1,6 @@
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
   .row.row-short
-    div testing
     div(ng-class="RecommendationsService.recommendations.length === 0 ? 'col-sm-12' : 'col-sm-8'")
       div(ng-show='ProductsService.productsLoading')
         .spinner
