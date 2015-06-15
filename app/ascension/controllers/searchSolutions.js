@@ -56,7 +56,6 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
                         }]
                     }
                 };
-                console.log(CaseDetailsService.kase.case_number);
                 CaseDetailsService.kase.case_number = '0'+CaseDetailsService.kase.case_number;
                 strataService.cases.put(CaseDetailsService.kase.case_number, recJSON).then(function (response) {
                     $scope.currentRecPin.pinning = false;
