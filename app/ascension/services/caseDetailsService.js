@@ -3,6 +3,7 @@
 angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'udsService',
     'AlertService',
+    'strataService',
     'RHAUtils',
     'securityService',
     'RoutingService',
@@ -10,17 +11,27 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'UQL',
     '$rootScope',
     'TOPCASES_EVENTS',
-    function (udsService, AlertService, RHAUtils,securityService, RoutingService,AccountService,UQL,$rootScope,TOPCASES_EVENTS) {
+    '$q',
+    'translate',
+    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, translate) {
 		this.caseDetailsLoading = true;
         this.yourCasesLoading = true;
+        this.caseClosing = false;
 		this.kase = {};
+        this.prestineKase = {};
         this.cases = {};
+        this.products = [];
+        this.versions = [];
+        this.severities = [];
+        this.statuses = [];
+        this.versionDisabled = false;
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
             this.caseDetailsLoading = true;
             udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
                 this.kase = response;
+                angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
             }), angular.bind(this, function (error) {
@@ -104,5 +115,116 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 })
             );
 		};
+
+        this.closeCase = function() {
+            this.caseClosing = true;
+            // Appending a '0' to the case number because strata needs that
+            // and UDS trims that
+            var caseNumber = '';
+            if(this.kase.case_number.toString().length < 8) {
+                caseNumber = '0'+this.kase.case_number;
+            }
+            var promise = strataService.cases.put(caseNumber, {status: 'Closed'});
+            promise.then( angular.bind(this, function (response) {
+                this.caseClosing = false;
+                AlertService.addSuccessMessage(translate('Case') + ' ' + this.kase.case_number + ' '+'successfully closed.');
+                this.kase.status.name = 'Closed';                
+            }), function (error) {
+                this.caseClosing = false;
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
+        this.fetchProducts = function() {
+            strataService.products.list(securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function(response) {
+                this.products = response;
+                if(RHAUtils.isNotEmpty(this.kase.product)) {
+                    this.getVersions(this.kase.product);
+                }                
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
+        this.getVersions = function(product) {
+            this.versionDisabled = true;
+            strataService.products.versions(product).then(angular.bind(this, function (response) {
+                response.sort(function (a, b) { //Added because of wrong order of versions
+                    a = a.split('.');
+                    b = b.split('.');
+                    for( var i = 0; i < a.length; i++){
+                        if(a[i] < b[i]){
+                            return 1;
+                        } else if(b[i] < a[i]){
+                            return -1;
+                        }
+                    }
+                    if(a.length > b.length){
+                        return 1;
+                    } else if (b.length > a.length){
+                        return -1;
+                    }
+                    return 0;
+                });
+                this.versions = response;
+                this.versionDisabled = true;
+            }), function (error) {
+                this.versionDisabled = true;
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
+        this.fetchSeverities = function() {
+            strataService.values.cases.severity().then(angular.bind(this, function (response) {
+                this.severities = response;
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
+        this.fetchStatuses = function() {
+            strataService.values.cases.status().then(angular.bind(this, function (response) {
+                this.statuses = response;
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
+
+        this.updateCase = function(){
+            this.updatingCase = true;
+            var deferred = $q.defer();
+            var caseJSON = {};
+            if (this.kase.type !== undefined && !angular.equals(this.prestineKase.type, this.kase.type)) {
+                caseJSON.type = this.kase.type.name;
+            }
+            if (this.kase.severity !== undefined && !angular.equals(this.prestineKase.severity, this.kase.severity)) {
+                caseJSON.severity = this.kase.severity.name;
+            }
+            if (this.kase.status !== undefined && !angular.equals(this.prestineKase.status, this.kase.status)) {
+                caseJSON.status = this.kase.status.name;
+            }            
+            if (this.kase.product !== undefined && !angular.equals(this.prestineKase.product, this.kase.product)) {
+                caseJSON.product = this.kase.product;
+            }
+            if (this.kase.version !== undefined && !angular.equals(this.prestineKase.version, this.kase.version)) {
+                caseJSON.product = this.kase.product;
+                caseJSON.version = this.kase.version;
+            }
+            // Appending a '0' to the case number because strata needs that
+            // and UDS trims that
+            var caseNumber = '';
+            if(this.kase.case_number.toString().length < 8) {
+                caseNumber = '0'+this.kase.case_number;
+            }
+            strataService.cases.put(caseNumber, caseJSON).then(angular.bind(this, function () {
+                this.updatingCase = false;
+                angular.copy(this.kase, this.prestineKase);
+                deferred.resolve();
+            }), function (error) {
+                this.updatingCase = false;
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
 	}
 ]);
