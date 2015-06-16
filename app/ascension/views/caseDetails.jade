@@ -80,6 +80,11 @@ section.case-details
              .label {{'Case Type'|translate}}
           .col-md-4
               span {{CaseDetailsService.kase.type}}
+        .row.row-short
+          .col-md-2
+             .label {{'Case Resolution'|translate}}
+          .col-md-4
+             span {{CaseDetailsService.kase.resolution}}
         .row(ng-show='showEditCase')
           .col-sm-12
             button.btn.btn-app.btn-submit(

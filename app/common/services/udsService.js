@@ -38,6 +38,14 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.account.account_number = response.resource.account.resource.accountNumber;
                 kase.account.is_strategic = response.resource.account.resource.strategic;
                 kase.account.special_handling_required = response.resource.account.resource.specialHandlingRequired;
+                if(response.resource.resolution)
+                {
+                    kase.resolution=response.resource.resolution;
+                }
+                else
+                {
+                    kase.resolution='';
+                }
                 kase.entitlement={};
                 kase.entitlement.name=response.resource.entitlement.resource.name;
                 kase.entitlement.service_level=response.resource.entitlement.resource.serviceLevel;
