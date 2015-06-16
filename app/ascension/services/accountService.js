@@ -49,7 +49,10 @@ angular.module('RedhatAccess.ascension').service('AccountService', [
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.fridayEndTime), 'hh:mm:ss A'));
                     businessHoursTooltip=businessHoursTooltip.concat("<br/>");
                 }
-               this.account.resource.businessHours.resource.businessHoursTooltip=businessHoursTooltip;
+                if(this.account.resource.businessHours)
+                {
+                    this.account.resource.businessHours.resource.businessHoursTooltip=businessHoursTooltip;
+                }
                 if(this.account.resource.hasTAM===true)
                 {
                     var accountAssociates=this.account.resource.accountAssociates;
