@@ -5,19 +5,20 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
     'CaseDetailsService',
     'securityService',
     'AUTH_EVENTS',
-    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS) {
+    'TOPCASES_EVENTS',
+    'RHAUtils',
+    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils) {
     	$scope.CaseDetailsService = CaseDetailsService;
         $scope.showEditCase = false;
 
     	$scope.init = function () {
-            //CaseDetailsService.getCaseDetails(CaseDetailsService.cases[0]);
+            CaseDetailsService.fetchProducts();
+            CaseDetailsService.fetchSeverities();
+            CaseDetailsService.fetchStatuses();
         };
 
         $scope.edit = function() {
             $scope.showEditCase = true;
-            CaseDetailsService.fetchProducts();
-            CaseDetailsService.fetchSeverities();
-            CaseDetailsService.fetchStatuses();
         };
 
         $scope.updatingDetails = false;
@@ -46,6 +47,12 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
 
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
+        });
+
+        $scope.$on(TOPCASES_EVENTS.caseDetailsFetched, function () {
+            if(RHAUtils.isNotEmpty(CaseDetailsService.kase.product)) {
+                CaseDetailsService.getVersions(CaseDetailsService.kase.product);
+            }
         });
     }
 ]);
