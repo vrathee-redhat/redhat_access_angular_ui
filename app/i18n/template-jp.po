@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-06-05 05:05+0000\n"
+"PO-Revision-Date: 2015-06-16 08:01+0000\n"
 "Last-Translator: asasaki <asasaki@redhat.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -80,7 +80,7 @@ msgstr "追加"
 
 #: app/cases/views/discussionSection.html
 msgid "All Attachments"
-msgstr "すべての添付ファイル"
+msgstr "添付ファイル"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/services/caseService.js
@@ -119,7 +119,7 @@ msgstr "別のファイルの添付"
 
 #: app/cases/views/attachLocalFile.html
 msgid "Attach File"
-msgstr "ファイルの添付"
+msgstr "ファイルを添付"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/views/attachProductLogs.html
@@ -555,7 +555,7 @@ msgstr ""
 
 #: app/cases/views/edit.html
 msgid "Filed on"
-msgstr "提出日"
+msgstr "作成日"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/views/listAttachments.html
@@ -623,11 +623,11 @@ msgstr "選択"
 
 #: app/cases/views/editCaseRecommendationsSection.html
 msgid "Handpicked For You"
-msgstr "ご本人向けに選択"
+msgstr "このケースの参考記事"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Highest Severity"
-msgstr "最も高い重大度"
+msgstr "重大度が高い順"
 
 #: app/escalation/views/iceEscalation.html
 msgid ""
@@ -738,7 +738,7 @@ msgstr "ケースの読み込み中..."
 
 #: app/cases/controllers/new.js
 msgid "Locating top solutions"
-msgstr "上位のソリューションを検索しています"
+msgstr "関連記事を検索しています"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/log_viewer/views/logsInstructionPane.html
@@ -768,7 +768,7 @@ msgstr "ログ"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Lowest Severity"
-msgstr "最も低い重大度"
+msgstr "重大度が低い順"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/common/controllers/titleView.js
@@ -808,19 +808,19 @@ msgstr "名前"
 
 #: app/cases/views/requestEscalation.html
 msgid "Need to raise a concern to Red Hat Support management?"
-msgstr "Red Hat サポート管理に問題点を連絡されますか?"
+msgstr "Red Hat サポートの上位の管理責任者へ問題点を報告しますか?"
 
 #: app/cases/controllers/discussionSection.js
 msgid "Newest Comment Added"
-msgstr "最も新しいコメント追加日"
+msgstr "コメントが新しい順"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Newest Date Created"
-msgstr "最も新しい作成日"
+msgstr "作成日が新しい順"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Newest Date Modified"
-msgstr "最も新しい変更日"
+msgstr "変更日が新しい順"
 
 #: app/cases/views/proceedWithoutAttachModal.html
 msgid "No File Uploaded with Case"
@@ -880,15 +880,15 @@ msgstr "注記:"
 
 #: app/cases/controllers/discussionSection.js
 msgid "Oldest Comment Added"
-msgstr "最も古いコメント追加日"
+msgstr "コメントが古い順"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Oldest Date Created"
-msgstr "最も古い作成日"
+msgstr "作成日が古い順"
 
 #: app/cases/controllers/filterSelect.js
 msgid "Oldest Date Modified"
-msgstr "最も古い変更日"
+msgstr "変更日が古い順"
 
 #: app/escalation/views/iceEscalation.html
 msgid ""
@@ -1031,7 +1031,7 @@ msgstr ""
 
 #: app/cases/views/addCommentSection.html
 msgid "Post"
-msgstr "掲載"
+msgstr "送信"
 
 # translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
 #: app/escalation/views/partnerEscalation.html
@@ -1130,7 +1130,7 @@ msgstr "Red Hat サポートチケット番号"
 
 #: app/cases/controllers/new.js
 msgid "Refining top solutions"
-msgstr "上位にあるソリューションの絞り込み"
+msgstr "関連記事の絞り込み"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/views/discussionSection.html
@@ -1142,11 +1142,11 @@ msgstr "返信"
 #: app/cases/views/requestManagementEscalationModal.html
 #: app/cases/views/commentsSection.html
 msgid "Request Management Escalation"
-msgstr "マネージメントエスカレーションをリクエスト"
+msgstr "マネージメントエスカレーションを要求"
 
 #: app/cases/views/requestEscalation.html
 msgid "Request escalation"
-msgstr "エスカレーションのリクエスト"
+msgstr "エスカレーションを要求"
 
 #: app/escalation/views/iceEscalation.html
 #: app/escalation/views/partnerEscalation.html
@@ -1236,7 +1236,7 @@ msgstr ""
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "Send Email Notifications to"
-msgstr "メール通知の送信先"
+msgstr "通知メールの送信先"
 
 #: app/escalation/views/iceEscalation.html
 #: app/escalation/views/partnerEscalation.html
@@ -1287,7 +1287,7 @@ msgstr "サイズ"
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
 msgid "Sort By"
-msgstr "表示順"
+msgstr "並び替え"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/ascension/views/internalCaseDetails.html
@@ -1445,7 +1445,7 @@ msgstr "推奨情報を閲覧するには、その項目をクリックします
 
 #: app/cases/views/editCaseRecommendationsSection.html
 msgid "Top Solutions"
-msgstr "上位のソリューション"
+msgstr "関連記事"
 
 #: app/cases/views/discussionSection.html
 msgid "Transcript of chat between"
@@ -1583,13 +1583,13 @@ msgstr "形式"
 # translation auto-copied from project Customer Portal Translations, version 006_DrupalPO, document interface, author asasaki
 #: app/cases/views/discussionSection.html
 msgid "at"
-msgstr "時間"
+msgstr "   "
 
 # translation auto-copied from project sushi, version 3.8.1, document sushi
 #: app/cases/views/edit.html
 #: app/cases/views/list.html
 msgid "by"
-msgstr "提出者"
+msgstr "作成者"
 
 #: app/cases/controllers/attachLocalFile.js
 msgid "cannot be attached because it is larger than"
