@@ -5,11 +5,8 @@
   section.main.col-md-9
       .row
           .col-sm-12
-              a.btn.btn-info.btn-sm(href='#/case/new'){{'Edit'|translate}}
-              &nbsp;
-              a.btn.btn-info.btn-sm(ng-click='', ng-disabled=''){{'Close'|translate}}
-              &nbsp;
-              a.btn.btn-info.btn-sm(ng-click='', ng-disabled=''){{'More'|translate}}
+              a.btn.btn-info.btn-sm(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
+              .spinner.spinner-inline(ng-show='CaseDetailsService.caseClosing')              
       .row
         .col-sm-12
           ul#tab_list.nav.nav-tabs(role="tablist")

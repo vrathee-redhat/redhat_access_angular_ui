@@ -10,9 +10,11 @@ angular.module('RedhatAccess.common').factory('udsService', [
             if(isCase === true) {
                 var kase = {};
                 kase.case_number = response.resource.caseNumber;
-                kase.status = response.resource.status;
+                kase.status = {};
+                kase.status.name = response.resource.status;
                 kase.summary = response.resource.subject;
-                kase.severity = response.resource.severity;
+                kase.severity = {};
+                kase.severity.name = response.resource.severity;
                 kase.product = response.resource.product.resource.line.resource.name;
                 if(response.resource.product.resource.version != undefined) {
                     kase.version = response.resource.product.resource.version.resource.name;
