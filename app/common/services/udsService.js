@@ -48,6 +48,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 }
                 kase.entitlement={};
                 kase.entitlement.name=response.resource.entitlement.resource.name;
+                kase.entitlement.status=response.resource.entitlement.resource.status;
                 kase.entitlement.service_level=response.resource.entitlement.resource.serviceLevel;
                 kase.sbt=response.resource.sbt;
                 kase.target_date_time=response.resource.targetDate;

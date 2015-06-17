@@ -31,6 +31,34 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             this.caseDetailsLoading = true;
             udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
                 this.kase = response;
+                if((this.kase.sbt===undefined) && (this.kase.status.name=="Waiting on Red Hat"))
+                {
+                    this.kase.sbtState="MISSING SBT. "+"Entitlement status:"+this.kase.entitlement.status;
+
+                }
+                else {
+                    if ((this.kase.sbt < 0) && (this.kase.status.name == "Waiting on Red Hat")) {
+                        this.kase.sbtState = "BREACH";
+                    }
+                    else {
+                        if (this.kase.status.name == "Closed") {
+
+                            this.kase.sbtState = "N/A";
+                        }
+                        else {
+                            if (this.kase.sbt > 0) {
+                                this.kase.sbtState = "NOT BREACHED";
+                            }
+                            else {
+                                if (this.kase.status.name == "Waiting on Customer") {
+                                    this.kase.sbtState = "NONE";
+                                }
+                            }
+
+                        }
+                    }
+                }
+
                 angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
@@ -128,7 +156,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             promise.then( angular.bind(this, function (response) {
                 this.caseClosing = false;
                 AlertService.addSuccessMessage(translate('Case') + ' ' + this.kase.case_number + ' '+'successfully closed.');
-                this.kase.status.name = 'Closed';                
+                this.kase.status.name = 'Closed';
             }), function (error) {
                 this.caseClosing = false;
                 AlertService.addStrataErrorMessage(error);
@@ -140,7 +168,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 this.products = response;
                 if(RHAUtils.isNotEmpty(this.kase.product)) {
                     this.getVersions(this.kase.product);
-                }                
+                }
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
@@ -202,7 +230,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             }
             if (this.kase.status !== undefined && !angular.equals(this.prestineKase.status, this.kase.status)) {
                 caseJSON.status = this.kase.status.name;
-            }            
+            }
             if (this.kase.product !== undefined && !angular.equals(this.prestineKase.product, this.kase.product)) {
                 caseJSON.product = this.kase.product;
             }
