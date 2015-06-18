@@ -2,7 +2,8 @@
 /*jshint camelcase: false */
 angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     manage: 'manage',
-    ungrouped: 'ungrouped'
+    ungrouped: 'ungrouped',
+    none: 'none'
 }).service('CaseService', [
     'strataService',
     'AlertService',
@@ -50,9 +51,14 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.entitlement = '';
         this.updatingNewCaseSummary = false;
         this.updatingNewCaseDescription = false;
+        // Added common modal variables for Status/Severity/CaseClose confirmation
+        this.confirmationModal = '';
+        this.confirmationModalHeader = '';
+        this.confirmationModalMessage = '';
+        this.confirmationModalProperty = '';
         this.onFilterSelectChanged = function(){
             if(this.localStorageCache) {
-               this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect); 
+               this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect);
             }
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
@@ -484,6 +490,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
             if (this.kase.notes !== null && !angular.equals(this.prestineKase.notes, this.kase.notes)) {
                 caseJSON.notes = this.kase.notes;
+            }
+            if (this.kase.summary !== null && !angular.equals(this.prestineKase.summary, this.kase.summary) ) {
+                caseJSON.summary = this.kase.summary;
             }
             strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
                 this.updatingCase = false;

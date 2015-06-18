@@ -3,7 +3,7 @@ section.case-flags(ng-show='!CaseDetailsService.caseDetailsLoading')
   &nbsp;
   a.btn.btn-danger.btn-sm(ng-show='CaseDetailsService.kase.is_fts_case') {{'24x7 Coverage'|translate}}
   &nbsp;
-  a.btn.btn-danger.btn-sm(ng-show='true') {{'Severity '|translate}}{{CaseDetailsService.kase.severity}}
+  a.btn.btn-danger.btn-sm(ng-show='true') {{'Severity '|translate}}{{CaseDetailsService.kase.severity.name}}
   &nbsp;
   a.btn.btn-danger.btn-sm(ng-show='CaseDetailsService.kase.account.is_strategic') {{'Strategic'|translate}}
   &nbsp;

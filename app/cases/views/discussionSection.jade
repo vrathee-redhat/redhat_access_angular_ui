@@ -15,7 +15,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         div(rha-addcommentsection='', loading='loading.comments')
     .row(ng-hide="DiscussionService.discussionElements.length===0")
       .col-sm-7
-        label {{'Sort By'|translate}}&nbsp;&nbsp;
+        label {{'Sort by'|translate}}&nbsp;&nbsp;
         select#rha-comment-sort(chosen,
           width='"auto"',
           ng-init="DiscussionService.commentSortOrder = commentSortOrderList[0]"
@@ -115,7 +115,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             span {{' characters left.'|translate}}
         .col-sm-5
           .pull-right
-            button.btn.btn-accent.btn-submit(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty',translate='') Update
+            button.btn.btn-app(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty',translate='') Update
             a.margin-left(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') {{'Discard Changes'|translate}}
   #pane4.tab-pane(ng-if="securityService.loginStatus.authedUser.is_internal || CaseService.kase.bugzillas.bugzilla.length > 0", ng-class='{"active": bugzillas}')
     div(rha-listbugzillas)

@@ -1,25 +1,51 @@
 section.case-details
-    h3.case-name.pre-wrap Case Detail
-    .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
+    .row
+      .col-sm-2
+        h3.case-name.pre-wrap Case Detail
+        .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
+      .col-sm-2
+        a(ng-href='',ng-click='edit()', ng-hide='showEditCase || CaseDetailsService.caseDetailsLoading') {{'Edit'|translate}}
+  form(name='caseOverviewForm')
     section.config-options(ng-show='!CaseDetailsService.caseDetailsLoading')
         .row.row-short
           .col-md-2
             .label {{'Status'|translate}}
-          .col-md-4
-            span {{CaseDetailsService.kase.status}}
+          .col-md-4(ng-show='!showEditCase')
+            span {{CaseDetailsService.kase.status.name}}
+          .col-md-4(ng-show='showEditCase')
+            select#rha-status-select(chosen,
+              width='"100%"',
+              ng-disabled='!securityService.loginStatus.isLoggedIn',
+              ng-model='CaseDetailsService.kase.status',
+              ng-options='s.name for s in CaseDetailsService.statuses track by s.name')
           .col-md-2
             .label {{'Product'|translate}}
-          .col-md-4
+          .col-md-4(ng-show='!showEditCase')
             span {{CaseDetailsService.kase.product}}
+          .col-md-4(ng-show='showEditCase')
+            select#rha-product-select.form-control(
+              chosen,
+              width='"100%"',
+              ng-disabled='CaseDetailsService.products.length === 0 || !securityService.loginStatus.isLoggedIn || CaseDetailsService.caseDetailsLoading',
+              ng-model='CaseDetailsService.kase.product',
+              ng-change='CaseDetailsService.kase.version=""; CaseDetailsService.getVersions(CaseDetailsService.kase.product)',
+              ng-options='p.code as p.name for p in CaseDetailsService.products')
         .row.row-short
           .col-md-2
             .label {{'Internal Status'|translate}}
           .col-md-4
-              span {{CaseDetailsService.kase.internal_priority}}
+            span {{CaseDetailsService.kase.internal_priority}}
           .col-md-2
             .label {{'Version'|translate}}
-          .col-md-4
-              span {{CaseDetailsService.kase.version}}
+          .col-md-4(ng-show='!showEditCase')
+            span {{CaseDetailsService.kase.version}}
+          .col-md-4(ng-show='showEditCase')
+            select#rha-product-version-select.form-control(
+              chosen,
+              width='"100%"',
+              ng-model='CaseDetailsService.kase.version',
+              ng-options='v for v in CaseDetailsService.versions',
+              ng-disabled='CaseDetailsService.versionDisabled || CaseDetailsService.kase.product === undefined || !securityService.loginStatus.isLoggedIn || CaseDetailsService.caseDetailsLoading')
         .row.row-short
           .col-md-2
              .label {{'SBR Group'|translate}}
@@ -27,8 +53,15 @@ section.case-details
               span {{CaseDetailsService.kase.sbr_group}}
           .col-md-2
              .label {{'Severity'|translate}}
-          .col-md-4
-              span {{CaseDetailsService.kase.severity}}
+          .col-md-4(ng-show='!showEditCase')
+              span {{CaseDetailsService.kase.severity.name}}
+          .col-md-4(ng-show='showEditCase')
+              select#rha-severity-select.form-control(
+                chosen,
+                width="'100%'",
+                name='severity',
+                ng-model='CaseDetailsService.kase.severity',
+                ng-options='s.name for s in CaseDetailsService.severities track by s.name')
         .row.row-short
           .col-md-2
              .label {{'Created By'|translate}}
@@ -47,4 +80,19 @@ section.case-details
              .label {{'Case Type'|translate}}
           .col-md-4
               span {{CaseDetailsService.kase.type}}
-
+        .row.row-short
+          .col-md-2
+             .label {{'Case Resolution'|translate}}
+          .col-md-4
+             span {{CaseDetailsService.kase.resolution}}
+        .row(ng-show='showEditCase')
+          .col-sm-12
+            button.btn.btn-app.btn-submit(
+              name='updateButton',
+              ng-disabled='updatingDetails || !caseOverviewForm.$dirty',
+              ng-click='updateCase()', translate='') Save Changes
+            a.margin-left(
+              ng-hide='updatingDetails',
+              ng-click='resetData()',translate='') Cancel
+            &nbsp;
+            .spinner.spinner-sm.spinner-inline(ng-show='updatingDetails')

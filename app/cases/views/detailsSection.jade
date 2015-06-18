@@ -18,8 +18,8 @@ section.case-description
         ng-hide='updatingDetails',
         ng-click='editCaseSummary(false)') {{'Cancel'|translate}}
   h4.product-name {{CaseService.kase.product}}&nbsp;{{CaseService.kase.version}}
-  .description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | substring:150 }}
-  .description.pre-wrap(ng-show='showExtraInfo') {{CaseService.kase.description}}
+  span.description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | substring:150 }}
+  span.description.pre-wrap(ng-show='showExtraInfo') {{CaseService.kase.description}}
   div#case-description-extra-info(ng-class="showExtraInfo ? 'case-description-extra-info active' : 'case-description-extra-info'")
     form(name='detailsForm')
       section.config-options

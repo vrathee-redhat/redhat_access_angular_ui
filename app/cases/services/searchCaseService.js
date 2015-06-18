@@ -29,6 +29,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             status: STATUS.open,
             group: ''
         };
+        this.previousGroupFilter = CASE_GROUPS.none;
         var getIncludeClosed = function (caseParameters) {
             if (caseParameters.status === STATUS.open) {
                 return false;
@@ -59,9 +60,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         var queryString = '';
 
         this.doFilter = function (checkIsInternal) {
-            if(this.caseParameters.group === ''){
-                this.caseParameters.group = CaseService.group;
-            }
+            this.previousGroupFilter = this.caseParameters.group;
             queryString = '';
 
             //TODO add internal and GS4
@@ -104,19 +103,17 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 }
                 params.start = this.start;
 
-                if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
-                    params.keyword = this.caseParameters.searchTerm;
-                }
-                if (this.caseParameters.group === CASE_GROUPS.manage) {
-                    $state.go('group');
-                } else if (this.caseParameters.group === CASE_GROUPS.ungrouped) {
+                //if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
+                //    params.keyword = this.caseParameters.searchTerm;
+                //}
+                if (this.caseParameters.group === CASE_GROUPS.ungrouped) {
                     params.only_ungrouped = true;
                 } else if (!RHAUtils.isEmpty(this.caseParameters.group)) {
                     params.group_numbers = { group_number: [this.caseParameters.group] };
                 }
                 if (this.caseParameters.status === STATUS.closed) {
                     params.status = STATUS.closed;
-                } 
+                }
                 // Not doing product based searching
                 // if (!RHAUtils.isEmpty(CaseService.product)) {
                 //     params.product = CaseService.product;

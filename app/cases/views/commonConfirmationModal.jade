@@ -1,17 +1,17 @@
 .modal-header
-  h3(translate='') Case severity was changed.
+  h3 {{CaseService.confirmationModalHeader}}
 .modal-body
   .row
     .col-sm-12
-      div {{'Are you sure you want to change this case severity to'|translate}} {{CaseService.kase.severity.name}}?
+      div {{CaseService.confirmationModalMessage}} {{CaseService.confirmationModalProperty}}?
   .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     .col-sm-12
       .pull-right
-        button.btn-accent.btn(
+        button.btn.btn-app(
           style='margin-left: 10px;',
-          ng-click='closeCases()')
+          ng-click='confirm()')
           span {{'Yes'|translate}}
-        button.btn-accent.btn(
+        button.btn.btn-app(
           style='margin-left: 10px;',
           ng-click='closeModal()')
           span {{'No'|translate}}

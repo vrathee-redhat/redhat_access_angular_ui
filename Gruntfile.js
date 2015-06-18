@@ -513,10 +513,10 @@ module.exports = function (grunt) {
                     separator: '\n',
                     sonar: {
                         host: {
-                            url: 'http://jenkins.gsslab.pnq.redhat.com:9100/sonar/'
+                            url: 'http://jenkins.gsslab.rdu2.redhat.com:9100/sonar/'
                         },
                         jdbc: {
-                            url: 'jdbc:mysql://jenkins.gsslab.pnq.redhat.com:3306/sonar',
+                            url: 'jdbc:mysql://jenkins.gsslab.rdu2.redhat.com:3306/sonar',
                             username: 'sonar',
                             password: 'sonar'
                         },
@@ -533,8 +533,8 @@ module.exports = function (grunt) {
         karma_sonar: {
             options: {
                 instance: {
-                    hostUrl: 'http://jenkins.gsslab.pnq.redhat.com:9100/sonar/',
-                    jdbcUrl: 'jdbc:mysql://jenkins.gsslab.pnq.redhat.com:3306/sonar',
+                    hostUrl: 'http://jenkins.gsslab.rdu2.redhat.com:9100/sonar/',
+                    jdbcUrl: 'jdbc:mysql://jenkins.gsslab.rdu2.redhat.com:3306/sonar',
                     login: 'admin',
                     password: 'admin'
                 }

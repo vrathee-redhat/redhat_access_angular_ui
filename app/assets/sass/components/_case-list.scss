@@ -20,6 +20,7 @@ $subheading-margin-bottom: 4px;
 	.description {
 		white-space: nowrap;
 		overflow: hidden;
+        color: $case-list-color;
 		text-overflow: ellipsis;
 		line-height: 1;
 	}
@@ -43,6 +44,7 @@ $subheading-margin-bottom: 4px;
 
 	.change-log {
 		margin-top: 12px;
+        color: $case-list-color;
 	}
 
 	.list-item {

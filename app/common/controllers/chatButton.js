@@ -91,7 +91,7 @@ angular.module('RedhatAccess.header').controller('ChatButton', [
             liveagent.startChat(CHAT_SUPPORT.chatButtonToken);
         };
         $scope.init = function () {
-            if ($scope.enableChat()) {
+            if ($scope.enableChat() && window.liveagent !== undefined){
                 $scope.setChatIframeHackUrl();
                 $scope.timer = $interval($scope.checkChatButtonStates, 5000);
                 $scope.initializeChat();

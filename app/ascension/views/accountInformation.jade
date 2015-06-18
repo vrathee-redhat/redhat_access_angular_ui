@@ -1,2 +1,30 @@
 section.case-description
-    h3.entitlementinfoheader.pre-wrap {{'Account Information'|translate}}
+    h3.accountinfoheader.pre-wrap {{'Account Information'|translate}}
+    .spinner.spinner-inline(ng-show='AccountService.accountDetailsLoading || AccountService.accountNotesLoading')
+    section.config-options(ng-show='!AccountService.accountDetailsLoading && !AccountService.accountNotesLoading')
+         .row.row-short
+             .col-xs-4.col-sm-3.col-md-8
+                .label {{'Account Name'|translate}}
+             .col-xs-6.col-sm-5.col-md-4
+                span {{AccountService.account.resource.accountName}}
+         .row.row-short
+            .col-xs-4.col-sm-3.col-md-8
+                .label {{'Number of Open Cases'|translate}}
+            .col-xs-6.col-sm-5.col-md-4
+                span {{AccountService.account.resource.caseCount}}
+         .row.row-short
+             .col-xs-4.col-sm-3.col-md-8
+                .label {{'TAM'|translate}}
+             .col-xs-6.col-sm-5.col-md-4
+                span(ng-repeat="tam in AccountService.account.TAM_names") {{tam}}
+         .row.row-short
+            .col-xs-4.col-sm-3.col-md-8
+                .label {{'Account Notes'|translate}}
+            .col-xs-6.col-sm-5.col-md-4
+                span {{getAccountNotesText();}}
+         .row.row-short
+            .col-xs-4.col-sm-3.col-md-8
+                .label {{'Business Hours'|translate}}
+            .col-xs-6.col-sm-5.col-md-4
+                a(data-tooltip-html-unsafe="{{AccountService.account.resource.businessHours.resource.businessHoursTooltip}}" data-tooltip-placement="bottom") {{AccountService.account.resource.businessHours.resource.name}}
+
