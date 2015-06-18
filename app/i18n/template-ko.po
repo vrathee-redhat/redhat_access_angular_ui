@@ -782,7 +782,7 @@ msgid "Manage Default Case Groups"
 msgstr "기본 기술문의 그룹 관리"
 
 #: app/cases/views/list.html
-msgid "Modified by:"
+msgid "Modified by"
 msgstr "수정자:"
 
 # translation auto-copied from project system-config-printer, version 1.4.1, document system-config-printer
@@ -946,7 +946,7 @@ msgid "Open and Closed Support Cases"
 msgstr "기술 지원 문의 생성 및 종료"
 
 #: app/cases/views/list.html
-msgid "Owned by:"
+msgid "Owned by"
 msgstr "소유자:"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
@@ -1269,7 +1269,7 @@ msgstr "크기 "
 
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
-msgid "Sort By"
+msgid "Sort by"
 msgstr "정렬 기준"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
