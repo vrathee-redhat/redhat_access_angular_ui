@@ -8,8 +8,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-06-18 05:21+0000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2015-06-18 07:50+0000\n"
+"Last-Translator: asasaki <asasaki@redhat.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
 "X-Generator: Zanata 3.6.2\n"
@@ -206,7 +206,7 @@ msgstr "ケース"
 
 #: app/common/controllers/titleView.js
 msgid "CREATE A NEW SUPPORT CASE"
-msgstr "サポートケースの新規作成"
+msgstr "サポートケースを新規作成"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/security/views/login_form.html
@@ -370,7 +370,7 @@ msgstr "ケースグループの新規作成"
 
 #: app/cases/views/list.html
 msgid "Create a New Support Case"
-msgstr "サポートケースの新規作成"
+msgstr "サポートケースを新規作成"
 
 # translation auto-copied from project nautilus, version 3.8.2, document nautilus
 #: app/ascension/views/internalCaseDetails.html
@@ -784,7 +784,7 @@ msgstr "デフォルトケースグループを管理"
 
 #: app/cases/views/list.html
 msgid "Modified by"
-msgstr "変更者"
+msgstr "更新者"
 
 # translation auto-copied from project PressGang CCMS topics, version 1, document 26792-635853, author tnagamot
 #: app/ascension/views/caseQueue.html
@@ -946,17 +946,17 @@ msgstr "件のサポートケース (オープンとクローズ)"
 
 #: app/cases/views/list.html
 msgid "Owned by"
-msgstr "所有者"
+msgstr "作成者"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "Owner"
-msgstr "所有者"
+msgstr "作成者"
 
 #: app/ascension/views/ownerInfo.html
 msgid "Owner Information"
-msgstr "所有者情報"
+msgstr "作成者情報"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/security/views/login_form.html
