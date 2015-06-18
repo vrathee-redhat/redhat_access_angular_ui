@@ -772,8 +772,8 @@ msgid "Manage Default Case Groups"
 msgstr "管理默认问题单组"
 
 #: app/cases/views/list.html
-msgid "Modified by:"
-msgstr "修改者："
+msgid "Modified by"
+msgstr "修改者"
 
 # translation auto-copied from project system-config-printer, version 1.1.16-23, document system-config-printer
 #: app/ascension/views/caseQueue.html
@@ -935,8 +935,8 @@ msgid "Open and Closed Support Cases"
 msgstr "新建及已关闭支持问题单"
 
 #: app/cases/views/list.html
-msgid "Owned by:"
-msgstr "拥有者："
+msgid "Owned by"
+msgstr "拥有者"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
 #: app/cases/views/newAlternate.html
@@ -1253,7 +1253,7 @@ msgstr "大小"
 
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
-msgid "Sort By"
+msgid "Sort by"
 msgstr "排序方式"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu

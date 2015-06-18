@@ -805,8 +805,8 @@ msgid "Manage Default Case Groups"
 msgstr "Administrar grupos de casos predeterminados"
 
 #: app/cases/views/list.html
-msgid "Modified by:"
-msgstr "Modificado por:"
+msgid "Modified by"
+msgstr "Modificado por"
 
 # translation auto-copied from project system-config-printer, version 1.4.1, document system-config-printer
 #: app/ascension/views/caseQueue.html
@@ -977,8 +977,8 @@ msgid "Open and Closed Support Cases"
 msgstr "Casos de soporte abiertos y cerrados"
 
 #: app/cases/views/list.html
-msgid "Owned by:"
-msgstr "Propietario:"
+msgid "Owned by"
+msgstr "Propietario"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author gguerrer
 #: app/cases/views/newAlternate.html
@@ -1323,7 +1323,7 @@ msgstr "Tamaño"
 
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
-msgid "Sort By"
+msgid "Sort by"
 msgstr "Ordenar por"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author gguerrer

@@ -673,7 +673,7 @@ msgid "Manage Default Case Groups"
 msgstr ""
 
 #: app/cases/views/list.html
-msgid "Modified by:"
+msgid "Modified by"
 msgstr ""
 
 #: app/ascension/views/caseQueue.html
@@ -814,7 +814,7 @@ msgid "Open and Closed Support Cases"
 msgstr ""
 
 #: app/cases/views/list.html
-msgid "Owned by:"
+msgid "Owned by"
 msgstr ""
 
 #: app/cases/views/newAlternate.html
@@ -1079,7 +1079,7 @@ msgstr ""
 
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
-msgid "Sort By"
+msgid "Sort by"
 msgstr ""
 
 #: app/cases/views/search.html

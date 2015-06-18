@@ -8,8 +8,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-06-16 08:01+0000\n"
-"Last-Translator: asasaki <asasaki@redhat.com>\n"
+"PO-Revision-Date: 2015-06-18 05:21+0000\n"
+"Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
 "X-Generator: Zanata 3.6.2\n"
@@ -144,14 +144,14 @@ msgstr "添付ファイル"
 #: app/cases/views/proceedWithoutAttachModal.html
 msgid ""
 "Attaching logs and diagnostics files greatly improves time to resolution."
-msgstr "ログと診断ファイルを添付することで、解決までの時間が大幅に短縮されます。"
+msgstr "ログやその他の診断ファイルを添付していただくと、解決までの時間を大幅に短縮することができます。"
 
 #: app/cases/views/newBase.html
 #: app/cases/views/newAlternate.html
 msgid ""
 "Attaching logs or other diagnostics files typically results in faster "
 "resolution."
-msgstr "ログと他の診断ファイルを添付することで、通常解決までの時間が短縮されます。"
+msgstr "ログやその他の診断ファイルを添付していただくと、通常、解決までの時間を短縮することができます。"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/log_viewer/views/navSideBar.html
@@ -339,7 +339,7 @@ msgstr "クローズ"
 
 #: app/cases/controllers/list.js
 msgid "Closed Support Cases"
-msgstr "サポートケース (クローズ)"
+msgstr "件のサポートケース (クローズ)"
 
 #: app/cases/views/confirmCaseCloseModal.html
 msgid "Closing Cases"
@@ -380,7 +380,7 @@ msgstr "作成:"
 # translation auto-copied from project evince, version 3.8.3, document evince
 #: app/cases/views/list.html
 msgid "Created:"
-msgstr "作成日時:"
+msgstr "作成日:"
 
 #: app/escalation/services/escalationRequestService.js
 msgid "Creating Ice Escalation request ....."
@@ -599,7 +599,7 @@ msgstr ""
 #: app/cases/views/newAlternate.html
 #: app/cases/views/newBase.html
 msgid "Get faster results."
-msgstr "結果が迅速に得られます。"
+msgstr "問題解決をスピードアップ: "
 
 # translation auto-copied from project evolution, version 3.8.5, document evolution-3.8
 #: app/cases/views/confirmCaseCloseModal.html
@@ -783,8 +783,8 @@ msgid "Manage Default Case Groups"
 msgstr "デフォルトケースグループを管理"
 
 #: app/cases/views/list.html
-msgid "Modified by:"
-msgstr "変更者:"
+msgid "Modified by"
+msgstr "変更者"
 
 # translation auto-copied from project PressGang CCMS topics, version 1, document 26792-635853, author tnagamot
 #: app/ascension/views/caseQueue.html
@@ -833,7 +833,6 @@ msgstr "添付ファイルが追加されていません"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/views/list.html
-#: app/cases/views/compactCaseList.html
 msgid "No cases found with given filters."
 msgstr "指定したフィルターではケースが見つかりませんでした。"
 
@@ -928,7 +927,7 @@ msgstr "ケースを新規作成"
 
 #: app/cases/controllers/list.js
 msgid "Open Support Cases"
-msgstr "サポートケース (オープン)"
+msgstr "件のサポートケース (オープン)"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/search/views/accordion_search_results.html
@@ -943,11 +942,11 @@ msgstr "オープンとクローズ"
 
 #: app/cases/controllers/list.js
 msgid "Open and Closed Support Cases"
-msgstr "サポートケース (オープンとクローズ)"
+msgstr "件のサポートケース (オープンとクローズ)"
 
 #: app/cases/views/list.html
-msgid "Owned by:"
-msgstr "所有者:"
+msgid "Owned by"
+msgstr "所有者"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/views/newAlternate.html
@@ -1286,7 +1285,7 @@ msgstr "サイズ"
 
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
-msgid "Sort By"
+msgid "Sort by"
 msgstr "並び替え"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
@@ -1615,7 +1614,7 @@ msgstr "詳細情報。"
 # translation auto-copied from project Satellite6 Foreman, version 6.1, document foreman
 #: app/cases/views/list.html
 msgid "on"
-msgstr "オン"
+msgstr "日付"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/cases/services/attachmentsService.js
