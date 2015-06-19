@@ -23,8 +23,12 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
             strataService.recommendationsXmlHack(caseData, $scope.numSolutions, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
                 solutions.forEach(angular.bind(this, function (solution) {
                     if (solution !== undefined) {
-                        //TODO add code for red pin if resource is linked by matching with CaseDetailsService.Kase.resource.resourceLinks[i].resource.resourceStatus == 'Linked'
-                        //add another for loop for checking with CaseDetailsService.Kase.resource.resourceLinks[i].resource.resourceStatus == 'Linked' && resource ID are equal
+                        angular.forEach(CaseDetailsService.kase.resourceLinks, function(r) {
+                            //if resource is linked, it should appear in red colour pin
+                            if(r.resource.resourceId.toString() === solution.resource_id && r.resource.resourceStatus === 'Linked'){
+                                solution.pinned = !solution.pinned;
+                            }
+                        });
                         solution.resource_type = 'Solution';
                         try {
                             solution.abstract = $sanitize(solution.abstract);
@@ -56,7 +60,10 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
                         }]
                     }
                 };
-                CaseDetailsService.kase.case_number = '0'+CaseDetailsService.kase.case_number;
+                if(CaseDetailsService.kase.case_number.toString.length < 8){
+                    //append 0 as strata treats case number as string with 0 as prefix
+                    CaseDetailsService.kase.case_number = '0'+ CaseDetailsService.kase.case_number;
+                }
                 strataService.cases.put(CaseDetailsService.kase.case_number, recJSON).then(function (response) {
                     $scope.currentRecPin.pinning = false;
                     $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
