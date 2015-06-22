@@ -25,6 +25,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.severities = [];
         this.statuses = [];
         this.versionDisabled = false;
+        this.yourCasesLimit = 6;
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -112,15 +113,14 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
                     finalUql = UQL.and(finalUql, secureHandlingUQL);
 
-                    var promise = udsService.cases.list(finalUql,'Minimal');
+                    var promise = udsService.cases.list(finalUql,'Minimal',this.yourCasesLimit);
                     promise.then(angular.bind(this, function (topCases) {
                         if(RHAUtils.isNotEmpty(topCases)) {
-                            //sort cases based on collab score
+                            //sort cases based on collab score even though we are getting top cases, just to display in proper order
                             topCases.sort(function (a, b) {
                                 return b.resource.collaborationScore - a.resource.collaborationScore;
                             });
-                            //slice top 6 cases for display
-                            self.cases = topCases.slice(0, 6);
+                            self.cases = topCases;
                             //if case is not yet viewed, then get the first case details
                             if(RHAUtils.isObjectEmpty(self.kase)) {
                                 //get details for first top case
