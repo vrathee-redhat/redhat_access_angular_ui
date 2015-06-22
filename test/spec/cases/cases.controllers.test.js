@@ -1393,35 +1393,6 @@ describe('Case Controllers', function () {
 
     });
 
-    //Suite for NewRouter
-    describe('NewRouter', function () {
-        it('should have a function to route users based on even account number', inject(function ($controller) {
-            mockScope.shouldRoute = false;
-            securityService.loginStatus.isLoggedIn=true;
-            securityService.loginStatus.authedUser={};
-            securityService.loginStatus.authedUser.account_number="12";
-            $controller('NewRouter', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                AlertService: mockAlertService,
-                CaseService: mockCaseService
-            });
-            expect(mockScope.shouldRoute).toBe(false);
-        }));
-        it('should have a function to route users based on odd account number', inject(function ($controller) {
-            mockScope.shouldRoute = false;
-            securityService.loginStatus.isLoggedIn=true;
-            securityService.loginStatus.authedUser={};
-            securityService.loginStatus.authedUser.account_number="13";
-            $controller('NewRouter', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                AlertService: mockAlertService,
-                CaseService: mockCaseService
-            });
-            expect(mockScope.shouldRoute).toBe(true);
-        }));
-    });
 
     //Suite for AccountSelect
     describe('AccountSelect', function () {
@@ -2095,7 +2066,7 @@ describe('Case Controllers', function () {
         }));
 
     });
-    
+
     //Suite for RequestManagementEscalationModal
     describe('RequestManagementEscalationModal', function () {
         it('should have a function for new escalation comment with escalation comment text empty ', inject(function ($controller) {
