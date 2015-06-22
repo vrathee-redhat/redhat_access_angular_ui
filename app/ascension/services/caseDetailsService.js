@@ -13,7 +13,14 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'TOPCASES_EVENTS',
     '$q',
     'translate',
-    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, translate) {
+    '$angularCacheFactory',
+    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, translate,$angularCacheFactory) {
+        $angularCacheFactory('localStorageCache', {
+            storageMode: 'localStorage',
+            verifyIntegrity: true
+        });
+        this.draftComment = {};
+        this.draftCommentOnServerExists=false;
 		this.caseDetailsLoading = true;
         this.yourCasesLoading = true;
         this.caseClosing = false;
@@ -25,6 +32,11 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.severities = [];
         this.statuses = [];
         this.versionDisabled = false;
+
+        this.isCommentPublic = false;
+        this.commentText = '';
+        this.submittingCase = false;
+        this.disableAddComment = true;
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -253,6 +265,48 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 deferred.reject(error);
             });
             return deferred.promise;
+        };
+
+        this.populateComments = function (caseNumber) {
+            var promise = strataService.cases.comments.get(caseNumber);
+            var draftId;
+            promise.then(angular.bind(this, function (comments) {
+                angular.forEach(comments, angular.bind(this, function (comment, index) {
+                    if (comment.draft === true) {
+                        this.draftComment = comment;
+                        this.draftCommentOnServerExists=true;
+                        draftId=this.draftComment.id;
+                        this.commentText = comment.text;
+                        this.isCommentPublic = comment.public;
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                        comments.slice(index, index + 1);
+                    }
+                }));
+                if(this.localStorageCache) {
+                    if (this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username))
+                    {
+                        this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
+                        this.commentText = this.draftComment.text;
+                        this.isCommentPublic = this.draftComment.public;
+                        if(this.draftCommentOnServerExists)
+                        {
+                            this.draftComment.id=draftId;
+                        }
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                    }
+                }
+                this.comments = comments;
+            }), function (error) {
+            });
+            return promise;
         };
 	}
 ]);
