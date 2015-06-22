@@ -7,14 +7,8 @@ angular.module('RedhatAccess.cases').directive('rhaNewcaserecommendations', func
         restrict: 'A',
         controller: 'NewCaseRecommendationsController',
         link: function postLink(scope, element, attrs) {
-            scope.$watch( function() {
-                return element.height();
-            }, function() {
-                if (window.chrometwo_require !== undefined) {
-                    window.chrometwo_require(['data-eh'], function(eh){
-                        eh.apply('#rha-recommendation-section');
-                    });
-                }
+            scope.$on('$destroy', function () {
+                element.remove();
             });
         }
     };
