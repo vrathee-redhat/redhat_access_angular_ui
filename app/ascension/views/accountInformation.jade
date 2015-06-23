@@ -1,30 +1,30 @@
 section.case-description
-    h3.accountinfoheader.pre-wrap {{'Account Information'|translate}}
+    h3.accountinfoheader.pre-wrap(translate,translate-comment="Noun") Account Information
     .spinner.spinner-inline(ng-show='AccountService.accountDetailsLoading || AccountService.accountNotesLoading')
     section.config-options(ng-show='!AccountService.accountDetailsLoading && !AccountService.accountNotesLoading')
          .row.row-short
              .col-xs-4.col-sm-3.col-md-8
-                .label {{'Account Name'|translate}}
+                .label(translate,translate-comment="Noun") Account Name
              .col-xs-6.col-sm-5.col-md-4
                 span {{AccountService.account.resource.accountName}}
          .row.row-short
             .col-xs-4.col-sm-3.col-md-8
-                .label {{'Number of Open Cases'|translate}}
+                .label(translate,translate-comment="Noun") Number of Open Cases
             .col-xs-6.col-sm-5.col-md-4
                 span {{AccountService.account.resource.openCaseCount}}
          .row.row-short
              .col-xs-4.col-sm-3.col-md-8
-                .label {{'TAM'|translate}}
+                .label(translate,translate-comment="Noun") TAM
              .col-xs-6.col-sm-5.col-md-4
                 span(ng-repeat="tam in AccountService.account.TAM_names") {{tam}}
          .row.row-short
             .col-xs-4.col-sm-3.col-md-8
-                .label {{'Account Notes'|translate}}
+                .label(translate,translate-comment="Noun") Account Notes
             .col-xs-6.col-sm-5.col-md-4
                 span {{getAccountNotesText();}}
          .row.row-short
             .col-xs-4.col-sm-3.col-md-8
-                .label {{'Business Hours'|translate}}
+                .label(translate,translate-comment="Noun") Business Hours
             .col-xs-6.col-sm-5.col-md-4
                 a(data-tooltip-html-unsafe="{{AccountService.account.resource.businessHours.resource.businessHoursTooltip}}" data-tooltip-placement="bottom") {{AccountService.account.resource.businessHours.resource.name}}
 

@@ -2,7 +2,7 @@
 .row(rha-searchstackedsolutions='')
 .row(ng-if='recommendations.length !== 0')
   .col-md-12
-    h3.section-title {{'Suggested Solutions'|translate}}
+    h3.section-title(translate,translate-comment="Noun") Suggested Solutions
     ul
       li.recommendation(ng-repeat='recommendation in recommendations')
         .title

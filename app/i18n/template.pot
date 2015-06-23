@@ -4,13 +4,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: app/cases/controllers/defaultGroup.js
-msgid "'s default group."
+#: app/cases/controllers/discussionSection.js
+#: app/ascension/controllers/caseDiscussion.js
+msgid "(In reply to {{personName}})"
 msgstr ""
 
 #: app/cases/views/list.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "(More info)"
 msgstr ""
 
@@ -22,41 +22,57 @@ msgstr ""
 msgid "* marked fields are mandatory fields."
 msgstr ""
 
+#. Noun
 #: app/cases/views/detailsSection.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "24x7 Contact"
 msgstr ""
 
+#: app/ascension/views/caseFlags.html
+msgid "24x7 Coverage"
+msgstr ""
+
+#. Noun
 #: app/cases/views/detailsSection.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "24x7 Support"
 msgstr ""
 
-#: app/ascension/views/internalCaseDescription.html
-msgid "24x7 coverage"
-msgstr ""
-
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#. Noun
+#: app/cases/views/new.html
 msgid "Account"
 msgstr ""
 
-#: app/ascension/views/accountInfo.html
+#. Noun
+#: app/ascension/views/accountInformation.html
 msgid "Account Information"
+msgstr ""
+
+#. Noun
+#: app/ascension/views/accountInformation.html
+msgid "Account Name"
+msgstr ""
+
+#. Noun
+#: app/ascension/views/accountInformation.html
+msgid "Account Notes"
 msgstr ""
 
 #: app/cases/controllers/accountSelect.js
 msgid "Account not found."
 msgstr ""
 
-#: app/ascension/views/internalCaseDiscussion.html
-msgid "Action Plan"
+#. Noun whether the entitlement is active
+#: app/ascension/views/breachStatus.html
+msgid "Active"
 msgstr ""
 
 #: app/cases/views/attachProductLogs.html
 msgid "Add"
+msgstr ""
+
+#: app/cases/controllers/new.js
+msgid "Adding user {{userName}} to case."
 msgstr ""
 
 #: app/cases/views/discussionSection.html
@@ -76,20 +92,20 @@ msgstr ""
 msgid "Alternate Case ID"
 msgstr ""
 
-#: app/cases/views/confirmCaseSeverityChangeModal.html
-msgid "Are you sure you want to change this case severity to"
+#: app/cases/controllers/descriptionSection.js
+msgid "Are you sure you want to change this case severity to {{severityName}}?"
 msgstr ""
 
-#: app/cases/views/confirmCaseStateChangeModal.html
-msgid "Are you sure you want to change this case status to"
+#: app/cases/controllers/descriptionSection.js
+msgid "Are you sure you want to change this case status to {{statusName}}?"
 msgstr ""
 
-#: app/cases/views/confirmCaseCloseModal.html
+#: app/cases/controllers/list.js
 msgid "Are you sure you want to close the selected cases?"
 msgstr ""
 
 #: app/cases/views/edit.html
-msgid "Assigned to"
+msgid "Assigned to {{CaseService.kase.owner}}"
 msgstr ""
 
 #: app/cases/views/attachLocalFile.html
@@ -104,10 +120,12 @@ msgstr ""
 msgid "Attach Foreman logs:"
 msgstr ""
 
+#. Noun Attached here means Attached on a particular date
 #: app/cases/views/listAttachments.html
 msgid "Attached"
 msgstr ""
 
+#. Noun
 #: app/cases/views/listAttachments.html
 msgid "Attached By"
 msgstr ""
@@ -117,11 +135,10 @@ msgid "Attached Files"
 msgstr ""
 
 #: app/cases/views/proceedWithoutAttachModal.html
-msgid "Attaching logs and diagnostics files greatly improves time to resolution."
+msgid "Attaching logs and diagnostics files greatly improves time to resolution. Do you want to continue without attaching any files?"
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "Attaching logs or other diagnostics files typically results in faster resolution."
 msgstr ""
 
@@ -129,30 +146,29 @@ msgstr ""
 msgid "Available Log Files"
 msgstr ""
 
+#: app/cases/views/editCaseRecommendationsSection.html
+#: app/cases/views/newCaseRecommendationsSection.html
+msgid "BACK"
+msgstr ""
+
+#: app/ascension/services/caseDetailsService.js
+msgid "BREACH"
+msgstr ""
+
 #: app/cases/views/defaultGroup.html
 msgid "Back"
 msgstr ""
 
-#: app/ascension/views/breachInformation.html
-msgid "Based on Severity Level 3(Normal)"
-msgstr ""
-
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
-msgid "Based on details you provided, we found some likely solutions."
-msgstr ""
-
-#: app/cases/views/newCaseRecommendationsAlternateSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "Based on your description, here are some possible solutions"
 msgstr ""
 
-#: app/ascension/views/internalCaseDiscussion.html
-msgid "Bomgar Chat"
+#: app/ascension/controllers/breachStatus.js
+msgid "Breached by {{breachTime}}"
 msgstr ""
 
-#: app/ascension/views/breachInformation.html
-msgid "Breach"
+#: app/ascension/controllers/breachStatus.js
+msgid "Breaching in {{breachTime}}"
 msgstr ""
 
 #: app/cases/views/listBugzillas.html
@@ -163,52 +179,75 @@ msgstr ""
 msgid "Bugzilla Tickets"
 msgstr ""
 
-#: app/ascension/views/internalCaseDiscussion.html
+#: app/ascension/views/caseView.html
 msgid "Bugzillas"
 msgstr ""
 
+#. Noun
+#: app/ascension/views/accountInformation.html
+msgid "Business Hours"
+msgstr ""
+
 #: app/cases/views/edit.html
+msgid "CASE {{CaseService.kase.case_number}}"
+msgstr ""
+
 #: app/common/controllers/titleView.js
-msgid "CASE"
+msgid "CASE {{caseNumber}}"
 msgstr ""
 
 #: app/common/controllers/titleView.js
 msgid "CREATE A NEW SUPPORT CASE"
 msgstr ""
 
+#. Verb
 #: app/security/views/login_form.html
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/createGroupModal.html
 #: app/cases/views/detailsSection.html
 #: app/cases/views/editGroup.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 #: app/cases/views/requestManagementEscalationModal.html
+#: app/ascension/views/caseDetails.html
 msgid "Cancel"
 msgstr ""
 
-#: app/ascension/views/topCases.html
-#: app/cases/controllers/confirmCaseCloseModal.js
-msgid "Case"
+#: app/cases/controllers/commonConfirmationModal.js
+msgid "Case  {{caseNumber}} successfully closed."
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
-#: app/ascension/views/internalCaseDescription.html
+#. Noun
+#: app/ascension/views/caseBugzillas.html
+msgid "Case Bugzillas"
+msgstr ""
+
+#. Noun
+#: app/cases/views/new.html
+#: app/ascension/views/caseDescription.html
 msgid "Case Description"
 msgstr ""
 
-#: app/cases/views/commentsSection.html
+#. Noun
+#: app/ascension/views/caseDetails.html
+msgid "Case Detail"
+msgstr ""
+
 #: app/cases/views/discussionSection.html
+#: app/ascension/views/caseDiscussion.html
 msgid "Case Discussion"
+msgstr ""
+
+#. Noun
+#: app/ascension/views/caseEscalations.html
+msgid "Case Escalations"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
 msgid "Case Group"
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#. Noun
+#: app/cases/views/new.html
 msgid "Case Group (Optional)"
 msgstr ""
 
@@ -220,7 +259,9 @@ msgstr ""
 msgid "Case Group:"
 msgstr ""
 
-#: app/ascension/views/internalCaseDiscussion.html
+#. Noun
+#: app/ascension/views/caseHistory.html
+#: app/ascension/views/caseView.html
 msgid "Case History"
 msgstr ""
 
@@ -229,21 +270,37 @@ msgstr ""
 msgid "Case Information"
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#. Noun
+#: app/cases/views/new.html
 msgid "Case Name"
 msgstr ""
 
-#: app/cases/controllers/filterSelect.js
+#: app/ascension/views/caseView.html
+msgid "Case Overview"
+msgstr ""
+
+#: app/common/services/constantsService.js
 msgid "Case Owner (A-Z)"
 msgstr ""
 
-#: app/cases/controllers/filterSelect.js
+#: app/common/services/constantsService.js
 msgid "Case Owner (Z-A)"
 msgstr ""
 
+#. Noun
+#: app/ascension/views/caseDetails.html
+msgid "Case Resolution"
+msgstr ""
+
+#. Noun
+#: app/ascension/views/caseSummary.html
+#: app/ascension/views/caseView.html
+msgid "Case Summary"
+msgstr ""
+
+#. Noun
 #: app/cases/views/detailsSection.html
-#: app/ascension/views/internalCaseDetails.html
+#: app/ascension/views/caseDetails.html
 msgid "Case Type"
 msgstr ""
 
@@ -251,59 +308,52 @@ msgstr ""
 msgid "Case group successfully updated."
 msgstr ""
 
+#: app/cases/controllers/descriptionSection.js
+msgid "Case severity was changed."
+msgstr ""
+
+#: app/cases/controllers/descriptionSection.js
+msgid "Case status was changed."
+msgstr ""
+
 #: app/cases/controllers/editGroup.js
 msgid "Case users successfully updated."
 msgstr ""
 
-#: app/cases/views/confirmCaseSeverityChangeModal.html
-msgid "Change Severity"
+#: app/ascension/views/yourCases.html
+msgid "Case {{case.resource.caseNumber}} <br> {{case.resource.internalStatus}}"
 msgstr ""
 
-#: app/cases/views/confirmCaseStateChangeModal.html
-msgid "Change Status"
-msgstr ""
-
-#: app/cases/views/confirmCaseSeverityChangeModal.html
-msgid "Changing Case Severity"
-msgstr ""
-
-#: app/cases/views/confirmCaseStateChangeModal.html
-msgid "Changing Case State"
+#: app/ascension/services/caseDetailsService.js
+msgid "Case {{caseNumber}} successfully closed."
 msgstr ""
 
 #: app/common/views/chatButton.html
 msgid "Chat Offline"
 msgstr ""
 
-#: app/cases/views/chatButton.html
-msgid "Chat offline"
-msgstr ""
-
 #: app/common/views/chatButton.html
 msgid "Chat with Support"
-msgstr ""
-
-#: app/cases/views/chatButton.html
-msgid "Chat with support"
 msgstr ""
 
 #: app/common/views/treeview-selector.html
 msgid "Choose File(s) To Attach:"
 msgstr ""
 
+#. Verb
 #: app/cases/views/list.html
-#: app/ascension/views/caseQueue.html
 msgid "Close"
 msgstr ""
 
-#: app/cases/views/confirmCaseCloseModal.html
-msgid "Close Cases"
+#: app/ascension/views/caseView.html
+msgid "Close Case"
 msgstr ""
 
 #: app/common/views/alert.html
 msgid "Close messages"
 msgstr ""
 
+#: app/common/services/constantsService.js
 #: app/cases/controllers/statusSelect.js
 msgid "Closed"
 msgstr ""
@@ -312,20 +362,16 @@ msgstr ""
 msgid "Closed Support Cases"
 msgstr ""
 
-#: app/cases/views/confirmCaseCloseModal.html
-msgid "Closing Cases"
+#: app/cases/controllers/list.js
+msgid "Closing Cases."
 msgstr ""
 
-#: app/cases/controllers/confirmCaseCloseModal.js
+#: app/cases/controllers/commonConfirmationModal.js
 msgid "Closing cases."
 msgstr ""
 
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
-msgstr ""
-
-#: app/cases/views/proceedWithoutAttachModal.html
-msgid "Continue Without Attaching"
 msgstr ""
 
 #: app/cases/views/createGroupModal.html
@@ -340,12 +386,13 @@ msgstr ""
 msgid "Create a New Support Case"
 msgstr ""
 
-#: app/ascension/views/internalCaseDetails.html
+#. Noun
+#: app/ascension/views/caseDetails.html
 msgid "Created By"
 msgstr ""
 
 #: app/cases/views/list.html
-msgid "Created:"
+msgid "Created by {{case.created_by}} on {{case.created_date}}"
 msgstr ""
 
 #: app/escalation/services/escalationRequestService.js
@@ -361,7 +408,7 @@ msgid "Creating case..."
 msgstr ""
 
 #: app/cases/controllers/createGroupModal.js
-msgid "Creating group"
+msgid "Creating group {{groupName}}..."
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html
@@ -394,6 +441,7 @@ msgstr ""
 msgid "Customer GEO"
 msgstr ""
 
+#. Verb
 #: app/cases/views/listAttachments.html
 msgid "Delete"
 msgstr ""
@@ -403,9 +451,10 @@ msgid "Delete Group"
 msgstr ""
 
 #: app/cases/services/attachmentsService.js
-msgid "Deleting attachment:"
+msgid "Deleting attachment: {{attachmentName}}"
 msgstr ""
 
+#. Noun
 #: app/cases/views/listAttachments.html
 msgid "Description"
 msgstr ""
@@ -415,8 +464,6 @@ msgid "Diagnose"
 msgstr ""
 
 #: app/cases/views/descriptionSection.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
 #: app/cases/views/severitySelect.html
 msgid "Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case."
 msgstr ""
@@ -425,11 +472,11 @@ msgstr ""
 msgid "Discard Changes"
 msgstr ""
 
-#: app/ascension/views/internalCaseDiscussion.html
+#: app/ascension/views/caseView.html
 msgid "Discussion"
 msgstr ""
 
-#: app/ascension/views/caseQueue.html
+#: app/ascension/views/caseDetails.html
 msgid "Edit"
 msgstr ""
 
@@ -437,7 +484,7 @@ msgstr ""
 msgid "Email address is incorrect"
 msgstr ""
 
-#: app/ascension/views/entitlementInfo.html
+#: app/ascension/views/entitlementInformation.html
 msgid "Entitlement Information"
 msgstr ""
 
@@ -451,9 +498,16 @@ msgid "Error: Failed to upload attachment."
 msgstr ""
 
 #: app/cases/controllers/addCommentSection.js
-#: app/cases/controllers/attachmentsSection.js
 #: app/cases/controllers/new.js
-msgid "Error: Failed to upload attachment. Message:"
+msgid "Error: Failed to upload attachment. Message: {{errorMessage}}"
+msgstr ""
+
+#: app/cases/controllers/attachmentsSection.js
+msgid "Error: Failed to upload attachment. Message:{{errorMessage}}"
+msgstr ""
+
+#: app/ascension/views/caseView.html
+msgid "Escalations"
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html
@@ -474,25 +528,24 @@ msgid "Exporting CSV..."
 msgstr ""
 
 #: app/cases/services/attachmentsService.js
-msgid "Failed to upload attachment"
+msgid "Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: {{errorMessage}}"
 msgstr ""
 
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/attachmentsSection.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "File description"
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "File names must be less than 80 characters. Maximum file size for web-uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
 msgstr ""
 
 #: app/cases/views/edit.html
-msgid "Filed on"
+msgid "Filed on {{CaseService.kase.created_date}} by {{CaseService.kase.contact_name}}"
 msgstr ""
 
+#. Noun
 #: app/cases/views/listAttachments.html
 msgid "Filename"
 msgstr ""
@@ -510,8 +563,14 @@ msgstr ""
 msgid "For example: 1-888-467-3342"
 msgstr ""
 
-#: app/cases/controllers/attachLocalFile.js
-msgid "GB. Please FTP large files to dropbox.redhat.com."
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Friday End Time:"
+msgstr ""
+
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Friday Start Time:"
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html
@@ -526,20 +585,8 @@ msgstr ""
 msgid "GSS is currently working on enhancing the ICE process through the use of email. Watch this space for more details as they become available."
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "Get faster results."
-msgstr ""
-
-#: app/cases/views/confirmCaseCloseModal.html
-#: app/cases/views/confirmCaseSeverityChangeModal.html
-#: app/cases/views/confirmCaseStateChangeModal.html
-#: app/cases/views/proceedWithoutAttachModal.html
-msgid "Go Back"
-msgstr ""
-
-#: app/cases/views/search.html
-msgid "Group"
 msgstr ""
 
 #: app/cases/views/editGroup.html
@@ -551,14 +598,10 @@ msgid "Group Users:"
 msgstr ""
 
 #: app/cases/views/editCaseRecommendationsSection.html
-msgid "Handpicked"
-msgstr ""
-
-#: app/cases/views/editCaseRecommendationsSection.html
 msgid "Handpicked For You"
 msgstr ""
 
-#: app/cases/controllers/filterSelect.js
+#: app/common/services/constantsService.js
 msgid "Highest Severity"
 msgstr ""
 
@@ -575,8 +618,6 @@ msgid "If you are requesting an account review, if this is related to aspecific 
 msgstr ""
 
 #: app/common/views/403.html
-#: app/cases/views/403.html
-#: app/escalation/views/403.html
 msgid "If you believe you should have permission to view this resource, please <a href=\"/support/contact/customerService.html\">contact Customer Service</a> for assistance. Your Red Hat login might not be associated with the right account for your organization, or there might be an issue with your subscription. Either way, Customer Service should be able to help you resolve the problem."
 msgstr ""
 
@@ -584,19 +625,17 @@ msgstr ""
 msgid "If you feel the issue has become more severe or the case should be a higher priority, please provide a detailed comment, and the case will be reviewed by a support manager."
 msgstr ""
 
-#: app/cases/controllers/discussionSection.js
-msgid "In reply to"
-msgstr ""
-
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "In the event that you would still like to open a support case, select 'Open a New Support Case'. The case will be pre-populated with the portion of the log previously selected."
 msgstr ""
 
-#: app/ascension/views/internalCaseDetails.html
+#. Noun
+#: app/ascension/views/caseDetails.html
 msgid "Internal Priority"
 msgstr ""
 
-#: app/ascension/views/internalCaseDetails.html
+#. Noun
+#: app/ascension/views/caseDetails.html
 msgid "Internal Status"
 msgstr ""
 
@@ -609,15 +648,16 @@ msgstr ""
 msgid "Issue Description"
 msgstr ""
 
-#: app/ascension/views/internalCaseDiscussion.html
-msgid "KCS"
+#: app/ascension/controllers/accountInformation.js
+msgid "Last Modified By"
 msgstr ""
 
 #: app/cases/views/editGroup.html
 msgid "Last Name"
 msgstr ""
 
-#: app/ascension/views/internalCaseDetails.html
+#. Noun
+#: app/ascension/views/caseDetails.html
 msgid "Last Updated By"
 msgstr ""
 
@@ -627,6 +667,11 @@ msgstr ""
 
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Learn more"
+msgstr ""
+
+#. Noun
+#: app/ascension/views/breachStatus.html
+msgid "Life of Case"
 msgstr ""
 
 #: app/cases/views/list.html
@@ -658,8 +703,12 @@ msgstr ""
 msgid "Logs"
 msgstr ""
 
-#: app/cases/controllers/filterSelect.js
+#: app/common/services/constantsService.js
 msgid "Lowest Severity"
+msgstr ""
+
+#: app/ascension/services/caseDetailsService.js
+msgid "MISSING SBT. Entitlement status: {{entitlementStatus}}"
 msgstr ""
 
 #: app/common/controllers/titleView.js
@@ -673,20 +722,38 @@ msgid "Manage Default Case Groups"
 msgstr ""
 
 #: app/cases/views/list.html
-msgid "Modified by"
+msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
 msgstr ""
 
-#: app/ascension/views/caseQueue.html
-msgid "More"
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Monday End Time:"
+msgstr ""
+
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Monday Start Time:"
 msgstr ""
 
 #: app/i18n/placeholder.html
 msgid "My Cases"
 msgstr ""
 
+#: app/ascension/services/caseDetailsService.js
+msgid "N/A"
+msgstr ""
+
 #: app/cases/views/editCaseRecommendationsSection.html
-#: app/cases/views/newCaseRecommendationsAlternateSection.html
+#: app/cases/views/newCaseRecommendationsSection.html
 msgid "NEXT"
+msgstr ""
+
+#: app/ascension/services/caseDetailsService.js
+msgid "NONE"
+msgstr ""
+
+#: app/ascension/services/caseDetailsService.js
+msgid "NOT BREACHED"
 msgstr ""
 
 #: app/cases/views/groupList.html
@@ -697,33 +764,41 @@ msgstr ""
 msgid "Need to raise a concern to Red Hat Support management?"
 msgstr ""
 
-#: app/cases/controllers/discussionSection.js
-msgid "Newest Comment Added"
+#: app/ascension/views/breachStatus.html
+msgid "Negotiated Entitlement Process"
 msgstr ""
 
-#: app/cases/controllers/filterSelect.js
+#: app/common/services/constantsService.js
 msgid "Newest Date Created"
 msgstr ""
 
-#: app/cases/controllers/filterSelect.js
+#: app/common/services/constantsService.js
 msgid "Newest Date Modified"
 msgstr ""
 
+#: app/cases/controllers/discussionSection.js
+#: app/ascension/controllers/caseDiscussion.js
+msgid "Newest to Oldest"
+msgstr ""
+
+#: app/cases/views/commonConfirmationModal.html
+msgid "No"
+msgstr ""
+
 #: app/cases/views/proceedWithoutAttachModal.html
-msgid "No File Uploaded with Case"
+msgid "No Files were attached to your case."
 msgstr ""
 
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
 msgstr ""
 
-#: app/cases/views/compactCaseList.html
 #: app/cases/views/list.html
 msgid "No cases found with given filters."
 msgstr ""
 
-#: app/cases/views/search.html
-msgid "No cases found with given search criteria."
+#: app/ascension/services/caseDetailsService.js
+msgid "No cases found."
 msgstr ""
 
 #: app/cases/views/groupList.html
@@ -738,16 +813,19 @@ msgstr ""
 msgid "No match found"
 msgstr ""
 
-#: app/cases/views/newRecommendationsSection.html
-msgid "No recommendations are available."
-msgstr ""
-
 #: app/search/services/searchResultsService.js
 msgid "No solutions found."
 msgstr ""
 
+#: app/ascension/services/caseDetailsService.js
+msgid "No url roles or user roles found."
+msgstr ""
+
+#: app/cases/views/proceedWithoutAttachModal.html
+msgid "No, Go Back"
+msgstr ""
+
 #: app/common/views/404.html
-#: app/cases/views/404.html
 msgid "Not Found"
 msgstr ""
 
@@ -763,16 +841,22 @@ msgstr ""
 msgid "Notes:"
 msgstr ""
 
-#: app/cases/controllers/discussionSection.js
-msgid "Oldest Comment Added"
+#. Noun
+#: app/ascension/views/accountInformation.html
+msgid "Number of Open Cases"
 msgstr ""
 
-#: app/cases/controllers/filterSelect.js
+#: app/common/services/constantsService.js
 msgid "Oldest Date Created"
 msgstr ""
 
-#: app/cases/controllers/filterSelect.js
+#: app/common/services/constantsService.js
 msgid "Oldest Date Modified"
+msgstr ""
+
+#: app/cases/controllers/discussionSection.js
+#: app/ascension/controllers/caseDiscussion.js
+msgid "Oldest to Newest"
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html
@@ -787,6 +871,7 @@ msgstr ""
 msgid "Once your request is submitted, a partner escalation case will be opened with GSS and the GSS leadership team will be notified. You will then receive an email at the email address provided below with the partner escalation case number and additional information on how to track progress."
 msgstr ""
 
+#: app/common/services/constantsService.js
 #: app/cases/controllers/statusSelect.js
 msgid "Open"
 msgstr ""
@@ -800,11 +885,11 @@ msgid "Open Support Cases"
 msgstr ""
 
 #: app/search/views/accordion_search_results.html
-#: app/cases/views/search.html
 #: app/log_viewer/views/logsInstructionPane.html
 msgid "Open a New Support Case"
 msgstr ""
 
+#: app/common/services/constantsService.js
 #: app/cases/controllers/statusSelect.js
 msgid "Open and Closed"
 msgstr ""
@@ -814,16 +899,16 @@ msgid "Open and Closed Support Cases"
 msgstr ""
 
 #: app/cases/views/list.html
-msgid "Owned by"
+msgid "Owned by {{case.contact_name}}"
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
-#: app/cases/views/search.html
+#. Noun
+#: app/cases/views/new.html
 msgid "Owner"
 msgstr ""
 
-#: app/ascension/views/ownerInfo.html
+#. Noun
+#: app/ascension/views/ownerInformation.html
 msgid "Owner Information"
 msgstr ""
 
@@ -886,6 +971,7 @@ msgid "Priority Customer Support Routing"
 msgstr ""
 
 #: app/cases/views/discussionSection.html
+#: app/ascension/views/caseDiscussion.html
 msgid "Private"
 msgstr ""
 
@@ -893,18 +979,21 @@ msgstr ""
 msgid "Private Notes"
 msgstr ""
 
+#. Noun
 #: app/cases/views/detailsSection.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
-#: app/cases/views/search.html
-#: app/ascension/views/internalCaseDetails.html
+#: app/cases/views/new.html
+#: app/ascension/views/caseDetails.html
 msgid "Product"
 msgstr ""
 
+#. Noun
 #: app/cases/views/detailsSection.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "Product Version"
+msgstr ""
+
+#: app/cases/views/new.html
+msgid "Production Support Service Level Agreement"
 msgstr ""
 
 #: app/cases/views/editGroup.html
@@ -917,7 +1006,6 @@ msgstr ""
 
 #: app/search/views/accordion_search_results.html
 #: app/search/views/list_search_results.html
-#: app/cases/views/recommendationsSection.html
 msgid "Recommendations"
 msgstr ""
 
@@ -941,6 +1029,10 @@ msgstr ""
 msgid "Red Hat Login"
 msgstr ""
 
+#: app/cases/views/new.html
+msgid "Red Hat Support Severity Level Definitions"
+msgstr ""
+
 #: app/escalation/views/iceEscalation.html
 #: app/escalation/views/partnerEscalation.html
 msgid "Red Hat Support Ticket Number"
@@ -950,12 +1042,11 @@ msgstr ""
 msgid "Refining top solutions"
 msgstr ""
 
-#: app/cases/views/commentsSection.html
 #: app/cases/views/discussionSection.html
+#: app/ascension/views/caseDiscussion.html
 msgid "Reply"
 msgstr ""
 
-#: app/cases/views/commentsSection.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
 msgstr ""
@@ -973,8 +1064,19 @@ msgstr ""
 msgid "Resolution"
 msgstr ""
 
-#: app/ascension/views/internalCaseDetails.html
+#. Noun
+#: app/ascension/views/caseDetails.html
 msgid "SBR Group"
+msgstr ""
+
+#. SBT: Service Breach Time
+#: app/ascension/views/entitlementInformation.html
+msgid "SBT"
+msgstr ""
+
+#. SBT: Service Breach Time
+#: app/ascension/views/entitlementInformation.html
+msgid "SBT State"
 msgstr ""
 
 #: app/common/controllers/titleView.js
@@ -987,6 +1089,7 @@ msgid "Save"
 msgstr ""
 
 #: app/cases/views/detailsSection.html
+#: app/ascension/views/caseDetails.html
 msgid "Save Changes"
 msgstr ""
 
@@ -996,7 +1099,6 @@ msgid "Save Group"
 msgstr ""
 
 #: app/search/views/search_form.html
-#: app/cases/views/listFilter.html
 #: app/common/controllers/titleView.js
 #: app/i18n/placeholder.html
 msgid "Search"
@@ -1006,12 +1108,20 @@ msgstr ""
 msgid "Search Articles and Solutions"
 msgstr ""
 
-#: app/common/controllers/titleView.js
-msgid "Search Support Case"
+#: app/ascension/views/caseSearch.html
+msgid "Search Cases By Number"
 msgstr ""
 
-#: app/cases/views/search.html
-msgid "Searching..."
+#: app/search/views/searchStackedSolutions.html
+msgid "Search Knowledgebase Solutions"
+msgstr ""
+
+#: app/search/views/searchStackedSolutions.html
+msgid "Search Solutions"
+msgstr ""
+
+#: app/common/controllers/titleView.js
+msgid "Search Support Case"
 msgstr ""
 
 #: app/log_viewer/views/navSideBar.html
@@ -1023,14 +1133,12 @@ msgid "Select Log"
 msgstr ""
 
 #: app/cases/views/emailNotifySelect.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "Select a User"
 msgstr ""
 
 #: app/cases/views/emailNotifySelect.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "Send Email Notifications to"
 msgstr ""
 
@@ -1041,24 +1149,15 @@ msgstr ""
 
 #: app/cases/views/addCommentSection.html
 #: app/cases/views/attachmentsSection.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "Server File(s) To Attach:"
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
-#: app/cases/views/search.html
-#: app/ascension/views/internalCaseDetails.html
+#. Noun
+#: app/cases/views/new.html
+#: app/ascension/views/caseDetails.html
+#: app/ascension/views/caseFlags.html
 msgid "Severity"
-msgstr ""
-
-#: app/ascension/views/internalCaseDescription.html
-msgid "Severity 1 (High)"
-msgstr ""
-
-#: app/cases/views/searchResult.html
-msgid "Severity:"
 msgstr ""
 
 #: app/security/views/login_form.html
@@ -1073,30 +1172,37 @@ msgstr ""
 msgid "Simply navigate to and select a log file from the list on the left and click the 'Select File' button."
 msgstr ""
 
+#. Noun
 #: app/cases/views/listAttachments.html
 msgid "Size"
 msgstr ""
 
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
+#: app/ascension/views/caseDiscussion.html
 msgid "Sort by"
 msgstr ""
 
-#: app/cases/views/search.html
-#: app/ascension/views/internalCaseDetails.html
+#: app/ascension/views/caseFlags.html
+msgid "Special Handling"
+msgstr ""
+
+#. Noun
+#: app/ascension/views/breachStatus.html
+msgid "Start Time"
+msgstr ""
+
+#. Noun
+#: app/ascension/views/caseDetails.html
 msgid "Status"
 msgstr ""
 
-#: app/cases/views/searchResult.html
-msgid "Status:"
-msgstr ""
-
-#: app/ascension/views/internalCaseDescription.html
+#: app/ascension/views/caseFlags.html
 msgid "Strategic"
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#. Verb
+#: app/cases/views/new.html
 msgid "Submit"
 msgstr ""
 
@@ -1108,24 +1214,20 @@ msgstr ""
 msgid "Submit Request"
 msgstr ""
 
-#: app/cases/controllers/new.js
-msgid "Successfully added"
-msgstr ""
-
 #: app/cases/services/caseService.js
-msgid "Successfully created case number"
+msgid "Successfully created case number {{caseNumber}}"
 msgstr ""
 
 #: app/cases/controllers/createGroupModal.js
-msgid "Successfully created group"
+msgid "Successfully created group {{groupName}}"
 msgstr ""
 
 #: app/cases/services/attachmentsService.js
-msgid "Successfully deleted attachment:"
+msgid "Successfully deleted attachment:{{attachmentName}}"
 msgstr ""
 
 #: app/cases/controllers/deleteGroupButton.js
-msgid "Successfully deleted group"
+msgid "Successfully deleted group {{groupName}}"
 msgstr ""
 
 #: app/cases/controllers/deleteGroupButton.js
@@ -1133,15 +1235,24 @@ msgid "Successfully deleted groups."
 msgstr ""
 
 #: app/cases/controllers/defaultGroup.js
-msgid "Successfully set"
+msgid "Successfully set {{groupName}} as {{userName}}'s default group."
 msgstr ""
 
 #: app/cases/services/attachmentsService.js
-msgid "Successfully uploaded attachment"
+msgid "Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}"
+msgstr ""
+
+#: app/cases/services/attachmentsService.js
+msgid "Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}"
 msgstr ""
 
 #: app/cases/controllers/attachmentsSection.js
 msgid "Successfully uploaded attachment."
+msgstr ""
+
+#. Noun
+#: app/ascension/views/searchSolutions.html
+msgid "Suggested Solutions"
 msgstr ""
 
 #: app/cases/views/listBugzillas.html
@@ -1153,20 +1264,26 @@ msgid "Support"
 msgstr ""
 
 #: app/cases/views/edit.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
+#: app/cases/views/new.html
 msgid "Support Level"
 msgstr ""
 
 #: app/common/views/403.html
-#: app/cases/views/403.html
-#: app/escalation/views/403.html
 msgid "Support Subscription Required"
 msgstr ""
 
+#. Noun
+#: app/ascension/views/accountInformation.html
+msgid "TAM"
+msgstr ""
+
+#. Noun
+#: app/ascension/views/breachStatus.html
+#: app/ascension/views/entitlementInformation.html
+msgid "Target Date"
+msgstr ""
+
 #: app/common/views/403.html
-#: app/cases/views/403.html
-#: app/escalation/views/403.html
 msgid "The credentials you provided are valid, but you do not have <b>direct support from Red Hat.</b>"
 msgstr ""
 
@@ -1175,7 +1292,6 @@ msgid "The log file viewer gives the ability to diagnose application logs as wel
 msgstr ""
 
 #: app/common/views/404.html
-#: app/cases/views/404.html
 msgid "The page you are looking for is not here. It might have been moved, removed, or had its name and address changed. It might otherwise be temporarily unavailable for technical reasons."
 msgstr ""
 
@@ -1200,6 +1316,24 @@ msgstr ""
 msgid "This should be the email address associated with your Red Hat Customer Portal or Partner Center login"
 msgstr ""
 
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Thursday End Time:"
+msgstr ""
+
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Thursday Start Time:"
+msgstr ""
+
+#: app/cases/views/new.html
+msgid "To Learn more view the"
+msgstr ""
+
+#: app/cases/views/new.html
+msgid "To learn more, visit the"
+msgstr ""
+
 #: app/search/views/list_search_results.html
 msgid "To view a recommendation, click on it."
 msgstr ""
@@ -1212,8 +1346,14 @@ msgstr ""
 msgid "Transcript of chat between"
 msgstr ""
 
-#: app/cases/views/search.html
-msgid "Type"
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Tuesday End Time:"
+msgstr ""
+
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Tuesday Start Time:"
 msgstr ""
 
 #: app/common/services/strataService.js
@@ -1232,11 +1372,6 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: app/cases/views/searchResult.html
-msgid "Updated:"
-msgstr ""
-
-#: app/cases/views/newCaseRecommendationsAlternateSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "Updating Recommendations"
 msgstr ""
@@ -1246,10 +1381,10 @@ msgid "Upload Attachments"
 msgstr ""
 
 #: app/cases/controllers/attachmentsSection.js
+#: app/cases/controllers/new.js
 msgid "Uploading attachment..."
 msgstr ""
 
-#: app/cases/controllers/new.js
 #: app/cases/services/attachmentsService.js
 msgid "Uploading attachments..."
 msgstr ""
@@ -1266,32 +1401,45 @@ msgstr ""
 msgid "User does not have proper credentials to manage case groups."
 msgstr ""
 
-#: app/ascension/views/internalCaseDetails.html
+#. Noun
+#: app/ascension/views/caseDetails.html
 msgid "Version"
 msgstr ""
 
 #: app/cases/views/descriptionSection.html
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
 #: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr ""
 
-#: app/cases/views/newAlternate.html
-#: app/cases/views/newBase.html
-msgid "View Recommendations"
+#. Noun
+#: app/ascension/views/breachStatus.html
+msgid "Violates SLA"
 msgstr ""
 
-#: app/cases/views/recommendationsSection.html
-msgid "View full article in new window"
+#: app/ascension/services/caseDetailsService.js
+msgid "Was not able to fetch user given ssoUserName"
 msgstr ""
 
-#: app/cases/views/commentsSection.html
-msgid "Would you like a Red Hat support manager to contact you regarding this case?"
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Wednesday End Time:"
+msgstr ""
+
+#. Noun
+#: app/ascension/services/accountService.js
+msgid "Wednesday Start Time:"
 msgstr ""
 
 #: app/cases/views/editGroup.html
 msgid "Write Access"
+msgstr ""
+
+#: app/cases/views/commonConfirmationModal.html
+msgid "Yes"
+msgstr ""
+
+#: app/cases/views/proceedWithoutAttachModal.html
+msgid "Yes, Submit"
 msgstr ""
 
 #: app/common/services/alertService.js
@@ -1300,6 +1448,10 @@ msgstr ""
 
 #: app/search/services/searchResultsService.js
 msgid "You must be logged in to use this functionality."
+msgstr ""
+
+#: app/ascension/views/caseSearch.html
+msgid "Your Cases"
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html
@@ -1336,26 +1488,9 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-#: app/cases/controllers/defaultGroup.js
-msgid "as"
-msgstr ""
-
 #: app/cases/views/discussionSection.html
+#: app/ascension/views/caseDiscussion.html
 msgid "at"
-msgstr ""
-
-#: app/cases/views/edit.html
-#: app/cases/views/list.html
-msgid "by"
-msgstr ""
-
-#: app/cases/controllers/attachLocalFile.js
-msgid "cannot be attached because it is larger than"
-msgstr ""
-
-#: app/cases/views/addCommentSection.html
-#: app/cases/views/discussionSection.html
-msgid "characters left."
 msgstr ""
 
 #: app/escalation/views/partnerEscalation.html
@@ -1370,18 +1505,14 @@ msgstr ""
 msgid "for more information."
 msgstr ""
 
-#: app/cases/views/recommendationsSection.html
-msgid "handpicked"
+#: app/cases/views/addCommentSection.html
+msgid "{{charactersLeft}} characters left."
 msgstr ""
 
-#: app/cases/views/list.html
-msgid "on"
+#: app/cases/controllers/attachLocalFile.js
+msgid "{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com."
 msgstr ""
 
-#: app/cases/services/attachmentsService.js
-msgid "to case"
-msgstr ""
-
-#: app/cases/controllers/new.js
-msgid "to receieve email notifications."
+#: app/cases/views/discussionSection.html
+msgid "{{noteCharactersLeft}} characters left."
 msgstr ""

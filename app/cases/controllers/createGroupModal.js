@@ -8,10 +8,10 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
     'AlertService',
     'CaseService',
     'GroupService',
-    'translate',
-    function ($scope, $modalInstance, strataService, securityService, AlertService, CaseService, GroupService, translate) {
+    'gettextCatalog',
+    function ($scope, $modalInstance, strataService, securityService, AlertService, CaseService, GroupService, gettextCatalog) {
         $scope.createGroup = function () {
-            AlertService.addWarningMessage(translate('Creating group') + ' ' + this.groupName + '...');
+            AlertService.addWarningMessage(gettextCatalog.getString('Creating group {{groupName}}...',{groupName:this.groupName}));
             $modalInstance.close();
             strataService.groups.create(this.groupName, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
                 if(success !== null){
@@ -20,12 +20,12 @@ angular.module('RedhatAccess.cases').controller('CreateGroupModal', [
                         number: success
                     });
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
+                    AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created group {{groupName}}',{groupName:this.groupName}));
                     GroupService.reloadTable();
                 } else {
                     CaseService.populateGroups(securityService.loginStatus.authedUser.sso_username, true).then(angular.bind(this, function (groups) {
                         AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.groupName);
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created group {{groupName}}',{groupName:this.groupName}));
                         GroupService.reloadTable();
                     }), function (error) {
                         AlertService.clearAlerts();

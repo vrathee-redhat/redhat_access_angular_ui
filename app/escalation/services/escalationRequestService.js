@@ -7,9 +7,9 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
     'ESCALATION_TYPE',
     'securityService',
     'HeaderService',
-    'translate',
-    function (strataService, AlertService, RHAUtils, ESCALATION_TYPE, securityService, HeaderService, translate) {
-	    
+    'gettextCatalog',
+    function (strataService, AlertService, RHAUtils, ESCALATION_TYPE, securityService, HeaderService, gettextCatalog) {
+
 	    this.accountNumber = '';
 	    this.caseNumber = '';
 	    this.alreadyEscalated = false;
@@ -91,18 +91,18 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
             }
             if (recordType === ESCALATION_TYPE.partner) {
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(translate('Creating Partner Escalation request .....'));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Creating Partner Escalation request .....'));
             } else {
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(translate('Creating Ice Escalation request .....'));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Creating Ice Escalation request .....'));
             }
             strataService.escalationRequest.create(escalationJSON).then(angular.bind(this,function (escalationNum) {
                 AlertService.clearAlerts();
                 if (escalationNum !== undefined) {
                     if (recordType === ESCALATION_TYPE.partner) {
-                        AlertService.addSuccessMessage(translate('Your Partner Escalation request has been sent successfully'));
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Your Partner Escalation request has been sent successfully'));
                     } else {
-                        AlertService.addSuccessMessage(translate('Your Ice Escalation request has been sent successfully'));
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Your Ice Escalation request has been sent successfully'));
                     }
                     this.clearEscalationFields();
                 }
@@ -112,7 +112,7 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
                     HeaderService.showPartnerEscalationError = true;
                 } else {
                     AlertService.addStrataErrorMessage(error);
-                }                
+                }
             }));
 	    };
 	}

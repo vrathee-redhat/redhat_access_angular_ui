@@ -9,8 +9,8 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
     '$location',
     'securityService',
     'AUTH_EVENTS',
-    'translate',
-    function ($scope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, translate) {
+    'gettextCatalog',
+    function ($scope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, gettextCatalog) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
@@ -46,7 +46,6 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
                 $scope.usersLoading = false;
                 $scope.groupsLoading = false;
                 $scope.userCanManageDefaultGroups = false;
-                //AlertService.addStrataErrorMessage(translate('User does not have proper credentials to manage default groups.'));
             }
         };
 
@@ -93,7 +92,8 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             strataService.groups.createDefault(tmpGroup).then(function () {
                 $scope.usersAndGroupsFinishedLoading = false;
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(translate('Successfully set') +' '+ tmpGroup.name + ' '+translate('as') + ' '+$scope.selectedUser.sso_username + translate('\'s default group.'));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully set {{groupName}} as {{userName}}\'s default group.',{groupName:tmpGroup.name,userName:$scope.selectedUser.sso_username}));
+
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });

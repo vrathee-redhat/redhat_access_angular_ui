@@ -3,4 +3,4 @@
     nav.navbar.navbar-default.navbar-static-top(ng-show='!CaseDetailsService.yourCasesLoading')
         ul.nav.navbar-nav
             li(ng-repeat='case in CaseDetailsService.cases',ng-show='true')
-                a(href='', ng-click='fetchCaseDetail(case.resource.caseNumber)') {{'Case'|translate}} {{case.resource.caseNumber}} <br> {{case.resource.internalStatus}}
+                a(href='', ng-click='fetchCaseDetail(case.resource.caseNumber)',translate) Case {{case.resource.caseNumber}} <br> {{case.resource.internalStatus}}
