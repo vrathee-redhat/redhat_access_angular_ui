@@ -21,6 +21,7 @@ describe('Ascension Services', function () {
     beforeEach(angular.mock.module('RedhatAccess.cases'));
     beforeEach(angular.mock.module('RedhatAccess.ascension'));
     beforeEach(angular.mock.module('RedhatAccess.mock'));
+    beforeEach(angular.mock.module('RedhatAccess.mockUDS'));
 
     beforeEach(inject(function (_CaseService_,_MockUDSDataService_,_udsService_,_strataService_,_AccountService_, _CaseDetailsService_, _CaseDiscussionService_, _EscalationsService_, _RoutingService_, _UserDetailsService_, $injector, $q, $rootScope) {
         accountService = _AccountService_;
