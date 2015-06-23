@@ -5,7 +5,8 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
       h1.page-title(translate) CASE {{CaseService.kase.case_number}}
       div
         span(translate)  Filed on {{CaseService.kase.created_date}} by {{CaseService.kase.contact_name}}
-        span.sep(translate) Assigned to {{CaseService.kase.owner}}
+        span.sep |
+        | {{'Assigned to'|translate}} {{CaseService.kase.owner}}
       a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
       div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')

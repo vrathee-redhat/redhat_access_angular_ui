@@ -105,7 +105,7 @@ msgid "Are you sure you want to close the selected cases?"
 msgstr ""
 
 #: app/cases/views/edit.html
-msgid "Assigned to {{CaseService.kase.owner}}"
+msgid "Assigned to"
 msgstr ""
 
 #: app/cases/views/attachLocalFile.html
