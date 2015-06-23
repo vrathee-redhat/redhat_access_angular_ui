@@ -102,7 +102,59 @@ angular.module('RedhatAccess.mockUDS', [])
                     "externalModelId":"01mA0000000L3cVIAS"}},
             "resourceReliability":"Fresh",
             "externalModelId":"001A000000K7OxhIAF"
-        }
+        };
+        this.mockCaseComments = [
+            {
+                "resource": {
+                    "text": "test comment",
+                    "createdBy": {
+                        "resource": {
+                            "fullName": "O'Reilly"
+                        },
+                        "resourceReliability": "Fresh"
+                    },
+                    "lastModifiedBy": {
+                        "resource": {
+                            "fullName": "O'Reilly"
+                        },
+                        "resourceReliability": "Fresh"
+                    },
+                    "created": "2014-11-18T15:29:03.000Z",
+                    "lastModified": "2014-11-18T15:45:01.000Z",
+                    "public": true,
+                    "sbt": -1095,
+                    "draft": false,
+                    "caseNumber": 1286251
+                },
+                "resourceReliability": "Fresh",
+                "externalModelId": "a0aA000000D8iOyIAJ"
+            },
+            {
+                "resource": {
+                    "text": "test comment1",
+                    "createdBy": {
+                        "resource": {
+                            "fullName": "Paul"
+                        },
+                        "resourceReliability": "Fresh"
+                    },
+                    "lastModifiedBy": {
+                        "resource": {
+                            "fullName": "Paul"
+                        },
+                        "resourceReliability": "Fresh"
+                    },
+                    "created": "2014-11-18T15:29:03.000Z",
+                    "lastModified": "2014-11-18T15:45:01.000Z",
+                    "public": true,
+                    "sbt": -1095,
+                    "draft": true,
+                    "caseNumber": 1286251
+                },
+                "resourceReliability": "Fresh",
+                "externalModelId": "a0aA000000D8iOyIAJ"
+            }
+        ];
     }
 ])
     .service('udsService', [
@@ -143,7 +195,7 @@ angular.module('RedhatAccess.mockUDS', [])
                             if (that.rejectCall) {
                                 deferred.reject();
                             } else {
-                                //deferred.resolve(MockUDSDataService.mockCase);
+                                deferred.resolve(MockUDSDataService.mockCaseComments);
                             }
                             return deferred.promise;
                         }
