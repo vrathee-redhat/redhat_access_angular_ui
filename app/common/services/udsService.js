@@ -133,6 +133,26 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         );
                         return deferred.promise;
                     }
+                },
+                history:{
+                    get: function(caseNumber) {
+                        var deferred = $q.defer();
+                        uds.fetchCaseHistory(
+                            function (response) {
+                                angular.forEach(response, angular.bind(this, function (history) {
+                                    var createdDate = RHAUtils.convertToTimezone(history.resource.created);
+                                    history.resource.created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
+                                    history.resource.created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
+                                }));
+                                deferred.resolve(response);
+                            },
+                            function (error) {
+                                deferred.reject(error);
+                            },
+                            caseNumber
+                        );
+                        return deferred.promise;
+                    }
                 }
             },
             account:{

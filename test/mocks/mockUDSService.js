@@ -155,6 +155,47 @@ angular.module('RedhatAccess.mockUDS', [])
                 "externalModelId": "a0aA000000D8iOyIAJ"
             }
         ];
+        this.mockCaseHistory = [
+            {
+               "resource":
+               {
+                   "field": "Priority_Score__c",
+                   "oldValue": "1220",
+                   "newValue": "1605",
+                   "created": "2015-06-23T07:10:26.000Z",
+                   "createdBy":
+                   {
+                       "resource":
+                       {
+                           "fullName": "Dasgupta, Aritro"                       
+                       },
+                       "resourceReliability": "Fresh",
+                       "externalModelId": "005A0000004rPfFIAU"
+                   },
+                   "outputText": "Dasgupta, Aritro changed Priority Score from 1220 to 1605"
+               },
+               "resourceReliability": "Fresh"
+            },
+            {
+               "resource":
+               {
+                   "field": "Priority_Score__c",
+                   "newValue": "1220",
+                   "created": "2015-06-23T07:10:24.000Z",
+                   "createdBy":
+                   {
+                       "resource":
+                       {
+                           "fullName": "Dasgupta, Aritro"                       
+                       },
+                       "resourceReliability": "Fresh",
+                       "externalModelId": "005A0000004rPfFIAU"
+                   },
+                   "outputText": "Dasgupta, Aritro set Priority Score to 1220"
+               },
+               "resourceReliability": "Fresh"
+            }
+        ];
     }
 ])
     .service('udsService', [
@@ -196,6 +237,17 @@ angular.module('RedhatAccess.mockUDS', [])
                                 deferred.reject();
                             } else {
                                 deferred.resolve(MockUDSDataService.mockCaseComments);
+                            }
+                            return deferred.promise;
+                        }
+                    },
+                    history:{
+                        get: function(caseNumber) {
+                            var deferred = $q.defer();
+                            if (that.rejectCall) {
+                                deferred.reject();
+                            } else {
+                                deferred.resolve(MockUDSDataService.mockCaseHistory);
                             }
                             return deferred.promise;
                         }

@@ -24,8 +24,10 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.versions = [];
         this.severities = [];
         this.statuses = [];
+        this.caseHistory = [];
         this.versionDisabled = false;
         this.yourCasesLimit = 6;
+        this.fetchingCaseHistory = false;
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -253,6 +255,25 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 deferred.reject(error);
             });
             return deferred.promise;
+        };
+
+        this.fetCaseHistory = function(caseNumber) {
+            this.fetchingCaseHistory = true;
+            var promise = udsService.kase.history.get(caseNumber);
+            promise.then(angular.bind(this, function (caseHistory) {
+                if(RHAUtils.isNotEmpty(caseHistory)) {
+                    this.caseHistory = caseHistory;
+                }
+                this.caseHistory.sort(function(a,b) {
+                    a = new Date(a.resource.created);
+                    b = new Date(b.resource.created);
+                    return a-b;
+                });
+                this.fetchingCaseHistory = false;
+            }), function (error) {
+                this.fetchingCaseHistory = false;
+                AlertService.addUDSErrorMessage(error);
+            });
         };
 	}
 ]);
