@@ -188,8 +188,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 if(sortField === "owner"){
                     sortField = "contactName";
                 }
-                var accountNumber = securityService.loginStatus.authedUser.account_number;
-                cases = strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, accountNumber, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+                cases = strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, null, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
                     if(response['case'] === undefined){
                         that.totalCases = 0;
                         that.total = 0;
