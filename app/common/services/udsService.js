@@ -50,6 +50,16 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.entitlement.name=response.resource.entitlement.resource.name;
                 kase.entitlement.status=response.resource.entitlement.resource.status;
                 kase.entitlement.service_level=response.resource.entitlement.resource.serviceLevel;
+
+                kase.negotiatedEntitlement={};
+                if(response.resource.negotiatedEntitlementProcess)
+                {
+                    kase.negotiatedEntitlement.active=response.resource.negotiatedEntitlementProcess.resource.active;
+                    kase.negotiatedEntitlement.life_Case=response.resource.negotiatedEntitlementProcess.resource.lifeOfCase;
+                    kase.negotiatedEntitlement.start_time=response.resource.negotiatedEntitlementProcess.resource.startTime;
+                    kase.negotiatedEntitlement.target_date=response.resource.negotiatedEntitlementProcess.resource.targetDate;
+                    kase.negotiatedEntitlement.violates_sla=response.resource.negotiatedEntitlementProcess.resource.violatesSla;
+                }
                 kase.sbt=response.resource.sbt;
                 kase.target_date_time=response.resource.targetDate;
                 kase.resourceLinks = response.resource.resourceLinks;
