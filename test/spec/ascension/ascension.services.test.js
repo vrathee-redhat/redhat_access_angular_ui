@@ -65,6 +65,13 @@ describe('Ascension Services', function () {
             scope.$root.$digest();
             expect(caseDetailsService.cases).toEqual(mockUDSDataService.yourCases);
         });
+        it('should have a method for fetching case history', function () {
+            expect(caseDetailsService.fetCaseHistory).toBeDefined();
+            caseDetailsService.fetCaseHistory(1286251);
+            spyOn(mockUDSService.kase.history, 'get').andCallThrough();
+            scope.$root.$digest();
+            expect(caseDetailsService.caseHistory).toEqual(mockUDSDataService.mockCaseHistory);
+        });
 
     });
 
