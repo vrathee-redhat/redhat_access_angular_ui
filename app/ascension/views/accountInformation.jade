@@ -1,28 +1,28 @@
 section.case-description
   h3.section-title.accountinfoheader.pre-wrap {{'Account Information'|translate}}
   .spinner.spinner-inline(ng-show='AccountService.accountDetailsLoading || AccountService.accountNotesLoading')
-  section.config-options(ng-show='!AccountService.accountDetailsLoading && !AccountService.accountNotesLoading')
-    .row.row-short
+  section.config-options-no-mar(ng-show='!AccountService.accountDetailsLoading && !AccountService.accountNotesLoading')
+    .row.row-very-short
       .col-xs-4.col-sm-6.col-md-4
         strong {{'Account Name'|translate}}
       .col-xs-6.col-sm-6.col-md-8
         span {{AccountService.account.resource.accountName}}
-    .row.row-short
+    .row.row-very-short
       .col-xs-4.col-sm-6.col-md-4
         strong {{'Number of Open Cases'|translate}}
       .col-xs-6.col-sm-6.col-md-8
         span {{AccountService.account.resource.openCaseCount}}
-    .row.row-short
+    .row.row-very-short
       .col-xs-4.col-sm-6.col-md-4
         strong {{'TAM'|translate}}
       .col-xs-6.col-sm-6.col-md-8
         span(ng-repeat="tam in AccountService.account.TAM_names") {{tam}}
-    .row.row-short
+    .row.row-very-short
       .col-xs-4.col-sm-6.col-md-4
         strong {{'Account Notes'|translate}}
       .col-xs-6.col-sm-6.col-md-8
         span {{getAccountNotesText();}}
-    .row.row-short
+    .row.row-very-short
       .col-xs-4.col-sm-6.col-md-4
         strong {{'Business Hours'|translate}}
       .col-xs-6.col-sm-6.col-md-8
