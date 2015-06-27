@@ -1,20 +1,13 @@
-.center {
-	text-align: center;
-}
-
-.right {
-	text-align: right;
-}
-
-.nomar {
-	margin: 0 !important;
-}
-
+.center { text-align: center; }
+.right { text-align: right; }
+.nomar { margin: 0 !important; }
 .margin-top { @include rem('margin-top', $global-margin); }
 .margin-top-short { @include rem('margin-top', $global-padding); }
 
 .blue { color: #0083d2; }
 .block { display: block; }
+
+.caps { text-transform: uppercase; }
 
 .row-align-bottom {
 
@@ -97,3 +90,4 @@ textarea.expanded {
 		height: 500px;
 	}
 }
+
