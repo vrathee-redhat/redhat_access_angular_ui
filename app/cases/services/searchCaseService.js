@@ -120,7 +120,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 // }
                 if (!RHAUtils.isEmpty(CaseService.filterSelect.sortField)) {
                     if(CaseService.filterSelect.sortField === 'owner'){
-                        params.sort_field = 'contactName';
+                        params.sort_field = 'case_contactName';
                     } else{
                         params.sort_field = CaseService.filterSelect.sortField;
                     }
@@ -184,7 +184,11 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     }
                 }));
             } else{
-                cases = strataService.cases.search(this.caseParameters.status, caseOwner, this.caseParameters.group, this.caseParameters.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+                var sortField = CaseService.filterSelect.sortField;
+                if(sortField === "owner"){
+                    sortField = "contactName";
+                }
+                cases = strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, null, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
                     if(response['case'] === undefined){
                         that.totalCases = 0;
                         that.total = 0;

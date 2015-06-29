@@ -52,6 +52,7 @@ module.exports = function(config) {
             'app/security/**/*.js',
             'app/search/**/*.js',
             'app/cases/**/*.js',
+            'app/ascension/**/*.js',
             'app/log_viewer/*.js',
             'test/mocks/**/*.js',
             'test/spec/**/*.js'
@@ -69,7 +70,8 @@ module.exports = function(config) {
         // },
         // generate js files from html templates
         preprocessors: {
-            'app/cases/**/*.js': ['coverage']
+            'app/cases/**/*.js': ['coverage'],
+            'app/ascension/**/*.js': ['coverage']
         },
 
         reporters: ['progress', 'coverage'],

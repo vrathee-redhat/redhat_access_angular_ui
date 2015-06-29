@@ -50,8 +50,19 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.entitlement.name=response.resource.entitlement.resource.name;
                 kase.entitlement.status=response.resource.entitlement.resource.status;
                 kase.entitlement.service_level=response.resource.entitlement.resource.serviceLevel;
+
+                kase.negotiatedEntitlement={};
+                if(response.resource.negotiatedEntitlementProcess)
+                {
+                    kase.negotiatedEntitlement.active=response.resource.negotiatedEntitlementProcess.resource.active;
+                    kase.negotiatedEntitlement.life_Case=response.resource.negotiatedEntitlementProcess.resource.lifeOfCase;
+                    kase.negotiatedEntitlement.start_time=response.resource.negotiatedEntitlementProcess.resource.startTime;
+                    kase.negotiatedEntitlement.target_date=response.resource.negotiatedEntitlementProcess.resource.targetDate;
+                    kase.negotiatedEntitlement.violates_sla=response.resource.negotiatedEntitlementProcess.resource.violatesSla;
+                }
                 kase.sbt=response.resource.sbt;
                 kase.target_date_time=response.resource.targetDate;
+                kase.resourceLinks = response.resource.resourceLinks;
                 return kase;
             } else if(isComment === true) {
                 var comments = {};
@@ -122,6 +133,26 @@ angular.module('RedhatAccess.common').factory('udsService', [
                                     var createdDate = RHAUtils.convertToTimezone(comment.resource.created);
                                     comment.resource.created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
                                     comment.resource.created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
+                                }));
+                                deferred.resolve(response);
+                            },
+                            function (error) {
+                                deferred.reject(error);
+                            },
+                            caseNumber
+                        );
+                        return deferred.promise;
+                    }
+                },
+                history:{
+                    get: function(caseNumber) {
+                        var deferred = $q.defer();
+                        uds.fetchCaseHistory(
+                            function (response) {
+                                angular.forEach(response, angular.bind(this, function (history) {
+                                    var createdDate = RHAUtils.convertToTimezone(history.resource.created);
+                                    history.resource.created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
+                                    history.resource.created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
                                 }));
                                 deferred.resolve(response);
                             },

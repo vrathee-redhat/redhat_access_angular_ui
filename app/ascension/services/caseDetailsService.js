@@ -13,14 +13,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'TOPCASES_EVENTS',
     '$q',
     'translate',
-    '$angularCacheFactory',
-    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, translate,$angularCacheFactory) {
-        $angularCacheFactory('localStorageCache', {
-            storageMode: 'localStorage',
-            verifyIntegrity: true
-        });
-        this.draftComment = {};
-        this.draftCommentOnServerExists=false;
+    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, translate) {
 		this.caseDetailsLoading = true;
         this.yourCasesLoading = true;
         this.caseClosing = false;
@@ -31,12 +24,10 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.versions = [];
         this.severities = [];
         this.statuses = [];
+        this.caseHistory = [];
         this.versionDisabled = false;
-
-        this.isCommentPublic = false;
-        this.commentText = '';
-        this.submittingCase = false;
-        this.disableAddComment = true;
+        this.yourCasesLimit = 6;
+        this.fetchingCaseHistory = false;
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -70,7 +61,30 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         }
                     }
                 }
-
+                if(this.kase.negotiatedEntitlement) {
+                    if (this.kase.negotiatedEntitlement.active === true) {
+                        this.kase.negotiatedEntitlement.active_flag = "Yes";
+                    }
+                    else {
+                        this.kase.negotiatedEntitlement.active_flag = "No";
+                    }
+                    if (this.kase.negotiatedEntitlement.life_Case === true) {
+                        this.kase.negotiatedEntitlement.life_Case_flag = "Yes";
+                    }
+                    else {
+                        this.kase.negotiatedEntitlement.life_Case_flag = "No";
+                    }
+                    if (this.kase.negotiatedEntitlement.violates_sla === true) {
+                        this.kase.negotiatedEntitlement.violates_sla_flag = "Yes";
+                    }
+                    else {
+                        this.kase.negotiatedEntitlement.violates_sla_flag = "No";
+                    }
+                    var startTime = RHAUtils.convertToTimezone(this.kase.negotiatedEntitlement.start_time);
+                    this.kase.negotiatedEntitlement.format_start_time = RHAUtils.formatDate(startTime, 'MMM DD YYYY hh:mm A Z');
+                    var targetDate = RHAUtils.convertToTimezone(this.kase.negotiatedEntitlement.target_date);
+                    this.kase.negotiatedEntitlement.format_target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm A Z');
+                }
                 angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
@@ -124,15 +138,14 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
                     finalUql = UQL.and(finalUql, secureHandlingUQL);
 
-                    var promise = udsService.cases.list(finalUql,'Minimal');
+                    var promise = udsService.cases.list(finalUql,'Minimal',this.yourCasesLimit);
                     promise.then(angular.bind(this, function (topCases) {
                         if(RHAUtils.isNotEmpty(topCases)) {
-                            //sort cases based on collab score
+                            //sort cases based on collab score even though we are getting top cases, just to display in proper order
                             topCases.sort(function (a, b) {
                                 return b.resource.collaborationScore - a.resource.collaborationScore;
                             });
-                            //slice top 6 cases for display
-                            self.cases = topCases.slice(0, 6);
+                            self.cases = topCases;
                             //if case is not yet viewed, then get the first case details
                             if(RHAUtils.isObjectEmpty(self.kase)) {
                                 //get details for first top case
@@ -267,46 +280,23 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             return deferred.promise;
         };
 
-        this.populateComments = function (caseNumber) {
-            var promise = strataService.cases.comments.get(caseNumber);
-            var draftId;
-            promise.then(angular.bind(this, function (comments) {
-                angular.forEach(comments, angular.bind(this, function (comment, index) {
-                    if (comment.draft === true) {
-                        this.draftComment = comment;
-                        this.draftCommentOnServerExists=true;
-                        draftId=this.draftComment.id;
-                        this.commentText = comment.text;
-                        this.isCommentPublic = comment.public;
-                        if (RHAUtils.isNotEmpty(this.commentText)) {
-                            this.disableAddComment = false;
-                        } else if (RHAUtils.isEmpty(this.commentText)) {
-                            this.disableAddComment = true;
-                        }
-                        comments.slice(index, index + 1);
-                    }
-                }));
-                if(this.localStorageCache) {
-                    if (this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username))
-                    {
-                        this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
-                        this.commentText = this.draftComment.text;
-                        this.isCommentPublic = this.draftComment.public;
-                        if(this.draftCommentOnServerExists)
-                        {
-                            this.draftComment.id=draftId;
-                        }
-                        if (RHAUtils.isNotEmpty(this.commentText)) {
-                            this.disableAddComment = false;
-                        } else if (RHAUtils.isEmpty(this.commentText)) {
-                            this.disableAddComment = true;
-                        }
-                    }
+        this.fetCaseHistory = function(caseNumber) {
+            this.fetchingCaseHistory = true;
+            var promise = udsService.kase.history.get(caseNumber);
+            promise.then(angular.bind(this, function (caseHistory) {
+                if(RHAUtils.isNotEmpty(caseHistory)) {
+                    this.caseHistory = caseHistory;
                 }
-                this.comments = comments;
+                this.caseHistory.sort(function(a,b) {
+                    a = new Date(a.resource.created);
+                    b = new Date(b.resource.created);
+                    return a-b;
+                });
+                this.fetchingCaseHistory = false;
             }), function (error) {
+                this.fetchingCaseHistory = false;
+                AlertService.addUDSErrorMessage(error);
             });
-            return promise;
         };
 	}
 ]);

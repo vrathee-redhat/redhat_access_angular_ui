@@ -206,22 +206,28 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 else {
                     accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.authedUser.account_number : this.account.number;
                 }
-                promise = strataService.accounts.users(accountNumber);
-                this.owner = undefined;
-                promise.then(angular.bind(this, function (users) {
-                    angular.forEach(users, function(user){
-                        if(user.sso_username === securityService.loginStatus.authedUser.sso_username) {
-                            this.owner = user.sso_username;
-                        }
-                    }, this);
-                    this.usersLoading = false;
-                    this.users = users;
+                if(!RHAUtils.isEmpty(accountNumber)){
+                    promise = strataService.accounts.users(accountNumber);
+                    this.owner = undefined;
+                    promise.then(angular.bind(this, function (users) {
+                        angular.forEach(users, function(user){
+                            if(user.sso_username === securityService.loginStatus.authedUser.sso_username) {
+                                this.owner = user.sso_username;
+                            }
+                        }, this);
+                        this.usersLoading = false;
+                        this.users = users;
 
-                }), angular.bind(this, function (error) {
-                    this.users = [];
-                    this.usersLoading = false;
-                    AlertService.addStrataErrorMessage(error);
-                }));
+                    }), angular.bind(this, function (error) {
+                        this.users = [];
+                        this.usersLoading = false;
+                        AlertService.addStrataErrorMessage(error);
+                    }));
+                } else{
+                    var deferred = $q.defer();
+                    promise = deferred.promise;
+                    deferred.resolve();
+                }
             } else {
                 var deferred = $q.defer();
                 promise = deferred.promise;
