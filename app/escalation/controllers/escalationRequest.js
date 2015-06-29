@@ -9,8 +9,8 @@ angular.module('RedhatAccess.escalation').controller('EscalationRequest', [
     'AlertService',
     'securityService',
     'HeaderService',
-    'translate',
-    function ($scope, EscalationRequestService, $location, RHAUtils, ESCALATION_TYPE, AUTH_EVENTS, AlertService , securityService , HeaderService, translate) {
+    'gettextCatalog',
+    function ($scope, EscalationRequestService, $location, RHAUtils, ESCALATION_TYPE, AUTH_EVENTS, AlertService , securityService , HeaderService, gettextCatalog) {
         $scope.EscalationRequestService = EscalationRequestService;
         $scope.HeaderService = HeaderService;
         $scope.securityService = securityService;
@@ -18,7 +18,7 @@ angular.module('RedhatAccess.escalation').controller('EscalationRequest', [
         $scope.ESCALATION_TYPE = ESCALATION_TYPE;
         $scope.partnerGeoList = ['NA','EMEA','LATAM','APAC'];
         $scope.iceGeoList = ['NA','EMEA','LATAM','APAC','Combo'];
-        
+
         $scope.submitEscalationRequest = function(escalationType) {
             var recordType = '';
             var emailCheck = true;
@@ -59,10 +59,10 @@ angular.module('RedhatAccess.escalation').controller('EscalationRequest', [
                 if (EscalationRequestService.requestorEmail.search('redhat.com') > 0) {
                     return true;
                 } else {
-                    AlertService.addWarningMessage(translate('Please check the requestor email address'));
+                    AlertService.addWarningMessage(gettextCatalog.getString('Please check the requestor email address'));
                 }
             } else {
-                AlertService.addWarningMessage(translate('Email address is incorrect'));
+                AlertService.addWarningMessage(gettextCatalog.getString('Email address is incorrect'));
             }
             return false;
         };

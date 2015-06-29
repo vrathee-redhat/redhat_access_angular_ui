@@ -1,5 +1,5 @@
 section.case-description
-  h3.section-title.accountinfoheader.pre-wrap {{'Account Information'|translate}}
+  h3.section-title.accountinfoheader.pre-wrap(translate,translate-comment="Noun") Account Information
   .spinner.spinner-inline(ng-show='AccountService.accountDetailsLoading || AccountService.accountNotesLoading')
   section.config-options-no-mar(ng-show='!AccountService.accountDetailsLoading && !AccountService.accountNotesLoading')
     .row.row-very-short

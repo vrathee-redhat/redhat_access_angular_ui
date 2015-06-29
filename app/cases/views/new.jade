@@ -11,27 +11,27 @@ div(rha-header='', page='newCase')
                             div(ng-if='securityService.loginStatus.authedUser.is_internal')
                                 .row.row-short
                                     .col-sm-3
-                                        label(for='rha-account-number') {{'Account'|translate}}
+                                        label(for='rha-account-number',translate,translate-comment="Noun") Account
                                     .col-sm-7.col-md-6
                                         div(rha-accountselect='')
                                 .row.row-short
                                     .col-sm-3
-                                        label(for='rha-owners-select') {{'Owner'|translate}}
+                                        label(for='rha-owners-select',translate,translate-comment="Noun") Owner
                                     .col-sm-7.col-md-6
                                         div(rha-ownerselect='')
                             .row.row-short
                                 .col-sm-3
-                                    label {{'Product'|translate}}
+                                    label(translate,translate-comment="Noun") Product
                                 .col-sm-7.col-md-6
                                     div(rha-productselect='')
                             .row.row-short
                                 .col-sm-3
-                                    label {{'Product Version'|translate}}
+                                    label(translate,translate-comment="Noun") Product Version
                                 .col-sm-7.col-md-6
                                     div(rha-versionselect='')
                             .row.row-short
                                 .col-sm-3
-                                    label {{'Case Name'|translate}}
+                                    label(translate,translate-comment="Noun") Case Name
                                 .col-sm-7.col-md-6
                                     input#rha-case-summary.form-control(
                                     maxlength='255',
@@ -47,7 +47,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                             .row.row-short
                                 .col-sm-3
-                                    .label {{'Case Description'|translate}}
+                                    .label(translate,translate-comment="Noun") Case Description
                                 .col-sm-7.col-md-8
                                     textarea(name='', id='rha-description', cols='30', rows='10',
                                     style='width: 100%; height: 200px; max-width: 100%;',
@@ -102,7 +102,7 @@ div(rha-header='', page='newCase')
                         #rha-case-more-options
                             .row.row-short
                                 .col-sm-3
-                                    label {{'Support Level'|translate}}
+                                    label {{'Support Level' |translate}}
                                         span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
                                 .col-sm-7.col-md-6
                                     select#rha-supportLevel-select(
@@ -114,7 +114,7 @@ div(rha-header='', page='newCase')
                                         option(value="")
                             .row.row-short
                                 .col-sm-3
-                                    label.inline-tooltip {{'Severity'|translate}}
+                                    label.inline-tooltip  {{'Severity' |translate}}
                                         span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To learn more, visit the " |translate }}</br><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a>',tabindex='0',tooltip-trigger="click")
                                 .col-sm-7.col-md-6
                                     .row
@@ -134,15 +134,15 @@ div(rha-header='', page='newCase')
                                         .col-xs-11
                                             .row
                                                 .col-xs-12
-                                                    label.pull-left {{'24x7 Support'|translate}}
+                                                    label.pull-left(translate,translate-comment="Noun") 24x7 Support
                                             .row.row-short(ng-show="CaseService.showFts()")
                                                 .col-xs-12
-                                                    label.pull-left {{'24x7 Contact'|translate}}
+                                                    label.pull-left(translate,translate-comment="Noun")  24x7 Contact
                                                     input.pull-left.margin-left(
                                                     ng-model="CaseService.fts_contact")
                             .row.row-short
                                 .col-sm-3
-                                    label(for='email-notifications') {{'Send Email Notifications to'|translate}}
+                                    label(for='email-notifications',translate) Send Email Notifications to
                                 .col-sm-7.col-md-6
                                     .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
                                     select(
@@ -156,7 +156,7 @@ div(rha-header='', page='newCase')
                                     ng-options='user as user for user in usersOnAccount')
                             .row.row-short
                                 .col-sm-3
-                                    label {{'Case Group (Optional)'|translate}}
+                                    label(translate,translate-comment="Noun") Case Group (Optional)
                                 .col-sm-7.col-md-6
                                     div(rha-groupselect='', ng-init="setSearchOptions('false')")
                         .row
@@ -165,7 +165,7 @@ div(rha-header='', page='newCase')
                                 button.btn.btn-app(
                                 ng-disabled='CaseService.submittingCase || CaseService.newCaseIncomplete',
                                 ng-hide='CaseService.submittingCase',
-                                ng-click='doSubmit($event)', translate='') Submit
-                                a.margin-left(href='#/case/list',ng-hide='CaseService.submittingCase') {{'Cancel'|translate}}
+                                ng-click='doSubmit($event)', translate,translate-comment="Verb") Submit
+                                a.margin-left(href='#/case/list',ng-hide='CaseService.submittingCase',translate,translate-comment="Verb") Cancel
         .aside.col-sm-4(ng-hide="RecommendationsService.recommendations.length === 0")
             div(rha-newcaserecommendations='')

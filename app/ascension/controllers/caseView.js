@@ -7,11 +7,11 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
     'AlertService',
     'securityService',
     'HeaderService',
-    'translate',
+    'gettextCatalog',
     'CaseDetailsService',
     'CaseDiscussionService',
     'TOPCASES_EVENTS',
-    function ($scope, $location, RHAUtils, AUTH_EVENTS, AlertService, securityService, HeaderService, translate, CaseDetailsService,CaseDiscussionService,TOPCASES_EVENTS) {
+    function ($scope, $location, RHAUtils, AUTH_EVENTS, AlertService, securityService, HeaderService, gettextCatalog, CaseDetailsService,CaseDiscussionService,TOPCASES_EVENTS) {
         $scope.securityService = securityService;
         $scope.HeaderService = HeaderService;
         $scope.CaseDetailsService = CaseDetailsService;

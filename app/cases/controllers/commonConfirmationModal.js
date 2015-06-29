@@ -8,10 +8,10 @@ angular.module('RedhatAccess.cases').controller('CommonConfirmationModal', [
     'strataService',
     'AlertService',
     'SearchCaseService',
-    'translate',
+    'gettextCatalog',
     'CASE_EVENTS',
     '$q',
-    function ($scope, $modalInstance, CaseService, strataService, AlertService, SearchCaseService, translate, CASE_EVENTS, $q) {
+    function ($scope, $modalInstance, CaseService, strataService, AlertService, SearchCaseService, gettextCatalog, CASE_EVENTS, $q) {
         $scope.CaseService = CaseService;
         $scope.confirm = function () {
             $modalInstance.close();
@@ -22,7 +22,7 @@ angular.module('RedhatAccess.cases').controller('CommonConfirmationModal', [
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
-            }            
+            }
         };
         $scope.closeModal = function () {
             if(CaseService.confirmationModal === CASE_EVENTS.caseStatusChanged) {
@@ -34,13 +34,13 @@ angular.module('RedhatAccess.cases').controller('CommonConfirmationModal', [
         };
         $scope.closeCases = function () {
             var promises = [];
-            AlertService.addWarningMessage(translate('Closing cases.'));
+            AlertService.addWarningMessage(gettextCatalog.getString('Closing cases.'));
             angular.forEach(SearchCaseService.cases, angular.bind(this, function (kase) {
                 if(kase.selected){
                     var promise = strataService.cases.put(kase.case_number, {status: 'Closed'});
                     promise.then( angular.bind(kase, function (response) {
                         kase.selected = false;
-                        AlertService.addSuccessMessage(translate('Case') + ' ' + kase.case_number + ' '+'successfully closed.');
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Case  {{caseNumber}} successfully closed.',{caseNumber:kase.case_number}));
                         kase.status = 'Closed';
                     }), function (error) {
                         AlertService.addStrataErrorMessage(error);

@@ -5,8 +5,8 @@ angular.module('RedhatAccess.ascension').controller('AccountInformation', [
     'TOPCASES_EVENTS',
     'AccountService',
     'CaseDetailsService',
-    'translate',
-    function ($scope,TOPCASES_EVENTS, AccountService,CaseDetailsService,translate) {
+    'gettextCatalog',
+    function ($scope,TOPCASES_EVENTS, AccountService,CaseDetailsService,gettextCatalog) {
 
         $scope.AccountService = AccountService;
         $scope.$on(TOPCASES_EVENTS.caseDetailsFetched, function () {
@@ -21,7 +21,7 @@ angular.module('RedhatAccess.ascension').controller('AccountInformation', [
                 //TODO more information needed on how to calculate the latest modified date
                // if(AccountService.account.notes.resource.createdBy.resource.lastModified)
               //  {
-                    accountNotesText=accountNotesText.concat(translate("Last Modified By"));
+                    accountNotesText=accountNotesText.concat(gettextCatalog.getString("Last Modified By"));
 
               //  }
 

@@ -9,8 +9,8 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
     'strataService',
     'TreeViewSelectorUtils',
     'EDIT_CASE_CONFIG',
-    'translate',
-    function ($window, $scope, AlertService, AttachmentsService, CaseService, strataService, TreeViewSelectorUtils, EDIT_CASE_CONFIG, translate) {
+    'gettextCatalog',
+    function ($window, $scope, AlertService, AttachmentsService, CaseService, strataService, TreeViewSelectorUtils, EDIT_CASE_CONFIG, gettextCatalog) {
         $scope.rhaDisabled = !EDIT_CASE_CONFIG.showAttachments;
         $scope.showServerSideAttachments = EDIT_CASE_CONFIG.showServerSideAttachments;
         $scope.isPCM = EDIT_CASE_CONFIG.isPCM;
@@ -36,7 +36,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
         };
 
         $scope.ieUpload = function($event) {
-            var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachment...'));
+            var uploadingAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachment...'));
             var form = document.getElementById('fileUploaderForm');
             var iframeId = document.getElementById('upload_target');
             form.action = 'https://' + window.location.host + '/rs/cases/' + CaseService.kase.case_number + '/attachments';
@@ -64,7 +64,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                             strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
                                 AlertService.removeAlert(uploadingAlert);
                                 AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment.'));
                                 CaseService.checkForCaseStatusToggleOnAttachOrComment();
                                 $scope.ieClearSelectedFile();
 
@@ -73,12 +73,12 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                             });
                         } else {
                             AlertService.removeAlert(uploadingAlert);
-                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' + content));
+                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message:{{errorMessage}}',{errorMessage:content}));
                             $scope.$apply();
                         }
                     } else {
                         AlertService.removeAlert(uploadingAlert);
-                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' + content));
+                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message:{{errorMessage}}',{errorMessage:content}));
                         $scope.$apply();
                     }
                 }else {
@@ -86,12 +86,12 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                         if(attachmentsJSON.length !== AttachmentsService.originalAttachments.length){
                             AlertService.removeAlert(uploadingAlert);
                             AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                            AlertService.addSuccessMessage(translate('Successfully uploaded attachment.'));
+                            AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment.'));
                             CaseService.checkForCaseStatusToggleOnAttachOrComment();
                             $scope.ieClearSelectedFile();
                         } else{
                             AlertService.removeAlert(uploadingAlert);
-                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment.'));
+                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment.'));
                         }
 
                     }, function (error) {

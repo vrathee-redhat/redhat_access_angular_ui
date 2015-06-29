@@ -12,12 +12,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$q',
     '$timeout',
     '$filter',
-    'translate',
+    'gettextCatalog',
     '$angularCacheFactory',
     '$rootScope',
     'CASE_EVENTS',
     'ConstantsService',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, translate, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService) {
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, gettextCatalog, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService) {
         $angularCacheFactory('localStorageCache', {
             storageMode: 'localStorage',
             verifyIntegrity: true
@@ -367,15 +367,15 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if (this.showsearchoptions === true) {
                 this.groupOptions.push({
                     value: '',
-                    label: translate('All Groups')
+                    label: gettextCatalog.getString('All Groups')
                 }, {
                     value: 'ungrouped',
-                    label: translate('Ungrouped Cases')
+                    label: gettextCatalog.getString('Ungrouped Cases')
                 });
             } else {
                 this.groupOptions.push({
                     value: '',
-                    label: translate('Ungrouped Case')
+                    label: gettextCatalog.getString('Ungrouped Case')
                 });
             }
             if (this.showsearchoptions === true && this.groups.length > 0) {
@@ -400,7 +400,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     label: sep
                 }, {
                     value: 'manage',
-                    label: translate('Manage Case Groups')
+                    label: gettextCatalog.getString('Manage Case Groups')
                 });
             }
         };
@@ -445,10 +445,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
 
             this.submittingCase = true;
-            AlertService.addWarningMessage(translate('Creating case...'));
+            AlertService.addWarningMessage(gettextCatalog.getString('Creating case...'));
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created case number {{caseNumber}}',{caseNumber:caseNumber}));
                 self.clearLocalStorageCacheForNewCase();
                 deferred.resolve(caseNumber);
             }, function (error) {

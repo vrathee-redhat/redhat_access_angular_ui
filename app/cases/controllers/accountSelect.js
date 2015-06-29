@@ -5,9 +5,9 @@ angular.module('RedhatAccess.cases').controller('AccountSelect', [
     'AlertService',
     'CaseService',
     'RHAUtils',
-    'translate',
+    'gettextCatalog',
     'ProductsService',
-    function ($scope, strataService, AlertService, CaseService, RHAUtils, translate,ProductsService) {
+    function ($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog,ProductsService) {
         $scope.CaseService = CaseService;
         $scope.selectUserAccount = function () {
             $scope.loadingAccountNumber = true;
@@ -44,7 +44,7 @@ angular.module('RedhatAccess.cases').controller('AccountSelect', [
                     if (RHAUtils.isNotEmpty($scope.alertInstance)) {
                         AlertService.removeAlert($scope.alertInstance);
                     }
-                    $scope.alertInstance = AlertService.addWarningMessage(translate('Account not found.'));
+                    $scope.alertInstance = AlertService.addWarningMessage(gettextCatalog.getString('Account not found.'));
                     CaseService.users = [];
                     ProductsService.clear();
                     CaseService.clearProdVersionFromLS();

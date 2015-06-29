@@ -12,8 +12,8 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     '$rootScope',
     'TOPCASES_EVENTS',
     '$q',
-    'translate',
-    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, translate) {
+    'gettextCatalog',
+    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, gettextCatalog) {
 		this.caseDetailsLoading = true;
         this.yourCasesLoading = true;
         this.caseClosing = false;
@@ -38,25 +38,27 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 this.kase = response;
                 if((this.kase.sbt===undefined) && (this.kase.status.name=="Waiting on Red Hat"))
                 {
-                    this.kase.sbtState="MISSING SBT. "+"Entitlement status:"+this.kase.entitlement.status;
+                    this.kase.sbtState=gettextCatalog.getString("MISSING SBT. "+"Entitlement status: {{entitlementStatus}}",{entitlementStatus:this.kase.entitlement.status});
 
                 }
                 else {
                     if ((this.kase.sbt < 0) && (this.kase.status.name == "Waiting on Red Hat")) {
-                        this.kase.sbtState = "BREACH";
+                        ///Noun
+                        this.kase.sbtState = gettextCatalog.getString("BREACH");
                     }
                     else {
                         if (this.kase.status.name == "Closed") {
-
-                            this.kase.sbtState = "N/A";
+                            ///N/A stands for Not Applicable
+                            this.kase.sbtState = gettextCatalog.getString("N/A");
                         }
                         else {
                             if (this.kase.sbt > 0) {
-                                this.kase.sbtState = "NOT BREACHED";
+                                ///Noun
+                                this.kase.sbtState = gettextCatalog.getString("NOT BREACHED");
                             }
                             else {
                                 if (this.kase.status.name == "Waiting on Customer") {
-                                    this.kase.sbtState = "NONE";
+                                    this.kase.sbtState = gettextCatalog.getString("NONE");
                                 }
                             }
 
@@ -130,7 +132,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             ssoUserName = securityService.loginStatus.authedUser.sso_username+"\"";
             udsService.user.get("SSO is \"" + ssoUserName + "\"").then(angular.bind(this, function (user){
                 if ((user == null) || ((user != null ? user[0].externalModelId : void 0) == null)) {
-                    AlertService.addDangerMessage("Was not able to fetch user given ssoUserName");
+                    AlertService.addDangerMessage(gettextCatalog.getString("Was not able to fetch user given ssoUserName"));
                 }
                 else{
                     userRoles = this.extractRoutingRoles(user);
@@ -142,7 +144,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     //    userRoles = [RoutingService.key_mapping.OWNED_CASES];
                     } else {
                         AlertService.clearAlerts();
-                        AlertService.addInfoMessage("No url roles or user roles found.");
+                        AlertService.addInfoMessage(gettextCatalog.getString("No url roles or user roles found."));
                         userRoles = [RoutingService.key_mapping.OWNED_CASES, RoutingService.key_mapping.COLLABORATION, RoutingService.key_mapping.FTS];
                     }
                     angular.forEach(userRoles, function(r){
@@ -168,7 +170,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                             }
                         }else {
                             AlertService.clearAlerts();
-                            AlertService.addInfoMessage("No cases found.");
+                            AlertService.addInfoMessage(gettextCatalog.getString("No cases found."));
                         }
                         self.yourCasesLoading = false;
 
@@ -195,7 +197,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var promise = strataService.cases.put(caseNumber, {status: 'Closed'});
             promise.then( angular.bind(this, function (response) {
                 this.caseClosing = false;
-                AlertService.addSuccessMessage(translate('Case') + ' ' + this.kase.case_number + ' '+'successfully closed.');
+                AlertService.addSuccessMessage(gettextCatalog.getString('Case {{caseNumber}} successfully closed.',{caseNumber:this.kase.case_number}));
                 this.kase.status.name = 'Closed';
             }), function (error) {
                 this.caseClosing = false;

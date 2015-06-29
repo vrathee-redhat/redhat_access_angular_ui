@@ -4,8 +4,8 @@ angular.module('RedhatAccess.header').service('AlertService', [
     'AUTH_EVENTS',
     '$rootScope',
     'RHAUtils',
-    'translate',
-    function ($filter, AUTH_EVENTS, $rootScope, RHAUtils, translate) {
+    'gettextCatalog',
+    function ($filter, AUTH_EVENTS, $rootScope, RHAUtils, gettextCatalog) {
         var ALERT_TYPES = {
                 DANGER: 'danger',
                 SUCCESS: 'success',
@@ -76,7 +76,7 @@ angular.module('RedhatAccess.header').service('AlertService', [
         };
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, angular.bind(this, function () {
             this.clearAlerts();
-            this.addMessage(translate('You have successfully logged out of the Red Hat Customer Portal.'));
+            this.addMessage(gettextCatalog.getString('You have successfully logged out of the Red Hat Customer Portal.'));
         }));
         $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this, function () {
             this.clearAlerts();
