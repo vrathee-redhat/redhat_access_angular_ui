@@ -20,6 +20,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 		this.kase = {};
         this.prestineKase = {};
         this.cases = {};
+        this.comments = [];
         this.products = [];
         this.versions = [];
         this.severities = [];
@@ -28,8 +29,10 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.versionDisabled = false;
         this.yourCasesLimit = 6;
         this.fetchingCaseHistory = false;
+        this.fetchingCaseComments = false;
         this.noOfContributors = 0;
         this.noOfObservers = 0;
+        this.discussionElements = [];
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -258,6 +261,52 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
+        };
+
+
+        this.populateComments = function (caseNumber) {
+
+            var promise = udsService.kase.comments.get(caseNumber);
+            var draftId;
+            promise.then(angular.bind(this, function (comments) {
+                console.log("inside comments");
+                angular.forEach(comments, angular.bind(this, function (comment, index) {
+                    if (comment.draft === true) {
+                        this.draftComment = comment;
+                        this.draftCommentOnServerExists=true;
+                        draftId=this.draftComment.id;
+                        this.commentText = comment.text;
+                        this.isCommentPublic = comment.public;
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                        comments.slice(index, index + 1);
+                    }
+                }));
+                if(this.localStorageCache) {
+                    if (this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username))
+                    {
+                        this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
+                        this.commentText = this.draftComment.text;
+                        this.isCommentPublic = this.draftComment.public;
+                        if(this.draftCommentOnServerExists)
+                        {
+                            this.draftComment.id=draftId;
+                        }
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                    }
+                }
+                console.log("before comments : "+comments.length);
+                this.comments = comments;
+            }), function (error) {
+            });
+            return promise;
         };
 
         this.updateCase = function(){

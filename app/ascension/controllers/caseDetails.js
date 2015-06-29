@@ -7,9 +7,14 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
     'AUTH_EVENTS',
     'TOPCASES_EVENTS',
     'RHAUtils',
-    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils) {
+    '$sce',
+    'gettextCatalog',
+    '$filter',
+    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils, $sce, gettextCatalog, $filter) {
     	$scope.CaseDetailsService = CaseDetailsService;
         $scope.showEditCase = false;
+
+
 
     	$scope.init = function () {
             CaseDetailsService.fetchProducts();
@@ -54,5 +59,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
                 CaseDetailsService.getVersions(CaseDetailsService.kase.product);
             }
         });
+
+
     }
 ]);

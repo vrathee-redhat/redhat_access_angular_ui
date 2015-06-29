@@ -1,8 +1,9 @@
-h3.section-title {{'Case Discussion'|translate}}
+.spinner.spinner-inline(ng-show='CaseDiscussionService.loadingAttachments || CaseDiscussionService.loadingComments')
+h3.section-title(ng-show='!CaseDiscussionService.loadingAttachments && !CaseDiscussionService.loadingComments')
     .row
         .col-xs-12
             // Add Comment Section
-           div(rha-addcomments='', loading='loading.comments')
+           //div(rha-addcomments='', loading='loading.comments')
     .row(ng-hide="CaseDiscussionService.discussionElements.length===0")
         .col-sm-7
             label {{'Sort by'|translate}}&nbsp;&nbsp;
