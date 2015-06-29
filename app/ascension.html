@@ -244,6 +244,7 @@
     <script src="ascension/controllers/caseEscalations.js"></script>
     <script src="ascension/controllers/caseSearch.js"></script>
     <script src="ascension/controllers/searchSolutions.js"></script>
+    <script src="ascension/controllers/caseAssociates.js"></script>
     <script src="ascension/directives/caseView.js"></script>
     <script src="ascension/directives/yourCases.js"></script>
     <script src="ascension/directives/caseDetails.js"></script>
@@ -259,6 +260,7 @@
     <script src="ascension/directives/caseFlags.js"></script>
     <script src="ascension/directives/caseEscalations.js"></script>
     <script src="ascension/directives/searchSolutions.js"></script>
+    <script src="ascension/directives/caseAssociates.js"></script>
     <script src="ascension/services/caseDetailsService.js"></script>
     <script src="ascension/services/accountService.js"></script>
     <script src="ascension/services/escalationsService.js"></script>
@@ -278,20 +280,20 @@
   window.strata = strata;
   var host = window.location.host;
   strata.setStrataHostname('https://' + host);
-  
+
   var redirectURL = window.location.protocol + "//" + host
       + "/login?redirectTo=" + document.URL;
 
-  
+
   angular.module('RedhatAccess.ascension').config(['$urlRouterProvider',
     function($urlRouterProvider) {
       $urlRouterProvider.otherwise('ascension')
     }
     ]).run([
-        'COMMON_CONFIG', 
+        'COMMON_CONFIG',
         'SECURITY_CONFIG',
-        'securityService',  
-        'gettextCatalog', 
+        'securityService',
+        'gettextCatalog',
         function (COMMON_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog){
           COMMON_CONFIG.showTitle = false;
           COMMON_CONFIG.doSfdcHealthCheck = false;
@@ -302,7 +304,7 @@
           SECURITY_CONFIG.displayLoginStatus = false;
           gettextCatalog.currentLanguage = getCookieValue('rh_locale');
           securityService.validateLogin(false).then(function (authedUser) {
-    
+
           }, function (error) {
                 window.location.replace(redirectURL.replace('#','%23'));
           });
@@ -322,7 +324,7 @@
         if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
     }
     return "";
-  } 
+  }
   </script>
 </body>
 </html>

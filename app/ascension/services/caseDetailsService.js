@@ -28,6 +28,8 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.versionDisabled = false;
         this.yourCasesLimit = 6;
         this.fetchingCaseHistory = false;
+        this.noOfContributors = 0;
+        this.noOfObservers = 0;
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -85,6 +87,19 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     var targetDate = RHAUtils.convertToTimezone(this.kase.negotiatedEntitlement.target_date);
                     this.kase.negotiatedEntitlement.format_target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm A Z');
                 }
+                var self = this;
+                //we need to reset it before getting actual number from current case
+                self.noOfContributors = 0;
+                self.noOfObservers = 0;
+                angular.forEach(this.kase.caseAssociates, function(associate) {
+                    if(associate.resource.role === 'Contributor'){
+                        self.noOfContributors = self.noOfContributors + 1;
+                        self.kase.contributors.push(associate.resource.associate.resource.fullName);
+                    }else if(associate.resource.role === 'Observer'){
+                        self.noOfObservers = self.noOfObservers + 1;
+                        self.kase.observers.push(associate.resource.associate.resource.fullName);
+                    }
+                });
                 angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
