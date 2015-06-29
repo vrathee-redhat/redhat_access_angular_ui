@@ -3,12 +3,12 @@ div.panel.panel-default(ng-show='AttachmentsService.originalAttachments.length >
   div.panel-heading {{'Attached Files'|translate}}
   table.table.table-hover.table-bordered
     thead
-      th {{'Filename'|translate}}
-      th {{'Description'|translate}}
-      th {{'Size'|translate}}
-      th {{'Attached'|translate}}
-      th {{'Attached By'|translate}}
-      th {{'Delete'|translate}}
+      th(translate,translate-comment="Noun") Filename
+      th(translate,translate-comment="Noun") Description
+      th(translate,translate-comment="Noun") Size
+      th(translate,translate-comment="Noun Attached here means Attached on a particular date") Attached
+      th(translate,translate-comment="Noun") Attached By
+      th(translate,translate-comment="Verb") Delete
     tbody
       tr(ng-repeat='attachment in AttachmentsService.originalAttachments')
         td
@@ -19,5 +19,7 @@ div.panel.panel-default(ng-show='AttachmentsService.originalAttachments.length >
         td {{attachment.created_date | date:'medium'}}
         td {{attachment.created_by}}
         td
+          ///Verb
           div(ng-show='disabled') {{'Delete'|translate}}
+          ///Verb
           a(ng-click='AttachmentsService.removeOriginalAttachment($index)', ng-hide='disabled') {{'Delete'|translate}}

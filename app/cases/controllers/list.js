@@ -17,8 +17,8 @@ angular.module('RedhatAccess.cases').controller('List', [
     'CASE_EVENTS',
     'CASE_GROUPS',
     'STATUS',
-    'translate',
-    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS,translate) {
+    'gettextCatalog',
+    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS,gettextCatalog) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -67,7 +67,7 @@ angular.module('RedhatAccess.cases').controller('List', [
                             SearchCaseService.caseParameters.group = CaseService.group;
                         } else {
                             SearchCaseService.caseParameters.group = SearchCaseService.previousGroupFilter;
-                        }                        
+                        }
 	                    SearchCaseService.doFilter();
 	                });
 	            } else {
@@ -136,8 +136,8 @@ angular.module('RedhatAccess.cases').controller('List', [
 
 	    $scope.closeCases = function() {
             CaseService.confirmationModal = CASE_EVENTS.caseClose;
-            CaseService.confirmationModalHeader = translate('Closing Cases.');
-            CaseService.confirmationModalMessage = translate('Are you sure you want to close the selected cases');
+            CaseService.confirmationModalHeader = gettextCatalog.getString('Closing Cases.');
+            CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to close the selected cases?');
             $modal.open({
                 templateUrl: 'cases/views/commonConfirmationModal.html',
                 controller: 'CommonConfirmationModal'
@@ -146,11 +146,11 @@ angular.module('RedhatAccess.cases').controller('List', [
 
         $scope.getCasesText = function(){
             if(SearchCaseService.caseParameters.status === STATUS.open){
-                $scope.displayedCaseText = translate('Open Support Cases');
+                $scope.displayedCaseText = gettextCatalog.getString('Open Support Cases');
             } else if(SearchCaseService.caseParameters.status === STATUS.closed){
-                $scope.displayedCaseText = translate('Closed Support Cases');
+                $scope.displayedCaseText = gettextCatalog.getString('Closed Support Cases');
             } else if(SearchCaseService.caseParameters.status === STATUS.both){
-                $scope.displayedCaseText = translate('Open and Closed Support Cases');
+                $scope.displayedCaseText = gettextCatalog.getString('Open and Closed Support Cases');
             }
         };
 

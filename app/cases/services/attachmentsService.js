@@ -14,8 +14,8 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
     'securityService',
     'AlertService',
     'CaseService',
-    'translate',
-    function ($filter, $q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, translate) {
+    'gettextCatalog',
+    function ($filter, $q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
@@ -38,10 +38,10 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
             this.updatedAttachments.splice($index, 1);
         };
         this.removeOriginalAttachment = function (attachment) {
-            var progressMessage = AlertService.addWarningMessage(translate('Deleting attachment:') + ' ' + attachment.file_name);
+            var progressMessage = AlertService.addWarningMessage(gettextCatalog.getString('Deleting attachment: {{attachmentName}}',{attachmentName:attachment.file_name}));
             strataService.cases.attachments.remove(attachment.uuid, CaseService.kase.case_number).then(angular.bind(this, function () {
                 AlertService.removeAlert(progressMessage);
-                AlertService.addSuccessMessage(translate('Successfully deleted attachment:') + ' ' + attachment.file_name);
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully deleted attachment:{{attachmentName}}',{attachmentName:attachment.file_name}));
                 var i = 0;
                 for(i; i < this.originalAttachments.length; i++){
                     if(this.originalAttachments[i].uuid === attachment.uuid){
@@ -79,7 +79,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                     $http.post('attachments', jsonData).success(function (data, status, headers, config) {
                         deferred.resolve(data);
                         AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(translate('Successfully uploaded attachment') + ' ' + jsonData.attachment + ' ' + translate('to case') + ' ' + caseId);
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}',{attachmentName:jsonData.attachment,caseNumber:caseId}));
                     }).error(function (data, status, headers, config) {
                         var errorMsg = '';
                         switch (status) {
@@ -93,7 +93,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             errorMsg = ' : Internal server error';
                             break;
                         }
-                        AlertService.addDangerMessage(translate('Failed to upload attachment') + ' '+jsonData.attachment + ' '+translate('to case')+' ' + caseId + errorMsg);
+                        AlertService.addDangerMessage(gettextCatalog.getString('Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: {{errorMessage}}',{attachmentName:jsonData.attachment,caseNumber:caseId,errorMessage:errorMsg}));
                         deferred.reject(data);
                     });
                     promises.push(deferred.promise);
@@ -128,7 +128,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                                 attachment.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                 AlertService.clearAlerts();
-                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment')+' ' + attachment.file_name + ' '+'to case' +' '+ caseId);
+                                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}',{attachmentFileName:attachment.file_name,caseNumber:caseId}));
                             }, function (error) {
                                 if (navigator.appVersion.indexOf("MSIE 10") !== -1){
                                     if($location.path() === '/case/new'){
@@ -146,7 +146,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                         }
                     });
                 }
-                var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachments...'));
+                var uploadingAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
                 var parentPromise = $q.all(promises);
                 parentPromise.then(angular.bind(this, function () {
                     this.originalAttachments = this.originalAttachments.concat(this.updatedAttachments);

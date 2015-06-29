@@ -5,8 +5,8 @@ angular.module('RedhatAccess.ascension').service('AccountService', [
     'AlertService',
     'securityService',
     'RHAUtils',
-    'translate',
-    function (udsService, AlertService,securityService,RHAUtils,translate) {
+    'gettextCatalog',
+    function (udsService, AlertService,securityService,RHAUtils,gettextCatalog) {
         this.accountDetailsLoading = true;
         this.accountNotesLoading = true;
         this.account = {};
@@ -18,34 +18,44 @@ angular.module('RedhatAccess.ascension').service('AccountService', [
                 this.account = response;
                 var businessHoursTooltip="";
                 if(this.account && this.account.resource.businessHours) {
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Monday Start Time: "));
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Monday Start Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.mondayStartTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Monday End Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Monday End Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.mondayEndTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Tuesday Start Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Tuesday Start Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.tuesdayStartTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Tuesday End Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Tuesday End Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.tuesdayEndTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Wednesday Start Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Wednesday Start Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.wednesdayStartTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Wednesday End Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Wednesday End Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.wednesdayEndTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Thursday Start Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Thursday Start Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.thursdayStartTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Thursday End Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Thursday End Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.thursdayEndTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Friday Start Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Friday Start Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.fridayStartTime), 'hh:mm:ss A'));
-                    businessHoursTooltip=businessHoursTooltip.concat("<br/>")
-                    businessHoursTooltip=businessHoursTooltip.concat(translate("Friday End Time: "));
+                    businessHoursTooltip=businessHoursTooltip.concat("<br/>");
+                    /// Noun
+                    businessHoursTooltip=businessHoursTooltip.concat(gettextCatalog.getString("Friday End Time: "));
                     businessHoursTooltip=businessHoursTooltip.concat(RHAUtils.formatDate(RHAUtils.convertToTimezone(this.account.resource.businessHours.resource.fridayEndTime), 'hh:mm:ss A'));
                     businessHoursTooltip=businessHoursTooltip.concat("<br/>");
                 }

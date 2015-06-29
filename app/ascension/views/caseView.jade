@@ -1,12 +1,20 @@
-.page-header(rha-header='', page='')
+//- .page-header(rha-header='', page='')
+div(rha-alert='')
 .row(rha-caseSearch='')
-.row(rha-yourcases='')
-.row
-  section.main.col-md-9
+.top-cases(rha-yourcases='')
+.container-fluid
+  .row
+    section.main.col-md-8
       .row
-          .col-sm-12
-              a.btn.btn-info.btn-sm(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
-              .spinner.spinner-inline(ng-show='CaseDetailsService.caseClosing')              
+        .col-sm-12
+          button.btn.btn-app.btn-sm(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
+          .spinner.spinner-inline(ng-show='CaseDetailsService.caseClosing')
+      .row.row-short
+        .col-sm-12
+          h3.nomar.case-name.pre-wrap CASE SUBJECT/NAME
+      .row.row-short
+        .col-sm-12
+          div(rha-caseflags='')
       .row
         .col-sm-12
           ul#tab_list.nav.nav-tabs(role="tablist")
@@ -22,25 +30,16 @@
               a(ng-click='toggleBugzillas()', data-toggle="tab") {{'Bugzillas'|translate}}
             li(ng-class='{"active": escalations}')
               a(ng-click='toggleEscalations()', data-toggle="tab") {{'Escalations'|translate}}
-      .row
-        .col-sm-12
           .tab-content(ng-hide='!caseOverView')
             #pane1.tab-pane(ng-class='{"active": caseOverView}')
-              .row
-                .col-sm-12
-                  h3.case-name.pre-wrap CASE SUBJECT/NAME
-              .row
-                .col-sm-12
-                  div(rha-caseflags='')
-              .row
-                .col-md-5
+              section(rha-internalcasedescription='')
+              .row.row-short
+                .col-md-6
                   section#entitlementinformation.entitlement-info(rha-entitlementinformation='')
-                .col-md-5
+                .col-md-6
                   section#accountinformation.account-info(rha-accountinformation='')
-              .row
+              .row.row-short
                 .col-sm-12(rha-internalcasedetails='')
-              .row
-                .col-sm-12(rha-internalcasedescription='')
           .tab-content(ng-hide='!caseDiscussion')
             #pane1.tab-pane(ng-class='{"active": caseDiscussion}')
               div(rha-internalcasediscussion='')
@@ -56,8 +55,13 @@
           .tab-content(ng-hide='!escalations')
             #pane1.tab-pane(ng-class='{"active": escalations}')
               div(rha-caseescalations='')
-  aside.col-md-3
-      section.row#breachinformation.breach-info
-        .col-sm-12(rha-breachstatus='')
-      section.row#caseSolutions
-        .col-sm-12(rha-searchsolutions='')
+    aside.aside.col-md-4
+      section.section#breachinformation
+        .row.breach-info
+          .col-sm-12(rha-breachstatus='')
+      section.section#caseAssociates
+        .row
+          .col-sm-12(rha-caseAssociates='')
+      section.section#caseSolutions
+        .row
+          .col-sm-12(rha-searchsolutions='')

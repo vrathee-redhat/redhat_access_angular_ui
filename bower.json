@@ -1,6 +1,6 @@
 {
     "name": "redhat-access-angular-ui",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "dependencies": {
         "angular": "1.2.1",
         "json3": "~3.2.6",
@@ -16,7 +16,7 @@
         "udsjs": "*",
         "angular-treeview": "",
         "ng-table": "~0.3.3",
-        "angular-gettext": "~0.2.9",
+        "angular-gettext": "~2.0.0",
         "html5shiv": "~3.7.2",
         "ie-shiv": "https://raw.githubusercontent.com/angular-ui/ui-utils/master/modules/ie-shiv/ie-shiv.js",
         "json2": "*",

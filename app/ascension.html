@@ -7,6 +7,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+    <link href="/chrome_themes/nimbus/css/chrometwo.css" rel="stylesheet" />
+    <link href="/chrome_themes/nimbus/css/master-blessed1.css" rel="stylesheet" />
+    <link href="/chrome_themes/nimbus/css/master.css" rel="stylesheet" />
+    <link href="/webassets/avalon/s/chosen.css" rel="stylesheet" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -30,23 +35,13 @@
     <link rel="stylesheet" href="bower_components/angular-treeview/css/angular.treeview.css" />
     <!-- endbuild -->
   </head>
-  <body ng-app="RedhatAccess">
+  <body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
-     <ul id="nav">
-      <a class="navbar-brand" href="#search">Search Demo</a>
-      <a class="navbar-brand" href="#case/new">New Case Demo</a>
-      <a class="navbar-brand" href="#logviewer">Diagnose Log Demo</a>
-      <a class="navbar-brand" href="#case/list">List Case Demo</a>
-     </ul>
-    </div>
-    <div class="container" style="padding-top: 10px;" ng-view="">
-        <div ui-view id="rha-content" autoscroll="false"></div>
-    </div>
+    <div ui-view autoscroll="false" class="pcm-content"></div>
 
     <script src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
     <!--Use this for deployment :'https://c.la1w1.salesforceliveagent.com/content/g/js/31.0/deployment.js'-->
@@ -247,6 +242,7 @@
     <script src="ascension/controllers/caseBugzillas.js"></script>
     <script src="ascension/controllers/caseFlags.js"></script>
     <script src="ascension/controllers/caseEscalations.js"></script>
+    <script src="ascension/controllers/caseSearch.js"></script>
     <script src="ascension/controllers/searchSolutions.js"></script>
     <script src="ascension/controllers/caseAssociates.js"></script>
     <script src="ascension/directives/caseView.js"></script>
@@ -274,9 +270,61 @@
     <script src="escalation/escalation.module.js"></script>
     <script src="escalation/controllers/escalationRequest.js"></script>
     <script src="escalation/services/escalationRequestService.js"></script>
+    <!-- endbuild -->
+
 
     <script src="redhat_access_module.js"></script>
-    <!-- endbuild -->
 </script>
+<script type="text/javascript">
+  var git_tag = '1.0.5';
+  window.strata = strata;
+  var host = window.location.host;
+  strata.setStrataHostname('https://' + host);
+
+  var redirectURL = window.location.protocol + "//" + host
+      + "/login?redirectTo=" + document.URL;
+
+
+  angular.module('RedhatAccess.ascension').config(['$urlRouterProvider',
+    function($urlRouterProvider) {
+      $urlRouterProvider.otherwise('ascension')
+    }
+    ]).run([
+        'COMMON_CONFIG',
+        'SECURITY_CONFIG',
+        'securityService',
+        'gettextCatalog',
+        function (COMMON_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog){
+          COMMON_CONFIG.showTitle = false;
+          COMMON_CONFIG.doSfdcHealthCheck = false;
+          COMMON_CONFIG.sfdcIsHealthy = true;
+          COMMON_CONFIG.sfdcOutageMessage = '<ul class="message"><li class="alertSystem">There is currently a scheduled outage to the Case Management areas of the Red Hat Customer Portal.  The case management functions are expected to be unavailable for 9 hours and should return around 9am ET (UTC -0500).  The outage is due to case management infrastructure maintenance.<br/><br/>During the planned outage window, users will not be able to perform any case-related actions, including creating new support cases and updating existing support cases. Other areas of the Customer Portal, including the Knowledgebase and product documentation, will continue to be available.<br/><br/>If you require assistance with your Red Hat Product during the scheduled maintenance outage, please <a target="_blank" href="https://access.redhat.com/support/contact/technicalSupport/">contact Red Hat support</a><br/><br/>We apologize for any inconvenience caused by this scheduled maintenance.</li></ul>';
+          COMMON_CONFIG.showTitle = true;
+          SECURITY_CONFIG.autoCheckLogin = false;
+          SECURITY_CONFIG.displayLoginStatus = false;
+          gettextCatalog.currentLanguage = getCookieValue('rh_locale');
+          securityService.validateLogin(false).then(function (authedUser) {
+
+          }, function (error) {
+                window.location.replace(redirectURL.replace('#','%23'));
+          });
+        }
+       ])
+  angular.element(document).ready(function() {
+      window.angular.bootstrap(document, [ 'RedhatAccess.cases', 'RedhatAccess.ascension'  ]);
+    });
+  strata.setRedhatClientID("Red Hat Customer Portal " + git_tag);
+
+  function getCookieValue(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+    }
+    return "";
+  }
+  </script>
 </body>
 </html>
