@@ -63,6 +63,11 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.sbt=response.resource.sbt;
                 kase.target_date_time=response.resource.targetDate;
                 kase.resourceLinks = response.resource.resourceLinks;
+                kase.caseAssociates = response.resource.caseAssociates;
+                kase.owner = response.resource.owner;
+                kase.contributors = [];
+                kase.observers = [];
+
                 return kase;
             } else if(isComment === true) {
                 var comments = {};
