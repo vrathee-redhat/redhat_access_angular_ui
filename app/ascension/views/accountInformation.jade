@@ -1,30 +1,30 @@
 section.case-description
-    h3.accountinfoheader.pre-wrap {{'Account Information'|translate}}
-    .spinner.spinner-inline(ng-show='AccountService.accountDetailsLoading || AccountService.accountNotesLoading')
-    section.config-options(ng-show='!AccountService.accountDetailsLoading && !AccountService.accountNotesLoading')
-         .row.row-short
-             .col-xs-4.col-sm-3.col-md-8
-                .label {{'Account Name'|translate}}
-             .col-xs-6.col-sm-5.col-md-4
-                span {{AccountService.account.resource.accountName}}
-         .row.row-short
-            .col-xs-4.col-sm-3.col-md-8
-                .label {{'Number of Open Cases'|translate}}
-            .col-xs-6.col-sm-5.col-md-4
-                span {{AccountService.account.resource.openCaseCount}}
-         .row.row-short
-             .col-xs-4.col-sm-3.col-md-8
-                .label {{'TAM'|translate}}
-             .col-xs-6.col-sm-5.col-md-4
-                span(ng-repeat="tam in AccountService.account.TAM_names") {{tam}}
-         .row.row-short
-            .col-xs-4.col-sm-3.col-md-8
-                .label {{'Account Notes'|translate}}
-            .col-xs-6.col-sm-5.col-md-4
-                span {{getAccountNotesText();}}
-         .row.row-short
-            .col-xs-4.col-sm-3.col-md-8
-                .label {{'Business Hours'|translate}}
-            .col-xs-6.col-sm-5.col-md-4
-                a(data-tooltip-html-unsafe="{{AccountService.account.resource.businessHours.resource.businessHoursTooltip}}" data-tooltip-placement="bottom") {{AccountService.account.resource.businessHours.resource.name}}
+  h3.section-title.accountinfoheader.pre-wrap {{'Account Information'|translate}}
+  .spinner.spinner-inline(ng-show='AccountService.accountDetailsLoading || AccountService.accountNotesLoading')
+  section.config-options-no-mar(ng-show='!AccountService.accountDetailsLoading && !AccountService.accountNotesLoading')
+    .row.row-very-short
+      .col-xs-4.col-sm-6.col-md-4
+        strong {{'Account Name'|translate}}
+      .col-xs-6.col-sm-6.col-md-8
+        span {{AccountService.account.resource.accountName}}
+    .row.row-very-short
+      .col-xs-4.col-sm-6.col-md-4
+        strong {{'Number of Open Cases'|translate}}
+      .col-xs-6.col-sm-6.col-md-8
+        span {{AccountService.account.resource.openCaseCount}}
+    .row.row-very-short
+      .col-xs-4.col-sm-6.col-md-4
+        strong {{'TAM'|translate}}
+      .col-xs-6.col-sm-6.col-md-8
+        span(ng-repeat="tam in AccountService.account.TAM_names") {{tam}}
+    .row.row-very-short
+      .col-xs-4.col-sm-6.col-md-4
+        strong {{'Account Notes'|translate}}
+      .col-xs-6.col-sm-6.col-md-8
+        span {{getAccountNotesText();}}
+    .row.row-very-short
+      .col-xs-4.col-sm-6.col-md-4
+        strong {{'Business Hours'|translate}}
+      .col-xs-6.col-sm-6.col-md-8
+        a(data-tooltip-html-unsafe="{{AccountService.account.resource.businessHours.resource.businessHoursTooltip}}" data-tooltip-placement="bottom") {{AccountService.account.resource.businessHours.resource.name}}
 
