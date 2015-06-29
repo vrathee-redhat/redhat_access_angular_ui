@@ -24,8 +24,10 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.versions = [];
         this.severities = [];
         this.statuses = [];
+        this.caseHistory = [];
         this.versionDisabled = false;
         this.yourCasesLimit = 6;
+        this.fetchingCaseHistory = false;
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -61,7 +63,30 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         }
                     }
                 }
-
+                if(this.kase.negotiatedEntitlement) {
+                    if (this.kase.negotiatedEntitlement.active === true) {
+                        this.kase.negotiatedEntitlement.active_flag = "Yes";
+                    }
+                    else {
+                        this.kase.negotiatedEntitlement.active_flag = "No";
+                    }
+                    if (this.kase.negotiatedEntitlement.life_Case === true) {
+                        this.kase.negotiatedEntitlement.life_Case_flag = "Yes";
+                    }
+                    else {
+                        this.kase.negotiatedEntitlement.life_Case_flag = "No";
+                    }
+                    if (this.kase.negotiatedEntitlement.violates_sla === true) {
+                        this.kase.negotiatedEntitlement.violates_sla_flag = "Yes";
+                    }
+                    else {
+                        this.kase.negotiatedEntitlement.violates_sla_flag = "No";
+                    }
+                    var startTime = RHAUtils.convertToTimezone(this.kase.negotiatedEntitlement.start_time);
+                    this.kase.negotiatedEntitlement.format_start_time = RHAUtils.formatDate(startTime, 'MMM DD YYYY hh:mm A Z');
+                    var targetDate = RHAUtils.convertToTimezone(this.kase.negotiatedEntitlement.target_date);
+                    this.kase.negotiatedEntitlement.format_target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm A Z');
+                }
                 angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
@@ -255,6 +280,25 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 deferred.reject(error);
             });
             return deferred.promise;
+        };
+
+        this.fetCaseHistory = function(caseNumber) {
+            this.fetchingCaseHistory = true;
+            var promise = udsService.kase.history.get(caseNumber);
+            promise.then(angular.bind(this, function (caseHistory) {
+                if(RHAUtils.isNotEmpty(caseHistory)) {
+                    this.caseHistory = caseHistory;
+                }
+                this.caseHistory.sort(function(a,b) {
+                    a = new Date(a.resource.created);
+                    b = new Date(b.resource.created);
+                    return a-b;
+                });
+                this.fetchingCaseHistory = false;
+            }), function (error) {
+                this.fetchingCaseHistory = false;
+                AlertService.addUDSErrorMessage(error);
+            });
         };
 	}
 ]);
