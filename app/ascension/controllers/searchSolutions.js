@@ -14,6 +14,7 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
         $scope.$watch(function () {
             return CaseDetailsService.kase;
         }, function () {
+            $scope.recommendations = [];
             var caseData = {
                 product: CaseDetailsService.kase.product,
                 version: CaseDetailsService.kase.version,
