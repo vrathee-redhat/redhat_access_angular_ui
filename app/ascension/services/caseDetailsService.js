@@ -294,38 +294,8 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var promise = udsService.kase.comments.get(caseNumber);
             var draftId;
             promise.then(angular.bind(this, function (comments) {
-                angular.forEach(comments, angular.bind(this, function (comment, index) {
-                    if (comment.draft === true) {
-                        this.draftComment = comment;
-                        this.draftCommentOnServerExists=true;
-                        draftId=this.draftComment.id;
-                        this.commentText = comment.text;
-                        this.isCommentPublic = comment.public;
-                        if (RHAUtils.isNotEmpty(this.commentText)) {
-                            this.disableAddComment = false;
-                        } else if (RHAUtils.isEmpty(this.commentText)) {
-                            this.disableAddComment = true;
-                        }
-                        comments.slice(index, index + 1);
-                    }
-                }));
-                if(this.localStorageCache) {
-                    if (this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username))
-                    {
-                        this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
-                        this.commentText = this.draftComment.text;
-                        this.isCommentPublic = this.draftComment.public;
-                        if(this.draftCommentOnServerExists)
-                        {
-                            this.draftComment.id=draftId;
-                        }
-                        if (RHAUtils.isNotEmpty(this.commentText)) {
-                            this.disableAddComment = false;
-                        } else if (RHAUtils.isEmpty(this.commentText)) {
-                            this.disableAddComment = true;
-                        }
-                    }
-                }
+
+               //TODO draft logic
                 this.comments = comments;
             }), function (error) {
             });
