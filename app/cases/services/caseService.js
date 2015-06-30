@@ -385,10 +385,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 });
             }
             angular.forEach(this.groups, function(group){
-                this.groupOptions.push({
-                    value: group.number,
-                    label: group.name
-                });
+                if(group.number !== "-1"){
+                    this.groupOptions.push({
+                        value: group.number,
+                        label: group.name
+                    });
+                }
                 if(group.is_default) {
                     this.kase.group = group.number;
                     this.group = group.number;
