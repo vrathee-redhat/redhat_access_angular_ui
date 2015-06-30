@@ -38,6 +38,19 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.account.account_number = response.resource.account.resource.accountNumber;
                 kase.account.is_strategic = response.resource.account.resource.strategic;
                 kase.account.special_handling_required = response.resource.account.resource.specialHandlingRequired;
+                kase.attachments={};
+                kase.attachments=response.resource.fileAttachments;
+
+                angular.forEach( kase.attachments, angular.bind(this, function (attachment) {
+                    var lastModifiedDate = RHAUtils.convertToTimezone(attachment.resource.lastModified);
+                    var modifiedDate = attachment.resource.lastModified;
+                    attachment.resource.sortModifiedDate = modifiedDate;
+                    attachment.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                    attachment.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                    var createdDate = RHAUtils.convertToTimezone(attachment.resource.created);
+                    attachment.resource.created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
+                    attachment.resource.created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
+                }));
                 if(response.resource.resolution)
                 {
                     kase.resolution=response.resource.resolution;
@@ -124,15 +137,15 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         return deferred.promise;
                     }
                 },
-                comments:{
-                    get: function(caseNumber) {
+                comments: {
+                    get: function (caseNumber) {
                         var deferred = $q.defer();
                         uds.fetchCaseComments(
                             function (response) {
                                 angular.forEach(response, angular.bind(this, function (comment) {
                                     var lastModifiedDate = RHAUtils.convertToTimezone(comment.resource.lastModified);
-                                    var modifiedDate=comment.resource.lastModified;
-                                    comment.resource.sortModifiedDate=modifiedDate;
+                                    var modifiedDate = comment.resource.lastModified;
+                                    comment.resource.sortModifiedDate = modifiedDate;
                                     comment.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                     comment.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                     var createdDate = RHAUtils.convertToTimezone(comment.resource.created);
@@ -147,6 +160,38 @@ angular.module('RedhatAccess.common').factory('udsService', [
                             caseNumber
                         );
                         return deferred.promise;
+                    },
+                    post: {
+                        private: function (caseNumber, commentText) {
+                            var deferred = $q.defer();
+                            uds.postPrivateComments(
+                                function (response) {
+                                    deferred.resolve(response);
+                                },
+                                function (error) {
+                                    deferred.reject(error);
+                                },
+                                caseNumber,
+                                commentText
+
+                            );
+                            return deferred.promise;
+                        },
+                        public: function (caseNumber, commentText) {
+                            var deferred = $q.defer();
+                            uds.postPublicComments(
+                                function (response) {
+                                    deferred.resolve(response);
+                                },
+                                function (error) {
+                                    deferred.reject(error);
+                                },
+                                caseNumber,
+                                commentText
+
+                            );
+                            return deferred.promise;
+                        }
                     }
                 },
                 history:{

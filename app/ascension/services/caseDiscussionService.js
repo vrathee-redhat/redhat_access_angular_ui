@@ -26,18 +26,9 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             this.loadingAttachments = true;
             this.loadingComments = true;
             var that=this;
-            attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
-                console.log("inside attachments");
-                CaseAttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                that.loadingAttachments = false;
-                that.updateElements();
-            }), angular.bind(this, function (error) {
-                if (!HeaderService.pageLoadFailure) {
-                    AlertService.addStrataErrorMessage(error);
-                }
 
-                that.loadingAttachments = false;
-            }));
+            CaseAttachmentsService.defineOriginalAttachments(CaseDetailsService.kase.attachments);
+            this.updateElements();
             commentsPromise = CaseDetailsService.populateComments(caseId).then(function (comments) {
                 that.loadingComments = false;
                 that.updateElements();
@@ -49,16 +40,16 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             });
 
 
-            return $q.all([attachPromise, commentsPromise]);
+            return $q.all([commentsPromise]);
         };
         this.updateElements = function () {
             console.log("inside update elements");
             this.comments = CaseDetailsService.comments;
             this.attachments = CaseAttachmentsService.originalAttachments;
             this.discussionElements = this.comments.concat(this.attachments);
-            if (this.chatTranscriptList !== undefined && this.chatTranscriptList.length > 0) {
+            /*if (this.chatTranscriptList !== undefined && this.chatTranscriptList.length > 0) {
                 this.discussionElements = this.discussionElements.concat(this.chatTranscriptList);
-            }
+            }*/
         };
     }
 ]);

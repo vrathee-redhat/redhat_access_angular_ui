@@ -96,16 +96,14 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
         };
 
 
-     /*   $scope.$watch('CaseAttachmentsService.originalAttachments', function (val) {
-            console.log("inside watch for attachments");
+        $scope.$watch('CaseAttachmentsService.originalAttachments', function (val) {
             CaseDiscussionService.updateElements();
         }, true);
 
 
         $scope.$watch('CaseDetailsService.comments', function (val) {
-            console.log("inside watch for case details");
             CaseDiscussionService.updateElements();
-        }, true);*/
+        }, true);
 
 
 
