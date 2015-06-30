@@ -19,6 +19,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
         $scope.CaseAttachmentsService = CaseAttachmentsService;
         $scope.CaseDiscussionService = CaseDiscussionService;
         $scope.addingComment = false;
+        $scope.addingattachment = false;
         $scope.progressCount = 0;
         $scope.charactersLeft = 0;
         $scope.maxCommentLength = '32000';
@@ -58,6 +59,8 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
                     CaseDetailsService.draftComment = undefined;
                     CaseDiscussionService.commentTextBoxEnlargen = false;
                 }, function (error) {
+                    $scope.addingComment = false;
+
                     AlertService.addStrataErrorMessage(error);
                 });
                 $scope.progressCount = 0;
@@ -96,7 +99,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
               udsService.kase.comments.post.private(CaseDetailsService.kase.case_number,CaseDetailsService.commentText);
             }
 
-
+            $scope.addingattachment = false;
 
             if ((CaseAttachmentsService.updatedAttachments.length > 0 || CaseAttachmentsService.hasBackEndSelections()) && EDIT_CASE_CONFIG.showAttachments) {
                 $scope.addingattachment = true;

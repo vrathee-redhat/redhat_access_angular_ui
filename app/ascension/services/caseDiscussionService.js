@@ -43,7 +43,6 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             return $q.all([commentsPromise]);
         };
         this.updateElements = function () {
-            console.log("inside update elements");
             this.comments = CaseDetailsService.comments;
             this.attachments = CaseAttachmentsService.originalAttachments;
             this.discussionElements = this.comments.concat(this.attachments);
