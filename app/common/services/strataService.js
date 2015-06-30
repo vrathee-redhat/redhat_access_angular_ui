@@ -203,11 +203,6 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         }
                         $q.all(deferreds).then(
                             function (results) {
-                                results.forEach(function (result) {
-                                    if (result !== undefined) {
-                                        results.push(result);
-                                    }
-                                });
                                 resultsDeferred.resolve(results);
                             },
                             angular.bind(resultsDeferred, errorHandler));
