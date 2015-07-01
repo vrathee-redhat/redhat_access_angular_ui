@@ -13,23 +13,31 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'TOPCASES_EVENTS',
     '$q',
     'gettextCatalog',
+
     function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, gettextCatalog) {
+
 		this.caseDetailsLoading = true;
         this.yourCasesLoading = true;
         this.caseClosing = false;
 		this.kase = {};
         this.prestineKase = {};
         this.cases = {};
+        this.comments = [];
         this.products = [];
         this.versions = [];
         this.severities = [];
         this.statuses = [];
+        this.disableAddComment = true;
+        this.isCommentPublic = false;
         this.caseHistory = [];
         this.versionDisabled = false;
+        this.updatedNotifiedUsers = [];
         this.yourCasesLimit = 6;
         this.fetchingCaseHistory = false;
+        this.fetchingCaseComments = false;
         this.noOfContributors = 0;
         this.noOfObservers = 0;
+        this.discussionElements = [];
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -109,6 +117,26 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 AlertService.addUDSErrorMessage(error);
                 this.caseDetailsLoading = false;
             }));
+        };
+
+        this.checkForCaseStatusToggleOnAttachOrComment = function(){
+            var status = {};
+            if (!securityService.loginStatus.authedUser.is_internal && this.kase.status.name === 'Closed') {
+                status = { name: 'Waiting on Red Hat' };
+                this.kase.status = status;
+            }
+
+            if(securityService.loginStatus.authedUser.is_internal){
+                if (this.kase.status.name === 'Waiting on Red Hat') {
+                    status = { name: 'Waiting on Customer' };
+                    this.kase.status = status;
+                }
+            }else {
+                if (this.kase.status.name === 'Waiting on Customer') {
+                    status = { name: 'Waiting on Red Hat' };
+                    this.kase.status = status;
+                }
+            }
         };
 
         this.extractRoutingRoles = function(user) {
@@ -258,6 +286,20 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
+        };
+
+
+        this.populateComments = function (caseNumber) {
+
+            var promise = udsService.kase.comments.get(caseNumber);
+            var draftId;
+            promise.then(angular.bind(this, function (comments) {
+
+               //TODO draft logic
+                this.comments = comments;
+            }), function (error) {
+            });
+            return promise;
         };
 
         this.updateCase = function(){

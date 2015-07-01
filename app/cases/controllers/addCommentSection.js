@@ -214,7 +214,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             }
         };
         $scope.shouldTextboxMinimize = function(){
-            if(CaseService.commentText === undefined || CaseService.commentText === ''){
+            if(RHAUtils.isEmpty(CaseService.commentText)){
                 DiscussionService.commentTextBoxEnlargen=false;
             }
         };
