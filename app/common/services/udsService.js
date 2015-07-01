@@ -44,8 +44,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
 
                 angular.forEach( kase.attachments, angular.bind(this, function (attachment) {
                     var lastModifiedDate = RHAUtils.convertToTimezone(attachment.resource.lastModified);
-                    var modifiedDate = attachment.resource.lastModified;
-                    attachment.resource.sortModifiedDate = modifiedDate;
+                    attachment.resource.sortModifiedDate = attachment.resource.lastModified;
                     attachment.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                     attachment.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                     var createdDate = RHAUtils.convertToTimezone(attachment.resource.created);

@@ -28,7 +28,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
         CaseDiscussionService.commentTextBoxEnlargen = false;
 
         $scope.clearComment = function(){
-            CaseDetailsService.commentText = '';
+            CaseDetailsService.commentText = undefined;
             CaseDiscussionService.commentTextBoxEnlargen = false;
         	CaseAttachmentsService.updatedAttachments = [];
         };

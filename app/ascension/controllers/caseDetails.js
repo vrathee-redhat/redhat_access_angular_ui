@@ -7,10 +7,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
     'AUTH_EVENTS',
     'TOPCASES_EVENTS',
     'RHAUtils',
-    '$sce',
-    'gettextCatalog',
-    '$filter',
-    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils, $sce, gettextCatalog, $filter) {
+    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils) {
     	$scope.CaseDetailsService = CaseDetailsService;
         $scope.showEditCase = false;
 
