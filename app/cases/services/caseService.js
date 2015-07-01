@@ -393,10 +393,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                         value: group.number,
                         label: group.name
                     });
-                }
-                if(group.is_default) {
-                    this.kase.group = group.number;
-                    this.group = group.number;
+                    if(group.is_default) {
+                        this.kase.group = group.number;
+                        this.group = group.number;
+                    }
                 }
             }, this);
             if (this.showsearchoptions === true) {
