@@ -322,6 +322,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if(this.showFts()) {
                 this.fts = true;
                 this.kase.fts=true;
+            } else {
+                this.fts = false;
+                this.kase.fts=false;
             }
         };
 
