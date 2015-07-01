@@ -60,10 +60,11 @@ angular.module('RedhatAccess.common').factory('udsService', [
                     kase.resolution='';
                 }
                 kase.entitlement={};
-                kase.entitlement.name=response.resource.entitlement.resource.name;
-                kase.entitlement.status=response.resource.entitlement.resource.status;
-                kase.entitlement.service_level=response.resource.entitlement.resource.serviceLevel;
-
+                if(RHAUtils.isNotEmpty(response.resource.entitlement)) {
+                    kase.entitlement.name = response.resource.entitlement.resource.name;
+                    kase.entitlement.status = response.resource.entitlement.resource.status;
+                    kase.entitlement.service_level = response.resource.entitlement.resource.serviceLevel;
+                }
                 kase.negotiatedEntitlement={};
                 if(response.resource.negotiatedEntitlementProcess)
                 {
