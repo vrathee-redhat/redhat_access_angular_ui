@@ -45,13 +45,13 @@ angular.module('RedhatAccess.common').service('ConstantsService', [
                 ///this refers  in context of "sorting on Case Owner (A-Z)"
                 name: gettextCatalog.getString('Case Owner (A-Z)'),
                 sortField: 'owner',
-                sortOrder: 'DESC'
+                sortOrder: 'ASC'
             },
             {
                 ///this refers  in context of "sorting on Case Owner (Z-A)"
                 name: gettextCatalog.getString('Case Owner (Z-A)'),
                 sortField: 'owner',
-                sortOrder: 'ASC'
+                sortOrder: 'DESC'
             }
         ];
         this.statuses = [

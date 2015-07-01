@@ -572,7 +572,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 } else if(sortField === 'createdDate') {
                     this.filterSelect = ConstantsService.sortByParams[5];
                 } else if(sortField === 'owner') {
-                    this.filterSelect = ConstantsService.sortByParams[7];
+                    this.filterSelect = ConstantsService.sortByParams[6];
                 }
             } else if(sortOrder === 'DESC') {
                 if(sortField === 'lastModifiedDate') {
@@ -582,7 +582,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 } else if(sortField === 'createdDate') {
                     this.filterSelect = ConstantsService.sortByParams[4];
                 } else if(sortField === 'owner') {
-                    this.filterSelect = ConstantsService.sortByParams[6];
+                    this.filterSelect = ConstantsService.sortByParams[7];
                 }
             }
         };
