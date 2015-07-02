@@ -18,7 +18,6 @@
         "ng-table": "~0.3.3",
         "angular-gettext": "~2.0.0",
         "html5shiv": "~3.7.2",
-        "ie-shiv": "https://raw.githubusercontent.com/angular-ui/ui-utils/master/modules/ie-shiv/ie-shiv.js",
         "json2": "*",
         "respond": "~1.4.2",
         "angular-cache": "~2.3.7",
