@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-06-29 01:04+0000\n"
+"PO-Revision-Date: 2015-06-30 01:42+0000\n"
 "Last-Translator: jcarbone <jcarbone@redhat.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -351,11 +351,11 @@ msgstr "Vue d'ensemble du dossier"
 
 #: app/common/services/constantsService.js:
 msgid "Case Owner (A-Z)"
-msgstr "Propriétaire du dossier (A-Z)"
+msgstr "Titulaire du dossier (A-Z)"
 
 #: app/common/services/constantsService.js:
 msgid "Case Owner (Z-A)"
-msgstr "Propriétaire du dossier (Z-A)"
+msgstr "Titulaire du dossier (Z-A)"
 
 #. Noun
 #: app/ascension/views/caseDetails.html:
@@ -435,7 +435,7 @@ msgstr "Fermer les messages"
 #: app/common/services/constantsService.js:
 #: app/cases/controllers/statusSelect.js:
 msgid "Closed"
-msgstr "Fermé"
+msgstr "Fermés"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/cases/controllers/list.js:
@@ -706,12 +706,12 @@ msgstr "Par exemple : 1-888-467-3342"
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Friday End Time:"
-msgstr "Heure de fermeture - vendredi :"
+msgstr "Heure de fermeture le vendredi :"
 
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Friday Start Time:"
-msgstr "Heure d'ouverture - vendredi"
+msgstr "Heure d'ouverture le vendredi"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/escalation/views/iceEscalation.html:
@@ -945,12 +945,12 @@ msgstr "Modifié par {{case.last_modified_by}} le {{case.last_modified_date}}"
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Monday End Time:"
-msgstr "Heure de fermeture - lundi :"
+msgstr "Heure de fermeture le lundi :"
 
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Monday Start Time:"
-msgstr "Heure d'ouverture - lundi :"
+msgstr "Heure d'ouverture le lundi :"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Sam Friedmann
 #: app/i18n/placeholder.html:
@@ -1139,7 +1139,7 @@ msgstr ""
 #: app/common/services/constantsService.js:
 #: app/cases/controllers/statusSelect.js:
 msgid "Open"
-msgstr "Ouvrir"
+msgstr "Ouverts"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Sam Friedmann
 #: app/i18n/placeholder.html:
@@ -1149,7 +1149,7 @@ msgstr "Ouvrir un nouveau dossier"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/cases/controllers/list.js:
 msgid "Open Support Cases"
-msgstr "Ouvrir des dossiers d'assistance"
+msgstr "dossiers d'assistance ouverts"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author Sam Friedmann
 #: app/search/views/accordion_search_results.html:
@@ -1170,19 +1170,19 @@ msgstr "Dossiers d'assistance ouverts et clos"
 
 #: app/cases/views/list.html:
 msgid "Owned by {{case.contact_name}}"
-msgstr "Possédé par {{case.contact_name}}"
+msgstr "Appartient à {{case.contact_name}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author Sam Friedmann
 #. Noun
 #: app/cases/views/new.html:
 msgid "Owner"
-msgstr "Propriétaire"
+msgstr "Titulaire"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #. Noun
 #: app/ascension/views/ownerInformation.html:
 msgid "Owner Information"
-msgstr "Informations sur le propriétaire"
+msgstr "Informations sur le titulaire"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author Sam Friedmann
 #: app/security/views/login_form.html:
@@ -1769,12 +1769,12 @@ msgstr ""
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Thursday End Time:"
-msgstr "Heure de fermeture - jeudi :"
+msgstr "Heure de fermeture le jeudi :"
 
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Thursday Start Time:"
-msgstr "Heure d'ouverture - jeudi :"
+msgstr "Heure d'ouverture le jeudi :"
 
 #: app/cases/views/new.html:
 msgid "To Learn more view the"
@@ -1802,12 +1802,12 @@ msgstr "Transcription de la discussion entre"
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Tuesday End Time:"
-msgstr "Heure de fermeture - mardi :"
+msgstr "Heure de fermeture le mardi :"
 
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Tuesday Start Time:"
-msgstr "Heure d'ouverture - mardi :"
+msgstr "Heure d'ouverture le mardi :"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author Sam Friedmann
 #: app/common/services/strataService.js:
@@ -1893,12 +1893,12 @@ msgstr "Impossible de récupérer l'utilisateur avec ssoUserName donné"
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Wednesday End Time:"
-msgstr "Heure de fermeture - mercredi :"
+msgstr "Heure de fermeture le mercredi :"
 
 #. Noun
 #: app/ascension/services/accountService.js:
 msgid "Wednesday Start Time:"
-msgstr "Heure d'ouverture - mercredi :"
+msgstr "Heure d'ouverture le mercredi :"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/cases/views/editGroup.html:

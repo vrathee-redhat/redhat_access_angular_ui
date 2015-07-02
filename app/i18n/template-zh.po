@@ -13,7 +13,7 @@ msgstr ""
 "PO-Revision-Date: 2015-06-29 06:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (Simplified)\n"
-"Language: zh-Hans\n"
+"Language: zh_CN\n"
 "X-Generator: Zanata 3.6.2\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 

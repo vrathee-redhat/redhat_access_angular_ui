@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-06-29 01:37+0000\n"
+"PO-Revision-Date: 2015-06-30 02:00+0000\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -86,7 +86,7 @@ msgstr "계정을 찾을 수 없습니다. "
 #. Noun whether the entitlement is active
 #: app/ascension/views/breachStatus.html:
 msgid "Active"
-msgstr "활성화"
+msgstr "활성"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachProductLogs.html:
@@ -274,7 +274,7 @@ msgstr "기술 문의 Bugzilla"
 #: app/cases/views/new.html:
 #: app/ascension/views/caseDescription.html:
 msgid "Case Description"
-msgstr "기술문의 설명"
+msgstr "기술 문의 설명"
 
 #. Noun
 #: app/ascension/views/caseDetails.html:
@@ -360,7 +360,7 @@ msgstr "기술 문의 요약"
 #: app/cases/views/detailsSection.html:
 #: app/ascension/views/caseDetails.html:
 msgid "Case Type"
-msgstr "기술문의 유형"
+msgstr "기술 문의 유형"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/controllers/editGroup.js:
@@ -446,12 +446,12 @@ msgstr "코멘트: "
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/createGroupModal.html:
 msgid "Create Case Group"
-msgstr "기술문의 그룹 생성"
+msgstr "기술 문의 그룹 생성"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/views/createGroupButton.html:
 msgid "Create New Case Group"
-msgstr "새 기술문의 그룹 생성"
+msgstr "새 기술 문의 그룹 생성"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/list.html:
@@ -462,7 +462,7 @@ msgstr "새 기술 문의 생성"
 #. Noun
 #: app/ascension/views/caseDetails.html:
 msgid "Created By"
-msgstr "만든 사람:"
+msgstr "작성자:"
 
 #: app/cases/views/list.html:
 msgid "Created by {{case.created_by}} on {{case.created_date}}"
@@ -715,7 +715,7 @@ msgstr ""
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/new.html:
 msgid "Get faster results."
-msgstr "보다 빠른 결과 구현."
+msgstr "보다 빠르게 결과를 구현할 수 있습니다."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/editGroup.html:
@@ -792,7 +792,7 @@ msgid ""
 "a New Support Case'. The case will be pre-populated with the portion of the "
 "log previously selected."
 msgstr ""
-"기술 문의 사항을 아직 열어 두어야 할 경우 '새 기술 문의 열기'를 선택합니다. 기술 문의는 이전에 선택한 로그의 일부로 사전 "
+"기술 문의 사항을 아직 열어 두어야 할 경우 '새 기술 문의 생성'을 선택합니다. 기술 문의는 이전에 선택한 로그의 일부로 사전 "
 "작성됩니다. "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
@@ -1047,7 +1047,7 @@ msgstr "알림: "
 #. Noun
 #: app/ascension/views/accountInformation.html:
 msgid "Number of Open Cases"
-msgstr "열려있는 기술 문의 수"
+msgstr "진행중인 기술 문의 수"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/common/services/constantsService.js:
@@ -1096,34 +1096,34 @@ msgstr ""
 #: app/common/services/constantsService.js:
 #: app/cases/controllers/statusSelect.js:
 msgid "Open"
-msgstr "열기"
+msgstr "진행중"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/i18n/placeholder.html:
 msgid "Open New Case"
-msgstr "새 기술문의 열기"
+msgstr "새 기술 문의 생성"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/controllers/list.js:
 msgid "Open Support Cases"
-msgstr "개의 열려있는 기술 문의"
+msgstr "개의 진행중인 기술 문의"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/search/views/accordion_search_results.html:
 #: app/log_viewer/views/logsInstructionPane.html:
 msgid "Open a New Support Case"
-msgstr "새 기술 문의 열기"
+msgstr "새 기술 문의 생성"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/common/services/constantsService.js:
 #: app/cases/controllers/statusSelect.js:
 msgid "Open and Closed"
-msgstr "열기 및 종료됨 "
+msgstr "진행중 및 종료됨 "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/controllers/list.js:
 msgid "Open and Closed Support Cases"
-msgstr "개의 열려있거나 종료된 기술 문의"
+msgstr "개의 진행중이거나 종료된 기술 문의"
 
 #: app/cases/views/list.html:
 msgid "Owned by {{case.contact_name}}"
@@ -1392,7 +1392,7 @@ msgstr "저장"
 #: app/cases/views/detailsSection.html:
 #: app/ascension/views/caseDetails.html:
 msgid "Save Changes"
-msgstr "바뀐 사항 저장"
+msgstr "변경 사항 저장 "
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/defaultGroup.html:
@@ -1470,7 +1470,7 @@ msgstr "첨부할 서버 파일: "
 #: app/ascension/views/caseDetails.html:
 #: app/ascension/views/caseFlags.html:
 msgid "Severity"
-msgstr "심각성 "
+msgstr "심각도"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/security/views/login_form.html:

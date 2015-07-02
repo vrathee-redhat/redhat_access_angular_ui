@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-06-28 11:56+0000\n"
+"PO-Revision-Date: 2015-06-30 12:28+0000\n"
 "Last-Translator: asasaki <asasaki@redhat.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -196,7 +196,7 @@ msgstr "戻る"
 
 #: app/ascension/services/caseDetailsService.js:
 msgid "BREACH"
-msgstr "違反"
+msgstr "違反情報"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
 #: app/cases/views/defaultGroup.html:
@@ -206,7 +206,7 @@ msgstr "戻る"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: app/cases/views/newCaseRecommendationsSection.html:
 msgid "Based on your description, here are some possible solutions"
-msgstr "ご説明内容により、次の解決方法が実行可能であると考えられます。"
+msgstr "以下は、ご提供いただいた情報に基づく関連記事です。"
 
 #: app/ascension/controllers/breachStatus.js:
 msgid "Breached by {{breachTime}}"
@@ -538,7 +538,7 @@ msgstr "グループの削除"
 
 #: app/cases/services/attachmentsService.js:
 msgid "Deleting attachment: {{attachmentName}}"
-msgstr "添付ファイルの削除: {{attachmentName}}"
+msgstr "添付ファイルの削除中: {{attachmentName}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
 #. Noun
@@ -783,7 +783,7 @@ msgid ""
 "priority, please provide a detailed comment, and the case will be reviewed "
 "by a support manager."
 msgstr ""
-"問題の重大度レベルが上がったか、またはケースの優先度を高くする必要があると思われる場合は、詳細なコメントを入力してください。サポートマネージャーがケースを確認します。"
+"問題の重大度を上げるか、またはケースの優先度を高くする必要があると思われる場合は、詳細なコメントを入力してください。サポートマネージャーがケースを確認します。"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author myamamot
 #: app/log_viewer/views/logsInstructionPane.html:
@@ -844,7 +844,7 @@ msgstr "詳細情報"
 #. Noun
 #: app/ascension/views/breachStatus.html:
 msgid "Life of Case"
-msgstr "ケースの有効期間"
+msgstr "ケース有効期間"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: app/cases/views/list.html:
@@ -1169,7 +1169,7 @@ msgstr "リクエスターのメールアドレスを確認してください"
 msgid ""
 "Please note, contents of this field are not visible to Red Hat Support "
 "professionals."
-msgstr "このフィールドのコンテンツは Red Hat サポートプロフェッショナルには表示されないことに注意してください。"
+msgstr "このフィールドの内容は Red Hat サポート担当者には表示されないことに注意してください。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: app/escalation/views/iceEscalation.html:
