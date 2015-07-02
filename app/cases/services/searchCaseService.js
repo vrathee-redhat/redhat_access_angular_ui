@@ -106,7 +106,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 //if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
                 //    params.keyword = this.caseParameters.searchTerm;
                 //}
-                if (this.caseParameters.group === CASE_GROUPS.ungrouped) {
+                if (this.caseParameters.group === CASE_GROUPS.ungrouped || this.caseParameters.group === "-1") {
                     params.only_ungrouped = true;
                 } else if (!RHAUtils.isEmpty(this.caseParameters.group)) {
                     params.group_numbers = { group_number: [this.caseParameters.group] };
