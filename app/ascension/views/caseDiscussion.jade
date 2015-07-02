@@ -1,29 +1,39 @@
-h3.section-title {{'Case Discussion'|translate}}
-    .row
-        .col-xs-12
-            // Add Comment Section
-          //  div(rha-addcommentsection='', loading='loading.comments')
-    .row(ng-hide="CaseDiscussionService.discussionElements.length===0")
-        .col-sm-7
-            label {{'Sort by'|translate}}&nbsp;&nbsp;
-            select#rha-internalcomment-sort(chosen,
-            width='"auto"',
-            ng-init="CaseDiscussionService.commentSortOrder = commentSortOrderList[0]"
-            ng-model='CaseDiscussionService.commentSortOrder',
-            ng-change='onSortOrderChange()',
-            ng-options='commentOrder as commentOrder.name for commentOrder in commentSortOrderList')
-    .row
-        .col-xs-12
-            article.comment(id="{{element.id}}", ng-repeat="element in CaseDiscussionService.discussionElements | orderBy:'resource.sortModifiedDate':commentSortOrder", ng-if='!element.resource.draft')
-                .row
-                    .col-sm-4
-                        h4.meta
-                            .author.blue {{element.resource.createdBy.resource.fullName}}
-                            date.light {{element.resource.last_modified_date}} &nbsp;
-                            span.light {{'at'|translate}} &nbsp;
-                            time.light {{element.resource.last_modified_time}}
-                            .private(ng-if="element.resource.public !== undefined && element.resource.public === false") {{'Private'|translate}}
-                    .col-sm-8
-                        blockquote.dialog-box.pre-wrap {{element.resource.text}}
-                           span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.resource.text}}
-                           a.pull-right.commentReply(ng-click='commentReply(element.resource,(ie8 || ie9))', href='') {{'Reply'|translate}}
+section.case-discussion-ascension
+    .spinner.spinner-inline(ng-show=' CaseDiscussionService.loadingComments')
+    h3.section-title(ng-show='!CaseDiscussionService.loadingComments')
+        .row
+            .col-xs-12
+                // Add Comment Section
+               div(rha-addcomments='', loading='loading.comments')
+        .row(ng-hide="CaseDiscussionService.discussionElements.length===0")
+            .col-sm-7
+                label {{'Sort by'|translate}}&nbsp;&nbsp;
+                select#rha-internalcomment-sort(chosen,
+                width='"auto"',
+                ng-init="CaseDiscussionService.commentSortOrder = commentSortOrderList[0]"
+                ng-model='CaseDiscussionService.commentSortOrder',
+                ng-change='onSortOrderChange()',
+                ng-options='commentOrder as commentOrder.name for commentOrder in commentSortOrderList')
+        .row
+            .col-xs-12
+                article.comment(id="{{element.id}}", ng-repeat="element in CaseDiscussionService.discussionElements | orderBy:'resource.sortModifiedDate':commentSortOrder", ng-if='!element.resource.draft')
+                    .row
+                        .col-sm-4
+                            h4.meta
+                                .author.blue {{element.resource.createdBy.resource.fullName}}
+                                div.light(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") (Bug {{element.resource.issueLink.resource.issueNumber}})
+                                date.light {{element.resource.last_modified_date}} &nbsp;
+                                span.light {{'at'|translate}} &nbsp;
+                                time.light {{element.resource.last_modified_time}}
+                                .private(ng-if="element.resource.public !== undefined && element.resource.public === false && element.resource.issueLink === undefined") {{'Private'|translate}}
+                                .bugzilla(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") {{'Bugzilla'|translate}}
+                        .col-sm-8
+                            blockquote.dialog-box.pre-wrap(ng-hide="element.resource.size") {{element.resource.text}}
+                               span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.resource.text}}
+                               a.pull-right.commentReply(ng-click='commentReply(element.resource,(ie8 || ie9))', href='') {{'Reply'|translate}}
+                            .dialog-box(ng-show="element.resource.size")
+                                a(href="{{element.resource.url}}")
+                                    .fa.fa-file-image-o.file-upload
+                                    span {{element.resource.name}} ({{element.resource.size | bytes}})
+                                .fa.fa-close.pull-right(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
+                                .description.margin-top-short(ng-show="element.resource.description") {{element.resource.description}}

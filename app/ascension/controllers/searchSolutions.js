@@ -14,12 +14,13 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
         $scope.$watch(function () {
             return CaseDetailsService.kase;
         }, function () {
+            $scope.recommendations = [];
             var caseData = {
                 product: CaseDetailsService.kase.product,
                 version: CaseDetailsService.kase.version,
-                summary: CaseDetailsService.kase.summary,
+                summary: CaseDetailsService.kase.subject, //in strata Kase.summary = subject and Kase.case_summary --> Case_Summary__c, in case of UDS we get case subject = subject amd summary = Case_Summary__c
                 description: CaseDetailsService.kase.description
-            };
+            };$scope.recommendations = [];
             strataService.recommendationsXmlHack(caseData, $scope.numSolutions, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
                 solutions.forEach(angular.bind(this, function (solution) {
                     if (solution !== undefined) {

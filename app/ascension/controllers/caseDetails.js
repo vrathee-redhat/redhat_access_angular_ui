@@ -11,6 +11,8 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
     	$scope.CaseDetailsService = CaseDetailsService;
         $scope.showEditCase = false;
 
+
+
     	$scope.init = function () {
             CaseDetailsService.fetchProducts();
             CaseDetailsService.fetchSeverities();
@@ -54,5 +56,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
                 CaseDetailsService.getVersions(CaseDetailsService.kase.product);
             }
         });
+
+
     }
 ]);
