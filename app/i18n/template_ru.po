@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-06-26 01:43+0000\n"
+"PO-Revision-Date: 2015-06-30 01:05+0000\n"
 "Last-Translator: ypoyarko <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -136,7 +136,7 @@ msgstr "Вы действительно хотите закрыть выбран
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/edit.html:
 msgid "Assigned to"
-msgstr "Назначено "
+msgstr "В"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/attachLocalFile.html:
@@ -432,7 +432,7 @@ msgstr "Закрыто"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/controllers/list.js:
 msgid "Closed Support Cases"
-msgstr "Закрытые запросы"
+msgstr "закрыт(о)"
 
 #: app/cases/controllers/list.js:
 msgid "Closing Cases."
@@ -461,7 +461,7 @@ msgstr "Создать новую группу запросов"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/list.html:
 msgid "Create a New Support Case"
-msgstr "Создать запрос поддержки"
+msgstr "Создать запрос"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #. Noun
@@ -612,7 +612,7 @@ msgstr "Не удалось добавить вложение. Ошибка: {{e
 
 #: app/ascension/views/caseView.html:
 msgid "Escalations"
-msgstr "Эскалации"
+msgstr "Эскалация"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/escalation/views/iceEscalation.html:
@@ -676,7 +676,7 @@ msgstr "Имя файла"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/accountSelect.html:
 msgid "Find My Account Number"
-msgstr "Мой номер учетной записи"
+msgstr "Мой номер"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/editGroup.html:
@@ -741,7 +741,7 @@ msgstr "Рекомендации"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/common/services/constantsService.js:
 msgid "Highest Severity"
-msgstr "По убыванию приоритета"
+msgstr "Приоритет (по убыванию)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/escalation/views/iceEscalation.html:
@@ -822,7 +822,7 @@ msgstr "Внутренний статус"
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/addCommentSection.html:
 msgid "Is Public:"
-msgstr "Открытый доступ"
+msgstr "Доступно всем"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/escalation/views/iceEscalation.html:
@@ -899,7 +899,7 @@ msgstr "Журналы"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/common/services/constantsService.js:
 msgid "Lowest Severity"
-msgstr "По возрастанию приоритета"
+msgstr "Приоритет (по возрастанию)"
 
 #: app/ascension/services/caseDetailsService.js:
 msgid "MISSING SBT. Entitlement status: {{entitlementStatus}}"
@@ -1114,7 +1114,7 @@ msgstr ""
 #: app/common/services/constantsService.js:
 #: app/cases/controllers/statusSelect.js:
 msgid "Open"
-msgstr "Открыть"
+msgstr "Открыто"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
 #: app/i18n/placeholder.html:
@@ -1124,7 +1124,7 @@ msgstr "Открыть новый запрос"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/controllers/list.js:
 msgid "Open Support Cases"
-msgstr "Открытые запросы"
+msgstr "открыт(о)"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/search/views/accordion_search_results.html:
@@ -1141,7 +1141,7 @@ msgstr "Открытые и закрытые"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/controllers/list.js:
 msgid "Open and Closed Support Cases"
-msgstr "Открытые и закрытые запросы поддержки"
+msgstr "открыто и закрыто"
 
 #: app/cases/views/list.html:
 msgid "Owned by {{case.contact_name}}"
@@ -1264,7 +1264,7 @@ msgstr "Скрытые примечания"
 #: app/cases/views/new.html:
 #: app/ascension/views/caseDetails.html:
 msgid "Product"
-msgstr "Продукт"
+msgstr "Платформа"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
@@ -1524,7 +1524,7 @@ msgstr "Размер"
 #: app/cases/views/filterSelect.html:
 #: app/ascension/views/caseDiscussion.html:
 msgid "Sort by"
-msgstr "Порядок"
+msgstr "Сортировать"
 
 #: app/ascension/views/caseFlags.html:
 msgid "Special Handling"
@@ -1560,7 +1560,7 @@ msgstr "Отправить вложение"
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/requestManagementEscalationModal.html:
 msgid "Submit Request"
-msgstr "Отправить запрос"
+msgstr "Отправить"
 
 #: app/cases/services/caseService.js:
 msgid "Successfully created case number {{caseNumber}}"
@@ -1938,7 +1938,7 @@ msgstr "для получения дополнительной информац�
 
 #: app/cases/views/addCommentSection.html:
 msgid "{{charactersLeft}} characters left."
-msgstr "осталось: {{charactersLeft}}."
+msgstr "осталось: {{charactersLeft}}"
 
 #: app/cases/controllers/attachLocalFile.js:
 msgid ""
@@ -1950,4 +1950,4 @@ msgstr ""
 
 #: app/cases/views/discussionSection.html:
 msgid "{{noteCharactersLeft}} characters left."
-msgstr "осталось символов: {{noteCharactersLeft}}."
+msgstr "осталось символов: {{noteCharactersLeft}}"

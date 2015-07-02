@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-06-29 12:34+0000\n"
+"PO-Revision-Date: 2015-06-30 12:50+0000\n"
 "Last-Translator: fvalen <fvalen@redhat.com>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -989,7 +989,7 @@ msgstr "Ultimissima data creata"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
 #: app/common/services/constantsService.js:
 msgid "Newest Date Modified"
-msgstr "Ultimissima data modificata"
+msgstr "Data ultima modifica"
 
 #: app/cases/controllers/discussionSection.js:
 #: app/ascension/controllers/caseDiscussion.js:
@@ -1080,7 +1080,7 @@ msgstr "Data più vecchia creata"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
 #: app/common/services/constantsService.js:
 msgid "Oldest Date Modified"
-msgstr "Data più vecchia modificata"
+msgstr "Data modifica più vecchia"
 
 #: app/cases/controllers/discussionSection.js:
 #: app/ascension/controllers/caseDiscussion.js:
