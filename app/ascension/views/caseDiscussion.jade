@@ -21,7 +21,6 @@ section.case-discussion-ascension
                         .col-sm-4
                             h4.meta
                                 .author.blue {{element.resource.createdBy.resource.fullName}}
-                                div.light(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") (Bug {{element.resource.issueLink.resource.issueNumber}})
                                 date.light {{element.resource.last_modified_date}} &nbsp;
                                 span.light {{'at'|translate}} &nbsp;
                                 time.light {{element.resource.last_modified_time}}
