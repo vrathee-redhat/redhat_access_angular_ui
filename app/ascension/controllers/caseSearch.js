@@ -7,6 +7,7 @@ angular.module('RedhatAccess.ascension').controller('CaseSearch', [
     	$scope.caseNumber = '';
 
     	$scope.searchCases = function(){
+            $rootScope.$broadcast(TOPCASES_EVENTS.topCaseFetched);
     		CaseDetailsService.getCaseDetails($scope.caseNumber);
     	}
     }

@@ -137,9 +137,9 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
 
         $scope.parseCommentHtml = function (comment) {
             var parsedHtml = '';
-            if (comment.body !== undefined) {
-                if (RHAUtils.isNotEmpty(comment.body)) {
-                    var rawHtml = comment.body.toString();
+            if (comment.resource.body !== undefined) {
+                if (RHAUtils.isNotEmpty(comment.resource.body)) {
+                    var rawHtml = comment.resource.body.toString();
                     parsedHtml = $sce.trustAsHtml(rawHtml);
                 }
             } else if (comment.text !== undefined) {

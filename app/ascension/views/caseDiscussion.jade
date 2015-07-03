@@ -19,7 +19,15 @@ section.case-discussion-ascension
                 article.comment(id="{{element.id}}", ng-repeat="element in CaseDiscussionService.discussionElements | orderBy:'resource.sortModifiedDate':commentSortOrder", ng-if='!element.resource.draft')
                     .row
                         .col-sm-4
-                            h4.meta
+                            h4.meta(ng-if="element.comment_type === 'chat'")
+                                span {{'Transcript of chat between'|translate}}
+                                .author.blue {{element.resource.user.resource.fullName}}
+                                span {{'and'|translate}}
+                                .author.blue {{element.visitor_name}}
+                                date.light {{element.resource.last_modified_date}} &nbsp;
+                                span.light {{'at'|translate}} &nbsp;
+                                time.light {{element.resource.last_modified_time}}
+                            h4.meta(ng-if="element.comment_type !== 'chat'")
                                 .author.blue {{element.resource.createdBy.resource.fullName}}
                                 div.light(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") (Bug {{element.resource.issueLink.resource.issueNumber}})
                                 date.light {{element.resource.last_modified_date}} &nbsp;
@@ -28,7 +36,8 @@ section.case-discussion-ascension
                                 .private(ng-if="element.resource.public !== undefined && element.resource.public === false && element.resource.issueLink === undefined") {{'Private'|translate}}
                                 .bugzilla(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") {{'Bugzilla'|translate}}
                         .col-sm-8
-                            blockquote.dialog-box.pre-wrap(ng-hide="element.resource.size") {{element.resource.text}}
+                            blockquote.dialog-box.pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
+                            blockquote.dialog-box.pre-wrap(ng-hide="element.resource.size || element.comment_type === 'chat'") {{element.resource.text}}
                                span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.resource.text}}
                                a.pull-right.commentReply(ng-click='commentReply(element.resource,(ie8 || ie9))', href='') {{'Reply'|translate}}
                             .dialog-box(ng-show="element.resource.size")

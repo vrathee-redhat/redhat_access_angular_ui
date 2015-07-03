@@ -15,6 +15,7 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
         this.discussionElements = [];
         this.chatTranscriptList = [];
         this.comments = CaseDetailsService.comments;
+        this.liveChatTranscripts=CaseDetailsService.kase.liveChatTranscripts;
         this.attachments = CaseAttachmentsService.originalAttachments;
         this.loadingAttachments = false;
         this.loadingComments = false;
@@ -28,7 +29,6 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             var that=this;
 
             CaseAttachmentsService.defineOriginalAttachments(CaseDetailsService.kase.attachments);
-            this.updateElements();
             commentsPromise = CaseDetailsService.populateComments(caseId).then(function (comments) {
                 that.loadingComments = false;
                 that.updateElements();
@@ -38,6 +38,12 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
                     AlertService.addStrataErrorMessage(error);
                 }
             });
+            if (RHAUtils.isNotEmpty(CaseDetailsService.kase.liveChatTranscripts)) {
+
+                this.liveChatTranscripts=CaseDetailsService.kase.liveChatTranscripts;
+
+            }
+
 
 
             return $q.all([commentsPromise]);
@@ -46,9 +52,11 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             this.comments = CaseDetailsService.comments;
             this.attachments = CaseAttachmentsService.originalAttachments;
             this.discussionElements = this.comments.concat(this.attachments);
-            /*if (this.chatTranscriptList !== undefined && this.chatTranscriptList.length > 0) {
-                this.discussionElements = this.discussionElements.concat(this.chatTranscriptList);
-            }*/
+            if(RHAUtils.isNotEmpty(this.liveChatTranscripts))
+            {
+                this.discussionElements =this.discussionElements.concat(this.liveChatTranscripts)
+
+            }
         };
     }
 ]);
