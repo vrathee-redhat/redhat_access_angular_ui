@@ -233,8 +233,9 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             uqlEnggBacklog = RoutingService.ENGG_BACKLOG();
             var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
             uqlEnggBacklog = UQL.and(uqlEnggBacklog, secureHandlingUQL);
-            //as we just want one top case for engineering backlog, passing limit as only 1
-            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1);
+            //as we just want one top case for engineering backlog, passing limit as only 1 and we want oldest lastModified case
+            var sortOption = 'lastModifiedDate asc';
+            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1,sortOption);
             promise.then(angular.bind(this, function (backlogCases) {
                 if(RHAUtils.isNotEmpty(backlogCases)) {
                     self.enggBackLogCases = backlogCases;
