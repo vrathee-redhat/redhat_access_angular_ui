@@ -12,6 +12,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.case_number = response.resource.caseNumber;
                 kase.status = {};
                 kase.status.name = response.resource.status;
+                kase.internalStatus = response.resource.internalStatus;
                 kase.subject = response.resource.subject;
                 kase.summary = response.resource.summary;
                 kase.severity = {};

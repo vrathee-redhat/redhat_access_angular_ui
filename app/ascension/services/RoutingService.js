@@ -78,6 +78,12 @@ angular.module('RedhatAccess.ascension').service('RoutingService', [
             notClosedCond = UQL.cond('status', 'ne', "\"Closed\"");
             return UQL.and(unassignedCond, UQL.and(notClosedCond, makeSbrConds(user)));
         };
+        this.ENGG_BACKLOG = function(user){
+            var worCond, woeCond;
+            woeCond = UQL.cond('internalStatus', 'is', '"Waiting on Engineering"');
+            worCond = UQL.cond('status', 'is', '"Waiting on Red Hat"');
+            return UQL.and(woeCond,worCond);
+        };
 
         this.key_mapping = {
             OWNED_CASES: "ascension-owned-cases",
@@ -87,7 +93,8 @@ angular.module('RedhatAccess.ascension').service('RoutingService', [
             NNO_INDIA: "ascension-nno-india",
             NNO_EMEA: "ascension-nno-emea",
             FTS: "ascension-fts",
-            NCQ: "ascension-ncq"
+            NCQ: "ascension-ncq",
+            ENGG_BACKLOG: "ascension-engg-backlog"
         };
 
         this.mapping = {
@@ -106,8 +113,9 @@ angular.module('RedhatAccess.ascension').service('RoutingService', [
             "fts": this.FTS,
             "ascension-fts": this.FTS,
             "ncq": this.NCQ,
-            "ascension-ncq": this.NCQ
+            "ascension-ncq": this.NCQ,
+            "engg_backlog": this.ENGG_BACKLOG,
+            "ascension-engg-backlog": this.ENGG_BACKLOG
         };
-
     }
 ]);
