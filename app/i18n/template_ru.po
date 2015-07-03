@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-07-02 07:30+0000\n"
+"PO-Revision-Date: 2015-07-03 12:50+0000\n"
 "Last-Translator: ypoyarko <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -100,7 +100,7 @@ msgstr "Добавление {{userName}} к отчету."
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/discussionSection.html:
 msgid "All Attachments"
-msgstr "Все вложения"
+msgstr "Вложения"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
 #: app/cases/services/caseService.js:
@@ -311,7 +311,7 @@ msgstr "Группа (дополнительно)"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/defaultGroup.html:
 msgid "Case Group Name:"
-msgstr "Имя группы:"
+msgstr "Группа:"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/createGroupModal.html:
@@ -456,7 +456,7 @@ msgstr "Создать группу"
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/createGroupButton.html:
 msgid "Create New Case Group"
-msgstr "Создать новую группу запросов"
+msgstr "Создать группу"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/list.html:
@@ -731,7 +731,7 @@ msgstr "Имя группы:"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/defaultGroup.html:
 msgid "Group Users:"
-msgstr "Пользователи группы:"
+msgstr "Пользователи:"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/cases/views/editCaseRecommendationsSection.html:
@@ -916,7 +916,7 @@ msgstr "Управление группами"
 #: app/cases/views/group.html:
 #: app/common/controllers/titleView.js:
 msgid "Manage Default Case Groups"
-msgstr "Управление исходными группами запросов"
+msgstr "Управление группами по умолчанию"
 
 #: app/cases/views/list.html:
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
@@ -1422,7 +1422,7 @@ msgstr "Сохранить"
 #: app/cases/views/defaultGroup.html:
 #: app/cases/views/editGroup.html:
 msgid "Save Group"
-msgstr "Сохранить группу"
+msgstr "Сохранить"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/search/views/search_form.html:
@@ -1585,7 +1585,7 @@ msgstr "Группы удалены"
 
 #: app/cases/controllers/defaultGroup.js:
 msgid "Successfully set {{groupName}} as {{userName}}'s default group."
-msgstr "{{userName}} будет использовать группу {{groupName}} по умолчанию."
+msgstr "{{userName}} по умолчанию будет использовать группу {{groupName}}."
 
 #: app/cases/services/attachmentsService.js:
 msgid ""
