@@ -11,7 +11,10 @@ div(rha-alert='')
           .spinner.spinner-inline(ng-show='CaseDetailsService.caseClosing')
       .row.row-short
         .col-sm-12
-          h3.nomar.case-name.pre-wrap CASE SUBJECT/NAME
+          h3.section-title.case-name.pre-wrap(ng-hide='CaseDetailsService.caseDetailsLoading') {{CaseDetailsService.kase.subject}} ({{CaseDetailsService.kase.case_number}})
+      .row.row-short
+        .col-sm-12
+          h3.nomar.case-name.pre-wrap(ng-hide='CaseDetailsService.caseDetailsLoading') {{CaseDetailsService.kase.product}} {{CaseDetailsService.kase.version}}
       .row.row-short
         .col-sm-12
           div(rha-caseflags='')
