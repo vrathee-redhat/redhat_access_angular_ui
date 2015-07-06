@@ -14,7 +14,12 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.status.name = response.resource.status;
                 kase.internalStatus = response.resource.internalStatus;
                 kase.subject = response.resource.subject;
-                kase.summary = response.resource.summary;
+                if(RHAUtils.isNotEmpty(response.resource.summary)) {
+                    kase.summary = {};
+                    kase.summary.summaryText = response.resource.summary.resource.summary;
+                    kase.summary.lastModifiedBy = response.resource.summary.resource.lastModifiedBy.resource.fullName;
+                    kase.summary.lastModified = RHAUtils.formatDate(RHAUtils.convertToTimezone(response.resource.summary.resource.lastModified), 'MMM DD YYYY');
+                }
                 kase.severity = {};
                 kase.severity.name = response.resource.severity;
                 kase.product = response.resource.product.resource.line.resource.name;
@@ -100,7 +105,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
         };
         var service = {
             cases: {
-                list: function(uql,resourceProjection,limit) {
+                list: function(uql,resourceProjection,limit,sortOption) {
                     var deferred = $q.defer();
                     uds.fetchCases(
                         function (response) {
@@ -111,7 +116,8 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         },
                         uql,
                         resourceProjection,
-                        limit
+                        limit,
+                        sortOption
                     );
                     return deferred.promise;
                 }

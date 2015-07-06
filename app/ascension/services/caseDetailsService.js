@@ -164,8 +164,9 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var uql, userRoles, ssoUserName, uqlParts,finalUql;
             uqlParts = [];
             var self = this;
-            ssoUserName = securityService.loginStatus.authedUser.sso_username+"\"";
-            udsService.user.get("SSO is \"" + ssoUserName + "\"").then(angular.bind(this, function (user){
+            ssoUserName = securityService.loginStatus.authedUser.sso_username;
+            var userUql = UQL.cond('SSO','is',"\""+ ssoUserName + "\"");
+            udsService.user.get(userUql).then(angular.bind(this, function (user){
                 if ((user == null) || ((user != null ? user[0].externalModelId : void 0) == null)) {
                     AlertService.addDangerMessage(gettextCatalog.getString("Was not able to fetch user with given ssoUserName"));
                 }
@@ -182,9 +183,8 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         userRoles = [RoutingService.key_mapping.OWNED_CASES, RoutingService.key_mapping.COLLABORATION, RoutingService.key_mapping.FTS];
                     }
                     angular.forEach(userRoles, function(r){
-                        uqlParts.push(RoutingService.mapping[r](user[0]));
+                        finalUql = UQL.or(finalUql,RoutingService.mapping[r](user[0]));
                     });
-                    finalUql = uqlParts.join(' or ');
 
                     var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
                     finalUql = UQL.and(finalUql, secureHandlingUQL);
@@ -233,8 +233,9 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             uqlEnggBacklog = RoutingService.ENGG_BACKLOG();
             var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
             uqlEnggBacklog = UQL.and(uqlEnggBacklog, secureHandlingUQL);
-            //as we just want one top case for engineering backlog, passing limit as only 1
-            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1);
+            //as we just want one top case for engineering backlog, passing limit as only 1 and we want oldest lastModified case
+            var sortOption = 'lastModifiedDate asc';
+            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1,sortOption);
             promise.then(angular.bind(this, function (backlogCases) {
                 if(RHAUtils.isNotEmpty(backlogCases)) {
                     self.enggBackLogCases = backlogCases;
