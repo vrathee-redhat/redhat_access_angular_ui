@@ -27,12 +27,11 @@ section.case-discussion-ascension
                                 .private(ng-if="element.resource.public !== undefined && element.resource.public === false && element.resource.issueLink === undefined") {{'Private'|translate}}
                                 .bugzilla(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") {{'Bugzilla'|translate}}
                         .col-sm-8
-                            blockquote.dialog-box.pre-wrap(ng-hide="element.resource.size") {{element.resource.text}}
-                               span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.resource.text}}
-                               a.pull-right.commentReply(ng-click='commentReply(element.resource,(ie8 || ie9))', href='') {{'Reply'|translate}}
-                            .dialog-box(ng-show="element.resource.size")
+                            blockquote.dialog-box.pre-wrap(ng-show="element.resource.text") {{element.resource.text}}
+                               a.pull-right.commentReply(ng-click='commentReply(element.resource)', href='') {{'Reply'|translate}}
+                            .dialog-box(ng-hide="element.resource.text")
                                 a(href="{{element.resource.url}}")
                                     .fa.fa-file-image-o.file-upload
-                                    span {{element.resource.name}} ({{element.resource.size | bytes}})
+                                    span {{element.resource.name}} ({{element.resource.size}} kB)
                                 .fa.fa-close.pull-right(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
                                 .description.margin-top-short(ng-show="element.resource.description") {{element.resource.description}}

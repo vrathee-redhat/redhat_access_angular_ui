@@ -6,9 +6,9 @@ angular.module('RedhatAccess.ascension').controller('AttachFile', [
     'CaseAttachmentsService',
     'CaseDetailsService',
     'securityService',
-    'translate',
+    'gettextCatalog',
     'RHAUtils',
-    function ($scope, AlertService, CaseAttachmentsService, CaseDetailsService, securityService, translate,RHAUtils) {
+    function ($scope, AlertService, CaseAttachmentsService, CaseDetailsService, securityService, gettextCatalog,RHAUtils) {
         $scope.CaseAttachmentsService = CaseAttachmentsService;
         $scope.CaseDetailsService = CaseDetailsService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
@@ -25,6 +25,7 @@ angular.module('RedhatAccess.ascension').controller('AttachFile', [
         $scope.addFile = function () {
             /*jshint camelcase: false */
             var createdDate = RHAUtils.convertToTimezone(new Date());
+            console.log("isnide add file");
             CaseAttachmentsService.addNewAttachment({
                 file_name: $scope.fileName,
                 description: $scope.fileDescription,
@@ -43,6 +44,7 @@ angular.module('RedhatAccess.ascension').controller('AttachFile', [
             $('#fileUploader').click();
         };
         $scope.selectFile = function () {
+            console.log("isnide select file");
             // Strata will always keep the limit display in Mb (current = 1024Mb)
             var maxSize = (CaseAttachmentsService.maxAttachmentSize/1024)*1000000000;
             if($('#fileUploader')[0].files[0].size < maxSize){
@@ -54,7 +56,8 @@ angular.module('RedhatAccess.ascension').controller('AttachFile', [
                 }
 	            $scope.addFile();
             } else {
-                AlertService.addDangerMessage($('#fileUploader')[0].files[0].name + ' '+translate('cannot be attached because it is larger than') +' '+ (CaseAttachmentsService.maxAttachmentSize/1024) + ' '+ translate('GB. Please FTP large files to dropbox.redhat.com.'));
+                var message=gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.",{errorFileName:$('#fileUploader')[0].files[0].name,errorFileSize:(CaseAttachmentsService.maxAttachmentSize/1024)});
+                AlertService.addDangerMessage(message);
             }
             $('#fileUploader')[0].value = '';
         };

@@ -13,7 +13,6 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'TOPCASES_EVENTS',
     '$q',
     'gettextCatalog',
-
     function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, gettextCatalog) {
 
 		this.caseDetailsLoading = true;
@@ -330,10 +329,9 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var promise = udsService.kase.comments.get(caseNumber);
             var draftId;
             promise.then(angular.bind(this, function (comments) {
-
-               //TODO draft logic
                 this.comments = comments;
             }), function (error) {
+                
             });
             return promise;
         };

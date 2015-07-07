@@ -1,50 +1,40 @@
 'use strict';
 /*jshint camelcase: false */
 angular.module('RedhatAccess.ascension').service('CaseAttachmentsService', [
-    '$filter',
     '$q',
     '$sce',
     '$state',
-    '$window',
     '$location',
     'RHAUtils',
     'strataService',
-    'TreeViewSelectorUtils',
-    '$http',
-    'securityService',
     'AlertService',
     'CaseDetailsService',
-    'translate',
-    function ($filter, $q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseDetailsService, translate) {
+    'gettextCatalog',
+    function ( $q, $sce, $state,  $location, RHAUtils, strataService,  AlertService, CaseDetailsService, gettextCatalog) {
         this.originalAttachments = [];
         this.updatedAttachments = [];
-        this.backendAttachments = [];
         this.suggestedArtifact = {};
         this.proceedWithoutAttachments = false;
         this.maxAttachmentSize;
         this.clear = function () {
             this.originalAttachments = [];
             this.updatedAttachments = [];
-            this.backendAttachments = [];
             this.suggestedArtifact = {};
         };
-        this.updateBackEndAttachments = function (selected) {
-            this.backendAttachments = selected;
-        };
-        this.hasBackEndSelections = function () {
-            return TreeViewSelectorUtils.hasSelections(this.backendAttachments);
-        };
+
+
         this.removeUpdatedAttachment = function ($index) {
             this.updatedAttachments.splice($index, 1);
         };
         this.removeOriginalAttachment = function (attachment) {
-            var progressMessage = AlertService.addWarningMessage(translate('Deleting attachment:') + ' ' + attachment.file_name);
-            strataService.cases.attachments.remove(attachment.uuid, CaseDetailsService.kase.case_number).then(angular.bind(this, function () {
+            //TODO uuid is not available in UDS endpoint I have raised an issue
+            var progressMessage = AlertService.addWarningMessage(gettextCatalog.getString('Deleting attachment: {{attachmentName}}',{attachmentName:attachment.resource.name}));
+            strataService.cases.attachments.remove(attachment.resource.uuid, CaseDetailsService.kase.case_number).then(angular.bind(this, function () {
                 AlertService.removeAlert(progressMessage);
-                AlertService.addSuccessMessage(translate('Successfully deleted attachment:') + ' ' + attachment.file_name);
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully deleted attachment:{{attachmentName}}',{attachmentName:attachment.resource.name}));
                 var i = 0;
                 for(i; i < this.originalAttachments.length; i++){
-                    if(this.originalAttachments[i].uuid === attachment.uuid){
+                    if(this.originalAttachments[i].resource.uuid === attachment.resource.uuid){
                         break;
                     }
                 }
@@ -54,7 +44,9 @@ angular.module('RedhatAccess.ascension').service('CaseAttachmentsService', [
             });
         };
         this.addNewAttachment = function (attachment) {
+
             this.updatedAttachments.push(attachment);
+
         };
         this.defineOriginalAttachments = function (attachments) {
             if (!angular.isArray(attachments)) {
@@ -63,53 +55,11 @@ angular.module('RedhatAccess.ascension').service('CaseAttachmentsService', [
                 this.originalAttachments = attachments;
             }
         };
-        this.postBackEndAttachments = function (caseId) {
-            var selectedFiles = TreeViewSelectorUtils.getSelectedLeaves(this.backendAttachments);
-            return securityService.getBasicAuthToken().then(function (auth) {
-                /*jshint unused:false */
-                //we post each attachment separately
-                var promises = [];
-                angular.forEach(selectedFiles, function (file) {
-                    var jsonData = {
-                            authToken: auth,
-                            attachment: file,
-                            caseNum: caseId
-                        };
-                    var deferred = $q.defer();
-                    $http.post('attachments', jsonData).success(function (data, status, headers, config) {
-                        deferred.resolve(data);
-                        AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(translate('Successfully uploaded attachment') + ' ' + jsonData.attachment + ' ' + translate('to case') + ' ' + caseId);
-                    }).error(function (data, status, headers, config) {
-                        var errorMsg = '';
-                        switch (status) {
-                        case 401:
-                            errorMsg = ' : Unauthorised.';
-                            break;
-                        case 409:
-                            errorMsg = ' : Invalid username/password.';
-                            break;
-                        case 500:
-                            errorMsg = ' : Internal server error';
-                            break;
-                        }
-                        AlertService.addDangerMessage(translate('Failed to upload attachment') + ' '+jsonData.attachment + ' '+translate('to case')+' ' + caseId + errorMsg);
-                        deferred.reject(data);
-                    });
-                    promises.push(deferred.promise);
-                });
-                return $q.all(promises);
-            });
-        };
         this.updateAttachments = function (caseId) {
-            var hasServerAttachments = this.hasBackEndSelections();
             var hasLocalAttachments = !angular.equals(this.updatedAttachments.length, 0);
-            if (hasLocalAttachments || hasServerAttachments) {
+            if (hasLocalAttachments) {
                 var promises = [];
                 var updatedAttachments = this.updatedAttachments;
-                if (hasServerAttachments) {
-                    promises.push(this.postBackEndAttachments(caseId));
-                }
                 if (hasLocalAttachments) {
                     //find new attachments
                     angular.forEach(updatedAttachments, function (attachment) {
@@ -117,36 +67,32 @@ angular.module('RedhatAccess.ascension').service('CaseAttachmentsService', [
                             var formdata = new FormData();
                             formdata.append('file', attachment.fileObj);
                             formdata.append('description', attachment.description);
-
                             var promise = strataService.cases.attachments.post(formdata, caseId);
                             promise.then(function (uri) {
-                                attachment.uri = uri;
-                                attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
+                                attachment.resource={};
+                                attachment.resource.url = uri;
+                                attachment.resource.uuid = uri.slice(uri.lastIndexOf('/') + 1);
                                 var currentDate =new Date();
                                 var lastModifiedDate = RHAUtils.convertToTimezone(currentDate);
-                                attachment.sortModifiedDate=currentDate;
-                                attachment.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
-                                attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                                attachment.resource.sortModifiedDate=RHAUtils.formatDate(RHAUtils.convertToMoment(currentDate),'');
+                                attachment.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                                attachment.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                                attachment.resource.name=attachment.fileObj.name;
+                                attachment.resource.size=attachment.fileObj.size;
+                                attachment.resource.type=attachment.fileObj.type;
+
                                 AlertService.clearAlerts();
-                                AlertService.addSuccessMessage(translate('Successfully uploaded attachment')+' ' + attachment.file_name + ' '+'to case' +' '+ caseId);
+                                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}',{attachmentFileName:attachment.resource.name,caseNumber:caseId}));
                             }, function (error) {
-                                if (navigator.appVersion.indexOf("MSIE 10") !== -1){
-                                    if($location.path() === '/case/new'){
-                                        $state.go('edit', { id: caseId });
-                                        AlertService.clearAlerts();
-                                        CaseDetailsService.submittingCase = false;
-                                    } else{
-                                        $window.location.reload();
-                                    }
-                                } else{
+
                                     AlertService.addStrataErrorMessage(error);
-                                }
+
                             });
                             promises.push(promise);
                         }
                     });
                 }
-                var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachments...'));
+                var uploadingAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
                 var parentPromise = $q.all(promises);
                 parentPromise.then(angular.bind(this, function () {
                     this.originalAttachments = this.originalAttachments.concat(this.updatedAttachments);

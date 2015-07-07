@@ -23,7 +23,6 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
         $scope.progressCount = 0;
         $scope.charactersLeft = 0;
         $scope.maxCommentLength = '32000';
-        $scope.ieFileDescription = '';
 
         CaseDiscussionService.commentTextBoxEnlargen = false;
 
@@ -58,11 +57,13 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
                     CaseDetailsService.draftSaved = false;
                     CaseDetailsService.draftComment = undefined;
                     CaseDiscussionService.commentTextBoxEnlargen = false;
+                    CaseDiscussionService.updateElements();
                 }, function (error) {
                     $scope.addingComment = false;
-
                     AlertService.addStrataErrorMessage(error);
                 });
+
+
                 $scope.progressCount = 0;
                 $scope.charactersLeft = 0;
                 var caseNumber=CaseDetailsService.kase.case_number;
@@ -87,22 +88,24 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
                 $scope.charactersLeft = 0;
             };
 
-            $scope.addingComment = true;
-
-            if(CaseDetailsService.isCommentPublic)
-            {
-               udsService.kase.comments.post.public(CaseDetailsService.kase.case_number,CaseDetailsService.commentText);
-             }
-
-            else
-            {
-              udsService.kase.comments.post.private(CaseDetailsService.kase.case_number,CaseDetailsService.commentText);
+            $scope.addingComment = false;
+            if(!CaseDetailsService.disableAddComment && RHAUtils.isNotEmpty(CaseDetailsService.commentText)) {
+                $scope.addingComment = true;
+                if (CaseDetailsService.isCommentPublic) {
+                    udsService.kase.comments.post.public(CaseDetailsService.kase.case_number, CaseDetailsService.commentText).then(onSuccess, onError);
+                }
+                else {
+                    udsService.kase.comments.post.private(CaseDetailsService.kase.case_number, CaseDetailsService.commentText).then(onSuccess, onError);
+                }
             }
 
             $scope.addingattachment = false;
-
-            if ((CaseAttachmentsService.updatedAttachments.length > 0 || CaseAttachmentsService.hasBackEndSelections()) && EDIT_CASE_CONFIG.showAttachments) {
+            if ((CaseAttachmentsService.updatedAttachments.length > 0) && EDIT_CASE_CONFIG.showAttachments) {
                 $scope.addingattachment = true;
+                var caseNumber=CaseDetailsService.kase.case_number;
+                if(CaseDetailsService.kase.case_number.toString().length < 8) {
+                    caseNumber = '0' + CaseDetailsService.kase.case_number;
+                }
                 CaseAttachmentsService.updateAttachments(caseNumber).then(function () {
                     $scope.addingattachment = false;
                     CaseDetailsService.checkForCaseStatusToggleOnAttachOrComment();

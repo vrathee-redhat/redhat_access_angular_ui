@@ -39,7 +39,7 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
             if(CaseDetailsService.kase.case_number.toString().length < 8) {
                  caseNumber = '0'+CaseDetailsService.kase.case_number;
             }
-            CaseDiscussionService.getDiscussionElements(caseNumber);
+            CaseDiscussionService.getDiscussionElements(caseNumber,false);
             $scope.caseDiscussion = true;
             $scope.caseOverView = false;
             $scope.caseSummary = false;
