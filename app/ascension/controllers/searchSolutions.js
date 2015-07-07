@@ -61,11 +61,7 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
                         }]
                     }
                 };
-                if(CaseDetailsService.kase.case_number.toString.length < 8){
-                    //append 0 as strata treats case number as string with 0 as prefix
-                    CaseDetailsService.kase.case_number = '0'+ CaseDetailsService.kase.case_number;
-                }
-                strataService.cases.put(CaseDetailsService.kase.case_number, recJSON).then(function (response) {
+                strataService.cases.put(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number), recJSON).then(function (response) {
                     $scope.currentRecPin.pinning = false;
                     $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
                 }, function (error) {

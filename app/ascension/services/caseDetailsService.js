@@ -251,13 +251,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 
         this.closeCase = function() {
             this.caseClosing = true;
-            // Appending a '0' to the case number because strata needs that
-            // and UDS trims that
-            var caseNumber = '';
-            if(this.kase.case_number.toString().length < 8) {
-                caseNumber = '0'+this.kase.case_number;
-            }
-            var promise = strataService.cases.put(caseNumber, {status: 'Closed'});
+            var promise = strataService.cases.put(this.getEightDigitCaseNumber(this.kase.case_number), {status: 'Closed'});
             promise.then( angular.bind(this, function (response) {
                 this.caseClosing = false;
                 AlertService.addSuccessMessage(gettextCatalog.getString('Case {{caseNumber}} successfully closed.',{caseNumber:this.kase.case_number}));
@@ -356,13 +350,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 caseJSON.product = this.kase.product;
                 caseJSON.version = this.kase.version;
             }
-            // Appending a '0' to the case number because strata needs that
-            // and UDS trims that
-            var caseNumber = '';
-            if(this.kase.case_number.toString().length < 8) {
-                caseNumber = '0'+this.kase.case_number;
-            }
-            strataService.cases.put(caseNumber, caseJSON).then(angular.bind(this, function () {
+            strataService.cases.put(this.getEightDigitCaseNumber(this.kase.case_number), caseJSON).then(angular.bind(this, function () {
                 this.updatingCase = false;
                 angular.copy(this.kase, this.prestineKase);
                 deferred.resolve();
@@ -391,5 +379,19 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 AlertService.addUDSErrorMessage(error);
             });
         };
+
+        // Appending a '0' to the case number because strata needs that
+        // and UDS trims, as UDS consider it as number while strata consider it as string
+        this.getEightDigitCaseNumber = function(caseNumber){
+            var validCaseNumber = '',i;
+            if(caseNumber.toString().length < 8) {
+                var noOfZero = 8 - caseNumber.toString().length;
+                for(i=0;i<noOfZero;i++){
+                    validCaseNumber = validCaseNumber+'0';
+                }
+                validCaseNumber = validCaseNumber+caseNumber;
+            }
+            return validCaseNumber;
+        }
 	}
 ]);

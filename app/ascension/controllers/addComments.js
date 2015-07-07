@@ -66,14 +66,10 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
 
                 $scope.progressCount = 0;
                 $scope.charactersLeft = 0;
-                var caseNumber=CaseDetailsService.kase.case_number;
-                if(CaseDetailsService.kase.case_number.toString().length < 8) {
-                    caseNumber = '0' + CaseDetailsService.kase.case_number;
-                }
 
                 //temporarily use strata for notification
                 if(securityService.loginStatus.authedUser.sso_username !== undefined && CaseDetailsService.updatedNotifiedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) === -1){
-                    strataService.cases.notified_users.add(caseNumber, securityService.loginStatus.authedUser.sso_username).then(function () {
+                    strataService.cases.notified_users.add(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number), securityService.loginStatus.authedUser.sso_username).then(function () {
                         CaseDetailsService.updatedNotifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
