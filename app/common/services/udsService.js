@@ -87,6 +87,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.owner = response.resource.owner;
                 kase.contributors = [];
                 kase.observers = [];
+                kase.issueLinks = response.resource.issueLinks;
 
                 return kase;
             } else if(isComment === true) {

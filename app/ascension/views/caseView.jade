@@ -54,7 +54,9 @@ div(rha-alert='')
               div(rha-casehistory='')
           .tab-content(ng-hide='!bugzillas')
             #pane1.tab-pane(ng-class='{"active": bugzillas}')
-              div(rha-casebugzillas='')
+              .row.row-short
+                .col-md-6
+                  section#linkedbugzilla(rha-casebugzillas='')
           .tab-content(ng-hide='!escalations')
             #pane1.tab-pane(ng-class='{"active": escalations}')
               div(rha-caseescalations='')
