@@ -13,8 +13,12 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'TOPCASES_EVENTS',
     '$q',
     'gettextCatalog',
-
-    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, gettextCatalog) {
+    '$angularCacheFactory',
+    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, gettextCatalog,$angularCacheFactory) {
+        $angularCacheFactory('localCache', {
+            storageMode: 'localStorage',
+            verifyIntegrity: true
+        });
 
 		this.caseDetailsLoading = true;
         this.yourCasesLoading = true;
@@ -39,12 +43,19 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.noOfObservers = 0;
         this.discussionElements = [];
         this.enggBackLogCases = {};
+        this.draftComment = {};
+        this.draftCommentOnServerExists=false;
+        this.commentText = '';
+        this.localStorageCache = $angularCacheFactory.get('localCache');
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
             this.caseDetailsLoading = true;
             udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
                 this.kase = response;
+                this.draftComment = {};
+                this.draftCommentOnServerExists=false;
+                this.commentText='';
                 if((this.kase.sbt===undefined) && (this.kase.status.name=="Waiting on Red Hat"))
                 {
                     this.kase.sbtState=gettextCatalog.getString("MISSING SBT. "+"Entitlement status: {{entitlementStatus}}",{entitlementStatus:this.kase.entitlement.status});
@@ -76,22 +87,23 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 }
                 if(this.kase.negotiatedEntitlement) {
                     if (this.kase.negotiatedEntitlement.active === true) {
-                        this.kase.negotiatedEntitlement.active_flag = "Yes";
+                        this.kase.negotiatedEntitlement.active_flag =  gettextCatalog.getString("Yes");
+
                     }
                     else {
-                        this.kase.negotiatedEntitlement.active_flag = "No";
+                        this.kase.negotiatedEntitlement.active_flag = gettextCatalog.getString("No");
                     }
                     if (this.kase.negotiatedEntitlement.life_Case === true) {
-                        this.kase.negotiatedEntitlement.life_Case_flag = "Yes";
+                        this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("Yes");
                     }
                     else {
-                        this.kase.negotiatedEntitlement.life_Case_flag = "No";
+                        this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("No");;
                     }
                     if (this.kase.negotiatedEntitlement.violates_sla === true) {
-                        this.kase.negotiatedEntitlement.violates_sla_flag = "Yes";
+                        this.kase.negotiatedEntitlement.violates_sla_flag =gettextCatalog.getString("Yes");
                     }
                     else {
-                        this.kase.negotiatedEntitlement.violates_sla_flag = "No";
+                        this.kase.negotiatedEntitlement.violates_sla_flag = gettextCatalog.getString("No");;
                     }
                     var startTime = RHAUtils.convertToTimezone(this.kase.negotiatedEntitlement.start_time);
                     this.kase.negotiatedEntitlement.format_start_time = RHAUtils.formatDate(startTime, 'MMM DD YYYY hh:mm A Z');
@@ -320,14 +332,39 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 
 
         this.populateComments = function (caseNumber) {
-
             var promise = udsService.kase.comments.get(caseNumber);
-            var draftId;
             promise.then(angular.bind(this, function (comments) {
+                angular.forEach(comments, angular.bind(this, function (comment, index) {
+                    if (comment.resource.draft === true) {
+                        this.draftComment = comment;
+                        this.draftCommentOnServerExists=true;
+                        this.commentText = comment.text;
+                        this.isCommentPublic = comment.public;
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                        comments.slice(index, index + 1);
+                    }
+                }));
+                if(this.localStorageCache) {
+                    if (this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username))
+                    {
+                        this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
+                        this.commentText = this.draftComment.text;
+                        this.isCommentPublic = this.draftComment.public;
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                    }
+                }
 
-               //TODO draft logic
                 this.comments = comments;
             }), function (error) {
+                AlertService.addUDSErrorMessage(error);
             });
             return promise;
         };

@@ -52,6 +52,12 @@ app.service('RHAUtils',
         return timezoneDate;
       };
 
+      this.convertToMoment=function(date)
+      {
+            var momentDate=window.moment(date);
+            return momentDate;
+      };
+
        this.formatDate=function(date,formatter)
       {
         return date.format(formatter);
