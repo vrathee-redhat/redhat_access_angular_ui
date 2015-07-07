@@ -98,10 +98,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
             $scope.addingattachment = false;
             if ((CaseAttachmentsService.updatedAttachments.length > 0) && EDIT_CASE_CONFIG.showAttachments) {
                 $scope.addingattachment = true;
-                var caseNumber=CaseDetailsService.kase.case_number;
-                if(CaseDetailsService.kase.case_number.toString().length < 8) {
-                    caseNumber = '0' + CaseDetailsService.kase.case_number;
-                }
+                var  caseNumber =CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number);
                 CaseAttachmentsService.updateAttachments(caseNumber).then(function () {
                     $scope.addingattachment = false;
                     CaseDetailsService.checkForCaseStatusToggleOnAttachOrComment();

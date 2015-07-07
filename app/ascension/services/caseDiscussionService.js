@@ -24,7 +24,7 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             }), angular.bind(this, function (error) {
                 this.loadingComments = false;
                 if (!HeaderService.pageLoadFailure) {
-                    AlertService.addStrataErrorMessage(error);
+                    AlertService.addUDSErrorMessage(error);
                 }
             }));
             return $q.all([commentsPromise]);

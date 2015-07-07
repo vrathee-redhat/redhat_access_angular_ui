@@ -27,14 +27,14 @@ angular.module('RedhatAccess.ascension').service('CaseAttachmentsService', [
             this.updatedAttachments.splice($index, 1);
         };
         this.removeOriginalAttachment = function (attachment) {
-            //TODO uuid is not available in UDS endpoint I have raised an issue
             var progressMessage = AlertService.addWarningMessage(gettextCatalog.getString('Deleting attachment: {{attachmentName}}',{attachmentName:attachment.resource.name}));
-            strataService.cases.attachments.remove(attachment.resource.uuid, CaseDetailsService.kase.case_number).then(angular.bind(this, function () {
+            attachment.resource.uuid = attachment.resource.url.slice(attachment.resource.url.lastIndexOf('/') + 1);
+            strataService.cases.attachments.remove(attachment.resource.uuid, CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number)).then(angular.bind(this, function () {
                 AlertService.removeAlert(progressMessage);
                 AlertService.addSuccessMessage(gettextCatalog.getString('Successfully deleted attachment:{{attachmentName}}',{attachmentName:attachment.resource.name}));
                 var i = 0;
                 for(i; i < this.originalAttachments.length; i++){
-                    if(this.originalAttachments[i].resource.uuid === attachment.resource.uuid){
+                    if(this.originalAttachments[i].resource.url === attachment.resource.url){
                         break;
                     }
                 }
@@ -77,14 +77,18 @@ angular.module('RedhatAccess.ascension').service('CaseAttachmentsService', [
                                 attachment.resource.sortModifiedDate=RHAUtils.formatDate(RHAUtils.convertToMoment(currentDate),'');
                                 attachment.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                                attachment.resource.createdBy={};
+                                attachment.resource.createdBy.resource={};
+                                attachment.resource.createdBy.resource.fullName=attachment.created_by;
+                                attachment.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                 attachment.resource.name=attachment.fileObj.name;
-                                attachment.resource.size=attachment.fileObj.size;
+                                if(attachment.fileObj.size!==0) {
+                                    attachment.resource.size = Math.floor(((attachment.fileObj.size) / 1024));
+                                }
                                 attachment.resource.type=attachment.fileObj.type;
-
                                 AlertService.clearAlerts();
                                 AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}',{attachmentFileName:attachment.resource.name,caseNumber:caseId}));
                             }, function (error) {
-
                                     AlertService.addStrataErrorMessage(error);
 
                             });

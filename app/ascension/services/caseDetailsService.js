@@ -75,22 +75,23 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 }
                 if(this.kase.negotiatedEntitlement) {
                     if (this.kase.negotiatedEntitlement.active === true) {
-                        this.kase.negotiatedEntitlement.active_flag = "Yes";
+                        this.kase.negotiatedEntitlement.active_flag =  gettextCatalog.getString("Yes");
+
                     }
                     else {
-                        this.kase.negotiatedEntitlement.active_flag = "No";
+                        this.kase.negotiatedEntitlement.active_flag = gettextCatalog.getString("No");
                     }
                     if (this.kase.negotiatedEntitlement.life_Case === true) {
-                        this.kase.negotiatedEntitlement.life_Case_flag = "Yes";
+                        this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("Yes");
                     }
                     else {
-                        this.kase.negotiatedEntitlement.life_Case_flag = "No";
+                        this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("No");;
                     }
                     if (this.kase.negotiatedEntitlement.violates_sla === true) {
-                        this.kase.negotiatedEntitlement.violates_sla_flag = "Yes";
+                        this.kase.negotiatedEntitlement.violates_sla_flag =gettextCatalog.getString("Yes");
                     }
                     else {
-                        this.kase.negotiatedEntitlement.violates_sla_flag = "No";
+                        this.kase.negotiatedEntitlement.violates_sla_flag = gettextCatalog.getString("No");;
                     }
                     var startTime = RHAUtils.convertToTimezone(this.kase.negotiatedEntitlement.start_time);
                     this.kase.negotiatedEntitlement.format_start_time = RHAUtils.formatDate(startTime, 'MMM DD YYYY hh:mm A Z');
@@ -319,13 +320,12 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 
 
         this.populateComments = function (caseNumber) {
-
             var promise = udsService.kase.comments.get(caseNumber);
             var draftId;
             promise.then(angular.bind(this, function (comments) {
                 this.comments = comments;
             }), function (error) {
-                
+                AlertService.addUDSErrorMessage(error);
             });
             return promise;
         };

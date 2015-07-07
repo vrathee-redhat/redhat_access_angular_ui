@@ -25,7 +25,6 @@ angular.module('RedhatAccess.ascension').controller('AttachFile', [
         $scope.addFile = function () {
             /*jshint camelcase: false */
             var createdDate = RHAUtils.convertToTimezone(new Date());
-            console.log("isnide add file");
             CaseAttachmentsService.addNewAttachment({
                 file_name: $scope.fileName,
                 description: $scope.fileDescription,
@@ -44,7 +43,6 @@ angular.module('RedhatAccess.ascension').controller('AttachFile', [
             $('#fileUploader').click();
         };
         $scope.selectFile = function () {
-            console.log("isnide select file");
             // Strata will always keep the limit display in Mb (current = 1024Mb)
             var maxSize = (CaseAttachmentsService.maxAttachmentSize/1024)*1000000000;
             if($('#fileUploader')[0].files[0].size < maxSize){

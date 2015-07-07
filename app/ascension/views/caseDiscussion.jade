@@ -27,7 +27,8 @@ section.case-discussion-ascension
                                 .private(ng-if="element.resource.public !== undefined && element.resource.public === false && element.resource.issueLink === undefined") {{'Private'|translate}}
                                 .bugzilla(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") {{'Bugzilla'|translate}}
                         .col-sm-8
-                            blockquote.dialog-box.pre-wrap(ng-show="element.resource.text") {{element.resource.text}}
+                            blockquote.dialog-box.pre-wrap(ng-show="element.resource.text")
+                               span(ng-bind-html="parseCommentHtml(element)")
                                a.pull-right.commentReply(ng-click='commentReply(element.resource)', href='') {{'Reply'|translate}}
                             .dialog-box(ng-hide="element.resource.text")
                                 a(href="{{element.resource.url}}")

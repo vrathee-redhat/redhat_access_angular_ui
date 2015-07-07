@@ -71,7 +71,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
 
         $scope.commentReply = function(comment) {
             var truncatedText=comment.text.substring(0,1000);
-            var person = comment.resource.createdBy.resource.fullName;
+            var person = comment.createdBy.resource.fullName;
             var lines = truncatedText.split(/\n/);
             truncatedText = gettextCatalog.getString('(In reply to {{personName}})',{personName:person}) +'\n';
             for (var i = 0, max = lines.length; i < max; i++) {
@@ -132,14 +132,14 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
 
         $scope.parseCommentHtml = function (comment) {
             var parsedHtml = '';
-            if (comment.body !== undefined) {
-                if (RHAUtils.isNotEmpty(comment.body)) {
-                    var rawHtml = comment.body.toString();
+            if (comment.resource.body !== undefined) {
+                if (RHAUtils.isNotEmpty(comment.resource.body)) {
+                    var rawHtml = comment.resource.body.toString();
                     parsedHtml = $sce.trustAsHtml(rawHtml);
                 }
-            } else if (comment.text !== undefined) {
-                if (RHAUtils.isNotEmpty(comment.text)) {
-                    parsedHtml = $filter('linky')(comment.text,'_blank');
+            } else if (comment.resource.text !== undefined) {
+                if (RHAUtils.isNotEmpty(comment.resource.text)) {
+                    parsedHtml = $filter('linky')(comment.resource.text,'_blank');
                 }
             }
             return parsedHtml;
