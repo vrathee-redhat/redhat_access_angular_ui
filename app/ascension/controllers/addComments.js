@@ -29,6 +29,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
         $scope.clearComment = function(){
             CaseDetailsService.commentText = undefined;
             CaseDiscussionService.commentTextBoxEnlargen = false;
+            CaseDetailsService.localStorageCache.remove(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number)+securityService.loginStatus.authedUser.sso_username);
         	CaseAttachmentsService.updatedAttachments = [];
         };
 
@@ -42,7 +43,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
                 CaseDetailsService.draftCommentOnServerExists=false;
                 if(CaseDetailsService.localStorageCache)
                 {
-                    CaseDetailsService.localStorageCache.remove(CaseDetailsService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
+                    CaseDetailsService.localStorageCache.remove(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number)+securityService.loginStatus.authedUser.sso_username);
                 }
                 if (RHAUtils.isNotEmpty($scope.saveDraftPromise)) {
                     $timeout.cancel($scope.saveDraftPromise);
@@ -110,9 +111,19 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
         };
         $scope.saveDraftPromise;
         $scope.onNewCommentKeypress = function () {
+            if(CaseDetailsService.localStorageCache)
+            {
+                CaseDetailsService.draftCommentLocalStorage = {
+                        'text': CaseDetailsService.commentText,
+                        'draft': true,
+                        'public': CaseDetailsService.isCommentPublic,
+                        'case_number': CaseDetailsService.kase.case_number
+                };
+            }
+            CaseDetailsService.localStorageCache.put(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number)+securityService.loginStatus.authedUser.sso_username,CaseDetailsService.draftCommentLocalStorage);
             CaseDetailsService.disableAddComment = false;
             if (RHAUtils.isEmpty(CaseDetailsService.commentText)) {
-                CaseDetailsService.disableAddComment = true;
+                    CaseDetailsService.disableAddComment = true;
             }
         };
 
