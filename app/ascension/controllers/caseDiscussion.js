@@ -85,7 +85,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
         };
 
         if (securityService.loginStatus.isLoggedIn) {
-            CaseDiscussionService.getDiscussionElements($stateParams.id);
+            CaseDiscussionService.getDiscussionElements($stateParams.id,true);
         }
 
         $scope.deleteAttachment = function(element){

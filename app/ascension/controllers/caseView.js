@@ -35,7 +35,7 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
             $scope.escalations = false;
         };
         $scope.toggleCaseDiscussion = function(){
-            CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number),false);
+            CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number),true);
             $scope.caseDiscussion = true;
             $scope.caseOverView = false;
             $scope.caseSummary = false;
