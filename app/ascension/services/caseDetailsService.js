@@ -125,12 +125,15 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     }
                 });
                 self.isLoggedInUserIsOwner = false;
-                //we have to iterate for sso, as one user can have multiple sso in the UDS response
-                angular.forEach(this.kase.owner.resource.sso, function(ssoName){
-                   if(securityService.loginStatus.authedUser.sso_username === ssoName){
-                       self.isLoggedInUserIsOwner = true;
-                   }
-                });
+                //when case owner is 'New Case Queue' , we dont get kase.owner field from UDS
+                if(RHAUtils.isNotEmpty(this.kase.owner)) {
+                    //we have to iterate for sso, as one user can have multiple sso in the UDS response
+                    angular.forEach(this.kase.owner.resource.sso, function (ssoName) {
+                        if (securityService.loginStatus.authedUser.sso_username === ssoName) {
+                            self.isLoggedInUserIsOwner = true;
+                        }
+                    });
+                }
                 angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
