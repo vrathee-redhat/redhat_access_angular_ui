@@ -38,7 +38,7 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             this.comments = CaseDetailsService.comments;
             this.attachments = CaseAttachmentsService.originalAttachments;
             this.discussionElements = this.comments.concat(this.attachments);
-            if(RHAUtils.isNotEmpty(this.liveChatTranscripts))
+            if(RHAUtils.isNotEmpty(this.liveChatTranscripts) )
             {
                 this.discussionElements =this.discussionElements.concat(this.liveChatTranscripts)
             }

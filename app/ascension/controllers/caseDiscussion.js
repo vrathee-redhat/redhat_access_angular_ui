@@ -15,13 +15,13 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
     'RHAUtils',
     'EDIT_CASE_CONFIG',
     'AUTH_EVENTS',
-    'CASE_EVENTS',
+    'TOPCASES_EVENTS',
     'CaseAttachmentsService',
     '$sce',
     'gettextCatalog',
     '$filter',
     'CaseDiscussionService',
-    function ($scope, $timeout, CaseDetailsService, udsService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS,CaseAttachmentsService, $sce, gettextCatalog, $filter,CaseDiscussionService) {
+    function ($scope, $timeout, CaseDetailsService, udsService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, TOPCASES_EVENTS,CaseAttachmentsService, $sce, gettextCatalog, $filter,CaseDiscussionService) {
         $scope.CaseAttachmentsService = CaseAttachmentsService;
         $scope.CaseDetailsService = CaseDetailsService;
         $scope.securityService = securityService;
@@ -116,7 +116,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
             }
         });
 
-        $scope.$on(CASE_EVENTS.received, function () {
+        $scope.$on(TOPCASES_EVENTS.caseDetailsFetched, function () {
             if (CaseDetailsService.kase.chats !== undefined && CaseDetailsService.kase.chats.chat !== undefined) {
                 angular.forEach(CaseDetailsService.kase.chats.chat, angular.bind(this, function (chat) {
                     chat.last_modified_date = chat.start_date;

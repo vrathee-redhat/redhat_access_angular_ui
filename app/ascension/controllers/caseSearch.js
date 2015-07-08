@@ -2,8 +2,10 @@
 /*jshint camelcase: false */
 angular.module('RedhatAccess.ascension').controller('CaseSearch', [
     '$scope',
+    '$rootScope',
     'CaseDetailsService',
-    function ($scope, CaseDetailsService) {
+    'TOPCASES_EVENTS',
+    function ($scope,$rootScope, CaseDetailsService,TOPCASES_EVENTS) {
     	$scope.caseNumber = '';
 
     	$scope.searchCases = function(){

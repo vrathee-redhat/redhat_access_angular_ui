@@ -65,7 +65,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 {
                     kase.resolution='';
                 }
-                kase.liveChatTranscripts={};
+                kase.liveChatTranscripts=[];
                 if(response.resource.liveChatTranscripts)
                 {
                     kase.liveChatTranscripts=response.resource.liveChatTranscripts;
@@ -79,7 +79,6 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         chatTranscript.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
 
                     }));
-
                 }
 
                 kase.entitlement={};
