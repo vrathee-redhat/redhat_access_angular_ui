@@ -19,7 +19,15 @@ section.case-discussion-ascension
                 article.comment(id="{{element.id}}", ng-repeat="element in CaseDiscussionService.discussionElements | orderBy:'resource.sortModifiedDate':commentSortOrder", ng-if='!element.resource.draft')
                     .row
                         .col-sm-4
-                            h4.meta
+                            h4.meta(ng-if="element.comment_type === 'chat'")
+                                span {{'Transcript of chat between'|translate}}
+                                .author.blue {{element.resource.user.resource.fullName}}
+                                span {{'and'|translate}}
+                                .author.blue {{element.visitor_name}}
+                                date.light {{element.resource.last_modified_date}} &nbsp;
+                                span.light {{'at'|translate}} &nbsp;
+                                time.light {{element.resource.last_modified_time}}
+                            h4.meta(ng-if="element.comment_type !== 'chat'")
                                 .author.blue {{element.resource.createdBy.resource.fullName}}
                                 date.light {{element.resource.last_modified_date}} &nbsp;
                                 span.light {{'at'|translate}} &nbsp;
@@ -27,10 +35,10 @@ section.case-discussion-ascension
                                 .private(ng-if="element.resource.public !== undefined && element.resource.public === false && element.resource.issueLink === undefined") {{'Private'|translate}}
                                 .bugzilla(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") {{'Bugzilla'|translate}}
                         .col-sm-8
-                            blockquote.dialog-box.pre-wrap(ng-show="element.resource.text")
+                            blockquote.dialog-box.pre-wrap(ng-show="element.resource.text || element.resource.body")
                                span(ng-bind-html="parseCommentHtml(element)")
-                               a.pull-right.commentReply(ng-click='commentReply(element.resource)', href='') {{'Reply'|translate}}
-                            .dialog-box(ng-hide="element.resource.text")
+                               a.pull-right.commentReply(ng-click='commentReply(element.resource)',ng-show='element.resource.text', href='') {{'Reply'|translate}}
+                            .dialog-box(ng-hide="element.resource.text || element.resource.body")
                                 a(href="{{element.resource.url}}")
                                     .fa.fa-file-image-o.file-upload
                                     span {{element.resource.name}} ({{element.resource.size}} kB)
