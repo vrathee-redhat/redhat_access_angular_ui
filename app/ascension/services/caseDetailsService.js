@@ -334,7 +334,6 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.populateComments = function (caseNumber) {
             var promise = udsService.kase.comments.get(caseNumber);
             promise.then(angular.bind(this, function (comments) {
-                console.log("comments length "+comments.length);
                 angular.forEach(comments, angular.bind(this, function (comment, index) {
                     if (comment.resource.draft === true) {
                         this.draftComment = comment;
@@ -346,7 +345,6 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         } else if (RHAUtils.isEmpty(this.commentText)) {
                             this.disableAddComment = true;
                         }
-                        console.log("inside draft");
                         comments.slice(index, index + 1);
                     }
                 }));
@@ -363,9 +361,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         }
                     }
                 }
-
                 this.comments = comments;
-                console.log("comments length after "+comments.length);
             }), function (error) {
                 AlertService.addUDSErrorMessage(error);
             });
