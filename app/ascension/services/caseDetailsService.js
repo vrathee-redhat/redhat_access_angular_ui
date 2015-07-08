@@ -97,7 +97,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("Yes");
                     }
                     else {
-                        this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("No");;
+                        this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("No");
                     }
                     if (this.kase.negotiatedEntitlement.violates_sla === true) {
                         this.kase.negotiatedEntitlement.violates_sla_flag =gettextCatalog.getString("Yes");
@@ -361,7 +361,6 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         }
                     }
                 }
-
                 this.comments = comments;
             }), function (error) {
                 AlertService.addUDSErrorMessage(error);
