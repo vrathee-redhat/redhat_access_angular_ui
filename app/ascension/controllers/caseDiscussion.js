@@ -133,16 +133,16 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
         $scope.parseCommentHtml = function (comment) {
             var parsedHtml = '';
             if(comment.resource) {
-                if (comment.resource.body !== undefined) {
                     if (RHAUtils.isNotEmpty(comment.resource.body)) {
                         var rawHtml = comment.resource.body.toString();
                         parsedHtml = $sce.trustAsHtml(rawHtml);
                     }
-                } else if (comment.resource.text !== undefined) {
-                    if (RHAUtils.isNotEmpty(comment.resource.text)) {
+                    else
+                    {
+                      if (RHAUtils.isNotEmpty(comment.resource.text)) {
                         parsedHtml = $filter('linky')(comment.resource.text, '_blank');
+                      }
                     }
-                }
             }
             return parsedHtml;
         };
