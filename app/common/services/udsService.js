@@ -65,6 +65,22 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 {
                     kase.resolution='';
                 }
+                kase.liveChatTranscripts=[];
+                if(response.resource.liveChatTranscripts)
+                {
+                    kase.liveChatTranscripts=response.resource.liveChatTranscripts;
+                    angular.forEach(response.resource.liveChatTranscripts, angular.bind(this, function (chatTranscript) {
+                        chatTranscript.comment_type="chat";
+                        chatTranscript.resource.user.resource.fullName;
+                        var lastModifiedDate = RHAUtils.convertToTimezone(chatTranscript.resource.created);
+                        var modifiedDate = chatTranscript.resource.created;
+                        chatTranscript.resource.sortModifiedDate = modifiedDate;
+                        chatTranscript.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                        chatTranscript.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+
+                    }));
+                }
+
                 kase.entitlement={};
                 if(RHAUtils.isNotEmpty(response.resource.entitlement)) {
                     kase.entitlement.name = response.resource.entitlement.resource.name;
@@ -87,6 +103,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.owner = response.resource.owner;
                 kase.contributors = [];
                 kase.observers = [];
+                kase.issueLinks = response.resource.issueLinks;
 
                 return kase;
             } else if(isComment === true) {
