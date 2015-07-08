@@ -23,13 +23,13 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
         $scope.progressCount = 0;
         $scope.charactersLeft = 0;
         $scope.maxCommentLength = '32000';
-        $scope.ieFileDescription = '';
 
         CaseDiscussionService.commentTextBoxEnlargen = false;
 
         $scope.clearComment = function(){
             CaseDetailsService.commentText = undefined;
             CaseDiscussionService.commentTextBoxEnlargen = false;
+            CaseDetailsService.localStorageCache.remove(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number)+securityService.loginStatus.authedUser.sso_username);
         	CaseAttachmentsService.updatedAttachments = [];
         };
 
@@ -43,7 +43,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
                 CaseDetailsService.draftCommentOnServerExists=false;
                 if(CaseDetailsService.localStorageCache)
                 {
-                    CaseDetailsService.localStorageCache.remove(CaseDetailsService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
+                    CaseDetailsService.localStorageCache.remove(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number)+securityService.loginStatus.authedUser.sso_username);
                 }
                 if (RHAUtils.isNotEmpty($scope.saveDraftPromise)) {
                     $timeout.cancel($scope.saveDraftPromise);
@@ -58,21 +58,19 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
                     CaseDetailsService.draftSaved = false;
                     CaseDetailsService.draftComment = undefined;
                     CaseDiscussionService.commentTextBoxEnlargen = false;
+                    CaseDiscussionService.updateElements();
                 }, function (error) {
                     $scope.addingComment = false;
-
                     AlertService.addStrataErrorMessage(error);
                 });
+
+
                 $scope.progressCount = 0;
                 $scope.charactersLeft = 0;
-                var caseNumber=CaseDetailsService.kase.case_number;
-                if(CaseDetailsService.kase.case_number.toString().length < 8) {
-                    caseNumber = '0' + CaseDetailsService.kase.case_number;
-                }
 
                 //temporarily use strata for notification
                 if(securityService.loginStatus.authedUser.sso_username !== undefined && CaseDetailsService.updatedNotifiedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) === -1){
-                    strataService.cases.notified_users.add(caseNumber, securityService.loginStatus.authedUser.sso_username).then(function () {
+                    strataService.cases.notified_users.add(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number), securityService.loginStatus.authedUser.sso_username).then(function () {
                         CaseDetailsService.updatedNotifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
@@ -87,22 +85,21 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
                 $scope.charactersLeft = 0;
             };
 
-            $scope.addingComment = true;
-
-            if(CaseDetailsService.isCommentPublic)
-            {
-               udsService.kase.comments.post.public(CaseDetailsService.kase.case_number,CaseDetailsService.commentText);
-             }
-
-            else
-            {
-              udsService.kase.comments.post.private(CaseDetailsService.kase.case_number,CaseDetailsService.commentText);
+            $scope.addingComment = false;
+            if(!CaseDetailsService.disableAddComment && RHAUtils.isNotEmpty(CaseDetailsService.commentText)) {
+                $scope.addingComment = true;
+                if (CaseDetailsService.isCommentPublic) {
+                    udsService.kase.comments.post.public(CaseDetailsService.kase.case_number, CaseDetailsService.commentText).then(onSuccess, onError);
+                }
+                else {
+                    udsService.kase.comments.post.private(CaseDetailsService.kase.case_number, CaseDetailsService.commentText).then(onSuccess, onError);
+                }
             }
 
             $scope.addingattachment = false;
-
-            if ((CaseAttachmentsService.updatedAttachments.length > 0 || CaseAttachmentsService.hasBackEndSelections()) && EDIT_CASE_CONFIG.showAttachments) {
+            if ((CaseAttachmentsService.updatedAttachments.length > 0) && EDIT_CASE_CONFIG.showAttachments) {
                 $scope.addingattachment = true;
+                var  caseNumber =CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number);
                 CaseAttachmentsService.updateAttachments(caseNumber).then(function () {
                     $scope.addingattachment = false;
                     CaseDetailsService.checkForCaseStatusToggleOnAttachOrComment();
@@ -114,9 +111,19 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
         };
         $scope.saveDraftPromise;
         $scope.onNewCommentKeypress = function () {
+            if(CaseDetailsService.localStorageCache)
+            {
+                CaseDetailsService.draftCommentLocalStorage = {
+                        'text': CaseDetailsService.commentText,
+                        'draft': true,
+                        'public': CaseDetailsService.isCommentPublic,
+                        'case_number': CaseDetailsService.kase.case_number
+                };
+            }
+            CaseDetailsService.localStorageCache.put(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number)+securityService.loginStatus.authedUser.sso_username,CaseDetailsService.draftCommentLocalStorage);
             CaseDetailsService.disableAddComment = false;
             if (RHAUtils.isEmpty(CaseDetailsService.commentText)) {
-                CaseDetailsService.disableAddComment = true;
+                    CaseDetailsService.disableAddComment = true;
             }
         };
 

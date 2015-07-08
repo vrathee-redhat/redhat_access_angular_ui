@@ -13,8 +13,12 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
     'TOPCASES_EVENTS',
     '$q',
     'gettextCatalog',
-
-    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, gettextCatalog) {
+    '$angularCacheFactory',
+    function (udsService, AlertService, strataService, RHAUtils, securityService, RoutingService, AccountService, UQL, $rootScope, TOPCASES_EVENTS, $q, gettextCatalog,$angularCacheFactory) {
+        $angularCacheFactory('localCache', {
+            storageMode: 'localStorage',
+            verifyIntegrity: true
+        });
 
 		this.caseDetailsLoading = true;
         this.yourCasesLoading = true;
@@ -39,12 +43,19 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.noOfObservers = 0;
         this.discussionElements = [];
         this.enggBackLogCases = {};
+        this.draftComment = {};
+        this.draftCommentOnServerExists=false;
+        this.commentText = '';
+        this.localStorageCache = $angularCacheFactory.get('localCache');
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
             this.caseDetailsLoading = true;
             udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
                 this.kase = response;
+                this.draftComment = {};
+                this.draftCommentOnServerExists=false;
+                this.commentText='';
                 if((this.kase.sbt===undefined) && (this.kase.status.name=="Waiting on Red Hat"))
                 {
                     this.kase.sbtState=gettextCatalog.getString("MISSING SBT. "+"Entitlement status: {{entitlementStatus}}",{entitlementStatus:this.kase.entitlement.status});
@@ -76,22 +87,23 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 }
                 if(this.kase.negotiatedEntitlement) {
                     if (this.kase.negotiatedEntitlement.active === true) {
-                        this.kase.negotiatedEntitlement.active_flag = "Yes";
+                        this.kase.negotiatedEntitlement.active_flag =  gettextCatalog.getString("Yes");
+
                     }
                     else {
-                        this.kase.negotiatedEntitlement.active_flag = "No";
+                        this.kase.negotiatedEntitlement.active_flag = gettextCatalog.getString("No");
                     }
                     if (this.kase.negotiatedEntitlement.life_Case === true) {
-                        this.kase.negotiatedEntitlement.life_Case_flag = "Yes";
+                        this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("Yes");
                     }
                     else {
-                        this.kase.negotiatedEntitlement.life_Case_flag = "No";
+                        this.kase.negotiatedEntitlement.life_Case_flag = gettextCatalog.getString("No");
                     }
                     if (this.kase.negotiatedEntitlement.violates_sla === true) {
-                        this.kase.negotiatedEntitlement.violates_sla_flag = "Yes";
+                        this.kase.negotiatedEntitlement.violates_sla_flag =gettextCatalog.getString("Yes");
                     }
                     else {
-                        this.kase.negotiatedEntitlement.violates_sla_flag = "No";
+                        this.kase.negotiatedEntitlement.violates_sla_flag = gettextCatalog.getString("No");;
                     }
                     var startTime = RHAUtils.convertToTimezone(this.kase.negotiatedEntitlement.start_time);
                     this.kase.negotiatedEntitlement.format_start_time = RHAUtils.formatDate(startTime, 'MMM DD YYYY hh:mm A Z');
@@ -164,8 +176,9 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var uql, userRoles, ssoUserName, uqlParts,finalUql;
             uqlParts = [];
             var self = this;
-            ssoUserName = securityService.loginStatus.authedUser.sso_username+"\"";
-            udsService.user.get("SSO is \"" + ssoUserName + "\"").then(angular.bind(this, function (user){
+            ssoUserName = securityService.loginStatus.authedUser.sso_username;
+            var userUql = UQL.cond('SSO','is',"\""+ ssoUserName + "\"");
+            udsService.user.get(userUql).then(angular.bind(this, function (user){
                 if ((user == null) || ((user != null ? user[0].externalModelId : void 0) == null)) {
                     AlertService.addDangerMessage(gettextCatalog.getString("Was not able to fetch user with given ssoUserName"));
                 }
@@ -182,9 +195,8 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         userRoles = [RoutingService.key_mapping.OWNED_CASES, RoutingService.key_mapping.COLLABORATION, RoutingService.key_mapping.FTS];
                     }
                     angular.forEach(userRoles, function(r){
-                        uqlParts.push(RoutingService.mapping[r](user[0]));
+                        finalUql = UQL.or(finalUql,RoutingService.mapping[r](user[0]));
                     });
-                    finalUql = uqlParts.join(' or ');
 
                     var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
                     finalUql = UQL.and(finalUql, secureHandlingUQL);
@@ -233,8 +245,9 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             uqlEnggBacklog = RoutingService.ENGG_BACKLOG();
             var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
             uqlEnggBacklog = UQL.and(uqlEnggBacklog, secureHandlingUQL);
-            //as we just want one top case for engineering backlog, passing limit as only 1
-            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1);
+            //as we just want one top case for engineering backlog, passing limit as only 1 and we want oldest lastModified case
+            var sortOption = 'lastModifiedDate asc';
+            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1,sortOption);
             promise.then(angular.bind(this, function (backlogCases) {
                 if(RHAUtils.isNotEmpty(backlogCases)) {
                     self.enggBackLogCases = backlogCases;
@@ -251,13 +264,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 
         this.closeCase = function() {
             this.caseClosing = true;
-            // Appending a '0' to the case number because strata needs that
-            // and UDS trims that
-            var caseNumber = '';
-            if(this.kase.case_number.toString().length < 8) {
-                caseNumber = '0'+this.kase.case_number;
-            }
-            var promise = strataService.cases.put(caseNumber, {status: 'Closed'});
+            var promise = strataService.cases.put(this.getEightDigitCaseNumber(this.kase.case_number), {status: 'Closed'});
             promise.then( angular.bind(this, function (response) {
                 this.caseClosing = false;
                 AlertService.addSuccessMessage(gettextCatalog.getString('Case {{caseNumber}} successfully closed.',{caseNumber:this.kase.case_number}));
@@ -325,14 +332,42 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 
 
         this.populateComments = function (caseNumber) {
-
             var promise = udsService.kase.comments.get(caseNumber);
-            var draftId;
             promise.then(angular.bind(this, function (comments) {
+                console.log("comments length "+comments.length);
+                angular.forEach(comments, angular.bind(this, function (comment, index) {
+                    if (comment.resource.draft === true) {
+                        this.draftComment = comment;
+                        this.draftCommentOnServerExists=true;
+                        this.commentText = comment.text;
+                        this.isCommentPublic = comment.public;
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                        console.log("inside draft");
+                        comments.slice(index, index + 1);
+                    }
+                }));
+                if(this.localStorageCache) {
+                    if (this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username))
+                    {
+                        this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
+                        this.commentText = this.draftComment.text;
+                        this.isCommentPublic = this.draftComment.public;
+                        if (RHAUtils.isNotEmpty(this.commentText)) {
+                            this.disableAddComment = false;
+                        } else if (RHAUtils.isEmpty(this.commentText)) {
+                            this.disableAddComment = true;
+                        }
+                    }
+                }
 
-               //TODO draft logic
                 this.comments = comments;
+                console.log("comments length after "+comments.length);
             }), function (error) {
+                AlertService.addUDSErrorMessage(error);
             });
             return promise;
         };
@@ -357,13 +392,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 caseJSON.product = this.kase.product;
                 caseJSON.version = this.kase.version;
             }
-            // Appending a '0' to the case number because strata needs that
-            // and UDS trims that
-            var caseNumber = '';
-            if(this.kase.case_number.toString().length < 8) {
-                caseNumber = '0'+this.kase.case_number;
-            }
-            strataService.cases.put(caseNumber, caseJSON).then(angular.bind(this, function () {
+            strataService.cases.put(this.getEightDigitCaseNumber(this.kase.case_number), caseJSON).then(angular.bind(this, function () {
                 this.updatingCase = false;
                 angular.copy(this.kase, this.prestineKase);
                 deferred.resolve();
@@ -392,5 +421,19 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 AlertService.addUDSErrorMessage(error);
             });
         };
+
+        // Appending a '0' to the case number because strata needs that
+        // and UDS trims, as UDS consider it as number while strata consider it as string
+        this.getEightDigitCaseNumber = function(caseNumber){
+            var validCaseNumber = '',i;
+            if(caseNumber.toString().length < 8) {
+                var noOfZero = 8 - caseNumber.toString().length;
+                for(i=0;i<noOfZero;i++){
+                    validCaseNumber = validCaseNumber+'0';
+                }
+                validCaseNumber = validCaseNumber+caseNumber;
+            }
+            return validCaseNumber;
+        }
 	}
 ]);

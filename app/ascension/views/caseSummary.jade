@@ -1,4 +1,8 @@
 section.case-description-ascension
-    h3.section-title(translate,translate-comment="Noun") Case Summary
+    h3.section-title(translate,translate-comment="Noun") {{'Case Summary' |translate}}
     .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
-    h4(ng-show='!CaseDetailsService.caseDetailsLoading') {{CaseDetailsService.kase.summary}}
+    .div(ng-show='!CaseDetailsService.caseDetailsLoading && CaseDetailsService.kase.summary !== undefined')
+        .div
+            span(translate) Last Modified by {{CaseDetailsService.kase.summary.lastModifiedBy}} on {{CaseDetailsService.kase.summary.lastModified}}
+        .div.light
+            span {{CaseDetailsService.kase.summary.summaryText}}
