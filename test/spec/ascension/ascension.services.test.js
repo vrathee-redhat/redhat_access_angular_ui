@@ -92,7 +92,7 @@ describe('Ascension Services', function () {
     describe('CaseDiscussionService', function () {
         it('should have a method for getting discussion elements for given case number', function () {
             expect(caseDiscussionService.getDiscussionElements).toBeDefined();
-            caseDiscussionService.getDiscussionElements(1286251);
+            caseDiscussionService.getDiscussionElements("01286251");
             spyOn(mockUDSService.kase.comments, 'get').andCallThrough();
             scope.$root.$digest();
            // expect(caseDiscussionService.discussionElements).toEqual(mockUDSDataService.mockCaseComments);
