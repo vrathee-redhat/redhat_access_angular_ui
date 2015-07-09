@@ -6,8 +6,9 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
     'strataService',
     'CaseDetailsService',
     'AlertService',
-    function ($scope, $sanitize, strataService, CaseDetailsService,AlertService) {
-
+    'SearchResultsService',
+    function ($scope, $sanitize, strataService, CaseDetailsService, AlertService, SearchResultsService) {
+        $scope.SearchResultsService = SearchResultsService;
         $scope.recommendations = [];
         $scope.numSolutions = 5;
 
@@ -20,7 +21,8 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
                 version: CaseDetailsService.kase.version,
                 summary: CaseDetailsService.kase.subject, //in strata Kase.summary = subject and Kase.case_summary --> Case_Summary__c, in case of UDS we get case subject = subject amd summary = Case_Summary__c
                 description: CaseDetailsService.kase.description
-            };$scope.recommendations = [];
+            };
+            $scope.recommendations = [];
             strataService.recommendationsXmlHack(caseData, $scope.numSolutions, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
                 solutions.forEach(angular.bind(this, function (solution) {
                     if (solution !== undefined) {

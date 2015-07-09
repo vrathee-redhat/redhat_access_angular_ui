@@ -1,6 +1,6 @@
 #case-solutions
 div(rha-searchstackedsolutions='')
-div(ng-if='recommendations.length !== 0')
+div(ng-if='recommendations.length !== 0 && SearchResultsService.results.length === 0')
   h3.section-title(translate,translate-comment="Noun") Suggested Solutions
   ul
     li.recommendation(ng-repeat='recommendation in recommendations')
