@@ -98,6 +98,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             rawCase.group = { 'number': rawCase.folder_number };
             rawCase.type = { 'name': rawCase.type };
             this.kase = rawCase;
+            this.ungroupedCaseModifier();
             angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = rawCase.bugzillas;
             this.caseDataReady = true;
@@ -108,10 +109,19 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.setCase = function (jsonCase) {
             this.kase = jsonCase;
+            this.ungroupedCaseModifier();
             angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = jsonCase.bugzillas;
             this.caseDataReady = true;
         };
+
+        //Explicitly assigning group_number = '-1' for ungrouped case when case payload has no group information
+        this.ungroupedCaseModifier = function() {
+            if(RHAUtils.isEmpty(this.kase.group.number)) {
+                this.kase.group = {"number":"-1","name":"Ungrouped Case","is_private":false,"is_default":false};
+            }
+        };
+
         this.defineAccount = function (account) {
             this.account = account;
         };
