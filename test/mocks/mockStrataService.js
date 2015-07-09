@@ -116,7 +116,8 @@ angular.module('RedhatAccess.mock', [])
           "sbr_groups": {},
           "case_number": "01359975",
           "closed": false,
-          "selected":true
+          "selected":true,
+          "group": {"number":"685","name":"RBS"}
         }, {
           "created_by": "Sunil Keshari",
           "created_date": 1405340608000,
