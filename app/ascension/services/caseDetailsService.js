@@ -26,7 +26,9 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 		this.kase = {};
         this.prestineKase = {};
         this.cases = {};
-        this.comments = [];
+        this.bugzillas = [];
+        this.publicComments = [];
+        this.privateComments = [];
         this.products = [];
         this.versions = [];
         this.severities = [];
@@ -189,7 +191,8 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var self = this;
             ssoUserName = securityService.loginStatus.authedUser.sso_username;
             var userUql = UQL.cond('SSO','is',"\""+ ssoUserName + "\"");
-            udsService.user.get(userUql).then(angular.bind(this, function (user){
+            udsService.user.get(userUql).then(angular.bind(this, function (userArr){
+                var user = userArr[0];
                 if ((user == null) || ((user != null ? user[0].externalModelId : void 0) == null)) {
                     AlertService.addDangerMessage(gettextCatalog.getString("Was not able to fetch user with given ssoUserName"));
                 }
@@ -356,7 +359,13 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         } else if (RHAUtils.isEmpty(this.commentText)) {
                             this.disableAddComment = true;
                         }
-                        comments.slice(index, index + 1);
+                        // comments.slice(index, index + 1);
+                    } else if(comment.resource.issueLink !== undefined && comment.resource.issueLink.resource.source === 'Bugzilla'){
+                        this.bugzillas.push(comment);
+                    } else if(comment.resource.text && comment.resource.public){
+                        this.publicComments.push(comment);
+                    } else if(comment.resource.text && !comment.resource.public){
+                        this.privateComments.push(comment);
                     }
                 }));
                 if(this.localStorageCache) {
@@ -372,7 +381,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         }
                     }
                 }
-                this.comments = comments;
+                //this.comments = comments;
             }), function (error) {
                 AlertService.addUDSErrorMessage(error);
             });

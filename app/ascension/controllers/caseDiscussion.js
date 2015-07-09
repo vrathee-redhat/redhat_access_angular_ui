@@ -25,6 +25,9 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
         $scope.CaseAttachmentsService = CaseAttachmentsService;
         $scope.CaseDetailsService = CaseDetailsService;
         $scope.securityService = securityService;
+        $scope.CaseDiscussionService = CaseDiscussionService;
+        $scope.discussionElements = new Array();
+        $scope.discussionElements = CaseDiscussionService.discussionElements;
 
         $scope.noteCharactersLeft = 255;
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
@@ -42,10 +45,38 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
             {
                 name: gettextCatalog.getString('Oldest to Newest'),
                 sortOrder: 'ASC'
-            },
+            }
         ];
 
-        $scope.CaseDiscussionService = CaseDiscussionService;
+        $scope.commentFilterList = [
+            {
+                name: gettextCatalog.getString('View All'),
+                filter: 'all'
+            },
+            {
+                name: gettextCatalog.getString('View Messages'),
+                filter: 'comments'
+            },
+            {
+                name: gettextCatalog.getString('View Notes'),
+                filter: 'internalComments'
+            },
+            {
+                name: gettextCatalog.getString('View Attachments'),
+                filter: 'all'
+            },
+            {
+                name: gettextCatalog.getString('View Bugzillas'),
+                filter: 'bugzillas'
+            },
+            {
+                name: gettextCatalog.getString('View Bomgar Sessions'),
+                filter: 'bomgar'
+            }
+        ];
+        $scope.commentFilter = $scope.commentFilterList[0];
+
+
 
         var scroll = function(commentId){
             $timeout(function() {
@@ -93,13 +124,13 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
         };
 
 
-        $scope.$watch('CaseAttachmentsService.originalAttachments', function (val) {
-            CaseDiscussionService.updateElements();
+        $scope.$watch('CaseAttachmentsService', function (val) {
+            $scope.onFilterChange();
         }, true);
 
 
-        $scope.$watch('CaseDetailsService.comments', function (val) {
-            CaseDiscussionService.updateElements();
+        $scope.$watch('CaseDetailsService', function (val) {
+            $scope.onFilterChange();
         }, true);
 
 
@@ -153,6 +184,24 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
                     $scope.commentSortOrder = false;
                 } else if (CaseDiscussionService.commentSortOrder.sortOrder === 'DESC') {
                     $scope.commentSortOrder = true;
+                }
+            }
+        };
+
+        $scope.onFilterChange = function () {
+            if (RHAUtils.isNotEmpty($scope.commentFilter)){
+                if ($scope.commentFilter === $scope.commentFilterList[0]) {
+                    $scope.discussionElements = CaseDiscussionService.discussionElements;
+                } else if ($scope.commentFilter === $scope.commentFilterList[1]) {
+                    $scope.discussionElements = CaseDiscussionService.publicComments;
+                } else if ($scope.commentFilter === $scope.commentFilterList[2]) {
+                    $scope.discussionElements = CaseDiscussionService.privateComments;
+                } else if ($scope.commentFilter === $scope.commentFilterList[3]) {
+                    $scope.discussionElements = CaseDiscussionService.attachments;
+                } else if ($scope.commentFilter === $scope.commentFilterList[4]) {
+                    $scope.discussionElements = CaseDiscussionService.bugzillas;
+                } else if ($scope.commentFilter === $scope.commentFilterList[5]) {
+                    $scope.discussionElements = [];
                 }
             }
         };

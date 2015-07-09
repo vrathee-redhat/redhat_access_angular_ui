@@ -52,19 +52,19 @@ describe('Ascension Services', function () {
             expect(caseDetailsService.kase).toEqual(mockUDSDataService.mockCase);
             expect(caseDetailsService.caseDetailsLoading).toBe(false);
         });
-        it('should have a method for extracting routing roles for given user', function () {
-            expect(caseDetailsService.extractRoutingRoles).toBeDefined();
-            var result = caseDetailsService.extractRoutingRoles(mockUDSDataService.mockUser);
-            expect(result[0]).toEqual('ascension-fts');
-        });
-        it('should have a method for getting top cases for loggedin user', function () {
-            expect(caseDetailsService.getYourCases).toBeDefined();
-            securityService.loginStatus.authedUser.sso_username = 'testUser';
-            caseDetailsService.getYourCases();
-            spyOn(mockUDSService.cases, 'list').andCallThrough();
-            scope.$root.$digest();
-            expect(caseDetailsService.cases).toEqual(mockUDSDataService.yourCases);
-        });
+        // it('should have a method for extracting routing roles for given user', function () {
+        //     expect(caseDetailsService.extractRoutingRoles).toBeDefined();
+        //     var result = caseDetailsService.extractRoutingRoles(mockUDSDataService.mockUser);
+        //     expect(result[0]).toEqual('ascension-fts');
+        // });
+        // it('should have a method for getting top cases for loggedin user', function () {
+        //     expect(caseDetailsService.getYourCases).toBeDefined();
+        //     securityService.loginStatus.authedUser.sso_username = 'testUser';
+        //     caseDetailsService.getYourCases();
+        //     spyOn(mockUDSService.cases, 'list').andCallThrough();
+        //     scope.$root.$digest();
+        //     expect(caseDetailsService.cases).toEqual(mockUDSDataService.yourCases);
+        // });
         it('should have a method for fetching case history', function () {
             expect(caseDetailsService.fetCaseHistory).toBeDefined();
             caseDetailsService.fetCaseHistory(1286251);

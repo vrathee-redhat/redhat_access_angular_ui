@@ -10,7 +10,9 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
     function ( $q, AlertService, HeaderService,CaseDetailsService,CaseAttachmentsService,RHAUtils) {
         this.discussionElements = [];
         this.chatTranscriptList = [];
-        this.comments = CaseDetailsService.comments;
+        this.privateComments = CaseDetailsService.privateComments;
+        this.publicComments = CaseDetailsService.publicComments;
+        this.bugzillas = CaseDetailsService.bugzillas;
         this.liveChatTranscripts=CaseDetailsService.kase.liveChatTranscripts;
         this.attachments = CaseAttachmentsService.originalAttachments;
         this.loadingComments = false;
@@ -35,9 +37,14 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             return $q.all([commentsPromise]);
         };
         this.updateElements = function () {
-            this.comments = CaseDetailsService.comments;
+            this.privateComments = CaseDetailsService.privateComments;
+            this.discussionElements = this.discussionElements.concat(this.privateComments);
+            this.publicComments = CaseDetailsService.publicComments;
+            this.discussionElements = this.discussionElements.concat(this.publicComments);
+            this.bugzillas = CaseDetailsService.bugzillas;
+            this.discussionElements = this.discussionElements.concat(this.bugzillas);
             this.attachments = CaseAttachmentsService.originalAttachments;
-            this.discussionElements = this.comments.concat(this.attachments);
+            this.discussionElements = this.discussionElements.concat(this.attachments);
             if(RHAUtils.isNotEmpty(this.liveChatTranscripts) )
             {
                 this.discussionElements =this.discussionElements.concat(this.liveChatTranscripts)

@@ -92,7 +92,7 @@ angular.module('RedhatAccess.mockUDS', [])
                 "hireDate":"2014-10-06T00:00:00.000-04:00"},
             "resourceReliability":"Fresh",
             "externalModelId":"005A0000005mfwIIAQ"
-        }];
+        },{}];
         this.mockAccount = {
             "resource":{
                 "accountNumber":651570,
