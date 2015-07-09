@@ -5,7 +5,6 @@ angular.module('RedhatAccess.ascension').service('UserDetailsService', [
     'AlertService',
     'RHAUtils',
     'securityService',
-    'translate',
-    function (udsService, AlertService, RHAUtils, ESCALATION_TYPE, securityService, translate) {
+    function (udsService, AlertService, RHAUtils, ESCALATION_TYPE, securityService) {
 	}
 ]);

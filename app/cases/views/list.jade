@@ -6,10 +6,10 @@ div(rha-header='', page='caseList')
       .actions
         .row
           .col-xs-12
-            a.btn.btn-app.btn-sm.new-case-btn(href='#/case/new',translate='')
+            a.btn.btn-app.btn-sm.new-case-btn(href='#/case/new')
               span#rha-new-case-btn
-              | Create a New Support Case
-            a.btn.btn-app.btn-sm(translate='', ng-click='closeCases()', ng-disabled='!caseChosen()') Close
+              | {{'Create a New Support Case'|translate}}
+            a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()') Close Case(s)
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.cases.length == 0')
     .col-sm-6
       .case-count
@@ -44,22 +44,15 @@ div(rha-header='', page='caseList')
           .col-sm-12.col-md-2(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
             .item-group.change-log
               .filed-on
-                | {{'Modified by'|translate}}&nbsp;
-                span {{case.last_modified_by}}&nbsp;
-                span {{'on'|translate}}&nbsp;
-                span {{case.last_modified_date}}
+                span(translate) Modified by {{case.last_modified_by}} on {{case.last_modified_date}}
           .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
             .item-group.change-log
               .filed-on
-                | {{'Created by'|translate}}&nbsp;
-                span {{case.created_by}}&nbsp;
-                span {{'on'|translate}}&nbsp;
-                span {{case.created_date}}
+                span(translate) Created by {{case.created_by}} on {{case.created_date}}
           .col-sm-12.col-md-2
             .item-group.change-log
               .filed-on
-                | {{'Owned by'|translate}}&nbsp;
-                span {{case.contact_name}}
+                span(translate) Owned by {{case.contact_name}}
   div(ng-show='SearchCaseService.searching')
     .spinner
     p.center {{'Loading cases...'|translate}}

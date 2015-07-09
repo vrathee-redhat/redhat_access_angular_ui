@@ -5,8 +5,8 @@ angular.module('RedhatAccess.ascension').controller('BreachStatus', [
     '$modal',
     'CaseDetailsService',
     'TOPCASES_EVENTS',
-    'translate',
-    function ($scope, $modal,CaseDetailsService,TOPCASES_EVENTS,translate) {
+    'gettextCatalog',
+    function ($scope, $modal,CaseDetailsService,TOPCASES_EVENTS,gettextCatalog) {
         $scope.CaseDetailsService=CaseDetailsService;
         $scope.$on(TOPCASES_EVENTS.caseDetailsFetched, function () {
 
@@ -19,9 +19,9 @@ angular.module('RedhatAccess.ascension').controller('BreachStatus', [
             if(CaseDetailsService.kase.sbt){
                 var humanized = moment.duration(CaseDetailsService.kase.sbt, 'minutes').humanize();
                 if (CaseDetailsService.kase.sbt > 0 ) {
-                    breachText= breachText.concat(translate("Breaching in")+" "+humanized);
+                    breachText= breachText.concat(gettextCatalog.getString("Breaching in {{breachTime}}",{breachTime:humanized}));
                 } else {
-                    breachText= breachText.concat(translate("Breached by")+" "+humanized);
+                    breachText= breachText.concat(gettextCatalog.getString("Breached by {{breachTime}}",{breachTime:humanized}));
                 }
             }
             return breachText;

@@ -7,11 +7,11 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
     'AlertService',
     'securityService',
     'HeaderService',
-    'translate',
+    'gettextCatalog',
     'CaseDetailsService',
     'CaseDiscussionService',
     'TOPCASES_EVENTS',
-    function ($scope, $location, RHAUtils, AUTH_EVENTS, AlertService, securityService, HeaderService, translate, CaseDetailsService,CaseDiscussionService,TOPCASES_EVENTS) {
+    function ($scope, $location, RHAUtils, AUTH_EVENTS, AlertService, securityService, HeaderService, gettextCatalog, CaseDetailsService,CaseDiscussionService,TOPCASES_EVENTS) {
         $scope.securityService = securityService;
         $scope.HeaderService = HeaderService;
         $scope.CaseDetailsService = CaseDetailsService;
@@ -29,51 +29,76 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
         $scope.toggleCaseOverView = function(){
             $scope.caseOverView = true;
             $scope.caseDiscussion = false;
+            $scope.linkedResources = false;
             $scope.caseSummary = false;
             $scope.caseHistory = false;
             $scope.bugzillas = false;
             $scope.escalations = false;
+            $scope.accountNotes = false;
         };
         $scope.toggleCaseDiscussion = function(){
-            CaseDiscussionService.getDiscussionElements(CaseDetailsService.kase.case_number);
+            CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number));
             $scope.caseDiscussion = true;
+            $scope.linkedResources = false;
             $scope.caseOverView = false;
             $scope.caseSummary = false;
             $scope.caseHistory = false;
             $scope.bugzillas = false;
             $scope.escalations = false;
+            $scope.accountNotes = false;
         };
         $scope.toggleCaseSummary= function(){
             $scope.caseSummary = true;
             $scope.caseOverView = false;
             $scope.caseDiscussion = false;
+            $scope.linkedResources = false;
             $scope.caseHistory = false;
             $scope.bugzillas = false;
             $scope.escalations = false;
+            $scope.accountNotes = false;
         };
         $scope.toggleCaseHistory = function(){
+            CaseDetailsService.fetCaseHistory(CaseDetailsService.kase.case_number);
             $scope.caseHistory = true;
             $scope.caseOverView = false;
             $scope.caseDiscussion = false;
+            $scope.linkedResources = false;
             $scope.caseSummary = false;
             $scope.bugzillas = false;
             $scope.escalations = false;
-        };
-        $scope.toggleBugzillas = function(){
-            $scope.bugzillas = true;
-            $scope.caseOverView = false;
-            $scope.caseDiscussion = false;
-            $scope.caseSummary = false;
-            $scope.caseHistory = false;
-            $scope.escalations = false;
+            $scope.accountNotes = false;
         };
         $scope.toggleEscalations = function(){
             $scope.escalations = true;
             $scope.caseOverView = false;
             $scope.caseDiscussion = false;
+            $scope.linkedResources = false;
             $scope.caseSummary = false;
             $scope.caseHistory = false;
             $scope.bugzillas = false;
+            $scope.accountNotes = false;
+        };
+
+        $scope.toggleLinkedResources = function(){
+            $scope.escalations = false;
+            $scope.caseOverView = false;
+            $scope.caseDiscussion = false;
+            $scope.linkedResources = true;
+            $scope.caseSummary = false;
+            $scope.caseHistory = false;
+            $scope.bugzillas = false;
+            $scope.accountNotes = false;
+        };
+
+        $scope.toggleAccountNotes = function(){
+            $scope.escalations = false;
+            $scope.caseOverView = false;
+            $scope.caseDiscussion = false;
+            $scope.linkedResources = false;
+            $scope.caseSummary = false;
+            $scope.caseHistory = false;
+            $scope.bugzillas = false;
+            $scope.accountNotes = true;
         };
 
         if (securityService.loginStatus.isLoggedIn) {

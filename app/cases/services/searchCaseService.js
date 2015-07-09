@@ -106,7 +106,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 //if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
                 //    params.keyword = this.caseParameters.searchTerm;
                 //}
-                if (this.caseParameters.group === CASE_GROUPS.ungrouped) {
+                if (this.caseParameters.group === CASE_GROUPS.ungrouped || this.caseParameters.group === "-1") {
                     params.only_ungrouped = true;
                 } else if (!RHAUtils.isEmpty(this.caseParameters.group)) {
                     params.group_numbers = { group_number: [this.caseParameters.group] };
@@ -127,9 +127,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 }
                 if (!RHAUtils.isEmpty(CaseService.filterSelect.sortOrder)) {
                     //This is a hack because strata returns the severities in reverse order
-                    if((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'owner') && CaseService.filterSelect.sortOrder === 'ASC'){
+                    if((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'ASC'){
                         params.sort_order = 'DESC';
-                    } else if((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'owner') && CaseService.filterSelect.sortOrder === 'DESC'){
+                    } else if((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'DESC'){
                         params.sort_order = 'ASC';
                     } else{
                         params.sort_order = CaseService.filterSelect.sortOrder;
@@ -184,7 +184,11 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     }
                 }));
             } else{
-                cases = strataService.cases.search(this.caseParameters.status, caseOwner, this.caseParameters.group, this.caseParameters.searchTerm, CaseService.filterSelect.sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+                var sortField = CaseService.filterSelect.sortField;
+                if(sortField === "owner"){
+                    sortField = "contactName";
+                }
+                cases = strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, null, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
                     if(response['case'] === undefined){
                         that.totalCases = 0;
                         that.total = 0;

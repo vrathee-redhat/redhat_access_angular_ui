@@ -23,8 +23,8 @@ angular.module('RedhatAccess.cases').controller('New', [
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
-    'translate',
-    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, translate) {
+    'gettextCatalog',
+    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -222,7 +222,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                     });
                 }
                 angular.forEach($scope.notifiedUsers, function (user) {
-                    var userMessage = AlertService.addWarningMessage(translate('Adding user') + ' ' + user + ' ' + translate('to case.'));
+                    var userMessage = AlertService.addWarningMessage(gettextCatalog.getString('Adding user {{userName}} to case.',{userName:user}));
                     strataService.cases.notified_users.add(caseNumber, user).then(function () {
                         AlertService.removeAlert(userMessage);
                     }, function (error) {
@@ -297,11 +297,11 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
             if(text.indexOf('Locating') !== -1)
             {
-                text=translate('Locating top solutions');
+                text=gettextCatalog.getString('Locating top solutions');
             }
             else
             {
-                text=translate('Refining top solutions');
+                text=gettextCatalog.getString('Refining top solutions');
             }
             return text;
         };
@@ -339,12 +339,12 @@ angular.module('RedhatAccess.cases').controller('New', [
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         } else {
-                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' +' '+ content));
+                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}',{errorMessage:content}));
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         }
                     } else {
-                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message:' +' '+ content));
+                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}',{errorMessage:content}));
                         redirectToCase(caseNumber);
                         $scope.$apply();
                     }
@@ -360,7 +360,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             } else if (iframeId.attachEvent){
                 iframeId.attachEvent('onload', eventHandler);
             }
-            var uploadingAlert = AlertService.addWarningMessage(translate('Uploading attachment...'));
+            var uploadingAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachment...'));
             form.submit();
         };
 

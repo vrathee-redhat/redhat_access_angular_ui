@@ -12,12 +12,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$q',
     '$timeout',
     '$filter',
-    'translate',
+    'gettextCatalog',
     '$angularCacheFactory',
     '$rootScope',
     'CASE_EVENTS',
     'ConstantsService',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, translate, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService) {
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, gettextCatalog, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService) {
         $angularCacheFactory('localStorageCache', {
             storageMode: 'localStorage',
             verifyIntegrity: true
@@ -206,22 +206,28 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 else {
                     accountNumber = RHAUtils.isEmpty(this.account.number) ? securityService.loginStatus.authedUser.account_number : this.account.number;
                 }
-                promise = strataService.accounts.users(accountNumber);
-                this.owner = undefined;
-                promise.then(angular.bind(this, function (users) {
-                    angular.forEach(users, function(user){
-                        if(user.sso_username === securityService.loginStatus.authedUser.sso_username) {
-                            this.owner = user.sso_username;
-                        }
-                    }, this);
-                    this.usersLoading = false;
-                    this.users = users;
+                if(!RHAUtils.isEmpty(accountNumber)){
+                    promise = strataService.accounts.users(accountNumber);
+                    this.owner = undefined;
+                    promise.then(angular.bind(this, function (users) {
+                        angular.forEach(users, function(user){
+                            if(user.sso_username === securityService.loginStatus.authedUser.sso_username) {
+                                this.owner = user.sso_username;
+                            }
+                        }, this);
+                        this.usersLoading = false;
+                        this.users = users;
 
-                }), angular.bind(this, function (error) {
-                    this.users = [];
-                    this.usersLoading = false;
-                    AlertService.addStrataErrorMessage(error);
-                }));
+                    }), angular.bind(this, function (error) {
+                        this.users = [];
+                        this.usersLoading = false;
+                        AlertService.addStrataErrorMessage(error);
+                    }));
+                } else{
+                    var deferred = $q.defer();
+                    promise = deferred.promise;
+                    deferred.resolve();
+                }
             } else {
                 var deferred = $q.defer();
                 promise = deferred.promise;
@@ -316,6 +322,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if(this.showFts()) {
                 this.fts = true;
                 this.kase.fts=true;
+            } else {
+                this.fts = false;
+                this.kase.fts=false;
             }
         };
 
@@ -361,15 +370,15 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if (this.showsearchoptions === true) {
                 this.groupOptions.push({
                     value: '',
-                    label: translate('All Groups')
+                    label: gettextCatalog.getString('All Groups')
                 }, {
                     value: 'ungrouped',
-                    label: translate('Ungrouped Cases')
+                    label: gettextCatalog.getString('Ungrouped Cases')
                 });
             } else {
                 this.groupOptions.push({
                     value: '',
-                    label: translate('Ungrouped Case')
+                    label: gettextCatalog.getString('Ungrouped Case')
                 });
             }
             if (this.showsearchoptions === true && this.groups.length > 0) {
@@ -379,13 +388,15 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 });
             }
             angular.forEach(this.groups, function(group){
-                this.groupOptions.push({
-                    value: group.number,
-                    label: group.name
-                });
-                if(group.is_default) {
-                    this.kase.group = group.number;
-                    this.group = group.number;
+                if(group.number !== "-1"){
+                    this.groupOptions.push({
+                        value: group.number,
+                        label: group.name
+                    });
+                    if(group.is_default) {
+                        this.kase.group = group.number;
+                        this.group = group.number;
+                    }
                 }
             }, this);
             if (this.showsearchoptions === true) {
@@ -394,7 +405,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     label: sep
                 }, {
                     value: 'manage',
-                    label: translate('Manage Case Groups')
+                    label: gettextCatalog.getString('Manage Case Groups')
                 });
             }
         };
@@ -439,10 +450,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
 
             this.submittingCase = true;
-            AlertService.addWarningMessage(translate('Creating case...'));
+            AlertService.addWarningMessage(gettextCatalog.getString('Creating case...'));
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(translate('Successfully created case number') + ' ' + caseNumber);
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created case number {{caseNumber}}',{caseNumber:caseNumber}));
                 self.clearLocalStorageCacheForNewCase();
                 deferred.resolve(caseNumber);
             }, function (error) {
@@ -561,7 +572,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 } else if(sortField === 'createdDate') {
                     this.filterSelect = ConstantsService.sortByParams[5];
                 } else if(sortField === 'owner') {
-                    this.filterSelect = ConstantsService.sortByParams[7];
+                    this.filterSelect = ConstantsService.sortByParams[6];
                 }
             } else if(sortOrder === 'DESC') {
                 if(sortField === 'lastModifiedDate') {
@@ -571,7 +582,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 } else if(sortField === 'createdDate') {
                     this.filterSelect = ConstantsService.sortByParams[4];
                 } else if(sortField === 'owner') {
-                    this.filterSelect = ConstantsService.sortByParams[6];
+                    this.filterSelect = ConstantsService.sortByParams[7];
                 }
             }
         };

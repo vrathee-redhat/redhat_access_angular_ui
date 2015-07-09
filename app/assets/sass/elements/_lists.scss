@@ -1,0 +1,55 @@
+
+.aside {
+
+	ul {
+		list-style-type: none;
+		@include rem('padding', $global-padding 0 );
+	}
+
+	li {
+
+		article {
+			padding: 0;
+		}
+
+		.title {
+			padding: 0;
+			@include font-size(14px);
+			line-height: 1;
+		}
+
+		// set the pinned and pinning states to be visible always
+		.pinned,
+		.spinner-xs {
+			@include opacity(1);
+		}
+
+		.not-pinned {
+			@include transition(0);
+		}
+
+		.spinner {
+			margin-left: -4px;
+		}
+	}
+
+	li + li {
+		@include rem('margin-top', $global-margin);
+	}
+
+	li:hover {
+		.pin {
+			@include opacity(.5);
+
+			&:hover {
+				@include opacity(1);
+			}
+		}
+	}
+}
+
+.list-dark {
+	color: #333;
+
+	a { color: #333; }
+}

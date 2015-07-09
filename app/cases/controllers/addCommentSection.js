@@ -12,8 +12,8 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
     '$timeout',
     'RHAUtils',
     'EDIT_CASE_CONFIG',
-    'translate',
-    function ($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG, translate) {
+    'gettextCatalog',
+    function ($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog) {
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
@@ -214,7 +214,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             }
         };
         $scope.shouldTextboxMinimize = function(){
-            if(CaseService.commentText === undefined || CaseService.commentText === ''){
+            if(RHAUtils.isEmpty(CaseService.commentText)){
                 DiscussionService.commentTextBoxEnlargen=false;
             }
         };
@@ -254,12 +254,12 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                             });
                         } else {
                             $scope.addingComment = false;
-                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}',{errorMessage:content}));
                             $scope.$apply();
                         }
                     } else {
                         $scope.addingComment = false;
-                        AlertService.addDangerMessage(translate('Error: Failed to upload attachment. Message: ' + content));
+                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}',{errorMessage:content}));
                         $scope.$apply();
                     }
                 }else {
@@ -269,7 +269,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                             AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                             $scope.ieClearSelectedFile();
                         } else{
-                            AlertService.addDangerMessage(translate('Error: Failed to upload attachment.'));
+                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment.'));
                         }
 
                     }, function (error) {

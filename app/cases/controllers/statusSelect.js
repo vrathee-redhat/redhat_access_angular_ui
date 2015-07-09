@@ -4,22 +4,22 @@ angular.module('RedhatAccess.cases').controller('StatusSelect', [
     'securityService',
     'CaseService',
     'STATUS',
-    'translate',
-    function ($scope, securityService, CaseService, STATUS, translate) {
+    'gettextCatalog',
+    function ($scope, securityService, CaseService, STATUS, gettextCatalog) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.STATUS = STATUS;
         $scope.statuses = [
             {
-                name: translate('Open and Closed'),
+                name: gettextCatalog.getString('Open and Closed'),
                 value: STATUS.both
             },
             {
-                name: translate('Open'),
+                name: gettextCatalog.getString('Open'),
                 value: STATUS.open
             },
             {
-                name: translate('Closed'),
+                name: gettextCatalog.getString('Closed'),
                 value: STATUS.closed
             }
         ];

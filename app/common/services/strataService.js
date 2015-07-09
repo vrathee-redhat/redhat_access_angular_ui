@@ -5,11 +5,11 @@
 /*jshint unused:vars */
 angular.module('RedhatAccess.common').factory('strataService', [
     '$q',
-    'translate',
+    'gettextCatalog',
     'RHAUtils',
     '$angularCacheFactory',
     'RESOURCE_TYPES',
-    function ($q, translate, RHAUtils, $angularCacheFactory, RESOURCE_TYPES) {
+    function ($q, gettextCatalog, RHAUtils, $angularCacheFactory, RESOURCE_TYPES) {
         $angularCacheFactory('strataCache', {
             capacity: 1000,
             maxAge: 900000,
@@ -34,7 +34,7 @@ angular.module('RedhatAccess.common').factory('strataService', [
             var translatedMsg = message;
             switch (status) {
             case 'Unauthorized':
-                translatedMsg = translate('Unauthorized.');
+                translatedMsg = gettextCatalog.getString('Unauthorized.');
                 break; // case n:
                 //   code block
                 //   break;
@@ -203,11 +203,6 @@ angular.module('RedhatAccess.common').factory('strataService', [
                         }
                         $q.all(deferreds).then(
                             function (results) {
-                                results.forEach(function (result) {
-                                    if (result !== undefined) {
-                                        results.push(result);
-                                    }
-                                });
                                 resultsDeferred.resolve(results);
                             },
                             angular.bind(resultsDeferred, errorHandler));

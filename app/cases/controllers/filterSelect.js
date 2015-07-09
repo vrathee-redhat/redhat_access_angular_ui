@@ -5,9 +5,8 @@ angular.module('RedhatAccess.cases').controller('FilterSelect', [
     'securityService',
     'CaseService',
     'STATUS',
-    'translate',
     'ConstantsService',
-    function ($scope, securityService, CaseService, STATUS, translate, ConstantsService) {
+    function ($scope, securityService, CaseService, STATUS,  ConstantsService) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.ConstantsService = ConstantsService;

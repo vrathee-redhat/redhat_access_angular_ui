@@ -19,9 +19,9 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     'AUTH_EVENTS',
     'CASE_EVENTS',
     '$sce',
-    'translate',
+    'gettextCatalog',
     '$filter',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, translate, $filter) {
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, $filter) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -37,11 +37,11 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.commentSortOrder = true;
         $scope.commentSortOrderList = [
             {
-                name: translate('Newest to Oldest'),
+                name: gettextCatalog.getString('Newest to Oldest'),
                 sortOrder: 'DESC'
             },
             {
-                name: translate('Oldest to Newest'),
+                name: gettextCatalog.getString('Oldest to Newest'),
                 sortOrder: 'ASC'
             },
         ];
@@ -79,7 +79,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             var truncatedText=comment.text.substring(0,1000);
             var person = comment.created_by;
             var lines = truncatedText.split(/\n/);
-            truncatedText = '(' + translate('In reply to') + ' ' + person + ')\n';
+            truncatedText = gettextCatalog.getString('(In reply to {{personName}})',{personName:person}) +'\n';
             for (var i = 0, max = lines.length; i < max; i++) {
                truncatedText = truncatedText + '> ' + lines[i] + '\n';
             }

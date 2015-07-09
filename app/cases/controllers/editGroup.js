@@ -14,9 +14,9 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
     'securityService',
     'RHAUtils',
     'AUTH_EVENTS',
-    'translate',
+    'gettextCatalog',
     'CASE_EVENTS',
-    function ($scope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, translate, CASE_EVENTS) {
+    function ($scope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, gettextCatalog, CASE_EVENTS) {
         $scope.GroupUserService = GroupUserService;
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
@@ -26,7 +26,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
         $scope.accountNumber = null;
         $scope.isUsersPrestine = true;
         $scope.isGroupPrestine = true;
-        
+
         var reloadTable = false;
         var tableBuilt = false;
         var buildTable = function () {
@@ -82,7 +82,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                 });
             }else{
                 $scope.usersLoading = false;
-                AlertService.addStrataErrorMessage(translate('User does not have proper credentials to manage case groups.'));
+                AlertService.addStrataErrorMessage(gettextCatalog.getString('User does not have proper credentials to manage case groups.'));
             }
         };
         $scope.saveGroup = function () {
@@ -90,7 +90,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             if(!$scope.isGroupPrestine){
                 strataService.groups.update($scope.selectedGroup, userName).then(function (response) {
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Case group successfully updated.'));
+                    AlertService.addSuccessMessage(gettextCatalog.getString('Case group successfully updated.'));
                     $scope.isGroupPrestine = true;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
@@ -100,7 +100,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                 strataService.groupUsers.update($scope.usersOnAccount, $scope.accountNumber, $scope.selectedGroup.number).then(function(response) {
                     $scope.isUsersPrestine = true;
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Case users successfully updated.'));
+                    AlertService.addSuccessMessage(gettextCatalog.getString('Case users successfully updated.'));
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
@@ -115,7 +115,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             }
             $scope.isUsersPrestine = false;
         };
-        
+
         $scope.onMasterWriteCheckboxClicked = function (masterWriteSelected) {
             for(var i = 0; i < $scope.usersOnAccount.length; i++){
                 if (!$scope.usersOnAccount[i].org_admin) {

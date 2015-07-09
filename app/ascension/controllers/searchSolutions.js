@@ -6,25 +6,32 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
     'strataService',
     'CaseDetailsService',
     'AlertService',
-    function ($scope, $sanitize, strataService, CaseDetailsService,AlertService) {
-
+    'SearchResultsService',
+    function ($scope, $sanitize, strataService, CaseDetailsService, AlertService, SearchResultsService) {
+        $scope.SearchResultsService = SearchResultsService;
         $scope.recommendations = [];
         $scope.numSolutions = 5;
 
         $scope.$watch(function () {
             return CaseDetailsService.kase;
         }, function () {
+            $scope.recommendations = [];
             var caseData = {
                 product: CaseDetailsService.kase.product,
                 version: CaseDetailsService.kase.version,
-                summary: CaseDetailsService.kase.summary,
+                summary: CaseDetailsService.kase.subject, //in strata Kase.summary = subject and Kase.case_summary --> Case_Summary__c, in case of UDS we get case subject = subject amd summary = Case_Summary__c
                 description: CaseDetailsService.kase.description
             };
+            $scope.recommendations = [];
             strataService.recommendationsXmlHack(caseData, $scope.numSolutions, true, '%3Cstrong%3E%2C%3C%2Fstrong%3E').then(angular.bind(this, function (solutions) {
                 solutions.forEach(angular.bind(this, function (solution) {
                     if (solution !== undefined) {
-                        //TODO add code for red pin if resource is linked by matching with CaseDetailsService.Kase.resource.resourceLinks[i].resource.resourceStatus == 'Linked'
-                        //add another for loop for checking with CaseDetailsService.Kase.resource.resourceLinks[i].resource.resourceStatus == 'Linked' && resource ID are equal
+                        angular.forEach(CaseDetailsService.kase.resourceLinks, function(r) {
+                            //if resource is linked, it should appear in red colour pin
+                            if(r.resource.resourceId.toString() === solution.resource_id && r.resource.resourceStatus === 'Linked'){
+                                solution.pinned = !solution.pinned;
+                            }
+                        });
                         solution.resource_type = 'Solution';
                         try {
                             solution.abstract = $sanitize(solution.abstract);
@@ -56,8 +63,7 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
                         }]
                     }
                 };
-                CaseDetailsService.kase.case_number = '0'+CaseDetailsService.kase.case_number;
-                strataService.cases.put(CaseDetailsService.kase.case_number, recJSON).then(function (response) {
+                strataService.cases.put(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number), recJSON).then(function (response) {
                     $scope.currentRecPin.pinning = false;
                     $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
                 }, function (error) {

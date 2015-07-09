@@ -111,8 +111,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
       .row.row-short
         .col-sm-7
           span#notesNotice.uploadNotice
-            span.progressCount {{noteCharactersLeft}}
-            span {{' characters left.'|translate}}
+            span.progressCount(translate) {{noteCharactersLeft}} characters left.
         .col-sm-5
           .pull-right
             button.btn.btn-app(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty',translate='') Update

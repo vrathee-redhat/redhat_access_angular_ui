@@ -2,9 +2,9 @@
 angular.module('RedhatAccess.header').controller('TitleViewCtrl', [
     'COMMON_CONFIG',
     '$scope',
-    'translate',
+    'gettextCatalog',
     'CaseService',
-    function (COMMON_CONFIG, $scope, translate, CaseService) {
+    function (COMMON_CONFIG, $scope, gettextCatalog, CaseService) {
         $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.showTitle = COMMON_CONFIG.show;
         $scope.titlePrefix = COMMON_CONFIG.titlePrefix;
@@ -12,21 +12,21 @@ angular.module('RedhatAccess.header').controller('TitleViewCtrl', [
         $scope.getPageTitle = function () {
             switch ($scope.page) {
             case 'search':
-                return translate('Search');
+                return gettextCatalog.getString('Search');
             case 'caseList':
-                return translate('SUPPORT CASES');
+                return gettextCatalog.getString('SUPPORT CASES');
             case 'caseView':
-                return translate('CASE ') + CaseService.kase.case_number;
+                return gettextCatalog.getString('CASE {{caseNumber}}',{caseNumber:CaseService.kase.case_number});
             case 'newCase':
-                return translate('CREATE A NEW SUPPORT CASE');
+                return gettextCatalog.getString('CREATE A NEW SUPPORT CASE');
             case 'logViewer':
-                return translate('Logs');
+                return gettextCatalog.getString('Logs');
             case 'searchCase':
-                return translate('Search Support Case');
+                return gettextCatalog.getString('Search Support Case');
             case 'manageGroups':
-                return translate('Manage Case Groups');
+                return gettextCatalog.getString('Manage Case Groups');
             case 'editGroup':
-                return translate('Manage Default Case Groups');
+                return gettextCatalog.getString('Manage Default Case Groups');
             default:
                 return '';
             }

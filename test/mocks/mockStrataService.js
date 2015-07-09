@@ -1313,4 +1313,5 @@ angular.module('RedhatAccess.mock', [])
         return container;
       };
     }
-  ]);
+  ])
+;

@@ -12,7 +12,14 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.case_number = response.resource.caseNumber;
                 kase.status = {};
                 kase.status.name = response.resource.status;
-                kase.summary = response.resource.subject;
+                kase.internalStatus = response.resource.internalStatus;
+                kase.subject = response.resource.subject;
+                if(RHAUtils.isNotEmpty(response.resource.summary)) {
+                    kase.summary = {};
+                    kase.summary.summaryText = response.resource.summary.resource.summary;
+                    kase.summary.lastModifiedBy = response.resource.summary.resource.lastModifiedBy.resource.fullName;
+                    kase.summary.lastModified = RHAUtils.formatDate(RHAUtils.convertToTimezone(response.resource.summary.resource.lastModified), 'MMM DD YYYY');
+                }
                 kase.severity = {};
                 kase.severity.name = response.resource.severity;
                 kase.product = response.resource.product.resource.line.resource.name;
@@ -38,6 +45,18 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.account.account_number = response.resource.account.resource.accountNumber;
                 kase.account.is_strategic = response.resource.account.resource.strategic;
                 kase.account.special_handling_required = response.resource.account.resource.specialHandlingRequired;
+                kase.attachments={};
+                kase.attachments=response.resource.fileAttachments;
+
+                angular.forEach( kase.attachments, angular.bind(this, function (attachment) {
+                    var lastModifiedDate = RHAUtils.convertToTimezone(attachment.resource.lastModified);
+                    attachment.resource.sortModifiedDate = attachment.resource.lastModified;
+                    attachment.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                    attachment.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                    var createdDate = RHAUtils.convertToTimezone(attachment.resource.created);
+                    attachment.resource.created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
+                    attachment.resource.created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
+                }));
                 if(response.resource.resolution)
                 {
                     kase.resolution=response.resource.resolution;
@@ -46,11 +65,48 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 {
                     kase.resolution='';
                 }
+                kase.liveChatTranscripts=[];
+                if(response.resource.liveChatTranscripts)
+                {
+                    kase.liveChatTranscripts=response.resource.liveChatTranscripts;
+                    angular.forEach(response.resource.liveChatTranscripts, angular.bind(this, function (chatTranscript) {
+                        chatTranscript.comment_type="chat";
+                        chatTranscript.resource.user.resource.fullName;
+                        var lastModifiedDate = RHAUtils.convertToTimezone(chatTranscript.resource.created);
+                        var modifiedDate = chatTranscript.resource.created;
+                        chatTranscript.resource.sortModifiedDate = modifiedDate;
+                        chatTranscript.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                        chatTranscript.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+
+                    }));
+                }
+
                 kase.entitlement={};
-                kase.entitlement.name=response.resource.entitlement.resource.name;
-                kase.entitlement.service_level=response.resource.entitlement.resource.serviceLevel;
+                if(RHAUtils.isNotEmpty(response.resource.entitlement)) {
+                    kase.entitlement.name = response.resource.entitlement.resource.name;
+                    kase.entitlement.status = response.resource.entitlement.resource.status;
+                    kase.entitlement.service_level = response.resource.entitlement.resource.serviceLevel;
+                }
+                kase.negotiatedEntitlement={};
+                if(response.resource.negotiatedEntitlementProcess)
+                {
+                    kase.negotiatedEntitlement.active=response.resource.negotiatedEntitlementProcess.resource.active;
+                    kase.negotiatedEntitlement.life_Case=response.resource.negotiatedEntitlementProcess.resource.lifeOfCase;
+                    kase.negotiatedEntitlement.start_time=response.resource.negotiatedEntitlementProcess.resource.startTime;
+                    kase.negotiatedEntitlement.target_date=response.resource.negotiatedEntitlementProcess.resource.targetDate;
+                    kase.negotiatedEntitlement.violates_sla=response.resource.negotiatedEntitlementProcess.resource.violatesSla;
+                }
                 kase.sbt=response.resource.sbt;
                 kase.target_date_time=response.resource.targetDate;
+                kase.resourceLinks = response.resource.resourceLinks;
+                kase.caseAssociates = response.resource.caseAssociates;
+                if(RHAUtils.isNotEmpty(response.resource.owner)) {
+                    kase.owner = response.resource.owner;
+                }
+                kase.contributors = [];
+                kase.observers = [];
+                kase.issueLinks = response.resource.issueLinks;
+
                 return kase;
             } else if(isComment === true) {
                 var comments = {};
@@ -68,7 +124,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
         };
         var service = {
             cases: {
-                list: function(uql,resourceProjection,limit) {
+                list: function(uql,resourceProjection,limit,sortOption) {
                     var deferred = $q.defer();
                     uds.fetchCases(
                         function (response) {
@@ -79,7 +135,8 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         },
                         uql,
                         resourceProjection,
-                        limit
+                        limit,
+                        sortOption
                     );
                     return deferred.promise;
                 }
@@ -107,20 +164,72 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         return deferred.promise;
                     }
                 },
-                comments:{
-                    get: function(caseNumber) {
+                comments: {
+                    get: function (caseNumber) {
                         var deferred = $q.defer();
                         uds.fetchCaseComments(
                             function (response) {
                                 angular.forEach(response, angular.bind(this, function (comment) {
                                     var lastModifiedDate = RHAUtils.convertToTimezone(comment.resource.lastModified);
-                                    var modifiedDate=comment.resource.lastModified;
-                                    comment.resource.sortModifiedDate=modifiedDate;
+                                    var modifiedDate = comment.resource.lastModified;
+                                    comment.resource.sortModifiedDate = modifiedDate;
                                     comment.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                     comment.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                     var createdDate = RHAUtils.convertToTimezone(comment.resource.created);
                                     comment.resource.created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
                                     comment.resource.created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
+                                }));
+                                deferred.resolve(response);
+                            },
+                            function (error) {
+                                deferred.reject(error);
+                            },
+                            caseNumber
+                        );
+                        return deferred.promise;
+                    },
+                    post: {
+                        private: function (caseNumber, commentText) {
+                            var deferred = $q.defer();
+                            uds.postPrivateComments(
+                                function (response) {
+                                    deferred.resolve(response);
+                                },
+                                function (error) {
+                                    deferred.reject(error);
+                                },
+                                caseNumber,
+                                commentText
+
+                            );
+                            return deferred.promise;
+                        },
+                        public: function (caseNumber, commentText) {
+                            var deferred = $q.defer();
+                            uds.postPublicComments(
+                                function (response) {
+                                    deferred.resolve(response);
+                                },
+                                function (error) {
+                                    deferred.reject(error);
+                                },
+                                caseNumber,
+                                commentText
+
+                            );
+                            return deferred.promise;
+                        }
+                    }
+                },
+                history:{
+                    get: function(caseNumber) {
+                        var deferred = $q.defer();
+                        uds.fetchCaseHistory(
+                            function (response) {
+                                angular.forEach(response, angular.bind(this, function (history) {
+                                    var createdDate = RHAUtils.convertToTimezone(history.resource.created);
+                                    history.resource.created_date = RHAUtils.formatDate(createdDate, 'MMM DD YYYY');
+                                    history.resource.created_time = RHAUtils.formatDate(createdDate, 'hh:mm A Z');
                                 }));
                                 deferred.resolve(response);
                             },
