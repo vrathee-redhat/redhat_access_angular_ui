@@ -46,6 +46,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.draftComment = {};
         this.draftCommentOnServerExists=false;
         this.commentText = '';
+        this.isLoggedInUserIsOwner = false;
         this.localStorageCache = $angularCacheFactory.get('localCache');
 
         this.getCaseDetails = function(caseNumber) {
@@ -123,6 +124,16 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         self.kase.observers.push(associate.resource.associate.resource.fullName);
                     }
                 });
+                self.isLoggedInUserIsOwner = false;
+                //when case owner is 'New Case Queue' , we dont get kase.owner field from UDS
+                if(RHAUtils.isNotEmpty(this.kase.owner)) {
+                    //we have to iterate for sso, as one user can have multiple sso in the UDS response
+                    angular.forEach(this.kase.owner.resource.sso, function (ssoName) {
+                        if (securityService.loginStatus.authedUser.sso_username === ssoName) {
+                            self.isLoggedInUserIsOwner = true;
+                        }
+                    });
+                }
                 angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
@@ -430,6 +441,17 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 validCaseNumber = validCaseNumber+caseNumber;
             }
             return validCaseNumber;
-        }
+        };
+        this.takeOwnership = function(){
+            var newOwner = securityService.loginStatus.authedUser.sso_username;
+            var self = this;
+            strataService.cases.owner.update(this.getEightDigitCaseNumber(this.kase.case_number),newOwner).then(function () {
+                //using 'lastname, firstname format as owner name is displayed in that format with full name
+                self.kase.owner.resource.fullName = securityService.loginStatus.authedUser.last_name + ", " + securityService.loginStatus.authedUser.first_name;
+                self.isLoggedInUserIsOwner = true;
+            }, function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
+        };
 	}
 ]);

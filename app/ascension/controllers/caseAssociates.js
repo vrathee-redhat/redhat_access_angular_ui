@@ -14,5 +14,9 @@ angular.module('RedhatAccess.ascension').controller('CaseAssociates', [
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.init();
         });
+        $scope.takeOwnership = function () {
+            CaseDetailsService.takeOwnership();
+        };
+
     }
 ]);

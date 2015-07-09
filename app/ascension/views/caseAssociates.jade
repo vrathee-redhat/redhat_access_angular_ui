@@ -3,10 +3,13 @@ section
     .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
     section.config-options-no-mar(ng-show='!CaseDetailsService.caseDetailsLoading')
         .row.row-very-short
-            .col-xs-4.col-sm-6.col-md-4
+            .col-xs-4.col-sm-4.col-md-4
                 strong {{'Owner'|translate}}
-            .col-xs-6.col-sm-6.col-md-8
+            .col-xs-4.col-sm-4.col-md-4
                 span {{CaseDetailsService.kase.owner.resource.fullName}}
+            .col-xs-4.col-sm-4.col-md-4
+                .pull-right
+                    button.btn.btn-app.btn-sm(ng-click='takeOwnership()', ng-disabled='CaseDetailsService.isLoggedInUserIsOwner') {{'Take Ownership'|translate}}
         .row.row-very-short
             .col-xs-4.col-sm-6.col-md-4
                 strong {{'Contributors'|translate}} ({{CaseDetailsService.noOfContributors}})

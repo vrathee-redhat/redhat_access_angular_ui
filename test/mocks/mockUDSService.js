@@ -37,7 +37,27 @@ angular.module('RedhatAccess.mockUDS', [])
             "sbrs":["SysMgmt"],
             "subject":"Test subject.",
             "description":"Test description",
-            "sbt": -234050
+            "sbt": -234050,
+            "owner": {
+                "resource": {
+                    "fullName": "Kito, Shinji",
+                    "email": [
+                        {
+                            "address": "skito@redhat.com",
+                            "addressType": "PRIMARY"
+                        },
+                        {
+                            "address": "skito@redhat.com",
+                            "addressType": "OTHER"
+                        }
+                    ],
+                    "sso": [
+                        "rhn-support-skito",
+                        "gss-skito-rosetta-test",
+                        "rhn-support-skito-child"
+                    ]
+                }
+            }
         };
         this.mockUser = [{
             "resource": {
@@ -167,7 +187,7 @@ angular.module('RedhatAccess.mockUDS', [])
                    {
                        "resource":
                        {
-                           "fullName": "Dasgupta, Aritro"                       
+                           "fullName": "Dasgupta, Aritro"
                        },
                        "resourceReliability": "Fresh",
                        "externalModelId": "005A0000004rPfFIAU"
@@ -186,7 +206,7 @@ angular.module('RedhatAccess.mockUDS', [])
                    {
                        "resource":
                        {
-                           "fullName": "Dasgupta, Aritro"                       
+                           "fullName": "Dasgupta, Aritro"
                        },
                        "resourceReliability": "Fresh",
                        "externalModelId": "005A0000004rPfFIAU"
