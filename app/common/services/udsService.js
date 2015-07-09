@@ -100,7 +100,9 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.target_date_time=response.resource.targetDate;
                 kase.resourceLinks = response.resource.resourceLinks;
                 kase.caseAssociates = response.resource.caseAssociates;
-                kase.owner = response.resource.owner;
+                if(RHAUtils.isNotEmpty(response.resource.owner)) {
+                    kase.owner = response.resource.owner;
+                }
                 kase.contributors = [];
                 kase.observers = [];
                 kase.issueLinks = response.resource.issueLinks;

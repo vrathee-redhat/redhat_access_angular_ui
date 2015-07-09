@@ -446,8 +446,15 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var newOwner = securityService.loginStatus.authedUser.sso_username;
             var self = this;
             strataService.cases.owner.update(this.getEightDigitCaseNumber(this.kase.case_number),newOwner).then(function () {
-                //using 'lastname, firstname format as owner name is displayed in that format with full name
-                self.kase.owner.resource.fullName = securityService.loginStatus.authedUser.last_name + ", " + securityService.loginStatus.authedUser.first_name;
+                //rather than just assigning kase.owner.resource.fullName, take the user details from UDS and assign it to kase.owner
+                var promise = udsService.user.details(newOwner);
+                promise.then(angular.bind(this, function (user) {
+                    if(RHAUtils.isNotEmpty(user)) {
+                        self.kase.owner = user[0];
+                    }
+                }), function (error) {
+                    AlertService.addUDSErrorMessage(error);
+                });
                 self.isLoggedInUserIsOwner = true;
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
