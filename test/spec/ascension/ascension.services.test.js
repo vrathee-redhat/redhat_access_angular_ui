@@ -54,7 +54,8 @@ describe('Ascension Services', function () {
         });
         it('should have a method for extracting routing roles for given user', function () {
             expect(caseDetailsService.extractRoutingRoles).toBeDefined();
-            var result = caseDetailsService.extractRoutingRoles(mockUDSDataService.mockUser);
+            var result = caseDetailsService.extractRoutingRoles(mockUDSDataService.mockUser[0]);
+            console.log(result);
             expect(result[0]).toEqual('ascension-fts');
         });
         it('should have a method for getting top cases for loggedin user', function () {

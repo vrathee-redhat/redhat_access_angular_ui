@@ -2,7 +2,7 @@
 div(rha-alert='')
 .row(rha-caseSearch='')
 .top-cases(rha-yourcases='')
-.container-fluid
+.container-fluid.container-pad.watermark-special-handling
   .row
     .col-sm-12
       button.btn.btn-app.btn-sm(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
