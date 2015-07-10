@@ -29,8 +29,10 @@ section.case-discussion-ascension
                     i.fa.fa-comments-o
                     h4.meta Message
                     .byline
-                        author {{element.created_by}} {{'on'|translate}} &nbsp;
-                        date {{element.created_time}}
+                        author {{element.resource.createdBy.resource.fullName}} {{'on'|translate}} &nbsp;
+                        date {{element.resource.last_modified_date}} &nbsp;
+                        span {{'at'|translate}} &nbsp;
+                        time {{element.resource.last_modified_time}}
                     .pre-wrap
                       .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
                       .reply.text-right
@@ -40,8 +42,10 @@ section.case-discussion-ascension
                     i.fa.fa-comments-o
                     h4.meta Case Note
                     .byline
-                      author {{element.created_by}} {{'on'|translate}} &nbsp;
-                      date {{element.created_time}}
+                      author {{element.resource.createdBy.resource.fullName}} {{'on'|translate}} &nbsp;
+                      date {{element.resource.last_modified_date}} &nbsp;
+                      span {{'at'|translate}} &nbsp;
+                      time {{element.resource.last_modified_time}}
                     .pre-wrap
                       .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
                       .reply.text-right
@@ -51,43 +55,40 @@ section.case-discussion-ascension
                     i.fa.fa-paperclip
                     h4.meta {{'Attachment'|translate}}
                     .byline
-                      author {{element.created_by}} {{'on'|translate}} &nbsp;
-                      date {{element.created_date}} &nbsp;
+                      author {{element.resource.createdBy.resource.fullName}} {{'on'|translate}} &nbsp;
+                      date {{element.resource.last_modified_date}} &nbsp;
                       span {{'at'|translate}} &nbsp;
-                      time {{element.created_time}}
+                      time {{element.resource.last_modified_time}}
                     .pre-wrap
-                      a(href="{{element.uri}}")
+                      a(href="{{element.resource.url}}")
                         .fa.fa-file-image-o.file-upload
-                        span {{element.file_name}} ({{element.length | bytes}})&nbsp;
-                        span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
-                      .description.margin-top-short(ng-show="element.description") {{element.description}}
-                  
+                        span {{element.resource.name}} ({{element.resource.size | bytes}})&nbsp;
+                      span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
+                      .description.margin-top-short(ng-show="element.resource.description") {{element.resource.description}}
+
                   article.comment.article-chat(ng-if="element.comment_type === 'chat'")
                     i.fa.fa-file-text-o
-                    h4.meta(ng-if="element.comment_type === 'chat'") {{'Transcript of chat between'|translate}}
+                    h4.meta(ng-if="element.comment_type === 'chat'") {{'Transcript of chat'|translate}}
                     .byline
                       span {{'between'|translate}}&nbsp;
-                      author {{element.agent_name}}&nbsp;
+                      author {{element.resource.user.resource.fullName}} &nbsp;
                       span {{'and'|translate}}&nbsp;
-                      author {{element.visitor_name}}&nbsp;
-                      date {{element.last_modified_date}}&nbsp;
+                      author {{element.resource.customerUser.resource.fullName}} {{'on'|translate}} &nbsp;
+                      date {{element.resource.last_modified_date}}&nbsp;
                       span {{'at'|translate}}&nbsp;
-                      time {{element.last_modified_time}}
+                      time {{element.resource.last_modified_time}}
                     .pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
-                  
+
                   article.comment.article-bugzilla(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'")
                     i.fa.fa-bug
                     h4.meta {{'Bugzilla'|translate}}
                     .byline
-                      span {{'between'|translate}}&nbsp;
-                      author {{element.agent_name}}&nbsp;
-                      span {{'and'|translate}}&nbsp;
-                      author {{element.visitor_name}}&nbsp;
-                      date {{element.last_modified_date}}&nbsp;
-                      span {{'at'|translate}}&nbsp;
-                      time {{element.last_modified_time}}
-                    .pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
-                        
+                          author {{element.resource.createdBy.resource.fullName}} {{'on'|translate}} &nbsp;
+                          date {{element.resource.last_modified_date}} &nbsp;
+                          span {{'at'|translate}} &nbsp;
+                          time {{element.resource.last_modified_time}}
+                    .pre-wrap(ng-bind-html="parseCommentHtml(element)")
+
 
                 //- article.comment(id="{{element.id}}", ng-repeat="element in CaseDiscussionService.discussionElements | orderBy:'resource.sortModifiedDate':commentSortOrder", ng-if='!element.resource.draft')
                 //-     .row
@@ -106,7 +107,7 @@ section.case-discussion-ascension
                 //-                 span.light {{'at'|translate}} &nbsp;
                 //-                 time.light {{element.resource.last_modified_time}}
                 //-                 .private(ng-if="element.resource.public !== undefined && element.resource.public === false && element.resource.issueLink === undefined") {{'Private'|translate}}
-                //-                 .bugzilla(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'") 
+                //-                 .bugzilla(ng-if="element.resource.issueLink !== undefined && element.resource.issueLink.resource.source === 'Bugzilla'")
                 //-         .col-sm-8
                 //-             blockquote.dialog-box.pre-wrap(ng-show="element.resource.text || element.resource.body")
                 //-                span(ng-bind-html="parseCommentHtml(element)")
@@ -116,4 +117,4 @@ section.case-discussion-ascension
                 //-                     .fa.fa-file-image-o.file-upload
                 //-                     span {{element.resource.name}} ({{element.resource.size}} kB)
                 //-                 .fa.fa-close.pull-right(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
-                //-                 .description.margin-top-short(ng-show="element.resource.description") {{element.resource.description}} 
+                //-                 .description.margin-top-short(ng-show="element.resource.description") {{element.resource.description}}

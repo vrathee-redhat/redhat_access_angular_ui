@@ -1,7 +1,7 @@
 section.case-details
   h3.section-title.accountinfoheader.pre-wrap(translate,translate-comment="Noun") Account Information
-  .spinner.spinner-inline(ng-show='AccountService.accountDetailsLoading || AccountService.accountNotesLoading')
-  section.config-options-no-mar(ng-show='!AccountService.accountDetailsLoading && !AccountService.accountNotesLoading')
+  .spinner.spinner-inline(ng-show='AccountService.accountDetailsLoading')
+  section.config-options-no-mar(ng-show='!AccountService.accountDetailsLoading')
     .row.row-very-short
       .col-xs-4.col-sm-6.col-md-4
         strong {{'Account Name'|translate}}
