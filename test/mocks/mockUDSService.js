@@ -59,84 +59,40 @@ angular.module('RedhatAccess.mockUDS', [])
                 }
             }
         };
-        this.mockUser = [
-                           [
-                              {
-                                 "resource":{
-                                    "fullName":"Shumaker, Spenser",
-                                    "email":[
-                                       {
-                                          "address":"sshumake@redhat.com",
-                                          "addressType":"PRIMARY"
-                                       },
-                                       {
-                                          "address":"sshumake@redhat.com",
-                                          "addressType":"OTHER"
-                                       }
-                                    ],
-                                    "sso":[
-                                       "rhn-support-sshumake"
-                                    ],
-                                    "gss":true,
-                                    "superRegion":"NA",
-                                    "timezone":"America/New_York",
-                                    "title":"Senior Software Engineer",
-                                    "firstName":"Spenser",
-                                    "lastName":"Shumaker",
-                                    "aliasName":"SShumake",
-                                    "kerberos":"sshumake",
-                                    "salesforce":"sshumake@redhat.com",
-                                    "manager":{
-                                       "resourceReliability":"Fresh",
-                                       "externalModelId":"005A0000001MnxjIAC"
-                                    },
-                                    "isManager":false,
-                                    "active":true,
-                                    "created":"2012-10-12T17:59:10.000Z",
-                                    "lastLogin":"2015-07-06T19:17:00.000Z",
-                                    "lastModified":"2015-02-04T20:48:50.000Z",
-                                    "costCenter":{
-                                       "resource":{
-                                          "name":"323213123"
-                                       },
-                                       "resourceReliability":"Fresh",
-                                       "externalModelId":100
-                                    },
-                                    "outOfOffice":false,
-                                    "roles":
-                                        [{
-                                            "resource":{
-                                                "name":"ascension-fts",
-                                                "description":"Ascension - FTS",
-                                                "sbrs":["Virtualization"],
-                                                "superRegion":"India"},
-                                            "resourceReliability":"Fresh",
-                                            "externalModelId":40}],
-                                    "hireDate":"2012-10-08T00:00:00.000Z"
-                                 },
-                                 "resourceReliability":"Fresh",
-                                 "resourceType":"User",
-                                 "externalModelId":"005A0000003CWSAIA4"
-                              }
-                           ],
-                           [
-                              {
-                                 "resource":{
-                                    "fullName":"Shumaker, Spenser",
-                                    "email":{
-                                       "address":"sshumake@redhat.com",
-                                       "addressType":"PRIMARY"
-                                    },
-                                    "sso":[
-                                       "rhn-support-sshumake"
-                                    ]
-                                 },
-                                 "resourceReliability":"Fresh",
-                                 "resourceType":"Contact",
-                                 "externalModelId":"003A0000016KcfLIAS"
-                              }
-                           ]
-                        ]
+        this.mockUser = [{
+            "resource": {
+                "fullName":"test, test",
+                "email":
+                    [{"address":"pbathia@redhat.com","addressType":"PRIMARY"},{"address":"pbathia@redhat.com","addressType":"OTHER"}],
+                "sso":["rhn-support-pbathia"],
+                "gss":false,
+                "superRegion":null,
+                "timezone":"America/New_York",
+                "firstName":"test",
+                "lastName":"test",
+                "aliasName":"test",
+                "kerberos":"test",
+                "salesforce":"test@redhat.com",
+                "isManager":false,
+                "active":true,
+                "created":"2014-11-06T13:50:58.000-05:00",
+                "lastLogin":"2014-12-09T10:11:47.000-05:00",
+                "lastModified":"2014-11-06T13:50:58.000-05:00",
+                "outOfOffice":false,
+                "roles":
+                    [{
+                        "resource":{
+                            "name":"ascension-fts",
+                            "description":"Ascension - FTS",
+                            "sbrs":["Virtualization"],
+                            "superRegion":"India"},
+                        "resourceReliability":"Fresh",
+                        "externalModelId":40}],
+                "sbrs":["Virtualization"],
+                "hireDate":"2014-10-06T00:00:00.000-04:00"},
+            "resourceReliability":"Fresh",
+            "externalModelId":"005A0000005mfwIIAQ"
+        }];
         this.mockAccount = {
             "resource":{
                 "accountNumber":651570,

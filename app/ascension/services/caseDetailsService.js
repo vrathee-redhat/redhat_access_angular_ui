@@ -191,9 +191,9 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var self = this;
             ssoUserName = securityService.loginStatus.authedUser.sso_username;
             var userUql = UQL.cond('SSO','is',"\""+ ssoUserName + "\"");
-            udsService.user.get(userUql).then(angular.bind(this, function (userArr){
+            udsService.user.get(userUql).then(angular.bind(this, function (user){
                 //TODO should search fur contact first then default to user
-                var user = userArr[0];
+                //var user = userArr[0];
                 if ((user == null) || ((user != null ? user[0].externalModelId : void 0) == null)) {
                     AlertService.addDangerMessage(gettextCatalog.getString("Was not able to fetch user with given ssoUserName"));
                 }
