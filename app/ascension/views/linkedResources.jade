@@ -14,15 +14,7 @@ section
                 .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
                 section.config-options-no-mar(ng-show='!CaseDetailsService.caseDetailsLoading')
                     .table-list(ng-repeat='issueLink in CaseDetailsService.kase.issueLinks')
-                        .row.row-very-short
-                            .col-sm-12
-                                .div
-                                    strong {{'Bug'|translate}} {{issueLink.resource.issueNumber}}
-                                    span ({{issueLink.resource.status}})
-                                .div.light {{issueLink.resource.summary}}
-                section.config-options-no-mar(ng-show='!CaseDetailsService.caseDetailsLoading')
-                    .table-list(ng-repeat='issueLink in CaseDetailsService.kase.issueLinks')
-                        .row.row-very-short
+                        .row.row-very-short(ng-class='{"case-bugzilla-primary": issueLink.resource.isPrimary}')
                             .col-sm-12
                                 .div
                                     strong {{'Bug'|translate}} {{issueLink.resource.issueNumber}}

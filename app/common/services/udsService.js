@@ -17,8 +17,12 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 if(RHAUtils.isNotEmpty(response.resource.summary)) {
                     kase.summary = {};
                     kase.summary.summaryText = response.resource.summary.resource.summary;
-                    kase.summary.lastModifiedBy = response.resource.summary.resource.lastModifiedBy.resource.fullName;
-                    kase.summary.lastModified = RHAUtils.formatDate(RHAUtils.convertToTimezone(response.resource.summary.resource.lastModified), 'MMM DD YYYY');
+                    if(RHAUtils.isNotEmpty(response.resource.summary.resource.lastModifiedBy)) {
+                        kase.summary.lastModifiedBy = response.resource.summary.resource.lastModifiedBy.resource.fullName;
+                    }
+                    if(RHAUtils.isNotEmpty(response.resource.summary.resource.lastModified)) {
+                        kase.summary.lastModified = RHAUtils.formatDate(RHAUtils.convertToTimezone(response.resource.summary.resource.lastModified), 'MMM DD YYYY');
+                    }
                 }
                 kase.severity = {};
                 kase.severity.name = response.resource.severity;
