@@ -9,9 +9,10 @@ angular.module('RedhatAccess.ascension').controller('YourCases', [
     '$rootScope',
     'TOPCASES_EVENTS',
     '$interval',
-    function ($scope, STATUS, CaseDetailsService, securityService, AUTH_EVENTS,$rootScope,TOPCASES_EVENTS,$interval) {
+    '$timeout',
+    function ($scope, STATUS, CaseDetailsService, securityService, AUTH_EVENTS,$rootScope,TOPCASES_EVENTS, $interval, $timeout) {
     	$scope.CaseDetailsService = CaseDetailsService;
-
+        $scope.displayedCaseNumber = 0;
         $scope.init = function () {
         	CaseDetailsService.getYourCases();
         };
@@ -33,5 +34,13 @@ angular.module('RedhatAccess.ascension').controller('YourCases', [
             $scope.init();
         });
 
+        $scope.selectedCase = function(caseNumber) {
+            var isSelected = (caseNumber === CaseDetailsService.kase.case_number);
+
+            if (isSelected) {
+                return 'selected-case';
+            }
+            return '';
+        };
     }
 ]);
