@@ -15,15 +15,17 @@ angular.module('RedhatAccess.cases').controller('List', [
     'SearchBoxService',
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
+    'COMMON_CONFIG',
     'CASE_GROUPS',
     'STATUS',
     'gettextCatalog',
-    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS,gettextCatalog) {
+    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, COMMON_CONFIG, CASE_GROUPS, STATUS,gettextCatalog) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
         $scope.CaseService = CaseService;
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
 	    $scope.ie8 = window.ie8;
 	    $scope.ie9 = window.ie9;
 	    $scope.exporting = false;

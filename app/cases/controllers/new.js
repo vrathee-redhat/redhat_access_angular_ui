@@ -22,9 +22,10 @@ angular.module('RedhatAccess.cases').controller('New', [
     'RHAUtils',
     'NEW_DEFAULTS',
     'NEW_CASE_CONFIG',
+    'COMMON_CONFIG',
     'CASE_EVENTS',
     'gettextCatalog',
-    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog) {
+    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, COMMON_CONFIG, CASE_EVENTS, gettextCatalog) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -38,6 +39,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         //AlertService.clearAlerts();
         $scope.CaseService = CaseService;
         $scope.RecommendationsService = RecommendationsService;
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.securityService = securityService;
         $scope.HeaderService = HeaderService;
         $scope.ie8 = window.ie8;
@@ -249,7 +251,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
             };
 
-            if(AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9){
+            if(AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9 && !COMMON_CONFIG.isGS4){
                 var proceedWithoutAttachModal = $modal.open({
                     templateUrl: 'cases/views/proceedWithoutAttachModal.html',
                     controller: 'ProceedWithoutAttachModal'

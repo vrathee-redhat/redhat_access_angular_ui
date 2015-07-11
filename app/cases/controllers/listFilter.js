@@ -7,16 +7,18 @@ angular.module('RedhatAccess.cases').controller('ListFilter', [
     'securityService',
     '$rootScope',
     'CASE_EVENTS',
+    'COMMON_CONFIG',
     'SearchCaseService',
     'GroupService',
     'ConstantsService',
     'RHAUtils',
-    function ($scope, STATUS, CaseService, securityService, $rootScope, CASE_EVENTS, SearchCaseService, GroupService, ConstantsService, RHAUtils) {
+    function ($scope, STATUS, CaseService, securityService, $rootScope, CASE_EVENTS, COMMON_CONFIG, SearchCaseService, GroupService, ConstantsService, RHAUtils) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.GroupService = GroupService;
         $scope.SearchCaseService = SearchCaseService;
         $scope.ConstantsService = ConstantsService;
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         CaseService.status = STATUS.open;
         $scope.showsearchoptions = CaseService.showsearchoptions;
         $scope.disableSearchButton = true;

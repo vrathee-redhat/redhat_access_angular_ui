@@ -15,7 +15,7 @@
 						ng-disabled='!securityService.loginStatus.isLoggedIn || disableSearchButton')
 						i.glyphicon.glyphicon-search
 						| {{''}}
-		div.col-sm-12.col-md-3()
+		div.col-sm-12.col-md-3(ng-hide='COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.is_internal')
 			select#rha-group-select(
 				chosen,
 				width='"100%"',
@@ -24,6 +24,16 @@
 				ng-change='CaseService.onGroupSelectChanged()',
 				placeholder='Select a Group',
 				ng-options='option.value as option.label for option in CaseService.groupOptions',
+				options-disabled="option.isDisabled for option in CaseService.groupOptions", 
+				ng-init="setSearchOptions(true)")
+		div.col-sm-12.col-md-3(ng-show='COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.is_internal')
+			select#rha-group-select(
+				chosen,
+				width='"100%"',
+				ng-model='SearchCaseService.gs4Account',
+				ng-change='CaseService.onGroupSelectChanged()',
+				placeholder='Select an account',
+				ng-options='option for option in SearchCaseService.gs4Accounts',
 				options-disabled="option.isDisabled for option in CaseService.groupOptions", 
 				ng-init="setSearchOptions(true)")
 		div.col-sm-12.col-md-3()

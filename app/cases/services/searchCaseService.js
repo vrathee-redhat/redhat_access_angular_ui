@@ -29,6 +29,11 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             status: STATUS.open,
             group: ''
         };
+        this.gs4Accounts = [
+            "639769",
+            "660699"
+        ];
+        this.gs4Account = this.gs4Accounts[0];
         this.previousGroupFilter = CASE_GROUPS.none;
         var getIncludeClosed = function (caseParameters) {
             if (caseParameters.status === STATUS.open) {
@@ -98,8 +103,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     count: this.count,
                     include_closed: getIncludeClosed(this.caseParameters)
                 };
-                if(COMMON_CONFIG.isGS4 === true){
-                    params.account_number = "639769";
+                if(COMMON_CONFIG.isGS4 === true && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal){
+                    params.account_number = this.gs4Account;
                 }
                 params.start = this.start;
 
@@ -173,15 +178,16 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     that.searching = false;
                     deferred.resolve(cases);
                 }), angular.bind(that, function (error) {
-                    if(error.xhr.status === 404){
-                        this.doFilter(false).then(function () {
-                            deferred.resolve(cases);
-                        });
-                    } else{
+                    // if(error.xhr.status === 404){
+                    //     this.doFilter(false).then(function () {
+                    //         deferred.resolve(cases);
+                    //     });
+                    //} else{
+                        this.allCasesDownloaded = true;
                         AlertService.addStrataErrorMessage(error);
                         that.searching = false;
                         deferred.resolve(cases);
-                    }
+                    //}
                 }));
             } else{
                 var sortField = CaseService.filterSelect.sortField;
@@ -205,15 +211,16 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     that.searching = false;
                     deferred.resolve(cases);
                 }), angular.bind(that, function (error) {
-                    if(error.xhr.status === 404){
-                        this.doFilter(false).then(function () {
-                            deferred.resolve(cases);
-                        });
-                    } else{
+                    // if(error.xhr.status === 404){
+                    //     this.doFilter(false).then(function () {
+                    //         deferred.resolve(cases);
+                    //     });
+                    // } else{
+                        this.allCasesDownloaded = true;
                         AlertService.addStrataErrorMessage(error);
                         that.searching = false;
                         deferred.resolve(cases);
-                    }
+                    //}
                 }));
             }
             promises.push(deferred.promise);

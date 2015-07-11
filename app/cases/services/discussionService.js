@@ -8,7 +8,8 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
     'CaseService',
     'strataService',
     'HeaderService',
-    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService) {
+    'COMMON_CONFIG',
+    function ($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService, COMMON_CONFIG) {
         this.discussionElements = [];
         this.chatTranscriptList = [];
         this.comments = CaseService.comments;
@@ -21,18 +22,21 @@ angular.module('RedhatAccess.cases').service('DiscussionService', [
             var commentsPromise = null;
             this.discussionElements = [];
             //if (EDIT_CASE_CONFIG.showAttachments) {
-            this.loadingAttachments = true;
-            attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
-                AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                //this.attachments = AttachmentsService.originalAttachments;
-                //this.discussionElements = this.discussionElements.concat(this.attachments);
-                this.loadingAttachments= false;
-            }), angular.bind(this, function (error) {
-                if(!HeaderService.pageLoadFailure) {
-                    AlertService.addStrataErrorMessage(error);
-                }
-                this.loadingAttachments= false;
-            }));
+            
+            if(!COMMON_CONFIG.isGS4){
+                this.loadingAttachments = true;
+                attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
+                    AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                    //this.attachments = AttachmentsService.originalAttachments;
+                    //this.discussionElements = this.discussionElements.concat(this.attachments);
+                    this.loadingAttachments= false;
+                }), angular.bind(this, function (error) {
+                    if(!HeaderService.pageLoadFailure) {
+                        AlertService.addStrataErrorMessage(error);
+                    }
+                    this.loadingAttachments= false;
+                }));
+            }
             commentsPromise = CaseService.populateComments(caseId).then(function (comments) {
             }, function (error) {
                 if(!HeaderService.pageLoadFailure) {
