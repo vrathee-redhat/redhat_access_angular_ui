@@ -35,11 +35,25 @@ section.case-details
                 strong(translate,translate-comment="Noun") Version
             .col-md-10(ng-show='!showEditCase')
                 span {{CaseDetailsService.kase.version}}
+            .col-md-10(ng-show='showEditCase')
+                select#rha-product-version-select.form-control(
+                  chosen,
+                  width='"100%"',
+                  ng-model='CaseDetailsService.kase.version',
+                  ng-options='v for v in CaseDetailsService.versions',
+                  ng-disabled='CaseDetailsService.versionDisabled || CaseDetailsService.kase.product === undefined || !securityService.loginStatus.isLoggedIn || CaseDetailsService.caseDetailsLoading')
         .row.row-very-short
             .col-md-2
                 strong(translate,translate-comment="Noun") Severity
             .col-md-10(ng-show='!showEditCase')
                 span {{CaseDetailsService.kase.severity.name}}
+            .col-md-10(ng-show='showEditCase')
+                select#rha-severity-select.form-control(
+                  chosen,
+                  width="'100%'",
+                  name='severity',
+                  ng-model='CaseDetailsService.kase.severity',
+                  ng-options='s.name for s in CaseDetailsService.severities track by s.name')
         .row.row-very-short
             .col-md-2
                 strong(translate,translate-comment="Noun") Internal Priority
@@ -70,26 +84,12 @@ section.case-details
           .col-md-2
             strong(translate,translate-comment="Noun") Internal Status
           .col-md-10
-            span {{CaseDetailsService.kase.internalStatus}}
-          .col-md-10(ng-show='showEditCase')
-            select#rha-product-version-select.form-control(
-              chosen,
-              width='"100%"',
-              ng-model='CaseDetailsService.kase.version',
-              ng-options='v for v in CaseDetailsService.versions',
-              ng-disabled='CaseDetailsService.versionDisabled || CaseDetailsService.kase.product === undefined || !securityService.loginStatus.isLoggedIn || CaseDetailsService.caseDetailsLoading')
+            span {{CaseDetailsService.kase.internalStatus}}          
         .row.row-very-short
           .col-md-2
              strong(translate,translate-comment="Noun") SBR Group
           .col-md-10
-              span {{CaseDetailsService.kase.sbr_group}}
-          .col-md-10(ng-show='showEditCase')
-              select#rha-severity-select.form-control(
-                chosen,
-                width="'100%'",
-                name='severity',
-                ng-model='CaseDetailsService.kase.severity',
-                ng-options='s.name for s in CaseDetailsService.severities track by s.name')
+              span {{CaseDetailsService.kase.sbr_group}}          
         .row(ng-show='showEditCase')
           .col-sm-12
             button.btn.btn-app.btn-submit(

@@ -29,6 +29,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
             if (CaseDetailsService.kase !== undefined) {
                 CaseDetailsService.updateCase().then(function () {
                     $scope.updatingDetails = false;
+                    $scope.showEditCase = false;
                     $scope.caseOverviewForm.$setPristine();
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
