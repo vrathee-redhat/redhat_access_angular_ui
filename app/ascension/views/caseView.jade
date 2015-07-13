@@ -1,18 +1,25 @@
 //- .page-header(rha-header='', page='')
 div(rha-alert='')
-.row(rha-caseSearch='')
 .top-cases(rha-yourcases='')
-.container-fluid.container-pad.watermark-special-handling
+.container-fluid.container-pad.watermark-special-handling.case-view
   .row
     .col-sm-12
-      button.btn.btn-app.btn-sm(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
+      button.btn.btn-app.btn-sm.pull-right(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
       .spinner.spinner-inline(ng-show='CaseDetailsService.caseClosing')
-  .row.row-short
-    .col-sm-12
-      h3.section-title.case-name.pre-wrap(ng-hide='CaseDetailsService.caseDetailsLoading') {{CaseDetailsService.kase.subject}} ({{CaseDetailsService.kase.case_number}})
-  .row.row-short
-    .col-sm-12
-      h3.nomar.case-name.pre-wrap(ng-hide='CaseDetailsService.caseDetailsLoading') {{CaseDetailsService.kase.product}} {{CaseDetailsService.kase.version}}
+  .row.row-very-short
+    .col-sm-12.title
+      h3.section-title.case-name.pre-wrap.inline-text(ng-hide='CaseDetailsService.caseDetailsLoading') {{'Case '|translate}} {{CaseDetailsService.kase.case_number}}: &nbsp
+      span.big-title {{CaseDetailsService.kase.status.name}}
+  .row.row-very-short(ng-hide='CaseDetailsService.caseDetailsLoading')
+    .col-md-2
+        strong(translate,translate-comment="Noun") Problem Statement
+    .col-md-10
+        span {{CaseDetailsService.kase.product}}
+  .row.row-very-short(ng-hide='CaseDetailsService.caseDetailsLoading')
+    .col-md-2
+        strong(translate,translate-comment="Noun") Product
+    .col-md-10
+        span {{CaseDetailsService.kase.product}}
   .row.row-short
     .col-sm-12
       div(rha-caseflags='')

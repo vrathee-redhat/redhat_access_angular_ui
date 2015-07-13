@@ -1,0 +1,22 @@
+$case-view-margin-bottom: $global-padding;
+$case-view-padding: $global-padding;
+
+.case-view {
+	position: relative;
+//	overflow: hidden;
+	@include rem('margin-bottom', 30px);
+	@include rem('padding', 0 $case-view-padding $case-view-padding $case-view-padding);
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		margin-bottom: 0;
+	}
+
+	.inline-text { display: inline-block; }
+
+	.big-title{
+		@include font-size(16px);
+	}
+}

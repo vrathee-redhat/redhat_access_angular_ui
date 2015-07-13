@@ -49,13 +49,16 @@
 @import "components/alerts";
 @import "components/equal-heights";
 @import "components/sticky-ricky";
-@import "components/top-cases";
 
+@import "components/ascension/case-bugzilla";
 @import "components/ascension/case-details";
 @import "components/ascension/case-description";
 @import "components/ascension/case-discussion";
+@import "components/ascension/case-flags";
+@import "components/ascension/case-summary";
+@import "components/ascension/case-view";
 @import "components/ascension/base";
-@import "components/ascension/case-bugzilla";
+@import "components/ascension/top-cases";
 
 
 
