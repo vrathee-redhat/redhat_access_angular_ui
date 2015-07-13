@@ -63,7 +63,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
             },
             {
                 name: gettextCatalog.getString('View Attachments'),
-                filter: 'all'
+                filter: 'attachments'
             },
             {
                 name: gettextCatalog.getString('View Bugzillas'),
@@ -71,7 +71,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
             },
             {
                 name: gettextCatalog.getString('View Chat Transcripts'),
-                filter: 'bugzillas'
+                filter: 'chatTranscripts'
             },
             {
                 name: gettextCatalog.getString('View Bomgar Sessions'),
