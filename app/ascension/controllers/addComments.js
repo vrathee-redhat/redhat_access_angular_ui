@@ -36,10 +36,10 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
         $scope.addComment = function () {
 
             if (!securityService.loginStatus.authedUser.is_internal) {
-                CaseDetailsService.isCommentPublic = true;
+                CaseDetailsService.isCommentPrivate = true;
             }
             var onSuccess = function (response) {
-                CaseDetailsService.isCommentPublic = false;
+                CaseDetailsService.isCommentPrivate = false;
                 CaseDetailsService.draftCommentOnServerExists=false;
                 if(CaseDetailsService.localStorageCache)
                 {
@@ -88,7 +88,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
             $scope.addingComment = false;
             if(!CaseDetailsService.disableAddComment && RHAUtils.isNotEmpty(CaseDetailsService.commentText)) {
                 $scope.addingComment = true;
-                if (CaseDetailsService.isCommentPublic) {
+                if (!CaseDetailsService.isCommentPrivate) {
                     udsService.kase.comments.post.public(CaseDetailsService.kase.case_number, CaseDetailsService.commentText).then(onSuccess, onError);
                 }
                 else {
@@ -116,7 +116,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
                 CaseDetailsService.draftCommentLocalStorage = {
                         'text': CaseDetailsService.commentText,
                         'draft': true,
-                        'public': CaseDetailsService.isCommentPublic,
+                        'public': !CaseDetailsService.isCommentPrivate,
                         'case_number': CaseDetailsService.kase.case_number
                 };
             }
@@ -127,7 +127,7 @@ angular.module('RedhatAccess.ascension').controller('AddComments', [
             }
         };
 
-        $scope.onCommentPublicChange = function () {
+        $scope.onCommentPrivateChange = function () {
             if(RHAUtils.isNotEmpty(CaseDetailsService.commentText))
             {
                 $scope.onNewCommentKeypress();

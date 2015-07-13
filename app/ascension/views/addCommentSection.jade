@@ -1,8 +1,8 @@
 .row
     .col-sm-12
         .pull-right(ng-if='securityService.loginStatus.authedUser.is_internal')
-            span &nbsp{{'Is Public:'|translate}}&nbsp;
-            input#rha-case-comment-isPublic(type='checkbox', ng-model='CaseDetailsService.isCommentPublic',ng-change= 'onCommentPublicChange()')
+            span &nbsp{{'Case Note:'|translate}}&nbsp;
+            input#rha-case-comment-isPublic(type='checkbox', ng-model='CaseDetailsService.isCommentPrivate',ng-change= 'onCommentPrivateChange()')
 textarea.comment.expand#case-comment-box.form-control(
 ng-disabled='addingComment',
 maxlength='32000',

@@ -2,7 +2,7 @@ section
    //- h3.section-title(ng-show='!CaseDetailsService.caseDetailsLoading') {{getBreachInformationText()}}
    h3.section-title {{'Negotiated Entitlement Process'|translate}}
    .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
-   section.config-options-no-mar(ng-show='!CaseDetailsService.caseDetailsLoading')
+   section.config-options-no-mar(ng-show='!CaseDetailsService.caseDetailsLoading && CaseDetailsService.kase.negotiatedEntitlement')
       .row.row-very-short
         .col-xs-4.col-sm-6.col-md-4
           strong {{'Active'|translate}}
@@ -28,3 +28,7 @@ section
           strong {{'Violates SLA'|translate}}
         .col-xs-6.col-sm-6.col-md-8
           span {{CaseDetailsService.kase.negotiatedEntitlement.violates_sla_flag}}
+   section.config-options-no-mar(ng-show='!CaseDetailsService.caseDetailsLoading && !CaseDetailsService.kase.negotiatedEntitlement')
+      .row.row-very-short
+        .col-xs-4.col-sm-6.col-md-4
+            strong {{'No NEP defined'|translate}}

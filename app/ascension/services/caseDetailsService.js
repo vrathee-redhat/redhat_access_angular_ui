@@ -29,12 +29,13 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.bugzillas = [];
         this.publicComments = [];
         this.privateComments = [];
+        this.liveChatTranscripts=[];
         this.products = [];
         this.versions = [];
         this.severities = [];
         this.statuses = [];
         this.disableAddComment = true;
-        this.isCommentPublic = false;
+        this.isCommentPrivate = false;
         this.caseHistory = [];
         this.versionDisabled = false;
         this.updatedNotifiedUsers = [];
@@ -347,6 +348,10 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 
 
         this.populateComments = function (caseNumber) {
+            this.bugzillas=[];
+            this.liveChatTranscripts=this.kase.liveChatTranscripts;
+            this.publicComments=[];
+            this.privateComments=[];
             var promise = udsService.kase.comments.get(caseNumber);
             promise.then(angular.bind(this, function (comments) {
                 angular.forEach(comments, angular.bind(this, function (comment, index) {
@@ -354,7 +359,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         this.draftComment = comment;
                         this.draftCommentOnServerExists=true;
                         this.commentText = comment.text;
-                        this.isCommentPublic = comment.public;
+                        this.isCommentPrivate = !comment.public;
                         if (RHAUtils.isNotEmpty(this.commentText)) {
                             this.disableAddComment = false;
                         } else if (RHAUtils.isEmpty(this.commentText)) {
@@ -374,7 +379,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     {
                         this.draftComment = this.localStorageCache.get(caseNumber+securityService.loginStatus.authedUser.sso_username);
                         this.commentText = this.draftComment.text;
-                        this.isCommentPublic = this.draftComment.public;
+                        this.isCommentPrivate = !this.draftComment.public;
                         if (RHAUtils.isNotEmpty(this.commentText)) {
                             this.disableAddComment = false;
                         } else if (RHAUtils.isEmpty(this.commentText)) {

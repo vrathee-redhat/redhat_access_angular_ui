@@ -1,11 +1,11 @@
 section.case-discussion-ascension
-    .spinner.spinner-inline(ng-show=' CaseDiscussionService.loadingComments')
+    .spinner.spinner-inline(ng-show='CaseDiscussionService.loadingComments')
     h3.section-title(ng-show='!CaseDiscussionService.loadingComments')
         .row
             .col-xs-12
                 // Add Comment Section
                div(rha-addcomments='', loading='loading.comments')
-        .row(ng-hide="discussionElements.length===0")
+        .row(ng-hide="commentFilter === commentFilterList[0] && discussionElements.length===0")
             .col-sm-6
                 select#rha-discussion-filter(chosen,
                 width='"auto"',
@@ -24,7 +24,7 @@ section.case-discussion-ascension
                     ng-options='commentOrder as commentOrder.name for commentOrder in commentSortOrderList')
         .row.case-discussion
             .col-xs-12
-                .margin-top(id="{{element.id}}", ng-repeat="element in discussionElements track by element.externalModelId | orderBy:'resource.sortModifiedDate':commentSortOrder ", ng-if='!element.resource.draft')
+                .margin-top(id="{{element.id}}", ng-repeat="element in discussionElements | orderBy:'resource.sortModifiedDate':commentSortOrder track by $index", ng-if='!element.resource.draft')
                   article.comment.article-comment(ng-if="(element.resource.text && element.resource.public) && (element.resource.issueLink === undefined || element.resource.issueLink.resource.source !== 'Bugzilla')")
                     i.fa.fa-comments-o
                     h4.meta Message
@@ -34,9 +34,8 @@ section.case-discussion-ascension
                         span {{'at'|translate}} &nbsp;
                         time {{element.resource.last_modified_time}}
                     .pre-wrap
-                      .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
-                      .reply.text-right
-                        a.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
+                      .content( ng-bind-html="parseCommentHtml(element)")
+                      a.pull-right.commentReply(ng-click='commentReply(element.resource)',ng-show='element.resource.text', href='') {{'Reply'|translate}}
 
                   article.comment.article-private-comment(ng-if="(element.resource.text && !element.resource.public) && (element.resource.issueLink === undefined || element.resource.issueLink.resource.source !== 'Bugzilla')")
                     i.fa.fa-comments-o
@@ -47,9 +46,9 @@ section.case-discussion-ascension
                       span {{'at'|translate}} &nbsp;
                       time {{element.resource.last_modified_time}}
                     .pre-wrap
-                      .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
-                      .reply.text-right
-                        a.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
+                      .content(ng-bind-html="parseCommentHtml(element)")
+                      a.pull-right.commentReply(ng-click='commentReply(element.resource)',ng-show='element.resource.text', href='') {{'Reply'|translate}}
+
 
                   article.comment.article-attachment(ng-if="element.resource.name")
                     i.fa.fa-paperclip
