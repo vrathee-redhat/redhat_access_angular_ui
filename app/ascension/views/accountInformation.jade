@@ -11,7 +11,7 @@ section.case-details
       .col-md-2
         strong {{'TAM'|translate}}
       .col-md-10
-        span(ng-repeat="tam in AccountService.account.TAM_names") {{tam}}
+        div(ng-repeat="tam in AccountService.account.TAM_names") {{tam}}
     .row.row-very-short
       .col-md-2
         strong {{'Business Hours'|translate}}
@@ -28,6 +28,5 @@ section.case-details
     //-     strong {{'Account Name'|translate}}
     //-   .col-xs-6.col-sm-6.col-md-10
     //-     span {{AccountService.account.resource.accountName}}
-    
 
-    
+

@@ -6,10 +6,10 @@ div(rha-alert='')
     .col-sm-12
       button.btn.btn-app.btn-sm.pull-right(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
       .spinner.spinner-inline(ng-show='CaseDetailsService.caseClosing')
-  .row.row-very-short
+  .row.row-very-short(ng-hide='CaseDetailsService.caseDetailsLoading')
     .col-sm-12.title
-      h3.section-title.case-name.pre-wrap.inline-text(ng-hide='CaseDetailsService.caseDetailsLoading') {{'Case '|translate}} {{CaseDetailsService.kase.case_number}}: &nbsp
-      span.big-title {{CaseDetailsService.kase.status.name}}
+      h3.section-title.case-name.pre-wrap.inline-text {{'Case '|translate}} {{CaseDetailsService.kase.case_number}}: &nbsp
+      span.big-title {{CaseDetailsService.kase.internalStatus}}
   .row.row-very-short(ng-hide='CaseDetailsService.caseDetailsLoading')
     .col-sm-12
         strong(translate,translate-comment="Noun") Problem Statement:&nbsp;

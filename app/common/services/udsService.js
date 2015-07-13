@@ -91,9 +91,10 @@ angular.module('RedhatAccess.common').factory('udsService', [
                     kase.entitlement.status = response.resource.entitlement.resource.status;
                     kase.entitlement.service_level = response.resource.entitlement.resource.serviceLevel;
                 }
-                kase.negotiatedEntitlement={};
+
                 if(response.resource.negotiatedEntitlementProcess)
                 {
+                    kase.negotiatedEntitlement={};
                     kase.negotiatedEntitlement.active=response.resource.negotiatedEntitlementProcess.resource.active;
                     kase.negotiatedEntitlement.life_Case=response.resource.negotiatedEntitlementProcess.resource.lifeOfCase;
                     kase.negotiatedEntitlement.start_time=response.resource.negotiatedEntitlementProcess.resource.startTime;
