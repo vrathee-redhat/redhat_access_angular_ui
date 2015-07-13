@@ -70,6 +70,10 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
                 filter: 'bugzillas'
             },
             {
+                name: gettextCatalog.getString('View Chat Transcripts'),
+                filter: 'bugzillas'
+            },
+            {
                 name: gettextCatalog.getString('View Bomgar Sessions'),
                 filter: 'bomgar'
             }
@@ -90,6 +94,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
         };
 
         $scope.init = function() {
+
 
         };
 
@@ -153,10 +158,10 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
                     chat.last_modified_date = chat.start_date;
                     chat.last_modified_time = chat.start_time;
                     chat.comment_type = 'chat';
-                    CaseDiscussionService.chatTranscriptList.push(chat);
+                    CaseDiscussionService.liveChatTranscripts.push(chat);
                 }));
             } else {
-                CaseDiscussionService.chatTranscriptList = [];
+                CaseDiscussionService.liveChatTranscripts = [];
             }
             CaseDiscussionService.updateElements();
         });
@@ -201,6 +206,8 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
                 } else if ($scope.commentFilter === $scope.commentFilterList[4]) {
                     $scope.discussionElements = CaseDiscussionService.bugzillas;
                 } else if ($scope.commentFilter === $scope.commentFilterList[5]) {
+                    $scope.discussionElements = CaseDiscussionService.liveChatTranscripts;
+                } else if ($scope.commentFilter === $scope.commentFilterList[6]) {
                     $scope.discussionElements = [];
                 }
             }

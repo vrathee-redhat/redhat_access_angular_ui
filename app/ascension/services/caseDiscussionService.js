@@ -9,11 +9,10 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
     'RHAUtils',
     function ( $q, AlertService, HeaderService,CaseDetailsService,CaseAttachmentsService,RHAUtils) {
         this.discussionElements = [];
-        this.chatTranscriptList = [];
         this.privateComments = CaseDetailsService.privateComments;
         this.publicComments = CaseDetailsService.publicComments;
         this.bugzillas = CaseDetailsService.bugzillas;
-        this.liveChatTranscripts=CaseDetailsService.kase.liveChatTranscripts;
+        this.liveChatTranscripts=CaseDetailsService.liveChatTranscripts;
         this.attachments = CaseAttachmentsService.originalAttachments;
         this.loadingComments = false;
         this.commentTextBoxEnlargen = false;
@@ -31,24 +30,24 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
                     AlertService.addUDSErrorMessage(error);
                 }
             }));
-            if (RHAUtils.isNotEmpty(CaseDetailsService.kase.liveChatTranscripts)) {
-                this.liveChatTranscripts=CaseDetailsService.kase.liveChatTranscripts;
+            if (RHAUtils.isNotEmpty(CaseDetailsService.liveChatTranscripts)) {
+                this.liveChatTranscripts=CaseDetailsService.liveChatTranscripts;
             }
             return $q.all([commentsPromise]);
         };
         this.updateElements = function () {
+            this.discussionElements =new Array();
             this.privateComments = CaseDetailsService.privateComments;
             this.discussionElements = this.discussionElements.concat(this.privateComments);
             this.publicComments = CaseDetailsService.publicComments;
             this.discussionElements = this.discussionElements.concat(this.publicComments);
             this.bugzillas = CaseDetailsService.bugzillas;
             this.discussionElements = this.discussionElements.concat(this.bugzillas);
+            CaseAttachmentsService.defineOriginalAttachments(CaseDetailsService.kase.attachments);
             this.attachments = CaseAttachmentsService.originalAttachments;
             this.discussionElements = this.discussionElements.concat(this.attachments);
-            if(RHAUtils.isNotEmpty(this.liveChatTranscripts) )
-            {
-                this.discussionElements =this.discussionElements.concat(this.liveChatTranscripts)
-            }
+            this.liveChatTranscripts=CaseDetailsService.liveChatTranscripts;
+            this.discussionElements =this.discussionElements.concat(this.liveChatTranscripts)
         };
     }
 ]);
