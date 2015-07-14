@@ -184,6 +184,20 @@ angular.module('RedhatAccess.common').factory('udsService', [
                             caseNumber
                         );
                         return deferred.promise;
+                    },
+                    put: function(caseNumber,caseDetails){
+                        var deferred = $q.defer();
+                        uds.updateCaseDetails(
+                            function (response) {
+                                deferred.resolve(response);
+                            },
+                            function (error) {
+                                deferred.reject(error);
+                            },
+                            caseNumber,
+                            caseDetails
+                        );
+                        return deferred.promise;
                     }
                 },
                 comments: {

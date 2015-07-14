@@ -434,6 +434,28 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             });
             return deferred.promise;
         };
+        this.updateCaseDetails = function(){
+            var deferred = $q.defer();
+            var caseJSON = {
+                resource : {}
+            };
+            var self = true;
+            if (this.kase.summary.summaryText !== undefined && !angular.equals(this.prestineKase.summary.summaryText, this.kase.summary.summaryText)) {
+                var caseSummary = {
+                    resource : {
+                        summary: this.kase.summary.summaryText
+                    }
+                };
+                caseJSON.resource.caseSummary = caseSummary;
+            }
+            udsService.kase.details.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
+                angular.copy(self.kase, self.prestineKase);
+                deferred.resolve();
+            }), function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
 
         this.fetCaseHistory = function(caseNumber) {
             this.fetchingCaseHistory = true;
