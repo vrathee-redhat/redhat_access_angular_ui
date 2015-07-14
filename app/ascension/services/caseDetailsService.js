@@ -234,7 +234,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                             //if case is not yet viewed, then get the first case details
                             if(RHAUtils.isObjectEmpty(self.kase)) {
                                 //get details for first top case
-                                self.getCaseDetails(topCases[0].resource.caseNumber);
+                                $rootScope.$broadcast(TOPCASES_EVENTS.initialCaseLoad);
                             }
                         }else {
                             AlertService.clearAlerts();
