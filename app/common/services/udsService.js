@@ -75,7 +75,6 @@ angular.module('RedhatAccess.common').factory('udsService', [
                     kase.liveChatTranscripts=response.resource.liveChatTranscripts;
                     angular.forEach(response.resource.liveChatTranscripts, angular.bind(this, function (chatTranscript) {
                         chatTranscript.comment_type="chat";
-                        chatTranscript.resource.user.resource.fullName;
                         var lastModifiedDate = RHAUtils.convertToTimezone(chatTranscript.resource.created);
                         var modifiedDate = chatTranscript.resource.created;
                         chatTranscript.resource.sortModifiedDate = modifiedDate;
@@ -83,6 +82,24 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         chatTranscript.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
 
                     }));
+                }
+
+                kase.bomgarSessions=[];
+                if(response.resource.remoteSessions)
+                {
+                    console.log("isnide bomgar sessions")
+                    angular.forEach(response.resource.remoteSessions, angular.bind(this, function (bomgarSession) {
+                        bomgarSession.comment_type="bomgar";
+                        var lastModifiedDate = RHAUtils.convertToTimezone(bomgarSession.resource.created);
+                        var modifiedDate = bomgarSession.resource.created;
+                        bomgarSession.resource.sortModifiedDate = modifiedDate;
+                        bomgarSession.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                        bomgarSession.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                        var seconds=(bomgarSession.resource.duration/1000)%60;
+                        bomgarSession.resource.durationMins=((bomgarSession.resource.duration-seconds)/1000)/60;
+                    }));
+                    kase.bomgarSessions=response.resource.remoteSessions;
+                    console.log("bomgar session length is "+kase.bomgarSessions.length);
                 }
 
                 kase.entitlement={};

@@ -30,6 +30,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.publicComments = [];
         this.privateComments = [];
         this.liveChatTranscripts=[];
+        this.bomgarSessions=[];
         this.products = [];
         this.versions = [];
         this.severities = [];
@@ -350,6 +351,15 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.populateComments = function (caseNumber) {
             this.bugzillas=[];
             this.liveChatTranscripts=this.kase.liveChatTranscripts;
+            this.bomgarSessions=this.kase.bomgarSessions;
+            if(this.kase.bomgarSessions) {
+                console.log("bomgar session length is under populate comments" + this.kase.bomgarSessions.length);
+            }
+            if(this.bomgarSessions)
+            {
+                console.log("the length under comments is"+this.bomgarSessions.length);
+
+            }
             this.publicComments=[];
             this.privateComments=[];
             var promise = udsService.kase.comments.get(caseNumber);

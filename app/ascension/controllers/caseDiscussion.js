@@ -208,7 +208,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
                 } else if ($scope.commentFilter === $scope.commentFilterList[5]) {
                     $scope.discussionElements = CaseDiscussionService.liveChatTranscripts;
                 } else if ($scope.commentFilter === $scope.commentFilterList[6]) {
-                    $scope.discussionElements = [];
+                    $scope.discussionElements = CaseDiscussionService.bomgarSessions;
                 }
             }
         };
