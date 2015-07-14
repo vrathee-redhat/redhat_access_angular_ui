@@ -7,7 +7,9 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
     'CaseDetailsService',
     'AlertService',
     'SearchResultsService',
-    function ($scope, $sanitize, strataService, CaseDetailsService, AlertService, SearchResultsService) {
+    'SearchService',
+    function ($scope, $sanitize, strataService, CaseDetailsService, AlertService, SearchResultsService, SearchService) {
+        $scope.SearchService = SearchService
         $scope.SearchResultsService = SearchResultsService;
         $scope.recommendations = [];
         $scope.numSolutions = 5;
@@ -28,7 +30,7 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
                     if (solution !== undefined) {
                         angular.forEach(CaseDetailsService.kase.resourceLinks, function(r) {
                             //if resource is linked, it should appear in red colour pin
-                            if(r.resource.resourceId.toString() === solution.resource_id && r.resource.resourceStatus === 'Linked'){
+                            if(r.resource.resourceId.toString() === solution.resource_id ){
                                 solution.pinned = !solution.pinned;
                             }
                         });
@@ -46,36 +48,5 @@ angular.module('RedhatAccess.ascension').controller('SearchSolutions', [
 
             }));
         });
-
-
-        $scope.pinRecommendation = function (recommendation) {
-            $scope.currentRecPin = recommendation;
-            $scope.currentRecPin.pinning = true;
-            var doPut = function (linked) {
-                var recJSON = {
-                    recommendations: {
-                        recommendation: [{
-                            linked: linked.toString(),
-                            resourceId: recommendation.resource_id,
-                            resourceType: recommendation.resource_type,
-                            title: recommendation.title,
-                            abstract: recommendation.abstract
-                        }]
-                    }
-                };
-                strataService.cases.put(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number), recJSON).then(function (response) {
-                    $scope.currentRecPin.pinning = false;
-                    $scope.currentRecPin.pinned = !$scope.currentRecPin.pinned;
-                }, function (error) {
-                    $scope.currentRecPin.pinning = false;
-                    AlertService.addStrataErrorMessage(error);
-                });
-            };
-            if (recommendation.pinned) {
-                doPut(false);
-            } else {
-                doPut(true);
-            }
-        };
     }
 ]);

@@ -1,0 +1,19 @@
+h3.section-title {{'Search Knowledgebase Solutions'|translate}}
+.form(role="form" id="rh-search")
+  .input-group
+    input(type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="{{'Search Solutions'|translate}}")
+    span.input-group-btn
+      button(ng-disabled="(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)" class="btn btn-default btn-primary" type='submit' ng-click="SearchService.search(searchStr)")
+        i.glyphicon.glyphicon-search
+
+dif(ng-hide="SearchService.searchedSolutions.length === 0")
+  ul
+    li.recommendation(ng-repeat='result in SearchService.searchedSolutions track by $index')
+      .title
+        .fa.pin(
+          ng-class='{"fa-thumb-tack pinned": result.pinned && !result.pinning, "fa-thumb-tack not-pinned": !result.pinned && !result.pinning, "spinner spinner-xs": result.pinning}',
+          ng-click='SearchService.pinSolution(result)',
+          style='cursor: pointer;') &nbsp;
+        a(href='{{result.view_uri}}', target='_blank')
+          strong {{result.title | substring:100 }}
+      div.pre-wrap {{result.abstract}}

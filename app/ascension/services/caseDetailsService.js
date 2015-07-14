@@ -142,6 +142,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 this.caseDetailsLoading = false;
             }), angular.bind(this, function (error) {
                 AlertService.addUDSErrorMessage(error);
+                AccountService.accountDetailsLoading = false;
                 this.caseDetailsLoading = false;
             }));
         };
@@ -484,14 +485,28 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             var self = this;
             strataService.cases.owner.update(this.getEightDigitCaseNumber(this.kase.case_number),newOwner).then(function () {
                 //rather than just assigning kase.owner.resource.fullName, take the user details from UDS and assign it to kase.owner
-                var promise = udsService.user.details(newOwner);
-                promise.then(angular.bind(this, function (user) {
-                    if(RHAUtils.isNotEmpty(user)) {
+                var ssoUserName = securityService.loginStatus.authedUser.sso_username;
+                var userUql = UQL.cond('SSO','is',"\""+ ssoUserName + "\"");
+                var promise = udsService.user.get(userUql).then(angular.bind(this, function (user){
+                    if ((user == null) || ((user != null ? user[0].externalModelId : void 0) == null)) {
+                        AlertService.addDangerMessage(gettextCatalog.getString("Was not able to fetch user with given ssoUserName"));
+                    }
+                    else{
                         self.kase.owner = user[0];
                     }
-                }), function (error) {
+                    }),angular.bind(this, function (error) {
+                    AlertService.clearAlerts();
                     AlertService.addUDSErrorMessage(error);
-                });
+                    self.yourCasesLoading = false;
+                }));                    
+                // var promise = udsService.user.details(newOwner);
+                // promise.then(angular.bind(this, function (user) {
+                //     if(RHAUtils.isNotEmpty(user)) {
+                //         self.kase.owner = user[0];
+                //     }
+                // }), function (error) {
+                //     AlertService.addUDSErrorMessage(error);
+                // });
                 self.isLoggedInUserIsOwner = true;
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
