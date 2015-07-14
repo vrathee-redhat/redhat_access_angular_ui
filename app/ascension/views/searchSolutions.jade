@@ -1,9 +1,9 @@
 #case-solutions
-div(rha-searchstackedsolutions='')
-div(ng-if='recommendations.length !== 0 && SearchResultsService.results.length === 0')
-  h3.section-title(translate,translate-comment="Noun") Suggested Solutions
-  ul
-    li.recommendation(ng-repeat='recommendation in recommendations')
+.row(rha-searchstackedsolutions='')
+.row(ng-if='recommendations.length !== 0 && SearchResultsService.results.length === 0')
+  .col-sm-12
+    h3.section-title(translate,translate-comment="Noun") Suggested Solutions
+    .recommendation(ng-repeat='recommendation in recommendations')
       .title
         .fa.pin(
           ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',

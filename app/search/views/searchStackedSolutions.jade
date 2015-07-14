@@ -1,19 +1,18 @@
-h3.section-title {{'Search Knowledgebase Solutions'|translate}}
-.form(role="form" id="rh-search")
-  .input-group
-    input(type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="{{'Search Solutions'|translate}}")
-    span.input-group-btn
-      button(ng-disabled="(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)" class="btn btn-default btn-primary" type='submit' ng-click="search(searchStr)")
-        i.glyphicon.glyphicon-search
+.col-sm-12
+  .form(role="form" id="rh-search")
+    .input-group
+      input(type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="{{'Keyword'|translate}}")
+      span.input-group-btn
+        button.btn-red(ng-disabled="(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)" class="btn btn-default btn-primary" type='submit' style='background-color: #B70003; font-weight: bold; border-color: #B70003; font-style: normal;' ng-click="search(searchStr)")
+          i Search
 
-dif(ng-hide="SearchResultsService.results.length === 0")
-  ul
-    li.recommendation(ng-repeat='result in SearchResultsService.results track by $index')
+  dif(ng-hide="SearchResultsService.results.length === 0")
+   .recommendation(ng-repeat='result in SearchResultsService.results track by $index')
       .title
         .fa.pin(
-          ng-class='{"fa-thumb-tack pinned": recommendation.pinned && !recommendation.pinning, "fa-thumb-tack not-pinned": !recommendation.pinned && !recommendation.pinning, "spinner spinner-xs": recommendation.pinning}',
+          ng-class='{"fa-thumb-tack pinned": result.pinned && !result.pinning, "fa-thumb-tack not-pinned": !result.pinned && !result.pinning, "spinner spinner-xs": result.pinning}',
           ng-click='pinRecommendation(recommendation)',
           style='cursor: pointer;') &nbsp;
-        a(href='{{result.resource_view_uri}}', target='_blank')
+        a(href='{{result.view_uri}}', target='_blank')
           strong {{result.title | substring:100 }}
-      div.pre-wrap {{result.issue.text}}
+      div.pre-wrap(ng-bind-html='result.abstract')
