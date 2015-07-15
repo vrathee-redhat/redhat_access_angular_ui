@@ -1,0 +1,18 @@
+.col-sm-12
+  .form(role="form" id="rh-search")
+    .input-group
+      input(type="text" class="form-control" id="rhSearchStr" name="searchString" ng-model="searchStr" class="input-xxlarge" placeholder="{{'Keyword'|translate}}")
+      span.input-group-btn
+        button.btn-red(ng-disabled="(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)" class="btn btn-default btn-primary" type='submit' style='background-color: #B70003; font-weight: bold; border-color: #B70003; font-style: normal;' ng-click="SearchService.search(searchStr)")
+          i Search
+
+  dif(ng-hide="SearchService.searchedSolutions.length === 0")
+   .recommendation(ng-repeat='result in SearchService.searchedSolutions track by $index')
+        .title
+            .fa.pin(
+               ng-class='{"fa-thumb-tack pinned": result.pinned && !result.pinning, "fa-thumb-tack not-pinned": !result.pinned && !result.pinning, "spinner spinner-xs": result.pinning}',
+               ng-click='SearchService.pinSolution(result)',
+               style='cursor: pointer;') &nbsp;
+            a(href='{{result.view_uri}}', target='_blank')
+              strong {{result.title | substring:100 }}
+      div.pre-wrap(ng-bind-html='result.abstract')

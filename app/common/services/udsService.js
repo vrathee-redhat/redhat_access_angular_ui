@@ -156,6 +156,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                                     response=mapResponseObject(true,false,false,false,false,response);
                                 } else {
                                     response=[];
+                                    deferred.reject("Unable to find case.");
                                 }
                                 var targetDate= RHAUtils.convertToTimezone(response.target_date_time);
                                 response.target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm:ss A Z');
