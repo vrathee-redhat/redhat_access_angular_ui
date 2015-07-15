@@ -10,6 +10,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
             if(isCase === true) {
                 var kase = {};
                 kase.case_number = response.resource.caseNumber;
+                kase.externalModelId=response.resource.externalModelId;
                 kase.status = {};
                 kase.status.name = response.resource.status;
                 kase.internalStatus = response.resource.internalStatus;
@@ -159,6 +160,21 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         resourceProjection,
                         limit,
                         sortOption
+                    );
+                    return deferred.promise;
+                }
+            },
+            bomgar: {
+                getSessionKey: function(caseId) {
+                    var deferred = $q.defer();
+                    uds.generateBomgarSessionKey(
+                        function (response) {
+                            deferred.resolve(response);
+                        },
+                        function (error) {
+                            deferred.reject(error);
+                        },
+                        caseId
                     );
                     return deferred.promise;
                 }

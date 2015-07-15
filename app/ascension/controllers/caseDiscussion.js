@@ -128,6 +128,12 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
             CaseAttachmentsService.removeOriginalAttachment(element);
         };
 
+        $scope.initiateBomgar=function()
+        {
+            CaseDiscussionService.initiateBomgar(CaseDetailsService.kase.externalModelId);
+
+        };
+
 
         $scope.$watch('CaseAttachmentsService', function (val) {
             $scope.onFilterChange();

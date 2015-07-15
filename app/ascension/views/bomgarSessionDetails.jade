@@ -1,0 +1,15 @@
+.modal-header
+  h3(translate='') Bomgar Session Details
+.modal-body
+  .row
+    .col-sm-12
+      span(translate='') Bomgar Session Key: {{CaseDiscussionService.bomgarSessionKey}}
+  .row
+    col-sm-12
+      span(translate='') Bomgar Key Url: {{CaseDiscussionService.bomgarKeyUrl}}
+  .row
+    .col-sm-12
+      .pull-right
+        button.btn-accent.btn(style='margin-left: 10px;', ng-click='closeModal()',translate=) Close
+
+

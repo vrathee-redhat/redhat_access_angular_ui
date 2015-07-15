@@ -7,7 +7,9 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
     'CaseDetailsService',
     'CaseAttachmentsService',
     'RHAUtils',
-    function ( $q, AlertService, HeaderService,CaseDetailsService,CaseAttachmentsService,RHAUtils) {
+    'udsService',
+    '$modal',
+    function ( $q, AlertService, HeaderService,CaseDetailsService,CaseAttachmentsService,RHAUtils,udsService,$modal) {
         this.discussionElements = [];
         this.privateComments = CaseDetailsService.privateComments;
         this.publicComments = CaseDetailsService.publicComments;
@@ -15,6 +17,8 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
         this.liveChatTranscripts=CaseDetailsService.liveChatTranscripts;
         this.bomgarSessions=CaseDetailsService.bomgarSessions;
         this.attachments = CaseAttachmentsService.originalAttachments;
+        this.bomgarSessionKey=undefined;
+        this.bomgarKeyUrl=undefined;
         this.loadingComments = false;
         this.commentTextBoxEnlargen = false;
         this.getDiscussionElements = function (caseId) {
@@ -40,6 +44,7 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             }
             return $q.all([commentsPromise]);
         };
+
         this.updateElements = function () {
             this.discussionElements =new Array();
             this.privateComments = CaseDetailsService.privateComments;
@@ -54,12 +59,22 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             this.liveChatTranscripts=CaseDetailsService.liveChatTranscripts;
             this.discussionElements =this.discussionElements.concat(this.liveChatTranscripts);
             this.bomgarSessions=CaseDetailsService.bomgarSessions;
-            if(this.bomgarSessions)
-            {
-                console.log("the length under update elements is"+this.bomgarSessions.length);
-
-            }
             this.discussionElements =this.discussionElements.concat(this.bomgarSessions);
+        };
+
+        this.initiateBomgar=function(caseId)
+        {
+            udsService.bomgar.getSessionKey(caseId).then(angular.bind(this, function (response) {
+                this.bomgarKeyUrl=response.resource.keyUrl;
+                this.bomgarSessionKey=response.resource.sessionKey;
+                $modal.open({
+                    templateUrl: 'ascension/views/bomgarSessionDetails.html',
+                    controller: 'BomgarSessionDetails'
+                });
+
+            }), function (error) {
+                AlertService.addUDSErrorMessage(error);
+            });
         };
     }
 ]);
