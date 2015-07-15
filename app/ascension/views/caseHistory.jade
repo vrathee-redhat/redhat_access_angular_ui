@@ -1,10 +1,9 @@
 .spinner.spinner-inline(ng-show='CaseDetailsService.fetchingCaseHistory')
-.list-item(ng-repeat='history in CaseDetailsService.caseHistory',
-			ng-show='!CaseDetailsService.fetchingCaseHistory')
-  .row
-    .col-sm-4
-      date.light {{history.resource.created_date}} &nbsp;
-      span.light {{'at'|translate}} &nbsp;
-      time.light {{history.resource.created_time}}
-    .col-sm-8
-      div(ng-bind-html='parseHistoryHtml(history.resource.outputText)')
+.list-item(ng-repeat='history in CaseDetailsService.caseHistory', ng-show='!CaseDetailsService.fetchingCaseHistory')
+	.row.row-short
+		.col-sm-4
+			date.light {{history.resource.created_date}} &nbsp;
+			span.light {{'at'|translate}} &nbsp;
+			time.light {{history.resource.created_time}}
+		.col-sm-8
+			div(ng-bind-html='parseHistoryHtml(history.resource.outputText)')
