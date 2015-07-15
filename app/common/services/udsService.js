@@ -260,6 +260,52 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         );
                         return deferred.promise;
                     }
+                },
+                lock: {
+                    get: function(caseNumber) {
+                        var deferred = $q.defer();
+                        uds.getlock(
+                            function (response) {
+                                if (response.resource !== undefined) {
+                                    response=mapResponseObject(true,false,false,false,false,response);
+                                } else {
+                                    response=[];
+                                }
+                                var targetDate= RHAUtils.convertToTimezone(response.target_date_time);
+                                response.target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm:ss A Z');
+                                deferred.resolve(response);
+                            },
+                            function (error) {
+                                deferred.reject(error);
+                            },
+                            caseNumber
+                        );
+                        return deferred.promise;
+
+                    },
+                    delete: function(caseNumber) {
+                        var deferred = $q.defer();
+                        uds.releaselock(
+                            function (response) {
+                                if (response.resource !== undefined) {
+                                    response=mapResponseObject(true,false,false,false,false,response);
+                                } else {
+                                    response=[];
+                                }
+                                var targetDate= RHAUtils.convertToTimezone(response.target_date_time);
+                                response.target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm:ss A Z');
+                                deferred.resolve(response);
+                            },
+                            function (error) {
+                                deferred.reject(error);
+                            },
+                            caseNumber
+                        );
+                        return deferred.promise;
+
+                    }
+
+
                 }
             },
             account:{

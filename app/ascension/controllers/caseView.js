@@ -26,6 +26,11 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
             CaseDetailsService.closeCase();
         };
 
+        $scope.lockCase = function () {
+            CaseDetailsService.lockCase();
+        };
+
+
         $scope.toggleCaseOverView = function(){
             $scope.caseOverView = true;
             $scope.caseDiscussion = false;

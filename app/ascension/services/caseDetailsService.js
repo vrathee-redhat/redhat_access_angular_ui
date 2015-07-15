@@ -51,6 +51,56 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.commentText = '';
         this.isLoggedInUserIsOwner = false;
         this.localStorageCache = $angularCacheFactory.get('localCache');
+        this.lockFlag = false;
+        this.slockFlag=false;
+
+
+        this.lockCase = function(){
+
+            this.slockFlag=true;
+
+            if(this.lockFlag == true){
+
+                udsService.kase.lock.delete(this.kase.case_number).then(angular.bind(this, function (response){
+
+
+
+                        this.lockFlag = false;
+                        this.slockFlag=false;
+
+                    }),angular.bind(this, function (error) {
+                        AlertService.addUDSErrorMessage(error);
+                        this.lockFlag = true;
+                        this.slockFlag=false;
+
+                    })
+
+
+                )
+
+            }else {
+
+                udsService.kase.lock.get(this.kase.case_number).then(angular.bind(this, function (response){
+
+
+
+                        this.lockFlag = true;
+                        this.slockFlag=false;
+
+                    }),angular.bind(this, function (error) {
+                        AlertService.addUDSErrorMessage(error);
+                        this.lockFlag = false;
+                        this.slockFlag=false;
+
+                    })
+
+
+                )
+
+            }}
+
+
+
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
@@ -60,6 +110,13 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 this.draftComment = {};
                 this.draftCommentOnServerExists=false;
                 this.commentText='';
+                if(this.kase.externalLock === undefined){
+                    this.lockFlag = false;
+
+                }else
+                {
+                    this.lockFlag = true;
+                }
                 if((this.kase.sbt===undefined) && (this.kase.status.name=="Waiting on Red Hat"))
                 {
                     this.kase.sbtState=gettextCatalog.getString("MISSING SBT. "+"Entitlement status: {{entitlementStatus}}",{entitlementStatus:this.kase.entitlement.status});
