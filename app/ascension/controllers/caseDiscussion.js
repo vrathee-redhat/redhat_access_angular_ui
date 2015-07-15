@@ -135,6 +135,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
         };
 
         $scope.$watch('CaseAttachmentsService', function (val) {
+            CaseDiscussionService.updateElements();
             $scope.onFilterChange();
         }, true);
 

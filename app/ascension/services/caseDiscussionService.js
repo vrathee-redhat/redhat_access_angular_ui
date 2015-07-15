@@ -53,7 +53,6 @@ angular.module('RedhatAccess.ascension').service('CaseDiscussionService', [
             this.discussionElements = this.discussionElements.concat(this.publicComments);
             this.bugzillas = CaseDetailsService.bugzillas;
             this.discussionElements = this.discussionElements.concat(this.bugzillas);
-            CaseAttachmentsService.defineOriginalAttachments(CaseDetailsService.kase.attachments);
             this.attachments = CaseAttachmentsService.originalAttachments;
             this.discussionElements = this.discussionElements.concat(this.attachments);
             this.liveChatTranscripts=CaseDetailsService.liveChatTranscripts;
