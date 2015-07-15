@@ -56,8 +56,8 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
             this.caseDetailsLoading = true;
-            var promise=udsService.kase.details.get(caseNumber);
-            promise.then(angular.bind(this, function (response) {
+            var deferred = $q.defer();
+            udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
                 this.kase = response;
                 this.draftComment = {};
                 this.draftCommentOnServerExists=false;
@@ -142,12 +142,14 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
+                deferred.resolve();
             }), angular.bind(this, function (error) {
                 AlertService.addUDSErrorMessage(error);
                 AccountService.accountDetailsLoading = false;
                 this.caseDetailsLoading = false;
+                deferred.reject(error);
             }));
-            return promise;
+            return deferred.promise;
         };
 
         this.checkForCaseStatusToggleOnAttachOrComment = function(){

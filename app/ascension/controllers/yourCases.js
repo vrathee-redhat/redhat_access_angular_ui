@@ -19,11 +19,10 @@ angular.module('RedhatAccess.ascension').controller('YourCases', [
         };
         $scope.fetchCaseDetail = function(kase) {
             $rootScope.$broadcast(TOPCASES_EVENTS.topCaseFetched);
-        	var promise=CaseDetailsService.getCaseDetails(kase);
-            promise.then(angular.bind(this, function (){
+        	CaseDetailsService.getCaseDetails(kase).then(angular.bind(this, function (){
                 CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number));
             }), angular.bind(this, function (error) {
-
+                //nothing to perform
             }));
             CaseDetailsService.fetCaseHistory(kase);
 

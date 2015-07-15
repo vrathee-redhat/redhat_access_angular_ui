@@ -11,11 +11,10 @@ angular.module('RedhatAccess.ascension').controller('CaseSearch', [
 
     	$scope.searchCases = function(){
             $rootScope.$broadcast(TOPCASES_EVENTS.topCaseFetched);
-    		var promise=CaseDetailsService.getCaseDetails($scope.caseNumber);
-            promise.then(angular.bind(this, function (){
+    		CaseDetailsService.getCaseDetails($scope.caseNumber).then(angular.bind(this, function (){
                 CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number));
             }), angular.bind(this, function (error) {
-
+                 //nothing to do
             }));
             CaseDetailsService.fetCaseHistory($scope.caseNumber);
 
