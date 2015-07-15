@@ -27,6 +27,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.severity = {};
                 kase.severity.name = response.resource.severity;
                 kase.product = response.resource.product.resource.line.resource.name;
+                kase.externalLock = response.resource.externalLock;
                 if(response.resource.product.resource.version != undefined) {
                     kase.version = response.resource.product.resource.version.resource.name;
                 }
@@ -271,8 +272,6 @@ angular.module('RedhatAccess.common').factory('udsService', [
                                 } else {
                                     response=[];
                                 }
-                                var targetDate= RHAUtils.convertToTimezone(response.target_date_time);
-                                response.target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm:ss A Z');
                                 deferred.resolve(response);
                             },
                             function (error) {
@@ -292,8 +291,6 @@ angular.module('RedhatAccess.common').factory('udsService', [
                                 } else {
                                     response=[];
                                 }
-                                var targetDate= RHAUtils.convertToTimezone(response.target_date_time);
-                                response.target_date = RHAUtils.formatDate(targetDate, 'MMM DD YYYY hh:mm:ss A Z');
                                 deferred.resolve(response);
                             },
                             function (error) {
