@@ -89,7 +89,12 @@ section.case-details
           .col-md-2
              strong(translate,translate-comment="Noun") SBR Group
           .col-md-10
-              span {{CaseDetailsService.kase.sbr_group}}          
+              span {{CaseDetailsService.kase.sbr_group}}
+        .row.row-very-short
+          .col-md-2
+             strong(translate,translate-comment="Noun") Case Description
+          .col-md-10
+              p.content {{CaseDetailsService.kase.description}}
         .row(ng-show='showEditCase')
           .col-sm-12
             button.btn.btn-app.btn-submit(
