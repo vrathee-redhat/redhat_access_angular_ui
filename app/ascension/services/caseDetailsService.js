@@ -343,13 +343,15 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
 
         this.closeCase = function() {
             this.caseClosing = true;
-            var promise = strataService.cases.put(this.getEightDigitCaseNumber(this.kase.case_number), {status: 'Closed'});
+            this.kase.status.name = 'Closed';
+            var promise = this.updateCaseDetails();
             promise.then( angular.bind(this, function (response) {
                 this.caseClosing = false;
                 AlertService.addSuccessMessage(gettextCatalog.getString('Case {{caseNumber}} successfully closed.',{caseNumber:this.kase.case_number}));
-                this.kase.status.name = 'Closed';
+                this.getCaseDetails(this.kase.case_number);
             }), function (error) {
                 this.caseClosing = false;
+                this.kase.status.name = this.prestineKase.status.name;
                 AlertService.addStrataErrorMessage(error);
             });
         };
@@ -494,13 +496,16 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 resource : {}
             };
             var self = true;
-            if (this.kase.summary.summaryText !== undefined && !angular.equals(this.prestineKase.summary.summaryText, this.kase.summary.summaryText)) {
+            if (this.kase.summary !== undefined && this.kase.summary.summaryText !== undefined && !angular.equals(this.prestineKase.summary.summaryText, this.kase.summary.summaryText)) {
                 var caseSummary = {
                     resource : {
                         summary: this.kase.summary.summaryText
                     }
                 };
                 caseJSON.resource.caseSummary = caseSummary;
+            }
+            if (this.kase.status !== undefined && this.kase.status.name !== undefined && !angular.equals(this.prestineKase.status.name, this.kase.status.name)) {
+                caseJSON.resource.status = this.kase.status.name;
             }
             udsService.kase.details.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
                 angular.copy(self.kase, self.prestineKase);
