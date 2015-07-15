@@ -11,6 +11,7 @@ angular.module('RedhatAccess.ascension').controller('CaseSearch', [
     	$scope.searchCases = function(){
             $rootScope.$broadcast(TOPCASES_EVENTS.topCaseFetched);
     		CaseDetailsService.getCaseDetails($scope.caseNumber);
+            CaseDetailsService.fetCaseHistory($scope.caseNumber);
     	}
     }
 ]);
