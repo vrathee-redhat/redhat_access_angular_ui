@@ -128,11 +128,16 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
             CaseAttachmentsService.removeOriginalAttachment(element);
         };
 
+        $scope.initiateBomgar=function()
+        {
+
+            CaseDiscussionService.initiateBomgar(CaseDetailsService.kase.externalModelId);
+        };
 
         $scope.$watch('CaseAttachmentsService', function (val) {
+            CaseDiscussionService.updateElements();
             $scope.onFilterChange();
         }, true);
-
 
         $scope.$watch('CaseDetailsService', function (val) {
             $scope.onFilterChange();
@@ -208,7 +213,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
                 } else if ($scope.commentFilter === $scope.commentFilterList[5]) {
                     $scope.discussionElements = CaseDiscussionService.liveChatTranscripts;
                 } else if ($scope.commentFilter === $scope.commentFilterList[6]) {
-                    $scope.discussionElements = [];
+                    $scope.discussionElements = CaseDiscussionService.bomgarSessions;
                 }
             }
         };

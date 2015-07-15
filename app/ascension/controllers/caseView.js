@@ -26,6 +26,11 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
             CaseDetailsService.closeCase();
         };
 
+        $scope.lockCase = function () {
+            CaseDetailsService.lockCase();
+        };
+
+
         $scope.toggleCaseOverView = function(){
             $scope.caseOverView = true;
             $scope.caseDiscussion = false;
@@ -37,7 +42,7 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
             $scope.accountNotes = false;
         };
         $scope.toggleCaseDiscussion = function(){
-            // CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number));
+          //  CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number));
             $scope.caseDiscussion = true;
             $scope.linkedResources = false;
             $scope.caseOverView = false;
@@ -58,7 +63,7 @@ angular.module('RedhatAccess.ascension').controller('CaseView', [
             $scope.accountNotes = false;
         };
         $scope.toggleCaseHistory = function(){
-            // CaseDetailsService.fetCaseHistory(CaseDetailsService.kase.case_number);
+           // CaseDetailsService.fetCaseHistory(CaseDetailsService.kase.case_number);
             $scope.caseHistory = true;
             $scope.caseOverView = false;
             $scope.caseDiscussion = false;

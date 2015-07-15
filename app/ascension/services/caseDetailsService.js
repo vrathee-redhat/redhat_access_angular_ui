@@ -30,6 +30,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.publicComments = [];
         this.privateComments = [];
         this.liveChatTranscripts=[];
+        this.bomgarSessions=[];
         this.products = [];
         this.versions = [];
         this.severities = [];
@@ -51,15 +52,73 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.commentText = '';
         this.isLoggedInUserIsOwner = false;
         this.localStorageCache = $angularCacheFactory.get('localCache');
+        this.lockFlag = false;
+        this.slockFlag=false;
+
+
+        this.lockCase = function(){
+
+            this.slockFlag=true;
+
+            if(this.lockFlag == true){
+
+                udsService.kase.lock.delete(this.kase.case_number).then(angular.bind(this, function (response){
+
+
+
+                        this.lockFlag = false;
+                        this.slockFlag=false;
+
+                    }),angular.bind(this, function (error) {
+                        AlertService.addUDSErrorMessage(error);
+                        this.lockFlag = true;
+                        this.slockFlag=false;
+
+                    })
+
+
+                )
+
+            }else {
+
+                udsService.kase.lock.get(this.kase.case_number).then(angular.bind(this, function (response){
+
+
+
+                        this.lockFlag = true;
+                        this.slockFlag=false;
+
+                    }),angular.bind(this, function (error) {
+                        AlertService.addUDSErrorMessage(error);
+                        this.lockFlag = false;
+                        this.slockFlag=false;
+
+                    })
+
+
+                )
+
+            }}
+
+
+
 
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
             this.caseDetailsLoading = true;
+            var deferred = $q.defer();
             udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
                 this.kase = response;
                 this.draftComment = {};
                 this.draftCommentOnServerExists=false;
                 this.commentText='';
+                if(this.kase.externalLock === undefined){
+                    this.lockFlag = false;
+
+                }else
+                {
+                    this.lockFlag = true;
+                }
                 if((this.kase.sbt===undefined) && (this.kase.status.name=="Waiting on Red Hat"))
                 {
                     this.kase.sbtState=gettextCatalog.getString("MISSING SBT. "+"Entitlement status: {{entitlementStatus}}",{entitlementStatus:this.kase.entitlement.status});
@@ -140,11 +199,14 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 angular.copy(this.kase, this.prestineKase);
                 $rootScope.$broadcast(TOPCASES_EVENTS.caseDetailsFetched);
                 this.caseDetailsLoading = false;
+                deferred.resolve();
             }), angular.bind(this, function (error) {
                 AlertService.addUDSErrorMessage(error);
                 AccountService.accountDetailsLoading = false;
                 this.caseDetailsLoading = false;
+                deferred.reject(error);
             }));
+            return deferred.promise;
         };
 
         this.checkForCaseStatusToggleOnAttachOrComment = function(){
@@ -351,6 +413,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.populateComments = function (caseNumber) {
             this.bugzillas=[];
             this.liveChatTranscripts=this.kase.liveChatTranscripts;
+            this.bomgarSessions=this.kase.bomgarSessions;
             this.publicComments=[];
             this.privateComments=[];
             var promise = udsService.kase.comments.get(caseNumber);
@@ -498,7 +561,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     AlertService.clearAlerts();
                     AlertService.addUDSErrorMessage(error);
                     self.yourCasesLoading = false;
-                }));                    
+                }));
                 // var promise = udsService.user.details(newOwner);
                 // promise.then(angular.bind(this, function (user) {
                 //     if(RHAUtils.isNotEmpty(user)) {
