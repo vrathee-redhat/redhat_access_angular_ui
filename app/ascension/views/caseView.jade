@@ -1,7 +1,7 @@
 //- .page-header(rha-header='', page='')
 div(rha-alert='')
 .top-cases(rha-yourcases='')
-.container-fluid.container-pad.watermark-special-handling.case-view
+.container-fluid.container-pad.case-view(ng-class='{"watermark-special-handling": CaseDetailsService.kase.account.special_handling_required}')
   .row
     .col-sm-12
       button.btn.btn-app.btn-sm.pull-right(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
