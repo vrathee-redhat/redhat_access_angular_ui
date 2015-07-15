@@ -146,7 +146,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
         };
         var service = {
             cases: {
-                list: function(uql,resourceProjection,limit,sortOption) {
+                list: function(uql,resourceProjection,limit,sortOption,onlyStatus) {
                     var deferred = $q.defer();
                     uds.fetchCases(
                         function (response) {
@@ -158,7 +158,8 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         uql,
                         resourceProjection,
                         limit,
-                        sortOption
+                        sortOption,
+                        onlyStatus
                     );
                     return deferred.promise;
                 }

@@ -280,7 +280,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
                     finalUql = UQL.and(finalUql, secureHandlingUQL);
 
-                    var promise = udsService.cases.list(finalUql,'Minimal',this.yourCasesLimit);
+                    var promise = udsService.cases.list(finalUql,'Minimal',this.yourCasesLimit, undefined, true);
                     promise.then(angular.bind(this, function (topCases) {
                         if(RHAUtils.isNotEmpty(topCases)) {
                             //sort cases based on collab score .even though we are getting top cases, just to display in proper order
@@ -326,7 +326,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             uqlEnggBacklog = UQL.and(uqlEnggBacklog, secureHandlingUQL);
             //as we just want one top case for engineering backlog, passing limit as only 1 and we want oldest lastModified case
             var sortOption = 'lastModifiedDate asc';
-            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1,sortOption);
+            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1,sortOption,true);
             promise.then(angular.bind(this, function (backlogCases) {
                 if(RHAUtils.isNotEmpty(backlogCases)) {
                     self.enggBackLogCases = backlogCases;
