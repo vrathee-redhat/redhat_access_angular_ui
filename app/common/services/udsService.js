@@ -10,6 +10,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
             if(isCase === true) {
                 var kase = {};
                 kase.case_number = response.resource.caseNumber;
+                kase.externalModelId=response.externalModelId;
                 kase.status = {};
                 kase.status.name = response.resource.status;
                 kase.internalStatus = response.resource.internalStatus;
@@ -75,7 +76,6 @@ angular.module('RedhatAccess.common').factory('udsService', [
                     kase.liveChatTranscripts=response.resource.liveChatTranscripts;
                     angular.forEach(response.resource.liveChatTranscripts, angular.bind(this, function (chatTranscript) {
                         chatTranscript.comment_type="chat";
-                        chatTranscript.resource.user.resource.fullName;
                         var lastModifiedDate = RHAUtils.convertToTimezone(chatTranscript.resource.created);
                         var modifiedDate = chatTranscript.resource.created;
                         chatTranscript.resource.sortModifiedDate = modifiedDate;
@@ -83,6 +83,22 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         chatTranscript.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
 
                     }));
+                }
+
+                kase.bomgarSessions=[];
+                if(response.resource.remoteSessions)
+                {
+                    angular.forEach(response.resource.remoteSessions, angular.bind(this, function (bomgarSession) {
+                        bomgarSession.comment_type="bomgar";
+                        var lastModifiedDate = RHAUtils.convertToTimezone(bomgarSession.resource.created);
+                        var modifiedDate = bomgarSession.resource.created;
+                        bomgarSession.resource.sortModifiedDate = modifiedDate;
+                        bomgarSession.resource.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                        bomgarSession.resource.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                        var seconds=(bomgarSession.resource.duration/1000)%60;
+                        bomgarSession.resource.durationMins=((bomgarSession.resource.duration-seconds)/1000)/60;
+                    }));
+                    kase.bomgarSessions=response.resource.remoteSessions;
                 }
 
                 kase.entitlement={};
@@ -142,6 +158,21 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         resourceProjection,
                         limit,
                         sortOption
+                    );
+                    return deferred.promise;
+                }
+            },
+            bomgar: {
+                getSessionKey: function(caseId) {
+                    var deferred = $q.defer();
+                    uds.generateBomgarSessionKey(
+                        function (response) {
+                            deferred.resolve(response);
+                        },
+                        function (error) {
+                            deferred.reject(error);
+                        },
+                        caseId
                     );
                     return deferred.promise;
                 }
