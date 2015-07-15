@@ -28,6 +28,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.severity = {};
                 kase.severity.name = response.resource.severity;
                 kase.product = response.resource.product.resource.line.resource.name;
+                kase.externalLock = response.resource.externalLock;
                 if(response.resource.product.resource.version != undefined) {
                     kase.version = response.resource.product.resource.version.resource.name;
                 }
@@ -291,6 +292,48 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         );
                         return deferred.promise;
                     }
+                },
+                lock: {
+                    get: function(caseNumber) {
+                        var deferred = $q.defer();
+                        uds.getlock(
+                            function (response) {
+                                if (response.resource !== undefined) {
+                                    response=mapResponseObject(true,false,false,false,false,response);
+                                } else {
+                                    response=[];
+                                }
+                                deferred.resolve(response);
+                            },
+                            function (error) {
+                                deferred.reject(error);
+                            },
+                            caseNumber
+                        );
+                        return deferred.promise;
+
+                    },
+                    delete: function(caseNumber) {
+                        var deferred = $q.defer();
+                        uds.releaselock(
+                            function (response) {
+                                if (response.resource !== undefined) {
+                                    response=mapResponseObject(true,false,false,false,false,response);
+                                } else {
+                                    response=[];
+                                }
+                                deferred.resolve(response);
+                            },
+                            function (error) {
+                                deferred.reject(error);
+                            },
+                            caseNumber
+                        );
+                        return deferred.promise;
+
+                    }
+
+
                 }
             },
             account:{
