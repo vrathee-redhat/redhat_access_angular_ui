@@ -56,7 +56,8 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.getCaseDetails = function(caseNumber) {
             AccountService.accountDetailsLoading = true;
             this.caseDetailsLoading = true;
-            udsService.kase.details.get(caseNumber).then(angular.bind(this, function (response) {
+            var promise=udsService.kase.details.get(caseNumber);
+            promise.then(angular.bind(this, function (response) {
                 this.kase = response;
                 this.draftComment = {};
                 this.draftCommentOnServerExists=false;
@@ -146,6 +147,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 AccountService.accountDetailsLoading = false;
                 this.caseDetailsLoading = false;
             }));
+            return promise;
         };
 
         this.checkForCaseStatusToggleOnAttachOrComment = function(){
@@ -353,14 +355,6 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             this.bugzillas=[];
             this.liveChatTranscripts=this.kase.liveChatTranscripts;
             this.bomgarSessions=this.kase.bomgarSessions;
-            if(this.kase.bomgarSessions) {
-                console.log("bomgar session length is under populate comments" + this.kase.bomgarSessions.length);
-            }
-            if(this.bomgarSessions)
-            {
-                console.log("the length under comments is"+this.bomgarSessions.length);
-
-            }
             this.publicComments=[];
             this.privateComments=[];
             var promise = udsService.kase.comments.get(caseNumber);
@@ -508,7 +502,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     AlertService.clearAlerts();
                     AlertService.addUDSErrorMessage(error);
                     self.yourCasesLoading = false;
-                }));                    
+                }));
                 // var promise = udsService.user.details(newOwner);
                 // promise.then(angular.bind(this, function (user) {
                 //     if(RHAUtils.isNotEmpty(user)) {

@@ -130,15 +130,13 @@ angular.module('RedhatAccess.ascension').controller('CaseDiscussion', [
 
         $scope.initiateBomgar=function()
         {
+
             CaseDiscussionService.initiateBomgar(CaseDetailsService.kase.externalModelId);
-
         };
-
 
         $scope.$watch('CaseAttachmentsService', function (val) {
             $scope.onFilterChange();
         }, true);
-
 
         $scope.$watch('CaseDetailsService', function (val) {
             $scope.onFilterChange();

@@ -10,7 +10,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
             if(isCase === true) {
                 var kase = {};
                 kase.case_number = response.resource.caseNumber;
-                kase.externalModelId=response.resource.externalModelId;
+                kase.externalModelId=response.externalModelId;
                 kase.status = {};
                 kase.status.name = response.resource.status;
                 kase.internalStatus = response.resource.internalStatus;
@@ -88,7 +88,6 @@ angular.module('RedhatAccess.common').factory('udsService', [
                 kase.bomgarSessions=[];
                 if(response.resource.remoteSessions)
                 {
-                    console.log("isnide bomgar sessions")
                     angular.forEach(response.resource.remoteSessions, angular.bind(this, function (bomgarSession) {
                         bomgarSession.comment_type="bomgar";
                         var lastModifiedDate = RHAUtils.convertToTimezone(bomgarSession.resource.created);
@@ -100,7 +99,6 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         bomgarSession.resource.durationMins=((bomgarSession.resource.duration-seconds)/1000)/60;
                     }));
                     kase.bomgarSessions=response.resource.remoteSessions;
-                    console.log("bomgar session length is "+kase.bomgarSessions.length);
                 }
 
                 kase.entitlement={};

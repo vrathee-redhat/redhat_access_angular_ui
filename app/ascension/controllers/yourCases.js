@@ -19,9 +19,14 @@ angular.module('RedhatAccess.ascension').controller('YourCases', [
         };
         $scope.fetchCaseDetail = function(kase) {
             $rootScope.$broadcast(TOPCASES_EVENTS.topCaseFetched);
-        	CaseDetailsService.getCaseDetails(kase);
+        	var promise=CaseDetailsService.getCaseDetails(kase);
+            promise.then(angular.bind(this, function (){
+                CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number));
+            }), angular.bind(this, function (error) {
+
+            }));
             CaseDetailsService.fetCaseHistory(kase);
-            CaseDiscussionService.getDiscussionElements(CaseDetailsService.getEightDigitCaseNumber(kase));
+
         };
 
         if (securityService.loginStatus.isLoggedIn) {
