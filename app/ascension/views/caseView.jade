@@ -2,18 +2,17 @@
 div(rha-alert='')
 .top-cases(rha-yourcases='')
 .container-fluid.container-pad.case-view(ng-class='{"watermark-special-handling": CaseDetailsService.kase.account.special_handling_required}')
-  .row
-   .col-md-10
-    .toggle-switch(ng-click='lockCase()', ng-class='{"active": CaseDetailsService.lockFlag}',ng-show='!CaseDetailsService.caseDetailsLoading')
-     .switch
-      .spinner.spinner-inline(ng-show='CaseDetailsService.slockFlag')
-   .col-md-2
-      button.btn.btn-app.btn-sm.pull-right(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
-      .spinner.spinner-inline(ng-show='CaseDetailsService.caseClosing')
   .row.row-very-short(ng-hide='CaseDetailsService.caseDetailsLoading')
-    .col-sm-12.title
+    .col-md-9.title
       h3.section-title.case-name.pre-wrap.inline-text {{'Case '|translate}} {{CaseDetailsService.kase.case_number}}: &nbsp
       span.big-title {{CaseDetailsService.kase.internalStatus}}
+    .col-md-3
+      button.btn.btn-app.btn-sm.pull-right(ng-click='closeCase()', ng-disabled='CaseDetailsService.caseDetailsLoading || CaseDetailsService.kase.status.name === "Closed"', ng-show='!CaseDetailsService.caseClosing'){{'Close Case'|translate}}
+      .spinner.spinner-inline(ng-show='CaseDetailsService.caseClosing')
+      .pull-right
+        .toggle-switch(ng-click='lockCase()', ng-class='{"active": CaseDetailsService.lockFlag}',ng-show='!CaseDetailsService.caseDetailsLoading')
+         .switch
+          .spinner.spinner-inline(ng-show='CaseDetailsService.slockFlag')
   .row.row-very-short(ng-hide='CaseDetailsService.caseDetailsLoading')
     .col-sm-12
         strong(translate,translate-comment="Noun") Problem Statement:&nbsp;
