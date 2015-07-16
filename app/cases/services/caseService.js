@@ -27,7 +27,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.kase = {};
         this.prestineKase = {};
         this.caseDataReady = false;
-        this.isCommentPublic = false;
+        this.isCommentPublic = true;
         this.versions = [];
         this.products = [];
         this.severities = [];
@@ -145,7 +145,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.clearCase = function () {
             this.caseDataReady = false;
-            this.isCommentPublic = false;
+            this.isCommentPublic = true;
             this.updatingCase = false;
             this.kase = {};
             this.prestineKase = {};

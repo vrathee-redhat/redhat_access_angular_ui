@@ -38,7 +38,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.isCommentPublic = true;
             }
             var onSuccess = function (response) {
-                CaseService.isCommentPublic = false;
+                CaseService.isCommentPublic = true;
                 CaseService.draftCommentOnServerExists=false;
                 if(CaseService.localStorageCache)
                 {
@@ -131,7 +131,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 }
                 if(RHAUtils.isEmpty(CaseService.commentText))
                 {
-                    CaseService.draftCommentLocalStorage.public=false;
+                    CaseService.draftCommentLocalStorage.public=true;
                 }
                 CaseService.localStorageCache.put(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username,CaseService.draftCommentLocalStorage);
                 CaseService.disableAddComment = false;
