@@ -3,13 +3,17 @@
 angular.module('RedhatAccess.ascension').service('RoutingService', [
     'securityService',
     'UQL',
-    function (securityService, UQL) {
+    'RHAUtils',
+    function (securityService, UQL,RHAUtils) {
 
-        var makeSbrConds = function(user) {
-            var sbrConds;
-            angular.forEach(user.sbrs, function(s){
-                sbrConds.push(UQL.cond('sbrGroup', 'is', "\"" + s + "\""));
-            });
+        var makeSbrConds = function (user) {
+            var sbrConds = [];
+            //if not weekend then only consider SBR group, otherwise associates should work on all cases irrespective of SBR
+            if (!RHAUtils.isWeeekend() && RHAUtils.isNotEmpty(user.resource.sbrs)) {
+                angular.forEach(user.resource.sbrs, function (s) {
+                    sbrConds.push(UQL.cond('sbrGroup', 'is', "\"" + s + "\""));
+                });
+            }
             return UQL.or.apply(null, sbrConds);
         };
 

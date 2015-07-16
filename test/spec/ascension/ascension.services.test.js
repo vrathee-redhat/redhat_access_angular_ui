@@ -61,6 +61,7 @@ describe('Ascension Services', function () {
         it('should have a method for getting top cases for loggedin user', function () {
             expect(caseDetailsService.getYourCases).toBeDefined();
             securityService.loginStatus.authedUser.sso_username = 'testUser';
+            rhaUtils.userTimeZone="America/New_York";
             caseDetailsService.getYourCases();
             spyOn(mockUDSService.cases, 'list').andCallThrough();
             scope.$root.$digest();
