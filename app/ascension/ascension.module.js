@@ -54,4 +54,16 @@ app.service('UQL',
                 return void 0;
             }
         };
+        this.quote = function(s) {
+            if ((s != null) && s !== '') {
+                return "\"" + s + "\"";
+            }
+        };
+        this.array = function(items, cb) {
+            if ((items != null) && items.length > 0) {
+                return '[' + angular.forEach(items, function(r){
+                        return cb(r)
+                    }).join(',') + ']';
+            }
+        };
     });
