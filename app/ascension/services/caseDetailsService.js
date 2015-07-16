@@ -425,7 +425,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                         this.draftComment = comment;
                         this.draftCommentOnServerExists=true;
                         this.commentText = comment.text;
-                        this.isCommentPrivate = !comment.public;
+                        this.isCommentPrivate = !comment.resource.public;
                         if (RHAUtils.isNotEmpty(this.commentText)) {
                             this.disableAddComment = false;
                         } else if (RHAUtils.isEmpty(this.commentText)) {
