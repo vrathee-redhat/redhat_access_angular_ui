@@ -62,6 +62,17 @@ app.service('RHAUtils',
       {
         return date.format(formatter);
       };
+      this.isWeeekend= function(){
+          var currentDate = window.moment(); //get current date
+          var timezoneDate = window.moment(currentDate).tz(this.userTimeZone); //change as per logged in user's timezone
+          //Sunday as 0 and Saturday as 6.
+          if(timezoneDate.day() == 0 || timezoneDate.day() == 6){
+              return true;
+          }else{
+              return false;
+          }
+
+      }
 });
 
 
