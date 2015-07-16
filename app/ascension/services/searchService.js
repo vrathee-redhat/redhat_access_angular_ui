@@ -22,7 +22,7 @@ angular.module('RedhatAccess.ascension').service('SearchService', [
             }),function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-        }
+        };
         this.pinSolution = function (solution) {
             solution.pinning = true;
             var doPut = function (linked) {
