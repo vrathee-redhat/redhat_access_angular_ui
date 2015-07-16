@@ -46,26 +46,26 @@ angular.module('RedhatAccess.ascension').service('SearchService', [
                 strataService.cases.put(CaseDetailsService.getEightDigitCaseNumber(CaseDetailsService.kase.case_number), recJSON).then(angular.bind(solution, function (response) {
                     solution.pinning = false;
                     solution.pinned = !solution.pinned;
-                    var resource_id = "";
-                    var solution_title = "";
+                    var resourceId = "";
+                    var title = "";
                     if(solution.resource_id){
-                        resource_id = solution.resource_id;
-                        solution_title = solution.solution_title;
+                        resourceId = parseInt(solution.resource_id);
+                        title = solution.solution_title;
                     }else if (solution.display_id){
-                        resource_id = solution.display_id;
-                        solution_title = solution.title;
+                        resourceId = parseInt(solution.display_id);
+                        title = solution.title;
                     }
                     if(solution.pinned){
                         var newLink = {
                             resource: {
-                                id: resource_id,
-                                title: solution_title
+                                resourceId: resourceId,
+                                title: title
                             }
                         };
                         CaseDetailsService.kase.resourceLinks.push(newLink);
                     } else{
                         for(var i = 0; i < CaseDetailsService.kase.resourceLinks.length; i++) {
-                            if(CaseDetailsService.kase.resourceLinks[i].resource.resourceId.toString() === resource_id) {
+                            if(CaseDetailsService.kase.resourceLinks[i].resource.resourceId === resourceId) {
                                 CaseDetailsService.kase.resourceLinks.splice(i, 1);
                                 break;
                             }
