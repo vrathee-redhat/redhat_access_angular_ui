@@ -48,33 +48,33 @@ angular.module('RedhatAccess.ascension').service('RoutingService', [
             return UQL.and(ownerCond, UQL.and(worhCond, UQL.and(wocCond, contributorCond)));
         };
         this.FTS = function(user) {
-            "Filters\nNo owner/role for User's current Geo on ticket\n24x7 equals \"TRUE\"\nSBR Group includes \"<group1>,<group2>\"(Matches users current SBRs)";
+            //"Filters\nNo owner/role for User's current Geo on ticket\n24x7 equals \"TRUE\"\nSBR Group includes \"<group1>,<group2>\"(Matches users current SBRs)";
             var ftsCond, ftsRoleCond;
             ftsCond = UQL.cond('isFTS', 'is', true);
             ftsRoleCond = UQL.cond('ftsRole', 'is', '""');
             return UQL.and(ftsCond, UQL.and(ftsRoleCond, makeSbrConds(user)));
         };
-        this.NNO_SUPER_REGION = function(user, super_region) {
-            "NNO = \"NA\"\nSBR Group includes \"<group1>,<group2>\"(Matches users current SBRs)";
+        var NNO_SUPER_REGION = function(user, super_region) {
+            //"NNO = \"NA\"\nSBR Group includes \"<group1>,<group2>\"(Matches users current SBRs)";
             var nnoRegionCond;
             nnoRegionCond = UQL.cond('nnoSuperRegion', 'is', "\"" + super_region + "\"");
             return UQL.and(nnoRegionCond, makeSbrConds(user));
         };
 
         this.NNO_NA = function(user) {
-            return this.NNO_SUPER_REGION(user, 'NA');
+            return NNO_SUPER_REGION(user, 'NA');
         };
 
         this.NNO_APAC = function(user) {
-            return this.NNO_SUPER_REGION(user, 'APAC');
+            return NNO_SUPER_REGION(user, 'APAC');
         };
 
         this.NNO_INDIA = function(user) {
-            return this.NNO_SUPER_REGION(user, 'INDIA');
+            return NNO_SUPER_REGION(user, 'INDIA');
         };
 
         this.NNO_EMEA = function(user) {
-            return this.NNO_SUPER_REGION(user, 'EMEA');
+            return NNO_SUPER_REGION(user, 'EMEA');
         };
         this.NCQ = function(user) {
             var notClosedCond, unassignedCond;
