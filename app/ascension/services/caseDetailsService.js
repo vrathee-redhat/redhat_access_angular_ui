@@ -54,6 +54,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.localStorageCache = $angularCacheFactory.get('localCache');
         this.lockFlag = false;
         this.slockFlag=false;
+        this.foundEnggBacklogRole = false;
 
 
         this.lockCase = function(){
@@ -238,8 +239,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                     angular.forEach(u.resource.roles, function (r) {
                         if (RoutingService.mapping[r.resource.name.toLowerCase()] != null) {
                             if(r.resource.name.toLowerCase() === 'ascension-engg-backlog'){
-                                //get engineering backlog cases
-                                self.getEnggBackLogCases();
+                                self.foundEnggBacklogRole = true;
                             } else {
                                 return roleNames.push(r.resource.name.toLowerCase());
                             }
@@ -287,16 +287,39 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                             topCases.sort(function (a, b) {
                                 return b.resource.collaborationScore - a.resource.collaborationScore;
                             });
-                            if(!RHAUtils.isObjectEmpty(self.enggBackLogCases)) {
-                                topCases = topCases.slice(0,self.yourCasesLimit - 1); //if engineering backlog case is found, we will append at end and slice top 5 cases
-                                topCases.push(self.enggBackLogCases[0]);
-                            }
-                            self.cases = topCases;
-
-                            //if case is not yet viewed, then get the first case details
-                            if(RHAUtils.isObjectEmpty(self.kase)) {
-                                //get details for first top case
-                                $rootScope.$broadcast(TOPCASES_EVENTS.initialCaseLoad);
+                            if(this.foundEnggBacklogRole) {
+                                var uqlEnggBacklog;
+                                uqlEnggBacklog = UQL.and(RoutingService.ENGG_BACKLOG(), secureHandlingUQL);
+                                //as we just want one top case for engineering backlog, passing limit as only 1 and we want oldest lastModified case
+                                var sortOption = 'lastModifiedDate asc';
+                                var enggBacklogPromise = udsService.cases.list(uqlEnggBacklog,'Minimal',1,sortOption,true);
+                                enggBacklogPromise.then(angular.bind(this, function (backlogCases) {
+                                    if(RHAUtils.isNotEmpty(backlogCases)) {
+                                        if (!RHAUtils.isObjectEmpty(backlogCases)) {
+                                            topCases = topCases.slice(0, this.yourCasesLimit - 1); //if engineering backlog case is found, we will append at end and slice top 5 cases
+                                            topCases.push(backlogCases[0]);
+                                        }
+                                        this.cases = topCases;
+                                        //if case is not yet viewed, then get the first case details
+                                        if(RHAUtils.isObjectEmpty(this.kase)) {
+                                            //get details for first top case
+                                            $rootScope.$broadcast(TOPCASES_EVENTS.initialCaseLoad);
+                                        }
+                                    }else {
+                                        AlertService.clearAlerts();
+                                        AlertService.addInfoMessage(gettextCatalog.getString("No engineering backlog cases found."));
+                                    }
+                                }), function (error) {
+                                    AlertService.clearAlerts();
+                                    AlertService.addUDSErrorMessage(error);
+                                });
+                            }else{
+                                this.cases = topCases;
+                                //if case is not yet viewed, then get the first case details
+                                if(RHAUtils.isObjectEmpty(this.kase)) {
+                                    //get details for first top case
+                                    $rootScope.$broadcast(TOPCASES_EVENTS.initialCaseLoad);
+                                }
                             }
                         }else {
                             AlertService.clearAlerts();
@@ -317,29 +340,6 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 })
             );
 		};
-
-        this.getEnggBackLogCases = function(){
-            var uqlEnggBacklog;
-            var self = this;
-            uqlEnggBacklog = RoutingService.ENGG_BACKLOG();
-            var secureHandlingUQL = UQL.cond('requiresSecureHandling', 'is', false);
-            uqlEnggBacklog = UQL.and(uqlEnggBacklog, secureHandlingUQL);
-            //as we just want one top case for engineering backlog, passing limit as only 1 and we want oldest lastModified case
-            var sortOption = 'lastModifiedDate asc';
-            var promise = udsService.cases.list(uqlEnggBacklog,'Minimal',1,sortOption,true);
-            promise.then(angular.bind(this, function (backlogCases) {
-                if(RHAUtils.isNotEmpty(backlogCases)) {
-                    self.enggBackLogCases = backlogCases;
-                }else {
-                    AlertService.clearAlerts();
-                    AlertService.addInfoMessage(gettextCatalog.getString("No engineering backlog cases found."));
-                }
-            }), function (error) {
-                AlertService.clearAlerts();
-                AlertService.addUDSErrorMessage(error);
-            });
-        };
-
 
         this.closeCase = function() {
             this.caseClosing = true;
