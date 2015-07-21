@@ -7,7 +7,8 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
     'AUTH_EVENTS',
     'TOPCASES_EVENTS',
     'RHAUtils',
-    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils) {
+    'AlertService',
+    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils,AlertService) {
     	$scope.CaseDetailsService = CaseDetailsService;
         $scope.showEditCase = false;
 
@@ -36,7 +37,7 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
                     $scope.showEditCase = false;
                     $scope.caseOverviewForm.$setPristine();
                 }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
+                    AlertService.addUDSErrorMessage(error);
                     $scope.updatingDetails = false;
                 });
             }
