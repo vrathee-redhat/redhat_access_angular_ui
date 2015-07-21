@@ -7,7 +7,8 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
     'AUTH_EVENTS',
     'TOPCASES_EVENTS',
     'RHAUtils',
-    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils) {
+    'AlertService',
+    function ($scope, CaseDetailsService, securityService, AUTH_EVENTS, TOPCASES_EVENTS, RHAUtils,AlertService) {
     	$scope.CaseDetailsService = CaseDetailsService;
         $scope.showEditCase = false;
 
@@ -17,6 +18,10 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
             CaseDetailsService.fetchProducts();
             CaseDetailsService.fetchSeverities();
             CaseDetailsService.fetchStatuses();
+            CaseDetailsService.fetchInternalPriorities();
+            CaseDetailsService.fetchInternalStatuses();
+            CaseDetailsService.fetchCaseTypes();
+            CaseDetailsService.fetchCaseResolutions();
         };
 
         $scope.edit = function() {
@@ -27,12 +32,12 @@ angular.module('RedhatAccess.ascension').controller('CaseDetails', [
         $scope.updateCase = function() {
             $scope.updatingDetails = true;
             if (CaseDetailsService.kase !== undefined) {
-                CaseDetailsService.updateCase().then(function () {
+                CaseDetailsService.updateCaseDetails().then(function () {
                     $scope.updatingDetails = false;
                     $scope.showEditCase = false;
                     $scope.caseOverviewForm.$setPristine();
                 }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
+                    AlertService.addUDSErrorMessage(error);
                     $scope.updatingDetails = false;
                 });
             }

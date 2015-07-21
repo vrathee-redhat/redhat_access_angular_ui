@@ -57,18 +57,39 @@ section.case-details
         .row.row-very-short
             .col-md-2
                 strong(translate,translate-comment="Noun") Internal Priority
-            .col-md-10
+            .col-md-10(ng-show='!showEditCase')
                 span {{CaseDetailsService.kase.internal_priority}}
+            .col-md-10(ng-show='showEditCase')
+                select#rha-internalPriority-select.form-control(
+                chosen,
+                width="'100%'",
+                name='internalPriority',
+                ng-model='CaseDetailsService.kase.internal_priority',
+                ng-options='p for p in CaseDetailsService.internalPriorities')
         .row.row-very-short
             .col-md-2
                 strong(translate,translate-comment="Noun") Case Type
-            .col-md-10
+            .col-md-10(ng-show='!showEditCase')
                 span {{CaseDetailsService.kase.type}}
+            .col-md-10(ng-show='showEditCase')
+                select#rha-caseTypes-select.form-control(
+                chosen,
+                width="'100%'",
+                name='caseTypes',
+                ng-model='CaseDetailsService.kase.type',
+                ng-options='t for t in CaseDetailsService.caseTypes')
         .row.row-very-short
             .col-md-2
                strong(translate,translate-comment="Noun") Case Resolution
-            .col-md-10
+            .col-md-10(ng-hide='showEditCase && CaseDetailsService.kase.status.name === "Closed"')
                span {{CaseDetailsService.kase.resolution}}
+            .col-md-10(ng-show='showEditCase && CaseDetailsService.kase.status.name === "Closed"')
+                select#rha-caseTypes-select.form-control(
+                chosen,
+                width="'100%'",
+                name='caseResolutions',
+                ng-model='CaseDetailsService.kase.resolution',
+                ng-options='r for r in CaseDetailsService.caseResolutions')
         .row.row-very-short
           .col-md-2
             strong(translate,translate-comment="Noun") Status
@@ -83,8 +104,14 @@ section.case-details
         .row.row-very-short
           .col-md-2
             strong(translate,translate-comment="Noun") Internal Status
-          .col-md-10
-            span {{CaseDetailsService.kase.internalStatus}}          
+          .col-md-10(ng-show='!showEditCase')
+            span {{CaseDetailsService.kase.internalStatus}}
+          .col-md-10(ng-show='showEditCase')
+            select#rha-internalStatus-select(chosen,
+            width='"100%"',
+            ng-disabled='!securityService.loginStatus.isLoggedIn',
+            ng-model='CaseDetailsService.kase.internalStatus',
+            ng-options='s for s in CaseDetailsService.internalStatuses')
         .row.row-very-short
           .col-md-2
              strong(translate,translate-comment="Noun") SBR Group

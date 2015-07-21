@@ -34,6 +34,10 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
         this.products = [];
         this.versions = [];
         this.severities = [];
+        this.internalPriorities = [];
+        this.internalStatuses = [];
+        this.caseTypes = [];
+        this.caseResolutions = [];
         this.statuses = [];
         this.disableAddComment = true;
         this.isCommentPrivate = false;
@@ -449,7 +453,46 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             });
         };
 
+        this.fetchInternalPriorities = function(){
+            this.internalPriorities = ["1 (Urgent)","2 (High)","3 (Normal)","4 (Low)"];
+        };
 
+        this.fetchInternalStatuses = function(){
+            this.internalStatuses = ["Unassigned",
+                "Waiting on Customer",
+                "Waiting on Collaboration",
+                "Waiting on Contributor",
+                "Waiting on Engineering",
+                "Waiting on PM",
+                "Waiting on Sales",
+                "Waiting on QA",
+                "Waiting on Owner",
+                "Waiting on 3rd Party Vendor",
+                "Waiting on Collaboration - Native",
+                "Waiting on Translation",
+                "Closed"
+            ];
+        };
+        this.fetchCaseTypes = function(){
+            this.caseTypes = ["Bug","Feature","Info","Other","Question","Service Request"];
+        };
+
+        this.fetchCaseResolutions = function(){
+            this.caseResolutions = ["Feature Request",
+                "Other",
+                "Problem Identified",
+                "Resolved: Answer Provided",
+                "Resolved: Defect",
+                "Resolved: Errata",
+                "Resolved: Hardware Issue",
+                "Resolved: Rejected",
+                "Resolved: Service Request Completed",
+                "Resolved: Software Patch",
+                "Resolved: Usage Help",
+                "Unresolved: Abandoned",
+                "Unresolved: Unsupported"
+            ]
+        };
         this.populateComments = function (caseNumber) {
             this.bugzillas=[];
             this.liveChatTranscripts=this.kase.liveChatTranscripts;
@@ -544,6 +587,50 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
             }
             if (this.kase.status !== undefined && this.kase.status.name !== undefined && !angular.equals(this.prestineKase.status.name, this.kase.status.name)) {
                 caseJSON.resource.status = this.kase.status.name;
+            }
+            if (this.kase.product !== undefined && !angular.equals(this.prestineKase.product, this.kase.product)) {
+                var caseProduct = {
+                    resource : {
+                        line : {
+                            resource: {
+                                name : this.kase.product
+                            }
+                        }
+                    }
+                };
+                caseJSON.resource.product = caseProduct;
+            }
+            if (this.kase.version !== undefined && !angular.equals(this.prestineKase.version, this.kase.version)) {
+                var caseProductVersion = {
+                    resource : {
+                        line : {
+                            resource: {
+                                name : this.kase.product
+                            }
+                        },
+                        version : {
+                            resource : {
+                                name: this.kase.version
+                            }
+                        }
+                    }
+                };
+                caseJSON.resource.product = caseProductVersion;
+            }
+            if (this.kase.severity !== undefined && this.kase.severity.name !== undefined && !angular.equals(this.prestineKase.severity, this.kase.severity)) {
+                caseJSON.resource.severity = this.kase.severity.name;
+            }
+            if (this.kase.internal_priority !== undefined && !angular.equals(this.prestineKase.internal_priority, this.kase.internal_priority)) {
+                caseJSON.resource.internalPriority = this.kase.internal_priority;
+            }
+            if (this.kase.internalStatus !== undefined && !angular.equals(this.prestineKase.internalStatus, this.kase.internalStatus)) {
+                caseJSON.resource.internalStatus = this.kase.internalStatus;
+            }
+            if (this.kase.type !== undefined && !angular.equals(this.prestineKase.type, this.kase.type)) {
+                caseJSON.resource.type = this.kase.type;
+            }
+            if (this.kase.resolution !== undefined && !angular.equals(this.prestineKase.resolution, this.kase.resolution)) {
+                caseJSON.resource.resolution = this.kase.resolution;
             }
             udsService.kase.details.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
                 angular.copy(self.kase, self.prestineKase);
