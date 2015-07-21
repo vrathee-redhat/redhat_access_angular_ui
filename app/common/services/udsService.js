@@ -42,7 +42,7 @@ angular.module('RedhatAccess.common').factory('udsService', [
                         }
                     }
                 }
-                kase.type = '';
+                kase.type = response.resource.type;
                 kase.created_by = response.resource.createdBy.resource.fullName;
                 kase.last_modified_by = response.resource.createdBy.resource.fullName;
                 kase.internal_priority = response.resource.internalPriority;
