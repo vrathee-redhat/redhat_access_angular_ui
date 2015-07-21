@@ -48,7 +48,7 @@ angular.module('RedhatAccess.ascension').controller('YourCases', [
 
         $scope.selectedCase = function(caseNumber) {
             var isSelected = (caseNumber === CaseDetailsService.kase.case_number);
-
+            
             if (isSelected) {
                 return 'selected-case';
             }
