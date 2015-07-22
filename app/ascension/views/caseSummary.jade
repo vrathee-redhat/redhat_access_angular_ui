@@ -1,7 +1,0 @@
-section.case-summary
-    .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
-    .div.row.row-very-suprt(ng-show='!CaseDetailsService.caseDetailsLoading && CaseDetailsService.kase.summary !== undefined')
-        .div.col-xs-12(ng-show='CaseDetailsService.kase.summary.lastModifiedBy !== undefined && CaseDetailsService.kase.summary.lastModified !== undefined')
-            span.larger-font(translate) Last Modified by {{CaseDetailsService.kase.summary.lastModifiedBy}} on {{CaseDetailsService.kase.summary.lastModified}}
-        .div.col-xs-12
-            span.monospace.larger-font {{CaseDetailsService.kase.summary.summaryText}}

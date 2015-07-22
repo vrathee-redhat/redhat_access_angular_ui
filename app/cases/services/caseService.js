@@ -58,7 +58,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.confirmationModalProperty = '';
         this.onFilterSelectChanged = function(){
             if(this.localStorageCache) {
-               this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect);
+                this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect);
             }
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
@@ -432,12 +432,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
 
             /*jshint camelcase: false */
             var caseJSON = {
-                    'product': this.kase.product,
-                    'version': this.kase.version,
-                    'summary': this.kase.summary,
-                    'description': this.kase.description,
-                    'severity': this.kase.severity.name
-                };
+                'product': this.kase.product,
+                'version': this.kase.version,
+                'summary': this.kase.summary,
+                'description': this.kase.description,
+                'severity': this.kase.severity.name
+            };
             if (RHAUtils.isNotEmpty(this.group)) {
                 caseJSON.folderNumber = this.group;
             }
