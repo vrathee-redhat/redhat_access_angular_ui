@@ -3,7 +3,7 @@
     "version": "1.0.22",
     "dependencies": {
         "angular": "1.2.1",
-        "redhat-access-angular-ui-common": "1.0.*",
+        "redhat-access-angular-ui-common": "1.0.4",
         "json3": "~3.2.6",
         "es5-shim": "~2.1.0",
         "jquery": "~1.10.2",
