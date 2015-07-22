@@ -35,7 +35,6 @@ angular.module('RedhatAccess.cases').controller('New', [
         CaseService.clearCase();
         RecommendationsService.clear();
         SearchResultsService.clear();
-        //AlertService.clearAlerts();
         $scope.CaseService = CaseService;
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
@@ -46,7 +45,6 @@ angular.module('RedhatAccess.cases').controller('New', [
 
         $scope.showRecommendationPanel = false;
         $scope.notifiedUsers = [];
-	    //$scope.hideSticky = false;
 
         // Instantiate these variables outside the watch
         var waiting = false;
@@ -108,13 +106,13 @@ angular.module('RedhatAccess.cases').controller('New', [
                 AlertService.addStrataErrorMessage(error);
             });
             $scope.groupsLoading = true;
-            CaseService.populateGroups().then(function (groups) {
+            CaseService.populateGroups().then(function () {
                 $scope.groupsLoading = false;
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
             if (window.chrometwo_require !== undefined) {
-                breadcrumbs = [
+                 breadcrumbs = [
                     ['Support', '/support/'],
                     ['Support Cases',  '/support/cases/'],
                     ['New']
@@ -158,7 +156,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 if(RHAUtils.isNotEmpty(draftNewCase.product))
                 {
                     //if we directly call $scope.getProductVersions function without product list in strata service it return error
-                    strataService.products.list(CaseService.owner).then(function (products) {
+                    strataService.products.list(CaseService.owner).then(function () {
                         CaseService.kase.product = draftNewCase.product;
                         ProductsService.getVersions(CaseService.kase.product);
                         CaseService.kase.version = draftNewCase.version; //setting version after product check, as without product, version don't have any meaning
@@ -179,7 +177,6 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.initSelects();
             $scope.initDescription();
             $scope.getLocalStorageForNewCase();
-            //AlertService.clearAlerts();
             RecommendationsService.failureCount = 0;
         });
 

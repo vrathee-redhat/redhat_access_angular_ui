@@ -94,7 +94,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             /*jshint camelcase: false */
             rawCase.severity = { 'name': rawCase.severity };
             rawCase.status = { 'name': rawCase.status };
-            rawCase.product = rawCase.product;
             rawCase.group = { 'number': rawCase.folder_number };
             rawCase.type = { 'name': rawCase.type };
             this.kase = rawCase;
@@ -239,7 +238,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     deferred.resolve();
                 }
             } else {
-                var deferred = $q.defer();
+                deferred = $q.defer();
                 promise = deferred.promise;
                 deferred.resolve();
                 var tmp= {'sso_username': securityService.loginStatus.authedUser.sso_username};

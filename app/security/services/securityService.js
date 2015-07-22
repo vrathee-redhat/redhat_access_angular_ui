@@ -65,21 +65,21 @@ angular.module('RedhatAccess.security').factory('securityService', [
                 service.loginStatus.userAllowedToManageCases = canManage;
             },
             userAllowedToManageEmailNotifications: function(user) {
-                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && service.loginStatus.authedUser.org_admin) {
+                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && service.loginStatus.authedUser.org_admin) {
                     return true;
                 } else {
                     return false;
                 }
             },
             userAllowedToManageGroups: function(user) {
-                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && (!service.loginStatus.authedUser.account.has_group_acls || service.loginStatus.authedUser.account.has_group_acls && service.loginStatus.authedUser.org_admin)) {
+                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && (!service.loginStatus.authedUser.account.has_group_acls || service.loginStatus.authedUser.account.has_group_acls && service.loginStatus.authedUser.org_admin)) {
                     return true;
                 } else {
                     return false;
                 }
             },
             userAllowedToManageDefaultGroups: function(user) {
-                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && (service.loginStatus.authedUser.org_admin)) {
+                if (RHAUtils.isNotEmpty(service.loginStatus.authedUser.account) && (service.loginStatus.authedUser.org_admin)) {
                     return true;
                 } else {
                     return false;

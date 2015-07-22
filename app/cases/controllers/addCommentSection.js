@@ -37,7 +37,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             if (!securityService.loginStatus.authedUser.is_internal) {
                 CaseService.isCommentPublic = true;
             }
-            var onSuccess = function (response) {
+            var onSuccess = function () {
                 CaseService.isCommentPublic = true;
                 CaseService.draftCommentOnServerExists=false;
                 if(CaseService.localStorageCache)
@@ -51,7 +51,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 CaseService.disableAddComment = true;
                 CaseService.checkForCaseStatusToggleOnAttachOrComment();
 
-                CaseService.populateComments(CaseService.kase.case_number).then(function (comments) {
+                CaseService.populateComments(CaseService.kase.case_number).then(function () {
                     $scope.addingComment = false;
                     $scope.savingDraft = false;
                     CaseService.draftSaved = false;
