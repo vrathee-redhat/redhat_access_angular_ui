@@ -7,7 +7,11 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
         span(translate)  Filed on {{CaseService.kase.created_date}} by {{CaseService.kase.contact_name}}
         span.sep |
         | {{'Assigned to'|translate}} {{CaseService.kase.owner}}
-      a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
+      div(ng-if='securityService.loginStatus.authedUser.is_internal')
+        span(translate) Account number : {{securityService.loginStatus.account.number}}
+        &nbsp;&nbsp;&nbsp;
+        span(translate) Account name : {{securityService.loginStatus.account.name}}
+      a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}      
       div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
       div(ng-show='EDIT_CASE_CONFIG.showDetails')
