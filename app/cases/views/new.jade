@@ -70,9 +70,9 @@ div(rha-header='', page='newCase')
                                     ng-model='CaseService.kase.problem',
                                     ng-change='CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase();updateDescriptionString()',
                                     ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
-                                    ng-focus="CaseService.updatingNewCaseDescription=true",
-                                    ng-blur="CaseService.updatingNewCaseDescription=false")
-                                .col-sm-1(ng-show='CaseService.updatingNewCaseDescription && RecommendationsService.loadingRecommendations')
+                                    ng-focus="CaseService.updatingProblemString=true",
+                                    ng-blur="CaseService.updatingProblemString=false")
+                                .col-sm-1(ng-show='CaseService.updatingProblemString && RecommendationsService.loadingRecommendations')
                                     .loader
                                         .circle &nbsp;
                                         .circle &nbsp;
@@ -86,9 +86,9 @@ div(rha-header='', page='newCase')
                                     ng-model='CaseService.kase.environment',
                                     ng-change='CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase();updateDescriptionString()',
                                     ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
-                                    ng-focus="CaseService.updatingNewCaseDescription=true",
-                                    ng-blur="CaseService.updatingNewCaseDescription=false")
-                                .col-sm-1(ng-show='CaseService.updatingNewCaseDescription && RecommendationsService.loadingRecommendations')
+                                    ng-focus="CaseService.updatingEnvironmentString=true",
+                                    ng-blur="CaseService.updatingEnvironmentString=false")
+                                .col-sm-1(ng-show='CaseService.updatingEnvironmentString && RecommendationsService.loadingRecommendations')
                                     .loader
                                         .circle &nbsp;
                                         .circle &nbsp;
@@ -102,9 +102,9 @@ div(rha-header='', page='newCase')
                                     ng-model='CaseService.kase.occurance',
                                     ng-change='CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase();updateDescriptionString()',
                                     ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
-                                    ng-focus="CaseService.updatingNewCaseDescription=true",
-                                    ng-blur="CaseService.updatingNewCaseDescription=false")
-                                .col-sm-1(ng-show='CaseService.updatingNewCaseDescription && RecommendationsService.loadingRecommendations')
+                                    ng-focus="CaseService.updatingOccuranceString=true",
+                                    ng-blur="CaseService.updatingOccuranceString=false")
+                                .col-sm-1(ng-show='CaseService.updatingOccuranceString && RecommendationsService.loadingRecommendations')
                                     .loader
                                         .circle &nbsp;
                                         .circle &nbsp;
@@ -118,9 +118,9 @@ div(rha-header='', page='newCase')
                                     ng-model='CaseService.kase.urgency',
                                     ng-change='CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase();updateDescriptionString()',
                                     ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
-                                    ng-focus="CaseService.updatingNewCaseDescription=true",
-                                    ng-blur="CaseService.updatingNewCaseDescription=false")
-                                .col-sm-1(ng-show='CaseService.updatingNewCaseDescription && RecommendationsService.loadingRecommendations')
+                                    ng-focus="CaseService.updatingUrgencyString=true",
+                                    ng-blur="CaseService.updatingUrgencyString=false")
+                                .col-sm-1(ng-show='CaseService.updatingUrgencyString && RecommendationsService.loadingRecommendations')
                                     .loader
                                         .circle &nbsp;
                                         .circle &nbsp;
