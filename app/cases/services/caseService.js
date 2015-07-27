@@ -83,7 +83,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.sortBy='lastModifiedDate';
         this.sortOrder='desc';
         this.filterSelect = '';
-
+        this.problemString = 'What problem/issue/behavior are you having trouble with?  What do you expect to see?';
+        this.environmentString = 'Where are you experiencing the behavior?  What environment?';
+        this.occuranceString = 'When does the behavior occur? Frequently?  Repeatedly?   At certain times?';
+        this.urgencyString = 'What information can you provide around timeframes and urgency?';
         this.localStorageCache = $angularCacheFactory.get('localStorageCache');
         /**
          * Add the necessary wrapper objects needed to properly display the data.
@@ -529,20 +532,28 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if(this.localStorageCache && RHAUtils.isEmpty(this.kase.case_number)) //as we have common component for product and version, adding extra condition for confirming its on new case
             {
                 var draftNewCase = {};
-                if(!RHAUtils.isEmpty(this.kase.description))
-                {
+                if(!RHAUtils.isEmpty(this.kase.description)){
                     draftNewCase.description = this.kase.description;
                 }
-                if(!RHAUtils.isEmpty(this.kase.summary))
-                {
+                if(!RHAUtils.isEmpty(this.kase.problem)){
+                    draftNewCase.problem = this.kase.problem;
+                }
+                if(!RHAUtils.isEmpty(this.kase.environment)){
+                    draftNewCase.environment = this.kase.environment;
+                }
+                if(!RHAUtils.isEmpty(this.kase.occurance)){
+                    draftNewCase.occurance = this.kase.occurance;
+                }
+                if(!RHAUtils.isEmpty(this.kase.urgency)){
+                    draftNewCase.urgency = this.kase.urgency;
+                }
+                if(!RHAUtils.isEmpty(this.kase.summary)){
                     draftNewCase.summary = this.kase.summary;
                 }
-                if(!RHAUtils.isEmpty(this.kase.product))
-                {
+                if(!RHAUtils.isEmpty(this.kase.product)){
                     draftNewCase.product = this.kase.product;
                 }
-                if(!RHAUtils.isEmpty(this.kase.version))
-                {
+                if(!RHAUtils.isEmpty(this.kase.version)){
                     draftNewCase.version = this.kase.version;
                 }
                 var newCaseDescLocalStorage = {'text': draftNewCase};
