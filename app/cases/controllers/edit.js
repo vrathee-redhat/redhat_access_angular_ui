@@ -89,7 +89,6 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $scope.firePageLoadEvent();
             $scope.init();
-            //AlertService.clearAlerts();
         });
 
         var caseSettled = function() {
@@ -117,7 +116,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             }
         });
 
-        $scope.$on('$locationChangeSuccess', function(event){
+        $scope.$on('$locationChangeSuccess', function(){
             var splitUrl = $location.path().split('/');
             if(splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1){
                 var newCaseId = splitUrl[2];

@@ -217,10 +217,6 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 }));
             }
             promises.push(deferred.promise);
-            // } else {
-            //     deferred.resolve();
-            //     promises.push(deferred.promise);
-            // }
             return $q.all(promises);
         };
     }

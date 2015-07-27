@@ -35,7 +35,6 @@ angular.module('RedhatAccess.cases').controller('New', [
         CaseService.clearCase();
         RecommendationsService.clear();
         SearchResultsService.clear();
-        //AlertService.clearAlerts();
         $scope.CaseService = CaseService;
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
@@ -85,7 +84,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                                 descriptionText = descriptionText.concat(' ');
                             }
                             descriptionText = descriptionText.concat(CaseService.kase.urgency);
-                        } 
+                        }
                     }
                     var recommendationsText = {
                         product: CaseService.kase.product,
