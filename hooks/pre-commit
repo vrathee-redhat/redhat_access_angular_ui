@@ -31,7 +31,7 @@ then
   echo "\n[Commit FAIL]"
   echo "We found jshint issues. Fix 'em up before commiting. Or use git commit -n to bypass this check\n"
   exit 1
-#fi
+fi
 
 echo "\n[Commit PASS]"
 echo "All good!\n"
