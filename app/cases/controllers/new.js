@@ -209,6 +209,21 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
+        $scope.getNewCaseFromQueryParams = function() {
+            var search = $location.search();
+            if (search.summary) {
+                CaseService.kase.summary = search.summary;
+            }
+            if (search.description && search.b64) {
+                try {
+                    // Note: IE8&9 do not have atob - we tried our best
+                    CaseService.kase.description = atob(search.description);
+                } catch(e) {}
+            } else if (search.description) {
+                CaseService.kase.description = search.description;
+            }
+        };
+
         $scope.ABTestRegister = function() {
             if (securityService.loginStatus.authedUser.account_number !== undefined) {
                 var testgroup = '';
@@ -235,6 +250,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.initSelects();
             $scope.initDescription();
             $scope.getLocalStorageForNewCase();
+            $scope.getNewCaseFromQueryParams();
         }
 
         if (securityService.loginStatus.isLoggedIn) {
