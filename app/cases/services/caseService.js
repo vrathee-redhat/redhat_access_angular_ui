@@ -27,7 +27,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.kase = {};
         this.prestineKase = {};
         this.caseDataReady = false;
-        this.isCommentPublic = false;
+        this.isCommentPublic = true;
         this.versions = [];
         this.products = [];
         this.severities = [];
@@ -58,7 +58,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.confirmationModalProperty = '';
         this.onFilterSelectChanged = function(){
             if(this.localStorageCache) {
-               this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect);
+                this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect);
             }
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
@@ -83,7 +83,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.sortBy='lastModifiedDate';
         this.sortOrder='desc';
         this.filterSelect = '';
-
+        this.problemString = 'What problem/issue/behavior are you having trouble with?  What do you expect to see?';
+        this.environmentString = 'Where are you experiencing the behavior?  What environment?';
+        this.occuranceString = 'When does the behavior occur? Frequently?  Repeatedly?   At certain times?';
+        this.urgencyString = 'What information can you provide around timeframes and urgency?';
         this.localStorageCache = $angularCacheFactory.get('localStorageCache');
         /**
          * Add the necessary wrapper objects needed to properly display the data.
@@ -94,10 +97,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             /*jshint camelcase: false */
             rawCase.severity = { 'name': rawCase.severity };
             rawCase.status = { 'name': rawCase.status };
-            rawCase.product = rawCase.product;
             rawCase.group = { 'number': rawCase.folder_number };
             rawCase.type = { 'name': rawCase.type };
             this.kase = rawCase;
+            this.ungroupedCaseModifier();
             angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = rawCase.bugzillas;
             this.caseDataReady = true;
@@ -108,10 +111,19 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.setCase = function (jsonCase) {
             this.kase = jsonCase;
+            this.ungroupedCaseModifier();
             angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = jsonCase.bugzillas;
             this.caseDataReady = true;
         };
+
+        //Explicitly assigning group_number = '-1' for ungrouped case when case payload has no group information
+        this.ungroupedCaseModifier = function() {
+            if(RHAUtils.isEmpty(this.kase.group.number)) {
+                this.kase.group = {"number":"-1","name":"Ungrouped Case","is_private":false,"is_default":false};
+            }
+        };
+
         this.defineAccount = function (account) {
             this.account = account;
         };
@@ -135,7 +147,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.clearCase = function () {
             this.caseDataReady = false;
-            this.isCommentPublic = false;
+            this.isCommentPublic = true;
             this.updatingCase = false;
             this.kase = {};
             this.prestineKase = {};
@@ -229,7 +241,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     deferred.resolve();
                 }
             } else {
-                var deferred = $q.defer();
+                deferred = $q.defer();
                 promise = deferred.promise;
                 deferred.resolve();
                 var tmp= {'sso_username': securityService.loginStatus.authedUser.sso_username};
@@ -423,12 +435,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
 
             /*jshint camelcase: false */
             var caseJSON = {
-                    'product': this.kase.product,
-                    'version': this.kase.version,
-                    'summary': this.kase.summary,
-                    'description': this.kase.description,
-                    'severity': this.kase.severity.name
-                };
+                'product': this.kase.product,
+                'version': this.kase.version,
+                'summary': this.kase.summary,
+                'description': this.kase.description,
+                'severity': this.kase.severity.name
+            };
             if (RHAUtils.isNotEmpty(this.group)) {
                 caseJSON.folderNumber = this.group;
             }
@@ -519,20 +531,28 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if(this.localStorageCache && RHAUtils.isEmpty(this.kase.case_number)) //as we have common component for product and version, adding extra condition for confirming its on new case
             {
                 var draftNewCase = {};
-                if(!RHAUtils.isEmpty(this.kase.description))
-                {
+                if(!RHAUtils.isEmpty(this.kase.description)){
                     draftNewCase.description = this.kase.description;
                 }
-                if(!RHAUtils.isEmpty(this.kase.summary))
-                {
+                if(!RHAUtils.isEmpty(this.kase.problem)){
+                    draftNewCase.problem = this.kase.problem;
+                }
+                if(!RHAUtils.isEmpty(this.kase.environment)){
+                    draftNewCase.environment = this.kase.environment;
+                }
+                if(!RHAUtils.isEmpty(this.kase.occurance)){
+                    draftNewCase.occurance = this.kase.occurance;
+                }
+                if(!RHAUtils.isEmpty(this.kase.urgency)){
+                    draftNewCase.urgency = this.kase.urgency;
+                }
+                if(!RHAUtils.isEmpty(this.kase.summary)){
                     draftNewCase.summary = this.kase.summary;
                 }
-                if(!RHAUtils.isEmpty(this.kase.product))
-                {
+                if(!RHAUtils.isEmpty(this.kase.product)){
                     draftNewCase.product = this.kase.product;
                 }
-                if(!RHAUtils.isEmpty(this.kase.version))
-                {
+                if(!RHAUtils.isEmpty(this.kase.version)){
                     draftNewCase.version = this.kase.version;
                 }
                 var newCaseDescLocalStorage = {'text': draftNewCase};
@@ -573,6 +593,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     this.filterSelect = ConstantsService.sortByParams[5];
                 } else if(sortField === 'owner') {
                     this.filterSelect = ConstantsService.sortByParams[6];
+                } else if(sortField === 'status') {
+                    this.filterSelect = ConstantsService.sortByParams[8];
                 }
             } else if(sortOrder === 'DESC') {
                 if(sortField === 'lastModifiedDate') {
@@ -583,6 +605,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     this.filterSelect = ConstantsService.sortByParams[4];
                 } else if(sortField === 'owner') {
                     this.filterSelect = ConstantsService.sortByParams[7];
+                } else if(sortField === 'status') {
+                    this.filterSelect = ConstantsService.sortByParams[9];
                 }
             }
         };

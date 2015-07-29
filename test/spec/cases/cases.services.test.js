@@ -214,7 +214,7 @@ describe('Case Services', function () {
             expect(caseService.clearCase).toBeDefined();
             caseService.clearCase();
             expect(caseService.caseDataReady).toBeFalsy();
-            expect(caseService.isCommentPublic).toBeFalsy();
+            expect(caseService.isCommentPublic).toBeTruthy();
             expect(caseService.updatingCase).toBeFalsy();
             expect(caseService.updatingNewCaseSummary).toBeFalsy();
             expect(caseService.updatingNewCaseDescription).toBeFalsy();
@@ -492,7 +492,8 @@ describe('Case Services', function () {
                 "bugzillas": {},
                 "sbr_groups": {},
                 "case_number": "01364190",
-                "closed": false
+                "closed": false,
+                "group": {"number":"685","name":"RBS"}
             };
             caseService.setCase(jsonCase);
             expect(caseService.kase.id).toEqual('500K0000006FeAaIAK');
