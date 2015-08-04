@@ -51,36 +51,35 @@ angular.module('RedhatAccess.cases').controller('New', [
         // Instantiate these variables outside the watch
         var waiting = false;
         $scope.$watch('CaseService.kase.product + CaseService.kase.version + CaseService.kase.description + CaseService.kase.summary', function () {
-            if (!waiting){
+            if (!waiting) {
                 var descriptionText = CaseService.kase.description;
-                if(!$scope.isControlGroup){
+                if (!$scope.isControlGroup) {
                     descriptionText = CaseService.kase.problem + ' ' + CaseService.kase.environment + ' ' + CaseService.kase.occurance + ' ' + CaseService.kase.urgency;
                 }
-                if(RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)){
-                    if(RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary))
-                    {
+                if (RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
+                    if (RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
                         $scope.makeRecommendationPanelVisible();
                     }
                     waiting = true;
                     var descriptionText = CaseService.kase.description;
-                    if(!$scope.isControlGroup){
-                        if(RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0){
+                    if (!$scope.isControlGroup) {
+                        if (RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0) {
                             descriptionText = CaseService.kase.problem;
                         }
-                        if(RHAUtils.isNotEmpty(CaseService.kase.environment) && CaseService.kase.environment.length > 0){
-                            if(RHAUtils.isNotEmpty(CaseService.kase.description)){
+                        if (RHAUtils.isNotEmpty(CaseService.kase.environment) && CaseService.kase.environment.length > 0) {
+                            if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
                                 descriptionText = descriptionText.concat(' ');
                             }
                             descriptionText = descriptionText.concat(CaseService.kase.environment);
                         }
-                        if(RHAUtils.isNotEmpty(CaseService.kase.occurance) && CaseService.kase.occurance.length > 0){
-                            if(RHAUtils.isNotEmpty(CaseService.kase.description)){
+                        if (RHAUtils.isNotEmpty(CaseService.kase.occurance) && CaseService.kase.occurance.length > 0) {
+                            if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
                                 descriptionText = descriptionText.concat(' ');
                             }
                             descriptionText = descriptionText.concat(CaseService.kase.occurance);
                         }
-                        if(RHAUtils.isNotEmpty(CaseService.kase.urgency) && CaseService.kase.urgency.length > 0){
-                            if(RHAUtils.isNotEmpty(CaseService.kase.description)){
+                        if (RHAUtils.isNotEmpty(CaseService.kase.urgency) && CaseService.kase.urgency.length > 0) {
+                            if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
                                 descriptionText = descriptionText.concat(' ');
                             }
                             descriptionText = descriptionText.concat(CaseService.kase.urgency);
@@ -116,12 +115,12 @@ angular.module('RedhatAccess.cases').controller('New', [
        * Populate the selects
        */
         $scope.initSelects = function () {
-        	AttachmentsService.clear();
+            AttachmentsService.clear();
             CaseService.newCaseIncomplete = true;
             CaseService.clearCase();
             RecommendationsService.clear();
             ProductsService.clear();
-            CaseService.populateUsers().then(function (){
+            CaseService.populateUsers().then(function () {
                 $scope.usersOnAccount = CaseService.users;
                 $scope.usersOnAccount = $scope.usersOnAccount.map(function(obj) {
                     return obj.sso_username;
@@ -130,7 +129,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 if (index > -1) {
                     $scope.usersOnAccount.splice(index, 1);
                 }
-        	});
+            });
             $scope.severitiesLoading = true;
             ProductsService.getProducts(false);
             CaseService.populateEntitlements(securityService.loginStatus.authedUser.sso_username);
@@ -158,8 +157,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();
-            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
-            {
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)) {
                 CaseService.kase.description = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text;
                 CaseService.kase.problem = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).problem;
                 CaseService.kase.environment = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).environment;
@@ -170,7 +168,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.kase.description = desc;
                 $scope.getRecommendations();
             };
-            if(!$scope.NEW_CASE_CONFIG.isPCM) {
+            if (!$scope.NEW_CASE_CONFIG.isPCM) {
                 if (searchObject.data) {
                     setDesc(searchObject.data);
                 } else {
@@ -187,9 +185,9 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
             }
         };
-        $scope.getLocalStorageForNewCase = function(){
-            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username))
-            {
+
+        $scope.getLocalStorageForNewCase = function() {
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)) {
                 var draftNewCase = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text;
                 CaseService.kase.description = draftNewCase.description;
                 CaseService.kase.problem = draftNewCase.problem;
@@ -197,8 +195,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.kase.occurance = draftNewCase.occurance;
                 CaseService.kase.urgency = draftNewCase.urgency;
                 CaseService.kase.summary = draftNewCase.summary;
-                if(RHAUtils.isNotEmpty(draftNewCase.product))
-                {
+                if (RHAUtils.isNotEmpty(draftNewCase.product)) {
                     //if we directly call $scope.getProductVersions function without product list in strata service it return error
                     strataService.products.list(CaseService.owner).then(function (products) {
                         CaseService.kase.product = draftNewCase.product;
@@ -212,10 +209,10 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
-        $scope.ABTestRegister = function(){
-            if(securityService.loginStatus.authedUser.account_number !== undefined){
+        $scope.ABTestRegister = function() {
+            if (securityService.loginStatus.authedUser.account_number !== undefined) {
                 var testgroup = '';
-                if(securityService.loginStatus.authedUser.account_number % 2 === 1){
+                if (securityService.loginStatus.authedUser.account_number % 2 === 1) {
                     testgroup = 'ABTestControl';
                     $scope.isControlGroup = true;
                 } else{
@@ -224,26 +221,27 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
                 if (window.chrometwo_require !== undefined) {
                     chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
-                        paf.trigger("ABTestImpression");
-                        attrs.set("ABTestCampaign", ["ABTestTitle", testgroup]);
+                        paf.trigger('ABTestImpression');
+                        attrs.set('ABTestCampaign', ['ABTestTitle', testgroup]);
                         attrs.harvest();
                         paf.report();
                     });
                 }
             }
+        };
+
+        function scopeInit() {
+            $scope.ABTestRegister();
+            $scope.initSelects();
+            $scope.initDescription();
+            $scope.getLocalStorageForNewCase();
         }
 
         if (securityService.loginStatus.isLoggedIn) {
-            $scope.ABTestRegister();
-            $scope.initSelects();
-            $scope.initDescription();
-            $scope.getLocalStorageForNewCase();
+            scopeInit();
         }
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
-            $scope.ABTestRegister();
-            $scope.initSelects();
-            $scope.initDescription();
-            $scope.getLocalStorageForNewCase();
+            scopeInit();
             //AlertService.clearAlerts();
             RecommendationsService.failureCount = 0;
         });
@@ -252,8 +250,8 @@ angular.module('RedhatAccess.cases').controller('New', [
 
         $scope.setSearchOptions = function (showsearchoptions) {
             CaseService.showsearchoptions = showsearchoptions;
-            if(CaseService.groups.length === 0){
-                CaseService.populateGroups().then(function (){
+            if (CaseService.groups.length === 0) {
+                CaseService.populateGroups().then(function () {
                     CaseService.buildGroupOptions();
                 });
             } else{
@@ -261,9 +259,9 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
-        $scope.scrollToRecommendations = function(){
+        $scope.scrollToRecommendations = function() {
             var recommendationsSection = document.getElementById('recommendations_section');
-            if(recommendationsSection) {
+            if (recommendationsSection) {
                 recommendationsSection.scrollIntoView(true);
             }
         };
@@ -280,7 +278,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.submittingCase = false;
             };
 
-            var caseUploadsAndUpdates = function(caseNumber){
+            var caseUploadsAndUpdates = function(caseNumber) {
                 if (window.chrometwo_require !== undefined) {
                     chrometwo_require(['analytics/main'], function (analytics) {
                         analytics.trigger('OpenSupportCaseSubmit', $event);
@@ -302,11 +300,11 @@ angular.module('RedhatAccess.cases').controller('New', [
                         AlertService.addStrataErrorMessage(error);
                         CaseService.submittingCase = false;
                     });
-                } else if(NEW_CASE_CONFIG.showAttachments && $scope.ie8 || $scope.ie9 ) {
+                } else if (NEW_CASE_CONFIG.showAttachments && $scope.ie8 || $scope.ie9 ) {
                     var fileName = document.getElementById('newFileUploader').value;
-                    if(!RHAUtils.isEmpty(fileName)){
+                    if (RHAUtils.isNotEmpty(fileName)) {
                         $scope.ieFileUpload(caseNumber);
-                    } else{
+                    } else {
                         redirectToCase(caseNumber);
                     }
                 } else {
@@ -314,13 +312,13 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
             };
 
-            if(AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9){
+            if (AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9) {
                 var proceedWithoutAttachModal = $modal.open({
                     templateUrl: 'cases/views/proceedWithoutAttachModal.html',
                     controller: 'ProceedWithoutAttachModal'
                 });
-                proceedWithoutAttachModal.result.then(function(){
-                    if(AttachmentsService.proceedWithoutAttachments){
+                proceedWithoutAttachModal.result.then(function() {
+                    if (AttachmentsService.proceedWithoutAttachments) {
                         CaseService.createCase().then(function (caseNumber) {
                             caseUploadsAndUpdates(caseNumber);
                         }, function (error) {
@@ -329,7 +327,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                         });
                     }
                 });
-            } else{
+            } else {
                 CaseService.createCase().then(function (caseNumber) {
                     caseUploadsAndUpdates(caseNumber);
                 }, function (error) {
@@ -339,34 +337,31 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
-        $scope.getLocatingSolutionText = function(){
+        $scope.getLocatingSolutionText = function() {
             var text = 'Locating top solutions';
             var numFieldsSelected = 0;
-            if(!RHAUtils.isEmpty(CaseService.kase.product)){
+            if (RHAUtils.isNotEmpty(CaseService.kase.product)) {
                 text = text.concat(' for ' + CaseService.kase.product);
                 numFieldsSelected++;
             }
-            if(!RHAUtils.isEmpty(CaseService.kase.version)){
+            if (RHAUtils.isNotEmpty(CaseService.kase.version)) {
                 text = text.concat(' ' + CaseService.kase.version);
                 numFieldsSelected++;
             }
-            if(!RHAUtils.isEmpty(CaseService.kase.summary)){
+            if (RHAUtils.isNotEmpty(CaseService.kase.summary)) {
                 numFieldsSelected++;
             }
-            if(!RHAUtils.isEmpty(CaseService.kase.description)){
+            if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
                 numFieldsSelected++;
             }
 
-            if(numFieldsSelected > 2){
+            if (numFieldsSelected > 2) {
                 text = text.replace('Locating', 'Refining');
             }
-            if(text.indexOf('Locating') !== -1)
-            {
-                text=gettextCatalog.getString('Locating top solutions');
-            }
-            else
-            {
-                text=gettextCatalog.getString('Refining top solutions');
+            if (text.indexOf('Locating') !== -1) {
+                text = gettextCatalog.getString('Locating top solutions');
+            } else {
+                text = gettextCatalog.getString('Refining top solutions');
             }
             return text;
         };
@@ -383,13 +378,13 @@ angular.module('RedhatAccess.cases').controller('New', [
             };
 
             var eventHandler = function () {
-                if (iframeId.detachEvent){
+                if (iframeId.detachEvent) {
                     iframeId.detachEvent('onload', eventHandler);
                 }
-                if (iframeId.removeEventListener){
+                if (iframeId.removeEventListener) {
                     iframeId.removeEventListener('load', eventHandler, false);
                 }
-                if(!$scope.ie8){
+                if (!$scope.ie8) {
                     var content;
                     if (iframeId.contentDocument && iframeId.contentDocument.body !== null) {
                         content = iframeId.contentDocument.body.innerText;
@@ -400,7 +395,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                         var parser = document.createElement('a');
                         parser.href = content;
                         var splitPath = parser.pathname.split('/');
-                        if(splitPath !== undefined && splitPath[4] !== undefined){
+                        if (splitPath !== undefined && splitPath[4] !== undefined) {
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         } else {
@@ -420,9 +415,9 @@ angular.module('RedhatAccess.cases').controller('New', [
                 AlertService.removeAlert(uploadingAlert);
             };
 
-            if (iframeId.addEventListener){
+            if (iframeId.addEventListener) {
                 iframeId.addEventListener('load', eventHandler, true);
-            } else if (iframeId.attachEvent){
+            } else if (iframeId.attachEvent) {
                 iframeId.attachEvent('onload', eventHandler);
             }
             var uploadingAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachment...'));
@@ -433,7 +428,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             CaseService.clearCase();
         });
 
-        $scope.makeRecommendationPanelVisible =function(){
+        $scope.makeRecommendationPanelVisible = function() {
             $scope.showRecommendationPanel = true;
         };
 
