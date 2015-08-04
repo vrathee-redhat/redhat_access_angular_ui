@@ -438,30 +438,29 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
 
         $scope.updateDescriptionString = function(){
-            var des = '';
-            if(RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0){
-                CaseService.kase.description = CaseService.problemString + '\n\n' + CaseService.kase.problem;
-            }
-            if(RHAUtils.isNotEmpty(CaseService.kase.environment) && CaseService.kase.environment.length > 0){
-                if(RHAUtils.isNotEmpty(CaseService.kase.description)){
-                    CaseService.kase.description = CaseService.kase.description.concat('\n\n');
+            if(!$scope.isControlGroup){
+                CaseService.kase.description = '';
+                if(RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0){
+                    CaseService.kase.description = CaseService.problemString + '\n\n' + CaseService.kase.problem;
                 }
-                CaseService.kase.description = CaseService.kase.description.concat(CaseService.environmentString + '\n\n' + CaseService.kase.environment);
-            }
-            if(RHAUtils.isNotEmpty(CaseService.kase.occurance) && CaseService.kase.occurance.length > 0){
-                if(RHAUtils.isNotEmpty(CaseService.kase.description)){
-                    CaseService.kase.description = CaseService.kase.description.concat('\n\n');
+                if(RHAUtils.isNotEmpty(CaseService.kase.environment) && CaseService.kase.environment.length > 0){
+                    if(RHAUtils.isNotEmpty(CaseService.kase.description)){
+                        CaseService.kase.description = CaseService.kase.description.concat('\n\n');
+                    }
+                    CaseService.kase.description = CaseService.kase.description.concat(CaseService.environmentString + '\n\n' + CaseService.kase.environment);
                 }
-                CaseService.kase.description = CaseService.kase.description.concat(CaseService.occuranceString + '\n\n' + CaseService.kase.occurance);
-            }
-            if(RHAUtils.isNotEmpty(CaseService.kase.urgency) && CaseService.kase.urgency.length > 0){
-                if(RHAUtils.isNotEmpty(CaseService.kase.description)){
-                    CaseService.kase.description = CaseService.kase.description.concat('\n\n');
+                if(RHAUtils.isNotEmpty(CaseService.kase.occurance) && CaseService.kase.occurance.length > 0){
+                    if(RHAUtils.isNotEmpty(CaseService.kase.description)){
+                        CaseService.kase.description = CaseService.kase.description.concat('\n\n');
+                    }
+                    CaseService.kase.description = CaseService.kase.description.concat(CaseService.occuranceString + '\n\n' + CaseService.kase.occurance);
                 }
-                CaseService.kase.description = CaseService.kase.description.concat(CaseService.urgencyString + '\n\n' + CaseService.kase.urgency);
-            }
-            if(RHAUtils.isNotEmpty(des)){
-                CaseService.kase.description = des;
+                if(RHAUtils.isNotEmpty(CaseService.kase.urgency) && CaseService.kase.urgency.length > 0){
+                    if(RHAUtils.isNotEmpty(CaseService.kase.description)){
+                        CaseService.kase.description = CaseService.kase.description.concat('\n\n');
+                    }
+                    CaseService.kase.description = CaseService.kase.description.concat(CaseService.urgencyString + '\n\n' + CaseService.kase.urgency);
+                }
             }
         };
     }
