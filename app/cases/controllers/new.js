@@ -456,7 +456,6 @@ angular.module('RedhatAccess.cases').controller('New', [
                     }
                     CaseService.kase.description = CaseService.kase.description.concat(CaseService.urgencyString + '\n\n' + CaseService.kase.urgency);
                 }
-                CaseService.kase.description = CaseService.kase.description.concat(CaseService.urgencyString + '\n\n' + CaseService.kase.urgency);
             }
         };
     }
