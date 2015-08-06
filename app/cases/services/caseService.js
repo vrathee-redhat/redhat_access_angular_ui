@@ -321,7 +321,14 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 if (unknownIndex > -1) {
                     entitlements.splice(unknownIndex, 1);
                 }
-                this.entitlements = entitlements;
+                this.entitlements = entitlements;                
+                
+                //Added this for PCM 996
+                //If the customer has only one SLA , make it selected by default on create case page
+                if(RHAUtils.isNotEmpty(this.entitlements) && this.entitlements.length === 1){
+                	this.entitlement = this.entitlements[0];
+                }
+                
                 this.entitlementsLoading = false;
             }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
