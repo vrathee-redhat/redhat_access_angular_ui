@@ -83,10 +83,10 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.sortBy='lastModifiedDate';
         this.sortOrder='desc';
         this.filterSelect = '';
-        this.problemString = 'What problem/issue/behavior are you having trouble with?  What do you expect to see?';
-        this.environmentString = 'Where are you experiencing the behavior?  What environment?';
-        this.occuranceString = 'When does the behavior occur? Frequently?  Repeatedly?   At certain times?';
-        this.urgencyString = 'What information can you provide around timeframes and urgency?';
+        this.problemString = gettextCatalog.getString('What problem/issue/behavior are you having trouble with?  What do you expect to see?');
+        this.environmentString = gettextCatalog.getString('Where are you experiencing the behavior?  What environment?');
+        this.occuranceString = gettextCatalog.getString('When does the behavior occur? Frequently?  Repeatedly?   At certain times?');
+        this.urgencyString = gettextCatalog.getString('What information can you provide around timeframes and urgency?');
         this.localStorageCache = $angularCacheFactory.get('localStorageCache');
         /**
          * Add the necessary wrapper objects needed to properly display the data.
