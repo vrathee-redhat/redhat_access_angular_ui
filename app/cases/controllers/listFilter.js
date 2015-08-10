@@ -19,7 +19,6 @@ angular.module('RedhatAccess.cases').controller('ListFilter', [
         $scope.ConstantsService = ConstantsService;
         CaseService.status = STATUS.open;
         $scope.showsearchoptions = CaseService.showsearchoptions;
-        $scope.disableSearchButton = true;
         $scope.doSearch = function(){
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         }
@@ -29,13 +28,6 @@ angular.module('RedhatAccess.cases').controller('ListFilter', [
         };
         $scope.clearSearch = function () {
             SearchCaseService.caseParameters.searchTerm = undefined;
-        };
-        $scope.onChange = function(){
-            if (RHAUtils.isNotEmpty(SearchCaseService.caseParameters.searchTerm)) {
-                $scope.disableSearchButton = false;
-            } else {
-                $scope.disableSearchButton = true;
-            }
         };
     }
 ]);
