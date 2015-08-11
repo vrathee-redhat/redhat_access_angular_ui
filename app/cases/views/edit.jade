@@ -25,5 +25,5 @@ div(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFa
             div(rha-casediscussion='', loading='loading.comments')
     .aside.col-md-4
       .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
-      #rha-recommendation-section.recommendations.aside-section(rha-editcaserecommendations='', ng-hide='RecommendationsService.loadingRecommendations')
+      #rha-recommendation-section.recommendations.aside-section(rha-editcaserecommendations='', ng-hide='(RecommendationsService.recommendations.length === 0 && RecommendationsService.handPickedRecommendations.length === 0 && RecommendationsService.pinnedRecommendations.length === 0) || RecommendationsService.loadingRecommendations')
       .section#case-escalation.case-escalation.aside-section(rha-requestescalation='')
