@@ -12,7 +12,7 @@
 						span.web-icon-close
 					button#rha-searchform-searchbutton.btn.btn-app(
 						ng-click='doSearch()',
-						ng-disabled='!securityService.loginStatus.isLoggedIn || disableSearchButton')
+						ng-disabled='!securityService.loginStatus.isLoggedIn')
 						i.glyphicon.glyphicon-search
 						| {{''}}
 		div.col-sm-12.col-md-3()
