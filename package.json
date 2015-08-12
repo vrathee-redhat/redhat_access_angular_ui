@@ -1,6 +1,6 @@
 {
     "name": "redhat_access_angular_ui",
-    "version": "1.0.26",
+    "version": "1.0.27",
     "dependencies": {},
     "devDependencies": {
         "express": "~3.3.4",
