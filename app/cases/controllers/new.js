@@ -328,7 +328,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
             };
 
-            if (AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9) {
+            if (AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9 && securityService.loginStatus.authedUser.can_add_attachments) {
                 var proceedWithoutAttachModal = $modal.open({
                     templateUrl: 'cases/views/proceedWithoutAttachModal.html',
                     controller: 'ProceedWithoutAttachModal'
