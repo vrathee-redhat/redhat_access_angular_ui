@@ -1106,3 +1106,59 @@ msgstr ""
 #: app/cases/views/discussionSection.html
 msgid "{{noteCharactersLeft}} characters left."
 msgstr ""
+
+#: app/common/controllers/titleView.js
+msgid "CASE {{caseNumber}}"
+msgstr ""
+
+#: app/common/controllers/titleView.js
+msgid "Logs"
+msgstr ""
+
+#: app/common/controllers/titleView.js
+msgid "SUPPORT CASES"
+msgstr ""
+
+#: app/common/controllers/titleView.js
+msgid "Search Support Case"
+msgstr ""
+
+#: app/common/services/alertService.js
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Case Owner (A-Z)"
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Case Owner (Z-A)"
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Highest Severity"
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Lowest Severity"
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Newest Date Created"
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Newest Date Modified"
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Oldest Date Created"
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Oldest Date Modified"
+msgstr ""
+
+#: app/common/services/strataService.js
+msgid "Unauthorized."
+msgstr ""

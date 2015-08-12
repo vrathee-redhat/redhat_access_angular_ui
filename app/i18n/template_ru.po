@@ -1488,3 +1488,71 @@ msgstr ""
 #: app/cases/views/discussionSection.html
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "осталось символов: {{noteCharactersLeft}}"
+
+#: app/common/controllers/titleView.js:
+msgid "CASE {{caseNumber}}"
+msgstr "ЗАПРОС {{caseNumber}}"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
+#: app/common/controllers/titleView.js:
+#: app/i18n/placeholder.html:
+msgid "Logs"
+msgstr "Журналы"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
+#: app/common/controllers/titleView.js:
+msgid "SUPPORT CASES"
+msgstr "ЗАПРОСЫ ПОДДЕРЖКИ"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
+#: app/common/controllers/titleView.js:
+msgid "Search Support Case"
+msgstr "Поиск запросов поддержки"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
+#: app/common/services/alertService.js:
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr "Ваш сеанс завершен."
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (A-Z)"
+msgstr "Владелец (A-Z)"
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (Z-A)"
+msgstr "Владелец (Z-A)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
+#: app/common/services/constantsService.js:
+msgid "Highest Severity"
+msgstr "Приоритет (по убыванию)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
+#: app/common/services/constantsService.js:
+msgid "Lowest Severity"
+msgstr "Приоритет (по возрастанию)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
+#: app/common/services/constantsService.js:
+msgid "Newest Date Created"
+msgstr "Дата создания (по убыванию)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
+#: app/common/services/constantsService.js:
+msgid "Newest Date Modified"
+msgstr "Дата изменения (по убыванию)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Created"
+msgstr "Дата создания (по возрастанию)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Modified"
+msgstr "Дата изменения (по возрастанию)"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
+#: app/common/services/strataService.js:
+msgid "Unauthorized."
+msgstr "Не авторизован."

@@ -1536,3 +1536,71 @@ msgstr ""
 #: app/cases/views/discussionSection.html
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} Zeichen verbleibend."
+
+#: app/common/controllers/titleView.js:
+msgid "CASE {{caseNumber}}"
+msgstr "TICKET {{caseNumber}}"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author jdimanos
+#: app/common/controllers/titleView.js:
+#: app/i18n/placeholder.html:
+msgid "Logs"
+msgstr "Protokolle"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author hpeters
+#: app/common/controllers/titleView.js:
+msgid "SUPPORT CASES"
+msgstr "SUPPORT-TICKETS"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author jdimanos
+#: app/common/controllers/titleView.js:
+msgid "Search Support Case"
+msgstr "Support-Ticket suchen"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author jdimanos
+#: app/common/services/alertService.js:
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr "Sie haben sich erfolgreich beim Red Hat Kundenportal abgemeldet."
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (A-Z)"
+msgstr "Ticketbesitzer (A-Z)"
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (Z-A)"
+msgstr "Ticketbesitzer (Z-A)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author hpeters
+#: app/common/services/constantsService.js:
+msgid "Highest Severity"
+msgstr "Höchster Schweregrad"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author hpeters
+#: app/common/services/constantsService.js:
+msgid "Lowest Severity"
+msgstr "Niedrigster Schweregrad"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author hpeters
+#: app/common/services/constantsService.js:
+msgid "Newest Date Created"
+msgstr "Neuestes Erstellungsdatum"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author hpeters
+#: app/common/services/constantsService.js:
+msgid "Newest Date Modified"
+msgstr "Neuestes Änderungsdatum"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author hpeters
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Created"
+msgstr "Ältestes Erstellungsdatum"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author hpeters
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Modified"
+msgstr "Ältestes Änderungsdatum"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author hpeters
+#: app/common/services/strataService.js:
+msgid "Unauthorized."
+msgstr "Nicht autorisiert."

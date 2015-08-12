@@ -1457,3 +1457,72 @@ msgstr ""
 #: app/cases/views/discussionSection.html
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} 문자가 남아 있습니다."
+
+#: app/common/controllers/titleView.js:
+msgid "CASE {{caseNumber}}"
+msgstr "기술 문의 {{caseNumber}}"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
+#: app/common/controllers/titleView.js:
+#: app/i18n/placeholder.html:
+msgid "Logs"
+msgstr "로그 "
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: app/common/controllers/titleView.js:
+msgid "SUPPORT CASES"
+msgstr "기술 문의"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
+#: app/common/controllers/titleView.js:
+msgid "Search Support Case"
+msgstr "기술 문의 검색 "
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
+#: app/common/services/alertService.js:
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr "Red Hat 고객 포털에서 성공적으로 로그아웃했습니다. "
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (A-Z)"
+msgstr "기술 문의 소유자 (A-Z)"
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (Z-A)"
+msgstr "기술 문의 소유자 (Z-A)"
+
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: app/common/services/constantsService.js:
+msgid "Highest Severity"
+msgstr "가장 높은 심각도 순"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: app/common/services/constantsService.js:
+msgid "Lowest Severity"
+msgstr "가장 낮은 심각도 순"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: app/common/services/constantsService.js:
+msgid "Newest Date Created"
+msgstr "최신 날짜 생성 순"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: app/common/services/constantsService.js:
+msgid "Newest Date Modified"
+msgstr "최신 날짜 수정 순"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Created"
+msgstr "가장 오래된 날짜 생성 순"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Modified"
+msgstr "가장 오래된 날짜 수정 순"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
+#: app/common/services/strataService.js:
+msgid "Unauthorized."
+msgstr "인증되지 않았습니다."

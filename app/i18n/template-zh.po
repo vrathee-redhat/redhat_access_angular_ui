@@ -1432,3 +1432,71 @@ msgstr ""
 #: app/cases/views/discussionSection.html
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} 个字符剩余。"
+
+#: app/common/controllers/titleView.js:
+msgid "CASE {{caseNumber}}"
+msgstr "问题单 {{caseNumber}}"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
+#: app/common/controllers/titleView.js:
+#: app/i18n/placeholder.html:
+msgid "Logs"
+msgstr "日志"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/common/controllers/titleView.js:
+msgid "SUPPORT CASES"
+msgstr "支持问题单"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
+#: app/common/controllers/titleView.js:
+msgid "Search Support Case"
+msgstr "搜索支持问题单"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
+#: app/common/services/alertService.js:
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr "已成功登录 Red Hat 客户门户网站。"
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (A-Z)"
+msgstr "问题单所有人 (A-Z)"
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (Z-A)"
+msgstr "问题单所有人 (Z-A)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/common/services/constantsService.js:
+msgid "Highest Severity"
+msgstr "最高严重性"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/common/services/constantsService.js:
+msgid "Lowest Severity"
+msgstr "最低严重性"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/common/services/constantsService.js:
+msgid "Newest Date Created"
+msgstr "已生成最新日期"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/common/services/constantsService.js:
+msgid "Newest Date Modified"
+msgstr "已修改最新日期"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Created"
+msgstr "已生成第一个日期"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Modified"
+msgstr "已修改第一个日期"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
+#: app/common/services/strataService.js:
+msgid "Unauthorized."
+msgstr "未授权。"
