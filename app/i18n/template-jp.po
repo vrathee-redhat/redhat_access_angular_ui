@@ -1454,3 +1454,71 @@ msgstr ""
 #: app/cases/views/discussionSection.html
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} 文字 (残りの文字数)"
+
+#: app/common/controllers/titleView.js:
+msgid "CASE {{caseNumber}}"
+msgstr "ケース {{caseNumber}}"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
+#: app/common/controllers/titleView.js:
+#: app/i18n/placeholder.html:
+msgid "Logs"
+msgstr "ログ"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
+#: app/common/controllers/titleView.js:
+msgid "SUPPORT CASES"
+msgstr "サポートケース"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
+#: app/common/controllers/titleView.js:
+msgid "Search Support Case"
+msgstr "サポートケースの検索"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
+#: app/common/services/alertService.js:
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr "Red Hat カスタマーポータルから正常にログアウトしました。"
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (A-Z)"
+msgstr "ケース作成者 (A-Z)"
+
+#: app/common/services/constantsService.js:
+msgid "Case Owner (Z-A)"
+msgstr "ケース作成者 (Z-A)"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
+#: app/common/services/constantsService.js:
+msgid "Highest Severity"
+msgstr "重大度が高い順"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
+#: app/common/services/constantsService.js:
+msgid "Lowest Severity"
+msgstr "重大度が低い順"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
+#: app/common/services/constantsService.js:
+msgid "Newest Date Created"
+msgstr "作成日が新しい順"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
+#: app/common/services/constantsService.js:
+msgid "Newest Date Modified"
+msgstr "変更日が新しい順"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Created"
+msgstr "作成日が古い順"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
+#: app/common/services/constantsService.js:
+msgid "Oldest Date Modified"
+msgstr "変更日が古い順"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author myamamot
+#: app/common/services/strataService.js:
+msgid "Unauthorized."
+msgstr "権限がありません。"
