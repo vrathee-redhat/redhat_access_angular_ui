@@ -12,7 +12,7 @@ section.case-description
     .col-xs-4.col-sm-3.col-md-4
       button.btn.btn-primary(
         name='saveButton',
-        ng-disabled='updatingDetails || !summaryForm.$dirty',
+        ng-disabled='updatingDetails || !summaryForm.$dirty || !CaseService.kase.summary.length',
         ng-click='updateCase()', translate='') Save
       a.margin-left(
         ng-hide='updatingDetails',
