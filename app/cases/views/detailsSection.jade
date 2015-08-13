@@ -1,7 +1,4 @@
 section.case-description
-  i#case-description-toggle.fa.fa-caret-chevron.case-description-toggle(ng-click='toggleExtraInfo()', ng-class="showExtraInfo ? 'fa fa-chevron-down case-description-toggle active' : 'fa fa-chevron-down case-description-toggle'")
-  h3.case-name.pre-wrap
-    a(ng-click='editCaseSummary(true)' , ng-show='!caseSummaryEditable' , href='') {{CaseService.kase.summary}}
   form(name='summaryForm')
    .row(ng-show='caseSummaryEditable')
     .col-xs-4.col-sm-3.col-md-8
@@ -17,8 +14,9 @@ section.case-description
       a.margin-left(
         ng-hide='updatingDetails',
         ng-click='editCaseSummary(false)') {{'Cancel'|translate}}
-  h4.product-name {{CaseService.kase.product}}&nbsp;{{CaseService.kase.version}}
-  span.description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | substring:150 }}
+  span.description.toggled-content.pre-wrap(ng-hide='showExtraInfo') {{CaseService.kase.description | substring:450 }}
+  div
+    a(ng-click='toggleExtraInfo()', ng-hide='showExtraInfo', translate='') View More
   span.description.pre-wrap(ng-show='showExtraInfo') {{CaseService.kase.description}}
   div#case-description-extra-info(ng-class="showExtraInfo ? 'case-description-extra-info active' : 'case-description-extra-info'")
     form(name='detailsForm')
@@ -77,3 +75,6 @@ section.case-description
             a.margin-left(
               ng-hide='updatingDetails || !detailsForm.$dirty',
               ng-click='resetData()',translate='') Cancel
+        .row
+          .col-sm-12
+            a(ng-click='toggleExtraInfo()', ng-show='showExtraInfo', translate='') View Less

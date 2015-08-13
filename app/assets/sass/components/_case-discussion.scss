@@ -9,9 +9,12 @@
 		text-transform: none;
 	}
 
+	.discussion-element{
+		margin-top: 10px;
+	}
 	.comment {
 		textarea { min-height: 250px; }
-		& + .comment { @include rem('margin-top', $global-margin); }
+		& + .comment { @include rem('margin-top', 5px); }
 //		.meta { @include rem('margin-bottom', $global-padding); }
 		.comment { @include rem('padding-left', 28px); }
 		.private { color: red; }
@@ -23,7 +26,8 @@
 	article {
 		position: relative;
 		@include rem('padding', $global-padding $global-margin);
-		border: 1px solid #f8f8f8;
+		border-top: 1px solid #D3D3D3;
+		border-bottom: 1px solid #D3D3D3;
 		border-left: 4px solid #ddd;
 		font-family: monospace;
 
@@ -46,7 +50,7 @@
 
 	.article-comment {
 		background: #fff;
-		border-color: #0a89cf;
+		border-left-color: #0a89cf;
 
 		i { background-color: #0889cf; }
 		.meta { color: #0889cf; }
@@ -54,7 +58,7 @@
 
 	.article-private-comment {
 		background: #dae0e3;
-		border-color: #37424a;
+		border-left-color: #37424a;
 
 		i { background-color: #37424a; }
 		.meta { color: #37424a; }
@@ -62,14 +66,14 @@
 
 	.article-attachment {
 		background: #fff;
-		border-color: #0889cf;
+		border-left-color: #0889cf;
 
 		i { background-color: #06bae2; }
 		.meta { color: #06bae2; }
 	}
 
 	.article-chat {
-		border-color: #1b6c36;
+		border-left-color: #1b6c36;
 
 		i { background-color: #24A552; }
 		.meta { color: #24A552; }
@@ -80,7 +84,8 @@
 		h4 {
 			@include rem('margin-bottom', 4px);
 			text-transform: uppercase;
-			@include font-size(14px);
+			@include font-size(13px);
+			font-size: 13px;
 			line-height: 1;
 			font-weight: 700;
 		}
@@ -92,7 +97,7 @@
 		@include font-size(13px);
 		font-size: 13px;
 		line-height: 1;
-		@include rem('margin-bottom', $global-padding);
+		@include rem('margin-bottom', 5px);
 	}
 
 	.article-private-comment, .article-comment, .article-attachment {

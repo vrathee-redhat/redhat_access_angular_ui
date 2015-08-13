@@ -13,7 +13,7 @@ $aside-border-color: #d3d3d3;
 .recommendations {
 	position: relative;
 	color: $recommendations-paragraph-color;
-	@include font-size(14px);
+	@include font-size(13px);
 	padding: 0;
 
 	.link {
@@ -145,6 +145,10 @@ $recommendations-dark-link-color: #0bc0fc;
 		}
 	}
 
+	.pagination {
+		padding: 0 30px 15px;
+	}
+
 
 	.panel-heading {
 		@include rem('padding', 10px $global-padding 10px $global-margin);
@@ -197,10 +201,12 @@ $recommendations-dark-link-color: #0bc0fc;
 
 	ul {
 		list-style-type: none;
-		@include rem('padding', $global-padding 0 );
+		@include rem('padding', 0 0 );
 	}
 
 	li {
+		margin-bottom: 0px;
+		margin-top: 15px;
 
 		article {
 			padding: 0;
@@ -227,9 +233,6 @@ $recommendations-dark-link-color: #0bc0fc;
 		}
 	}
 
-	li + li {
-		@include rem('margin-top', $global-margin);
-	}
 
 	li:hover {
 		.pin {
