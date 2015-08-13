@@ -24,6 +24,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.HeaderService = HeaderService;
+        $scope.RecommendationsService = RecommendationsService;
         CaseService.clearCase();
         $scope.loading = {};
         $scope.init = function () {
