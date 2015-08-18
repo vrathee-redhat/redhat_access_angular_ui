@@ -198,7 +198,8 @@ module.exports = function (grunt) {
                     '<%= yeoman.app %>/i18n/template.pot': [
                         '<%= src.tpl.app %>',
                         '<%= src.js %>',
-                        '<%= yeoman.app %>/i18n/placeholder.html'
+                        '<%= yeoman.app %>/i18n/placeholder.html',
+                        'bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js'
                     ]
                 }
             }
