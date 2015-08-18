@@ -36,10 +36,10 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 span.light {{'at'|translate}} &nbsp;
                 time.light {{element.last_modified_time}}
               h4.meta(ng-if="element.comment_type !== 'chat'")
-                .author.blue {{element.created_by}}
-                date.light {{element.created_date}} &nbsp;
+                .author.blue {{element.last_modified_by}}
+                date.light {{element.published_date}} &nbsp;
                 span.light {{'at'|translate}} &nbsp;
-                time.light {{element.created_time}}
+                time.light {{element.published_time}}
                 .private(ng-if="element.public !== undefined && element.public === false") {{'Private'|translate}}
             .col-sm-8
               blockquote.dialog-box.pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
@@ -58,10 +58,10 @@ ul#tab_list.nav.nav-tabs(role="tablist")
     article.row(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse'")
       .col-sm-4
         h4.meta
-          .author.blue {{attachment.created_by}}
-          date.light {{attachment.created_date}}
+          .author.blue {{attachment.last_modified_by}}
+          date.light {{attachment.published_date}}
           span.light at &nbsp;
-          time.light {{attachment.created_time}}
+          time.light {{attachment.published_time}}
       .col-sm-8
         .dialog-box
             a(href="{{attachment.uri}}")
