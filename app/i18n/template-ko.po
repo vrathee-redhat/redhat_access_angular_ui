@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-08-09 10:40+0000\n"
+"PO-Revision-Date: 2015-08-20 01:18+0000\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -249,12 +249,6 @@ msgstr "기술문의 그룹:"
 msgid "Case Information"
 msgstr "기술 문의 정보"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#. Noun
-#: app/cases/views/new.html
-msgid "Case Name"
-msgstr "기술 문의 이름"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
 #: app/cases/views/detailsSection.html
@@ -474,7 +468,7 @@ msgstr "CSV로 내보내기"
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/exportCSVButton.html
 msgid "Exporting CSV..."
-msgstr "CSV 내보내기..."
+msgstr "CSV 내보내기 중..."
 
 #: app/cases/services/attachmentsService.js
 msgid ""
@@ -530,6 +524,10 @@ msgstr "이름"
 msgid "For example: 1-888-467-3342"
 msgstr "예: 1-888-467-3342"
 
+#: app/cases/controllers/edit.js
+msgid "Friday = {{businessHours}}"
+msgstr "금요일 = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
 msgid "GSS ICE FAQ"
@@ -584,6 +582,15 @@ msgid ""
 "If this is a request for information from you or the customer and if you "
 "need us to contact you to discuss the issues."
 msgstr "사용자 또는 고객에 대한 정보 요청인 경우 및 문제에 대해 문의하기 위해 연락을 받고자 하는 경우."
+
+#: app/cases/controllers/edit.js
+msgid ""
+"If we have not recorded your business hours correctly, please update your "
+"timezone in  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Your "
+"preferences</a>"
+msgstr ""
+"고객의 업무 시간이 올바르게 기록되지 않은 경우 <a href='/wapps/ugc/protected/locale.html' target="
+"'_blank'>환경설정</a>에서 시간대를 업데이트하십시오."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
@@ -686,6 +693,10 @@ msgstr "기본 기술문의 그룹 관리"
 #: app/cases/views/list.html
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
 msgstr "수정자: {{case.last_modified_by}} 수정일: {{case.last_modified_date}}"
+
+#: app/cases/controllers/edit.js
+msgid "Monday = {{businessHours}}"
+msgstr "월요일 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/i18n/placeholder.html
@@ -923,7 +934,7 @@ msgstr "게재"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/escalation/views/partnerEscalation.html
 msgid "Priority Customer Support Routing"
-msgstr "Red Hat 파트너 에스컬레이션 요청 "
+msgstr "우선 순위에 있는 고객 지원 연결 경로"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/cases/views/discussionSection.html
@@ -934,6 +945,10 @@ msgstr "비공개"
 #: app/cases/views/discussionSection.html
 msgid "Private Notes"
 msgstr "비공개 메모"
+
+#: app/cases/views/new.html
+msgid "Problem Statement"
+msgstr "문제 설명"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #. Noun
@@ -1031,6 +1046,10 @@ msgstr "요청자"
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "해결 방법 "
+
+#: app/cases/controllers/edit.js
+msgid "Saturday = {{businessHours}}"
+msgstr "토요일 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/createGroupModal.html
@@ -1180,6 +1199,10 @@ msgstr "첨부 파일을 성공적으로 업로드했습니다."
 msgid "Summary of Request"
 msgstr "요청 요약 "
 
+#: app/cases/controllers/edit.js
+msgid "Sunday = {{businessHours}}"
+msgstr "일요일 = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/i18n/placeholder.html
 msgid "Support"
@@ -1195,6 +1218,14 @@ msgstr "지원 수준 "
 #: app/common/views/403.html
 msgid "Support Subscription Required"
 msgstr "지원 서브스크립션 필요"
+
+#: app/cases/controllers/edit.js
+msgid ""
+"Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
+"records indicate your availability as follows:"
+msgstr ""
+"Red Hat 지원팀에 문의해 주셔서 감사합니다! 조만간 연락을 드릴 것입니다. 저희에게 기록된 고객의 연락 가능한 시간은 다음과 "
+"같습니다:"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/common/views/403.html
@@ -1262,6 +1293,10 @@ msgid ""
 "Portal or Partner Center login"
 msgstr "이는 귀하의 Red Hat 고객 포털 또는 파트너 센터 로그인에 연결된 이메일 주소여야 합니다."
 
+#: app/cases/controllers/edit.js
+msgid "Thursday = {{businessHours}}"
+msgstr "목요일 = {{businessHours}}"
+
 #: app/cases/views/new.html
 msgid "To Learn more view the"
 msgstr "자세한 내용은 다음에서 확인하십시오:"
@@ -1284,6 +1319,10 @@ msgstr "상위 솔루션"
 #: app/cases/views/discussionSection.html
 msgid "Transcript of chat between"
 msgstr "채팅 내용"
+
+#: app/cases/controllers/edit.js
+msgid "Tuesday = {{businessHours}}"
+msgstr "화요일 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/services/caseService.js
@@ -1341,6 +1380,10 @@ msgstr "사용자에게는 기술 문의 그룹을 관리할 적절한 인증이
 #: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr "제품 지원 서비스 수준 약관 보기 "
+
+#: app/cases/controllers/edit.js
+msgid "Wednesday = {{businessHours}}"
+msgstr "수요일 = {{businessHours}}"
 
 #: app/cases/services/caseService.js
 msgid "What information can you provide around timeframes and urgency?"
@@ -1425,7 +1468,7 @@ msgstr "및 "
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/discussionSection.html
 msgid "at"
-msgstr "에 "
+msgstr " "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/partnerEscalation.html
@@ -1441,6 +1484,10 @@ msgstr "ICE 프로세스에 대한 자세한 정보"
 #: app/escalation/views/partnerEscalation.html
 msgid "for more information."
 msgstr "상세 정보"
+
+#: app/cases/controllers/edit.js
+msgid "no business hours"
+msgstr "업무 외 시간"
 
 #: app/cases/views/addCommentSection.html
 msgid "{{charactersLeft}} characters left."
@@ -1458,71 +1505,72 @@ msgstr ""
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} 문자가 남아 있습니다."
 
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "CASE {{caseNumber}}"
 msgstr "기술 문의 {{caseNumber}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
-#: app/common/controllers/titleView.js:
-#: app/i18n/placeholder.html:
-msgid "Logs"
-msgstr "로그 "
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "SUPPORT CASES"
 msgstr "기술 문의"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "Search Support Case"
 msgstr "기술 문의 검색 "
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
-#: app/common/services/alertService.js:
+#: app/common/services/alertService.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
 msgstr "Red Hat 고객 포털에서 성공적으로 로그아웃했습니다. "
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (A-Z)"
 msgstr "기술 문의 소유자 (A-Z)"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (Z-A)"
 msgstr "기술 문의 소유자 (Z-A)"
 
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Highest Severity"
 msgstr "가장 높은 심각도 순"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Lowest Severity"
 msgstr "가장 낮은 심각도 순"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Created"
 msgstr "최신 날짜 생성 순"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Modified"
 msgstr "최신 날짜 수정 순"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Created"
 msgstr "가장 오래된 날짜 생성 순"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Modified"
 msgstr "가장 오래된 날짜 수정 순"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
-#: app/common/services/strataService.js:
+#: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "인증되지 않았습니다."
+
+#: app/common/services/constantsService.js
+msgid "Case Status (A-Z)"
+msgstr "기술 문의 상태 (A-Z)"
+
+#: app/common/services/constantsService.js
+msgid "Case Status (Z-A)"
+msgstr "기술 문의 상태 (Z-A)"

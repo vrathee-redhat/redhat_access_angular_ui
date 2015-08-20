@@ -4,14 +4,15 @@
 # myamamot <myamamot@redhat.com>, 2014. #zanata
 # Ykatabam <ykatabam@redhat.com>, 2015. #zanata
 # asasaki <asasaki@redhat.com>, 2015. #zanata
+# kmoriguc <kmoriguc@redhat.com>, 2015. #zanata
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-08-10 02:15+0000\n"
-"Last-Translator: asasaki <asasaki@redhat.com>\n"
+"PO-Revision-Date: 2015-08-20 01:10+0000\n"
+"Last-Translator: kmoriguc <kmoriguc@redhat.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
 "X-Generator: Zanata 3.6.2\n"
@@ -250,12 +251,6 @@ msgstr "ケースグループ:"
 #: app/escalation/views/partnerEscalation.html
 msgid "Case Information"
 msgstr "ケース情報"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#. Noun
-#: app/cases/views/new.html
-msgid "Case Name"
-msgstr "ケース名"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
@@ -531,6 +526,10 @@ msgstr "名"
 msgid "For example: 1-888-467-3342"
 msgstr "例: 1-888-467-3342"
 
+#: app/cases/controllers/edit.js
+msgid "Friday = {{businessHours}}"
+msgstr "金曜日 = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: app/escalation/views/iceEscalation.html
 msgid "GSS ICE FAQ"
@@ -583,6 +582,15 @@ msgid ""
 "If this is a request for information from you or the customer and if you "
 "need us to contact you to discuss the issues."
 msgstr "ご本人またはお客様に対する情報のリクエストである場合や、この問題について弊社からの連絡を希望される場合。"
+
+#: app/cases/controllers/edit.js
+msgid ""
+"If we have not recorded your business hours correctly, please update your "
+"timezone in  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Your "
+"preferences</a>"
+msgstr ""
+"お客様の営業時間が正しく記録されていない場合、<a href='/wapps/ugc/protected/locale.html' target="
+"'_blank'>設定</a> でお客様のタイムゾーンを更新してください。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: app/escalation/views/iceEscalation.html
@@ -684,6 +692,10 @@ msgstr "デフォルトケースグループを管理"
 #: app/cases/views/list.html
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
 msgstr "更新者: {{case.last_modified_by}} 更新日: {{case.last_modified_date}}"
+
+#: app/cases/controllers/edit.js
+msgid "Monday = {{businessHours}}"
+msgstr "月曜日 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
 #: app/i18n/placeholder.html
@@ -933,6 +945,10 @@ msgstr "プライベート"
 msgid "Private Notes"
 msgstr "プライベートメモ"
 
+#: app/cases/views/new.html
+msgid "Problem Statement"
+msgstr "問題の概要"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #. Noun
 #: app/cases/views/detailsSection.html
@@ -1029,6 +1045,10 @@ msgstr "リクエスター"
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "解決方法"
+
+#: app/cases/controllers/edit.js
+msgid "Saturday = {{businessHours}}"
+msgstr "土曜日 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
 #: app/cases/views/createGroupModal.html
@@ -1179,6 +1199,10 @@ msgstr "添付ファイルが正しくアップロードされました。"
 msgid "Summary of Request"
 msgstr "リクエストの要約"
 
+#: app/cases/controllers/edit.js
+msgid "Sunday = {{businessHours}}"
+msgstr "日曜日 = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
 #: app/i18n/placeholder.html
 msgid "Support"
@@ -1194,6 +1218,12 @@ msgstr "サポートレベル"
 #: app/common/views/403.html
 msgid "Support Subscription Required"
 msgstr "サポートのサブスクリプションが必要です。"
+
+#: app/cases/controllers/edit.js
+msgid ""
+"Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
+"records indicate your availability as follows:"
+msgstr "Red Hat にご連絡いただきありがとうございます。こちらから連絡を差し上げます。お客様に連絡可能な時間は以下のように記録されています。"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author asasaki
 #: app/common/views/403.html
@@ -1259,6 +1289,10 @@ msgid ""
 "Portal or Partner Center login"
 msgstr "これは、ご自身の Red Hat カスタマーポータルまたはパートナーセンターのログインに関連付けられているメールアドレスになります。"
 
+#: app/cases/controllers/edit.js
+msgid "Thursday = {{businessHours}}"
+msgstr "木曜日 = {{businessHours}}"
+
 #: app/cases/views/new.html
 msgid "To Learn more view the"
 msgstr "詳細情報は、以下をご覧ください:"
@@ -1281,6 +1315,10 @@ msgstr "関連記事"
 #: app/cases/views/discussionSection.html
 msgid "Transcript of chat between"
 msgstr "チャット内容:"
+
+#: app/cases/controllers/edit.js
+msgid "Tuesday = {{businessHours}}"
+msgstr "火曜日 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
 #: app/cases/services/caseService.js
@@ -1338,6 +1376,10 @@ msgstr "ユーザーには、ケースグループを管理するための適切
 #: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr "製品サポートのサービスレベルアグリーメントを表示"
+
+#: app/cases/controllers/edit.js
+msgid "Wednesday = {{businessHours}}"
+msgstr "水曜日 = {{businessHours}}"
 
 #: app/cases/services/caseService.js
 msgid "What information can you provide around timeframes and urgency?"
@@ -1439,6 +1481,10 @@ msgstr "ICE プロセスについての詳細情報"
 msgid "for more information."
 msgstr "詳細情報。"
 
+#: app/cases/controllers/edit.js
+msgid "no business hours"
+msgstr "営業時間外"
+
 #: app/cases/views/addCommentSection.html
 msgid "{{charactersLeft}} characters left."
 msgstr "{{charactersLeft}} 文字 (残りの文字数)"
@@ -1455,70 +1501,72 @@ msgstr ""
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} 文字 (残りの文字数)"
 
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "CASE {{caseNumber}}"
 msgstr "ケース {{caseNumber}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
-#: app/common/controllers/titleView.js:
-#: app/i18n/placeholder.html:
-msgid "Logs"
-msgstr "ログ"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "SUPPORT CASES"
 msgstr "サポートケース"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "Search Support Case"
 msgstr "サポートケースの検索"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author asasaki
-#: app/common/services/alertService.js:
+#: app/common/services/alertService.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
 msgstr "Red Hat カスタマーポータルから正常にログアウトしました。"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (A-Z)"
 msgstr "ケース作成者 (A-Z)"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (Z-A)"
 msgstr "ケース作成者 (Z-A)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Highest Severity"
 msgstr "重大度が高い順"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Lowest Severity"
 msgstr "重大度が低い順"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Created"
 msgstr "作成日が新しい順"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Modified"
 msgstr "変更日が新しい順"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Created"
 msgstr "作成日が古い順"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Modified"
 msgstr "変更日が古い順"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author myamamot
-#: app/common/services/strataService.js:
+#: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "権限がありません。"
+
+#: app/common/services/constantsService.js
+msgid "Case Status (A-Z)"
+msgstr "ケースのステータス (A-Z)"
+
+#: app/common/services/constantsService.js
+msgid "Case Status (Z-A)"
+msgstr "ケースのステータス (Z-A)"
