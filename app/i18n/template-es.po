@@ -9,7 +9,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-08-10 04:42+0000\n"
+"PO-Revision-Date: 2015-08-20 01:21+0000\n"
 "Last-Translator: agarcia <agarcia@redhat.com>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -81,7 +81,7 @@ msgstr "Agregando el usuario {{userName}} al caso."
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
 #: app/cases/views/discussionSection.html
 msgid "All Attachments"
-msgstr "Todos los adjuntos"
+msgstr "Todos los anexos"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/cases/services/caseService.js
@@ -97,7 +97,7 @@ msgstr "¿Ya ha escalado?"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
 #: app/cases/views/detailsSection.html
 msgid "Alternate Case ID"
-msgstr "ID de caso alternativo"
+msgstr "ID de caso opcional"
 
 #: app/cases/controllers/descriptionSection.js
 msgid ""
@@ -166,8 +166,8 @@ msgid ""
 "Attaching logs or other diagnostics files typically results in faster "
 "resolution."
 msgstr ""
-"Por lo general, al adjuntar archivos de registro y otros diagnósticos se "
-"obtienen soluciones con más celeridad.  "
+"Por lo general, al adjuntar registros y otros archivos de diagnóstico se "
+"obtienen soluciones con mayor rapidez.  "
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/log_viewer/views/navSideBar.html
@@ -258,15 +258,9 @@ msgstr "Información de casos"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
 #. Noun
-#: app/cases/views/new.html
-msgid "Case Name"
-msgstr "Nombre de casos"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
-#. Noun
 #: app/cases/views/detailsSection.html
 msgid "Case Type"
-msgstr "Tipo de casos"
+msgstr "Tipo de caso"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/cases/controllers/editGroup.js
@@ -540,6 +534,10 @@ msgstr "Nombre"
 msgid "For example: 1-888-467-3342"
 msgstr "Por ejemplo: 1-888-467-3342"
 
+#: app/cases/controllers/edit.js
+msgid "Friday = {{businessHours}}"
+msgstr "Viernes = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
 #: app/escalation/views/iceEscalation.html
 msgid "GSS ICE FAQ"
@@ -598,6 +596,16 @@ msgid ""
 msgstr ""
 "Si esta solicitud es para obtener información de su parte o del cliente y si "
 "necesita que le contactemos para discutir el problema."
+
+#: app/cases/controllers/edit.js
+msgid ""
+"If we have not recorded your business hours correctly, please update your "
+"timezone in  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Your "
+"preferences</a>"
+msgstr ""
+"Si sus horas laborales no son correctas, por favor actualice su zona horaria "
+"en  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Sus "
+"preferencias</a>"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
 #: app/escalation/views/iceEscalation.html
@@ -709,6 +717,10 @@ msgstr "Administrar grupos de casos predeterminados"
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
 msgstr ""
 "Modificado por {{case.last_modified_by}} el {{case.last_modified_date}}"
+
+#: app/cases/controllers/edit.js
+msgid "Monday = {{businessHours}}"
+msgstr "Lunes = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/i18n/placeholder.html
@@ -978,6 +990,10 @@ msgstr "Privado"
 msgid "Private Notes"
 msgstr "Notas privadas"
 
+#: app/cases/views/new.html
+msgid "Problem Statement"
+msgstr "Planteamiento del problema"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #. Noun
 #: app/cases/views/detailsSection.html
@@ -1033,11 +1049,11 @@ msgid ""
 "resolution."
 msgstr ""
 "Red Hat Global Support Services (GSS) y Red Hat Global Partner Enablement "
-"han establecido el sistema de escalamiento para permitir a nuestros socios "
-"estratégicos escalar casos de soporte no resueltos o casos de soporte al "
-"cliente de misión crítica a liderazgo de GSS. Este proceso ayudará, tanto a "
-"usted como a Red Hat, a manejar mejor los problemas de sus clientes y a "
-"proporcionar un proceso que conduzca a su resolución."
+"han establecido el sistema de escalamiento para permitirle a nuestros socios "
+"estratégicos el escalar a liderazgo de GSS aquellos casos de soporte no "
+"resueltos o casos de soporte al cliente de misión crítica. Este proceso le "
+"ayudará, tanto a usted como a Red Hat, a manejar mejor los problemas de sus "
+"clientes y a proporcionar un proceso que conduzca a su resolución."
 
 #: app/cases/views/new.html
 msgid "Red Hat Support Severity Level Definitions"
@@ -1079,6 +1095,10 @@ msgstr "Solicitante"
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "Resolución"
+
+#: app/cases/controllers/edit.js
+msgid "Saturday = {{businessHours}}"
+msgstr "Sábado = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/createGroupModal.html
@@ -1232,6 +1252,10 @@ msgstr "El anexo se cargó con éxito."
 msgid "Summary of Request"
 msgstr "Resumen de solicitud"
 
+#: app/cases/controllers/edit.js
+msgid "Sunday = {{businessHours}}"
+msgstr "Domingo = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/i18n/placeholder.html
 msgid "Support"
@@ -1247,6 +1271,15 @@ msgstr "Nivel de soporte"
 #: app/common/views/403.html
 msgid "Support Subscription Required"
 msgstr "Se requiere una suscripción de soporte"
+
+#: app/cases/controllers/edit.js
+msgid ""
+"Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
+"records indicate your availability as follows:"
+msgstr ""
+"Gracias por contactar los Servicios de soporte de Red Hat. Estaremos en "
+"contacto pronto. Nuestros registros indican que su disponibilidad es la "
+"siguiente:"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author gguerrer
 #: app/common/views/403.html
@@ -1274,9 +1307,9 @@ msgid ""
 "or had its name and address changed. It might otherwise be temporarily "
 "unavailable for technical reasons."
 msgstr ""
-"La página que busca no está aquí. Es probable que se haya desplazado o "
-"quitado, o que  el nombre y dirección hayan cambiado. Podría no estar "
-"disponible en el momento, por motivos de  carácter técnico."
+"La página que busca no está aquí. Es probable que se haya movido o borrado o "
+"que  el nombre y dirección hayan cambiado. Podría no estar disponible en el "
+"momento, por motivos de  carácter técnico."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
 #: app/escalation/views/iceEscalation.html
@@ -1325,6 +1358,10 @@ msgstr ""
 "Esta debe ser la dirección de correo-e asociada con su Portal del cliente "
 "Red Hat o al  ingreso al Centro  de socios"
 
+#: app/cases/controllers/edit.js
+msgid "Thursday = {{businessHours}}"
+msgstr "Jueves = {{businessHours}}"
+
 #: app/cases/views/new.html
 msgid "To Learn more view the"
 msgstr "Para más información consulte el"
@@ -1348,15 +1385,19 @@ msgstr "Las mejores soluciones"
 msgid "Transcript of chat between"
 msgstr "Transcripción del chat entre"
 
+#: app/cases/controllers/edit.js
+msgid "Tuesday = {{businessHours}}"
+msgstr "Martes = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/cases/services/caseService.js
 msgid "Ungrouped Case"
-msgstr "Caso desagrupado"
+msgstr "Caso sin grupo"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/cases/services/caseService.js
 msgid "Ungrouped Cases"
-msgstr "Casos desagrupados"
+msgstr "Casos sin grupos"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/cases/views/discussionSection.html
@@ -1366,12 +1407,12 @@ msgstr "Actualizar"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "Updating Recommendations"
-msgstr "Actualización de recomendaciones"
+msgstr "Recomendaciones de actualización"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
 #: app/cases/views/attachmentsSection.html
 msgid "Upload Attachments"
-msgstr "Cargar adjuntos"
+msgstr "Cargar anexos"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/cases/controllers/attachmentsSection.js
@@ -1392,18 +1433,24 @@ msgstr "Nombre de usuario"
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/cases/views/defaultGroup.html
 msgid "User does not have permissions to set default case group."
-msgstr "El usuario no tiene permisos para grupo de casos predeterminados."
+msgstr ""
+"El usuario no tiene permisos para establecer el grupo de caso predeterminado."
+""
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/cases/controllers/editGroup.js
 msgid "User does not have proper credentials to manage case groups."
-msgstr "El usuario no tiene credenciales  para manejar  grupo de casos."
+msgstr "El usuario no tiene credenciales  para manejar  grupos de casos."
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/cases/views/descriptionSection.html
 #: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr "Ver el acuerdo a nivel de servicio de soporte de producción"
+
+#: app/cases/controllers/edit.js
+msgid "Wednesday = {{businessHours}}"
+msgstr "Miércoles = {{businessHours}}"
 
 #: app/cases/services/caseService.js
 msgid "What information can you provide around timeframes and urgency?"
@@ -1431,7 +1478,7 @@ msgstr "¿En dónde se está presentando el comportamiento? ¿En qué entorno?"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
 #: app/cases/views/editGroup.html
 msgid "Write Access"
-msgstr "Escribir acceso"
+msgstr "Acceso de escritura"
 
 # translation auto-copied from project Customer Portal Translations, version RHJBossMiddlewareOperationsNetworkProduc, document RHJBossMiddlewareOperationsNetworkProductUpdate.html, author gguerrer
 #: app/cases/views/commonConfirmationModal.html
@@ -1509,6 +1556,10 @@ msgstr "para más información sobre el  proceso ICE."
 msgid "for more information."
 msgstr "para más información."
 
+#: app/cases/controllers/edit.js
+msgid "no business hours"
+msgstr "No hay horario laboral"
+
 #: app/cases/views/addCommentSection.html
 msgid "{{charactersLeft}} characters left."
 msgstr "Quedan {{charactersLeft}} caracteres."
@@ -1525,70 +1576,72 @@ msgstr ""
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} caracteres restantes."
 
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "CASE {{caseNumber}}"
 msgstr "CASO {{caseNumber}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
-#: app/common/controllers/titleView.js:
-#: app/i18n/placeholder.html:
-msgid "Logs"
-msgstr "Registros"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "SUPPORT CASES"
 msgstr "CASOS DE SOPORTE"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "Search Support Case"
 msgstr "Buscar un caso de soporte"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
-#: app/common/services/alertService.js:
+#: app/common/services/alertService.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
 msgstr "Ha salido del Portal del cliente de Red Hat"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (A-Z)"
 msgstr "Propietario del caso (A-Z)"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (Z-A)"
-msgstr "Propietario del caso (Z-A)"
+msgstr "Propietario del caso (A-Z)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Highest Severity"
 msgstr "Gravedad más alta"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Lowest Severity"
 msgstr "Gravedad más baja"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Created"
-msgstr "Fecha creada más reciente"
+msgstr "Fecha de creación más reciente"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Modified"
-msgstr "Fecha modificada más reciente"
+msgstr "Fecha de modificación más reciente"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Created"
-msgstr "Fecha creada menos reciente"
+msgstr "Fecha de creación menos reciente"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gguerrer
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Modified"
-msgstr "Fecha modificada menos reciente"
+msgstr "Fecha de modificación menos reciente"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gguerrer
-#: app/common/services/strataService.js:
+#: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "No autorizado."
+
+#: app/common/services/constantsService.js
+msgid "Case Status (A-Z)"
+msgstr "Estado del caso (A-Z)"
+
+#: app/common/services/constantsService.js
+msgid "Case Status (Z-A)"
+msgstr "Estado del caso (Z-A)"

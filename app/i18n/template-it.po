@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-08-10 05:42+0000\n"
+"PO-Revision-Date: 2015-08-20 12:28+0000\n"
 "Last-Translator: fvalen <fvalen@redhat.com>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -256,12 +256,6 @@ msgstr "Gruppo casi:"
 #: app/escalation/views/partnerEscalation.html
 msgid "Case Information"
 msgstr "Informazioni sul caso"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
-#. Noun
-#: app/cases/views/new.html
-msgid "Case Name"
-msgstr "Nome caso"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
@@ -541,6 +535,10 @@ msgstr "Nome"
 msgid "For example: 1-888-467-3342"
 msgstr "Per esempio: 1-888-467-3342"
 
+#: app/cases/controllers/edit.js
+msgid "Friday = {{businessHours}}"
+msgstr "Venerdì = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
 #: app/escalation/views/iceEscalation.html
 msgid "GSS ICE FAQ"
@@ -597,6 +595,16 @@ msgid ""
 msgstr ""
 "Se questa è una richiesta di informazioni e desideri che un nostro "
 "rappresentante ti contatti per discutere di questo problema."
+
+#: app/cases/controllers/edit.js
+msgid ""
+"If we have not recorded your business hours correctly, please update your "
+"timezone in  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Your "
+"preferences</a>"
+msgstr ""
+"Se non hai registrato correttamente il tuo orario lavorativo, aggiorna il "
+"fuso orario in <a href='/wapps/ugc/protected/locale.html' target="
+"'_blank'>Preferenze</a>"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
 #: app/escalation/views/iceEscalation.html
@@ -708,6 +716,10 @@ msgstr "Gestisci Gruppi casi predefiniti"
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
 msgstr ""
 "Modificato da {{case.last_modified_by}} il {{case.last_modified_date}}"
+
+#: app/cases/controllers/edit.js
+msgid "Monday = {{businessHours}}"
+msgstr "Lunedì = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author fvalen
 #: app/i18n/placeholder.html
@@ -977,6 +989,10 @@ msgstr "Privata"
 msgid "Private Notes"
 msgstr "Note private"
 
+#: app/cases/views/new.html
+msgid "Problem Statement"
+msgstr "Definizione del problema"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #. Noun
 #: app/cases/views/detailsSection.html
@@ -1077,6 +1093,10 @@ msgstr "Richiedente"
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "Risoluzione"
+
+#: app/cases/controllers/edit.js
+msgid "Saturday = {{businessHours}}"
+msgstr "Sabato = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/cases/views/createGroupModal.html
@@ -1233,6 +1253,10 @@ msgstr "Allegato caricato con successo."
 msgid "Summary of Request"
 msgstr "Sommario della richiesta"
 
+#: app/cases/controllers/edit.js
+msgid "Sunday = {{businessHours}}"
+msgstr "Domenica = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author fvalen
 #: app/i18n/placeholder.html
 msgid "Support"
@@ -1248,6 +1272,15 @@ msgstr "Livello supporto"
 #: app/common/views/403.html
 msgid "Support Subscription Required"
 msgstr "Sottoscrizione di supporto necessaria"
+
+#: app/cases/controllers/edit.js
+msgid ""
+"Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
+"records indicate your availability as follows:"
+msgstr ""
+"Grazie per aver contattato il supporto di Red Hat. Un nostro rappresentante "
+"ti contatterà appena possibile in base alla disponibilità di seguito "
+"indicata:"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author fvalen
 #: app/common/views/403.html
@@ -1327,6 +1360,10 @@ msgstr ""
 "Indirizzo email associato con il Portale clienti di Red Hat o con quello del "
 "Partner Center"
 
+#: app/cases/controllers/edit.js
+msgid "Thursday = {{businessHours}}"
+msgstr "Giovedì = {{businessHours}}"
+
 #: app/cases/views/new.html
 msgid "To Learn more view the"
 msgstr "Per maggiori informazioni consultare"
@@ -1349,6 +1386,10 @@ msgstr "Soluzioni migliori"
 #: app/cases/views/discussionSection.html
 msgid "Transcript of chat between"
 msgstr "Trascrizione della chat tra"
+
+#: app/cases/controllers/edit.js
+msgid "Tuesday = {{businessHours}}"
+msgstr "Martedì = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author fvalen
 #: app/cases/services/caseService.js
@@ -1410,6 +1451,10 @@ msgstr ""
 #: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr "Visualizza il Contratto del livello di servizio per il supporto"
+
+#: app/cases/controllers/edit.js
+msgid "Wednesday = {{businessHours}}"
+msgstr "Mercoledì = {{businessHours}}"
 
 #: app/cases/services/caseService.js
 msgid "What information can you provide around timeframes and urgency?"
@@ -1515,6 +1560,10 @@ msgstr "per maggiori informazioni sul processo ICE."
 msgid "for more information."
 msgstr "per maggiori informazioni."
 
+#: app/cases/controllers/edit.js
+msgid "no business hours"
+msgstr "Nessun orario lavorativo"
+
 #: app/cases/views/addCommentSection.html
 msgid "{{charactersLeft}} characters left."
 msgstr "{{charactersLeft}} caratteri rimasti."
@@ -1532,72 +1581,73 @@ msgstr ""
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} caratteri rimasti."
 
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "CASE {{caseNumber}}"
 msgstr "CASO {{caseNumber}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author fvalen
-#: app/common/controllers/titleView.js:
-#: app/i18n/placeholder.html:
-msgid "Logs"
-msgstr "Log"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "SUPPORT CASES"
 msgstr "CASI CON IL SUPPORTO"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author fvalen
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "Search Support Case"
 msgstr "Cerca un caso con il supporto tecnico"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author fvalen
-#: app/common/services/alertService.js:
+#: app/common/services/alertService.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
 msgstr ""
 "La sessione con il Portale clienti di Red Hat è stata chiusa correttamente."
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (A-Z)"
 msgstr "Proprietario del caso (A-Z)"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (Z-A)"
 msgstr "Proprietario del caso (Z-A)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Highest Severity"
 msgstr "Severità più alta"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Lowest Severity"
 msgstr "Severità più bassa"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Created"
 msgstr "Ultimissima data creata"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Modified"
 msgstr "Data ultima modifica"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Created"
 msgstr "Data più vecchia creata"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Modified"
 msgstr "Data modifica più vecchia"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
-#: app/common/services/strataService.js:
+#: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "Non autorizzato."
 
+#: app/common/services/constantsService.js
+msgid "Case Status (A-Z)"
+msgstr "Stato del caso (A-Z)"
+
+#: app/common/services/constantsService.js
+msgid "Case Status (Z-A)"
+msgstr "Stato del caso (Z-A)"

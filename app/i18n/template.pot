@@ -513,10 +513,6 @@ msgstr ""
 msgid "Log File Viewer"
 msgstr ""
 
-#: app/i18n/placeholder.html
-msgid "Logs"
-msgstr ""
-
 #: app/cases/services/caseService.js
 msgid "Manage Case Groups"
 msgstr ""

@@ -89,8 +89,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                             "<br/>" +
                             availability +
                             "<br/>" +
-                            gettextCatalog.getString(" If we have not recorded your business hours correctly, please update your timezone in " +
-                            " <a href=\'/wapps/ugc/protected/locale.html\' target=\'_blank\'>"+ 'Your preferences' + "</a>");
+                            gettextCatalog.getString("If we have not recorded your business hours correctly, please update your timezone in  <a href=\'/wapps/ugc/protected/locale.html\' target=\'_blank\'>Your preferences</a>");
                         var parsedHtml = $sce.trustAsHtml(message);
                         AlertService.addInfoMessage(parsedHtml);
 

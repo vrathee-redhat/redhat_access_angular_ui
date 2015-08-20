@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-08-09 10:25+0000\n"
+"PO-Revision-Date: 2015-08-19 11:48+0000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Chinese (Simplified)\n"
 "Language: zh_CN\n"
@@ -250,12 +250,6 @@ msgstr "问题单组："
 #: app/escalation/views/partnerEscalation.html
 msgid "Case Information"
 msgstr "问题单信息"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#. Noun
-#: app/cases/views/new.html
-msgid "Case Name"
-msgstr "问题单名称"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
 #. Noun
@@ -526,6 +520,10 @@ msgstr "名"
 msgid "For example: 1-888-467-3342"
 msgstr "例如：1-888-467-3342"
 
+#: app/cases/controllers/edit.js
+msgid "Friday = {{businessHours}}"
+msgstr "周五 = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
 #: app/escalation/views/iceEscalation.html
 msgid "GSS ICE FAQ"
@@ -578,6 +576,15 @@ msgid ""
 "If this is a request for information from you or the customer and if you "
 "need us to contact you to discuss the issues."
 msgstr "如果您或者用户要求提供某些信息，且您需要我们联系您以便讨论这些问题。"
+
+#: app/cases/controllers/edit.js
+msgid ""
+"If we have not recorded your business hours correctly, please update your "
+"timezone in  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Your "
+"preferences</a>"
+msgstr ""
+"如果未正确记录办公时间，请在 <a href='/wapps/ugc/protected/locale.html' target="
+"'_blank'>属性</a> 中更新您的时区。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
 #: app/escalation/views/iceEscalation.html
@@ -675,6 +682,10 @@ msgstr "管理默认问题单组"
 #: app/cases/views/list.html
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
 msgstr "被 {{case.last_modified_by}} 在 {{case.last_modified_date}} 修改"
+
+#: app/cases/controllers/edit.js
+msgid "Monday = {{businessHours}}"
+msgstr "周一 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
 #: app/i18n/placeholder.html
@@ -918,6 +929,10 @@ msgstr "专用"
 msgid "Private Notes"
 msgstr "专用备注"
 
+#: app/cases/views/new.html
+msgid "Problem Statement"
+msgstr "问题描述"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
 #. Noun
 #: app/cases/views/detailsSection.html
@@ -1014,6 +1029,10 @@ msgstr "申请人"
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "解决方案"
+
+#: app/cases/controllers/edit.js
+msgid "Saturday = {{businessHours}}"
+msgstr "周六 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
 #: app/cases/views/createGroupModal.html
@@ -1163,6 +1182,10 @@ msgstr "成功上传附件。"
 msgid "Summary of Request"
 msgstr "请求概述"
 
+#: app/cases/controllers/edit.js
+msgid "Sunday = {{businessHours}}"
+msgstr "周日 = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
 #: app/i18n/placeholder.html
 msgid "Support"
@@ -1178,6 +1201,12 @@ msgstr "支持级别"
 #: app/common/views/403.html
 msgid "Support Subscription Required"
 msgstr "需要支持订阅"
+
+#: app/cases/controllers/edit.js
+msgid ""
+"Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
+"records indicate your availability as follows:"
+msgstr "感谢您联系 Red Hat 全球支持服务！我们将尽快与您联系。我们的记录显示您方便联系的时间如下："
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
 #: app/common/views/403.html
@@ -1237,6 +1266,10 @@ msgid ""
 "Portal or Partner Center login"
 msgstr "这应该是与您的 Red Hat 客户门户网站或者合作伙伴中心登录关联的电子邮件。"
 
+#: app/cases/controllers/edit.js
+msgid "Thursday = {{businessHours}}"
+msgstr "周四 = {{businessHours}}"
+
 #: app/cases/views/new.html
 msgid "To Learn more view the"
 msgstr "如需了解更多，请参阅"
@@ -1259,6 +1292,10 @@ msgstr "主要解决方案"
 #: app/cases/views/discussionSection.html
 msgid "Transcript of chat between"
 msgstr "聊天记录"
+
+#: app/cases/controllers/edit.js
+msgid "Tuesday = {{businessHours}}"
+msgstr "周二 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
 #: app/cases/services/caseService.js
@@ -1316,6 +1353,10 @@ msgstr "用户没有管理问题单组所需证书。"
 #: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr "查看产品支持服务级别协议"
+
+#: app/cases/controllers/edit.js
+msgid "Wednesday = {{businessHours}}"
+msgstr "周三 = {{businessHours}}"
 
 #: app/cases/services/caseService.js
 msgid "What information can you provide around timeframes and urgency?"
@@ -1417,9 +1458,13 @@ msgstr "查看 ICE 处理进程的详情。"
 msgid "for more information."
 msgstr "详情。"
 
+#: app/cases/controllers/edit.js
+msgid "no business hours"
+msgstr "无办公时间"
+
 #: app/cases/views/addCommentSection.html
 msgid "{{charactersLeft}} characters left."
-msgstr "{{charactersLeft}} 个字符剩余。"
+msgstr "剩余 {{charactersLeft}} 个字符。"
 
 #: app/cases/controllers/attachLocalFile.js
 msgid ""
@@ -1433,70 +1478,72 @@ msgstr ""
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} 个字符剩余。"
 
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "CASE {{caseNumber}}"
 msgstr "问题单 {{caseNumber}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/common/controllers/titleView.js:
-#: app/i18n/placeholder.html:
-msgid "Logs"
-msgstr "日志"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "SUPPORT CASES"
 msgstr "支持问题单"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "Search Support Case"
 msgstr "搜索支持问题单"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/common/services/alertService.js:
+#: app/common/services/alertService.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
 msgstr "已成功登录 Red Hat 客户门户网站。"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (A-Z)"
 msgstr "问题单所有人 (A-Z)"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (Z-A)"
-msgstr "问题单所有人 (Z-A)"
+msgstr "问题单所有人 (Z-Z)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Highest Severity"
 msgstr "最高严重性"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Lowest Severity"
 msgstr "最低严重性"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Created"
 msgstr "已生成最新日期"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Modified"
 msgstr "已修改最新日期"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Created"
 msgstr "已生成第一个日期"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Modified"
 msgstr "已修改第一个日期"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/common/services/strataService.js:
+#: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "未授权。"
+
+#: app/common/services/constantsService.js
+msgid "Case Status (A-Z)"
+msgstr "问题单状态（A-Z）"
+
+#: app/common/services/constantsService.js
+msgid "Case Status (Z-A)"
+msgstr "问题单状态（Z-A）"

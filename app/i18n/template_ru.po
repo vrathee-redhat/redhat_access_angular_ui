@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-08-10 04:12+0000\n"
+"PO-Revision-Date: 2015-08-20 02:08+0000\n"
 "Last-Translator: ypoyarko <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -252,12 +252,6 @@ msgstr "Группа:"
 #: app/escalation/views/partnerEscalation.html
 msgid "Case Information"
 msgstr "Информация о запросе"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
-#. Noun
-#: app/cases/views/new.html
-msgid "Case Name"
-msgstr "Тема"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
@@ -535,6 +529,10 @@ msgstr "Имя"
 msgid "For example: 1-888-467-3342"
 msgstr "Пример: 1-888-467-3342"
 
+#: app/cases/controllers/edit.js
+msgid "Friday = {{businessHours}}"
+msgstr "Пятница = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/escalation/views/iceEscalation.html
 msgid "GSS ICE FAQ"
@@ -589,8 +587,17 @@ msgid ""
 "If this is a request for information from you or the customer and if you "
 "need us to contact you to discuss the issues."
 msgstr ""
-"Если это запрос информации и вы хотите, чтобы мы связались с вами, чтобы его "
-"обсудить."
+"Если это запрос информации и вы хотите, чтобы мы связались с вами для его "
+"обсуждения."
+
+#: app/cases/controllers/edit.js
+msgid ""
+"If we have not recorded your business hours correctly, please update your "
+"timezone in  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Your "
+"preferences</a>"
+msgstr ""
+"Если вы не указали часы работы, установите часовой пояс в <a href='/wapps/"
+"ugc/protected/locale.html' target='_blank'>настройках</a>."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/escalation/views/iceEscalation.html
@@ -600,7 +607,7 @@ msgid ""
 "generic complain"
 msgstr ""
 "Если вы хотите обсудить пересмотр вашего контракта; если это имеет отношение "
-"к конкретной проблеме; если это запрос или жалоба общего характера."
+"к конкретной проблеме; если это вопрос или жалоба общего характера."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
 #: app/common/views/403.html
@@ -626,7 +633,7 @@ msgid ""
 "by a support manager."
 msgstr ""
 "Если вы считаете, что вашему запросу должно быть уделено больше внимания, "
-"объясните причину в комментариях."
+"объясните причину. "
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/log_viewer/views/logsInstructionPane.html
@@ -697,6 +704,10 @@ msgstr "Управление группами по умолчанию"
 #: app/cases/views/list.html
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
 msgstr "Изменил {{case.last_modified_by}}, {{case.last_modified_date}}"
+
+#: app/cases/controllers/edit.js
+msgid "Monday = {{businessHours}}"
+msgstr "Понедельник = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
 #: app/i18n/placeholder.html
@@ -951,6 +962,10 @@ msgstr "Закрытый"
 msgid "Private Notes"
 msgstr "Скрытые примечания"
 
+#: app/cases/views/new.html
+msgid "Problem Statement"
+msgstr "Постановка задачи"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #. Noun
 #: app/cases/views/detailsSection.html
@@ -1050,6 +1065,10 @@ msgstr "Инициатор"
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "Решение"
+
+#: app/cases/controllers/edit.js
+msgid "Saturday = {{businessHours}}"
+msgstr "Суббота = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
 #: app/cases/views/createGroupModal.html
@@ -1200,6 +1219,10 @@ msgstr "Вложение добавлено."
 msgid "Summary of Request"
 msgstr "Сводка запроса"
 
+#: app/cases/controllers/edit.js
+msgid "Sunday = {{businessHours}}"
+msgstr "Воскресенье = {{businessHours}}"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
 #: app/i18n/placeholder.html
 msgid "Support"
@@ -1215,6 +1238,14 @@ msgstr "Уровень поддержки"
 #: app/common/views/403.html
 msgid "Support Subscription Required"
 msgstr "Требуется действительная подписка"
+
+#: app/cases/controllers/edit.js
+msgid ""
+"Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
+"records indicate your availability as follows:"
+msgstr ""
+"Благодарим за обращение в службу поддержки Red Hat. Мы свяжемся с вами в "
+"указанное вами время:"
 
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author ypoyarko
 #: app/common/views/403.html
@@ -1289,6 +1320,10 @@ msgstr ""
 "Электронный адрес, который был указан при регистрации на портале или через "
 "партнерский центр"
 
+#: app/cases/controllers/edit.js
+msgid "Thursday = {{businessHours}}"
+msgstr "Четверг = {{businessHours}}"
+
 #: app/cases/views/new.html
 msgid "To Learn more view the"
 msgstr "Чтобы узнать больше, смотрите"
@@ -1311,6 +1346,10 @@ msgstr "Популярные решения"
 #: app/cases/views/discussionSection.html
 msgid "Transcript of chat between"
 msgstr "Запись разговора "
+
+#: app/cases/controllers/edit.js
+msgid "Tuesday = {{businessHours}}"
+msgstr "Вторник = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
 #: app/cases/services/caseService.js
@@ -1371,6 +1410,10 @@ msgstr ""
 msgid "View Production Support Service Level Agreement"
 msgstr "Посмотреть соглашение об обслуживании"
 
+#: app/cases/controllers/edit.js
+msgid "Wednesday = {{businessHours}}"
+msgstr "Среда = {{businessHours}}"
+
 #: app/cases/services/caseService.js
 msgid "What information can you provide around timeframes and urgency?"
 msgstr "Обоснуйте срочность запроса"
@@ -1385,7 +1428,7 @@ msgstr "Опишите проблему и ожидаемые результат
 msgid ""
 "When does the behavior occur? Frequently?  Repeatedly?   At certain times?"
 msgstr ""
-"Расскажите, когда это случилось. Это произошло один раз раз или повторяется "
+"Расскажите, когда это случилось. Это произошло один раз или повторяется "
 "регулярно?"
 
 #: app/cases/services/caseService.js
@@ -1473,6 +1516,10 @@ msgstr "для получения информации о процессе ICE."
 msgid "for more information."
 msgstr "для получения дополнительной информации."
 
+#: app/cases/controllers/edit.js
+msgid "no business hours"
+msgstr "нет часов работы"
+
 #: app/cases/views/addCommentSection.html
 msgid "{{charactersLeft}} characters left."
 msgstr "осталось: {{charactersLeft}}"
@@ -1489,70 +1536,72 @@ msgstr ""
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "осталось символов: {{noteCharactersLeft}}"
 
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "CASE {{caseNumber}}"
 msgstr "ЗАПРОС {{caseNumber}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
-#: app/common/controllers/titleView.js:
-#: app/i18n/placeholder.html:
-msgid "Logs"
-msgstr "Журналы"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "SUPPORT CASES"
 msgstr "ЗАПРОСЫ ПОДДЕРЖКИ"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
-#: app/common/controllers/titleView.js:
+#: app/common/controllers/titleView.js
 msgid "Search Support Case"
 msgstr "Поиск запросов поддержки"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ypoyarko
-#: app/common/services/alertService.js:
+#: app/common/services/alertService.js
 msgid "You have successfully logged out of the Red Hat Customer Portal."
 msgstr "Ваш сеанс завершен."
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (A-Z)"
 msgstr "Владелец (A-Z)"
 
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Case Owner (Z-A)"
 msgstr "Владелец (Z-A)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Highest Severity"
 msgstr "Приоритет (по убыванию)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Lowest Severity"
 msgstr "Приоритет (по возрастанию)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Created"
 msgstr "Дата создания (по убыванию)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Newest Date Modified"
 msgstr "Дата изменения (по убыванию)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Created"
 msgstr "Дата создания (по возрастанию)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ypoyarko
-#: app/common/services/constantsService.js:
+#: app/common/services/constantsService.js
 msgid "Oldest Date Modified"
 msgstr "Дата изменения (по возрастанию)"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author ypoyarko
-#: app/common/services/strataService.js:
+#: app/common/services/strataService.js
 msgid "Unauthorized."
 msgstr "Не авторизован."
+
+#: app/common/services/constantsService.js
+msgid "Case Status (A-Z)"
+msgstr "Статус (A-Z)"
+
+#: app/common/services/constantsService.js
+msgid "Case Status (Z-A)"
+msgstr "Статус (Z-A)"
