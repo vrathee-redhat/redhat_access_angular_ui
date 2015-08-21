@@ -74,6 +74,6 @@ section.case-description
               name='updateButton',
               ng-disabled='validatePage() || updatingDetails || !detailsForm.$dirty',
               ng-click='updateCase()', translate='') Save Changes
-            a.margin-left(
+            a#cancelCaseDetailChanges.margin-left(
               ng-hide='updatingDetails || !detailsForm.$dirty',
               ng-click='resetData()',translate='') Cancel
