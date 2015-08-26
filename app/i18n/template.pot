@@ -199,11 +199,6 @@ msgstr ""
 msgid "Case Information"
 msgstr ""
 
-#. Noun
-#: app/cases/views/new.html
-msgid "Case Name"
-msgstr ""
-
 #: app/cases/views/detailsSection.html
 msgid "Case Type"
 msgstr ""
@@ -425,6 +420,10 @@ msgstr ""
 msgid "For example: 1-888-467-3342"
 msgstr ""
 
+#: app/cases/controllers/edit.js
+msgid "Friday = {{businessHours}}"
+msgstr ""
+
 #: app/escalation/views/iceEscalation.html
 msgid "GSS ICE FAQ"
 msgstr ""
@@ -459,6 +458,10 @@ msgstr ""
 
 #: app/escalation/views/iceEscalation.html
 msgid "If this is a request for information from you or the customer and if you need us to contact you to discuss the issues."
+msgstr ""
+
+#: app/cases/controllers/edit.js
+msgid "If we have not recorded your business hours correctly, please update your timezone in  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Your preferences</a>"
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html
@@ -510,10 +513,6 @@ msgstr ""
 msgid "Log File Viewer"
 msgstr ""
 
-#: app/i18n/placeholder.html
-msgid "Logs"
-msgstr ""
-
 #: app/cases/services/caseService.js
 msgid "Manage Case Groups"
 msgstr ""
@@ -524,6 +523,10 @@ msgstr ""
 
 #: app/cases/views/list.html
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
+msgstr ""
+
+#: app/cases/controllers/edit.js
+msgid "Monday = {{businessHours}}"
 msgstr ""
 
 #: app/i18n/placeholder.html
@@ -708,6 +711,11 @@ msgid "Private Notes"
 msgstr ""
 
 #. Noun
+#: app/cases/views/new.html
+msgid "Problem Statement"
+msgstr ""
+
+#. Noun
 #: app/cases/views/detailsSection.html
 #: app/cases/views/new.html
 msgid "Product"
@@ -776,6 +784,10 @@ msgstr ""
 
 #: app/search/views/resultDetail.html
 msgid "Resolution"
+msgstr ""
+
+#: app/cases/controllers/edit.js
+msgid "Saturday = {{businessHours}}"
 msgstr ""
 
 #: app/cases/views/createGroupModal.html
@@ -901,6 +913,10 @@ msgstr ""
 msgid "Summary of Request"
 msgstr ""
 
+#: app/cases/controllers/edit.js
+msgid "Sunday = {{businessHours}}"
+msgstr ""
+
 #: app/i18n/placeholder.html
 msgid "Support"
 msgstr ""
@@ -912,6 +928,10 @@ msgstr ""
 
 #: app/common/views/403.html
 msgid "Support Subscription Required"
+msgstr ""
+
+#: app/cases/controllers/edit.js
+msgid "Thank you for contacting Red Hat support!  We'll be in contact soon.  Our records indicate your availability as follows:"
 msgstr ""
 
 #: app/common/views/403.html
@@ -947,6 +967,10 @@ msgstr ""
 msgid "This should be the email address associated with your Red Hat Customer Portal or Partner Center login"
 msgstr ""
 
+#: app/cases/controllers/edit.js
+msgid "Thursday = {{businessHours}}"
+msgstr ""
+
 #: app/cases/views/new.html
 msgid "To Learn more view the"
 msgstr ""
@@ -965,6 +989,10 @@ msgstr ""
 
 #: app/cases/views/discussionSection.html
 msgid "Transcript of chat between"
+msgstr ""
+
+#: app/cases/controllers/edit.js
+msgid "Tuesday = {{businessHours}}"
 msgstr ""
 
 #: app/cases/services/caseService.js
@@ -1011,6 +1039,10 @@ msgstr ""
 #: app/cases/views/descriptionSection.html
 #: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
+msgstr ""
+
+#: app/cases/controllers/edit.js
+msgid "Wednesday = {{businessHours}}"
 msgstr ""
 
 #: app/cases/services/caseService.js
@@ -1095,6 +1127,10 @@ msgstr ""
 msgid "for more information."
 msgstr ""
 
+#: app/cases/controllers/edit.js
+msgid "no business hours"
+msgstr ""
+
 #: app/cases/views/addCommentSection.html
 msgid "{{charactersLeft}} characters left."
 msgstr ""
@@ -1161,4 +1197,12 @@ msgstr ""
 
 #: app/common/services/strataService.js
 msgid "Unauthorized."
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Case Status (A-Z)"
+msgstr ""
+
+#: app/common/services/constantsService.js
+msgid "Case Status (Z-A)"
 msgstr ""

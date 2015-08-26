@@ -18,12 +18,15 @@ angular.module('RedhatAccess.cases').controller('Edit', [
     'EDIT_CASE_CONFIG',
     'RHAUtils',
     'CASE_EVENTS',
-    function ($scope, $stateParams, $filter, $q, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS) {
+    '$sce',
+    'gettextCatalog',
+    function ($scope, $stateParams, $filter, $q, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS,$sce,gettextCatalog) {
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.HeaderService = HeaderService;
+        $scope.fromNewCase = false;
         $scope.RecommendationsService = RecommendationsService;
         CaseService.clearCase();
         $scope.loading = {};
@@ -59,6 +62,41 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 }
                 if (EDIT_CASE_CONFIG.showEmailNotifications && !cacheHit) {
                     CaseService.defineNotifiedUsers();
+                }
+                if($scope.fromNewCase)
+                {
+                    AlertService.clearAlerts();
+                    $scope.fromNewCase = false;
+                    var noBusinessHours=gettextCatalog.getString('no business hours');
+                    strataService.values.businesshours(securityService.loginStatus.authedUser.timezone).then(function (response) {
+                        var availability = "";
+                        availability = availability + gettextCatalog.getString('Sunday = {{businessHours}}',{businessHours: ((response.Days.Sunday[0] === "" && response.Days.Sunday[1] === "") ? noBusinessHours :response.Days.Sunday[0] + " - " + response.Days.Sunday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + "<br/>";
+                        availability = availability + gettextCatalog.getString('Monday = {{businessHours}}',{businessHours: ((response.Days.Monday[0] === "" && response.Days.Monday[1] === "") ? noBusinessHours :response.Days.Monday[0] + " - " + response.Days.Monday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + "<br/>";
+                        availability = availability + gettextCatalog.getString('Tuesday = {{businessHours}}',{businessHours: ((response.Days.Tuesday[0] === "" && response.Days.Tuesday[1] === "") ? noBusinessHours :response.Days.Tuesday[0] + " - " + response.Days.Tuesday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + "<br/>";
+                        availability = availability + gettextCatalog.getString('Wednesday = {{businessHours}}',{businessHours: ((response.Days.Wednesday[0] === "" && response.Days.Wednesday[1] === "") ? noBusinessHours :response.Days.Wednesday[0] + " - " + response.Days.Wednesday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + "<br/>";
+                        availability = availability + gettextCatalog.getString('Thursday = {{businessHours}}',{businessHours: ((response.Days.Thursday[0] === "" && response.Days.Thursday[1] === "") ? noBusinessHours :response.Days.Thursday[0] + " - " + response.Days.Thursday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + "<br/>";
+                        availability = availability + gettextCatalog.getString('Friday = {{businessHours}}',{businessHours: ((response.Days.Friday[0] === "" && response.Days.Friday[1] === "") ? noBusinessHours :response.Days.Friday[0] + " - " + response.Days.Friday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + "<br/>";
+                        availability = availability + gettextCatalog.getString('Saturday = {{businessHours}}',{businessHours: ((response.Days.Saturday[0] === "" && response.Days.Saturday[1] === "") ? noBusinessHours :response.Days.Saturday[0] + " - " + response.Days.Saturday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + "<br/>";
+
+                        var message = gettextCatalog.getString("Thank you for contacting Red Hat support!  We'll be in contact soon.  Our records indicate your availability as follows:") +
+                            "<br/>" +
+                            availability +
+                            "<br/>" +
+                            gettextCatalog.getString("If we have not recorded your business hours correctly, please update your timezone in  <a href=\'/wapps/ugc/protected/locale.html\' target=\'_blank\'>Your preferences</a>");
+                        var parsedHtml = $sce.trustAsHtml(message);
+                        AlertService.addInfoMessage(parsedHtml);
+
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
+
                 }
 
             }, function (error) {
@@ -127,6 +165,11 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                     CaseService.clearCase();
                     $scope.init();
                 }
+            }
+        });
+        $scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+            if(from.url === '/case/new'){
+                $scope.fromNewCase = true;
             }
         });
     }
