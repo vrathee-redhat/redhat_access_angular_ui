@@ -7,6 +7,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
     a(ng-click='toggleNotes()', data-toggle="tab") {{'Private Notes'|translate}}
   li(ng-class='{"active": bugzillas}', ng-show="securityService.loginStatus.authedUser.is_internal || CaseService.kase.bugzillas.bugzilla.length > 0")
     a(ng-click='toggleBugzillas()', data-toggle="tab") {{'Bugzilla Tickets'|translate}}
+  li(ng-class='{"active": actionPlan}')
+    a(ng-click='toggleActionPlan()', data-toggle="tab") {{'Action Plan'|translate}}
 .tab-content
   #pane1.tab-pane(ng-class='{"active": discussion}')
     .row
@@ -93,3 +95,24 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             a.margin-left(ng-click="discardNotes()", ng-class='{"disabled" : CaseService.updatingCase || !notesForm.$dirty}') {{'Discard Changes'|translate}}
   #pane4.tab-pane(ng-if="securityService.loginStatus.authedUser.is_internal || CaseService.kase.bugzillas.bugzilla.length > 0", ng-class='{"active": bugzillas}')
     div(rha-listbugzillas)
+  #pane5.tab-pane(ng-class='{"active": actionPlan}')
+    form(name='actionPlanForm')
+      div
+        label(for='rha-action-plan') {{'Action Plan:'|translate}}
+      .row(ng-if="!securityService.loginStatus.authedUser.is_internal")
+        .col-xs-12
+          span.pre-wrap {{CaseService.kase.action_plan}}
+        .col-xs-12(ng-if='!CaseService.kase.action_plan')
+          span {{"No action plan to display."|translate}}
+      .row(ng-if="securityService.loginStatus.authedUser.is_internal")
+        .col-xs-12
+          textarea#rha-action-plan(
+            style='width: 100%; height: 70px; max-width: 100%;',
+            ng-model='CaseService.kase.action_plan',
+            maxlength='255',
+            name='caseSummary')
+      .row.row-short(ng-if="securityService.loginStatus.authedUser.is_internal")
+        .col-sm-6
+          .pull-left
+            button.btn.btn-app(ng-click="updateActionPlan()", ng-disabled='CaseService.updatingCase || !actionPlanForm.$dirty',translate='') Update
+            a.margin-left(ng-click="discardActionPlan()", ng-class='{"disabled" : CaseService.updatingCase || !actionPlanForm.$dirty}') {{'Discard Changes'|translate}}
