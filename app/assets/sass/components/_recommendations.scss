@@ -31,6 +31,10 @@ $aside-border-color: #d3d3d3;
 
 			a {
 				color: $base_font_color;
+
+				.recommendationsKeywords{
+					background-color: #FFD351;
+				}
 			}
 		}
 
@@ -230,6 +234,12 @@ $recommendations-dark-link-color: #0bc0fc;
 
 		.spinner {
 			margin-left: -4px;
+		}
+
+		.pre-wrap {
+			.recommendationsKeywords {
+				background-color: #FFD351;
+			}
 		}
 	}
 
