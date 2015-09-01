@@ -515,6 +515,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if (this.kase.notes !== null && !angular.equals(this.prestineKase.notes, this.kase.notes)) {
                 caseJSON.notes = this.kase.notes;
             }
+            if (this.kase.action_plan !== null && !angular.equals(this.prestineKase.action_plan, this.kase.action_plan)) {
+                caseJSON.actionPlan = this.kase.action_plan;
+            }
             if (this.kase.summary !== null && !angular.equals(this.prestineKase.summary, this.kase.summary) ) {
                 caseJSON.summary = this.kase.summary;
             }

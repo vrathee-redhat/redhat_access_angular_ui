@@ -131,33 +131,55 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
                 AlertService.addStrataErrorMessage(error);
             }));
         };
+        $scope.updateActionPlan = function(){
+            CaseService.updateCase().then(angular.bind(this, function () {
+                this.actionPlanForm.$setPristine();
+            }) ,angular.bind(this, function (error) {
+                AlertService.addStrataErrorMessage(error);
+            }));
+        };
         $scope.discardNotes = function(){
             CaseService.kase.notes = CaseService.prestineKase.notes;
             this.notesForm.$setPristine();
+        };
+        $scope.discardActionPlan = function(){
+            CaseService.kase.action_plan = CaseService.prestineKase.action_plan;
+            this.actionPlanForm.$setPristine();
         };
         $scope.toggleDiscussion = function(){
             $scope.discussion = true;
             $scope.attachments = false;
             $scope.notes = false;
             $scope.bugzillas = false;
+            $scope.actionPlan = false;
         };
         $scope.toggleAttachments= function(){
             $scope.discussion = false;
             $scope.attachments = true;
             $scope.notes = false;
             $scope.bugzillas = false;
+            $scope.actionPlan = false;
         };
         $scope.toggleNotes = function(){
             $scope.discussion = false;
             $scope.attachments = false;
             $scope.notes = true;
             $scope.bugzillas = false;
+            $scope.actionPlan = false;
         };
         $scope.toggleBugzillas = function(){
             $scope.discussion = false;
             $scope.attachments = false;
             $scope.notes = false;
             $scope.bugzillas = true;
+            $scope.actionPlan = false;
+        };
+        $scope.toggleActionPlan = function(){
+            $scope.discussion = false;
+            $scope.attachments = false;
+            $scope.notes = false;
+            $scope.bugzillas = false;
+            $scope.actionPlan = true;
         };
 
         $scope.$on('$locationChangeSuccess', function(){
