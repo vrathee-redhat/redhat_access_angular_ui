@@ -83,20 +83,23 @@ ul#tab_list.nav.nav-tabs(role="tablist")
               time {{element.last_modified_time}}
             .pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
   #pane2.tab-pane(ng-class='{"active": attachments}')
-    article.row(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse'")
-      .col-sm-4
-        h4.meta
-          .author.blue {{attachment.last_modified_by}}
-          date.light {{attachment.published_date}}
-          span.light {{'at'|translate}} &nbsp;
-          time.light {{attachment.published_time}}
-      .col-sm-8
-        .dialog-box
-            a(href="{{attachment.uri}}")
-              .fa.fa-file-image-o.file-upload
-              span {{attachment.file_name}} ({{attachment.length | bytes}})
-            .fa.fa-close.pull-right(type='button', style='float: right; cursor: pointer;', ng-click='deleteAttachment(attachment)')
-            .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
+      .row.row-very-short.case-discussion
+       .col-xs-12
+        .discussion-element(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse'")
+           article.comment.article-attachment(ng-if="attachment.file_name")
+              i.fa.fa-paperclip
+              h4.meta {{'Attachment'|translate}}
+              .byline
+                  author {{attachment.last_modified_by}} {{'on'|translate}} &nbsp;
+                  date {{attachment.published_date}} &nbsp;
+                  span {{'at'|translate}} &nbsp;
+                  time {{attachment.published_time}}
+              .pre-wrap
+                  a(href="{{attachment.uri}}")
+                      .fa.fa-file-image-o.file-upload
+                      span {{attachment.file_name}} ({{attachment.length | bytes}})&nbsp;
+                  span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(attachment)')
+                  .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')
     form(name='notesForm')
       div
