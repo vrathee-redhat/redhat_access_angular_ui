@@ -33,7 +33,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .byline
                 author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
                 date {{element.published_date}} {{'at'|translate}}&nbsp;
-                date {{element.published_time}} 
+                date {{element.published_time}}
             .pre-wrap
               span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.text}}
               .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
@@ -67,9 +67,9 @@ ul#tab_list.nav.nav-tabs(role="tablist")
               a(href="{{element.uri}}")
                 .fa.fa-file-image-o.file-upload
                 span {{element.file_name}} ({{element.length | bytes}})&nbsp;
-                span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
+              span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
               .description.margin-top-short(ng-show="element.description") {{element.description}}
-          
+
           article.comment.article-chat(ng-if="element.comment_type === 'chat'")
             i.fa.fa-file-text-o
             h4.meta(ng-if="element.comment_type === 'chat'") {{'Transcript of chat'|translate}}
