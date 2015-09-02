@@ -1,4 +1,6 @@
 section.case-description
+  h3.case-name.pre-wrap
+    a(ng-click='editCaseSummary(true)' , ng-show='!caseSummaryEditable' , href='') {{CaseService.kase.summary}}
   form(name='summaryForm')
    .row(ng-show='caseSummaryEditable')
     .col-xs-4.col-sm-3.col-md-8
