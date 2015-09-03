@@ -5,16 +5,16 @@ div.edit(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageL
       h1.page-title(translate, style="margin-bottom:0px;") CASE {{CaseService.kase.case_number}}
       h5(style="margin-bottom:0px;") {{CaseService.kase.summary}}
       div(style="margin-bottom:15px;")
-        span {{CaseService.kase.product}} {{CaseService.kase.version}}
+        span(id="rha-product-version") {{CaseService.kase.product}} {{CaseService.kase.version}}
       div
-        span(translate)  Filed on {{CaseService.kase.created_date}} by {{CaseService.kase.contact_name}}
+        span(id="rha-case-filedOn" translate)  Filed on {{CaseService.kase.created_date}} by {{CaseService.kase.contact_name}}
       div
         span {{'Assigned to'|translate}} {{CaseService.kase.owner}}
       div(ng-if='securityService.loginStatus.authedUser.is_internal')
         span(translate) Account number : {{securityService.loginStatus.account.number}}
       div(ng-if='securityService.loginStatus.authedUser.is_internal')
         span(translate) Account name : {{securityService.loginStatus.account.name}}
-      a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}      
+      a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
       div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
       div(ng-show='EDIT_CASE_CONFIG.showDetails')
@@ -23,7 +23,7 @@ div.edit(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageL
       section.case-discussion
         .row
           .col-xs-12(rha-emailnotifyselect='')
-        
+
     .aside.col-md-4
       .spinner.spinner-inline(ng-show='RecommendationsService.loadingRecommendations')
       #rha-recommendation-section.recommendations.aside-section(rha-editcaserecommendations='', ng-hide='(RecommendationsService.recommendations.length === 0 && RecommendationsService.handPickedRecommendations.length === 0 && RecommendationsService.pinnedRecommendations.length === 0) || RecommendationsService.loadingRecommendations')
