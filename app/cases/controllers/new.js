@@ -252,10 +252,6 @@ angular.module('RedhatAccess.cases').controller('New', [
             }
         };
 
-        $scope.$on('$locationChangeStart', function(event) {
-            $scope.myId = $location.$$path;
-        });
-
         function scopeInit() {
             $scope.ABTestRegister();
             $scope.initSelects();
