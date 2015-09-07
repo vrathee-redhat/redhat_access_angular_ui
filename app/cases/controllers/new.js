@@ -225,23 +225,30 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
 
         $scope.ABTestRegister = function() {
-            if (securityService.loginStatus.authedUser.account_number !== undefined) {
-                var testgroup = '';
-                if (securityService.loginStatus.authedUser.account_number % 2 === 1) {
-                    testgroup = 'ABTestControl';
-                    $scope.isControlGroup = true;
-                } else{
-                    testgroup = 'ABTestChallenger';
-                    $scope.isControlGroup = false;
+
+            var urlParameter = $location.search();
+
+            if(!urlParameter.abtest){
+                if (securityService.loginStatus.authedUser.account_number !== undefined) {
+                    var testgroup = '';
+                    if (securityService.loginStatus.authedUser.account_number % 2 === 1) {
+                        testgroup = 'ABTestControl';
+                        $scope.isControlGroup = true;
+                    } else{
+                        testgroup = 'ABTestChallenger';
+                        $scope.isControlGroup = false;
+                    }
+                    if (window.chrometwo_require !== undefined) {
+                        chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
+                            paf.trigger('ABTestImpression');
+                            attrs.set('ABTestCampaign', ['ABTestTitle', testgroup]);
+                            attrs.harvest();
+                            paf.report();
+                        });
+                    }
                 }
-                if (window.chrometwo_require !== undefined) {
-                    chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
-                        paf.trigger('ABTestImpression');
-                        attrs.set('ABTestCampaign', ['ABTestTitle', testgroup]);
-                        attrs.harvest();
-                        paf.report();
-                    });
-                }
+            } else {
+                $scope.isControlGroup = !(urlParameter.abtest === 'true');
             }
         };
 
