@@ -1,6 +1,6 @@
 {
     "name": "redhat-access-angular-ui",
-    "version": "1.0.31",
+    "version": "1.0.32",
     "dependencies": {
         "angular": "1.2.1",
         "redhat-access-angular-ui-common": "1.0.14",
