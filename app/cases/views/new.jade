@@ -45,23 +45,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                                         .circle &nbsp;
                                         .circle &nbsp;
-                            .row.row-short(ng-if='isControlGroup')
-                                .col-sm-3
-                                    .label(translate,translate-comment="Noun") Case Description
-                                .col-sm-7.col-md-8
-                                    textarea(name='', id='rha-description', cols='30', rows='10',
-                                    style='width: 100%; height: 200px; max-width: 100%;',
-                                    ng-model='CaseService.kase.description',
-                                    ng-change='updateDescriptionString();CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
-                                    ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
-                                    ng-focus="CaseService.updatingNewCaseDescription=true",
-                                    ng-blur="CaseService.updatingNewCaseDescription=false")
-                                .col-sm-1(ng-show='CaseService.updatingNewCaseDescription && RecommendationsService.loadingRecommendations')
-                                    .loader
-                                        .circle &nbsp;
-                                        .circle &nbsp;
-                                        .circle &nbsp;
-                            .row.row-short(ng-if='!isControlGroup')
+                            .row.row-short
                                 .col-sm-3
                                     .label(style='margin: 0px;').pre-wrap {{CaseService.problemString}}
                                 .col-sm-7.col-md-8
@@ -77,7 +61,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                                         .circle &nbsp;
                                         .circle &nbsp;
-                            .row.row-short(ng-if='!isControlGroup')
+                            .row.row-short
                                 .col-sm-3
                                     .label(style='margin: 0px;').pre-wrap {{CaseService.environmentString}}
                                 .col-sm-7.col-md-8
@@ -93,7 +77,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                                         .circle &nbsp;
                                         .circle &nbsp;
-                            .row.row-short(ng-if='!isControlGroup')
+                            .row.row-short
                                 .col-sm-3
                                     .label(style='margin: 0px;').pre-wrap {{CaseService.occuranceString}}
                                 .col-sm-7.col-md-8
@@ -109,7 +93,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                                         .circle &nbsp;
                                         .circle &nbsp;
-                            .row.row-short(ng-if='!isControlGroup')
+                            .row.row-short
                                 .col-sm-3
                                     .label(style='margin: 0px;').pre-wrap {{CaseService.urgencyString}}
                                 .col-sm-7.col-md-8
@@ -235,4 +219,4 @@ div(rha-header='', page='newCase')
                                 ng-click='doSubmit($event)', translate,translate-comment="Verb") Submit
                                 a.margin-left(href='#/case/list',ng-hide='CaseService.submittingCase',translate,translate-comment="Verb") Cancel
         .aside.col-sm-4(ng-hide="RecommendationsService.recommendations.length === 0")
-            div(rha-newcaserecommendations='')
+            div(rha-newcaserecommendations='', items-per-page='recommendationsPerPage')
