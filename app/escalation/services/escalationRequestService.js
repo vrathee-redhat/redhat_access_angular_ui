@@ -13,6 +13,7 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
 	    this.accountNumber = '';
 	    this.caseNumber = '';
 	    this.alreadyEscalated = false;
+        this.requestorName = '';
 	    this.requestorEmail = '';
 	    this.requestorPhone = '';
 	    this.customerName = '';
@@ -27,6 +28,7 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
             this.accountNumber = '';
             this.caseNumber = '';
             this.alreadyEscalated = false;
+            this.requestorName = '';
             this.requestorEmail = '';
             this.requestorPhone = '';
             this.customerName = '';
@@ -71,6 +73,9 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
             if (!isObjectNothing(this.customerPhone)) {
                 escalationJSON.customer_phone = this.customerPhone;
             }
+            // if (!isObjectNothing(this.requestorName)) {
+            //     escalationJSON.requestor_name = this.requestorName;
+            // }
             if (!isObjectNothing(this.requestorEmail)) {
                 escalationJSON.requestor_email = this.requestorEmail;
             }
