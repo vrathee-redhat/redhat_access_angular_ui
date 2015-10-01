@@ -73,7 +73,7 @@ div#redhat-access-escalations.container-offset(ng-hide='HeaderService.showPartne
               select#rha-geo.form-control(
                 ng-model='EscalationRequestService.subject' 
                 ng-options='subject for subject in subjectList'
-                ng-change="checkForToggleSubjectTextArea()")
+                ng-change="checkForToggleSubjectTextArea();partnerMandatoryFieldCheck()")
               textarea#rha-issue-subject.form-control.nonEmpty(ng-model='EscalationRequestService.subjectText' ng-change="partnerMandatoryFieldCheck()", ng-hide="isSubjectTextAreaHidden")
               span.help-block {{'Please select the issue subject.  If an item in the list does not match, please select \'other\' and enter a subject in the box that appears below.'|translate}}
           div.form-group

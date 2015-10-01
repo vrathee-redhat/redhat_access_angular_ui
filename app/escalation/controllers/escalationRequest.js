@@ -53,7 +53,7 @@ angular.module('RedhatAccess.escalation').controller('EscalationRequest', [
         };
         $scope.partnerMandatoryFieldCheck = function() {
             if (RHAUtils.isNotEmpty(EscalationRequestService.accountNumber) && RHAUtils.isNotEmpty(EscalationRequestService.caseNumber)
-                && RHAUtils.isNotEmpty(EscalationRequestService.geo) && RHAUtils.isNotEmpty(EscalationRequestService.issueDescription)) {
+                && RHAUtils.isNotEmpty(EscalationRequestService.geo) && RHAUtils.isNotEmpty(EscalationRequestService.issueDescription) && RHAUtils.isNotEmpty(EscalationRequestService.subject)) {
                 $scope.disableSendRequest = false;
             } else {
                 $scope.disableSendRequest = true;
