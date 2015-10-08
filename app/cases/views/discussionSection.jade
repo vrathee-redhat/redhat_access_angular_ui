@@ -100,7 +100,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                       .fa.fa-file-image-o.file-upload
                       span {{attachment.file_name}} ({{attachment.length | bytes}})&nbsp;
                   span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(attachment)')
-                  div {{'Checksum:'|translate}}&nbsp;{{element.checksum}}
+                  div {{'Checksum:'|translate}}&nbsp;{{attachment.checksum}}
                   .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
   #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')
     form(name='notesForm')
