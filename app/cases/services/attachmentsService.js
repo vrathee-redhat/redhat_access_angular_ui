@@ -129,7 +129,6 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                                 attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                 attachment.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
-                                AlertService.clearAlerts();
                                 AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}',{attachmentFileName:attachment.file_name,caseNumber:caseId}));
                             }, function (error) {
                                 if (navigator.appVersion.indexOf("MSIE 10") !== -1){
@@ -151,7 +150,6 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                 var uploadingAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
                 var parentPromise = $q.all(promises);
                 parentPromise.then(angular.bind(this, function () {
-                    this.originalAttachments = this.originalAttachments.concat(this.updatedAttachments);
                     this.updatedAttachments = [];
                     AlertService.removeAlert(uploadingAlert);
                 }), function (error) {

@@ -881,7 +881,7 @@ describe('Case Services', function () {
             attachmentsService.updateAttachments('12345');
             spyOn(mockStrataService.cases.attachments, 'post').andCallThrough();
             scope.$root.$digest();
-            expect(attachmentsService.originalAttachments.length).toBe(3);
+            expect(attachmentsService.updatedAttachments.length).toBe(0);
         });
         it('should have a method to update Attachments rejected', function () {
             expect(attachmentsService.updateAttachments).toBeDefined();
