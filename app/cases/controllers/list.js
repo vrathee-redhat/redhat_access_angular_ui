@@ -31,8 +31,8 @@ angular.module('RedhatAccess.cases').controller('List', [
         $scope.displayedCaseText = 'Open Support Cases';
 	    $scope.exports = function () {
 		    $scope.exporting = true;
-		    strataService.cases.csv().then(function (response) {
-			    $scope.exporting = false;
+            strataService.cases.csv().then(function (response) {
+                $scope.exporting = false;
                 var blob = new Blob([ response ], { type : 'text/csv' });
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                     window.navigator.msSaveOrOpenBlob(blob, "caseList.csv");
@@ -46,9 +46,10 @@ angular.module('RedhatAccess.cases').controller('List', [
                     event.initEvent("click", true, false);
                     anchor.dispatchEvent(event);
                 }
-		    }, function (error) {
-			    AlertService.addStrataErrorMessage(error);
-		    });
+            }, function (error) {
+                $scope.exporting = false;
+                AlertService.addStrataErrorMessage(error);
+            });
 	    };
 
         $scope.$on(CASE_EVENTS.searchSubmit, function () {
