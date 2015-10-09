@@ -94,6 +94,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             if (CaseService.kase !== undefined) {
                 CaseService.updateCase().then(function () {
                     $scope.updatingDetails = false;
+                    $scope.caseSummaryEditable = false;
                     $scope.detailsForm.$setPristine();
                     $scope.summaryForm.$setPristine();
                 }, function (error) {
