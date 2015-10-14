@@ -4,6 +4,12 @@ angular.module('RedhatAccess.cases').directive('rhaSeverityselect', function () 
     return {
         templateUrl: 'cases/views/severitySelect.html',
         restrict: 'A',
-        controller: 'SeveritySelect'
+        controller: 'SeveritySelect',
+        scope: {
+        	severityModel: '=',
+        	severityChange: '&',
+        	severities: '=',
+            disabled: '='
+        }
     };
 });
