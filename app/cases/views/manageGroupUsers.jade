@@ -1,0 +1,45 @@
+span.spinner.spinner-inline(ng-show='ManageGroupsService.usersLoading')
+span(ng-show='ManageGroupsService.usersLoading') {{'Users Loading...'|translate}}
+div.ng-isolate-scope(ng-show='!ManageGroupsService.usersLoading && usersOnScreen.length < 1') {{'Users not available.'|translate}}
+#list-users-case.ng-isolate-scope(ng-show='usersOnScreen.length > 0')
+  .row
+    .col-sm-12.col-md-6
+      div(rha-searchbox='', placeholder='"Search Users"')
+  .row
+    .col-sm-12
+      table.table.table-cp.table-vertical-center(ng-table='tableParams')
+        thead
+          th
+            div {{'Login'|translate}}
+          th
+            div {{'First Name'|translate}}
+          th
+            div {{'Last Name'|translate}}
+          th
+            div {{'Access'|translate}}
+          th
+            div {{'Make Default Group'|translate}}
+        tbody
+          tr(ng-repeat='user in usersOnScreen')
+            td(data-title='', sortable='')
+              span(ng-disabled='user.org_admin') {{user.sso_username}}
+            td(data-title='', sortable='')
+              {{user.first_name}}
+            td(data-title='', sortable='')
+              {{user.last_name}}
+            td(data-title='', sortable='')
+              span(ng-show='user.org_admin') {{'Read and Write'|translate}}
+              select#rha-access-select(
+                chosen,
+                width='"100%"',
+                ng-if='!user.org_admin',
+                ng-model='user.permission',
+                ng-change='setUserPermission(user)',
+                ng-options='option.value as option.label for option in accessOptions')
+            td
+              .row
+                .col-sm-6
+                  .toggle-switch(ng-click='setDefaultGroup(user)', ng-class='{"active": user.groupIsdefault , "disabled": user.permission === "NONE"}')
+                    .switch
+                .col-sm-4
+                  span.spinner.spinner-inline(ng-show='user.settingDefaultGroup')

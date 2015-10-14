@@ -75,8 +75,8 @@ angular.module('RedhatAccess.cases', [
         });
         $stateProvider.state('group', {
             url: '/case/group',
-            controller: 'Group',
-            templateUrl: 'cases/views/group.html'
+            controller: 'ManageGroups',
+            templateUrl: 'cases/views/manageGroups.html'
         });
         $stateProvider.state('defaultGroup', {
             url: '/case/group/default',
