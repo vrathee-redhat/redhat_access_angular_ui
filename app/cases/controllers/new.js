@@ -130,7 +130,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             ProductsService.getProducts(false);
             CaseService.populateEntitlements(securityService.loginStatus.authedUser.sso_username);
             strataService.values.cases.severity().then(function (severities) {
-                CaseService.severities = severities;
+                CaseService.setSeverities(severities);
                 CaseService.kase.severity = severities[severities.length - 1];
                 $scope.severitiesLoading = false;
             }, function (error) {

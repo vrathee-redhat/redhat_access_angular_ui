@@ -54,7 +54,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 AlertService.addStrataErrorMessage(error);
             });
             strataService.values.cases.severity().then(function (response) {
-                CaseService.severities = response;
+                CaseService.setSeverities(response);
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
@@ -94,6 +94,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             if (CaseService.kase !== undefined) {
                 CaseService.updateCase().then(function () {
                     $scope.updatingDetails = false;
+                    $scope.caseSummaryEditable = false;
                     $scope.detailsForm.$setPristine();
                     $scope.summaryForm.$setPristine();
                 }, function (error) {

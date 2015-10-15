@@ -45,6 +45,12 @@ input.margin { margin-bottom: 20px; }
 	padding: 0 1px;
 }
 
+.input-group-btn .btn {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 14px;
+}
+
 input.with-close {
 	@include rem('padding-right', 40px);
 }

@@ -1736,11 +1736,20 @@ describe('Case Controllers', function () {
     //Suite for SeveritySelect
     describe('SeveritySelect', function () {
         it('should have a controller for severity select', inject(function ($controller) {
+            mockScope.severities = [{name: "1"}, {name: "2"}];
             $controller('SeveritySelect', {
-                $scope: mockScope,
-                CaseService: mockCaseService
+                $scope: mockScope
             });
-            expect(mockScope.CaseService).toEqual(mockCaseService);
+            expect(mockScope.openedDetails).toBeDefined();
+            expect(mockScope.openedDetails["1"]).toEqual(false);
+            expect(mockScope.openedDetails["2"]).toEqual(false);
+            expect(mockScope.toggleDetails).toBeDefined();
+            mockScope.toggleDetails(mockScope.severities[0]);
+            expect(mockScope.openedDetails["1"]).toEqual(true);
+            expect(mockScope.openedDetails["2"]).toEqual(false);
+            mockScope.toggleDetails(mockScope.severities[1]);
+            expect(mockScope.openedDetails["1"]).toEqual(true);
+            expect(mockScope.openedDetails["2"]).toEqual(true);
         }));
     });
 

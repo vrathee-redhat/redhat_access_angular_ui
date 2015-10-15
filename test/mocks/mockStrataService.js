@@ -921,6 +921,9 @@ angular.module('RedhatAccess.mock', [])
             this.commentsPerPage = 4;
             this.selectCommentsPage = function(pageNum) {};
 
+            this.setSeverities = function(severities) {
+                this.severities = severities;
+            };
 
             this.populateUsers =  function () {
                 var deferred = $q.defer();

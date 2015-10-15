@@ -1,7 +1,40 @@
-span.glyphicon.glyphicon-question-sign.tooltip.pull-right(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="hover")
-select(
-	chosen,
-	width="'100%'",
-	name='severity',
-	ng-model='CaseService.kase.severity',
-	ng-options='s.name for s in CaseService.severities track by s.name')
+table.table.table-hover.table-condensed
+    thead
+        tr
+            th(translate) Severity Level
+            th(translate) Standard
+            th(translate) Premium
+    tbody
+        tr(ng-repeat-start="severity in severities").list-item
+            td
+                .row
+                    .col-md-2
+                        input(type="radio", name="severityRadio", ng-model="$parent.severityModel", ng-value="severity",
+                        ng-change="$parent.severityChange()", ng-disabled="disabled", id="severity_{{severity.name}}")
+                    .col-md-2
+                        span.icon-severity.level1(ng-show="severity.name === '1 (Urgent)'") 1
+                        span.icon-severity.level2(ng-show="severity.name === '2 (High)'") 2
+                        span.icon-severity.level3(ng-show="severity.name === '3 (Normal)'") 3
+                        span.icon-severity.level4(ng-show="severity.name === '4 (Low)'") 4
+                    .col-md-6
+                        label(for="severity_{{severity.name}}")
+                            div.severity-select-name {{ severity.name.substring(2, severity.name.length) }}
+                    .col-md-2
+                        span.glyphicon.glyphicon-question-sign.link.severity-details-link(ng-click="toggleDetails(severity)")
+            td
+                div.severity-time-description {{severity.responseTimes.standard}}
+            td
+                div.severity-time-description {{severity.responseTimes.premium}}
+        tr(ng-repeat-end, ng-show="openedDetails[severity.name]", ng-animate=).severity-description
+            td(colspan=3)
+                span {{severity.details}}
+                = " "
+                span(translate) See the
+                = " "
+                a(href="/support/policy/severity", target="_blank") {{"Red Hat Support Severity Level Definitions" | translate}}
+                = " "
+                span(translate) to learn more.
+
+span(translate) For more details about initial and ongoing response times, visit the
+= " "
+a(href="/support/offerings/production/sla", target="_blank") {{"Production Support Service Level Agreement" | translate}}

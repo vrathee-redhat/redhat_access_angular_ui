@@ -167,16 +167,10 @@ div(rha-header='', page='newCase')
                                 .col-sm-3
                                     label.inline-tooltip  {{'Severity' |translate}}
                                         span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To learn more, visit the" |translate }}</br><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a>',tabindex='0',tooltip-trigger="click")
-                                .col-sm-7.col-md-6
+                                .col-sm-7.col-md-8
                                     .row
-                                        .col-xs-12
-                                            select#rha-severity.form-control(
-                                            chosen,
-                                            width='"100%"',
-                                            ng-model='CaseService.kase.severity',
-                                            ng-change='CaseService.onChangeFTSCheck()',
-                                            ng-disabled='CaseService.submittingCase',
-                                            ng-options='s.name for s in CaseService.severities track by s.name')
+                                        div(rha-severityselect, severity-model="CaseService.kase.severity", disabled="CaseService.submittingCase",
+                                        severity-change="CaseService.onChangeFTSCheck()", severities="CaseService.severities")
                                     .row.row-short(ng-show="CaseService.showFts()")
                                         .col-xs-1
                                             input.pull-left(

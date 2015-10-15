@@ -56,6 +56,43 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.confirmationModalHeader = '';
         this.confirmationModalMessage = '';
         this.confirmationModalProperty = '';
+
+        this.setSeverities = function(severities) {
+            this.severities = severities;
+            angular.forEach(this.severities, function(severity) {
+                severity.responseTimes = {};
+                if(severity.name === '1 (Urgent)') {
+                    severity.responseTimes.standard = gettextCatalog.getString('{{hours}} business hour', {hours: 1});
+                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} hour', {hours: 1});
+                    severity.details = gettextCatalog.getString('A problem that severely impacts your use of the software in a production environment ' +
+                        '(such as loss of production data or in which your production systems are not functioning). ' +
+                        'The situation halts your business operations and no procedural workaround exists.');
+                } else if (severity.name === '2 (High)') {
+                    severity.responseTimes.standard = gettextCatalog.getString('{{hours}} business hours', {hours: 4});
+                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} hours', {hours: 2});
+                    severity.details = gettextCatalog.getString('A problem where the software is functioning but your use in a production environment ' +
+                        'is severely reduced. The situation is causing a high impact to portions of your business ' +
+                        'operations and no procedural workaround exists.');
+                } else if (severity.name === '3 (Normal)') {
+                    severity.responseTimes.standard = gettextCatalog.getString('{{days}} business day', {days: 1});
+                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} business hours', {hours: 4});
+                    severity.details = gettextCatalog.getString('A problem that involves partial, non-critical loss of use of the software in ' +
+                        'a production environment or development environment. For production environments, there is a ' +
+                        'medium-to-low impact on your business, but your business continues to function, including by ' +
+                        'using a procedural workaround. For development environments, where the situation is causing ' +
+                        'your project to no longer continue or migrate into production.');
+                } else if (severity.name === '4 (Low)') {
+                    severity.responseTimes.standard = gettextCatalog.getString('{{days}} business days', {days: 2});
+                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} business hours', {hours: 8});
+                    severity.details = gettextCatalog.getString('A general usage question, reporting of a documentation error, or recommendation ' +
+                        'for a future product enhancement or modification. For production environments, there is ' +
+                        'low-to-no impact on your business or the performance or functionality of your system. For ' +
+                        'development environments, there is a medium-to-low impact on your business, but your business ' +
+                        'continues to function, including by using a procedural workaround.');
+                }
+            });
+        };
+
         this.onFilterSelectChanged = function(){
             if(this.localStorageCache) {
                 this.localStorageCache.put('filterSelect'+securityService.loginStatus.authedUser.sso_username,this.filterSelect);
@@ -321,14 +358,14 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 if (unknownIndex > -1) {
                     entitlements.splice(unknownIndex, 1);
                 }
-                this.entitlements = entitlements;                
-                
+                this.entitlements = entitlements;
+
                 //Added this for PCM 996
                 //If the customer has only one SLA , make it selected by default on create case page
                 if(RHAUtils.isNotEmpty(this.entitlements) && this.entitlements.length === 1){
                 	this.entitlement = this.entitlements[0];
                 }
-                
+
                 this.entitlementsLoading = false;
             }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
