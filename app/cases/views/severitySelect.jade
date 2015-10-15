@@ -10,7 +10,7 @@ table.table.table-hover.table-condensed
                 .row
                     .col-md-2
                         input(type="radio", name="severityRadio", ng-model="$parent.severityModel", ng-value="severity",
-                        ng-change="$parent.severityChange()", ng-disabled="disabled", id="severity_{{severity.name}}")
+                        ng-disabled="disabled", id="severity_{{severity.name}}")
                     .col-md-2
                         span.icon-severity.level1(ng-show="severity.name === '1 (Urgent)'") 1
                         span.icon-severity.level2(ng-show="severity.name === '2 (High)'") 2
