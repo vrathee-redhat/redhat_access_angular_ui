@@ -11,5 +11,9 @@ angular.module('RedhatAccess.cases').controller('SeveritySelect', [
         $scope.toggleDetails = function (severity) {
         	$scope.openedDetails[severity.name] = !$scope.openedDetails[severity.name];
         };
+
+        $scope.$watch("severityModel", function() {
+            $scope.severityChange();
+        });
     }
 ]);
