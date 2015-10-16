@@ -124,7 +124,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
                                 var currentDate =new Date();
                                 var lastModifiedDate = RHAUtils.convertToTimezone(currentDate);
-                                attachment.sortModifiedDate= RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY hh:mm');
+                                attachment.sortModifiedDate=currentDate;
                                 attachment.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                 attachment.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
