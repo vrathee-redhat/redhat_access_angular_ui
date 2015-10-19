@@ -6,7 +6,7 @@ table.table.table-hover.table-condensed
             th(translate) Premium
     tbody
         tr(ng-repeat-start="severity in severities").list-item
-            td(ng-click="toggleSeverity(severity)")
+            td(ng-click="toggleSeverity(severity)", id="severity_{{severity.name.substring(0,1)}}")
                 .row
                     .col-md-2
                         i.fa.fa-circle-o.fa-2x(ng-show="$parent.severityModel.name !== severity.name")

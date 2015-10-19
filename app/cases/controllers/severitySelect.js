@@ -9,7 +9,12 @@ angular.module('RedhatAccess.cases').controller('SeveritySelect', [
     	});
 
         $scope.toggleDetails = function (severity, event) {
-            event.stopPropagation(); // we don't want to toggle severity
+            if(event.stopPropagation) { // we don't want to toggle severity
+                event.stopPropagation();
+            } else { // for IE8+
+                event.returnValue = false;
+                event.cancelBubble = true;
+            }
         	$scope.openedDetails[severity.name] = !$scope.openedDetails[severity.name];
         };
 
