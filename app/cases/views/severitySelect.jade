@@ -6,21 +6,22 @@ table.table.table-hover.table-condensed
             th(translate) Premium
     tbody
         tr(ng-repeat-start="severity in severities").list-item
-            td
+            td(ng-click="toggleSeverity(severity)", id="severity_{{severity.name.substring(0,1)}}")
                 .row
                     .col-md-2
-                        input(type="radio", name="severityRadio", ng-model="$parent.severityModel", ng-value="severity",
-                        ng-disabled="disabled", id="severity_{{severity.name}}")
-                    .col-md-2
+                        i.fa.fa-circle-o.fa-2x(ng-show="$parent.severityModel.name !== severity.name")
+                        i.fa.fa-check-circle-o.fa-2x(ng-show="$parent.severityModel.name === severity.name")
+                    .col-md-2(ng-if="!ie8")
                         span.icon-severity.level1(ng-show="severity.name === '1 (Urgent)'") 1
                         span.icon-severity.level2(ng-show="severity.name === '2 (High)'") 2
                         span.icon-severity.level3(ng-show="severity.name === '3 (Normal)'") 3
                         span.icon-severity.level4(ng-show="severity.name === '4 (Low)'") 4
                     .col-md-6
-                        label(for="severity_{{severity.name}}")
-                            div.severity-select-name {{ severity.name.substring(2, severity.name.length) }}
+                        div.severity-select-name(ng-show="!ie8") {{ severity.name.substring(2, severity.name.length) }}
+
+                        div.severity-select-name(ng-show="ie8") {{ severity.name }}
                     .col-md-2
-                        span.glyphicon.glyphicon-question-sign.link.severity-details-link(ng-click="toggleDetails(severity)")
+                        span.glyphicon.glyphicon-question-sign.link.severity-details-link(ng-click="toggleDetails(severity, $event)")
             td
                 div.severity-time-description {{severity.responseTimes.standard}}
             td

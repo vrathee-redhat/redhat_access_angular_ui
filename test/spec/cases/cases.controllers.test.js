@@ -1740,14 +1740,17 @@ describe('Case Controllers', function () {
             $controller('SeveritySelect', {
                 $scope: mockScope
             });
+            var event = {
+                stopPropagation: function () {}
+            };
             expect(mockScope.openedDetails).toBeDefined();
             expect(mockScope.openedDetails["1"]).toEqual(false);
             expect(mockScope.openedDetails["2"]).toEqual(false);
             expect(mockScope.toggleDetails).toBeDefined();
-            mockScope.toggleDetails(mockScope.severities[0]);
+            mockScope.toggleDetails(mockScope.severities[0], event);
             expect(mockScope.openedDetails["1"]).toEqual(true);
             expect(mockScope.openedDetails["2"]).toEqual(false);
-            mockScope.toggleDetails(mockScope.severities[1]);
+            mockScope.toggleDetails(mockScope.severities[1], event);
             expect(mockScope.openedDetails["1"]).toEqual(true);
             expect(mockScope.openedDetails["2"]).toEqual(true);
         }));

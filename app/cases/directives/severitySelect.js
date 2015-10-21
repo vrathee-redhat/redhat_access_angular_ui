@@ -9,7 +9,7 @@ angular.module('RedhatAccess.cases').directive('rhaSeverityselect', function () 
         	severityModel: '=',
         	severityChange: '&',
         	severities: '=',
-            disabled: '='
+            severityDisabled: '='
         }
     };
 });
