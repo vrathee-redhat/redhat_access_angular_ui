@@ -169,7 +169,7 @@ div(rha-header='', page='newCase')
                                         span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To learn more, visit the" |translate }}</br><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a>',tabindex='0',tooltip-trigger="click")
                                 .col-sm-7.col-md-8
                                     .row
-                                        div(rha-severityselect, severity-model="CaseService.kase.severity", disabled="CaseService.submittingCase",
+                                        div(rha-severityselect, severity-model="CaseService.kase.severity", severity-disabled="CaseService.submittingCase",
                                         severity-change="CaseService.onChangeFTSCheck()", severities="CaseService.severities")
                                     .row.row-short(ng-show="CaseService.showFts()")
                                         .col-xs-1

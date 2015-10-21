@@ -11,13 +11,15 @@ table.table.table-hover.table-condensed
                     .col-md-2
                         i.fa.fa-circle-o.fa-2x(ng-show="$parent.severityModel.name !== severity.name")
                         i.fa.fa-check-circle-o.fa-2x(ng-show="$parent.severityModel.name === severity.name")
-                    .col-md-2
+                    .col-md-2(ng-if="!ie8")
                         span.icon-severity.level1(ng-show="severity.name === '1 (Urgent)'") 1
                         span.icon-severity.level2(ng-show="severity.name === '2 (High)'") 2
                         span.icon-severity.level3(ng-show="severity.name === '3 (Normal)'") 3
                         span.icon-severity.level4(ng-show="severity.name === '4 (Low)'") 4
                     .col-md-6
-                        div.severity-select-name {{ severity.name.substring(2, severity.name.length) }}
+                        div.severity-select-name(ng-show="!ie8") {{ severity.name.substring(2, severity.name.length) }}
+
+                        div.severity-select-name(ng-show="ie8") {{ severity.name }}
                     .col-md-2
                         span.glyphicon.glyphicon-question-sign.link.severity-details-link(ng-click="toggleDetails(severity, $event)")
             td

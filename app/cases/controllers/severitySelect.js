@@ -3,6 +3,7 @@ angular.module('RedhatAccess.cases').controller('SeveritySelect', [
     '$scope',
     function ($scope) {
     	// INIT
+        $scope.ie8 = window.ie8;
         $scope.openedDetails = {};
     	angular.forEach($scope.severities, function(severity) {
     		$scope.openedDetails[severity.name] = false;
@@ -19,7 +20,9 @@ angular.module('RedhatAccess.cases').controller('SeveritySelect', [
         };
 
         $scope.toggleSeverity = function (severity) {
-            $scope.severityModel = severity;
+            if(!$scope.severityDisabled) {
+                $scope.severityModel = severity;
+            }
         };
 
         $scope.$watch("severityModel", function() {
