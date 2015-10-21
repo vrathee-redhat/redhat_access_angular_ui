@@ -1,9 +1,11 @@
 'use strict';
 angular.module('RedhatAccess.cases').controller('SearchBox', [
+    '$rootScope',
+    'CASE_EVENTS',
     '$scope',
     'SearchBoxService',
     'securityService',
-    function ($scope, SearchBoxService, securityService) {
+    function ($rootScope,CASE_EVENTS,$scope, SearchBoxService, securityService) {
         $scope.securityService = securityService;
         $scope.SearchBoxService = SearchBoxService;
         $scope.onFilterKeyPress = function ($event) {
@@ -15,6 +17,7 @@ angular.module('RedhatAccess.cases').controller('SearchBox', [
         };
         $scope.clearSearch = function () {
             SearchBoxService.searchTerm=undefined;
+            $rootScope.$broadcast(CASE_EVENTS.searchBoxChange);
         };
     }
 ]);

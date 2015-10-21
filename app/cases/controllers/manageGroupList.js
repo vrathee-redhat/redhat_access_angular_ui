@@ -29,6 +29,11 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
             }
         ];
 
+        $scope.toggleActiveButton = function(group) {
+
+            group.active=!group.active;
+        };
+
         $scope.fetchGroupDetails = function(group) {
             ManageGroupsService.fetchGroupDetails(group);
         };
@@ -50,17 +55,29 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
 
         $scope.groupAction = function(group,action) {
             if(action === 'delete') {
+                group.active=false;
                 group.deleteCaseGroup = true;
                 group.renameCaseGroup = false;
             }  else if (action === 'rename') {
+                group.active=false;
                 group.renameCaseGroup = true;
                 group.deleteCaseGroup = false;
             } else if (action === 'duplicate') {
+                group.active=false;
                 group.renameCaseGroup = false;
                 group.deleteCaseGroup = false;
                 $scope.showCreateGroup = true;
                 ManageGroupsService.newGroupName = group.name + ' Duplicate';
-            }         
+            }
+        };
+
+        $scope.selectedGroup = function(group) {
+            var isSelected = (group.name === ManageGroupsService.selectedGroup.name);
+
+            if (isSelected) {
+                return 'selected-group';
+            }
+            return '';
         };
 
         $scope.deleteGroup = function(group) {
@@ -77,7 +94,7 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
             }
             if(group.renameCaseGroup === true) {
                 group.renameCaseGroup = false;
-            }            
+            }
         };
 
     }

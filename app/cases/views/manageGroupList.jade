@@ -13,31 +13,21 @@ div(ng-show='!ManageGroupsService.groupsLoading && ManageGroupsService.groupsOnS
       input.form-control(type='text', ng-model='ManageGroupsService.newGroupName', placeholder='Untitled Case Group')
       span.input-group-btn
         button.btn.btn-app(ng-click='createGroup()', translate='') Create
-  .list-item.with-actions(ng-repeat='group in ManageGroupsService.groupsOnScreen')
-    div(ng-click='fetchGroupDetails(group)', ng-href='', ng-hide='group.renameCaseGroup || group.deleteCaseGroup' , ng-class='group.name === selectedGroup.name ? "groupSelected" : "groupNotSelected"') {{group.name}}
-    .menu-subcontext
-      a.action-icon(ng-click="active=!active", ng-blur="active=!active")
-        i.fa.fa-cog
-        i.fa.fa-caret-down
-      ul.dropdown(ng-class='{"active": active}')
-        li(ng-repeat='action in actionOptions', ng-click='groupAction(group,action.value)') {{action.label}}
-    div(ng-show='group.renameCaseGroup')
-      input.form-control(type='text', ng-model='group.name')
-    div.margin-top-short(ng-show='group.renameCaseGroup')
-      button.btn.btn-app(ng-click='renameGroup(group)') Rename
-      a.margin-left(ng-click='cancel(group)') Cancel
-    div(ng-show='group.deleteCaseGroup') {{group.name}}      
-    div.margin-top-short(ng-show='group.deleteCaseGroup')
-      button.btn.btn-primary.btn-sm(ng-click='deleteGroup(group)') Delete
-      a.margin-left(ng-click='cancel(group)') Cancel
-
-  // This is an example of a list-item that's about to be deleted
-  .list-item.with-actions.delete
-    div Example to be deleted
-    .menu-subcontext
-      a.action-icon(ng-click="active=!active", ng-blur="active=!active")
-        i.fa.fa-cog
-        i.fa.fa-caret-down
-    div.margin-top-short
-      button.btn.btn-primary.btn-sm Delete
-      a.margin-left Cancel
+  div.overflowProperties
+      .list-item.with-actions(ng-repeat='group in ManageGroupsService.groupsOnScreen',ng-class='selectedGroup(group)')
+       div(ng-click='fetchGroupDetails(group)', ng-href='', ng-hide='group.renameCaseGroup || group.deleteCaseGroup') {{group.name}}
+       .menu-subcontext
+          a.action-icon(ng-click='toggleActiveButton(group)', ng-blur='toggleActiveButton(group)')
+            i.fa.fa-cog
+            i.fa.fa-caret-down
+          ul.dropdown(ng-class='{"active": group.active}')
+            li(ng-repeat='action in actionOptions', ng-click='groupAction(group,action.value)') {{action.label}}
+        div(ng-show='group.renameCaseGroup')
+          input.form-control(type='text', ng-model='group.name')
+        div.margin-top-short(ng-show='group.renameCaseGroup')
+          button.btn.btn-app(ng-click='renameGroup(group)') Rename
+          a.margin-left(ng-click='cancel(group)') Cancel
+        div(ng-show='group.deleteCaseGroup') {{group.name}}
+        div.margin-top-short(ng-show='group.deleteCaseGroup')
+          button.btn.btn-primary.btn-sm(ng-click='deleteGroup(group)') Delete
+          a.margin-left(ng-click='cancel(group)') Cancel

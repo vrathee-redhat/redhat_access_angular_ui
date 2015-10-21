@@ -1,24 +1,21 @@
 span.spinner.spinner-inline(ng-show='ManageGroupsService.usersLoading')
 span(ng-show='ManageGroupsService.usersLoading') {{'Users Loading...'|translate}}
-div.ng-isolate-scope(ng-show='!ManageGroupsService.usersLoading && usersOnScreen.length < 1') {{'Users not available.'|translate}}
-#list-users-case.ng-isolate-scope(ng-show='usersOnScreen.length > 0')
+#list-users-case.ng-isolate-scope(ng-show='!ManageGroupsService.usersLoading && !ManageGroupsService.groupsLoading')
   .row
     .col-sm-12.col-md-6
       div(rha-searchbox='', placeholder='"Search Users"')
   .row
+    .col-sm-12.col-md-6
+       div.ng-isolate-scope(ng-show='usersOnScreen.length < 1') {{'Users not available.'|translate}}
+  .row(ng-show='usersOnScreen.length > 0')
     .col-sm-12
       table.table.table-cp.table-vertical-center(ng-table='tableParams')
         thead
-          th
-            div {{'Login'|translate}}
-          th
-            div {{'First Name'|translate}}
-          th
-            div {{'Last Name'|translate}}
-          th
-            div {{'Access'|translate}}
-          th
-            div {{'Make Default Group'|translate}}
+          th {{'Login'|translate}}
+          th {{'First Name'|translate}}
+          th {{'Last Name'|translate}}
+          th {{'Access'|translate}}
+          th {{'Make Default Group'|translate}}
         tbody
           tr(ng-repeat='user in usersOnScreen')
             td(data-title='', sortable='')
@@ -38,8 +35,8 @@ div.ng-isolate-scope(ng-show='!ManageGroupsService.usersLoading && usersOnScreen
                 ng-options='option.value as option.label for option in accessOptions')
             td
               .row
-                .col-sm-6
-                  .toggle-switch(ng-click='setDefaultGroup(user)', ng-class='{"active": user.groupIsdefault , "disabled": user.permission === "NONE"}')
+                .col-sm-8
+                  .toggle-switch(ng-click='setDefaultGroup(user)', ng-class='{"active": user.is_default , "disabled": user.permission === "NONE"}')
                     .switch
                 .col-sm-4
                   span.spinner.spinner-inline(ng-show='user.settingDefaultGroup')

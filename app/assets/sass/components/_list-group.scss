@@ -30,7 +30,7 @@ $list-group-list-title-bg: $aside-bg;
 	@include rem('padding-right', 40px);
 	word-wrap: break-word;
 
-	.menu-subcontext {
+    .menu-subcontext {
 		position: absolute;
 		right: 14px;
 		top: 10px;
@@ -38,4 +38,17 @@ $list-group-list-title-bg: $aside-bg;
 }
 
 .ng-table th { text-align: left; }
-.list-group-input-group, .list-title.list-group-input-group { @include rem('padding', 10px); }
+.list-group-input-group, .list-title.list-group-input-group {
+    @include rem('padding', 10px);
+}
+
+.selected-group {
+    background: #d9edf6;
+}
+
+
+.overflowProperties{
+    overflow-y:auto;
+    overflow-x:hidden;
+    height:70vh;
+}

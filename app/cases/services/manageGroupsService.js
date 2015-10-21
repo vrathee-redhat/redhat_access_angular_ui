@@ -1,6 +1,6 @@
 'use strict';
 /*jshint camelcase: false */
-angular.module('RedhatAccess.cases').service('ManageGroupsService', [    
+angular.module('RedhatAccess.cases').service('ManageGroupsService', [
     'securityService',
     'AlertService',
     'strataService',
@@ -31,10 +31,10 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
                             this.fetchNewGroupDetails = false;
                             break;
                         }
-                    }                                        
+                    }
                 } else {
                     this.fetchGroupDetails(this.groupsOnScreen[0]);
-                }                
+                }
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
@@ -42,12 +42,13 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
 
     	this.fetchGroupDetails = function(group) {
             this.usersLoading = true;
+            this.selectedGroup = group;
             strataService.groups.get(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (group) {
                 this.selectedGroup = group;
                 this.fetchAccUsers(this.selectedGroup);
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
-            });	
+            });
     	};
 
     	this.fetchAccUsers = function(group) {
@@ -69,10 +70,10 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
                         AlertService.addSuccessMessage(translate('Case group successfully updated.'));
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
-                    });                                    
+                    });
                 }), function (error) {
                     AlertService.addStrataErrorMessage(error);
-                });                
+                });
             }
             if(users !== undefined){
                 AlertService.addWarningMessage(translate('Updating users for group...'));
@@ -116,12 +117,12 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
                     this.sortGroups();
                     this.newGroupName = '';
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.newGroupName);                    
+                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.newGroupName);
                 } else {
                     this.fetchNewGroupDetails = true;
                     this.fetchAccGroupList();
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.newGroupName);                    
+                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.newGroupName);
                 }
             }), function (error) {
                 AlertService.clearAlerts();
@@ -133,12 +134,13 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
     		var tmpGroup = {
                 name: this.selectedGroup.name,
                 number: this.selectedGroup.number,
-                isDefault: true,
+                isDefault: !user.is_default,
                 contactSsoName: user.sso_username
             };
-            user.groupIsdefault = true;
+            //user.is_default = true;
             user.settingDefaultGroup = true;
-            strataService.groups.createDefault(tmpGroup).then(function () {                    
+            strataService.groups.createDefault(tmpGroup).then(function () {
+                user.is_default=!user.is_default;
                 user.settingDefaultGroup = false;
                 AlertService.addSuccessMessage('Successfully set ' + tmpGroup.name + ' as ' + user.sso_username + '\'s default group.');
             }, function (error) {
@@ -164,7 +166,7 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
                 if(a.name > b.name) { return 1; }
                 return 0;
             });
-        }; 
+        };
 
 
     }
