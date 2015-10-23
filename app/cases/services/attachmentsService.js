@@ -129,7 +129,7 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                                 attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                 attachment.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
-                                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}',{attachmentFileName:attachment.file_name,caseNumber:caseId}));
+                                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}',{attachmentFileName:attachment.file_name.substring(0,80),caseNumber:caseId}));
                             }, function (error) {
                                 if (navigator.appVersion.indexOf("MSIE 10") !== -1){
                                     if($location.path() === '/case/new'){
