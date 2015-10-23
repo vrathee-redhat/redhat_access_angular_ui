@@ -402,7 +402,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.newCaseIncomplete = true;
         this.validateNewCase = function () {
-            if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary) || RHAUtils.isEmpty(this.kase.description)) {
+            if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary)
+                || RHAUtils.isEmpty(this.kase.description)
+                || (securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.owner))) {
                 this.newCaseIncomplete = true;
             } else {
                 this.newCaseIncomplete = false;
