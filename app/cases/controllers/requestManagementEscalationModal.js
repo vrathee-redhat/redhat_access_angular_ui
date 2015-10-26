@@ -28,6 +28,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
                 var caseJSON = { 'escalated': true };
                 var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
                 updateCase.then(function (response) {
+                    CaseService.checkForCaseStatusToggleOnAttachOrComment();
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
