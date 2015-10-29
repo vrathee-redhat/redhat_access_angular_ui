@@ -59,3 +59,7 @@ $case-description-padding: $global-padding;
 		}
 	}
 }
+
+.attachment-filename {
+    word-wrap: break-word;
+}

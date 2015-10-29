@@ -861,22 +861,20 @@ describe('Case Services', function () {
                     'uuid': '4567'
                 }
             ];
-            attachmentsService.updatedAttachments = {
-                'attachment': [
-                    {
-                        'file_name': 'abc.txt',
-                        'uuid': '1234'
-                    },
-                    {
-                        'file_name': 'xyz.txt',
-                        'uuid': '4567'
-                    },
-                    {
-                        'file_name': 'pqr.txt',
-                        'uuid': '5678'
-                    }
-                ]
-            };
+            attachmentsService.updatedAttachments = [
+                {
+                    'file_name': 'abc.txt',
+                    'uuid': '1234'
+                },
+                {
+                    'file_name': 'xyz.txt',
+                    'uuid': '4567'
+                },
+                {
+                    'file_name': 'pqr.txt',
+                    'uuid': '5678'
+                }
+            ];
             rhaUtils.userTimeZone="Asia/Calcutta";
             attachmentsService.updateAttachments('12345');
             spyOn(mockStrataService.cases.attachments, 'post').andCallThrough();
