@@ -1,0 +1,20 @@
+table {
+	@include font-size(14px);
+
+	thead th {
+		text-align: left;
+		background: #4c4c4c;
+		color: #fff;
+	}
+
+	tbody {
+		tr:nth-child(odd) {
+			background: #fff;
+		}
+
+	}
+}
+
+table.table-vertical-center tbody tr td {
+	vertical-align: middle;
+}
