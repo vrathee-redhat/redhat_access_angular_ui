@@ -44,7 +44,6 @@ $case-border: $border-gray;
 	//==================================================================*/
 	.block-icon {
 		position: relative;
-		@include rem('padding-left', 40px);
 
 		.icon {
 			position: absolute;
