@@ -60,7 +60,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                         AlertService.addStrataErrorMessage(error);
                     });
                 }
-                if (EDIT_CASE_CONFIG.showEmailNotifications && !cacheHit) {
+                if (EDIT_CASE_CONFIG.showEmailNotifications ) {
                     CaseService.defineNotifiedUsers();
                 }
                 if($scope.fromNewCase)
