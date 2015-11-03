@@ -1383,7 +1383,7 @@ msgstr "水曜日 = {{businessHours}}"
 
 #: app/cases/services/caseService.js
 msgid "What information can you provide around timeframes and urgency?"
-msgstr "解決期間や緊急性に関する情報を提供してください。"
+msgstr "要求されている期限や締切、業務への影響度などに関する情報を提供してください。"
 
 #: app/cases/services/caseService.js
 msgid ""
