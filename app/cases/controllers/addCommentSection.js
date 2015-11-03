@@ -31,6 +31,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             DiscussionService.commentTextBoxEnlargen = false;
         	CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
         	AttachmentsService.updatedAttachments = [];
+            CaseService.disableAddComment = true;
         };
 
         $scope.addComment = function () {

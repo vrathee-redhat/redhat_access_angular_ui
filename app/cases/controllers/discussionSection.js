@@ -88,6 +88,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
                     commentsSection.scrollIntoView(true);
             }
             CaseService.commentText = truncatedText;
+            CaseService.disableAddComment = true;
         };
 
         if (securityService.loginStatus.isLoggedIn) {
