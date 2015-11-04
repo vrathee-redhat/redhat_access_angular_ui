@@ -11,9 +11,9 @@ div.edit(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageL
       div
         span {{'Assigned to'|translate}} {{CaseService.kase.owner}}
       div(ng-if='securityService.loginStatus.authedUser.is_internal')
-        span(translate) Account number : {{securityService.loginStatus.account.number}}
+        span(translate) Account number : {{CaseService.account.number}}
       div(ng-if='securityService.loginStatus.authedUser.is_internal')
-        span(translate) Account name : {{securityService.loginStatus.account.name}}
+        span(translate) Account name : {{CaseService.account.name}}
       a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
       div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
