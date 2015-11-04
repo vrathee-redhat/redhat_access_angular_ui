@@ -40,6 +40,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.draftComment = {};
         this.draftCommentOnServerExists=false;
         this.commentText = '';
+        this.commentReplyText = '';
         this.escalationCommentText = '';
         this.status = '';
         this.severity = '';
@@ -199,6 +200,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             this.draftComment = undefined;
             this.draftCommentLocalStorage = undefined;
             this.commentText = undefined;
+            this.commentReplyText = undefined;
             this.escalationCommentText = undefined;
             this.status = undefined;
             this.severity = undefined;

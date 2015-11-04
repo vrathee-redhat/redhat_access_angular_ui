@@ -166,7 +166,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         };
 
         $scope.onCommentPublicChange = function () {
-            if(RHAUtils.isNotEmpty(CaseService.commentText))
+            if(RHAUtils.isNotEmpty(CaseService.commentText) && CaseService.commentText !== CaseService.commentReplyText)
             {
                 $scope.onNewCommentKeypress();
             }
