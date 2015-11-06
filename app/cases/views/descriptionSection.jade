@@ -14,6 +14,6 @@ section.filters
         width="'100%'",
         name='severity',
         ng-model='CaseService.kase.severity',
-        ng-change="CaseService.onChangeFTSCheck();updateSeverity()",
+        ng-change="updateSeverity()",
         ng-options='s.name for s in CaseService.severities track by s.name')
       //span.glyphicon.glyphicon-question-sign(tooltip-html-unsafe='{{"Different support-level options might be available based on your account subscriptions. Your support level determines the type of response you can expect for your support case." |translate }}<br></br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"View Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="focus")

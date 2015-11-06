@@ -19,6 +19,8 @@ angular.module('RedhatAccess.cases').controller('DescriptionSection', [
         };
 
         $scope.updateSeverity = function(){
+            if(CaseService.kase.severity.name.substring(0,1) === '1') CaseService.onChangeFTSCheck();
+
             CaseService.confirmationModal = CASE_EVENTS.caseSeverityChanged;
             CaseService.confirmationModalHeader = gettextCatalog.getString('Case severity was changed.');
             CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to change this case severity to {{severityName}}?',{severityName:CaseService.kase.severity.name});
