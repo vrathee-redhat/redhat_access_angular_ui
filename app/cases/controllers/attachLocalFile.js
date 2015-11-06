@@ -46,7 +46,8 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
         $scope.selectFile = function () {
             // Strata will always keep the limit display in Mb (current = 1024Mb)
             var maxSize = (AttachmentsService.maxAttachmentSize/1024)*1000000000;
-            if($('#fileUploader')[0].files[0].size < maxSize){
+            var minSize = 0;
+            if($('#fileUploader')[0].files[0].size < maxSize && $('#fileUploader')[0].files[0].size > minSize){
                 $scope.fileObj = $('#fileUploader')[0].files[0];
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
@@ -54,6 +55,9 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                     $scope.$apply();
                 }
 	            $scope.addFile();
+            } else if($('#fileUploader')[0].files[0].size === minSize) {
+                var message=gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.",{errorFileName:$('#fileUploader')[0].files[0].name});
+                AlertService.addDangerMessage(message);
             } else {
                  var message=gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.",{errorFileName:$('#fileUploader')[0].files[0].name,errorFileSize:(AttachmentsService.maxAttachmentSize/1024)});
                 AlertService.addDangerMessage(message);

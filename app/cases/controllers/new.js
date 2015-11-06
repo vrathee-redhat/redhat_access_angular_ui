@@ -319,8 +319,8 @@ angular.module('RedhatAccess.cases').controller('New', [
                     AttachmentsService.updateAttachments(caseNumber).then(function () {
                         redirectToCase(caseNumber);
                     }, function (error) {
+                        redirectToCase(caseNumber);
                         AlertService.addStrataErrorMessage(error);
-                        CaseService.submittingCase = false;
                     });
                 } else if (NEW_CASE_CONFIG.showAttachments && $scope.ie8 || $scope.ie9 ) {
                     var fileName = document.getElementById('newFileUploader').value;
