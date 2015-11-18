@@ -1,0 +1,17 @@
+query = sequence
+
+sequence = sequencePart sequenceCont
+sequenceCont = orSequence / andSequence / ""
+
+andSequence = (" and " sequencePart)+
+orSequence = (" or " sequencePart)+
+sequencePart = criteria / "(" sequence ")"
+
+
+criteria = basicCriteria / notCriteria
+notCriteria = "-"basicCriteria
+basicCriteria = fieldName ":"" "* string
+
+string = "\""[^\"]*"\""
+fieldName = "text" / "ownerName" / "status" / "dateOpened" / "statusDescription" / "ownerEmail"
+K

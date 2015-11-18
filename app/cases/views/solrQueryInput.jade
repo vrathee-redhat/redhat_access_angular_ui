@@ -1,0 +1,6 @@
+input.form-control(type="text", ng-model="inputQuery", ng-trim="false")
+div.alert.alert-success(ng-show="successParse") Input parsed!
+div.alert.alert-danger(ng-hide="successParse") Input not parsed well!
+div.well(ng-hide="successParse")
+    ul
+        li(ng-repeat="item in autocompleteList") {{item}}

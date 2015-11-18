@@ -92,6 +92,11 @@ angular.module('RedhatAccess.cases', [
             controller: 'EditGroup',
             templateUrl: 'cases/views/editGroup.html'
         });
+        $stateProvider.state('advancedSearch', {
+            url: '/case/search',
+            controller: 'SearchController',
+            templateUrl: 'cases/views/advancedSearch.html'
+        });
         $stateProvider.state('accountBookmark', {
             url: '/account/bookmark',
             controller: 'AccountBookmarkHome',
