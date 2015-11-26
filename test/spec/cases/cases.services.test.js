@@ -1049,10 +1049,11 @@ describe('Case Services', function () {
         it('should have a method to update elements', function () {
             caseService.comments=mockStrataDataService.mockComments;
             attachmentsService.originalAttachments=mockStrataDataService.mockAttachments;
+            caseService.externalUpdates=mockStrataDataService.mockExternalUpdates;
             expect(discussionService.updateElements).toBeDefined();
             discussionService.chatTranscriptList = ['ABC'];
             discussionService.updateElements('12345');
-            expect(discussionService.discussionElements).toEqual(caseService.comments.concat(attachmentsService.originalAttachments).concat(['ABC']));
+            expect(discussionService.discussionElements).toEqual(caseService.comments.concat(attachmentsService.originalAttachments).concat(caseService.externalUpdates).concat(['ABC']));
 
         });
     });

@@ -48,6 +48,27 @@ angular.module('RedhatAccess.mock', [])
         "id": 2345
       }];
 
+        this.mockExternalUpdates=[
+            {
+                "created_by": "Napolis, Michael",
+                "created_date":1446203646000,
+                "visibility":"Partner Only",
+                "originating_system":"Microsoft",
+                "body":"asdfasfsaf",
+                "case_number":"01517592",
+                "originating_system_last_updated_at":1446202933000
+            },
+            {
+                "created_by": "Robinson, David",
+                "created_date":1446203292000,
+                "visibility":"Customer And Partner",
+                "originating_system":"Microsoft",
+                "body":"asdsadsad",
+                "case_number":"01517592",
+                "originating_system_last_updated_at":1446202855000
+            }
+        ];
+
       this.mockFilterCase = {"total_count":1,"case":[{"created_by":"Spenser Shumaker","created_date":1411656201000,"last_modified_by":"Spenser Shumaker","last_modified_date":1411656206000,"id":"500K0000006wLIRIA2","uri":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01592512","summary":"test","description":"test","status":"Waiting on Red Hat","product":"JBoss Enterprise Web Platform","version":"5.1.0","account_number":"540155","escalated":false,"contact_name":"Spenser Shumaker","contact_sso_username":"rhn-support-sshumake","origin":"API","owner":"New Case Queue","severity":"4 (Low)","folder_number":"817","comments":{"comment":[{"created_by":"Shumaker, Spenser","created_date":1411672167000,"last_modified_by":"Shumaker, Spenser","last_modified_date":1411672166000,"text":"yr","draft":false,"published_date":1411672166000,"id":"a0aK0000004mqlxIAA","public":false}]},"notified_users":{},"entitlement":{"sla":"PREMIUM"},"fts":false,"bugzillas":{},"sbr_groups":{"sbr_group":["JBoss Base AS"]},"language":"fr","case_number":"01592512","closed":false}]}
 
       this.mockFilterCaseResult = [{"created_by":"Spenser Shumaker","created_date":1411656201000,"last_modified_by":"Spenser Shumaker","last_modified_date":1411656206000,"id":"500K0000006wLIRIA2","uri":"https://api.access.devgssci.devlab.phx1.redhat.com/rs/cases/01592512","summary":"test","description":"test","status":"Waiting on Red Hat","product":"JBoss Enterprise Web Platform","version":"5.1.0","account_number":"540155","escalated":false,"contact_name":"Spenser Shumaker","contact_sso_username":"rhn-support-sshumake","origin":"API","owner":"New Case Queue","severity":"4 (Low)","folder_number":"817","comments":{"comment":[{"created_by":"Shumaker, Spenser","created_date":1411672167000,"last_modified_by":"Shumaker, Spenser","last_modified_date":1411672166000,"text":"yr","draft":false,"published_date":1411672166000,"id":"a0aK0000004mqlxIAA","public":false}]},"notified_users":{},"entitlement":{"sla":"PREMIUM"},"fts":false,"bugzillas":{},"sbr_groups":{"sbr_group":["JBoss Base AS"]},"language":"fr","case_number":"01592512","closed":false}]
@@ -584,6 +605,17 @@ angular.module('RedhatAccess.mock', [])
           }
         },
         cases: {
+          externalUpdates:{
+            list:function(id){
+                var deferred = $q.defer();
+                if (that.rejectCall) {
+                    deferred.reject();
+                } else {
+                    deferred.resolve(MockStrataDataService.mockExternalUpdates);
+                }
+                return deferred.promise;
+                }
+            },
           comments: {
             get: function (id) {
               var deferred = $q.defer();
@@ -886,6 +918,7 @@ angular.module('RedhatAccess.mock', [])
             this.groups = [];
             this.users = [];
             this.comments = [];
+            this.externalUpdates=[];
             this.filterSelect = '';
 
         //    this.localStorageCache = $angularCacheFactory.get('localStorageCache');
@@ -949,6 +982,12 @@ angular.module('RedhatAccess.mock', [])
             this.populateComments = function (caseNumber) {
                 var deferred = $q.defer();
                 deferred.resolve(MockStrataDataService.mockComments);
+                return deferred.promise;
+            };
+
+            this.populateExternalUpdates = function (caseNumber) {
+                var deferred = $q.defer();
+                deferred.resolve(MockStrataDataService.mockExternalUpdates);
                 return deferred.promise;
             };
 
