@@ -30,6 +30,7 @@ module.exports = function(config) {
             'bower_components/angular-mocks/angular-mocks.js',
             'bower_components/angular-cache/dist/angular-cache.js',
             'bower_components/angular-treeview/angular.treeview.min.js',
+            'bower_components/bluebird/js/browser/bluebird.min.js',
             'bower_components/sinon/lib/sinon.js',
             'bower_components/sinon/lib/sinon/spy.js',
             'bower_components/sinon/lib/sinon/call.js',

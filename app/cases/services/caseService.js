@@ -34,6 +34,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.groups = [];
         this.users = [];
         this.comments = [];
+        this.externalUpdates = [];
         this.originalNotifiedUsers = [];
         this.updatedNotifiedUsers = [];
         this.account = {};
@@ -338,6 +339,15 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             });
             return promise;
         };
+        this.populateExternalUpdates = function (caseNumber) {
+            var promise = strataService.cases.externalUpdates.list(caseNumber);
+            promise.then(angular.bind(this, function (externalUpdates) {
+                this.externalUpdates = externalUpdates;
+            }), function (error) {
+            });
+            return promise;
+        };
+
         this.entitlementsLoading = false;
         this.populateEntitlements = function (ssoUserName) {
             this.entitlementsLoading = true;

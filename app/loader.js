@@ -10,7 +10,8 @@
       paths: {
         'strata': '/bower_components/stratajs/strata',
         'uds': '/bower_components/udsjs/uds',
-        'moment': '/bower_components/moment/moment'
+        'moment': '/bower_components/moment/moment',
+        'bluebird': 'bower_components/bluebird/js/browser/bluebird'
       },
       map: {
         '*': {
@@ -19,11 +20,12 @@
       }
     });
 
-    window.chrometwo_require(['strata','uds','moment'], function(strata,uds,moment) {
+    window.chrometwo_require(['strata','uds','moment','bluebird'], function(strata,uds,moment,bluebird) {
       // export strata and uds
       window.strata = strata;
       window.uds = uds;
       window.moment=moment;
+      window.bluebird=bluebird;
     });
 
     // keep track of deferreds we are loading
