@@ -85,7 +85,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .pre-wrap(ng-if="element.comment_type === 'chat'", ng-bind-html="parseCommentHtml(element)")
           article.comment.article-external-updates(ng-if="element.originating_system")
               i.fa.fa-comments-o
-              h4.meta {{'External Tracker Updates'|translate}} - {{element.originating_system}}
+              h4.meta {{element.originating_system}}
+                span(ng-show="element.visibility==='Partner Only'") {{' - Private'|translate}}
               .byline
                   author {{element.created_by}} {{'on'|translate}}&nbsp;
                   date {{element.created_date}}&nbsp;
