@@ -31,6 +31,7 @@ module.exports = function(config) {
             'bower_components/angular-cache/dist/angular-cache.js',
             'bower_components/angular-treeview/angular.treeview.min.js',
             'bower_components/bluebird/js/browser/bluebird.min.js',
+            'bower_components/angular-md5/angular-md5.js',
             'bower_components/sinon/lib/sinon.js',
             'bower_components/sinon/lib/sinon/spy.js',
             'bower_components/sinon/lib/sinon/call.js',
