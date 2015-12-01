@@ -4,6 +4,7 @@ angular.module('RedhatAccess.cases', [
     'ui.bootstrap',
     'localytics.directives',
     'ngTable',
+    'angular-md5',
     'infinite-scroll',
     'RedhatAccess.template',
     'RedhatAccess.security',

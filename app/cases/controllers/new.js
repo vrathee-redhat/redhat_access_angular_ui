@@ -24,7 +24,8 @@ angular.module('RedhatAccess.cases').controller('New', [
     'NEW_CASE_CONFIG',
     'CASE_EVENTS',
     'gettextCatalog',
-    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog) {
+    'md5',
+    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -46,7 +47,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.showRecommendationPanel = false;
         $scope.notifiedUsers = [];
         $scope.isControlGroup = true;
-        $scope.recommendationsPerPage = 3;
+        $scope.recommendationsPerPage = 6;
 	    //$scope.hideSticky = false;
 
         // Instantiate these variables outside the watch
@@ -150,9 +151,6 @@ angular.module('RedhatAccess.cases').controller('New', [
                 ];
                 updateBreadCrumb();
             }
-            if(!$scope.isControlGroup){
-                $scope.recommendationsPerPage = 6;
-            }
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();
@@ -229,8 +227,9 @@ angular.module('RedhatAccess.cases').controller('New', [
 
             if(!urlParameter.abtest){
                 if (securityService.loginStatus.authedUser.account_number !== undefined) {
+                    var accountHash = md5.createHash(securityService.loginStatus.authedUser.account_number );
                     var testgroup = '';
-                    if (securityService.loginStatus.authedUser.account_number % 2 === 1) {
+                    if (accountHash % 2 === 1) {
                         testgroup = 'ABTestControl';
                         $scope.isControlGroup = true;
                     } else{
