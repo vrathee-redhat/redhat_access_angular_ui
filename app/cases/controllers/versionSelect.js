@@ -21,7 +21,9 @@ angular.module('RedhatAccess.cases').controller('VersionSelect', [
             $scope.versions = ProductsService.getVersions(CaseService.kase.product);
         }
         $scope.$on(CASE_EVENTS.productSelectChange, function () {
+        if(RHAUtils.isNotEmpty(CaseService.kase.product)){
             ProductsService.getVersions(CaseService.kase.product);
+        }
         });
         $scope.$watch(function () {
             return ProductsService.versions;
