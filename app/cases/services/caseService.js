@@ -254,9 +254,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 var accountNumber;
                 if (this.kase.account_number) {
                     accountNumber = this.kase.account_number;
-                } else if (!RHAUtils.isEmpty(this.account.number)){
+                } else if (RHAUtils.isNotEmpty(this.account.number)){
                     accountNumber = this.account.number;
-                } else if (!RHAUtils.isEmpty(securityService.loginStatus.authedUser.account_number)){
+                } else if (RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.account_number)){
                     accountNumber = securityService.loginStatus.authedUser.account_number;
                 } else {
                     accountNumber = securityService.loginStatus.authedUser.account.number;
