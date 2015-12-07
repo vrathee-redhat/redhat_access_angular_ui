@@ -227,9 +227,14 @@ angular.module('RedhatAccess.cases').controller('New', [
 
             if(!urlParameter.abtest){
                 if (securityService.loginStatus.authedUser.account_number !== undefined) {
-                    var accountHash = md5.createHash(securityService.loginStatus.authedUser.account_number );
+                    //Need to statefully randomize account num distrobution
+                    //1 - Hash account
+                    //2 - removed all numbers
+                    //3 - pull only first number and create int
+                    var accountHash = md5.createHash(securityService.loginStatus.authedUser.account_number ).replace(/\D/g,'');
+                    var accountHashInt = parseInt(accountHash.substring(0, 1));
                     var testgroup = '';
-                    if (accountHash % 2 === 1) {
+                    if (accountHashInt % 2 === 1) {
                         testgroup = 'ABTestControl';
                         $scope.isControlGroup = true;
                     } else{
