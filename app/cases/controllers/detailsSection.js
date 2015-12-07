@@ -17,6 +17,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.maxNotesLength = '255';
         $scope.progressCount = 0;
         $scope.caseSummaryEditable = false;
+        $scope.contactList = {};
 
 		$scope.toggleExtraInfo = function() {
 			$scope.showExtraInfo = !$scope.showExtraInfo;
@@ -74,6 +75,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 });
             }
             $scope.owners = ownerOptions;
+            $scope.fetchPossibleContacts();
         };
 
 
@@ -137,6 +139,17 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 $scope.caseSummaryEditable = false;
             }
 
+        };
+        $scope.fetchPossibleContacts = function () {
+            if(RHAUtils.isNotEmpty(CaseService.kase.folder_number) && CaseService.kase.folder_number !== -1){
+                strataService.groups.get(CaseService.kase.folder_number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (group) {
+                    $scope.contactList = group;
+                }), function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                });
+            } else{
+                $scope.contactList = CaseService.users;
+            }
         };
         $scope.validatePage = function () {
             if (ProductsService.versionLoading) {

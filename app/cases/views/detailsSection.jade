@@ -52,6 +52,16 @@ section.case-description
               ng-model='CaseService.kase.group')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
+            .label {{'Case Contact'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            select#rha-group-select.form-control(
+              chosen,
+              width="'100%'",
+              name='owner',
+              ng-options='user.sso_username as user.sso_username for user in contactList',
+              ng-model='CaseService.kase.contact_sso_username')
+        .row.row-short
+          .col-xs-4.col-sm-3.col-md-4
             .label {{'Case Type'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             div(rha-typeselect='')
