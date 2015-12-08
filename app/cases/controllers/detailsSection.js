@@ -2,6 +2,7 @@
 /*jshint camelcase: false */
 angular.module('RedhatAccess.cases').controller('DetailsSection', [
     '$scope',
+    '$filter',
     'strataService',
     'CaseService',
     'securityService',
@@ -10,14 +11,16 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
     'CASE_EVENTS',
     'AlertService',
     'RHAUtils',
-    function ($scope, strataService, CaseService, securityService, ProductsService, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
+    function ($scope, $filter, strataService, CaseService, securityService, ProductsService, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
+
         $scope.showExtraInfo = false;
 	    $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.maxNotesLength = '255';
         $scope.progressCount = 0;
         $scope.caseSummaryEditable = false;
-        $scope.contactList = {};
+        $scope.contactList = [];
+        $scope.caseContactSelected = true;
 
 		$scope.toggleExtraInfo = function() {
 			$scope.showExtraInfo = !$scope.showExtraInfo;
@@ -94,15 +97,21 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.updateCase = function () {
             $scope.updatingDetails = true;
             if (CaseService.kase !== undefined) {
-                CaseService.updateCase().then(function () {
+                if($scope.caseContactSelected){
+                    CaseService.updateCase().then(function () {
+                        $scope.updatingDetails = false;
+                        $scope.caseSummaryEditable = false;
+                        $scope.detailsForm.$setPristine();
+                        $scope.summaryForm.$setPristine();
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                        $scope.updatingDetails = false;
+                    });
+                } else{
+                    var errorMessage = "A Case Contact must be selected to update case";
+                    AlertService.addDangerMessage(errorMessage);
                     $scope.updatingDetails = false;
-                    $scope.caseSummaryEditable = false;
-                    $scope.detailsForm.$setPristine();
-                    $scope.summaryForm.$setPristine();
-                }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
-                    $scope.updatingDetails = false;
-                });
+                }
             } else {
                 if ($scope.caseDetails.owner !== undefined && $scope.caseDetails.owner.$dirty) {
                     $scope.changeCaseOwner();
@@ -141,9 +150,21 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
 
         };
         $scope.fetchPossibleContacts = function () {
-            if(RHAUtils.isNotEmpty(CaseService.kase.folder_number) && CaseService.kase.folder_number !== -1){
-                strataService.groups.get(CaseService.kase.folder_number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (group) {
-                    $scope.contactList = group;
+            if(RHAUtils.isNotEmpty(CaseService.kase.group) && RHAUtils.isNotEmpty(CaseService.kase.group.number) && CaseService.kase.group.number !== -1){
+                strataService.accounts.users(securityService.loginStatus.authedUser.account_number, CaseService.kase.group.number).then(angular.bind(this, function (group) {
+                    $scope.contactList = $filter('filter')( group, {write:true} );
+                    $scope.caseContactSelected = true;
+                    var listContainsUser = false;
+                    for(var i = 0; i < $scope.contactList.length; i++){
+                        if($scope.contactList[i].sso_username === CaseService.kase.contact_sso_username){
+                            listContainsUser = true;
+                            break;
+                        }
+                    }
+                    if(!listContainsUser){
+                        $scope.caseContactSelected = false;
+                    }
+
                 }), function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
@@ -151,6 +172,9 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                 $scope.contactList = CaseService.users;
             }
         };
+        $scope.$watch('CaseService.users', function() {
+            $scope.fetchPossibleContacts();
+        });
         $scope.validatePage = function () {
             if (ProductsService.versionLoading) {
                 return true;

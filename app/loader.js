@@ -113,15 +113,15 @@
                         window.location.replace(redirectURL);
                   });
                 }
-              ])
-          .factory('$exceptionHandler', function() {
-              if (host !== 'access.redhat.com') {
-                  return function (exception, cause) {
-                      exception.message += ' (caused by "' + cause + '")';
-                      throw exception;
-                  };
-              }
-        });
+              ]);
+        //   .factory('$exceptionHandler', function() {
+        //       if (host !== 'access.redhat.com') {
+        //           return function (exception, cause) {
+        //               exception.message += ' (caused by "' + cause + '")';
+        //               throw exception;
+        //           };
+        //       }
+        // });
       // Bootstrap angular app
       angular.bootstrap(document, ['RedhatAccess']);
       // Fade in main element
