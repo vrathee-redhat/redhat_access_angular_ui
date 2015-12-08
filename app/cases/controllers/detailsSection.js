@@ -11,7 +11,8 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
     'CASE_EVENTS',
     'AlertService',
     'RHAUtils',
-    function ($scope, $filter, strataService, CaseService, securityService, ProductsService, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils) {
+    'translate',
+    function ($scope, $filter, strataService, CaseService, securityService, ProductsService, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils, translate) {
 
         $scope.showExtraInfo = false;
 	    $scope.CaseService = CaseService;
@@ -108,7 +109,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         $scope.updatingDetails = false;
                     });
                 } else{
-                    var errorMessage = "A Case Contact must be selected to update case";
+                    var errorMessage = translate("A Case Contact must be selected to update case");
                     AlertService.addDangerMessage(errorMessage);
                     $scope.updatingDetails = false;
                 }
