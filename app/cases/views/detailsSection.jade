@@ -49,7 +49,18 @@ section.case-description
               width="'100%'",
               name='group',
               ng-options='g.name for g in groups track by g.number',
-              ng-model='CaseService.kase.group')
+              ng-model='CaseService.kase.group',
+              ng-change='fetchPossibleContacts()')
+        .row.row-short(ng-show="securityService.loginStatus.authedUser.org_admin")
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{'Case Contact'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            select#rha-group-select.form-control(
+              chosen,
+              width="'100%'",
+              name='owner',
+              ng-options='user.sso_username as user.sso_username for user in contactList',
+              ng-model='CaseService.kase.contact_sso_username')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
             .label {{'Case Type'|translate}}

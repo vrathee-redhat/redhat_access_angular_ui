@@ -576,6 +576,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             if (this.kase.summary !== null && !angular.equals(this.prestineKase.summary, this.kase.summary) ) {
                 caseJSON.summary = this.kase.summary;
             }
+            if (this.kase.contact_sso_username !== null && !angular.equals(this.prestineKase.contact_sso_username, this.kase.contact_sso_username) ) {
+                caseJSON.contactSsoUsername = this.kase.contact_sso_username;
+            }
             strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
                 this.updatingCase = false;
                 angular.copy(this.kase, this.prestineKase);
