@@ -46,6 +46,20 @@
 	}
 }
 
+#rha-content{
+	tbody{
+		tr{
+			td{
+				input.severity-radio {
+					margin-top: 9px;
+				}
+			}
+		}
+	}
+}
+
+
+
 .severity-time-description {
 	margin-top: 5px;
 	margin-bottom: 5px;

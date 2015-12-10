@@ -1,8 +1,9 @@
 'use strict';
 angular.module('RedhatAccess.cases').controller('SeveritySelect', [
-    '$scope',
-    function ($scope) {
+    '$scope','CaseService',
+    function ($scope, CaseService) {
     	// INIT
+        $scope.CaseService = CaseService;
         $scope.ie8 = window.ie8;
         $scope.openedDetails = {};
     	angular.forEach($scope.severities, function(severity) {
@@ -19,14 +20,8 @@ angular.module('RedhatAccess.cases').controller('SeveritySelect', [
         	$scope.openedDetails[severity.name] = !$scope.openedDetails[severity.name];
         };
 
-        $scope.toggleSeverity = function (severity) {
-            if(!$scope.severityDisabled) {
-                $scope.severityModel = severity;
-            }
-        };
-
-        $scope.$watch("severityModel", function() {
-            $scope.severityChange();
+        $scope.$watch("CaseService.kase.severity", function() {
+            CaseService.onChangeFTSCheck();
         });
     }
 ]);
