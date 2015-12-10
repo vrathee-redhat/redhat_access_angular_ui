@@ -45,16 +45,9 @@
 		&.level4 { background: #78848C; }
 	}
 }
-
-#rha-content{
-	tbody{
-		tr{
-			td{
-				input.severity-radio {
-					margin-top: 9px;
-				}
-			}
-		}
+#severity-select{
+	input.severity-radio {
+		margin-top: 9px;
 	}
 }
 
