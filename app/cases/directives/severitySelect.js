@@ -6,6 +6,8 @@ angular.module('RedhatAccess.cases').directive('rhaSeverityselect', function () 
         restrict: 'A',
         controller: 'SeveritySelect',
         scope: {
+            createdCase: '=',
+            severityChange: '&',
         	severities: '=',
             severityDisabled: '='
         }

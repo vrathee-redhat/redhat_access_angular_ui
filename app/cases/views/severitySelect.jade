@@ -8,7 +8,7 @@
         tbody
             tr(ng-repeat-start="severity in severities.slice().reverse()").list-item
                 td.severity(id="severity_{{severity.name.substring(0,1)}}")
-                    input.pull-left.severity-radio#severity-radio(type="radio" ng-model="CaseService.kase.severity" ng-value="severity")
+                    input.pull-left.severity-radio#severity-radio(type="radio" ng-model="createdCase.severity" ng-value="severity")
                     span(ng-if="!ie8")
                         span.icon-severity.level1(ng-show="severity.name === '1 (Urgent)'") 1
                         span.icon-severity.level2(ng-show="severity.name === '2 (High)'") 2

@@ -135,8 +135,11 @@ div(rha-header='', page='newCase')
                             ng-options="entitlement as entitlement for entitlement in CaseService.entitlements")
                                 option(value="")
                             label {{'Severity' |translate}}
-                            div(rha-severityselect, severity-disabled="CaseService.submittingCase",
-                             severities="CaseService.severities")
+                            div(rha-severityselect, 
+                            created-case="CaseService.kase", 
+                            severity-change="CaseService.onChangeFTSCheck()", 
+                            severity-disabled="CaseService.submittingCase",
+                            severities="CaseService.severities")
                             div(ng-show="CaseService.showFts()")
                                 label.pull-left(translate,translate-comment="Noun") 24x7 Support
                                 input.pull-left(
