@@ -8,11 +8,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-08-20 01:18+0000\n"
+"PO-Revision-Date: 2015-12-09 01:21+0000\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
-"X-Generator: Zanata 3.6.2\n"
+"X-Generator: Zanata 3.7.3\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: app/cases/controllers/discussionSection.js
@@ -35,6 +35,10 @@ msgstr "* 모든 필드는 필수 입력 필드입니다."
 msgid "* marked fields are mandatory fields."
 msgstr "* 표시된 필드는 필수 입력 필드입니다."
 
+#: app/cases/views/discussionSection.html
+msgid "- Private"
+msgstr "- 비공개"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
 #: app/cases/views/detailsSection.html
@@ -49,6 +53,55 @@ msgstr "24x7 연락처"
 msgid "24x7 Support"
 msgstr "연중무휴 24시간 지원"
 
+#: app/cases/services/caseService.js
+msgid ""
+"A general usage question, reporting of a documentation error, or "
+"recommendation for a future product enhancement or modification. For "
+"production environments, there is low-to-no impact on your business or the "
+"performance or functionality of your system. For development environments, "
+"there is a medium-to-low impact on your business, but your business "
+"continues to function, including by using a procedural workaround."
+msgstr ""
+"일반적인 사용에 관한 질문, 문서상의 오류 보고, 향후 제품 개선이나 수정에 관한 권장 사항 제시. 운영 환경의 경우 비즈니스 또는 "
+"시스템 성능이나 기능에 거의 영향을 주지 않습니다. 개발 환경의 경우 비즈니스에 중간에서 낮은 정도의 영향을 미치지만 조치를 취할 수 "
+"있는 대안을 사용하여 비즈니스는 계속 운영될 수 있습니다."
+
+#: app/cases/services/caseService.js
+msgid ""
+"A problem that involves partial, non-critical loss of use of the software in "
+"a production environment or development environment. For production "
+"environments, there is a medium-to-low impact on your business, but your "
+"business continues to function, including by using a procedural workaround. "
+"For development environments, where the situation is causing your project to "
+"no longer continue or migrate into production."
+msgstr ""
+"운영 환경 또는 개발 환경에서  소프트웨어 사용 중 중요하지 않은 기능이 부분적으로 손실되는 문제. 운영 환경의 경우 비즈니스에 중간에서 "
+"낮은 정도의 영향을 미치지만 조치를 취할 수 있는 대안을 사용하여 비즈니스는 계속 운영될 수 있습니다. 개발 환경의 경우 프로젝트를 "
+"더이상 계속 진행할 수 없거나 운영 환경으로 마이그레이션할 수 없습니다."
+
+#: app/cases/services/caseService.js
+msgid ""
+"A problem that severely impacts your use of the software in a production "
+"environment (such as loss of production data or in which your production "
+"systems are not functioning). The situation halts your business operations "
+"and no procedural workaround exists."
+msgstr ""
+"운영 환경에서 소프트웨어 사용에 심각한 영향을 미치는 문제 (예: 운영 환경 데이터 손실 또는 운영 환경 시스템이 제대로 작동하는 않는 "
+"경우). 비즈니스 운영을 중단해야 하는 상태로 조치를 취할 수 있는 대안이 없는 경우에 해당됩니다."
+
+#: app/cases/services/caseService.js
+msgid ""
+"A problem where the software is functioning but your use in a production "
+"environment is severely reduced. The situation is causing a high impact to "
+"portions of your business operations and no procedural workaround exists."
+msgstr ""
+"소프트웨어가 작동하지만 운영 환경에서 사용성이 크게 줄어든 문제입니다. 비즈니스 운영의 일부분에 중요한 영향을 미치는 상태로 조치를 취할 "
+"수 있는 대안이 없는 경우에 해당됩니다."
+
+#: app/cases/views/manageGroupUsers.html
+msgid "Access"
+msgstr "액세스"
+
 # translation auto-copied from project Customer Portal Translations, version management_page, document Management_Prototype.html, author eukim
 #. Noun
 #: app/cases/views/new.html
@@ -56,8 +109,8 @@ msgid "Account"
 msgstr "계정"
 
 #: app/cases/views/edit.html
-msgid "Account name : {{securityService.loginStatus.account.name}}"
-msgstr "계정 이름 : {{securityService.loginStatus.account.name}}"
+msgid "Account name : {{CaseService.account.name}}"
+msgstr "계정 이름 : {{CaseService.account.name}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/controllers/accountSelect.js
@@ -65,8 +118,16 @@ msgid "Account not found."
 msgstr "계정을 찾을 수 없습니다. "
 
 #: app/cases/views/edit.html
-msgid "Account number : {{securityService.loginStatus.account.number}}"
-msgstr "계정 번호 : {{securityService.loginStatus.account.number}}"
+msgid "Account number : {{CaseService.account.number}}"
+msgstr "계정 번호 : {{CaseService.account.number}}"
+
+#: app/cases/views/discussionSection.html
+msgid "Action Plan"
+msgstr "작업 계획"
+
+#: app/cases/views/discussionSection.html
+msgid "Action Plan:"
+msgstr "작업 계획:"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachProductLogs.html
@@ -89,7 +150,6 @@ msgstr "전체 그룹 "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
 msgid "Already Escalated?"
 msgstr "이미 에스컬레이션되었습니까?"
 
@@ -162,6 +222,10 @@ msgid ""
 "resolution."
 msgstr "로그 또는 진단 파일을 첨부하면 일반적으로 해결 시간이 단축됩니다."
 
+#: app/cases/views/discussionSection.html
+msgid "Attachment"
+msgstr "첨부 파일"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/navSideBar.html
 msgid "Available Log Files"
@@ -196,6 +260,10 @@ msgstr "Bugzilla 티켓 "
 msgid "CASE {{CaseService.kase.case_number}}"
 msgstr "기술 문의 {{CaseService.kase.case_number}}"
 
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "CASE {{caseNumber}}"
+msgstr "기술 문의 {{caseNumber}}"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #. Verb
 #: app/cases/views/addCommentSection.html
@@ -210,12 +278,6 @@ msgstr "취소 "
 #: app/cases/controllers/commonConfirmationModal.js
 msgid "Case  {{caseNumber}} successfully closed."
 msgstr "기술 문의 {{caseNumber}}이/가 성공적으로 종료되었습니다."
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#. Noun
-#: app/cases/views/new.html
-msgid "Case Description"
-msgstr "기술 문의 설명"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/discussionSection.html
@@ -243,11 +305,31 @@ msgstr "기술문의 그룹 이름:"
 msgid "Case Group:"
 msgstr "기술문의 그룹:"
 
+#: app/cases/views/manageGroupList.html
+msgid "Case Groups"
+msgstr "기술문의 그룹"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
 #: app/escalation/views/partnerEscalation.html
 msgid "Case Information"
 msgstr "기술 문의 정보"
+
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Case Owner (A-Z)"
+msgstr "기술 문의 소유자 (A-Z)"
+
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Case Owner (Z-A)"
+msgstr "기술 문의 소유자 (Z-A)"
+
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Case Status (A-Z)"
+msgstr "기술 문의 상태 (A-Z)"
+
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Case Status (Z-A)"
+msgstr "기술 문의 상태 (Z-A)"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
@@ -257,6 +339,7 @@ msgstr "기술 문의 유형"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/controllers/editGroup.js
+#: app/cases/services/manageGroupsService.js
 msgid "Case group successfully updated."
 msgstr "기술 문의 그룹이 성공적으로 업데이트되었습니다. "
 
@@ -270,6 +353,7 @@ msgstr "기술 문의 상태가 변경되었습니다."
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/controllers/editGroup.js
+#: app/cases/services/manageGroupsService.js
 msgid "Case users successfully updated."
 msgstr "기술 문의 사용자가 성공적으로 업데이트되었습니다. "
 
@@ -292,6 +376,7 @@ msgstr "메세지 종료 "
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/controllers/statusSelect.js
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Closed"
 msgstr "종료됨 "
 
@@ -313,6 +398,10 @@ msgstr "기술 문의를 종료하고 있습니다."
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Comment:"
 msgstr "코멘트: "
+
+#: app/cases/views/manageGroupList.html
+msgid "Create"
+msgstr "생성"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/createGroupModal.html
@@ -343,13 +432,16 @@ msgstr "파트너 에스컬레이션 요청 생성 중 ....."
 msgid "Creating case..."
 msgstr "기술 문의 생성 중..."
 
+#: app/cases/services/manageGroupsService.js
+msgid "Creating group"
+msgstr "그룹 생성 중"
+
 #: app/cases/controllers/createGroupModal.js
 msgid "Creating group {{groupName}}..."
 msgstr "그룹 {{groupName}} 생성 중..."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
 msgid "Customer"
 msgstr "고객"
 
@@ -386,6 +478,7 @@ msgstr "고객 GEO"
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #. Verb
 #: app/cases/views/listAttachments.html
+#: app/cases/controllers/manageGroupList.js
 msgid "Delete"
 msgstr "삭제 "
 
@@ -397,6 +490,10 @@ msgstr "그룹 삭제"
 #: app/cases/services/attachmentsService.js
 msgid "Deleting attachment: {{attachmentName}}"
 msgstr "첨부 파일 삭제: {{attachmentName}}"
+
+#: app/cases/services/manageGroupsService.js
+msgid "Deleting group"
+msgstr "그룹 삭제 중"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #. Noun
@@ -411,7 +508,6 @@ msgstr "진단 "
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/views/descriptionSection.html
-#: app/cases/views/severitySelect.html
 msgid ""
 "Different support-level options might be available based on your account "
 "subscriptions. Your support level determines the type of response you can "
@@ -423,6 +519,10 @@ msgstr ""
 #: app/cases/views/discussionSection.html
 msgid "Discard Changes"
 msgstr "변경 사항 취소"
+
+#: app/cases/controllers/manageGroupList.js
+msgid "Duplicate"
+msgstr "복제"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/controllers/escalationRequest.js
@@ -470,6 +570,10 @@ msgstr "CSV로 내보내기"
 msgid "Exporting CSV..."
 msgstr "CSV 내보내기 중..."
 
+#: app/cases/views/list.html
+msgid "Exporting CSV"
+msgstr "CSV 내보내기 중"
+
 #: app/cases/services/attachmentsService.js
 msgid ""
 "Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: "
@@ -515,6 +619,7 @@ msgstr "내 계정 번호 검색"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/editGroup.html
+#: app/cases/views/manageGroupUsers.html
 msgid "First Name"
 msgstr "이름"
 
@@ -523,6 +628,10 @@ msgstr "이름"
 #: app/escalation/views/partnerEscalation.html
 msgid "For example: 1-888-467-3342"
 msgstr "예: 1-888-467-3342"
+
+#: app/cases/views/severitySelect.html
+msgid "For more details about initial and ongoing response times, visit the"
+msgstr "초기 응답 및 지속적 응답 시간에 대한 자세한 내용은 다음에서 확인하십시오"
 
 #: app/cases/controllers/edit.js
 msgid "Friday = {{businessHours}}"
@@ -562,10 +671,19 @@ msgstr "그룹 이름:"
 msgid "Group Users:"
 msgstr "그룹 사용자:"
 
+#: app/cases/views/manageGroupList.html
+msgid "Groups Loading..."
+msgstr "그룹 로딩 중..."
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/editCaseRecommendationsSection.html
 msgid "Handpicked For You"
 msgstr "고객을 위해 엄선"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Highest Severity"
+msgstr "가장 높은 심각도 순"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
@@ -582,6 +700,14 @@ msgid ""
 "If this is a request for information from you or the customer and if you "
 "need us to contact you to discuss the issues."
 msgstr "사용자 또는 고객에 대한 정보 요청인 경우 및 문제에 대해 문의하기 위해 연락을 받고자 하는 경우."
+
+#: app/escalation/views/partnerEscalation.html
+msgid ""
+"If unable to provide number, you may use 00000000 in order to submit form. "
+"Note: This may delay our ability to associate request with customer issue"
+msgstr ""
+"기술 문의 번호를 제공할 수 없는 경우 00000000을 사용하여 양식을 제출합니다. 참고: 고객 문제 및 요청 연결에 시간이 소요될 수 "
+"있습니다."
 
 #: app/cases/controllers/edit.js
 msgid ""
@@ -645,15 +771,15 @@ msgstr "공개:"
 msgid "Issue Description"
 msgstr "문제 설명 "
 
+#: app/escalation/views/partnerEscalation.html
+msgid "Issue Subject"
+msgstr "문제 제목"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/editGroup.html
+#: app/cases/views/manageGroupUsers.html
 msgid "Last Name"
 msgstr "성"
-
-# translation auto-copied from project Customer Portal Translations, version 012_June_RHEL, document downloads.html, author eukim
-#: app/cases/views/requestEscalation.html
-msgid "Learn More"
-msgstr "자세한 정보 "
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/requestManagementEscalationModal.html
@@ -675,18 +801,34 @@ msgstr "상위 솔루션 검색 중"
 msgid "Log File Viewer"
 msgstr "로그 파일 뷰어 "
 
+#: app/cases/views/manageGroupUsers.html
+msgid "Login"
+msgstr "로그인"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/i18n/placeholder.html
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Logs"
 msgstr "로그 "
 
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Lowest Severity"
+msgstr "가장 낮은 심각도 순"
+
+#: app/cases/views/manageGroupUsers.html
+msgid "Make Default Group"
+msgstr "기본 그룹 만들기"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/services/caseService.js
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Manage Case Groups"
 msgstr "기술문의 그룹 관리"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/views/group.html
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Manage Default Case Groups"
 msgstr "기본 기술문의 그룹 관리"
 
@@ -715,9 +857,14 @@ msgid "Name"
 msgstr "이름 "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/cases/views/requestEscalation.html
-msgid "Need to raise a concern to Red Hat Support management?"
-msgstr "Red Hat 지원 관리에 문제를 알려야 합니까?"
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Newest Date Created"
+msgstr "최신 날짜 생성 순"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Newest Date Modified"
+msgstr "최신 날짜 수정 순"
 
 #: app/cases/controllers/discussionSection.js
 msgid "Newest to Oldest"
@@ -732,6 +879,14 @@ msgstr "아니요"
 msgid "No Files were attached to your case."
 msgstr "기술 문의에 파일이 첨부되어 있지 않습니다."
 
+#: app/cases/controllers/manageGroupUsers.js
+msgid "No access"
+msgstr "액세스 권한 없음"
+
+#: app/cases/views/discussionSection.html
+msgid "No action plan to display."
+msgstr "표시할 작업 계획이 없습니다."
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/listAttachments.html
 msgid "No attachments added"
@@ -744,6 +899,7 @@ msgstr "지정된 필터에 맞는 기술 문의 사항이 없습니다."
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/groupList.html
+#: app/cases/views/manageGroupList.html
 msgid "No groups found."
 msgstr "그룹을 찾을 수 없습니다."
 
@@ -776,9 +932,23 @@ msgstr "찾을 수 없음"
 msgid "Notes:"
 msgstr "알림: "
 
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Oldest Date Created"
+msgstr "가장 오래된 날짜 생성 순"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Oldest Date Modified"
+msgstr "가장 오래된 날짜 수정 순"
+
 #: app/cases/controllers/discussionSection.js
 msgid "Oldest to Newest"
 msgstr "오래된 항목 순"
+
+#: app/cases/views/requestEscalation.html
+msgid "Once submitted, your case will be reviewed by a support manager."
+msgstr "기술 문의가 접수되면 지원 관리자가 확인합니다."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
@@ -810,6 +980,7 @@ msgstr ""
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/controllers/statusSelect.js
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Open"
 msgstr "진행중"
 
@@ -830,11 +1001,13 @@ msgid "Open a New Support Case"
 msgstr "새 기술 문의 생성"
 
 #: app/cases/views/list.html
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Open a Support Case"
 msgstr "기술 문의 생성"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/controllers/statusSelect.js
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Open and Closed"
 msgstr "진행중 및 종료됨 "
 
@@ -926,20 +1099,26 @@ msgstr ""
 "가능하면 고객에게 계정 번호를 요청하십시오. 그렇지 않을 경우 자신의 Red Hat 계정 번호를 사용하십시오. 계정 번호는 이 페이지의 "
 "오른쪽 상단 코너에 있는 사용자 이름을 클릭하면 알 수 있습니다."
 
+#: app/escalation/views/partnerEscalation.html
+msgid ""
+"Please select the issue subject.  If an item in the list does not match, "
+"please select 'other' and enter a subject in the box that appears below."
+msgstr ""
+"문제 제목을 선택하십시오. 목록에서 일치하는 항목이 없을 경우 '기타'를 선택하고 아래에 표시되는 상자에 제목을 입력하십시오."
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/addCommentSection.html
 msgid "Post"
 msgstr "게재"
 
+#: app/cases/views/severitySelect.html
+msgid "Premium"
+msgstr "프리미엄"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/escalation/views/partnerEscalation.html
 msgid "Priority Customer Support Routing"
 msgstr "우선 순위에 있는 고객 지원 연결 경로"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/discussionSection.html
-msgid "Private"
-msgstr "비공개"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/discussionSection.html
@@ -965,6 +1144,7 @@ msgid "Product Version"
 msgstr "제품 버전 "
 
 #: app/cases/views/new.html
+#: app/cases/views/severitySelect.html
 msgid "Production Support Service Level Agreement"
 msgstr "제품 지원 서비스 수준 약관"
 
@@ -972,6 +1152,15 @@ msgstr "제품 지원 서비스 수준 약관"
 #: app/cases/views/editGroup.html
 msgid "Read Access"
 msgstr "읽기 액세스"
+
+#: app/cases/controllers/manageGroupUsers.js
+msgid "Read Only"
+msgstr "읽기 전용"
+
+#: app/cases/views/manageGroupUsers.html
+#: app/cases/controllers/manageGroupUsers.js
+msgid "Read and Write"
+msgstr "읽기 및 쓰기"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
@@ -1007,6 +1196,7 @@ msgstr ""
 "위한 방법을 제공합니다."
 
 #: app/cases/views/new.html
+#: app/cases/views/severitySelect.html
 msgid "Red Hat Support Severity Level Definitions"
 msgstr "Red Hat 지원 심각도 수준 정의"
 
@@ -1021,20 +1211,24 @@ msgstr "Red Hat 지원 티켓 번호 "
 msgid "Refining top solutions"
 msgstr "상위 솔루션 검색"
 
+#: app/cases/controllers/manageGroupList.js
+msgid "Rename"
+msgstr "이름 변경"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/views/discussionSection.html
 msgid "Reply"
 msgstr "회신"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
+#: app/cases/views/requestEscalation.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
 msgstr "관리 에스컬레이션 요청"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/requestEscalation.html
-msgid "Request escalation"
-msgstr "에스컬레이션 요청"
+msgid "Request a management escalation if you feel that:"
+msgstr "관리 에스컬레이션 요청:"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
@@ -1046,6 +1240,15 @@ msgstr "요청자"
 #: app/search/views/resultDetail.html
 msgid "Resolution"
 msgstr "해결 방법 "
+
+#: app/cases/views/discussionSection.html
+msgid "SHA-256:"
+msgstr "SHA-256:"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "SUPPORT CASES"
+msgstr "기술 문의"
 
 #: app/cases/controllers/edit.js
 msgid "Saturday = {{businessHours}}"
@@ -1071,6 +1274,7 @@ msgstr "그룹 저장"
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/search/views/search_form.html
 #: app/i18n/placeholder.html
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Search"
 msgstr "검색 "
 
@@ -1078,6 +1282,15 @@ msgstr "검색 "
 #: app/search/views/search_form.html
 msgid "Search Articles and Solutions"
 msgstr "문서 및 해결 방법 검색 "
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Search Support Case"
+msgstr "기술 문의 검색 "
+
+#: app/cases/views/severitySelect.html
+msgid "See the"
+msgstr "참조"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/navSideBar.html
@@ -1120,6 +1333,10 @@ msgstr "첨부할 서버 파일: "
 msgid "Severity"
 msgstr "심각도"
 
+#: app/cases/views/severitySelect.html
+msgid "Severity Level"
+msgstr "심각도"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/log_viewer/views/logsInstructionPane.html
 msgid ""
@@ -1137,6 +1354,10 @@ msgstr "크기 "
 #: app/cases/views/filterSelect.html
 msgid "Sort by"
 msgstr "정렬 기준"
+
+#: app/cases/views/severitySelect.html
+msgid "Standard"
+msgstr "표준"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #. Verb
@@ -1157,6 +1378,10 @@ msgstr "요청 보내기"
 msgid "Successfully created case number {{caseNumber}}"
 msgstr "기술 문의 번호 {{caseNumber}}이/가 성공적으로 생성되었습니다 "
 
+#: app/cases/services/manageGroupsService.js
+msgid "Successfully created group"
+msgstr "그룹을 성공적으로 생성했습니다"
+
 #: app/cases/controllers/createGroupModal.js
 msgid "Successfully created group {{groupName}}"
 msgstr "그룹 {{groupName}}을/를 성공적으로 생성했습니다"
@@ -1164,6 +1389,10 @@ msgstr "그룹 {{groupName}}을/를 성공적으로 생성했습니다"
 #: app/cases/services/attachmentsService.js
 msgid "Successfully deleted attachment:{{attachmentName}}"
 msgstr "첨부파일을 성공적으로 삭제했습니다:{{attachmentName}}"
+
+#: app/cases/services/manageGroupsService.js
+msgid "Successfully deleted group"
+msgstr "그룹을 성공적으로 삭제했습니다"
 
 #: app/cases/controllers/deleteGroupButton.js
 msgid "Successfully deleted group {{groupName}}"
@@ -1227,6 +1456,10 @@ msgstr ""
 "Red Hat 지원팀에 문의해 주셔서 감사합니다! 조만간 연락을 드릴 것입니다. 저희에게 기록된 고객의 연락 가능한 시간은 다음과 "
 "같습니다:"
 
+#: app/cases/views/requestEscalation.html
+msgid "The Red Hat Escalation Process"
+msgstr "Red Hat 에스컬레이션 절차"
+
 # translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author eukim
 #: app/common/views/403.html
 msgid ""
@@ -1275,7 +1508,6 @@ msgstr ""
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
 msgid "This is your 8 digit Red Hat Support ticket number"
 msgstr "8 자리의 Red Hat 지원 티켓 번호입니다 "
 
@@ -1301,6 +1533,10 @@ msgstr "목요일 = {{businessHours}}"
 msgid "To Learn more view the"
 msgstr "자세한 내용은 다음에서 확인하십시오:"
 
+#: app/cases/views/requestEscalation.html
+msgid "To learn more, visit"
+msgstr "자세한 내용은 다음에서 확인하십시오"
+
 #: app/cases/views/new.html
 msgid "To learn more, visit the"
 msgstr "자세한 내용은 다음에서 확인하십시오: "
@@ -1315,14 +1551,18 @@ msgstr "권장 사항을 확인하려면 해당 항목을 클릭합니다."
 msgid "Top Solutions"
 msgstr "상위 솔루션"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/discussionSection.html
-msgid "Transcript of chat between"
+msgid "Transcript of chat"
 msgstr "채팅 내용"
 
 #: app/cases/controllers/edit.js
 msgid "Tuesday = {{businessHours}}"
 msgstr "화요일 = {{businessHours}}"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "Unauthorized."
+msgstr "인증되지 않았습니다."
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/services/caseService.js
@@ -1343,6 +1583,14 @@ msgstr "업데이트 "
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "Updating Recommendations"
 msgstr "권장 사항 업데이트 중"
+
+#: app/cases/services/manageGroupsService.js
+msgid "Updating group"
+msgstr "그룹 업데이트 중"
+
+#: app/cases/services/manageGroupsService.js
+msgid "Updating users for group..."
+msgstr "그룹 사용자 업데이트 중..."
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: app/cases/views/attachmentsSection.html
@@ -1375,9 +1623,24 @@ msgstr "사용자에게는 기본 기술 문의 그룹 설정 권한이 없습�
 msgid "User does not have proper credentials to manage case groups."
 msgstr "사용자에게는 기술 문의 그룹을 관리할 적절한 인증이 없습니다. "
 
+#: app/cases/views/manageGroupUsers.html
+msgid "Users Loading..."
+msgstr "사용자 로딩 중..."
+
+#: app/cases/views/manageGroupUsers.html
+msgid "Users not available."
+msgstr "사용자를 선택할 수 없습니다."
+
+#: app/cases/views/detailsSection.html
+msgid "View Less"
+msgstr "간단히 보기"
+
+#: app/cases/views/detailsSection.html
+msgid "View More"
+msgstr "상세 보기"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/views/descriptionSection.html
-#: app/cases/views/severitySelect.html
 msgid "View Production Support Service Level Agreement"
 msgstr "제품 지원 서비스 수준 약관 보기 "
 
@@ -1419,13 +1682,21 @@ msgid "Yes, Submit"
 msgstr "예, 보내기"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
+#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr "Red Hat 고객 포털에서 성공적으로 로그아웃했습니다. "
+
+# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/search/services/searchResultsService.js
 msgid "You must be logged in to use this functionality."
 msgstr "이 기능을 사용하려면 로그인해야 합니다. "
 
+#: app/escalation/views/partnerEscalation.html
+msgid "Your Email Address"
+msgstr "사용자 이메일 주소"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
 msgid "Your Email address"
 msgstr "사용자 이메일 주소"
 
@@ -1433,6 +1704,10 @@ msgstr "사용자 이메일 주소"
 #: app/escalation/services/escalationRequestService.js
 msgid "Your Ice Escalation request has been sent successfully"
 msgstr "귀하의 ICE 에스컬레이션 요청이 성공적으로 전송되었습니다"
+
+#: app/escalation/views/partnerEscalation.html
+msgid "Your Name"
+msgstr "사용자 이름"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/escalation/services/escalationRequestService.js
@@ -1460,6 +1735,18 @@ msgstr "Red Hat 전화 번호"
 msgid "Your Red Hat Email Address"
 msgstr "Red Hat 이메일 주소"
 
+#: app/cases/views/requestEscalation.html
+msgid "Your issue has become more severe or should be a higher priority."
+msgstr "문제가 더 심각해 지거나 우선 순위가 더 높아야 합니다."
+
+#: app/cases/views/requestEscalation.html
+msgid "Your issue isn't being resolved appropriately."
+msgstr "문제가 올바르게 해결되지 않았습니다."
+
+#: app/cases/views/requestEscalation.html
+msgid "Your issue needs a more senior resource."
+msgstr "문제에 고급 지원이 필요합니다."
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/cases/views/discussionSection.html
 msgid "and"
@@ -1468,7 +1755,11 @@ msgstr "및 "
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/discussionSection.html
 msgid "at"
-msgstr " "
+msgstr "시간:"
+
+#: app/cases/views/discussionSection.html
+msgid "between"
+msgstr "채팅 내용"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/partnerEscalation.html
@@ -1489,9 +1780,29 @@ msgstr "상세 정보"
 msgid "no business hours"
 msgstr "업무 외 시간"
 
+#: app/cases/views/discussionSection.html
+msgid "on"
+msgstr "날짜:"
+
+#: app/cases/views/severitySelect.html
+msgid "to learn more."
+msgstr "자세한 정보"
+
 #: app/cases/views/addCommentSection.html
 msgid "{{charactersLeft}} characters left."
 msgstr "{{charactersLeft}} 문자가 남아 있습니다."
+
+#: app/cases/services/caseService.js
+msgid "{{days}} business day"
+msgstr "{{days}}일 (영업일 기준)"
+
+#: app/cases/services/caseService.js
+msgid "{{days}} business days"
+msgstr "{{days}}일 (영업일 기준)"
+
+#: app/cases/controllers/attachLocalFile.js
+msgid "{{errorFileName}} cannot be attached because it is a 0 byte file."
+msgstr "{{errorFileName}} 용량이 0 바이트이기 때문에 첨부할 수 없습니다."
 
 #: app/cases/controllers/attachLocalFile.js
 msgid ""
@@ -1501,76 +1812,22 @@ msgstr ""
 "{{errorFileName}} 용량이 {{errorFileSize}} GB를 초과하기 때문에 첨부할 수 없습니다. 용량이 큰 파일은  "
 "FTP로 dropbox.redhat.com에 업로드하십시오."
 
+#: app/cases/services/caseService.js
+msgid "{{hours}} business hour"
+msgstr "{{hours}} 시간 (영업 시간 기준)"
+
+#: app/cases/services/caseService.js
+msgid "{{hours}} business hours"
+msgstr "{{hours}} 시간 (영업 시간 기준)"
+
+#: app/cases/services/caseService.js
+msgid "{{hours}} hour"
+msgstr "{{hours}} 시간"
+
+#: app/cases/services/caseService.js
+msgid "{{hours}} hours"
+msgstr "{{hours}} 시간"
+
 #: app/cases/views/discussionSection.html
 msgid "{{noteCharactersLeft}} characters left."
 msgstr "{{noteCharactersLeft}} 문자가 남아 있습니다."
-
-#: app/common/controllers/titleView.js
-msgid "CASE {{caseNumber}}"
-msgstr "기술 문의 {{caseNumber}}"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/controllers/titleView.js
-msgid "SUPPORT CASES"
-msgstr "기술 문의"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
-#: app/common/controllers/titleView.js
-msgid "Search Support Case"
-msgstr "기술 문의 검색 "
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
-#: app/common/services/alertService.js
-msgid "You have successfully logged out of the Red Hat Customer Portal."
-msgstr "Red Hat 고객 포털에서 성공적으로 로그아웃했습니다. "
-
-#: app/common/services/constantsService.js
-msgid "Case Owner (A-Z)"
-msgstr "기술 문의 소유자 (A-Z)"
-
-#: app/common/services/constantsService.js
-msgid "Case Owner (Z-A)"
-msgstr "기술 문의 소유자 (Z-A)"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js
-msgid "Highest Severity"
-msgstr "가장 높은 심각도 순"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js
-msgid "Lowest Severity"
-msgstr "가장 낮은 심각도 순"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js
-msgid "Newest Date Created"
-msgstr "최신 날짜 생성 순"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js
-msgid "Newest Date Modified"
-msgstr "최신 날짜 수정 순"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js
-msgid "Oldest Date Created"
-msgstr "가장 오래된 날짜 생성 순"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/common/services/constantsService.js
-msgid "Oldest Date Modified"
-msgstr "가장 오래된 날짜 수정 순"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
-#: app/common/services/strataService.js
-msgid "Unauthorized."
-msgstr "인증되지 않았습니다."
-
-#: app/common/services/constantsService.js
-msgid "Case Status (A-Z)"
-msgstr "기술 문의 상태 (A-Z)"
-
-#: app/common/services/constantsService.js
-msgid "Case Status (Z-A)"
-msgstr "기술 문의 상태 (Z-A)"
