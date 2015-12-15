@@ -63,10 +63,10 @@ div#redhat-access-escalations.container-offset(ng-hide='HeaderService.showPartne
           legend
             {{'Case Information'|translate}}
           div.form-group
-            label.col-sm-5.control-label(for='rha-case-number') {{'Red Hat Support Ticket Number'|translate}} *
+            label.col-sm-5.control-label(for='rha-case-number') {{'Red Hat Support Ticket Number'|translate}}
             div.col-sm-7
-              input#rha-case-number.form-control.nonEmpty(ng-model='EscalationRequestService.caseNumber' ng-change="partnerMandatoryFieldCheck()")
-              span.help-block {{'If unable to provide number, you may use 00000000 in order to submit form. Note: This may delay our ability to associate request with customer issue'|translate}}
+              input#rha-case-number.form-control.nonEmpty(ng-model='EscalationRequestService.caseNumber')
+              span.help-block {{'Please provide the support ticket number. You may omit this field, however, this may delay our ability to associate request with customer issue.'|translate}}
           div.form-group
             label.col-sm-5.control-label(for='rha-issue-description') {{'Issue Subject'|translate}} *
             div.col-sm-7
