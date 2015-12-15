@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-12-09 01:23+0000\n"
+"PO-Revision-Date: 2015-12-15 01:07+0000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Chinese (Simplified)\n"
 "Language: zh_CN\n"
@@ -603,7 +603,7 @@ msgstr "文件名"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
 #: app/cases/views/accountSelect.html
 msgid "Find My Account Number"
-msgstr "找到我们的帐户号码"
+msgstr "查找帐户号码"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
 #: app/cases/views/editGroup.html
@@ -813,7 +813,7 @@ msgstr "管理默认问题单组"
 
 #: app/cases/views/list.html
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
-msgstr "被 {{case.last_modified_by}} 在 {{case.last_modified_date}} 修改"
+msgstr "由 {{case.last_modified_by}} 在 {{case.last_modified_date}} 修改"
 
 #: app/cases/controllers/edit.js
 msgid "Monday = {{businessHours}}"
@@ -838,12 +838,12 @@ msgstr "名称"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Newest Date Created"
-msgstr "已生成最新日期"
+msgstr "最新创建日期"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Newest Date Modified"
-msgstr "已修改最新日期"
+msgstr "最新修改日期"
 
 #: app/cases/controllers/discussionSection.js
 msgid "Newest to Oldest"
@@ -914,12 +914,12 @@ msgstr "备注："
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Oldest Date Created"
-msgstr "已生成第一个日期"
+msgstr "最老的创建日期"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Oldest Date Modified"
-msgstr "已修改第一个日期"
+msgstr "最老的修改日期"
 
 #: app/cases/controllers/discussionSection.js
 msgid "Oldest to Newest"
@@ -1623,7 +1623,7 @@ msgstr "\"您遇到了什么问题？您所期望获得的结果是什么？\""
 #: app/cases/services/caseService.js
 msgid ""
 "When does the behavior occur? Frequently?  Repeatedly?   At certain times?"
-msgstr "\"这个问题在什么时候发生？发生的频率是什么？是否会重复发生？是否只在特定时间发生？\""
+msgstr "\"这个问题在什么时候发生？有多频繁？是否会重复发生？是否只在特定时间发生？\""
 
 #: app/cases/services/caseService.js
 msgid "Where are you experiencing the behavior?  What environment?"
