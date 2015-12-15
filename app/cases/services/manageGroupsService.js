@@ -22,18 +22,21 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
             strataService.groups.list(securityService.loginStatus.authedUser.sso_username, false).then(angular.bind(this, function (groups) {
                 this.groupsOnScreen = groups;
                 this.sortGroups();
+                this.removeUngroupedCase();
                 this.groupsLoading = false;
-                if(this.fetchNewGroupDetails) {
-                    for(var i = 0; i < this.groupsOnScreen.length; i++) {
-                        if(this.groupsOnScreen[i].name === this.newGroupName) {
-                            this.fetchGroupDetails(this.groupsOnScreen[i]);
-                            this.newGroupName = '';
-                            this.fetchNewGroupDetails = false;
-                            break;
+                if(RHAUtils.isNotEmpty(this.groupsOnScreen)){
+                    if(this.fetchNewGroupDetails) {
+                        for(var i = 0; i < this.groupsOnScreen.length; i++) {
+                            if(this.groupsOnScreen[i].name === this.newGroupName) {
+                                this.fetchGroupDetails(this.groupsOnScreen[i]);
+                                this.newGroupName = '';
+                                this.fetchNewGroupDetails = false;
+                                break;
+                            }
                         }
+                    } else {
+                        this.fetchGroupDetails(this.groupsOnScreen[0]);
                     }
-                } else {
-                    this.fetchGroupDetails(this.groupsOnScreen[0]);
                 }
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
@@ -166,6 +169,15 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
                 if(a.name > b.name) { return 1; }
                 return 0;
             });
+        };
+
+        this.removeUngroupedCase = function() {
+            for (var i = this.groupsOnScreen.length - 1; i >= 0; i--) {
+                if(this.groupsOnScreen[i].number==='-1'){
+                    this.groupsOnScreen.splice(i,1);
+                    break;
+                }
+            };
         };
 
 
