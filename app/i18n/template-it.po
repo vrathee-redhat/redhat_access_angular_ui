@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-12-04 03:16+0000\n"
+"PO-Revision-Date: 2015-12-15 03:15+0000\n"
 "Last-Translator: fvalen <fvalen@redhat.com>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -325,7 +325,7 @@ msgstr "Gruppo casi:"
 
 #: app/cases/views/manageGroupList.html
 msgid "Case Groups"
-msgstr "Gruppi casi"
+msgstr "Gruppi di casi"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
 #: app/escalation/views/iceEscalation.html
@@ -396,7 +396,7 @@ msgstr "Chiudi i messaggi"
 #: app/cases/controllers/statusSelect.js
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Closed"
-msgstr "Chiuso"
+msgstr "Chiusi"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
 #: app/cases/controllers/list.js
@@ -859,13 +859,13 @@ msgstr "Usa come gruppo predefinito"
 #: app/cases/services/caseService.js
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Manage Case Groups"
-msgstr "Gestisci Gruppi casi"
+msgstr "Gestisci i gruppi di casi"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author fvalen
 #: app/cases/views/group.html
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Manage Default Case Groups"
-msgstr "Gestisci Gruppi casi predefiniti"
+msgstr "Gestisci i gruppi di casi predefiniti"
 
 #: app/cases/views/list.html
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
@@ -1027,7 +1027,7 @@ msgstr ""
 #: app/cases/controllers/statusSelect.js
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Open"
-msgstr "Apri"
+msgstr "Aperti"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author fvalen
 #: app/i18n/placeholder.html
@@ -1037,7 +1037,7 @@ msgstr "Apri un nuovo caso"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author fvalen
 #: app/cases/controllers/list.js
 msgid "Open Support Cases"
-msgstr "Apri i casi di supporto"
+msgstr "Casi di supporto aperti"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author fvalen
 #: app/search/views/accordion_search_results.html

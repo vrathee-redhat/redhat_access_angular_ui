@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-12-09 01:11+0000\n"
+"PO-Revision-Date: 2015-12-15 02:57+0000\n"
 "Last-Translator: msuppesd <msuppesd@redhat.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt\n"
@@ -112,7 +112,7 @@ msgstr ""
 
 #: app/cases/views/manageGroupUsers.html
 msgid "Access"
-msgstr "Acesso"
+msgstr "Acessar"
 
 # translation auto-copied from project Customer Portal Translations, version management_page, document Management_Prototype.html, author gcintra
 #. Noun
@@ -191,7 +191,7 @@ msgstr "Você tem certeza que deseja encerrar os casos selecionados?"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/edit.html
 msgid "Assigned to"
-msgstr "Determinado para"
+msgstr "Atribuído a "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/attachLocalFile.html
@@ -239,8 +239,8 @@ msgid ""
 "Attaching logs or other diagnostics files typically results in faster "
 "resolution."
 msgstr ""
-"Anexar os arquivos de outros diagnósticos ou logs normalmente resulta numa "
-"resolução mais rápida. "
+"A anexação de logs ou outros arquivos de diagnóstico geralmente resulta em "
+"um solucionamento mais rápido. "
 
 #: app/cases/views/discussionSection.html
 msgid "Attachment"
@@ -254,7 +254,7 @@ msgstr "Arquivos de Log Disponíveis:"
 #: app/cases/views/editCaseRecommendationsSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "BACK"
-msgstr "RETORNAR"
+msgstr "ANTERIOR"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ldelima
 #: app/cases/views/defaultGroup.html
@@ -302,7 +302,7 @@ msgstr "Caso  {{caseNumber}} fechado com sucesso."
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gcintra
 #: app/cases/views/discussionSection.html
 msgid "Case Discussion"
-msgstr "Discussão do Caso"
+msgstr "Discussão de Caso"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author gcintra
 #: app/cases/views/detailsSection.html
@@ -585,7 +585,7 @@ msgstr "Exportar"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/list.html
 msgid "Export as CSV"
-msgstr "Exportar como um CSV"
+msgstr "Exportar como CSV"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gcintra
 #: app/cases/views/exportCSVButton.html
@@ -626,7 +626,7 @@ msgid ""
 "Filed on {{CaseService.kase.created_date}} by {{CaseService.kase."
 "contact_name}}"
 msgstr ""
-"Arquivado no  {{CaseService.kase.created_date}} pelo {{CaseService.kase."
+"Arquivado em  {{CaseService.kase.created_date}} por {{CaseService.kase."
 "contact_name}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gcintra
@@ -684,7 +684,7 @@ msgstr ""
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/new.html
 msgid "Get faster results."
-msgstr "Obter resultados mais rápidos."
+msgstr "Obtenha resultados mais rápidos."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/editGroup.html
@@ -703,7 +703,7 @@ msgstr "Carregando Grupos..."
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/editCaseRecommendationsSection.html
 msgid "Handpicked For You"
-msgstr "Selecionado(a) manualmente para você"
+msgstr "Seleção feita especialmente para você"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
@@ -862,7 +862,7 @@ msgstr "Criar Grupo Padrão"
 #: app/cases/services/caseService.js
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Manage Case Groups"
-msgstr "Gerencie Grupos de Caso"
+msgstr "Gerenciar Grupos de Caso"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ldelima
 #: app/cases/views/group.html
@@ -888,7 +888,7 @@ msgstr "Meus Casos"
 #: app/cases/views/editCaseRecommendationsSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "NEXT"
-msgstr "Próxima"
+msgstr "PRÓXIMA"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gcintra
 #: app/cases/views/groupList.html
@@ -898,16 +898,16 @@ msgstr "Nome"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Newest Date Created"
-msgstr "Data Criada mais Recente"
+msgstr "Última Data Criada "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Newest Date Modified"
-msgstr "Data Modificada mais Recentemente"
+msgstr "Última Data Modificada "
 
 #: app/cases/controllers/discussionSection.js
 msgid "Newest to Oldest"
-msgstr "Do mais novo até o mais velho"
+msgstr "Do Último ao Primeiro"
 
 # translation auto-copied from project Customer Portal Translations, version RHJBossMiddlewareOperationsNetworkProduc, document RHJBossMiddlewareOperationsNetworkProductUpdate.html, author gcintra
 #: app/cases/views/commonConfirmationModal.html
@@ -945,7 +945,7 @@ msgstr "Nenhum grupo encontrado"
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gcintra
 #: app/cases/views/listBugzillas.html
 msgid "No linked bugzillas"
-msgstr "Nenhum bugzilla conectado"
+msgstr "Nenhum bugzilla vinculado"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ldelima
 #: app/cases/views/ownerSelect.html
@@ -974,16 +974,16 @@ msgstr "Notas:"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Oldest Date Created"
-msgstr "Data mais Antiga Criada"
+msgstr "Primeira Data Criada"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Oldest Date Modified"
-msgstr "Data mais Antiga Modificada"
+msgstr "Primeira Data Modificada"
 
 #: app/cases/controllers/discussionSection.js
 msgid "Oldest to Newest"
-msgstr "Do mais antigo ao mais novo"
+msgstr "Do Primeiro ao Último"
 
 #: app/cases/views/requestEscalation.html
 msgid "Once submitted, your case will be reviewed by a support manager."
@@ -1207,7 +1207,7 @@ msgstr "Versão do Produto"
 #: app/cases/views/new.html
 #: app/cases/views/severitySelect.html
 msgid "Production Support Service Level Agreement"
-msgstr "Contrato do Nível do Serviço de Suporte de Produção"
+msgstr "Production Support Service Level Agreement"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/editGroup.html
@@ -1377,7 +1377,7 @@ msgstr "Selecionar um Usuário"
 #: app/cases/views/emailNotifySelect.html
 #: app/cases/views/new.html
 msgid "Send Email Notifications to"
-msgstr "Enviar Notificações de E-mail a(o)"
+msgstr "Enviar Notificações de Email a "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/escalation/views/iceEscalation.html
@@ -1614,7 +1614,7 @@ msgstr "Quinta-Feira = {{businessHours}}"
 
 #: app/cases/views/new.html
 msgid "To Learn more view the"
-msgstr "Para saber mais veja"
+msgstr "Para saber mais, consulte"
 
 #: app/cases/views/requestEscalation.html
 msgid "To learn more, visit"
@@ -1622,7 +1622,7 @@ msgstr "Para saber mais, acesse "
 
 #: app/cases/views/new.html
 msgid "To learn more, visit the"
-msgstr "Para saber mais visite o "
+msgstr "Para saber mais, consulte"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author gcintra
 #: app/search/views/list_search_results.html
@@ -1632,7 +1632,7 @@ msgstr "Para visualizar recomendação, clique nela;"
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/editCaseRecommendationsSection.html
 msgid "Top Solutions"
-msgstr "Soluções Populares"
+msgstr "Principais Soluções "
 
 #: app/cases/views/discussionSection.html
 msgid "Transcript of chat"
@@ -1650,12 +1650,12 @@ msgstr "Desautorizado."
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ldelima
 #: app/cases/services/caseService.js
 msgid "Ungrouped Case"
-msgstr "Caso Desagrupados"
+msgstr "Caso Desagrupado"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author ldelima
 #: app/cases/services/caseService.js
 msgid "Ungrouped Cases"
-msgstr "Casos sem Grupos"
+msgstr "Casos Desagrupados"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/cases/views/discussionSection.html
@@ -1736,7 +1736,7 @@ msgstr "Quarta-Feira = {{businessHours}}"
 #: app/cases/services/caseService.js
 msgid "What information can you provide around timeframes and urgency?"
 msgstr ""
-"Quais informações você pode fornecer dentro da estrutura de horário e "
+"Quais informações você pode fornecer em relação aos períodos de tempo e "
 "urgência? "
 
 #: app/cases/services/caseService.js
@@ -1744,19 +1744,20 @@ msgid ""
 "What problem/issue/behavior are you having trouble with?  What do you expect "
 "to see?"
 msgstr ""
-"Qual  problema/comportamento está lhe causando dificuldades? O que você "
-"espera ver?"
+"Que tipo de problema/comportamento você está enfrentando? O que você espera "
+"encontrar?"
 
 #: app/cases/services/caseService.js
 msgid ""
 "When does the behavior occur? Frequently?  Repeatedly?   At certain times?"
 msgstr ""
-"Quando este comportamento ocorre? Com qual frequência? Repetidamente? Às "
+"Quando este comportamento ocorre? Com qual frequência? Várias vezes? Algumas "
 "vezes? "
 
 #: app/cases/services/caseService.js
 msgid "Where are you experiencing the behavior?  What environment?"
-msgstr "Onde é o comportamento? Em qual ambiente? "
+msgstr ""
+"Onde você está enfrentando esse tipo de comportamento? Em qual ambiente? "
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author ldelima
 #: app/cases/views/editGroup.html
