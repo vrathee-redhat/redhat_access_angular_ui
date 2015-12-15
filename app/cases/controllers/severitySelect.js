@@ -19,13 +19,7 @@ angular.module('RedhatAccess.cases').controller('SeveritySelect', [
         	$scope.openedDetails[severity.name] = !$scope.openedDetails[severity.name];
         };
 
-        $scope.toggleSeverity = function (severity) {
-            if(!$scope.severityDisabled) {
-                $scope.severityModel = severity;
-            }
-        };
-
-        $scope.$watch("severityModel", function() {
+        $scope.$watch("createdCase.severity", function() {
             $scope.severityChange();
         });
     }

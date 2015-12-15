@@ -1,36 +1,36 @@
-table.table.table-hover.table-condensed
-    thead
-        tr
-            th(translate) Severity Level
-            th(translate) Standard
-            th(translate) Premium
-    tbody
-        tr(ng-repeat-start="severity in severities").list-item
-            td.severity(ng-click="toggleSeverity(severity)", id="severity_{{severity.name.substring(0,1)}}")
-                i.fa.fa-circle-o.fa-2x.float-left(ng-show="$parent.severityModel.name !== severity.name")
-                i.fa.fa-check-circle-o.fa-2x.float-left(ng-show="$parent.severityModel.name === severity.name")
-                span(ng-if="!ie8")
-                    span.icon-severity.level1.float-left(ng-show="severity.name === '1 (Urgent)'") 1
-                    span.icon-severity.level2.float-left(ng-show="severity.name === '2 (High)'") 2
-                    span.icon-severity.level3.float-left(ng-show="severity.name === '3 (Normal)'") 3
-                    span.icon-severity.level4.float-left(ng-show="severity.name === '4 (Low)'") 4
-                span.severity-select-name.float-left(ng-show="!ie8") {{ severity.name.substring(2, severity.name.length) }}
-                span.severity-select-name.float-left(ng-show="ie8") {{ severity.name }}
-                span.glyphicon.glyphicon-question-sign.link.severity-details-link.float-right(ng-click="toggleDetails(severity, $event)")
-            td
-                div.severity-time-description {{severity.responseTimes.standard}}
-            td
-                div.severity-time-description {{severity.responseTimes.premium}}
-        tr(ng-repeat-end, ng-show="openedDetails[severity.name]", ng-animate=).severity-description
-            td(colspan=3)
-                span {{severity.details}}
-                = " "
-                span(translate) See the
-                = " "
-                a(href="/support/policy/severity", target="_blank") {{"Red Hat Support Severity Level Definitions" | translate}}
-                = " "
-                span(translate) to learn more.
+#severity-select
+    table.table.table-hover.table-condensed
+        thead
+            tr
+                th(translate) Severity Level
+                th(translate) Standard
+                th(translate) Premium
+        tbody
+            tr(ng-repeat-start="severity in severities.slice().reverse()").list-item
+                td.severity(id="severity_{{severity.name.substring(0,1)}}")
+                    input.pull-left.severity-radio#severity-radio(type="radio" ng-model="createdCase.severity" ng-value="severity")
+                    span(ng-if="!ie8")
+                        span.icon-severity.level1(ng-show="severity.name === '1 (Urgent)'") 1
+                        span.icon-severity.level2(ng-show="severity.name === '2 (High)'") 2
+                        span.icon-severity.level3(ng-show="severity.name === '3 (Normal)'") 3
+                        span.icon-severity.level4(ng-show="severity.name === '4 (Low)'") 4
+                    span.severity-select-name(ng-show="!ie8") {{'Severity' |translate}} {{ severity.name}}
+                    span.severity-select-name(ng-show="ie8") {{ severity.name }}
+                    span.glyphicon.glyphicon-question-sign.link.severity-details-link(ng-click="toggleDetails(severity, $event)")
+                td
+                    div.severity-time-description {{severity.responseTimes.standard}}
+                td
+                    div.severity-time-description {{severity.responseTimes.premium}}
+            tr(ng-repeat-end, ng-show="openedDetails[severity.name]", ng-animate=).severity-description
+                td(colspan=3)
+                    span {{severity.details}}
+                    = " "
+                    span(translate) See the
+                    = " "
+                    a(href="/support/policy/severity", target="_blank") {{"Red Hat Support Severity Level Definitions" | translate}}
+                    = " "
+                    span(translate) to learn more.
 
-span(translate) For more details about initial and ongoing response times, visit the
-= " "
-a(href="/support/offerings/production/sla", target="_blank") {{"Production Support Service Level Agreement" | translate}}
+    span(translate) For more details about initial and ongoing response times, visit the
+    = " "
+    a(href="/support/offerings/production/sla", target="_blank") {{"Production Support Service Level Agreement" | translate}}

@@ -45,6 +45,13 @@
 		&.level4 { background: #78848C; }
 	}
 }
+#severity-select{
+	input.severity-radio {
+		margin-top: 9px;
+	}
+}
+
+
 
 .severity-time-description {
 	margin-top: 5px;
