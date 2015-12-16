@@ -9,10 +9,10 @@ div(rha-header='', page='newCase')
                     section.config-options
                         #rha-case-main-options
                             div(ng-if='securityService.loginStatus.authedUser.is_internal')
-                            label(for='rha-account-number',translate,translate-comment="Noun") Account
-                            div(rha-accountselect='')
-                            label(for='rha-owners-select',translate,translate-comment="Noun") Owner
-                            div(rha-ownerselect='')
+                                label(for='rha-account-number',translate,translate-comment="Noun") Account
+                                div(rha-accountselect='')
+                                label(for='rha-owners-select',translate,translate-comment="Noun") Owner
+                                div(rha-ownerselect='')
                             label(translate,translate-comment="Noun") Product
                             div(rha-productselect='')
                             label(translate,translate-comment="Noun") Product Version
@@ -141,13 +141,13 @@ div(rha-header='', page='newCase')
                             severity-disabled="CaseService.submittingCase",
                             severities="CaseService.severities")
                             div(ng-show="CaseService.showFts()")
-                                label.pull-left(translate,translate-comment="Noun") 24x7 Support
-                                input.pull-left(
+                                label(translate,translate-comment="Noun") 24x7 Support
+                                input(
                                 type="checkbox",
                                 ng-model="CaseService.fts")
                             div(ng-show="CaseService.showFts()")
-                                label.pull-left(translate,translate-comment="Noun")  24x7 Contact
-                                input.pull-left(
+                                label(translate,translate-comment="Noun")  24x7 Contact
+                                input(
                                 ng-model="CaseService.fts_contact")
 
                             label(for='email-notifications',translate) Send Email Notifications to
