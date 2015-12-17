@@ -84,7 +84,7 @@ div(rha-header='', page='newCase')
                                     .circle &nbsp;
                                     .circle &nbsp;
                                     .circle &nbsp;
-                            
+
                             div(style="margin-top: 15px", ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
                                 b {{'Get faster results.'|translate}}
                                 | &nbsp; {{'Attaching logs or other diagnostics files typically results in faster resolution.'|translate}}
@@ -135,21 +135,19 @@ div(rha-header='', page='newCase')
                             ng-options="entitlement as entitlement for entitlement in CaseService.entitlements")
                                 option(value="")
                             label {{'Severity' |translate}}
-                            div(rha-severityselect, 
-                            created-case="CaseService.kase", 
-                            severity-change="CaseService.onChangeFTSCheck()", 
+                            div(rha-severityselect,
+                            created-case="CaseService.kase",
+                            severity-change="CaseService.onChangeFTSCheck()",
                             severity-disabled="CaseService.submittingCase",
                             severities="CaseService.severities")
                             div(ng-show="CaseService.showFts()")
-                                label(translate,translate-comment="Noun") 24x7 Support
+                                label#rha-24X7_Support(translate,translate-comment="Noun") 24x7 Support
                                 input(
                                 type="checkbox",
                                 ng-model="CaseService.fts")
                             div(ng-show="CaseService.showFts()")
-                                label(translate,translate-comment="Noun")  24x7 Contact
-                                input(
-                                ng-model="CaseService.fts_contact")
-
+                                label#rha-24X7_Contact(translate,translate-comment="Noun") 24x7 Contact
+                                input#rha-24X7_Contact_input(ng-model="CaseService.fts_contact")
                             label(for='email-notifications',translate) Send Email Notifications to
                             .spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
                             select(
