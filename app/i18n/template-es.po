@@ -9,7 +9,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-12-09 03:22+0000\n"
+"PO-Revision-Date: 2015-12-15 08:13+0000\n"
 "Last-Translator: agarcia <agarcia@redhat.com>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -920,7 +920,7 @@ msgstr "No se adjuntaron archivos a su caso."
 
 #: app/cases/controllers/manageGroupUsers.js
 msgid "No access"
-msgstr "No acceso"
+msgstr "No hay acceso"
 
 #: app/cases/views/discussionSection.html
 msgid "No action plan to display."
@@ -1030,7 +1030,7 @@ msgstr ""
 #: app/cases/controllers/statusSelect.js
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
 msgid "Open"
-msgstr "Abrir"
+msgstr "Abierto"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author gguerrer
 #: app/i18n/placeholder.html
@@ -1422,7 +1422,7 @@ msgstr "Tamaño"
 #: app/cases/views/discussionSection.html
 #: app/cases/views/filterSelect.html
 msgid "Sort by"
-msgstr "Organizar por"
+msgstr "Organizar"
 
 #: app/cases/views/severitySelect.html
 msgid "Standard"
