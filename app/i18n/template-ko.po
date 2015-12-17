@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-12-09 01:21+0000\n"
+"PO-Revision-Date: 2015-12-16 01:20+0000\n"
 "Last-Translator: eukim <eukim@redhat.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -234,12 +234,12 @@ msgstr "사용 가능한 로그 파일 "
 #: app/cases/views/editCaseRecommendationsSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "BACK"
-msgstr "뒤로"
+msgstr "이전"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/views/defaultGroup.html
 msgid "Back"
-msgstr "뒤로"
+msgstr "이전"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/newCaseRecommendationsSection.html
@@ -631,7 +631,7 @@ msgstr "예: 1-888-467-3342"
 
 #: app/cases/views/severitySelect.html
 msgid "For more details about initial and ongoing response times, visit the"
-msgstr "초기 응답 및 지속적 응답 시간에 대한 자세한 내용은 다음에서 확인하십시오"
+msgstr "최초 응답 및 지속적 응답 시간에 대한 자세한 내용은 다음에서 확인하십시오"
 
 #: app/cases/controllers/edit.js
 msgid "Friday = {{businessHours}}"
@@ -678,7 +678,7 @@ msgstr "그룹 로딩 중..."
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/cases/views/editCaseRecommendationsSection.html
 msgid "Handpicked For You"
-msgstr "고객을 위해 엄선"
+msgstr "주요 참고 자료"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
@@ -1224,11 +1224,11 @@ msgstr "회신"
 #: app/cases/views/requestEscalation.html
 #: app/cases/views/requestManagementEscalationModal.html
 msgid "Request Management Escalation"
-msgstr "관리 에스컬레이션 요청"
+msgstr "매니저 에스컬레이션 요청"
 
 #: app/cases/views/requestEscalation.html
 msgid "Request a management escalation if you feel that:"
-msgstr "관리 에스컬레이션 요청:"
+msgstr "매니저 에스컬레이션 요청:"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html
@@ -1637,7 +1637,7 @@ msgstr "간단히 보기"
 
 #: app/cases/views/detailsSection.html
 msgid "View More"
-msgstr "상세 보기"
+msgstr "자세히 보기"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author eukim
 #: app/cases/views/descriptionSection.html

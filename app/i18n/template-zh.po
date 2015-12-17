@@ -228,7 +228,7 @@ msgstr "有效的日志文件"
 #: app/cases/views/editCaseRecommendationsSection.html
 #: app/cases/views/newCaseRecommendationsSection.html
 msgid "BACK"
-msgstr "BACK"
+msgstr "回退"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
 #: app/cases/views/defaultGroup.html

@@ -1765,7 +1765,7 @@ msgid ""
 "What problem/issue/behavior are you having trouble with?  What do you expect "
 "to see?"
 msgstr ""
-"Quelle sorte de problème/comportement inatendu rencontrez-vous ? A quoi vous "
+"Quelle sorte de problème/comportement inattendu rencontrez-vous ? A quoi vous "
 "attendez-vous normalement ?"
 
 #: app/cases/services/caseService.js
