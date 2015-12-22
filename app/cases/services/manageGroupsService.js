@@ -8,7 +8,8 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
     'RHAUtils',
     'translate',
     '$filter',
-    function (securityService, AlertService, strataService, HeaderService, RHAUtils, translate, $filter) {
+    '$q',
+    function (securityService, AlertService, strataService, HeaderService, RHAUtils, translate, $filter,$q) {
     	this.groupsOnScreen = [];
     	this.usersOnAccount = [];
     	this.selectedGroup = {};
@@ -16,6 +17,7 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
     	this.groupsLoading = false;
     	this.usersLoading = false;
         this.fetchNewGroupDetails = false;
+        this.editedGroupName='';
 
     	this.fetchAccGroupList = function() {
     		this.groupsLoading = true;
@@ -66,17 +68,26 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
 
     	this.saveGroup = function(group,users) {
     		if(group !== undefined){
+                var deferred = $q.defer();
                 AlertService.addWarningMessage(translate('Updating group') + ' ' + group.name + '...');
+                this.editedGroupName = group.name;
                 strataService.groups.get(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (detailedGroup) {
+                    if(RHAUtils.isNotEmpty(this.editedGroupName) && !angular.equals(this.editedGroupName, detailedGroup.name)) {
+                        detailedGroup.name = this.editedGroupName;
+                    }
                     strataService.groups.update(detailedGroup, securityService.loginStatus.authedUser.sso_username).then(function (response) {
                         AlertService.clearAlerts();
                         AlertService.addSuccessMessage(translate('Case group successfully updated.'));
+                        deferred.resolve();
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
+                        deferred.reject();
                     });
                 }), function (error) {
                     AlertService.addStrataErrorMessage(error);
+                    deferred.reject();
                 });
+                return deferred.promise;
             }
             if(users !== undefined){
                 AlertService.addWarningMessage(translate('Updating users for group...'));

@@ -59,6 +59,7 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
                 group.deleteCaseGroup = true;
                 group.renameCaseGroup = false;
             }  else if (action === 'rename') {
+                group.originalName = group.name;
                 group.active=false;
                 group.renameCaseGroup = true;
                 group.deleteCaseGroup = false;
@@ -85,7 +86,11 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
         };
 
         $scope.renameGroup = function(group) {
-            ManageGroupsService.saveGroup(group,undefined);
+            group.updatingDetails = true;
+            ManageGroupsService.saveGroup(group,undefined).then(function(){
+                group.renameCaseGroup = false;
+                group.updatingDetails = false;
+            });
         };
 
         $scope.cancel = function(group) {
@@ -93,6 +98,7 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
                 group.deleteCaseGroup = false;
             }
             if(group.renameCaseGroup === true) {
+                group.name = group.originalName;
                 group.renameCaseGroup = false;
             }
         };
