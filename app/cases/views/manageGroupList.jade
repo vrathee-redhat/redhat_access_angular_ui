@@ -23,10 +23,10 @@ div(ng-show='!ManageGroupsService.groupsLoading && ManageGroupsService.groupsOnS
           ul.dropdown(ng-class='{"active": group.active}')
             li(ng-repeat='action in actionOptions', ng-click='groupAction(group,action.value)') {{action.label}}
         div(ng-show='group.renameCaseGroup')
-          input.form-control(type='text', ng-model='group.name')
+          input.form-control(type='text', ng-model='group.name',ng-disabled="group.updatingDetails")
         div.margin-top-short(ng-show='group.renameCaseGroup')
-          button.btn.btn-app(ng-click='renameGroup(group)') Rename
-          a.margin-left(ng-click='cancel(group)') Cancel
+          button.btn.btn-app(ng-click='renameGroup(group)',ng-disabled="group.updatingDetails || group.name.length===0") Rename
+          button.btn-link.margin-left(ng-click='cancel(group)',ng-disabled="group.updatingDetails") Cancel
         div(ng-show='group.deleteCaseGroup') {{group.name}}
         div.margin-top-short(ng-show='group.deleteCaseGroup')
           button.btn.btn-primary.btn-sm(ng-click='deleteGroup(group)') Delete
