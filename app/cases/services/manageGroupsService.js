@@ -101,6 +101,7 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
     	};
 
     	this.deleteGroup = function(group) {
+            var deferred = $q.defer();
             AlertService.addWarningMessage(translate('Deleting group') + ' ' + group.name + '...');
     		strataService.groups.remove(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
                 var groups = $filter('filter')(this.groupsOnScreen, function (g) {
@@ -114,11 +115,14 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
                 this.sortGroups();
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(translate('Successfully deleted group') + ' ' + group.name);
+                deferred.resolve();
             }), function (error) {
                 AlertService.clearAlerts();
                 AlertService.addStrataErrorMessage(error);
+                deferred.reject();
             });
-    	};
+            return deferred.promise;
+        };
 
     	this.createGroup = function() {
     		AlertService.addWarningMessage(translate('Creating group') + ' ' + this.newGroupName + '...');

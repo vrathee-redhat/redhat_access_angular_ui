@@ -82,7 +82,11 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
         };
 
         $scope.deleteGroup = function(group) {
-            ManageGroupsService.deleteGroup(group);
+            ManageGroupsService.deleteGroup(group).then(function(){
+                if(RHAUtils.isNotEmpty(ManageGroupsService.groupsOnScreen) && ManageGroupsService.groupsOnScreen.length > 0){
+                    ManageGroupsService.fetchGroupDetails(ManageGroupsService.groupsOnScreen[0]);
+                }
+            });
         };
 
         $scope.renameGroup = function(group) {
