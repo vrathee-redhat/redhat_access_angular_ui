@@ -36,7 +36,7 @@ span(ng-show='ManageGroupsService.usersLoading') {{'Users Loading...'|translate}
             td
               .row
                 .col-sm-8
-                  .toggle-switch(ng-click='setDefaultGroup(user)', ng-class='{"active": user.is_default , "disabled": user.permission === "NONE"}')
+                  .toggle-switch(ng-click='setDefaultGroup(user)', ng-class='{"active": user.is_default , "disabled": user.permission !== "WRITE"}')
                     .switch
                 .col-sm-4
                   span.spinner.spinner-inline(ng-show='user.settingDefaultGroup')
