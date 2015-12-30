@@ -1778,7 +1778,7 @@ msgstr ""
 #: app/cases/services/caseService.js
 msgid "Where are you experiencing the behavior?  What environment?"
 msgstr ""
-"Où rencontrez-vous ce comportement inatendu ? Dans quel environnement ?"
+"Où rencontrez-vous ce comportement inattendu ? Dans quel environnement ?"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/cases/views/editGroup.html
