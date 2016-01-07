@@ -60,7 +60,8 @@ section.case-description
               width="'100%'",
               name='owner',
               ng-options='user.sso_username as user.sso_username for user in contactList',
-              ng-model='CaseService.kase.contact_sso_username')
+              ng-model='CaseService.kase.contact_sso_username',
+              ng-change='contactSelected()')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
             .label {{'Case Type'|translate}}
