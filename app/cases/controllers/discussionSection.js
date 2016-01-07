@@ -27,7 +27,8 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         $scope.securityService = securityService;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
-        $scope.noteCharactersLeft = 255;
+        $scope.noteCharactersMax = 255;
+        $scope.noteCharactersLeft = $scope.noteCharactersMax;
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
         $scope.discussion = true;
         $scope.attachments = false;
@@ -109,7 +110,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.maxNotesCharacterCheck = function() {
             if (CaseService.kase.notes !== undefined ) {
-                $scope.noteCharactersLeft = 255 - CaseService.kase.notes.length;
+                $scope.noteCharactersLeft = $scope.noteCharactersMax - CaseService.kase.notes.length;
             }
         };
 
@@ -142,6 +143,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         };
         $scope.discardNotes = function(){
             CaseService.kase.notes = CaseService.prestineKase.notes;
+            $scope.noteCharactersLeft = $scope.noteCharactersMax - CaseService.kase.notes.length;
             this.notesForm.$setPristine();
         };
         $scope.discardActionPlan = function(){
