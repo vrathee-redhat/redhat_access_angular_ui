@@ -151,9 +151,13 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
 
         };
         $scope.fetchPossibleContacts = function () {
-            if(RHAUtils.isNotEmpty(CaseService.kase.group) && RHAUtils.isNotEmpty(CaseService.kase.group.number) && CaseService.kase.group.number !== "-1" && securityService.loginStatus.authedUser.org_admin ){
-                strataService.accounts.users(securityService.loginStatus.authedUser.account_number, CaseService.kase.group.number).then(angular.bind(this, function (group) {
-                    $scope.contactList = $filter('filter')( group, {write:true} );
+            if(RHAUtils.isNotEmpty(CaseService.kase.group) && RHAUtils.isNotEmpty(CaseService.kase.group.number) && RHAUtils.isNotEmpty(CaseService.account.number && securityService.loginStatus.authedUser.org_admin)){
+                strataService.accounts.users(CaseService.account.number, CaseService.kase.group.number).then(angular.bind(this, function (group) {
+                    if(CaseService.kase.group.number === "-1"){
+                        $scope.contactList = group;
+                    } else{
+                        $scope.contactList = $filter('filter')( group, {write:true} );
+                    }
                     $scope.caseContactSelected = true;
                     var listContainsUser = false;
                     for(var i = 0; i < $scope.contactList.length; i++){
@@ -176,6 +180,12 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.$watch('CaseService.users', function() {
             $scope.fetchPossibleContacts();
         });
+        $scope.$watch('CaseService.account', function() {
+            $scope.fetchPossibleContacts();
+        });
+        $scope.contactSelected = function(){
+            $scope.caseContactSelected = true;
+        }
         $scope.validatePage = function () {
             if (ProductsService.versionLoading) {
                 return true;
