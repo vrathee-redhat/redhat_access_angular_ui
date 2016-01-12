@@ -270,6 +270,12 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                                 this.owner = user.sso_username;
                             }
                         }, this);
+                        //PCM-1520 Case insensitive sorting on sso_username
+                        users.sort(function(a, b) {
+                            var userA = a.sso_username.toUpperCase();
+                            var userB = b.sso_username.toUpperCase();
+                            return (userA < userB) ? -1 : (userA > userB) ? 1 : 0;
+                        });
                         this.usersLoading = false;
                         this.users = users;
 
