@@ -98,7 +98,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.updateCase = function () {
             $scope.updatingDetails = true;
             if (CaseService.kase !== undefined) {
-                if($scope.caseContactSelected){
+                if((securityService.loginStatus.authedUser.org_admin && $scope.caseContactSelected) || (!securityService.loginStatus.authedUser.org_admin)){
                     CaseService.updateCase().then(function () {
                         $scope.updatingDetails = false;
                         $scope.caseSummaryEditable = false;
