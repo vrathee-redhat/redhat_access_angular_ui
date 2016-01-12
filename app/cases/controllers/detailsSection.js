@@ -151,7 +151,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
 
         };
         $scope.fetchPossibleContacts = function () {
-            if(RHAUtils.isNotEmpty(CaseService.kase.group) && RHAUtils.isNotEmpty(CaseService.kase.group.number) && RHAUtils.isNotEmpty(CaseService.account.number && securityService.loginStatus.authedUser.org_admin)){
+            if(RHAUtils.isNotEmpty(CaseService.kase.group) && RHAUtils.isNotEmpty(CaseService.kase.group.number) && RHAUtils.isNotEmpty(CaseService.account.number) && securityService.loginStatus.authedUser.org_admin){
                 strataService.accounts.users(CaseService.account.number, CaseService.kase.group.number).then(angular.bind(this, function (group) {
                     if(CaseService.kase.group.number === "-1"){
                         $scope.contactList = group;
