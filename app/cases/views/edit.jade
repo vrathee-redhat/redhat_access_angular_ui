@@ -7,7 +7,7 @@ div.edit(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageL
       div(style="margin-bottom:15px;")
         span(id="rha-product-version") {{CaseService.kase.product}} {{CaseService.kase.version}}
       div
-        span(id="rha-case-filedOn" translate)  Filed on {{CaseService.kase.created_date}} by {{CaseService.kase.contact_name}}
+        span(id="rha-case-filedOn" translate)  Filed on {{CaseService.kase.created_date}} by {{CaseService.kase.created_by}}
       div
         span {{'Assigned to'|translate}} {{CaseService.kase.owner}}
       div(ng-if='securityService.loginStatus.authedUser.is_internal')
