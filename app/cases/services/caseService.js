@@ -503,6 +503,18 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 'description': this.kase.description,
                 'severity': this.kase.severity.name
             };
+            if (RHAUtils.isNotEmpty(this.kase.problem)) {
+                caseJSON.issue = this.kase.problem;
+            }
+            if (RHAUtils.isNotEmpty(this.kase.environment)) {
+                caseJSON.environment = this.kase.environment;
+            }
+            if (RHAUtils.isNotEmpty(this.kase.occurance)) {
+                caseJSON.periodicityOfIssue = this.kase.occurance;
+            }
+            if (RHAUtils.isNotEmpty(this.kase.urgency)) {
+                 caseJSON.timeFramesAndUrgency = this.kase.urgency;
+            }
             if (RHAUtils.isNotEmpty(this.group)) {
                 caseJSON.folderNumber = this.group;
             }
