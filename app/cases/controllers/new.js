@@ -144,7 +144,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 AlertService.addStrataErrorMessage(error);
             });
             if (window.chrometwo_require !== undefined) {
-                breadcrumbs = [
+                var breadcrumbs = [
                     ['Support', '/support/'],
                     ['Support Cases',  '/support/cases/'],
                     ['New']

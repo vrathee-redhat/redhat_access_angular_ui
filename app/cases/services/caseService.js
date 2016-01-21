@@ -17,7 +17,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$rootScope',
     'CASE_EVENTS',
     'ConstantsService',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, gettextCatalog, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService) {
+    'HeaderService',
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, gettextCatalog, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService) {
         $angularCacheFactory('localStorageCache', {
             storageMode: 'localStorage',
             verifyIntegrity: true
@@ -58,6 +59,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.confirmationModalHeader = '';
         this.confirmationModalMessage = '';
         this.confirmationModalProperty = '';
+        this.sfdcIsHealthy=HeaderService.sfdcIsHealthy;
 
         this.setSeverities = function(severities) {
             this.severities = severities;
