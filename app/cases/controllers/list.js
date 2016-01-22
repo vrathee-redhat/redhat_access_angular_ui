@@ -91,7 +91,7 @@ angular.module('RedhatAccess.cases').controller('List', [
 
         $scope.setBreadcrumbs = function(){
             if (window.chrometwo_require !== undefined) {
-                var breadcrumbs = [
+                breadcrumbs = [
                     ['Support', '/support/'],
                     ['Support Cases',  '/support/cases/'],
                     ['List']

@@ -55,7 +55,7 @@
     }
     // Once all modules have loaded bootstrap it
     jq.when.apply(jq, dfds).always(function() {
-      var breadcrumbs = [
+      breadcrumbs = [
       ['Support', '/support/'],
       ['Support Cases',  '/support/cases/']
       ];
