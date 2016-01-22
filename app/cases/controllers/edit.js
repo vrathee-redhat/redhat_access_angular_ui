@@ -103,7 +103,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                 HeaderService.pageLoadFailure = true;
             });
             if (window.chrometwo_require !== undefined) {
-                var breadcrumbs = [
+                breadcrumbs = [
                     ['Support', '/support/'],
                     ['Support Cases',  '/support/cases/'],
                     [$stateParams.id]
