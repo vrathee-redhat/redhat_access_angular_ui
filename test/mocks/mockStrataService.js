@@ -252,6 +252,32 @@ angular.module('RedhatAccess.mock', [])
         "solution_case_count": 14
       }];
 
+      this.mockRecommendationsForCase = {
+          "docs": [
+              {
+                  "abstract": "* kernel panic at page_waitqueue function * WIP kernel panic at waitpage_waitqueue function",
+                  "allTitle": "kernel panic at waitpage_waitqueue function",
+                  "documentKind": "Solution",
+                  "id": "1348513",
+                  "score": 4.06949,
+                  "uri": "https://api.access.devgssfte.devlab.phx1.redhat.com/rs/solutions/1348513",
+                  "view_uri": "https://access.devgssfte.devlab.phx1.redhat.com/solutions/1348513"
+              },
+              {
+                  "abstract": "* Kernel panic System found in kernel panic mode",
+                  "allTitle": "System found in kernel panic mode",
+                  "documentKind": "Solution",
+                  "id": "380663",
+                  "score": 4.025474,
+                  "uri": "https://api.access.devgssfte.devlab.phx1.redhat.com/rs/solutions/380663",
+                  "view_uri": "https://access.devgssfte.devlab.phx1.redhat.com/solutions/380663"
+              }
+          ],
+          "maxScore": 6.700447,
+          "numFound": 44691,
+          "start": 0
+      };
+
       this.mockSolution = [{
         "solution_title": 'test solution title 1 ',
         "solution_abstract": 'test solution abstract 1'
@@ -822,6 +848,15 @@ angular.module('RedhatAccess.mock', [])
                   deferred.reject();
               } else {
                   deferred.resolve(MockStrataDataService.mockRecommendations);
+              }
+              return deferred.promise;
+          },
+          recommendationsForCase: function (data, limit, start) {
+              var deferred = $q.defer();
+              if (that.rejectCall) {
+                  deferred.reject();
+              } else {
+                  deferred.resolve(MockStrataDataService.mockRecommendationsForCase);
               }
               return deferred.promise;
           },

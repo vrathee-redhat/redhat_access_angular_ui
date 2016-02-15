@@ -30,7 +30,7 @@ accordion
             style='cursor: pointer;') &nbsp;
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title | substring:75}}
-        div.pre-wrap(ng-bind-html='recommendation.abstract')
+        div.pre-wrap {{recommendation.abstract}}
     .pagination(ng-show='RecommendationsService.recommendations.length > itemsPerPage')
       .pull-right
         button.btn.btn-app(ng-disabled="resultsPage === 1", ng-click="decrement('resultsPage');selectPage(resultsPage, RecommendationsService.recommendations, results)") {{'BACK'|translate}}
@@ -48,7 +48,7 @@ accordion
             style='cursor: pointer;') &nbsp;
           a(ng-click='triggerAnalytics($event)', href='{{recommendation.resource_view_uri}}', target='_blank')
             strong {{recommendation.title | substring:75}}
-        div.pre-wrap(ng-bind-html='recommendation.abstract')
+        div.pre-wrap {{recommendation.abstract}}
     .pagination(ng-show='RecommendationsService.pinnedRecommendations.length > itemsPerPage')
       .pull-right
         button.btn.btn-app(ng-disabled="pinnedResultsPage === 1", ng-click="decrement('pinnedResultsPage');selectPage(pinnedResultsPage, RecommendationsService.pinnedRecommendations, pinnedResults)") {{'BACK'|translate}}
