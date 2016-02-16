@@ -184,7 +184,6 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
 
         $scope.getLocalStorageForNewCase = function() {
-            var urlParameter = $location.search();
             if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)) {
                 var draftNewCase = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text;
                 CaseService.kase.description = draftNewCase.description;
@@ -193,27 +192,18 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.kase.occurance = draftNewCase.occurance;
                 CaseService.kase.urgency = draftNewCase.urgency;
                 CaseService.kase.summary = draftNewCase.summary;
-
-                if(RHAUtils.isEmpty(urlParameter.product)){
-                    if (RHAUtils.isNotEmpty(draftNewCase.product)) {
-                        $scope.setProductAndVersion(draftNewCase.product,draftNewCase.version);
-                    }
-                } else{
-                    $scope.setProductAndVersion(urlParameter.product,urlParameter.version);
+                if (RHAUtils.isNotEmpty(draftNewCase.product)) {
+                    //if we directly call $scope.getProductVersions function without product list in strata service it return error
+                    strataService.products.list(CaseService.owner).then(function (products) {
+                        CaseService.kase.product = draftNewCase.product;
+                        ProductsService.getVersions(CaseService.kase.product);
+                        CaseService.kase.version = draftNewCase.version; //setting version after product check, as without product, version don't have any meaning
+                        CaseService.validateNewCase();
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
                 }
             }
-        };
-
-        $scope.setProductAndVersion = function(product,version){
-            //if we directly call $scope.getProductVersions function without product list in strata service it return error
-            strataService.products.list(CaseService.owner).then(function (products) {
-                CaseService.kase.product = product;
-                ProductsService.getVersions(CaseService.kase.product);
-                CaseService.kase.version = version; //setting version after product check, as without product, version don't have any meaning
-                CaseService.validateNewCase();
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
         };
 
         $scope.getNewCaseFromQueryParams = function() {
@@ -492,5 +482,13 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.kase.description = CaseService.kase.description.concat(CaseService.urgencyString + '\n\n' + CaseService.kase.urgency);
             }
         };
+        angular.element('.affixed-recommendations').affix({
+            offset: {
+                top: 220,
+                bottom: function () {
+                    return (this.bottom = $('.footer-main').outerHeight(true) + 25)
+                }
+            }
+        });
     }
 ]);

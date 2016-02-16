@@ -170,5 +170,5 @@ div(rha-header='', page='newCase')
                                 ng-hide='CaseService.submittingCase',
                                 ng-click='doSubmit($event)', translate,translate-comment="Verb") Submit
                                 a.margin-left(href='#/case/list',ng-hide='CaseService.submittingCase',translate,translate-comment="Verb") Cancel
-        .aside.col-sm-4(ng-hide="RecommendationsService.recommendations.length === 0")
-            div(rha-newcaserecommendations='', items-per-page='recommendationsPerPage')
+        .aside.col-sm-4.new-recommendations-column#new-recommendations-column(ng-hide="RecommendationsService.recommendations.length === 0")
+            div.affixed-recommendations(rha-newcaserecommendations='', items-per-page='recommendationsPerPage')
