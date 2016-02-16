@@ -80,20 +80,23 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
 
                 if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations))) {
                     this.loadingRecommendations = true;
-                    currentData = newData;
-                    strataService.recommendationsForCase(currentData, max, 0).then(angular.bind(this, function (response) {
+                    currentData = newData
+                    strataService.recommendationsXmlHack(currentData, max, true, '%3Cspan%20class%3D%22recommendationsKeywords%22%3E%2C%3C%2Fspan%3E').then(angular.bind(this, function (solutions) {
                         //retrieve details for each solution
                         if(refreshRecommendations){
                             this.recommendations = [];
                         }
-                        response.docs.forEach(angular.bind(this, function (solution) {
+                        solutions.forEach(angular.bind(this, function (solution) {
                             if (solution !== undefined) {
                                 solution.resource_type = 'Solution';
-                                solution.resource_id = solution.id;
-                                solution.resource_view_uri = solution.view_uri;
-                                solution.title = solution.allTitle;
+                                try {
+                                    solution.abstract = $sanitize(solution.abstract);
+                                }
+                                catch(err) {
+                                    solution.abstract = '';
+                                }
                                 //this is to sync the case detail pinned recommendation with /rs/problems recommendation w.r.t pinned flag so that red pin will appear in both section
-                                var pinnedRecommendation = $filter('filter')(self.pinnedRecommendations, function (rec) {return rec.resource_id === solution.id;})[0];
+                                var pinnedRecommendation = $filter('filter')(self.pinnedRecommendations, function (rec) {return rec.resource_id === solution.resource_id;})[0];
                                 if (RHAUtils.isNotEmpty(pinnedRecommendation)) {
                                     if (pinnedRecommendation.pinned_at) {
                                         solution.pinned = true;
