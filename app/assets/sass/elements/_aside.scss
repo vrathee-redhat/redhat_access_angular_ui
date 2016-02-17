@@ -1,4 +1,19 @@
 .aside {
+	@media(max-width:767px){
+	   div.affix.affixed-recommendations{
+	     position: static;
+	     width: auto;
+	     top: 0;
+	    }
+	}
+
+	.affix-bottom{
+		position: relative;
+	}
+	.affix.affixed-recommendations{
+		top: 25px;
+		width: 370px;
+	}
 
 	.section {
 		@include rem('padding', $global-margin);
