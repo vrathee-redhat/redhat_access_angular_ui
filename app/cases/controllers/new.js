@@ -184,6 +184,7 @@ angular.module('RedhatAccess.cases').controller('New', [
         };
 
         $scope.getLocalStorageForNewCase = function() {
+            var urlParameter = $location.search();
             if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username)) {
                 var draftNewCase = CaseService.localStorageCache.get(securityService.loginStatus.authedUser.sso_username).text;
                 CaseService.kase.description = draftNewCase.description;
@@ -192,18 +193,24 @@ angular.module('RedhatAccess.cases').controller('New', [
                 CaseService.kase.occurance = draftNewCase.occurance;
                 CaseService.kase.urgency = draftNewCase.urgency;
                 CaseService.kase.summary = draftNewCase.summary;
-                if (RHAUtils.isNotEmpty(draftNewCase.product)) {
-                    //if we directly call $scope.getProductVersions function without product list in strata service it return error
-                    strataService.products.list(CaseService.owner).then(function (products) {
-                        CaseService.kase.product = draftNewCase.product;
-                        ProductsService.getVersions(CaseService.kase.product);
-                        CaseService.kase.version = draftNewCase.version; //setting version after product check, as without product, version don't have any meaning
-                        CaseService.validateNewCase();
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                    });
+                if(RHAUtils.isEmpty(urlParameter.product)){
+                    if (RHAUtils.isNotEmpty(draftNewCase.product)) {
+                        $scope.setProductAndVersion(draftNewCase.product,draftNewCase.version);
+                    }
                 }
             }
+        };
+
+        $scope.setProductAndVersion = function(product,version){
+            //if we directly call $scope.getProductVersions function without product list in strata service it return error
+            strataService.products.list(CaseService.owner).then(function (products) {
+                CaseService.kase.product = product;
+                ProductsService.getVersions(CaseService.kase.product);
+                CaseService.kase.version = version; //setting version after product check, as without product, version don't have any meaning
+                CaseService.validateNewCase();
+            }, function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
         };
 
         $scope.getNewCaseFromQueryParams = function() {
@@ -261,6 +268,11 @@ angular.module('RedhatAccess.cases').controller('New', [
             $scope.initDescription();
             $scope.getLocalStorageForNewCase();
             $scope.getNewCaseFromQueryParams();
+
+            var urlParameter = $location.search();
+            if(RHAUtils.isNotEmpty(urlParameter.product)){
+                $scope.setProductAndVersion(urlParameter.product,urlParameter.version);
+            }
         }
 
         if (securityService.loginStatus.isLoggedIn) {
