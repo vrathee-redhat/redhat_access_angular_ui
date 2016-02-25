@@ -1,10 +1,10 @@
 'use strict';
 /*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('equalWidths', function ($document) {
+angular.module('RedhatAccess.cases').directive('equalWidths', function ($document,$window) {
 	return {
 		restrict: 'A',
 		scope: {
-			idToMatchWidth: '@',
+			idToMatchWidth: '@'
 		},
 		link: function(scope, element, attrs) {
 			var elemIdFrom = ('#' + scope.idToMatchWidth);
@@ -12,7 +12,8 @@ angular.module('RedhatAccess.cases').directive('equalWidths', function ($documen
 
 			var setWidths = function(){
 				element.width($elemFrom.width());
-			}
+			};
+
 			angular.element(document).on('scroll', function() {
 	            setWidths();
 	        });
@@ -21,8 +22,12 @@ angular.module('RedhatAccess.cases').directive('equalWidths', function ($documen
 	        });
 
 	        scope.$on('$destroy', function() {
-				$window.off('scroll', toggle);
-				$(window).off('resize', toggle);
+				$(window).off('scroll', function() {
+                    setWidths();
+                });
+				$(window).off('resize', function() {
+                    setWidths();
+                });
 			});
 		}
 	};
