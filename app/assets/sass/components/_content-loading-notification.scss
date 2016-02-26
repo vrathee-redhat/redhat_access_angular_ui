@@ -19,13 +19,15 @@
 //	}
 }
 
-//.loader {
-//	position: relative;
-//	display: block;
-//	width: 70px;
-//	height: 20px;
-//	@include rem('margin-top', 7px);
-//}
+.loader {
+	// position: relative;
+	// display: block;
+	// width: 70px;
+	// height: 20px;
+	// @include rem('margin-top', 7px);
+	margin-top: 0px;
+	height: 15px;
+}
 .loaders {
 	position: absolute;
 	left: 0;

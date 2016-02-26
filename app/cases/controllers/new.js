@@ -99,9 +99,26 @@ angular.module('RedhatAccess.cases').controller('New', [
                 }
                 if($scope.isControlGroup){
                     doRecSearch();
-                } else if($scope.recommendationsHasStarted || (!CaseService.updatingProblemString && RHAUtils.isNotEmpty(CaseService.kase.problem))){
-                    $scope.recommendationsHasStarted = true;
+                } else if($scope.recommendationsHasStarted){
                     doRecSearch();
+                } else{
+                    var tmpDescription = ''
+                    if(RHAUtils.isNotEmpty(CaseService.kase.problem)){
+                        tmpDescription = tmpDescription.concat(CaseService.kase.problem);
+                    }
+                    if(RHAUtils.isNotEmpty(CaseService.kase.environment)){
+                        tmpDescription = tmpDescription.concat(CaseService.kase.environment);
+                    }
+                    if(RHAUtils.isNotEmpty(CaseService.kase.occurance)){
+                        tmpDescription = tmpDescription.concat(CaseService.kase.occurance);
+                    }
+                    if(RHAUtils.isNotEmpty(CaseService.kase.urgency)){
+                        tmpDescription = tmpDescription.concat(CaseService.kase.urgency);
+                    }
+                    if(RHAUtils.isNotEmpty(tmpDescription) && tmpDescription.length > 40){
+                        $scope.recommendationsHasStarted = true;
+                        doRecSearch();
+                    }
                 }
             }
         });
@@ -154,7 +171,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 AlertService.addStrataErrorMessage(error);
             });
             if (window.chrometwo_require !== undefined) {
-                breadcrumbs = [
+                var breadcrumbs = [
                     ['Support', '/support/'],
                     ['Support Cases',  '/support/cases/'],
                     ['New']
