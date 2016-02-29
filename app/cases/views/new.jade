@@ -25,12 +25,12 @@ div(rha-header='', page='newCase')
                             ng-model='CaseService.kase.summary'
                             ng-focus="CaseService.updatingNewCaseSummary=true",
                             ng-blur="CaseService.updatingNewCaseSummary=false")
-                            div(ng-show='CaseService.updatingNewCaseSummary && RecommendationsService.loadingRecommendations')
-                                .loader
+                            .loader
+                                div(ng-show='CaseService.updatingNewCaseSummary && RecommendationsService.loadingRecommendations')
                                     .circle &nbsp;
                                     .circle &nbsp;
                                     .circle &nbsp;
-                            label.pre-wrap {{CaseService.problemString}}
+                            label.label-small-mar.pre-wrap {{CaseService.problemString}}
                             textarea(name='', id='rha-problem',
                             style='width: 100%; height: 75px; max-width: 100%;',
                             ng-model='CaseService.kase.problem',
@@ -38,12 +38,12 @@ div(rha-header='', page='newCase')
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
                             ng-focus="CaseService.updatingProblemString=true",
                             ng-blur="CaseService.updatingProblemString=false")
-                            div(ng-show='CaseService.updatingProblemString && RecommendationsService.loadingRecommendations')
-                                .loader
+                            .loader
+                                div(ng-show='CaseService.updatingProblemString && RecommendationsService.loadingRecommendations')
                                     .circle &nbsp;
                                     .circle &nbsp;
                                     .circle &nbsp;
-                            label.pre-wrap {{CaseService.environmentString}}
+                            label.pre-wrap.label-small-mar {{CaseService.environmentString}}
                             textarea(name='', id='rha-environment',
                             style='width: 100%; height: 75px; max-width: 100%;',
                             ng-model='CaseService.kase.environment',
@@ -51,13 +51,12 @@ div(rha-header='', page='newCase')
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
                             ng-focus="CaseService.updatingEnvironmentString=true",
                             ng-blur="CaseService.updatingEnvironmentString=false")
-                            div(ng-show='CaseService.updatingEnvironmentString && RecommendationsService.loadingRecommendations')
-                                .loader
+                            .loader
+                                div(ng-show='CaseService.updatingEnvironmentString && RecommendationsService.loadingRecommendations')
                                     .circle &nbsp;
                                     .circle &nbsp;
                                     .circle &nbsp;
-
-                            label.pre-wrap {{CaseService.occuranceString}}
+                            label.pre-wrap.label-small-mar {{CaseService.occuranceString}}
                             textarea(name='', id='rha-occurance',
                             style='width: 100%; height: 75px; max-width: 100%;',
                             ng-model='CaseService.kase.occurance',
@@ -65,13 +64,12 @@ div(rha-header='', page='newCase')
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
                             ng-focus="CaseService.updatingOccuranceString=true",
                             ng-blur="CaseService.updatingOccuranceString=false")
-                            div(ng-show='CaseService.updatingOccuranceString && RecommendationsService.loadingRecommendations')
-                                .loader
+                            .loader
+                                div(ng-show='CaseService.updatingOccuranceString && RecommendationsService.loadingRecommendations')
                                     .circle &nbsp;
                                     .circle &nbsp;
                                     .circle &nbsp;
-
-                            label.pre-wrap {{CaseService.urgencyString}}
+                            label.pre-wrap.label-small-mar {{CaseService.urgencyString}}
                             textarea(name='', id='rha-urgency',
                             style='width: 100%; height: 75px; max-width: 100%;',
                             ng-model='CaseService.kase.urgency',
@@ -79,13 +77,12 @@ div(rha-header='', page='newCase')
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
                             ng-focus="CaseService.updatingUrgencyString=true",
                             ng-blur="CaseService.updatingUrgencyString=false")
-                            div(ng-show='CaseService.updatingUrgencyString && RecommendationsService.loadingRecommendations')
-                                .loader
+                            .loader
+                                div(ng-show='CaseService.updatingUrgencyString && RecommendationsService.loadingRecommendations')
                                     .circle &nbsp;
                                     .circle &nbsp;
                                     .circle &nbsp;
-
-                            div(style="margin-top: 15px", ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
+                            div(style="margin-top: 10px", ng-show='NEW_CASE_CONFIG.showAttachments && securityService.loginStatus.authedUser.can_add_attachments')
                                 b {{'Get faster results.'|translate}}
                                 | &nbsp; {{'Attaching logs or other diagnostics files typically results in faster resolution.'|translate}}
                                 div(ng-bind-html='AttachmentsService.parseArtifactHtml()')
