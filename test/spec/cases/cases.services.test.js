@@ -734,7 +734,7 @@ describe('Case Services', function () {
             caseService.kase=mockStrataDataService.mockCases[1];
             recommendationsService.getRecommendations(true,undefined);
             recommendationsService.loadingRecommendations = false;
-            mockStrataService.recommendationsXmlHack();
+            mockStrataService.recommendationsForCase();
             scope.$root.$digest();
             expect(recommendationsService.loadingRecommendations).toBeFalsy();
         });
@@ -744,7 +744,7 @@ describe('Case Services', function () {
             caseService.kase.product = undefined;
             recommendationsService.getRecommendations(true,undefined);
             recommendationsService.loadingRecommendations = false;
-            mockStrataService.recommendationsXmlHack();
+            mockStrataService.recommendationsForCase();
             scope.$root.$digest();
             expect(recommendationsService.loadingRecommendations).toBeFalsy();
         });
@@ -755,7 +755,7 @@ describe('Case Services', function () {
             caseService.kase.version = undefined;
             recommendationsService.getRecommendations(true,undefined);
             recommendationsService.loadingRecommendations = false;
-            mockStrataService.recommendationsXmlHack();
+            mockStrataService.recommendationsForCase();
             scope.$root.$digest();
             expect(recommendationsService.loadingRecommendations).toBeFalsy();
         });
@@ -768,7 +768,7 @@ describe('Case Services', function () {
             caseService.kase.description = undefined;
             recommendationsService.loadingRecommendations = false;
             recommendationsService.getRecommendations(true,undefined);
-            mockStrataService.recommendationsXmlHack();
+            mockStrataService.recommendationsForCase();
             scope.$root.$digest();
             expect(recommendationsService.loadingRecommendations).toBeFalsy();
         });
