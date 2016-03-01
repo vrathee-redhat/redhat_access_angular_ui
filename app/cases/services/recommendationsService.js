@@ -80,37 +80,44 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
 
                 if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations))) {
                     this.loadingRecommendations = true;
-                    currentData = newData
-                    strataService.recommendationsXmlHack(currentData, max, true, '%3Cspan%20class%3D%22recommendationsKeywords%22%3E%2C%3C%2Fspan%3E').then(angular.bind(this, function (solutions) {
-                        //retrieve details for each solution
-                        if(refreshRecommendations){
-                            this.recommendations = [];
-                        }
-                        solutions.forEach(angular.bind(this, function (solution) {
-                            if (solution !== undefined) {
-                                solution.resource_type = 'Solution';
-                                try {
-                                    solution.abstract = $sanitize(solution.abstract);
-                                }
-                                catch(err) {
-                                    solution.abstract = '';
-                                }
-                                //this is to sync the case detail pinned recommendation with /rs/problems recommendation w.r.t pinned flag so that red pin will appear in both section
-                                var pinnedRecommendation = $filter('filter')(self.pinnedRecommendations, function (rec) {return rec.resource_id === solution.resource_id;})[0];
-                                if (RHAUtils.isNotEmpty(pinnedRecommendation)) {
-                                    if (pinnedRecommendation.pinned_at) {
-                                        solution.pinned = true;
-                                    }
-                                }
-                                this.recommendations.push(solution);
+                    currentData = newData;
+                    strataService.recommendationsForCase(currentData, max, 0, true, '%3Cspan%20class%3D%22recommendationsKeywords%22%3E', '%3C%2Fspan%3E') // <span class="recommendationsKeywords"></span>
+                        .then(angular.bind(this, function (response) {
+                            //retrieve details for each solution
+                            if(refreshRecommendations){
+                                this.recommendations = [];
                             }
+                            response.response.docs.forEach(angular.bind(this, function (solution) {
+                                if (solution !== undefined) {
+                                    solution.resource_type = 'Solution';
+                                    solution.resource_id = solution.id;
+                                    solution.resource_view_uri = solution.view_uri;
+                                    solution.title = solution.allTitle;
+                                    solution.abstract = solution.abstract.substring(0,300);
+                                    if(RHAUtils.isNotEmpty(response.highlighting[solution.uri])) {
+                                        try {
+                                            solution.abstract = $sanitize(response.highlighting[solution.uri].abstract[0]);
+                                        }
+                                        catch(err) {
+                                        }
+                                    }
+
+                                    //this is to sync the case detail pinned recommendation with /rs/recommendations recommendation w.r.t pinned flag so that red pin will appear in both section
+                                    var pinnedRecommendation = $filter('filter')(self.pinnedRecommendations, function (rec) {return rec.resource_id === solution.id;})[0];
+                                    if (RHAUtils.isNotEmpty(pinnedRecommendation)) {
+                                        if (pinnedRecommendation.pinned_at) {
+                                            solution.pinned = true;
+                                        }
+                                    }
+                                    this.recommendations.push(solution);
+                                }
+                            }));
+                            this.loadingRecommendations = false;
+                            masterDeferred.resolve();
+                        }), angular.bind(this, function (error) {
+                            this.loadingRecommendations = false;
+                            masterDeferred.reject();
                         }));
-                        this.loadingRecommendations = false;
-                        masterDeferred.resolve();
-                    }), angular.bind(this, function (error) {
-                        this.loadingRecommendations = false;
-                        masterDeferred.reject();
-                    }));
                 } else {
                     masterDeferred.resolve();
                 }
