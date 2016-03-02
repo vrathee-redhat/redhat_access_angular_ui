@@ -131,46 +131,45 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                 AlertService.addStrataErrorMessage(error);
             });
         };
-        this.getVersions = function (product) {
-            this.versionDisabled = true;
-            this.versionLoading = true;
-            strataService.products.versions(product).then(angular.bind(this, function (response) {
-        	    response.sort(function (a, b) { //Added because of wrong order of versions
-				    a = a.split('.');
-				    b = b.split('.');
-				    for( var i = 0; i < a.length; i++){
-					    if(a[i] < b[i]){
-						    return 1;
-					    } else if(b[i] < a[i]){
-						    return -1;
-					    }
-				    }
-				    if(a.length > b.length){
-					    return 1;
-				    } else if (b.length > a.length){
-					    return -1;
-				    }
-				    return 0;
-			    });
-                this.versions = response;
-                this.versionDisabled = false;
-                this.versionLoading = false;
+				this.getVersions = function (product) {
+						this.versionDisabled = true;
+						this.versionLoading = true;
+						//Retrieve the product detail, basically finding the attachment artifact
+						this.fetchProductDetail(product);
+						return strataService.products.versions(product).then(angular.bind(this, function (response) {
+								response.sort(function (a, b) { //Added because of wrong order of versions
+										a = a.split('.');
+										b = b.split('.');
+										for( var i = 0; i < a.length; i++){
+											if(a[i] < b[i]){
+												return 1;
+											} else if(b[i] < a[i]){
+												return -1;
+											}
+										}
+										if(a.length > b.length){
+											return 1;
+										} else if (b.length > a.length){
+											return -1;
+										}
+										return 0;
+								});
+								this.versions = response;
+								this.versionDisabled = false;
+								this.versionLoading = false;
 
-                // if(RHAUtils.isNotEmpty(CaseService.kase.version) && (this.versions.indexOf(CaseService.kase.version) === -1))
-                // {
-                //     //this will get executed when existing product version is not available in version list of the given product
-                //     //in this case drop down value is shown as 'Select an Option' and at that point submit button should be disabled
-                //     CaseService.newCaseIncomplete = true;
-                // }
-			    //Fetch Recommendations
-            }), function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
-
-
-        //Retrieve the product detail, basically finding the attachment artifact
-            this.fetchProductDetail(product);
-        };
+								// if(RHAUtils.isNotEmpty(CaseService.kase.version) && (this.versions.indexOf(CaseService.kase.version) === -1))
+								// {
+								//     //this will get executed when existing product version is not available in version list of the given product
+								//     //in this case drop down value is shown as 'Select an Option' and at that point submit button should be disabled
+								//     CaseService.newCaseIncomplete = true;
+								// }
+								//Fetch Recommendations
+								return response;
+						}), function (error) {
+								AlertService.addStrataErrorMessage(error);
+						});
+				};
         this.showVersionSunset = function () {
             if (RHAUtils.isNotEmpty(CaseService.kase.product) && RHAUtils.isNotEmpty(CaseService.kase.version)) {
                 if ((CaseService.kase.version).toLowerCase().indexOf('- eol') > -1) {
