@@ -11,13 +11,15 @@ angular.module('RedhatAccess.cases').directive('equalWidths', function ($documen
 			var $elemFrom = angular.element(elemIdFrom);
 
 			var setWidths = function(){
-				element.width($elemFrom.width());
+				if(element.is(':visible')){
+					element.width($elemFrom.width());
+				}
 			};
 
-			angular.element(document).on('scroll', function() {
+			$(window).on('scroll', function() {
 	            setWidths();
 	        });
-	        angular.element($(window)).on('resize', function() {
+	        $(window).on('resize', function() {
 	            setWidths();
 	        });
 
