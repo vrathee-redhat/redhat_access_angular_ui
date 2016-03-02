@@ -232,9 +232,16 @@ angular.module('RedhatAccess.cases').controller('New', [
             //if we directly call $scope.getProductVersions function without product list in strata service it return error
             strataService.products.list(CaseService.owner).then(function (products) {
                 CaseService.kase.product = product;
-                ProductsService.getVersions(CaseService.kase.product);
-                CaseService.kase.version = version; //setting version after product check, as without product, version don't have any meaning
-                CaseService.validateNewCase();
+                ProductsService.getVersions(CaseService.kase.product).then(function (versions) {
+                  version = version.trim();
+                  var matchingVersions = versions.filter(function (productVersion) {
+                    return productVersion === version;
+                  });
+                  if(matchingVersions.length > 0) {
+                    CaseService.kase.version = version; //setting version after product check, as without product, version don't have any meaning
+                  }
+                  CaseService.validateNewCase();
+                });
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
