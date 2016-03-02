@@ -1,7 +1,7 @@
 div(rha-header='', page='newCase')
 .page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
     .row.row-short
-        div(ng-class="RecommendationsService.recommendations.length === 0 ? 'col-sm-12' : 'col-sm-8'")
+        div(ng-class="(RecommendationsService.recommendations.length === 0 || ProductsService.productsLoading) ? 'col-sm-12' : 'col-sm-8'")
             div(ng-show='ProductsService.productsLoading')
                 .spinner
             div(ng-hide='ProductsService.productsLoading')
@@ -167,5 +167,5 @@ div(rha-header='', page='newCase')
                                 ng-hide='CaseService.submittingCase',
                                 ng-click='doSubmit($event)', translate,translate-comment="Verb") Submit
                                 a.margin-left(href='#/case/list',ng-hide='CaseService.submittingCase',translate,translate-comment="Verb") Cancel
-        .aside.col-sm-4.new-recommendations-column#new-recommendations-column(ng-hide="RecommendationsService.recommendations.length === 0")
+        .aside.col-sm-4.new-recommendations-column#new-recommendations-column(ng-hide="RecommendationsService.recommendations.length === 0 || ProductsService.productsLoading")
             div.affixed-recommendations(rha-newcaserecommendations='', items-per-page='recommendationsPerPage')
