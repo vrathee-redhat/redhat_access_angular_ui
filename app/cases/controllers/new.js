@@ -146,13 +146,12 @@ angular.module('RedhatAccess.cases').controller('New', [
             ProductsService.clear();
             CaseService.populateUsers().then(function () {
                 $scope.usersOnAccount = CaseService.users;
-                $scope.usersOnAccount = $scope.usersOnAccount.map(function(obj) {
-                    return obj.sso_username;
-                });
-                var index = $scope.usersOnAccount.indexOf(securityService.loginStatus.authedUser.sso_username);
-                if (index > -1) {
-                    $scope.usersOnAccount.splice(index, 1);
-                }
+                for (var i = $scope.usersOnAccount.length - 1; i >= 0; i--) {
+                    if($scope.usersOnAccount[i].sso_username===securityService.loginStatus.authedUser.sso_username){
+                        $scope.usersOnAccount.splice(i, 1);
+                        break;
+                    }
+                };
             });
             $scope.severitiesLoading = true;
             ProductsService.getProducts(false);

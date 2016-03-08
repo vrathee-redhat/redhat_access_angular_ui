@@ -12,4 +12,4 @@
       ng-change='updateNotifyUsers()',
       id='rha-email-notify-select',
       width='"100%"',
-      ng-options='user.sso_username as user.sso_username for user in CaseService.users')
+      ng-options='user.sso_username as (user.first_name+" "+user.last_name+" <"+user.sso_username+">") for user in CaseService.users')
