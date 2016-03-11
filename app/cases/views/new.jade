@@ -155,7 +155,7 @@ div(rha-header='', page='newCase')
                             ng-model='notifiedUsers',
                             id='rha-email-notify-select',
                             width='"100%"',
-                            ng-options='user.sso_username as (user.first_name+" "+user.last_name+" <"+user.sso_username+">") for user in usersOnAccount')
+                            ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in usersOnAccount | orderBy:['first_name','last_name']")
 
                             label(translate,translate-comment="Noun") Case Group (Optional)
                             div(rha-groupselect='', ng-init="setSearchOptions('false')")
