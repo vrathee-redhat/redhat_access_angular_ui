@@ -173,6 +173,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     that.searching = false;
                     deferred.resolve(cases);
                 }), angular.bind(that, function (error) {
+                    this.totalCases = 0;
+                    this.total = 0;
+                    this.allCasesDownloaded = true;
                     if(error.xhr.status === 404){
                         this.doFilter(false).then(function () {
                             deferred.resolve(cases);
@@ -205,6 +208,9 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     that.searching = false;
                     deferred.resolve(cases);
                 }), angular.bind(that, function (error) {
+                    this.totalCases = 0;
+                    this.total = 0;
+                    this.allCasesDownloaded = true;
                     if(error.xhr.status === 404){
                         this.doFilter(false).then(function () {
                             deferred.resolve(cases);
