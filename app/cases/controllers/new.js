@@ -145,13 +145,13 @@ angular.module('RedhatAccess.cases').controller('New', [
             RecommendationsService.clear();
             ProductsService.clear();
             CaseService.populateUsers().then(function () {
-                $scope.usersOnAccount = CaseService.users;
+                $scope.usersOnAccount = angular.copy(CaseService.users);
                 for (var i = $scope.usersOnAccount.length - 1; i >= 0; i--) {
                     if($scope.usersOnAccount[i].sso_username===securityService.loginStatus.authedUser.sso_username){
                         $scope.usersOnAccount.splice(i, 1);
                         break;
                     }
-                };
+                }
             });
             $scope.severitiesLoading = true;
             ProductsService.getProducts(false);
