@@ -21,7 +21,8 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     '$sce',
     'gettextCatalog',
     '$filter',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, $filter) {
+    'LinkifyService',
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, $filter, LinkifyService) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -222,7 +223,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
                 }
             } else if (comment.text !== undefined) {
                 if (RHAUtils.isNotEmpty(comment.text)) {
-                    parsedHtml = $filter('linky')(comment.text,'_blank');
+                    parsedHtml = LinkifyService.linkifyWithCaseIDs(comment.text);
                 }
             }
             return parsedHtml;
