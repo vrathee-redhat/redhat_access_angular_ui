@@ -6,7 +6,7 @@ angular.module('RedhatAccess.cases').service('LinkifyService', [
     this.linkifyWithCaseIDs = function(text) {
       if(RHAUtils.isEmpty(text)) return '';
 
-      var caseIdRegex = /([ \('"]|^)(\d{8})([ \)'"]|$)/g;
+      var caseIdRegex = /([\s\('"]|^)(\d{8})([\s\)'"\.]|$)/g;
       var caseLinkRegex = /<a href="#\/case\/\d{8}">\d{8}<\/a>/g;
       var caseLinksinkifiedText = text.replace(caseIdRegex, '$1<a href="#/case/$2">$2</a>$3');
       var textSegments = caseLinksinkifiedText.split(caseLinkRegex);
