@@ -12,7 +12,8 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
     'AlertService',
     'RHAUtils',
     'translate',
-    function ($scope, $filter, strataService, CaseService, securityService, ProductsService, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils, translate) {
+    'LinkifyService',
+    function ($scope, $filter, strataService, CaseService, securityService, ProductsService, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils, translate, LinkifyService) {
 
         $scope.showExtraInfo = false;
 	    $scope.CaseService = CaseService;
@@ -206,5 +207,11 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             $scope.init();
             //AlertService.clearAlerts();
         });
+
+        $scope.getDescription = function (maxLength) {
+          var text = CaseService.kase.description;
+          if(maxLength !== undefined) text = $filter('substring')(text, maxLength);
+          return LinkifyService.linkifyWithCaseIDs(text);
+        };
     }
 ]);
