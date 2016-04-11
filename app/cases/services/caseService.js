@@ -493,7 +493,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
         };
 
-        this.createCase = function(){
+        this.createCase = function(recommendations){
             var self = this;
             var deferred = $q.defer();
 
@@ -535,6 +535,17 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             }
             if (RHAUtils.isNotEmpty(this.owner)) {
                 caseJSON.contactSsoUsername = this.owner;
+            }
+
+            if(RHAUtils.isNotEmpty(recommendations)) {
+              caseJSON.recommendations = {
+                recommendation: []
+              };
+              recommendations.forEach(function (rec) {
+                  caseJSON.recommendations.recommendation.push({
+                    resourceId: rec.id
+                  });
+              });
             }
 
             this.submittingCase = true;

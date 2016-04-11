@@ -390,7 +390,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                 });
                 proceedWithoutAttachModal.result.then(function() {
                     if (AttachmentsService.proceedWithoutAttachments) {
-                        CaseService.createCase().then(function (caseNumber) {
+                        CaseService.createCase(RecommendationsService.recommendations).then(function (caseNumber) {
                             caseUploadsAndUpdates(caseNumber);
                         }, function (error) {
                             AlertService.addStrataErrorMessage(error);
@@ -399,7 +399,7 @@ angular.module('RedhatAccess.cases').controller('New', [
                     }
                 });
             } else {
-                CaseService.createCase().then(function (caseNumber) {
+                CaseService.createCase(RecommendationsService.recommendations).then(function (caseNumber) {
                     caseUploadsAndUpdates(caseNumber);
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
