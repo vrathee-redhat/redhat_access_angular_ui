@@ -1,0 +1,10 @@
+span.spinner.spinner-inline.spinner-sm(ng-show='loading')
+span(ng-show='!loading && accountOptions.length === 0', translate) No bookmarked accounts found
+div(ng-show='!loading && accountOptions.length > 0')
+    select(chosen,
+    width='"100%"',
+    ng-options='account.value as account.label for account in accountOptions',
+    ng-model='selectedAccount',
+    allow-single-deselect='true',
+    data-placeholder='{{"Select bookmarked account" | translate}}')
+        option(value='')

@@ -50,6 +50,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.group = '';
         this.owner = '';
         this.product = '';
+        this.bookmarkedAccount = null;
         this.bugzillaList = {};
         this.entitlement = '';
         this.updatingNewCaseSummary = false;
@@ -114,6 +115,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         };
         this.onProductSelectChange = function(){
             $rootScope.$broadcast(CASE_EVENTS.productSelectChange);
+        };
+        this.onBookmarkedAccountSelectChange = function () {
+            $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.groupOptions = [];
         this.showsearchoptions = false;

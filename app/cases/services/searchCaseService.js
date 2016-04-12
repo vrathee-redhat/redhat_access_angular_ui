@@ -144,9 +144,12 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 if (!RHAUtils.isEmpty(CaseService.severity)) {
                     params.severity = CaseService.severity;
                 }
-                if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
+                if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined && RHAUtils.isEmpty(CaseService.bookmarkedAccount) || checkIsInternal === true) {
                     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                     params.view = 'internal';
+                }
+                if(RHAUtils.isNotEmpty(CaseService.bookmarkedAccount)) {
+                    params.account_number = CaseService.bookmarkedAccount;
                 }
                 if(this.refreshFilterCache===true)
                 {
@@ -191,7 +194,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 if(sortField === "owner"){
                     sortField = "contactName";
                 }
-                cases = strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, null, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+                cases = strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.bookmarkedAccount, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
                     if(response['case'] === undefined){
                         that.totalCases = 0;
                         that.total = 0;
