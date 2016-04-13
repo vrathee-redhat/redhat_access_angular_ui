@@ -18,7 +18,8 @@ angular.module('RedhatAccess.cases').controller('List', [
     'CASE_GROUPS',
     'STATUS',
     'gettextCatalog',
-    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS,gettextCatalog) {
+    'RHAUtils',
+    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS,gettextCatalog, RHAUtils) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -29,6 +30,7 @@ angular.module('RedhatAccess.cases').controller('List', [
 	    $scope.exporting = false;
         $scope.fetching = false;
         $scope.displayedCaseText = 'Open Support Cases';
+        $scope.RHAUtils = RHAUtils;
 	    $scope.exports = function () {
 		    $scope.exporting = true;
             strataService.cases.csv().then(function (response) {
