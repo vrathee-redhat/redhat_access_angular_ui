@@ -56,7 +56,8 @@ angular.module('RedhatAccess.cases', [
     'isPCM': false
 }).config([
     '$stateProvider',
-    function($stateProvider) {
+    '$provide',
+    function($stateProvider, $provide) {
         $stateProvider.state('edit', {
             url: '/case/{id:[0-9]{1,8}}?commentId',
             templateUrl: 'cases/views/edit.html',
@@ -97,5 +98,15 @@ angular.module('RedhatAccess.cases', [
             url: '/403',
             templateUrl: 'cases/views/403.html'
         });
+
+        if(window.location.host !== 'access.redhat.com') {
+            $provide.decorator("$exceptionHandler", ['$delegate', function($delegate) {
+                return function(exception, cause) {
+                    $delegate(exception, cause);
+                    if(window.errors == null) window.errors = [];
+                    window.errors.push(exception);
+                };
+            }]);
+        }
     }
 ]);
