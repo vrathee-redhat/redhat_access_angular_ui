@@ -21,6 +21,8 @@ angular.module('RedhatAccess.cases', [
     caseStatusChanged: 'case-status-change',
     caseSeverityChanged: 'case-severity-change',
     caseClose: 'case-close'
+}).constant('ACCOUNT_EVENTS', {
+    bookmarkedAccountsFetched: 'bookmarked-accounts-fetched'
 }).constant('CHAT_SUPPORT', {
     enableChat: false,
     chatButtonToken: '573A0000000GmiP',
@@ -89,6 +91,11 @@ angular.module('RedhatAccess.cases', [
             url: '/case/group/{groupNumber}',
             controller: 'EditGroup',
             templateUrl: 'cases/views/editGroup.html'
+        });
+        $stateProvider.state('accountBookmark', {
+            url: '/account/bookmark',
+            controller: 'AccountBookmarkHome',
+            templateUrl: 'cases/views/accountBookmarkHome.html'
         });
         $stateProvider.state('404', {
             url: '/404',

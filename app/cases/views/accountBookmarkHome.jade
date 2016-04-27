@@ -1,0 +1,7 @@
+div.account-bookmark-home
+    h1.page-title(translate) Bookmark Accounts
+    div.spinner(ng-show='isLoading()')
+    div(ng-show='!isLoading() && isLoggedInAndInternal()')
+        div(rha-existing-bookmarked-accounts)
+        hr
+        div(rha-account-search)

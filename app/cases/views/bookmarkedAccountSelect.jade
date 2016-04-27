@@ -1,6 +1,6 @@
-span.spinner.spinner-inline.spinner-sm(ng-show='loading')
-span(ng-show='!loading && accountOptions.length === 0', translate) No bookmarked accounts found
-div(ng-show='!loading && accountOptions.length > 0')
+span.spinner.spinner-inline.spinner-sm(ng-show='isLoading()')
+span(ng-show='!isLoading() && accountOptions.length === 0', translate) No bookmarked accounts found
+div(ng-show='!isLoading() && accountOptions.length > 0')
     select(chosen,
     width='"100%"',
     ng-options='account.value as account.label for account in accountOptions',

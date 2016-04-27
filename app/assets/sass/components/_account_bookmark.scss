@@ -1,0 +1,25 @@
+.account-bookmark-home {
+    .bookmark-icon {
+        font-size: 23px;
+    }
+    .account-table {
+        tbody {
+            font-size: 17px;
+        }
+
+        .bookmark {
+            width: 10%;
+        }
+        .number {
+            width: 20%;
+        }
+        .name {
+            width: 70%;
+        }
+    }
+    .account-search {
+        .account-table {
+            margin-top: 20px;
+        }
+    }
+}
