@@ -1,0 +1,24 @@
+div.account-search
+    h2(translate) Find an account
+    .row
+        .col-sm-3.col-xs-12
+            label(translate) Account number:&nbsp;
+            span.spinner.spinner-inline(ng-show='loading')
+        .col-sm-9.col-xs-12(ng-class='{"has-success": valid, "has-error": invalid}')
+            input.form-control(type='text', ng-model='accountQuery', placeholder='{{"Enter account number"|translate}}', ng-change='queryChanged()')
+    table.table.table-hover.account-table(ng-show='account != null')
+        thead
+            tr
+                th
+                th(translate) Account Number
+                th(translate) Account Name
+        tbody
+            tr
+                td.bookmark
+                    div(rha-bookmark-account, account='account')
+                td.number
+                    span {{account.number}}
+                td.name
+                    span {{account.name}}
+
+

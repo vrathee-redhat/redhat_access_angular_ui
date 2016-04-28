@@ -1,0 +1,17 @@
+h2(ng-show='ABS.loading || ABS.bookmarkedAccounts.length > 0', translate) Existing bookmarks
+div.spinner(ng-show='ABS.loading')
+div(ng-show='!ABS.loading && ABS.bookmarkedAccounts.length > 0')
+    table.table.table-hover.account-table
+        thead
+            tr
+                th
+                th(translate) Account Number
+                th(translate) Account Name
+        tbody
+            tr(ng-repeat='account in ABS.bookmarkedAccounts')
+                td.bookmark
+                    div(rha-bookmark-account, account='account')
+                td.number
+                    span {{account.number}}
+                td.name
+                    span {{account.name}}

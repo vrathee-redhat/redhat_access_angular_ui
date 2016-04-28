@@ -1,0 +1,3 @@
+span.bookmark-icon(ng-show='RHAUtils.isNotEmpty(account) && RHAUtils.isNotEmpty(account.number) && !submitting',ng-class='{"icon-star": isBookmarked() !== isHovering, "icon-star-empty": !isBookmarked() !== isHovering}',
+                    tooltip='{{getTooltipText()}}', ng-mouseenter='mouseOver()', ng-mouseleave='mouseOut()', ng-click='bookmark()')
+span.spinner.spinner-inline.spinner-sm(ng-show='submitting')
