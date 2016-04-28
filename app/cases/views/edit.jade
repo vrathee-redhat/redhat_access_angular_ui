@@ -14,6 +14,7 @@ div.edit(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageL
         span(translate) Account number : {{CaseService.account.number}}
       div(ng-if='securityService.loginStatus.authedUser.is_internal')
         span(translate) Account name : {{CaseService.account.name}}
+        span(rha-bookmark-account, account='CaseService.account')
       a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
       div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')

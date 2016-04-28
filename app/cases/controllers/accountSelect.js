@@ -7,8 +7,10 @@ angular.module('RedhatAccess.cases').controller('AccountSelect', [
     'RHAUtils',
     'gettextCatalog',
     'ProductsService',
-    function ($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog,ProductsService) {
+    'securityService',
+    function ($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog,ProductsService, securityService) {
         $scope.CaseService = CaseService;
+        $scope.securityService = securityService;
         $scope.selectUserAccount = function () {
             $scope.loadingAccountNumber = true;
             strataService.accounts.list().then(function (response) {

@@ -52,7 +52,20 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
         this.addBookmark = function (account) {
             var user = securityService.loginStatus.authedUser;
             return strataService.accounts.addBookmark(account.number, user.sso_username).then(angular.bind(this,function () {
-                this.bookmarkedAccounts.push(account);
+                if(RHAUtils.isNotEmpty(account.name)) {
+                    this.bookmarkedAccounts.push(account);
+                } else { //there is no name, we must fetch the account before adding to bookmarked accounts
+                    if(RHAUtils.isNotEmpty(AccountService.accounts[account.number])) { // was it already fetched before?
+                        this.bookmarkedAccounts.push(AccountService.accounts[account.number]);
+                    } else {
+                        return AccountService.loadAccount(account.number).then(angular.bind(this, function () {
+                            if(RHAUtils.isNotEmpty(AccountService.accounts[account.number])) {
+                                this.bookmarkedAccounts.push(AccountService.accounts[account.number]);
+                            }
+                        }));
+                    }
+                }
+
             }));
         };
 
