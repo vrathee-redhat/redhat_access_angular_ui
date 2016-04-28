@@ -7,8 +7,8 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
     'RHAUtils',
     'ACCOUNT_EVENTS',
     'strataService',
-    '$timeout',
-    function (securityService, $rootScope, AUTH_EVENTS, AccountService, RHAUtils, ACCOUNT_EVENTS, strataService, $timeout) {
+    '$q',
+    function (securityService, $rootScope, AUTH_EVENTS, AccountService, RHAUtils, ACCOUNT_EVENTS, strataService, $q) {
         this.loading = true;
         this.bookmarkedAccounts = [];
 
@@ -19,7 +19,7 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
                 var accountPromises = user.account_list.account_number.map(function (number) {
                     return AccountService.loadAccount(number);
                 });
-                return Promise.all(accountPromises).then(angular.bind(this, function () {
+                $q.all(accountPromises).then(angular.bind(this, function () {
                     this.bookmarkedAccounts = user.account_list.account_number.map(function (number) {
                         return AccountService.accounts[number];
                     }).filter(function (account) {
@@ -40,7 +40,6 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
                 this.bookmarkedAccounts = [];
                 this.loading = false;
                 $rootScope.$broadcast(ACCOUNT_EVENTS.bookmarkedAccountsFetched);
-                return Promise.resolve();
             }
         };
 
@@ -67,15 +66,11 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
         };
 
         if(securityService.loginStatus.isLoggedIn) {
-            this.init().then(function () {
-                $rootScope.$apply(); // digest needs to be manually invoked, since this runs outside of scope apply
-            });
+            this.init();
         }
 
         $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this, function () {
-            this.init().then(function () {
-                $rootScope.$apply(); // digest needs to be manually invoked, since this runs outside of scope apply
-            })
+            this.init();
         }));
     }
 ]);
