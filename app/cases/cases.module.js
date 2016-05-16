@@ -20,7 +20,8 @@ angular.module('RedhatAccess.cases', [
     ownerChange: 'owner-change',
     caseStatusChanged: 'case-status-change',
     caseSeverityChanged: 'case-severity-change',
-    caseClose: 'case-close'
+    caseClose: 'case-close',
+    focusSearchInput: 'focus-search-input'
 }).constant('ACCOUNT_EVENTS', {
     bookmarkedAccountsFetched: 'bookmarked-accounts-fetched'
 }).constant('CHAT_SUPPORT', {
@@ -94,7 +95,7 @@ angular.module('RedhatAccess.cases', [
         });
         $stateProvider.state('advancedSearch', {
             url: '/case/search',
-            controller: 'SearchController',
+            controller: 'AdvancedSearchController',
             templateUrl: 'cases/views/advancedSearch.html'
         });
         $stateProvider.state('accountBookmark', {
@@ -120,5 +121,6 @@ angular.module('RedhatAccess.cases', [
                 };
             }]);
         }
+
     }
 ]);

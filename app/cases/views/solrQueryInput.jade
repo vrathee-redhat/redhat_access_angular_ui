@@ -1,6 +1,8 @@
-input.form-control(type="text", ng-model="inputQuery", ng-trim="false")
-div.alert.alert-success(ng-show="successParse") Input parsed!
-div.alert.alert-danger(ng-hide="successParse") Input not parsed well!
-div.well(ng-hide="successParse")
-    ul
-        li(ng-repeat="item in autocompleteList") {{item}}
+.alert.alert-info(ng-show='RHAUtils.isNotEmpty(info)')
+  div(ng-bind-html="info")
+div(ng-class="{'has-error': !parseSuccessful && RHAUtils.isNotEmpty($scope.inputQuery), 'has-success': parseSuccessful}")
+  input#solrqueryinput.form-control(type="text", ng-model="inputQuery", ng-trim="false", ng-keydown="keyPress($event)", ng-focus="showCompletionList()",
+  ng-blur="hideCompletionList()", rha-focus-on='{{CASE_EVENTS.focusSearchInput}}')
+.list-group.autocomplete-list(ng-show="showingCompletionList")
+    a.list-group-item(ng-repeat="item in autocompleteList", ng-click="clickedItem($index)",ng-mouseover="selectItem($index)",
+    ng-class="{selected: selectedItem === $index}", ng-keydown="keyPress($event)") {{item}}

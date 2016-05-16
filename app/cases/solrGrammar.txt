@@ -1,17 +1,35 @@
 query = sequence
 
-sequence = sequencePart sequenceCont
+sequence = first:sequencePart cont:sequenceCont { return first + cont; }
 sequenceCont = orSequence / andSequence / ""
 
-andSequence = (" and " sequencePart)+
-orSequence = (" or " sequencePart)+
-sequencePart = criteria / "(" sequence ")"
+andSequence = parts:(" and " sequencePart)+ { return [].concat.apply([], parts).join(""); }
+orSequence = parts:(" or " sequencePart)+ { return [].concat.apply([], parts).join(""); }
+sequencePart = criteria / "(" sq:sequence ")" { return '(' + sq + ')' }
 
 
 criteria = basicCriteria / notCriteria
-notCriteria = "-"basicCriteria
-basicCriteria = fieldName ":"" "* string
+notCriteria = "-"criteria:basicCriteria {return '-' + criteria; }
+basicCriteria = field:fieldName ":"" "* value:value { return field + ":" + value; }
 
-string = "\""[^\"]*"\""
-fieldName = "text" / "ownerName" / "status" / "dateOpened" / "statusDescription" / "ownerEmail"
-K
+value = range / string
+range = "[" from:([^" "]+) " TO " to:([^\]]+) "]" {return "[" + from.join("") + " TO " + to.join("") + "]"; }
+string = value:([^" ")]+) { return value.join(""); } / "\""value:([^\"]+)"\"" { return '"' + value.join("") + '"'; }
+
+fieldName = "FTS" {return "case_24_7";}
+/ "accountNumber" {return "case_accountNumber";}
+/ "accountName" {return "case_account_name";}
+/ "contactName" {return "case_contactName";}
+/ "createdByName" {return "case_createdByName";}
+/ "createdDate" {return "case_createdDate";}
+/ "description" {return "case_description";}
+/ "folder" {return "case_folderName";}
+/ "status" {return "case_status";}
+/ "severity" {return "case_severity";}
+/ "summary" {return "case_summary";}
+/ "productName" {return "case_product";}
+/ "productVersion" {return "case_version";}
+/ "lastModifiedDate" {return "case_lastModifiedDate";}
+/ "lastModifiedByName" {return "case_lastModifiedByName";}
+/ "owner" {return "case_owner";}
+/ "language" {return "language";}

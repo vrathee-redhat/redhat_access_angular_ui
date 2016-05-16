@@ -1,0 +1,26 @@
+.list-group.autocomplete-list {
+    border: none;
+
+    .list-group-item:first-child {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .list-group-item:last-child {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .list-group-item.selected {
+        background-color: #f0f0f0;
+    }
+}
+
+#search-area {
+  margin-top: 10px;
+  min-height: 50px;
+    .search-order {
+        display: inline;
+        margin-right: 10px;
+    }
+}

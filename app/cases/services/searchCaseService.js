@@ -189,7 +189,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         deferred.resolve(cases);
                     }
                 }));
-            } else{
+            } else {
                 var sortField = CaseService.filterSelect.sortField;
                 if(sortField === "owner"){
                     sortField = "contactName";
