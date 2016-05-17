@@ -13,7 +13,7 @@ angular.module("RedhatAccess.cases").service("AdvancedCaseSearchService", [
 		this.performSearch = function (query, order) {
             var solrOrder = this.resolveOrder(order);
 			if(query == null || this.searching) return;
-			if(this.query !== query) {
+			if(this.query !== query || this.order !== solrOrder) {
                 this.cases = [];
                 this.allRecordsCount = null;
                 this.currentPage = -1;

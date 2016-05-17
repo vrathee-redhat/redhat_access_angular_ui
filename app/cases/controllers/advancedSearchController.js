@@ -36,7 +36,7 @@ angular.module("RedhatAccess.cases").controller("AdvancedSearchController",[
         };
 
         $scope.$watch('CaseService.filterSelect', function () {
-            AdvancedCaseSearchService.performSearch(AdvancedCaseSearchService.query, 0, CaseService.filterSelect);
+            AdvancedCaseSearchService.performSearch(AdvancedCaseSearchService.query, CaseService.filterSelect);
         });
 
         if (securityService.loginStatus.isLoggedIn) {
