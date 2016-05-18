@@ -552,6 +552,8 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
               });
             }
 
+            this.correctSupportLevelAndFTS(caseJSON);
+
             this.submittingCase = true;
             AlertService.addWarningMessage(gettextCatalog.getString('Creating case...'));
             strataService.cases.post(caseJSON).then(function (caseNumber) {
@@ -566,6 +568,26 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 deferred.reject();
             });
             return deferred.promise;
+        };
+
+        this.correctSupportLevelAndFTS = function (caseJson) {
+            if(RHAUtils.isEmpty(caseJson.entitlement) || RHAUtils.isEmpty(caseJson.entitlement.sla)) {
+                caseJson.entitlement = {};
+                var supportLevelPriorities = ['PREMIUM', 'ENTERPRISE', 'STANDARD', 'PROFESSIONAL', 'AMC'];
+                supportLevelPriorities.forEach(angular.bind(this, function (entitlement) {
+                    if(RHAUtils.isEmpty(caseJson.entitlement.sla) && this.entitlements.indexOf(entitlement) >= 0) {
+                        // user has the support level and no support level is selected, we can select it
+                        caseJson.entitlement.sla = entitlement;
+                    }
+                }));
+
+                var ftsSupportLevels = ['PREMIUM','AMC'];
+                if(caseJson.severity === '1 (Urgent)' && RHAUtils.isNotEmpty(caseJson.entitlement.sla)
+                    && ftsSupportLevels.indexOf(caseJson.entitlement.sla) >= 0) {
+                    // for PREMIUM and AMC we auto set FTS if severity is 1
+                    caseJson.fts = true;
+                }
+            }
         };
 
         this.updateCase = function(){
