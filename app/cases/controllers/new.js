@@ -93,16 +93,19 @@ angular.module('RedhatAccess.cases').controller('New', [
                         };
                         $timeout(function() {
                             waiting = false;
-                            RecommendationsService.getRecommendations(true, 6, recommendationsText);
+                            if(RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(CaseService.kase.summary) || RHAUtils.isNotEmpty(descriptionText)){
+                                RecommendationsService.getRecommendations(true, 6, recommendationsText);
+                            }
                         }, 500); // delay 500 ms
                     }
-                }
+                };
+
                 if($scope.isControlGroup){
                     doRecSearch();
                 } else if($scope.recommendationsHasStarted){
                     doRecSearch();
                 } else{
-                    var tmpDescription = ''
+                    var tmpDescription = '';
                     if(RHAUtils.isNotEmpty(CaseService.kase.problem)){
                         tmpDescription = tmpDescription.concat(CaseService.kase.problem);
                     }

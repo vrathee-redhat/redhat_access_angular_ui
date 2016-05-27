@@ -87,31 +87,33 @@ angular.module('RedhatAccess.cases').service('RecommendationsService', [
                             if(refreshRecommendations){
                                 this.recommendations = [];
                             }
-                            response.response.docs.forEach(angular.bind(this, function (solution) {
-                                if (solution !== undefined) {
-                                    solution.resource_type = 'Solution';
-                                    solution.resource_id = solution.id;
-                                    solution.resource_view_uri = solution.view_uri;
-                                    solution.title = solution.allTitle;
-                                    solution.abstract = solution.abstract.substring(0,300);
-                                    if(RHAUtils.isNotEmpty(response.highlighting[solution.uri])) {
-                                        try {
-                                            solution.abstract = $sanitize(response.highlighting[solution.uri].abstract[0]);
+                            if(RHAUtils.isNotEmpty(response)){
+                                response.response.docs.forEach(angular.bind(this, function (solution) {
+                                    if (solution !== undefined) {
+                                        solution.resource_type = 'Solution';
+                                        solution.resource_id = solution.id;
+                                        solution.resource_view_uri = solution.view_uri;
+                                        solution.title = solution.allTitle;
+                                        solution.abstract = solution.abstract.substring(0,300);
+                                        if(RHAUtils.isNotEmpty(response.highlighting[solution.uri])) {
+                                            try {
+                                                solution.abstract = $sanitize(response.highlighting[solution.uri].abstract[0]);
+                                            }
+                                            catch(err) {
+                                            }
                                         }
-                                        catch(err) {
-                                        }
-                                    }
 
-                                    //this is to sync the case detail pinned recommendation with /rs/recommendations recommendation w.r.t pinned flag so that red pin will appear in both section
-                                    var pinnedRecommendation = $filter('filter')(self.pinnedRecommendations, function (rec) {return rec.resource_id === solution.id;})[0];
-                                    if (RHAUtils.isNotEmpty(pinnedRecommendation)) {
-                                        if (pinnedRecommendation.pinned_at) {
-                                            solution.pinned = true;
+                                        //this is to sync the case detail pinned recommendation with /rs/recommendations recommendation w.r.t pinned flag so that red pin will appear in both section
+                                        var pinnedRecommendation = $filter('filter')(self.pinnedRecommendations, function (rec) {return rec.resource_id === solution.id;})[0];
+                                        if (RHAUtils.isNotEmpty(pinnedRecommendation)) {
+                                            if (pinnedRecommendation.pinned_at) {
+                                                solution.pinned = true;
+                                            }
                                         }
+                                        this.recommendations.push(solution);
                                     }
-                                    this.recommendations.push(solution);
-                                }
-                            }));
+                                }));
+                            }
                             this.loadingRecommendations = false;
                             masterDeferred.resolve();
                         }), angular.bind(this, function (error) {
