@@ -18,9 +18,7 @@ angular.module("RedhatAccess.cases").controller("AdvancedSearchController",[
         $scope.CaseService = CaseService;
 
         var init = function () {
-            if(!securityService.loginStatus.authedUser.is_internal) {
-                $state.go('list', {}, {location:'replace'});
-            }
+           
         };
 
         $scope.doSearch = function () {

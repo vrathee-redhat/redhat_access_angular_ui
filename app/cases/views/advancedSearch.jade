@@ -1,13 +1,13 @@
 .page-header(rha-header='', page='')
 h1(ng-show='securityService.loginStatus.verifying || securityService.loginStatus.isLoggedIn') Advanced case search
 div.spinner(ng-show='securityService.loginStatus.verifying')
-div(ng-show='securityService.loginStatus.isLoggedIn')
-    div(rha-solr-query-input, solr-query="solrQuery", parse-successful="queryParsed")
+div(ng-if='securityService.loginStatus.isLoggedIn')
+    div(rha-solr-query-input, solr-query="$parent.solrQuery", parse-successful="$parent.queryParsed")
     hr
     #search-area
         .pull-right
             div.search-order(rha-filterselect='')
-            button#search-button.btn.btn-app.btn-lg(ng-click="doSearch()", ng-disabled='!queryParsed || solrQuery === AdvancedCaseSearchService.query')
+            button#search-button.btn.btn-app.btn-lg(ng-click="$parent.doSearch()", ng-disabled='!$parent.queryParsed || $parent.solrQuery === AdvancedCaseSearchService.query')
                 i.glyphicon.glyphicon-search
                 = ' Search'
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length === 0")

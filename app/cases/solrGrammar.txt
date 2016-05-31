@@ -10,26 +10,54 @@ sequencePart = criteria / "(" sq:sequence ")" { return '(' + sq + ')' }
 
 criteria = basicCriteria / notCriteria
 notCriteria = "-"criteria:basicCriteria {return '-' + criteria; }
-basicCriteria = field:fieldName ":"" "* value:value { return field + ":" + value; }
+basicCriteria = field:basicFieldName ":"" "* value:value { return field + ":" + value; }
+/ field:severityFieldName ":"" "* value:severityValue { return field + ":" + value; }
+/ field:statusFieldName ":"" "* value:statusValue { return field + ":" + value; }
+/ field:groupFieldName ":"" "* value:groupValue { return field + ":" + value; }
+/ field:productFieldName ":"" "* value:productValue { return field + ":" + value; }
+/ field:ftsFieldName ":"" "* value:booleanValue { return field + ":" + value; }
+/ field:accountNumberFieldName ":"" "* value:accountNumberValue { return field + ":" + value; }
 
 value = range / string
 range = "[" from:([^" "]+) " TO " to:([^\]]+) "]" {return "[" + from.join("") + " TO " + to.join("") + "]"; }
 string = value:([^" ")]+) { return value.join(""); } / "\""value:([^\"]+)"\"" { return '"' + value.join("") + '"'; }
+booleanValue = "true" / "false"
+number = [0-9]+
 
-fieldName = "FTS" {return "case_24_7";}
-/ "accountNumber" {return "case_accountNumber";}
-/ "accountName" {return "case_account_name";}
+basicFieldName = "accountName" {return "case_account_name";}
 / "contactName" {return "case_contactName";}
 / "createdByName" {return "case_createdByName";}
 / "createdDate" {return "case_createdDate";}
 / "description" {return "case_description";}
-/ "folder" {return "case_folderName";}
-/ "status" {return "case_status";}
-/ "severity" {return "case_severity";}
 / "summary" {return "case_summary";}
-/ "productName" {return "case_product";}
 / "productVersion" {return "case_version";}
 / "lastModifiedDate" {return "case_lastModifiedDate";}
 / "lastModifiedByName" {return "case_lastModifiedByName";}
 / "owner" {return "case_owner";}
 / "language" {return "language";}
+
+ftsFieldName = "FTS" {return "case_24_7";}
+
+severityFieldName = "severity" {return "case_severity";}
+severityValue = string
+
+statusFieldName = "status" {return "case_status";}
+statusValue = string
+
+groupFieldName = "group" {return "case_folderNumber";}
+groupValue = string
+
+productFieldName = "productName" { return "case_product"; }
+productValue = string
+
+accountNumberFieldName = "accountNumber" {return "case_accountNumber";}
+accountNumberValue = number
+
+
+EOF
+Examples of the autocompletion segments:
+
+severityValue = "1 (Urgent)" { return '"1 (Urgent)"'; }
+/ "2 (High)" { return '"2 (High)"'; }
+/ "3 (Normal)" { return '"3 (Normal)"'; }
+/ "4 (Low)" { return '"4 (Low)"'; }
