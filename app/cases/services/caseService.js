@@ -540,16 +540,16 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 caseJSON.contactSsoUsername = this.owner;
             }
 
-            if(RHAUtils.isNotEmpty(recommendations)) {
-              caseJSON.recommendations = {
-                recommendation: []
-              };
-              recommendations.forEach(function (rec) {
-                  caseJSON.recommendations.recommendation.push({
-                    resourceId: rec.id
-                  });
-              });
-            }
+            // if(RHAUtils.isNotEmpty(recommendations)) {
+            //   caseJSON.recommendations = {
+            //     recommendation: []
+            //   };
+            //   recommendations.forEach(function (rec) {
+            //       caseJSON.recommendations.recommendation.push({
+            //         resourceId: rec.id
+            //       });
+            //   });
+            // }
 
             this.correctSupportLevelAndFTS(caseJSON);
 
