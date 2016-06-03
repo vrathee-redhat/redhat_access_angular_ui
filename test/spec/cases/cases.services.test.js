@@ -529,60 +529,6 @@ describe('Case Services', function () {
             expect(caseService.kase.product).toBeUndefined;
             expect(caseService.kase.version).toBeUndefined;
         });
-
-        it('should automatically select FTS when premium sev1 is selected', function () {
-            caseService.severities = [{name: '1 (Urgent)'},{name: '2 (High)'}]
-            caseService.kase = {
-                severity: {name: '1 (Urgent)'},
-                entitlement: {
-                    sla: "PREMIUM"
-                }
-            };
-            caseService.onChangeFTSCheck();
-            expect(caseService.showFts()).toBe(true);
-            expect(caseService.fts).toBe(true);
-            expect(caseService.kase.fts).toBe(true);
-        });
-        it('should automatically unselect FTS when standard sev1 is selected', function () {
-            caseService.severities = [{name: '1 (Urgent)'},{name: '2 (High)'}]
-            caseService.kase = {
-                severity: {name: '1 (Urgent)'},
-                entitlement: {
-                    sla: "STANDARD"
-                }
-            };
-            caseService.onChangeFTSCheck();
-            expect(caseService.showFts()).toBe(false);
-            expect(caseService.fts).toBe(false);
-            expect(caseService.kase.fts).toBe(false);
-        });
-        it('should show FTS but unselect FTS when premium sev2 is selected', function () {
-            caseService.severities = [{name: '1 (Urgent)'},{name: '2 (High)'}]
-            caseService.kase = {
-                severity: {name: '2 (High)'},
-                entitlement: {
-                    sla: "PREMIUM"
-                }
-            };
-            caseService.onChangeFTSCheck();
-            expect(caseService.showFts()).toBe(true);
-            expect(caseService.fts).toBe(false);
-            expect(caseService.kase.fts).toBe(false);
-        });
-        it('should not show FTS and unselect FTS when standard sev2 is selected', function () {
-            caseService.severities = [{name: '1 (Urgent)'},{name: '2 (High)'}]
-            caseService.kase = {
-                severity: {name: '2 (High)'},
-                entitlement: {
-                    sla: "STANDARD"
-                }
-            };
-            caseService.onChangeFTSCheck();
-            expect(caseService.showFts()).toBe(false);
-            expect(caseService.fts).toBe(false);
-            expect(caseService.kase.fts).toBe(false);
-        });
-
     });
     //Suite for SearchCaseService
     describe('searchCaseService', function () {
