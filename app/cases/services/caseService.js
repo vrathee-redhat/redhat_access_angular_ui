@@ -402,8 +402,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
 
 
         this.onChangeFTSCheck = function () {
-            this.fts = this.showFts() && RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1';
-            this.kase.fts = this.fts;
+            var showFts = this.showFts();
+            this.fts = showFts;
+            this.kase.fts = showFts;
         };
 
 
@@ -419,7 +420,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 } else if (RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC')) {
                     showFtsCheckbox = true;
                 }
-                if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && (this.kase.severity.name.charAt(0) === '1' || this.kase.severity.name.charAt(0) === '2'))) {
+                if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
                     return true;
                 } else {
                     return false;
