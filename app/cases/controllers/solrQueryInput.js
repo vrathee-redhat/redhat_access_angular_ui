@@ -12,7 +12,8 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
     'ProductsService',
     'securityService',
     'AccountBookmarkService',
-    function($scope,$rootScope, SOLRGrammarService, RHAUtils, $timeout,CASE_EVENTS, strataService, CaseService, ProductsService, securityService, AccountBookmarkService) {
+    'AccountService',
+    function($scope,$rootScope, SOLRGrammarService, RHAUtils, $timeout,CASE_EVENTS, strataService, CaseService, ProductsService, securityService, AccountBookmarkService, AccountService) {
         $scope.parseSuccessful = false;
         $scope.inputQuery = "";
         $scope.showingCompletionList = true;
@@ -51,6 +52,11 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
                 $scope.accountsLoading = false;
             };
 
+            var onUserAccountLoaded = function () {
+                var account = AccountService.accounts[securityService.loginStatus.authedUser.account_number];
+                SOLRGrammarService.setUserAccount(account);
+            };
+
             if(RHAUtils.isEmpty(CaseService.severities)) {
                 strataService.values.cases.severity().then(function (severities) {
                     CaseService.setSeverities(severities);
@@ -68,6 +74,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
             } else {
                 onStatusesLoaded();
             }
+
             if(AccountBookmarkService.loading) {
                 $scope.$watch('ABS.loading', function () {
                    if(!AccountBookmarkService.loading) onBookmarkedAccountsLoaded();
@@ -78,6 +85,14 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
 
             CaseService.populateGroups().then(onGroupsLoaded);
             ProductsService.getProducts(true).then(onProductsLoaded);
+
+            if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.account_number)) {
+                if(RHAUtils.isEmpty(AccountService.accounts[securityService.loginStatus.authedUser.account_number])) {
+                    AccountService.loadAccount(securityService.loginStatus.authedUser.account_number).then(onUserAccountLoaded);
+                } else {
+                    onUserAccountLoaded();
+                }
+            }
         };
 
         $scope.changeSolrQuery = function (query) {
@@ -210,12 +225,17 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
         };
 
         $scope.showCompletionList = function () {
+            if(hideTimeout != null) { // we don't want to hide the list anymore
+                $timeout.cancel(hideTimeout);
+            }
             $scope.showingCompletionList = true;
         };
 
+        var hideTimeout = null;
         $scope.hideCompletionList = function () {
-            $timeout(function () {
+            hideTimeout = $timeout(function () { // needs to be delayed in order to register the click
                 $scope.showingCompletionList = false;
+                hideTimeout = null;
             }, 100);
         };
 

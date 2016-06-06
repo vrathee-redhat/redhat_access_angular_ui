@@ -17,10 +17,6 @@ angular.module("RedhatAccess.cases").controller("AdvancedSearchController",[
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
 
-        var init = function () {
-           
-        };
-
         $scope.doSearch = function () {
             if ($scope.solrQuery !== null) {
                 AdvancedCaseSearchService.performSearch($scope.solrQuery, CaseService.filterSelect);
@@ -35,14 +31,6 @@ angular.module("RedhatAccess.cases").controller("AdvancedSearchController",[
 
         $scope.$watch('CaseService.filterSelect', function () {
             AdvancedCaseSearchService.performSearch(AdvancedCaseSearchService.query, CaseService.filterSelect);
-        });
-
-        if (securityService.loginStatus.isLoggedIn) {
-            init();
-        }
-
-        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
-            init();
         });
     }
 ]);

@@ -8,8 +8,7 @@ angular.module('RedhatAccess.cases').directive('rhaFocusOn', [
             scope.$on(attr.rhaFocusOn, function () {
                 $timeout(function () {
                     elem[0].focus();
-                }, 50);
-
+                });
             });
         };
     }
