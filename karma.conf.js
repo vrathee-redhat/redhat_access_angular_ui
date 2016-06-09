@@ -25,7 +25,6 @@ module.exports = function(config) {
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'bower_components/stratajs/strata.js',
-            'bower_components/udsjs/uds.js',
             'bower_components/ng-table/ng-table.js',
             'bower_components/angular-mocks/angular-mocks.js',
             'bower_components/angular-cache/dist/angular-cache.js',
