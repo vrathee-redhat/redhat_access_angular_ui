@@ -1,0 +1,52 @@
+.page-header(rha-header='', page='')
+h1(ng-show='securityService.loginStatus.verifying || securityService.loginStatus.isLoggedIn') Advanced case search
+div.spinner(ng-show='securityService.loginStatus.verifying')
+div(ng-if='securityService.loginStatus.isLoggedIn')
+    div(rha-solr-query-input, solr-query="$parent.solrQuery", parse-successful="$parent.queryParsed")
+    hr
+    #search-area
+        .pull-right
+            div.search-order(rha-filterselect='')
+            button#search-button.btn.btn-app.btn-lg(ng-click="$parent.doSearch()", ng-disabled='!$parent.queryParsed || $parent.solrQuery === AdvancedCaseSearchService.query')
+                i.glyphicon.glyphicon-search
+                = ' Search'
+        div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length === 0")
+            .alert.alert-warning No cases found.
+        div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.allRecordsCount != null")
+            span(translate) Showing {{AdvancedCaseSearchService.cases.length}} records out of {{AdvancedCaseSearchService.allRecordsCount}}
+
+    #case-list.table-list.case-list(ng-hide="RHAUtils.isEmpty(AdvancedCaseSearchService.cases)", infinite-scroll="bottomScrolled()")
+        .list-item(ng-repeat='case in AdvancedCaseSearchService.cases')
+            a(href='#/case/{{case.case_number}}')
+                .row.case()
+                    .col-sm-4.col-md-2.item-group
+                        .block-icon
+                            .severity
+                                //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
+                                i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
+                                i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
+                                i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
+                                i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
+                            .case-id
+                                .subheading {{case.case_number}}
+                                .description {{case.status}}
+                    .col-sm-8.col-md-6.item-group
+                        .subheading
+                            | {{case.summary}}
+                        .description
+                            | {{case.product}}
+                            span
+                            | &nbsp;{{case.version}}
+                    .col-sm-12.col-md-2()
+                        .item-group.change-log
+                            .filed-on
+                                span(translate) Created by {{case.created_by}} on {{case.created_date}}
+                    .col-sm-12.col-md-2
+                        .item-group.change-log
+                            .filed-on
+                                span(translate) Owned by {{case.contact_name}}
+    div(ng-show="AdvancedCaseSearchService.searching")
+        p.center
+            span.spinner.spinner-inline
+            span {{'Loading cases...'|translate}}
+

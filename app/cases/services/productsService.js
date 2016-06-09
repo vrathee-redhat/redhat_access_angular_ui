@@ -38,7 +38,7 @@ angular.module('RedhatAccess.cases').service('ProductsService', [
                     }
                 }
             }
-            strataService.products.list(contact).then(angular.bind(this, function(response) {
+            return strataService.products.list(contact).then(angular.bind(this, function(response) {
         	    this.products = response;
                 this.buildProductOptions();
                 this.productsLoading = false;
