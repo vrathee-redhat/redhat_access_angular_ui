@@ -22,7 +22,7 @@ value = range / string
 range = "[" from:([^" "]+) " TO " to:([^\]]+) "]" {return "[" + from.join("") + " TO " + to.join("") + "]"; }
 string = value:([^" ")]+) { return value.join(""); } / "\""value:([^\"]+)"\"" { return '"' + value.join("") + '"'; }
 booleanValue = "true" / "false"
-number = [0-9]+
+number = digits:[0-9]+ { return digits.join(''); }
 
 basicFieldName = "accountName" {return "case_account_name";}
 / "contactName" {return "case_contactName";}
@@ -78,7 +78,7 @@ value = range / string
 range = "[" from:([^" "]+) " TO " to:([^\]]+) "]" {return "[" + from.join("") + " TO " + to.join("") + "]"; }
 string = value:([^" ")]+) { return value.join(""); } / "\""value:([^\"]+)"\"" { return '"' + value.join("") + '"'; }
 booleanValue = "true" / "false"
-number = [0-9]+
+number = digits:[0-9]+ { return digits.join(''); }
 
 basicFieldName = "contactName" {return "case_contactName";}
 / "createdByName" {return "case_createdByName";}

@@ -7,7 +7,8 @@ angular.module('RedhatAccess.cases').directive('rhaSolrQueryInput', function () 
         controller: 'SolrQueryInputController',
         scope: {
         	solrQuery: '=',
-          parseSuccessful: '=?'
+            parseSuccessful: '=?',
+            submit: '&'
         }
     };
 });

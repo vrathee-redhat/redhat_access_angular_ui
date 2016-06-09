@@ -2,7 +2,7 @@
 h1(ng-show='securityService.loginStatus.verifying || securityService.loginStatus.isLoggedIn') Advanced case search
 div.spinner(ng-show='securityService.loginStatus.verifying')
 div(ng-if='securityService.loginStatus.isLoggedIn')
-    div(rha-solr-query-input, solr-query="$parent.solrQuery", parse-successful="$parent.queryParsed")
+    div(rha-solr-query-input, solr-query="$parent.solrQuery", parse-successful="$parent.queryParsed", submit='$parent.doSearch()')
     hr
     #search-area
         .pull-right
@@ -13,7 +13,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length === 0")
             .alert.alert-warning No cases found.
         div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.allRecordsCount != null")
-            span(translate) Showing {{AdvancedCaseSearchService.cases.length}} records out of {{AdvancedCaseSearchService.allRecordsCount}}
+            span(translate) Showing {{AdvancedCaseSearchService.cases.length}} out of {{AdvancedCaseSearchService.allRecordsCount}} search results
 
     #case-list.table-list.case-list(ng-hide="RHAUtils.isEmpty(AdvancedCaseSearchService.cases)", infinite-scroll="bottomScrolled()")
         .list-item(ng-repeat='case in AdvancedCaseSearchService.cases')
@@ -49,4 +49,3 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
         p.center
             span.spinner.spinner-inline
             span {{'Loading cases...'|translate}}
-

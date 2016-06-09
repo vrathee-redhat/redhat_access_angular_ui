@@ -9,7 +9,8 @@ angular.module("RedhatAccess.cases").controller("AdvancedSearchController",[
     'CaseService',
     'AUTH_EVENTS',
     '$state',
-    function($scope, AdvancedCaseSearchService, RHAUtils, securityService, CaseService, AUTH_EVENTS, $state) {
+    'CASE_EVENTS',
+    function($scope, AdvancedCaseSearchService, RHAUtils, securityService, CaseService, AUTH_EVENTS, $state, CASE_EVENTS) {
         $scope.solrQuery = null;
         $scope.queryParsed = false;
         $scope.AdvancedCaseSearchService = AdvancedCaseSearchService;
@@ -19,6 +20,7 @@ angular.module("RedhatAccess.cases").controller("AdvancedSearchController",[
 
         $scope.doSearch = function () {
             if ($scope.solrQuery !== null) {
+                $scope.$broadcast(CASE_EVENTS.advancedSearchSubmitted);
                 AdvancedCaseSearchService.performSearch($scope.solrQuery, CaseService.filterSelect);
             }
         };
