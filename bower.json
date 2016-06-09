@@ -15,7 +15,6 @@
         "angular-ui-router": "0.2.8-bowratic-tedium",
         "angular-bootstrap": "0.10.0",
         "stratajs": "1.4.19",
-        "udsjs": "*",
         "angular-treeview": "",
         "ng-table": "~0.3.3",
         "angular-gettext": "~2.0.0",
