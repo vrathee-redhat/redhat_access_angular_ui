@@ -12,7 +12,8 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'bower_components/jsUri/Uri.min.js',
+            'bower_components/jsUri/Uri.js',
+            'bower_components/udsjs/dist/uds.js',
             'bower_components/jquery/jquery.js',
             'bower_components/angular/angular.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
