@@ -27,6 +27,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
         $scope.ABS = AccountBookmarkService;
 
         var init = function () {
+            var promises = [];
             var onSeveritiesLoaded = function () {
                 SOLRGrammarService.setSeverities(CaseService.severities);
                 $scope.severitiesLoading = false;
@@ -58,41 +59,56 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
             };
 
             if(RHAUtils.isEmpty(CaseService.severities)) {
-                strataService.values.cases.severity().then(function (severities) {
+                var promise = strataService.values.cases.severity().then(function (severities) {
                     CaseService.setSeverities(severities);
                     onSeveritiesLoaded();
                 });
+                promises.push(promise);
             } else {
                 onSeveritiesLoaded();
             }
 
             if(RHAUtils.isEmpty(CaseService.statuses)) {
-                strataService.values.cases.status().then(function(statuses) {
+                var promise = strataService.values.cases.status().then(function(statuses) {
                     CaseService.statuses = statuses;
                     onStatusesLoaded();
                 });
+                promises.push(promise);
             } else {
                 onStatusesLoaded();
             }
 
             if(AccountBookmarkService.loading) {
-                $scope.$watch('ABS.loading', function () {
-                   if(!AccountBookmarkService.loading) onBookmarkedAccountsLoaded();
+                var promise = new Promise(function (resolve, reject) {
+                    $scope.$watch('ABS.loading', function () {
+                       if(!AccountBookmarkService.loading) onBookmarkedAccountsLoaded();
+                       resolve();
+                    });
                 });
+                promises.push(promise);
+
             } else {
                 onBookmarkedAccountsLoaded();
             }
 
-            CaseService.populateGroups().then(onGroupsLoaded);
-            ProductsService.getProducts(true).then(onProductsLoaded);
+            var groupPromise = CaseService.populateGroups().then(onGroupsLoaded);
+            var productPromise = ProductsService.getProducts(true).then(onProductsLoaded);
+
+            promises.push(groupPromise);
+            promises.push(productPromise);
 
             if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.account_number)) {
                 if(RHAUtils.isEmpty(AccountService.accounts[securityService.loginStatus.authedUser.account_number])) {
-                    AccountService.loadAccount(securityService.loginStatus.authedUser.account_number).then(onUserAccountLoaded);
+                    var promise = AccountService.loadAccount(securityService.loginStatus.authedUser.account_number).then(onUserAccountLoaded);
+                    promises.push(promise);
                 } else {
                     onUserAccountLoaded();
                 }
             }
+
+            Promise.all(promises).then(function(){
+                $scope.$broadcast(CASE_EVENTS.focusSearchInput);
+            });
         };
 
         $scope.changeSolrQuery = function (query) {
@@ -187,21 +203,27 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
         };
 
         $scope.keyPress = function (e) {
-            if(e.keyCode===38) { // key UP
+            // on any key press we should ensure the autocompletion is visible
+            $scope.showingCompletionList = true;
+            if(e.which===38) { // key UP
                 e.preventDefault();
                 e.stopPropagation();
                 selectNextItem(-1);
                 return false;
-            } else if (e.keyCode === 40) { // key DOWN
+            } else if (e.which === 40) { // key DOWN
                 e.preventDefault();
                 e.stopPropagation();
                 selectNextItem();
                 return false;
-            } else if (e.keyCode === 13) { //key ENTER
+            } else if (e.which === 13) { //key ENTER
                 e.preventDefault();
                 e.stopPropagation();
-                if (RHAUtils.isNotEmpty($scope.selectedItem)) {
-                    $scope.clickedItem($scope.selectedItem);
+                if(e.ctrlKey) {
+                    $scope.submit();
+                } else {
+                    if (RHAUtils.isNotEmpty($scope.selectedItem)) {
+                        $scope.clickedItem($scope.selectedItem);
+                    }
                 }
                 return false;
             }
@@ -225,20 +247,12 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
         };
 
         $scope.showCompletionList = function () {
-            if(hideTimeout != null) { // we don't want to hide the list anymore
-                $timeout.cancel(hideTimeout);
-            }
             $scope.showingCompletionList = true;
         };
 
-        var hideTimeout = null;
-        $scope.hideCompletionList = function () {
-            hideTimeout = $timeout(function () { // needs to be delayed in order to register the click
-                $scope.showingCompletionList = false;
-                hideTimeout = null;
-            }, 100);
-        };
-
+        $scope.$on(CASE_EVENTS.advancedSearchSubmitted, function () {
+            $scope.showingCompletionList = false;
+        });
 
         init();
     }

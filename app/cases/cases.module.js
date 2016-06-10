@@ -21,7 +21,8 @@ angular.module('RedhatAccess.cases', [
     caseStatusChanged: 'case-status-change',
     caseSeverityChanged: 'case-severity-change',
     caseClose: 'case-close',
-    focusSearchInput: 'focus-search-input'
+    focusSearchInput: 'focus-search-input',
+    advancedSearchSubmitted: 'advanced-search-submitted'    
 }).constant('ACCOUNT_EVENTS', {
     bookmarkedAccountsFetched: 'bookmarked-accounts-fetched'
 }).constant('CHAT_SUPPORT', {
