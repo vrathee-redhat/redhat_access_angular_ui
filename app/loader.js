@@ -9,7 +9,7 @@
     window.require.config({
       paths: {
         'strata': '/bower_components/stratajs/strata',
-        'uds': '/bower_components/udsjs/uds',
+        'uds': '/bower_components/udsjs/dist/uds',
         'moment': '/bower_components/moment/moment',
         'bluebird': 'bower_components/bluebird/js/browser/bluebird'
       },
@@ -20,7 +20,7 @@
       }
     });
 
-    window.chrometwo_require(['strata','uds','moment','bluebird'], function(strata,uds,moment,bluebird) {
+    window.chrometwo_require(['strata','moment','bluebird', 'uds'], function(strata,moment,bluebird,uds) {
       // export strata and uds
       window.strata = strata;
       window.uds = uds;
