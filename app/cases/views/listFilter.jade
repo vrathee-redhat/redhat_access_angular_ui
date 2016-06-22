@@ -39,6 +39,6 @@
     div.col-xs-10.col-sm-11
         div(rha-bookmarked-accounts-select='', selected-account='CaseService.bookmarkedAccount', selected-account-changed='CaseService.onBookmarkedAccountSelectChange()')
     div.col-xs-2.col-sm-1
-        a.btn.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', tooltip='{{"Manage Bookmarked Accounts"|translate}}')
+        a.btn.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', uib-tooltip='{{"Manage Bookmarked Accounts"|translate}}')
             i.icon-star-empty
             i.icon-users

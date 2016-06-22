@@ -1,18 +1,18 @@
 'use strict';
 angular.module('RedhatAccess.cases').controller('DescriptionSection', [
     '$scope',
-    '$modal',
+    '$uibModal',
     'CaseService',
     'CASE_EVENTS',
     'gettextCatalog',
-    function ($scope, $modal, CaseService, CASE_EVENTS, gettextCatalog) {
+    function ($scope, $uibModal, CaseService, CASE_EVENTS, gettextCatalog) {
         $scope.CaseService = CaseService;
 
         $scope.updateCase = function(){
             CaseService.confirmationModal = CASE_EVENTS.caseStatusChanged;
             CaseService.confirmationModalHeader = gettextCatalog.getString('Case status was changed.');
             CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to change this case status to {{statusName}}?',{statusName:CaseService.kase.status.name});
-        	$modal.open({
+        	$uibModal.open({
                 templateUrl: 'cases/views/commonConfirmationModal.html',
                 controller: 'CommonConfirmationModal'
             });
@@ -24,7 +24,7 @@ angular.module('RedhatAccess.cases').controller('DescriptionSection', [
             CaseService.confirmationModal = CASE_EVENTS.caseSeverityChanged;
             CaseService.confirmationModalHeader = gettextCatalog.getString('Case severity was changed.');
             CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to change this case severity to {{severityName}}?',{severityName:CaseService.kase.severity.name});
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'cases/views/commonConfirmationModal.html',
                 controller: 'CommonConfirmationModal'
             });

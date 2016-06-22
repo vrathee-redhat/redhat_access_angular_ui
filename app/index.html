@@ -12,8 +12,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/ng-table/ng-table.css" />
+    <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" />
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <link rel="stylesheet" href="bower_components/chosen/chosen.css" />
@@ -57,14 +56,15 @@
     <![endif]-->
     <!-- Manually add uri and angular treeview due to bower issues -->
 
-    <script src="bower_components/jsUri/Uri.min.js"></script>
+    <script src="bower_components/jsUri/Uri.js"></script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
-    <script src="bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js"></script>
+    <script src="bower_components/redhat-access-pcm-ascension-common/dist/redhat_access_pcm_ascension_common.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/bluebird/js/browser/bluebird.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -75,14 +75,17 @@
     <script src="bower_components/jsuri/Uri.js"></script>
     <script src="bower_components/stratajs/strata.js"></script>
     <script src="bower_components/udsjs/dist/uds.js"></script>
-    <script src="bower_components/ng-table/ng-table.js"></script>
-    <script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>
-    <script src="bower_components/angular-chosen-localytics/chosen.js"></script>
+    <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
+    <script src="bower_components/angular-cache/dist/angular-cache.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-chosen-localytics/dist/angular-chosen.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
     <script src="bower_components/angular-md5/angular-md5.js"></script>
     <script src="bower_components/pegjs/peg-0.9.0.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/angular-scenario/angular-scenario.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

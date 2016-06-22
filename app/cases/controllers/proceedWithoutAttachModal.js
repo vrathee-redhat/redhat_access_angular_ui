@@ -2,15 +2,15 @@
 /*global $ */
 angular.module('RedhatAccess.cases').controller('ProceedWithoutAttachModal', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     '$sce',
     'AttachmentsService',
     'RHAUtils',
-    function ($scope, $modalInstance, $sce, AttachmentsService, RHAUtils) {
+    function ($scope, $uibModalInstance, $sce, AttachmentsService, RHAUtils) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.closeModal = function (proceed) {
             AttachmentsService.proceedWithoutAttachments = proceed;
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
         $scope.parseArtifactHtml = function () {
             var parsedHtml = '';

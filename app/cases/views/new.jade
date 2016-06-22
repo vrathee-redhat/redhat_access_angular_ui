@@ -123,7 +123,7 @@ div(rha-header='', page='newCase')
                         #rha-case-more-options.rha-case-more-options
 
                             label {{'Support Level' |translate}}
-                                span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
+                                span.glyphicon.glyphicon-question-sign.link(uib-tooltip-html='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
                             select#rha-supportLevel-select(
                             chosen,
                             ng-model="CaseService.entitlement",

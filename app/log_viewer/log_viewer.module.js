@@ -3,6 +3,7 @@
 'use strict';
 angular.module('RedhatAccess.logViewer', [
     'angularTreeview',
+    'ngAnimate',
     'ui.bootstrap',
     'RedhatAccess.search',
     'RedhatAccess.header'

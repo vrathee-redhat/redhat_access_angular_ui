@@ -1,9 +1,8 @@
 /*global document, window, angular*/
 (function() {
   window.chrometwo_require([
-    'angular128',
     'jquery'
-  ], function(angular, jq) {
+  ], function(jq) {
     'use strict';
     window.require.undef('moment');
     window.require.config({
@@ -11,21 +10,18 @@
         'strata': '/bower_components/stratajs/strata',
         'uds': '/bower_components/udsjs/uds',
         'moment': '/bower_components/moment/moment',
-        'bluebird': 'bower_components/bluebird/js/browser/bluebird'
-      },
-      map: {
-        '*': {
-          'angular': 'angular128'
-        }
+        'bluebird': 'bower_components/bluebird/js/browser/bluebird',
+        'angular': '/bower_components/angular/angular.min'
       }
     });
 
-    window.chrometwo_require(['strata','uds','moment','bluebird'], function(strata,uds,moment,bluebird) {
+    window.chrometwo_require(['angular','strata','uds','moment','bluebird'], function(angular,strata,uds,moment,bluebird) {
       // export strata and uds
       window.strata = strata;
       window.uds = uds;
       window.moment=moment;
       window.bluebird=bluebird;
+      window.angular=angular;
     });
 
     // keep track of deferreds we are loading

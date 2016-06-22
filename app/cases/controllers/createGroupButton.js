@@ -2,10 +2,10 @@
 /*global $ */
 angular.module('RedhatAccess.cases').controller('CreateGroupButton', [
     '$scope',
-    '$modal',
-    function ($scope, $modal) {
+    '$uibModal',
+    function ($scope, $uibModal) {
         $scope.openCreateGroupDialog = function () {
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'cases/views/createGroupModal.html',
                 controller: 'CreateGroupModal'
             });

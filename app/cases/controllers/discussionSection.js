@@ -11,7 +11,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     'securityService',
     '$stateParams',
     'AlertService',
-    '$modal',
+    '$uibModal',
     '$location',
     '$anchorScroll',
     'RHAUtils',
@@ -22,7 +22,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
     'gettextCatalog',
     '$filter',
     'LinkifyService',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, $filter, LinkifyService) {
+    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $uibModal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, $filter, LinkifyService) {
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -99,7 +99,7 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         }
 
         $scope.requestManagementEscalation = function () {
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'cases/views/requestManagementEscalationModal.html',
                 controller: 'RequestManagementEscalationModal'
             });

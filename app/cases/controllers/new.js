@@ -6,7 +6,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     '$q',
     '$timeout',
     '$sanitize',
-    '$modal',
+    '$uibModal',
     '$sce',
     'SearchResultsService',
     'AttachmentsService',
@@ -25,7 +25,7 @@ angular.module('RedhatAccess.cases').controller('New', [
     'CASE_EVENTS',
     'gettextCatalog',
     'md5',
-    function ($scope, $state, $q, $timeout, $sanitize, $modal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5) {
+    function ($scope, $state, $q, $timeout, $sanitize, $uibModal, $sce, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_DEFAULTS, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5) {
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
         $scope.versions = [];
         $scope.versionDisabled = true;
@@ -387,7 +387,7 @@ angular.module('RedhatAccess.cases').controller('New', [
             };
 
             if (AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9 && securityService.loginStatus.authedUser.can_add_attachments) {
-                var proceedWithoutAttachModal = $modal.open({
+                var proceedWithoutAttachModal = $uibModal.open({
                     templateUrl: 'cases/views/proceedWithoutAttachModal.html',
                     controller: 'ProceedWithoutAttachModal'
                 });

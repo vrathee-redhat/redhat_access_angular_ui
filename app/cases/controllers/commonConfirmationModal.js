@@ -3,7 +3,7 @@
 /*jshint camelcase: false*/
 angular.module('RedhatAccess.cases').controller('CommonConfirmationModal', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'CaseService',
     'strataService',
     'AlertService',
@@ -11,10 +11,10 @@ angular.module('RedhatAccess.cases').controller('CommonConfirmationModal', [
     'gettextCatalog',
     'CASE_EVENTS',
     '$q',
-    function ($scope, $modalInstance, CaseService, strataService, AlertService, SearchCaseService, gettextCatalog, CASE_EVENTS, $q) {
+    function ($scope, $uibModalInstance, CaseService, strataService, AlertService, SearchCaseService, gettextCatalog, CASE_EVENTS, $q) {
         $scope.CaseService = CaseService;
         $scope.confirm = function () {
-            $modalInstance.close();
+            $uibModalInstance.close();
             if(CaseService.confirmationModal === CASE_EVENTS.caseClose) {
                 $scope.closeCases();
             } else {
@@ -30,7 +30,7 @@ angular.module('RedhatAccess.cases').controller('CommonConfirmationModal', [
             } else if(CaseService.confirmationModal === CASE_EVENTS.caseSeverityChanged) {
                 CaseService.kase.severity = CaseService.prestineKase.severity;
             }
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
         $scope.closeCases = function () {
             var promises = [];

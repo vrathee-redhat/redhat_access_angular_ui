@@ -971,7 +971,6 @@ angular.module('RedhatAccess.mock', [])
             this.externalUpdates=[];
             this.filterSelect = '';
 
-            //    this.localStorageCache = $angularCacheFactory.get('localStorageCache');
             this.localStorageCache=[];
             this.localStorageCache.remove=function(key)
             {

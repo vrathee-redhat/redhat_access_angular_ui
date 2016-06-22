@@ -53,7 +53,7 @@
 		@include rem('padding', 0 $global-margin);
 	}
 
-	accordion {
+	uib-accordion {
 
 		.panel-group .panel {
 			@include border-radius(0);

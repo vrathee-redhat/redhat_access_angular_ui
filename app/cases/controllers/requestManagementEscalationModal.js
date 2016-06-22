@@ -3,7 +3,7 @@
 /*jshint camelcase: false*/
 angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModal', [
     '$scope',
-    '$modalInstance',
+    '$uibModalInstance',
     'AlertService',
     'CaseService',
     'DiscussionService',
@@ -12,7 +12,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
     '$q',
     '$stateParams',
     'RHAUtils',
-    function ($scope, $modalInstance, AlertService, CaseService, DiscussionService, strataService,securityService, $q, $stateParams, RHAUtils) {
+    function ($scope, $uibModalInstance, AlertService, CaseService, DiscussionService, strataService,securityService, $q, $stateParams, RHAUtils) {
         $scope.CaseService = CaseService;
         $scope.submittingRequest = false;
         if(RHAUtils.isNotEmpty(CaseService.commentText)){
@@ -73,7 +73,7 @@ angular.module('RedhatAccess.cases').controller('RequestManagementEscalationModa
         });
         $scope.closeModal = function () {
             CaseService.escalationCommentText = undefined;
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
         $scope.onNewEscalationComment = function () {
             if (RHAUtils.isNotEmpty(CaseService.escalationCommentText) && !$scope.submittingRequest) {

@@ -13,16 +13,19 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
     '$timeout',
     '$filter',
     'gettextCatalog',
-    '$angularCacheFactory',
+    'CacheFactory',
     '$rootScope',
     'CASE_EVENTS',
     'ConstantsService',
     'HeaderService',
-    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, gettextCatalog, $angularCacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService) {
-        $angularCacheFactory('localStorageCache', {
-            storageMode: 'localStorage',
-            verifyIntegrity: true
-        });
+    function (strataService, AlertService, RHAUtils, securityService, $q, $timeout, $filter, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService) {
+        this.localStorageCache = CacheFactory.get('localStorageCache');
+        if ( RHAUtils.isEmpty(this.localStorageCache) ) {
+            this.localStorageCache = CacheFactory('localStorageCache', {
+                storageMode: 'localStorage',
+                verifyIntegrity: true
+            });
+        }
         this.updatingCase = false;
         this.submittingCase = false;
         this.kase = {};
@@ -132,7 +135,6 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
         this.environmentString = gettextCatalog.getString('Where are you experiencing the behavior?  What environment?');
         this.occuranceString = gettextCatalog.getString('When does the behavior occur? Frequently?  Repeatedly?   At certain times?');
         this.urgencyString = gettextCatalog.getString('What information can you provide around timeframes and urgency?');
-        this.localStorageCache = $angularCacheFactory.get('localStorageCache');
         /**
          * Add the necessary wrapper objects needed to properly display the data.
          *

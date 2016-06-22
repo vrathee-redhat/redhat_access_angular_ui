@@ -771,7 +771,7 @@ describe('Case Controllers', function () {
                 strataService: mockStrataService,
                 GroupService: mockGroupService,
                 AlertService: mockAlertService,
-                $modalInstance: mockStrataDataService.mockModalInstance
+                $uibModalInstance: mockStrataDataService.mockModalInstance
             });
             expect(mockScope.createGroup).toBeDefined();
             mockScope.createGroup();
@@ -788,7 +788,7 @@ describe('Case Controllers', function () {
                 strataService: mockStrataService,
                 GroupService: mockGroupService,
                 AlertService: mockAlertService,
-                $modalInstance: mockStrataDataService.mockModalInstance
+                $uibModalInstance: mockStrataDataService.mockModalInstance
             });
             expect(mockScope.createGroup).toBeDefined();
             mockScope.createGroup();
@@ -804,7 +804,7 @@ describe('Case Controllers', function () {
                 strataService: mockStrataService,
                 GroupService: mockGroupService,
                 AlertService: mockAlertService,
-                $modalInstance: mockStrataDataService.mockModalInstance
+                $uibModalInstance: mockStrataDataService.mockModalInstance
             });
             expect(mockScope.createGroup).toBeDefined();
             mockStrataService.rejectCalls();
@@ -821,7 +821,7 @@ describe('Case Controllers', function () {
                 strataService: mockStrataService,
                 GroupService: mockGroupService,
                 AlertService: mockAlertService,
-                $modalInstance: mockStrataDataService.mockModalInstance
+                $uibModalInstance: mockStrataDataService.mockModalInstance
             });
             expect(mockScope.closeModal).toBeDefined();
             mockScope.closeModal();
@@ -833,7 +833,7 @@ describe('Case Controllers', function () {
                 strataService: mockStrataService,
                 GroupService: mockGroupService,
                 AlertService: mockAlertService,
-                $modalInstance: mockStrataDataService.mockModalInstance
+                $uibModalInstance: mockStrataDataService.mockModalInstance
             });
             expect(mockScope.onGroupNameKeyPress).toBeDefined();
             var event = { 'keyCode': 13 };
@@ -1612,7 +1612,7 @@ describe('Case Controllers', function () {
                 CaseService: mockCaseService,
                 AlertService: mockAlertService,
                 SearchBoxService: mockSearchBoxService,
-                $modal:mockStrataDataService.mockModal
+                $uibModal:mockStrataDataService.mockModal
             });
             expect(mockScope.closeCases).toBeDefined();
             mockScope.closeCases();
@@ -1666,7 +1666,7 @@ describe('Case Controllers', function () {
         it('should have a function to open Create Group Dialog', inject(function ($controller) {
             $controller('CreateGroupButton', {
                 $scope: mockScope,
-                $modal: mockModal
+                $uibModal: mockModal
             });
             expect(mockScope.openCreateGroupDialog).toBeDefined();
             mockScope.openCreateGroupDialog();
@@ -1679,7 +1679,7 @@ describe('Case Controllers', function () {
             $controller('DescriptionSection', {
                 $scope: mockScope,
                 CaseService: mockCaseService,
-                $modal:mockModal
+                $uibModal:mockModal
             });
             expect(mockScope.updateCase).toBeDefined();
             mockCaseService.kase.status = { name: 'Closed' };
@@ -1690,7 +1690,7 @@ describe('Case Controllers', function () {
             $controller('DescriptionSection', {
                 $scope: mockScope,
                 CaseService: mockCaseService,
-                $modal:mockModal
+                $uibModal:mockModal
             });
             expect(mockScope.updateSeverity).toBeDefined();
             mockCaseService.kase.severity = { name: 'HIGH' };
@@ -1865,7 +1865,7 @@ describe('Case Controllers', function () {
         it('should have a function to do requestManagementEscalation', inject(function ($controller) {
             $controller('RequestEscalation', {
                 $scope: mockScope,
-                $modal:mockStrataDataService.mockModal
+                $uibModal:mockStrataDataService.mockModal
             });
             expect(mockScope.requestManagementEscalation).toBeDefined();
             mockScope.requestManagementEscalation();
@@ -1877,7 +1877,7 @@ describe('Case Controllers', function () {
         it('should have a function for confirming status/severity change', inject(function ($controller) {
             $controller('CommonConfirmationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 SearchCaseService: mockSearchCaseService,
                 CaseService: mockCaseService
             });
@@ -1891,7 +1891,7 @@ describe('Case Controllers', function () {
         it('should have a function for closing cases confirmation', inject(function ($controller) {
             $controller('CommonConfirmationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 SearchCaseService: mockSearchCaseService,
                 CaseService: mockCaseService
             });
@@ -1905,7 +1905,7 @@ describe('Case Controllers', function () {
         it('should have a function for closing modal after status change', inject(function ($controller) {
             $controller('CommonConfirmationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 SearchCaseService: mockSearchCaseService,
                 CaseService: mockCaseService
             });
@@ -1921,7 +1921,7 @@ describe('Case Controllers', function () {
         it('should have a function for closing modal after severity change', inject(function ($controller) {
             $controller('CommonConfirmationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 SearchCaseService: mockSearchCaseService,
                 CaseService: mockCaseService
             });
@@ -1941,7 +1941,7 @@ describe('Case Controllers', function () {
         it('should have a function for close Modal', inject(function ($controller) {
             $controller('ProceedWithoutAttachModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 AttachmentsService: mockAttachmentsService,
                 RHAUtils: rhaUtils
             });
@@ -1952,7 +1952,7 @@ describe('Case Controllers', function () {
         it('should have a function for parsing artifact html', inject(function ($controller) {
             $controller('ProceedWithoutAttachModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 AttachmentsService: mockAttachmentsService,
                 RHAUtils: rhaUtils,
                 $sce:mockStrataDataService.mockSce
@@ -1972,7 +1972,7 @@ describe('Case Controllers', function () {
         it('should have a function for init when user is not allowed to manage groups', inject(function ($controller) {
             $controller('DefaultGroup', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance
+                $uibModalInstance:mockStrataDataService.mockModalInstance
             });
             expect(mockScope.init).toBeDefined();
             mockScope.init();
@@ -2085,7 +2085,7 @@ describe('Case Controllers', function () {
         it('should have a function for new escalation comment with escalation comment text empty ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 CaseService: mockCaseService,
                 RHAUtils:rhaUtils,
                 strataService:mockStrataService
@@ -2100,7 +2100,7 @@ describe('Case Controllers', function () {
         it('should have a function for onNewEscalationComment with escalation comment text non empty ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 CaseService: mockCaseService,
                 RHAUtils:rhaUtils,
                 strataService:mockStrataService
@@ -2113,7 +2113,7 @@ describe('Case Controllers', function () {
         it('should have a function for submit request click for non-existence of draft comment on server ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 CaseService: mockCaseService,
                 RHAUtils:rhaUtils,
                 strataService:mockStrataService
@@ -2131,7 +2131,7 @@ describe('Case Controllers', function () {
         it('should have a function for submit request click for existence of draft comment on server ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 CaseService: mockCaseService,
                 RHAUtils:rhaUtils,
                 strataService:mockStrataService
@@ -2152,7 +2152,7 @@ describe('Case Controllers', function () {
         it('should have a function for submit request click for draft comment not empty ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 CaseService: mockCaseService,
                 RHAUtils:rhaUtils,
                 strataService:mockStrataService
@@ -2174,7 +2174,7 @@ describe('Case Controllers', function () {
         it('should have a function for close modal ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
-                $modalInstance:mockStrataDataService.mockModalInstance,
+                $uibModalInstance:mockStrataDataService.mockModalInstance,
                 CaseService: mockCaseService,
                 RHAUtils:rhaUtils,
                 strataService:mockStrataService

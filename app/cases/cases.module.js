@@ -1,6 +1,7 @@
 'use strict';
 angular.module('RedhatAccess.cases', [
     'ui.router',
+    'ngAnimate',
     'ui.bootstrap',
     'localytics.directives',
     'ngTable',

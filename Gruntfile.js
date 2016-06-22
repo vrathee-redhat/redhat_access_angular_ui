@@ -72,25 +72,24 @@ module.exports = function (grunt) {
             img: ['<%= yeoman.app %>/**/img/*'],
             thirdParty: {
                 js: [
-                    '<%= yeoman.bowerDir %>/js-markdown-extra/js-markdown-extra.js',
                     '<%= yeoman.bowerDir %>/jsUri/Uri.js',
                     '<%= yeoman.bowerDir %>/stratajs/strata.js',
                     '<%= yeoman.bowerDir %>/udsjs/dist/uds.js',
-                    '<%= yeoman.bowerDir %>/angular-resource/angular-resource.js',
-                    '<%= yeoman.bowerDir %>/angular-sanitize/angular-sanitize.js',
-                    '<%= yeoman.bowerDir %>/angular-route/angular-route.js',
-                    '<%= yeoman.bowerDir %>/angular-ui-router/release/angular-ui-router.js',
-                    '<%= yeoman.bowerDir %>/angular-bootstrap/ui-bootstrap-tpls.js',
+                    '<%= yeoman.bowerDir %>/angular-resource/angular-resource.min.js',
+                    '<%= yeoman.bowerDir %>/angular-sanitize/angular-sanitize.min.js',
+                    '<%= yeoman.bowerDir %>/angular-route/angular-route.min.js',
+                    '<%= yeoman.bowerDir %>/angular-ui-router/release/angular-ui-router.min.js',
+                    '<%= yeoman.bowerDir %>/angular-bootstrap/ui-bootstrap-tpls.min.js',
                     '<%= yeoman.bowerDir %>/angular-treeview/angular.treeview.js',
                     '<%= yeoman.bowerDir %>/ng-table/ng-table.js',
                     '<%= yeoman.bowerDir %>/angular-gettext/dist/angular-gettext.min.js',
-                    '<%= yeoman.bowerDir %>/angular-md5/angular-md5.js',
+                    '<%= yeoman.bowerDir %>/angular-md5/angular-md5.min.js',
                     '<%= yeoman.bowerDir %>/angular-chosen-localytics/chosen.js',
                     '<%= yeoman.bowerDir %>/angular-cache/dist/angular-cache.js',
                     '<%= yeoman.bowerDir %>/chosen/chosen.jquery.js',
                     '<%= yeoman.bowerDir %>/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
                     '<%= yeoman.bowerDir %>/pegjs/peg-0.9.0.min.js',
-                    '<%= yeoman.bowerDir %>/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js'
+                    '<%= yeoman.bowerDir %>/redhat-access-pcm-ascension-common/dist/redhat_access_pcm_ascension_common.js'
 
                 ],
                 css: [

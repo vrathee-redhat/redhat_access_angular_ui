@@ -2,10 +2,10 @@
 /*global $ */
 angular.module('RedhatAccess.cases').controller('RequestEscalation', [
     '$scope',
-    '$modal',
-    function ($scope, $modal) {
+    '$uibModal',
+    function ($scope, $uibModal) {
 		$scope.requestManagementEscalation = function () {
-	        $modal.open({
+	        $uibModal.open({
 	            templateUrl: 'cases/views/requestManagementEscalationModal.html',
 	            controller: 'RequestManagementEscalationModal'
 	        });

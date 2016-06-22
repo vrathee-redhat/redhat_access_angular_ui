@@ -5,7 +5,7 @@ angular.module('RedhatAccess.cases').controller('List', [
     '$filter',
 	'$location',
 	'$state',
-    '$modal',
+    '$uibModal',
     'securityService',
     'AlertService',
     'SearchCaseService',
@@ -19,7 +19,7 @@ angular.module('RedhatAccess.cases').controller('List', [
     'STATUS',
     'gettextCatalog',
     'RHAUtils',
-    function ($scope, $filter, $location, $state, $modal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS,gettextCatalog, RHAUtils) {
+    function ($scope, $filter, $location, $state, $uibModal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, SearchBoxService, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS,gettextCatalog, RHAUtils) {
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -141,7 +141,7 @@ angular.module('RedhatAccess.cases').controller('List', [
             CaseService.confirmationModal = CASE_EVENTS.caseClose;
             CaseService.confirmationModalHeader = gettextCatalog.getString('Closing Cases.');
             CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to close the selected cases?');
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'cases/views/commonConfirmationModal.html',
                 controller: 'CommonConfirmationModal'
             });
