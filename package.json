@@ -66,6 +66,7 @@
     "raw-loader": "~0.5.1",
     "redhat_access_pcm_ascension_common": "~1.2.5",
     "requirejs": "~2.1.11",
+    "rimraf": "~2.5.2",
     "sass-loader": "~3.2.1",
     "sinon": "~1.10.0",
     "stats-webpack-plugin": "~0.3.1",

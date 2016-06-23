@@ -246,10 +246,13 @@ module.exports = function (options) {
         // Render index.html
         config.plugins.push(
             new HtmlWebpackPlugin({
-                template: './index.html',
-                inject: 'body',
-                // inject: false
-                devServer: false
+                // template: './index.html',
+                // inject: 'body',
+                // // inject: false
+                // devServer: false
+                template: './chromed.ejs',
+                inject: false,
+                hash: true
             }),
 
             // Reference: https://github.com/webpack/extract-text-webpack-plugin
