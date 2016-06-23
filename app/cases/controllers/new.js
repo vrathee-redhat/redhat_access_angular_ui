@@ -482,13 +482,15 @@ export default class New {
                 CaseService.kase.description = CaseService.kase.description.concat(CaseService.urgencyString + '\n\n' + CaseService.kase.urgency);
             }
         };
-        angular.element('.affixed-recommendations').affix({
-            offset: {
-                top: 220,
-                bottom: function () {
-                    return (this.bottom = $('.footer-main').outerHeight(true) + 25)
+        if (ENVIRONMENT !== 'test') {
+            angular.element('.affixed-recommendations').affix({
+                offset: {
+                    top: 220,
+                    bottom: function () {
+                        return (this.bottom = $('.footer-main').outerHeight(true) + 25)
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

@@ -3,44 +3,46 @@ describe('ui-utils  Directives:  TreeView', function () {
     var mockScope;
     var compileService;
     beforeEach(angular.mock.module('RedhatAccess.ui-utils'));
-    // beforeEach(angular.mock.module('common/views/treenode.html'));
-    // //load our template modules
-    // beforeEach(angular.mock.inject(function ($rootScope, $compile) {
-    //     mockScope = $rootScope.$new();
-    //     compileService = $compile;
-    //     mockScope.attachmentTree = [
-    //         {
-    //             checked: true,
-    //             name: 'node0',
-    //             fullPath: 'node0',
-    //             children: []
-    //         },
-    //         {
-    //             checked: false,
-    //             name: 'node1',
-    //             fullPath: '/node1',
-    //             children: []
-    //         },
-    //         {
-    //             checked: false,
-    //             name: 'folder',
-    //             children: [
-    //                 {
-    //                     checked: false,
-    //                     name: 'child1',
-    //                     fullPath: 'folder/child1',
-    //                     children: []
-    //                 },
-    //                 {
-    //                     checked: true,
-    //                     name: 'child2',
-    //                     fullPath: '/folder/child2',
-    //                     children: []
-    //                 }
-    //             ]
-    //         }
-    //     ];
-    // }));
+    beforeEach(angular.mock.module('common/views/treenode.html'));
+    //load our template modules
+    beforeEach(angular.mock.inject(function ($rootScope, $compile) {
+        mockScope = $rootScope.$new();
+        compileService = $compile;
+        mockScope.attachmentTree = [
+            {
+                checked: true,
+                name: 'node0',
+                fullPath: 'node0',
+                children: []
+            },
+            {
+                checked: false,
+                name: 'node1',
+                fullPath: '/node1',
+                children: []
+            },
+            {
+                checked: false,
+                name: 'folder',
+                children: [
+                    {
+                        checked: false,
+                        name: 'child1',
+                        fullPath: 'folder/child1',
+                        children: []
+                    },
+                    {
+                        checked: true,
+                        name: 'child2',
+                        fullPath: '/folder/child2',
+                        children: []
+                    }
+                ]
+            }
+        ];
+    }));
+    // TODO -- error on the forEach somewhere embedded, probably the ng-repeat of choice.  We may not even use this tree
+    // anymore, if so this whole test can be removed.  Need to re-evaluate
     // it('should generate a tree view from a tree object', function () {
     //     var compileFn = compileService('<div rha-choicetree ng-model="attachmentTree"></div>');
     //     var elem = compileFn(mockScope);

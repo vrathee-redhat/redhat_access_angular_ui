@@ -43,7 +43,7 @@ app.value('NEW_CASE_CONFIG', NEW_CASE_CONFIG);
 app.value('EDIT_CASE_CONFIG', EDIT_CASE_CONFIG);
 
 // Routing
-app.config(casesRouting); 
+app.config(casesRouting);
 
 // Controllers
 import AccountBookmarkHome from './controllers/accountBookmarkHome'

@@ -55,6 +55,7 @@ angular.module('RedhatAccess.template', []);
 
 const app = angular.module('RedhatAccess', [
     'ngSanitize',
+    'ngTable',
     'angular-cache',
     'localytics.directives',
     'RedhatAccess.header',
@@ -129,11 +130,11 @@ if (ENVIRONMENT === 'gs4') {
             securityService.validateLogin(false);
         }
     );
-    
+
     angular.element(document).ready(function() {
         window.angular.bootstrap(document, [ 'RedhatAccess.cases' ]);
     });
-    
+
 } else if (ENVIRONMENT !== 'test') {
     const host = window.location.host;
     const redirectURL = `${window.location.protocol}//${host}/login?redirectTo=${document.URL}`;

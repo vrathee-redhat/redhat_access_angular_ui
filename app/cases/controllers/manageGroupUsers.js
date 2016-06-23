@@ -1,7 +1,7 @@
 'use strict';
 
 export default class ManageGroupUsers {
-    constructor($scope, securityService, SearchBoxService, ManageGroupsService, translate, $filter, ngTableParams, CASE_EVENTS) {
+    constructor($scope, securityService, SearchBoxService, ManageGroupsService, translate, $filter, NgTableParams, CASE_EVENTS) {
         'ngInject';
 
         $scope.securityService = securityService;
@@ -34,7 +34,7 @@ export default class ManageGroupUsers {
         var reloadTable = false;
         var tableBuilt = false;
         var buildTable = function () {
-            $scope.tableParams = new ngTableParams({
+            $scope.tableParams = new NgTableParams({
                 page: 1,
                 count: 10,
                 sorting: {sso_username: 'asc'}
