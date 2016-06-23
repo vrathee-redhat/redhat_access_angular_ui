@@ -68,7 +68,7 @@ angular.module('RedhatAccess.cases')
 
 ## ITOS Setup
 
-    rhc app create pcm https://raw.githubusercontent.com/icflorescu/openshift-cartridge-nodejs/master/metadata/manifest.yml
+    rhc app create -g int_hosted_medium -a pcm -n support https://raw.githubusercontent.com/icflorescu/openshift-cartridge-nodejs/master/metadata/manifest.yml
 
 ## Local development
 
