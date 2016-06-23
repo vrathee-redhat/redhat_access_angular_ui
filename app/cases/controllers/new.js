@@ -48,80 +48,53 @@ angular.module('RedhatAccess.cases').controller('New', [
         $scope.notifiedUsers = [];
         $scope.isControlGroup = true;
         $scope.recommendationsPerPage = 6;
-        $scope.recommendationsHasStarted = false;
+        // $scope.recommendationsHasStarted = false;
 	    //$scope.hideSticky = false;
 
         // Instantiate these variables outside the watch
         var waiting = false;
         $scope.$watch('CaseService.kase.product + CaseService.kase.version + CaseService.kase.description + CaseService.kase.summary', function () {
             if (!waiting) {
-
-                var doRecSearch = function(){
-                    var descriptionText = CaseService.kase.problem + ' ' + CaseService.kase.environment + ' ' + CaseService.kase.occurance + ' ' + CaseService.kase.urgency;
-                    if (RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
-                        if (RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
-                            $scope.makeRecommendationPanelVisible();
+                var descriptionText = CaseService.kase.problem + ' ' + CaseService.kase.environment + ' ' + CaseService.kase.occurance + ' ' + CaseService.kase.urgency;
+                if (RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
+                    if (RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
+                        $scope.makeRecommendationPanelVisible();
+                    }
+                    waiting = true;
+                    var descriptionText = CaseService.kase.description;
+                    if (RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0) {
+                        descriptionText = CaseService.kase.problem;
+                    }
+                    if (RHAUtils.isNotEmpty(CaseService.kase.environment) && CaseService.kase.environment.length > 0) {
+                        if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
+                            descriptionText = descriptionText.concat(' ');
                         }
-                        waiting = true;
-                        var descriptionText = CaseService.kase.description;
-                        if (RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0) {
-                            descriptionText = CaseService.kase.problem;
+                        descriptionText = descriptionText.concat(CaseService.kase.environment);
+                    }
+                    if (RHAUtils.isNotEmpty(CaseService.kase.occurance) && CaseService.kase.occurance.length > 0) {
+                        if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
+                            descriptionText = descriptionText.concat(' ');
                         }
-                        if (RHAUtils.isNotEmpty(CaseService.kase.environment) && CaseService.kase.environment.length > 0) {
-                            if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
-                                descriptionText = descriptionText.concat(' ');
-                            }
-                            descriptionText = descriptionText.concat(CaseService.kase.environment);
+                        descriptionText = descriptionText.concat(CaseService.kase.occurance);
+                    }
+                    if (RHAUtils.isNotEmpty(CaseService.kase.urgency) && CaseService.kase.urgency.length > 0) {
+                        if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
+                            descriptionText = descriptionText.concat(' ');
                         }
-                        if (RHAUtils.isNotEmpty(CaseService.kase.occurance) && CaseService.kase.occurance.length > 0) {
-                            if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
-                                descriptionText = descriptionText.concat(' ');
-                            }
-                            descriptionText = descriptionText.concat(CaseService.kase.occurance);
+                        descriptionText = descriptionText.concat(CaseService.kase.urgency);
+                    }
+                    var recommendationsText = {
+                        product: CaseService.kase.product,
+                        version: CaseService.kase.version,
+                        summary: CaseService.kase.summary,
+                        description: descriptionText
+                    };
+                    $timeout(function() {
+                        waiting = false;
+                        if(RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(CaseService.kase.summary) || RHAUtils.isNotEmpty(descriptionText)){
+                            RecommendationsService.getRecommendations(true, $scope.recommendationsPerPage, recommendationsText);
                         }
-                        if (RHAUtils.isNotEmpty(CaseService.kase.urgency) && CaseService.kase.urgency.length > 0) {
-                            if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
-                                descriptionText = descriptionText.concat(' ');
-                            }
-                            descriptionText = descriptionText.concat(CaseService.kase.urgency);
-                        }
-                        var recommendationsText = {
-                            product: CaseService.kase.product,
-                            version: CaseService.kase.version,
-                            summary: CaseService.kase.summary,
-                            description: descriptionText
-                        };
-                        $timeout(function() {
-                            waiting = false;
-                            if(RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(CaseService.kase.summary) || RHAUtils.isNotEmpty(descriptionText)){
-                                RecommendationsService.getRecommendations(true, 6, recommendationsText);
-                            }
-                        }, 500); // delay 500 ms
-                    }
-                };
-
-                if($scope.isControlGroup){
-                    doRecSearch();
-                } else if($scope.recommendationsHasStarted){
-                    doRecSearch();
-                } else{
-                    var tmpDescription = '';
-                    if(RHAUtils.isNotEmpty(CaseService.kase.problem)){
-                        tmpDescription = tmpDescription.concat(CaseService.kase.problem);
-                    }
-                    if(RHAUtils.isNotEmpty(CaseService.kase.environment)){
-                        tmpDescription = tmpDescription.concat(CaseService.kase.environment);
-                    }
-                    if(RHAUtils.isNotEmpty(CaseService.kase.occurance)){
-                        tmpDescription = tmpDescription.concat(CaseService.kase.occurance);
-                    }
-                    if(RHAUtils.isNotEmpty(CaseService.kase.urgency)){
-                        tmpDescription = tmpDescription.concat(CaseService.kase.urgency);
-                    }
-                    if(RHAUtils.isNotEmpty(tmpDescription) && tmpDescription.length > 40){
-                        $scope.recommendationsHasStarted = true;
-                        doRecSearch();
-                    }
+                    }, 500); // delay 500 ms
                 }
             }
         });
