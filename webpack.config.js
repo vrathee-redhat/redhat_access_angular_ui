@@ -73,7 +73,7 @@ module.exports = function (options) {
         // Only adds hash in build mode
         // filename: isProd ? '[name].[hash].js' : 'pcm.js',
         filename: "[name].js" + (isProd ? "?[chunkhash]" : "")
-        
+
         // library: 'pcm'
     };
 
@@ -333,7 +333,18 @@ module.exports = function (options) {
 
             // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
             // Minify all javascript, switch loaders to minimizing mode
-            new webpack.optimize.UglifyJsPlugin()
+            new webpack.optimize.UglifyJsPlugin({
+                sourceMap: false,
+                compress: {
+                    warnings: false,
+                    screw_ie8: true
+                },
+                mangle: false,
+                // mangle: {
+                //     except: ['$super', '$', 'exports', 'require']
+                // },
+                'screw-ie8': true
+            })
 
             // Copy assets from the public folder
             // Reference: https://github.com/kevlened/copy-webpack-plugin

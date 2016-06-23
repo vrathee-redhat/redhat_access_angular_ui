@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Change home directory (bower puts a lot of cache and tmp directories here)
+HOME=$OPENSHIFT_REPO_DIR
+BABEL_DISABLE_CACHE=1
+
+cd ${OPENSHIFT_REPO_DIR}
+if [ -d ${TMP}node_modules ]; then
+mv -f ${TMP}node_modules ./
+fi
+npm prune --production
+npm i --production --loglevel error
+
+# Build locally and push.  The itos gears fail on FDs when running this and/or disk quote with the node_modules
+#npm run build
+
+# if forever is missing
+# install it in the persistent data dir
+which forever >/dev/null 2>&1
+if [ $? != 0 ] ; then npm install -g forever ; fi

@@ -28,9 +28,9 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
             div(ng-show='EDIT_CASE_CONFIG.showServerSideAttachments')
               .server-attach-header {{'Server File(s) To Attach:'|translate}}
                // TODO -- This needs to be fixed, getting: Multiple directives [ngController, rhaChoicetree (module: RedhatAccess.ui-utils)] asking for new/isolated scope on: <div rha-choicetree="" ng-model="attachmentTree" ng-controller="BackEndAttachmentsCtrl" class="ng-pristine ng-untouched ng-valid">
-               div(rha-choicetree='',
-                 ng-model='attachmentTree',
-                 ng-controller='BackEndAttachmentsCtrl')
+               //div(rha-choicetree='',
+               //  ng-model='attachmentTree',
+               //  ng-controller='BackEndAttachmentsCtrl')
   .col-xs-5
     .pull-right
       .spinner.spinner-inline(ng-show='addingComment || addingattachment')
