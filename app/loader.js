@@ -9,7 +9,7 @@
     window.require.config({
       paths: {
         'strata': '/bower_components/stratajs/strata',
-        'uds': '/bower_components/udsjs/dist/uds',
+        'uds': '/bower_components/udsjs/uds',
         'moment': '/bower_components/moment/moment',
         'bluebird': 'bower_components/bluebird/js/browser/bluebird'
       },
