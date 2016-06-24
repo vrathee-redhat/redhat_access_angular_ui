@@ -195,7 +195,6 @@ const PCMApp = function() {
         this.app.get(/^\/(webassets|chrome_themes.*?)/i, function(req, res) {
             var location;
             console.log("received request: " + req.url);
-            console.log("req.params : " + (prettyjson.render(req.params)));
             location = "https://access.redhat.com/" + req.url;
             console.log("Redirecting to: " + location);
             res.writeHead(302, {
