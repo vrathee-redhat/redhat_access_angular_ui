@@ -163,6 +163,7 @@ const PCMApp = function() {
         //     });
         //     res.end();
         // };
+
     };
 
 
@@ -189,6 +190,20 @@ const PCMApp = function() {
         // for (var r in this.routes) {
         //     this.app.get(r, this.routes[r]);
         // }
+
+        // Proxy Chrome information
+        this.app.get(/^\/(webassets|chrome_themes.*?)/i, function(req, res) {
+            var location;
+            logger.info("received request: " + req.url);
+            logger.info("req.params : " + (prettyjson.render(req.params)));
+            location = "https://access.redhat.com/" + req.url;
+            logger.info("Redirecting to: " + location);
+            res.writeHead(302, {
+                Location: location
+            });
+            res.end();
+            return true;
+        });
     };
 
 
