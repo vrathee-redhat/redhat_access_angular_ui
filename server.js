@@ -194,10 +194,10 @@ const PCMApp = function() {
         // Proxy Chrome information
         this.app.get(/^\/(webassets|chrome_themes.*?)/i, function(req, res) {
             var location;
-            logger.info("received request: " + req.url);
-            logger.info("req.params : " + (prettyjson.render(req.params)));
+            console.log("received request: " + req.url);
+            console.log("req.params : " + (prettyjson.render(req.params)));
             location = "https://access.redhat.com/" + req.url;
-            logger.info("Redirecting to: " + location);
+            console.log("Redirecting to: " + location);
             res.writeHead(302, {
                 Location: location
             });
