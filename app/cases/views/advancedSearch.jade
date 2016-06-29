@@ -1,5 +1,6 @@
 .page-header(rha-header='', page='')
 h1(ng-show='securityService.loginStatus.verifying || securityService.loginStatus.isLoggedIn') Advanced case search
+a(href="https://access.redhat.com/articles/2390851#advanced_search", target="_blank") {{"Advanced Case Search User Guide" | translate}}
 div.spinner(ng-show='securityService.loginStatus.verifying')
 div(ng-if='securityService.loginStatus.isLoggedIn')
     div(rha-solr-query-input, solr-query="$parent.solrQuery", parse-successful="$parent.queryParsed", submit='$parent.doSearch()')
