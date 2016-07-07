@@ -545,8 +545,9 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 caseJSON.recommendations = {
                     recommendation: []
                 };
-                recommendations.forEach(function (rec) {
-                    caseJSON.recommendations.recommendation.push(this.getRecommendationObject(rec));
+                recommendations.forEach(function (rec,index) {
+                    console.log(recommendations.length);
+                    caseJSON.recommendations.recommendation.push(this.getRecommendationObject(rec,index,recommendations.length));
                 },this);
             }
 
@@ -568,22 +569,32 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             return deferred.promise;
         };
 
-        this.getRecommendationObject = function (rec){
+        this.getRecommendationObject = function (rec,index,length){
             var recommendation = {};
             recommendation.resourceId = rec.id;
             recommendation.resourceURI = rec.uri;
             recommendation.resourceViewURI = rec.view_uri;
             recommendation.title = rec.title;
             recommendation.resourceType = rec.documentKind;
+            recommendation.client = "portal-case-management";
+            recommendation.analysisAlgorithm = "Text Analysis";
+            recommendation.analysisService = "calaveras";
+            recommendation.algorithmScore = rec.score;
+            var bucket = length-index;
+            if(bucket>5) {
+                bucket = 5;
+            }
+            recommendation.bucket = bucket;
+            // recommendation.analysisCategory = "Text Analysis";
+            if( RHAUtils.isNotEmpty(rec.category) && RHAUtils.isNotEmpty(rec.category[0]) ){
+                recommendation.analysisCategory = rec.category[0];
+            }
             if ( rec.documentKind === "Solution" ) {
                 recommendation.solutionOwnerSSOName = rec.authorSSOName;
                 recommendation.solutionAbstract = rec.abstract;
                 recommendation.solutionTitle = rec.title;
                 recommendation.solutionKcsState = rec.kcsState;
                 recommendation.solutionUrl = rec.view_uri;
-            }
-            if( RHAUtils.isNotEmpty(rec.category) && RHAUtils.isNotEmpty(rec.category[0]) ){
-                recommendation.analysisCategory = rec.category[0];
             }
             return recommendation;
         }
