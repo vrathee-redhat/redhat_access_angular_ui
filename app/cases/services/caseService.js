@@ -546,8 +546,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                     recommendation: []
                 };
                 recommendations.forEach(function (rec,index) {
-                    console.log(recommendations.length);
-                    caseJSON.recommendations.recommendation.push(this.getRecommendationObject(rec,index,recommendations.length));
+                    caseJSON.recommendations.recommendation.push(this.getRecommendationObject(rec,index));
                 },this);
             }
 
@@ -569,7 +568,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             return deferred.promise;
         };
 
-        this.getRecommendationObject = function (rec,index,length){
+        this.getRecommendationObject = function (rec,index){
             var recommendation = {};
             recommendation.resourceId = rec.id;
             recommendation.resourceURI = rec.uri;
@@ -577,18 +576,15 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             recommendation.title = rec.title;
             recommendation.resourceType = rec.documentKind;
             recommendation.client = "portal-case-management";
+            // to populate client version with package.json version once we start using webpack
+            recommendation.clientVersion = "1.1.99";
             recommendation.analysisAlgorithm = "Text Analysis";
             recommendation.analysisService = "calaveras";
             recommendation.algorithmScore = rec.score;
-            var bucket = length-index;
-            if(bucket>5) {
-                bucket = 5;
-            }
+            recommendation.resource = "Summary"
+            var bucket = index===0 ? 4 :3;
             recommendation.bucket = bucket;
-            // recommendation.analysisCategory = "Text Analysis";
-            if( RHAUtils.isNotEmpty(rec.category) && RHAUtils.isNotEmpty(rec.category[0]) ){
-                recommendation.analysisCategory = rec.category[0];
-            }
+            recommendation.analysisCategory = "Text Analysis";
             if ( rec.documentKind === "Solution" ) {
                 recommendation.solutionOwnerSSOName = rec.authorSSOName;
                 recommendation.solutionAbstract = rec.abstract;
