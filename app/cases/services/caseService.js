@@ -576,7 +576,7 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             recommendation.title = rec.title;
             recommendation.resourceType = rec.documentKind;
             recommendation.client = "portal-case-management";
-            // to populate client version with package.json version once we start using webpack
+            // todo -- populate client version with package.json version once we start using webpack
             recommendation.clientVersion = "1.1.99";
             recommendation.analysisAlgorithm = "Text Analysis";
             recommendation.analysisService = "calaveras";
