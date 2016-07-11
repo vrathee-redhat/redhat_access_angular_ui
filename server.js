@@ -191,19 +191,6 @@ const PCMApp = function() {
         //     this.app.get(r, this.routes[r]);
         // }
 
-        // Proxy Chrome information
-        // this.app.get(/^\/(webassets|chrome_themes.*?)/i, function(req, res) {
-        //     var location;
-        //     console.log("received request: " + req.url);
-        //     location = "https://access.redhat.com/" + req.url;
-        //     console.log("Redirecting to: " + location);
-        //     res.writeHead(302, {
-        //         Location: location
-        //     });
-        //     res.end();
-        //     return true;
-        // });
-        //
         // this.app.get("/*", (req, res) => {
         //     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
         //     res.header("Pragma", "no-cache");
