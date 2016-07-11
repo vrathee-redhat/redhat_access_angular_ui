@@ -541,16 +541,14 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
                 caseJSON.contactSsoUsername = this.owner;
             }
 
-            // if(RHAUtils.isNotEmpty(recommendations)) {
-            //   caseJSON.recommendations = {
-            //     recommendation: []
-            //   };
-            //   recommendations.forEach(function (rec) {
-            //       caseJSON.recommendations.recommendation.push({
-            //         resourceId: rec.id
-            //       });
-            //   });
-            // }
+            if(RHAUtils.isNotEmpty(recommendations)) {
+                caseJSON.recommendations = {
+                    recommendation: []
+                };
+                recommendations.forEach(function (rec,index) {
+                    caseJSON.recommendations.recommendation.push(this.getRecommendationObject(rec,index));
+                },this);
+            }
 
             this.correctSupportLevelAndFTS(caseJSON);
 
@@ -569,6 +567,34 @@ angular.module('RedhatAccess.cases').constant('CASE_GROUPS', {
             });
             return deferred.promise;
         };
+
+        this.getRecommendationObject = function (rec,index){
+            var recommendation = {};
+            recommendation.resourceId = rec.id;
+            recommendation.resourceURI = rec.uri;
+            recommendation.resourceViewURI = rec.view_uri;
+            recommendation.title = rec.title;
+            recommendation.resourceType = rec.documentKind;
+            recommendation.client = "portal-case-management";
+            // todo -- populate client version with package.json version once we start using webpack
+            recommendation.clientVersion = "1.1.99";
+            recommendation.analysisAlgorithm = "Text Analysis";
+            recommendation.analysisService = "calaveras";
+            recommendation.algorithmScore = rec.score;
+            recommendation.resource = "Summary"
+            var bucket = index===0 ? 4 :3;
+            recommendation.bucket = bucket;
+            recommendation.analysisCategory = "Text Analysis";
+            if ( rec.documentKind === "Solution" ) {
+                recommendation.solutionOwnerSSOName = rec.authorSSOName;
+                recommendation.solutionAbstract = rec.abstract;
+                recommendation.solutionTitle = rec.title;
+                recommendation.solutionKcsState = rec.kcsState;
+                recommendation.solutionUrl = rec.view_uri;
+            }
+            return recommendation;
+        }
+
 
         this.correctSupportLevelAndFTS = function (caseJson) {
             if(RHAUtils.isEmpty(caseJson.entitlement) || RHAUtils.isEmpty(caseJson.entitlement.sla)) {
