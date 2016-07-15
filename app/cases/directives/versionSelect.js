@@ -1,9 +1,9 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaVersionselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/versionSelect.html',
+        template: require('../views/versionSelect.jade'),
         restrict: 'A',
         controller: 'VersionSelect'
     };
-});
+}

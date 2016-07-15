@@ -1,28 +1,9 @@
 'use strict';
-/*jshint unused:vars */
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('DiscussionSection', [
-    '$scope',
-    '$timeout',
-    'AttachmentsService',
-    'CaseService',
-    'DiscussionService',
-    'strataService',
-    'securityService',
-    '$stateParams',
-    'AlertService',
-    '$modal',
-    '$location',
-    '$anchorScroll',
-    'RHAUtils',
-    'EDIT_CASE_CONFIG',
-    'AUTH_EVENTS',
-    'CASE_EVENTS',
-    '$sce',
-    'gettextCatalog',
-    '$filter',
-    'LinkifyService',
-    function ($scope, $timeout, AttachmentsService, CaseService, DiscussionService, strataService,securityService, $stateParams, AlertService, $modal, $location, $anchorScroll, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, $filter, LinkifyService) {
+
+export default class DiscussionSection {
+    constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal, $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService) {
+        'ngInject';
+
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -50,20 +31,20 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
 
         $scope.DiscussionService = DiscussionService;
 
-        var scroll = function(commentId){
-            $timeout(function() {
-                if(!$scope.hasScrolled && angular.element(commentId)){
+        var scroll = function (commentId) {
+            $timeout(function () {
+                if (!$scope.hasScrolled && angular.element(commentId)) {
                     CaseService.scrollToComment(commentId);
                 }
-                else{
+                else {
                     scroll(commentId);
                 }
             }, 150);
         };
 
-        $scope.init = function() {
+        $scope.init = function () {
             DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function () {
-                if($location.search().commentId !== undefined){
+                if ($location.search().commentId !== undefined) {
                     scroll($location.search().commentId);
                 }
             }, function (error) {
@@ -77,17 +58,17 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             $scope.init();
         });
 
-        $scope.commentReply = function(comment) {
-            var truncatedText=comment.text.substring(0,1000);
+        $scope.commentReply = function (comment) {
+            var truncatedText = comment.text.substring(0, 1000);
             var person = comment.created_by;
             var lines = truncatedText.split(/\n/);
-            truncatedText = gettextCatalog.getString('(In reply to {{personName}})',{personName:person}) +'\n';
+            truncatedText = gettextCatalog.getString('(In reply to {{personName}})', {personName: person}) + '\n';
             for (var i = 0, max = lines.length; i < max; i++) {
-               truncatedText = truncatedText + '> ' + lines[i] + '\n';
+                truncatedText = truncatedText + '> ' + lines[i] + '\n';
             }
             var commentsSection = document.getElementById('tab_list');
             if (commentsSection) {
-                    commentsSection.scrollIntoView(true);
+                commentsSection.scrollIntoView(true);
             }
             CaseService.commentText = truncatedText;
             CaseService.commentReplyText = truncatedText;
@@ -99,87 +80,87 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         }
 
         $scope.requestManagementEscalation = function () {
-            $modal.open({
-                templateUrl: 'cases/views/requestManagementEscalationModal.html',
+            $uibModal.open({
+                template: require('../views/requestManagementEscalationModal.jade'),
                 controller: 'RequestManagementEscalationModal'
             });
         };
 
-        $scope.deleteAttachment = function(element){
+        $scope.deleteAttachment = function (element) {
             AttachmentsService.removeOriginalAttachment(element);
         };
 
-        $scope.maxNotesCharacterCheck = function() {
-            if (CaseService.kase.notes !== undefined ) {
+        $scope.maxNotesCharacterCheck = function () {
+            if (CaseService.kase.notes !== undefined) {
                 $scope.noteCharactersLeft = $scope.noteCharactersMax - CaseService.kase.notes.length;
             }
         };
 
         $scope.$watch('AttachmentsService.originalAttachments', function () {
             DiscussionService.updateElements();
-            if(AttachmentsService.originalAttachments.length ===0 ){ //if we are deleting last attachment, we should default to case discussion tab
+            if (AttachmentsService.originalAttachments.length === 0) { //if we are deleting last attachment, we should default to case discussion tab
                 $scope.toggleDiscussion();
             }
         }, true);
         $scope.$watch('CaseService.comments', function () {
             DiscussionService.updateElements();
         }, true);
-        $scope.$watch('CaseService.kase.notes', function() {
+        $scope.$watch('CaseService.kase.notes', function () {
             $scope.maxNotesCharacterCheck();
         }, true);
 
-        $scope.updateNotes = function(){
+        $scope.updateNotes = function () {
             CaseService.updateCase().then(angular.bind(this, function () {
                 this.notesForm.$setPristine();
-            }) ,angular.bind(this, function (error) {
+            }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
             }));
         };
-        $scope.updateActionPlan = function(){
+        $scope.updateActionPlan = function () {
             CaseService.updateCase().then(angular.bind(this, function () {
                 this.actionPlanForm.$setPristine();
-            }) ,angular.bind(this, function (error) {
+            }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
             }));
         };
-        $scope.discardNotes = function(){
+        $scope.discardNotes = function () {
             CaseService.kase.notes = CaseService.prestineKase.notes;
             $scope.noteCharactersLeft = $scope.noteCharactersMax - CaseService.kase.notes.length;
             this.notesForm.$setPristine();
         };
-        $scope.discardActionPlan = function(){
+        $scope.discardActionPlan = function () {
             CaseService.kase.action_plan = CaseService.prestineKase.action_plan;
             this.actionPlanForm.$setPristine();
         };
-        $scope.toggleDiscussion = function(){
+        $scope.toggleDiscussion = function () {
             $scope.discussion = true;
             $scope.attachments = false;
             $scope.notes = false;
             $scope.bugzillas = false;
             $scope.actionPlan = false;
         };
-        $scope.toggleAttachments= function(){
+        $scope.toggleAttachments = function () {
             $scope.discussion = false;
             $scope.attachments = true;
             $scope.notes = false;
             $scope.bugzillas = false;
             $scope.actionPlan = false;
         };
-        $scope.toggleNotes = function(){
+        $scope.toggleNotes = function () {
             $scope.discussion = false;
             $scope.attachments = false;
             $scope.notes = true;
             $scope.bugzillas = false;
             $scope.actionPlan = false;
         };
-        $scope.toggleBugzillas = function(){
+        $scope.toggleBugzillas = function () {
             $scope.discussion = false;
             $scope.attachments = false;
             $scope.notes = false;
             $scope.bugzillas = true;
             $scope.actionPlan = false;
         };
-        $scope.toggleActionPlan = function(){
+        $scope.toggleActionPlan = function () {
             $scope.discussion = false;
             $scope.attachments = false;
             $scope.notes = false;
@@ -187,12 +168,12 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
             $scope.actionPlan = true;
         };
 
-        $scope.$on('$locationChangeSuccess', function(){
+        $scope.$on('$locationChangeSuccess', function () {
             var splitUrl = $location.path().split('/');
-            if(splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1){
+            if (splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1) {
                 var newCaseId = splitUrl[2];
                 var oldCaseId = $scope.CaseService.kase.case_number;
-                if(newCaseId !== oldCaseId){
+                if (newCaseId !== oldCaseId) {
                     $stateParams.id = newCaseId;
                     CaseService.clearCase();
                     $scope.init();
@@ -240,4 +221,4 @@ angular.module('RedhatAccess.cases').controller('DiscussionSection', [
         };
 
     }
-]);
+}

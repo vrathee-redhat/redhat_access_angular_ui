@@ -1,13 +1,13 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('ListNewAttachments', [
-    '$scope',
-    'AttachmentsService',
-    'TreeViewSelectorUtils',
-    function ($scope, AttachmentsService, TreeViewSelectorUtils) {
+
+export default class ListNewAttachments {
+    constructor($scope, AttachmentsService, TreeViewSelectorUtils) {
+        'ngInject';
+
         $scope.AttachmentsService = AttachmentsService;
         $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;
         $scope.removeLocalAttachment = function ($index) {
             AttachmentsService.removeUpdatedAttachment($index);
         };
     }
-]);
+}

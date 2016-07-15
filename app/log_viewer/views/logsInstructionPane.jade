@@ -1,0 +1,29 @@
+.panel.panel-default.rha-logsinstructionpane(ng-hide='tabs.length > 0', rha-filldown='', ng-style='{ height: windowHeight }', style='overflow:auto')
+    .panel-body
+        div
+            h2(translate='') Log File Viewer
+            p
+            h3(translate='')
+                | The log file viewer gives the ability to diagnose application logs as well as file a support case with Red Hat Global Support Services.
+        div
+            br
+            h4
+                span.glyphicon.glyphicon-refresh
+                |  {{'Select Log'|translate}}
+            p(translate='')
+                | Simply navigate to and select a log file from the list on the left and click the 'Select File' button.
+        div
+            br
+            h4
+                span.glyphicon.glyphicon-search
+                |  {{'Diagnose'|translate}}
+            p(translate='')
+                | Once you have selected your log file then you may diagnose any part of the log file and clicking the 'Red Hat Diagnose' button. This will then display relevant articles and solutons from our Red Hat Knowledge base.
+        div
+            br
+            h4
+                span.glyphicon.glyphicon-plus
+                |  {{'Open a New Support Case'|translate}}
+            p(translate='')
+                | In the event that you would still like to open a support case, select 'Open a New Support Case'. The case will be pre-populated with the portion of the log previously selected.
+

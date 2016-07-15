@@ -1,13 +1,11 @@
-/*global angular*/
 'use strict';
-angular.module('RedhatAccess.cases').controller('OwnerSelect', [
-    '$scope',
-    'securityService',
-    'SearchCaseService',
-    'CaseService',
-    function ($scope, securityService, SearchCaseService, CaseService) {
+
+export default class OwnerSelect {
+    constructor($scope, securityService, SearchCaseService, CaseService) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.SearchCaseService = SearchCaseService;
         $scope.CaseService = CaseService;
     }
-]);
+}

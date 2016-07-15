@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').filter('substring', function () {
+
+export default function () {
     return function (text, length) {
         var shortText = '';
-        if(length === undefined){
+        if (length === undefined) {
             length = 150;
         }
         if (text !== undefined && text.length > length) {
@@ -15,4 +16,4 @@ angular.module('RedhatAccess.cases').filter('substring', function () {
         }
         return shortText;
     };
-});
+}

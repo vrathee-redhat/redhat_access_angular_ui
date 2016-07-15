@@ -1,20 +1,9 @@
 'use strict';
-/*jshint unused:vars, camelcase:false */
-/**
- * @ngdoc module
- * @name
- *
- * @description
- *
- */
-angular.module('RedhatAccess.search').controller('SearchController', [
-    '$scope',
-    '$location',
-    'SearchResultsService',
-    'SEARCH_CONFIG',
-    'securityService',
-    'AlertService',
-    function ($scope, $location, SearchResultsService, SEARCH_CONFIG, securityService, AlertService) {
+
+export default class SearchController {
+    constructor($scope, $location, SearchResultsService, SEARCH_CONFIG) {
+        'ngInject';
+
         $scope.SearchResultsService = SearchResultsService;
         $scope.results = SearchResultsService.results;
         $scope.selectedSolution = SearchResultsService.currentSelection;
@@ -59,4 +48,4 @@ angular.module('RedhatAccess.search').controller('SearchController', [
             $scope.selectedSolution = newVal;
         });
     }
-]);
+}

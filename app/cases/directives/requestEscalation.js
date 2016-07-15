@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaRequestescalation', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/requestEscalation.html',
+        template: require('../views/requestEscalation.jade'),
         restrict: 'A',
         controller: 'RequestEscalation'
     };
-});
+}

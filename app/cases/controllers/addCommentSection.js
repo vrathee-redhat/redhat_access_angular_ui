@@ -1,19 +1,9 @@
 'use strict';
-/*global $, draftComment*/
-/*jshint camelcase: false, expr: true*/
-angular.module('RedhatAccess.cases').controller('AddCommentSection', [
-    '$scope',
-    'strataService',
-    'CaseService',
-    'AlertService',
-    'AttachmentsService',
-    'DiscussionService',
-    'securityService',
-    '$timeout',
-    'RHAUtils',
-    'EDIT_CASE_CONFIG',
-    'gettextCatalog',
-    function ($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog) {
+
+export default class AddCommentSection {
+    constructor($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog) {
+        'ngInject';
+        
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
@@ -26,11 +16,11 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
 
         DiscussionService.commentTextBoxEnlargen = false;
 
-        $scope.clearComment = function(){
-        	CaseService.commentText = '';
+        $scope.clearComment = function () {
+            CaseService.commentText = '';
             DiscussionService.commentTextBoxEnlargen = false;
-        	CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
-        	AttachmentsService.updatedAttachments = [];
+            CaseService.localStorageCache.remove(CaseService.kase.case_number + securityService.loginStatus.authedUser.sso_username);
+            AttachmentsService.updatedAttachments = [];
             CaseService.disableAddComment = true;
         };
 
@@ -40,10 +30,9 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             }
             var onSuccess = function () {
                 CaseService.isCommentPublic = true;
-                CaseService.draftCommentOnServerExists=false;
-                if(CaseService.localStorageCache)
-                {
-                    CaseService.localStorageCache.remove(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username);
+                CaseService.draftCommentOnServerExists = false;
+                if (CaseService.localStorageCache) {
+                    CaseService.localStorageCache.remove(CaseService.kase.case_number + securityService.loginStatus.authedUser.sso_username);
                 }
                 if (RHAUtils.isNotEmpty($scope.saveDraftPromise)) {
                     $timeout.cancel($scope.saveDraftPromise);
@@ -64,7 +53,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.progressCount = 0;
                 $scope.charactersLeft = 0;
 
-                if(securityService.loginStatus.authedUser.sso_username !== undefined && CaseService.updatedNotifiedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) === -1){
+                if (securityService.loginStatus.authedUser.sso_username !== undefined && CaseService.updatedNotifiedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) === -1) {
                     strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.authedUser.sso_username).then(function () {
                         CaseService.updatedNotifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
                     }, function (error) {
@@ -79,11 +68,10 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 $scope.progressCount = 0;
                 $scope.charactersLeft = 0;
             };
-            if(!CaseService.disableAddComment && CaseService.commentText !== 'undefined'){
+            if (!CaseService.disableAddComment && CaseService.commentText !== 'undefined') {
                 $scope.addingComment = true;
-                if(CaseService.localStorageCache) {
-                    if(CaseService.draftCommentOnServerExists)
-                    {
+                if (CaseService.localStorageCache) {
+                    if (CaseService.draftCommentOnServerExists) {
                         strataService.cases.comments.put(CaseService.kase.case_number, CaseService.commentText, false, CaseService.isCommentPublic, CaseService.draftComment.id).then(onSuccess, onError);
                     }
                     else {
@@ -104,12 +92,12 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                     strataService.cache.clr('attachments' + CaseService.kase.case_number);
                     strataService.cases.attachments.list(CaseService.kase.case_number).then(angular.bind(this, function (attachmentsJSON) {
                         AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                        DiscussionService.loadingAttachments= false;
+                        DiscussionService.loadingAttachments = false;
                         $scope.addingattachment = false;
                         CaseService.checkForCaseStatusToggleOnAttachOrComment();
                     }), angular.bind(this, function (error) {
                         $scope.addingattachment = false;
-                        DiscussionService.loadingAttachments= false;
+                        DiscussionService.loadingAttachments = false;
                         CaseService.checkForCaseStatusToggleOnAttachOrComment();
                     }));
 
@@ -121,11 +109,10 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         };
         $scope.saveDraftPromise;
         $scope.onNewCommentKeypress = function () {
-            if(CaseService.localStorageCache)
-            {
-                if(CaseService.draftCommentOnServerExists)
-                {
-                    CaseService.draftCommentLocalStorage = {'text': CaseService.commentText,
+            if (CaseService.localStorageCache) {
+                if (CaseService.draftCommentOnServerExists) {
+                    CaseService.draftCommentLocalStorage = {
+                        'text': CaseService.commentText,
                         'id': CaseService.draftComment.id,
                         'draft': true,
                         'public': CaseService.isCommentPublic,
@@ -140,11 +127,10 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                         'case_number': CaseService.kase.case_number
                     };
                 }
-                if(RHAUtils.isEmpty(CaseService.commentText))
-                {
-                    CaseService.draftCommentLocalStorage.public=true;
+                if (RHAUtils.isEmpty(CaseService.commentText)) {
+                    CaseService.draftCommentLocalStorage.public = true;
                 }
-                CaseService.localStorageCache.put(CaseService.kase.case_number+securityService.loginStatus.authedUser.sso_username,CaseService.draftCommentLocalStorage);
+                CaseService.localStorageCache.put(CaseService.kase.case_number + securityService.loginStatus.authedUser.sso_username, CaseService.draftCommentLocalStorage);
                 CaseService.disableAddComment = false;
                 if (RHAUtils.isEmpty(CaseService.commentText)) {
                     CaseService.disableAddComment = true;
@@ -166,33 +152,31 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
         };
 
         $scope.onCommentPublicChange = function () {
-            if(RHAUtils.isNotEmpty(CaseService.commentText) && CaseService.commentText !== CaseService.commentReplyText)
-            {
+            if (RHAUtils.isNotEmpty(CaseService.commentText) && CaseService.commentText !== CaseService.commentReplyText) {
                 $scope.onNewCommentKeypress();
             }
 
         };
-        $scope.$watch('CaseService.commentText', function() {
+        $scope.$watch('CaseService.commentText', function () {
             $scope.maxCharacterCheck();
         });
-        $scope.maxCharacterCheck = function() {
-            if (CaseService.commentText !== undefined && $scope.maxCommentLength  >= CaseService.commentText.length) {
-                var count = CaseService.commentText.length * 100 / $scope.maxCommentLength ;
+        $scope.maxCharacterCheck = function () {
+            if (CaseService.commentText !== undefined && $scope.maxCommentLength >= CaseService.commentText.length) {
+                var count = CaseService.commentText.length * 100 / $scope.maxCommentLength;
                 parseInt(count);
                 $scope.progressCount = Math.round(count * 100) / 100;
                 var breakMatches = CaseService.commentText.match(/(\r\n|\n|\r)/g);
                 var numberOfLineBreaks = 0;
-                if(breakMatches){
+                if (breakMatches) {
                     numberOfLineBreaks = breakMatches.length;
                 }
                 $scope.charactersLeft = $scope.maxCommentLength - CaseService.commentText.length - numberOfLineBreaks;
-                if($scope.charactersLeft < 0){
+                if ($scope.charactersLeft < 0) {
                     $scope.charactersLeft = 0;
                 }
             }
-            else if(CaseService.commentText===undefined)
-            {
-                $scope.progressCount=0;
+            else if (CaseService.commentText === undefined) {
+                $scope.progressCount = 0;
                 $scope.charactersLeft = 0;
             }
         };
@@ -224,23 +208,23 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                 strataService.cases.comments.post(CaseService.kase.case_number, CaseService.commentText, CaseService.isCommentPublic, true).then(onSuccess, onFailure);
             }
         };
-        $scope.shouldTextboxMinimize = function(){
-            if(RHAUtils.isEmpty(CaseService.commentText)){
-                DiscussionService.commentTextBoxEnlargen=false;
+        $scope.shouldTextboxMinimize = function () {
+            if (RHAUtils.isEmpty(CaseService.commentText)) {
+                DiscussionService.commentTextBoxEnlargen = false;
             }
         };
-        $scope.ieFileUpload = function($event) {
+        $scope.ieFileUpload = function ($event) {
             var form = document.getElementById('fileUploaderForm');
             var iframeId = document.getElementById('upload_target');
             form.action = 'https://' + window.location.host + '/rs/cases/' + CaseService.kase.case_number + '/attachments';
 
             var eventHandler = function () {
-                if (iframeId.removeEventListener){
+                if (iframeId.removeEventListener) {
                     iframeId.removeEventListener('load', eventHandler, false);
-                }else if (iframeId.detachEvent){
+                } else if (iframeId.detachEvent) {
                     iframeId.detachEvent('onload', eventHandler);
                 }
-                if(!$scope.ie8){
+                if (!$scope.ie8) {
                     var content;
                     if (iframeId.contentDocument && iframeId.contentDocument.body !== null) {
                         content = iframeId.contentDocument.body.innerText;
@@ -251,7 +235,7 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                         var parser = document.createElement('a');
                         parser.href = content;
                         var splitPath = parser.pathname.split('/');
-                        if(splitPath !== undefined && splitPath[4] !== undefined){
+                        if (splitPath !== undefined && splitPath[4] !== undefined) {
                             AttachmentsService.clear();
                             strataService.cache.clr('attachments' + CaseService.kase.case_number);
                             strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
@@ -265,21 +249,21 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                             });
                         } else {
                             $scope.addingComment = false;
-                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}',{errorMessage:content}));
+                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}', {errorMessage: content}));
                             $scope.$apply();
                         }
                     } else {
                         $scope.addingComment = false;
-                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}',{errorMessage:content}));
+                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}', {errorMessage: content}));
                         $scope.$apply();
                     }
-                }else {
+                } else {
                     strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
                         $scope.addingComment = false;
-                        if(attachmentsJSON.length !== AttachmentsService.originalAttachments.length){
+                        if (attachmentsJSON.length !== AttachmentsService.originalAttachments.length) {
                             AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                             $scope.ieClearSelectedFile();
-                        } else{
+                        } else {
                             AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment.'));
                         }
 
@@ -288,15 +272,15 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
                         AlertService.addStrataErrorMessage(error);
                     });
                 }
-                setTimeout(function(){
-                },
+                setTimeout(function () {
+                    },
                     100
                 );
             };
 
-            if (iframeId.addEventListener){
+            if (iframeId.addEventListener) {
                 iframeId.addEventListener('load', eventHandler, false);
-            } else if (iframeId.attachEvent){
+            } else if (iframeId.attachEvent) {
                 iframeId.attachEvent('onload', eventHandler);
             }
             $scope.addingComment = true;
@@ -306,10 +290,10 @@ angular.module('RedhatAccess.cases').controller('AddCommentSection', [
             $scope.ieFileDescription = '';
         };
         $scope.submitIEAttachment = function () {
-            if(EDIT_CASE_CONFIG.showAttachments && $scope.ie8 || EDIT_CASE_CONFIG.showAttachments && $scope.ie9 ) {
+            if (EDIT_CASE_CONFIG.showAttachments && $scope.ie8 || EDIT_CASE_CONFIG.showAttachments && $scope.ie9) {
                 $scope.ieFileUpload(CaseService.kase.case_number);
             }
         }
     }
 
-]);
+}

@@ -1,13 +1,13 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaSearchbox', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/searchBox.html',
+        template: require('../views/searchBox.jade'),
         restrict: 'A',
         controller: 'SearchBox',
-        scope: { 
-        	placeholder: '=',
-        	hidebutton: '=?'
+        scope: {
+            placeholder: '=',
+            hidebutton: '=?'
         }
     };
-});
+}

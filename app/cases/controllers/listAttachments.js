@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('ListAttachments', [
-    '$scope',
-    'AttachmentsService',
-    function ($scope, AttachmentsService) {
+
+export default class ListAttachments {
+    constructor($scope, AttachmentsService) {
+        'ngInject';
+
         $scope.AttachmentsService = AttachmentsService;
     }
-]);
+}

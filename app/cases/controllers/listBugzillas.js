@@ -1,10 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('ListBugzillas', [
-    '$scope',
-    'CaseService',
-    'securityService',
-    function ($scope, CaseService, securityService) {
+
+export default class ListBugzillas {
+    constructor($scope, CaseService, securityService) {
+        'ngInject';
+
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
     }
-]);
+}

@@ -1,16 +1,13 @@
 'use strict';
-/*global angular*/
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaOwnerselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/ownerSelect.html',
+        template: require('../views/ownerSelect.jade'),
         restrict: 'A',
         controller: 'OwnerSelect',
-        scope: { onchange: '&' },
+        scope: {onchange: '&'},
         link: function postLink(scope, element, attrs) {
-            scope.$on('$destroy', function () {
-                element.remove();
-            });
+            scope.$on('$destroy', () => element.remove() );
         }
     };
-});
+}

@@ -1,10 +1,8 @@
 'use strict';
-/*jshint unused:vars */
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').service('GroupUserService', [
-    'strataService',
-    function (strataService) {
+
+export default class GroupUserService {
+    constructor() {
         this.reloadTable = {};
         this.groupsOnScreen = [];
     }
-]);
+}

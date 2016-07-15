@@ -1,15 +1,13 @@
-/*global angular*/
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaEmailnotifyselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/emailNotifySelect.html',
+        template: require('../views/emailNotifySelect.jade'),
         restrict: 'A',
         transclude: true,
         controller: 'EmailNotifySelect',
         link: function postLink(scope, element, attrs) {
-            scope.$on('$destroy', function () {
-                element.remove();
-            });
+            scope.$on('$destroy', () => element.remove() );
         }
     };
-});
+}

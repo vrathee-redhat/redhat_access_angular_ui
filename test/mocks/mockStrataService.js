@@ -971,19 +971,10 @@ angular.module('RedhatAccess.mock', [])
             this.externalUpdates=[];
             this.filterSelect = '';
 
-            //    this.localStorageCache = $angularCacheFactory.get('localStorageCache');
             this.localStorageCache=[];
-            this.localStorageCache.remove=function(key)
-            {
+            this.localStorageCache.remove=function(key) {};
 
-
-            };
-
-            this.localStorageCache.put=function(key,val)
-            {
-
-
-            };
+            this.localStorageCache.put=function(key,val) {};
             this.originalNotifiedUsers = [];
             this.updatedNotifiedUsers = [];
 
@@ -1406,5 +1397,4 @@ angular.module('RedhatAccess.mock', [])
                 return container;
             };
         }
-    ])
-;
+    ]);

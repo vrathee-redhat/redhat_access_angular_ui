@@ -1,13 +1,9 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('Group', [
-    '$scope',
-    '$location',
-    'securityService',
-    'SearchBoxService',
-    'GroupService',
-    'CASE_EVENTS',
-    function ($scope, $location, securityService, SearchBoxService, GroupService, CASE_EVENTS) {
+
+export default class Group {
+    constructor($scope, $location, securityService, SearchBoxService, GroupService, CASE_EVENTS) {
+        'ngInject';
+
         $scope.securityService = securityService;
 
         $scope.$on(CASE_EVENTS.searchBoxChange, function () {
@@ -22,8 +18,8 @@ angular.module('RedhatAccess.cases').controller('Group', [
         SearchBoxService.onKeyPress = function () {
             GroupService.reloadTableAndClearPagination();
         };
-        $scope.defaultCaseGroup = function(){
+        $scope.defaultCaseGroup = function () {
             $location.path('/case/group/default');
         };
     }
-]);
+}

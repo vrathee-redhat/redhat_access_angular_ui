@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaEntitlementselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/entitlementSelect.html',
+        template: require('../views/entitlementSelect.jade'),
         restrict: 'A',
         controller: 'EntitlementSelect'
     };
-});
+}

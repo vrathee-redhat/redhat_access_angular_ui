@@ -1,9 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').controller('AccordionDemoCtrl', [
-    '$scope',
-    'accordian',
-    function ($scope, accordian) {
+
+export default class AccordionDemoCtrl {
+    constructor($scope, accordian) {
+        'ngInject';
+
         $scope.oneAtATime = true;
         $scope.groups = accordian.getGroups();
     }
-]);
+}

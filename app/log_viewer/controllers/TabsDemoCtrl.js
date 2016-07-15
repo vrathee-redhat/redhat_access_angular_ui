@@ -1,16 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
-    '$rootScope',
-    '$scope',
-    '$http',
-    '$location',
-    'files',
-    'accordian',
-    'SearchResultsService',
-    'securityService',
-    'AlertService',
-    'LOGVIEWER_EVENTS',
-    function ($rootScope, $scope, $http, $location, files, accordian, SearchResultsService, securityService, AlertService, LOGVIEWER_EVENTS) {
+
+export default class TabsDemoCtrl {
+    constructor($rootScope, $scope, $http, $location, files, SearchResultsService, securityService, AlertService, LOGVIEWER_EVENTS) {
+        'ngInject';
+
         $scope.tabs = [];
         $scope.isLoading = false;
         $scope.$watch(function () {
@@ -114,4 +107,4 @@ angular.module('RedhatAccess.logViewer').controller('TabsDemoCtrl', [
             }
         };
     }
-]);
+}

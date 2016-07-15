@@ -1,18 +1,9 @@
-/*global angular*/
-/*jshint camelcase: false*/
 'use strict';
-angular.module('RedhatAccess.cases').controller('EmailNotifySelect', [
-    '$scope',
-    'CaseService',
-    'securityService',
-    'AlertService',
-    'strataService',
-    'CASE_EVENTS',
-    '$filter',
-    'RHAUtils',
-    'EDIT_CASE_CONFIG',
-    'AUTH_EVENTS',
-    function ($scope, CaseService, securityService, AlertService, strataService,CASE_EVENTS, $filter, RHAUtils,EDIT_CASE_CONFIG, AUTH_EVENTS) {
+
+export default class EmailNotifySelect {
+    constructor($scope, CaseService, securityService, AlertService, strataService, CASE_EVENTS, $filter, RHAUtils, EDIT_CASE_CONFIG) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
@@ -54,4 +45,4 @@ angular.module('RedhatAccess.cases').controller('EmailNotifySelect', [
         });
 
     }
-]);
+}

@@ -1,9 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaExistingBookmarkedAccounts',function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/existingBookmarkedAccounts.html',
+        template: require('../views/existingBookmarkedAccounts.jade'),
         controller: 'ExistingBookmarkedAccounts',
         restrict: 'A',
         scope: {}
     };
-});
+}

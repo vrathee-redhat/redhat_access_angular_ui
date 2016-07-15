@@ -1,10 +1,11 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').factory('files', function () {
+
+export default () => {
     var fileList = '';
     var selectedFile = '';
     var file = '';
-    var retrieveFileButtonIsDisabled = { check: true };
-    var fileClicked = { check: false };
+    var retrieveFileButtonIsDisabled = {check: true};
+    var fileClicked = {check: false};
     var activeTab = null;
     return {
         getFileList: function () {
@@ -44,4 +45,4 @@ angular.module('RedhatAccess.logViewer').factory('files', function () {
             return activeTab;
         }
     };
-});
+}

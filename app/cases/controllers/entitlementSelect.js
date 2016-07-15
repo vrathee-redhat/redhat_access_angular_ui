@@ -1,13 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('EntitlementSelect', [
-    '$scope',
-    'strataService',
-    'AlertService',
-    '$filter',
-    'RHAUtils',
-    'CaseService',
-    function ($scope, strataService, AlertService, $filter, RHAUtils, CaseService) {
+
+export default class EntitlementSelect {
+    constructor($scope, CaseService) {
+        'ngInject';
+
         $scope.CaseService = CaseService;
         CaseService.populateEntitlements();
     }
-]);
+}

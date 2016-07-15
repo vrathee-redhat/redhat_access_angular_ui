@@ -1,43 +1,45 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('scrollHide', function ($document, $timeout) {
-	return {
-		restrict: 'A',
-		scope: {
-			scrollHide: '@',
-			scrollHideClass: '@',
-			scrollHidePad: '@'
-		},
-		link: function(scope, element, attrs) {
-			var elemId = ('#' + scope.scrollHide);
-			var $compare = angular.element(elemId);
-			var className = scope.scrollHideClass || '';
-			var padding = +scope.scrollHidePad || 0;
 
-			function shouldToggle() {
-				return (element.offset().top >= $compare.offset().top + padding);
-			}
+export default function ($document, $timeout) {
+    'ngInject';
+    
+    return {
+        restrict: 'A',
+        scope: {
+            scrollHide: '@',
+            scrollHideClass: '@',
+            scrollHidePad: '@'
+        },
+        link: function (scope, element, attrs) {
+            var elemId = ('#' + scope.scrollHide);
+            var $compare = angular.element(elemId);
+            var className = scope.scrollHideClass || '';
+            var padding = +scope.scrollHidePad || 0;
 
-			function toggle() {
-				if (!$compare[0]) {
-					$compare = angular.element(elemId);
-					return;
-				}
-				if (shouldToggle()) {
-					element.addClass(className);
-				} else {
-					element.removeClass(className);
-				}
-			}
+            function shouldToggle() {
+                return (element.offset().top >= $compare.offset().top + padding);
+            }
 
-			$document.on('scroll', toggle);
-			$(window).on('resize', toggle);
-			$timeout(toggle, 0);
+            function toggle() {
+                if (!$compare[0]) {
+                    $compare = angular.element(elemId);
+                    return;
+                }
+                if (shouldToggle()) {
+                    element.addClass(className);
+                } else {
+                    element.removeClass(className);
+                }
+            }
 
-			scope.$on('$destroy', function() {
-				$document.off('scroll', toggle);
-				$(window).off('resize', toggle);
-			});
-		}
-	};
-});
+            $document.on('scroll', toggle);
+            $(window).on('resize', toggle);
+            $timeout(toggle, 0);
+
+            scope.$on('$destroy', function () {
+                $document.off('scroll', toggle);
+                $(window).off('resize', toggle);
+            });
+        }
+    };
+}

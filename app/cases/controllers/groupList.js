@@ -1,18 +1,9 @@
 'use strict';
-/*global $ */
-/*jshint expr: true, camelcase: false, newcap: false*/
-angular.module('RedhatAccess.cases').controller('GroupList', [
-    '$scope',
-    'strataService',
-    'AlertService',
-    'CaseService',
-    '$filter',
-    'ngTableParams',
-    'GroupService',
-    'securityService',
-    'SearchBoxService',
-    'AUTH_EVENTS',
-    function ($scope, strataService, AlertService, CaseService, $filter, ngTableParams, GroupService, securityService, SearchBoxService, AUTH_EVENTS) {
+
+export default class GroupList {
+    constructor($scope, strataService, AlertService, CaseService, $filter, ngTableParams, GroupService, securityService, SearchBoxService, AUTH_EVENTS) {
+        'ngInject';
+
         $scope.CaseService = CaseService;
         $scope.GroupService = GroupService;
         $scope.listEmpty = false;
@@ -25,11 +16,11 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             $scope.tableParams = new ngTableParams({
                 page: 1,
                 count: 10,
-                sorting: { name: 'asc' }
+                sorting: {name: 'asc'}
             }, {
                 total: CaseService.groups.length,
                 getData: function ($defer, params) {
-                    var orderedData = $filter('filter')(CaseService.groups, {name:SearchBoxService.searchTerm});
+                    var orderedData = $filter('filter')(CaseService.groups, {name: SearchBoxService.searchTerm});
                     orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
                     orderedData.length < 1 ? $scope.listEmpty = true : $scope.listEmpty = false;
                     var pageData = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
@@ -43,7 +34,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
                 $scope.tableParams.reload();
             };
             GroupService.reloadTableAndClearPagination = function () {
-                if($scope.tableParams !== undefined){
+                if ($scope.tableParams !== undefined) {
                     $scope.tableParams.$params.page = 1;
                 }
                 $scope.tableParams.reload();
@@ -64,15 +55,15 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
         };
         CaseService.clearCase();
 
-        $scope.init = function() {
-            SearchBoxService.searchTerm='';
+        $scope.init = function () {
+            SearchBoxService.searchTerm = '';
             var userName = securityService.loginStatus.authedUser.sso_username;
             strataService.groups.list(userName, false).then(function (groups) {
                 CaseService.groups = groups;
                 $scope.canManageGroups = securityService.loginStatus.account.has_group_acls && securityService.loginStatus.authedUser.org_admin;
                 $scope.groupsLoading = false;
                 buildTable();
-                if(reloadTable){
+                if (reloadTable) {
                     //GroupService.reloadTable();
                     reloadTable = false;
                 }
@@ -81,7 +72,7 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             });
         };
 
-        $scope.onGroupSelected = function() {
+        $scope.onGroupSelected = function () {
             var disableDeleteGroup = true;
             for (var i = 0; i < GroupService.groupsOnScreen.length; i++) {
                 if (GroupService.groupsOnScreen[i].selected === true) {
@@ -107,4 +98,4 @@ angular.module('RedhatAccess.cases').controller('GroupList', [
             reloadTable = true;
         });
     }
-]);
+}

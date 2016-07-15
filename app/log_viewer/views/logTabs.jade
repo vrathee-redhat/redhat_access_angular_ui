@@ -1,0 +1,20 @@
+div(tabset='', ng-show='tabs.length > 0')
+    div(tab='', active='tab.active', ng-repeat='tab in tabs')
+        div(tab-heading='')
+            | {{tab.shortTitle}}
+            a(ng-click='removeTab($index)', href='')
+                span.glyphicon.glyphicon-remove
+        .panel.panel-default
+            .panel-heading
+                a(popover='Click to refresh log file.', popover-trigger='mouseenter', popover-placement='right', ng-click='refreshTab($index)')
+                    span.glyphicon.glyphicon-refresh
+                h3.panel-title(style='display: inline') {{tab.longTitle}}
+                #overlay.pull-right(popover='Select text and click to perform Red Hat Diagnose', popover-trigger='mouseenter', popover-placement='left')
+                    button#diagnoseButton.btn.btn-sm.btn-primary.diagnoseButton(ng-disabled='isDisabled', type='button', ng-click='diagnoseText()', translate='') Red Hat Diagnose
+                a.tabs-spinner(ng-class='{ showMe: isLoading }')
+                    span.rha-search-spinner
+                br
+                br
+            .panel-body(rha-filldown='', ng-style='{ height: windowHeight }')
+                pre#resizeable-file-view.no-line-wrap.
+                    \n{{tab.content}}

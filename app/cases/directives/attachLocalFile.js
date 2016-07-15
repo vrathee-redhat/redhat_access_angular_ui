@@ -1,9 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaAttachlocalfile', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/attachLocalFile.html',
+        template: require('../views/attachLocalFile.jade'),
         restrict: 'A',
         controller: 'AttachLocalFile',
-        scope: { disabled: '=' }
+        scope: {disabled: '='}
     };
-});
+}

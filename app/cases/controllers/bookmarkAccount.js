@@ -1,22 +1,21 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('BookmarkAccount', [
-    '$scope',
-    'gettextCatalog',
-    'AccountBookmarkService',
-    'RHAUtils',
-    function ($scope, gettextCatalog, AccountBookmarkService, RHAUtils) {
+
+export default class BookmarkAccount {
+    constructor($scope, gettextCatalog, AccountBookmarkService, RHAUtils) {
+        'ngInject';
+
         $scope.isHovering = false;
         $scope.RHAUtils = RHAUtils;
         $scope.submitting = false;
 
         $scope.isBookmarked = function () {
-            if(RHAUtils.isNotEmpty($scope.account)) {
+            if (RHAUtils.isNotEmpty($scope.account)) {
                 return AccountBookmarkService.isBookmarked($scope.account.number);
             }
         };
 
         $scope.getTooltipText = function () {
-            if($scope.isBookmarked()) {
+            if ($scope.isBookmarked()) {
                 return gettextCatalog.getString('Remove bookmark!');
             } else {
                 return gettextCatalog.getString('Bookmark this account!');
@@ -36,12 +35,12 @@ angular.module('RedhatAccess.cases').controller('BookmarkAccount', [
                 $scope.submitting = false;
             };
             $scope.submitting = true;
-            if($scope.isBookmarked()) {
+            if ($scope.isBookmarked()) {
                 AccountBookmarkService.removeBookmark($scope.account).then(onPromiseComplete, onPromiseComplete);
-            }  else {
+            } else {
                 AccountBookmarkService.addBookmark($scope.account).then(onPromiseComplete, onPromiseComplete);
             }
         };
 
     }
-]);
+}

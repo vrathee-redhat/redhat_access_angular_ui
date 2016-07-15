@@ -1,10 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('AccountSearch', [
-   '$scope',
-    'AccountService',
-    '$timeout',
-    function ($scope, AccountService, $timeout) {
-        var changeTimeout;
+
+export default class AccountSearch {
+    constructor($scope, AccountService, $timeout) {
+        'ngInject';
+        
+        let changeTimeout;
         $scope.accountQuery = '';
         $scope.account = null;
 
@@ -13,7 +13,7 @@ angular.module('RedhatAccess.cases').controller('AccountSearch', [
         $scope.loading = false;
 
         $scope.loadAccount = function () {
-            if($scope.accountQuery.trim().length === 0) {
+            if ($scope.accountQuery.trim().length === 0) {
                 $scope.invalid = false;
                 $scope.valid = false;
                 $scope.loading = false;
@@ -27,7 +27,7 @@ angular.module('RedhatAccess.cases').controller('AccountSearch', [
 
             var number = $scope.accountQuery.trim();
             AccountService.loadAccount(number, false).then(function () {
-                if(AccountService.accounts[number] != null) {
+                if (AccountService.accounts[number] != null) {
                     $scope.account = AccountService.accounts[number];
                     $scope.valid = true;
                     $scope.invalid = false;
@@ -42,8 +42,8 @@ angular.module('RedhatAccess.cases').controller('AccountSearch', [
         };
 
         $scope.queryChanged = function () {
-            if(changeTimeout != null) $timeout.cancel(changeTimeout);
+            if (changeTimeout != null) $timeout.cancel(changeTimeout);
             changeTimeout = $timeout($scope.loadAccount, 300);
         }
     }
-]);
+}

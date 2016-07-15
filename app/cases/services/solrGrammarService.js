@@ -1,10 +1,8 @@
 "use strict";
-angular.module("RedhatAccess.cases").service("SOLRGrammarService",[
-    'RHAUtils',
-    'securityService',
-    'AUTH_EVENTS',
-    '$rootScope',
-    function (RHAUtils,securityService,AUTH_EVENTS,$rootScope) {
+
+export default class SOLRGrammarService {
+    constructor(RHAUtils, securityService, AUTH_EVENTS, $rootScope) {
+        'ngInject';
 
         this.accounts = [];
 
@@ -21,8 +19,8 @@ angular.module("RedhatAccess.cases").service("SOLRGrammarService",[
             this.initParser();
         };
 
-        this.initParser = function() {
-            this.parser =  PEG.buildParser(this.grammarString);
+        this.initParser = function () {
+            this.parser = PEG.buildParser(this.grammarString);
         };
 
         this.parse = function (stringQuery) {
@@ -30,22 +28,22 @@ angular.module("RedhatAccess.cases").service("SOLRGrammarService",[
         };
 
         this.setSeverities = function (severities) {
-            if(RHAUtils.isEmpty(severities)) return;
+            if (RHAUtils.isEmpty(severities)) return;
 
             var severitiesValues = severities.map(function (severity) {
                 return '"\\"' + severity.name + '\\"" { return \'"' + severity.name + '"\'; }';
             }).join(' / ');
             var severityRule = 'severityValue = ' + severitiesValues;
 
-            this.grammarString = this.grammarString.replace(/severityValue\s*=.+/,severityRule);
+            this.grammarString = this.grammarString.replace(/severityValue\s*=.+/, severityRule);
 
             this.initParser();
         };
 
         this.setStatuses = function (statuses) {
-            if(RHAUtils.isEmpty(statuses)) return;
+            if (RHAUtils.isEmpty(statuses)) return;
 
-            var statusValues = statuses.map(function(status) {
+            var statusValues = statuses.map(function (status) {
                 return '"\\"' + status.name + '\\"" { return \'"' + status.name + '"\'; }';
             }).join(' / ');
             var statusRule = 'statusValue = ' + statusValues;
@@ -55,8 +53,8 @@ angular.module("RedhatAccess.cases").service("SOLRGrammarService",[
             this.initParser();
         };
 
-        this.setGroups = function (groups)  {
-            if(RHAUtils.isEmpty(groups)) return;
+        this.setGroups = function (groups) {
+            if (RHAUtils.isEmpty(groups)) return;
 
             var groupValues = groups.map(function (group) {
                 return '"\\"' + group.name + '\\"" { return \'' + group.number + '\'; }';
@@ -68,35 +66,35 @@ angular.module("RedhatAccess.cases").service("SOLRGrammarService",[
             this.initParser();
         };
 
-        this.setProducts = function(products) {
-            if(RHAUtils.isEmpty(products)) return;
+        this.setProducts = function (products) {
+            if (RHAUtils.isEmpty(products)) return;
 
             var productValues = products.map(function (product) {
-               return '"\\"' + product.name + '\\"" { return \'"' + product.code + '"\'; }';
+                return '"\\"' + product.name + '\\"" { return \'"' + product.code + '"\'; }';
             }).join(' / ');
             var productRule = 'productValue = ' + productValues;
 
-            this.grammarString = this.grammarString.replace(/productValue\s*=.+/,productRule);
+            this.grammarString = this.grammarString.replace(/productValue\s*=.+/, productRule);
 
             this.initParser();
         };
 
-        this.setUserAccount = function(account) {
-            if(RHAUtils.isEmpty(account)) return;
+        this.setUserAccount = function (account) {
+            if (RHAUtils.isEmpty(account)) return;
 
             this.accounts.push(account);
             this.initAccounts();
         };
 
-        this.setBookmarkedAccounts = function(accounts) {
-            if(RHAUtils.isEmpty(accounts)) return;
+        this.setBookmarkedAccounts = function (accounts) {
+            if (RHAUtils.isEmpty(accounts)) return;
 
             this.accounts = this.accounts.concat(accounts);
             this.initAccounts();
         };
 
-        this.initAccounts = function() {
-            if(RHAUtils.isEmpty(this.accounts)) return;
+        this.initAccounts = function () {
+            if (RHAUtils.isEmpty(this.accounts)) return;
 
             var numberValues = this.accounts.map(function (account) {
                 return '"\\"' + account.number + ' (' + account.name + ')\\"" { return "' + account.number + '"; }';
@@ -111,8 +109,8 @@ angular.module("RedhatAccess.cases").service("SOLRGrammarService",[
             this.init();
         }
 
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this, function() {
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this, function () {
             this.init();
         }));
     }
-]);
+}

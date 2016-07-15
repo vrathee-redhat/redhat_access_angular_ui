@@ -1,10 +1,10 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaAttachproductlogs', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/attachProductLogs.html',
+        template: require('../views/attachProductLogs.jade'),
         restrict: 'A',
         link: function postLink(scope, element, attrs) {
         }
     };
-});
+}

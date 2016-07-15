@@ -1,0 +1,11 @@
+#log_view_main(style='max-height: 500px;')
+    .container-offset
+        div(rha-header='', page='logViewer')
+    .row-fluid(ng-controller='logViewerController', ng-mouseup='enableDiagnoseButton()')
+        div(rha-navsidebar='')
+        .col-fluid
+            div(rha-recommendations='')
+            .col-fluid
+                div(ng-controller='TabsDemoCtrl', ng-class='{ showMe: solutionsToggle }')
+                    div(rha-logsinstructionpane='')
+                    div(rha-logtabs='')

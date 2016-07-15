@@ -1,9 +1,8 @@
-/*global angular*/
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaListfilter', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/listFilter.html',
+        template: require('../views/listFilter.jade'),
         restrict: 'A',
         controller: 'ListFilter',
         scope: {
@@ -11,9 +10,7 @@ angular.module('RedhatAccess.cases').directive('rhaListfilter', function () {
             postfilter: '='
         },
         link: function postLink(scope, element, attrs) {
-            scope.$on('$destroy', function () {
-                element.remove();
-            });
+            scope.$on('$destroy', () => element.remove() );
         }
     };
-});
+}

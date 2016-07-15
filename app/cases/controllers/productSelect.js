@@ -1,15 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('ProductSelect', [
-    '$scope',
-    'securityService',
-    'SearchCaseService',
-    'CaseService',
-    'ProductsService',
-    'strataService',
-    'AlertService',
-    'RHAUtils',
-    'RecommendationsService',
-    function ($scope, securityService, SearchCaseService, CaseService, ProductsService, strataService, AlertService, RHAUtils, RecommendationsService) {
+
+export default class ProductSelect {
+    constructor($scope, securityService, SearchCaseService, CaseService, ProductsService, strataService, AlertService, RHAUtils, RecommendationsService) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.SearchCaseService = SearchCaseService;
         $scope.CaseService = CaseService;
@@ -19,24 +13,24 @@ angular.module('RedhatAccess.cases').controller('ProductSelect', [
         $scope.$watch(function () {
             return ProductsService.products;
         }, function () {
-            if(RHAUtils.isNotEmpty(ProductsService.products)){
+            if (RHAUtils.isNotEmpty(ProductsService.products)) {
                 $scope.products = ProductsService.products;
-                if(RHAUtils.isNotEmpty(CaseService.kase.product)){
-                    var selectedProduct = {
-                        code : CaseService.kase.product,
-                        name : CaseService.kase.product
-                    }
-                    var prodInArray = false;
+                if (RHAUtils.isNotEmpty(CaseService.kase.product)) {
+                    let selectedProduct = {
+                        code: CaseService.kase.product,
+                        name: CaseService.kase.product
+                    };
+                    let prodInArray = false;
                     for (var i = 0; i < $scope.products.length; i++) {
                         if ($scope.products[i].code === selectedProduct.code && $scope.products[i].name === selectedProduct.name) {
                             prodInArray = true;
                         }
                     }
-                    if(!prodInArray){
+                    if (!prodInArray) {
                         $scope.products.push(selectedProduct);
                     }
                 }
             }
         });
     }
-]);
+}

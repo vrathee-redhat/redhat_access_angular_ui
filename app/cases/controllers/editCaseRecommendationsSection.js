@@ -1,12 +1,9 @@
 'use strict';
-/*jshint camelcase: false*/
-angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsController', [
-    'RecommendationsService',
-    '$scope',
-    'strataService',
-    'CaseService',
-    'AlertService',
-    function (RecommendationsService, $scope, strataService, CaseService, AlertService) {
+
+export default class EditCaseRecommendationsController {
+    constructor(RecommendationsService, $scope, strataService, CaseService, AlertService) {
+        'ngInject';
+
         $scope.RecommendationsService = RecommendationsService;
         $scope.currentRecPin = {};
         $scope.itemsPerPage = 3;
@@ -17,9 +14,9 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
         $scope.pinnedResultsPage = 1;
         $scope.handPickedResultsPage = 1;
         $scope.resultsPage = 1;
-        $scope.isHandpickedSolutionsOpen = {val:false};
-        $scope.isTopSolutionsOpen = {val:true};
-        $scope.isPinnedSolutionsOpen = {val:false};
+        $scope.isHandpickedSolutionsOpen = {val: false};
+        $scope.isTopSolutionsOpen = {val: true};
+        $scope.isPinnedSolutionsOpen = {val: false};
 
         $scope.selectPage = function (pageNum, recommendationsList, results) {
             var start = $scope.itemsPerPage * (pageNum - 1);
@@ -54,7 +51,7 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                             if (rec.resource_id === $scope.currentRecPin.resource_id) {
                                 RecommendationsService.pinnedRecommendations.splice(index, 1);
                                 //after removal of recommendation from list, we should check for last page possibility if the current page is greater than last page, we should navigate to previous page
-                                if($scope.findLastPage(RecommendationsService.pinnedRecommendations) < $scope.pinnedResultsPage && $scope.pinnedResultsPage > 1) {
+                                if ($scope.findLastPage(RecommendationsService.pinnedRecommendations) < $scope.pinnedResultsPage && $scope.pinnedResultsPage > 1) {
                                     $scope.pinnedResultsPage = $scope.pinnedResultsPage - 1;
                                 }
                             }
@@ -91,11 +88,11 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
                 });
             }
         };
-        $scope.increment = function(page){
+        $scope.increment = function (page) {
             $scope[page] = $scope[page] + 1;
         };
 
-        $scope.decrement = function(page){
+        $scope.decrement = function (page) {
             $scope[page] = $scope[page] - 1;
         };
         $scope.$watch(function () {
@@ -114,4 +111,4 @@ angular.module('RedhatAccess.cases').controller('EditCaseRecommendationsControll
             $scope.selectPage($scope.handPickedResultsPage, RecommendationsService.handPickedRecommendations, $scope.handPickedResults);
         }, true);
     }
-]);
+}

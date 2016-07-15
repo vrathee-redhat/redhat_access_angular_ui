@@ -1,20 +1,15 @@
 'use strict';
-angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
-    'securityService',
-    '$rootScope',
-    'AUTH_EVENTS',
-    'AccountService',
-    'RHAUtils',
-    'ACCOUNT_EVENTS',
-    'strataService',
-    '$q',
-    function (securityService, $rootScope, AUTH_EVENTS, AccountService, RHAUtils, ACCOUNT_EVENTS, strataService, $q) {
+
+export default class AccountBookmarkService {
+    constructor(securityService, $rootScope, AUTH_EVENTS, AccountService, RHAUtils, ACCOUNT_EVENTS, strataService, $q) {
+        'ngInject';
+
         this.loading = true;
         this.bookmarkedAccounts = [];
 
         this.init = function () { // load the bookmarked accounts from the logged in user.
             var user = securityService.loginStatus.authedUser;
-            if(RHAUtils.isNotEmpty(user.account_list) && RHAUtils.isNotEmpty(user.account_list.account_number)) {
+            if (RHAUtils.isNotEmpty(user.account_list) && RHAUtils.isNotEmpty(user.account_list.account_number)) {
                 this.loading = true;
                 var accountPromises = user.account_list.account_number.map(function (number) {
                     return AccountService.loadAccount(number);
@@ -27,8 +22,8 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
                     });
                     this.loading = false;
                     this.bookmarkedAccounts.sort(function (a, b) {
-                        if(a.name < b.name) return -1;
-                        if(a.name > b.name) return 1;
+                        if (a.name < b.name) return -1;
+                        if (a.name > b.name) return 1;
                         return 0;
                     });
                     $rootScope.$broadcast(ACCOUNT_EVENTS.bookmarkedAccountsFetched);
@@ -51,15 +46,15 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
 
         this.addBookmark = function (account) {
             var user = securityService.loginStatus.authedUser;
-            return strataService.accounts.addBookmark(account.number, user.sso_username).then(angular.bind(this,function () {
-                if(RHAUtils.isNotEmpty(account.name)) {
+            return strataService.accounts.addBookmark(account.number, user.sso_username).then(angular.bind(this, function () {
+                if (RHAUtils.isNotEmpty(account.name)) {
                     this.bookmarkedAccounts.push(account);
                 } else { //there is no name, we must fetch the account before adding to bookmarked accounts
-                    if(RHAUtils.isNotEmpty(AccountService.accounts[account.number])) { // was it already fetched before?
+                    if (RHAUtils.isNotEmpty(AccountService.accounts[account.number])) { // was it already fetched before?
                         this.bookmarkedAccounts.push(AccountService.accounts[account.number]);
                     } else {
                         return AccountService.loadAccount(account.number).then(angular.bind(this, function () {
-                            if(RHAUtils.isNotEmpty(AccountService.accounts[account.number])) {
+                            if (RHAUtils.isNotEmpty(AccountService.accounts[account.number])) {
                                 this.bookmarkedAccounts.push(AccountService.accounts[account.number]);
                             }
                         }));
@@ -78,7 +73,7 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
             }));
         };
 
-        if(securityService.loginStatus.isLoggedIn) {
+        if (securityService.loginStatus.isLoggedIn) {
             this.init();
         }
 
@@ -86,4 +81,4 @@ angular.module('RedhatAccess.cases').service('AccountBookmarkService', [
             this.init();
         }));
     }
-]);
+}

@@ -1,9 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').directive('rhaLogtabs', function () {
+
+export default () => {
     return {
-        templateUrl: 'log_viewer/views/logTabs.html',
+        template: require('../views/logTabs.jade'),
         restrict: 'A',
         link: function postLink(scope, element, attrs) {
         }
     };
-});
+}

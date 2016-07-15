@@ -1,9 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaAccountSearch',function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/accountSearch.html',
+        template: require('../views/accountSearch.jade'),
         controller: 'AccountSearch',
         restrict: 'A',
         scope: {}
     };
-});
+}

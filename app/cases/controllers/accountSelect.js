@@ -1,14 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('AccountSelect', [
-    '$scope',
-    'strataService',
-    'AlertService',
-    'CaseService',
-    'RHAUtils',
-    'gettextCatalog',
-    'ProductsService',
-    'securityService',
-    function ($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog,ProductsService, securityService) {
+
+export default class AccountSelect {
+    constructor($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog, ProductsService, securityService) {
+        'ngInject';
+
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.selectUserAccount = function () {
@@ -31,12 +26,11 @@ angular.module('RedhatAccess.cases').controller('AccountSelect', [
                         AlertService.removeAlert($scope.alertInstance);
                     }
                     promise = CaseService.populateUsers();
-                    promise.then(angular.bind(this, function (users)
-                    {
-                        if(RHAUtils.isEmpty(CaseService.owner)) {
+                    promise.then(angular.bind(this, function (users) {
+                        if (RHAUtils.isEmpty(CaseService.owner)) {
                             ProductsService.clear();
                             CaseService.clearProdVersionFromLS();
-                        }else{
+                        } else {
                             CaseService.onOwnerSelectChanged();
                         }
                         CaseService.validateNewCase();
@@ -55,4 +49,4 @@ angular.module('RedhatAccess.cases').controller('AccountSelect', [
             }
         };
     }
-]);
+}

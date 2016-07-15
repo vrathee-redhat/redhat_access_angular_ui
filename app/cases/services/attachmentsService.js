@@ -1,21 +1,9 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').service('AttachmentsService', [
-    '$filter',
-    '$q',
-    '$sce',
-    '$state',
-    '$window',
-    '$location',
-    'RHAUtils',
-    'strataService',
-    'TreeViewSelectorUtils',
-    '$http',
-    'securityService',
-    'AlertService',
-    'CaseService',
-    'gettextCatalog',
-    function ($filter, $q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
+
+export default class AttachmentsService {
+    constructor($q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
+        'ngInject';
+
         this.originalAttachments = [];
         this.updatedAttachments = [];
         this.backendAttachments = [];
@@ -38,13 +26,13 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
             this.updatedAttachments.splice($index, 1);
         };
         this.removeOriginalAttachment = function (attachment) {
-            var progressMessage = AlertService.addWarningMessage(gettextCatalog.getString('Deleting attachment: {{attachmentName}}',{attachmentName:attachment.file_name}));
+            var progressMessage = AlertService.addWarningMessage(gettextCatalog.getString('Deleting attachment: {{attachmentName}}', {attachmentName: attachment.file_name}));
             strataService.cases.attachments.remove(attachment.uuid, CaseService.kase.case_number).then(angular.bind(this, function () {
                 AlertService.removeAlert(progressMessage);
-                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully deleted attachment:{{attachmentName}}',{attachmentName:attachment.file_name}));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully deleted attachment:{{attachmentName}}', {attachmentName: attachment.file_name}));
                 var i = 0;
-                for(i; i < this.originalAttachments.length; i++){
-                    if(this.originalAttachments[i].uuid === attachment.uuid){
+                for (i; i < this.originalAttachments.length; i++) {
+                    if (this.originalAttachments[i].uuid === attachment.uuid) {
                         break;
                     }
                 }
@@ -71,29 +59,36 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                 var promises = [];
                 angular.forEach(selectedFiles, function (file) {
                     var jsonData = {
-                            authToken: auth,
-                            attachment: file,
-                            caseNum: caseId
-                        };
+                        authToken: auth,
+                        attachment: file,
+                        caseNum: caseId
+                    };
                     var deferred = $q.defer();
                     $http.post('attachments', jsonData).success(function (data, status, headers, config) {
                         deferred.resolve(data);
                         AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}',{attachmentName:jsonData.attachment,caseNumber:caseId}));
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}', {
+                            attachmentName: jsonData.attachment,
+                            caseNumber: caseId
+                        }));
                     }).error(function (data, status, headers, config) {
                         var errorMsg = '';
                         switch (status) {
-                        case 401:
-                            errorMsg = ' : Unauthorised.';
-                            break;
-                        case 409:
-                            errorMsg = ' : Invalid username/password.';
-                            break;
-                        case 500:
-                            errorMsg = ' : Internal server error';
-                            break;
+                            case 401:
+                                errorMsg = ' : Unauthorised.';
+                                break;
+                            case 409:
+                                errorMsg = ' : Invalid username/password.';
+                                break;
+                            case 500:
+                                errorMsg = ' : Internal server error';
+                                break;
                         }
-                        AlertService.addDangerMessage(gettextCatalog.getString('Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: {{errorMessage}}',{attachmentName:jsonData.attachment,caseNumber:caseId,errorMessage:errorMsg}));
+                        AlertService.addDangerMessage(gettextCatalog.getString('Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: {{errorMessage}}', {
+                            attachmentName: jsonData.attachment,
+                            caseNumber: caseId,
+                            errorMessage: errorMsg
+                        }));
                         deferred.reject(data);
                     });
                     promises.push(deferred.promise);
@@ -122,24 +117,27 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
                             promise.then(function (uri) {
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
-                                var currentDate =new Date();
+                                var currentDate = new Date();
                                 var lastModifiedDate = RHAUtils.convertToTimezone(currentDate);
-                                attachment.sortModifiedDate=currentDate;
+                                attachment.sortModifiedDate = currentDate;
                                 attachment.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                 attachment.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
-                                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}',{attachmentFileName: attachment.file_name,caseNumber:caseId}));
+                                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}', {
+                                    attachmentFileName: attachment.file_name,
+                                    caseNumber: caseId
+                                }));
                             }, function (error) {
-                                if (navigator.appVersion.indexOf("MSIE 10") !== -1){
-                                    if($location.path() === '/case/new'){
-                                        $state.go('edit', { id: caseId });
+                                if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
+                                    if ($location.path() === '/case/new') {
+                                        $state.go('edit', {id: caseId});
                                         AlertService.clearAlerts();
                                         CaseService.submittingCase = false;
-                                    } else{
+                                    } else {
                                         $window.location.reload();
                                     }
-                                } else{
+                                } else {
                                     AlertService.addStrataErrorMessage(error);
                                 }
                             });
@@ -177,4 +175,4 @@ angular.module('RedhatAccess.cases').service('AttachmentsService', [
             });
         };
     }
-]);
+}

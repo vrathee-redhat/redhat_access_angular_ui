@@ -1,15 +1,15 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaSeverityselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/severitySelect.html',
+        template: require('../views/severitySelect.jade'),
         restrict: 'A',
         controller: 'SeveritySelect',
         scope: {
             createdCase: '=',
             severityChange: '&',
-        	severities: '=',
+            severities: '=',
             severityDisabled: '='
         }
     };
-});
+}

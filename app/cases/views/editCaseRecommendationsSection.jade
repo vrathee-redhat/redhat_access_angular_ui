@@ -1,6 +1,6 @@
-accordion
-  accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0;', is-open="isHandpickedSolutionsOpen.val")
-    accordion-heading
+uib-accordion
+  uib-accordion-group(ng-hide='RecommendationsService.handPickedRecommendations.length === 0;', is-open="isHandpickedSolutionsOpen.val")
+    uib-accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isHandpickedSolutionsOpen.val}')
       | {{'Handpicked For You'|translate}}
     ul
@@ -17,8 +17,8 @@ accordion
       .pull-right
         button.btn.btn-app(ng-disabled="handPickedResultsPage === 1", ng-click="decrement('handPickedResultsPage');selectPage(handPickedResultsPage, RecommendationsService.handPickedRecommendations, handPickedResults)") {{'BACK'|translate}}
         button.btn.btn-app(ng-disabled="handPickedResultsPage >= findLastPage(RecommendationsService.handPickedRecommendations)", ng-click="increment('handPickedResultsPage');selectPage(handPickedResultsPage, RecommendationsService.handPickedRecommendations, handPickedResults)") {{'NEXT'|translate}}
-  accordion-group(ng-hide='RecommendationsService.recommendations.length === 0', is-open="isTopSolutionsOpen.val")
-    accordion-heading
+  uib-accordion-group(ng-hide='RecommendationsService.recommendations.length === 0', is-open="isTopSolutionsOpen.val")
+    uib-accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isTopSolutionsOpen.val}')
       | {{'Top Solutions'|translate}}
     ul
@@ -35,8 +35,8 @@ accordion
       .pull-right
         button.btn.btn-app(ng-disabled="resultsPage === 1", ng-click="decrement('resultsPage');selectPage(resultsPage, RecommendationsService.recommendations, results)") {{'BACK'|translate}}
         button.btn.btn-app(ng-disabled="resultsPage >= findLastPage(RecommendationsService.recommendations)", ng-click="increment('resultsPage');selectPage(resultsPage, RecommendationsService.recommendations, results)") {{'NEXT'|translate}}
-  accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0', is-open="isPinnedSolutionsOpen.val")
-    accordion-heading
+  uib-accordion-group(ng-hide='RecommendationsService.pinnedRecommendations.length === 0', is-open="isPinnedSolutionsOpen.val")
+    uib-accordion-heading
       i.fa.fa-chevron-down(ng-class='{"active": isPinnedSolutionsOpen.val}')
       | {{'Your Pins'|translate}}
     ul

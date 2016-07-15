@@ -1,8 +1,8 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaSelectloadingindicator', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/selectLoadingIndicator.html',
+        template: require('../views/selectLoadingIndicator.jade'),
         restrict: 'A',
         transclude: true,
         scope: {
@@ -10,4 +10,4 @@ angular.module('RedhatAccess.cases').directive('rhaSelectloadingindicator', func
             type: '@'
         }
     };
-});
+}

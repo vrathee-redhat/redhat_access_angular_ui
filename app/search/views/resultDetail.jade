@@ -1,0 +1,12 @@
+.panel(style='border:0', ng-model='result', ng-click='resultClickCapture($event, result)')
+    div(ng-if='isSolution()')
+        h3(translate='') Environment
+        div(ng-bind-html='result.environment.html')
+        h3 Issue
+        div(ng-bind-html='result.issue.html | trust_html')
+        div(ng-if="getSolutionResolution() !== ''")
+            h3(translate='') Resolution
+        div(ng-bind-html='getSolutionResolution() | trust_html')
+    div(ng-if='isArticle()')
+        div(ng-bind-html='getArticleHtml() | trust_html')
+

@@ -1,11 +1,11 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaListbugzillas', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/listBugzillas.html',
+        template: require('../views/listBugzillas.jade'),
         restrict: 'A',
         controller: 'ListBugzillas',
-        scope: { loading: '=' },
-        link: function postLink(scope, element, attrs) {
-        }
+        scope: {loading: '='},
+        link: function postLink(scope, element, attrs) {}
     };
-});
+}

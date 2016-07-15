@@ -1,14 +1,12 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaGrouplist', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/groupList.html',
+        template: require('../views/groupList.jade'),
         restrict: 'A',
         controller: 'GroupList',
         link: function postLink(scope, element, attrs) {
-	        scope.$on('$destroy', function () {
-	            element.remove();
-	        });
-	    }
+            scope.$on('$destroy', () => element.remove() );
+        }
     };
-});
+}

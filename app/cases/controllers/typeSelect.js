@@ -1,11 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('TypeSelect', [
-    '$scope',
-    'securityService',
-    'CaseService',
-    'strataService',
-    'AlertService',
-    function ($scope, securityService, CaseService, strataService, AlertService) {
+
+export default class TypeSelect {
+    constructor($scope, securityService, CaseService, strataService, AlertService) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.typesLoading = true;
@@ -17,4 +15,4 @@ angular.module('RedhatAccess.cases').controller('TypeSelect', [
             AlertService.addStrataErrorMessage(error);
         });
     }
-]);
+}

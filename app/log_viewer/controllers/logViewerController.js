@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').controller('logViewerController', [
-    '$scope',
-    'SearchResultsService',
-    function ($scope, SearchResultsService) {
+
+export default class logViewerController {
+    constructor($scope, SearchResultsService) {
+        'ngInject';
+        
         $scope.isDisabled = true;
         $scope.textSelected = false;
         $scope.showSolutions = false;
@@ -33,4 +34,4 @@ angular.module('RedhatAccess.logViewer').controller('logViewerController', [
             $scope.showSolutions = !$scope.showSolutions;
         };
     }
-]);
+}

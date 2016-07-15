@@ -1,16 +1,9 @@
 'use strict';
-/*global $ */
-/*jshint expr: true, camelcase: false, newcap: false */
-angular.module('RedhatAccess.cases').controller('DefaultGroup', [
-    '$scope',
-    'strataService',
-    'CaseService',
-    'AlertService',
-    '$location',
-    'securityService',
-    'AUTH_EVENTS',
-    'gettextCatalog',
-    function ($scope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, gettextCatalog) {
+
+export default class DefaultGroup {
+    constructor($scope, strataService, CaseService, AlertService, $location, securityService, AUTH_EVENTS, gettextCatalog) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
@@ -25,24 +18,28 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
         $scope.usersLoaded = false;
         $scope.usersAndGroupsFinishedLoading = false;
         $scope.userCanManageDefaultGroups = true;
-        $scope.init = function() {
-            if(securityService.userAllowedToManageDefaultGroups()){
+        $scope.init = function () {
+            if (securityService.userAllowedToManageDefaultGroups()) {
                 $scope.groupsLoading = true;
                 $scope.ssoName = securityService.loginStatus.authedUser.sso_username;
                 $scope.account = securityService.loginStatus.account;
                 strataService.groups.list($scope.ssoName).then(function (groups) {
                     $scope.groupsLoading = false;
                     $scope.groups = groups;
-                    $scope.groups.sort(function(a, b){
-                        if(a.name < b.name) { return -1; }
-                        if(a.name > b.name) { return 1; }
+                    $scope.groups.sort(function (a, b) {
+                        if (a.name < b.name) {
+                            return -1;
+                        }
+                        if (a.name > b.name) {
+                            return 1;
+                        }
                         return 0;
                     });
                 }, function (error) {
                     $scope.groupsLoading = false;
                     AlertService.addStrataErrorMessage(error);
                 });
-            }else{
+            } else {
                 $scope.usersLoading = false;
                 $scope.groupsLoading = false;
                 $scope.userCanManageDefaultGroups = false;
@@ -64,14 +61,18 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             strataService.accounts.users($scope.account.number, $scope.selectedGroup.number).then(function (users) {
                 $scope.usersLoading = false;
                 $scope.usersLoaded = true;
-                for (var i=0; i<users.length; i++) {
+                for (var i = 0; i < users.length; i++) {
                     if (users[i].write) {
                         $scope.usersOnAccount.push(users[i]);
                     }
                 }
-                $scope.usersOnAccount.sort(function(a, b){
-                    if(a.sso_username < b.sso_username) { return -1; }
-                    if(a.sso_username > b.sso_username) { return 1; }
+                $scope.usersOnAccount.sort(function (a, b) {
+                    if (a.sso_username < b.sso_username) {
+                        return -1;
+                    }
+                    if (a.sso_username > b.sso_username) {
+                        return 1;
+                    }
                     return 0;
                 });
             }, function (error) {
@@ -92,14 +93,17 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             strataService.groups.createDefault(tmpGroup).then(function () {
                 $scope.usersAndGroupsFinishedLoading = false;
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully set {{groupName}} as {{userName}}\'s default group.',{groupName:tmpGroup.name,userName:$scope.selectedUser.sso_username}));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully set {{groupName}} as {{userName}}\'s default group.', {
+                    groupName: tmpGroup.name,
+                    userName: $scope.selectedUser.sso_username
+                }));
 
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
         };
 
-        $scope.back = function(){
+        $scope.back = function () {
             $location.path('/case/group');
         };
 
@@ -118,4 +122,4 @@ angular.module('RedhatAccess.cases').controller('DefaultGroup', [
             $scope.accountNumber = null;
         });
     }
-]);
+}

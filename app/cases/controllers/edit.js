@@ -1,26 +1,9 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('Edit', [
-    '$scope',
-    '$stateParams',
-    '$filter',
-    '$q',
-    '$location',
-    'AttachmentsService',
-    'CaseService',
-    'strataService',
-    'HeaderService',
-    'RecommendationsService',
-    '$rootScope',
-    'AUTH_EVENTS',
-    'AlertService',
-    'securityService',
-    'EDIT_CASE_CONFIG',
-    'RHAUtils',
-    'CASE_EVENTS',
-    '$sce',
-    'gettextCatalog',
-    function ($scope, $stateParams, $filter, $q, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, RHAUtils, CASE_EVENTS,$sce,gettextCatalog) {
+
+export default class Edit {
+    constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog) {
+        'ngInject';
+
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
@@ -60,29 +43,28 @@ angular.module('RedhatAccess.cases').controller('Edit', [
                         AlertService.addStrataErrorMessage(error);
                     });
                 }
-                if (EDIT_CASE_CONFIG.showEmailNotifications ) {
+                if (EDIT_CASE_CONFIG.showEmailNotifications) {
                     CaseService.defineNotifiedUsers();
                 }
-                if($scope.fromNewCase)
-                {
+                if ($scope.fromNewCase) {
                     AlertService.clearAlerts();
                     $scope.fromNewCase = false;
-                    var noBusinessHours=gettextCatalog.getString('no business hours');
+                    var noBusinessHours = gettextCatalog.getString('no business hours');
                     strataService.values.businesshours(securityService.loginStatus.authedUser.timezone).then(function (response) {
                         var availability = "";
-                        availability = availability + gettextCatalog.getString('Sunday = {{businessHours}}',{businessHours: ((response.Days.Sunday[0] === "" && response.Days.Sunday[1] === "") ? noBusinessHours :response.Days.Sunday[0] + " - " + response.Days.Sunday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Sunday = {{businessHours}}', {businessHours: ((response.Days.Sunday[0] === "" && response.Days.Sunday[1] === "") ? noBusinessHours : response.Days.Sunday[0] + " - " + response.Days.Sunday[1] + " (" + response.OffsetName + ")")});
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Monday = {{businessHours}}',{businessHours: ((response.Days.Monday[0] === "" && response.Days.Monday[1] === "") ? noBusinessHours :response.Days.Monday[0] + " - " + response.Days.Monday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Monday = {{businessHours}}', {businessHours: ((response.Days.Monday[0] === "" && response.Days.Monday[1] === "") ? noBusinessHours : response.Days.Monday[0] + " - " + response.Days.Monday[1] + " (" + response.OffsetName + ")")});
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Tuesday = {{businessHours}}',{businessHours: ((response.Days.Tuesday[0] === "" && response.Days.Tuesday[1] === "") ? noBusinessHours :response.Days.Tuesday[0] + " - " + response.Days.Tuesday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Tuesday = {{businessHours}}', {businessHours: ((response.Days.Tuesday[0] === "" && response.Days.Tuesday[1] === "") ? noBusinessHours : response.Days.Tuesday[0] + " - " + response.Days.Tuesday[1] + " (" + response.OffsetName + ")")});
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Wednesday = {{businessHours}}',{businessHours: ((response.Days.Wednesday[0] === "" && response.Days.Wednesday[1] === "") ? noBusinessHours :response.Days.Wednesday[0] + " - " + response.Days.Wednesday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Wednesday = {{businessHours}}', {businessHours: ((response.Days.Wednesday[0] === "" && response.Days.Wednesday[1] === "") ? noBusinessHours : response.Days.Wednesday[0] + " - " + response.Days.Wednesday[1] + " (" + response.OffsetName + ")")});
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Thursday = {{businessHours}}',{businessHours: ((response.Days.Thursday[0] === "" && response.Days.Thursday[1] === "") ? noBusinessHours :response.Days.Thursday[0] + " - " + response.Days.Thursday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Thursday = {{businessHours}}', {businessHours: ((response.Days.Thursday[0] === "" && response.Days.Thursday[1] === "") ? noBusinessHours : response.Days.Thursday[0] + " - " + response.Days.Thursday[1] + " (" + response.OffsetName + ")")});
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Friday = {{businessHours}}',{businessHours: ((response.Days.Friday[0] === "" && response.Days.Friday[1] === "") ? noBusinessHours :response.Days.Friday[0] + " - " + response.Days.Friday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Friday = {{businessHours}}', {businessHours: ((response.Days.Friday[0] === "" && response.Days.Friday[1] === "") ? noBusinessHours : response.Days.Friday[0] + " - " + response.Days.Friday[1] + " (" + response.OffsetName + ")")});
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Saturday = {{businessHours}}',{businessHours: ((response.Days.Saturday[0] === "" && response.Days.Saturday[1] === "") ? noBusinessHours :response.Days.Saturday[0] + " - " + response.Days.Saturday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Saturday = {{businessHours}}', {businessHours: ((response.Days.Saturday[0] === "" && response.Days.Saturday[1] === "") ? noBusinessHours : response.Days.Saturday[0] + " - " + response.Days.Saturday[1] + " (" + response.OffsetName + ")")});
                         availability = availability + "<br/>";
 
                         var message = gettextCatalog.getString("Thank you for contacting Red Hat support!  We'll be in contact soon.  Our records indicate your availability as follows:") +
@@ -105,7 +87,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             if (window.chrometwo_require !== undefined) {
                 breadcrumbs = [
                     ['Support', '/support/'],
-                    ['Support Cases',  '/support/cases/'],
+                    ['Support Cases', '/support/cases/'],
                     [$stateParams.id]
                 ];
                 updateBreadCrumb();
@@ -114,7 +96,7 @@ angular.module('RedhatAccess.cases').controller('Edit', [
 
         $scope.firePageLoadEvent = function () {
             if (window.chrometwo_require !== undefined) {
-                chrometwo_require(['analytics/attributes', 'analytics/main'], function(attrs, paf) {
+                chrometwo_require(['analytics/attributes', 'analytics/main'], function (attrs, paf) {
                     attrs.harvest();
                     paf.report();
                 });
@@ -130,37 +112,37 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             $scope.init();
         });
 
-        var caseSettled = function() {
+        var caseSettled = function () {
             $scope.$broadcast('rhaCaseSettled');
         };
 
-        $scope.loadingWatcher = $scope.$watch('loading', function(loadingObj){
-            if($.isEmptyObject(loadingObj)) {
+        $scope.loadingWatcher = $scope.$watch('loading', function (loadingObj) {
+            if ($.isEmptyObject(loadingObj)) {
                 return;
             }
             var allLoaded = true;
             for (var key in loadingObj) {
-                if(loadingObj[key] !== false) {
+                if (loadingObj[key] !== false) {
                     allLoaded = false;
                 }
             }
-            if(allLoaded && !HeaderService.pageLoadFailure) {
+            if (allLoaded && !HeaderService.pageLoadFailure) {
                 caseSettled();
             }
         }, true);
 
-        $scope.loadingRecWatcher = $scope.$watch('recommendationsLoading', function(newVal) {
-            if(newVal === false) {
+        $scope.loadingRecWatcher = $scope.$watch('recommendationsLoading', function (newVal) {
+            if (newVal === false) {
                 caseSettled();
             }
         });
 
-        $scope.$on('$locationChangeSuccess', function(){
+        $scope.$on('$locationChangeSuccess', function () {
             var splitUrl = $location.path().split('/');
-            if(splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1){
+            if (splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1) {
                 var newCaseId = splitUrl[2];
                 var oldCaseId = $scope.CaseService.kase.case_number;
-                if(newCaseId !== oldCaseId){
+                if (newCaseId !== oldCaseId) {
                     $stateParams.id = newCaseId;
                     CaseService.clearCase();
                     $scope.init();
@@ -168,9 +150,9 @@ angular.module('RedhatAccess.cases').controller('Edit', [
             }
         });
         $scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
-            if(from.url === '/case/new'){
+            if (from.url === '/case/new') {
                 $scope.fromNewCase = true;
             }
         });
     }
-]);
+}

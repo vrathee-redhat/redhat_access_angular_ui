@@ -1,0 +1,16 @@
+.row.rha-bottom-border
+    .col-xs-6
+        div(style='padding-bottom: 0')
+            span
+                h4(style='padding-left: 10px; display: inline-block;', translate='') Recommendations
+            span.rha-search-spinner(ng-show='searchInProgress.value')
+    .col-xs-6(style='padding-bottom: 14px;', ng-show='showOpenCaseBtn()')
+        a.btn.btn-primary.pull-right(href='{{getOpenCaseRef()}}') {{'Open a New Support Case'|translate}}
+div
+    // div class="col-xs-12" style="overflow: auto;" rha-resizable rha-dom-ready="domReady"
+    div(accordion='')
+        div(accordion-group='', is-open='isopen', ng-click='triggerAnalytics($event)', ng-repeat='result in results track by $index')
+            div(accordion-heading='')
+                span.pull-left.glyphicon(ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}")
+                span.result-title &nbsp{{result.title}}
+            div(rha-resultdetaildisplay='', result='result')

@@ -1,8 +1,8 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaCasedetails', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/detailsSection.html',
+        template: require('../views/detailsSection.jade'),
         controller: 'DetailsSection',
         scope: {
             compact: '=',
@@ -10,9 +10,7 @@ angular.module('RedhatAccess.cases').directive('rhaCasedetails', function () {
         },
         restrict: 'A',
         link: function postLink(scope, element, attrs) {
-            scope.$on('$destroy', function () {
-                element.remove();
-            });
+            scope.$on('$destroy', () => element.remove() );
         }
     };
-});
+}
