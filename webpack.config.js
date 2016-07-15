@@ -10,6 +10,9 @@ var StatsPlugin = require("stats-webpack-plugin");
 // var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 var path = require('path');
 
+// post-css doesn't like node v.10 https://github.com/postcss/postcss-nested/issues/30  Need to polyfill here just for
+// the build
+require('es6-promise').polyfill();
 
 var resolveBowerPath = function(componentPath) {
     return path.join(__dirname, 'bower_components', componentPath);
