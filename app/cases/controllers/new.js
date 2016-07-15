@@ -1,7 +1,7 @@
 'use strict';
 
 export default class New {
-    constructor($scope, $state, $timeout, $modal, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5) {
+    constructor($scope, $state, $timeout, $uibModal, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService, ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5) {
         'ngInject';
 
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
@@ -339,8 +339,8 @@ export default class New {
             };
 
             if (AttachmentsService.updatedAttachments.length === 0 && !$scope.ie8 && !$scope.ie9 && securityService.loginStatus.authedUser.can_add_attachments) {
-                var proceedWithoutAttachModal = $modal.open({
-                    templateUrl: 'cases/views/proceedWithoutAttachModal.html',
+                var proceedWithoutAttachModal = $uibModal.open({
+                    template: require('../views/proceedWithoutAttachModal.jade'),
                     controller: 'ProceedWithoutAttachModal'
                 });
                 proceedWithoutAttachModal.result.then(function () {
