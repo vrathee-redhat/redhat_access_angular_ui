@@ -168,7 +168,10 @@ module.exports = function (options) {
                 // loaders: ["style", "css", "sass"] // This works
                 // 'css?sourceMap!sass?sourceMap' // Example on how to use sourceMaps, not sure we need them though
                 loader: ExtractTextPlugin.extract('css?minimize!sass'),
-                exclude: /node_modules/
+                exclude: [
+                    path.resolve(__dirname, 'node_modules'),
+                    path.resolve(__dirname, 'bower_components')
+                ]
             },
             // https://github.com/tcoopman/image-webpack-loader
             {
