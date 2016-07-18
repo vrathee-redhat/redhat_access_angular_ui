@@ -1,5 +1,7 @@
 "use strict";
 
+const PEG = require("pegjs");
+
 export default class SOLRGrammarService {
     constructor(RHAUtils, securityService, AUTH_EVENTS, $rootScope) {
         'ngInject';

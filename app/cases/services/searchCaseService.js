@@ -156,7 +156,7 @@ export default class SearchCaseService {
                             that.allCasesDownloaded = true;
                         }
                         if (response['case'] !== undefined) {
-                            that.cases = that.cases.concat(response['case']);
+                            that.cases = response['case'];
                             //that.count = response['case'].length + that.total
                             that.start = that.start + that.count;
                             that.total = that.total + response['case'].length;
@@ -190,7 +190,7 @@ export default class SearchCaseService {
                         that.allCasesDownloaded = true;
                     } else {
                         that.totalCases = response.total_count;
-                        that.cases = that.cases.concat(response['case']);
+                        that.cases = response['case'];
                         that.start = that.start + that.count;
                         that.total = that.total + response['case'].length;
                         if (response['case'] !== undefined && that.total >= that.totalCases) {
