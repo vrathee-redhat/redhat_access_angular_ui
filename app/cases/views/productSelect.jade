@@ -4,5 +4,4 @@ select#rha-product-select.form-control(
 	ng-disabled='ProductsService.products.length === 0 || !securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
 	ng-model='CaseService.kase.product',
 	ng-change='CaseService.kase.version=""; ProductsService.getVersions(CaseService.kase.product); CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
-	ng-options='p.code as p.name for p in products',
-	options-disabled='p.isDisabled for p in products')
+	ng-options='p.code as p.name disable when option.isDisabled for p in products')

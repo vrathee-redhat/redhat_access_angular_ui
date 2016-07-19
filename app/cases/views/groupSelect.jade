@@ -1,10 +1,9 @@
 div
-	select#rha-group-select(
-	    chosen,
-      width='"100%"',
-	    ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
-	    ng-model='CaseService.group',
-	    ng-change='CaseService.onGroupSelectChanged()',
-	    placeholder='Select a Group',
-	    ng-options='option.value as option.label for option in CaseService.groupOptions',
-	    options-disabled="option.isDisabled for option in CaseService.groupOptions")
+    select#rha-group-select(
+        chosen,
+        width='"100%"',
+        ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
+        ng-model='CaseService.group',
+        ng-change='CaseService.onGroupSelectChanged()',
+        placeholder='Select a Group',
+        ng-options='option.value as option.label disable when option.isDisabled for option in CaseService.groupOptions')

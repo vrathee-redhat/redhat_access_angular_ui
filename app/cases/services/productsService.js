@@ -72,9 +72,7 @@ export default class ProductsService {
                     }
                 }
 
-                // TODO -- This comes through as garbled text in the html select, using dashes until we figure it out
-                // var sep = '────────────────────────────────────────';
-                const sep = '----------------------------------------';
+                const sep = '────────────────────────────────────────';
                 if (productOptions.length > 0) {
                     productOptions.push({ isDisabled: true, name: sep });
                 }
