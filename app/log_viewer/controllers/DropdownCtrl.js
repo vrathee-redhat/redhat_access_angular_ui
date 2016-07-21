@@ -1,14 +1,11 @@
-/*global parseList*/
 'use strict';
-angular.module('RedhatAccess.logViewer').controller('DropdownCtrl', [
-    '$scope',
-    '$http',
-    '$location',
-    'files',
-    'hideMachinesDropdown',
-    'AlertService',
-    'translate',
-    function ($scope, $http, $location, files, hideMachinesDropdown, AlertService,translate) {
+
+import parseList from './parseList'
+
+export default class DropdownCtrl {
+    constructor($scope, $http, $location, files, hideMachinesDropdown, AlertService, translate) {
+        'ngInject';
+        
         $scope.machinesDropdownText = translate('Please Select the Machine');
         $scope.items = [];
         $scope.hideDropdown = hideMachinesDropdown.value;
@@ -49,4 +46,4 @@ angular.module('RedhatAccess.logViewer').controller('DropdownCtrl', [
             $scope.getMachines();
         }
     }
-]);
+}

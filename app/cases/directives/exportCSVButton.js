@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaExportcsvbutton', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/exportCSVButton.html',
+        template: require('../views/exportCSVButton.jade'),
         restrict: 'A',
         controller: 'ExportCSVButton'
     };
-});
+}

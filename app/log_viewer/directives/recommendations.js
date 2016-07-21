@@ -1,9 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').directive('rhaRecommendations', function () {
+
+export default () => {
     return {
-        templateUrl: 'log_viewer/views/recommendations.html',
+        template: require('../views/recommendations.jade'),
         restrict: 'A',
-        link: function postLink(scope, element, attrs) {
-        }
+        link: function postLink(scope, element, attrs) {}
     };
-});
+}

@@ -1,0 +1,15 @@
+.col-sm-4
+    .panel.panel-default(ng-show='results.length > 0')
+        // pagination on-select-page="pageChanged(page)" total-items="totalItems" page="currentPage" max-size="maxSize"></pagination
+        .panel-heading
+            h4.panel-title(translate='')
+                | Recommendations
+        #solutions.list-group
+            a.list-group-item(href='', ng-click='solutionSelected($index)', ng-class="{'active': selectedSolution.index===$index}", ng-repeat='result in results track by $index', style='word-wrap: break-word;')
+                i.glyphicon.glyphicon-chevron-right.pull-right
+                | {{ result.title }}
+#rha-solution-display.col-sm-8(style='overflow: auto;', rha-resizable='', rha-domready='domReady')
+    .alert.alert-info(ng-show='selectedSolution.index === -1 && results.length > 0')
+        | {{'To view a recommendation, click on it.'|translate}}
+    div(style='')
+        div(rha-resultdetaildisplay='', result='selectedSolution.data')

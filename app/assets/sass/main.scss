@@ -1,5 +1,15 @@
-@import "compass";
-@import "breakpoint";
+@import '../../../node_modules/ng-table/dist/ng-table.css';
+@import '../../../node_modules/chosen-npm/public/chosen.css';
+
+@import '../../log_viewer/styles/log_viewer.css';
+@import '../../search/styles/search.css';
+@import '../../escalation/styles/escalation.css';
+@import '../../../bower_components/angular-treeview/css/angular.treeview.css';
+
+@import 'compass';
+@import 'breakpoint';
+
+@import 'animation/core';
 
 // Includes
 //==================================================================*/

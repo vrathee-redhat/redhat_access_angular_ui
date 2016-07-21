@@ -1,14 +1,14 @@
 'use strict';
-/*global $ */
-angular.module('RedhatAccess.cases').controller('CreateGroupButton', [
-    '$scope',
-    '$modal',
-    function ($scope, $modal) {
+
+export default class CreateGroupButton {
+    constructor($scope, $uibModal) {
+        'ngInject';
+
         $scope.openCreateGroupDialog = function () {
-            $modal.open({
-                templateUrl: 'cases/views/createGroupModal.html',
+            $uibModal.open({
+                template: require('../views/createGroupModal.jade'),
                 controller: 'CreateGroupModal'
             });
         };
     }
-]);
+}

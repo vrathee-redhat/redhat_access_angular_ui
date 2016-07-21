@@ -1,22 +1,9 @@
 'use strict';
-/*global $ */
-/*jshint expr: true, camelcase: false, newcap: false */
-angular.module('RedhatAccess.cases').controller('EditGroup', [
-    '$scope',
-    'strataService',
-    'CaseService',
-    'AlertService',
-    '$filter',
-    'ngTableParams',
-    'GroupUserService',
-    'SearchBoxService',
-    '$location',
-    'securityService',
-    'RHAUtils',
-    'AUTH_EVENTS',
-    'gettextCatalog',
-    'CASE_EVENTS',
-    function ($scope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, RHAUtils, AUTH_EVENTS, gettextCatalog, CASE_EVENTS) {
+
+export default class EditGroup {
+    constructor($scope, strataService, CaseService, AlertService, $filter, NgTableParams, GroupUserService, SearchBoxService, $location, securityService, AUTH_EVENTS, gettextCatalog, CASE_EVENTS) {
+        'ngInject';
+
         $scope.GroupUserService = GroupUserService;
         $scope.CaseService = CaseService;
         $scope.listEmpty = false;
@@ -30,10 +17,10 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
         var reloadTable = false;
         var tableBuilt = false;
         var buildTable = function () {
-            $scope.tableParams = new ngTableParams({
+            $scope.tableParams = new NgTableParams({
                 page: 1,
                 count: 10,
-                sorting: { sso_username: 'asc' }
+                sorting: {sso_username: 'asc'}
             }, {
                 total: $scope.usersOnAccount.length,
                 getData: function ($defer, params) {
@@ -57,9 +44,9 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             $scope.tableParams.reload();
         });
 
-        $scope.init = function() {
-            if(securityService.userAllowedToManageGroups()){
-                SearchBoxService.searchTerm='';
+        $scope.init = function () {
+            if (securityService.userAllowedToManageGroups()) {
+                SearchBoxService.searchTerm = '';
                 var loc = $location.url().split('/');
                 $scope.accountNumber = securityService.loginStatus.authedUser.account_number;
                 strataService.groups.get(loc[3], securityService.loginStatus.authedUser.sso_username).then(function (group) {
@@ -68,7 +55,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                         $scope.usersOnAccount = users;
                         buildTable();
                         $scope.usersLoading = false;
-                        if(reloadTable){
+                        if (reloadTable) {
                             reloadTable = false;
                         }
                     }, function (error) {
@@ -79,14 +66,14 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                     $scope.usersLoading = false;
                     AlertService.addStrataErrorMessage(error);
                 });
-            }else{
+            } else {
                 $scope.usersLoading = false;
                 AlertService.addStrataErrorMessage(gettextCatalog.getString('User does not have proper credentials to manage case groups.'));
             }
         };
         $scope.saveGroup = function () {
             var userName = securityService.loginStatus.authedUser.sso_username;
-            if(!$scope.isGroupPrestine){
+            if (!$scope.isGroupPrestine) {
                 strataService.groups.update($scope.selectedGroup, userName).then(function () {
                     AlertService.clearAlerts();
                     AlertService.addSuccessMessage(gettextCatalog.getString('Case group successfully updated.'));
@@ -95,8 +82,8 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
                     AlertService.addStrataErrorMessage(error);
                 });
             }
-            if(!$scope.isUsersPrestine){
-                strataService.groupUsers.update($scope.usersOnAccount, $scope.accountNumber, $scope.selectedGroup.number).then(function() {
+            if (!$scope.isUsersPrestine) {
+                strataService.groupUsers.update($scope.usersOnAccount, $scope.accountNumber, $scope.selectedGroup.number).then(function () {
                     $scope.isUsersPrestine = true;
                     AlertService.clearAlerts();
                     AlertService.addSuccessMessage(gettextCatalog.getString('Case users successfully updated.'));
@@ -107,7 +94,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
         };
 
         $scope.onMasterReadCheckboxClicked = function (masterReadSelected) {
-            for(var i = 0; i < $scope.usersOnAccount.length; i++){
+            for (var i = 0; i < $scope.usersOnAccount.length; i++) {
                 if (!$scope.usersOnAccount[i].org_admin) {
                     $scope.usersOnAccount[i].access = masterReadSelected;
                 }
@@ -116,7 +103,7 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
         };
 
         $scope.onMasterWriteCheckboxClicked = function (masterWriteSelected) {
-            for(var i = 0; i < $scope.usersOnAccount.length; i++){
+            for (var i = 0; i < $scope.usersOnAccount.length; i++) {
                 if (!$scope.usersOnAccount[i].org_admin) {
                     $scope.usersOnAccount[i].write = masterWriteSelected;
                 }
@@ -124,22 +111,22 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             $scope.isUsersPrestine = false;
         };
 
-        $scope.writeAccessToggle = function(user){
-            if(user.write && !user.access){
+        $scope.writeAccessToggle = function (user) {
+            if (user.write && !user.access) {
                 user.access = true;
             }
             $scope.isUsersPrestine = false;
         };
 
-        $scope.cancel = function(){
+        $scope.cancel = function () {
             $location.path('/case/group');
         };
 
-        $scope.toggleUsersPrestine = function(){
+        $scope.toggleUsersPrestine = function () {
             $scope.isUsersPrestine = false;
         };
 
-        $scope.toggleGroupPrestine = function(){
+        $scope.toggleGroupPrestine = function () {
             $scope.isGroupPrestine = false;
         };
 
@@ -161,4 +148,4 @@ angular.module('RedhatAccess.cases').controller('EditGroup', [
             reloadTable = true;
         });
     }
-]);
+}

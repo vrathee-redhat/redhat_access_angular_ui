@@ -24,8 +24,7 @@
                 ng-model='SearchCaseService.caseParameters.group',
                 ng-change='CaseService.onGroupSelectChanged()',
                 placeholder='Select a Group',
-                ng-options='option.value as option.label for option in CaseService.groupOptions',
-                options-disabled="option.isDisabled for option in CaseService.groupOptions",
+                ng-options='option.value as option.label disable when option.isDisabled for option in CaseService.groupOptions',
                 ng-init="setSearchOptions(true)")
         div.col-sm-12.col-md-3()
             select#rha-status-select(chosen,
@@ -39,6 +38,6 @@
     div.col-xs-10.col-sm-11
         div(rha-bookmarked-accounts-select='', selected-account='CaseService.bookmarkedAccount', selected-account-changed='CaseService.onBookmarkedAccountSelectChange()')
     div.col-xs-2.col-sm-1
-        a.btn.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', tooltip='{{"Manage Bookmarked Accounts"|translate}}')
+        a.btn.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', uib-tooltip='{{"Manage Bookmarked Accounts"|translate}}', tooltip-placement="top", tooltip-append-to-body="true")
             i.icon-star-empty
             i.icon-users

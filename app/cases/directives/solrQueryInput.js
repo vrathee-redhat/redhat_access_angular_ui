@@ -1,14 +1,14 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaSolrQueryInput', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/solrQueryInput.html',
+        template: require('../views/solrQueryInput.jade'),
         restrict: 'A',
         controller: 'SolrQueryInputController',
         scope: {
-        	solrQuery: '=',
+            solrQuery: '=',
             parseSuccessful: '=?',
             submit: '&'
         }
     };
-});
+}

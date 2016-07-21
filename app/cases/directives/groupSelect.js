@@ -1,12 +1,12 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaGroupselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/groupSelect.html',
+        template: require('../views/groupSelect.jade'),
         restrict: 'A',
         controller: 'GroupSelect',
         scope: {
             onchange: '&'
         }
     };
-});
+}

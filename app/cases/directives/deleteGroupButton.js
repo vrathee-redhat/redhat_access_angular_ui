@@ -1,9 +1,9 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaDeletegroupbutton', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/deleteGroupButton.html',
+        template: require('../views/deleteGroupButton.jade'),
         restrict: 'A',
         controller: 'DeleteGroupButton'
     };
-});
+}

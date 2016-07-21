@@ -66,20 +66,12 @@ angular.module('RedhatAccess.cases')
 });
 ~~~
 
-### IE8 Support
-[Angular IE8 Support Doc](https://docs.angularjs.org/guide/ie)  
-Included in bower_components but not in the dist/redhat_access_angular_ui.js combined module.  
-The following shims and xmlns's should be defined:  
+## ITOS Setup
 
-~~~
-<html xmlns:ng="http://angularjs.org" xmlns:rha="http://access.redhat.com">
-<head>
-<!--[if lte IE 8]>
-<script type="text/javascript" src="js/json2.js"></script>
-<script type="text/javascript" src="js/ie-shiv.js"></script>                                                                                                                                          
-<script type="text/javascript" src="js/es5-shim.js"></script>
-<script type="text/javascript" src="js/html5shiv.js"></script>
-<script type="text/javascript" src="js/respond.min.js"></script>
-<![endif]-->
-</head>
-~~~
+    rhc app create -g int_hosted_medium -a pcm -n support https://raw.githubusercontent.com/icflorescu/openshift-cartridge-nodejs/master/metadata/manifest.yml
+
+## Local development
+
+    npm run dev-server
+    accessproxy
+    https://qa.foo.redhat.com/

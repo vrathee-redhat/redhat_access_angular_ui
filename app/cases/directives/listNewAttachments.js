@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaListnewattachments', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/listNewAttachments.html',
+        template: require('../views/listNewAttachments.jade'),
         restrict: 'A',
         controller: 'ListNewAttachments'
     };
-});
+}

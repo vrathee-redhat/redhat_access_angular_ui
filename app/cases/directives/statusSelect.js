@@ -1,10 +1,10 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaStatusselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/statusSelect.html',
+        template: require('../views/statusSelect.jade'),
         restrict: 'A',
         controller: 'StatusSelect',
-        scope: { onchange: '&' }
+        scope: {onchange: '&'}
     };
-});
+}

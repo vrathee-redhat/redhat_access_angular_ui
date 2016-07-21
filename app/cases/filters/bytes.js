@@ -1,5 +1,6 @@
 'use strict';
-angular.module('RedhatAccess.cases').filter('bytes', function () {
+
+export default function () {
     return function (bytes, precision) {
         if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) {
             return '-';
@@ -8,13 +9,13 @@ angular.module('RedhatAccess.cases').filter('bytes', function () {
             precision = 1;
         }
         var units = [
-                'bytes',
-                'kB',
-                'MB',
-                'GB',
-                'TB',
-                'PB'
-            ], number = Math.floor(Math.log(bytes) / Math.log(1024));
+            'bytes',
+            'kB',
+            'MB',
+            'GB',
+            'TB',
+            'PB'
+        ], number = Math.floor(Math.log(bytes) / Math.log(1024));
         return (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision) + ' ' + units[number];
     };
-});
+}

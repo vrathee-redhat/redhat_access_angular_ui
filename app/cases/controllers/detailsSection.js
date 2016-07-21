@@ -1,22 +1,11 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('DetailsSection', [
-    '$scope',
-    '$filter',
-    'strataService',
-    'CaseService',
-    'securityService',
-    'ProductsService',
-    'AUTH_EVENTS',
-    'CASE_EVENTS',
-    'AlertService',
-    'RHAUtils',
-    'translate',
-    'LinkifyService',
-    function ($scope, $filter, strataService, CaseService, securityService, ProductsService, AUTH_EVENTS, CASE_EVENTS, AlertService, RHAUtils, translate, LinkifyService) {
+
+export default class DetailsSection {
+    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, translate, LinkifyService) {
+        'ngInject';
 
         $scope.showExtraInfo = false;
-	    $scope.CaseService = CaseService;
+        $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.maxNotesLength = '255';
         $scope.progressCount = 0;
@@ -24,12 +13,12 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.contactList = [];
         $scope.caseContactSelected = true;
 
-		$scope.toggleExtraInfo = function() {
-			$scope.showExtraInfo = !$scope.showExtraInfo;
+        $scope.toggleExtraInfo = function () {
+            $scope.showExtraInfo = !$scope.showExtraInfo;
 
-		};
+        };
 
-        $scope.resetData = function(){
+        $scope.resetData = function () {
             CaseService.resetCase();
             ProductsService.getVersions(CaseService.kase.product);
             $scope.detailsForm.$setPristine();
@@ -68,13 +57,13 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             $scope.userIsCaseOwner = true;
             var ownerOptions = [];
             //Assuming the full name matches the owner name, strata does not support getting that through case object
-            var fullName = securityService.loginStatus.authedUser.first_name+' '+securityService.loginStatus.authedUser.last_name;
-            if (fullName !== CaseService.kase.owner && securityService.loginStatus.authedUser.is_internal){
+            var fullName = securityService.loginStatus.authedUser.first_name + ' ' + securityService.loginStatus.authedUser.last_name;
+            if (fullName !== CaseService.kase.owner && securityService.loginStatus.authedUser.is_internal) {
                 $scope.userIsCaseOwner = false;
                 ownerOptions.push({
                     value: securityService.loginStatus.authedUser.sso_username,
                     label: fullName
-                },{
+                }, {
                     value: CaseService.kase.owner,
                     label: CaseService.kase.owner
                 });
@@ -84,12 +73,12 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         };
 
 
-        $scope.$watch('CaseService.kase.notes', function() {
+        $scope.$watch('CaseService.kase.notes', function () {
             $scope.maxCharacterCheck();
         });
-        $scope.maxCharacterCheck = function() {
+        $scope.maxCharacterCheck = function () {
 
-            if (CaseService.kase.notes !== undefined ) {
+            if (CaseService.kase.notes !== undefined) {
 
                 $scope.progressCount = CaseService.kase.notes.length;
             }
@@ -99,7 +88,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         $scope.updateCase = function () {
             $scope.updatingDetails = true;
             if (CaseService.kase !== undefined) {
-                if($scope.caseContactSelected){
+                if ($scope.caseContactSelected) {
                     CaseService.updateCase().then(function () {
                         $scope.updatingDetails = false;
                         $scope.caseSummaryEditable = false;
@@ -109,7 +98,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
                         AlertService.addStrataErrorMessage(error);
                         $scope.updatingDetails = false;
                     });
-                } else{
+                } else {
                     var errorMessage = translate("A Case Contact must be selected to update case");
                     AlertService.addDangerMessage(errorMessage);
                     $scope.updatingDetails = false;
@@ -121,8 +110,8 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
             }
         };
         $scope.changeCaseOwner = function () {
-            strataService.cases.owner.update(CaseService.kase.case_number,CaseService.kase.owner).then(function () {
-                CaseService.kase.owner = securityService.loginStatus.authedUser.first_name+' '+securityService.loginStatus.authedUser.last_name;
+            strataService.cases.owner.update(CaseService.kase.case_number, CaseService.kase.owner).then(function () {
+                CaseService.kase.owner = securityService.loginStatus.authedUser.first_name + ' ' + securityService.loginStatus.authedUser.last_name;
                 $scope.userIsCaseOwner = true;
                 $scope.updatingDetails = false;
                 $scope.caseDetails.$setPristine();
@@ -136,7 +125,7 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         };
         $scope.caseDetailsChanged = function () {
             if ($scope.caseDetails.alternate_id.$dirty || $scope.caseDetails.product.$dirty
-                    || $scope.caseDetails.version.$dirty || $scope.caseDetails.group.$dirty) {
+                || $scope.caseDetails.version.$dirty || $scope.caseDetails.group.$dirty) {
                 return true;
             } else {
                 return false;
@@ -152,39 +141,39 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
 
         };
         $scope.fetchPossibleContacts = function () {
-            if(RHAUtils.isNotEmpty(CaseService.kase.group) && RHAUtils.isNotEmpty(CaseService.kase.group.number) && RHAUtils.isNotEmpty(CaseService.account.number) && securityService.loginStatus.authedUser.org_admin){
+            if (RHAUtils.isNotEmpty(CaseService.kase.group) && RHAUtils.isNotEmpty(CaseService.kase.group.number) && RHAUtils.isNotEmpty(CaseService.account.number) && securityService.loginStatus.authedUser.org_admin) {
                 strataService.accounts.users(CaseService.account.number, CaseService.kase.group.number).then(angular.bind(this, function (group) {
-                    if(CaseService.kase.group.number === "-1"){
+                    if (CaseService.kase.group.number === "-1") {
                         $scope.contactList = group;
-                    } else{
-                        $scope.contactList = $filter('filter')( group, {write:true} );
+                    } else {
+                        $scope.contactList = $filter('filter')(group, {write: true});
                     }
                     $scope.caseContactSelected = true;
                     var listContainsUser = false;
-                    for(var i = 0; i < $scope.contactList.length; i++){
-                        if($scope.contactList[i].sso_username === CaseService.kase.contact_sso_username){
+                    for (var i = 0; i < $scope.contactList.length; i++) {
+                        if ($scope.contactList[i].sso_username === CaseService.kase.contact_sso_username) {
                             listContainsUser = true;
                             break;
                         }
                     }
-                    if(!listContainsUser){
+                    if (!listContainsUser) {
                         $scope.caseContactSelected = false;
                     }
 
                 }), function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
-            } else{
+            } else {
                 $scope.contactList = CaseService.users;
             }
         };
-        $scope.$watch('CaseService.users', function() {
+        $scope.$watch('CaseService.users', function () {
             $scope.fetchPossibleContacts();
         });
-        $scope.$watch('CaseService.account', function() {
+        $scope.$watch('CaseService.account', function () {
             $scope.fetchPossibleContacts();
         });
-        $scope.contactSelected = function(){
+        $scope.contactSelected = function () {
             $scope.caseContactSelected = true;
         }
         $scope.validatePage = function () {
@@ -209,9 +198,9 @@ angular.module('RedhatAccess.cases').controller('DetailsSection', [
         });
 
         $scope.getDescription = function (maxLength) {
-          var text = CaseService.kase.description;
-          if(maxLength !== undefined) text = $filter('substring')(text, maxLength);
-          return LinkifyService.linkifyWithCaseIDs(text);
+            var text = CaseService.kase.description;
+            if (maxLength !== undefined) text = $filter('substring')(text, maxLength);
+            return LinkifyService.linkifyWithCaseIDs(text);
         };
     }
-]);
+}

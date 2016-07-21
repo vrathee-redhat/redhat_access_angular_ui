@@ -10,10 +10,11 @@ div(ng-hide='loading || ie8 || ie9  && isPCM')
   div(rha-attachlocalfile='')
   div(ng-show='showServerSideAttachments')
     .server-attach-header {{'Server File(s) To Attach:'|translate}}
-    div(rha-choicetree='',
-      ng-model='attachmentTree',
-      ng-controller='BackEndAttachmentsCtrl',
-      rhaDisabled='rhaDisabled')
+    // TODO -- This needs to be fixed, getting: Multiple directives [ngController, rhaChoicetree (module: RedhatAccess.ui-utils)] asking for new/isolated scope on: <div rha-choicetree="" ng-model="attachmentTree" ng-controller="BackEndAttachmentsCtrl" class="ng-pristine ng-untouched ng-valid">
+    //div(rha-choicetree='',
+    //  ng-model='attachmentTree',
+    //  ng-controller='BackEndAttachmentsCtrl',
+    //  rhaDisabled='rhaDisabled')
 form#fileUploaderForm(ng-show='!loading && ie8 || ie9 && isPCM', enctype="multipart/form-data", method="post",target="upload_target")
   .row
     .col-xs-6 input(id='fileUploader', type='file', value='upload',name='file')

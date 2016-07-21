@@ -1,12 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').controller('fileController', [
-    '$scope',
-    '$http',
-    '$location',
-    'files',
-    'AlertService',
-    'LOGVIEWER_EVENTS',
-    function ($scope, $http, $location, files, AlertService, LOGVIEWER_EVENTS) {
+
+export default class fileController {
+    constructor($scope, $http, $location, files, AlertService, LOGVIEWER_EVENTS) {
+        'ngInject';
+        
         $scope.roleList = '';
         $scope.retrieveFileButtonIsDisabled = files.getRetrieveFileButtonIsDisabled();
         $scope.$watch(function () {
@@ -25,8 +22,8 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
             $scope.roleList = files.fileList;
         });
 
-        $scope.selectItem = function(){
-            if(files.selectedFile !== undefined && !files.getRetrieveFileButtonIsDisabled()){
+        $scope.selectItem = function () {
+            if (files.selectedFile !== undefined && !files.getRetrieveFileButtonIsDisabled()) {
                 $scope.fileSelected();
             }
         };
@@ -40,7 +37,7 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
                 method: 'GET',
                 url: 'logs?sessionId=' + encodeURIComponent(sessionId) + '&userId=' + encodeURIComponent(userId) + '&path=' + files.selectedFile + '&machine=' + files.selectedHost
             }).success(function (data, status, headers, config) {
-                if(data !== ""){
+                if (data !== "") {
                     files.file = data;
                 } else {
                     files.file = " ";
@@ -53,4 +50,4 @@ angular.module('RedhatAccess.logViewer').controller('fileController', [
             $scope.$parent.$parent.sidePaneToggle = !$scope.$parent.$parent.sidePaneToggle;
         });
     }
-]);
+}

@@ -1,19 +1,9 @@
 'use strict';
-/*jshint unused:vars */
-angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
-    "$scope",
-    '$rootScope',
-    "SOLRGrammarService",
-    'RHAUtils',
-    '$timeout',
-    'CASE_EVENTS',
-    'strataService',
-    'CaseService',
-    'ProductsService',
-    'securityService',
-    'AccountBookmarkService',
-    'AccountService',
-    function($scope,$rootScope, SOLRGrammarService, RHAUtils, $timeout,CASE_EVENTS, strataService, CaseService, ProductsService, securityService, AccountBookmarkService, AccountService) {
+
+export default class SolrQueryInputController {
+    constructor($scope, SOLRGrammarService, RHAUtils, CASE_EVENTS, strataService, CaseService, ProductsService, securityService, AccountBookmarkService, AccountService) {
+        'ngInject';
+
         $scope.parseSuccessful = false;
         $scope.inputQuery = "";
         $scope.showingCompletionList = true;
@@ -43,12 +33,12 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
                 $scope.groupsLoading = false;
             };
 
-            var onProductsLoaded = function() {
+            var onProductsLoaded = function () {
                 SOLRGrammarService.setProducts(ProductsService.products);
                 $scope.productsLoading = false;
             };
 
-            var onBookmarkedAccountsLoaded = function() {
+            var onBookmarkedAccountsLoaded = function () {
                 SOLRGrammarService.setBookmarkedAccounts(AccountBookmarkService.bookmarkedAccounts);
                 $scope.accountsLoading = false;
             };
@@ -58,7 +48,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
                 SOLRGrammarService.setUserAccount(account);
             };
 
-            if(RHAUtils.isEmpty(CaseService.severities)) {
+            if (RHAUtils.isEmpty(CaseService.severities)) {
                 var promise = strataService.values.cases.severity().then(function (severities) {
                     CaseService.setSeverities(severities);
                     onSeveritiesLoaded();
@@ -68,8 +58,8 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
                 onSeveritiesLoaded();
             }
 
-            if(RHAUtils.isEmpty(CaseService.statuses)) {
-                var promise = strataService.values.cases.status().then(function(statuses) {
+            if (RHAUtils.isEmpty(CaseService.statuses)) {
+                var promise = strataService.values.cases.status().then(function (statuses) {
                     CaseService.statuses = statuses;
                     onStatusesLoaded();
                 });
@@ -78,11 +68,11 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
                 onStatusesLoaded();
             }
 
-            if(AccountBookmarkService.loading) {
+            if (AccountBookmarkService.loading) {
                 var promise = new Promise(function (resolve, reject) {
                     $scope.$watch('ABS.loading', function () {
-                       if(!AccountBookmarkService.loading) onBookmarkedAccountsLoaded();
-                       resolve();
+                        if (!AccountBookmarkService.loading) onBookmarkedAccountsLoaded();
+                        resolve();
                     });
                 });
                 promises.push(promise);
@@ -97,8 +87,8 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
             promises.push(groupPromise);
             promises.push(productPromise);
 
-            if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.account_number)) {
-                if(RHAUtils.isEmpty(AccountService.accounts[securityService.loginStatus.authedUser.account_number])) {
+            if (RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.account_number)) {
+                if (RHAUtils.isEmpty(AccountService.accounts[securityService.loginStatus.authedUser.account_number])) {
                     var promise = AccountService.loadAccount(securityService.loginStatus.authedUser.account_number).then(onUserAccountLoaded);
                     promises.push(promise);
                 } else {
@@ -106,7 +96,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
                 }
             }
 
-            Promise.all(promises).then(function(){
+            Promise.all(promises).then(function () {
                 $scope.$broadcast(CASE_EVENTS.focusSearchInput);
             });
         };
@@ -115,7 +105,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
             $scope.solrQuery = query;
         };
 
-        $scope.$watch("inputQuery", function(query) {
+        $scope.$watch("inputQuery", function (query) {
             try {
                 var solrquery = SOLRGrammarService.parse(query);
                 $scope.changeSolrQuery(solrquery);
@@ -136,19 +126,19 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
             }
         });
 
-        $scope.autocomplete = function(expecteds, phrase) {
+        $scope.autocomplete = function (expecteds, phrase) {
             var autocomplete = [];
             var info = "";
             var andIsPresent = false;
             var orIsPresent = false;
 
-            if(expecteds!=null) {
-                var ignored = [")", "(", "-", ":", '"', ' ','[',']'];
-                angular.forEach(expecteds, function(expected) {
-                    if(expected.type === "literal" && ignored.indexOf(expected.value) === -1) {
+            if (expecteds != null) {
+                var ignored = [")", "(", "-", ":", '"', ' ', '[', ']'];
+                angular.forEach(expecteds, function (expected) {
+                    if (expected.type === "literal" && ignored.indexOf(expected.value) === -1) {
                         var contentMatch = expected.value.match(/^"(.+)"$/);
                         var content = expected.value;
-                        if(contentMatch != null && contentMatch.length >= 2) {
+                        if (contentMatch != null && contentMatch.length >= 2) {
                             content = contentMatch[1];
                         }
                         autocomplete.push({display: content, value: expected.value});
@@ -157,14 +147,14 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
                         info = "Values containing whitespaces have to be wraped in double quotes.";
                     }
 
-                    if(expected.value === " and ") {
+                    if (expected.value === " and ") {
                         andIsPresent = true
-                    } else if(expected.value === " or ") {
+                    } else if (expected.value === " or ") {
                         orIsPresent = true;
                     }
                 });
 
-                if(andIsPresent && orIsPresent) {
+                if (andIsPresent && orIsPresent) {
                     info = "Enter <b>and</b> or <b>or</b> to continue with the query.";
                 } else if (andIsPresent) {
                     info = "Enter <b>and</b> to continue with the query.";
@@ -173,12 +163,12 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
                 }
             }
 
-            $scope.autocompleteList = autocomplete.sort(function(a,b) {
-                if(a.display < b.display) return -1;
-                if(a.display > b.display) return  1;
+            $scope.autocompleteList = autocomplete.sort(function (a, b) {
+                if (a.display < b.display) return -1;
+                if (a.display > b.display) return 1;
                 return 0;
             });
-            if(phrase !== undefined && RHAUtils.isNotEmpty(phrase.trim())) {
+            if (phrase !== undefined && RHAUtils.isNotEmpty(phrase.trim())) {
                 $scope.autocompleteList = $scope.autocompleteList.filter(function (item) {
                     return item.display.toLowerCase().indexOf(phrase.trim().toLowerCase()) >= 0;
                 })
@@ -192,7 +182,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
 
             //select next item
             var nextId;
-            if(selectedId !== null) {
+            if (selectedId !== null) {
                 nextId = (selectedId + nextDiff + $scope.autocompleteList.length) % $scope.autocompleteList.length;
             } else {
                 nextId = nextDiff === 1 ? 0 : $scope.autocompleteList.length - 1;
@@ -205,7 +195,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
         $scope.keyPress = function (e) {
             // on any key press we should ensure the autocompletion is visible
             $scope.showingCompletionList = true;
-            if(e.which===38) { // key UP
+            if (e.which === 38) { // key UP
                 e.preventDefault();
                 e.stopPropagation();
                 selectNextItem(-1);
@@ -218,7 +208,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
             } else if (e.which === 13) { //key ENTER
                 e.preventDefault();
                 e.stopPropagation();
-                if(e.ctrlKey) {
+                if (e.ctrlKey) {
                     $scope.submit();
                 } else {
                     if (RHAUtils.isNotEmpty($scope.selectedItem)) {
@@ -234,7 +224,7 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
 
         $scope.clickedItem = function (id) {
             var item = $scope.autocompleteList[id];
-            if(RHAUtils.isNotEmpty(item)) {
+            if (RHAUtils.isNotEmpty(item)) {
                 $scope.inputQuery = $scope.inputQuery.substring(0, $scope.error.location.start.offset) + item.value;
                 //put focus back to the input
                 $scope.$broadcast(CASE_EVENTS.focusSearchInput);
@@ -256,4 +246,4 @@ angular.module("RedhatAccess.cases").controller("SolrQueryInputController", [
 
         init();
     }
-]);
+}

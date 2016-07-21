@@ -1,20 +1,17 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('ManageGroups', [
-    '$scope',
-    'securityService',    
-    'ManageGroupsService',
-    'AUTH_EVENTS',
-    'RHAUtils',    
-    function ($scope, securityService, ManageGroupsService, AUTH_EVENTS, RHAUtils) {
+
+export default class ManageGroups {
+    constructor($scope, securityService, ManageGroupsService, AUTH_EVENTS) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.ManageGroupsService = ManageGroupsService;
         $scope.canManageGroups = false;
 
-        $scope.init = function() {
+        $scope.init = function () {
             $scope.canManageGroups = securityService.loginStatus.account.has_group_acls && securityService.loginStatus.authedUser.org_admin;
             ManageGroupsService.fetchAccGroupList();
-        };        
+        };
 
         if (securityService.loginStatus.isLoggedIn) {
             $scope.init();
@@ -24,4 +21,4 @@ angular.module('RedhatAccess.cases').controller('ManageGroups', [
             });
         }
     }
-]);
+}

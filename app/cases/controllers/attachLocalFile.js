@@ -1,14 +1,9 @@
 'use strict';
-/*global $ */
-angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
-    '$scope',
-    'AlertService',
-    'AttachmentsService',
-    'CaseService',
-    'securityService',
-    'RHAUtils',
-    'gettextCatalog',
-    function ($scope, AlertService, AttachmentsService, CaseService, securityService, RHAUtils,gettextCatalog) {
+
+export default class AttachLocalFile {
+    constructor($scope, AlertService, AttachmentsService, CaseService, securityService, RHAUtils, gettextCatalog) {
+        'ngInject';
+
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
@@ -30,10 +25,10 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
                 description: $scope.fileDescription,
                 fileObj: $scope.fileObj,
                 length: $scope.fileSize,
-                created_by: securityService.loginStatus.authedUser.last_name+', '+securityService.loginStatus.authedUser.first_name,
-                last_modified_by: securityService.loginStatus.authedUser.last_name+', '+securityService.loginStatus.authedUser.first_name,
-                created_date:  RHAUtils.formatDate(createdDate, 'MMM DD YYYY'),
-                created_time:  RHAUtils.formatDate(createdDate, 'hh:mm A Z')
+                created_by: securityService.loginStatus.authedUser.last_name + ', ' + securityService.loginStatus.authedUser.first_name,
+                last_modified_by: securityService.loginStatus.authedUser.last_name + ', ' + securityService.loginStatus.authedUser.first_name,
+                created_date: RHAUtils.formatDate(createdDate, 'MMM DD YYYY'),
+                created_time: RHAUtils.formatDate(createdDate, 'hh:mm A Z')
             });
             $scope.clearSelectedFile();
             if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
@@ -45,21 +40,24 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
         };
         $scope.selectFile = function () {
             // Strata will always keep the limit display in Mb (current = 1024Mb)
-            var maxSize = (AttachmentsService.maxAttachmentSize/1024)*1000000000;
+            var maxSize = (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
             var minSize = 0;
-            if($('#fileUploader')[0].files[0].size < maxSize && $('#fileUploader')[0].files[0].size > minSize){
+            if ($('#fileUploader')[0].files[0].size < maxSize && $('#fileUploader')[0].files[0].size > minSize) {
                 $scope.fileObj = $('#fileUploader')[0].files[0];
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
                 if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                     $scope.$apply();
                 }
-	            $scope.addFile();
-            } else if($('#fileUploader')[0].files[0].size === minSize) {
-                var message=gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.",{errorFileName:$('#fileUploader')[0].files[0].name});
+                $scope.addFile();
+            } else if ($('#fileUploader')[0].files[0].size === minSize) {
+                var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.", {errorFileName: $('#fileUploader')[0].files[0].name});
                 AlertService.addDangerMessage(message);
             } else {
-                 var message=gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.",{errorFileName:$('#fileUploader')[0].files[0].name,errorFileSize:(AttachmentsService.maxAttachmentSize/1024)});
+                var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.", {
+                    errorFileName: $('#fileUploader')[0].files[0].name,
+                    errorFileSize: (AttachmentsService.maxAttachmentSize / 1024)
+                });
                 AlertService.addDangerMessage(message);
             }
             $('#fileUploader')[0].value = '';
@@ -67,4 +65,4 @@ angular.module('RedhatAccess.cases').controller('AttachLocalFile', [
         $scope.clearSelectedFile();
         $scope.init();
     }
-]);
+}

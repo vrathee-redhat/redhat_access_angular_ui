@@ -1,7 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.cases').service('CaseListService', [function () {
+
+export default class CaseListService {
+    constructor() {
         this.cases = [];
         this.defineCases = function (cases) {
             this.cases = cases;
-        };
-    }]);
+        }
+    }
+}

@@ -93,9 +93,10 @@ div(rha-header='', page='newCase')
                                         .col-xs-12
                                             div(ng-show='NEW_CASE_CONFIG.showServerSideAttachments')
                                                 .server-attach-header {{'Server File(s) To Attach:'|translate}}
-                                                    div(rha-choicetree='',
-                                                    ng-model='attachmentTree',
-                                                    ng-controller='BackEndAttachmentsCtrl')
+                                                    // TODO -- This needs to be fixed, getting: Multiple directives [ngController, rhaChoicetree (module: RedhatAccess.ui-utils)] asking for new/isolated scope on: <div rha-choicetree="" ng-model="attachmentTree" ng-controller="BackEndAttachmentsCtrl" class="ng-pristine ng-untouched ng-valid">
+                                                    //div(rha-choicetree='',
+                                                    //ng-model='attachmentTree',
+                                                    //ng-controller='BackEndAttachmentsCtrl')
                                 div(ng-show='ie8 && NEW_CASE_CONFIG.isPCM || ie9 && NEW_CASE_CONFIG.isPCM')
                                     form#fileUploaderForm(enctype="multipart/form-data", method="post",target="upload_target")
                                         div
@@ -123,7 +124,7 @@ div(rha-header='', page='newCase')
                         #rha-case-more-options.rha-case-more-options
 
                             label {{'Support Level' |translate}}
-                                span.glyphicon.glyphicon-question-sign.link(tooltip-html-unsafe='{{"To Learn more view the" |translate }}</br><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a>',tabindex='0',tooltip-trigger="click")
+                                span.glyphicon.glyphicon-question-sign.link(uib-tooltip-html='"<div><span>{{"To Learn more view the" |translate }}</span><br /><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a></div>"',tabindex='0',tooltip-trigger="click")
                             select#rha-supportLevel-select(
                             chosen,
                             ng-model="CaseService.entitlement",

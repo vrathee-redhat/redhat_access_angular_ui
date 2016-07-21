@@ -1,16 +1,14 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaEditcaserecommendations', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/editCaseRecommendationsSection.html',
+        template: require('../views/editCaseRecommendationsSection.jade'),
         restrict: 'A',
         controller: 'EditCaseRecommendationsController',
         transclude: true,
-        scope: { loading: '=' },
+        scope: {loading: '='},
         link: function postLink(scope, element, attrs) {
-            scope.$on('$destroy', function () {
-                element.remove();
-            });
+            scope.$on('$destroy', () => element.remove() );
         }
     };
-});
+}

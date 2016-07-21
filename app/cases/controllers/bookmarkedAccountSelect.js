@@ -1,17 +1,13 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('BookmarkedAccountSelect', [
-    '$scope',
-    'securityService',
-    'AUTH_EVENTS',
-    'AccountService',
-    'RHAUtils',
-    'AccountBookmarkService',
-    'ACCOUNT_EVENTS',
-    function ($scope, securityService, AUTH_EVENTS, AccountService, RHAUtils, AccountBookmarkService, ACCOUNT_EVENTS) {
+
+export default class BookmarkedAccountSelect {
+    constructor($scope, AccountBookmarkService, ACCOUNT_EVENTS) {
+        'ngInject';
+
         $scope.loading = true;
         $scope.accountOptions = [];
 
-        var init = function () {
+        let init = function () {
             $scope.buildOptions();
         };
 
@@ -20,7 +16,7 @@ angular.module('RedhatAccess.cases').controller('BookmarkedAccountSelect', [
         };
 
         $scope.buildOptions = function () {
-            if(!AccountBookmarkService.loading) {
+            if (!AccountBookmarkService.loading) {
                 $scope.accountOptions = [];
                 AccountBookmarkService.bookmarkedAccounts.forEach(function (account) {
                     $scope.accountOptions.push({
@@ -41,4 +37,4 @@ angular.module('RedhatAccess.cases').controller('BookmarkedAccountSelect', [
             $scope.$on(ACCOUNT_EVENTS.bookmarkedAccountsFetched, angular.bind(this, init));
         }
     }
-]);
+}

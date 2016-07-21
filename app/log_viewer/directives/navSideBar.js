@@ -1,9 +1,10 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').directive('rhaNavsidebar', function () {
+
+export default () => {
     return {
-        templateUrl: 'log_viewer/views/navSideBar.html',
+        template: require('../views/navSideBar.jade'),
         restrict: 'A',
         link: function postLink(scope, element, attrs) {
         }
     };
-});
+}

@@ -1,26 +1,19 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
-    '$window',
-    '$scope',
-    'AlertService',
-    'AttachmentsService',
-    'CaseService',
-    'strataService',
-    'TreeViewSelectorUtils',
-    'EDIT_CASE_CONFIG',
-    'gettextCatalog',
-    function ($window, $scope, AlertService, AttachmentsService, CaseService, strataService, TreeViewSelectorUtils, EDIT_CASE_CONFIG, gettextCatalog) {
+
+export default class AttachmentsSection {
+    constructor($scope, AlertService, AttachmentsService, CaseService, strataService, TreeViewSelectorUtils, EDIT_CASE_CONFIG, gettextCatalog) {
+        'ngInject';
+
         $scope.rhaDisabled = !EDIT_CASE_CONFIG.showAttachments;
         $scope.showServerSideAttachments = EDIT_CASE_CONFIG.showServerSideAttachments;
         $scope.isPCM = EDIT_CASE_CONFIG.isPCM;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
-        $scope.ieFileDescription ='';
+        $scope.ieFileDescription = '';
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;
-        $scope.ie8Message='We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
+        $scope.ie8Message = 'We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
         $scope.doUpdate = function () {
             $scope.updatingAttachments = true;
             AttachmentsService.updateAttachments(CaseService.kase.case_number).then(function () {
@@ -35,19 +28,19 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
             $scope.ieFileDescription = '';
         };
 
-        $scope.ieUpload = function($event) {
+        $scope.ieUpload = function ($event) {
             var uploadingAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachment...'));
             var form = document.getElementById('fileUploaderForm');
             var iframeId = document.getElementById('upload_target');
             form.action = 'https://' + window.location.host + '/rs/cases/' + CaseService.kase.case_number + '/attachments';
 
             var eventHandler = function () {
-                if (iframeId.removeEventListener){
+                if (iframeId.removeEventListener) {
                     iframeId.removeEventListener('load', eventHandler, false);
-                }else if (iframeId.detachEvent){
+                } else if (iframeId.detachEvent) {
                     iframeId.detachEvent('onload', eventHandler);
                 }
-                if(!$scope.ie8){
+                if (!$scope.ie8) {
                     var content;
                     if (iframeId.contentDocument && iframeId.contentDocument.body !== null) {
                         content = iframeId.contentDocument.body.innerText;
@@ -58,7 +51,7 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                         var parser = document.createElement('a');
                         parser.href = content;
                         var splitPath = parser.pathname.split('/');
-                        if(splitPath !== undefined && splitPath[4] !== undefined){
+                        if (splitPath !== undefined && splitPath[4] !== undefined) {
                             AttachmentsService.clear();
                             strataService.cache.clr('attachments' + CaseService.kase.case_number);
                             strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
@@ -73,23 +66,23 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                             });
                         } else {
                             AlertService.removeAlert(uploadingAlert);
-                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message:{{errorMessage}}',{errorMessage:content}));
+                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message:{{errorMessage}}', {errorMessage: content}));
                             $scope.$apply();
                         }
                     } else {
                         AlertService.removeAlert(uploadingAlert);
-                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message:{{errorMessage}}',{errorMessage:content}));
+                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message:{{errorMessage}}', {errorMessage: content}));
                         $scope.$apply();
                     }
-                }else {
+                } else {
                     strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
-                        if(attachmentsJSON.length !== AttachmentsService.originalAttachments.length){
+                        if (attachmentsJSON.length !== AttachmentsService.originalAttachments.length) {
                             AlertService.removeAlert(uploadingAlert);
                             AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                             AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment.'));
                             CaseService.checkForCaseStatusToggleOnAttachOrComment();
                             $scope.ieClearSelectedFile();
-                        } else{
+                        } else {
                             AlertService.removeAlert(uploadingAlert);
                             AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment.'));
                         }
@@ -98,18 +91,18 @@ angular.module('RedhatAccess.cases').controller('AttachmentsSection', [
                         AlertService.addStrataErrorMessage(error);
                     });
                 }
-                setTimeout(function(){
-                },
+                setTimeout(function () {
+                    },
                     100
                 );
             };
 
-            if (iframeId.addEventListener){
+            if (iframeId.addEventListener) {
                 iframeId.addEventListener('load', eventHandler, false);
-            } else if (iframeId.attachEvent){
+            } else if (iframeId.attachEvent) {
                 iframeId.attachEvent('onload', eventHandler);
             }
             form.submit();
         };
     }
-]);
+}

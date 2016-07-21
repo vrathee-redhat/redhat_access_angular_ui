@@ -1,15 +1,10 @@
-/*jshint camelcase: false */
 'use strict';
-/*jshint unused:vars */
-/**
- * @ngdoc module
- * @name
- *
- * @description
- *
- */
-angular.module('RedhatAccess.search', [
+
+import searchRouting from './search.routing'
+
+const app = angular.module('RedhatAccess.search', [
     'ui.router',
+    'ngAnimate',
     'RedhatAccess.template',
     'RedhatAccess.security',
     'ui.bootstrap',
@@ -17,20 +12,42 @@ angular.module('RedhatAccess.search', [
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
     'RedhatAccess.header'
-]).constant('SEARCH_PARAMS', { limit: 10 }).value('SEARCH_CONFIG', {
-    openCaseRef: '#/case/new',
-    showOpenCaseBtn: true
-}).config([
-    '$stateProvider',
-    function ($stateProvider) {
-        $stateProvider.state('search', {
-            url: '/search',
-            controller: 'SearchController',
-            templateUrl: 'search/views/search.html'
-        }).state('search_accordion', {
-            url: '/search2',
-            controller: 'SearchController',
-            templateUrl: 'search/views/accordion_search.html'
-        });
-    }
 ]);
+
+// Routing
+app.config(searchRouting);
+
+// Constants
+import SEARCH_PARAMS from './constants/searchParams'
+
+app.constant('SEARCH_PARAMS', SEARCH_PARAMS);
+
+// Values
+import SEARCH_CONFIG from './values/searchConfig'
+
+app.value('SEARCH_CONFIG', SEARCH_CONFIG);
+
+// Controllers
+import SearchController from './controllers/searchController'
+
+app.controller('SearchController', SearchController);
+
+// Directives
+import rhaAccordionsearchresults from './directives/accordionSearchResults'
+import rhaListsearchresults from './directives/listSearchResults'
+import rhaResultdetaildisplay from './directives/resultDetailDisplay'
+import rhaSearchform from './directives/searchForm'
+import rhaStandardsearch from './directives/standardSearch'
+
+app.directive('rhaAccordionsearchresults', rhaAccordionsearchresults);
+app.directive('rhaListsearchresults', rhaListsearchresults);
+app.directive('rhaResultdetaildisplay', rhaResultdetaildisplay);
+app.directive('rhaSearchform', rhaSearchform);
+app.directive('rhaStandardsearch', rhaStandardsearch);
+
+// Factories
+import SearchResultsService from './factories/searchResultsService'
+
+app.factory('SearchResultsService', SearchResultsService);
+
+export default app.name;

@@ -1,57 +1,62 @@
-//var testURL = 'http://localhost:8080/LogCollector/';
-// angular module
 'use strict';
-angular.module('RedhatAccess.logViewer', [
+
+import logViewerRouting from './log_viewer.routing'
+
+//var testURL = 'http://localhost:8080/LogCollector/';
+const app = angular.module('RedhatAccess.logViewer', [
     'angularTreeview',
+    'ngAnimate',
     'ui.bootstrap',
     'RedhatAccess.search',
     'RedhatAccess.header'
-]).config([
-    '$stateProvider',
-    function ($stateProvider) {
-        $stateProvider.state('logviewer', {
-            url: '/logviewer',
-            templateUrl: 'log_viewer/views/log_viewer.html'
-        });
-    }
-]).constant('LOGVIEWER_EVENTS', { allTabsClosed: 'allTabsClosed' }).value('hideMachinesDropdown', { value: false });
-function returnNode(splitPath, tree, fullFilePath) {
-    if (splitPath[0] !== undefined) {
-        if (splitPath[0] !== '') {
-            var node = splitPath[0];
-            var match = false;
-            var index = 0;
-            for (var i in tree) {
-                if (tree[i].roleName === node) {
-                    match = true;
-                    index = i;
-                    break;
-                }
-            }
-            if (!match) {
-                var object = {};
-                object.roleName = node;
-                object.roleId = node;
-                if (splitPath.length === 1) {
-                    object.fullPath = fullFilePath;
-                }
-                object.children = [];
-                tree.push(object);
-                index = tree.length - 1;
-            }
-            splitPath.shift();
-            returnNode(splitPath, tree[index].children, fullFilePath);
-        } else {
-            splitPath.shift();
-            returnNode(splitPath, tree, fullFilePath);
-        }
-    }
-}
-function parseList(tree, data) {
-    var files = data.split('\n');
-    for (var i in files) {
-        var file = files[i];
-        var splitPath = file.split('/');
-        returnNode(splitPath, tree, file);
-    }
-}
+]);
+
+// Routing
+app.config(logViewerRouting);
+
+// Constants
+import LOGVIEWER_EVENTS from './constants/logviewerEvents'
+app.constant('LOGVIEWER_EVENTS', LOGVIEWER_EVENTS);
+
+// Values
+import hideMachinesDropdown from './values/hideMachinesDropdown'
+app.value('hideMachinesDropdown', hideMachinesDropdown);
+
+// Controllers
+import AccordionDemoCtrl from './controllers/AccordionDemoCtrl'
+import DropdownCtrl from './controllers/DropdownCtrl'
+import fileController from './controllers/fileController'
+import logViewerController from './controllers/logViewerController'
+import TabsDemoCtrl from './controllers/TabsDemoCtrl'
+
+app.controller('AccordionDemoCtrl', AccordionDemoCtrl);
+app.controller('DropdownCtrl', DropdownCtrl);
+app.controller('fileController', fileController);
+app.controller('logViewerController', logViewerController);
+app.controller('TabsDemoCtrl', TabsDemoCtrl);
+
+// Directives
+import rhaFilldown from './directives/fillDown'
+import rhaLogsinstructionpane from './directives/logsInstructionPane'
+import rhaLogtabs from './directives/logTabs'
+import rhaNavsidebar from './directives/navSideBar'
+import rhaRecommendations from './directives/recommendations'
+
+app.directive('rhaFilldown', rhaFilldown);
+app.directive('rhaLogsinstructionpane', rhaLogsinstructionpane);
+app.directive('rhaLogtabs', rhaLogtabs);
+app.directive('rhaNavsidebar', rhaNavsidebar);
+app.directive('rhaRecommendations', rhaRecommendations);
+
+// Services
+import accordian from './services/accordianService'
+
+app.service('accordian', accordian);
+
+// Factories
+import files from './factories/fileService'
+
+app.factory('files', files);
+
+export default app.name;
+

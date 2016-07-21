@@ -1,32 +1,25 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
-    'strataService',
-    'AlertService',
-    'RHAUtils',
-    'ESCALATION_TYPE',
-    'securityService',
-    'HeaderService',
-    'gettextCatalog',
-    function (strataService, AlertService, RHAUtils, ESCALATION_TYPE, securityService, HeaderService, gettextCatalog) {
 
-	    this.accountNumber = '';
-	    this.caseNumber = '';
-	    this.alreadyEscalated = false;
+export default class EscalationRequestService {
+    constructor(strataService, AlertService, ESCALATION_TYPE, HeaderService, gettextCatalog) {
+
+        this.accountNumber = '';
+        this.caseNumber = '';
+        this.alreadyEscalated = false;
         this.requestorName = '';
-	    this.requestorEmail = '';
-	    this.requestorPhone = '';
-	    this.customerName = '';
-	    this.customerEmail = '';
-	    this.customerPhone = '';
-	    this.geo = '';
-	    this.expectations = '';
-	    this.issueDescription = '';
+        this.requestorEmail = '';
+        this.requestorPhone = '';
+        this.customerName = '';
+        this.customerEmail = '';
+        this.customerPhone = '';
+        this.geo = '';
+        this.expectations = '';
+        this.issueDescription = '';
         this.subject = '';
         this.subjectText = '';
         this.notPartnerLogin = false;
 
-	    this.clearEscalationFields = function() {
+        this.clearEscalationFields = function () {
             this.accountNumber = '';
             this.caseNumber = '';
             this.alreadyEscalated = false;
@@ -43,7 +36,7 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
             this.subjectText = '';
         };
 
-	    this.sendEscalationRequest = function(recordType) {
+        this.sendEscalationRequest = function (recordType) {
             var subject = '';
             if (recordType === ESCALATION_TYPE.partner) {
                 subject = 'Partner Escalation through Portal Case Management';
@@ -87,9 +80,9 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
                 escalationJSON.requestor_phone = this.requestorPhone;
             }
             if (!isObjectNothing(this.subject)) {
-                if(this.subject !== 'Other'){
-                    escalationJSON.issue_description = this.subject + '\n\n'; 
-                } else{
+                if (this.subject !== 'Other') {
+                    escalationJSON.issue_description = this.subject + '\n\n';
+                } else {
                     escalationJSON.issue_description = this.subject + ' - ' + this.subjectText + '\n\n';
                 }
             }
@@ -112,7 +105,7 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(gettextCatalog.getString('Creating Ice Escalation request .....'));
             }
-            strataService.escalationRequest.create(escalationJSON).then(angular.bind(this,function (escalationNum) {
+            strataService.escalationRequest.create(escalationJSON).then(angular.bind(this, function (escalationNum) {
                 AlertService.clearAlerts();
                 if (escalationNum !== undefined) {
                     if (recordType === ESCALATION_TYPE.partner) {
@@ -130,6 +123,6 @@ angular.module('RedhatAccess.escalation').service('EscalationRequestService', [
                     AlertService.addStrataErrorMessage(error);
                 }
             }));
-	    };
-	}
-]);
+        };
+    }
+}

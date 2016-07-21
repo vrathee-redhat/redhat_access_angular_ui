@@ -1,0 +1,5 @@
+.col-xs-6.pull-right.solutions(rha-filldown='', ng-style='{height: windowHeight }', ng-class='{ showMe: showSolutions }')
+    #resizeable-solution-view.resizeable-solution-view(rha-filldown='', ng-class='{ showMe: showSolutions }', ng-style='{height: windowHeight }', rha-accordionsearchresults='', opencase='true', ng-controller='SearchController')
+    a(ng-click='toggleSolutions()')
+        span.glyphicon.glyphicon-chevron-left.right-side-glyphicon(ng-class='{ showMe: showSolutions }')
+

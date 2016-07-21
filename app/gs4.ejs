@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+      <% for (var css in htmlWebpackPlugin.files.css) { %>
+      <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+      <% } %>
+
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  </head>
+  <body>
+
+    <!--Use this for deployment :'https://c.la1w1.salesforceliveagent.com/content/g/js/31.0/deployment.js'-->
+    <script src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <script>
+        var script;
+        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+        script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '<%= htmlWebpackPlugin.files.chunks[chunk].entry %>';
+        document.body.appendChild(script);
+        <% } %>
+
+        angular.element(document).ready(function() {
+            window.angular.bootstrap(document, [ 'RedhatAccess.cases' ]);
+        });
+    </script>
+    <div>
+        <div id="main">
+            <a href='https://access.us.redhat.com'><h1>Red Hat Secure Support</h1></a><a href='https://access.redhat.com'>Red Hat Customer Portal</a>
+            <div class='container' id='redhat-access-cases'>
+                <div ui-view autoscroll="false"></div>
+            </div>
+        </div>
+   </div>
+</body>
+</html>

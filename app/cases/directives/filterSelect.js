@@ -1,12 +1,12 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaFilterselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/filterSelect.html',
+        template: require('../views/filterSelect.jade'),
         restrict: 'A',
         controller: 'FilterSelect',
         scope: {
             onchange: '&'
         }
     };
-});
+}

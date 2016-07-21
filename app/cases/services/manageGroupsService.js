@@ -1,35 +1,29 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').service('ManageGroupsService', [
-    'securityService',
-    'AlertService',
-    'strataService',
-    'HeaderService',
-    'RHAUtils',
-    'translate',
-    '$filter',
-    '$q',
-    function (securityService, AlertService, strataService, HeaderService, RHAUtils, translate, $filter,$q) {
-    	this.groupsOnScreen = [];
-    	this.usersOnAccount = [];
-    	this.selectedGroup = {};
-    	this.newGroupName = '';
-    	this.groupsLoading = false;
-    	this.usersLoading = false;
-        this.fetchNewGroupDetails = false;
-        this.editedGroupName='';
 
-    	this.fetchAccGroupList = function() {
-    		this.groupsLoading = true;
+export default class ManageGroupsService {
+    constructor(securityService, AlertService, strataService, RHAUtils, translate, $filter, $q) {
+        'ngInject';
+
+        this.groupsOnScreen = [];
+        this.usersOnAccount = [];
+        this.selectedGroup = {};
+        this.newGroupName = '';
+        this.groupsLoading = false;
+        this.usersLoading = false;
+        this.fetchNewGroupDetails = false;
+        this.editedGroupName = '';
+
+        this.fetchAccGroupList = function () {
+            this.groupsLoading = true;
             strataService.groups.list(securityService.loginStatus.authedUser.sso_username, false).then(angular.bind(this, function (groups) {
                 this.groupsOnScreen = groups;
                 this.sortGroups();
                 this.removeUngroupedCase();
                 this.groupsLoading = false;
-                if(RHAUtils.isNotEmpty(this.groupsOnScreen)){
-                    if(this.fetchNewGroupDetails) {
-                        for(var i = 0; i < this.groupsOnScreen.length; i++) {
-                            if(this.groupsOnScreen[i].name === this.newGroupName) {
+                if (RHAUtils.isNotEmpty(this.groupsOnScreen)) {
+                    if (this.fetchNewGroupDetails) {
+                        for (var i = 0; i < this.groupsOnScreen.length; i++) {
+                            if (this.groupsOnScreen[i].name === this.newGroupName) {
                                 this.fetchGroupDetails(this.groupsOnScreen[i]);
                                 this.newGroupName = '';
                                 this.fetchNewGroupDetails = false;
@@ -43,9 +37,9 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-    	};
+        };
 
-    	this.fetchGroupDetails = function(group) {
+        this.fetchGroupDetails = function (group) {
             this.usersLoading = true;
             this.selectedGroup = group;
             strataService.groups.get(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (group) {
@@ -54,25 +48,25 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-    	};
+        };
 
-    	this.fetchAccUsers = function(group) {
-    		strataService.accounts.users(securityService.loginStatus.authedUser.account_number, group.number).then(angular.bind(this, function (users) {
+        this.fetchAccUsers = function (group) {
+            strataService.accounts.users(securityService.loginStatus.authedUser.account_number, group.number).then(angular.bind(this, function (users) {
                 this.usersOnAccount = users;
                 this.manipulateUserAccess();
                 this.usersLoading = false;
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-    	};
+        };
 
-    	this.saveGroup = function(group,users) {
-    		if(group !== undefined){
+        this.saveGroup = function (group, users) {
+            if (group !== undefined) {
                 var deferred = $q.defer();
                 AlertService.addWarningMessage(translate('Updating group') + ' ' + group.name + '...');
                 this.editedGroupName = group.name;
                 strataService.groups.get(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (detailedGroup) {
-                    if(RHAUtils.isNotEmpty(this.editedGroupName) && !angular.equals(this.editedGroupName, detailedGroup.name)) {
+                    if (RHAUtils.isNotEmpty(this.editedGroupName) && !angular.equals(this.editedGroupName, detailedGroup.name)) {
                         detailedGroup.name = this.editedGroupName;
                     }
                     strataService.groups.update(detailedGroup, securityService.loginStatus.authedUser.sso_username).then(function (response) {
@@ -89,21 +83,21 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
                 });
                 return deferred.promise;
             }
-            if(users !== undefined){
+            if (users !== undefined) {
                 AlertService.addWarningMessage(translate('Updating users for group...'));
-                strataService.groupUsers.update(users, securityService.loginStatus.authedUser.account_number, this.selectedGroup.number).then(function(response) {
+                strataService.groupUsers.update(users, securityService.loginStatus.authedUser.account_number, this.selectedGroup.number).then(function (response) {
                     AlertService.clearAlerts();
                     AlertService.addSuccessMessage(translate('Case users successfully updated.'));
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
             }
-    	};
+        };
 
-    	this.deleteGroup = function(group) {
+        this.deleteGroup = function (group) {
             var deferred = $q.defer();
             AlertService.addWarningMessage(translate('Deleting group') + ' ' + group.name + '...');
-    		strataService.groups.remove(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
+            strataService.groups.remove(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
                 var groups = $filter('filter')(this.groupsOnScreen, function (g) {
                     if (g.number !== group.number) {
                         return true;
@@ -124,10 +118,10 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
             return deferred.promise;
         };
 
-    	this.createGroup = function() {
-    		AlertService.addWarningMessage(translate('Creating group') + ' ' + this.newGroupName + '...');
+        this.createGroup = function () {
+            AlertService.addWarningMessage(translate('Creating group') + ' ' + this.newGroupName + '...');
             strataService.groups.create(this.newGroupName, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
-                if(success !== null){
+                if (success !== null) {
                     this.groupsOnScreen.push({
                         name: this.newGroupName,
                         number: success
@@ -146,10 +140,10 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
                 AlertService.clearAlerts();
                 AlertService.addStrataErrorMessage(error);
             });
-    	};
+        };
 
-    	this.setDefaultGroup = function(user) {
-    		var tmpGroup = {
+        this.setDefaultGroup = function (user) {
+            var tmpGroup = {
                 name: this.selectedGroup.name,
                 number: this.selectedGroup.number,
                 isDefault: !user.is_default,
@@ -158,15 +152,15 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
             //user.is_default = true;
             user.settingDefaultGroup = true;
             strataService.groups.createDefault(tmpGroup).then(function () {
-                user.is_default=!user.is_default;
+                user.is_default = !user.is_default;
                 user.settingDefaultGroup = false;
                 AlertService.addSuccessMessage('Successfully set ' + tmpGroup.name + ' as ' + user.sso_username + '\'s default group.');
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-    	};
+        };
 
-    	this.manipulateUserAccess = function() {
+        this.manipulateUserAccess = function () {
             angular.forEach(this.usersOnAccount, angular.bind(this, function (user) {
                 if (user.write === true || user.org_admin === true) {
                     user.permission = 'WRITE';
@@ -178,23 +172,25 @@ angular.module('RedhatAccess.cases').service('ManageGroupsService', [
             }));
         };
 
-        this.sortGroups = function() {
-            this.groupsOnScreen.sort(function(a, b){
-                if(a.name < b.name) { return -1; }
-                if(a.name > b.name) { return 1; }
+        this.sortGroups = function () {
+            this.groupsOnScreen.sort(function (a, b) {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
                 return 0;
             });
         };
 
-        this.removeUngroupedCase = function() {
+        this.removeUngroupedCase = function () {
             for (var i = this.groupsOnScreen.length - 1; i >= 0; i--) {
-                if(this.groupsOnScreen[i].number==='-1'){
-                    this.groupsOnScreen.splice(i,1);
+                if (this.groupsOnScreen[i].number === '-1') {
+                    this.groupsOnScreen.splice(i, 1);
                     break;
                 }
-            };
+            }
         };
-
-
     }
-]);
+}

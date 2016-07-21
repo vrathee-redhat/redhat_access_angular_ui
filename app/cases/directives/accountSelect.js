@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaAccountselect', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/accountSelect.html',
+        template: require('../views/accountSelect.jade'),
         restrict: 'A',
         controller: 'AccountSelect'
     };
-});
+}

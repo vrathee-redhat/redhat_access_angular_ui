@@ -1,12 +1,9 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('ManageGroupList', [
-    '$scope',
-    'securityService',
-    'ManageGroupsService',
-    'RHAUtils',
-    'translate',
-    function ($scope, securityService, ManageGroupsService, RHAUtils, translate) {
+
+export default class ManageGroupList {
+    constructor($scope, securityService, ManageGroupsService, RHAUtils, translate) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.ManageGroupsService = ManageGroupsService;
         $scope.groupsLoading = true;
@@ -29,23 +26,23 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
             }
         ];
 
-        $scope.toggleActiveButton = function(group) {
+        $scope.toggleActiveButton = function (group) {
 
-            group.active=!group.active;
+            group.active = !group.active;
         };
 
-        $scope.fetchGroupDetails = function(group) {
+        $scope.fetchGroupDetails = function (group) {
             ManageGroupsService.fetchGroupDetails(group);
         };
 
-        $scope.createGroup = function() {
+        $scope.createGroup = function () {
             if (RHAUtils.isEmpty(ManageGroupsService.newGroupName)) {
                 ManageGroupsService.newGroupName = 'Untitled Case Group';
             }
             ManageGroupsService.createGroup();
         };
 
-        $scope.addNewGroup = function() {
+        $scope.addNewGroup = function () {
             if ($scope.showCreateGroup === true) {
                 $scope.showCreateGroup = false;
             } else {
@@ -53,18 +50,18 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
             }
         };
 
-        $scope.groupAction = function(group,action) {
-            if(action === 'delete') {
-                group.active=false;
+        $scope.groupAction = function (group, action) {
+            if (action === 'delete') {
+                group.active = false;
                 group.deleteCaseGroup = true;
                 group.renameCaseGroup = false;
-            }  else if (action === 'rename') {
+            } else if (action === 'rename') {
                 group.originalName = group.name;
-                group.active=false;
+                group.active = false;
                 group.renameCaseGroup = true;
                 group.deleteCaseGroup = false;
             } else if (action === 'duplicate') {
-                group.active=false;
+                group.active = false;
                 group.renameCaseGroup = false;
                 group.deleteCaseGroup = false;
                 $scope.showCreateGroup = true;
@@ -72,7 +69,7 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
             }
         };
 
-        $scope.selectedGroup = function(group) {
+        $scope.selectedGroup = function (group) {
             var isSelected = (group.name === ManageGroupsService.selectedGroup.name);
 
             if (isSelected) {
@@ -81,31 +78,31 @@ angular.module('RedhatAccess.cases').controller('ManageGroupList', [
             return '';
         };
 
-        $scope.deleteGroup = function(group) {
-            ManageGroupsService.deleteGroup(group).then(function(){
-                if(RHAUtils.isNotEmpty(ManageGroupsService.groupsOnScreen) && ManageGroupsService.groupsOnScreen.length > 0){
+        $scope.deleteGroup = function (group) {
+            ManageGroupsService.deleteGroup(group).then(function () {
+                if (RHAUtils.isNotEmpty(ManageGroupsService.groupsOnScreen) && ManageGroupsService.groupsOnScreen.length > 0) {
                     ManageGroupsService.fetchGroupDetails(ManageGroupsService.groupsOnScreen[0]);
                 }
             });
         };
 
-        $scope.renameGroup = function(group) {
+        $scope.renameGroup = function (group) {
             group.updatingDetails = true;
-            ManageGroupsService.saveGroup(group,undefined).then(function(){
+            ManageGroupsService.saveGroup(group, undefined).then(function () {
                 group.renameCaseGroup = false;
                 group.updatingDetails = false;
             });
         };
 
-        $scope.cancel = function(group) {
-            if(group.deleteCaseGroup === true) {
+        $scope.cancel = function (group) {
+            if (group.deleteCaseGroup === true) {
                 group.deleteCaseGroup = false;
             }
-            if(group.renameCaseGroup === true) {
+            if (group.renameCaseGroup === true) {
                 group.name = group.originalName;
                 group.renameCaseGroup = false;
             }
         };
 
     }
-]);
+}

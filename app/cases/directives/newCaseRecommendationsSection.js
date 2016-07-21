@@ -1,11 +1,10 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaNewcaserecommendations', function ($parse) {
 
-	return {
-        templateUrl: 'cases/views/newCaseRecommendationsSection.html',
+export default function () {
+    return {
+        template: require('../views/newCaseRecommendationsSection.jade'),
         restrict: 'A',
         controller: 'NewCaseRecommendationsController',
-        scope: { itemsPerPage: '=?itemsPerPage' }
+        scope: {itemsPerPage: '=?itemsPerPage'}
     };
-});
+}

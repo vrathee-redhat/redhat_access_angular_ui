@@ -1,16 +1,9 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('ManageGroupUsers', [
-    '$scope',
-    'securityService',
-    'SearchBoxService',
-    'ManageGroupsService',
-    'RHAUtils',
-    'translate',
-    '$filter',
-    'ngTableParams',
-    'CASE_EVENTS',
-    function ($scope, securityService, SearchBoxService, ManageGroupsService, RHAUtils, translate, $filter, ngTableParams, CASE_EVENTS) {
+
+export default class ManageGroupUsers {
+    constructor($scope, securityService, SearchBoxService, ManageGroupsService, translate, $filter, NgTableParams, CASE_EVENTS) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.ManageGroupsService = ManageGroupsService;
         $scope.usersOnScreen = [];
@@ -35,16 +28,16 @@ angular.module('RedhatAccess.cases').controller('ManageGroupUsers', [
                 $scope.tableParams.reload();
             } else {
                 buildTable();
-            }            
+            }
         }, true);
 
         var reloadTable = false;
         var tableBuilt = false;
         var buildTable = function () {
-            $scope.tableParams = new ngTableParams({
+            $scope.tableParams = new NgTableParams({
                 page: 1,
                 count: 10,
-                sorting: { sso_username: 'asc' }
+                sorting: {sso_username: 'asc'}
             }, {
                 total: ManageGroupsService.usersOnAccount.length,
                 getData: function ($defer, params) {
@@ -65,9 +58,9 @@ angular.module('RedhatAccess.cases').controller('ManageGroupUsers', [
             $scope.tableParams.reload();
         });
 
-        $scope.setUserPermission = function(user) {
+        $scope.setUserPermission = function (user) {
             $scope.isUsersPrestine = false;
-            for(var i = 0; i < $scope.usersOnScreen.length; i++){
+            for (var i = 0; i < $scope.usersOnScreen.length; i++) {
                 if ($scope.usersOnScreen[i].sso_username === user.sso_username) {
                     if (user.permission === 'WRITE') {
                         user.write = true;
@@ -82,21 +75,21 @@ angular.module('RedhatAccess.cases').controller('ManageGroupUsers', [
                     break;
                 }
             }
-            ManageGroupsService.saveGroup(undefined,$scope.usersOnScreen);
+            ManageGroupsService.saveGroup(undefined, $scope.usersOnScreen);
         };
 
         $scope.setDefaultGroup = function (user) {
             //Remove old group is_default
             user.settingDefaultGroup = true;
-            if (user.groupIsdefault === true) {                
+            if (user.groupIsdefault === true) {
                 user.groupIsdefault = false;
                 user.settingDefaultGroup = false;
                 //TODO
                 // strata call to remove the default group for the user
             } else {
                 ManageGroupsService.setDefaultGroup(user);
-            }            
+            }
         };
 
     }
-]);
+}

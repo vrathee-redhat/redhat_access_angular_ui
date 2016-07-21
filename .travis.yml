@@ -3,13 +3,15 @@ language: node_js
 node_js:
   - '0.10'
 before_install:
-  - 'npm install -g bower grunt-cli'
+  - 'npm install -g bower'
   - 'gem install bundler'
 before_script:
   - 'bundle install'
   - 'bower install -V'
-  - 'grunt build'
-  - 'grunt test'
+  - 'npm cache clean'
+  - 'npm install'
+  - 'npm run build'
+  - 'npm run test'
 
 notifications:
   webhooks:

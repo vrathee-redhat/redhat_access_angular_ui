@@ -1,9 +1,9 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaCreategroupbutton', function () {
+
+export default function() {
     return {
-        templateUrl: 'cases/views/createGroupButton.html',
+        template: require('../views/createGroupButton.jade'),
         restrict: 'A',
         controller: 'CreateGroupButton'
     };
-});
+}

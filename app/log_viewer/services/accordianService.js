@@ -1,6 +1,7 @@
 'use strict';
-angular.module('RedhatAccess.logViewer').service('accordian', function () {
-    var groups = [];
+
+export default () => {
+    let groups = [];
     return {
         getGroups: function () {
             return groups;
@@ -12,4 +13,4 @@ angular.module('RedhatAccess.logViewer').service('accordian', function () {
             groups = '';
         }
     };
-});
+}

@@ -1,15 +1,13 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaCasediscussion', ['$location','$anchorScroll' ,function ($location, $anchorScroll) {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/discussionSection.html',
+        template: require('../views/discussionSection.jade'),
         controller: 'DiscussionSection',
-        scope: { loading: '=' },
+        scope: {loading: '='},
         restrict: 'A',
         link: function postLink(scope, element, attrs) {
-            scope.$on('$destroy', function () {
-                element.remove();
-            });
+            scope.$on('$destroy', () => element.remove() );
         }
     };
-}]);
+}

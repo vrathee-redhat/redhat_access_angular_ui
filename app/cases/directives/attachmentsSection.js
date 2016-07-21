@@ -1,12 +1,12 @@
 'use strict';
-/*jshint unused:vars */
-angular.module('RedhatAccess.cases').directive('rhaCaseattachments', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/attachmentsSection.html',
+        template: require('../views/attachmentsSection.jade'),
         restrict: 'A',
         controller: 'AttachmentsSection',
-        scope: { loading: '=' },
+        scope: {loading: '='},
         link: function postLink(scope, element, attrs) {
         }
     };
-});
+}

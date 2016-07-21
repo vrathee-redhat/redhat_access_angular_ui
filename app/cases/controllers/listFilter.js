@@ -1,18 +1,7 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('ListFilter', [
-    '$scope',
-    'STATUS',
-    'CaseService',
-    'securityService',
-    '$rootScope',
-    'CASE_EVENTS',
-    'SearchCaseService',
-    'GroupService',
-    'ConstantsService',
-    'RHAUtils',
-    '$state',
-    function ($scope, STATUS, CaseService, securityService, $rootScope, CASE_EVENTS, SearchCaseService, GroupService, ConstantsService, RHAUtils, $state) {
+
+export default class ListFilter {
+    constructor($scope, STATUS, CaseService, securityService, $rootScope, CASE_EVENTS, SearchCaseService, GroupService, ConstantsService, $state) {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.GroupService = GroupService;
@@ -22,15 +11,15 @@ angular.module('RedhatAccess.cases').controller('ListFilter', [
         $scope.showsearchoptions = CaseService.showsearchoptions;
         $scope.bookmarkAccountUrl = $state.href('accountBookmark');
 
-        $scope.doSearch = function(){
+        $scope.doSearch = function () {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         $scope.setSearchOptions = function (showsearchoptions) {
             CaseService.showsearchoptions = showsearchoptions;
-            CaseService.buildGroupOptions();            
+            CaseService.buildGroupOptions();
         };
         $scope.clearSearch = function () {
             SearchCaseService.caseParameters.searchTerm = undefined;
         };
     }
-]);
+}

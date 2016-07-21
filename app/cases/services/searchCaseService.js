@@ -1,19 +1,9 @@
-/*jshint camelcase: false*/
 'use strict';
-angular.module('RedhatAccess.cases').service('SearchCaseService', [
-    'CaseService',
-    'strataService',
-    'AlertService',
-    'STATUS',
-    'CASE_GROUPS',
-    'AUTH_EVENTS',
-    '$q',
-    '$rootScope',
-    'SearchBoxService',
-    'securityService',
-    'COMMON_CONFIG',
-    'RHAUtils',
-    function (CaseService, strataService, AlertService, STATUS, CASE_GROUPS, AUTH_EVENTS, $q, $rootScope, SearchBoxService, securityService, COMMON_CONFIG, RHAUtils) {
+
+export default class SearchCaseService {
+    constructor(CaseService, strataService, AlertService, STATUS, CASE_GROUPS, $q, SearchBoxService, securityService, COMMON_CONFIG, RHAUtils) {
+        'ngInject';
+
         this.cases = [];
         this.totalCases = 0;
         this.searching = true;
@@ -21,7 +11,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
         this.count = 50;
         this.total = 0;
         this.allCasesDownloaded = false;
-        this.refreshFilterCache=false;
+        this.refreshFilterCache = false;
         this.caseListPage = 1;
         this.caseListPageSize = 10;
         this.caseParameters = {
@@ -79,26 +69,26 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             this.oldQueryString = queryString;
             var that = this;
             var cases = null;
-                //TODO add internal pallet
-                // if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
-                //     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                //     //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
-                //     //params.view = 'internal';
-                // }
+            //TODO add internal pallet
+            // if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
+            //     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
+            //     //params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
+            //     //params.view = 'internal';
+            // }
 
             // Fetching the sort by parameter from localstorage
-            if(CaseService.localStorageCache) {
-                if (CaseService.localStorageCache.get('filterSelect'+securityService.loginStatus.authedUser.sso_username)) {
-                    var filterSelectCache = CaseService.localStorageCache.get('filterSelect'+securityService.loginStatus.authedUser.sso_username);
-                    CaseService.setFilterSelectModel(filterSelectCache.sortField,filterSelectCache.sortOrder);
+            if (CaseService.localStorageCache) {
+                if (CaseService.localStorageCache.get('filterSelect' + securityService.loginStatus.authedUser.sso_username)) {
+                    var filterSelectCache = CaseService.localStorageCache.get('filterSelect' + securityService.loginStatus.authedUser.sso_username);
+                    CaseService.setFilterSelectModel(filterSelectCache.sortField, filterSelectCache.sortOrder);
                 }
             }
-            if(this.caseParameters.searchTerm === undefined || this.caseParameters.searchTerm === ''){
+            if (this.caseParameters.searchTerm === undefined || this.caseParameters.searchTerm === '') {
                 var params = {
                     count: this.count,
                     include_closed: getIncludeClosed(this.caseParameters)
                 };
-                if(COMMON_CONFIG.isGS4 === true){
+                if (COMMON_CONFIG.isGS4 === true) {
                     params.account_number = "639769";
                 }
                 params.start = this.start;
@@ -109,7 +99,7 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 if (this.caseParameters.group === CASE_GROUPS.ungrouped || this.caseParameters.group === "-1") {
                     params.only_ungrouped = true;
                 } else if (!RHAUtils.isEmpty(this.caseParameters.group)) {
-                    params.group_numbers = { group_number: [this.caseParameters.group] };
+                    params.group_numbers = {group_number: [this.caseParameters.group]};
                 }
                 if (this.caseParameters.status === STATUS.closed) {
                     params.status = STATUS.closed;
@@ -119,19 +109,19 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 //     params.product = CaseService.product;
                 // }
                 if (!RHAUtils.isEmpty(CaseService.filterSelect.sortField)) {
-                    if(CaseService.filterSelect.sortField === 'owner'){
+                    if (CaseService.filterSelect.sortField === 'owner') {
                         params.sort_field = 'contactName';
-                    } else{
+                    } else {
                         params.sort_field = CaseService.filterSelect.sortField;
                     }
                 }
                 if (!RHAUtils.isEmpty(CaseService.filterSelect.sortOrder)) {
                     //This is a hack because strata returns the severities in reverse order
-                    if((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'ASC'){
+                    if ((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'ASC') {
                         params.sort_order = 'DESC';
-                    } else if((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'DESC'){
+                    } else if ((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'DESC') {
                         params.sort_order = 'ASC';
-                    } else{
+                    } else {
                         params.sort_order = CaseService.filterSelect.sortOrder;
                     }
                 }
@@ -148,16 +138,15 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                     params.view = 'internal';
                 }
-                if(RHAUtils.isNotEmpty(CaseService.bookmarkedAccount)) {
+                if (RHAUtils.isNotEmpty(CaseService.bookmarkedAccount)) {
                     params.account_number = CaseService.bookmarkedAccount;
                 }
-                if(this.refreshFilterCache===true)
-                {
-                    strataService.cache.clr('filter'+ JSON.stringify(params));
-                    this.refreshFilterCache=false;
+                if (this.refreshFilterCache === true) {
+                    strataService.cache.clr('filter' + JSON.stringify(params));
+                    this.refreshFilterCache = false;
                 }
                 cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
-                    if(response['case'] === undefined ){
+                    if (response['case'] === undefined) {
                         that.totalCases = 0;
                         that.total = 0;
                         that.allCasesDownloaded = true;
@@ -166,8 +155,8 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                         if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
                             that.allCasesDownloaded = true;
                         }
-                        if (response['case'] !== undefined){
-                            that.cases = that.cases.concat(response['case']);
+                        if (response['case'] !== undefined) {
+                            that.cases = response['case'];
                             //that.count = response['case'].length + that.total
                             that.start = that.start + that.count;
                             that.total = that.total + response['case'].length;
@@ -179,11 +168,11 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     this.totalCases = 0;
                     this.total = 0;
                     this.allCasesDownloaded = true;
-                    if(error.xhr.status === 404){
+                    if (error.xhr.status === 404) {
                         this.doFilter(false).then(function () {
                             deferred.resolve(cases);
                         });
-                    } else{
+                    } else {
                         AlertService.addStrataErrorMessage(error);
                         that.searching = false;
                         deferred.resolve(cases);
@@ -191,17 +180,17 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                 }));
             } else {
                 var sortField = CaseService.filterSelect.sortField;
-                if(sortField === "owner"){
+                if (sortField === "owner") {
                     sortField = "contactName";
                 }
                 cases = strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.bookmarkedAccount, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
-                    if(response['case'] === undefined){
+                    if (response['case'] === undefined) {
                         that.totalCases = 0;
                         that.total = 0;
                         that.allCasesDownloaded = true;
                     } else {
                         that.totalCases = response.total_count;
-                        that.cases = that.cases.concat(response['case']);
+                        that.cases = response['case'];
                         that.start = that.start + that.count;
                         that.total = that.total + response['case'].length;
                         if (response['case'] !== undefined && that.total >= that.totalCases) {
@@ -214,11 +203,11 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
                     this.totalCases = 0;
                     this.total = 0;
                     this.allCasesDownloaded = true;
-                    if(error.xhr.status === 404){
+                    if (error.xhr.status === 404) {
                         this.doFilter(false).then(function () {
                             deferred.resolve(cases);
                         });
-                    } else{
+                    } else {
                         AlertService.addStrataErrorMessage(error);
                         that.searching = false;
                         deferred.resolve(cases);
@@ -229,4 +218,4 @@ angular.module('RedhatAccess.cases').service('SearchCaseService', [
             return $q.all(promises);
         };
     }
-]);
+}

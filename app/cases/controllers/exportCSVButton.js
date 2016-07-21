@@ -1,10 +1,9 @@
 'use strict';
-/*jshint camelcase: false */
-angular.module('RedhatAccess.cases').controller('ExportCSVButton', [
-    '$scope',
-    'strataService',
-    'AlertService',
-    function ($scope, strataService, AlertService) {
+
+export default class ExportCSVButton {
+    constructor($scope, strataService, AlertService) {
+        'ngInject';
+
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
         $scope.exporting = false;
@@ -17,4 +16,4 @@ angular.module('RedhatAccess.cases').controller('ExportCSVButton', [
             });
         };
     }
-]);
+}

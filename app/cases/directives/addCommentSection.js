@@ -1,8 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').directive('rhaAddcommentsection', function () {
+
+export default function () {
     return {
-        templateUrl: 'cases/views/addCommentSection.html',
+        template: require('../views/addCommentSection.jade'),
         restrict: 'A',
         controller: 'AddCommentSection'
     };
-});
+}

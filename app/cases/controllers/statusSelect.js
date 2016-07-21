@@ -1,11 +1,9 @@
 'use strict';
-angular.module('RedhatAccess.cases').controller('StatusSelect', [
-    '$scope',
-    'securityService',
-    'CaseService',
-    'STATUS',
-    'gettextCatalog',
-    function ($scope, securityService, CaseService, STATUS, gettextCatalog) {
+
+export default class StatusSelect {
+    constructor($scope, securityService, CaseService, STATUS, gettextCatalog) {
+        'ngInject';
+
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.STATUS = STATUS;
@@ -24,4 +22,4 @@ angular.module('RedhatAccess.cases').controller('StatusSelect', [
             }
         ];
     }
-]);
+}

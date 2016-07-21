@@ -1,0 +1,20 @@
+.rha-navsidebar.col-xs-3(ng-class='{ showMe: sidePaneToggle }', rha-filldown='', ng-style='{height: windowHeight }')
+    .hideable-side-bar(ng-class='{ showMe: sidePaneToggle }')
+        div(ng-controller='DropdownCtrl', ng-init='init()')
+            h4.file-list-title(ng-class='{ showMe: hideDropdown}', translate='') Available Log Files
+            .btn-group(ng-class='{ hideMe: hideDropdown}')
+                .machines-spinner(ng-class='{ showMe: loading }')
+                    span.rha-search-spinner.pull-right
+                button.dropdown-toggle.btn.btn-sm.btn-primary(type='button', data-toggle='dropdown')
+                    | {{machinesDropdownText}}
+                    span.caret
+                ul.dropdown-menu
+                    li(ng-repeat='choice in items', ng-click='machineSelected()')
+                        a {{choice}}
+            div(ng-controller='fileController')
+                #fileList.fileList(rha-filldown='', ng-style='{ height: windowHeight }')
+                    div(ng-dblclick='selectItem(item)', data-angular-treeview='true', data-tree-id='mytree', data-tree-model='roleList', data-node-id='roleId', data-node-label='roleName', data-node-children='children')
+                button.pull-right.btn.btn-sm.btn-primary(ng-disabled='retrieveFileButtonIsDisabled.check', type='button', ng-click='fileSelected()', translate='')
+                    | Select File
+    a(ng-click='sidePaneToggle = !sidePaneToggle')
+        span.pull-right.glyphicon.glyphicon-chevron-left.left-side-glyphicon(ng-class='{ showMe: sidePaneToggle }')

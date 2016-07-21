@@ -1,5 +1,5 @@
 node_modules
-dist
+#dist
 .tmp
 .sass-cache
 bower_components
@@ -20,3 +20,4 @@ app/assets/css/main.min.*
 app/assets/css/main.min.css
 app/assets/css/main.min.css.map
 
+/npm-debug.log

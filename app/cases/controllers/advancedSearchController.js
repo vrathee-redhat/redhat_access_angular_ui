@@ -1,16 +1,9 @@
-/**
- * Created by jtrantin on 16.11.15.
- */
-angular.module("RedhatAccess.cases").controller("AdvancedSearchController",[
-    "$scope",
-    "AdvancedCaseSearchService",
-    'RHAUtils',
-    'securityService',
-    'CaseService',
-    'AUTH_EVENTS',
-    '$state',
-    'CASE_EVENTS',
-    function($scope, AdvancedCaseSearchService, RHAUtils, securityService, CaseService, AUTH_EVENTS, $state, CASE_EVENTS) {
+'use strict';
+
+export default class AdvancedSearchController {
+    constructor($scope, AdvancedCaseSearchService, RHAUtils, securityService, CaseService, CASE_EVENTS) {
+        'ngInject';
+
         $scope.solrQuery = null;
         $scope.queryParsed = false;
         $scope.AdvancedCaseSearchService = AdvancedCaseSearchService;
@@ -35,4 +28,4 @@ angular.module("RedhatAccess.cases").controller("AdvancedSearchController",[
             AdvancedCaseSearchService.performSearch(AdvancedCaseSearchService.query, CaseService.filterSelect);
         });
     }
-]);
+}

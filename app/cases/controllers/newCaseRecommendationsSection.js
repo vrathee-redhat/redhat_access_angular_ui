@@ -1,14 +1,9 @@
 'use strict';
-/*jshint camelcase: false, expr: true*/
-angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsController', [
-    '$scope',
-    '$location',
-    'SearchResultsService',
-    'SEARCH_CONFIG',
-    'securityService',
-    'AlertService',
-    'RecommendationsService',
-    function ($scope, $location, SearchResultsService, SEARCH_CONFIG, securityService, AlertService, RecommendationsService) {
+
+export default class NewCaseRecommendationsController {
+    constructor($scope, $location, SearchResultsService, RecommendationsService) {
+        'ngInject';
+
         $scope.SearchResultsService = SearchResultsService;
         $scope.selectedSolution = SearchResultsService.currentSelection;
         $scope.currentSearchData = SearchResultsService.currentSearchData;
@@ -49,4 +44,4 @@ angular.module('RedhatAccess.cases').controller('NewCaseRecommendationsControlle
             $scope.findLastPage();
         }, true);
     }
-]);
+}

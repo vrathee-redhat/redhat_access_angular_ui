@@ -1,16 +1,13 @@
 'use strict';
-/*global $ */
-angular.module('RedhatAccess.cases').controller('ProceedWithoutAttachModal', [
-    '$scope',
-    '$modalInstance',
-    '$sce',
-    'AttachmentsService',
-    'RHAUtils',
-    function ($scope, $modalInstance, $sce, AttachmentsService, RHAUtils) {
+
+export default class ProceedWithoutAttachModal {
+    constructor($scope, $uibModalInstance, $sce, AttachmentsService, RHAUtils) {
+        'ngInject';
+
         $scope.AttachmentsService = AttachmentsService;
         $scope.closeModal = function (proceed) {
             AttachmentsService.proceedWithoutAttachments = proceed;
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
         $scope.parseArtifactHtml = function () {
             var parsedHtml = '';
@@ -21,5 +18,4 @@ angular.module('RedhatAccess.cases').controller('ProceedWithoutAttachModal', [
             return parsedHtml;
         };
     }
-]);
-
+}
