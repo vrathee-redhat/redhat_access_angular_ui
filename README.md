@@ -1,8 +1,14 @@
 [![Build Status](https://travis-ci.org/redhataccess/redhat_access_angular_ui.svg?branch=master)](https://travis-ci.org/redhataccess/redhat_access_angular_ui)  
 
-### Installation  
+### Installation
+
 Run 'npm install' and 'bower install' to pull in dependencies.  
-Execute grunt build and check the dist folder for js and css files.
+
+### Developing
+
+Run `npm run start` to start the webpack-dev-server
+Run `accessproxy` to start the proxy for Red Hat access.
+In your browser visit https://qa.foo.redhat.com:1337/home#/case/list
 
 ### StrataJS configuration
 redhat_access_angular_ui uses [stratajs](https://github.com/redhataccess/stratajs) for communication with the Red Hat Customer Portal API and has a few options integrators should set.  These should be set prior to boostrapping the AngularJS application.

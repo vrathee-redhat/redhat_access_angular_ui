@@ -132,12 +132,12 @@ if (ENVIRONMENT === 'gs4') {
     );
 
     angular.element(document).ready(function() {
-        window.angular.bootstrap(document, [ 'RedhatAccess.cases' ]);
+        window.angular.bootstrap(document, ['RedhatAccess.cases']);
     });
 
 } else if (ENVIRONMENT !== 'test') {
     const host = window.location.host;
-    const redirectURL = `${window.location.protocol}//${host}/login?redirectTo=${document.URL}`;
+    const redirectURL = `${window.location.protocol}/${host}/login?redirectTo=${document.URL}`;
 
     window.strata.setStrataHostname('https://' + host);
     // TODO removed TITLE_VIEW_CONFIG / TITLE_VIEW_CONFIG.show = true;  It doesn't appear to be read in the code anywhere

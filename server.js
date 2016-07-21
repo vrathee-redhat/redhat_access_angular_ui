@@ -163,6 +163,7 @@ const PCMApp = function() {
         //     });
         //     res.end();
         // };
+
     };
 
 
@@ -189,6 +190,13 @@ const PCMApp = function() {
         // for (var r in this.routes) {
         //     this.app.get(r, this.routes[r]);
         // }
+
+        // this.app.get("/*", (req, res) => {
+        //     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+        //     res.header("Pragma", "no-cache");
+        //     res.header("Expires", 0);
+        //     res.sendFile(__dirname + '/dist' + '/index.html');
+        // });
     };
 
 

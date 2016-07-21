@@ -91,7 +91,7 @@
     "server": "webpack-dev-server --config webpack-dev-server.config.js --history-api-fallback --progress --port 9000",
     "server-prod": "webpack-dev-server --config webpack-production.config.js --history-api-fallback --inline --progress --port 9000",
     "test-watch": "karma start --auto-watch --no-single-run",
-    "start": "npm run server-inline",
+    "start": "cp hooks/pre-commit .git/hooks/ && npm run server-inline",
     "start-prod": "npm run server-prod"
   },
   "repository": {
