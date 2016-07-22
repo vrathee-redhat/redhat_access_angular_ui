@@ -74,7 +74,7 @@ export default class ProductsService {
 
                 const sep = '────────────────────────────────────────';
                 if (productOptions.length > 0) {
-                    productOptions.push({ isDisabled: true, name: sep });
+                    productOptions.push({ isDisabled: true, name: sep, code: '' });
                 }
 
                 angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name}) );
