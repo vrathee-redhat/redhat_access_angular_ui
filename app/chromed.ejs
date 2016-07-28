@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html class="bootstrap3 legacyfalse chrometwo pafoff" xmlns:ng="http://angularjs.org" xmlns:rha="http://access.redhat.com">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Portal Case Management</title>
@@ -8,13 +8,13 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-aNUYGqSUL9wG/vP7+cWZ5QOM4gsQou3sBfWRr/8S3R1Lv0rysEmnwsRKMbhiQX/O" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-aNUYGqSUL9wG/vP7+cWZ5QOM4gsQou3sBfWRr/8S3R1Lv0rysEmnwsRKMbhiQX/O" crossorigin="anonymous" />
 
     <link rel="icon" href="./app/assets/img/favicon.png" type="image/png"/>
     <script type="text/javascript" src="/webassets/avalon/j/lib/require.js"></script>
 
     <% for (var css in htmlWebpackPlugin.files.css) { %>
-    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <link media="all" rel="stylesheet" type="text/css" href="<%= htmlWebpackPlugin.files.css[css] %>" />
     <% } %>
 
     <!--[if lte IE 8]>
@@ -23,48 +23,48 @@
     <!--[if IE 9]>
     <script type="text/javascript"> var ie9 = true;</script>
     <![endif]-->
-  </head>
-  <body>
+</head>
+<body>
 
-    <div id="chrometwo">
-      <div id="chromed-app-content">
+<div id="chrometwo">
+    <div id="chromed-app-content">
         <div id="pcm" ng-view="">
             <div ui-view id="rha-content" autoscroll="false" class="container"></div>
         </div>
-      </div>
     </div>
+</div>
 
-    <!-- TODO What is peg and where is it used? -->
-    <!-- window.deps.push("/bower_components/pegjs/peg-0.9.0.js");-->
-    <script type="text/javascript" src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
+<!-- TODO What is peg and where is it used? -->
+<!-- window.deps.push("/bower_components/pegjs/peg-0.9.0.js");-->
+<script type="text/javascript" src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
 
-    <% if (htmlWebpackPlugin.options.devServer) { %>
-    <script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
-    <% } %>
+<% if (htmlWebpackPlugin.options.devServer) { %>
+<script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
+<% } %>
 
-    <script>
-        window.chrometwo_require([
-            'jquery'
-        ], function(jq) {
-            'use strict';
-            //window.require.undef('moment');
-            window.strata = {};
-            window.jQuery = jq;
+<script>
+    window.chrometwo_require([
+        'jquery'
+    ], function(jq) {
+        'use strict';
+        //window.require.undef('moment');
+        window.strata = {};
+        window.jQuery = jq;
 
-            window.breadcrumbs = [
-                ['Support', '/support/'],
-                ['Support Cases',  '/support/cases/']
-            ];
-            jq.support.cors = true;
+        window.breadcrumbs = [
+            ['Support', '/support/'],
+            ['Support Cases',  '/support/cases/']
+        ];
+        jq.support.cors = true;
 
-            var script;
-            <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-                script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = '<%= htmlWebpackPlugin.files.chunks[chunk].entry %>';
-                document.body.appendChild(script);
-            <% } %>
-        });
-    </script>
+        var script;
+        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+        script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '<%= htmlWebpackPlugin.files.chunks[chunk].entry %>';
+        document.body.appendChild(script);
+        <% } %>
+    });
+</script>
 </body>
 </html>
