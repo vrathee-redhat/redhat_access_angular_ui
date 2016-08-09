@@ -17,7 +17,7 @@ require('ng-infinite-scroll');
 require('angular-treeview/angular.treeview');
 require('angular-ui-router');
 require('angular-ui-bootstrap/dist/ui-bootstrap-tpls.js');
-require('ng-table/dist/ng-table');
+require('ng-table/ng-table');
 require('angular-cache');
 require("angular-chosen-localytics/dist/angular-chosen.js");
 require("chosen-npm/public/chosen.jquery.js");

@@ -1,7 +1,7 @@
 'use strict';
 
 export default class GroupList {
-    constructor($scope, strataService, AlertService, CaseService, $filter, NgTableParams, GroupService, securityService, SearchBoxService, AUTH_EVENTS) {
+    constructor($scope, strataService, AlertService, CaseService, $filter, ngTableParams, GroupService, securityService, SearchBoxService, AUTH_EVENTS) {
         'ngInject';
 
         $scope.CaseService = CaseService;
@@ -13,7 +13,7 @@ export default class GroupList {
         var tableBuilt = false;
         $scope.groupsLoading = true;
         var buildTable = function () {
-            $scope.tableParams = new NgTableParams({
+            $scope.tableParams = new ngTableParams({
                 page: 1,
                 count: 10,
                 sorting: {name: 'asc'}
