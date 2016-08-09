@@ -186,6 +186,7 @@ if (ENVIRONMENT === 'gs4') {
                         // CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
                         // CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
                         // CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mAm';
+                        // The dev-rogsstest url returns a 404
                         // CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://dev-rogsstest.cs9.force.com/chatHidden';
 
                         // Taken from https://github.com/redhataccess/redhat_access_angular_ui/blob/1.1.93/app/redhat_access_module.js
