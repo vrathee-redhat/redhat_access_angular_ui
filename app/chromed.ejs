@@ -34,9 +34,11 @@
     </div>
 </div>
 
-<!-- TODO What is peg and where is it used? -->
-<!-- window.deps.push("/bower_components/pegjs/peg-0.9.0.js");-->
-<script type="text/javascript" src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
+<% if (htmlWebpackPlugin.options.isProd) { %>
+    <script type="text/javascript" src="https://c.la1w1.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
+<% } else { %>
+    <script type="text/javascript" src="https://c.la8cs.salesforceliveagent.com/content/g/js/31.0/deployment.js"></script>
+<% } %>
 
 <% if (htmlWebpackPlugin.options.devServer) { %>
 <script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>

@@ -160,10 +160,40 @@ if (ENVIRONMENT === 'gs4') {
             CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
             CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mDA';
             CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://rogsstest.force.com/chatHidden';
-            if (host !== 'access.redhat.com') {
+
+            if (host === 'access.qa.redhat.com') {
+                CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
                 CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la6cs.salesforceliveagent.com/chat';
+                CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
+                CHAT_SUPPORT.chatInitHashTwo = '00DJ0000003OR6V';
                 CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs10.force.com/chatHidden';
             }
+            else {
+                if (host === 'access.stage.redhat.com') {
+                    CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
+                    CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la6cs.salesforceliveagent.com/chat';
+                    CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
+                    CHAT_SUPPORT.chatInitHashTwo = '00DJ0000003OTJd';
+                    CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://stage2-rogsstest.cs10.force.com/chatHidden';
+                }
+                else {
+                    if (host === 'access.redhat.com') {
+                        CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
+                        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la1w1.salesforceliveagent.com/chat';
+                        CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
+                        CHAT_SUPPORT.chatInitHashTwo = '00DA0000000HxWH';
+                        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://rogsstest.secure.force.com/chatHidden';
+                    }
+                    else {
+                        CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
+                        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
+                        CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
+                        CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mAm';
+                        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://dev-rogsstest.cs9.force.com/chatHidden';
+                    }
+                }
+            }
+
             securityService.validateLogin(false).then(function (authedUser) {
                 var account = securityService.loginStatus.account;
                 if (account !== undefined && account.is_secured_support !== undefined && account.is_secured_support === true) {
