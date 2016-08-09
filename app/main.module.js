@@ -167,29 +167,34 @@ if (ENVIRONMENT === 'gs4') {
                 CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
                 CHAT_SUPPORT.chatInitHashTwo = '00DJ0000003OR6V';
                 CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs10.force.com/chatHidden';
-            }
-            else {
+            } else {
                 if (host === 'access.stage.redhat.com') {
                     CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
                     CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la6cs.salesforceliveagent.com/chat';
                     CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
                     CHAT_SUPPORT.chatInitHashTwo = '00DJ0000003OTJd';
                     CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://stage2-rogsstest.cs10.force.com/chatHidden';
-                }
-                else {
+                } else {
                     if (host === 'access.redhat.com') {
                         CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
                         CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la1w1.salesforceliveagent.com/chat';
                         CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
                         CHAT_SUPPORT.chatInitHashTwo = '00DA0000000HxWH';
                         CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://rogsstest.secure.force.com/chatHidden';
-                    }
-                    else {
+                    } else {
+                        // CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
+                        // CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
+                        // CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
+                        // CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mAm';
+                        // CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://dev-rogsstest.cs9.force.com/chatHidden';
+
+                        // Taken from https://github.com/redhataccess/redhat_access_angular_ui/blob/1.1.93/app/redhat_access_module.js
                         CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
-                        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la8cs.salesforceliveagent.com/chat';
+                        CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la6cs.salesforceliveagent.com/chat';
                         CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
-                        CHAT_SUPPORT.chatInitHashTwo = '00DK000000W3mAm';
-                        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://dev-rogsstest.cs9.force.com/chatHidden';
+                        CHAT_SUPPORT.chatInitHashTwo = '00DJ0000003OR6V';
+                        CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://qa-rogsstest.cs10.force.com/chatHidden';
+
                     }
                 }
             }
