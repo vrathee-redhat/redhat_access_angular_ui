@@ -258,7 +258,8 @@ module.exports = function (options) {
                 // devServer: false
                 template: './chromed.ejs',
                 inject: false,
-                hash: true
+                hash: true,
+                isProd: true
             }),
 
             // Reference: https://github.com/webpack/extract-text-webpack-plugin
@@ -274,7 +275,8 @@ module.exports = function (options) {
                 // inject: 'body',
                 template: './chromed.ejs',
                 inject: false,
-                hash: true
+                hash: true,
+                isProd: false
                 // devServer: true
             }),
 
