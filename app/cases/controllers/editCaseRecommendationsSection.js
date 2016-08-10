@@ -35,7 +35,7 @@ export default class EditCaseRecommendationsController {
                 var recJSON = {
                     recommendations: {
                         recommendation: [{
-                            linked: linked.toString(),
+                            linked: linked,
                             resourceId: recommendation.resource_id,
                             resourceType: recommendation.resource_type
                         }]
