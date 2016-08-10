@@ -1,7 +1,7 @@
 'use strict';
 
 export default class EditGroup {
-    constructor($scope, strataService, CaseService, AlertService, $filter, NgTableParams, GroupUserService, SearchBoxService, $location, securityService, AUTH_EVENTS, gettextCatalog, CASE_EVENTS) {
+    constructor($scope, strataService, CaseService, AlertService, $filter, ngTableParams, GroupUserService, SearchBoxService, $location, securityService, AUTH_EVENTS, gettextCatalog, CASE_EVENTS) {
         'ngInject';
 
         $scope.GroupUserService = GroupUserService;
@@ -17,7 +17,7 @@ export default class EditGroup {
         var reloadTable = false;
         var tableBuilt = false;
         var buildTable = function () {
-            $scope.tableParams = new NgTableParams({
+            $scope.tableParams = new ngTableParams({
                 page: 1,
                 count: 10,
                 sorting: {sso_username: 'asc'}
