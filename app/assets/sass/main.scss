@@ -1,5 +1,8 @@
 @import '../../../bower_components/ng-table/ng-table.css';
-@import '../../../node_modules/chosen-npm/public/chosen.css';
+// Latest chosen-npm, but has bugs with IE11+
+//@import '../../../node_modules/chosen-npm/public/chosen.css';
+// Old known working from bower
+@import '../../../bower_components/chosen/chosen.css';
 
 @import '../../log_viewer/styles/log_viewer.css';
 @import '../../search/styles/search.css';
