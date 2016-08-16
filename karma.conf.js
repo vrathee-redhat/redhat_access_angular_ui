@@ -114,6 +114,20 @@ module.exports = function(config) {
         // - IE (only Windows)
         browsers: ['PhantomJS'],
 
+        customLaunchers: {
+            'PhantomJS': {
+                base: 'PhantomJS',
+                options: {
+                    windowName: 'PCM testing',
+                    settings: {
+                        webSecurityEnabled: false
+                    },
+                },
+                flags: ['--disk-cache=false'],
+                debug: true
+            }
+        },
+
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
         singleRun: true,
