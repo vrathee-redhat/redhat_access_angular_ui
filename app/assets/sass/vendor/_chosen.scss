@@ -5,7 +5,6 @@ $chosen-button-bg-color: $brand-gray;
 	width: 100%;
 }
 
-// http://stackoverflow.com/questions/20541306/how-to-write-a-css-hack-for-ie-11
 // There appears to be a bug in ie11 with the latest chosen-npm lib that shifts the carrot down 4px,
 // so we need to shift it back up here if we use the latest
 //.chosen-container-single .chosen-single div {
@@ -122,7 +121,7 @@ $chosen-button-bg-color: $brand-gray;
 			border: none;
 
 			span { color: #f0f0f0; }
-            // Force the right background in ie11
+            // Force the right coloring in ie11
             span {
                 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
                     color: $chosen-button-bg-color !important;
