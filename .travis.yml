@@ -1,14 +1,19 @@
+# If there are any caching issues with npm, i.e. installing an older version of a lib that isn't pulled down,
+# uncomment the rimraf to force a full clean npm install
+
 sudo: false
 language: node_js
 node_js:
   - '0.10'
 before_install:
   - 'npm install -g bower'
+  #- 'npm install -g rimraf'
   - 'gem install bundler'
 before_script:
   - 'bundle install'
   - 'bower install -V'
   - 'npm cache clean'
+  #- 'rimraf node_modules'
   - 'npm install'
   - 'npm run build'
   - 'npm run test'

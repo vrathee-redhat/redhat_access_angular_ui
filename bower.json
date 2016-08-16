@@ -1,12 +1,13 @@
 {
-    "name": "redhat-access-angular-ui",
-    "version": "1.2.4",
-    "dependencies": {
-        "stratajs": "1.4.19",
-        "angular-treeview": "",
-        "ng-table": "0.3.3"
-    },
-    "resolutions": {
-        "jsUri": "^1.3.1"
-    }
+  "name": "redhat-access-angular-ui",
+  "version": "1.2.4",
+  "dependencies": {
+    "stratajs": "1.4.19",
+    "angular-treeview": "",
+    "ng-table": "0.3.3",
+    "angular-chosen-localytics": "1.0.6"
+  },
+  "resolutions": {
+    "jsUri": "^1.3.1"
+  }
 }

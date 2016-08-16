@@ -19,8 +19,13 @@ require('angular-ui-router');
 require('angular-ui-bootstrap/dist/ui-bootstrap-tpls.js');
 require('ng-table/ng-table');
 require('angular-cache');
-require("angular-chosen-localytics/dist/angular-chosen.js");
-require("chosen-npm/public/chosen.jquery.js");
+// The latest chosen libs from npm, however there appears to be bugs with IE11+
+// require('angular-chosen-localytics/dist/angular-chosen.js');
+// require('chosen-npm/public/chosen.jquery.js');
+// Old known working version of chosen from bower
+require('angular-chosen-localytics/chosen.js');
+require('chosen/chosen.jquery.js');
+
 
 window.moment = require('moment');
 require('moment-timezone');
