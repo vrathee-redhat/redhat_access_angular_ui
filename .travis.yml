@@ -7,13 +7,13 @@ node_js:
   - '0.10'
 before_install:
   - 'npm install -g bower'
-  - 'npm install -g rimraf'
+  #- 'npm install -g rimraf'
   - 'gem install bundler'
 before_script:
   - 'bundle install'
   - 'bower install -V'
   - 'npm cache clean'
-  - 'rimraf node_modules'
+  #- 'rimraf node_modules'
   - 'npm install'
   - 'npm run build'
   - 'npm run test'
