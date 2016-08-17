@@ -21,7 +21,7 @@ div(rha-header='', page='newCase')
                             input#rha-case-summary.form-control(
                             maxlength='255',
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
-                            ng-change='updateDescriptionString();CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
+                            ng-change='onSummaryChange($event)',
                             ng-model='CaseService.kase.summary'
                             ng-focus="CaseService.updatingNewCaseSummary=true",
                             ng-blur="CaseService.updatingNewCaseSummary=false")
@@ -34,7 +34,7 @@ div(rha-header='', page='newCase')
                             textarea(name='', id='rha-problem',
                             style='width: 100%; height: 75px; max-width: 100%;',
                             ng-model='CaseService.kase.problem',
-                            ng-change='updateDescriptionString();CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
+                            ng-change='onProblemChange($event)',
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
                             ng-focus="CaseService.updatingProblemString=true",
                             ng-blur="CaseService.updatingProblemString=false")
@@ -47,7 +47,7 @@ div(rha-header='', page='newCase')
                             textarea(name='', id='rha-environment',
                             style='width: 100%; height: 75px; max-width: 100%;',
                             ng-model='CaseService.kase.environment',
-                            ng-change='updateDescriptionString();CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
+                            ng-change='onEnvironmentChange($event)',
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
                             ng-focus="CaseService.updatingEnvironmentString=true",
                             ng-blur="CaseService.updatingEnvironmentString=false")
@@ -60,7 +60,7 @@ div(rha-header='', page='newCase')
                             textarea(name='', id='rha-occurance',
                             style='width: 100%; height: 75px; max-width: 100%;',
                             ng-model='CaseService.kase.occurance',
-                            ng-change='updateDescriptionString();CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
+                            ng-change='onOccuranceChange($event)',
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
                             ng-focus="CaseService.updatingOccuranceString=true",
                             ng-blur="CaseService.updatingOccuranceString=false")
@@ -73,7 +73,7 @@ div(rha-header='', page='newCase')
                             textarea(name='', id='rha-urgency',
                             style='width: 100%; height: 75px; max-width: 100%;',
                             ng-model='CaseService.kase.urgency',
-                            ng-change='updateDescriptionString();CaseService.validateNewCase();CaseService.updateLocalStorageForNewCase()',
+                            ng-change='onUrgencyChange($event)',
                             ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase'
                             ng-focus="CaseService.updatingUrgencyString=true",
                             ng-blur="CaseService.updatingUrgencyString=false")

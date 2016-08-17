@@ -1,5 +1,5 @@
 div(style='display: inline-block; padding-right: 10px;')
-  input#rha-account-number.form-control(style='width: 100%', ng-model='CaseService.account.number', ng-blur='populateAccountSpecificFields()')
+  input#rha-account-number.form-control(style='width: 100%', ng-model='CaseService.account.number', ng-blur='populateAccountSpecificFields()', ng-change='sendCreationStartedEvent($event)')
 span(ng-if='securityService.loginStatus.authedUser.is_internal', rha-bookmark-account, account='CaseService.account')
 div(style='display: inline-block;')
   span.link(ng-click='selectUserAccount()', ng-hide='loadingAccountNumber', translate='') Find My Account Number

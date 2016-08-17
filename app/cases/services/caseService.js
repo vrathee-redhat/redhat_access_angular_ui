@@ -49,6 +49,7 @@ export default class CaseService {
         this.confirmationModalMessage = '';
         this.confirmationModalProperty = '';
         this.sfdcIsHealthy = HeaderService.sfdcIsHealthy;
+        this.creationStartedEventSent = false;
 
         this.setSeverities = function (severities) {
             this.severities = severities;
@@ -567,8 +568,7 @@ export default class CaseService {
             recommendation.title = rec.title;
             recommendation.resourceType = rec.documentKind;
             recommendation.client = "portal-case-management";
-            // todo -- populate client version with package.json version once we start using webpack
-            recommendation.clientVersion = "1.1.99";
+            recommendation.clientVersion = window.pcmVersion;
             recommendation.analysisAlgorithm = "Text Analysis";
             recommendation.analysisService = "calaveras";
             recommendation.algorithmScore = rec.score;
@@ -745,6 +745,19 @@ export default class CaseService {
                     this.filterSelect = ConstantsService.sortByParams[9];
                 }
             }
+        };
+
+        this.sendCreationStartedEvent = function ($event) {
+            if (window.chrometwo_require !== undefined && !this.creationStartedEventSent) {
+                chrometwo_require(['analytics/main'], (analytics) => {
+                    analytics.trigger('ABTestImpressionAsyncPCM', $event);
+                    this.creationStartedEventSent = true;
+                });
+            }
+        };
+
+        this.setCreationStartedEventSent = function (flag) {
+            this.creationStartedEventSent = flag;
         };
     }
 }

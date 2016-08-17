@@ -32,5 +32,13 @@ export default class ProductSelect {
                 }
             }
         });
+
+        $scope.onProductSelect = function ($event) {
+            CaseService.kase.version="";
+            ProductsService.getVersions(CaseService.kase.product);
+            CaseService.validateNewCase();
+            CaseService.updateLocalStorageForNewCase();
+            CaseService.sendCreationStartedEvent($event);
+        }
     }
 }

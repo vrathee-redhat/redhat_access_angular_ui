@@ -256,7 +256,7 @@ export default class New {
             $scope.initDescription();
             $scope.getLocalStorageForNewCase();
             $scope.getNewCaseFromQueryParams();
-
+            CaseService.setCreationStartedEventSent(false);
             var urlParameter = $location.search();
             if (RHAUtils.isNotEmpty(urlParameter.product)) {
                 $scope.setProductAndVersion(urlParameter.product, urlParameter.version);
@@ -482,6 +482,34 @@ export default class New {
                 CaseService.kase.description = CaseService.kase.description.concat(CaseService.urgencyString + '\n\n' + CaseService.kase.urgency);
             }
         };
+
+        $scope.onSummaryChange = function ($event) {
+            $scope.genericOnChangeTasks($event);
+        };
+
+        $scope.onProblemChange = function ($event) {
+            $scope.genericOnChangeTasks($event);
+        };
+
+        $scope.onEnvironmentChange = function ($event) {
+            $scope.genericOnChangeTasks($event);
+        };
+
+        $scope.onOccuranceChange = function ($event) {
+            $scope.genericOnChangeTasks($event);
+        };
+
+        $scope.onUrgencyChange = function ($event) {
+            $scope.genericOnChangeTasks($event);
+        };
+
+        $scope.genericOnChangeTasks = function ($event) {
+            $scope.updateDescriptionString();
+            CaseService.validateNewCase();
+            CaseService.updateLocalStorageForNewCase();
+            CaseService.sendCreationStartedEvent($event);
+        };
+
         if (ENVIRONMENT !== 'test') {
             angular.element('.affixed-recommendations').affix({
                 offset: {

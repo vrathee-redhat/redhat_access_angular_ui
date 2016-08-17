@@ -34,6 +34,8 @@ if (ENVIRONMENT === 'test') {
     require('angular-mocks');
 } else {
     require('./assets/sass/main.scss');
+    const packageJson = require('./../package.json');
+    window.pcmVersion = packageJson.version;
 }
 
 
