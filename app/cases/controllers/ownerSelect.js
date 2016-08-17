@@ -7,5 +7,10 @@ export default class OwnerSelect {
         $scope.securityService = securityService;
         $scope.SearchCaseService = SearchCaseService;
         $scope.CaseService = CaseService;
+        $scope.onOwnerSelect = function ($event) {
+        	CaseService.onOwnerSelectChanged();
+        	CaseService.validateNewCase();
+        	CaseService.sendCreationStartedEvent($event);
+        }
     }
 }

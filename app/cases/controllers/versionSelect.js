@@ -30,5 +30,11 @@ export default class VersionSelect {
                 }
             }
         });
+
+        $scope.onVersionSelect = function ($event) {
+            CaseService.validateNewCase();
+            CaseService.updateLocalStorageForNewCase();
+            CaseService.sendCreationStartedEvent($event);
+        };
     }
 }
