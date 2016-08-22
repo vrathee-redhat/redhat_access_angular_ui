@@ -1,7 +1,7 @@
 'use strict';
 
 export default class CaseService {
-    constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService) {
+    constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location) {
         'ngInject';
 
         this.localStorageCache = CacheFactory.get('localStorageCache');
@@ -748,7 +748,7 @@ export default class CaseService {
         };
 
         this.sendCreationStartedEvent = function ($event) {
-            if (window.chrometwo_require !== undefined && !this.creationStartedEventSent) {
+            if (window.chrometwo_require !== undefined && !this.creationStartedEventSent && $location.path() === '/case/new') {
                 chrometwo_require(['analytics/main'], (analytics) => {
                     analytics.trigger('ABTestImpressionAsyncPCM', $event);
                     this.creationStartedEventSent = true;
