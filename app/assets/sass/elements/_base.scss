@@ -153,3 +153,10 @@ a { color: $link-color; }
 		margin-right: 8px;
 	}
 }
+
+.spinner.ng-animate {
+    transition:0s none;
+    -webkit-transition:0s none;
+    animation: 0s none;
+    -webkit-animation: 0s none;
+}
