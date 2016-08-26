@@ -1,0 +1,31 @@
+form
+    .modal-header
+        h2(translate) {{creating ? 'Create a Search Bookmark' : 'Update a Search Bookmark'}}
+    .modal-body
+        .form-group(ng-class="{'has-error': !nameValid}")
+            label.control-label(for="bookmarkName")
+                span(translate) Name
+                span(translate, ng-hide="nameValid") &nbsp;(Must be unique)
+            input#bookmarkName.form-control(type="text", ng-model="bookmark.name")
+
+        .form-group(ng-class="{'has-error': !idValid}")
+            label.control-label(for="bookmarkId")
+                span ID
+                span(translate, ng-hide="idValid") &nbsp;(Must be unique)
+            input#bookmarkId.form-control(type="text", ng-model="bookmark.id", ng-trim="false")
+
+        .form-group
+            label.control-label(translate) Query
+            div.query-view
+                code {{query}}
+        .form-group
+            label.control-label(translate) Sort Order
+            div
+                code {{sort.name}}
+    .modal-footer
+        button.btn.btn-default(type="button", ng-click="cancel()")
+            span.glyphicon.glyphicon-remove
+            span(translate) &nbsp;Cancel
+        button.btn.btn-primary(type="submit", ng-disabled="!bookmarkValid()", ng-click="save()")
+            span.glyphicon.glyphicon-floppy-save
+            span(translate) &nbsp;Save

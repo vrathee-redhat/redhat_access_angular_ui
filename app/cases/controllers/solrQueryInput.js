@@ -6,7 +6,7 @@ export default class SolrQueryInputController {
         'ngInject';
 
         $scope.parseSuccessful = false;
-        $scope.inputQuery = $stateParams.query || "";
+        $scope.inputQuery = $scope.solrQuery || "";
         $scope.showingCompletionList = true;
         $scope.CASE_EVENTS = CASE_EVENTS;
         $scope.RHAUtils = RHAUtils;
@@ -101,13 +101,6 @@ export default class SolrQueryInputController {
             Promise.all(promises).then(function () {
                 $scope.setupAutocompletion();
                 $scope.$broadcast(CASE_EVENTS.focusSearchInput);
-
-                // Check whether there is some query from state, if it's valid submit it
-                if(RHAUtils.isNotEmpty($scope.inputQuery)) {
-                    if($scope.verifyQuery($scope.inputQuery)) { // re-verify, since all the objects ^ are now loaded and grammar is updated
-                        $scope.submit();
-                    }
-                }
             });
         };
 
@@ -135,8 +128,8 @@ export default class SolrQueryInputController {
 
         $scope.$watch("inputQuery", function (query) {
             try {
-                var solrquery = SOLRGrammarService.parse(query);
-                $scope.changeSolrQuery(solrquery);
+                SOLRGrammarService.parse(query);
+                $scope.changeSolrQuery(query);
                 $scope.parseSuccessful = true;
                 $state.go('advancedSearch', {query: query}, {location: 'replace', notify: false, reload: false});
 

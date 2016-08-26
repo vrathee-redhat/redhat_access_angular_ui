@@ -1,6 +1,21 @@
 .page-header(rha-header='', page='')
 h1(ng-show='securityService.loginStatus.verifying || securityService.loginStatus.isLoggedIn') Advanced case search
 a(href="https://access.redhat.com/articles/2390851#advanced_search", target="_blank") {{"Advanced Case Search User Guide" | translate}}
+div.bookmarked-searches(ng-show="securityService.loginStatus.isLoggedIn")
+    .pull-right
+        a.search-public-link(ng-href="{{bookmarkPublicLink()}}", ng-show="selectedBookmark", uib-tooltip="{{'Public link to this Search' | translate}}")
+            span.glyphicon.glyphicon-link
+            span(translate) &nbsp;Link
+        button.btn.btn-sm.btn-danger(type="button", ng-show="selectedBookmark", ng-click="removeSearchBookmark()", uib-tooltip="{{'Remove this Bookmark' | translate}}")
+            span.glyphicon.glyphicon-remove
+            span(translate) &nbsp;Remove
+        button.btn.btn-sm.btn-info(type="button", ng-disabled="queryEmpty()", ng-click="bookmarkSearch()", uib-tooltip="{{(selectedBookmark ? 'Update this Bookmark' : 'Create New Bookmark') | translate}}")
+            span.glyphicon.glyphicon-floppy-save
+            span(translate) &nbsp;{{selectedBookmark ? 'Update' : 'Save'}}
+    b(translate) Bookmarked Searches:&nbsp;
+    select(chosen, allow-single-deselect="true", ng-options="src as src.name for src in bookmarks", ng-model="selectedBookmark", width="'400px'",
+    disable-search="true", no-results-text="'{{'No bookmarked searches' | translate}}'", placeholder-text-single="'{{'Select Bookmarked Search' | translate}}'")
+        option(value="")
 div.spinner(ng-show='securityService.loginStatus.verifying')
 div(ng-if='securityService.loginStatus.isLoggedIn')
     div(rha-solr-query-input, solr-query="$parent.solrQuery", parse-successful="$parent.queryParsed", submit='$parent.submitSearch()')
@@ -8,7 +23,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
     #search-area
         .pull-right
             div.search-order(rha-filterselect='')
-            button#search-button.btn.btn-app.btn-lg(ng-click="$parent.submitSearch()", ng-disabled='!$parent.queryParsed || $parent.solrQuery === AdvancedCaseSearchService.query')
+            button#search-button.btn.btn-app.btn-lg(ng-click="$parent.submitSearch()", ng-disabled='!$parent.queryParsed || !searchChanged()')
                 i.glyphicon.glyphicon-search
                 = ' Search'
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.totalCases === 0")

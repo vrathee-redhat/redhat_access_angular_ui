@@ -34,7 +34,7 @@ export default ($stateProvider, $provide) => {
         template: require('./views/editGroup.jade')
     });
     $stateProvider.state('advancedSearch', {
-        url: '/case/search?query&sortBy',
+        url: '/case/search?query&sortBy&bookmark',
         controller: 'AdvancedSearchController',
         template: require('./views/advancedSearch.jade')
     });

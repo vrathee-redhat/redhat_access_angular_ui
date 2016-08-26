@@ -29,6 +29,14 @@ export default class SOLRGrammarService {
             return this.parser.parse(stringQuery);
         };
 
+        this.parseSafe = (stringQuery) => {
+            try {
+                return this.parse(stringQuery);
+            } catch(e) {}
+
+            return null;
+        };
+
         this.setSeverities = function (severities) {
             if (RHAUtils.isEmpty(severities)) return;
 

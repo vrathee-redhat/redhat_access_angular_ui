@@ -94,6 +94,7 @@ import SolrQueryInputController from './controllers/solrQueryInput'
 import StatusSelect from './controllers/statusSelect'
 import TypeSelect from './controllers/typeSelect'
 import VersionSelect from './controllers/versionSelect'
+import SearchBookmarkModal from './controllers/searchBookmarkModal'
 
 app.controller('AccountBookmarkHome', AccountBookmarkHome);
 app.controller('AccountSearch', AccountSearch);
@@ -145,6 +146,7 @@ app.controller('SolrQueryInputController', SolrQueryInputController);
 app.controller('StatusSelect', StatusSelect);
 app.controller('TypeSelect', TypeSelect);
 app.controller('VersionSelect', VersionSelect);
+app.controller('SearchBookmarkModal', SearchBookmarkModal);
 
 // Directives
 import rhaAttachlocalfile from './directives/attachLocalFile'
@@ -257,6 +259,7 @@ import RecommendationsService from './services/recommendationsService'
 import SearchBoxService from './services/searchBoxService'
 import SearchCaseService from './services/searchCaseService'
 import SOLRGrammarService from './services/solrGrammarService'
+import SearchBookmarkService from './services/searchBookmarkService'
 
 
 app.service('AccountBookmarkService', AccountBookmarkService);
@@ -275,5 +278,6 @@ app.service('RecommendationsService', RecommendationsService);
 app.service('SearchBoxService', SearchBoxService);
 app.service('SearchCaseService', SearchCaseService);
 app.service('SOLRGrammarService', SOLRGrammarService);
+app.service('SearchBookmarkService', SearchBookmarkService);
 
 export default app.name;
