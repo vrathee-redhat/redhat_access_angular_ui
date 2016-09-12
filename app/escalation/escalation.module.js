@@ -24,6 +24,6 @@ app.controller('EscalationRequest', EscalationRequest);
 
 // Services
 import EscalationRequestService from './services/escalationRequestService'
-app.controller('EscalationRequestService', EscalationRequestService);
+app.service('EscalationRequestService', EscalationRequestService);
 
 export default app.name
