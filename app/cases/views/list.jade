@@ -15,7 +15,7 @@ div(rha-header='', page='caseList')
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.totalCases == 0')
     .col-sm-6
       .case-count
-        span(translate) Showing {{SearchCaseService.getCasesStart()}} to {{SearchCaseService.getCasesEnd()}} out of {{SearchCaseService.totalCases}} {{displayedCaseText}} &nbsp;
+        span(translate) Showing {{SearchCaseService.getCasesStart()}} to {{SearchCaseService.getCasesEnd()}} of {{SearchCaseService.totalCases}} {{displayedCaseText}} &nbsp;
         span(ng-show="exporting")
           span.spinner.spinner-inline.spinner-sm
           span(translate) Exporting CSV

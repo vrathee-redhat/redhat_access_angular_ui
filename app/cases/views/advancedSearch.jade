@@ -14,7 +14,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.totalCases === 0")
             .alert.alert-warning No cases found.
         div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.totalCases != null")
-            span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} out of {{AdvancedCaseSearchService.totalCases}} search results
+            span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService.totalCases}} search results
 
     #case-list.table-list.case-list
         .list-item(ng-repeat='case in AdvancedCaseSearchService.cases | startFrom:AdvancedCaseSearchService.currentPage*AdvancedCaseSearchService.pageSize | limitTo:AdvancedCaseSearchService.pageSize track by $index')

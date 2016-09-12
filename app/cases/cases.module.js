@@ -9,7 +9,6 @@ const app = angular.module('RedhatAccess.cases', [
     'localytics.directives',
     'ngTable',
     'angular-md5',
-    'infinite-scroll',
     'RedhatAccess.template',
     'RedhatAccess.security',
     'RedhatAccess.search',
