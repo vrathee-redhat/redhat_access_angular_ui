@@ -4,7 +4,6 @@ import searchRouting from './search.routing'
 
 const app = angular.module('RedhatAccess.search', [
     'ui.router',
-    'ngAnimate',
     'RedhatAccess.template',
     'RedhatAccess.security',
     'ui.bootstrap',
