@@ -71,7 +71,8 @@ const app = angular.module('RedhatAccess', [
     'RedhatAccess.ui-utils',
     'RedhatAccess.cases',
     'RedhatAccess.search',
-    'RedhatAccess.logViewer'
+    'RedhatAccess.logViewer',
+    'RedhatAccess.escalation'
 ]);
 
 // Load in the various translations see: https://github.com/princed/angular-gettext-loader

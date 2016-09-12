@@ -2,6 +2,7 @@
 
 export default class EscalationRequestService {
     constructor(strataService, AlertService, ESCALATION_TYPE, HeaderService, gettextCatalog) {
+        'ngInject';
 
         this.accountNumber = '';
         this.caseNumber = '';
@@ -87,7 +88,7 @@ export default class EscalationRequestService {
                 }
             }
             if (!isObjectNothing(this.issueDescription)) {
-                escalationJSON.issue_description = escalationJSON.issue_description.concat(this.issueDescription);
+                escalationJSON.issue_description = (escalationJSON.issue_description || '').concat(this.issueDescription);
             }
             if (!isObjectNothing(this.alreadyEscalated)) {
                 escalationJSON.already_escalated = this.alreadyEscalated;
