@@ -12,7 +12,7 @@ div(rha-header='', page='caseList')
               span#rha-new-case-btn
               | {{'Open a Support Case'|translate}}
             a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()') Close Case(s)
-  .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.cases.length == 0')
+  .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.totalCases == 0')
     .col-sm-6
       .case-count
         span {{SearchCaseService.totalCases}} {{displayedCaseText}} &nbsp;
@@ -22,9 +22,9 @@ div(rha-header='', page='caseList')
         a.href(ng-click='exports()', ng-hide='ie8 || ie9 || exporting || RHAUtils.isNotEmpty(CaseService.bookmarkedAccount)', translate='') Export as CSV
     .col-sm-6
       .pull-right.filter-list(rha-filterselect='')
-  .alert.alert-slim(ng-show='SearchCaseService.cases.length == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
-  #case-list.table-list.case-list.bulk-closure(infinite-scroll='SearchCaseService.doFilter()', infinite-scroll-disabled='SearchCaseService.searching || SearchCaseService.allCasesDownloaded', infinite-scroll-distance='5')
-    .list-item(ng-repeat='case in SearchCaseService.cases track by $index', target='_blank')
+  .alert.alert-slim(ng-show='SearchCaseService.totalCases == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
+  #case-list.table-list.case-list.bulk-closure
+    .list-item(ng-repeat='case in SearchCaseService.cases | startFrom:SearchCaseService.currentPage*SearchCaseService.pageSize | limitTo:SearchCaseService.pageSize track by $index', target='_blank')
       input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
       a(href='#/case/{{case.case_number}}')
         .row.case()
@@ -62,3 +62,12 @@ div(rha-header='', page='caseList')
     .spinner
     p.center {{'Loading cases...'|translate}}
     //.backdrop
+
+  //{{currentPage+1}}/{{SearchCaseService.numberOfPages()}}
+  .row(ng-show='!SearchCaseService.searching && SearchCaseService.totalCases > 0')
+    .col-sm-6
+      .pull-left
+        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage == 0", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage-1; SearchCaseService.doFilter();") Previous
+    .col-sm-6
+      .pull-right
+        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage >= (SearchCaseService.totalCases/SearchCaseService.pageSize) - 1", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage+1; SearchCaseService.doFilter();") Next

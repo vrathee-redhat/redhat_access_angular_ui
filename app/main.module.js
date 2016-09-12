@@ -64,6 +64,7 @@ const app = angular.module('RedhatAccess', [
     'ngSanitize',
     'ngTable',
     'angular-cache',
+    'infinite-scroll',
     'localytics.directives',
     'RedhatAccess.header',
     'RedhatAccess.template',
@@ -74,6 +75,9 @@ const app = angular.module('RedhatAccess', [
     'RedhatAccess.logViewer',
     'RedhatAccess.escalation'
 ]);
+
+// you might call this after your module initialization
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250);
 
 // Load in the various translations see: https://github.com/princed/angular-gettext-loader
 if (ENVIRONMENT !== 'test') {

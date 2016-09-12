@@ -11,20 +11,14 @@ export default class AdvancedSearchController {
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
 
-        $scope.doSearch = function () {
+        $scope.doSearch = () => {
             if ($scope.solrQuery !== null) {
                 $scope.$broadcast(CASE_EVENTS.advancedSearchSubmitted);
                 AdvancedCaseSearchService.performSearch($scope.solrQuery, CaseService.filterSelect);
             }
         };
 
-        $scope.bottomScrolled = function () {
-            if (AdvancedCaseSearchService.query != null && !AdvancedCaseSearchService.searching) {
-                AdvancedCaseSearchService.performSearch(AdvancedCaseSearchService.query, CaseService.filterSelect);
-            }
-        };
-
-        $scope.$watch('CaseService.filterSelect', function () {
+        $scope.$watch('CaseService.filterSelect', () => {
             AdvancedCaseSearchService.performSearch(AdvancedCaseSearchService.query, CaseService.filterSelect);
         });
     }
