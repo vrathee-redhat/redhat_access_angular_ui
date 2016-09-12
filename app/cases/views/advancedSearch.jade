@@ -14,13 +14,10 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.totalCases === 0")
             .alert.alert-warning No cases found.
         div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.totalCases != null")
-            span(translate) Showing {{AdvancedCaseSearchService.cases.length}} out of {{AdvancedCaseSearchService.totalCases}} search results
+            span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} out of {{AdvancedCaseSearchService.totalCases}} search results
 
-    //TODO -- remove (ng-hide="RHAUtils.isEmpty(AdvancedCaseSearchService.cases)")
     #case-list.table-list.case-list
-        // TODO -- Debugging through startFrom.js (which shows input as undefined) the cases is defined in scope.$parent.AdvancedSearchCaseService.cases.
-        //  The startFrom.js however is repeatidly called from the ChatButton interval, not sure if that is the issue or not
-        .list-item(ng-repeat='case in AdvancedSearchCaseService.cases | startFrom:AdvancedCaseSearchService.currentPage*AdvancedCaseSearchService.pageSize | limitTo:AdvancedCaseSearchService.pageSize track by $index')
+        .list-item(ng-repeat='case in AdvancedCaseSearchService.cases | startFrom:AdvancedCaseSearchService.currentPage*AdvancedCaseSearchService.pageSize | limitTo:AdvancedCaseSearchService.pageSize track by $index')
             a(href='#/case/{{case.case_number}}')
                 .row.case()
                     .col-sm-4.col-md-2.item-group
@@ -53,11 +50,11 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
         p.center
             span.spinner.spinner-inline
             span {{'Loading cases...'|translate}}
-    //{{AdvancedSearchCaseService.currentPage+1}}/{{AdvancedSearchCaseService.numberOfPages()}}
-    .row(ng-show='!AdvancedCaseService.searching && AdvancedCaseService.cases.length > 0')
+    //{{AdvancedCaseSearchService.currentPage+1}}/{{AdvancedCaseSearchService.numberOfPages()}}
+    .row(ng-show='!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.totalCases > 0')
         .col-sm-6
             .pull-left
-                a.btn.btn-app.btn-sm(ng-disabled="AdvancedSearchCaseService.currentPage == 0", ng-click="AdvancedSearchCaseService.currentPage=AdvancedSearchCaseService.currentPage-1") Previous
+                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage == 0", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage-1; doSearch()") Previous
         .col-sm-6
             .pull-right
-                a.btn.btn-app.btn-sm(ng-disabled="AdvancedSearchCaseService.currentPage >= (AdvancedSearchCaseService.AdvancedCaseService.totalCases/AdvancedSearchCaseService.pageSize) - 1", ng-click="AdvancedSearchCaseService.currentPage=AdvancedSearchCaseService.currentPage+1") Next
+                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage >= (AdvancedCaseSearchService.totalCases/AdvancedCaseSearchService.pageSize) - 1", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage+1; doSearch()") Next

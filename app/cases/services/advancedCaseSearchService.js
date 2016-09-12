@@ -13,6 +13,19 @@ export default class AdvancedCaseSearchService {
         this.currentPage = 0;
         this.totalCases = null;
 
+        // For displaying where we are at in the pagination
+        this.getCasesStart = () => {
+            return this.currentPage * this.pageSize;
+        };
+
+        this.getCasesEnd = () => {
+            const end = (this.currentPage * this.pageSize) + this.pageSize;
+            if (end > this.totalCases) {
+                return this.totalCases;
+            }
+            return end;
+        };
+
         this.performSearch = (query, order) => {
             var solrOrder = this.resolveOrder(order);
             if (query == null || this.searching) return;
@@ -31,7 +44,6 @@ export default class AdvancedCaseSearchService {
                     this.searching = false;
                     this.totalCases = 0;
                 } else {
-                    console.debug(`performSearch found: ${response['case']} cases`);
                     Array.prototype.push.apply(this.cases, response['case']);
                     this.searching = false;
                     this.totalCases = response.total_count;

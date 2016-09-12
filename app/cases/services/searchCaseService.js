@@ -42,6 +42,20 @@ export default class SearchCaseService {
             this.totalCases = 0;
             this.searching = false;
         };
+
+        // For displaying where we are at in the pagination
+        this.getCasesStart = () => {
+            return this.currentPage * this.pageSize;
+        };
+
+        this.getCasesEnd = () => {
+            const end = (this.currentPage * this.pageSize) + this.pageSize;
+            if (end > this.totalCases) {
+                return this.totalCases;
+            }
+            return end;
+        };
+
         this.clearPagination = function () {
             this.start = 0;
             this.total = 0;
@@ -158,9 +172,6 @@ export default class SearchCaseService {
                         }
                         if (response['case'] !== undefined && this.total < this.totalCases) {
                             Array.prototype.push.apply(this.cases, response['case']);
-                            //this.count = response['case'].length + this.total
-                            // Page size should be static, why would it be recalcuated here?
-                            // this.pageSize = this.start + this.pageSize;
                             this.total = this.total + response['case'].length;
                         }
                     }
@@ -184,9 +195,6 @@ export default class SearchCaseService {
                     sortField = "contactName";
                 }
 
-                // If filtering reset the current page to 0
-                this.currentPage = 0;
-
                 strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.bookmarkedAccount, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.currentPage * this.pageSize, this.pageSize, null, null).then((response) => {
                     if (response['case'] === undefined) {
                         this.totalCases = 0;
@@ -194,11 +202,12 @@ export default class SearchCaseService {
                         this.allCasesDownloaded = true;
                     } else {
                         this.totalCases = response.total_count;
-                        this.cases = response['case'];
-                        this.start = this.start + this.pageSize;
-                        this.total = this.total + response['case'].length;
-                        if (response['case'] !== undefined && this.total >= this.totalCases) {
+                        if (response['case'] !== undefined && response['case'].length + this.total >= this.totalCases) {
                             this.allCasesDownloaded = true;
+                        }
+                        if (response['case'] !== undefined && this.total < this.totalCases) {
+                            Array.prototype.push.apply(this.cases, response['case']);
+                            this.total = this.total + response['case'].length;
                         }
                     }
                     deferred.resolve(cases);

@@ -2,6 +2,7 @@
 
 export default {
     received: 'case-received',
+    filterChanged: 'filter-changed',
     searchSubmit: 'search-submit',
     searchBoxChange: 'search-box-change',
     productSelectChange: 'product-select-change',
