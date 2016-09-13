@@ -34,19 +34,21 @@ export default class AdvancedCaseSearchService {
                 this.totalCases = null;
                 this.currentPage = 0;
             }
-            if (this.totalCases != null && this.totalCases <= this.cases.length) return;
-
             this.searching = true;
             this.query = query;
             this.order = solrOrder;
-            return strataService.cases.advancedSearch(query, solrOrder, this.currentPage * this.pageSize, this.pageSize).then((response) => {
+            return strataService.cases.advancedSearch(query, solrOrder, this.getCasesStart(), this.pageSize).then((response) => {
+                this.searching = false;
                 if (response['case'] === undefined) {
-                    this.searching = false;
                     this.totalCases = 0;
                 } else {
-                    Array.prototype.push.apply(this.cases, response['case']);
-                    this.searching = false;
                     this.totalCases = response.total_count;
+
+                    // If the next page of cases requested is greater than the current cases length then we need to
+                    // add those to the cases as they are new.  Otherwise we are just using cache
+                    if (this.getCasesStart() + this.pageSize > this.cases.length) {
+                        Array.prototype.push.apply(this.cases, response['case']);
+                    }
                 }
             });
         };

@@ -40,7 +40,6 @@ export default class List {
             });
         };
 
-        // $scope.$on(CASE_EVENTS.filterChanged, () => SearchCaseService.currentPage = 0);
         $scope.$on(CASE_EVENTS.searchSubmit, () => {
             SearchCaseService.currentPage = 0;
             $scope.doSearch()

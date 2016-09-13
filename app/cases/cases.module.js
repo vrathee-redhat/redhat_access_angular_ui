@@ -237,11 +237,9 @@ app.directive('rhaVersionselect', rhaVersionselect);
 // Filters
 import bytes from './filters/bytes'
 import substring from './filters/substring'
-import startFrom from './filters/startFrom'
 
 app.filter('bytes', bytes);
 app.filter('substring', substring);
-app.filter('startFrom', startFrom);
 
 // Services
 import AccountBookmarkService from './services/accountBookmarkService'
