@@ -18,7 +18,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
 
     #case-list.table-list.case-list
         .list-item(ng-repeat='case in AdvancedCaseSearchService.cases | limitTo:AdvancedCaseSearchService.pageSize:AdvancedCaseSearchService.getCasesStart() track by $index')
-            a(href='#/case/{{case.case_number}}')
+            a(href='#/case/{{case.case_number}}', target="_blank")
                 .row.case()
                     .col-sm-4.col-md-2.item-group
                         .block-icon
