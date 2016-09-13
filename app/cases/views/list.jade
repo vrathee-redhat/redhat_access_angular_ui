@@ -26,7 +26,7 @@ div(rha-header='', page='caseList')
   #case-list.table-list.case-list.bulk-closure
     .list-item(ng-repeat='case in SearchCaseService.cases | limitTo:SearchCaseService.pageSize:SearchCaseService.getCasesStart() track by $index', target='_blank')
       input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
-      a(href='#/case/{{case.case_number}}')
+      a(href='#/case/{{case.case_number}}', target="_blank")
         .row.case()
           .col-sm-4.col-md-2.item-group
             .block-icon
