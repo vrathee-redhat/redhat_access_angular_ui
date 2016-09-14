@@ -5,7 +5,6 @@ import logViewerRouting from './log_viewer.routing'
 //var testURL = 'http://localhost:8080/LogCollector/';
 const app = angular.module('RedhatAccess.logViewer', [
     'angularTreeview',
-    'ngAnimate',
     'ui.bootstrap',
     'RedhatAccess.search',
     'RedhatAccess.header'

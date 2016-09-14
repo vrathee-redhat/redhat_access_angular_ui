@@ -4,7 +4,6 @@ import casesRouting from './cases.routing'
 
 const app = angular.module('RedhatAccess.cases', [
     'ui.router',
-    'ngAnimate',
     'ui.bootstrap',
     'localytics.directives',
     'ngTable',
