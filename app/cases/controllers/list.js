@@ -104,14 +104,14 @@ export default class List {
             if (CaseService.status === undefined) {
                 CaseService.status = 'open';
             }
-            $scope.doSearch();
+            if(RHAUtils.isEmpty(SearchCaseService.cases)) $scope.doSearch();
             $scope.setBreadcrumbs();
         }
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             if (securityService.loginStatus.userAllowedToManageCases) {
                 $scope.firePageLoadEvent();
                 CaseService.status = 'open';
-                $scope.doSearch();
+                if(RHAUtils.isEmpty(SearchCaseService.cases)) $scope.doSearch();
                 $scope.setBreadcrumbs();
             }
         });
