@@ -9,38 +9,51 @@ export default class AdvancedCaseSearchService {
         this.query = null;
         this.order = null;
 
-        this.casesOnPage = 20;
-        this.currentPage = -1;
-        this.allRecordsCount = null;
+        this.pageSize = 20;
+        this.currentPage = 0;
+        this.totalCases = null;
 
-        this.performSearch = function (query, order) {
+        // For displaying where we are at in the pagination
+        this.getCasesStart = () => {
+            return this.currentPage * this.pageSize;
+        };
+
+        this.getCasesEnd = () => {
+            const end = (this.currentPage * this.pageSize) + this.pageSize;
+            if (end > this.totalCases) {
+                return this.totalCases;
+            }
+            return end;
+        };
+
+        this.performSearch = (query, order) => {
             var solrOrder = this.resolveOrder(order);
             if (query == null || this.searching) return;
             if (this.query !== query || this.order !== solrOrder) {
                 this.cases = [];
-                this.allRecordsCount = null;
-                this.currentPage = -1;
+                this.totalCases = null;
+                this.currentPage = 0;
             }
-            if (this.allRecordsCount != null && this.allRecordsCount <= this.cases.length) return;
-
             this.searching = true;
-            this.currentPage++;
             this.query = query;
             this.order = solrOrder;
-            strataService.cases.advancedSearch(query, solrOrder, this.currentPage * this.casesOnPage, this.casesOnPage)
-                .then(angular.bind(this, function (response) {
-                    if (response['case'] === undefined) {
-                        this.searching = false;
-                        this.allRecordsCount = 0;
-                    } else {
-                        this.cases = this.cases.concat(response['case']);
-                        this.searching = false;
-                        this.allRecordsCount = response.total_count;
+            return strataService.cases.advancedSearch(query, solrOrder, this.getCasesStart(), this.pageSize).then((response) => {
+                this.searching = false;
+                if (response['case'] === undefined) {
+                    this.totalCases = 0;
+                } else {
+                    this.totalCases = response.total_count;
+
+                    // If the next page of cases requested is greater than the current cases length then we need to
+                    // add those to the cases as they are new.  Otherwise we are just using cache
+                    if (this.getCasesStart() + this.pageSize > this.cases.length) {
+                        Array.prototype.push.apply(this.cases, response['case']);
                     }
-                }));
+                }
+            });
         };
 
-        this.resolveOrder = function (selectedOrder) {
+        this.resolveOrder = (selectedOrder) => {
             if (selectedOrder == null) return 'case_lastModifiedDate DESC';
             return 'case_' + selectedOrder.sortField + ' ' + selectedOrder.sortOrder;
 

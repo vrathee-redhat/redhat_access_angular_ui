@@ -11,14 +11,14 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
             button#search-button.btn.btn-app.btn-lg(ng-click="$parent.doSearch()", ng-disabled='!$parent.queryParsed || $parent.solrQuery === AdvancedCaseSearchService.query')
                 i.glyphicon.glyphicon-search
                 = ' Search'
-        div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length === 0")
+        div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.totalCases === 0")
             .alert.alert-warning No cases found.
-        div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.allRecordsCount != null")
-            span(translate) Showing {{AdvancedCaseSearchService.cases.length}} out of {{AdvancedCaseSearchService.allRecordsCount}} search results
+        div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.totalCases != null")
+            span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService.totalCases}} search results
 
-    #case-list.table-list.case-list(ng-hide="RHAUtils.isEmpty(AdvancedCaseSearchService.cases)", infinite-scroll="bottomScrolled()")
-        .list-item(ng-repeat='case in AdvancedCaseSearchService.cases')
-            a(href='#/case/{{case.case_number}}')
+    #case-list.table-list.case-list
+        .list-item(ng-repeat='case in AdvancedCaseSearchService.cases | limitTo:AdvancedCaseSearchService.pageSize:AdvancedCaseSearchService.getCasesStart() track by $index')
+            a(href='#/case/{{case.case_number}}', target="_blank")
                 .row.case()
                     .col-sm-4.col-md-2.item-group
                         .block-icon
@@ -50,3 +50,11 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
         p.center
             span.spinner.spinner-inline
             span {{'Loading cases...'|translate}}
+
+    .row(ng-show='!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.totalCases > 0')
+        .col-sm-6
+            .pull-left
+                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage == 0", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage-1; doSearch()") Previous
+        .col-sm-6
+            .pull-right
+                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage >= (AdvancedCaseSearchService.totalCases/AdvancedCaseSearchService.pageSize) - 1", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage+1; doSearch()") Next

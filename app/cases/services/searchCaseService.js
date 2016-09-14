@@ -6,20 +6,23 @@ export default class SearchCaseService {
 
         this.cases = [];
         this.totalCases = 0;
-        this.searching = true;
+        this.searching = false;
         this.start = 0;
-        this.count = 50;
         this.total = 0;
-        this.allCasesDownloaded = false;
         this.refreshFilterCache = false;
-        this.caseListPage = 1;
-        this.caseListPageSize = 10;
         this.caseParameters = {
             searchTerm: '',
             status: STATUS.open,
             group: ''
         };
         this.previousGroupFilter = CASE_GROUPS.none;
+
+        this.currentPage = 0;
+        this.pageSize = 50;
+        this.numberOfPages = function() {
+            return Math.ceil(this.totalCases / this.pageSize);
+        };
+
         var getIncludeClosed = function (caseParameters) {
             if (caseParameters.status === STATUS.open) {
                 return false;
@@ -37,9 +40,22 @@ export default class SearchCaseService {
             this.start = 0;
             this.total = 0;
             this.totalCases = 0;
-            this.allCasesDownloaded = false;
-            this.searching = true;
+            this.searching = false;
         };
+
+        // For displaying where we are at in the pagination
+        this.getCasesStart = () => {
+            return this.currentPage * this.pageSize;
+        };
+
+        this.getCasesEnd = () => {
+            const end = (this.currentPage * this.pageSize) + this.pageSize;
+            if (end > this.totalCases) {
+                return this.totalCases;
+            }
+            return end;
+        };
+
         this.clearPagination = function () {
             this.start = 0;
             this.total = 0;
@@ -50,6 +66,7 @@ export default class SearchCaseService {
         var queryString = '';
 
         this.doFilter = function (checkIsInternal) {
+            if (this.searching) return;
             this.previousGroupFilter = this.caseParameters.group;
             queryString = '';
 
@@ -62,12 +79,9 @@ export default class SearchCaseService {
                 caseOwner = "\"" + securityService.loginStatus.authedUser.first_name + " " + securityService.loginStatus.authedUser.last_name + "\"";
             }
 
-            var promises = [];
             var deferred = $q.defer();
             //if (!angular.equals(queryString, this.oldQueryString)) {
-            this.searching = true;
             this.oldQueryString = queryString;
-            var that = this;
             var cases = null;
             //TODO add internal pallet
             // if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined || checkIsInternal === true) {
@@ -83,15 +97,16 @@ export default class SearchCaseService {
                     CaseService.setFilterSelectModel(filterSelectCache.sortField, filterSelectCache.sortOrder);
                 }
             }
+            this.searching = true;
             if (this.caseParameters.searchTerm === undefined || this.caseParameters.searchTerm === '') {
                 var params = {
-                    count: this.count,
+                    count: this.pageSize,
                     include_closed: getIncludeClosed(this.caseParameters)
                 };
                 if (COMMON_CONFIG.isGS4 === true) {
                     params.account_number = "639769";
                 }
-                params.start = this.start;
+                params.start = this.currentPage * this.pageSize;
 
                 //if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
                 //    params.keyword = this.caseParameters.searchTerm;
@@ -145,77 +160,72 @@ export default class SearchCaseService {
                     strataService.cache.clr('filter' + JSON.stringify(params));
                     this.refreshFilterCache = false;
                 }
-                cases = strataService.cases.filter(params).then(angular.bind(that, function (response) {
+                strataService.cases.filter(params).then((response) => {
                     if (response['case'] === undefined) {
-                        that.totalCases = 0;
-                        that.total = 0;
-                        that.allCasesDownloaded = true;
+                        this.totalCases = 0;
+                        this.total = 0;
+                        this.allCasesDownloaded = true;
                     } else {
-                        that.totalCases = response.total_count;
-                        if (response['case'] !== undefined && response['case'].length + that.total >= that.totalCases) {
-                            that.allCasesDownloaded = true;
+                        this.totalCases = response.total_count;
+                        if (response['case'] !== undefined && response['case'].length + this.total >= this.totalCases) {
+                            this.allCasesDownloaded = true;
                         }
-                        if (response['case'] !== undefined) {
-                            that.cases = response['case'];
-                            //that.count = response['case'].length + that.total
-                            that.start = that.start + that.count;
-                            that.total = that.total + response['case'].length;
+                        if (response['case'] !== undefined && this.total < this.totalCases) {
+                            Array.prototype.push.apply(this.cases, response['case']);
+                            this.total = this.total + response['case'].length;
                         }
                     }
-                    that.searching = false;
                     deferred.resolve(cases);
-                }), angular.bind(that, function (error) {
+                }, (error) => {
                     this.totalCases = 0;
                     this.total = 0;
                     this.allCasesDownloaded = true;
                     if (error.xhr.status === 404) {
-                        this.doFilter(false).then(function () {
-                            deferred.resolve(cases);
-                        });
+                        this.doFilter(false).then(() => deferred.resolve(cases));
                     } else {
                         AlertService.addStrataErrorMessage(error);
-                        that.searching = false;
                         deferred.resolve(cases);
                     }
-                }));
+                }).finally(() => {
+                    this.searching = false;
+                });
             } else {
                 var sortField = CaseService.filterSelect.sortField;
                 if (sortField === "owner") {
                     sortField = "contactName";
                 }
-                cases = strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.bookmarkedAccount, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.start, this.count, null, null).then(angular.bind(that, function (response) {
+
+                strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.bookmarkedAccount, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.currentPage * this.pageSize, this.pageSize, null, null).then((response) => {
                     if (response['case'] === undefined) {
-                        that.totalCases = 0;
-                        that.total = 0;
-                        that.allCasesDownloaded = true;
+                        this.totalCases = 0;
+                        this.total = 0;
+                        this.allCasesDownloaded = true;
                     } else {
-                        that.totalCases = response.total_count;
-                        that.cases = response['case'];
-                        that.start = that.start + that.count;
-                        that.total = that.total + response['case'].length;
-                        if (response['case'] !== undefined && that.total >= that.totalCases) {
-                            that.allCasesDownloaded = true;
+                        this.totalCases = response.total_count;
+                        if (response['case'] !== undefined && response['case'].length + this.total >= this.totalCases) {
+                            this.allCasesDownloaded = true;
+                        }
+                        if (response['case'] !== undefined && this.total < this.totalCases) {
+                            Array.prototype.push.apply(this.cases, response['case']);
+                            this.total = this.total + response['case'].length;
                         }
                     }
-                    that.searching = false;
                     deferred.resolve(cases);
-                }), angular.bind(that, function (error) {
+                }, (error) => {
                     this.totalCases = 0;
                     this.total = 0;
                     this.allCasesDownloaded = true;
                     if (error.xhr.status === 404) {
-                        this.doFilter(false).then(function () {
-                            deferred.resolve(cases);
-                        });
+                        this.doFilter(false).then(() => deferred.resolve(cases));
                     } else {
                         AlertService.addStrataErrorMessage(error);
-                        that.searching = false;
                         deferred.resolve(cases);
                     }
-                }));
+                }).finally(() => {
+                    this.searching = false;
+                });
             }
-            promises.push(deferred.promise);
-            return $q.all(promises);
+            return deferred.promise;
         };
     }
 }

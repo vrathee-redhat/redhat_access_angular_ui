@@ -4,6 +4,7 @@ export default class List {
     constructor($scope, $filter, $location, $state, $uibModal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS, gettextCatalog, RHAUtils) {
         'ngInject';
 
+        $scope.busy = false;
         $scope.SearchCaseService = SearchCaseService;
         $scope.securityService = securityService;
         $scope.AlertService = AlertService;
@@ -15,9 +16,10 @@ export default class List {
         $scope.fetching = false;
         $scope.displayedCaseText = 'Open Support Cases';
         $scope.RHAUtils = RHAUtils;
+
         $scope.exports = function () {
             $scope.exporting = true;
-            strataService.cases.csv().then(function (response) {
+            strataService.cases.csv().then((response) => {
                 $scope.exporting = false;
                 var blob = new Blob([response], {type: 'text/csv'});
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -32,14 +34,15 @@ export default class List {
                     event.initEvent("click", true, false);
                     anchor.dispatchEvent(event);
                 }
-            }, function (error) {
+            }, (error) => {
                 $scope.exporting = false;
                 AlertService.addStrataErrorMessage(error);
             });
         };
 
-        $scope.$on(CASE_EVENTS.searchSubmit, function () {
-            $scope.doSearch();
+        $scope.$on(CASE_EVENTS.searchSubmit, () => {
+            SearchCaseService.currentPage = 0;
+            $scope.doSearch()
         });
 
         $scope.doSearch = function () {
@@ -49,26 +52,32 @@ export default class List {
                 $state.go('group');
             } else {
                 if (CaseService.groups.length === 0) {
-                    CaseService.populateGroups().then(function () {
+                    CaseService.populateGroups().then(() => {
                         if (SearchCaseService.previousGroupFilter === CASE_GROUPS.none) {
                             SearchCaseService.caseParameters.group = CaseService.group;
                         } else {
                             SearchCaseService.caseParameters.group = SearchCaseService.previousGroupFilter;
                         }
-                        SearchCaseService.doFilter();
+                        $scope.busy = true;
+                        return SearchCaseService.doFilter().then(() => {
+                            $scope.busy = false;
+                        });
                     });
                 } else {
                     if (SearchCaseService.previousGroupFilter === CASE_GROUPS.none) {
                         SearchCaseService.caseParameters.group = CaseService.group;
                     }
-                    SearchCaseService.doFilter();
+                    $scope.busy = true;
+                    return SearchCaseService.doFilter().then(() => {
+                        $scope.busy = false;
+                    });
                 }
             }
         };
 
         $scope.firePageLoadEvent = function () {
             if (window.chrometwo_require !== undefined) {
-                chrometwo_require(['analytics/attributes', 'analytics/main'], function (attrs, paf) {
+                chrometwo_require(['analytics/attributes', 'analytics/main'], (attrs, paf) => {
                     attrs.harvest();
                     paf.report();
                 });

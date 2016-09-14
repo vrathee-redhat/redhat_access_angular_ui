@@ -13,7 +13,6 @@ require('angular-sanitize');
 require('angular-animate');
 require('angular-route');
 require('angular-md5');
-require('ng-infinite-scroll');
 require('angular-treeview/angular.treeview');
 require('angular-ui-router');
 require('angular-ui-bootstrap/dist/ui-bootstrap-tpls.js');

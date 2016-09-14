@@ -91,6 +91,7 @@ export default class CaseService {
             if (this.localStorageCache) {
                 this.localStorageCache.put('filterSelect' + securityService.loginStatus.authedUser.sso_username, this.filterSelect);
             }
+            $rootScope.$broadcast(CASE_EVENTS.filterChanged);
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.onSelectChanged = function () {
