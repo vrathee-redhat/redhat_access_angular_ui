@@ -3,12 +3,12 @@ h1(ng-show='securityService.loginStatus.verifying || securityService.loginStatus
 a(href="https://access.redhat.com/articles/2390851#advanced_search", target="_blank") {{"Advanced Case Search User Guide" | translate}}
 div.spinner(ng-show='securityService.loginStatus.verifying')
 div(ng-if='securityService.loginStatus.isLoggedIn')
-    div(rha-solr-query-input, solr-query="$parent.solrQuery", parse-successful="$parent.queryParsed", submit='$parent.doSearch()')
+    div(rha-solr-query-input, solr-query="$parent.solrQuery", parse-successful="$parent.queryParsed", submit='$parent.submitSearch()')
     hr
     #search-area
         .pull-right
             div.search-order(rha-filterselect='')
-            button#search-button.btn.btn-app.btn-lg(ng-click="$parent.doSearch()", ng-disabled='!$parent.queryParsed || $parent.solrQuery === AdvancedCaseSearchService.query')
+            button#search-button.btn.btn-app.btn-lg(ng-click="$parent.submitSearch()", ng-disabled='!$parent.queryParsed || $parent.solrQuery === AdvancedCaseSearchService.query')
                 i.glyphicon.glyphicon-search
                 = ' Search'
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.totalCases === 0")
@@ -18,7 +18,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
 
     #case-list.table-list.case-list
         .list-item(ng-repeat='case in AdvancedCaseSearchService.cases | limitTo:AdvancedCaseSearchService.pageSize:AdvancedCaseSearchService.getCasesStart() track by $index')
-            a(href='#/case/{{case.case_number}}', target="_blank")
+            a(href='#/case/{{case.case_number}}')
                 .row.case()
                     .col-sm-4.col-md-2.item-group
                         .block-icon
