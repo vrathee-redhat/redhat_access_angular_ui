@@ -153,3 +153,9 @@ a { color: $link-color; }
 		margin-right: 8px;
 	}
 }
+
+.chosen-single-with-deselect {
+    .search-choice-close {
+        margin-top: 3px;
+    }
+}
