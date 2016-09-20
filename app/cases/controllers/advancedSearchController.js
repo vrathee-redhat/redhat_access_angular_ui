@@ -136,7 +136,6 @@ export default class AdvancedSearchController {
             if(filter) {
                 // Update filter in the URL
                 $state.go('advancedSearch', {sortBy: `${filter.sortField}_${filter.sortOrder}`}, {
-                    location: 'replace',
                     notify: false,
                     reload: false
                 });

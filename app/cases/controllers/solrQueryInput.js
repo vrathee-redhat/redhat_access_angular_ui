@@ -131,7 +131,7 @@ export default class SolrQueryInputController {
                 SOLRGrammarService.parse(query);
                 $scope.changeSolrQuery(query);
                 $scope.parseSuccessful = true;
-                $state.go('advancedSearch', {query: query}, {location: 'replace', notify: false, reload: false});
+                $state.go('advancedSearch', {query: query}, {notify: false, reload: false});
 
                 // trigger further autocompletion by adding a whitespace
                 try {
