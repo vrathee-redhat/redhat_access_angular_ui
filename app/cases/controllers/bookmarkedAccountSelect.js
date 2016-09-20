@@ -27,8 +27,10 @@ export default class BookmarkedAccountSelect {
             }
         };
 
-        $scope.$watch('selectedAccount', function () {
-            $scope.selectedAccountChanged();
+        $scope.$watch('selectedAccount', function (newValue, oldValue) {
+            if(newValue != oldValue) {
+                $scope.selectedAccountChanged();
+            }
         });
 
         if (!AccountBookmarkService.loading) {

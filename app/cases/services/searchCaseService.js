@@ -66,7 +66,6 @@ export default class SearchCaseService {
         var queryString = '';
 
         this.doFilter = function (checkIsInternal) {
-            if (this.searching) return;
             this.previousGroupFilter = this.caseParameters.group;
             queryString = '';
 
