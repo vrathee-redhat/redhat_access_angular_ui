@@ -144,11 +144,16 @@ export default class CaseService {
             angular.copy(this.prestineKase, this.kase);
         };
         this.setCase = function (jsonCase) {
+            jsonCase.severity = {'name': jsonCase.severity};
+            jsonCase.status = {'name': jsonCase.status};
+            jsonCase.group = {'number': jsonCase.folder_number};
+            jsonCase.type = {'name': jsonCase.type};
             this.kase = jsonCase;
             this.ungroupedCaseModifier();
             angular.copy(this.kase, this.prestineKase);
             this.bugzillaList = jsonCase.bugzillas;
             this.caseDataReady = true;
+            this.onProductSelectChange();
         };
 
         //Explicitly assigning group_number = '-1' for ungrouped case when case payload has no group information
