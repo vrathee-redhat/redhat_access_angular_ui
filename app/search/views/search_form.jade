@@ -4,7 +4,7 @@
             .input-group
                 input#rhSearchStr.form-control(type='text', name='searchString', ng-model='searchStr', placeholder="{{'Search Articles and Solutions'|translate}}")
                 span.input-group-btn
-                    button.btn.btn-default.btn-primary(ng-disabled="(searchStr === undefined || searchStr.trim()==='' || searchInProgress.value === true)", type='submit', ng-click='search(searchStr)')
+                    button.btn.btn-default.btn-primary(ng-disabled="(searchStr == null || searchStr.trim()==='' || searchInProgress.value === true)", type='submit', ng-click='search(searchStr)')
                         i.glyphicon.glyphicon-search
                         | {{'Search'|translate}}
         .col-sm-4(ng-show='searchInProgress.value')

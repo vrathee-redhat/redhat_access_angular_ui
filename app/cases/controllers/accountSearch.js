@@ -1,9 +1,9 @@
 'use strict';
 
 export default class AccountSearch {
-    constructor($scope, AccountService, $timeout) {
+    constructor($scope, AccountService, $timeout, RHAUtils) {
         'ngInject';
-        
+
         let changeTimeout;
         $scope.accountQuery = '';
         $scope.account = null;
@@ -13,7 +13,7 @@ export default class AccountSearch {
         $scope.loading = false;
 
         $scope.loadAccount = function () {
-            if ($scope.accountQuery.trim().length === 0) {
+            if (RHAUtils.isEmpty($scope.accountQuery) || $scope.accountQuery.trim().length === 0) {
                 $scope.invalid = false;
                 $scope.valid = false;
                 $scope.loading = false;

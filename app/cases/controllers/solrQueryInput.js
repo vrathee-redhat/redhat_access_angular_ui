@@ -168,7 +168,7 @@ export default class SolrQueryInputController {
                 if (a.display > b.display) return 1;
                 return 0;
             });
-            if (phrase !== undefined && RHAUtils.isNotEmpty(phrase.trim())) {
+            if (phrase != null && RHAUtils.isNotEmpty(phrase.trim())) {
                 $scope.autocompleteList = $scope.autocompleteList.filter(function (item) {
                     return item.display.toLowerCase().indexOf(phrase.trim().toLowerCase()) >= 0;
                 })
