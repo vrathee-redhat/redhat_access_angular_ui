@@ -8,3 +8,5 @@ div
       ng-change='onOwnerSelect($event)',
       ng-options="user.sso_username as (user.first_name + ' ' + user.last_name + ' <' + user.sso_username + '>') for user in CaseService.users | orderBy:['first_name','last_name']",
       width='"100%"')
+        option(value="")
+

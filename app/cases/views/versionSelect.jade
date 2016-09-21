@@ -5,5 +5,6 @@ select#rha-product-version-select.form-control(
 	ng-options='v for v in versions',
 	ng-change='onVersionSelect($event)',
 	ng-disabled='ProductsService.versionDisabled || CaseService.kase.product === undefined || !securityService.loginStatus.isLoggedIn || CaseService.submittingCase')
+    option(value="")
 div.versionSunsetMessage(ng-show='ProductsService.showVersionSunset()')
-	span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
+    span {{'This release is now retired, please refer to the recommended FAQ prior to filing a case'|translate}}
