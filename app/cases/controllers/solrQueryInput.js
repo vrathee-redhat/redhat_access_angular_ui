@@ -1,5 +1,7 @@
 'use strict';
 
+import each from 'lodash/each'
+
 export default class SolrQueryInputController {
     constructor($scope, SOLRGrammarService, RHAUtils, CASE_EVENTS, strataService, CaseService, ProductsService, securityService,
                 AccountBookmarkService, AccountService, $stateParams, $state) {
@@ -105,12 +107,10 @@ export default class SolrQueryInputController {
         };
 
         $scope.setupAutocompletion = () => {
-            if(RHAUtils.isNotEmpty(SOLRGrammarService.accounts)) {
-                SOLRGrammarService.accounts.forEach(account => {
-                    // Autocompletion which is not directly in the grammar, to make it non-user-specific
-                   $scope.autocompleteSegments[account.number] = `${account.number} (${account.name})`;
-                });
-            }
+            each(SOLRGrammarService.accounts, account => {
+                // Autocompletion which is not directly in the grammar, to make it non-user-specific
+                $scope.autocompleteSegments[account.number] = `${account.number} (${account.name})`;
+            });
         };
 
         $scope.changeSolrQuery = function (query) {
