@@ -663,7 +663,7 @@ export default class CaseService {
                 this.updatingCase = false;
                 angular.copy(this.kase, this.prestineKase);
                 deferred.resolve();
-            }), function (error) {
+            }), (error) => {
                 deferred.reject(error);
                 this.updatingCase = false;
             });
