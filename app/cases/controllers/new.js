@@ -186,12 +186,14 @@ export default class New {
             strataService.products.list(CaseService.owner).then(function (products) {
                 CaseService.kase.product = product;
                 ProductsService.getVersions(CaseService.kase.product).then(function (versions) {
-                    version = version.trim();
-                    var matchingVersions = versions.filter(function (productVersion) {
-                        return productVersion === version;
-                    });
-                    if (matchingVersions.length > 0) {
-                        CaseService.kase.version = version; //setting version after product check, as without product, version don't have any meaning
+                    if(RHAUtils.isNotEmpty(version)) {
+                        version = version.trim();
+                        var matchingVersions = versions.filter(function (productVersion) {
+                            return productVersion === version;
+                        });
+                        if (matchingVersions.length > 0) {
+                            CaseService.kase.version = version; //setting version after product check, as without product, version don't have any meaning
+                        }
                     }
                     CaseService.validateNewCase();
                 });
