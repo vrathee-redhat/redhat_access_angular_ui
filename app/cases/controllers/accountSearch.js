@@ -4,7 +4,6 @@ export default class AccountSearch {
     constructor($scope, AccountService, $timeout, RHAUtils) {
         'ngInject';
 
-        let changeTimeout;
         $scope.accountQuery = '';
         $scope.account = null;
 
@@ -28,22 +27,25 @@ export default class AccountSearch {
             var number = $scope.accountQuery.trim();
             AccountService.loadAccount(number, false).then(function () {
                 if (AccountService.accounts[number] != null) {
-                    $scope.account = AccountService.accounts[number];
-                    $scope.valid = true;
-                    $scope.invalid = false;
+                    if (AccountService.accounts[number].number == $scope.accountQuery.trim()) {
+                        $scope.account = AccountService.accounts[number];
+                        $scope.valid = true;
+                        $scope.invalid = false;
+                    }
                     $scope.loading = false;
                 } else {
-                    $scope.account = null;
-                    $scope.invalid = true;
-                    $scope.valid = false;
+                    if (number == $scope.accountQuery.trim()) {
+                        $scope.account = null;
+                        $scope.invalid = true;
+                        $scope.valid = false;
+                    }
                     $scope.loading = false;
                 }
             });
         };
 
         $scope.queryChanged = function () {
-            if (changeTimeout != null) $timeout.cancel(changeTimeout);
-            changeTimeout = $timeout($scope.loadAccount, 300);
+            $scope.loadAccount();
         }
     }
 }
