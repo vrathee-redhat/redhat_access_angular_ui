@@ -31,15 +31,15 @@ export default class AccountSearch {
                         $scope.account = AccountService.accounts[number];
                         $scope.valid = true;
                         $scope.invalid = false;
+                        $scope.loading = false;
                     }
-                    $scope.loading = false;
                 } else {
                     if (number == $scope.accountQuery.trim()) {
                         $scope.account = null;
                         $scope.invalid = true;
                         $scope.valid = false;
+                        $scope.loading = false;
                     }
-                    $scope.loading = false;
                 }
             });
         };
