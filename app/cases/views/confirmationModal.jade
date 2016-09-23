@@ -1,0 +1,7 @@
+.modal-header
+    h2(translate) Are you sure?
+.modal-body
+    span {{message}}
+.modal-footer
+    button.btn.btn-success(type="button", ng-click="confirm()", translate) Yes
+    button.btn.btn-danger.pull-left(type="button", ng-click="reject()", translate) No

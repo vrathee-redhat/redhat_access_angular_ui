@@ -1,11 +1,14 @@
 'use strict';
 
+import each from 'lodash/each'
+
 export default class SolrQueryInputController {
-    constructor($scope, SOLRGrammarService, RHAUtils, CASE_EVENTS, strataService, CaseService, ProductsService, securityService, AccountBookmarkService, AccountService) {
+    constructor($scope, SOLRGrammarService, RHAUtils, CASE_EVENTS, strataService, CaseService, ProductsService, securityService,
+                AccountBookmarkService, AccountService, $stateParams, $state) {
         'ngInject';
 
         $scope.parseSuccessful = false;
-        $scope.inputQuery = "";
+        $scope.inputQuery = $scope.solrQuery || "";
         $scope.showingCompletionList = true;
         $scope.CASE_EVENTS = CASE_EVENTS;
         $scope.RHAUtils = RHAUtils;
@@ -15,6 +18,7 @@ export default class SolrQueryInputController {
         $scope.productsLoading = true;
         $scope.accountsLoading = true;
         $scope.ABS = AccountBookmarkService;
+        $scope.autocompleteSegments = {};
 
         var init = function () {
             var promises = [];
@@ -97,7 +101,15 @@ export default class SolrQueryInputController {
             }
 
             Promise.all(promises).then(function () {
+                $scope.setupAutocompletion();
                 $scope.$broadcast(CASE_EVENTS.focusSearchInput);
+            });
+        };
+
+        $scope.setupAutocompletion = () => {
+            each(SOLRGrammarService.accounts, account => {
+                // Autocompletion which is not directly in the grammar, to make it non-user-specific
+                $scope.autocompleteSegments[account.number] = `${account.number} (${account.name})`;
             });
         };
 
@@ -105,11 +117,21 @@ export default class SolrQueryInputController {
             $scope.solrQuery = query;
         };
 
+        $scope.verifyQuery = (query) => {
+            try {
+                SOLRGrammarService.parse(query);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        };
+
         $scope.$watch("inputQuery", function (query) {
             try {
-                var solrquery = SOLRGrammarService.parse(query);
-                $scope.changeSolrQuery(solrquery);
+                SOLRGrammarService.parse(query);
+                $scope.changeSolrQuery(query);
                 $scope.parseSuccessful = true;
+                $state.go('advancedSearch', {query: query}, {notify: false, reload: false});
 
                 // trigger further autocompletion by adding a whitespace
                 try {
@@ -141,10 +163,10 @@ export default class SolrQueryInputController {
                         if (contentMatch != null && contentMatch.length >= 2) {
                             content = contentMatch[1];
                         }
-                        autocomplete.push({display: content, value: expected.value});
+                        autocomplete.push({display: $scope.autocompleteSegments[content] || content, value: expected.value});
                         info = "Choose one of the displayed options.";
                     } else if (expected.value === '"') {
-                        info = "Values containing whitespaces have to be wraped in double quotes.";
+                        info = "Values containing whitespaces have to be wrapped in double quotes.";
                     }
 
                     if (expected.value === " and ") {
