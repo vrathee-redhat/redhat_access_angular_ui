@@ -5,7 +5,11 @@ div.account-search
             label(translate) Account number:&nbsp;
             span.spinner.spinner-inline(ng-show='loading')
         .col-sm-9.col-xs-12(ng-class='{"has-success": valid, "has-error": invalid}')
-            input.form-control(type='text', ng-model='accountQuery', placeholder='{{"Enter account number"|translate}}', ng-change='queryChanged()')
+            input.form-control(type='text', ng-model='accountQuery', placeholder='{{"Enter account number"|translate}}', ng-change='queryChanged()', ng-model-options="{debounce:300}")
+    #alert-not-found.alert.alert-warning.alert-w-icon(ng-show="invalid")
+        span.alert-icon.icon-warning
+        strong(translate) &nbsp;Account not found!&nbsp;
+        span(translate) Account with such number does not exist. Make sure the account number is correct.
     table.table.table-hover.account-table(ng-show='account != null')
         thead
             tr
