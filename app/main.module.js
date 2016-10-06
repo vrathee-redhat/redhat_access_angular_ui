@@ -29,19 +29,19 @@ require('chosen/chosen.jquery.js');
 window.moment = require('moment');
 require('moment-timezone');
 
-const packageJson = require('./../package.json');
 
 let Promise = require('bluebird');
 window.Promise = Promise;
 let strata = require('stratajs/strata.js');
 window.strata = strata;
-window.strata.setRedhatClientID("Red Hat Customer Portal " + packageJson.version);
 
 if (ENVIRONMENT === 'test') {
     require('angular-mocks');
 } else {
     require('./assets/sass/main.scss');
+    const packageJson = require('./../package.json');
     window.pcmVersion = packageJson.version;
+    window.strata.setRedhatClientID("Red Hat Customer Portal " + packageJson.version);
 }
 
 
