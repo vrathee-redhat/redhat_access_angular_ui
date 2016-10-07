@@ -29,6 +29,7 @@ require('chosen/chosen.jquery.js');
 window.moment = require('moment');
 require('moment-timezone');
 
+
 let Promise = require('bluebird');
 window.Promise = Promise;
 let strata = require('stratajs/strata.js');
@@ -40,6 +41,7 @@ if (ENVIRONMENT === 'test') {
     require('./assets/sass/main.scss');
     const packageJson = require('./../package.json');
     window.pcmVersion = packageJson.version;
+    window.strata.setRedhatClientID("Red Hat Customer Portal " + packageJson.version);
 }
 
 
