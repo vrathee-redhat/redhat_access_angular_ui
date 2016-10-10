@@ -1,7 +1,11 @@
 'use strict';
 
+import map from 'lodash/map';
+import filter from 'lodash/filter';
+import find from 'lodash/find';
+
 export default class AdvancedCaseSearchService {
-    constructor(strataService) {
+    constructor(strataService, SearchBookmarkService, ConstantsService, RHAUtils) {
         'ngInject';
 
         this.searching = false;
@@ -12,6 +16,8 @@ export default class AdvancedCaseSearchService {
         this.pageSize = 20;
         this.currentPage = 0;
         this.totalCases = null;
+
+        this.columns = null;
 
         // For displaying where we are at in the pagination
         this.getCasesStart = () => {
@@ -57,6 +63,24 @@ export default class AdvancedCaseSearchService {
             if (selectedOrder == null) return 'case_lastModifiedDate DESC';
             return 'case_' + selectedOrder.sortField + ' ' + selectedOrder.sortOrder;
 
+        }
+
+        this.getColumns = () => {
+            if(this.columns == null) {
+                const allColumns = ConstantsService.advancedCaseListColumns;
+                const currentBookmark = SearchBookmarkService.getCurrentBookmark();
+                if(currentBookmark != null && RHAUtils.isNotEmpty(currentBookmark.columns))  {
+                    this.columns = filter(map(currentBookmark.columns, (col) => find(allColumns, {id: col})), c => c != null);
+                } else { // set default columns
+                    this.columns = filter(allColumns, {default: true});
+                }
+            }
+
+            return this.columns;
+        }
+
+        this.clearColumns = () => {
+            this.columns = null;
         }
     }
 }

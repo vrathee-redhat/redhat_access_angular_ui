@@ -13,7 +13,8 @@ const app = angular.module('RedhatAccess.cases', [
     'RedhatAccess.search',
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
-    'RedhatAccess.header'
+    'RedhatAccess.header',
+    'dndLists'
 ]);
 
 // Constants
@@ -95,6 +96,8 @@ import StatusSelect from './controllers/statusSelect'
 import TypeSelect from './controllers/typeSelect'
 import VersionSelect from './controllers/versionSelect'
 import SearchBookmarkModal from './controllers/searchBookmarkModal'
+import AdvancedSearchCaseList from './controllers/advancedSearchCaseList'
+import ColumnSelectModal from './controllers/columnSelectModal'
 
 app.controller('AccountBookmarkHome', AccountBookmarkHome);
 app.controller('AccountSearch', AccountSearch);
@@ -147,6 +150,8 @@ app.controller('StatusSelect', StatusSelect);
 app.controller('TypeSelect', TypeSelect);
 app.controller('VersionSelect', VersionSelect);
 app.controller('SearchBookmarkModal', SearchBookmarkModal);
+app.controller('AdvancedSearchCaseList', AdvancedSearchCaseList);
+app.controller('ColumnSelectModal', ColumnSelectModal);
 
 // Directives
 import rhaAttachlocalfile from './directives/attachLocalFile'
@@ -234,6 +239,11 @@ app.directive('rhaSolrQueryInput', rhaSolrQueryInput);
 app.directive('rhaStatusselect', rhaStatusselect);
 app.directive('rhaTypeselect', rhaTypeselect);
 app.directive('rhaVersionselect', rhaVersionselect);
+
+//Components
+import rhaAdvancedSearchCaseList from './components/advancedSearchCaseList'
+
+app.component('rhaAdvancedSearchCaseList', rhaAdvancedSearchCaseList);
 
 // Filters
 import bytes from './filters/bytes'

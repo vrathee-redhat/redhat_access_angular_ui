@@ -1,0 +1,37 @@
+.modal-header
+    h2(translate) Select Case Columns
+.modal-body
+    p(translate) Select columns by dragging from left to right.
+    .row
+        .col-sm-6
+            h3(translate) Available Columns
+            span.text-muted(ng-show="$ctrl.available.length == 0", translate) No more fields available.
+            ul.drag-list(dnd-list="$ctrl.available", dnd-allowed-types="['nonrequired']",)
+                li(
+                    ng-repeat="item in $ctrl.available",
+                    dnd-draggable="item",
+                    dnd-moved="$ctrl.available.splice($index, 1)",
+                    dnd-effect-allowed="move") {{item.name}}
+                li.dndPlaceholder(translate) Drop column here.
+        .col-sm-6
+            h3(translate) Selected Columns
+            span.text-muted(ng-show="$ctrl.selected.length == 0", translate) No fields selected.
+            ul.drag-list(dnd-list="$ctrl.selected")
+                li(
+                    ng-repeat="item in $ctrl.selected",
+                    dnd-draggable="item",
+                    dnd-moved="$ctrl.selected.splice($index, 1)",
+                    dnd-effect-allowed="move",
+                    dnd-type="item.required ? 'required' : 'nonrequired'"
+                    ng-class="{required: item.required}") {{item.name}}
+                li.dndPlaceholder(translate) Drop column here.
+.modal-footer
+    button.btn.btn-info.btn-sm(ng-click="$ctrl.reset()")
+        span.glyphicon.glyphicon-refresh
+        span(translate) &nbsp;Reset
+    button.btn.btn-default.btn-sm(ng-click="$ctrl.cancel()")
+        span.glyphicon.glyphicon-remove
+        span(translate) &nbsp;Cancel
+    button.btn.btn-primary.btn-sm(ng-click="$ctrl.submit()")
+        span.glyphicon.glyphicon-floppy-save
+        span(translate) &nbsp;Save

@@ -29,38 +29,12 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.totalCases === 0")
             .alert.alert-warning No cases found.
         div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.totalCases != null")
-            span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService.totalCases}} search results
-
-    #case-list.table-list.case-list
-        .list-item(ng-repeat='case in AdvancedCaseSearchService.cases | limitTo:AdvancedCaseSearchService.pageSize:AdvancedCaseSearchService.getCasesStart() track by $index')
-            a(href='#/case/{{case.case_number}}')
-                .row.case()
-                    .col-sm-4.col-md-2.item-group
-                        .block-icon
-                            .severity
-                                //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
-                                i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
-                                i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
-                                i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
-                                i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
-                            .case-id
-                                .subheading {{case.case_number}}
-                                .description {{case.status}}
-                    .col-sm-8.col-md-6.item-group
-                        .subheading
-                            | {{case.summary}}
-                        .description
-                            | {{case.product}}
-                            span
-                            | &nbsp;{{case.version}}
-                    .col-sm-12.col-md-2()
-                        .item-group.change-log
-                            .filed-on
-                                span(translate) Created by {{case.created_by}} on {{case.created_date}}
-                    .col-sm-12.col-md-2
-                        .item-group.change-log
-                            .filed-on
-                                span(translate) Owned by {{case.contact_name}}
+            span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService.totalCases}} search results    
+    rha-advanced-search-case-list(
+        cases="AdvancedCaseSearchService.cases"
+        offset="AdvancedCaseSearchService.getCasesStart()"
+        limit="AdvancedCaseSearchService.pageSize",
+        loading="AdvancedCaseSearchService.searching")
     div(ng-show="AdvancedCaseSearchService.searching")
         p.center
             span.spinner.spinner-inline
