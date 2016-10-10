@@ -1,24 +1,31 @@
 .page-header(rha-header='', page='')
 div.edit(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
-  .row
+  .row.row-very-short
     div.section.main.col-md-8
-      h1.page-title(translate, style="margin-bottom:0px;") CASE {{CaseService.kase.case_number}}
-      h5(style="margin-bottom:0px;") {{CaseService.kase.summary}}
-      div(style="margin-bottom:15px;")
+      .row.row-very-short
+        h1.page-title(translate) CASE {{CaseService.kase.case_number}}
+      .row.row-very-short(ng-if='securityService.loginStatus.authedUser.is_internal')
+        span.label.label-mar-right.label-info(ng-show='CaseService.kase.hotfix_requested') {{'Hot Fix Requested'|translate}}
+        span.label.label-mar-right.label-success(ng-show='CaseService.kase.hotfix_delivered') {{'Hot Fix Delivered'|translate}}
+        span.label.label-mar-right.label-danger(ng-show='CaseService.account.is_special_handling_required') {{'Special Handling'|translate}}
+      .row.row-very-short
+        b {{CaseService.kase.summary}}
+      .row.row-very-short
         span(id="rha-product-version") {{CaseService.kase.product}} {{CaseService.kase.version}}
-      div
+      .row.row-very-short
         span(id="rha-case-filedOn" translate)  Filed on {{CaseService.kase.created_date}} by {{CaseService.kase.created_by}}
-      div
+      .row.row-very-short
         span {{'Assigned to'|translate}} {{CaseService.kase.owner}}
-      div(ng-if='securityService.loginStatus.authedUser.is_internal')
+      .row.row-very-short(ng-if='securityService.loginStatus.authedUser.is_internal')
         span(translate) Account number : {{CaseService.account.number}}
-      div(ng-if='securityService.loginStatus.authedUser.is_internal')
+      .row.row-very-short(ng-if='securityService.loginStatus.authedUser.is_internal')
         span(translate) Account name : {{CaseService.account.name}}
         span(rha-bookmark-account, account='CaseService.account')
-      a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
-      div(style="margin-top:15px;", ng-show='EDIT_CASE_CONFIG.showDescription')
+      .row.row-very-short
+        a(href='/support/offerings/production/sla.html', target='_blank') {{CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
+      .row.row-very-short(ng-show='EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='loading.kase')
-      div(ng-show='EDIT_CASE_CONFIG.showDetails')
+      .row.row-very-short(ng-show='EDIT_CASE_CONFIG.showDetails')
         div(rha-casedetails='', compact='false', loading='loading.kase')
           rha-casedetails
       section.case-discussion
