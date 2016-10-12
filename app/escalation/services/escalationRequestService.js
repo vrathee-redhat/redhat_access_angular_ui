@@ -106,7 +106,8 @@ export default class EscalationRequestService {
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(gettextCatalog.getString('Creating Ice Escalation request .....'));
             }
-            strataService.escalationRequest.create(escalationJSON).then(angular.bind(this, function (escalationNum) {
+            const promise = strataService.escalationRequest.create(escalationJSON)
+            promise.then((escalationNum) => {
                 AlertService.clearAlerts();
                 if (escalationNum !== undefined) {
                     if (recordType === ESCALATION_TYPE.partner) {
@@ -116,14 +117,15 @@ export default class EscalationRequestService {
                     }
                     this.clearEscalationFields();
                 }
-            }), angular.bind(this, function (error) {
+            }, (error) => {
                 if (error.xhr.status === 403) {
                     AlertService.clearAlerts();
                     HeaderService.showPartnerEscalationError = true;
                 } else {
                     AlertService.addStrataErrorMessage(error);
                 }
-            }));
+            });
+            return promise;
         };
     }
 }
