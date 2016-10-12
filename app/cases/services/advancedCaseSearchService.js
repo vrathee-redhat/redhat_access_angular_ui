@@ -3,9 +3,10 @@
 import map from 'lodash/map';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
+import * as FileSaver from 'filesaver.js'
 
 export default class AdvancedCaseSearchService {
-    constructor(strataService, SearchBookmarkService, ConstantsService, RHAUtils) {
+    constructor(strataService, SearchBookmarkService, ConstantsService, RHAUtils, AlertService) {
         'ngInject';
 
         this.searching = false;
@@ -81,6 +82,18 @@ export default class AdvancedCaseSearchService {
 
         this.clearColumns = () => {
             this.columns = null;
+        }
+
+        this.initiateCSVDownload = () => {
+            this.exporting = true;
+            return strataService.cases.advancedSearch(this.query, this.order, 0, 10000, 'csv').then((response, xhr) => {
+                const csvBlob = new Blob([response], {type: 'text/csv'});
+                FileSaver.saveAs(csvBlob, 'cases-export.csv');
+                this.exporting = false;
+            }, (error) => {
+                this.exporting = false;
+                AlertService.addStrataErrorMessage(error)
+            });
         }
     }
 }
