@@ -20,5 +20,15 @@ export default class ManageGroups {
                 $scope.init();
             });
         }
+
+        // set breadcrumbs
+        if (window.chrometwo_require !== undefined) {
+            breadcrumbs = [
+                ['Support', '/support/'],
+                ['Support Cases', '/support/cases/'],
+                ['Case Groups']
+            ];
+            updateBreadCrumb();
+        }
     }
 }

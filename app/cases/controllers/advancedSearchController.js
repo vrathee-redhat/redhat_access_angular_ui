@@ -151,5 +151,16 @@ export default class AdvancedSearchController {
             init();
         }
         $scope.$on(AUTH_EVENTS.loginSuccess, init);
+
+
+        // set breadcrumbs
+        if (window.chrometwo_require !== undefined) {
+            breadcrumbs = [
+                ['Support', '/support/'],
+                ['Support Cases', '/support/cases/'],
+                ['Search']
+            ];
+            updateBreadCrumb();
+        }
     }
 }
