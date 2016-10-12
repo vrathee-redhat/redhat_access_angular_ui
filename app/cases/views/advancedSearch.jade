@@ -66,7 +66,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
             span.spinner.spinner-inline
             span {{'Loading cases...'|translate}}
 
-    .row(ng-show='!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.totalCases > 0')
+    .row(ng-show='!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.totalCases > 0 && AdvancedCaseSearchService.totalCases > AdvancedCaseSearchService.pageSize')
         .col-sm-6
             .pull-left
                 a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage == 0", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage-1; doSearch()") Previous
