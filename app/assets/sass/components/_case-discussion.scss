@@ -12,6 +12,9 @@
 	.discussion-element{
 		margin-top: 10px;
 	}
+	textarea.comment {
+	    margin-bottom: 15px;
+	}
 	.comment {
 		textarea { min-height: 250px; }
 		& + .comment { @include rem('margin-top', 5px); }
