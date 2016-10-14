@@ -59,14 +59,12 @@ import BookmarkedAccountSelect from './controllers/bookmarkedAccountSelect'
 import CommonConfirmationModal from './controllers/commonConfirmationModal'
 import CreateGroupButton from './controllers/createGroupButton'
 import CreateGroupModal from './controllers/createGroupModal'
-import DefaultGroup from './controllers/defaultGroup'
 import DeleteGroupButton from './controllers/deleteGroupButton'
 import DescriptionSection from './controllers/descriptionSection'
 import DetailsSection from './controllers/detailsSection'
 import DiscussionSection from './controllers/discussionSection'
 import Edit from './controllers/edit'
 import EditCaseRecommendationsController from './controllers/editCaseRecommendationsSection'
-import EditGroup from './controllers/editGroup'
 import EmailNotifySelect from './controllers/emailNotifySelect'
 import EntitlementSelect from './controllers/entitlementSelect'
 import ExistingBookmarkedAccounts from './controllers/existingBookmarkedAccounts'
@@ -112,14 +110,12 @@ app.controller('BookmarkedAccountSelect', BookmarkedAccountSelect);
 app.controller('CommonConfirmationModal', CommonConfirmationModal);
 app.controller('CreateGroupButton', CreateGroupButton);
 app.controller('CreateGroupModal', CreateGroupModal);
-app.controller('DefaultGroup', DefaultGroup);
 app.controller('DeleteGroupButton', DeleteGroupButton);
 app.controller('DescriptionSection', DescriptionSection);
 app.controller('DetailsSection', DetailsSection);
 app.controller('DiscussionSection', DiscussionSection);
 app.controller('Edit', Edit );
 app.controller('EditCaseRecommendationsController', EditCaseRecommendationsController);
-app.controller('EditGroup', EditGroup);
 app.controller('EmailNotifySelect', EmailNotifySelect);
 app.controller('EntitlementSelect', EntitlementSelect);
 app.controller('ExistingBookmarkedAccounts', ExistingBookmarkedAccounts);

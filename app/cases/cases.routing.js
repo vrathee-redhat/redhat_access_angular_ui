@@ -23,16 +23,6 @@ export default ($stateProvider, $provide) => {
         controller: 'ManageGroups',
         template: require('./views/manageGroups.jade')
     });
-    $stateProvider.state('defaultGroup', {
-        url: '/case/group/default',
-        controller: 'DefaultGroup',
-        template: require('./views/defaultGroup.jade')
-    });
-    $stateProvider.state('editGroup', {
-        url: '/case/group/{groupNumber}',
-        controller: 'EditGroup',
-        template: require('./views/editGroup.jade')
-    });
     $stateProvider.state('advancedSearch', {
         url: '/case/search?query&sortBy&bookmark',
         controller: 'AdvancedSearchController',
