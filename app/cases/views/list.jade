@@ -62,7 +62,7 @@ div(rha-header='', page='caseList')
     .spinner
     p.center {{'Loading cases...'|translate}}
 
-  .row(ng-show='!SearchCaseService.searching && SearchCaseService.totalCases > 0')
+  .row(ng-show='!SearchCaseService.searching && SearchCaseService.totalCases > 0 && SearchCaseService.totalCases > SearchCaseService.pageSize')
     .col-sm-6
       .pull-left
         a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage == 0", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage-1; SearchCaseService.doFilter();") Previous
