@@ -41,7 +41,9 @@ export default class EscalationRequest {
             }
             if (emailCheck) {
                 $scope.disableSendRequest = true;
-                EscalationRequestService.sendEscalationRequest(recordType);
+                EscalationRequestService.sendEscalationRequest(recordType).catch(() => {
+                    $scope.disableSendRequest = false;
+                });
             }
         };
         $scope.partnerMandatoryFieldCheck = function () {
