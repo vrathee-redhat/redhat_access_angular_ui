@@ -21,9 +21,9 @@ span(ng-show='ManageGroupsService.usersLoading') {{'Users Loading...'|translate}
             td(data-title='', sortable='')
               span(ng-disabled='user.org_admin') {{user.sso_username}}
             td(data-title='', sortable='')
-              {{user.first_name}}
+              | {{user.first_name}}
             td(data-title='', sortable='')
-              {{user.last_name}}
+              | {{user.last_name}}
             td(data-title='', sortable='')
               span(ng-show='user.org_admin') {{'Read and Write'|translate}}
               select#rha-access-select(

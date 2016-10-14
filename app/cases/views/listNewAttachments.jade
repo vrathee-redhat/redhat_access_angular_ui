@@ -1,4 +1,4 @@
-ul.attachment-list.block-list.block-list-gray
+ul.attachment-list.block-list.block-list-gray(ng-hide='AttachmentsService.updatedAttachments.length <= 0')
   li(
     ng-repeat='attachment in AttachmentsService.updatedAttachments',
     ng-hide='AttachmentsService.updatedAttachments.length <= 0').attachment-filename {{attachment.file_name}} ({{attachment.length | bytes}})
