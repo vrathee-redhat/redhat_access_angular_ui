@@ -65,7 +65,7 @@ div(rha-header='', page='caseList')
   .row(ng-show='!SearchCaseService.searching && SearchCaseService.totalCases > 0 && SearchCaseService.totalCases > SearchCaseService.pageSize')
     .col-sm-6
       .pull-left
-        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage == 0", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage-1; SearchCaseService.doFilter();") Previous
+        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage == 1", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage-1; SearchCaseService.doFilter();") Previous
     .col-sm-6
       .pull-right
-        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage >= (SearchCaseService.totalCases/SearchCaseService.pageSize) - 1", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage+1; SearchCaseService.doFilter();") Next
+        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage >= SearchCaseService.numberOfPages()", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage+1; SearchCaseService.doFilter();") Next

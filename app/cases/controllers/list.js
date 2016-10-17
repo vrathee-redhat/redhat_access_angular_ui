@@ -41,7 +41,7 @@ export default class List {
         };
 
         $scope.$on(CASE_EVENTS.searchSubmit, () => {
-            SearchCaseService.currentPage = 0;
+            SearchCaseService.currentPage = 1;
             $scope.doSearch()
         });
 

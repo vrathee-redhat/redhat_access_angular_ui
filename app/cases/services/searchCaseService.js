@@ -17,7 +17,7 @@ export default class SearchCaseService {
         };
         this.previousGroupFilter = CASE_GROUPS.none;
 
-        this.currentPage = 0;
+        this.currentPage = 1;
         this.pageSize = 50;
         this.numberOfPages = function() {
             return Math.ceil(this.totalCases / this.pageSize);
@@ -45,11 +45,14 @@ export default class SearchCaseService {
 
         // For displaying where we are at in the pagination
         this.getCasesStart = () => {
-            return this.currentPage * this.pageSize;
+            if (this.currentPage === 1) {
+                return 1;
+            }
+            return (this.currentPage - 1) * this.pageSize;
         };
 
         this.getCasesEnd = () => {
-            const end = (this.currentPage * this.pageSize) + this.pageSize;
+            const end = this.currentPage * this.pageSize;
             if (end > this.totalCases) {
                 return this.totalCases;
             }
@@ -61,6 +64,7 @@ export default class SearchCaseService {
             this.total = 0;
             this.allCasesDownloaded = false;
             this.cases = [];
+            this.totalCases = 0;
         };
         this.oldQueryString = '';
         var queryString = '';
@@ -105,7 +109,7 @@ export default class SearchCaseService {
                 if (COMMON_CONFIG.isGS4 === true) {
                     params.account_number = "639769";
                 }
-                params.start = this.currentPage * this.pageSize;
+                params.start = (this.currentPage - 1) * this.pageSize;
 
                 //if (!RHAUtils.isEmpty(this.caseParameters.searchTerm)) {
                 //    params.keyword = this.caseParameters.searchTerm;
@@ -194,7 +198,7 @@ export default class SearchCaseService {
                     sortField = "contactName";
                 }
 
-                strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.bookmarkedAccount, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, this.currentPage * this.pageSize, this.pageSize, null, null).then((response) => {
+                strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.bookmarkedAccount, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, (this.currentPage - 1) * this.pageSize, this.pageSize, null, null).then((response) => {
                     if (response['case'] === undefined) {
                         this.totalCases = 0;
                         this.total = 0;
@@ -213,6 +217,7 @@ export default class SearchCaseService {
                 }, (error) => {
                     this.totalCases = 0;
                     this.total = 0;
+                    this.currentPage = 1;
                     this.allCasesDownloaded = true;
                     if (error.xhr.status === 404) {
                         this.doFilter(false).then(() => deferred.resolve(cases));
