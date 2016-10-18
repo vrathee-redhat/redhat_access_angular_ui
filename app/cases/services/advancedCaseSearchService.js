@@ -19,10 +19,7 @@ export default class AdvancedCaseSearchService {
 
         // For displaying where we are at in the pagination
         this.getCasesStart = () => {
-            if (this.currentPage === 1) {
-                return 1;
-            }
-            return (this.currentPage - 1) * this.pageSize;
+            return (this.currentPage - 1) * this.pageSize + 1;
         };
 
         this.getCasesEnd = () => {
