@@ -13,7 +13,8 @@ const app = angular.module('RedhatAccess.cases', [
     'RedhatAccess.search',
     'RedhatAccess.ui-utils',
     'RedhatAccess.common',
-    'RedhatAccess.header'
+    'RedhatAccess.header',
+    'dndLists'
 ]);
 
 // Constants
@@ -58,14 +59,12 @@ import BookmarkedAccountSelect from './controllers/bookmarkedAccountSelect'
 import CommonConfirmationModal from './controllers/commonConfirmationModal'
 import CreateGroupButton from './controllers/createGroupButton'
 import CreateGroupModal from './controllers/createGroupModal'
-import DefaultGroup from './controllers/defaultGroup'
 import DeleteGroupButton from './controllers/deleteGroupButton'
 import DescriptionSection from './controllers/descriptionSection'
 import DetailsSection from './controllers/detailsSection'
 import DiscussionSection from './controllers/discussionSection'
 import Edit from './controllers/edit'
 import EditCaseRecommendationsController from './controllers/editCaseRecommendationsSection'
-import EditGroup from './controllers/editGroup'
 import EmailNotifySelect from './controllers/emailNotifySelect'
 import EntitlementSelect from './controllers/entitlementSelect'
 import ExistingBookmarkedAccounts from './controllers/existingBookmarkedAccounts'
@@ -95,6 +94,8 @@ import StatusSelect from './controllers/statusSelect'
 import TypeSelect from './controllers/typeSelect'
 import VersionSelect from './controllers/versionSelect'
 import SearchBookmarkModal from './controllers/searchBookmarkModal'
+import AdvancedSearchCaseList from './controllers/advancedSearchCaseList'
+import ColumnSelectModal from './controllers/columnSelectModal'
 
 app.controller('AccountBookmarkHome', AccountBookmarkHome);
 app.controller('AccountSearch', AccountSearch);
@@ -109,14 +110,12 @@ app.controller('BookmarkedAccountSelect', BookmarkedAccountSelect);
 app.controller('CommonConfirmationModal', CommonConfirmationModal);
 app.controller('CreateGroupButton', CreateGroupButton);
 app.controller('CreateGroupModal', CreateGroupModal);
-app.controller('DefaultGroup', DefaultGroup);
 app.controller('DeleteGroupButton', DeleteGroupButton);
 app.controller('DescriptionSection', DescriptionSection);
 app.controller('DetailsSection', DetailsSection);
 app.controller('DiscussionSection', DiscussionSection);
 app.controller('Edit', Edit );
 app.controller('EditCaseRecommendationsController', EditCaseRecommendationsController);
-app.controller('EditGroup', EditGroup);
 app.controller('EmailNotifySelect', EmailNotifySelect);
 app.controller('EntitlementSelect', EntitlementSelect);
 app.controller('ExistingBookmarkedAccounts', ExistingBookmarkedAccounts);
@@ -147,6 +146,8 @@ app.controller('StatusSelect', StatusSelect);
 app.controller('TypeSelect', TypeSelect);
 app.controller('VersionSelect', VersionSelect);
 app.controller('SearchBookmarkModal', SearchBookmarkModal);
+app.controller('AdvancedSearchCaseList', AdvancedSearchCaseList);
+app.controller('ColumnSelectModal', ColumnSelectModal);
 
 // Directives
 import rhaAttachlocalfile from './directives/attachLocalFile'
@@ -234,6 +235,11 @@ app.directive('rhaSolrQueryInput', rhaSolrQueryInput);
 app.directive('rhaStatusselect', rhaStatusselect);
 app.directive('rhaTypeselect', rhaTypeselect);
 app.directive('rhaVersionselect', rhaVersionselect);
+
+//Components
+import rhaAdvancedSearchCaseList from './components/advancedSearchCaseList'
+
+app.component('rhaAdvancedSearchCaseList', rhaAdvancedSearchCaseList);
 
 // Filters
 import bytes from './filters/bytes'

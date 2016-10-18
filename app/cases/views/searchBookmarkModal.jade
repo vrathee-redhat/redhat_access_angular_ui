@@ -22,6 +22,10 @@ form
             label.control-label(translate) Sort Order
             div
                 code {{sort.name}}
+        .form-group
+            label.control-label(translate) Columns
+            ul
+                li(ng-repeat="col in getColumns()") {{col.name}}
     .modal-footer
         button.btn.btn-default(type="button", ng-click="cancel()")
             span.glyphicon.glyphicon-remove

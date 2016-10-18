@@ -1,0 +1,41 @@
+a(ng-click="$ctrl.selectColumns()", ng-show="$ctrl.cases && $ctrl.cases.length > 0 && !$ctrl.loading", translate) Customize columns
+table.table.table-bordered.advanced-case-list(ng-show="$ctrl.cases && $ctrl.cases.length > 0 && !$ctrl.loading")
+    thead
+        tr
+            th(ng-repeat="col in $ctrl.getColumns()")
+                span.header-tooltip(uib-tooltip="{{col.description}}")
+                    span(ng-if="col.id == 'severity'", translate, ) Severity
+                    span(ng-if="col.id == 'number-status'", translate) Number
+                    span(ng-if="col.id == 'summary'", translate) Summary
+                    span(ng-if="col.id == 'product'", translate) Product
+                    span(ng-if="col.id == 'created'", translate) Created
+                    span(ng-if="col.id == 'modified'", translate) Modified
+                    span(ng-if="col.id == 'contact'", translate) Contact
+                    span(ng-if="col.id == 'account'", translate) Account
+                    span(ng-if="col.id == 'owner'", translate) Owner
+    tbody
+        tr(ng-repeat='case in $ctrl.cases | limitTo:$ctrl.limit:$ctrl.offset track by $index')
+            td(ng-repeat="col in $ctrl.getColumns()", ng-class="{'severity-cell': col.id == 'severity'}")
+                div(ng-if="col.id == 'severity'")
+                    .block-icon
+                        .severity
+                            i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
+                            i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
+                            i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
+                            i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
+                div(ng-if="col.id == 'number-status'")
+                    .subheading
+                        a(ui-sref="edit({id: case.case_number})") {{case.case_number}}
+                    .description {{case.status}}
+                div(ng-if="col.id == 'summary'") {{case.summary}}
+                div(ng-if="col.id == 'product'") {{case.product}} {{case.version}}
+                div(ng-if="col.id == 'created'")
+                    .subheading {{case.created_by}}
+                    .description on {{case.created_date}}
+                div(ng-if="col.id == 'modified'")
+                    .subheading {{case.last_modified_by}}
+                    .description on {{case.last_modified_date}}
+                div(ng-if="col.id == 'contact'")
+                    .subheading {{case.contact_name}}
+                div(ng-if="col.id == 'account'") {{case.account_number}}
+                div(ng-if="col.id == 'owner'") {{case.owner}}

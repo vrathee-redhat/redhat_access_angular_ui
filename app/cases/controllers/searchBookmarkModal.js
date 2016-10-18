@@ -1,9 +1,10 @@
 "use strict";
 
 import find from 'lodash/find'
+import map from 'lodash/map'
 
 export default class SearchBookmarkModal {
-    constructor($scope, $uibModalInstance, query, sort, bookmark, RHAUtils, SearchBookmarkService) {
+    constructor($scope, $uibModalInstance, query, sort, bookmark, RHAUtils, SearchBookmarkService, AdvancedCaseSearchService) {
         "ngInject";
 
         const idRegex = /^[a-z0-9-\(\)]+$/;
@@ -27,6 +28,7 @@ export default class SearchBookmarkModal {
                 if($scope.originalId) {
                     SearchBookmarkService.deleteBookmark($scope.originalId);
                 }
+                $scope.bookmark.columns = map(AdvancedCaseSearchService.getColumns(), 'id');
                 SearchBookmarkService.saveBookmark($scope.bookmark);
                 $uibModalInstance.close($scope.bookmark);
             }
@@ -47,6 +49,8 @@ export default class SearchBookmarkModal {
 
             return foundBookmark == null || foundBookmark.id == $scope.originalId;
         };
+
+        $scope.getColumns = () => AdvancedCaseSearchService.getColumns();
 
         $scope.$watch('bookmark.id', (newValue, oldValue) => {
             if(RHAUtils.isNotEmpty(newValue) && !idRegex.test(newValue)) {

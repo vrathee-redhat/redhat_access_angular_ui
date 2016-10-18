@@ -56,7 +56,10 @@ export default class AdvancedSearchController {
             });
 
             if ($scope.solrQuery != null && SOLRGrammarService.parseSafe($scope.solrQuery) != null) {
-                $timeout($scope.submitSearch, 1000); // Delay the search, so that rha-filterselect is initiated
+                $timeout(() => {
+                    AdvancedCaseSearchService.clearColumns(); // reset columns just before search is started to prevent UI glitches
+                    $scope.submitSearch(); // Delay the search, so that rha-filterselect is initiated
+                }, 1000);
             }
         };
 

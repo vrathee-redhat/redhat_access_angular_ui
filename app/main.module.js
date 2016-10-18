@@ -24,6 +24,7 @@ require('angular-cache');
 // Old known working version of chosen from bower
 require('angular-chosen-localytics/chosen.js');
 require('chosen/chosen.jquery.js');
+require('angular-drag-and-drop-lists');
 
 
 window.moment = require('moment');

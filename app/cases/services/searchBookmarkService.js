@@ -3,8 +3,11 @@
 import map from "lodash/map"
 
 export default class SearchBookmarkService {
-    constructor(CacheFactory) {
+    constructor(CacheFactory, $state, $stateParams) {
         'ngInject';
+
+        this.$state = $state;
+        this.$stateParams = $stateParams;
 
 
         this.storage = CacheFactory.get('case_search');
@@ -21,6 +24,14 @@ export default class SearchBookmarkService {
 
     getBookmark(id) {
         return this.storage.get(id);
+    }
+
+    getCurrentBookmark() {
+        const {$state, $stateParams} = this;
+
+        if($state.current.name == "advancedSearch" && $stateParams.bookmark != null) return this.getBookmark($stateParams.bookmark);
+
+        return null;
     }
 
     saveBookmark(bookmark) {
