@@ -27,7 +27,7 @@ describe('Case Controllers', function () {
 
     beforeEach(angular.mock.module('RedhatAccess.cases'));
     beforeEach(angular.mock.module('RedhatAccess.mock')); // TypeError: undefined is not an object (evaluating 'strataService.authentication.checkLogin') (line 2356)
-    
+
     beforeEach(inject(function ($injector, $rootScope, $q, $httpBackend) {
         q = $q;
         mockStrataService = $injector.get('strataService');
@@ -467,7 +467,7 @@ describe('Case Controllers', function () {
                 DiscussionService:mockDiscussionService,
                 AttachmentsService:mockAttachmentsService
             });
-    
+
             mockCaseService.commentText = '';
             expect(mockScope.shouldTextboxMinimize).toBeDefined();
             mockScope.shouldTextboxMinimize();
@@ -552,7 +552,7 @@ describe('Case Controllers', function () {
             mockScope.$root.$digest();
             expect(text).toEqual("Refining top solutions");
         }));
-    
+
         it('should have a function for get locations solution text for locating top solutions', inject(function ($controller) {
             $controller('New', {
                 $scope: mockScope,
@@ -597,7 +597,7 @@ describe('Case Controllers', function () {
             mockScope.$root.$digest();
             expect(mockCaseService.showsearchoptions).toBe(true);
             expect(mockCaseService.kase.group).toEqual(mockStrataDataService.mockGroups[1]);
-    
+
         }));
         it('should have a function for set search options when group length is not 0', inject(function ($controller) {
             $controller('New', {
@@ -616,7 +616,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.kase.group).toEqual(mockStrataDataService.mockGroups[1]);
         }));
     });
-    
+
     //Suite for RecommendationsSection
     describe('RecommendationsSection', function () {
         it('should have a function to pin Recommendations', inject(function ($controller) {
@@ -670,7 +670,7 @@ describe('Case Controllers', function () {
             expect(mockScope.currentRecPin.pinning).toBe(false);
         }));
     });
-    
+
     //Suite for ListNewAttachments
     describe('ListNewAttachments', function () {
         it('should have a function to remove Local Attachment', inject(function ($controller) {
@@ -685,7 +685,7 @@ describe('Case Controllers', function () {
             expect(mockAttachmentsService.updatedAttachments.length).toBe(1);
         }));
     });
-    
+
     //Suite for EmailNotifySelect
     describe('EmailNotifySelect', function () {
         it('should have a function to update Notified Users resolved', inject(function ($controller) {
@@ -726,7 +726,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.updatedNotifiedUsers).toEqual(mockStrataDataService.mockUpdatedNotifiedUsers);
         }));
     });
-    
+
     //Suite for DeleteGroupButton
     describe('DeleteGroupButton', function () {
         it('should have a function to delete Groups resolved', inject(function ($controller) {
@@ -762,7 +762,7 @@ describe('Case Controllers', function () {
             expect(mockAlertService.alerts[1].message).toEqual('strata error');
         }));
     });
-    
+
     //Suite for CreateGroupModal
     describe('CreateGroupModal', function () {
         it('should have a function to create a Group resolved', inject(function ($controller) {
@@ -841,7 +841,7 @@ describe('Case Controllers', function () {
             mockScope.onGroupNameKeyPress(event);
         }));
     });
-    
+
     //Suite for SearchBox
     describe('SearchBox', function () {
         it('should have a function to do search on filter key press', inject(function ($controller) {
@@ -870,10 +870,10 @@ describe('Case Controllers', function () {
             expect(mockScope.clearSearch).toBeDefined();
             mockScope.clearSearch();
             expect(mockSearchBoxService.searchTerm).toBeUndefined();
-    
+
         }));
     });
-    
+
     //Suite for AttachLocalFile
     describe('AttachLocalFile', function () {
         it('should have a function to clear filename and file description', inject(function ($controller) {
@@ -925,7 +925,7 @@ describe('Case Controllers', function () {
             expect(mockAttachmentsService.updatedAttachments[0].description).toEqual('test_description');
         }));
     });
-    
+
     //Suite for ExportCSVButton
     describe('ExportCSVButton', function () {
         it('shoud have a function to export all cases as CSV resolved', inject(function ($controller) {
@@ -954,7 +954,7 @@ describe('Case Controllers', function () {
             expect(mockAlertService.alerts[0].message).toEqual('strata error');
         }));
     });
-    
+
     //Suite for Edit
     describe('Edit', function () {
         it('should have a function to initialize the case edit page rejected', inject(function ($controller) {
@@ -1003,7 +1003,7 @@ describe('Case Controllers', function () {
             expect(mockHeaderService.pageLoadFailure).toEqual(false);
             mockStrataDataService.value.showRecommendations=true;
         }));
-    
+
     });
     //Suite for AttachmentsSection
     describe('AttachmentsSection', function () {
@@ -1032,160 +1032,7 @@ describe('Case Controllers', function () {
             expect(mockScope.ieFileDescription).toEqual('');
         }));
     });
-    
-    //Suite for EditGroup
-    describe('EditGroup', function () {
-        it('should have a init function with user allowed to manage groups', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService,
-                $location:mockStrataDataService.mockLocation
-            });
-            securityService.loginStatus.authedUser={};
-            securityService.loginStatus.authedUser.account="ABC";
-            securityService.loginStatus.authedUser.org_admin=true;
-            securityService.loginStatus.authedUser.has_group_acls=false;
-            expect(mockScope.init).toBeDefined();
-            mockScope.init();
-            spyOn(mockStrataService.groups, 'get').and.callThrough();
-            mockScope.$root.$digest();
-            spyOn(mockStrataService.accounts, 'users').and.callThrough();
-            mockScope.$root.$digest();
-            expect(mockScope.usersLoading).toBe(false);
-            expect(mockScope.selectedGroup).toEqual(mockStrataDataService.mockGroups[0]);
-            expect(mockScope.usersOnAccount).toEqual(mockStrataDataService.mockUsers);
-        }));
-        it('should have a init function with user not allowed to manage groups', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService
-            });
-            securityService.loginStatus.authedUser={};
-            securityService.loginStatus.authedUser.account=false;
-            securityService.loginStatus.authedUser={};
-            securityService.loginStatus.authedUser.org_admin=true;
-            expect(mockScope.init).toBeDefined();
-            mockScope.init();
-            expect(mockScope.usersLoading).toBe(false);
-        }));
-        it('should have a toggle function for users prestine', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService
-            });
-            expect(mockScope.toggleUsersPrestine).toBeDefined();
-            mockScope.toggleUsersPrestine();
-            expect(mockScope.isUsersPrestine).toBe(false);
-        }));
-        it('should have a toggle function for group prestine', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService
-            });
-            expect(mockScope.toggleGroupPrestine).toBeDefined();
-            mockScope.toggleGroupPrestine();
-            expect(mockScope.isGroupPrestine).toBe(false);
-        }));
-        it('should have a  function for cancel', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService,
-                $location:mockStrataDataService.mockLocation
-            });
-            expect(mockScope.cancel).toBeDefined();
-            mockScope.cancel();
-           //nothing to expect
-        }));
-        it('should have a  function for master write checkbox click', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService,
-                $location:mockStrataDataService.mockLocation
-            });
-            mockScope.usersOnAccount=mockStrataDataService.usersOnAccount;
-            expect(mockScope.onMasterWriteCheckboxClicked).toBeDefined();
-            mockScope.onMasterWriteCheckboxClicked(true);
-            expect(mockScope.isUsersPrestine).toBe(false);
-            expect(mockScope.usersOnAccount[0].write).toBe(true);
-    
-        }));
-        it('should have a  function for toggle write access', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService,
-                $location:mockStrataDataService.mockLocation
-            });
-            var user={
-                write:true,
-                access:false
-    
-            }
-            expect(mockScope.writeAccessToggle).toBeDefined();
-            mockScope.writeAccessToggle(user);
-            expect(user.access).toBe(true);
-            expect(mockScope.isUsersPrestine).toBe(false);
-        }));
-        it('should have a  function for master read checkbox click', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService,
-                $location:mockStrataDataService.mockLocation
-            });
-            mockScope.usersOnAccount=mockStrataDataService.usersOnAccount;
-            expect(mockScope.onMasterReadCheckboxClicked).toBeDefined();
-            mockScope.onMasterReadCheckboxClicked(true);
-            expect(mockScope.isUsersPrestine).toBe(false);
-            expect(mockScope.usersOnAccount[0].access).toBe(true);
-        }));
-        it('should have a  function for save group', inject(function ($controller) {
-            $controller('EditGroup', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                GroupService: mockGroupService,
-                SearchBoxService: mockSearchBoxService,
-                $location:mockStrataDataService.mockLocation
-            });
-            securityService.loginStatus.authedUser.sso_username="test_user";
-            mockScope.isGroupPrestine=false;
-            mockScope.isUsersPrestine=false;
-            expect(mockScope.saveGroup).toBeDefined();
-            mockScope.saveGroup();
-            spyOn(mockStrataService.groups, 'update').and.callThrough();
-            mockScope.$root.$digest();
-            spyOn(mockStrataService.groupUsers, 'update').and.callThrough();
-            mockScope.$root.$digest();
-    
-            expect(mockScope.isGroupPrestine).toBe(true);
-            expect(mockScope.isUsersPrestine).toBe(true);
-    
-        }));
-    });
-    
+
     describe('GroupList', function () {
         it('should have a init function', inject(function ($controller) {
             $controller('GroupList', {
@@ -1235,7 +1082,7 @@ describe('Case Controllers', function () {
             expect(mockGroupService.disableDeleteGroup).toBe(false);
         }));
     });
-    
+
     //Suite for StatusSelect
     describe('StatusSelect', function () {
         it('should have status of cases as open', inject(function ($controller) {
@@ -1250,7 +1097,7 @@ describe('Case Controllers', function () {
             expect(mockScope.statuses[2].name).toEqual('Closed');
         }));
     });
-    
+
     //Suite for DiscussionSection
     describe('DiscussionSection', function () {
         it('should have a maxNotesCharacterCheck function', inject(function ($controller) {
@@ -1390,12 +1237,12 @@ describe('Case Controllers', function () {
             mockScope.discardNotes();
             expect(mockCaseService.kase.notes).toEqual("test");
         }));
-    
-    
-    
+
+
+
     });
-    
-    
+
+
     //Suite for AccountSelect
     describe('AccountSelect', function () {
         it('should have a function to fetch user account number resolved', inject(function ($controller) {
@@ -1413,7 +1260,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.account.number).toEqual(mockStrataDataService.mockAccount[0].account_number);
         }));
         it('should have a function to fetch user account number rejected', inject(function ($controller) {
-    
+
             $controller('AccountSelect', {
                 $scope: mockScope,
                 strataService: mockStrataService,
@@ -1455,14 +1302,14 @@ describe('Case Controllers', function () {
             mockCaseService.account.number="123";
             mockScope.alertInstance = 'Account found';
             mockScope.populateAccountSpecificFields();
-    
+
             spyOn(mockStrataService.accounts, 'get').and.callThrough();
             mockScope.$root.$digest();
             expect(mockCaseService.users).toEqual([]);
         }));
     });
-    
-    
+
+
     //Suite for TypeSelect
     describe('TypeSelect', function () {
         it('should load all the case types resolved', inject(function ($controller) {
@@ -1501,7 +1348,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.entitlements).toEqual(mockStrataDataService.mockEntitlements);
         }));
     });
-    
+
     //Suite for Group
     describe('Group', function () {
         it('should have a on change function', inject(function ($controller) {
@@ -1536,7 +1383,7 @@ describe('Case Controllers', function () {
             //nothing to expect as this just calls a mock service
         }));
     });
-    
+
     //Suite for List
     describe('List', function () {
         it('should have a function to handle login success event', inject(function ($controller) {
@@ -1620,7 +1467,7 @@ describe('Case Controllers', function () {
             // nothing to expect
         }));
     });
-    
+
     //Suite for ListFilter
     describe('ListFilter', function () {
         it('should default case filter status to OPEN', inject(function ($controller) {
@@ -1643,9 +1490,9 @@ describe('Case Controllers', function () {
             spyOn(mockCaseService, 'populateGroups').and.callThrough();
             mockScope.$root.$digest();
             //nothing  to expect as this calls a service
-    
+
         }));
-    
+
         it('should have a function for set search options with groups length greater than 0', inject(function ($controller) {
             $controller('ListFilter', {
                 $scope: mockScope,
@@ -1658,9 +1505,9 @@ describe('Case Controllers', function () {
             spyOn(mockCaseService, 'populateGroups').and.callThrough();
             mockScope.$root.$digest();
             //nothing  to expect as this calls a service
-    
+
         }));});
-    
+
     //Suite for CreateGroupButton
     describe('CreateGroupButton', function () {
         var mockModal = jasmine.createSpyObj('modal', ['open']);
@@ -1715,7 +1562,7 @@ describe('Case Controllers', function () {
             expect(mockScope.attachmentTree).toEqual(mockStrataDataService.mockAttachments);
         }));
     });
-    
+
     //Suite for VersionSelect
     describe('VersionSelect', function () {
         it('should have a controller for version select', inject(function ($controller) {
@@ -1730,10 +1577,10 @@ describe('Case Controllers', function () {
             expect(mockScope.CaseService).toEqual(mockCaseService);
             expect(mockScope.ProductsService).toEqual(mockProductsService);
             expect(mockScope.RecommendationsService).toEqual(mockRecommendationsService);
-    
+
         }));
     });
-    
+
     //Suite for SeveritySelect
     describe('SeveritySelect', function () {
         it('should have a controller for severity select', inject(function ($controller) {
@@ -1756,7 +1603,7 @@ describe('Case Controllers', function () {
             expect(mockScope.openedDetails["2"]).toEqual(true);
         }));
     });
-    
+
     //Suite for ProductSelect
     describe('ProductSelect', function () {
         it('should have a controller for product select', inject(function ($controller) {
@@ -1773,7 +1620,7 @@ describe('Case Controllers', function () {
             expect(mockScope.RecommendationsService).toEqual(mockRecommendationsService);
         }));
     });
-    
+
     //Suite for OwnerSelect
     describe('OwnerSelect', function () {
         it('should have a controller for owner select', inject(function ($controller) {
@@ -1784,10 +1631,10 @@ describe('Case Controllers', function () {
             });
             expect(mockScope.CaseService).toEqual(mockCaseService);
             expect(mockScope.SearchCaseService).toEqual(mockSearchCaseService);
-    
+
         }));
     });
-    
+
     //Suite for NewCaseRecommendationsController
     describe('NewCaseRecommendationsController', function () {
         it('should have a function for select page', inject(function ($controller) {
@@ -1806,7 +1653,7 @@ describe('Case Controllers', function () {
             expect(mockScope.currentPage).toEqual(1);
             expect(mockScope.results.length).toEqual(2);
         }));
-    
+
         it('should have a function for find last page', inject(function ($controller) {
             $controller('NewCaseRecommendationsController', {
                 $scope: mockScope,
@@ -1821,7 +1668,7 @@ describe('Case Controllers', function () {
             mockScope.findLastPage();
             mockScope.$root.$digest();
             expect(mockScope.lastPage).toEqual(1);
-    
+
         }));
     });
     //Suite for GroupSelect
@@ -1839,7 +1686,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.kase.group.number).toEqual('49496');
         }));
     });
-    
+
     //Suite for FilterSelect
     describe('FilterSelect', function () {
         it('should have a controller for filter select', inject(function ($controller) {
@@ -1856,11 +1703,11 @@ describe('Case Controllers', function () {
                     sortField: 'lastModifiedDate',
                     sortOrder: 'DESC'
                 };
-    
+
             expect(mockCaseService.filterSelect).toEqual(sortParams);
         }));
     });
-    
+
     //Suite for RequestEscalation
     describe('RequestEscalation', function () {
         it('should have a function to do requestManagementEscalation', inject(function ($controller) {
@@ -1872,7 +1719,7 @@ describe('Case Controllers', function () {
             mockScope.requestManagementEscalation();
         }));
     });
-    
+
     //Suite for CommonConfirmationModal
     describe('CommonConfirmationModal', function () {
         it('should have a function for confirming status/severity change', inject(function ($controller) {
@@ -1936,7 +1783,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.kase.severity).toEqual("4 (Low)");
         }));
     });
-    
+
     //Suite for ProceedWithoutAttachModal
     describe('ProceedWithoutAttachModal', function () {
         it('should have a function for close Modal', inject(function ($controller) {
@@ -1967,120 +1814,7 @@ describe('Case Controllers', function () {
             expect(resultHtml).toEqual(html);
         }));
     });
-    
-    //Suite for DefaultGroup
-    describe('DefaultGroup', function () {
-        it('should have a function for init when user is not allowed to manage groups', inject(function ($controller) {
-            $controller('DefaultGroup', {
-                $scope: mockScope,
-                $uibModalInstance:mockStrataDataService.mockModalInstance
-            });
-            expect(mockScope.init).toBeDefined();
-            mockScope.init();
-            expect(mockScope.usersLoading).toBe(false);
-            expect(mockScope.groupsLoading).toBe(false);
-            expect(mockScope.userCanManageDefaultGroups).toBe(false);
-        }));
-    
-        it('should have a function for init when user is allowed to manage groups', inject(function ($controller) {
-            $controller('DefaultGroup', {
-                $scope: mockScope
-    
-            });
-            securityService.loginStatus.authedUser.account="ABC";
-            securityService.loginStatus.authedUser.org_admin=true;
-            securityService.loginStatus.authedUser.has_group_acls=false;
-    
-            expect(mockScope.init).toBeDefined();
-            spyOn(mockStrataService.groups, 'list').and.callThrough();
-            mockScope.init();
-            mockScope.$root.$digest();
-            expect(mockScope.groupsLoading).toBe(false);
-            expect(mockScope.groups).toEqual(mockStrataDataService.mockGroups);
-    
-        }));
-        it('should have a function for init when user is allowed to manage groups rejected', inject(function ($controller) {
-            mockStrataService.rejectCalls();
-            $controller('DefaultGroup', {
-                $scope: mockScope
-    
-            });
-            securityService.loginStatus.authedUser.account="ABC";
-            securityService.loginStatus.authedUser.org_admin=true;
-            securityService.loginStatus.authedUser.has_group_acls=false;
-    
-            expect(mockScope.init).toBeDefined();
-            spyOn(mockStrataService.groups, 'list').and.callThrough();
-            mockScope.init();
-            mockScope.$root.$digest();
-            expect(mockScope.groupsLoading).toBe(false);
-    
-        }));
-    
-        it('should have a function for validate page when not finished loading', inject(function ($controller) {
-            $controller('DefaultGroup', {
-                $scope: mockScope
-    
-            });
-            mockScope.selectedGroup={};
-            mockScope.selectedGroup.name="Test";
-            mockScope.selectedUser={};
-            mockScope.selectedUser.sso_username="Test";
-            expect(mockScope.validatePage).toBeDefined();
-            mockScope.validatePage();
-            expect(mockScope.usersAndGroupsFinishedLoading).toBe(true);
-    
-        }));
-    
-        it('should have a function for validate page when finished loading', inject(function ($controller) {
-            $controller('DefaultGroup', {
-                $scope: mockScope
-            });
-            expect(mockScope.validatePage).toBeDefined();
-            mockScope.validatePage();
-            expect(mockScope.usersAndGroupsFinishedLoading).toBe(false);
-    
-        }));
-        it('should have a function for change default group', inject(function ($controller) {
-            $controller('DefaultGroup', {
-                $scope: mockScope
-            });
-            mockScope.account={};
-            mockScope.account.number="12345";
-            mockScope.selectedGroup={};
-            mockScope.selectedGroup.number="12345";
-            expect(mockScope.defaultGroupChanged).toBeDefined();
-            spyOn(mockStrataService.accounts, 'users').and.callThrough();
-            mockScope.defaultGroupChanged();
-            mockScope.$root.$digest();
-            expect(mockScope.usersAndGroupsFinishedLoading).toBe(false);
-        }));
-        it('should have a function for set default group', inject(function ($controller) {
-            $controller('DefaultGroup', {
-                $scope: mockScope
-            });
-            expect(mockScope.setDefaultGroup).toBeDefined();
-            mockScope.usersAndGroupsFinishedLoading=true;
-            spyOn(mockStrataService.groups, 'createDefault').and.callThrough();
-            mockScope.setDefaultGroup();
-            mockScope.$root.$digest();
-            expect(mockScope.usersAndGroupsFinishedLoading).toBe(false);
-        }));
-        it('should have a function for set default group rejected', inject(function ($controller) {
-            mockStrataService.rejectCalls();
-            $controller('DefaultGroup', {
-                $scope: mockScope
-            });
-            expect(mockScope.setDefaultGroup).toBeDefined();
-            mockScope.usersAndGroupsFinishedLoading=true;
-            spyOn(mockStrataService.groups, 'createDefault').and.callThrough();
-            mockScope.setDefaultGroup();
-            mockScope.$root.$digest();
-            //nothing to expect as it just adds error message
-        }));
-    
-    });
-    
+
     //Suite for RequestManagementEscalationModal
     describe('RequestManagementEscalationModal', function () {
         it('should have a function for new escalation comment with escalation comment text empty ', inject(function ($controller) {
@@ -2096,7 +1830,7 @@ describe('Case Controllers', function () {
             expect(mockScope.onNewEscalationComment).toBeDefined();
             mockScope.onNewEscalationComment();
             expect(mockScope.disableSubmitRequest).toBe(true);
-    
+
         }));
         it('should have a function for onNewEscalationComment with escalation comment text non empty ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
@@ -2148,7 +1882,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.draftSaved).toBe(false);
             expect(mockCaseService.draftComment).toBeUndefined();
             expect(mockCaseService.commentText).toBeUndefined();
-    
+
         }));
         it('should have a function for submit request click for draft comment not empty ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
@@ -2185,6 +1919,6 @@ describe('Case Controllers', function () {
             mockScope.closeModal();
             expect(mockCaseService.escalationCommentText).toBeUndefined();
         }));
-    
+
     });
 });

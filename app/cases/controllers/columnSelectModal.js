@@ -4,6 +4,8 @@ import {differenceBy, remove, each, clone} from 'lodash';
 
 export default class ColumnSelectModal {
     constructor($uibModalInstance, allColumns, selectedColumns) {
+        'ngInject';
+
         this.$uibModalInstance = $uibModalInstance;
         this.allColumns = allColumns;
         this.available = differenceBy(allColumns, selectedColumns, 'id');

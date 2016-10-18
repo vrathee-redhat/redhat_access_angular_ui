@@ -26,7 +26,7 @@ module.exports = function(config) {
 
         webpack: {
             // devtool: 'eval',
-            devtool: 'source-map',
+            devtool: 'inline-source-map',
             module: {
                 loaders: [
                     { test: /[\/]angular\.js$/, loader: "exports?angular"},
@@ -56,7 +56,7 @@ module.exports = function(config) {
                     { test: /\.(ttf|eot)/, loader: 'null'},
                     { test: /\.html$/, loader: 'raw' },
                     { test: /\.txt$/, loader: 'raw' },
-                    { test: /\.jade$/, loader: 'null' }
+                    { test: /\.jade$/, loader: 'jade-loader' }
                 ]
             },
             resolve: {

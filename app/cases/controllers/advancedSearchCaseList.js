@@ -5,6 +5,8 @@ import map from 'lodash/map'
 
 export default class AdvancedSearchCaseList {
     constructor(ConstantsService, $uibModal, AdvancedCaseSearchService, SearchBookmarkService) {
+        'ngInject';
+
         this.$uibModal = $uibModal;
         this.AdvancedCaseSearchService = AdvancedCaseSearchService;
         this.SearchBookmarkService = SearchBookmarkService;
