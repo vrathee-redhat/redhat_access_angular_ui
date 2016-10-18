@@ -33,16 +33,12 @@ export default class AdvancedSearchController {
                 if (newBookmark) {
                     if ($stateParams.bookmark !== newBookmark.id) {
                         if ($scope.searchChangedAgainstBookmark(oldBookmark)) {
-                            let modalInstance;
                             const scope = $rootScope.$new();
                             scope.message = gettextCatalog.getString("All unsaved changes will be overwritten.");
-                            scope.confirm = () => modalInstance.close();
-                            scope.reject = () => modalInstance.dismiss();
-                            modalInstance = $uibModal.open({
+                            $uibModal.open({
                                 template: require('../views/confirmationModal.jade'),
                                 scope: scope
-                            });
-                            modalInstance.result.then(
+                            }).result.then(
                                 () => $state.go('advancedSearch', { bookmark: newBookmark.id, query: newBookmark.query, sortBy: `${newBookmark.sort.sortField}_${newBookmark.sort.sortOrder}` }),
                                 () => $scope.selectedBookmark = oldBookmark
                             );
@@ -114,8 +110,6 @@ export default class AdvancedSearchController {
                 let modalInstance;
                 const scope = $rootScope.$new();
                 scope.message = gettextCatalog.getString("Are you sure you want to delete this bookmark?");
-                scope.confirm = () => modalInstance.close();
-                scope.reject = () => modalInstance.dismiss();
                 modalInstance = $uibModal.open({
                     template: require('../views/confirmationModal.jade'),
                     scope: scope
@@ -134,6 +128,21 @@ export default class AdvancedSearchController {
                 return $state.href("advancedSearch", {query: bm.query, sortBy: `${bm.sort.sortField}_${bm.sort.sortOrder}`}, {inherit:false, absolute: true});
             }
         };
+
+        $scope.exportCsv = () => {
+            if(AdvancedCaseSearchService.totalCases != null && AdvancedCaseSearchService.totalCases > 10000) {
+                let modalScope = $rootScope.$new();
+                modalScope.message = gettextCatalog.getString('You are trying to export {{numberOfCases}} cases, but only the first 10000 cases will be exported. It is advised you refine the search to match less than 10000 cases before exporting. \n Would you like to proceed?', {numberOfCases: AdvancedCaseSearchService.totalCases})
+                $uibModal.open({
+                    template: require('../views/confirmationModal.jade'),
+                    scope: modalScope
+                }).result.then(() => {
+                    AdvancedCaseSearchService.initiateCSVDownload();
+                });
+            } else {
+                AdvancedCaseSearchService.initiateCSVDownload();
+            }
+        }
 
         $scope.$watch('CaseService.filterSelect', function (filter) {
             if(filter) {
