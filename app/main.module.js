@@ -137,7 +137,10 @@ if (ENVIRONMENT === 'gs4') {
             EDIT_CASE_CONFIG.showAttachments = false;
             EDIT_CASE_CONFIG.showRecommendations = false;
             EDIT_CASE_CONFIG.showEmailNotifications = false;
-            securityService.validateLogin(false);
+            window.sessionjs.onInit(() => {
+                securityService.validateLogin(false);
+            });
+            
         }
     );
 
@@ -209,8 +212,8 @@ if (ENVIRONMENT === 'gs4') {
                     }
                 }
             }
-
-            securityService.validateLogin(false).then(function (authedUser) {
+            window.sessionjs.onInit(() => {
+                securityService.validateLogin(false).then(function (authedUser) {
                 var account = securityService.loginStatus.account;
                 if (account !== undefined && account.is_secured_support !== undefined && account.is_secured_support === true) {
                     strata.setRedhatClientID("secure_case_management_1.0");
@@ -227,6 +230,7 @@ if (ENVIRONMENT === 'gs4') {
                 }
             }, function (error) {
                 window.location.replace(redirectURL);
+            });
             });
         }
     );

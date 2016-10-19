@@ -45,12 +45,14 @@
 
 <script>
     window.chrometwo_require([
-        'jquery'
-    ], function(jq) {
+        'jquery',
+        'session'
+    ], function(jq, session) {
         'use strict';
         //window.require.undef('moment');
         window.strata = {};
         window.jQuery = jq;
+        window.sessionjs = session;
 
         window.breadcrumbs = [
             ['Support', '/support/'],
