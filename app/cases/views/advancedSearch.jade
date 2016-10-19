@@ -48,7 +48,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
     .row(ng-show='!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.totalCases > 0 && AdvancedCaseSearchService.totalCases > AdvancedCaseSearchService.pageSize')
         .col-sm-6
             .pull-left
-                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage == 0", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage-1; doSearch()") Previous
+                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage == 1", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage-1; doSearch()") Previous
         .col-sm-6
             .pull-right
-                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage >= (AdvancedCaseSearchService.totalCases/AdvancedCaseSearchService.pageSize) - 1", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage+1; doSearch()") Next
+                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage >= AdvancedCaseSearchService.numberOfPages()", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage+1; doSearch()") Next

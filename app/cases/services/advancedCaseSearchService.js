@@ -15,18 +15,22 @@ export default class AdvancedCaseSearchService {
         this.order = null;
 
         this.pageSize = 20;
-        this.currentPage = 0;
-        this.totalCases = null;
+        this.currentPage = 1;
+        this.totalCases = 0;
+
+        this.numberOfPages = function() {
+            return Math.ceil(this.totalCases / this.pageSize);
+        };
 
         this.columns = null;
 
         // For displaying where we are at in the pagination
         this.getCasesStart = () => {
-            return this.currentPage * this.pageSize;
+            return (this.currentPage - 1) * this.pageSize + 1;
         };
 
         this.getCasesEnd = () => {
-            const end = (this.currentPage * this.pageSize) + this.pageSize;
+            const end = this.currentPage * this.pageSize;
             if (end > this.totalCases) {
                 return this.totalCases;
             }
@@ -38,13 +42,13 @@ export default class AdvancedCaseSearchService {
             if (query == null || this.searching) return;
             if (this.query !== query || this.order !== solrOrder) {
                 this.cases = [];
-                this.totalCases = null;
-                this.currentPage = 0;
+                this.totalCases = 0;
+                this.currentPage = 1;
             }
             this.searching = true;
             this.query = query;
             this.order = solrOrder;
-            return strataService.cases.advancedSearch(query, solrOrder, this.getCasesStart(), this.pageSize).then((response) => {
+            return strataService.cases.advancedSearch(query, solrOrder, (this.currentPage - 1) * this.pageSize, this.pageSize).then((response) => {
                 this.searching = false;
                 if (response['case'] === undefined) {
                     this.totalCases = 0;
