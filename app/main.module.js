@@ -150,8 +150,6 @@ if (ENVIRONMENT === 'gs4') {
 
 } else if (ENVIRONMENT !== 'test') {
     const host = window.location.host;
-    const redirectURL = `${window.location.protocol}//${host}/login?redirectTo=${document.URL}`;
-
     window.strata.setStrataHostname('https://' + host);
     // TODO removed TITLE_VIEW_CONFIG / TITLE_VIEW_CONFIG.show = true;  It doesn't appear to be read in the code anywhere
     angular.module('RedhatAccess.cases').run(
@@ -229,7 +227,7 @@ if (ENVIRONMENT === 'gs4') {
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 }
             }, function (error) {
-                window.location.replace(redirectURL);
+                window.sessionjs.login();
             });
             });
         }
