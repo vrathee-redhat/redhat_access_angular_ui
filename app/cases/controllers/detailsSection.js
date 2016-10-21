@@ -1,7 +1,7 @@
 'use strict';
 
 export default class DetailsSection {
-    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, translate, LinkifyService) {
+    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, translate, LinkifyService, gettextCatalog) {
         'ngInject';
 
         $scope.showExtraInfo = false;
@@ -161,7 +161,11 @@ export default class DetailsSection {
                     }
 
                 }), function (error) {
-                    AlertService.addStrataErrorMessage(error);
+                    if (error.xhr.status === 403) {
+                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Selected Case Group does not belong to your account'));
+                    } else {
+                        AlertService.addStrataErrorMessage(error);
+                    }
                 });
             } else {
                 $scope.contactList = CaseService.users;
