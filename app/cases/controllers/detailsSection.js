@@ -12,6 +12,7 @@ export default class DetailsSection {
         $scope.caseSummaryEditable = false;
         $scope.contactList = [];
         $scope.caseContactSelected = true;
+        $scope.maxLength = 450;
 
         $scope.toggleExtraInfo = function () {
             $scope.showExtraInfo = !$scope.showExtraInfo;
