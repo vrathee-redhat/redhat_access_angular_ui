@@ -16,11 +16,13 @@ section.case-description
       a.margin-left(
         ng-hide='updatingDetails',
         ng-click='editCaseSummary(false)') {{'Cancel'|translate}}
-  span.description.toggled-content.pre-wrap(ng-hide='showExtraInfo', ng-bind-html='getDescription(450)')
-  div
-    a(ng-click='toggleExtraInfo()', ng-hide='showExtraInfo', translate='') View More
+  span.description.toggled-content.pre-wrap(ng-hide='showExtraInfo', ng-bind-html='getDescription(maxLength)')
+  div(ng-hide='showExtraInfo || CaseService.kase.description.length < maxLength')
+    a(ng-click='toggleExtraInfo()', translate='') View More
   span.description.pre-wrap(ng-show='showExtraInfo', ng-bind-html='getDescription()')
-  div#case-description-extra-info(ng-class="showExtraInfo ? 'case-description-extra-info active' : 'case-description-extra-info'")
+  div(ng-show='showExtraInfo')
+    a(ng-click='toggleExtraInfo()', translate='') View Less
+  div#case-description-extra-info.active
     form(name='detailsForm')
       section.config-options
         .row.row-short
@@ -89,6 +91,3 @@ section.case-description
             a#cancelCaseDetailChanges.margin-left(
               ng-hide='updatingDetails || !detailsForm.$dirty',
               ng-click='resetData()',translate='') Cancel
-        .row
-          .col-sm-12
-            a(ng-click='toggleExtraInfo()', ng-show='showExtraInfo', translate='') View Less
