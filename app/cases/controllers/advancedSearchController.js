@@ -126,7 +126,7 @@ export default class AdvancedSearchController {
         $scope.bookmarkPublicLink = () => {
             if($scope.selectedBookmark) {
                 const bm = $scope.selectedBookmark;
-                return $state.href("advancedSearch", {query: bm.query, sortBy: `${bm.sort.sortField}_${bm.sort.sortOrder}`}, {inherit:false, absolute: true});
+                return $state.href("advancedSearch", {query: bm.query, sortBy: `${bm.sort.sortField}_${bm.sort.sortOrder}`}, {inherit:false});
             }
         };
 
