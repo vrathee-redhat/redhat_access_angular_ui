@@ -37,7 +37,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
             span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService.totalCases}} search results    
     rha-advanced-search-case-list(
         cases="AdvancedCaseSearchService.cases"
-        offset="AdvancedCaseSearchService.getCasesStart()"
+        offset="AdvancedCaseSearchService.getCasesStart() - 1"
         limit="AdvancedCaseSearchService.pageSize",
         loading="AdvancedCaseSearchService.searching")
     div(ng-show="AdvancedCaseSearchService.searching")

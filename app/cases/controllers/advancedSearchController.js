@@ -62,7 +62,7 @@ export default class AdvancedSearchController {
         $scope.submitSearch = () => {
             if ($scope.solrQuery !== null) {
                 const query = SOLRGrammarService.parseSafe($scope.solrQuery);
-                if(query != null ) {
+                if(query != null && AdvancedCaseSearchService.query != query) {
                     $scope.$broadcast(CASE_EVENTS.advancedSearchSubmitted);
                     AdvancedCaseSearchService.currentPage = 1;
                     AdvancedCaseSearchService.performSearch(query, CaseService.filterSelect);
