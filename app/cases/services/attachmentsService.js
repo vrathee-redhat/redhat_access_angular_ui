@@ -51,51 +51,6 @@ export default class AttachmentsService {
                 this.originalAttachments = attachments;
             }
         };
-        this.postBackEndAttachments = function (caseId) {
-            var selectedFiles = TreeViewSelectorUtils.getSelectedLeaves(this.backendAttachments);
-            return securityService.getBasicAuthToken().then(function (auth) {
-                /*jshint unused:false */
-                //we post each attachment separately
-                var promises = [];
-                angular.forEach(selectedFiles, function (file) {
-                    var jsonData = {
-                        authToken: auth,
-                        attachment: file,
-                        caseNum: caseId
-                    };
-                    var deferred = $q.defer();
-                    $http.post('attachments', jsonData).success(function (data, status, headers, config) {
-                        deferred.resolve(data);
-                        AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}', {
-                            attachmentName: jsonData.attachment,
-                            caseNumber: caseId
-                        }));
-                    }).error(function (data, status, headers, config) {
-                        var errorMsg = '';
-                        switch (status) {
-                            case 401:
-                                errorMsg = ' : Unauthorised.';
-                                break;
-                            case 409:
-                                errorMsg = ' : Invalid username/password.';
-                                break;
-                            case 500:
-                                errorMsg = ' : Internal server error';
-                                break;
-                        }
-                        AlertService.addDangerMessage(gettextCatalog.getString('Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: {{errorMessage}}', {
-                            attachmentName: jsonData.attachment,
-                            caseNumber: caseId,
-                            errorMessage: errorMsg
-                        }));
-                        deferred.reject(data);
-                    });
-                    promises.push(deferred.promise);
-                });
-                return $q.all(promises);
-            });
-        };
         this.updateAttachments = function (caseId) {
             var hasServerAttachments = this.hasBackEndSelections();
             var hasLocalAttachments = !angular.equals(this.updatedAttachments.length, 0);
