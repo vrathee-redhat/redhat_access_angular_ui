@@ -1,7 +1,9 @@
 'use strict';
 
+import _ from 'lodash';
+
 export default class AttachmentsService {
-    constructor($q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
+    constructor($q, $sce, $state, $window, $location, $rootScope, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
         'ngInject';
 
         this.originalAttachments = [];
@@ -52,8 +54,8 @@ export default class AttachmentsService {
             }
         };
         this.updateAttachments = function (caseId) {
-            var hasServerAttachments = this.hasBackEndSelections();
-            var hasLocalAttachments = !angular.equals(this.updatedAttachments.length, 0);
+            const hasServerAttachments = this.hasBackEndSelections();
+            const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
             if (hasLocalAttachments || hasServerAttachments) {
                 var promises = [];
                 var updatedAttachments = this.updatedAttachments;
@@ -62,14 +64,22 @@ export default class AttachmentsService {
                 }
                 if (hasLocalAttachments) {
                     //find new attachments
-                    angular.forEach(updatedAttachments, function (attachment) {
-                        if (!attachment.hasOwnProperty('uuid')) {
+                    _.each(updatedAttachments, (attachment) => {
+                         if (!attachment.hasOwnProperty('uuid')) {
                             var formdata = new FormData();
                             formdata.append('file', attachment.fileObj);
                             formdata.append('description', attachment.description);
 
-                            var promise = strataService.cases.attachments.post(formdata, caseId);
-                            promise.then(function (uri) {
+                            const updateProgress = (progress) => {
+                                attachment.progress = Math.round(progress);
+                                if ($rootScope.$$phase !== '$apply' && $rootScope.$$phase !== '$digest') {
+                                    $rootScope.$apply();
+                                }
+                            };
+
+                            var promise = strataService.cases.attachments.post(formdata, caseId, updateProgress);
+                            promise.then((uri) => {
+                                attachment.progress = null;
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
                                 var currentDate = new Date();
