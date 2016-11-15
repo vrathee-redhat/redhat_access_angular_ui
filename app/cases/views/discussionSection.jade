@@ -131,10 +131,10 @@ ul#tab_list.nav.nav-tabs(role="tablist")
       .row.row-short
         .col-sm-7
           span#notesNotice.uploadNotice
-            span.progressCount(translate) {{noteCharactersLeft}} {{'characters left.'|translate}}
+            span.progressCount() {{noteCharactersLeft}} {{'characters left.'|translate}}
         .col-sm-5
           .pull-right
-            button.btn.btn-app(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty',translate='') {{'Update'|translate}}
+            button.btn.btn-app(ng-click="updateNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') {{'Update'|translate}}
             button.btn.btn-app.margin-left(ng-click="discardNotes()", ng-disabled='CaseService.updatingCase || !notesForm.$dirty') {{'Discard Changes'|translate}}
   #pane4.tab-pane(ng-if="securityService.loginStatus.authedUser.is_internal || CaseService.kase.bugzillas.bugzilla.length > 0", ng-class='{"active": bugzillas}')
     div(rha-listbugzillas)
@@ -157,5 +157,5 @@ ul#tab_list.nav.nav-tabs(role="tablist")
       .row.row-short(ng-if="securityService.loginStatus.authedUser.is_internal")
         .col-sm-6
           .pull-left
-            button.btn.btn-app(ng-click="updateActionPlan()", ng-disabled='CaseService.updatingCase || !actionPlanForm.$dirty',translate='') {{'Update'|translate}}
+            button.btn.btn-app(ng-click="updateActionPlan()", ng-disabled='CaseService.updatingCase || !actionPlanForm.$dirty') {{'Update'|translate}}
             button.btn.btn-app.margin-left(ng-click="discardActionPlan()", ng-disabled='CaseService.updatingCase || !actionPlanForm.$dirty') {{'Discard Changes'|translate}}
