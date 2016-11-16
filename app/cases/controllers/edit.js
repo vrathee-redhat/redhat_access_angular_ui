@@ -13,6 +13,14 @@ export default class Edit {
         $scope.RecommendationsService = RecommendationsService;
         CaseService.clearCase();
         $scope.loading = {};
+        $scope.warnForCaseInactivity = function () {
+            if( CaseService.kase.firstInactivity && !CaseService.kase.secondInactivity ) {
+                AlertService.addWarningMessage(gettextCatalog.getString('First case inactivity warning'));
+            } else if (CaseService.kase.firstInactivity && CaseService.kase.secondInactivity ) {
+                AlertService.addDangerMessage(gettextCatalog.getString('Second case inactivity warning'));
+            }
+        }
+
         $scope.init = function () {
             AttachmentsService.clear();
             RecommendationsService.clear();
@@ -28,6 +36,7 @@ export default class Edit {
                 } else {
                     CaseService.setCase(caseJSON);
                 }
+                $scope.warnForCaseInactivity();
                 $rootScope.$broadcast(CASE_EVENTS.received);
                 $scope.loading.kase = false;
                 if (caseJSON.account_number !== undefined) {

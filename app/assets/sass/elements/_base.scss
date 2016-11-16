@@ -163,3 +163,35 @@ a { color: $link-color; }
 .label-mar-right{
 	margin-right: 6px;
 }
+
+.watermark-case-closure-first:before {
+	content: "First case inactivity warning";
+	color: #333;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 60px;
+	position: fixed;
+	z-index: 1;
+	transform: rotate(-25deg);
+	width: 100%;
+	text-align: center;
+	top: 450px;
+	left: 0px;
+	opacity: .20;
+}
+
+.watermark-case-closure-second:before {
+	content: "Second case inactivity warning";
+	color: #c00;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 60px;
+	position: fixed;
+	z-index: 1;
+	transform: rotate(-25deg);
+	width: 100%;
+	text-align: center;
+	top: 450px;
+	left: 0px;
+	opacity: .15;
+}
