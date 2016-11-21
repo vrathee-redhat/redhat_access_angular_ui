@@ -883,7 +883,7 @@ describe('Case Services', function () {
         });
         it('should have a method to update Attachments rejected', function () {
             expect(attachmentsService.updateAttachments).toBeDefined();
-            attachmentsService.updatedAttachments = mockStrataDataService.mockAttachments[0];
+            attachmentsService.updatedAttachments = [mockStrataDataService.mockAttachments[0]];
             var formdata = new FormData();
                             formdata.append('file', undefined);
                             formdata.append('description', 'sample1 attachment');
@@ -891,7 +891,7 @@ describe('Case Services', function () {
             spyOn(mockStrataService.cases.attachments, 'post').and.callThrough();
             attachmentsService.updateAttachments('12345');
             scope.$root.$digest();
-            expect(mockStrataService.cases.attachments.post).toHaveBeenCalledWith(formdata, '12345');
+            expect(mockStrataService.cases.attachments.post).toHaveBeenCalledWith(formdata, '12345', jasmine.any(Function));
             expect(attachmentsService.originalAttachments.length).toBe(0);
         });
         it('should have a method to define Original Attachments', function () {

@@ -1,7 +1,9 @@
 'use strict';
 
+import _ from 'lodash';
+
 export default class AttachmentsService {
-    constructor($q, $sce, $state, $window, $location, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
+    constructor($q, $sce, $state, $window, $location, $rootScope, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
         'ngInject';
 
         this.originalAttachments = [];
@@ -59,36 +61,29 @@ export default class AttachmentsService {
                 var promises = [];
                 angular.forEach(selectedFiles, function (file) {
                     var jsonData = {
-                        authToken: auth,
-                        attachment: file,
-                        caseNum: caseId
-                    };
+                            authToken: auth,
+                            attachment: file,
+                            caseNum: caseId
+                        };
                     var deferred = $q.defer();
                     $http.post('attachments', jsonData).success(function (data, status, headers, config) {
                         deferred.resolve(data);
                         AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}', {
-                            attachmentName: jsonData.attachment,
-                            caseNumber: caseId
-                        }));
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}',{attachmentName:jsonData.attachment,caseNumber:caseId}));
                     }).error(function (data, status, headers, config) {
                         var errorMsg = '';
                         switch (status) {
-                            case 401:
-                                errorMsg = ' : Unauthorised.';
-                                break;
-                            case 409:
-                                errorMsg = ' : Invalid username/password.';
-                                break;
-                            case 500:
-                                errorMsg = ' : Internal server error';
-                                break;
+                        case 401:
+                            errorMsg = ' : Unauthorised.';
+                            break;
+                        case 409:
+                            errorMsg = ' : Invalid username/password.';
+                            break;
+                        case 500:
+                            errorMsg = ' : Internal server error';
+                            break;
                         }
-                        AlertService.addDangerMessage(gettextCatalog.getString('Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: {{errorMessage}}', {
-                            attachmentName: jsonData.attachment,
-                            caseNumber: caseId,
-                            errorMessage: errorMsg
-                        }));
+                        AlertService.addDangerMessage(gettextCatalog.getString('Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: {{errorMessage}}',{attachmentName:jsonData.attachment,caseNumber:caseId,errorMessage:errorMsg}));
                         deferred.reject(data);
                     });
                     promises.push(deferred.promise);
@@ -97,8 +92,8 @@ export default class AttachmentsService {
             });
         };
         this.updateAttachments = function (caseId) {
-            var hasServerAttachments = this.hasBackEndSelections();
-            var hasLocalAttachments = !angular.equals(this.updatedAttachments.length, 0);
+            const hasServerAttachments = this.hasBackEndSelections();
+            const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
             if (hasLocalAttachments || hasServerAttachments) {
                 var promises = [];
                 var updatedAttachments = this.updatedAttachments;
@@ -107,14 +102,22 @@ export default class AttachmentsService {
                 }
                 if (hasLocalAttachments) {
                     //find new attachments
-                    angular.forEach(updatedAttachments, function (attachment) {
-                        if (!attachment.hasOwnProperty('uuid')) {
+                    _.each(updatedAttachments, (attachment) => {
+                         if (!attachment.hasOwnProperty('uuid')) {
                             var formdata = new FormData();
                             formdata.append('file', attachment.fileObj);
                             formdata.append('description', attachment.description);
 
-                            var promise = strataService.cases.attachments.post(formdata, caseId);
-                            promise.then(function (uri) {
+                            const updateProgress = (progress) => {
+                                attachment.progress = Math.round(progress);
+                                if ($rootScope.$$phase !== '$apply' && $rootScope.$$phase !== '$digest') {
+                                    $rootScope.$apply();
+                                }
+                            };
+
+                            var promise = strataService.cases.attachments.post(formdata, caseId, updateProgress);
+                            promise.then((uri) => {
+                                attachment.progress = null;
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
                                 var currentDate = new Date();

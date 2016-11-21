@@ -40,25 +40,41 @@ export default class AttachLocalFile {
         };
         $scope.selectFile = function () {
             // Strata will always keep the limit display in Mb (current = 1024Mb)
-            var maxSize = (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
-            var minSize = 0;
-            if ($('#fileUploader')[0].files[0].size < maxSize && $('#fileUploader')[0].files[0].size > minSize) {
-                $scope.fileObj = $('#fileUploader')[0].files[0];
+            const maxSize = (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
+            const minSize = 0;
+            const file = $('#fileUploader')[0].files[0]; 
+            if (file && file.size < maxSize && file.size > minSize) {
+                $scope.fileObj = file;
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
-                if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
-                    $scope.$apply();
+                
+                // Check if file is readable
+                const reader = new FileReader();
+                reader.onload = () => {
+                    $scope.addFile();
+                };
+                reader.onerror = () => {
+                    const message = gettextCatalog.getString('{{errorFileName}} cannot be read by the browser. Check your privileges and make sure you are allowed to read the file.', {
+                        errorFileName: file.name
+                    });
+                    AlertService.addDangerMessage(message);
+                    if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
+                        $scope.$apply();
+                    }
                 }
-                $scope.addFile();
-            } else if ($('#fileUploader')[0].files[0].size === minSize) {
-                var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.", {errorFileName: $('#fileUploader')[0].files[0].name});
+                reader.readAsArrayBuffer(file.slice(0,10)); // try reading first 10 bytes
+            } else if (file && file.size === minSize) {
+                var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.", {errorFileName: file.name});
                 AlertService.addDangerMessage(message);
-            } else {
+            } else if (file) {
                 var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.", {
-                    errorFileName: $('#fileUploader')[0].files[0].name,
+                    errorFileName: file.name,
                     errorFileSize: (AttachmentsService.maxAttachmentSize / 1024)
                 });
                 AlertService.addDangerMessage(message);
+            }
+            if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
+                $scope.$apply();
             }
             $('#fileUploader')[0].value = '';
         };

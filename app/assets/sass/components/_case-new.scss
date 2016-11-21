@@ -2,33 +2,35 @@
 	.config-options{
 		label.label-small-mar{
 			margin: 0 0 0;
-		}
-		label{
-			margin: 15px 0 0;
-		}
-		input{
-			margin: 5px 0 0;
-		}
-		div{
-			margin: 5px 0 0;
-		}
-		textarea{
-			margin: 5px 0 0;
-		}
+			}
+			label{
+				margin: 15px 0 5px;
+			}
+			input{
+				margin: 5px 0 0;
+			}
+			textarea{
+				margin: 5px 0 0;
+			}
+
+			#attach-file {
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
 	}
 	.rha-case-more-options{
 		label{
-			margin: 15px 0 0;
+			margin: 15px 0 5px;
 		}
 		input{
-			margin: 5px 0 0;
-		}
-		div{
 			margin: 5px 0 0;
 		}
 		.glyphicon-question-sign{
 		    margin-left: 5px;
 		}
+	}
+	.submit {
+		margin-top: 10px;
 	}
     .bookmark-icon {
         font-size: 20px;
