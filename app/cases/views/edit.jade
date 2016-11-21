@@ -1,5 +1,8 @@
 .page-header(rha-header='', page='')
-div.edit(ng-if='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
+div(ng-hide='showCasePage()')
+  .spinner.spinner-lg
+  p.center {{'Loading Case...'|translate}}
+div.edit(ng-if='showCasePage()')
   .row.row-very-short
     div.section.main.col-md-8
       .row.row-very-short

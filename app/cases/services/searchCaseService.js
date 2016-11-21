@@ -6,7 +6,8 @@ export default class SearchCaseService {
 
         this.cases = [];
         this.totalCases = 0;
-        this.searching = false;
+        this.searching = true;
+        this.searching404 = false;
         this.start = 0;
         this.total = 0;
         this.refreshFilterCache = false;
@@ -175,19 +176,22 @@ export default class SearchCaseService {
                             this.total = this.total + response['case'].length;
                         }
                     }
+                    this.searching404 = false;
                     deferred.resolve(cases);
                 }, (error) => {
                     this.totalCases = 0;
                     this.total = 0;
                     this.allCasesDownloaded = true;
-                    if (error.xhr.status === 404) {
+                    if (error.xhr.status === 404 && !this.searching404) {
+                        this.searching404 = true;
                         this.doFilter(false).then(() => deferred.resolve(cases));
                     } else {
+                        this.searching404 = false;
                         AlertService.addStrataErrorMessage(error);
                         deferred.resolve(cases);
                     }
                 }).finally(() => {
-                    this.searching = false;
+                    this.searching = this.searching404 ? true : this.searching = false;
                 });
             } else {
                 var sortField = CaseService.filterSelect.sortField;
@@ -210,20 +214,23 @@ export default class SearchCaseService {
                             this.total = this.total + response['case'].length;
                         }
                     }
+                    this.searching404 = false;
                     deferred.resolve(cases);
                 }, (error) => {
                     this.totalCases = 0;
                     this.total = 0;
                     this.currentPage = 1;
                     this.allCasesDownloaded = true;
-                    if (error.xhr.status === 404) {
+                    if (error.xhr.status === 404 && !this.searching404) {
+                        this.searching404 = true;
                         this.doFilter(false).then(() => deferred.resolve(cases));
                     } else {
+                        this.searching404 = false;
                         AlertService.addStrataErrorMessage(error);
                         deferred.resolve(cases);
                     }
                 }).finally(() => {
-                    this.searching = false;
+                    this.searching = this.searching404 ? true : this.searching = false;
                 });
             }
             return deferred.promise;
