@@ -182,7 +182,7 @@ export default class SearchCaseService {
                     this.totalCases = 0;
                     this.total = 0;
                     this.allCasesDownloaded = true;
-                    if (error.xhr.status === 404) {
+                    if (error.xhr.status === 404 && !this.searching404) {
                         this.searching404 = true;
                         this.doFilter(false).then(() => deferred.resolve(cases));
                     } else {
@@ -221,7 +221,7 @@ export default class SearchCaseService {
                     this.total = 0;
                     this.currentPage = 1;
                     this.allCasesDownloaded = true;
-                    if (error.xhr.status === 404) {
+                    if (error.xhr.status === 404 && !this.searching404) {
                         this.searching404 = true;
                         this.doFilter(false).then(() => deferred.resolve(cases));
                     } else {
