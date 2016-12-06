@@ -87,6 +87,7 @@ section.case-description
             button.btn.btn-app.btn-submit(
               name='updateButton',
               ng-disabled='validatePage() || updatingDetails || !detailsForm.$dirty',
+              ng-class="{'btn-primary': !(validatePage() || updatingDetails || !detailsForm.$dirty) }",
               ng-click='updateCase()', translate='') Save Changes
             a#cancelCaseDetailChanges.margin-left(
               ng-hide='updatingDetails || !detailsForm.$dirty',

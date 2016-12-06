@@ -168,7 +168,9 @@ div(rha-header='', page='newCase')
                                 button.btn.btn-app(
                                 ng-disabled='$parent.CaseService.submittingCase || $parent.CaseService.newCaseIncomplete',
                                 ng-hide='$parent.CaseService.submittingCase',
-                                ng-click='$parent.doSubmit($event)', translate,translate-comment="Verb") Submit
+                                ng-click='$parent.doSubmit($event)',
+                                ng-class="{'btn-primary': !($parent.CaseService.submittingCase || $parent.CaseService.newCaseIncomplete) }",
+                                translate,translate-comment="Verb") Submit
                                 a.margin-left(href='#/case/list',ng-hide='$parent.CaseService.submittingCase',translate,translate-comment="Verb") Cancel
         .aside.col-sm-4.new-recommendations-column#new-recommendations-column(ng-hide="$parent.RecommendationsService.recommendations.length === 0 || $parent.ProductsService.productsLoading")
             div.affixed-recommendations(rha-newcaserecommendations='', items-per-page='$parent.recommendationsPerPage')
