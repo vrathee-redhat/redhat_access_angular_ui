@@ -75,10 +75,6 @@ export default class DiscussionSection {
             CaseService.disableAddComment = true;
         };
 
-        if (securityService.loginStatus.isLoggedIn) {
-            DiscussionService.getDiscussionElements($stateParams.id);
-        }
-
         $scope.requestManagementEscalation = function () {
             $uibModal.open({
                 template: require('../views/requestManagementEscalationModal.jade'),
