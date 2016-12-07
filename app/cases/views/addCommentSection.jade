@@ -36,8 +36,8 @@ div(ng-show='EDIT_CASE_CONFIG.showAttachments && securityService.loginStatus.aut
       .spinner.spinner-inline(ng-show='addingComment || addingattachment')
       button#rha-case-addcommentbutton.btn.btn-app(
         ng-hide='addingComment || addingattachment',
-        ng-disabled='!ie8 && !ie9 && (CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections())',
-        ng-class="{'btn-primary': !(!ie8 && !ie9 && (CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections()))}",
+        ng-disabled='CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections()',
+        ng-class="{'btn-primary': !(CaseService.disableAddComment && AttachmentsService.updatedAttachments.length === 0 && !AttachmentsService.hasBackEndSelections())}",
         ng-click='addComment()',
         translate='') Post
       a.margin-left(ng-click='clearComment()',translate='',ng-hide='addingComment || addingattachment') Cancel
