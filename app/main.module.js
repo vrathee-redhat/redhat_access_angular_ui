@@ -77,6 +77,12 @@ const app = angular.module('RedhatAccess', [
     'RedhatAccess.escalation'
 ]);
 
+app.run(["$rootScope",function ($rootScope) {
+    Promise.setScheduler(function (cb) {
+        $rootScope.$evalAsync(cb);
+    });
+}]);
+
 // Load in the various translations see: https://github.com/princed/angular-gettext-loader
 if (ENVIRONMENT !== 'test') {
     require('./i18n/template-de.po');
@@ -140,7 +146,7 @@ if (ENVIRONMENT === 'gs4') {
             window.sessionjs.onInit(() => {
                 securityService.validateLogin(false);
             });
-            
+
         }
     );
 
