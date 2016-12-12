@@ -11,5 +11,6 @@ export default {
     caseSeverityChanged: 'case-severity-change',
     caseClose: 'case-close',
     focusSearchInput: 'focus-search-input',
-    advancedSearchSubmitted: 'advanced-search-submitted'
+    advancedSearchSubmitted: 'advanced-search-submitted',
+    filterInitialized: 'filter-initialized'
 }

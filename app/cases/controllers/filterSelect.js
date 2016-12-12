@@ -3,7 +3,7 @@
 import find from "lodash/find"
 
 export default class FilterSelect {
-    constructor($scope, securityService, CaseService, STATUS, ConstantsService, $state, $stateParams) {
+    constructor($scope, securityService, CaseService, STATUS, ConstantsService, $state, $stateParams, CASE_EVENTS) {
         'ngInject';
 
         $scope.securityService = securityService;
@@ -19,6 +19,7 @@ export default class FilterSelect {
                     sortOrder: order
                 }, ConstantsService.sortByParams[0]);
                 CaseService.filterSelect = filterItem;
+                $scope.$root.$broadcast(CASE_EVENTS.filterInitialized);
             } else {
                 CaseService.filterSelect = ConstantsService.sortByParams[0];
                 if (CaseService.localStorageCache) {
@@ -27,6 +28,7 @@ export default class FilterSelect {
                         CaseService.setFilterSelectModel(filterSelectCache.sortField, filterSelectCache.sortOrder);
                     }
                 }
+                $scope.$root.$broadcast(CASE_EVENTS.filterInitialized);
             }
         };
     }
