@@ -50,6 +50,7 @@ export default class CaseService {
         this.confirmationModalProperty = '';
         this.sfdcIsHealthy = HeaderService.sfdcIsHealthy;
         this.creationStartedEventSent = false;
+        this.showKTFields = true;
 
         this.setSeverities = function (severities) {
             this.severities = severities;
@@ -121,7 +122,7 @@ export default class CaseService {
         this.problemString = gettextCatalog.getString('What problem/issue/behavior are you having trouble with?  What do you expect to see?');
         this.environmentString = gettextCatalog.getString('Where are you experiencing the behavior?  What environment?');
         this.occuranceString = gettextCatalog.getString('When does the behavior occur? Frequently?  Repeatedly?   At certain times?');
-        this.urgencyString = gettextCatalog.getString('What information can you provide around timeframes and urgency?');
+        this.urgencyString = gettextCatalog.getString('What information can you provide around timeframes and the business impact?');
         /**
          * Add the necessary wrapper objects needed to properly display the data.
          *
@@ -425,7 +426,14 @@ export default class CaseService {
         this.newCaseIncomplete = true;
         this.validateNewCase = function () {
             if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary)
-                || RHAUtils.isEmpty(this.kase.description)
+                || ( !this.showKTFields && RHAUtils.isEmpty(this.kase.description) )
+                || ( this.showKTFields  
+                    && RHAUtils.isEmpty(this.kase.problem)
+                    && RHAUtils.isEmpty(this.kase.environment)
+                    && RHAUtils.isEmpty(this.kase.occurance)
+                    && RHAUtils.isEmpty(this.kase.urgency)
+                    )
+                || RHAUtils.isEmpty(this.kase.type)
                 || (securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.owner))) {
                 this.newCaseIncomplete = true;
             } else {
@@ -507,17 +515,22 @@ export default class CaseService {
                 'description': this.kase.description,
                 'severity': this.kase.severity.name
             };
-            if (RHAUtils.isNotEmpty(this.kase.problem)) {
-                caseJSON.issue = this.kase.problem;
+            if (RHAUtils.isNotEmpty(this.kase.type)) {
+                caseJSON.type = this.kase.type.name;
             }
-            if (RHAUtils.isNotEmpty(this.kase.environment)) {
+            if(this.showKTFields) {
+                if (RHAUtils.isNotEmpty(this.kase.problem)) {
+                    caseJSON.issue = this.kase.problem;
+                }
+                if (RHAUtils.isNotEmpty(this.kase.environment)) {
                 caseJSON.environment = this.kase.environment;
-            }
-            if (RHAUtils.isNotEmpty(this.kase.occurance)) {
-                caseJSON.periodicityOfIssue = this.kase.occurance;
-            }
-            if (RHAUtils.isNotEmpty(this.kase.urgency)) {
-                caseJSON.timeFramesAndUrgency = this.kase.urgency;
+                }
+                if (RHAUtils.isNotEmpty(this.kase.occurance)) {
+                    caseJSON.periodicityOfIssue = this.kase.occurance;
+                }
+                if (RHAUtils.isNotEmpty(this.kase.urgency)) {
+                    caseJSON.timeFramesAndUrgency = this.kase.urgency;
+                }
             }
             if (RHAUtils.isNotEmpty(this.group)) {
                 caseJSON.folderNumber = this.group;

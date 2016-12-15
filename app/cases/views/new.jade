@@ -17,6 +17,8 @@ div(rha-header='', page='newCase')
                             div(rha-productselect='')
                             label(translate,translate-comment="Noun") Product Version
                             div(rha-versionselect='')
+                            label(translate,translate-comment="Noun") Case Type
+                            div(rha-typeselect='', on-change = 'onCaseTypeChanged()' )
                             label(translate,translate-comment="Noun") Problem Statement
                             input#rha-case-summary.form-control(
                             maxlength='255',
@@ -30,58 +32,73 @@ div(rha-header='', page='newCase')
                                     .circle &nbsp;
                                     .circle &nbsp;
                                     .circle &nbsp;
-                            label.label-small-mar.pre-wrap {{$parent.CaseService.problemString}}
-                            textarea(name='', id='rha-problem',
-                            style='width: 100%; height: 75px; max-width: 100%;',
-                            ng-model='$parent.CaseService.kase.problem',
-                            ng-change='$parent.onProblemChange($event)',
-                            ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
-                            ng-focus="$parent.CaseService.updatingProblemString=true",
-                            ng-blur="$parent.CaseService.updatingProblemString=false")
-                            .loader
-                                div(ng-show='$parent.CaseService.updatingProblemString && $parent.RecommendationsService.loadingRecommendations')
-                                    .circle &nbsp;
-                                    .circle &nbsp;
-                                    .circle &nbsp;
-                            label.pre-wrap.label-small-mar {{$parent.CaseService.environmentString}}
-                            textarea(name='', id='rha-environment',
-                            style='width: 100%; height: 75px; max-width: 100%;',
-                            ng-model='$parent.CaseService.kase.environment',
-                            ng-change='$parent.onEnvironmentChange($event)',
-                            ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
-                            ng-focus="$parent.CaseService.updatingEnvironmentString=true",
-                            ng-blur="$parent.CaseService.updatingEnvironmentString=false")
-                            .loader
-                                div(ng-show='$parent.CaseService.updatingEnvironmentString && $parent.RecommendationsService.loadingRecommendations')
-                                    .circle &nbsp;
-                                    .circle &nbsp;
-                                    .circle &nbsp;
-                            label.pre-wrap.label-small-mar {{$parent.CaseService.occuranceString}}
-                            textarea(name='', id='rha-occurance',
-                            style='width: 100%; height: 75px; max-width: 100%;',
-                            ng-model='$parent.CaseService.kase.occurance',
-                            ng-change='$parent.onOccuranceChange($event)',
-                            ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
-                            ng-focus="$parent.CaseService.updatingOccuranceString=true",
-                            ng-blur="$parent.CaseService.updatingOccuranceString=false")
-                            .loader
-                                div(ng-show='$parent.CaseService.updatingOccuranceString && $parent.RecommendationsService.loadingRecommendations')
-                                    .circle &nbsp;
-                                    .circle &nbsp;
-                                    .circle &nbsp;
-                            label.pre-wrap.label-small-mar {{$parent.CaseService.urgencyString}}
-                            textarea(name='', id='rha-urgency',
-                            style='width: 100%; height: 75px; max-width: 100%;',
-                            ng-model='$parent.CaseService.kase.urgency',
-                            ng-change='$parent.onUrgencyChange($event)',
-                            ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
-                            ng-focus="$parent.CaseService.updatingUrgencyString=true",
-                            ng-blur="$parent.CaseService.updatingUrgencyString=false")
-                            .loader
-                                div(ng-show='$parent.CaseService.updatingUrgencyString && $parent.RecommendationsService.loadingRecommendations')
-                                    .circle &nbsp;
-                                    .circle &nbsp;
-                                    .circle &nbsp;
+                            div(ng-hide='$parent.CaseService.showKTFields')
+                                label.label-small-mar.pre-wrap {{'Case Description'| translate}}
+                                textarea(name='', id='rha-description',
+                                style='width: 100%; height: 75px; max-width: 100%;',
+                                ng-model='$parent.CaseService.kase.description',
+                                ng-change='$parent.onDescriptionChange($event)',
+                                ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
+                                ng-focus="$parent.CaseService.updatingCaseDescription=true",
+                                ng-blur="$parent.CaseService.updatingCaseDescription=false")
+                                .loader
+                                    div(ng-show='$parent.CaseService.updatingCaseDescription && $parent.RecommendationsService.loadingRecommendations')
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                            div(ng-show='$parent.CaseService.showKTFields')
+                                label.label-small-mar.pre-wrap {{$parent.CaseService.problemString}}
+                                textarea(name='', id='rha-problem',
+                                style='width: 100%; height: 75px; max-width: 100%;',
+                                ng-model='$parent.CaseService.kase.problem',
+                                ng-change='$parent.onProblemChange($event)',
+                                ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
+                                ng-focus="$parent.CaseService.updatingProblemString=true",
+                                ng-blur="$parent.CaseService.updatingProblemString=false")
+                                .loader
+                                    div(ng-show='$parent.CaseService.updatingProblemString && $parent.RecommendationsService.loadingRecommendations')
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                                label.pre-wrap.label-small-mar {{$parent.CaseService.environmentString}}
+                                textarea(name='', id='rha-environment',
+                                style='width: 100%; height: 75px; max-width: 100%;',
+                                ng-model='$parent.CaseService.kase.environment',
+                                ng-change='$parent.onEnvironmentChange($event)',
+                                ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
+                                ng-focus="$parent.CaseService.updatingEnvironmentString=true",
+                                ng-blur="$parent.CaseService.updatingEnvironmentString=false")
+                                .loader
+                                    div(ng-show='$parent.CaseService.updatingEnvironmentString && $parent.RecommendationsService.loadingRecommendations')
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                                label.pre-wrap.label-small-mar {{$parent.CaseService.occuranceString}}
+                                textarea(name='', id='rha-occurance',
+                                style='width: 100%; height: 75px; max-width: 100%;',
+                                ng-model='$parent.CaseService.kase.occurance',
+                                ng-change='$parent.onOccuranceChange($event)',
+                                ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
+                                ng-focus="$parent.CaseService.updatingOccuranceString=true",
+                                ng-blur="$parent.CaseService.updatingOccuranceString=false")
+                                .loader
+                                    div(ng-show='$parent.CaseService.updatingOccuranceString && $parent.RecommendationsService.loadingRecommendations')
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                                label.pre-wrap.label-small-mar {{$parent.CaseService.urgencyString}}
+                                textarea(name='', id='rha-urgency',
+                                style='width: 100%; height: 75px; max-width: 100%;',
+                                ng-model='$parent.CaseService.kase.urgency',
+                                ng-change='$parent.onUrgencyChange($event)',
+                                ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
+                                ng-focus="$parent.CaseService.updatingUrgencyString=true",
+                                ng-blur="$parent.CaseService.updatingUrgencyString=false")
+                                .loader
+                                    div(ng-show='$parent.CaseService.updatingUrgencyString && $parent.RecommendationsService.loadingRecommendations')
+                                        .circle &nbsp;
+                                        .circle &nbsp;
+                                        .circle &nbsp;
                             div(style="margin-top: 10px", ng-show='$parent.NEW_CASE_CONFIG.showAttachments && $parent.securityService.loginStatus.authedUser.can_add_attachments')
                                 b {{'Get faster results.'|translate}}
                                 | &nbsp; {{'Attaching logs or other diagnostics files typically results in faster resolution.'|translate}}
