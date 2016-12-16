@@ -157,6 +157,8 @@ describe('Case Services', function () {
             caseService.kase.version = '';
             caseService.kase.summary = '';
             caseService.kase.description = '';
+            caseService.kase.type = 'Feature / Enhancement';
+            caseService.showKTFields = false;
             caseService.validateNewCase();
             expect(caseService.newCaseIncomplete).toBe(true);
             caseService.kase.product = 'Red Hat Enterprise Linux';
