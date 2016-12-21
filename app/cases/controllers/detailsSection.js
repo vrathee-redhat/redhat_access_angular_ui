@@ -207,5 +207,8 @@ export default class DetailsSection {
             if (maxLength !== undefined) text = $filter('substring')(text, maxLength);
             return LinkifyService.linkifyWithCaseIDs(text);
         };
+        $scope.onCaseTypeChanged = function () {
+            CaseService.onSelectChanged();
+        };
     }
 }

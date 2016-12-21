@@ -1,6 +1,6 @@
 select#rha_type_select(
 	chosen,
 	ng-model='CaseService.kase.type',
-	ng-change='CaseService.onSelectChanged()',
+	ng-change='onChange()',
 	width='"100%"',
 	ng-options='type.name for type in CaseService.types track by type.name')

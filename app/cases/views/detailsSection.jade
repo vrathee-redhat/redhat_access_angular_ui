@@ -68,7 +68,7 @@ section.case-description
           .col-xs-4.col-sm-3.col-md-4
             .label {{'Case Type'|translate}}
           .col-xs-4.col-sm-5.col-md-6
-            div(rha-typeselect='')
+            div(rha-typeselect='', on-change = 'onCaseTypeChanged()')
         .row.row-short(ng-show="CaseService.showFts()")
           .col-xs-4.col-sm-3.col-md-4
             .label {{'24x7 Support'|translate}}
