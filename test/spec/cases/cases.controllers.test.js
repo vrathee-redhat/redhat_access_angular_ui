@@ -1,4 +1,5 @@
 'use strict';
+import _ from 'lodash'
 
 describe('Case Controllers', function () {
     var mockRecommendationsService;
@@ -695,16 +696,17 @@ describe('Case Controllers', function () {
                 strataService: mockStrataService,
                 EDIT_CASE_CONFIG: mockStrataDataService.value
             });
-            expect(mockScope.updateNotifyUsers).toBeDefined();
+            expect(mockScope.selectedUsersChanged).toBeDefined();
             mockCaseService.kase.case_number = '1234';
             mockCaseService.originalNotifiedUsers = mockStrataDataService.mockOriginalNotifiedUsers;
-            mockCaseService.updatedNotifiedUsers = mockStrataDataService.mockUpdatedNotifiedUsers;
-            mockScope.updateNotifyUsers();
+            mockScope.selectedUsers = _.map(mockStrataDataService.mockUpdatedNotifiedUsers, 'sso_username');
             spyOn(mockStrataService.cases.notified_users, 'remove').and.callThrough();
             spyOn(mockStrataService.cases.notified_users, 'add').and.callThrough();
-            mockScope.$root.$digest();
-            expect(mockScope.updatingList).toBe(false);
-            expect(mockCaseService.updatedNotifiedUsers).toEqual(mockCaseService.originalNotifiedUsers);
+            mockScope.selectedUsersChanged().then(() => {
+                mockScope.$root.$digest();
+                expect(mockScope.saving).toBe(false);
+                expect(_.map(mockCaseService.originalNotifiedUsers, 'sso_username')).toEqual(mockScope.selectedUsers);
+            });
         }));
         it('should have a function to update Notified Users rejected', inject(function ($controller) {
             $controller('EmailNotifySelect', {
@@ -713,17 +715,18 @@ describe('Case Controllers', function () {
                 strataService: mockStrataService,
                 EDIT_CASE_CONFIG: mockStrataDataService.value
             });
-            expect(mockScope.updateNotifyUsers).toBeDefined();
+            expect(mockScope.selectedUsersChanged).toBeDefined();
             mockCaseService.kase.case_number = '1234';
             mockCaseService.originalNotifiedUsers = mockStrataDataService.mockOriginalNotifiedUsers;
-            mockCaseService.updatedNotifiedUsers = mockStrataDataService.mockUpdatedNotifiedUsers;
+            mockScope.selectedUsers = _.map(mockStrataDataService.mockUpdatedNotifiedUsers, 'sso_username');
             mockStrataService.rejectCalls();
             spyOn(mockStrataService.cases.notified_users, 'remove').and.callThrough();
             spyOn(mockStrataService.cases.notified_users, 'add').and.callThrough();
-            mockScope.updateNotifyUsers();
-            mockScope.$root.$digest();
-            expect(mockScope.updatingList).toBe(false);
-            expect(mockCaseService.updatedNotifiedUsers).toEqual(mockStrataDataService.mockUpdatedNotifiedUsers);
+            mockScope.selectedUsersChanged().then(() => {
+                mockScope.$root.$digest();
+                expect(mockScope.saving).toBe(false);
+                expect(mockCaseService.originalNotifiedUsers).toEqual(mockStrataDataService.mockOriginalNotifiedUsers);
+            });
         }));
     });
 

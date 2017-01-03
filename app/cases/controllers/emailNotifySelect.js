@@ -21,7 +21,7 @@ export default class EmailNotifySelect {
             const addPromises = _.map(toBeAdded, (user) => strataService.cases.notified_users.add(CaseService.kase.case_number, user));
             const removePromises = _.map(toBeRemoved, (user) => strataService.cases.notified_users.remove(CaseService.kase.case_number, user));
 
-            Promise.all([...addPromises, ...removePromises]).then(() => {
+            return Promise.all([...addPromises, ...removePromises]).then(() => {
                 _.pullAll(CaseService.originalNotifiedUsers, toBeRemoved);
                 CaseService.originalNotifiedUsers = CaseService.originalNotifiedUsers.concat(toBeAdded);
                 $scope.saving = false;
