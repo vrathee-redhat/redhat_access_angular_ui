@@ -34,6 +34,8 @@ div.edit(ng-if='showCasePage()')
       section.case-discussion
         .row
           .col-xs-12(rha-emailnotifyselect='')
+        .row
+          .col-xs-12(rha-emailnotifyselect, internal="true")
 
     .aside.col-md-4
       .spinner.spinner-inline(ng-show='$parent.RecommendationsService.loadingRecommendations')
