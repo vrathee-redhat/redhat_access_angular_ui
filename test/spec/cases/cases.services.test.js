@@ -105,9 +105,12 @@ describe('Case Services', function () {
         it('should have a method for populating Users For An Account non org admin', function () {
             expect(caseService.populateUsers).toBeDefined();
             securityService.loginStatus.authedUser.org_admin = false;
+            securityService.loginStatus.authedUser.first_name = 'First';
+            securityService.loginStatus.authedUser.last_name = 'Last';
+            securityService.loginStatus.authedUser.sso_username = 'SSO';
             caseService.account.number = '540155';
             caseService.populateUsers();
-            expect(caseService.users).toEqual([{'sso_username' : undefined}]);
+            expect(caseService.users).toEqual([{'sso_username' : 'SSO', 'first_name': 'First', 'last_name': 'Last'}]);
             expect(caseService.usersLoading).toBe(false);
         });
         it('should have a method for populating Users For An Account rejected', function () {
