@@ -8,6 +8,7 @@ if (ENVIRONMENT === 'gs4') {
 require("angular");
 require('angular-gettext');
 require('./localFile');
+require('./rocketChat.js');
 require('angular-resource');
 require('angular-sanitize');
 require('angular-animate');

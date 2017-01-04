@@ -87,6 +87,7 @@
         "test": "./node_modules/karma/bin/karma start",
         "build": "rimraf dist && nice webpack --config webpack-production.config.js --bail --progress --profile",
         "server-inline": "webpack-dev-server --config webpack-dev-server.config.js --history-api-fallback --inline --progress --port 9000",
+	"server-public": "webpack-dev-server --config webpack-dev-server.config.js --history-api-fallback --progress --host 0.0.0.0 --port 9000",
         "server": "webpack-dev-server --config webpack-dev-server.config.js --history-api-fallback --progress --port 9000",
         "server-prod": "webpack-dev-server --config webpack-production.config.js --history-api-fallback --inline --progress --port 9000",
         "test-watch": "karma start --auto-watch --no-single-run",

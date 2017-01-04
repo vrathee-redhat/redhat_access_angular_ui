@@ -134,7 +134,34 @@ export default class List {
             return trues.length;
         };
 
-        $scope.closeCases = function () {
+        $scope.clearDepartment = function () {
+		window.RocketChat(function() {
+			console.log(this);
+			this.clearDepartment();
+        	});
+	};
+	$scope.setDepartment = function () {
+		window.RocketChat(function() {
+			console.log(this);
+			this.setDepartment('KERNEL_FR');
+        	});
+	};
+	$scope.setCustomField= function () {
+		window.RocketChat(function() {
+			console.log(this);
+			this.setCustomField('sbr', 'case_sbr');
+		       	this.setCustomField('language', 'cookie_en');
+			this.setCustomField('sso', 'rhn-support-sshumake');
+			this.setCustomField('Name', 'Spenser');
+			this.setCustomField('Email', 'sshumake@redhat.com');
+        	});
+	};
+
+	$scope.setTheme = function () {
+        	console.log("clicked - theme todo if needed");
+	};
+	
+	$scope.closeCases = function () {
             CaseService.confirmationModal = CASE_EVENTS.caseClose;
             CaseService.confirmationModalHeader = gettextCatalog.getString('Closing Cases.');
             CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to close the selected cases?');
