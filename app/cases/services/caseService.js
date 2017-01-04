@@ -1,5 +1,7 @@
 'use strict';
 
+import _ from 'lodash';
+
 export default class CaseService {
     constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location) {
         'ngInject';
@@ -25,7 +27,6 @@ export default class CaseService {
         this.comments = [];
         this.externalUpdates = [];
         this.originalNotifiedUsers = [];
-        this.updatedNotifiedUsers = [];
         this.account = {};
         this.draftComment = {};
         this.draftCommentOnServerExists = false;
@@ -51,6 +52,8 @@ export default class CaseService {
         this.sfdcIsHealthy = HeaderService.sfdcIsHealthy;
         this.creationStartedEventSent = false;
         this.showKTFields = true;
+        this.redhatUsersLoading = false;
+        this.redhatUsers = [];
 
         this.setSeverities = function (severities) {
             this.severities = severities;
@@ -169,17 +172,10 @@ export default class CaseService {
         };
         this.defineNotifiedUsers = function () {
             /*jshint camelcase: false */
-            this.updatedNotifiedUsers.push(this.kase.contact_sso_username);
-            //hide the X button for the case owner
-            $('#rha-emailnotifyselect').on('change', angular.bind(this, function () {
-                $('rha-emailnotifyselect .chosen-choices li:contains("' + this.kase.contact_sso_username + '") a').css('display', 'none');
-                $('rha-emailnotifyselect .chosen-choices li:contains("' + this.kase.contact_sso_username + '")').css('padding-left', '5px');
-            }));
             if (RHAUtils.isNotEmpty(this.kase.notified_users)) {
-                angular.forEach(this.kase.notified_users.link, angular.bind(this, function (user) {
+                _.each(this.kase.notified_users.link, (user) => {
                     this.originalNotifiedUsers.push(user.sso_username);
-                }));
-                this.updatedNotifiedUsers = this.updatedNotifiedUsers.concat(this.originalNotifiedUsers);
+                });
             }
         };
         this.getGroups = function () {
@@ -211,7 +207,6 @@ export default class CaseService {
             this.owner = undefined;
             this.product = undefined;
             this.originalNotifiedUsers = [];
-            this.updatedNotifiedUsers = [];
             this.groupOptions = [];
             this.fts = false;
             this.fts_contact = '';
@@ -248,8 +243,7 @@ export default class CaseService {
          *  Intended to be called only after user is logged in and has account details
          *  See securityService.
          */
-        this.populateUsers = angular.bind(this, function () {
-            var promise = null;
+        this.populateUsers = () => {
             if (securityService.loginStatus.authedUser.org_admin) {
                 this.usersLoading = true;
                 var accountNumber;
@@ -263,14 +257,13 @@ export default class CaseService {
                     accountNumber = securityService.loginStatus.authedUser.account.number;
                 }
                 if (RHAUtils.isNotEmpty(accountNumber)) {
-                    promise = strataService.accounts.users(accountNumber);
                     this.owner = undefined;
-                    promise.then(angular.bind(this, function (users) {
-                        angular.forEach(users, function (user) {
+                    return strataService.accounts.users(accountNumber).then((users) => {
+                        _.each(users, (user) => {
                             if (user.sso_username === securityService.loginStatus.authedUser.sso_username) {
                                 this.owner = user.sso_username;
                             }
-                        }, this);
+                        });
                         //PCM-1520 Case insensitive sorting on sso_username
                         users.sort(function (a, b) {
                             var userA = a.sso_username.toUpperCase();
@@ -280,25 +273,34 @@ export default class CaseService {
                         this.usersLoading = false;
                         this.users = users;
 
-                    }), angular.bind(this, function (error) {
+                    }, (error) => {
                         this.users = [];
                         this.usersLoading = false;
                         AlertService.addStrataErrorMessage(error);
-                    }));
+                    });
                 } else {
-                    var deferred = $q.defer();
-                    promise = deferred.promise;
+                    const deferred = $q.defer();
                     deferred.resolve();
+                    return deferred.promise;
+
                 }
             } else {
-                deferred = $q.defer();
-                promise = deferred.promise;
+                const loggedInUser = {'sso_username': securityService.loginStatus.authedUser.sso_username};
+                this.users.push(loggedInUser);
+                const deferred = $q.defer();
                 deferred.resolve();
-                var tmp = {'sso_username': securityService.loginStatus.authedUser.sso_username};
-                this.users.push(tmp);
+                return deferred.promise;
             }
-            return promise;
-        });
+        };
+
+        this.populateRedhatUsers = () => {
+            const accountNumber = "540155";
+            this.redhatUsersLoading = true;
+            return strataService.accounts.users(accountNumber).then((users) => {
+                this.redhatUsers = users;
+                this.redhatUsersLoading = false;
+            });
+        };
 
         this.scrollToComment = function (commentID) {
             if (!commentID) {
@@ -427,7 +429,7 @@ export default class CaseService {
         this.validateNewCase = function () {
             if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary)
                 || ( !this.showKTFields && RHAUtils.isEmpty(this.kase.description) )
-                || ( this.showKTFields  
+                || ( this.showKTFields
                     && RHAUtils.isEmpty(this.kase.problem)
                     && RHAUtils.isEmpty(this.kase.environment)
                     && RHAUtils.isEmpty(this.kase.occurance)

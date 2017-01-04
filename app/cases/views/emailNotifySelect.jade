@@ -1,15 +1,26 @@
-.spinner.spinner-inline(ng-show='!securityService.loginStatus.isLoggedIn  || CaseService.usersLoading || securityService.loggingIn')
 .row
-  .col-sm-4
-    .label {{'Send Email Notifications to'|translate}}
-  .col-sm-8
-    select(
-      chosen,
-      multiple,
-      data-placeholder="{{'Select a User'|translate}}",
-      ng-disabled='updatingList',
-      ng-model='CaseService.updatedNotifiedUsers',
-      ng-change='updateNotifyUsers()',
-      id='rha-email-notify-select',
-      width='"100%"',
-      ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in CaseService.users | orderBy:['first_name','last_name']")
+    .col-sm-4
+        .label(ng-show="internal") {{'Red Hat Watchers'|translate}}
+        .label(ng-show="!internal") {{'Send Email Notifications to'|translate}}
+        button.btn.btn-info.btn-xs(ng-click="toggleCurrentUser()", ng-disabled="saving", ng-show="internal && !CaseService.redhatUsersLoading")
+            span(ng-hide="isCurrentUserWatcher()", translate) Add me as watcher
+            span(ng-show="isCurrentUserWatcher()", translate) Remove me as watcher
+    .col-sm-8
+        .spinner.spinner-inline(ng-show="(internal && CaseService.redhatUsersLoading) || (!internal && CaseService.usersLoading)")
+        div(ng-show="!internal && !CaseService.usersLoading")
+            select(
+            chosen,
+            multiple,
+            data-placeholder="{{'Select a User'|translate}}",
+            ng-disabled='saving',
+            ng-model='selectedUsers',
+            ng-change='selectedUsersChanged()',
+            width='"100%"',
+            ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in CaseService.users | orderBy:['first_name','last_name']")
+        div(ng-show="internal && !CaseService.redhatUsersLoading")
+            div.label-contact(ng-repeat="user in mapUsers(selectedUsers)", ng-class="{'label-disabled':saving}")
+                span {{user.first_name}} {{user.last_name}} <{{user.sso_username}}>
+                a(ng-click="removeUser(user.sso_username)", ng-disabled="saving")
+                    i.fa.fa-close
+            input.form-control(type="text", ng-model="userToAdd", placeholder="{{'Search here to add watchers' | translate}}", ng-disabled="saving",
+            uib-typeahead="user as (user.first_name+' '+user.last_name+' &lt;'+user.sso_username+'&gt;') for user in searchRHUsers($viewValue) | limitTo:7")

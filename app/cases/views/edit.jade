@@ -32,8 +32,10 @@ div.edit(ng-if='showCasePage()')
         div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
       section.case-discussion
-        .row
+        .row(ng-if="$parent.securityService.loginStatus.authedUser.org_admin || !$parent.securityService.loginStatus.authedUser.is_internal")
           .col-xs-12(rha-emailnotifyselect='')
+        .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
+          .col-xs-12(rha-emailnotifyselect, internal="true")
 
     .aside.col-md-4
       .spinner.spinner-inline(ng-show='$parent.RecommendationsService.loadingRecommendations')
