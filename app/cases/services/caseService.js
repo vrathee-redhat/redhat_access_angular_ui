@@ -285,8 +285,8 @@ export default class CaseService {
 
                 }
             } else {
-                const loggedInUser = {'sso_username': securityService.loginStatus.authedUser.sso_username};
-                this.users.push(loggedInUser);
+                const loggedInUser = _.pick(securityService.loginStatus.authedUser, ['sso_username', 'first_name', 'last_name']);
+                this.users = [loggedInUser];
                 const deferred = $q.defer();
                 deferred.resolve();
                 return deferred.promise;
