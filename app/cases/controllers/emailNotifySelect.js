@@ -40,7 +40,8 @@ export default class EmailNotifySelect {
         $scope.searchRHUsers = (searchQuery) => {
             const query = searchQuery.toLowerCase();
 
-            return _.filter(CaseService.redhatUsers, (user) => `${user.first_name} ${user.last_name} ${user.sso_username}`.toLowerCase().indexOf(query) > -1);
+            // return users that are not selected and match the searchQuery
+            return _.filter(CaseService.redhatUsers, (user) => $scope.selectedUsers.indexOf(user.sso_username) == -1 && `${user.first_name} ${user.last_name} ${user.sso_username}`.toLowerCase().indexOf(query) > -1);
         };
 
         $scope.isCurrentUserWatcher = () => $scope.selectedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) > -1;
