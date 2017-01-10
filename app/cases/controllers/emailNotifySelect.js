@@ -1,7 +1,7 @@
 'use strict';
 
 export default class EmailNotifySelect {
-    constructor($scope, CaseService, securityService, AlertService, strataService, CASE_EVENTS, $filter, RHAUtils, EDIT_CASE_CONFIG) {
+    constructor($scope, CaseService, securityService, AlertService, strataService, CASE_EVENTS, $filter, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog) {
         'ngInject';
 
         $scope.CaseService = CaseService;
@@ -18,15 +18,35 @@ export default class EmailNotifySelect {
 
             $scope.saving = true;
 
-            const addPromises = _.map(toBeAdded, (user) => strataService.cases.notified_users.add(CaseService.kase.case_number, user));
-            const removePromises = _.map(toBeRemoved, (user) => strataService.cases.notified_users.remove(CaseService.kase.case_number, user));
+            function submitWatchers(toBeAdded, toBeRemoved, removed) {
+                const addPromises = _.map(toBeAdded, (user) => strataService.cases.notified_users.add(CaseService.kase.case_number, user));
+                const removePromises = _.map(toBeRemoved, (user) => strataService.cases.notified_users.remove(CaseService.kase.case_number, user));
 
-            return Promise.all([...addPromises, ...removePromises]).then(() => {
-                _.pullAll(CaseService.originalNotifiedUsers, toBeRemoved);
-                CaseService.originalNotifiedUsers = CaseService.originalNotifiedUsers.concat(toBeAdded);
-                $scope.saving = false;
-            });
+                return Promise.all([...addPromises, ...removePromises]).then(() => {
+                    _.pullAll(CaseService.originalNotifiedUsers, toBeRemoved);
+                    CaseService.originalNotifiedUsers = CaseService.originalNotifiedUsers.concat(toBeAdded);
+                    $scope.saving = false;
+
+                    // add warning message for users we cannot add
+                    _.each(removed, (sso)=> AlertService.addWarningMessage(gettextCatalog.getString('User {{sso}} cannot be added as watcher because it is not internal.', {sso})));
+                });
+            }
+
+            if($scope.internal) {
+                // fetch user info for all users to be added
+                return Promise.all(_.map(toBeAdded, (user) => strataService.users.getBySSO(user))).then((users) => {
+                    const internalSSOs = _.map(_.filter(users, 'is_internal'), 'sso_username');
+
+                    // remove non-internal users
+                    const removed = _.remove(toBeAdded, (userSSO) => internalSSOs.indexOf(userSSO) == -1);
+
+                    return submitWatchers(toBeAdded, toBeRemoved, removed);
+                });
+            } else {
+                return submitWatchers(toBeAdded, toBeRemoved, []);
+            }
         };
+
 
         $scope.mapUsers = (users) => _.compact(_.map(users, (userSSO) => _.find($scope.internal ? CaseService.redhatUsers : CaseService.users, {'sso_username': userSSO})));
 
