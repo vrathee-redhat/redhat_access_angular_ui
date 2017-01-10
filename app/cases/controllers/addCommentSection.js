@@ -3,7 +3,7 @@
 export default class AddCommentSection {
     constructor($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog) {
         'ngInject';
-        
+
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
@@ -53,9 +53,13 @@ export default class AddCommentSection {
                 $scope.progressCount = 0;
                 $scope.charactersLeft = 0;
 
-                if (securityService.loginStatus.authedUser.sso_username !== undefined && CaseService.updatedNotifiedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) === -1) {
+                if ( // if user adding the comment is not watching this case add him now
+                    securityService.loginStatus.authedUser.sso_username !== undefined
+                    && CaseService.kase.contact_sso_username != securityService.loginStatus.authedUser.sso_username
+                    && CaseService.originalNotifiedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) === -1
+                ) {
                     strataService.cases.notified_users.add(CaseService.kase.case_number, securityService.loginStatus.authedUser.sso_username).then(function () {
-                        CaseService.updatedNotifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
+                        CaseService.originalNotifiedUsers.push(securityService.loginStatus.authedUser.sso_username);
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });

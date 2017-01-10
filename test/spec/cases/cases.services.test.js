@@ -105,9 +105,12 @@ describe('Case Services', function () {
         it('should have a method for populating Users For An Account non org admin', function () {
             expect(caseService.populateUsers).toBeDefined();
             securityService.loginStatus.authedUser.org_admin = false;
+            securityService.loginStatus.authedUser.first_name = 'First';
+            securityService.loginStatus.authedUser.last_name = 'Last';
+            securityService.loginStatus.authedUser.sso_username = 'SSO';
             caseService.account.number = '540155';
             caseService.populateUsers();
-            expect(caseService.users).toEqual([{'sso_username' : undefined}]);
+            expect(caseService.users).toEqual([{'sso_username' : 'SSO', 'first_name': 'First', 'last_name': 'Last'}]);
             expect(caseService.usersLoading).toBe(false);
         });
         it('should have a method for populating Users For An Account rejected', function () {
@@ -209,7 +212,7 @@ describe('Case Services', function () {
                 ]
             };
             caseService.defineNotifiedUsers();
-            expect(caseService.updatedNotifiedUsers).toContain('testUser', 'dhughesgit', 'customerportalQA');
+            expect(caseService.originalNotifiedUsers).toContain('dhughesgit', 'customerportalQA');
         });
 
         it('should have a method for clear case', function () {
@@ -551,7 +554,7 @@ describe('Case Services', function () {
             expect(searchCaseService.searching).toBe(false);
             expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
         });
-    
+
         it('should have a method for Search cases resolved for loggedin user with status as closed and empty search term', function () {
             expect(searchCaseService.doFilter).toBeDefined();
             searchCaseService.oldParams = {};
@@ -572,7 +575,7 @@ describe('Case Services', function () {
             expect(searchCaseService.searching).toBe(false);
             expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
         });
-    
+
         it('should have a method for Search cases resolved for loggedin user with status as both and empty search term', function () {
             expect(searchCaseService.doFilter).toBeDefined();
             searchCaseService.oldParams = {};
@@ -628,7 +631,7 @@ describe('Case Services', function () {
             expect(searchCaseService.searching).toBe(false);
             expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
         });
-    
+
         it('should have a method for Filter cases resolved for loggedin user', function () {
             expect(searchCaseService.doFilter).toBeDefined();
             searchCaseService.oldParams = {};
@@ -652,7 +655,7 @@ describe('Case Services', function () {
             expect(searchCaseService.searching).toBe(false);
             expect(searchCaseService.cases).toEqual(mockStrataDataService.mockFilterCaseResult);
         });
-    
+
         it('should have a method to clear the search criteria and result', function () {
             expect(searchCaseService.clear).toBeDefined();
             searchCaseService.oldParams = {};
@@ -668,7 +671,7 @@ describe('Case Services', function () {
             expect(searchCaseService.cases).toEqual([]);
         });
     });
-    
+
     describe('searchBoxService', function () {
         it('should have a method onChange() to enable search button', function () {
             expect(searchBoxService.onChange).toBeDefined();
@@ -683,7 +686,7 @@ describe('Case Services', function () {
             expect(searchBoxService.disableSearchButton).toBe(true);
         });
     });
-    
+
     //Suite for RecommendationsService
     describe('RecommendationsService', function () {
         it('should have a method to populate pinned recommendations but not linked', function () {
@@ -730,7 +733,7 @@ describe('Case Services', function () {
             scope.$root.$digest();
             expect(recommendationsService.handPickedRecommendations).toContain(mockStrataDataService.mockSolutionLinked);
         });
-    
+
         it('should have a method to get recommendations', function () {
             expect(recommendationsService.getRecommendations).toBeDefined();
             caseService.kase=mockStrataDataService.mockCases[1];
@@ -774,7 +777,7 @@ describe('Case Services', function () {
             scope.$root.$digest();
             expect(recommendationsService.loadingRecommendations).toBeFalsy();
         });
-    
+
     });
     //Suite for CaseListService
     describe('CaseListService', function () {
@@ -931,11 +934,11 @@ describe('Case Services', function () {
             attachmentsService.suggestedArtifact.description="<b>test</b>";
             var parsedHTML=attachmentsService.parseArtifactHtml();
             expect(parsedHTML).toBeDefined();
-    
+
         });
     });
     //Suite for ProductsService
-    
+
     describe('ProductsService', function () {
         it('should have a method to get products', function () {
             expect(productsService.getProducts).toBeDefined();
@@ -952,7 +955,7 @@ describe('Case Services', function () {
             }];
             expect(productsService.products).toEqual(mockProducts);
         });
-    
+
         it('should have a method to get products with fetch for contact as false', function () {
             expect(productsService.getProducts).toBeDefined();
             caseService.kase={};
@@ -970,7 +973,7 @@ describe('Case Services', function () {
             expect(productsService.products).toEqual(mockProducts);
             expect(productsService.productsLoading).toEqual(false);
         });
-    
+
         it('should have a method to get version', function () {
             expect(productsService.getVersions).toBeDefined();
             caseService.kase={};
@@ -989,7 +992,7 @@ describe('Case Services', function () {
             ];
             expect(productsService.versions).toEqual(mockSortedVersions);
         });
-    
+
         it('should have a method to get versions with different kase version', function () {
             expect(productsService.getVersions).toBeDefined();
             caseService.kase={};
@@ -1010,7 +1013,7 @@ describe('Case Services', function () {
             ];
             expect(productsService.versions).toEqual(mockSortedVersions);
         });
-    
+
         it('should have a method for version sunset having versions which are sunset', function () {
             expect(productsService.showVersionSunset).toBeDefined();
             caseService.kase={};
@@ -1029,9 +1032,9 @@ describe('Case Services', function () {
             scope.$root.$digest();
             expect(returnValue).toEqual(false);
         });
-    
+
     });
-    
+
     describe('DiscussionService', function () {
         it('should have a method to get discussion elements', function () {
             expect(discussionService.getDiscussionElements).toBeDefined();
@@ -1056,7 +1059,7 @@ describe('Case Services', function () {
             discussionService.chatTranscriptList = ['ABC'];
             discussionService.updateElements('12345');
             expect(discussionService.discussionElements).toEqual(caseService.comments.concat(attachmentsService.originalAttachments).concat(caseService.externalUpdates).concat(['ABC']));
-    
+
         });
     });
 });
