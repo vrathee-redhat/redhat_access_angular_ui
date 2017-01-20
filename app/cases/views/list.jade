@@ -15,6 +15,10 @@ div(ng-hide='showCaseList()')
               span#rha-new-case-btn
               | {{'Open a Support Case'|translate}}
             a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()', ng-class="{'btn-primary': caseChosen() }") Close Case(s)
+            //- a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='clearDepartment()') clearDepartment
+            a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='setDepartment()') setDepartment
+            a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='setCustomField()') setCustomField
+            //- a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='setTheme()') setTheme
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.totalCases == 0')
     .col-sm-6
       .case-count
