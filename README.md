@@ -6,9 +6,9 @@ Run 'npm install' and 'bower install' to pull in dependencies.
 
 ### Developing
 
-Run `npm run start` to start the webpack-dev-server
+Run `npm run server` to start the webpack-dev-server
 Run `accessproxy` to start the proxy for Red Hat access.
-In your browser visit https://qa.foo.redhat.com:1337/home#/case/list
+In your browser visit https://qa.foo.redhat.com:1337/#/case/list
 
 ### StrataJS configuration
 redhat_access_angular_ui uses [stratajs](https://github.com/redhataccess/stratajs) for communication with the Red Hat Customer Portal API and has a few options integrators should set.  These should be set prior to boostrapping the AngularJS application.
@@ -78,6 +78,18 @@ angular.module('RedhatAccess.cases')
 
 ## Local development
 
-    npm run dev-server
+    npm run server
     accessproxy
     https://qa.foo.redhat.com/
+    
+## Translations
+To generate translation templates from the code follow the steps below.
+
+1. Do the full build with
+
+        npm run build
+2. Generate the tanslation templates with
+
+        npm run generate-translates
+        
+This should generate all required files and then scrape all keys for translations. All intermediate files should be deleted afterwards automatically.

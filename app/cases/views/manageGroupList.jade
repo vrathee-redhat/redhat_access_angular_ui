@@ -12,7 +12,7 @@ div(ng-show='!ManageGroupsService.groupsLoading && ManageGroupsService.groupsOnS
     .input-group
       input.form-control(type='text', ng-model='ManageGroupsService.newGroupName', placeholder='Untitled Case Group')
       span.input-group-btn
-        button.btn.btn-app(ng-click='createGroup()', translate='') Create
+        button.btn.btn-primary.btn-app(ng-click='createGroup()', translate='') Create
   div.overflowProperties
       .list-item.with-actions(ng-repeat='group in ManageGroupsService.groupsOnScreen',ng-class='selectedGroup(group)')
        div(ng-click='fetchGroupDetails(group)', ng-href='', ng-hide='group.renameCaseGroup || group.deleteCaseGroup') {{group.name}}
@@ -25,7 +25,7 @@ div(ng-show='!ManageGroupsService.groupsLoading && ManageGroupsService.groupsOnS
         div(ng-show='group.renameCaseGroup')
           input.form-control(type='text', ng-model='group.name',ng-disabled="group.updatingDetails")
         div.margin-top-short(ng-show='group.renameCaseGroup')
-          button.btn.btn-app(ng-click='renameGroup(group)',ng-disabled="group.updatingDetails || group.name.length===0") Rename
+          button.btn.btn-app(ng-click='renameGroup(group)',ng-disabled="group.updatingDetails || group.name.length===0", ng-class="{'btn-primary': !(group.updatingDetails || group.name.length===0) }") Rename
           button.btn-link.margin-left(ng-click='cancel(group)',ng-disabled="group.updatingDetails") Cancel
         div(ng-show='group.deleteCaseGroup') {{group.name}}
         div.margin-top-short(ng-show='group.deleteCaseGroup')

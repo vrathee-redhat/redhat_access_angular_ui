@@ -1,5 +1,8 @@
 .page-header(rha-header='', page='')
-div.edit(ng-if='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
+div(ng-hide='showCasePage()')
+  .spinner.spinner-lg
+  p.center {{'Loading Case...'|translate}}
+div.edit(ng-if='showCasePage()')
   span.watermark-case-closure-first(ng-show='$parent.CaseService.kase.firstInactivity && !$parent.CaseService.kase.secondInactivity')
   span.watermark-case-closure-second(ng-show='$parent.CaseService.kase.firstInactivity && $parent.CaseService.kase.secondInactivity')
   span.watermark-case-closure-second
@@ -32,8 +35,10 @@ div.edit(ng-if='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoa
         div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
       section.case-discussion
-        .row
+        .row(ng-if="$parent.securityService.loginStatus.authedUser.org_admin || !$parent.securityService.loginStatus.authedUser.is_internal")
           .col-xs-12(rha-emailnotifyselect='')
+        .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
+          .col-xs-12(rha-emailnotifyselect, internal="true")
 
     .aside.col-md-4
       .spinner.spinner-inline(ng-show='$parent.RecommendationsService.loadingRecommendations')

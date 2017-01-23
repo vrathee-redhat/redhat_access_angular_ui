@@ -1,5 +1,8 @@
 div(rha-header='', page='caseList')
-.page-header(ng-show='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
+div(ng-hide='showCaseList()')
+  .spinner.spinner-lg
+  p.center {{'Loading...'|translate}}
+.page-header(ng-show='showCaseList()')
   .row(ng-hide='!CaseService.sfdcIsHealthy')
     //.col-sm-12
     //  a(translate, ui-sref='advancedSearch') Advanced Case Search
@@ -8,10 +11,10 @@ div(rha-header='', page='caseList')
       .actions
         .row
           .col-xs-12
-            a.btn.btn-app.btn-sm.new-case-btn(href='#/case/new')
+            a.btn.btn-primary.btn-app.btn-sm.new-case-btn(href='#/case/new')
               span#rha-new-case-btn
               | {{'Open a Support Case'|translate}}
-            a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()') Close Case(s)
+            a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()', ng-class="{'btn-primary': caseChosen() }") Close Case(s)
   .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.totalCases == 0')
     .col-sm-6
       .case-count
@@ -24,7 +27,7 @@ div(rha-header='', page='caseList')
       .pull-right.filter-list(rha-filterselect='')
   .alert.alert-slim(ng-show='SearchCaseService.totalCases == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
   #case-list.table-list.case-list.bulk-closure
-    .list-item(ng-repeat='case in SearchCaseService.cases | limitTo:SearchCaseService.pageSize:SearchCaseService.getCasesStart() track by $index')
+    .list-item(ng-repeat='case in SearchCaseService.cases | limitTo:SearchCaseService.pageSize:SearchCaseService.getCasesStart() -1 track by $index')
       input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
       a(href='#/case/{{case.case_number}}')
         .row.case()

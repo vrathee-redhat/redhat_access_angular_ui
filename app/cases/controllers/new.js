@@ -31,6 +31,7 @@ export default class New {
 
         // Instantiate these variables outside the watch
         var waiting = false;
+        CaseService.showKTFields = true;
         $scope.$watch('CaseService.kase.product + CaseService.kase.version + CaseService.kase.description + CaseService.kase.summary', function () {
             if (!waiting) {
                 var descriptionText = CaseService.kase.problem + ' ' + CaseService.kase.environment + ' ' + CaseService.kase.occurance + ' ' + CaseService.kase.urgency;
@@ -347,6 +348,7 @@ export default class New {
                 });
                 proceedWithoutAttachModal.result.then(function () {
                     if (AttachmentsService.proceedWithoutAttachments) {
+                        if(CaseService.showKTFields) $scope.updateDescriptionString();
                         CaseService.createCase(RecommendationsService.recommendations).then(function (caseNumber) {
                             caseUploadsAndUpdates(caseNumber);
                         }, function (error) {
@@ -356,6 +358,7 @@ export default class New {
                     }
                 });
             } else {
+                if(CaseService.showKTFields) $scope.updateDescriptionString();
                 CaseService.createCase(RecommendationsService.recommendations).then(function (caseNumber) {
                     caseUploadsAndUpdates(caseNumber);
                 }, function (error) {
@@ -505,8 +508,17 @@ export default class New {
             $scope.genericOnChangeTasks($event);
         };
 
+        $scope.onDescriptionChange = function ($event) {
+            $scope.genericOnChangeTasks($event);
+        };
+
+        $scope.onCaseTypeChanged = function () {
+            let ktQuesArray= ['Defect / Bug','Usage / Documentation Help','Configuration issue'];
+            CaseService.showKTFields = ( ktQuesArray.indexOf(CaseService.kase.type.name) > -1 ) ? true : false;
+            CaseService.validateNewCase();        
+        };
+
         $scope.genericOnChangeTasks = function ($event) {
-            $scope.updateDescriptionString();
             CaseService.validateNewCase();
             CaseService.updateLocalStorageForNewCase();
             CaseService.sendCreationStartedEvent($event);

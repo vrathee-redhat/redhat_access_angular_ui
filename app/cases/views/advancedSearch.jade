@@ -22,19 +22,19 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
     hr
     #search-area
         .pull-right
-            button.export.btn.btn-link(ng-click="exportCsv()", ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.totalCases > 0", ng-disabled="AdvancedCaseSearchService.exporting") 
+            button.export.btn.btn-link(ng-click="exportCsv()", ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.totalCases > 0", ng-disabled="AdvancedCaseSearchService.exporting")
                 span(ng-show="AdvancedCaseSearchService.exporting")
                     span(translate) Exporting to CSV&nbsp;
                     span.spinner.spinner-inline.spinner-sm
                 span(translate, ng-hide="AdvancedCaseSearchService.exporting") Export to CSV
             div.search-order(rha-filterselect='')
-            button#search-button.btn.btn-app.btn-lg(ng-click="$parent.submitSearch()", ng-disabled='!$parent.queryParsed || !searchChanged()')
+            button#search-button.btn.btn-app.btn-lg(ng-click="$parent.submitSearch()", ng-disabled='!$parent.queryParsed || !searchChanged()', ng-class="{'btn-primary': !(!$parent.queryParsed || !searchChanged()) }")
                 i.glyphicon.glyphicon-search
                 = ' Search'
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.totalCases === 0")
             .alert.alert-warning No cases found.
         div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.totalCases != null")
-            span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService.totalCases}} search results    
+            span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService.totalCases}} search results
     rha-advanced-search-case-list(
         cases="AdvancedCaseSearchService.cases"
         offset="AdvancedCaseSearchService.getCasesStart() - 1"

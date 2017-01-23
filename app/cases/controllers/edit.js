@@ -13,6 +13,8 @@ export default class Edit {
         $scope.RecommendationsService = RecommendationsService;
         CaseService.clearCase();
         $scope.loading = {};
+        $scope.loading.kase = true;
+        $scope.showCasePage = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases && !$scope.loading.kase;
         $scope.warnForCaseInactivity = function () {
             if( CaseService.kase.firstInactivity && !CaseService.kase.secondInactivity ) {
                 AlertService.addWarningMessage(gettextCatalog.getString('First case inactivity warning'));
@@ -20,7 +22,6 @@ export default class Edit {
                 AlertService.addDangerMessage(gettextCatalog.getString('Second case inactivity warning'));
             }
         }
-
         $scope.init = function () {
             AttachmentsService.clear();
             RecommendationsService.clear();
@@ -91,6 +92,7 @@ export default class Edit {
                 }
 
             }, function (error) {
+                $scope.loading.kase = false;
                 HeaderService.pageLoadFailure = true;
             });
             if (window.chrometwo_require !== undefined) {

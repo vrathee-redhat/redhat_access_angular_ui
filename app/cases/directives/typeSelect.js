@@ -5,6 +5,6 @@ export default function () {
         template: require('../views/typeSelect.jade'),
         restrict: 'A',
         controller: 'TypeSelect',
-        scope: {onchange: '&'}
+        scope: {onChange: '&'}
     };
 }

@@ -1,8 +1,14 @@
 ul.attachment-list.block-list.block-list-gray(ng-hide='AttachmentsService.updatedAttachments.length <= 0')
   li(
     ng-repeat='attachment in AttachmentsService.updatedAttachments',
-    ng-hide='AttachmentsService.updatedAttachments.length <= 0').attachment-filename {{attachment.file_name}} ({{attachment.length | bytes}})
-    #removeLocalAttachment.fa.fa-close(type='button', style='float: right', ng-click='removeLocalAttachment($index)')
+    ng-hide='AttachmentsService.updatedAttachments.length <= 0').attachment-filename
+    div.attachment-header
+      .attachment-name {{attachment.file_name}} ({{attachment.length | bytes}})
+      div.attachment-progress
+        div.progress(ng-show="attachment.progress")
+          div.progress-bar.progress-bar-striped.active(ng-style="{'width': attachment.progress + '%'}")
+            span {{attachment.progress}}% complete
+      .attachment-remove.fa.fa-close(type='button', ng-click='removeLocalAttachment($index)')
     input#rha-case-attachement-fileDescription.form-control.description(
       placeholder="{{'Please Add File Description'|translate}}",
       ng-model='attachment.description',

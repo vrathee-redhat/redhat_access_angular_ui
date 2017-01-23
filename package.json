@@ -1,6 +1,6 @@
 {
     "name": "redhat_access_angular_ui",
-    "version": "1.2.25",
+    "version": "1.2.38",
     "dependencies": {
         "compression": "~1.6.2",
         "express": "~4.14.0",
@@ -68,7 +68,7 @@
         "null-loader": "~0.1.1",
         "pegjs": "~0.9.0",
         "raw-loader": "~0.5.1",
-        "redhat_access_pcm_ascension_common": "~1.2.24",
+        "redhat_access_pcm_ascension_common": "~1.2.31",
         "requirejs": "~2.1.11",
         "rimraf": "~2.5.3",
         "sass-loader": "~4.0.0",
@@ -92,7 +92,6 @@
         "test-watch": "karma start --auto-watch --no-single-run",
         "start": "cp hooks/pre-commit .git/hooks/ && npm run server-inline",
         "start-prod": "npm run server-prod",
-
         "generate-html": "jade --pretty app/cases/views app/escalation/views app/log_viewer/views app/search/views node_modules/redhat_access_pcm_ascension_common/app/security/views/ node_modules/redhat_access_pcm_ascension_common/app/common/views/",
         "generate-dist-translates": "angular-gettext-cli --files 'dist/pcm.js'  --dest \"./app/i18n/template-dist.pot\"",
         "generate-view-translates": "angular-gettext-cli --files 'app/**/*.html'  --dest \"./app/i18n/template-views.pot\"",

@@ -129,3 +129,37 @@
 		color: #8d8d8d;
 	}
 }
+
+.attachment-list {
+	.attachment-header {
+		display: inline-flex;
+		width: 100%;
+		flex-wrap: wrap;
+	}
+	.attachment-name {
+		margin-right: 10px;
+	}
+	.attachment-progress {
+		flex:1;
+		min-width: 150px;
+	}
+	.attachment-remove {
+		margin-left: 5px;
+	}
+}
+
+.label-contact {
+    display: inline-block;
+    background: #4c4c4c;
+    color: #f0f0f0;
+    padding: 2px 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    a {
+        color: #f0f0f0;
+        margin-left: 3px;
+    }
+    &.label-disabled {
+        background: #8c8c8c;
+    }
+}
