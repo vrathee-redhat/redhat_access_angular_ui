@@ -1,5 +1,7 @@
 'use strict';
 
+import _ from 'lodash'
+
 export default class ManageGroupList {
     constructor($scope, securityService, ManageGroupsService, RHAUtils, translate) {
         'ngInject';
@@ -9,7 +11,7 @@ export default class ManageGroupList {
         $scope.groupsLoading = true;
         $scope.isGroupPrestine = true;
         $scope.showCreateGroup = false;
-        $scope.newGroupName = '';
+        $scope.groupNameValid = false;
         $scope.renameCaseGroup = false;
         $scope.actionOptions = [
             {
@@ -26,8 +28,11 @@ export default class ManageGroupList {
             }
         ];
 
-        $scope.toggleActiveButton = function (group) {
+        $scope.checkGroupName = () => {
+            $scope.groupNameValid = RHAUtils.isNotEmpty(ManageGroupsService.newGroupName) && !_.find(ManageGroupsService.groupsOnScreen, {name: ManageGroupsService.newGroupName});            
+        };
 
+        $scope.toggleActiveButton = function (group) {
             group.active = !group.active;
         };
 
@@ -36,18 +41,13 @@ export default class ManageGroupList {
         };
 
         $scope.createGroup = function () {
-            if (RHAUtils.isEmpty(ManageGroupsService.newGroupName)) {
-                ManageGroupsService.newGroupName = 'Untitled Case Group';
+            if($scope.groupNameValid) {
+                ManageGroupsService.createGroup();
             }
-            ManageGroupsService.createGroup();
         };
 
         $scope.addNewGroup = function () {
-            if ($scope.showCreateGroup === true) {
-                $scope.showCreateGroup = false;
-            } else {
-                $scope.showCreateGroup = true;
-            }
+            $scope.showCreateGroup = !$scope.showCreateGroup;
         };
 
         $scope.groupAction = function (group, action) {

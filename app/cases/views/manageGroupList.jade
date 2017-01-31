@@ -10,9 +10,9 @@ div(ng-show='!ManageGroupsService.groupsLoading && ManageGroupsService.groupsOnS
         i.fa.fa-minus.pull-right
   .list-item.list-title.list-group-input-group(ng-show='showCreateGroup')
     .input-group
-      input.form-control(type='text', ng-model='ManageGroupsService.newGroupName', placeholder='Untitled Case Group')
-      span.input-group-btn
-        button.btn.btn-primary.btn-app(ng-click='createGroup()', translate='') Create
+      input#newGroupName.form-control(type='text', ng-model='ManageGroupsService.newGroupName', placeholder="{{'Enter Group Name'|translate}}", ng-change="checkGroupName()")
+      .input-group-btn
+        button#newGroupSubmit.btn.btn-primary.btn-app(ng-click='createGroup()', ng-disabled="!groupNameValid", translate='') Create        
   div.overflowProperties
       .list-item.with-actions(ng-repeat='group in ManageGroupsService.groupsOnScreen',ng-class='selectedGroup(group)')
        div(ng-click='fetchGroupDetails(group)', ng-href='', ng-hide='group.renameCaseGroup || group.deleteCaseGroup') {{group.name}}
