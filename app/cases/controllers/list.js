@@ -29,7 +29,8 @@ export default class List {
                 const response = await strataService.cases.advancedSearch(query, null, 0, 10000, 'csv');
                 const csvBlob = new Blob([response], {type: 'text/csv'});
                 FileSaver.saveAs(csvBlob, 'caseList.csv');
-            } catch (e) {
+            } catch (error) {
+                AlertService.addStrataErrorMessage(error);
             }
 
             $scope.exporting = false;
