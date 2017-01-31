@@ -1,5 +1,7 @@
 'use strict';
 
+import * as FileSaver from 'filesaver.js'
+
 export default class List {
     constructor($scope, $filter, $location, $state, $uibModal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS, gettextCatalog, RHAUtils, HeaderService) {
         'ngInject';
@@ -19,29 +21,18 @@ export default class List {
 
         $scope.showCaseList = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases;
 
-
-
-        $scope.exports = function () {
+        $scope.exports = async function () {
             $scope.exporting = true;
-            strataService.cases.csv().then((response) => {
-                $scope.exporting = false;
-                var blob = new Blob([response], {type: 'text/csv'});
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    window.navigator.msSaveOrOpenBlob(blob, "caseList.csv");
-                }
-                else {
-                    var blobURL = (window.URL || window.webkitURL).createObjectURL(blob);
-                    var anchor = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
-                    anchor.download = "caseList.csv";
-                    anchor.href = blobURL;
-                    var event = document.createEvent("MouseEvents");
-                    event.initEvent("click", true, false);
-                    anchor.dispatchEvent(event);
-                }
-            }, (error) => {
-                $scope.exporting = false;
-                AlertService.addStrataErrorMessage(error);
-            });
+
+            try {
+                const query = `case_accountNumber:${this.securityService.loginStatus.authedUser.account.number}`;
+                const response = await strataService.cases.advancedSearch(query, null, 0, 10000, 'csv');
+                const csvBlob = new Blob([response], {type: 'text/csv'});
+                FileSaver.saveAs(csvBlob, 'caseList.csv');
+            } catch (e) {
+            }
+
+            $scope.exporting = false;
         };
 
         $scope.$on(CASE_EVENTS.searchSubmit, () => {
