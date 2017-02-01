@@ -52,3 +52,13 @@ $list-group-list-title-bg: $aside-bg;
     overflow-x:hidden;
     height:70vh;
 }
+
+button#newGroupSubmit {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	height: 34px;
+}
+
+input#newGroupName {
+	font-size: 15px;
+}
