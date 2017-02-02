@@ -613,7 +613,7 @@ export default class CaseService {
                 caseJson.entitlement = {};
                 var supportLevelPriorities = ['PREMIUM', 'ENTERPRISE', 'STANDARD', 'PROFESSIONAL', 'AMC'];
                 supportLevelPriorities.forEach(angular.bind(this, function (entitlement) {
-                    if (RHAUtils.isEmpty(caseJson.entitlement.sla) && this.entitlements.indexOf(entitlement) >= 0) {
+                    if (RHAUtils.isEmpty(caseJson.entitlement.sla) && RHAUtils.isNotEmpty(this.entitlements) && this.entitlements.indexOf(entitlement) >= 0) {
                         // user has the support level and no support level is selected, we can select it
                         caseJson.entitlement.sla = entitlement;
                     }
