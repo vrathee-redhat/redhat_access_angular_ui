@@ -5,6 +5,7 @@ if (ENVIRONMENT === 'gs4') {
     require('bootstrap/dist/css/bootstrap.css');
 }
 
+require('babel-polyfill');
 require("angular");
 require('angular-gettext');
 require('./localFile');
