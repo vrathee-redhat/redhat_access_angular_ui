@@ -1,17 +1,9 @@
 .not-pinned {
 	color: $brand-gray;
-	@include opacity(.5);
 }
 
 .pinned {
 	color: $red;
-	@include opacity(1);
-}
-
-.pin {
-	&:hover {
-		@include opacity(1);
-	}
 }
 
 .handpicked {

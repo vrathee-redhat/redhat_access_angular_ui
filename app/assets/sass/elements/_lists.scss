@@ -36,16 +36,6 @@
 	li + li {
 		@include rem('margin-top', $global-margin);
 	}
-
-	li:hover {
-		.pin {
-			@include opacity(.5);
-
-			&:hover {
-				@include opacity(1);
-			}
-		}
-	}
 }
 
 .list-dark {
