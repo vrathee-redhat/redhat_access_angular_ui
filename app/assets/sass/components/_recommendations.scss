@@ -194,13 +194,8 @@ $recommendations-dark-link-color: #0bc0fc;
 		position: absolute;
 		top: 0px;
 		left: -18px;
-		@include opacity(0);
 		@include font-size(18px);
 		line-height: 1;
-
-		&:hover {
-			@include opacity(1);
-		}
 	}
 
 	ul {
@@ -239,17 +234,6 @@ $recommendations-dark-link-color: #0bc0fc;
 		.pre-wrap {
 			.recommendationsKeywords {
 				background-color: #FFD351;
-			}
-		}
-	}
-
-
-	li:hover {
-		.pin {
-			@include opacity(.5);
-
-			&:hover {
-				@include opacity(1);
 			}
 		}
 	}
