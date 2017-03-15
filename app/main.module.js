@@ -220,7 +220,7 @@ if (ENVIRONMENT === 'gs4') {
             window.sessionjs.onInit(() => {
                 securityService.validateLogin(false).then(function (authedUser) {
                 var account = securityService.loginStatus.account;
-                if (account !== undefined && account.is_secured_support !== undefined && account.is_secured_support === true) {
+                if ( account && account.is_secured_support ) {
                     strata.setRedhatClientID("secure_case_management_1.0");
                     strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
                     NEW_CASE_CONFIG.showRecommendations = false;
