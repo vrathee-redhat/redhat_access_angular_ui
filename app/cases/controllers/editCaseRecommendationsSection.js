@@ -17,6 +17,7 @@ export default class EditCaseRecommendationsController {
         $scope.isHandpickedSolutionsOpen = {val: false};
         $scope.isTopSolutionsOpen = {val: true};
         $scope.isPinnedSolutionsOpen = {val: false};
+        $scope.handPickedInit = false;
 
         $scope.selectPage = function (pageNum, recommendationsList, results) {
             var start = $scope.itemsPerPage * (pageNum - 1);
@@ -108,6 +109,12 @@ export default class EditCaseRecommendationsController {
         $scope.$watch(function () {
             return RecommendationsService.handPickedRecommendations;
         }, function () {
+            if(!$scope.handPickedInit && RecommendationsService.handPickedRecommendations.length > 0) {
+                $scope.handPickedInit = true;
+                $scope.isHandpickedSolutionsOpen.val = true;
+                $scope.isPinnedSolutionsOpen.val = false;
+                $scope.isTopSolutionsOpen.val = false;
+            }
             $scope.selectPage($scope.handPickedResultsPage, RecommendationsService.handPickedRecommendations, $scope.handPickedResults);
         }, true);
     }

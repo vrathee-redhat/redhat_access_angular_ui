@@ -513,7 +513,7 @@ export default class New {
         };
 
         $scope.onCaseTypeChanged = function () {
-            let ktQuesArray= ['Defect / Bug','Usage / Documentation Help','Configuration issue'];
+            let ktQuesArray= ['Defect / Bug','Usage / Documentation Help','Configuration issue','RCA Only'];
             CaseService.showKTFields = ( ktQuesArray.indexOf(CaseService.kase.type.name) > -1 ) ? true : false;
             CaseService.validateNewCase();        
         };
