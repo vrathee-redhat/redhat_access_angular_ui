@@ -25,10 +25,11 @@ export default class Edit {
         }
 
         $scope.warnForCaseInactivity = function () {
+            const message = gettextCatalog.getString('This case has not been updated for sometime and might get closed automatically, a case inactivity warning in this regard has already been sent at : ')
             if( $scope.showFirstCaseInactivityWarning() ) {
-                AlertService.addWarningMessage(gettextCatalog.getString('First case inactivity warning sent at : ') + window.moment(CaseService.kase.first_case_inactivity_warning_sent_at).format("MMM DD YYYY hh:mm A Z") );
+                AlertService.addWarningMessage( message + window.moment(CaseService.kase.first_case_inactivity_warning_sent_at).format("MMM DD YYYY hh:mm A Z") );
             } else if ( $scope.showSecondCaseInactivityWarning() ) {
-                AlertService.addDangerMessage(gettextCatalog.getString('Second case inactivity warning sent at : ') + window.moment(CaseService.kase.second_case_inactivity_warning_sent_at).format("MMM DD YYYY hh:mm A Z") );
+                AlertService.addDangerMessage( message + window.moment(CaseService.kase.second_case_inactivity_warning_sent_at).format("MMM DD YYYY hh:mm A Z") );
             }
         }
 
