@@ -1,7 +1,7 @@
 'use strict';
 
 export default class Edit {
-    constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog) {
+    constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils) {
         'ngInject';
 
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
@@ -15,13 +15,23 @@ export default class Edit {
         $scope.loading = {};
         $scope.loading.kase = true;
         $scope.showCasePage = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases && !$scope.loading.kase;
+
+        $scope.showFirstCaseInactivityWarning = function () {
+            return RHAUtils.isNotEmpty(CaseService.kase.first_case_inactivity_warning_sent_at) && RHAUtils.isEmpty(CaseService.kase.second_case_inactivity_warning_sent_at);
+        }
+
+        $scope.showSecondCaseInactivityWarning = function () {
+            return RHAUtils.isNotEmpty(CaseService.kase.second_case_inactivity_warning_sent_at);
+        }
+
         $scope.warnForCaseInactivity = function () {
-            if( CaseService.kase.firstInactivity && !CaseService.kase.secondInactivity ) {
-                AlertService.addWarningMessage(gettextCatalog.getString('First case inactivity warning'));
-            } else if (CaseService.kase.firstInactivity && CaseService.kase.secondInactivity ) {
-                AlertService.addDangerMessage(gettextCatalog.getString('Second case inactivity warning'));
+            if( $scope.showFirstCaseInactivityWarning() ) {
+                AlertService.addWarningMessage(gettextCatalog.getString('First case inactivity warning sent at : ') + window.moment(CaseService.kase.first_case_inactivity_warning_sent_at).format("MMM DD YYYY hh:mm A Z") );
+            } else if ( $scope.showSecondCaseInactivityWarning() ) {
+                AlertService.addDangerMessage(gettextCatalog.getString('Second case inactivity warning sent at : ') + window.moment(CaseService.kase.second_case_inactivity_warning_sent_at).format("MMM DD YYYY hh:mm A Z") );
             }
         }
+
         $scope.init = function () {
             AttachmentsService.clear();
             RecommendationsService.clear();

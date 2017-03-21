@@ -3,9 +3,8 @@ div(ng-hide='showCasePage()')
   .spinner.spinner-lg
   p.center {{'Loading Case...'|translate}}
 div.edit(ng-if='showCasePage()')
-  span.watermark-case-closure-first(ng-show='$parent.CaseService.kase.firstInactivity && !$parent.CaseService.kase.secondInactivity')
-  span.watermark-case-closure-second(ng-show='$parent.CaseService.kase.firstInactivity && $parent.CaseService.kase.secondInactivity')
-  span.watermark-case-closure-second
+  span.watermark-case-closure-first(ng-show='$parent.showFirstCaseInactivityWarning()')
+  span.watermark-case-closure-second(ng-show='$parent.showSecondCaseInactivityWarning()')
   .row.row-very-short
     div.section.main.col-md-8
       .row.row-very-short
