@@ -122,6 +122,12 @@ div(rha-header='', page='newCase')
                             severity-change="$parent.CaseService.onChangeFTSCheck()",
                             severity-disabled="$parent.CaseService.submittingCase",
                             severities="$parent.CaseService.severities")
+                            div(ng-show="$parent.CaseService.account.hasEnhancedSLA")
+                                label#rha-enhanced-SLA(translate,translate-comment="Noun") Enhanced SLA
+                                input(
+                                type="checkbox",
+                                ng-model="$parent.CaseService.kase.enhancedSLA"
+                                ng-disabled='!$parent.CaseService.account.hasAvailableEnhancedSLA')
                             div(ng-show="$parent.CaseService.showFts()")
                                 label#rha-24X7_Support(translate,translate-comment="Noun") 24x7 Support
                                 input(

@@ -21,7 +21,8 @@ export default class AccountSelect {
         $scope.populateAccountSpecificFields = function () {
             if (RHAUtils.isNotEmpty(CaseService.account.number)) {
                 var promise = null;
-                strataService.accounts.get(CaseService.account.number).then(function () {
+                strataService.accounts.get(CaseService.account.number).then(function (account) {
+                    CaseService.defineAccount(account);
                     if (RHAUtils.isNotEmpty($scope.alertInstance)) {
                         AlertService.removeAlert($scope.alertInstance);
                     }

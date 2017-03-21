@@ -544,6 +544,9 @@ export default class CaseService {
             if (RHAUtils.isNotEmpty(this.account)) {
                 caseJSON.accountNumber = this.account.number;
             }
+            if (RHAUtils.isNotEmpty(this.kase.enhancedSLA)) {
+                caseJSON.enhancedSLA = this.kase.enhancedSLA;
+            }
             if (this.fts) {
                 caseJSON.fts = true;
                 if (this.fts_contact) {
@@ -670,6 +673,9 @@ export default class CaseService {
             }
             if (this.kase.summary !== null && !angular.equals(this.prestineKase.summary, this.kase.summary)) {
                 caseJSON.summary = this.kase.summary;
+            }
+            if (this.kase.enhancedSLA !== null && !angular.equals(this.prestineKase.enhancedSLA, this.kase.enhancedSLA)) {
+                caseJSON.enhancedSLA = this.kase.enhancedSLA;
             }
             if (this.kase.contact_sso_username !== null && !angular.equals(this.prestineKase.contact_sso_username, this.kase.contact_sso_username)) {
                 caseJSON.contactSsoUsername = this.kase.contact_sso_username;
