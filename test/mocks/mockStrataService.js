@@ -310,7 +310,8 @@ angular.module('RedhatAccess.mock', [])
 
             this.mockAccount = [{
                 "account_name": 'test_account',
-                "account_number": '12345'
+                "account_number": '12345',
+                "number": '12345'
             }];
 
             this.mockAttachment = {
