@@ -69,14 +69,16 @@ section.case-description
             .label {{::'Case Type'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             div(rha-typeselect='', on-change = 'onCaseTypeChanged()')
-        .row.row-short(ng-show="CaseService.account.hasEnhancedSLA")
+        .row.row-short(ng-show="CaseService.account.has_enhanced_sla || CaseService.kase.enhanced_sla")
           .col-xs-4.col-sm-3.col-md-4
             .label {{::'Enhanced SLA'|translate}}
           .col-xs-4.col-sm-5.col-md-6
-            input(ng-model="CaseService.kase.enhancedSLA",
+            input(ng-model="CaseService.kase.enhanced_sla",
             type="checkbox",
             name="enhancedSLACheckbox"
-            ng-disabled='!CaseService.account.hasAvailableEnhancedSLA || CaseService.kase.enhancedSLA')
+            ng-disabled='!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla')
+            span &nbsp;
+            span.glyphicon.glyphicon-info-sign.link(ng-show="!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla" uib-tooltip="{{noEnhancedSLAMessage}}")
         .row.row-short(ng-show="CaseService.showFts()")
           .col-xs-4.col-sm-3.col-md-4
             .label {{::'24x7 Support'|translate}}

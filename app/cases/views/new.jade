@@ -122,12 +122,14 @@ div(rha-header='', page='newCase')
                             severity-change="$parent.CaseService.onChangeFTSCheck()",
                             severity-disabled="$parent.CaseService.submittingCase",
                             severities="$parent.CaseService.severities")
-                            div(ng-show="$parent.CaseService.account.hasEnhancedSLA")
+                            div(ng-show="$parent.securityService.loginStatus.authedUser.is_internal ? $parent.CaseService.account.has_enhanced_sla : $parent.securityService.loginStatus.authedUser.account.has_enhanced_sla")
                                 label#rha-enhanced-SLA(translate,translate-comment="Noun") Enhanced SLA
                                 input(
                                 type="checkbox",
-                                ng-model="$parent.CaseService.kase.enhancedSLA"
-                                ng-disabled='!$parent.CaseService.account.hasAvailableEnhancedSLA')
+                                ng-model="$parent.CaseService.kase.enhanced_sla"
+                                ng-disabled='$parent.securityService.loginStatus.authedUser.is_internal ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla')
+                                span &nbsp;
+                                span.glyphicon.glyphicon-info-sign.link(ng-show="$parent.securityService.loginStatus.authedUser.is_internal ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla" uib-tooltip="{{$parent.noEnhancedSLAMessage}}")
                             div(ng-show="$parent.CaseService.showFts()")
                                 label#rha-24X7_Support(translate,translate-comment="Noun") 24x7 Support
                                 input(

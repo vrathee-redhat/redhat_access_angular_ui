@@ -26,6 +26,7 @@ export default class New {
         $scope.notifiedUsers = [];
         $scope.isControlGroup = true;
         $scope.recommendationsPerPage = 6;
+        $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
         // $scope.recommendationsHasStarted = false;
         //$scope.hideSticky = false;
 
