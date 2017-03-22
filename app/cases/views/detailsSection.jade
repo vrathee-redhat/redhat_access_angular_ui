@@ -78,7 +78,7 @@ section.case-description
             name="enhancedSLACheckbox"
             ng-disabled='!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla')
             span &nbsp;
-            span.glyphicon.glyphicon-info-sign.link(ng-show="!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla" uib-tooltip="{{noEnhancedSLAMessage}}")
+            span.glyphicon.glyphicon-info-sign.text-danger(ng-show="!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla" uib-tooltip="{{noEnhancedSLAMessage}}")
         .row.row-short(ng-show="CaseService.showFts()")
           .col-xs-4.col-sm-3.col-md-4
             .label {{::'24x7 Support'|translate}}

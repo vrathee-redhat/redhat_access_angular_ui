@@ -129,7 +129,7 @@ div(rha-header='', page='newCase')
                                 ng-model="$parent.CaseService.kase.enhanced_sla"
                                 ng-disabled='$parent.securityService.loginStatus.authedUser.is_internal ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla')
                                 span &nbsp;
-                                span.glyphicon.glyphicon-info-sign.link(ng-show="$parent.securityService.loginStatus.authedUser.is_internal ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla" uib-tooltip="{{$parent.noEnhancedSLAMessage}}")
+                                span.glyphicon.glyphicon-info-sign.text-danger(ng-show="$parent.securityService.loginStatus.authedUser.is_internal ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla" uib-tooltip="{{$parent.noEnhancedSLAMessage}}")
                             div(ng-show="$parent.CaseService.showFts()")
                                 label#rha-24X7_Support(translate,translate-comment="Noun") 24x7 Support
                                 input(
