@@ -243,7 +243,7 @@ export default class CaseService {
          *  Intended to be called only after user is logged in and has account details
          *  See securityService.
          */
-        this.populateUsers = () => {
+        this.populateUsers = () => {            
             if (securityService.loginStatus.authedUser.org_admin) {
                 this.usersLoading = true;
                 var accountNumber;
@@ -298,6 +298,9 @@ export default class CaseService {
             this.redhatUsersLoading = true;
             return strataService.accounts.users(accountNumber).then((users) => {
                 this.redhatUsers = users;
+                if (securityService.loginStatus.authedUser.is_internal && !_.find(this.redhatUsers, { sso_username: securityService.loginStatus.authedUser.sso_username })) {
+                    this.redhatUsers.unshift(securityService.loginStatus.authedUser);
+                }
                 this.redhatUsersLoading = false;
             });
         };
