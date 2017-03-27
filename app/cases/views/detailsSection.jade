@@ -15,7 +15,7 @@ section.case-description
         ng-click='updateCase()', translate='') Save
       a.margin-left(
         ng-hide='updatingDetails',
-        ng-click='editCaseSummary(false)') {{'Cancel'|translate}}
+        ng-click='editCaseSummary(false)') {{::'Cancel'|translate}}
   span.description.toggled-content.pre-wrap(ng-hide='showExtraInfo', ng-bind-html='getDescription(maxLength)')
   div(ng-hide='showExtraInfo || CaseService.kase.description.length < maxLength')
     a(ng-click='toggleExtraInfo()', translate='') View More
@@ -27,24 +27,24 @@ section.case-description
       section.config-options
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
-            .label {{'Product'|translate}}
+            .label {{::'Product'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             div(rha-productselect='')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
-            .label {{'Product Version'|translate}}
+            .label {{::'Product Version'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             div(rha-versionselect='')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
-            .label {{'Alternate Case ID'|translate}}
+            .label {{::'Alternate Case ID'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             input#rha-case-alt-id.form-control(
               ng-model='CaseService.kase.alternate_id',
               name='alternate_id')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
-            .label {{'Case Group'|translate}}
+            .label {{::'Case Group'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             select#rha-group-select.form-control(
               chosen,
@@ -55,7 +55,7 @@ section.case-description
               ng-change='fetchPossibleContacts()')
         .row.row-short(ng-show="securityService.loginStatus.authedUser.org_admin")
           .col-xs-4.col-sm-3.col-md-4
-            .label {{'Case Contact'|translate}}
+            .label {{::'Case Contact'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             select#rha-contact-select.form-control(
               chosen,
@@ -66,19 +66,29 @@ section.case-description
               ng-change='contactSelected()')
         .row.row-short
           .col-xs-4.col-sm-3.col-md-4
-            .label {{'Case Type'|translate}}
+            .label {{::'Case Type'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             div(rha-typeselect='', on-change = 'onCaseTypeChanged()')
+        .row.row-short(ng-show="CaseService.account.has_enhanced_sla || CaseService.kase.enhanced_sla")
+          .col-xs-4.col-sm-3.col-md-4
+            .label {{::'Enhanced SLA'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+            input(ng-model="CaseService.kase.enhanced_sla",
+            type="checkbox",
+            name="enhancedSLACheckbox"
+            ng-disabled='!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla')
+            span &nbsp;
+            span.glyphicon.glyphicon-info-sign.text-danger(ng-show="!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla" uib-tooltip="{{noEnhancedSLAMessage}}")
         .row.row-short(ng-show="CaseService.showFts()")
           .col-xs-4.col-sm-3.col-md-4
-            .label {{'24x7 Support'|translate}}
+            .label {{::'24x7 Support'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             input(ng-model="CaseService.kase.fts",
             type="checkbox",
             name="ftsCheckbox")
         .row.row-short(ng-show="CaseService.showFts() && CaseService.kase.fts")
           .col-xs-4.col-sm-3.col-md-4
-            .label {{'24x7 Contact'|translate}}
+            .label {{::'24x7 Contact'|translate}}
           .col-xs-4.col-sm-5.col-md-6
             input(
               ng-model="CaseService.kase.contact_info24_x7")

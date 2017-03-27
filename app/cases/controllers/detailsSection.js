@@ -13,6 +13,7 @@ export default class DetailsSection {
         $scope.contactList = [];
         $scope.caseContactSelected = true;
         $scope.maxLength = 450;
+        $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
 
         $scope.toggleExtraInfo = function () {
             $scope.showExtraInfo = !$scope.showExtraInfo;

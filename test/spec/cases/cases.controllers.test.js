@@ -1260,7 +1260,7 @@ describe('Case Controllers', function () {
             spyOn(mockStrataService.accounts, 'list').and.callThrough();
             mockScope.$root.$digest();
             expect(mockScope.loadingAccountNumber).toEqual(false);
-            expect(mockCaseService.account.number).toEqual(mockStrataDataService.mockAccount[0].account_number);
+            expect(mockCaseService.account.number).toEqual(mockStrataDataService.mockAccount[0].number);
         }));
         it('should have a function to fetch user account number rejected', inject(function ($controller) {
 
