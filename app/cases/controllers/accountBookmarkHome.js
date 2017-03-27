@@ -3,7 +3,7 @@
 export default class AccountBookmarkHome {
     constructor($scope, securityService, AUTH_EVENTS, $state) {
         'ngInject';
-        
+
         const init = function () {
             if (!securityService.loginStatus.isLoggedIn || !securityService.loginStatus.authedUser.is_internal) {
                 // user not allowed to use this, redirect back to case/list
@@ -17,6 +17,7 @@ export default class AccountBookmarkHome {
                     ];
                     updateBreadCrumb();
                 }
+                document.title = 'Portal Case Management';
             }
 
         };

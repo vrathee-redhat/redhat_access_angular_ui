@@ -140,6 +140,10 @@ export default class Edit {
             }
         });
 
+        $scope.$on(CASE_EVENTS.received, function () {
+            document.title = `${$stateParams.id} | ${CaseService.kase.summary} - Portal Case Managment`;
+        })
+
         $scope.$on('$locationChangeSuccess', function () {
             var splitUrl = $location.path().split('/');
             if (splitUrl[2] !== undefined && $location.path().search(/case\/[0-9]{1,8}/i) !== -1) {

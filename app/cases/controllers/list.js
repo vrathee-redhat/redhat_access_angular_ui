@@ -88,6 +88,7 @@ export default class List {
                     ['List']
                 ];
                 updateBreadCrumb();
+                document.title = 'Support Cases - Portal Case Management';
             }
         };
 
