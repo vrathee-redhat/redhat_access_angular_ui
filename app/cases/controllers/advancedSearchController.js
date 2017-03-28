@@ -177,9 +177,9 @@ export default class AdvancedSearchController {
         // set breadcrumbs
         if (window.chrometwo_require !== undefined) {
             breadcrumbs = [
-                ['Support', '/support/'],
-                ['Support Cases', '/support/cases/'],
-                ['Search']
+                [gettextCatalog.getString('Support'), '/support/'],
+                [gettextCatalog.getString('Support Cases'), '/support/cases/'],
+                [gettextCatalog.getString('Search')]
             ];
             updateBreadCrumb();
         }

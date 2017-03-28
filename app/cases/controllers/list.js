@@ -16,7 +16,7 @@ export default class List {
         $scope.ie9 = window.ie9;
         $scope.exporting = false;
         $scope.fetching = false;
-        $scope.displayedCaseText = 'Open Support Cases';
+        $scope.displayedCaseText = gettextCatalog.getString('Open Support Cases');
         $scope.RHAUtils = RHAUtils;
 
         $scope.showCaseList = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases;
@@ -83,12 +83,12 @@ export default class List {
         $scope.setBreadcrumbs = function () {
             if (window.chrometwo_require !== undefined) {
                 breadcrumbs = [
-                    ['Support', '/support/'],
-                    ['Support Cases', '/support/cases/'],
-                    ['List']
+                    [gettextCatalog.getString('Support'), '/support/'],
+                    [gettextCatalog.getString('Support Cases'), '/support/cases/'],
+                    [gettextCatalog.getString('List')]
                 ];
                 updateBreadCrumb();
-                document.title = 'Support Cases - Portal Case Management';
+                document.title = gettextCatalog.getString('Support Cases - Portal Case Management');
             }
         };
 
