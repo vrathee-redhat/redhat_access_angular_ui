@@ -30,5 +30,6 @@ export default class ManageGroups {
             ];
             updateBreadCrumb();
         }
+        document.title = 'Portal Case Management';
     }
 }

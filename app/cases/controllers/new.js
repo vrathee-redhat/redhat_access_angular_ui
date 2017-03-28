@@ -27,6 +27,15 @@ export default class New {
         $scope.isControlGroup = true;
         $scope.recommendationsPerPage = 6;
         $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
+        if (window.chrometwo_require !== undefined) {
+            breadcrumbs = [
+                ['Support', '/support/'],
+                ['Support Cases', '/support/cases/'],
+                ['New']
+            ];
+            updateBreadCrumb();
+        }
+        document.title = 'New Case - Portal Case Management';
         // $scope.recommendationsHasStarted = false;
         //$scope.hideSticky = false;
 
@@ -125,14 +134,6 @@ export default class New {
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-            if (window.chrometwo_require !== undefined) {
-                breadcrumbs = [
-                    ['Support', '/support/'],
-                    ['Support Cases', '/support/cases/'],
-                    ['New']
-                ];
-                updateBreadCrumb();
-            }
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();
@@ -516,7 +517,7 @@ export default class New {
         $scope.onCaseTypeChanged = function () {
             let ktQuesArray= ['Defect / Bug','Usage / Documentation Help','Configuration issue','RCA Only'];
             CaseService.showKTFields = ( ktQuesArray.indexOf(CaseService.kase.type.name) > -1 ) ? true : false;
-            CaseService.validateNewCase();        
+            CaseService.validateNewCase();
         };
 
         $scope.genericOnChangeTasks = function ($event) {
