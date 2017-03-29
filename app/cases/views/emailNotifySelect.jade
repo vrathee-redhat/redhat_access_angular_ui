@@ -2,9 +2,13 @@
     .col-sm-4
         .label(ng-show="internal") {{'Red Hat Watchers'|translate}}
         .label(ng-show="!internal") {{'Send Email Notifications to'|translate}}
-        button.btn.btn-info.btn-xs(ng-click="toggleCurrentUser()", ng-disabled="saving", ng-show="internal && !CaseService.redhatUsersLoading")
-            span(ng-hide="isCurrentUserWatcher()", translate) Add me as watcher
-            span(ng-show="isCurrentUserWatcher()", translate) Remove me as watcher
+        div(uib-tooltip="{{isCurrentUserCaseContact() ? 'You are case contact and therefore you cannot be removed as watcher.' : '' | translate}}")
+            button.btn.btn-info.btn-xs(
+                ng-click="toggleCurrentUser()", 
+                ng-disabled="saving || isCurrentUserCaseContact()", 
+                ng-show="internal && !CaseService.redhatUsersLoading")
+                span(ng-hide="isCurrentUserWatcher()", translate) Add me as watcher
+                span(ng-show="isCurrentUserWatcher()", translate) Remove me as watcher
     .col-sm-8
         .spinner.spinner-inline(ng-show="(internal && CaseService.redhatUsersLoading) || (!internal && CaseService.usersLoading)")
         div(ng-show="!internal && !CaseService.usersLoading")
