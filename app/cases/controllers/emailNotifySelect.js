@@ -65,6 +65,7 @@ export default class EmailNotifySelect {
         };
 
         $scope.isCurrentUserWatcher = () => $scope.selectedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) > -1;
+        $scope.isCurrentUserCaseContact = () => CaseService.kase.contact_sso_username == securityService.loginStatus.authedUser.sso_username;
 
         $scope.toggleCurrentUser = () => {
             if($scope.isCurrentUserWatcher()) {
