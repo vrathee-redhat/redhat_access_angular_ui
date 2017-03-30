@@ -29,7 +29,7 @@ export default class BookmarkedAccountSelect {
 
         $scope.$watch('selectedAccount', function (newValue, oldValue) {
             if(newValue != oldValue) {
-                $scope.selectedAccountChanged();
+                $scope.selectedAccountChanged({accountNumber:newValue});
             }
         });
 

@@ -150,12 +150,12 @@ export default class SearchCaseService {
                 if (!RHAUtils.isEmpty(CaseService.severity)) {
                     params.severity = CaseService.severity;
                 }
-                if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined && RHAUtils.isEmpty(CaseService.bookmarkedAccount) || checkIsInternal === true) {
+                if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && checkIsInternal === undefined && RHAUtils.isEmpty(CaseService.accountNumberFilter) || checkIsInternal === true) {
                     params.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                     params.view = 'internal';
                 }
-                if (RHAUtils.isNotEmpty(CaseService.bookmarkedAccount)) {
-                    params.account_number = CaseService.bookmarkedAccount;
+                if (RHAUtils.isNotEmpty(CaseService.accountNumberFilter)) {
+                    params.account_number = CaseService.accountNumberFilter;
                 }
                 if (this.refreshFilterCache === true) {
                     strataService.cache.clr('filter' + JSON.stringify(params));
@@ -199,7 +199,7 @@ export default class SearchCaseService {
                     sortField = "contactName";
                 }
 
-                strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.bookmarkedAccount, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, (this.currentPage - 1) * this.pageSize, this.pageSize, null, null).then((response) => {
+                strataService.cases.search(this.caseParameters.status, null, this.caseParameters.group, CaseService.accountNumberFilter, this.caseParameters.searchTerm, sortField, CaseService.filterSelect.sortOrder, (this.currentPage - 1) * this.pageSize, this.pageSize, null, null).then((response) => {
                     if (response['case'] === undefined) {
                         this.totalCases = 0;
                         this.total = 0;
