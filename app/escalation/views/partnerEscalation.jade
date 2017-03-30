@@ -21,7 +21,7 @@ div#redhat-access-escalations.container-offset(ng-hide='HeaderService.showPartne
         div.form-group
           label.col-sm-5.control-label(for='rha-requestor-name') {{'Your Name'|translate}}
           div.col-sm-7
-            input#rha-requestor-email.form-control.nonEmpty(ng-model='EscalationRequestService.requestorName')
+            input#rha-requestor-name.form-control.nonEmpty(ng-model='EscalationRequestService.requestorName')
         div.form-group
           label.col-sm-5.control-label(for='rha-requestor-email') {{'Your Email Address'|translate}}
           div.col-sm-7
@@ -68,9 +68,9 @@ div#redhat-access-escalations.container-offset(ng-hide='HeaderService.showPartne
               input#rha-case-number.form-control.nonEmpty(ng-model='EscalationRequestService.caseNumber')
               span.help-block {{'Please provide the support ticket number. You may omit this field, however, this may delay our ability to associate request with customer issue.'|translate}}
           div.form-group
-            label.col-sm-5.control-label(for='rha-issue-description') {{'Issue Subject'|translate}} *
+            label.col-sm-5.control-label(for='rha-issue-subject') {{'Issue Subject'|translate}} *
             div.col-sm-7
-              select#rha-geo.form-control(
+              select#rha-issue-subject.form-control(
                 ng-model='EscalationRequestService.subject'
                 ng-options='subject for subject in subjectList'
                 ng-change="checkForToggleSubjectTextArea();partnerMandatoryFieldCheck()")
