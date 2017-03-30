@@ -1,7 +1,7 @@
 'use strict';
 
 export default class ManageGroups {
-    constructor($scope, securityService, ManageGroupsService, AUTH_EVENTS) {
+    constructor($scope, securityService, ManageGroupsService, AUTH_EVENTS, gettextCatalog) {
         'ngInject';
 
         $scope.securityService = securityService;
@@ -24,12 +24,12 @@ export default class ManageGroups {
         // set breadcrumbs
         if (window.chrometwo_require !== undefined) {
             breadcrumbs = [
-                ['Support', '/support/'],
-                ['Support Cases', '/support/cases/'],
-                ['Case Groups']
+                [gettextCatalog.getString('Support'), '/support/'],
+                [gettextCatalog.getString('Support Cases'), '/support/cases/'],
+                [gettextCatalog.getString('Case Groups')]
             ];
             updateBreadCrumb();
         }
-        document.title = 'Portal Case Management';
+        document.title = gettextCatalog.getString('Portal Case Management');
     }
 }

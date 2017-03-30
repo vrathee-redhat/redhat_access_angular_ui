@@ -29,13 +29,13 @@ export default class New {
         $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
         if (window.chrometwo_require !== undefined) {
             breadcrumbs = [
-                ['Support', '/support/'],
-                ['Support Cases', '/support/cases/'],
-                ['New']
+                [gettextCatalog.getString('Support'), '/support/'],
+                [gettextCatalog.getString('Support Cases'), '/support/cases/'],
+                [gettextCatalog.getString('New')]
             ];
             updateBreadCrumb();
         }
-        document.title = 'New Case - Portal Case Management';
+        document.title = gettextCatalog.getString('New Case - Portal Case Management');
         // $scope.recommendationsHasStarted = false;
         //$scope.hideSticky = false;
 
