@@ -21,10 +21,5 @@ export default class ListFilter {
         $scope.clearSearch = function () {
             SearchCaseService.caseParameters.searchTerm = undefined;
         };
-
-        $scope.onSelectedAccountChanged = function(accountNumber) {
-            console.log("accountNumber");
-            console.log(accountNumber);
-        }
     }
 }

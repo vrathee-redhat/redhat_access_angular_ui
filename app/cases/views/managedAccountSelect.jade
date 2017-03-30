@@ -1,0 +1,9 @@
+div(ng-show='$ctrl.securityService.loginStatus.authedUser.managedAccounts.length > 0')
+	select(chosen,
+	width='"100%"',
+	ng-options="account.accountNum as ('(' + account.accountNum + ') ' + account.name) for account in $ctrl.securityService.loginStatus.authedUser.managedAccounts",
+	ng-model='$ctrl.selectedAccount',
+	allow-single-deselect='true',
+	data-placeholder='{{"Select managed account" | translate}}',
+	ng-change='$ctrl.selectedAccountChanged({accountNumber:$ctrl.selectedAccount})')
+		option(value='')
