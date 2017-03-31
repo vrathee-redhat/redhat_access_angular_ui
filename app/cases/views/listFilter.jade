@@ -5,11 +5,11 @@
                 input#rha-searchform-searchbox.form-control.with-close(
                     ng-disabled='!securityService.loginStatus.isLoggedIn',
                     placeholder='{{placeholder}}',
-                    ng-model='SearchCaseService.caseParameters.searchTerm',
+                    ng-model='SearchCaseService.searchParameters.searchString',
                     rha-enter='doSearch()',
                     ng-change='onChange()')
                 span.input-group-btn(ng-hide='hidebutton')
-                    a.close(ng-show="SearchCaseService.caseParameters.searchTerm && SearchCaseService.caseParameters.searchTerm!== ''", ng-click="clearSearch();doSearch()")
+                    a.close(ng-show="SearchCaseService.searchParameters.searchString && SearchCaseService.searchParameters.searchString!== ''", ng-click="clearSearch();doSearch()")
                         span.web-icon-close
                     button#rha-searchform-searchbutton.btn.btn-primary.btn-app(
                         ng-click='doSearch()',
@@ -21,7 +21,7 @@
                 chosen,
                 width='"100%"',
                 ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.submittingCase',
-                ng-model='SearchCaseService.caseParameters.group',
+                ng-model='SearchCaseService.searchParameters.caseGroup',
                 ng-change='CaseService.onGroupSelectChanged()',
                 placeholder='Select a Group',
                 ng-options='option.value as option.label disable when option.isDisabled for option in CaseService.groupOptions',
@@ -30,18 +30,17 @@
             select#rha-status-select(chosen,
                 width='"100%"',
                 ng-disabled='!securityService.loginStatus.isLoggedIn',
-                ng-model='SearchCaseService.caseParameters.status',
+                ng-model='SearchCaseService.searchParameters.caseStatus',
                 ng-change='CaseService.onSelectChanged()',
                 ng-options='status.value as status.name for status in ConstantsService.statuses',
                 disable_search_threshold=10)
-.row.bookmarked-accounts-row
-    div.col-xs-12.col-sm-6.nopadding(ng-if='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.is_internal')
-        div.col-xs-10.col-sm-10
-            div(rha-bookmarked-accounts-select='', selected-account='CaseService.accountNumberFilter', selected-account-changed='CaseService.onAccountSelectChange(accountNumber)')
-        div.col-xs-2.col-sm-2
-            a.btn.btn-primary.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', uib-tooltip='{{"Manage Bookmarked Accounts"|translate}}', tooltip-placement="top", tooltip-append-to-body="true")
-                i.icon-star-empty
-                i.icon-users
+.row.bookmarked-accounts-row(ng-if='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.is_internal')
+    div.col-xs-10.col-sm-11
+        div(rha-bookmarked-accounts-select='', selected-account='SearchCaseService.searchParameters.accountNumber', selected-account-changed='CaseService.onAccountSelectChange(accountNumber)')
+    div.col-xs-2.col-sm-1
+        a.btn.btn-primary.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', uib-tooltip='{{"Manage Bookmarked Accounts"|translate}}', tooltip-placement="top", tooltip-append-to-body="true")
+            i.icon-star-empty
+            i.icon-users
     div.col-xs-12.col-sm-6
         rha-managed-accounts-select(selected-account='CaseService.accountNumberFilter',
         selected-account-changed='CaseService.onAccountSelectChange(accountNumber)')

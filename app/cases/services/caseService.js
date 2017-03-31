@@ -245,7 +245,7 @@ export default class CaseService {
          *  Intended to be called only after user is logged in and has account details
          *  See securityService.
          */
-        this.populateUsers = () => {            
+        this.populateUsers = () => {
             if (securityService.loginStatus.authedUser.org_admin) {
                 this.usersLoading = true;
                 var accountNumber;

@@ -19,7 +19,7 @@ export default class ListFilter {
             CaseService.buildGroupOptions();
         };
         $scope.clearSearch = function () {
-            SearchCaseService.caseParameters.searchTerm = undefined;
+            SearchCaseService.searchParameters.searchString = undefined;
         };
     }
 }

@@ -1411,7 +1411,7 @@ describe('Case Controllers', function () {
                 AlertService: mockAlertService,
                 SearchBoxService: mockSearchBoxService
             });
-            mockSearchCaseService.caseParameters.status="closed";
+            mockSearchCaseService.searchParameters.caseStatus="closed";
             expect(mockScope.getCasesText).toBeDefined();
             mockScope.getCasesText();
             expect(mockScope.displayedCaseText).toEqual("Closed Support Cases");
@@ -1424,7 +1424,7 @@ describe('Case Controllers', function () {
                 AlertService: mockAlertService,
                 SearchBoxService: mockSearchBoxService
             });
-            mockSearchCaseService.caseParameters.status="both";
+            mockSearchCaseService.searchParameters.caseStatus="both";
             expect(mockScope.getCasesText).toBeDefined();
             mockScope.getCasesText();
             expect(mockScope.displayedCaseText).toEqual("Open and Closed Support Cases");
