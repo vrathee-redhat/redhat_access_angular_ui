@@ -1,24 +1,25 @@
 'use strict';
 
 export default class AccountSelect {
-    constructor($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog, ProductsService, securityService) {
+    constructor($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog, ProductsService, securityService, $state) {
         'ngInject';
 
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
+        $scope.bookmarkAccountUrl = $state.href('accountBookmark');
         $scope.selectUserAccount = function () {
             $scope.loadingAccountNumber = true;
             strataService.accounts.list().then(function (response) {
                 $scope.loadingAccountNumber = false;
-                CaseService.account.number = response;
-                $scope.populateAccountSpecificFields();
+                $scope.populateAccountSpecificFields(response);
             }, function (error) {
                 $scope.loadingAccountNumber = false;
                 AlertService.addStrataErrorMessage(error);
             });
         };
         $scope.alertInstance = null;
-        $scope.populateAccountSpecificFields = function () {
+        $scope.populateAccountSpecificFields = function (accountNumber) {
+            CaseService.account.number = accountNumber;
             if (RHAUtils.isNotEmpty(CaseService.account.number)) {
                 var promise = null;
                 strataService.accounts.get(CaseService.account.number).then(function (account) {

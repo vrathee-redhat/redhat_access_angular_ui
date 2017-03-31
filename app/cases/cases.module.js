@@ -96,7 +96,9 @@ import VersionSelect from './controllers/versionSelect'
 import SearchBookmarkModal from './controllers/searchBookmarkModal'
 import AdvancedSearchCaseList from './controllers/advancedSearchCaseList'
 import ColumnSelectModal from './controllers/columnSelectModal'
+import ManagedAccountSelect from './controllers/managedAccountSelect'
 
+app.controller('ManagedAccountSelect', ManagedAccountSelect);
 app.controller('AccountBookmarkHome', AccountBookmarkHome);
 app.controller('AccountSearch', AccountSearch);
 app.controller('AccountSelect', AccountSelect);
@@ -238,7 +240,9 @@ app.directive('rhaVersionselect', rhaVersionselect);
 
 //Components
 import rhaAdvancedSearchCaseList from './components/advancedSearchCaseList'
+import rhaManagedAccountsSelect from './components/managedAccountSelect'
 
+app.component('rhaManagedAccountsSelect', rhaManagedAccountsSelect);
 app.component('rhaAdvancedSearchCaseList', rhaAdvancedSearchCaseList);
 
 // Filters
