@@ -1,7 +1,7 @@
-div(ng-show='$ctrl.securityService.loginStatus.authedUser.managedAccounts.length > 0')
+div(ng-show='$ctrl.securityService.loginStatus.authedUser.managedAccounts.accounts.length > 0')
 	select(chosen,
 	width='"100%"',
-	ng-options="account.accountNum as ('(' + account.accountNum + ') ' + account.name) for account in $ctrl.securityService.loginStatus.authedUser.managedAccounts",
+	ng-options="account.accountNum as ('(' + account.accountNum + ') ' + account.name) for account in $ctrl.securityService.loginStatus.authedUser.managedAccounts.accounts",
 	ng-model='$ctrl.selectedAccount',
 	allow-single-deselect='true',
 	data-placeholder='{{"Select managed account" | translate}}',
