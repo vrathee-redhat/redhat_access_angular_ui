@@ -65,7 +65,7 @@
         "karma-webpack": "~1.7.0",
         "lodash": "~4.15.0",
         "moment": "~2.14.1",
-        "moment-timezone": "~0.5.4",
+        "moment-timezone": "0.5.11",
         "ng-annotate-loader": "~0.1.0",
         "node-sass": "~3.8.0",
         "null-loader": "~0.1.1",
