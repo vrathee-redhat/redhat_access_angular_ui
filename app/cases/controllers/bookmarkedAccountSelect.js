@@ -6,6 +6,7 @@ export default class BookmarkedAccountSelect {
 
         $scope.loading = true;
         $scope.accountOptions = [];
+        $scope.ABS = AccountBookmarkService;
 
         let init = function () {
             $scope.buildOptions();
@@ -18,7 +19,7 @@ export default class BookmarkedAccountSelect {
         $scope.buildOptions = function () {
             if (!AccountBookmarkService.loading) {
                 $scope.accountOptions = [];
-                AccountBookmarkService.bookmarkedAccounts.forEach(function (account) {
+                (AccountBookmarkService.bookmarkedAccounts || []).forEach(function (account) {
                     $scope.accountOptions.push({
                         value: account.number,
                         label: '(' + account.number + ') ' + account.name
@@ -33,10 +34,6 @@ export default class BookmarkedAccountSelect {
             }
         });
 
-        if (!AccountBookmarkService.loading) {
-            init();
-        } else {
-            $scope.$on(ACCOUNT_EVENTS.bookmarkedAccountsFetched, angular.bind(this, init));
-        }
+        $scope.$watch('ABS.bookmarkedAccounts', $scope.buildOptions);
     }
 }
