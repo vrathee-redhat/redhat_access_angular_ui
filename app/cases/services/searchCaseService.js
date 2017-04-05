@@ -80,6 +80,11 @@ export default class SearchCaseService {
                 caseFilter.account_number = '639769';
             }
 
+            if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.searchParameters.accountNumber)) {
+                caseFilter.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
+                caseFilter.view = 'internal';
+            }
+
             if (this.searchParameters.caseGroup === CASE_GROUPS.ungrouped || this.searchParameters.caseGroup === '-1') {
                 caseFilter.only_ungrouped = true;
             } else if (!RHAUtils.isEmpty(this.searchParameters.caseGroup)) {
@@ -126,7 +131,7 @@ export default class SearchCaseService {
             this.allCasesDownloaded = true;
             if (error.xhr.status === 404 && !this.searching404) {
                 this.searching404 = true;
-                this.doFilter(false).then(() => deferred.resolve());
+                this.doFilter().then(() => deferred.resolve());
             } else {
                 this.searching404 = false;
                 AlertService.addStrataErrorMessage(error);

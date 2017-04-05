@@ -34,13 +34,14 @@
                 ng-change='CaseService.onSelectChanged()',
                 ng-options='status.value as status.name for status in ConstantsService.statuses',
                 disable_search_threshold=10)
-.row.bookmarked-accounts-row(ng-if='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.is_internal')
-    div.col-xs-10.col-sm-11
-        div(rha-bookmarked-accounts-select='', selected-account='SearchCaseService.searchParameters.accountNumber', selected-account-changed='CaseService.onAccountSelectChange(accountNumber)')
-    div.col-xs-2.col-sm-1
-        a.btn.btn-primary.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', uib-tooltip='{{"Manage Bookmarked Accounts"|translate}}', tooltip-placement="top", tooltip-append-to-body="true")
-            i.icon-star-empty
-            i.icon-users
+.row.bookmarked-accounts-row
+    div.col-xs-12.col-sm-6.nopadding(ng-if='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.is_internal')
+        div.col-xs-10.col-sm-10
+            div(rha-bookmarked-accounts-select='', selected-account='SearchCaseService.searchParameters.accountNumber', selected-account-changed='CaseService.onAccountSelectChange()')
+        div.col-xs-2.col-sm-2
+            a.btn.btn-primary.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', uib-tooltip='{{"Manage Bookmarked Accounts"|translate}}', tooltip-placement="top", tooltip-append-to-body="true")
+                i.icon-star-empty
+                i.icon-users
     div.col-xs-12.col-sm-6
-        rha-managed-accounts-select(selected-account='CaseService.accountNumberFilter',
-        selected-account-changed='CaseService.onAccountSelectChange(accountNumber)')
+        rha-managed-accounts-select(selected-account='SearchCaseService.searchParameters.accountNumber',
+        selected-account-changed='CaseService.onAccountSelectChange()')
