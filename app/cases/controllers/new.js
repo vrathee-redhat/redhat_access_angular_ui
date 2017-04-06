@@ -494,6 +494,10 @@ export default class New {
             $scope.genericOnChangeTasks($event);
         };
 
+        $scope.onHostnameChange = function ($event) {
+            $scope.genericOnChangeTasks($event);
+        };
+
         $scope.onProblemChange = function ($event) {
             $scope.genericOnChangeTasks($event);
         };
