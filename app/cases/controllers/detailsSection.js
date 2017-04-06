@@ -127,7 +127,8 @@ export default class DetailsSection {
         };
         $scope.caseDetailsChanged = function () {
             if ($scope.caseDetails.alternate_id.$dirty || $scope.caseDetails.product.$dirty
-                || $scope.caseDetails.version.$dirty || $scope.caseDetails.group.$dirty) {
+                || $scope.caseDetails.version.$dirty || $scope.caseDetails.group.$dirty
+                || $scope.caseDetails.hostname.$dirty) {
                 return true;
             } else {
                 return false;
@@ -196,9 +197,11 @@ export default class DetailsSection {
             }
         };
         if (CaseService.caseDataReady) {
+            console.log(CaseService.kase);
             $scope.init();
         }
         $scope.$on(CASE_EVENTS.received, function () {
+            console.log(CaseService.kase);
             $scope.init();
             //AlertService.clearAlerts();
         });

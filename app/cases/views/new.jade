@@ -19,6 +19,12 @@ div(rha-header='', page='newCase')
                             div(rha-versionselect='')
                             label(translate,translate-comment="Noun") Case Type
                             div(rha-typeselect='', on-change = 'onCaseTypeChanged()' )
+                            label(for='rha-case-hostname', translate,translate-comment="Noun") Hostname 
+                                span.glyphicon.glyphicon-question-sign.link(uib-tooltip-html='"<div><span>{{"Not visible by Red Hat people" |translate }}</span></div>"',tabindex='0',tooltip-trigger="click")
+                            input#rha-case-hostname.form-control(
+                            maxlength='255',
+                            ng-model='$parent.CaseService.kase.hostname',
+                            ng-change='$parent.onHostnameChange($event)')
                             label(translate,translate-comment="Noun") Problem Statement
                             input#rha-case-summary.form-control(
                             maxlength='255',

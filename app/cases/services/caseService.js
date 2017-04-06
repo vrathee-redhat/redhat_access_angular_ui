@@ -243,7 +243,7 @@ export default class CaseService {
          *  Intended to be called only after user is logged in and has account details
          *  See securityService.
          */
-        this.populateUsers = () => {            
+        this.populateUsers = () => {
             if (securityService.loginStatus.authedUser.org_admin) {
                 this.usersLoading = true;
                 var accountNumber;
@@ -523,6 +523,9 @@ export default class CaseService {
             if (RHAUtils.isNotEmpty(this.kase.type)) {
                 caseJSON.type = this.kase.type.name;
             }
+            if (RHAUtils.isNotEmpty(this.kase.hostname)) {
+                caseJSON.hostname = this.kase.hostname;
+            }
             if(this.showKTFields) {
                 if (RHAUtils.isNotEmpty(this.kase.problem)) {
                     caseJSON.issue = this.kase.problem;
@@ -711,6 +714,9 @@ export default class CaseService {
                 }
                 if (RHAUtils.isNotEmpty(this.kase.urgency)) {
                     draftNewCase.urgency = this.kase.urgency;
+                }
+                if (RHAUtils.isNotEmpty(this.kase.hostname)) {
+                    draftNewCase.hostname = this.kase.hostname;
                 }
                 if (RHAUtils.isNotEmpty(this.kase.summary)) {
                     draftNewCase.summary = this.kase.summary;
