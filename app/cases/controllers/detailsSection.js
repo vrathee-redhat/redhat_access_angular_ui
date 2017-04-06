@@ -197,11 +197,9 @@ export default class DetailsSection {
             }
         };
         if (CaseService.caseDataReady) {
-            console.log(CaseService.kase);
             $scope.init();
         }
         $scope.$on(CASE_EVENTS.received, function () {
-            console.log(CaseService.kase);
             $scope.init();
             //AlertService.clearAlerts();
         });
