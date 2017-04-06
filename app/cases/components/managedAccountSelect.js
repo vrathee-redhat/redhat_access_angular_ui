@@ -4,7 +4,7 @@ export default {
     template: require('../views/managedAccountSelect.jade')(),
     controller: 'ManagedAccountSelect',
     bindings: {
-    	selectedAccount: '<',
+    	selectedAccount: '=',
     	selectedAccountChanged: '&'
     }
 }

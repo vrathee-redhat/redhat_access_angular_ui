@@ -39,7 +39,6 @@ export default class CaseService {
         this.group = '';
         this.owner = '';
         this.product = '';
-        this.accountNumberFilter = null;
         this.bugzillaList = {};
         this.entitlement = '';
         this.updatingNewCaseSummary = false;
@@ -111,8 +110,7 @@ export default class CaseService {
         this.onProductSelectChange = function () {
             $rootScope.$broadcast(CASE_EVENTS.productSelectChange);
         };
-        this.onAccountSelectChange = function (accountNumber) {
-            this.accountNumberFilter=accountNumber;
+        this.onAccountSelectChange = function () {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.groupOptions = [];
@@ -245,7 +243,7 @@ export default class CaseService {
          *  Intended to be called only after user is logged in and has account details
          *  See securityService.
          */
-        this.populateUsers = () => {            
+        this.populateUsers = () => {
             if (securityService.loginStatus.authedUser.org_admin) {
                 this.usersLoading = true;
                 var accountNumber;
