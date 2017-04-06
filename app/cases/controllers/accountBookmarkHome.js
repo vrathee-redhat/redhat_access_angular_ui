@@ -1,7 +1,7 @@
 'use strict';
 
 export default class AccountBookmarkHome {
-    constructor($scope, securityService, AUTH_EVENTS, $state) {
+    constructor($scope, securityService, AUTH_EVENTS, $state, gettextCatalog) {
         'ngInject';
 
         const init = function () {
@@ -11,13 +11,13 @@ export default class AccountBookmarkHome {
             } else {
                 if (window.chrometwo_require !== undefined) {
                     breadcrumbs = [
-                        ['Support', '/support/'],
-                        ['Support Cases', '/support/cases/'],
-                        ['Bookmark Accounts']
+                        [gettextCatalog.getString('Support'), '/support/'],
+                        [gettextCatalog.getString('Support Cases'), '/support/cases/'],
+                        [gettextCatalog.getString('Bookmark Accounts')]
                     ];
                     updateBreadCrumb();
                 }
-                document.title = 'Portal Case Management';
+                document.title = gettextCatalog.getString('Portal Case Management');
             }
 
         };

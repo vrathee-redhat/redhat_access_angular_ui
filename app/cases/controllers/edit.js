@@ -89,8 +89,8 @@ export default class Edit {
             });
             if (window.chrometwo_require !== undefined) {
                 breadcrumbs = [
-                    ['Support', '/support/'],
-                    ['Support Cases', '/support/cases/'],
+                    [gettextCatalog.getString('Support'), '/support/'],
+                    [gettextCatalog.getString('Support Cases'), '/support/cases/'],
                     [$stateParams.id]
                 ];
                 updateBreadCrumb();
@@ -141,7 +141,7 @@ export default class Edit {
         });
 
         $scope.$on(CASE_EVENTS.received, function () {
-            document.title = `${$stateParams.id} | ${CaseService.kase.summary} - Portal Case Managment`;
+            document.title = gettextCatalog.getString('{{caseNumber}} | {{caseSummary}} - Portal Case Managment', {caseNumber: $stateParams.id, caseSummary: CaseService.kase.summary});
         })
 
         $scope.$on('$locationChangeSuccess', function () {

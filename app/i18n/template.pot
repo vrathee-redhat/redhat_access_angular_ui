@@ -266,6 +266,14 @@ msgid ""
 "performed."
 msgstr ""
 
+#: dist/pcm.js:198
+msgid "New"
+msgstr ""
+
+#: dist/pcm.js:198
+msgid "New Case - Portal Case Management"
+msgstr ""
+
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1598
 msgid "Newest Date Created"
@@ -339,6 +347,10 @@ msgstr ""
 
 #: dist/pcm.js:223
 msgid "Please check the requestor email address"
+msgstr ""
+
+#: dist/pcm.js:189 dist/pcm.js:198
+msgid "Portal Case Management"
 msgstr ""
 
 #: dist/pcm.js:185

@@ -976,6 +976,7 @@ angular.module('RedhatAccess.mock', [])
             this.localStorageCache.remove=function(key) {};
 
             this.localStorageCache.put=function(key,val) {};
+            this.localStorageCache.get=function(key) {};
             this.originalNotifiedUsers = [];
             this.updatedNotifiedUsers = [];
 
@@ -1325,10 +1326,14 @@ angular.module('RedhatAccess.mock', [])
         function (MockStrataDataService, $q) {
             this.cases = MockStrataDataService.mockCases;
             this.searching = false;
-            this.caseParameters = {
-                searchTerm: '',
-                status: "open",
-                group: ''
+            this.searchParameters = {
+                caseStatus: null,
+                caseOwner: null,
+                caseGroup: null,
+                accountNumber: null,
+                searchString: null,
+                sortField: null,
+                sortOrder: null,
             };
             this.prefilter;
             this.postfilter;

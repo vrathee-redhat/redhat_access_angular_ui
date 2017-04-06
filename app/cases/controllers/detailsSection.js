@@ -14,7 +14,7 @@ export default class DetailsSection {
         $scope.caseContactSelected = true;
         $scope.maxLength = 450;
         $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
-
+        $scope.doNotDisableOnEditSLA = CaseService.kase.enhanced_sla && !CaseService.account.has_available_enhanced_sla;
         $scope.toggleExtraInfo = function () {
             $scope.showExtraInfo = !$scope.showExtraInfo;
 

@@ -39,7 +39,6 @@ export default class CaseService {
         this.group = '';
         this.owner = '';
         this.product = '';
-        this.bookmarkedAccount = null;
         this.bugzillaList = {};
         this.entitlement = '';
         this.updatingNewCaseSummary = false;
@@ -54,6 +53,7 @@ export default class CaseService {
         this.showKTFields = true;
         this.redhatUsersLoading = false;
         this.redhatUsers = [];
+        this.managedAccount = null;
 
         this.setSeverities = function (severities) {
             this.severities = severities;
@@ -110,7 +110,7 @@ export default class CaseService {
         this.onProductSelectChange = function () {
             $rootScope.$broadcast(CASE_EVENTS.productSelectChange);
         };
-        this.onBookmarkedAccountSelectChange = function () {
+        this.onAccountSelectChange = function () {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.groupOptions = [];

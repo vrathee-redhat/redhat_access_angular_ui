@@ -22,7 +22,7 @@ div(ng-hide='showCaseList()')
         span(ng-show="exporting")
           span.spinner.spinner-inline.spinner-sm
           span(translate) Exporting CSV
-        a.href(ng-click='exports()', ng-hide='ie8 || ie9 || exporting || RHAUtils.isNotEmpty(CaseService.bookmarkedAccount)', uib-tooltip="{{::'Export all cases from your account to CSV. Exporting many cases may take a while.'|translate}}", translate='') Export all cases to CSV
+        a.href(ng-click='exports()', ng-hide='ie8 || ie9 || exporting || RHAUtils.isNotEmpty(SearchCaseService.searchParameters.accountNumberFilter)', uib-tooltip="{{::'Export all cases from your account to CSV. Exporting many cases may take a while.'|translate}}", translate='') Export all cases to CSV
     .col-sm-6
       .pull-right.filter-list(rha-filterselect='')
   .alert.alert-slim(ng-show='SearchCaseService.totalCases == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}

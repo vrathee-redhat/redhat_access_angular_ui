@@ -163,3 +163,8 @@ a { color: $link-color; }
 .label-mar-right{
 	margin-right: 6px;
 }
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
