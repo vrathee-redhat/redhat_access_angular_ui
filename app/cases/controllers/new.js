@@ -176,6 +176,7 @@ export default class New {
                 CaseService.kase.occurance = draftNewCase.occurance;
                 CaseService.kase.urgency = draftNewCase.urgency;
                 CaseService.kase.summary = draftNewCase.summary;
+                CaseService.kase.hostname = draftNewCase.hostname;
                 if (RHAUtils.isEmpty(urlParameter.product)) {
                     if (RHAUtils.isNotEmpty(draftNewCase.product)) {
                         $scope.setProductAndVersion(draftNewCase.product, draftNewCase.version);

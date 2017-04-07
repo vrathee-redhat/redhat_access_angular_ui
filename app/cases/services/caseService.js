@@ -727,6 +727,9 @@ export default class CaseService {
                 if (RHAUtils.isNotEmpty(this.kase.version)) {
                     draftNewCase.version = this.kase.version;
                 }
+                if (RHAUtils.isNotEmpty(this.kase.hostname)) {
+                    draftNewCase.hostname = this.kase.hostname;
+                }
                 var newCaseDescLocalStorage = {'text': draftNewCase};
                 this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username, newCaseDescLocalStorage);
             }
