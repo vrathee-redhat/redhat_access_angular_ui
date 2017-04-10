@@ -121,7 +121,11 @@ export default class DiscussionSection {
         };
         $scope.discardNotes = function () {
             CaseService.kase.notes = CaseService.prestineKase.notes;
-            $scope.noteCharactersLeft = $scope.noteCharactersMax - CaseService.kase.notes.length;
+            if (CaseService.kase.notes !== undefined) {
+                $scope.noteCharactersLeft = $scope.noteCharactersMax - CaseService.kase.notes.length;
+            } else {
+                $scope.noteCharactersLeft = $scope.noteCharactersMax;
+            }
             this.notesForm.$setPristine();
         };
         $scope.discardActionPlan = function () {
