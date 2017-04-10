@@ -84,6 +84,9 @@ export default class SearchCaseService {
                 caseFilter.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                 caseFilter.view = 'internal';
             }
+            if (RHAUtils.isNotEmpty(this.searchParameters.accountNumber)) {
+                caseFilter.account_number = this.searchParameters.accountNumber;
+            }
 
             if (this.searchParameters.caseGroup === CASE_GROUPS.ungrouped || this.searchParameters.caseGroup === '-1') {
                 caseFilter.only_ungrouped = true;
