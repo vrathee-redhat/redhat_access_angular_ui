@@ -5,5 +5,5 @@ div(ng-show='$ctrl.securityService.loginStatus.authedUser.managedAccounts.accoun
 	ng-model='$ctrl.selectedAccount',
 	allow-single-deselect='true',
 	data-placeholder='{{"Select managed account" | translate}}',
-	ng-change='$ctrl.selectedAccountChanged({accountNumber:$ctrl.selectedAccount})')
+	ng-change='$ctrl.onAccountSelect()')
 		option(value='')

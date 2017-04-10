@@ -53,8 +53,6 @@ export default class SearchCaseService {
             caseGroup: null,
             accountNumber: null,
             searchString: null,
-            sortField: null,
-            sortOrder: null,
             offset: (this.currentPage - 1) * this.pageSize,
             limit: this.pageSize,
             queryParams: null,
@@ -65,7 +63,25 @@ export default class SearchCaseService {
             caseFilter.count = this.searchParameters.limit;
             caseFilter.include_closed = this.searchParameters.caseStatus !== STATUS.open;
             caseFilter.start = this.searchParameters.offset;
-            caseFilter.sort_order = this.searchParameters.sortField;
+
+            if (!RHAUtils.isEmpty(CaseService.filterSelect.sortField)) {
+                if (CaseService.filterSelect.sortField === 'owner') {
+                    caseFilter.sort_field = 'contactName';
+                } else {
+                    caseFilter.sort_field = CaseService.filterSelect.sortField;
+                }
+            }
+
+            if (!RHAUtils.isEmpty(CaseService.filterSelect.sortOrder)) {
+                //This is a hack because strata returns the severities in reverse order
+                if ((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'ASC') {
+                    caseFilter.sort_order = 'DESC';
+                } else if ((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'DESC') {
+                    caseFilter.sort_order = 'ASC';
+                } else {
+                    caseFilter.sort_order = CaseService.filterSelect.sortOrder;
+                }
+            }
 
             if (!RHAUtils.isEmpty(CaseService.type)) {
                 caseFilter.type = CaseService.type;
@@ -84,6 +100,9 @@ export default class SearchCaseService {
                 caseFilter.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                 caseFilter.view = 'internal';
             }
+            if (RHAUtils.isNotEmpty(this.searchParameters.accountNumber)) {
+                caseFilter.account_number = this.searchParameters.accountNumber;
+            }
 
             if (this.searchParameters.caseGroup === CASE_GROUPS.ungrouped || this.searchParameters.caseGroup === '-1') {
                 caseFilter.only_ungrouped = true;
@@ -91,15 +110,6 @@ export default class SearchCaseService {
                 caseFilter.group_numbers = {
                     group_number: [this.searchParameters.caseGroup]
                 };
-            }
-
-            if (!RHAUtils.isEmpty(caseFilter.sort_order)) {
-                //This is a hack because strata returns the severities in reverse order
-                if ((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'ASC') {
-                    caseFilter.sort_order = 'DESC';
-                } else if ((CaseService.filterSelect.sortField === 'severity' || CaseService.filterSelect.sortField === 'status') && CaseService.filterSelect.sortOrder === 'DESC') {
-                    caseFilter.sort_order = 'ASC';
-                }
             }
 
             return caseFilter;
@@ -141,17 +151,7 @@ export default class SearchCaseService {
 
         this.doFilter = function() {
             this.searching = true;
-            if (!RHAUtils.isEmpty(CaseService.filterSelect.sortField)) {
-                if (CaseService.filterSelect.sortField === 'owner') {
-                    this.searchParameters.sortField = 'contactName';
-                } else {
-                    this.searchParameters.sortField = CaseService.filterSelect.sortField;
-                }
-            }
             this.previousGroupFilter = this.searchParameters.caseGroup;
-            if (RHAUtils.isEmpty(this.searchParameters.sortOrder)) {
-                this.searchParameters.sortOrder = CaseService.filterSelect.sortOrder;
-            }
 
             if (CaseService.localStorageCache) {
                 CaseService.localStorageCache.put('listFilter' + securityService.loginStatus.authedUser.sso_username, this.searchParameters);
@@ -165,14 +165,15 @@ export default class SearchCaseService {
 
         this.doCaseSearch = function() {
             const deferred = $q.defer();
+            let sortField = CaseService.filterSelect.sortField === 'owner' ? 'contactName' : CaseService.filterSelect.sortField;
             strataService.cases.search(
                 this.searchParameters.caseStatus,
                 this.searchParameters.caseOwner,
                 this.searchParameters.caseGroup,
                 this.searchParameters.accountNumber,
                 this.searchParameters.searchString,
-                this.searchParameters.sortField,
-                this.searchParameters.sortOrder,
+                sortField,
+                CaseService.filterSelect.sortOrder,
                 this.searchParameters.offset,
                 this.searchParameters.limit,
                 this.searchParameters.queryParams,
