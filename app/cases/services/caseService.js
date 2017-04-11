@@ -191,7 +191,6 @@ export default class CaseService {
             this.products = [];
             this.statuses = [];
             this.severities = [];
-            this.groups = [];
             this.account = {};
             this.comments = [];
             this.bugzillaList = {};
