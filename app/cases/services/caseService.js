@@ -660,6 +660,9 @@ export default class CaseService {
                 caseJSON.product = this.kase.product;
                 caseJSON.version = this.kase.version;
             }
+            if (this.kase.hostname !== null && !angular.equals(this.prestineKase.hostname, this.kase.hostname)) {
+                caseJSON.hostname = this.kase.hostname;
+            }
             if (RHAUtils.isNotEmpty(this.kase.group) && this.kase.group.number !== undefined && !angular.equals(this.prestineKase.group, this.kase.group)) {
                 caseJSON.folderNumber = this.kase.group.number;
             } else if (!angular.equals(this.prestineKase.group, this.kase.group)) {
