@@ -53,16 +53,14 @@ export default class SearchCaseService {
             caseGroup: null,
             accountNumber: null,
             searchString: null,
-            offset: (this.currentPage - 1) * this.pageSize,
-            limit: this.pageSize,
             queryParams: null,
         };
 
         this.makeCaseFilter = function() {
             const caseFilter = {};
-            caseFilter.count = this.searchParameters.limit;
+            caseFilter.count = this.pageSize;
             caseFilter.include_closed = this.searchParameters.caseStatus !== STATUS.open;
-            caseFilter.start = this.searchParameters.offset;
+            caseFilter.start = (this.currentPage - 1) * this.pageSize;
 
             if (!RHAUtils.isEmpty(CaseService.filterSelect.sortField)) {
                 if (CaseService.filterSelect.sortField === 'owner') {
