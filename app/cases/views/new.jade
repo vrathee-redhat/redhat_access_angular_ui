@@ -20,8 +20,9 @@ div(rha-header='', page='newCase')
                             label(translate,translate-comment="Noun") Case Type
                             div(rha-typeselect='', on-change = 'onCaseTypeChanged()' )
                             div(ng-if='!$parent.securityService.loginStatus.authedUser.is_internal')
-                                label(for='rha-case-hostname', translate,translate-comment="Noun") Hostname 
-                                    span.glyphicon.glyphicon-question-sign.link(uib-tooltip-html='"<div><span>{{"Not visible by Red Hat people" |translate }}</span></div>"',tabindex='0',tooltip-trigger="click")
+                                label(for='rha-case-hostname', translate,translate-comment="Noun")
+                                    span {{::'Hostname'|translate}}&nbsp;
+                                    span.glyphicon.glyphicon-question-sign.link(uib-tooltip="{{'Hostname is not visible to Red Hat Support professionals' |translate }}", tooltip-trigger="click")
                                 input#rha-case-hostname.form-control(
                                 maxlength='255',
                                 ng-model='$parent.CaseService.kase.hostname',
