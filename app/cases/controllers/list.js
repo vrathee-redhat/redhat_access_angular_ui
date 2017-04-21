@@ -112,13 +112,13 @@ export default class List {
                 $scope.firePageLoadEvent();
                 CaseService.status = 'open';
 
-                if (CaseService.localStorageCache) {
-                    if (CaseService.localStorageCache.get('listFilter' + securityService.loginStatus.authedUser.sso_username)) {
-                        SearchCaseService.searchParameters = CaseService.localStorageCache.get('listFilter' + securityService.loginStatus.authedUser.sso_username);
+                if(CaseService.sessionStorageCache) {
+                    if (CaseService.sessionStorageCache.get('listFilter' + securityService.loginStatus.authedUser.sso_username)) {
+                        SearchCaseService.searchParameters = CaseService.sessionStorageCache.get('listFilter' + securityService.loginStatus.authedUser.sso_username);
                         SearchCaseService.previousGroupFilter = SearchCaseService.searchParameters.caseGroup;
                     }
-                    if (CaseService.localStorageCache.get('filterSelect' + securityService.loginStatus.authedUser.sso_username)) {
-                        var filterSelectCache = CaseService.localStorageCache.get('filterSelect' + securityService.loginStatus.authedUser.sso_username);
+                    if (CaseService.sessionStorageCache.get('filterSelect' + securityService.loginStatus.authedUser.sso_username)) {
+                        var filterSelectCache = CaseService.sessionStorageCache.get('filterSelect' + securityService.loginStatus.authedUser.sso_username);
                         CaseService.setFilterSelectModel(filterSelectCache.sortField, filterSelectCache.sortOrder);
                     }
                 }
