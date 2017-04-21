@@ -151,8 +151,8 @@ export default class SearchCaseService {
             this.searching = true;
             this.previousGroupFilter = this.searchParameters.caseGroup;
 
-            if (CaseService.localStorageCache) {
-                CaseService.localStorageCache.put('listFilter' + securityService.loginStatus.authedUser.sso_username, this.searchParameters);
+            if (CaseService.sessionStorageCache) {
+                CaseService.sessionStorageCache.put('listFilter' + securityService.loginStatus.authedUser.sso_username, this.searchParameters);
             }
             if (RHAUtils.isEmpty(this.searchParameters.searchString)) {
                 return this.doCaseFilter();

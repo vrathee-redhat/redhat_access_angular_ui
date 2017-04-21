@@ -13,6 +13,13 @@ export default class CaseService {
                 verifyIntegrity: true
             })
         }
+        this.sessionStorageCache = CacheFactory.get('sessionStorageCache');
+        if ( RHAUtils.isEmpty(this.sessionStorageCache) ) {
+            this.sessionStorageCache = CacheFactory('sessionStorageCache', {
+                storageMode: 'sessionStorage',
+                verifyIntegrity: true
+            })
+        }
         this.updatingCase = false;
         this.submittingCase = false;
         this.kase = {};
@@ -92,8 +99,8 @@ export default class CaseService {
         };
 
         this.onFilterSelectChanged = function () {
-            if (this.localStorageCache) {
-                this.localStorageCache.put('filterSelect' + securityService.loginStatus.authedUser.sso_username, this.filterSelect);
+            if (this.sessionStorageCache) {
+                this.sessionStorageCache.put('filterSelect' + securityService.loginStatus.authedUser.sso_username, this.filterSelect);
             }
             $rootScope.$broadcast(CASE_EVENTS.filterChanged);
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
