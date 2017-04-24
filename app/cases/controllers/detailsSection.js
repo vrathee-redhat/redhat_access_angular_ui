@@ -1,7 +1,7 @@
 'use strict';
 
 export default class DetailsSection {
-    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, translate, LinkifyService, gettextCatalog) {
+    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, translate, LinkifyService, gettextCatalog, SearchCaseService) {
         'ngInject';
 
         $scope.showExtraInfo = false;
@@ -96,6 +96,7 @@ export default class DetailsSection {
                         $scope.caseSummaryEditable = false;
                         $scope.detailsForm.$setPristine();
                         $scope.summaryForm.$setPristine();
+                        SearchCaseService.clear();
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
                         $scope.updatingDetails = false;
@@ -120,6 +121,7 @@ export default class DetailsSection {
                 if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                     $scope.$apply();
                 }
+                SearchCaseService.clear();
             }, function (error) {
                 $scope.updatingDetails = false;
                 AlertService.addStrataErrorMessage(error);
