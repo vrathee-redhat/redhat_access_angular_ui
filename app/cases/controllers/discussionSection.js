@@ -1,7 +1,7 @@
 'use strict';
 
 export default class DiscussionSection {
-    constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal, $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService) {
+    constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal, $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService) {
         'ngInject';
 
         $scope.AttachmentsService = AttachmentsService;
@@ -108,6 +108,7 @@ export default class DiscussionSection {
         $scope.updateNotes = function () {
             CaseService.updateCase().then(angular.bind(this, function () {
                 this.notesForm.$setPristine();
+                SearchCaseService.clear();
             }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
             }));
@@ -115,6 +116,7 @@ export default class DiscussionSection {
         $scope.updateActionPlan = function () {
             CaseService.updateCase().then(angular.bind(this, function () {
                 this.actionPlanForm.$setPristine();
+                SearchCaseService.clear();
             }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
             }));
