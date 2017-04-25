@@ -11,6 +11,7 @@ export default class CommonConfirmationModal {
                 $scope.closeCases();
             } else {
                 CaseService.updateCase().then(function () {
+                    SearchCaseService.clear();
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
