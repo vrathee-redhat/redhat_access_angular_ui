@@ -8,7 +8,7 @@ div(rha-header='', page='newCase')
                 section.case-new
                     section.config-options
                         #rha-case-main-options
-                            div(ng-if='$parent.securityService.loginStatus.authedUser.is_internal')
+                            div(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || ($parent.securityService.loginStatus.authedUser.org_admin && $parent.userHasManagedAccounts())')
                                 label(for='rha-account-number',translate,translate-comment="Noun") Account
                                 div(rha-accountselect='')
                                 label(for='rha-owners-select',translate,translate-comment="Noun") Owner
