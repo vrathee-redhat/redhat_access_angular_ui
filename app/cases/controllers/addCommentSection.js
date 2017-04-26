@@ -1,7 +1,7 @@
 'use strict';
 
 export default class AddCommentSection {
-    constructor($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog) {
+    constructor($scope, strataService, CaseService, AlertService, AttachmentsService, DiscussionService, securityService, $timeout, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog, SearchCaseService) {
         'ngInject';
 
         $scope.CaseService = CaseService;
@@ -29,6 +29,7 @@ export default class AddCommentSection {
                 CaseService.isCommentPublic = true;
             }
             var onSuccess = function () {
+                SearchCaseService.clear();
                 CaseService.isCommentPublic = true;
                 CaseService.draftCommentOnServerExists = false;
                 if (CaseService.localStorageCache) {
@@ -246,7 +247,7 @@ export default class AddCommentSection {
                                 $scope.addingComment = false;
                                 AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                                 $scope.ieClearSelectedFile();
-
+                                SearchCaseService.clear();
                             }, function (error) {
                                 $scope.addingComment = false;
                                 AlertService.addStrataErrorMessage(error);
@@ -264,6 +265,7 @@ export default class AddCommentSection {
                 } else {
                     strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
                         $scope.addingComment = false;
+                        SearchCaseService.clear();
                         if (attachmentsJSON.length !== AttachmentsService.originalAttachments.length) {
                             AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                             $scope.ieClearSelectedFile();
