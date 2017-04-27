@@ -16,23 +16,27 @@ export default class ProductsService {
             this.products = [];
             this.versions = [];
         };
+        const userHasManagedAccounts = () => (
+            RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
+            RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts)
+        );
         this.getProducts = function (fetchForContact) {
             this.clear();
             var contact = securityService.loginStatus.authedUser.sso_username;
             if (fetchForContact === true) {
-                if (securityService.loginStatus.authedUser.is_internal) {
+                if (securityService.loginStatus.authedUser.is_internal || (securityService.loginStatus.authedUser.org_admin && userHasManagedAccounts())) {
                     if (RHAUtils.isNotEmpty(CaseService.owner)) {
-                        contact = CaseService.owner;  // When internal user creates case for another account
+                        contact = CaseService.owner;  // When internal user creates case for another account, or external partner creates a case for managed account
                     }
                 }
             } else {
-                this.productsLoading = true;
-                if (securityService.loginStatus.authedUser.is_internal) {
+                if (securityService.loginStatus.authedUser.is_internal || (securityService.loginStatus.authedUser.org_admin && userHasManagedAccounts())) {
                     if (RHAUtils.isNotEmpty(CaseService.kase.contact_sso_username)) {
-                        contact = CaseService.kase.contact_sso_username; // When internal user views case of another account
+                        contact = CaseService.kase.contact_sso_username; // When internal user views case of another account, or external partner creates a case for managed account
                     }
                 }
             }
+            this.productsLoading = true;
             return strataService.products.list(contact).then(angular.bind(this, function (response) {
                 this.products = response;
                 this.buildProductOptions();
