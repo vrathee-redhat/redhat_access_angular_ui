@@ -19,9 +19,9 @@ div.edit(ng-if='showCasePage()')
         span(id="rha-case-filedOn" translate)  Filed on {{$parent.CaseService.kase.created_date}} by {{$parent.CaseService.kase.created_by}}
       .row.row-very-short
         span {{'Assigned to'|translate}} {{$parent.CaseService.kase.owner}}
-      .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal')
+      .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
         span(translate) Account number : {{$parent.CaseService.account.number}}
-      .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal')
+      .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
         span(translate) Account name : {{$parent.CaseService.account.name}}
         span(rha-bookmark-account, account='$parent.CaseService.account')
       .row.row-very-short

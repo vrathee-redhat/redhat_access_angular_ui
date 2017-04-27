@@ -1,7 +1,8 @@
 'use strict';
 
 export default class Edit {
-    constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService, $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog) {
+    constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService,
+                $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils) {
         'ngInject';
 
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
@@ -105,6 +106,11 @@ export default class Edit {
                 });
             }
         };
+
+        $scope.userHasManagedAccounts = () => (
+            RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
+            RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts)
+        );
 
         if (securityService.loginStatus.isLoggedIn) {
             $scope.firePageLoadEvent();
