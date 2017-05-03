@@ -8,7 +8,7 @@ div(rha-header='', page='newCase')
                 section.case-new
                     section.config-options
                         #rha-case-main-options
-                            div(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || ($parent.securityService.loginStatus.authedUser.org_admin && $parent.userHasManagedAccounts())')
+                            div(ng-if='$parent.canCreateCaseForOtherAccounts()')
                                 label(for='rha-account-number',translate,translate-comment="Noun") Account
                                 div(rha-accountselect='')
                                 label(for='rha-owners-select',translate,translate-comment="Noun") Owner
@@ -130,14 +130,14 @@ div(rha-header='', page='newCase')
                             severity-change="$parent.CaseService.onChangeFTSCheck()",
                             severity-disabled="$parent.CaseService.submittingCase",
                             severities="$parent.CaseService.severities")
-                            div(ng-show="$parent.securityService.loginStatus.authedUser.is_internal ? $parent.CaseService.account.has_enhanced_sla : $parent.securityService.loginStatus.authedUser.account.has_enhanced_sla")
+                            div(ng-show="$parent.canCreateCaseForOtherAccounts()  ? $parent.CaseService.account.has_enhanced_sla : $parent.securityService.loginStatus.authedUser.account.has_enhanced_sla")
                                 label#rha-enhanced-SLA(translate,translate-comment="Noun") Enhanced SLA
                                 input(
                                 type="checkbox",
                                 ng-model="$parent.CaseService.kase.enhanced_sla"
-                                ng-disabled='$parent.securityService.loginStatus.authedUser.is_internal ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla')
+                                ng-disabled='$parent.canCreateCaseForOtherAccounts() ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla')
                                 span &nbsp;
-                                span.glyphicon.glyphicon-info-sign.text-danger(ng-show="$parent.securityService.loginStatus.authedUser.is_internal ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla" uib-tooltip="{{$parent.noEnhancedSLAMessage}}")
+                                span.glyphicon.glyphicon-info-sign.text-danger(ng-show="$parent.canCreateCaseForOtherAccounts() ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla" uib-tooltip="{{$parent.noEnhancedSLAMessage}}")
                             div(ng-show="$parent.CaseService.showFts()")
                                 label#rha-24X7_Support(translate,translate-comment="Noun") 24x7 Support
                                 input(

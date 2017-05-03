@@ -100,6 +100,10 @@ export default class New {
             }
         });
 
+        $scope.canCreateCaseForOtherAccounts = function() {
+            return securityService.loginStatus.authedUser.is_internal || (securityService.loginStatus.authedUser.org_admin && $scope.userHasManagedAccounts() ); 
+        }
+
         /**
          * Populate the selects
          */
