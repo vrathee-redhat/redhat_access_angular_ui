@@ -109,9 +109,6 @@ export default class New {
             CaseService.clearCase();
             RecommendationsService.clear();
             ProductsService.clear();
-            if(RHAUtils.isEmpty(CaseService.account.number)) {
-                CaseService.account.number = securityService.loginStatus.authedUser.account_number;
-            }
             CaseService.populateUsers().then(function () {
                 $scope.usersOnAccount = angular.copy(CaseService.users);
                 for (var i = $scope.usersOnAccount.length - 1; i >= 0; i--) {
