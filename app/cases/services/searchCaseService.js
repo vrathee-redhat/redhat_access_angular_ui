@@ -56,7 +56,7 @@ export default class SearchCaseService {
             queryParams: null,
         };
 
-        this.makeCaseFilter = function() {
+        this.makeCaseFilter = function(checkIsInternal) {
             const caseFilter = {};
             caseFilter.count = this.pageSize;
             caseFilter.include_closed = this.searchParameters.caseStatus !== STATUS.open;
@@ -93,8 +93,7 @@ export default class SearchCaseService {
             if (COMMON_CONFIG.isGS4 === true) {
                 caseFilter.account_number = '639769';
             }
-
-            if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.searchParameters.accountNumber)) {
+            if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.searchParameters.accountNumber) && ( checkIsInternal === undefined || checkIsInternal === true) ) {
                 caseFilter.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                 caseFilter.view = 'internal';
             }
@@ -139,7 +138,7 @@ export default class SearchCaseService {
             this.allCasesDownloaded = true;
             if (error.xhr.status === 404 && !this.searching404) {
                 this.searching404 = true;
-                this.doFilter().then(() => deferred.resolve());
+                this.doFilter(false).then(() => deferred.resolve());
             } else {
                 this.searching404 = false;
                 AlertService.addStrataErrorMessage(error);
@@ -147,7 +146,7 @@ export default class SearchCaseService {
             }
         }
 
-        this.doFilter = function() {
+        this.doFilter = function(checkIsInternal) {
             this.searching = true;
             this.previousGroupFilter = this.searchParameters.caseGroup;
 
@@ -155,7 +154,7 @@ export default class SearchCaseService {
                 CaseService.sessionStorageCache.put('listFilter' + securityService.loginStatus.authedUser.sso_username, this.searchParameters);
             }
             if (RHAUtils.isEmpty(this.searchParameters.searchString)) {
-                return this.doCaseFilter();
+                return this.doCaseFilter(checkIsInternal);
             } else {
                 return this.doCaseSearch();
             }
@@ -184,9 +183,9 @@ export default class SearchCaseService {
             return deferred.promise;
         }
 
-        this.doCaseFilter = function() {
+        this.doCaseFilter = function(checkIsInternal) {
             const deferred = $q.defer();
-            const caseFilter = this.makeCaseFilter();
+            const caseFilter = this.makeCaseFilter(checkIsInternal);
             if (this.refreshFilterCache === true) {
                 strataService.cache.clr('filter' + JSON.stringify(caseFilter));
                 this.refreshFilterCache = false;
