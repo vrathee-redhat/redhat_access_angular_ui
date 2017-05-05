@@ -4,58 +4,30 @@
 # xhuang <xhuang@redhat.com>, 2014. #zanata
 # Leah Liu <lliu@redhat.com>, 2015. #zanata
 # tfu <tfu@redhat.com>, 2015. #zanata
+# xhuang <xhuang@redhat.com>, 2015. #zanata
+# Leah Liu <lliu@redhat.com>, 2016. #zanata
+# Ykatabam <ykatabam@redhat.com>, 2016. #zanata
+# tfu <tfu@redhat.com>, 2016. #zanata
+# xhuang <xhuang@redhat.com>, 2016. #zanata
+# tfu <tfu@redhat.com>, 2017. #zanata
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2015-12-15 01:07+0000\n"
-"Last-Translator: Leah Liu <lliu@redhat.com>\n"
+"PO-Revision-Date: 2017-04-28 01:13+0000\n"
+"Last-Translator: tfu <tfu@redhat.com>\n"
 "Language-Team: Chinese (Simplified)\n"
 "Language: zh_CN\n"
-"X-Generator: Zanata 3.7.3\n"
+"X-Generator: Zanata 3.9.6\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: app/cases/controllers/discussionSection.js
+#: dist/pcm.js:204
 msgid "(In reply to {{personName}})"
 msgstr "（回复 {{personName}}）"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/list.html
-#: app/cases/views/new.html
-msgid "(More info)"
-msgstr "（更多信息）"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-msgid "* All fields are mandatory."
-msgstr "* 所有字段都是必填项。"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
-msgid "* marked fields are mandatory fields."
-msgstr "* 标记的字段为必填项。"
-
-#: app/cases/views/discussionSection.html
-msgid "- Private"
-msgstr "- 专用"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#. Noun
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-msgid "24x7 Contact"
-msgstr "24x7 联系方式"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#. Noun
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
-msgid "24x7 Support"
-msgstr "24x7 支持"
-
-#: app/cases/services/caseService.js
+#: dist/pcm.js:214
 msgid ""
 "A general usage question, reporting of a documentation error, or "
 "recommendation for a future product enhancement or modification. For "
@@ -66,7 +38,7 @@ msgid ""
 msgstr ""
 "一般用法问题、报告文档错误或为未来产品改进或修改提供意见。就产品环境而言，这对您的业务性能或系统功能的影响较低甚至无影响。就开发环境而言，对您的业务有中度或低度影响，但您的业务可继续进行，包括使用程序性临时解决方案。"
 
-#: app/cases/services/caseService.js
+#: dist/pcm.js:214
 msgid ""
 "A problem that involves partial, non-critical loss of use of the software in "
 "a production environment or development environment. For production "
@@ -77,7 +49,7 @@ msgid ""
 msgstr ""
 "有关产品环境或开发环境中的部分非重大软件用法损失的问题。就产品环境而言，对您的业务有中度或低度影响，但您的业务可继续进行，包括使用程序性临时解决方案。就开发环境而言，这种情况可造成您的项目无法再继续或无法迁移到产品中。"
 
-#: app/cases/services/caseService.js
+#: dist/pcm.js:214
 msgid ""
 "A problem that severely impacts your use of the software in a production "
 "environment (such as loss of production data or in which your production "
@@ -85,615 +57,184 @@ msgid ""
 "and no procedural workaround exists."
 msgstr "严重影响您在产品环境中使用软件的问题（比如丢失产品数据或您的产品系统无法正常工作）。这种情况会让您的业务停止，且没有程序性临时解决方案。"
 
-#: app/cases/services/caseService.js
+#: dist/pcm.js:214
 msgid ""
 "A problem where the software is functioning but your use in a production "
 "environment is severely reduced. The situation is causing a high impact to "
 "portions of your business operations and no procedural workaround exists."
 msgstr "软件可正常工作，但您在产品环境中使用时性能显著下降的问题。这个情况会对并您部分业务运营造成极大影响，且没有程序性临时解决方案。"
 
-#: app/cases/views/manageGroupUsers.html
-msgid "Access"
-msgstr "访问"
+#: dist/pcm.js:185 app/cases/views/accountSearch.html:17
+#: app/cases/views/existingBookmarkedAccounts.html:9
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1676
+msgid "Account Number"
+msgstr "帐号"
 
-# translation auto-copied from project Customer Portal Translations, version management_page, document Management_Prototype.html, author Leah Liu
-#. Noun
-#: app/cases/views/new.html
-msgid "Account"
-msgstr "帐户"
-
-#: app/cases/views/edit.html
-msgid "Account name : {{CaseService.account.name}}"
-msgstr "帐户名：{{CaseService.account.name}}"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/accountSelect.js
+#: dist/pcm.js:201
 msgid "Account not found."
 msgstr "未发现帐户。"
 
-#: app/cases/views/edit.html
-msgid "Account number : {{CaseService.account.number}}"
-msgstr "帐户号：{{CaseService.account.number}}"
-
-#: app/cases/views/discussionSection.html
-msgid "Action Plan"
-msgstr "行动方案"
-
-#: app/cases/views/discussionSection.html
-msgid "Action Plan:"
-msgstr "行动方案："
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/attachProductLogs.html
-msgid "Add"
-msgstr "添加"
-
-#: app/cases/controllers/new.js
+#: dist/pcm.js:210
 msgid "Adding user {{userName}} to case."
 msgstr "将用户 {{userName}} 添加到问题单中。"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/discussionSection.html
-msgid "All Attachments"
-msgstr "添加附件"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/services/caseService.js
+#: dist/pcm.js:215
 msgid "All Groups"
 msgstr "所有组"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-msgid "Already Escalated?"
-msgstr "已升级？"
+#: dist/pcm.js:201
+msgid "All unsaved changes will be overwritten."
+msgstr "所有未保存的改变将会被覆盖。"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/detailsSection.html
-msgid "Alternate Case ID"
-msgstr "备用问题单 ID"
-
-#: app/cases/controllers/descriptionSection.js
+#: dist/pcm.js:204
 msgid ""
 "Are you sure you want to change this case severity to {{severityName}}?"
 msgstr "您确定要将这个问题单的严重性改为 {{severityName}} 吗？"
 
-#: app/cases/controllers/descriptionSection.js
+#: dist/pcm.js:204
 msgid "Are you sure you want to change this case status to {{statusName}}?"
 msgstr "您确定要将这个问题单的状态改为 {{statusName}} 吗？"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/controllers/list.js
+#: dist/pcm.js:203
 msgid "Are you sure you want to close the selected cases?"
 msgstr "您确定要关闭所选问题单吗？"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/edit.html
-msgid "Assigned to"
-msgstr "已分配给"
+#: dist/pcm.js:201
+msgid "Are you sure you want to delete this bookmark?"
+msgstr "您确定要删除这个书签吗？"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/attachLocalFile.html
-msgid "Attach Another File"
-msgstr "附加另一个文件"
+#: dist/pcm.js:204
+msgid "Bookmark this account!"
+msgstr "为此账户加书签！"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/attachLocalFile.html
-msgid "Attach File"
-msgstr "附加文件"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/attachProductLogs.html
-msgid "Attach Foreman logs:"
-msgstr "附加 Foreman 日志："
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#. Noun Attached here means Attached on a particular date
-#: app/cases/views/listAttachments.html
-msgid "Attached"
-msgstr "附加"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#. Noun
-#: app/cases/views/listAttachments.html
-msgid "Attached By"
-msgstr "附件上传者"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/listAttachments.html
-msgid "Attached Files"
-msgstr "附加的文件"
-
-#: app/cases/views/proceedWithoutAttachModal.html
-msgid ""
-"Attaching logs and diagnostics files greatly improves time to resolution. Do "
-"you want to continue without attaching any files?"
-msgstr "附加日志和诊断文件可大大节省解决问题所需时间。您确定不需要添加任何附件吗？"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/new.html
-msgid ""
-"Attaching logs or other diagnostics files typically results in faster "
-"resolution."
-msgstr "附加日志或其他诊断文件通常可加快解决问题的速度。"
-
-#: app/cases/views/discussionSection.html
-msgid "Attachment"
-msgstr "附件"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/navSideBar.html
-msgid "Available Log Files"
-msgstr "有效的日志文件"
-
-#: app/cases/views/editCaseRecommendationsSection.html
-#: app/cases/views/newCaseRecommendationsSection.html
-msgid "BACK"
-msgstr "回退"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/defaultGroup.html
-msgid "Back"
-msgstr "返回"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/newCaseRecommendationsSection.html
-msgid "Based on your description, here are some possible solutions"
-msgstr "根据您的描述，这里有一些可能的解决方案。"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/listBugzillas.html
-msgid "Bugzilla Number"
-msgstr "Bugzilla 号"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/discussionSection.html
-msgid "Bugzilla Tickets"
-msgstr "Bugzilla 报告"
-
-#: app/cases/views/edit.html
-msgid "CASE {{CaseService.kase.case_number}}"
-msgstr "问题单 {{CaseService.kase.case_number}}"
-
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+#: dist/pcm.js:184
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:800
 msgid "CASE {{caseNumber}}"
 msgstr "问题单 {{caseNumber}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#. Verb
-#: app/cases/views/addCommentSection.html
-#: app/cases/views/createGroupModal.html
-#: app/cases/views/detailsSection.html
-#: app/cases/views/editGroup.html
-#: app/cases/views/new.html
-#: app/cases/views/requestManagementEscalationModal.html
-msgid "Cancel"
-msgstr "取消"
-
-#: app/cases/controllers/commonConfirmationModal.js
+#: dist/pcm.js:204
 msgid "Case  {{caseNumber}} successfully closed."
 msgstr "问题单  {{caseNumber}} 已成功关闭。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/discussionSection.html
-msgid "Case Discussion"
-msgstr "问题单讨论"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/detailsSection.html
-msgid "Case Group"
-msgstr "问题单组"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#. Noun
-#: app/cases/views/new.html
-msgid "Case Group (Optional)"
-msgstr "问题单组（可选）"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/defaultGroup.html
-msgid "Case Group Name:"
-msgstr "问题单组名称："
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/createGroupModal.html
-msgid "Case Group:"
-msgstr "问题单组："
-
-#: app/cases/views/manageGroupList.html
-msgid "Case Groups"
-msgstr "问题单组"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
-msgid "Case Information"
-msgstr "问题单信息"
-
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1608
 msgid "Case Owner (A-Z)"
 msgstr "问题单所有人 (A-Z)"
 
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1613
 msgid "Case Owner (Z-A)"
 msgstr "问题单所有人 (Z-Z)"
 
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1618
 msgid "Case Status (A-Z)"
 msgstr "问题单状态（A-Z）"
 
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1623
 msgid "Case Status (Z-A)"
 msgstr "问题单状态（Z-A）"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#. Noun
-#: app/cases/views/detailsSection.html
-msgid "Case Type"
-msgstr "问题单类型"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/editGroup.js
-#: app/cases/services/manageGroupsService.js
-msgid "Case group successfully updated."
-msgstr "成功更新问题单组。"
-
-#: app/cases/controllers/descriptionSection.js
+#: dist/pcm.js:204
 msgid "Case severity was changed."
 msgstr "问题单的严重性被改变。"
 
-#: app/cases/controllers/descriptionSection.js
+#: dist/pcm.js:204
 msgid "Case status was changed."
 msgstr "问题单的状态被改变。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/editGroup.js
-#: app/cases/services/manageGroupsService.js
-msgid "Case users successfully updated."
-msgstr "成功更新问题单用户。"
-
-#: app/common/views/chatButton.html
-msgid "Chat Offline"
-msgstr "离线互动咨询"
-
-#: app/common/views/chatButton.html
-msgid "Chat with Support"
-msgstr "聊天支持"
-
-#: app/cases/views/list.html
-msgid "Close Case(s)"
-msgstr "关闭问题单"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/common/views/alert.html
-msgid "Close messages"
-msgstr "关闭信息"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/statusSelect.js
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+#: dist/pcm.js:185 dist/pcm.js:211
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1637
 msgid "Closed"
 msgstr "已关闭"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/controllers/list.js
+#: dist/pcm.js:203
 msgid "Closed Support Cases"
 msgstr "已关闭支持问题单"
 
-#: app/cases/controllers/list.js
+#: dist/pcm.js:203
 msgid "Closing Cases."
 msgstr "正在关闭问题单。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/controllers/commonConfirmationModal.js
+#: dist/pcm.js:204
 msgid "Closing cases."
 msgstr "正在关闭问题单。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/requestManagementEscalationModal.html
-msgid "Comment:"
-msgstr "评论："
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1672
+msgid "Contact Name"
+msgstr "联系姓名"
 
-#: app/cases/views/manageGroupList.html
-msgid "Create"
-msgstr "创建"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/createGroupModal.html
-msgid "Create Case Group"
-msgstr "创建问题单组"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/createGroupButton.html
-msgid "Create New Case Group"
-msgstr "新建问题单组"
-
-#: app/cases/views/list.html
-msgid "Created by {{case.created_by}} on {{case.created_date}}"
-msgstr "{{case.created_by}} 在 {{case.created_date}} 创建"
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1663
+msgid "Created User and Date"
+msgstr "创建用户和日期"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/services/escalationRequestService.js
+#: dist/pcm.js:223
 msgid "Creating Ice Escalation request ....."
 msgstr "正在生成 Ice 升级请求......"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/services/escalationRequestService.js
+#: dist/pcm.js:223
 msgid "Creating Partner Escalation request ....."
 msgstr "正在生成合作伙伴升级请求......"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/services/caseService.js
+#: dist/pcm.js:215
 msgid "Creating case..."
 msgstr "正在生成问题单......"
 
-#: app/cases/services/manageGroupsService.js
-msgid "Creating group"
-msgstr "正在创建组"
-
-#: app/cases/controllers/createGroupModal.js
+#: dist/pcm.js:204
 msgid "Creating group {{groupName}}..."
 msgstr "正在创建组 {{groupName}}..."
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-msgid "Customer"
-msgstr "用户"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
-msgid "Customer Account Number"
-msgstr "用户帐户号码"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
-msgid "Customer Contact Email"
-msgstr "用户联系电子邮件"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
-msgid "Customer Contact Name"
-msgstr "用户联系姓名"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
-msgid "Customer Contact Number"
-msgstr "用户联系号码"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
-msgid "Customer GEO"
-msgstr "用户 GEO"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#. Verb
-#: app/cases/views/listAttachments.html
-#: app/cases/controllers/manageGroupList.js
-msgid "Delete"
-msgstr "删除"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/deleteGroupButton.html
-msgid "Delete Group"
-msgstr "删除组"
-
-#: app/cases/services/attachmentsService.js
+#: dist/pcm.js:214
 msgid "Deleting attachment: {{attachmentName}}"
 msgstr "正在删除附件: {{attachmentName}}"
 
-#: app/cases/services/manageGroupsService.js
-msgid "Deleting group"
-msgstr "正在删除组"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#. Noun
-#: app/cases/views/listAttachments.html
-msgid "Description"
-msgstr "描述"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/logsInstructionPane.html
-msgid "Diagnose"
-msgstr "诊断"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/descriptionSection.html
-msgid ""
-"Different support-level options might be available based on your account "
-"subscriptions. Your support level determines the type of response you can "
-"expect for your support case."
-msgstr "可能根据您的帐户订阅可能有不同的支持等级选项。您的支持等级决定可为您的支持问题单提供的响应类型。"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/discussionSection.html
-msgid "Discard Changes"
-msgstr "忽略更改"
-
-#: app/cases/controllers/manageGroupList.js
-msgid "Duplicate"
-msgstr "重复"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/controllers/escalationRequest.js
+#: dist/pcm.js:223
 msgid "Email address is incorrect"
 msgstr "电子邮件地址不正确"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/search/views/resultDetail.html
-msgid "Environment"
-msgstr "环境"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/addCommentSection.js
-#: app/cases/controllers/attachmentsSection.js
+#: dist/pcm.js:201 dist/pcm.js:204
 msgid "Error: Failed to upload attachment."
 msgstr "错误：上传附件失败。"
 
-#: app/cases/controllers/addCommentSection.js
-#: app/cases/controllers/new.js
+#: dist/pcm.js:201 dist/pcm.js:210
 msgid "Error: Failed to upload attachment. Message: {{errorMessage}}"
 msgstr "错误：上传附件失败。信息：{{errorMessage}}"
 
-#: app/cases/controllers/attachmentsSection.js
+#: dist/pcm.js:204
 msgid "Error: Failed to upload attachment. Message:{{errorMessage}}"
 msgstr "错误：上传附件失败。信息：{{errorMessage}}"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
-msgid "Expectation"
-msgstr "预期"
+#: dist/pcm.js:204
+msgid "Error: Selected Case Group does not belong to your account"
+msgstr "错误：所选问题单组不属于您的账户"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author tfu
-#: app/cases/views/exportCSVButton.html
-msgid "Export"
-msgstr "Export"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/list.html
-msgid "Export as CSV"
-msgstr "作为 CSV 导出"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/exportCSVButton.html
-msgid "Exporting CSV..."
-msgstr "导出 CSV..."
-
-#: app/cases/views/list.html
-msgid "Exporting CSV"
-msgstr "正在导出模板"
-
-#: app/cases/services/attachmentsService.js
+#: dist/pcm.js:214
 msgid ""
 "Failed to upload attachment {{attachmentName}} to case {{caseNumber}}: "
 "{{errorMessage}}"
 msgstr "为问题单 {{caseNumber}} 上传附件 {{attachmentName}} 失败: {{errorMessage}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/addCommentSection.html
-#: app/cases/views/attachmentsSection.html
-#: app/cases/views/new.html
-msgid "File description"
-msgstr "文件描述"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/new.html
-msgid ""
-"File names must be less than 80 characters. Maximum file size for web-"
-"uploaded attachments is 1 GB. Please FTP larger files to dropbox.redhat.com."
-msgstr "文件名不得超过 80 个字符，网页上传文件大小不能超过 1 GB。请使用 FTP 将大文件上传到 dropbox.redhat.com。"
-
-#: app/cases/views/edit.html
-msgid ""
-"Filed on {{CaseService.kase.created_date}} by {{CaseService.kase."
-"contact_name}}"
-msgstr ""
-"{{CaseService.kase.contact_name}} 在 {{CaseService.kase.created_date}} 创建"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#. Noun
-#: app/cases/views/listAttachments.html
-msgid "Filename"
-msgstr "文件名"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/accountSelect.html
-msgid "Find My Account Number"
-msgstr "查找帐户号码"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/editGroup.html
-#: app/cases/views/manageGroupUsers.html
-msgid "First Name"
-msgstr "名"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
-msgid "For example: 1-888-467-3342"
-msgstr "例如：1-888-467-3342"
-
-#: app/cases/views/severitySelect.html
-msgid "For more details about initial and ongoing response times, visit the"
-msgstr "最初及持续的响应的详情，请访问"
-
-#: app/cases/controllers/edit.js
+#: dist/pcm.js:205
 msgid "Friday = {{businessHours}}"
 msgstr "周五 = {{businessHours}}"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-msgid "GSS ICE FAQ"
-msgstr "GSS ICE 常见问题"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-msgid "GSS ICE Form"
-msgstr "GSS ICE 表格"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-msgid ""
-"GSS is currently working on enhancing the ICE process through the use of "
-"email. Watch this space for more details as they become available."
-msgstr "GSS 目正在采取使用电子邮件的方式提高 ICE 进度。关注此空间了解可使用这个方法的详细内容。"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/new.html
-msgid "Get faster results."
-msgstr "更迅速地得到结果。"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/editGroup.html
-msgid "Group Name:"
-msgstr "组名称："
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/defaultGroup.html
-msgid "Group Users:"
-msgstr "组用户："
-
-#: app/cases/views/manageGroupList.html
-msgid "Groups Loading..."
-msgstr "组加载中..."
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/editCaseRecommendationsSection.html
-msgid "Handpicked For You"
-msgstr "为您精选"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1588
 msgid "Highest Severity"
 msgstr "最高严重性"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-msgid ""
-"If this form is not working for any reason please submit a ticket at "
-"helpdesk@redhat.com noting a problem with GSS Ticketing and the ICE form"
-msgstr ""
-"如果出于某种原因无法使用这个表格，请向 helpdesk@redhat.com 提交一个 ticket，并注释 GSS Ticketing 和 ICE "
-"表格问题"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-msgid ""
-"If this is a request for information from you or the customer and if you "
-"need us to contact you to discuss the issues."
-msgstr "如果您或者用户要求提供某些信息，且您需要我们联系您以便讨论这些问题。"
-
-#: app/escalation/views/partnerEscalation.html
-msgid ""
-"If unable to provide number, you may use 00000000 in order to submit form. "
-"Note: This may delay our ability to associate request with customer issue"
-msgstr "如果无法提供号码，您可能需要使用 00000000 提交表格。这样可能会对我们将请求与客户问题进行关联的能力。"
-
-#: app/cases/controllers/edit.js
+#: dist/pcm.js:205
 msgid ""
 "If we have not recorded your business hours correctly, please update your "
 "timezone in  <a href='/wapps/ugc/protected/locale.html' target='_blank'>Your "
@@ -702,29 +243,996 @@ msgstr ""
 "如果未正确记录办公时间，请在 <a href='/wapps/ugc/protected/locale.html' target="
 "'_blank'>属性</a> 中更新您的时区。"
 
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1668
+msgid "Last Modified User and Date"
+msgstr "最新更改的用户和日期"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: dist/pcm.js:210
+msgid "Locating top solutions"
+msgstr "正在查找主要解决方案"
+
+#: dist/pcm.js:185 app/i18n/placeholder.html:4
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:804
+msgid "Logs"
+msgstr "日志"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1593
+msgid "Lowest Severity"
+msgstr "最低严重性"
+
+#: dist/pcm.js:185 dist/pcm.js:215
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:808
+msgid "Manage Case Groups"
+msgstr "管理问题单组"
+
+#: dist/pcm.js:185 app/cases/views/group.html:16
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:810
+msgid "Manage Default Case Groups"
+msgstr "管理默认问题单组"
+
+#: dist/pcm.js:205
+msgid "Monday = {{businessHours}}"
+msgstr "周一 = {{businessHours}}"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1681
+msgid "Name of the Red Hat Associate's who owns the case."
+msgstr "负责解决这个问题单的红帽员工的名称。"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1673
+msgid "Name of the customer contact."
+msgstr "客户联系人名称。"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1664
+msgid "Name of the person who created the case and date it was created."
+msgstr "这个问题单创建者的名称以及创建的时间。"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1669
+msgid ""
+"Name of the person who modified the case last and the date the action was "
+"performed."
+msgstr "最后更新这个问题单的人的名称以及更新的时间。"
+
+#: dist/pcm.js:198
+msgid "New"
+msgstr "新建"
+
+#: dist/pcm.js:198
+msgid "New Case - Portal Case Management"
+msgstr "新问题单 - 门户问题单管理"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1598
+msgid "Newest Date Created"
+msgstr "最新创建日期"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1578
+msgid "Newest Date Modified"
+msgstr "最新修改日期"
+
+#: dist/pcm.js:204
+msgid "Newest to Oldest"
+msgstr "从最新到最老"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1647
+msgid "Number & Status"
+msgstr "编号和状态"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1648
+msgid "Number and Status of the case."
+msgstr "问题单的编号和状态。"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1677
+msgid "Number of the account the case was created under."
+msgstr "创建问题单的账户的编号。"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1603
+msgid "Oldest Date Created"
+msgstr "最老的创建日期"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1583
+msgid "Oldest Date Modified"
+msgstr "最老的修改日期"
+
+#: dist/pcm.js:204
+msgid "Oldest to Newest"
+msgstr "从最老到最新"
+
+#: dist/pcm.js:185 dist/pcm.js:211
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1633
+msgid "Open"
+msgstr "新建"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:203
+msgid "Open Support Cases"
+msgstr "新建支持问题单"
+
+#: dist/pcm.js:185 app/cases/views/list.html:15
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:802
+msgid "Open a Support Case"
+msgstr "创建支持问题单"
+
+#: dist/pcm.js:185 dist/pcm.js:211
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1629
+msgid "Open and Closed"
+msgstr "新建及已关闭"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:203
+msgid "Open and Closed Support Cases"
+msgstr "新建及已关闭支持问题单"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1680
+msgid "Owner Name"
+msgstr "所有者名称"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:223
+msgid "Please check the requestor email address"
+msgstr "请检查申请人的电子邮件地址"
+
+#: dist/pcm.js:189 dist/pcm.js:198
+msgid "Portal Case Management"
+msgstr "门户问题单管理"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1658
+msgid "Product Name and Version"
+msgstr "产品名和版本"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1659
+msgid "Product and Version assigned to the case."
+msgstr "这个问题单的产品名和版本。"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:210
+msgid "Refining top solutions"
+msgstr "精选主要解决方案"
+
+#: dist/pcm.js:204
+msgid "Remove bookmark!"
+msgstr "删除书签！"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:184
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:798
+msgid "SUPPORT CASES"
+msgstr "支持问题单"
+
+#: dist/pcm.js:205
+msgid "Saturday = {{businessHours}}"
+msgstr "周六 = {{businessHours}}"
+
+#: dist/pcm.js:184 app/i18n/placeholder.html:3
+#: app/search/views/search_form.html:7
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:796
+msgid "Search"
+msgstr "搜索"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:806
+msgid "Search Support Case"
+msgstr "搜索支持问题单"
+
+#: dist/pcm.js:185 app/cases/views/advancedSearchCaseList.html:5
+#: app/cases/views/new.html:96 app/cases/views/severitySelect.html:14
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1642
+msgid "Severity"
+msgstr "严重性"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1643
+msgid "Severity of the case."
+msgstr "问题单的严重性。"
+
+#: dist/pcm.js:215
+msgid "Successfully created case number {{caseNumber}}"
+msgstr "成功创建的问题单数量 {{caseNumber}}"
+
+#: dist/pcm.js:204
+msgid "Successfully created group {{groupName}}"
+msgstr "成功创建的组 {{groupName}}"
+
+#: dist/pcm.js:214
+msgid "Successfully deleted attachment:{{attachmentName}}"
+msgstr "成功删除的附件：{{attachmentName}}"
+
+#: dist/pcm.js:204
+msgid "Successfully deleted group {{groupName}}"
+msgstr "成功删除的组 {{groupName}}"
+
+#: dist/pcm.js:204
+msgid "Successfully deleted groups."
+msgstr "成功删除组。"
+
+#: dist/pcm.js:214
+msgid ""
+"Successfully uploaded attachment {{attachmentFileName}} to case "
+"{{caseNumber}}"
+msgstr "成功地为问题单 {{caseNumber}} 上传了附件 {{attachmentFileName}}"
+
+#: dist/pcm.js:214
+msgid ""
+"Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}"
+msgstr "成功地为问题单 {{caseNumber}} 上传了附件 {{attachmentName}}"
+
+#: dist/pcm.js:204
+msgid "Successfully uploaded attachment."
+msgstr "成功上传附件。"
+
+#: dist/pcm.js:185 app/cases/views/advancedSearchCaseList.html:5
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1653
+msgid "Summary"
+msgstr "概述"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1654
+msgid "Summary of the case."
+msgstr "问题单的概述信息。"
+
+#: dist/pcm.js:205
+msgid "Sunday = {{businessHours}}"
+msgstr "周日 = {{businessHours}}"
+
+#: dist/pcm.js:205
+msgid ""
+"Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
+"records indicate your availability as follows:"
+msgstr "感谢您联系 Red Hat 全球支持服务！我们将尽快与您联系。我们的记录显示您方便联系的时间如下："
+
+#: dist/pcm.js:204 dist/pcm.js:210
+msgid "There are no remaining enhanced SLA's available"
+msgstr "没有剩余的增强 SLA 可用"
+
+#: dist/pcm.js:205
+msgid "Thursday = {{businessHours}}"
+msgstr "周四 = {{businessHours}}"
+
+#: dist/pcm.js:205
+msgid "Tuesday = {{businessHours}}"
+msgstr "周二 = {{businessHours}}"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1846
+msgid "Unauthorized."
+msgstr "未授权。"
+
+#: dist/pcm.js:215
+msgid "Ungrouped Case"
+msgstr "未分组问题单"
+
+#: dist/pcm.js:215
+msgid "Ungrouped Cases"
+msgstr "未分组问题单"
+
+#: dist/pcm.js:204 dist/pcm.js:210
+msgid "Uploading attachment..."
+msgstr "正在上传附件......"
+
+#: dist/pcm.js:214
+msgid "Uploading attachments..."
+msgstr "正在上传附件......"
+
+#: dist/pcm.js:205
+msgid "User {{sso}} cannot be added as watcher because it is not internal."
+msgstr "用户 {{sso}} 无法被加为观察者，因为这不是内部用户。"
+
+#: dist/pcm.js:205
+msgid "Wednesday = {{businessHours}}"
+msgstr "周三 = {{businessHours}}"
+
+#: dist/pcm.js:214
+msgid ""
+"What information can you provide around timeframes and the business impact?"
+msgstr "您对解决问题的时间要求及此问题对您的业务影响程度是什么？"
+
+#: dist/pcm.js:214
+msgid ""
+"What problem/issue/behavior are you having trouble with?  What do you expect "
+"to see?"
+msgstr "\"您遇到了什么问题？您所期望获得的结果是什么？\""
+
+#: dist/pcm.js:214
+msgid ""
+"When does the behavior occur? Frequently?  Repeatedly?   At certain times?"
+msgstr "\"这个问题在什么时候发生？有多频繁？是否会重复发生？是否只在特定时间发生？\""
+
+#: dist/pcm.js:214
+msgid "Where are you experiencing the behavior?  What environment?"
+msgstr "\"您在哪里遇到了这个问题？在什么环境下遇到这个问题？\""
+
+#: dist/pcm.js:201
+msgid ""
+"You are trying to export {{numberOfCases}} cases, but only the first 10000 "
+"cases will be exported. It is advised you refine the search to match less "
+"than 10000 cases before exporting. \n"
+" Would you like to proceed?"
+msgstr ""
+"您试图导出 {{numberOfCases}} 个问题单，但只有前 10000 "
+"个问题单可以被导出。我们建议您在导出前重新设置查找条件，从而使匹配问题单的数量少于 1000。\n"
+" 您希望继续吗？"
+
+#: dist/pcm.js:185
+#: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1525
+msgid "You have successfully logged out of the Red Hat Customer Portal."
+msgstr "已成功登录 Red Hat 客户门户网站。"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:223
+msgid "Your Ice Escalation request has been sent successfully"
+msgstr "已成功发送您的 Ice 升级请求"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: dist/pcm.js:223
+msgid "Your Partner Escalation request has been sent successfully"
+msgstr "已成功发送您的合作伙伴升级（Partner Escalation）请求"
+
+#: dist/pcm.js:205
+msgid "no business hours"
+msgstr "无办公时间"
+
+#: dist/pcm.js:214
+msgid "{{days}} business day"
+msgstr "{{days}} 工作日"
+
+#: dist/pcm.js:214
+msgid "{{days}} business days"
+msgstr "{{days}} 工作日"
+
+#: dist/pcm.js:203
+msgid "{{errorFileName}} cannot be attached because it is a 0 byte file."
+msgstr "无法附加 {{errorFileName}}，因为它是一个 0 字节文件。"
+
+#: dist/pcm.js:203
+msgid ""
+"{{errorFileName}} cannot be attached because it is larger than "
+"{{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com."
+msgstr ""
+"无法附加 {{errorFileName}} 因为它大于 {{errorFileSize}} GB。请使用 FTP 将大文件传到 dropbox."
+"redhat.com。"
+
+#: dist/pcm.js:203
+msgid ""
+"{{errorFileName}} cannot be read by the browser. Check your privileges and "
+"make sure you are allowed to read the file."
+msgstr "流量器无法读 {{errorFileName}}。请检查您是否有读这个文件的权限。"
+
+#: dist/pcm.js:214
+msgid "{{hours}} business hour"
+msgstr "{{hours}} 工作小时"
+
+#: dist/pcm.js:214
+msgid "{{hours}} business hours"
+msgstr "{{hours}} 工作小时"
+
+#: dist/pcm.js:214
+msgid "{{hours}} hour"
+msgstr "{{hours}} 小时"
+
+#: dist/pcm.js:214
+msgid "{{hours}} hours"
+msgstr "{{hours}} 小时"
+
+#: app/cases/views/new.html:25
+msgid "&lt;div&gt;&lt;span&gt;{{&quot;Not visible by Red Hat people"
+msgstr "&lt;div&gt;&lt;span&gt;{{&quot;对于红帽员工不可见"
+
+#: app/cases/views/new.html:92
+msgid "&lt;div&gt;&lt;span&gt;{{&quot;To Learn more view the"
+msgstr "&lt;div&gt;&lt;span&gt;{{&quot;为了解更多信息请查看"
+
+#: app/cases/views/searchBookmarkModal.html:12
+#: app/cases/views/searchBookmarkModal.html:8
+msgid "&nbsp;(Must be unique)"
+msgstr "&nbsp;（必须唯一）"
+
+#: app/cases/views/accountSearch.html:12
+msgid "&nbsp;Account not found!&nbsp;"
+msgstr "&nbsp;账户没有找到!&nbsp;"
+
+#: app/cases/views/columnSelectModal.html:26
+#: app/cases/views/searchBookmarkModal.html:31
+msgid "&nbsp;Cancel"
+msgstr "&nbsp;取消"
+
+#: app/cases/views/advancedSearch.html:5
+msgid "&nbsp;Link"
+msgstr "&nbsp;连接"
+
+#: app/cases/views/advancedSearch.html:6
+msgid "&nbsp;Remove"
+msgstr "&nbsp;删除"
+
+#: app/cases/views/columnSelectModal.html:25
+msgid "&nbsp;Reset"
+msgstr "&nbsp;重置"
+
+#: app/cases/views/columnSelectModal.html:27
+#: app/cases/views/searchBookmarkModal.html:32
+msgid "&nbsp;Save"
+msgstr "&nbsp;保存"
+
+#: app/cases/views/advancedSearch.html:7
+msgid "&nbsp;{{selectedBookmark ? 'Update' : 'Save'}}"
+msgstr "&nbsp;{{selectedBookmark ? 'Update' : 'Save'}}"
+
+#: app/cases/views/list.html:36
+msgid "(More info)"
+msgstr "（更多信息）"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:11
+msgid "* All fields are mandatory."
+msgstr "* 所有字段都是必填项。"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/partnerEscalation.html:8
+msgid "* marked fields are mandatory fields."
+msgstr "* 标记的字段为必填项。"
+
+#: app/cases/views/discussionSection.html:74
+msgid "- Private"
+msgstr "- 专用"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#. Noun
+#: app/cases/views/detailsSection.html:93 app/cases/views/new.html:107
+msgid "24x7 Contact"
+msgstr "24x7 联系方式"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#. Noun
+#: app/cases/views/detailsSection.html:85 app/cases/views/new.html:103
+msgid "24x7 Support"
+msgstr "24x7 支持"
+
+#: app/cases/views/manageGroupList.html:5
+msgid "<i class=\"fa fa-minus pull-right\"></i>"
+msgstr "<i class=\"fa fa-minus pull-right\"></i>"
+
+#: app/cases/views/manageGroupList.html:5
+msgid "<i class=\"fa fa-plus pull-right\"></i>"
+msgstr "<i class=\"fa fa-plus pull-right\"></i>"
+
+#: app/cases/views/manageGroupUsers.html:20
+msgid "Access"
+msgstr "访问"
+
+# translation auto-copied from project Customer Portal Translations, version management_page, document Management_Prototype.html, author Leah Liu
+#. Noun
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:14
+msgid "Account"
+msgstr "帐户"
+
+#: app/cases/views/accountSearch.html:18
+#: app/cases/views/existingBookmarkedAccounts.html:10
+msgid "Account Name"
+msgstr "账户名称"
+
+#: app/cases/views/edit.html:19
+msgid "Account name : {{$parent.CaseService.account.name}}"
+msgstr "账户名：{{$parent.CaseService.account.name}}"
+
+#: app/cases/views/edit.html:18
+msgid "Account number : {{$parent.CaseService.account.number}}"
+msgstr "账户号：{{$parent.CaseService.account.number}}"
+
+#: app/cases/views/accountSearch.html:6
+msgid "Account number:&nbsp;"
+msgstr "账户号：&nbsp;"
+
+#: app/cases/views/accountSearch.html:12
+msgid ""
+"Account with such number does not exist. Make sure the account number is "
+"correct."
+msgstr "账户号不存在。请确认这个账户号是正确的。"
+
+#: app/cases/views/discussionSection.html:7
+msgid "Action Plan"
+msgstr "行动方案"
+
+#: app/cases/views/discussionSection.html:137
+msgid "Action Plan:"
+msgstr "行动方案："
+
+#: app/cases/views/attachProductLogs.html:18
+msgid "Add"
+msgstr "添加"
+
+#: app/cases/views/emailNotifySelect.html:7
+msgid "Add me as watcher"
+msgstr "把我添加为观察者"
+
+#: app/cases/views/advancedSearch.html:3
+msgid "Advanced Case Search User Guide"
+msgstr "高级问题单查询用户指南"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/discussionSection.html:4
+msgid "All Attachments"
+msgstr "添加附件"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:76
+msgid "Already Escalated?"
+msgstr "已升级？"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/detailsSection.html:37
+msgid "Alternate Case ID"
+msgstr "备用问题单 ID"
+
+# translation auto-copied from project Red Hat Subscription Asset Manager, version 1.1, document Administration, author Leah Liu
+#: app/cases/views/confirmationModal.html:3
+msgid "Are you sure?"
+msgstr "您确定吗？"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/edit.html:17
+msgid "Assigned to"
+msgstr "已分配给"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/attachLocalFile.html:4
+msgid "Attach Another File"
+msgstr "附加另一个文件"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/attachLocalFile.html:5
+msgid "Attach File"
+msgstr "附加文件"
+
+#: app/cases/views/attachProductLogs.html:5
+msgid "Attach Foreman logs:"
+msgstr "附加 Foreman 日志："
+
+#. Noun Attached here means Attached on a particular date
+#: app/cases/views/listAttachments.html:10
+msgid "Attached"
+msgstr "附加"
+
+#. Noun
+#: app/cases/views/listAttachments.html:11
+msgid "Attached By"
+msgstr "附件上传者"
+
+#: app/cases/views/listAttachments.html:4
+msgid "Attached Files"
+msgstr "附加的文件"
+
+#: app/cases/views/proceedWithoutAttachModal.html:8
+msgid ""
+"Attaching logs and diagnostics files greatly improves time to resolution. Do "
+"you want to continue without attaching any files?"
+msgstr "附加日志和诊断文件可大大节省解决问题所需时间。您确定不需要添加任何附件吗？"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/new.html:85
+msgid ""
+"Attaching logs or other diagnostics files typically results in faster "
+"resolution."
+msgstr "附加日志或其他诊断文件通常可加快解决问题的速度。"
+
+#: app/cases/views/discussionSection.html:51
+#: app/cases/views/discussionSection.html:93
+msgid "Attachment"
+msgstr "附件"
+
+#: app/cases/views/columnSelectModal.html:9
+msgid "Available Columns"
+msgstr "有效的列"
+
+#: app/log_viewer/views/navSideBar.html:5
+msgid "Available Log Files"
+msgstr "有效的日志文件"
+
+#: app/cases/views/editCaseRecommendationsSection.html:15
+#: app/cases/views/editCaseRecommendationsSection.html:32
+#: app/cases/views/editCaseRecommendationsSection.html:49
+#: app/cases/views/newCaseRecommendationsSection.html:20
+msgid "BACK"
+msgstr "BACK"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/newCaseRecommendationsSection.html:4
+msgid "Based on your description, here are some possible solutions"
+msgstr "根据您的描述，这里有一些可能的解决方案。"
+
+#: app/cases/views/accountBookmarkHome.html:3
+msgid "Bookmark Accounts"
+msgstr "把账户加为书签"
+
+#: app/cases/views/advancedSearch.html:8
+msgid "Bookmarked Searches:&nbsp;"
+msgstr "加为书签的搜索：&nbsp;"
+
+#: app/cases/views/listBugzillas.html:6
+msgid "Bugzilla Number"
+msgstr "Bugzilla 号"
+
+#: app/cases/views/discussionSection.html:6
+msgid "Bugzilla Tickets"
+msgstr "Bugzilla 报告"
+
+#: app/cases/views/edit.html:11
+msgid "CASE {{$parent.CaseService.kase.case_number}}"
+msgstr "问题单 {{$parent.CaseService.kase.case_number}}"
+
+#. #-#-#-#-#  template-views.pot  #-#-#-#-#
+#. Verb
+#: app/cases/views/addCommentSection.html:39
+#: app/cases/views/createGroupModal.html:18
+#: app/cases/views/detailsSection.html:10
+#: app/cases/views/detailsSection.html:101 app/cases/views/new.html:120
+#: app/cases/views/requestManagementEscalationModal.html:19
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:27
+msgid "Cancel"
+msgstr "取消"
+
+#: app/cases/views/detailsSection.html:53
+msgid "Case Contact"
+msgstr "问题单联系人"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/new.html:37
+msgid "Case Description"
+msgstr "问题单描述"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
+#: app/cases/views/discussionSection.html:3
+msgid "Case Discussion"
+msgstr "问题单讨论"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/detailsSection.html:45
+msgid "Case Group"
+msgstr "问题单组"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#. Noun
+#: app/cases/views/new.html:115
+msgid "Case Group (Optional)"
+msgstr "问题单组（可选）"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
+#: app/cases/views/createGroupModal.html:10
+msgid "Case Group:"
+msgstr "问题单组："
+
+#: app/cases/views/manageGroupList.html:5
+msgid "Case Groups"
+msgstr "问题单组"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:68
+#: app/escalation/views/partnerEscalation.html:66
+msgid "Case Information"
+msgstr "问题单信息"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#. Noun
+#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:23
+msgid "Case Type"
+msgstr "问题单类型"
+
+#. Verb
+#: app/cases/views/list.html:15
+msgid "Close Case(s)"
+msgstr "关闭问题单"
+
+#: app/cases/views/searchBookmarkModal.html:24
+msgid "Columns"
+msgstr "列"
+
+#: app/cases/views/requestManagementEscalationModal.html:11
+msgid "Comment:"
+msgstr "评论："
+
+# translation auto-copied from project Customer Portal Translations, version 004_messages, document messages
+#: app/cases/views/advancedSearchCaseList.html:5
+msgid "Contact"
+msgstr "联系人"
+
+#: app/cases/views/manageGroupList.html:11
+msgid "Create"
+msgstr "创建"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
+#: app/cases/views/createGroupModal.html:4
+msgid "Create Case Group"
+msgstr "创建问题单组"
+
+# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
+#: app/cases/views/createGroupButton.html:2
+msgid "Create New Case Group"
+msgstr "新建问题单组"
+
+#: app/cases/views/advancedSearchCaseList.html:5
+msgid "Created"
+msgstr "已创建"
+
+#: app/cases/views/list.html:55
+msgid "Created by {{case.created_by}} on {{case.created_date}}"
+msgstr "{{case.created_by}} 在 {{case.created_date}} 创建"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:33
+msgid "Customer"
+msgstr "用户"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:35
+#: app/escalation/views/partnerEscalation.html:34
+msgid "Customer Account Number"
+msgstr "用户帐户号码"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:47
+#: app/escalation/views/partnerEscalation.html:46
+msgid "Customer Contact Email"
+msgstr "用户联系电子邮件"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:41
+#: app/escalation/views/partnerEscalation.html:40
+msgid "Customer Contact Name"
+msgstr "用户联系姓名"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:53
+#: app/escalation/views/partnerEscalation.html:52
+msgid "Customer Contact Number"
+msgstr "用户联系号码"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:59
+#: app/escalation/views/partnerEscalation.html:58
+msgid "Customer GEO"
+msgstr "用户 GEO"
+
+#: app/cases/views/advancedSearchCaseList.html:1
+msgid "Customize columns"
+msgstr "定制列"
+
+#. Verb
+#: app/cases/views/listAttachments.html:12
+#: app/cases/views/listAttachments.html:25
+#: app/cases/views/listAttachments.html:26
+msgid "Delete"
+msgstr "删除"
+
+#: app/cases/views/deleteGroupButton.html:2
+msgid "Delete Group"
+msgstr "删除组"
+
+#. Noun
+#: app/cases/views/listAttachments.html:8
+msgid "Description"
+msgstr "描述"
+
+#: app/log_viewer/views/logsInstructionPane.html:14
+msgid "Diagnose"
+msgstr "诊断"
+
+#: app/cases/views/descriptionSection.html:9
+msgid ""
+"Different support-level options might be available based on your account "
+"subscriptions. Your support level determines the type of response you can "
+"expect for your support case."
+msgstr "可能根据您的帐户订阅可能有不同的支持等级选项。您的支持等级决定可为您的支持问题单提供的响应类型。"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/discussionSection.html:125
+#: app/cases/views/discussionSection.html:152
+msgid "Discard Changes"
+msgstr "忽略更改"
+
+#: app/cases/views/columnSelectModal.html:12
+#: app/cases/views/columnSelectModal.html:19
+msgid "Drop column here."
+msgstr "在此放下列。"
+
+#. Noun
+#: app/cases/views/detailsSection.html:77 app/cases/views/new.html:99
+msgid "Enhanced SLA"
+msgstr "增强的 SLA"
+
+#: app/cases/views/manageGroupList.html:9
+msgid "Enter Group Name"
+msgstr "输入组名"
+
+#: app/cases/views/accountSearch.html:9
+msgid "Enter account number"
+msgstr "输入账户号"
+
+#: app/search/views/resultDetail.html:4
+msgid "Environment"
+msgstr "环境"
+
+#: app/cases/views/existingBookmarkedAccounts.html:2
+msgid "Existing bookmarks"
+msgstr "存在的书签"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:91
+#: app/escalation/views/partnerEscalation.html:87
+msgid "Expectation"
+msgstr "预期"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author tfu
+#: app/cases/views/exportCSVButton.html:1
+msgid "Export"
+msgstr "Export"
+
+#: app/cases/views/list.html:22
+msgid ""
+"Export all cases from your account to CSV. Exporting many cases may take a "
+"while."
+msgstr "从您的账户中把所有问题单导出为 CSV。导出大量问题单可能会需要一些时间。"
+
+#: app/cases/views/list.html:22
+msgid "Export all cases to CSV"
+msgstr "把所有问题单导出为 CSV"
+
+#: app/cases/views/advancedSearch.html:19
+msgid "Export to CSV"
+msgstr "导出为 CSV"
+
+#: app/cases/views/list.html:22
+msgid "Exporting CSV"
+msgstr "正在导出为 CSV"
+
+#: app/cases/views/exportCSVButton.html:2
+msgid "Exporting CSV..."
+msgstr "导出 CSV..."
+
+#: app/cases/views/advancedSearch.html:19
+msgid "Exporting to CSV&nbsp;"
+msgstr "导出为 CSV&nbsp;"
+
+#: app/cases/views/addCommentSection.html:53
+#: app/cases/views/attachmentsSection.html:32
+msgid "File description"
+msgstr "文件描述"
+
+#: app/cases/views/edit.html:16
+msgid ""
+"Filed on {{$parent.CaseService.kase.created_date}} by {{$parent.CaseService."
+"kase.created_by}}"
+msgstr ""
+"创建时间 {{$parent.CaseService.kase.created_date}}，创建者 {{$parent.CaseService."
+"kase.created_by}}"
+
+#. Noun
+#: app/cases/views/listAttachments.html:7
+msgid "Filename"
+msgstr "文件名"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/accountSelect.html:5
+msgid "Find My Account Number"
+msgstr "查找帐户号码"
+
+#: app/cases/views/accountSearch.html:3
+msgid "Find an account"
+msgstr "找到一个账户"
+
+#: app/cases/views/manageGroupUsers.html:18
+msgid "First Name"
+msgstr "名"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
+#: app/escalation/views/iceEscalation.html:55
+#: app/escalation/views/partnerEscalation.html:54
+msgid "For example: 1-888-467-3342"
+msgstr "例如：1-888-467-3342"
+
+#: app/cases/views/severitySelect.html:28
+msgid "For more details about initial and ongoing response times, visit the"
+msgstr "最初及持续的响应的详情，请访问"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:5
+msgid "GSS ICE FAQ"
+msgstr "GSS ICE 常见问题"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:4
+msgid "GSS ICE Form"
+msgstr "GSS ICE 表格"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:9
+msgid ""
+"GSS is currently working on enhancing the ICE process through the use of "
+"email. Watch this space for more details as they become available."
+msgstr "GSS 目正在采取使用电子邮件的方式提高 ICE 进度。关注此空间了解可使用这个方法的详细内容。"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/new.html:85
+msgid "Get faster results."
+msgstr "更迅速地得到结果。"
+
+#: app/cases/views/manageGroupList.html:1
+msgid "Groups Loading..."
+msgstr "组加载中..."
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/cases/views/editCaseRecommendationsSection.html:4
+msgid "Handpicked For You"
+msgstr "为您精选"
+
+#: app/cases/views/detailsSection.html:69
+msgid "Hostname"
+msgstr "主机名"
+
+#. Noun
+#: app/cases/views/new.html:25
+msgid ""
+"Hostname <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
+"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/"
+"div&gt;&quot;\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon "
+"glyphicon-question-sign link\"></span>"
+msgstr ""
+"主机名 <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
+"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/"
+"div&gt;&quot;\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon "
+"glyphicon-question-sign link\"></span>"
+
+#: app/cases/views/edit.html:13
+msgid "Hot Fix Delivered"
+msgstr "已进行热修复"
+
+#: app/cases/views/edit.html:13
+msgid "Hot Fix Requested"
+msgstr "已请求热修复"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:10
+msgid ""
+"If this form is not working for any reason please submit a ticket at "
+"helpdesk@redhat.com noting a problem with GSS Ticketing and the ICE form"
+msgstr ""
+"如果出于某种原因无法使用这个表格，请向 helpdesk@redhat.com 提交一个 ticket，并注释 GSS Ticketing 和 ICE "
+"表格问题"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:87
+msgid ""
+"If this is a request for information from you or the customer and if you "
+"need us to contact you to discuss the issues."
+msgstr "如果您或者用户要求提供某些信息，且您需要我们联系您以便讨论这些问题。"
+
+# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
+#: app/escalation/views/iceEscalation.html:86
 msgid ""
 "If you are requesting an account review, if this is related to aspecific "
 "problem/ticket or a series of problems/tickets or if this is a general or "
 "generic complain"
 msgstr "如果您要申请帐户审核，如果这与某个具体问题/ticket 或者一系列问题/ticket 有关，或者这只是一般问题或常见问题"
 
-# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
-#: app/common/views/403.html
-msgid ""
-"If you believe you should have permission to view this resource, please <a "
-"href=\"/support/contact/customerService.html\">contact Customer Service</a> "
-"for assistance. Your Red Hat login might not be associated with the right "
-"account for your organization, or there might be an issue with your "
-"subscription. Either way, Customer Service should be able to help you "
-"resolve the problem."
-msgstr ""
-"如果您确定有查看此资源的权限，请 <a href=\"/support/contact/customerService.html\">联系客户服务</"
-"a>以获得帮助。您的 Red Hat 登录信息未能与您机构中的的正确帐户关联，或者您的订阅出现问题。无论是哪种原因，客户服务都能帮助您解决问题。"
-
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/requestManagementEscalationModal.html
+#: app/cases/views/requestManagementEscalationModal.html:7
 msgid ""
 "If you feel the issue has become more severe or the case should be a higher "
 "priority, please provide a detailed comment, and the case will be reviewed "
@@ -732,212 +1240,172 @@ msgid ""
 msgstr "如果您发现问题愈发严重，或问题单应具有更高优先级，请提供详细信息，支持经理将会复核该问题单。"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/logsInstructionPane.html
+#: app/log_viewer/views/logsInstructionPane.html:19
 msgid ""
 "In the event that you would still like to open a support case, select 'Open "
 "a New Support Case'. The case will be pre-populated with the portion of the "
 "log previously selected."
 msgstr "如果您仍然希望创建一个新的支持案例，请选择“创建新问题单”。系统将会根据您所选择的日志自动生成问题单中的部分内容。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/addCommentSection.html
+#: app/cases/views/addCommentSection.html:4
 msgid "Is Public:"
 msgstr "是否公开："
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/iceEscalation.html:82
+#: app/escalation/views/partnerEscalation.html:81
 msgid "Issue Description"
 msgstr "问题描述"
 
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:74
 msgid "Issue Subject"
 msgstr "问题标题"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/editGroup.html
-#: app/cases/views/manageGroupUsers.html
+#: app/cases/views/manageGroupUsers.html:19
 msgid "Last Name"
 msgstr "姓"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/requestManagementEscalationModal.html
+#: app/cases/views/requestManagementEscalationModal.html:7
 msgid "Learn more"
 msgstr "了解更多信息"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/list.html
-msgid "Loading cases..."
+#: app/cases/views/edit.html:5
+msgid "Loading Case..."
 msgstr "正在载入问题单......"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/controllers/new.js
-msgid "Locating top solutions"
-msgstr "正在查找主要解决方案"
+#: app/cases/views/advancedSearch.html:31 app/cases/views/list.html:68
+msgid "Loading cases..."
+msgstr "正在载入问题单......"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/logsInstructionPane.html
+#: app/cases/views/list.html:5
+msgid "Loading..."
+msgstr "载入中......"
+
+#: app/log_viewer/views/logsInstructionPane.html:5
 msgid "Log File Viewer"
 msgstr "日志文件查看器"
 
-#: app/cases/views/manageGroupUsers.html
+#: app/cases/views/manageGroupUsers.html:17
 msgid "Login"
 msgstr "登录"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/i18n/placeholder.html
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Logs"
-msgstr "日志"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Lowest Severity"
-msgstr "最低严重性"
-
-#: app/cases/views/manageGroupUsers.html
+#: app/cases/views/manageGroupUsers.html:21
 msgid "Make Default Group"
 msgstr "设置为默认组"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/services/caseService.js
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Manage Case Groups"
-msgstr "管理问题单组"
+#: app/cases/views/listFilter.html:22
+msgid "Manage Bookmarked Accounts"
+msgstr "管理加为书签的账户"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/group.html
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Manage Default Case Groups"
-msgstr "管理默认问题单组"
+#: app/cases/views/discussionSection.html:27
+msgid "Message"
+msgstr "信息"
 
-#: app/cases/views/list.html
+#: app/cases/views/advancedSearchCaseList.html:5
+msgid "Modified"
+msgstr "修改的"
+
+#: app/cases/views/list.html:50
 msgid "Modified by {{case.last_modified_by}} on {{case.last_modified_date}}"
 msgstr "由 {{case.last_modified_by}} 在 {{case.last_modified_date}} 修改"
 
-#: app/cases/controllers/edit.js
-msgid "Monday = {{businessHours}}"
-msgstr "周一 = {{businessHours}}"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/i18n/placeholder.html
+#: app/i18n/placeholder.html:7
 msgid "My Cases"
 msgstr "我的问题单"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/editCaseRecommendationsSection.html
-#: app/cases/views/newCaseRecommendationsSection.html
+#: app/cases/views/editCaseRecommendationsSection.html:16
+#: app/cases/views/editCaseRecommendationsSection.html:33
+#: app/cases/views/editCaseRecommendationsSection.html:50
+#: app/cases/views/newCaseRecommendationsSection.html:21
 msgid "NEXT"
 msgstr "下一个"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/groupList.html
+#: app/cases/views/groupList.html:10
+#: app/cases/views/searchBookmarkModal.html:8
 msgid "Name"
 msgstr "名称"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Newest Date Created"
-msgstr "最新创建日期"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Newest Date Modified"
-msgstr "最新修改日期"
-
-#: app/cases/controllers/discussionSection.js
-msgid "Newest to Oldest"
-msgstr "从最新到最老"
-
 # translation auto-copied from project Customer Portal Translations, version RHJBossMiddlewareOperationsNetworkProduc, document RHJBossMiddlewareOperationsNetworkProductUpdate.html, author Leah Liu
-#: app/cases/views/commonConfirmationModal.html
+#: app/cases/views/commonConfirmationModal.html:15
+#: app/cases/views/confirmationModal.html:8
 msgid "No"
 msgstr "否"
 
-#: app/cases/views/proceedWithoutAttachModal.html
+#: app/cases/views/proceedWithoutAttachModal.html:3
 msgid "No Files were attached to your case."
 msgstr "您的问题单没有附加的文件。"
 
-#: app/cases/controllers/manageGroupUsers.js
-msgid "No access"
-msgstr "无访问"
-
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:141
 msgid "No action plan to display."
 msgstr "没有可显示的动作计划。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/listAttachments.html
+#: app/cases/views/listAttachments.html:2
 msgid "No attachments added"
 msgstr "无添加的附件"
 
+#: app/cases/views/bookmarkedAccountSelect.html:1
+msgid "No bookmarked accounts found"
+msgstr "没有找到加为书签的账户"
+
+#: app/cases/views/advancedSearch.html:9
+msgid "No bookmarked searches"
+msgstr "没有加为书签的搜索"
+
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/list.html
+#: app/cases/views/list.html:28
 msgid "No cases found with given filters."
 msgstr "无匹配的问题单。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/groupList.html
-#: app/cases/views/manageGroupList.html
+#: app/cases/views/columnSelectModal.html:16
+msgid "No fields selected."
+msgstr "没有选项项。"
+
+#: app/cases/views/groupList.html:2 app/cases/views/manageGroupList.html:2
 msgid "No groups found."
 msgstr "没有找到组。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/listBugzillas.html
+#: app/cases/views/listBugzillas.html:2
 msgid "No linked bugzillas"
 msgstr "没有相关的 bugzilla 报告"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/ownerSelect.html
+#: app/cases/views/ownerSelect.html:4
 msgid "No match found"
 msgstr "未发现匹配"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/search/services/searchResultsService.js
-msgid "No solutions found."
-msgstr "未发现解决方案。"
+#: app/cases/views/columnSelectModal.html:9
+msgid "No more fields available."
+msgstr "没有更多可用项。"
 
-#: app/cases/views/proceedWithoutAttachModal.html
+#: app/cases/views/proceedWithoutAttachModal.html:15
 msgid "No, Go Back"
 msgstr "不是，返回。"
 
-# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
-#: app/common/views/404.html
-msgid "Not Found"
-msgstr "未找到"
+#: app/cases/views/new.html:25
+msgid "Not visible by Red Hat people"
+msgstr "对红帽员工不可见"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:112
 msgid "Notes:"
 msgstr "备注："
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Oldest Date Created"
-msgstr "最老的创建日期"
+#: app/cases/views/advancedSearchCaseList.html:5
+msgid "Number"
+msgstr "序号"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Oldest Date Modified"
-msgstr "最老的修改日期"
-
-#: app/cases/controllers/discussionSection.js
-msgid "Oldest to Newest"
-msgstr "从最老到最新"
-
-#: app/cases/views/requestEscalation.html
+#: app/cases/views/requestEscalation.html:8
 msgid "Once submitted, your case will be reviewed by a support manager."
 msgstr "提交后会由支持经理对您的问题单进行检查。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:6
 msgid ""
 "Once the request is submitted, and ICE ticket will be raised in the GSS case "
 "management system and brought to the attention of the GSS leadership team."
 msgstr "提交请求后，会在 GSS 问题单管理系统中生成 ICE ticket，GSS 领导团队会关注此问题单。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/logsInstructionPane.html
+#: app/log_viewer/views/logsInstructionPane.html:15
 msgid ""
 "Once you have selected your log file then you may diagnose any part of the "
 "log file and clicking the 'Red Hat Diagnose' button. This will then display "
@@ -945,7 +1413,7 @@ msgid ""
 msgstr "在选择了您的日志文件后，点“红帽诊断”按钮可以根据您的日志文件对系统进行诊断，红帽知识库中的相应条目将会被显示。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:5
 msgid ""
 "Once your request is submitted, a partner escalation case will be opened "
 "with GSS and the GSS leadership team will be notified. You will then receive "
@@ -955,90 +1423,51 @@ msgstr ""
 "提交请求后，会在 GSS 新建一个合作伙伴升级问题单，并通知 GSS "
 "领导团队。然后您会在您提供的以下电子邮件地址中收到一封电子邮件，其中附带合作伙伴升级问题单号码，以及如何跟踪进程的附加信息。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/statusSelect.js
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Open"
-msgstr "新建"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/i18n/placeholder.html
+#: app/i18n/placeholder.html:6
 msgid "Open New Case"
 msgstr "新建问题单"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/controllers/list.js
-msgid "Open Support Cases"
-msgstr "新建支持问题单"
-
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/search/views/accordion_search_results.html
-#: app/log_viewer/views/logsInstructionPane.html
+#: app/log_viewer/views/logsInstructionPane.html:18
+#: app/search/views/accordion_search_results.html:7
 msgid "Open a New Support Case"
 msgstr "新建支持问题单"
 
-#: app/cases/views/list.html
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Open a Support Case"
-msgstr "创建支持问题单"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/statusSelect.js
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Open and Closed"
-msgstr "新建及已关闭"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/controllers/list.js
-msgid "Open and Closed Support Cases"
-msgstr "新建及已关闭支持问题单"
-
-#: app/cases/views/list.html
+#: app/cases/views/list.html:60
 msgid "Owned by {{case.contact_name}}"
 msgstr "所有者是 {{case.contact_name}}"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
 #. Noun
-#: app/cases/views/new.html
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:16
 msgid "Owner"
 msgstr "所有者"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:6
 msgid "Please"
 msgstr "请"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/listNewAttachments.html
+#: app/cases/views/listNewAttachments.html:13
 msgid "Please Add File Description"
 msgstr "请添加文件描述"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/log_viewer/controllers/DropdownCtrl.js
-msgid "Please Select the Machine"
-msgstr "请选择机器"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/controllers/escalationRequest.js
-msgid "Please check the requestor email address"
-msgstr "请检查申请人的电子邮件地址"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:114
 msgid ""
 "Please note, contents of this field are not visible to Red Hat Support "
 "professionals."
 msgstr "请注意，Red Hat 支持专业人士不会看到这个字段中的内容。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:84
 msgid ""
 "Please provide as much detail as possible to help us understand the issue, "
 "for example:"
 msgstr "请尽可能提供详细资料以帮助我们了解问题所在，例如："
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:83
 msgid ""
 "Please provide as much detail as possible to help us understand the issue, "
 "for example:Reason for the escalation, the business context, the competitive "
@@ -1046,115 +1475,119 @@ msgid ""
 msgstr "请尽量提供更多的细节来帮助我们了解这个问题，例如：升级原因、业务环境、竞争环境、以往的支持体验。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:7
 msgid "Please provide as much information as possible in the form."
 msgstr "请在表格中提供尽可能多的信息。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:8
 msgid "Please provide as much information/detail as possible in the form."
 msgstr "请在表格中提供尽可能多的信息/详情。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/iceEscalation.html:93
+#: app/escalation/views/partnerEscalation.html:89
 msgid ""
 "Please provide expectations and desired outcomes from yourself and from the "
 "customer"
 msgstr "请提供您自己以及客户的预期及要求的结果。"
 
+#: app/escalation/views/partnerEscalation.html:70
+msgid ""
+"Please provide the support ticket number. You may omit this field, however, "
+"this may delay our ability to associate request with customer issue."
+msgstr "请提供支持单的号码。您可以不添此项，但这可能会影响到我们对您提供支持的时间。"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/iceEscalation.html:37
+#: app/escalation/views/partnerEscalation.html:36
 msgid ""
 "Please request the account number from the customer if possible, otherwise "
 "use your Red Hat account number.The account number can be found by clicking "
 "on the username in the top right corner of this page."
 msgstr "如可能，可要求用户提供其账户号码，也可以使用 Red Hat 账户号码。点击本页右上角的用户名就可以找到这个账户号码。"
 
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:77
 msgid ""
 "Please select the issue subject.  If an item in the list does not match, "
 "please select 'other' and enter a subject in the box that appears below."
 msgstr "请选择问题标题。如果该列表中的任何一项均不匹配，请选择‘其他’，并在出现的方框中输入标题。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/addCommentSection.html
+#: app/cases/views/addCommentSection.html:39
 msgid "Post"
 msgstr "发布"
 
-#: app/cases/views/severitySelect.html
+#: app/cases/views/severitySelect.html:8
 msgid "Premium"
 msgstr "高级"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:4
 msgid "Priority Customer Support Routing"
 msgstr "优先 Red Hat 支持途径"
 
+#: app/cases/views/discussionSection.html:39
+msgid "Private Message"
+msgstr "私有信息"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:5
 msgid "Private Notes"
 msgstr "专用备注"
 
-#: app/cases/views/new.html
+#. Noun
+#: app/cases/views/new.html:27
 msgid "Problem Statement"
 msgstr "问题描述"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
 #. Noun
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/advancedSearchCaseList.html:5
+#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:19
 msgid "Product"
 msgstr "产品"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:21
 msgid "Product Version"
 msgstr "产品版本"
 
 # translation auto-copied from project PressGang CCMS topics, version 1, document 30482-691403, author xhuang
-#: app/cases/views/new.html
-#: app/cases/views/severitySelect.html
+#: app/cases/views/new.html:92 app/cases/views/severitySelect.html:28
 msgid "Production Support Service Level Agreement"
 msgstr "产品支持服务级别协议"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/editGroup.html
-msgid "Read Access"
-msgstr "读取权限"
+#: app/cases/views/advancedSearch.html:5
+msgid "Public link to this Search"
+msgstr "这个搜索的公共链接"
 
-#: app/cases/controllers/manageGroupUsers.js
-msgid "Read Only"
-msgstr "只读"
+#: app/cases/views/searchBookmarkModal.html:16
+msgid "Query"
+msgstr "查询"
 
-#: app/cases/views/manageGroupUsers.html
-#: app/cases/controllers/manageGroupUsers.js
+#: app/cases/views/manageGroupUsers.html:28
 msgid "Read and Write"
 msgstr "读写"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:85
 msgid ""
 "Reason for the escalation, the business context, the competitive situation, "
 "past support experience"
 msgstr "升级理由、业务环境、竞争环境、以往的支持体验"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/search/views/accordion_search_results.html
-#: app/search/views/list_search_results.html
+#: app/search/views/accordion_search_results.html:5
+#: app/search/views/list_search_results.html:6
 msgid "Recommendations"
 msgstr "建议"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/logTabs.html
+#: app/log_viewer/views/logTabs.html:9
 msgid "Red Hat Diagnose"
 msgstr "红帽诊断"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:4
 msgid ""
 "Red Hat Global Support Services (GSS) and Red Hat Global Partner Enablement "
 "have  established Partner Escalation to enable our strategic partners to "
@@ -1167,293 +1600,221 @@ msgstr ""
 "Enablement）建立了合作伙伴升级机制，以便我们的战略合作伙伴将未解决的问题或者关键任务客户支持问题单升级至 GSS 领导团队。这个过程可让您及 "
 "Red Hat 更好地处理客户问题，并提供促进解决这些问题的程序。"
 
-#: app/cases/views/new.html
-#: app/cases/views/severitySelect.html
+#: app/cases/views/severitySelect.html:24
 msgid "Red Hat Support Severity Level Definitions"
 msgstr "红帽支持严重性级别定义"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/iceEscalation.html:70
+#: app/escalation/views/partnerEscalation.html:68
 msgid "Red Hat Support Ticket Number"
-msgstr "Red Hat Ticket 号码"
+msgstr "红帽支持单码"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/controllers/new.js
-msgid "Refining top solutions"
-msgstr "精选主要解决方案"
+#: app/cases/views/emailNotifySelect.html:4
+msgid "Red Hat Watchers"
+msgstr "红帽观察者"
 
-#: app/cases/controllers/manageGroupList.js
-msgid "Rename"
-msgstr "重命名"
+#: app/cases/views/emailNotifySelect.html:7
+msgid "Remove me as watcher"
+msgstr "把我从观察者中删除"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/discussionSection.html
+#: app/cases/views/advancedSearch.html:6
+msgid "Remove this Bookmark"
+msgstr "删除这个书签"
+
+#: app/cases/views/discussionSection.html:35
+#: app/cases/views/discussionSection.html:47
 msgid "Reply"
 msgstr "回复"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/requestEscalation.html
-#: app/cases/views/requestManagementEscalationModal.html
+#: app/cases/views/requestEscalation.html:2
+#: app/cases/views/requestEscalation.html:9
+#: app/cases/views/requestManagementEscalationModal.html:3
 msgid "Request Management Escalation"
 msgstr "请求管理升级"
 
-#: app/cases/views/requestEscalation.html
+#: app/cases/views/requestEscalation.html:2
 msgid "Request a management escalation if you feel that:"
 msgstr "如果您觉得有必要，请要求管理升级："
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/iceEscalation.html:16
+#: app/escalation/views/partnerEscalation.html:12
 msgid "Requestor"
 msgstr "申请人"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/search/views/resultDetail.html
+#: app/search/views/resultDetail.html:9
 msgid "Resolution"
 msgstr "解决方案"
 
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:101
+#: app/cases/views/discussionSection.html:59
 msgid "SHA-256:"
 msgstr "SHA-256:"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "SUPPORT CASES"
-msgstr "支持问题单"
-
-#: app/cases/controllers/edit.js
-msgid "Saturday = {{businessHours}}"
-msgstr "周六 = {{businessHours}}"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/createGroupModal.html
-#: app/cases/views/detailsSection.html
+#: app/cases/views/createGroupModal.html:17
+#: app/cases/views/detailsSection.html:10
 msgid "Save"
 msgstr "保存"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/detailsSection.html
+#: app/cases/views/detailsSection.html:101
 msgid "Save Changes"
 msgstr "保存更改"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/defaultGroup.html
-#: app/cases/views/editGroup.html
-msgid "Save Group"
-msgstr "保存组"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/search/views/search_form.html
-#: app/i18n/placeholder.html
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Search"
-msgstr "搜索"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/search/views/search_form.html
+#: app/search/views/search_form.html:6
 msgid "Search Articles and Solutions"
 msgstr "搜索文章及解决方案"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Search Support Case"
-msgstr "搜索支持问题单"
+#: app/cases/views/emailNotifySelect.html:17
+msgid "Search here to add watchers"
+msgstr "搜索这里来添加观察者"
 
-#: app/cases/views/severitySelect.html
+#: app/cases/views/severitySelect.html:24
 msgid "See the"
 msgstr "查看"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/navSideBar.html
+#: app/cases/views/advancedSearch.html:9
+msgid "Select Bookmarked Search"
+msgstr "选择加为书签的搜索"
+
+#: app/cases/views/columnSelectModal.html:3
+msgid "Select Case Columns"
+msgstr "选择问题单列"
+
+#: app/log_viewer/views/navSideBar.html:17
 msgid "Select File"
 msgstr "选择文件"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/log_viewer/views/logsInstructionPane.html
+#: app/log_viewer/views/logsInstructionPane.html:10
 msgid "Select Log"
 msgstr "选择日志"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/emailNotifySelect.html
-#: app/cases/views/new.html
+#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:112
 msgid "Select a User"
 msgstr "选择用户"
 
+#: app/cases/views/bookmarkedAccountSelect.html:3
+msgid "Select bookmarked account"
+msgstr "选择加为书签的账户"
+
+#: app/cases/views/columnSelectModal.html:6
+msgid "Select columns by dragging from left to right."
+msgstr "从左面拖到右面来选择列。"
+
+#: app/cases/views/columnSelectModal.html:16
+msgid "Selected Columns"
+msgstr "选择的列"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/emailNotifySelect.html
-#: app/cases/views/new.html
+#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:110
 msgid "Send Email Notifications to"
 msgstr "将电子邮件通知发送至"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/iceEscalation.html:100
+#: app/escalation/views/partnerEscalation.html:96
 msgid "Send Request"
 msgstr "发送请求"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/addCommentSection.html
-#: app/cases/views/attachmentsSection.html
-#: app/cases/views/new.html
+#: app/cases/views/addCommentSection.html:24
+#: app/cases/views/attachmentsSection.html:12
 msgid "Server File(s) To Attach:"
 msgstr "附加的服务器文件："
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#. Noun
-#: app/cases/views/new.html
-msgid "Severity"
-msgstr "严重性"
-
-#: app/cases/views/severitySelect.html
+#: app/cases/views/severitySelect.html:6
 msgid "Severity Level"
 msgstr "严重性等级"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/logsInstructionPane.html
+#: app/cases/views/advancedSearch.html:27
+msgid ""
+"Showing {{AdvancedCaseSearchService.getCasesStart()}} to "
+"{{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService."
+"totalCases}} search results"
+msgstr ""
+"显示 {{AdvancedCaseSearchService.getCasesStart()}} 到 "
+"{{AdvancedCaseSearchService.getCasesEnd()}}（{{AdvancedCaseSearchService."
+"totalCases}} 个总搜索结果）"
+
+#: app/cases/views/list.html:22
+msgid ""
+"Showing {{SearchCaseService.getCasesStart()}} to {{SearchCaseService."
+"getCasesEnd()}} of {{SearchCaseService.totalCases}} {{displayedCaseText}} "
+"&nbsp;"
+msgstr ""
+"显示 {{SearchCaseService.getCasesStart()}} 到 {{SearchCaseService."
+"getCasesEnd()}}（{{SearchCaseService.totalCases}} 个 "
+"{{displayedCaseText}}）&nbsp;"
+
+#: app/log_viewer/views/logsInstructionPane.html:11
 msgid ""
 "Simply navigate to and select a log file from the list on the left and click "
 "the 'Select File' button."
 msgstr "从左面的列表中查找并选择一个日志文件，点“选择文件”按钮。"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
 #. Noun
-#: app/cases/views/listAttachments.html
+#: app/cases/views/listAttachments.html:9
 msgid "Size"
 msgstr "大小"
 
-#: app/cases/views/discussionSection.html
-#: app/cases/views/filterSelect.html
+#: app/cases/views/searchBookmarkModal.html:20
+msgid "Sort Order"
+msgstr "排序顺序"
+
+#: app/cases/views/discussionSection.html:13
+#: app/cases/views/filterSelect.html:2
 msgid "Sort by"
 msgstr "排序方式"
 
-#: app/cases/views/severitySelect.html
+#: app/cases/views/edit.html:13
+msgid "Special Handling"
+msgstr "特殊处理"
+
+#: app/cases/views/severitySelect.html:7
 msgid "Standard"
 msgstr "标准"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
 #. Verb
-#: app/cases/views/new.html
+#: app/cases/views/new.html:120
 msgid "Submit"
 msgstr "提交"
 
-#: app/cases/views/addCommentSection.html
+#: app/cases/views/addCommentSection.html:58
 msgid "Submit Attachment"
 msgstr "提交附件"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/requestManagementEscalationModal.html
+#: app/cases/views/requestManagementEscalationModal.html:18
 msgid "Submit Request"
 msgstr "提交请求"
 
-#: app/cases/services/caseService.js
-msgid "Successfully created case number {{caseNumber}}"
-msgstr "成功创建的问题单数量 {{caseNumber}}"
-
-#: app/cases/services/manageGroupsService.js
-msgid "Successfully created group"
-msgstr "成功创建的组"
-
-#: app/cases/controllers/createGroupModal.js
-msgid "Successfully created group {{groupName}}"
-msgstr "成功创建的组 {{groupName}}"
-
-#: app/cases/services/attachmentsService.js
-msgid "Successfully deleted attachment:{{attachmentName}}"
-msgstr "成功删除的附件：{{attachmentName}}"
-
-#: app/cases/services/manageGroupsService.js
-msgid "Successfully deleted group"
-msgstr "成功删除的组"
-
-#: app/cases/controllers/deleteGroupButton.js
-msgid "Successfully deleted group {{groupName}}"
-msgstr "成功删除的组 {{groupName}}"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/deleteGroupButton.js
-msgid "Successfully deleted groups."
-msgstr "成功删除组。"
-
-#: app/cases/controllers/defaultGroup.js
-msgid "Successfully set {{groupName}} as {{userName}}'s default group."
-msgstr "成功地把 {{userName}} 的默认组设置为 {{groupName}}。"
-
-#: app/cases/services/attachmentsService.js
-msgid ""
-"Successfully uploaded attachment {{attachmentFileName}} to case "
-"{{caseNumber}}"
-msgstr "成功地为问题单 {{caseNumber}} 上传了附件 {{attachmentFileName}}"
-
-#: app/cases/services/attachmentsService.js
-msgid ""
-"Successfully uploaded attachment {{attachmentName}} to case {{caseNumber}}"
-msgstr "成功地为问题单 {{caseNumber}} 上传了附件 {{attachmentName}}"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/attachmentsSection.js
-msgid "Successfully uploaded attachment."
-msgstr "成功上传附件。"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/listBugzillas.html
+#: app/cases/views/listBugzillas.html:7
 msgid "Summary of Request"
 msgstr "请求概述"
 
-#: app/cases/controllers/edit.js
-msgid "Sunday = {{businessHours}}"
-msgstr "周日 = {{businessHours}}"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/i18n/placeholder.html
+#: app/i18n/placeholder.html:5
 msgid "Support"
 msgstr "支持"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author tfu
-#: app/cases/views/edit.html
-#: app/cases/views/new.html
+#: app/cases/views/edit.html:20 app/cases/views/new.html:92
 msgid "Support Level"
 msgstr "支持级别"
 
-# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
-#: app/common/views/403.html
-msgid "Support Subscription Required"
-msgstr "需要支持订阅"
-
-#: app/cases/controllers/edit.js
-msgid ""
-"Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
-"records indicate your availability as follows:"
-msgstr "感谢您联系 Red Hat 全球支持服务！我们将尽快与您联系。我们的记录显示您方便联系的时间如下："
-
-#: app/cases/views/requestEscalation.html
+#: app/cases/views/requestEscalation.html:8
 msgid "The Red Hat Escalation Process"
 msgstr "Red Hat 支持升级步骤"
 
-# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
-#: app/common/views/403.html
-msgid ""
-"The credentials you provided are valid, but you do not have <b>direct "
-"support from Red Hat.</b>"
-msgstr "您提供的是有效凭证，但无法<b>直接从 Red Hat 获得支持。</b>"
-
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/log_viewer/views/logsInstructionPane.html
+#: app/log_viewer/views/logsInstructionPane.html:7
 msgid ""
 "The log file viewer gives the ability to diagnose application logs as well "
 "as file a support case with Red Hat Global Support Services."
 msgstr "日志文件查看器可以对应用程序的日志文件进行诊断，并可以在 Red Hat 全球支持服务系统中创建支持问题单。"
 
-# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
-#: app/common/views/404.html
-msgid ""
-"The page you are looking for is not here. It might have been moved, removed, "
-"or had its name and address changed. It might otherwise be temporarily "
-"unavailable for technical reasons."
-msgstr "您要查找的页面不在此处。它可能已被移动、删除，或者其名字和地址已更改。也可能因为技术原因暂时不可用。"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:7
 msgid ""
 "The requestor will then receive an email (at the email address provided "
 "below) with the ICE ticket number and additional information on how to track "
@@ -1461,7 +1822,7 @@ msgid ""
 msgstr "然后申请人会收到一封电子邮件（电子邮件地址如下所示），其中包含 ICE ticket 号及如何追踪器问题处理进程的附加信息。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:5
 msgid ""
 "This Internal Customer Escalation submission form can be used by any Red Hat "
 "associate to obtain management support for issues that require attention "
@@ -1469,327 +1830,308 @@ msgid ""
 msgstr "所有 Red Hat 员工都可以使用内部客户升级提交表格获得该问题的管理支持，这些支持可获得标准支持程序以外的特别关注。请访问"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:72
 msgid "This is your 8 digit Red Hat Support ticket number"
 msgstr "这是您的 6 位数 Red Hat ticket 号码"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/versionSelect.html
+#: app/cases/views/versionSelect.html:5
 msgid ""
 "This release is now retired, please refer to the recommended FAQ prior to "
 "filing a case"
 msgstr "已不支持这个版本，请在创建问题单前参考我们推荐的 FAQ。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:22
 msgid ""
 "This should be the email address associated with your Red Hat Customer "
 "Portal or Partner Center login"
 msgstr "这应该是与您的 Red Hat 客户门户网站或者合作伙伴中心登录关联的电子邮件。"
 
-#: app/cases/controllers/edit.js
-msgid "Thursday = {{businessHours}}"
-msgstr "周四 = {{businessHours}}"
-
-#: app/cases/views/new.html
+#: app/cases/views/new.html:92
 msgid "To Learn more view the"
 msgstr "如需了解更多，请参阅"
 
-#: app/cases/views/requestEscalation.html
+#: app/cases/views/requestEscalation.html:8
 msgid "To learn more, visit"
 msgstr "如需了解更多，请访问"
 
-#: app/cases/views/new.html
-msgid "To learn more, visit the"
-msgstr "如需了解更多，请访问"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/search/views/list_search_results.html
+#: app/search/views/list_search_results.html:12
 msgid "To view a recommendation, click on it."
 msgstr "点一个建议项来查看它的内容。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/editCaseRecommendationsSection.html
+#: app/cases/views/editCaseRecommendationsSection.html:21
 msgid "Top Solutions"
 msgstr "主要解决方案"
 
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:64
 msgid "Transcript of chat"
 msgstr "聊天记录"
 
-#: app/cases/controllers/edit.js
-msgid "Tuesday = {{businessHours}}"
-msgstr "周二 = {{businessHours}}"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "Unauthorized."
-msgstr "未授权。"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/services/caseService.js
-msgid "Ungrouped Case"
-msgstr "未分组问题单"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/services/caseService.js
-msgid "Ungrouped Cases"
-msgstr "未分组问题单"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:124
+#: app/cases/views/discussionSection.html:151
 msgid "Update"
 msgstr "更新（Update）"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/newCaseRecommendationsSection.html
+#: app/cases/views/newCaseRecommendationsSection.html:5
 msgid "Updating Recommendations"
 msgstr "正在更新建议"
 
-#: app/cases/services/manageGroupsService.js
-msgid "Updating group"
-msgstr "正在更新组"
-
-#: app/cases/services/manageGroupsService.js
-msgid "Updating users for group..."
-msgstr "正在为组更新用户"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/attachmentsSection.html
+#: app/cases/views/attachmentsSection.html:37
+#: app/cases/views/attachmentsSection.html:9
 msgid "Upload Attachments"
 msgstr "上传附件"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/attachmentsSection.js
-#: app/cases/controllers/new.js
-msgid "Uploading attachment..."
-msgstr "正在上传附件......"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/services/attachmentsService.js
-msgid "Uploading attachments..."
-msgstr "正在上传附件......"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author tfu
-#: app/cases/views/editGroup.html
-msgid "User Name"
-msgstr "用户名"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/defaultGroup.html
-msgid "User does not have permissions to set default case group."
-msgstr "用户没有权限设置默认问题单组。"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/controllers/editGroup.js
-msgid "User does not have proper credentials to manage case groups."
-msgstr "用户没有管理问题单组所需证书。"
-
-#: app/cases/views/manageGroupUsers.html
+#: app/cases/views/manageGroupUsers.html:1
 msgid "Users Loading..."
 msgstr "用户载入中......"
 
-#: app/cases/views/manageGroupUsers.html
+#: app/cases/views/manageGroupUsers.html:10
 msgid "Users not available."
 msgstr "用户不可用。"
 
-#: app/cases/views/detailsSection.html
+#: app/cases/views/detailsSection.html:15
 msgid "View Less"
 msgstr "简略视图"
 
-#: app/cases/views/detailsSection.html
+#: app/cases/views/detailsSection.html:14
 msgid "View More"
 msgstr "详细视图"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/cases/views/descriptionSection.html
+#: app/cases/views/descriptionSection.html:9
 msgid "View Production Support Service Level Agreement"
 msgstr "查看产品支持服务级别协议"
 
-#: app/cases/controllers/edit.js
-msgid "Wednesday = {{businessHours}}"
-msgstr "周三 = {{businessHours}}"
-
-#: app/cases/services/caseService.js
-msgid "What information can you provide around timeframes and urgency?"
-msgstr "您对解决问题的时间要求及问题的紧急程度是什么？"
-
-#: app/cases/services/caseService.js
-msgid ""
-"What problem/issue/behavior are you having trouble with?  What do you expect "
-"to see?"
-msgstr "\"您遇到了什么问题？您所期望获得的结果是什么？\""
-
-#: app/cases/services/caseService.js
-msgid ""
-"When does the behavior occur? Frequently?  Repeatedly?   At certain times?"
-msgstr "\"这个问题在什么时候发生？有多频繁？是否会重复发生？是否只在特定时间发生？\""
-
-#: app/cases/services/caseService.js
-msgid "Where are you experiencing the behavior?  What environment?"
-msgstr "\"您在哪里遇到了这个问题？在什么环境下遇到这个问题？\""
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/editGroup.html
-msgid "Write Access"
-msgstr "写入权限"
-
 # translation auto-copied from project Customer Portal Translations, version RHJBossMiddlewareOperationsNetworkProduc, document RHJBossMiddlewareOperationsNetworkProductUpdate.html, author Leah Liu
-#: app/cases/views/commonConfirmationModal.html
+#: app/cases/views/commonConfirmationModal.html:14
+#: app/cases/views/confirmationModal.html:7
 msgid "Yes"
 msgstr "是"
 
-#: app/cases/views/proceedWithoutAttachModal.html
+#: app/cases/views/proceedWithoutAttachModal.html:14
 msgid "Yes, Submit"
 msgstr "是，提交"
 
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: bower_components/redhat-access-angular-ui-common/dist/redhat_access_angular_ui_common.js
-msgid "You have successfully logged out of the Red Hat Customer Portal."
-msgstr "已成功登录 Red Hat 客户门户网站。"
-
-# translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Leah Liu
-#: app/search/services/searchResultsService.js
-msgid "You must be logged in to use this functionality."
-msgstr "您必须登录方可使用这个功能。"
-
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:20
 msgid "Your Email Address"
 msgstr "您的电子邮件地址"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:18
 msgid "Your Email address"
 msgstr "您的电子邮件地址"
 
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/services/escalationRequestService.js
-msgid "Your Ice Escalation request has been sent successfully"
-msgstr "已成功发送您的 Ice 升级请求"
-
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:14
 msgid "Your Name"
 msgstr "您的姓名"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/services/escalationRequestService.js
-msgid "Your Partner Escalation request has been sent successfully"
-msgstr "已成功发送您的合作伙伴升级（Partner Escalation）请求"
-
-# translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/iceEscalation.html:24
+#: app/escalation/views/partnerEscalation.html:26
 msgid "Your Phone Number"
 msgstr "您的电话号码"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/editCaseRecommendationsSection.html
+#: app/cases/views/editCaseRecommendationsSection.html:38
 msgid "Your Pins"
 msgstr "您的 Pin"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:26
 msgid "Your Red Hat Contact Phone Number"
 msgstr "您的 Red Hat 联系电话号码"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:20
 msgid "Your Red Hat Email Address"
 msgstr "您的 Red Hat 电子邮件地址"
 
-#: app/cases/views/requestEscalation.html
+#: app/cases/views/requestEscalation.html:6
 msgid "Your issue has become more severe or should be a higher priority."
 msgstr "您的问题愈发严重，或问题单应具有更高优先级。"
 
-#: app/cases/views/requestEscalation.html
+#: app/cases/views/requestEscalation.html:4
 msgid "Your issue isn't being resolved appropriately."
 msgstr "未能很好解决您的问题。"
 
-#: app/cases/views/requestEscalation.html
+#: app/cases/views/requestEscalation.html:5
 msgid "Your issue needs a more senior resource."
 msgstr "需要更高级的人员为您解决问题。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:66
 msgid "and"
 msgstr "和"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:30
+#: app/cases/views/discussionSection.html:42
+#: app/cases/views/discussionSection.html:54
+#: app/cases/views/discussionSection.html:68
+#: app/cases/views/discussionSection.html:77
+#: app/cases/views/discussionSection.html:96
 msgid "at"
 msgstr "于"
 
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:65
 msgid "between"
 msgstr "之间"
 
+#: app/cases/views/discussionSection.html:121
+msgid "characters left."
+msgstr "字符剩余。"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:6
 msgid "click here"
 msgstr "点击这里"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/iceEscalation.html
+#: app/escalation/views/iceEscalation.html:5
 msgid "for more information about the ICE process."
 msgstr "查看 ICE 处理进程的详情。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Leah Liu
-#: app/escalation/views/partnerEscalation.html
+#: app/escalation/views/partnerEscalation.html:6
 msgid "for more information."
 msgstr "详情。"
 
-#: app/cases/controllers/edit.js
-msgid "no business hours"
-msgstr "无办公时间"
-
-#: app/cases/views/discussionSection.html
+#: app/cases/views/discussionSection.html:29
+#: app/cases/views/discussionSection.html:41
+#: app/cases/views/discussionSection.html:53
+#: app/cases/views/discussionSection.html:76
+#: app/cases/views/discussionSection.html:95
 msgid "on"
 msgstr "于"
 
-#: app/cases/views/severitySelect.html
+#: app/cases/views/severitySelect.html:24
 msgid "to learn more."
 msgstr "了解更多。"
 
-#: app/cases/views/addCommentSection.html
+#: app/cases/views/advancedSearch.html:9
+msgid "{{'No bookmarked searches"
+msgstr "{{'没有加为书签的搜索"
+
+#: app/cases/views/advancedSearch.html:9
+msgid "{{'Select Bookmarked Search"
+msgstr "{{'选择加为书签的搜索"
+
+#: app/cases/views/addCommentSection.html:15
 msgid "{{charactersLeft}} characters left."
 msgstr "剩余 {{charactersLeft}} 个字符。"
 
-#: app/cases/services/caseService.js
-msgid "{{days}} business day"
-msgstr "{{days}} 工作日"
-
-#: app/cases/services/caseService.js
-msgid "{{days}} business days"
-msgstr "{{days}} 工作日"
-
-#: app/cases/controllers/attachLocalFile.js
-msgid "{{errorFileName}} cannot be attached because it is a 0 byte file."
-msgstr "无法附加 {{errorFileName}}，因为它是一个 0 字节文件。"
-
-#: app/cases/controllers/attachLocalFile.js
-msgid ""
-"{{errorFileName}} cannot be attached because it is larger than "
-"{{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com."
+#: app/cases/views/searchBookmarkModal.html:4
+msgid "{{creating ? 'Create a Search Bookmark' : 'Update a Search Bookmark'}}"
 msgstr ""
-"无法附加 {{errorFileName}} 因为它大于 {{errorFileSize}} GB。请使用 FTP 将大文件传到 dropbox."
-"redhat.com。"
+"{{creating ? 'Create a Search Bookmark' : 'Update a Search Bookmark'}}"
 
-#: app/cases/services/caseService.js
-msgid "{{hours}} business hour"
-msgstr "{{hours}} 工作小时"
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/chatButton.html:4
+msgid "Chat Offline"
+msgstr "离线互动咨询"
 
-#: app/cases/services/caseService.js
-msgid "{{hours}} business hours"
-msgstr "{{hours}} 工作小时"
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/chatButton.html:3
+msgid "Chat with Support"
+msgstr "聊天支持"
 
-#: app/cases/services/caseService.js
-msgid "{{hours}} hour"
-msgstr "{{hours}} 小时"
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/treeview-selector.html:2
+msgid "Choose File(s) To Attach:"
+msgstr "选择要被附加的文件："
 
-#: app/cases/services/caseService.js
-msgid "{{hours}} hours"
-msgstr "{{hours}} 小时"
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/alert.html:2
+msgid "Close messages"
+msgstr "关闭信息"
 
-#: app/cases/views/discussionSection.html
-msgid "{{noteCharactersLeft}} characters left."
-msgstr "剩余 {{noteCharactersLeft}} 个字符。"
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/403.html:6
+msgid ""
+"If you believe you should have permission to view this resource, please<a "
+"href=\"/support/contact/customerService.html\">contact Customer Service</"
+"a>for assistance. Your Red Hat login might not be associated with the right "
+"account for your organization,\n"
+"      or there might be an issue with your subscription. Either way, "
+"Customer Service should be able to help\n"
+"      you resolve the problem."
+msgstr ""
+"如果您确定有查看此资源的权限，请 <a href=\"/support/contact/customerService.html\">联系客户服务</"
+"a>以获得帮助。您的红帽登录信息未能与您机构中的的正确帐户关联，\n"
+"    或者您的订阅出现问题。无论是哪种原因，客户服务都能\n"
+"    帮助您解决问题。"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_status.html:4
+msgid "Log In"
+msgstr "登录"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_status.html:4
+msgid "Log Out"
+msgstr "登出"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_status.html:4
+msgid "Logged into the Red Hat Customer Portal as"
+msgstr "以以下身份登录到红帽客户门户网站"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/404.html:13
+msgid "Not Found"
+msgstr "未找到"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_status.html:4
+msgid "Not Logged into the Red Hat Customer Portal"
+msgstr "没有登录到红帽用户门户网站"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:22
+msgid "Note:"
+msgstr "备注："
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:17
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:19
+msgid "Password"
+msgstr "密码"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:8
+msgid ""
+"Red Hat Access makes it easy for you to self-solve issues, diagnose "
+"problems, and engage with us via the Red Hat Customer Portal. To access Red "
+"Hat Customer Portal resources, you must enter valid portal credentials."
+msgstr ""
+"通过使用 Red Hat "
+"Access，您可以方便地通过红帽用户门户网站来自助解决问题、诊断问题并和红帽进行联系。您需要有效的账户来访问红帽用户门户网站的资源。"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:22
+msgid ""
+"Red Hat Customer Portal credentials differ from the credentials used to log "
+"into this product."
+msgstr "红帽用户门户网站的用户帐号和登录到其它产品的用户帐号不同。"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:11
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:13
+msgid "Red Hat Login"
+msgstr "红帽登录"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:28
+msgid "Sign in"
+msgstr "登录"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:3
+msgid "Sign into the Red Hat Customer Portal"
+msgstr "登录到红帽用户门户网站"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/403.html:4
+msgid "Support Subscription Required"
+msgstr "需要支持订阅"
+
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/403.html:5
+msgid ""
+"The credentials you provided are valid, but you do not have<b>direct support "
+"from Red Hat.</b>"
+msgstr "您提供的是有效凭证，但无法<b>直接从红帽获得支持。</b>"
+
+# translation auto-copied from project Customer Portal Translations, version Portal-Case-Management, document Template, author Leah Liu
+#: node_modules/redhat_access_pcm_ascension_common/app/common/views/404.html:14
+msgid ""
+"The page you are looking for is not here. It might have been moved, removed, "
+"or had its name and address changed. It might otherwise be temporarily "
+"unavailable for technical reasons."
+msgstr "您要查找的页面不在此处。它可能已被移动、删除，或者其名字和地址已更改。也可能因为技术原因暂时不可用。"
