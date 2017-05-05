@@ -32,9 +32,8 @@ export default class AccountSelect {
                         if (RHAUtils.isEmpty(CaseService.owner)) {
                             ProductsService.clear();
                             CaseService.clearProdVersionFromLS();
-                        } else {
-                            CaseService.onOwnerSelectChanged();
                         }
+                        CaseService.onOwnerSelectChanged();
                         CaseService.validateNewCase();
                     }));
 
@@ -48,6 +47,9 @@ export default class AccountSelect {
                     CaseService.clearProdVersionFromLS();
                     CaseService.validateNewCase();
                 });
+            } else {
+                CaseService.populateUsers();
+                CaseService.populateGroups(CaseService.owner);
             }
         };
     }

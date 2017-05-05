@@ -147,7 +147,7 @@ export default class Edit {
         });
 
         $scope.$on(CASE_EVENTS.received, function () {
-            document.title = gettextCatalog.getString('{{caseNumber}} | {{caseSummary}} - Portal Case Managment', {caseNumber: $stateParams.id, caseSummary: CaseService.kase.summary});
+            document.title = gettextCatalog.getString('{{caseNumber}} | {{caseSummary}}', {caseNumber: $stateParams.id, caseSummary: CaseService.kase.summary});
         })
 
         $scope.$on('$locationChangeSuccess', function () {

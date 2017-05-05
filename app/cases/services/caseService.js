@@ -222,26 +222,28 @@ export default class CaseService {
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
-            var that = this;
             var deferred = $q.defer();
             this.groupsLoading = true;
             var username = ssoUsername;
             if (username === undefined) {
-                username = securityService.loginStatus.authedUser.sso_username;
+                this.groups=[];
+                this.buildGroupOptions();
+                deferred.resolve(this.groups)
+            } else {
+                strataService.groups.list(username, flushCache).then(angular.bind(this, function (groups) {
+                    this.groups = groups;
+                    if (this.groups.length > 0) {
+                        this.group = '';
+                    }
+                    this.buildGroupOptions(this);
+                    this.groupsLoading = false;
+                    deferred.resolve(groups);
+                }), angular.bind(this, function (error) {
+                    this.groupsLoading = false;
+                    AlertService.addStrataErrorMessage(error);
+                    deferred.reject();
+                }));
             }
-            strataService.groups.list(username, flushCache).then(angular.bind(this, function (groups) {
-                that.groups = groups;
-                if (that.groups.length > 0) {
-                    that.group = '';
-                }
-                that.buildGroupOptions(that);
-                that.groupsLoading = false;
-                deferred.resolve(groups);
-            }), angular.bind(this, function (error) {
-                that.groupsLoading = false;
-                AlertService.addStrataErrorMessage(error);
-                deferred.reject();
-            }));
             return deferred.promise;
         };
         this.usersLoading = false;
@@ -250,7 +252,7 @@ export default class CaseService {
          *  See securityService.
          */
         this.populateUsers = () => {
-            if (securityService.loginStatus.authedUser.org_admin) {
+            if (securityService.loginStatus.authedUser.org_admin || securityService.loginStatus.authedUser.is_internal ) {
                 this.usersLoading = true;
                 var accountNumber;
                 if (this.kase.account_number) {
