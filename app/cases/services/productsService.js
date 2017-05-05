@@ -54,8 +54,9 @@ export default class ProductsService {
                     this.getVersions(CaseService.kase.product);
                 }
             }), function (error) {
+                this.productsLoading = false;
                 AlertService.addStrataErrorMessage(error);
-            });
+            }.bind(this));
         };
 
         this.buildProductOptions = function () {
@@ -141,7 +142,8 @@ export default class ProductsService {
                 return response;
             }), function (error) {
                 AlertService.addStrataErrorMessage(error);
-            });
+                this.versionLoading = false;
+            }.bind(this));
         };
         this.showVersionSunset = function () {
             if (RHAUtils.isNotEmpty(CaseService.kase.product) && RHAUtils.isNotEmpty(CaseService.kase.version)) {

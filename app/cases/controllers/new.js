@@ -11,6 +11,7 @@ export default class New {
         $scope.incomplete = true;
         $scope.submitProgress = 0;
         $scope.AttachmentsService = AttachmentsService;
+        $scope.ProductsService = ProductsService;
         CaseService.clearCase();
         RecommendationsService.clear();
         SearchResultsService.clear();
@@ -90,9 +91,9 @@ export default class New {
 
 
         $scope.$on(CASE_EVENTS.ownerChange, function () {
+            CaseService.populateGroups(CaseService.owner);
             if (CaseService.owner !== undefined) {
                 CaseService.populateEntitlements(CaseService.owner);
-                CaseService.populateGroups(CaseService.owner);
                 ProductsService.getProducts(true);
 
                 //as owner change, we might get different product and version list, so better to clear previous selection
@@ -120,6 +121,11 @@ export default class New {
                         break;
                     }
                 }
+                CaseService.populateGroups(CaseService.owner).then(function (groups) {
+                    $scope.groupsLoading = false;
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                });
             });
             $scope.severitiesLoading = true;
             ProductsService.getProducts(false);
@@ -132,11 +138,6 @@ export default class New {
                 AlertService.addStrataErrorMessage(error);
             });
             $scope.groupsLoading = true;
-            CaseService.populateGroups().then(function (groups) {
-                $scope.groupsLoading = false;
-            }, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            });
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();
@@ -291,9 +292,7 @@ export default class New {
         $scope.setSearchOptions = function (showsearchoptions) {
             CaseService.showsearchoptions = showsearchoptions;
             if (CaseService.groups.length === 0) {
-                CaseService.populateGroups().then(function () {
-                    CaseService.buildGroupOptions();
-                });
+                CaseService.populateGroups(CaseService.owner || securityService.loginStatus.authedUser.sso_username);
             } else {
                 CaseService.buildGroupOptions();
             }

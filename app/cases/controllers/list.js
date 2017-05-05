@@ -51,7 +51,7 @@ export default class List {
                 $state.go('group');
             } else {
                 if (CaseService.groups.length === 0) {
-                    CaseService.populateGroups().then(() => {
+                    CaseService.populateGroups(securityService.loginStatus.authedUser.sso_username).then(() => {
                         if (SearchCaseService.previousGroupFilter === CASE_GROUPS.none) {
                             SearchCaseService.searchParameters.caseGroup = CaseService.group;
                         } else {

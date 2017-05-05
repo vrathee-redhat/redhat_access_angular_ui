@@ -2,20 +2,21 @@ div(rha-header='', page='newCase')
 .page-header(ng-if='securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases')
     .row.row-short
         div(ng-class="($parent.RecommendationsService.recommendations.length === 0 || $parent.ProductsService.productsLoading) ? 'col-sm-12' : 'col-sm-8'")
-            div(ng-show='$parent.ProductsService.productsLoading')
-                .spinner
-            div(ng-hide='$parent.ProductsService.productsLoading')
+            div
                 section.case-new
                     section.config-options
                         #rha-case-main-options
                             div(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || ($parent.securityService.loginStatus.authedUser.org_admin && $parent.userHasManagedAccounts())')
                                 label(for='rha-account-number',translate,translate-comment="Noun") Account
                                 div(rha-accountselect='')
-                                label(for='rha-owners-select',translate,translate-comment="Noun") Owner
+                                label(for='rha-owners-select',translate,translate-comment="Noun") Owner &nbsp;
+                                    .spinner.spinner-xs.spinner-inline(ng-show='CaseService.usersLoading')
                                 div(rha-ownerselect='')
-                            label(translate,translate-comment="Noun") Product
+                            label(translate,translate-comment="Noun") Product &nbsp;
+                                .spinner.spinner-xs.spinner-inline(ng-show='$parent.ProductsService.productsLoading')
                             div(rha-productselect='')
-                            label(translate,translate-comment="Noun") Product Version
+                            label(translate,translate-comment="Noun") Product Version &nbsp;
+                                .spinner.spinner-xs.spinner-inline(ng-show='$parent.ProductsService.versionLoading')
                             div(rha-versionselect='')
                             label(translate,translate-comment="Noun") Case Type
                             div(rha-typeselect='', on-change = 'onCaseTypeChanged()' )
