@@ -167,7 +167,7 @@ export default class SearchCaseService {
                 this.searchParameters.caseStatus,
                 this.searchParameters.caseOwner,
                 this.searchParameters.caseGroup,
-                this.searchParameters.accountNumber,
+                (COMMON_CONFIG.isGS4 && RHAUtils.isEmpty(this.searchParameters.accountNumber))? '639769' : this.searchParameters.accountNumber,
                 this.searchParameters.searchString,
                 sortField,
                 CaseService.filterSelect.sortOrder,

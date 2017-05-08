@@ -2,7 +2,7 @@
 
 export default class Edit {
     constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService,
-                $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils) {
+                $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils, $uibModal) {
         'ngInject';
 
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
@@ -96,6 +96,14 @@ export default class Edit {
                 ];
                 updateBreadCrumb();
             }
+        };
+
+
+        $scope.changeOwner = function () {
+            $uibModal.open({
+                template: require('../views/changeOwnerModal.jade'),
+                controller: 'ChangeOwnerModal'
+            });
         };
 
         $scope.firePageLoadEvent = function () {

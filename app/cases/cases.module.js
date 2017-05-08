@@ -57,6 +57,7 @@ import BackEndAttachmentsCtrl from './controllers/backendAttachments'
 import BookmarkAccount from './controllers/bookmarkAccount'
 import BookmarkedAccountSelect from './controllers/bookmarkedAccountSelect'
 import CommonConfirmationModal from './controllers/commonConfirmationModal'
+import ChangeOwnerModal from './controllers/changeOwnerModal'
 import CreateGroupButton from './controllers/createGroupButton'
 import CreateGroupModal from './controllers/createGroupModal'
 import DeleteGroupButton from './controllers/deleteGroupButton'
@@ -97,8 +98,11 @@ import SearchBookmarkModal from './controllers/searchBookmarkModal'
 import AdvancedSearchCaseList from './controllers/advancedSearchCaseList'
 import ColumnSelectModal from './controllers/columnSelectModal'
 import ManagedAccountSelect from './controllers/managedAccountSelect'
+import SecureSupportHeader from './controllers/secureSupportHeader'
+
 
 app.controller('ManagedAccountSelect', ManagedAccountSelect);
+app.controller('SecureSupportHeader', SecureSupportHeader);
 app.controller('AccountBookmarkHome', AccountBookmarkHome);
 app.controller('AccountSearch', AccountSearch);
 app.controller('AccountSelect', AccountSelect);
@@ -110,6 +114,7 @@ app.controller('BackEndAttachmentsCtrl', BackEndAttachmentsCtrl);
 app.controller('BookmarkAccount', BookmarkAccount);
 app.controller('BookmarkedAccountSelect', BookmarkedAccountSelect);
 app.controller('CommonConfirmationModal', CommonConfirmationModal);
+app.controller('ChangeOwnerModal', ChangeOwnerModal);
 app.controller('CreateGroupButton', CreateGroupButton);
 app.controller('CreateGroupModal', CreateGroupModal);
 app.controller('DeleteGroupButton', DeleteGroupButton);
@@ -241,9 +246,11 @@ app.directive('rhaVersionselect', rhaVersionselect);
 //Components
 import rhaAdvancedSearchCaseList from './components/advancedSearchCaseList'
 import rhaManagedAccountsSelect from './components/managedAccountSelect'
+import rhaSecureSupportHeader from './components/secureSupportHeader'
 
 app.component('rhaManagedAccountsSelect', rhaManagedAccountsSelect);
 app.component('rhaAdvancedSearchCaseList', rhaAdvancedSearchCaseList);
+app.component('rhaSecureSupportHeader', rhaSecureSupportHeader);
 
 // Filters
 import bytes from './filters/bytes'

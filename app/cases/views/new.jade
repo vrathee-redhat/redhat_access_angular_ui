@@ -5,6 +5,7 @@ div(rha-header='', page='newCase')
             div
                 section.case-new
                     section.config-options
+                        rha-secure-support-header()
                         #rha-case-main-options
                             div(ng-if='$parent.canCreateCaseForOtherAccounts()')
                                 label(for='rha-account-number',translate,translate-comment="Noun") Account

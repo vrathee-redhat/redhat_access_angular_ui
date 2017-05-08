@@ -1,74 +1,76 @@
 div(rha-header='', page='caseList')
 div(ng-hide='showCaseList()')
-  .spinner.spinner-lg
-  p.center {{'Loading...'|translate}}
+    .spinner.spinner-lg
+    p.center {{'Loading...'|translate}}
 .page-header(ng-show='showCaseList()')
-  .row(ng-hide='!CaseService.sfdcIsHealthy')
-    //.col-sm-12
-    //  a(translate, ui-sref='advancedSearch') Advanced Case Search
-    .col-sm-8(rha-listfilter='')
-    .col-sm-4
-      .actions
-        .row
-          .col-xs-12
-            a.btn.btn-primary.btn-app.btn-sm.new-case-btn(href='#/case/new')
-              span#rha-new-case-btn
-              | {{'Open a Support Case'|translate}}
-            a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()', ng-class="{'btn-primary': caseChosen() }") Close Case(s)
-  .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.totalCases == 0')
-    .col-sm-6
-      .case-count
-        span(translate) Showing {{SearchCaseService.getCasesStart()}} to {{SearchCaseService.getCasesEnd()}} of {{SearchCaseService.totalCases}} {{displayedCaseText}} &nbsp;
-        span(ng-show="exporting")
-          span.spinner.spinner-inline.spinner-sm
-          span(translate) Exporting CSV
-        a.href(ng-click='exports()', ng-hide='ie8 || ie9 || exporting || RHAUtils.isNotEmpty(SearchCaseService.searchParameters.accountNumberFilter)', uib-tooltip="{{::'Export all cases from your account to CSV. Exporting many cases may take a while.'|translate}}", translate='') Export all cases to CSV
-    .col-sm-6
-      .pull-right.filter-list(rha-filterselect='')
-  .alert.alert-slim(ng-show='SearchCaseService.totalCases == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
-  #case-list.table-list.case-list.bulk-closure
-    .list-item(ng-repeat='case in SearchCaseService.cases | limitTo:SearchCaseService.pageSize:SearchCaseService.getCasesStart() -1 track by $index')
-      input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
-      a(href='#/case/{{case.case_number}}')
-        .row.case()
-          .col-sm-4.col-md-2.item-group
-            .block-icon
-              .severity
-                //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
-                i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
-                i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
-                i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
-                i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
-              .case-id
-                .subheading {{case.case_number}}
-                .description {{case.status}}
-          .col-sm-8.col-md-6.item-group
-            .subheading
-              | {{case.summary}}
-            .description
-              | {{case.product}}
-              span
-              | &nbsp;{{case.version}}
-          .col-sm-12.col-md-2(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
-            .item-group.change-log
-              .filed-on
-                span(translate) Modified by {{case.last_modified_by}} on {{case.last_modified_date}}
-          .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
-            .item-group.change-log
-              .filed-on
-                span(translate) Created by {{case.created_by}} on {{case.created_date}}
-          .col-sm-12.col-md-2
-            .item-group.change-log
-              .filed-on
-                span(translate) Owned by {{case.contact_name}}
-  div(ng-show='SearchCaseService.searching')
-    .spinner
-    p.center {{'Loading cases...'|translate}}
+    .row
+        rha-secure-support-header()
+    .row(ng-hide='!CaseService.sfdcIsHealthy')
+        //.col-sm-12
+        //  a(translate, ui-sref='advancedSearch') Advanced Case Search
+        .col-sm-8(rha-listfilter='')
+        .col-sm-4
+            .actions
+                .row
+                    .col-xs-12
+                        a.btn.btn-primary.btn-app.btn-sm.new-case-btn(href='#/case/new')
+                            span#rha-new-case-btn
+                            | {{'Open a Support Case'|translate}}
+                        a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()', ng-class="{'btn-primary': caseChosen() }") Close Case(s)
+    .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.totalCases == 0')
+        .col-sm-6
+            .case-count
+                span(translate) Showing {{SearchCaseService.getCasesStart()}} to {{SearchCaseService.getCasesEnd()}} of {{SearchCaseService.totalCases}} {{displayedCaseText}} &nbsp;
+                span(ng-show="exporting")
+                    span.spinner.spinner-inline.spinner-sm
+                    span(translate) Exporting CSV
+                a.href(ng-click='exports()', ng-hide='ie8 || ie9 || exporting || RHAUtils.isNotEmpty(SearchCaseService.searchParameters.accountNumberFilter)', uib-tooltip="{{::'Export all cases from your account to CSV. Exporting many cases may take a while.'|translate}}", translate='') Export all cases to CSV
+        .col-sm-6
+            .pull-right.filter-list(rha-filterselect='')
+    .alert.alert-slim(ng-show='SearchCaseService.totalCases == 0 && !SearchCaseService.searching && securityService.loginStatus.isLoggedIn') {{'No cases found with given filters.'|translate}}
+    #case-list.table-list.case-list.bulk-closure
+        .list-item(ng-repeat='case in SearchCaseService.cases | limitTo:SearchCaseService.pageSize:SearchCaseService.getCasesStart() -1 track by $index')
+            input.closure(ng-class='case.status === "Closed" ? "disabled" : "enabled"', type="checkbox", ng-model='case.selected', ng-disabled='case.status === "Closed"')
+            a(href='#/case/{{case.case_number}}')
+                .row.case()
+                    .col-sm-4.col-md-2.item-group
+                        .block-icon
+                            .severity
+                                //a(href='https://access.redhat.com/knowledge/solutions/'{{DYNAMIC_VARIABLE}}, target='_blank') {{'(More info)'|translate}}
+                                i.icon-severity.level1(ng-show='case.severity === "1 (Urgent)"') 1
+                                i.icon-severity.level2(ng-show='case.severity === "2 (High)"') 2
+                                i.icon-severity.level3(ng-show='case.severity === "3 (Normal)"') 3
+                                i.icon-severity.level4(ng-show='case.severity === "4 (Low)"') 4
+                            .case-id
+                                .subheading {{case.case_number}}
+                                .description {{case.status}}
+                    .col-sm-8.col-md-6.item-group
+                        .subheading
+                            | {{case.summary}}
+                        .description
+                            | {{case.product}}
+                            span
+                            | &nbsp;{{case.version}}
+                    .col-sm-12.col-md-2(ng-show='CaseService.filterSelect.sortField === "lastModifiedDate"')
+                        .item-group.change-log
+                            .filed-on
+                                span(translate) Modified by {{case.last_modified_by}} on {{case.last_modified_date}}
+                    .col-sm-12.col-md-2(ng-hide='CaseService.filterSelect.sortField === "lastModifiedDate"')
+                        .item-group.change-log
+                            .filed-on
+                                span(translate) Created by {{case.created_by}} on {{case.created_date}}
+                    .col-sm-12.col-md-2
+                        .item-group.change-log
+                            .filed-on
+                                span(translate) Owned by {{case.contact_name}}
+    div(ng-show='SearchCaseService.searching')
+        .spinner
+        p.center {{'Loading cases...'|translate}}
 
-  .row(ng-show='!SearchCaseService.searching && SearchCaseService.totalCases > 0 && SearchCaseService.totalCases > SearchCaseService.pageSize')
-    .col-sm-6
-      .pull-left
-        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage == 1", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage-1; SearchCaseService.doFilter();") Previous
-    .col-sm-6
-      .pull-right
-        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage >= SearchCaseService.numberOfPages()", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage+1; SearchCaseService.doFilter();") Next
+    .row(ng-show='!SearchCaseService.searching && SearchCaseService.totalCases > 0 && SearchCaseService.totalCases > SearchCaseService.pageSize')
+        .col-sm-6
+            .pull-left
+                a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage == 1", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage-1; SearchCaseService.doFilter();") Previous
+        .col-sm-6
+            .pull-right
+                a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage >= SearchCaseService.numberOfPages()", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage+1; SearchCaseService.doFilter();") Next

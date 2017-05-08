@@ -15,6 +15,7 @@ export default class DiscussionSection {
         $scope.discussion = true;
         $scope.attachments = false;
         $scope.notes = false;
+        $scope.caseSummary = false;
         $scope.bugzillas = false;
         $scope.hasScrolled = false;
         $scope.commentSortOrder = true;
@@ -121,6 +122,14 @@ export default class DiscussionSection {
                 AlertService.addStrataErrorMessage(error);
             }));
         };
+        $scope.updateCaseSummary = function () {
+            CaseService.updateCase().then(angular.bind(this, function () {
+                this.caseSummaryForm.$setPristine();
+                SearchCaseService.clear();
+            }), angular.bind(this, function (error) {
+                AlertService.addStrataErrorMessage(error);
+            }));
+        };
         $scope.discardNotes = function () {
             CaseService.kase.notes = CaseService.prestineKase.notes;
             if (CaseService.kase.notes !== undefined) {
@@ -134,12 +143,17 @@ export default class DiscussionSection {
             CaseService.kase.action_plan = CaseService.prestineKase.action_plan;
             this.actionPlanForm.$setPristine();
         };
+        $scope.discardCaseSummary = function () {
+            CaseService.kase.case_summary = CaseService.prestineKase.case_summary;
+            this.caseSummaryForm.$setPristine();
+        };
         $scope.toggleDiscussion = function () {
             $scope.discussion = true;
             $scope.attachments = false;
             $scope.notes = false;
             $scope.bugzillas = false;
             $scope.actionPlan = false;
+            $scope.caseSummary = false;
         };
         $scope.toggleAttachments = function () {
             $scope.discussion = false;
@@ -147,6 +161,7 @@ export default class DiscussionSection {
             $scope.notes = false;
             $scope.bugzillas = false;
             $scope.actionPlan = false;
+            $scope.caseSummary = false;
         };
         $scope.toggleNotes = function () {
             $scope.discussion = false;
@@ -154,6 +169,7 @@ export default class DiscussionSection {
             $scope.notes = true;
             $scope.bugzillas = false;
             $scope.actionPlan = false;
+            $scope.caseSummary = false;
         };
         $scope.toggleBugzillas = function () {
             $scope.discussion = false;
@@ -161,6 +177,7 @@ export default class DiscussionSection {
             $scope.notes = false;
             $scope.bugzillas = true;
             $scope.actionPlan = false;
+            $scope.caseSummary = false;
         };
         $scope.toggleActionPlan = function () {
             $scope.discussion = false;
@@ -168,6 +185,15 @@ export default class DiscussionSection {
             $scope.notes = false;
             $scope.bugzillas = false;
             $scope.actionPlan = true;
+            $scope.caseSummary = false;
+        };
+        $scope.toggleCaseSummary = function () {
+            $scope.discussion = false;
+            $scope.attachments = false;
+            $scope.notes = false;
+            $scope.bugzillas = false;
+            $scope.actionPlan = false;
+            $scope.caseSummary = true;
         };
 
         $scope.$on('$locationChangeSuccess', function () {

@@ -1,7 +1,7 @@
 'use strict';
 
 export default class DiscussionService {
-    constructor($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService) {
+    constructor($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService, securityService) {
         'ngInject';
 
         this.discussionElements = [];
@@ -18,15 +18,17 @@ export default class DiscussionService {
             var externalUpdatesPromise = null;
             this.discussionElements = [];
             this.loadingAttachments = true;
-            attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
-                AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                this.loadingAttachments = false;
-            }), angular.bind(this, function (error) {
-                if (!HeaderService.pageLoadFailure) {
-                    AlertService.addStrataErrorMessage(error);
-                }
-                this.loadingAttachments = false;
-            }));
+            if(!securityService.loginStatus.authedUser.is_secure_support_tech) {
+                attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
+                    AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                    this.loadingAttachments = false;
+                }), angular.bind(this, function (error) {
+                    if (!HeaderService.pageLoadFailure) {
+                        AlertService.addStrataErrorMessage(error);
+                    }
+                    this.loadingAttachments = false;
+                }));
+            }
             commentsPromise = CaseService.populateComments(caseId).then(function () {
             }, function (error) {
                 if (!HeaderService.pageLoadFailure) {
@@ -41,7 +43,11 @@ export default class DiscussionService {
             });
             //TODO should this be done in case service???
             this.loadingComments = true;
+            if(securityService.loginStatus.authedUser.is_secure_support_tech) {
+                return $q.all([commentsPromise, externalUpdatesPromise]);
+            }
             return $q.all([attachPromise, commentsPromise, externalUpdatesPromise]);
+
         };
         this.updateElements = function () {
             this.comments = CaseService.comments;
