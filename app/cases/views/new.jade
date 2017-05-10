@@ -9,19 +9,19 @@ div(rha-header='', page='newCase')
                             div(ng-if='$parent.canCreateCaseForOtherAccounts()')
                                 label(for='rha-account-number',translate,translate-comment="Noun") Account
                                 div(rha-accountselect='')
-                                label(for='rha-owners-select',translate,translate-comment="Noun") Owner &nbsp;
+                                label {{'Owner'| translate}} &nbsp;
                                     .spinner.spinner-xs.spinner-inline(ng-show='CaseService.usersLoading')
                                 div(rha-ownerselect='')
-                            label(translate,translate-comment="Noun") Product &nbsp;
+                            label {{'Product'| translate}} &nbsp;
                                 .spinner.spinner-xs.spinner-inline(ng-show='$parent.ProductsService.productsLoading')
                             div(rha-productselect='')
-                            label(translate,translate-comment="Noun") Product Version &nbsp;
+                            label {{'Product Version'| translate}} &nbsp;
                                 .spinner.spinner-xs.spinner-inline(ng-show='$parent.ProductsService.versionLoading')
                             div(rha-versionselect='')
                             label(translate,translate-comment="Noun") Case Type
                             div(rha-typeselect='', on-change = 'onCaseTypeChanged()' )
                             div(ng-if='!$parent.securityService.loginStatus.authedUser.is_internal')
-                                label(for='rha-case-hostname', translate,translate-comment="Noun")
+                                label
                                     span {{::'Hostname'|translate}}&nbsp;
                                     span.glyphicon.glyphicon-question-sign.link(uib-tooltip="{{'Hostname is not visible to Red Hat Support professionals' |translate }}", tooltip-trigger="click")
                                 input#rha-case-hostname.form-control(
@@ -117,7 +117,7 @@ div(rha-header='', page='newCase')
                         #rha-case-more-options.rha-case-more-options
 
                             label {{'Support Level' |translate}}
-                                span.glyphicon.glyphicon-question-sign.link(uib-tooltip-html='"<div><span>{{"To Learn more view the" |translate }}</span><br /><a href=\'/support/offerings/production/sla.html\' target=\'_blank\'>{{"Production Support Service Level Agreement"|translate}}</a></div>"',tabindex='0',tooltip-trigger="click")
+                                span.glyphicon.glyphicon-question-sign.link(uib-tooltip-html="<div><span>{{'To Learn more view the' | translate }}</span><br /><a href='/support/offerings/production/sla.html' target='_blank'>{{'Production Support Service Level Agreement' | translate}}</a></div>",tabindex='0',tooltip-trigger="click")
                             select#rha-supportLevel-select(
                             chosen,
                             ng-model="$parent.CaseService.entitlement",

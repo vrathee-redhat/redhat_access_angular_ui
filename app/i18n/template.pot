@@ -383,7 +383,7 @@ msgstr ""
 msgid "Remove bookmark!"
 msgstr ""
 
-#: dist/pcm.js:184
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:798
 msgid "SUPPORT CASES"
 msgstr ""
@@ -612,10 +612,6 @@ msgstr ""
 msgid "{{hours}} hours"
 msgstr ""
 
-#: app/cases/views/new.html:97
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;To Learn more view the"
-msgstr ""
-
 #: app/cases/views/searchBookmarkModal.html:12
 #: app/cases/views/searchBookmarkModal.html:8
 msgid "&nbsp;(Must be unique)"
@@ -683,14 +679,6 @@ msgstr ""
 
 #: app/cases/views/manageGroupList.html:5
 msgid "<i class=\"fa fa-plus pull-right\"></i>"
-msgstr ""
-
-#. Noun
-#: app/cases/views/new.html:29
-msgid ""
-"<span>{{::'Hostname'|translate}}&nbsp;</span><span uib-tooltip=\"{{'Hostname "
-"is not visible to Red Hat Support professionals' |translate }}\" tooltip-"
-"trigger=\"click\" class=\"glyphicon glyphicon-question-sign link\"></span>"
 msgstr ""
 
 #: app/cases/views/manageGroupUsers.html:20
@@ -1339,16 +1327,8 @@ msgstr ""
 msgid "Owned by {{case.contact_name}}"
 msgstr ""
 
-#: app/cases/views/advancedSearchCaseList.html:5
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:13
 msgid "Owner"
-msgstr ""
-
-#. Noun
-#: app/cases/views/new.html:13
-msgid ""
-"Owner &nbsp;\n"
-"                  <div ng-show=\"CaseService.usersLoading\" class=\"spinner "
-"spinner-xs spinner-inline\"></div>"
 msgstr ""
 
 #: app/escalation/views/partnerEscalation.html:6
@@ -1439,28 +1419,12 @@ msgid "Problem Statement"
 msgstr ""
 
 #: app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/detailsSection.html:21
+#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:18
 msgid "Product"
 msgstr ""
 
-#. Noun
-#: app/cases/views/new.html:18
-msgid ""
-"Product &nbsp;\n"
-"                <div ng-show=\"$parent.ProductsService.productsLoading\" "
-"class=\"spinner spinner-xs spinner-inline\"></div>"
-msgstr ""
-
-#: app/cases/views/detailsSection.html:29
+#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:22
 msgid "Product Version"
-msgstr ""
-
-#. Noun
-#: app/cases/views/new.html:22
-msgid ""
-"Product Version &nbsp;\n"
-"                <div ng-show=\"$parent.ProductsService.versionLoading\" "
-"class=\"spinner spinner-xs spinner-inline\"></div>"
 msgstr ""
 
 #: app/cases/views/new.html:97 app/cases/views/severitySelect.html:28
