@@ -120,6 +120,8 @@ div(rha-header='', page='newCase')
                                 span.glyphicon.glyphicon-question-sign.link(uib-tooltip-html="<div><span>{{'To Learn more view the' | translate }}</span><br /><a href='/support/offerings/production/sla.html' target='_blank'>{{'Production Support Service Level Agreement' | translate}}</a></div>",tabindex='0',tooltip-trigger="click")
                             select#rha-supportLevel-select(
                             chosen,
+                            data-placeholder="'Select an Option'|translate"
+                            no_results_text="'No match found'|translate",
                             ng-model="$parent.CaseService.entitlement",
                             ng-change="$parent.CaseService.onChangeFTSCheck()",
                             width="'100%'",

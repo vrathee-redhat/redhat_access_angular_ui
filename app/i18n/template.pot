@@ -8,6 +8,10 @@ msgstr ""
 msgid "(In reply to {{personName}})"
 msgstr ""
 
+#: dist/pcm.js:204
+msgid "A Case Contact must be selected to update case"
+msgstr ""
+
 #: dist/pcm.js:214
 msgid ""
 "A general usage question, reporting of a documentation error, or "
@@ -122,12 +126,24 @@ msgstr ""
 msgid "Case Status (Z-A)"
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Case group successfully updated."
+msgstr ""
+
 #: dist/pcm.js:204
 msgid "Case severity was changed."
 msgstr ""
 
 #: dist/pcm.js:204
 msgid "Case status was changed."
+msgstr ""
+
+#: dist/pcm.js:215
+msgid "Case users successfully updated."
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Choose one of the displayed options."
 msgstr ""
 
 #: dist/pcm.js:185 dist/pcm.js:211
@@ -169,16 +185,48 @@ msgstr ""
 msgid "Creating case..."
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Creating group"
+msgstr ""
+
 #: dist/pcm.js:204
 msgid "Creating group {{groupName}}..."
+msgstr ""
+
+#. #-#-#-#-#  template-views.pot  #-#-#-#-#
+#. Verb
+#: dist/pcm.js:205 app/cases/views/listAttachments.html:12
+#: app/cases/views/listAttachments.html:25
+#: app/cases/views/listAttachments.html:26
+msgid "Delete"
 msgstr ""
 
 #: dist/pcm.js:214
 msgid "Deleting attachment: {{attachmentName}}"
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Deleting group"
+msgstr ""
+
+#: dist/pcm.js:205
+msgid "Duplicate"
+msgstr ""
+
 #: dist/pcm.js:223
 msgid "Email address is incorrect"
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> or <b>or</b> to continue with the query."
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> to continue with the query."
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Enter <b>or</b> to continue with the query."
 msgstr ""
 
 #: dist/pcm.js:201 dist/pcm.js:204
@@ -300,6 +348,10 @@ msgstr ""
 msgid "Newest to Oldest"
 msgstr ""
 
+#: dist/pcm.js:210
+msgid "No access"
+msgstr ""
+
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1647
 msgid "Number & Status"
@@ -376,11 +428,23 @@ msgid "Product and Version assigned to the case."
 msgstr ""
 
 #: dist/pcm.js:210
+msgid "Read Only"
+msgstr ""
+
+#: dist/pcm.js:210 app/cases/views/manageGroupUsers.html:28
+msgid "Read and Write"
+msgstr ""
+
+#: dist/pcm.js:210
 msgid "Refining top solutions"
 msgstr ""
 
 #: dist/pcm.js:204
 msgid "Remove bookmark!"
+msgstr ""
+
+#: dist/pcm.js:205
+msgid "Rename"
 msgstr ""
 
 #: dist/pcm.js:185
@@ -418,12 +482,20 @@ msgstr ""
 msgid "Successfully created case number {{caseNumber}}"
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Successfully created group"
+msgstr ""
+
 #: dist/pcm.js:204
 msgid "Successfully created group {{groupName}}"
 msgstr ""
 
 #: dist/pcm.js:214
 msgid "Successfully deleted attachment:{{attachmentName}}"
+msgstr ""
+
+#: dist/pcm.js:215
+msgid "Successfully deleted group"
 msgstr ""
 
 #: dist/pcm.js:204
@@ -507,6 +579,14 @@ msgstr ""
 msgid "Ungrouped Cases"
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Updating group"
+msgstr ""
+
+#: dist/pcm.js:215
+msgid "Updating users for group..."
+msgstr ""
+
 #: dist/pcm.js:204 dist/pcm.js:210
 msgid "Uploading attachment..."
 msgstr ""
@@ -517,6 +597,10 @@ msgstr ""
 
 #: dist/pcm.js:205
 msgid "User {{sso}} cannot be added as watcher because it is not internal."
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Values containing whitespaces have to be wrapped in double quotes."
 msgstr ""
 
 #: dist/pcm.js:205
@@ -947,13 +1031,6 @@ msgstr ""
 msgid "Customize columns"
 msgstr ""
 
-#. Verb
-#: app/cases/views/listAttachments.html:12
-#: app/cases/views/listAttachments.html:25
-#: app/cases/views/listAttachments.html:26
-msgid "Delete"
-msgstr ""
-
 #: app/cases/views/deleteGroupButton.html:2
 msgid "Delete Group"
 msgstr ""
@@ -991,6 +1068,10 @@ msgstr ""
 
 #: app/cases/views/manageGroupList.html:9
 msgid "Enter Group Name"
+msgstr ""
+
+#: app/cases/views/solrQueryInput.html:7
+msgid "Enter SOLR query, for example:"
 msgstr ""
 
 #: app/cases/views/accountSearch.html:9
@@ -1228,6 +1309,10 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+#: app/cases/views/advancedSearch.html:38 app/cases/views/list.html:75
+msgid "Next"
+msgstr ""
+
 #: app/cases/views/commonConfirmationModal.html:15
 #: app/cases/views/confirmationModal.html:8
 msgid "No"
@@ -1257,6 +1342,10 @@ msgstr ""
 msgid "No cases found with given filters."
 msgstr ""
 
+#: app/cases/views/advancedSearch.html:25
+msgid "No cases found."
+msgstr ""
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "No fields selected."
 msgstr ""
@@ -1269,7 +1358,10 @@ msgstr ""
 msgid "No linked bugzillas"
 msgstr ""
 
-#: app/cases/views/ownerSelect.html:3
+#: app/cases/views/managedAccountSelect.html:3 app/cases/views/new.html:98
+#: app/cases/views/ownerSelect.html:3 app/cases/views/productSelect.html:2
+#: app/cases/views/statusSelect.html:2 app/cases/views/typeSelect.html:2
+#: app/cases/views/versionSelect.html:2
 msgid "No match found"
 msgstr ""
 
@@ -1401,6 +1493,10 @@ msgstr ""
 msgid "Premium"
 msgstr ""
 
+#: app/cases/views/advancedSearch.html:35 app/cases/views/list.html:72
+msgid "Previous"
+msgstr ""
+
 #: app/escalation/views/partnerEscalation.html:4
 msgid "Priority Customer Support Routing"
 msgstr ""
@@ -1437,10 +1533,6 @@ msgstr ""
 
 #: app/cases/views/searchBookmarkModal.html:16
 msgid "Query"
-msgstr ""
-
-#: app/cases/views/manageGroupUsers.html:28
-msgid "Read and Write"
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html:85
@@ -1557,6 +1649,12 @@ msgstr ""
 
 #: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:117
 msgid "Select a User"
+msgstr ""
+
+#: app/cases/views/new.html:98 app/cases/views/ownerSelect.html:3
+#: app/cases/views/productSelect.html:2 app/cases/views/statusSelect.html:2
+#: app/cases/views/typeSelect.html:2 app/cases/views/versionSelect.html:2
+msgid "Select an Option"
 msgstr ""
 
 #: app/cases/views/bookmarkedAccountSelect.html:3

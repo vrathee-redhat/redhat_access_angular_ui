@@ -1,7 +1,7 @@
 'use strict';
 
 export default class ManageGroupsService {
-    constructor(securityService, AlertService, strataService, RHAUtils, translate, $filter, $q) {
+    constructor(securityService, AlertService, strataService, RHAUtils, gettextCatalog, $filter, $q) {
         'ngInject';
 
         this.groupsOnScreen = [];
@@ -63,7 +63,7 @@ export default class ManageGroupsService {
         this.saveGroup = function (group, users) {
             if (group !== undefined) {
                 var deferred = $q.defer();
-                AlertService.addWarningMessage(translate('Updating group') + ' ' + group.name + '...');
+                AlertService.addWarningMessage(gettextCatalog.getString('Updating group') + ' ' + group.name + '...');
                 this.editedGroupName = group.name;
                 strataService.groups.get(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (detailedGroup) {
                     if (RHAUtils.isNotEmpty(this.editedGroupName) && !angular.equals(this.editedGroupName, detailedGroup.name)) {
@@ -71,7 +71,7 @@ export default class ManageGroupsService {
                     }
                     strataService.groups.update(detailedGroup, securityService.loginStatus.authedUser.sso_username).then(function (response) {
                         AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(translate('Case group successfully updated.'));
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Case group successfully updated.'));
                         deferred.resolve();
                     }, function (error) {
                         AlertService.addStrataErrorMessage(error);
@@ -84,10 +84,10 @@ export default class ManageGroupsService {
                 return deferred.promise;
             }
             if (users !== undefined) {
-                AlertService.addWarningMessage(translate('Updating users for group...'));
+                AlertService.addWarningMessage(gettextCatalog.getString('Updating users for group...'));
                 strataService.groupUsers.update(users, securityService.loginStatus.authedUser.account_number, this.selectedGroup.number).then(function (response) {
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Case users successfully updated.'));
+                    AlertService.addSuccessMessage(gettextCatalog.getString('Case users successfully updated.'));
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
@@ -96,7 +96,7 @@ export default class ManageGroupsService {
 
         this.deleteGroup = function (group) {
             var deferred = $q.defer();
-            AlertService.addWarningMessage(translate('Deleting group') + ' ' + group.name + '...');
+            AlertService.addWarningMessage(gettextCatalog.getString('Deleting group') + ' ' + group.name + '...');
             strataService.groups.remove(group.number, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
                 var groups = $filter('filter')(this.groupsOnScreen, function (g) {
                     if (g.number !== group.number) {
@@ -108,7 +108,7 @@ export default class ManageGroupsService {
                 this.groupsOnScreen = groups;
                 this.sortGroups();
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(translate('Successfully deleted group') + ' ' + group.name);
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully deleted group') + ' ' + group.name);
                 deferred.resolve();
             }), function (error) {
                 AlertService.clearAlerts();
@@ -119,7 +119,7 @@ export default class ManageGroupsService {
         };
 
         this.createGroup = function () {
-            AlertService.addWarningMessage(translate('Creating group') + ' ' + this.newGroupName + '...');
+            AlertService.addWarningMessage(gettextCatalog.getString('Creating group') + ' ' + this.newGroupName + '...');
             strataService.groups.create(this.newGroupName, securityService.loginStatus.authedUser.sso_username).then(angular.bind(this, function (success) {
                 if (success !== null) {
                     this.groupsOnScreen.push({
@@ -129,12 +129,12 @@ export default class ManageGroupsService {
                     this.sortGroups();
                     this.newGroupName = '';
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.newGroupName);
+                    AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created group') + ' ' + this.newGroupName);
                 } else {
                     this.fetchNewGroupDetails = true;
                     this.fetchAccGroupList();
                     AlertService.clearAlerts();
-                    AlertService.addSuccessMessage(translate('Successfully created group') + ' ' + this.newGroupName);
+                    AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created group') + ' ' + this.newGroupName);
                 }
             }), function (error) {
                 AlertService.clearAlerts();
