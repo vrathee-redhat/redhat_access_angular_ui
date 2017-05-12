@@ -6,5 +6,6 @@ div(ng-show='!isLoading() && accountOptions.length > 0')
     ng-options='account.value as account.label for account in accountOptions',
     ng-model='selectedAccount',
     allow-single-deselect='true',
+    search-contains='true',
     data-placeholder='{{"Select bookmarked account" | translate}}')
         option(value='')

@@ -4,19 +4,19 @@ div(ng-show='!ManageGroupsService.groupsLoading && ManageGroupsService.groupsOnS
 #list-group-case.list-group.list-group-case.ng-isolate-scope(ng-hide='ManageGroupsService.groupsLoading')
   .list-item.list-title
     .action-icon {{'Case Groups'|translate}}
-      a(ng-click='addNewGroup()', ng-show='!showCreateGroup', translate='')
+      a(ng-click='addNewGroup()', ng-show='!showCreateGroup', translate='', ng-if='securityService.loginStatus.authedUser.org_admin')
         i.fa.fa-plus.pull-right
-      a(ng-click='addNewGroup()', ng-show='showCreateGroup', translate='')
+      a(ng-click='addNewGroup()', ng-show='showCreateGroup', translate='', ng-if='securityService.loginStatus.authedUser.org_admin')
         i.fa.fa-minus.pull-right
-  .list-item.list-title.list-group-input-group(ng-show='showCreateGroup')
+  .list-item.list-title.list-group-input-group(ng-show='showCreateGroup', ng-if='securityService.loginStatus.authedUser.org_admin')
     .input-group
       input#newGroupName.form-control(type='text', ng-model='ManageGroupsService.newGroupName', placeholder="{{'Enter Group Name'|translate}}", ng-change="checkGroupName()")
       .input-group-btn
-        button#newGroupSubmit.btn.btn-primary.btn-app(ng-click='createGroup()', ng-disabled="!groupNameValid", translate='') Create        
+        button#newGroupSubmit.btn.btn-primary.btn-app(ng-click='createGroup()', ng-disabled="!groupNameValid", translate='') Create
   div.overflowProperties
       .list-item.with-actions(ng-repeat='group in ManageGroupsService.groupsOnScreen',ng-class='selectedGroup(group)')
        div(ng-click='fetchGroupDetails(group)', ng-href='', ng-hide='group.renameCaseGroup || group.deleteCaseGroup') {{group.name}}
-       .menu-subcontext
+       .menu-subcontext(ng-if='securityService.loginStatus.authedUser.org_admin')
           a.action-icon(ng-click='toggleActiveButton(group)', ng-blur='toggleActiveButton(group)')
             i.fa.fa-cog
             i.fa.fa-caret-down
