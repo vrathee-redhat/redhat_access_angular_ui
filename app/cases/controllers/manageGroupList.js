@@ -3,7 +3,7 @@
 import _ from 'lodash'
 
 export default class ManageGroupList {
-    constructor($scope, securityService, ManageGroupsService, RHAUtils, translate) {
+    constructor($scope, securityService, ManageGroupsService, RHAUtils, gettextCatalog) {
         'ngInject';
 
         $scope.securityService = securityService;
@@ -16,20 +16,20 @@ export default class ManageGroupList {
         $scope.actionOptions = [
             {
                 value: 'rename',
-                label: translate('Rename')
+                label: gettextCatalog.getString('Rename')
             },
             {
                 value: 'delete',
-                label: translate('Delete')
+                label: gettextCatalog.getString('Delete')
             },
             {
                 value: 'duplicate',
-                label: translate('Duplicate')
+                label: gettextCatalog.getString('Duplicate')
             }
         ];
 
         $scope.checkGroupName = () => {
-            $scope.groupNameValid = RHAUtils.isNotEmpty(ManageGroupsService.newGroupName) && !_.find(ManageGroupsService.groupsOnScreen, {name: ManageGroupsService.newGroupName});            
+            $scope.groupNameValid = RHAUtils.isNotEmpty(ManageGroupsService.newGroupName) && !_.find(ManageGroupsService.groupsOnScreen, {name: ManageGroupsService.newGroupName});
         };
 
         $scope.toggleActiveButton = function (group) {

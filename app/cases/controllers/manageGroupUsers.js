@@ -1,7 +1,7 @@
 'use strict';
 
 export default class ManageGroupUsers {
-    constructor($scope, securityService, SearchBoxService, ManageGroupsService, translate, $filter, ngTableParams, CASE_EVENTS) {
+    constructor($scope, securityService, SearchBoxService, ManageGroupsService, gettextCatalog, $filter, ngTableParams, CASE_EVENTS) {
         'ngInject';
 
         $scope.securityService = securityService;
@@ -11,15 +11,15 @@ export default class ManageGroupUsers {
         $scope.accessOptions = [
             {
                 value: 'READ',
-                label: translate('Read Only')
+                label: gettextCatalog.getString('Read Only')
             },
             {
                 value: 'WRITE',
-                label: translate('Read and Write')
+                label: gettextCatalog.getString('Read and Write')
             },
             {
                 value: 'NONE',
-                label: translate('No access')
+                label: gettextCatalog.getString('No access')
             }
         ];
 

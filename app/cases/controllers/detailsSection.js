@@ -1,7 +1,7 @@
 'use strict';
 
 export default class DetailsSection {
-    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, translate, LinkifyService, gettextCatalog, SearchCaseService) {
+    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, LinkifyService, gettextCatalog, SearchCaseService) {
         'ngInject';
 
         $scope.showExtraInfo = false;
@@ -102,7 +102,7 @@ export default class DetailsSection {
                         $scope.updatingDetails = false;
                     });
                 } else {
-                    var errorMessage = translate("A Case Contact must be selected to update case");
+                    var errorMessage = gettextCatalog.getString("A Case Contact must be selected to update case");
                     AlertService.addDangerMessage(errorMessage);
                     $scope.updatingDetails = false;
                 }

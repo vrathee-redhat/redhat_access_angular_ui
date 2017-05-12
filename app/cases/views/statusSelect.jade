@@ -4,4 +4,6 @@ select#rha-status-select(chosen,
     ng-model='CaseService.status',
     ng-change='CaseService.onSelectChanged()',
     ng-options='status.value as status.name for status in statuses',
+    data-placeholder="'Select an Option'|translate"
+    no_results_text="'No match found'|translate",
     disable_search_threshold=10)
