@@ -284,7 +284,7 @@ export default class CaseService {
                     }, (error) => {
                         this.users = [];
                         this.usersLoading = false;
-                        if (error.xhr.status === 502) {
+                        if (error && error.xhr.status === 502) {
                             AlertService.addDangerMessage(gettextCatalog.getString('Error: No contacts available for the selected account.'));
                         } else {
                             AlertService.addStrataErrorMessage(error);
