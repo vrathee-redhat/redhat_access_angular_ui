@@ -4,8 +4,8 @@
         .label(ng-show="!internal") {{'Send Email Notifications to'|translate}}
         div(uib-tooltip="{{isCurrentUserCaseContact() ? 'You are case contact and therefore you cannot be removed as watcher.' : '' | translate}}")
             button.btn.btn-info.btn-xs(
-                ng-click="toggleCurrentUser()", 
-                ng-disabled="saving || isCurrentUserCaseContact()", 
+                ng-click="toggleCurrentUser()",
+                ng-disabled="saving || isCurrentUserCaseContact()",
                 ng-show="internal && !CaseService.redhatUsersLoading")
                 span(ng-hide="isCurrentUserWatcher()", translate) Add me as watcher
                 span(ng-show="isCurrentUserWatcher()", translate) Remove me as watcher
@@ -20,7 +20,7 @@
             ng-model='selectedUsers',
             ng-change='selectedUsersChanged()',
             width='"100%"',
-            ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in CaseService.users | orderBy:['first_name','last_name']")
+            ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in usersOnAccount | orderBy:['first_name','last_name']")
         div(ng-show="internal && !CaseService.redhatUsersLoading")
             div.label-contact(ng-repeat="user in mapUsers(selectedUsers)", ng-class="{'label-disabled':saving}")
                 span {{user.first_name}} {{user.last_name}} <{{user.sso_username}}>
