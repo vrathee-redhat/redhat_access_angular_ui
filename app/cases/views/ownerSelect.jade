@@ -1,7 +1,7 @@
 div
   select#rha-owner-select(
     chosen,
-    data-placeholder="'Select an Option'|translate"
+    data-placeholder="{{'Select an Option' | translate}}",
     no_results_text="'No match found'|translate",
     ng-disabled='!securityService.loginStatus.isLoggedIn || CaseService.usersLoading',
     ng-model='CaseService.owner',

@@ -7,5 +7,6 @@ div(ng-show='!isLoading() && accountOptions.length > 0')
     ng-model='selectedAccount',
     allow-single-deselect='true',
     search-contains='true',
-    data-placeholder='{{"Select bookmarked account" | translate}}')
+    data-placeholder="{{'Select bookmarked account' | translate}}",
+    no_results_text="'No match found'|translate")
         option(value='')
