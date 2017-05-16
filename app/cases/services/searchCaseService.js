@@ -90,8 +90,10 @@ export default class SearchCaseService {
             if (this.searchParameters.caseStatus === STATUS.closed) {
                 caseFilter.status = STATUS.closed;
             }
-            if (COMMON_CONFIG.isGS4 === true) {
+            if (COMMON_CONFIG.isGS4 === true && securityService.loginStatus.authedUser.is_internal) {
                 caseFilter.account_number = '639769';
+            } else if (COMMON_CONFIG.isGS4 === true && !securityService.loginStatus.authedUser.is_internal) {
+                caseFilter.account_number = securityService.loginStatus.authedUser.account_number;
             }
             if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.searchParameters.accountNumber) && ( checkIsInternal === undefined || checkIsInternal === true) ) {
                 caseFilter.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
@@ -163,11 +165,18 @@ export default class SearchCaseService {
         this.doCaseSearch = function() {
             const deferred = $q.defer();
             let sortField = CaseService.filterSelect.sortField === 'owner' ? 'contactName' : CaseService.filterSelect.sortField;
+
+            if (COMMON_CONFIG.isGS4 && RHAUtils.isEmpty(this.searchParameters.accountNumber) && securityService.loginStatus.authedUser.is_internal) {
+                this.searchParameters.accountNumber = '639769';
+            } else if (COMMON_CONFIG.isGS4 === true && !securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.searchParameters.accountNumber)) {
+                this.searchParameters.accountNumber = securityService.loginStatus.authedUser.account_number;
+            }
+
             strataService.cases.search(
                 this.searchParameters.caseStatus,
                 this.searchParameters.caseOwner,
                 this.searchParameters.caseGroup,
-                (COMMON_CONFIG.isGS4 && RHAUtils.isEmpty(this.searchParameters.accountNumber))? '639769' : this.searchParameters.accountNumber,
+                this.searchParameters.accountNumber,
                 this.searchParameters.searchString,
                 sortField,
                 CaseService.filterSelect.sortOrder,

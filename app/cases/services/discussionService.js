@@ -1,7 +1,7 @@
 'use strict';
 
 export default class DiscussionService {
-    constructor($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService, securityService) {
+    constructor($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService, securityService, COMMON_CONFIG) {
         'ngInject';
 
         this.discussionElements = [];
@@ -18,7 +18,7 @@ export default class DiscussionService {
             var externalUpdatesPromise = null;
             this.discussionElements = [];
             this.loadingAttachments = true;
-            if(!securityService.loginStatus.authedUser.is_secure_support_tech) {
+            if(!COMMON_CONFIG.isGS4) {
                 attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
                     AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                     this.loadingAttachments = false;
@@ -43,7 +43,7 @@ export default class DiscussionService {
             });
             //TODO should this be done in case service???
             this.loadingComments = true;
-            if(securityService.loginStatus.authedUser.is_secure_support_tech) {
+            if(COMMON_CONFIG.isGS4) {
                 return $q.all([commentsPromise, externalUpdatesPromise]);
             }
             return $q.all([attachPromise, commentsPromise, externalUpdatesPromise]);
