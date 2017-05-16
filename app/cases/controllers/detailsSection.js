@@ -34,10 +34,8 @@ export default class DetailsSection {
                     AlertService.addStrataErrorMessage(error);
                 });
                 var contact = securityService.loginStatus.authedUser.sso_username;
-                if (securityService.loginStatus.authedUser.is_internal) {
-                    if (RHAUtils.isNotEmpty(CaseService.kase.contact_sso_username)) {
-                        contact = CaseService.kase.contact_sso_username; // When internal user views case of another account
-                    }
+                if (RHAUtils.isNotEmpty(CaseService.kase.contact_sso_username)) {
+                    contact = CaseService.kase.contact_sso_username; // When internal user views case of another account
                 }
                 strataService.groups.list(contact).then(function (response) {
                     $scope.groups = response;
