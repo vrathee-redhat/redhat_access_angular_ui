@@ -133,7 +133,7 @@ div(rha-header='', page='newCase')
                             severity-change="$parent.CaseService.onChangeFTSCheck()",
                             severity-disabled="$parent.CaseService.submittingCase",
                             severities="$parent.CaseService.severities")
-                            div(ng-show="$parent.canCreateCaseForOtherAccounts()  ? $parent.CaseService.account.has_enhanced_sla : $parent.securityService.loginStatus.authedUser.account.has_enhanced_sla")
+                            div(ng-show="$parent.showEnhancedSLA()")
                                 label#rha-enhanced-SLA(translate,translate-comment="Noun") Enhanced SLA
                                 input(
                                 type="checkbox",

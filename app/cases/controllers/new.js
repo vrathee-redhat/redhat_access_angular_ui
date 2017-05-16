@@ -113,7 +113,18 @@ export default class New {
 
         $scope.canCreateCaseForOtherAccounts = function() {
             return securityService.loginStatus.authedUser.is_internal || (securityService.loginStatus.authedUser.org_admin && $scope.userHasManagedAccounts() );
-        }
+        };
+
+        $scope.showEnhancedSLA = function () {
+            if($scope.canCreateCaseForOtherAccounts()) {
+                if(RHAUtils.isNotEmpty(CaseService.account.number)){
+                    return CaseService.account.has_enhanced_sla;
+                }
+                return false;
+            } else {
+                return securityService.loginStatus.authedUser.account.has_enhanced_sla;
+            }
+        };
 
         /**
          * Populate the selects
