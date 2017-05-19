@@ -91,7 +91,7 @@ export default class SearchCaseService {
                 caseFilter.status = STATUS.closed;
             }
             if (COMMON_CONFIG.isGS4 === true && securityService.loginStatus.authedUser.is_internal) {
-                caseFilter.account_number = '639769';
+                caseFilter.account_number = '5487648';
             } else if (COMMON_CONFIG.isGS4 === true && !securityService.loginStatus.authedUser.is_internal) {
                 caseFilter.account_number = securityService.loginStatus.authedUser.account_number;
             }

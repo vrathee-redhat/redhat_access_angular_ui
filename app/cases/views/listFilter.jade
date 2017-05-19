@@ -38,7 +38,7 @@
     div.col-xs-12.col-sm-6.nopadding(ng-if='securityService.loginStatus.isLoggedIn && securityService.loginStatus.authedUser.is_internal')
         div.col-xs-10.col-sm-10
             div(rha-bookmarked-accounts-select='', selected-account='SearchCaseService.searchParameters.accountNumber', selected-account-changed='CaseService.onAccountSelectChange()')
-        div.col-xs-2.col-sm-2
+        div.col-xs-2.col-sm-2(ng-if="!COMMON_CONFIG.isGS4")
             a.btn.btn-primary.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', uib-tooltip='{{"Manage Bookmarked Accounts"|translate}}', tooltip-placement="top", tooltip-append-to-body="true")
                 i.icon-star-empty
                 i.icon-users

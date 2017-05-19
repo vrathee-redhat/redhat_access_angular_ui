@@ -739,6 +739,9 @@ export default class CaseService {
             if (this.kase.status !== undefined && !angular.equals(this.prestineKase.status, this.kase.status)) {
                 caseJSON.status = this.kase.status.name;
             }
+            if (this.kase.internal_status !== undefined && !angular.equals(this.prestineKase.internal_status, this.kase.internal_status)) {
+                caseJSON.internalStatus = this.kase.internal_status;
+            }
             if (this.kase.alternate_id !== undefined && !angular.equals(this.prestineKase.alternate_id, this.kase.alternate_id)) {
                 caseJSON.alternateId = this.kase.alternate_id;
             }

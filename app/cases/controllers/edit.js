@@ -2,10 +2,11 @@
 
 export default class Edit {
     constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService,
-                $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils, $uibModal) {
+                $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils, $uibModal, COMMON_CONFIG) {
         'ngInject';
 
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.securityService = securityService;
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;

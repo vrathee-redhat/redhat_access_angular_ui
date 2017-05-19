@@ -222,12 +222,15 @@ if (ENVIRONMENT === 'gs4') {
                 securityService.validateLogin(false).then(function (authedUser) {
                 var account = securityService.loginStatus.account;
                 if ( account && account.is_secured_support ) {
-                    strata.setCredentials('rhn-gs4-rnelson','redhat');
-                    strata.setRedhatClientID("secure_case_management_1.0");
-                    strata.setStrataHostname('https://access.us.stage.redhat.com');
-                    strata.addAccountNumber(account.number);
-                    $.support.cors = true;
+
+                    // strata.setStrataHostname('https://access.stage.redhat.com');
+                    // strata.setCredentials('rhn-gs4-wlehman','redhat');
                     // strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
+                    strata.setRedhatClientID("secure_case_management_1.0");
+                    strata.addAccountNumber(account.number);
+                    strata.isSecureSupportPortal(true);
+                    $.support.cors = true;
+
                     NEW_CASE_CONFIG.showRecommendations = false;
                     NEW_CASE_CONFIG.showAttachments = false;
                     EDIT_CASE_CONFIG.showBugzillas = false;

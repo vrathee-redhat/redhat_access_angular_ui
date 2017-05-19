@@ -34,7 +34,7 @@ div.edit(ng-if='showCasePage()')
       .row.row-very-short(ng-show='$parent.EDIT_CASE_CONFIG.showDetails')
         div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
-      section.case-discussion
+      section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
         .row(ng-if="$parent.securityService.loginStatus.authedUser.org_admin || !$parent.securityService.loginStatus.authedUser.is_internal")
           .col-xs-12(rha-emailnotifyselect='')
         .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
