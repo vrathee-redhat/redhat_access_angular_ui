@@ -167,7 +167,7 @@ export default class SearchCaseService {
             let sortField = CaseService.filterSelect.sortField === 'owner' ? 'contactName' : CaseService.filterSelect.sortField;
 
             if (COMMON_CONFIG.isGS4 && RHAUtils.isEmpty(this.searchParameters.accountNumber) && securityService.loginStatus.authedUser.is_internal) {
-                this.searchParameters.accountNumber = '639769';
+                this.searchParameters.accountNumber = '5487648';
             } else if (COMMON_CONFIG.isGS4 === true && !securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.searchParameters.accountNumber)) {
                 this.searchParameters.accountNumber = securityService.loginStatus.authedUser.account_number;
             }
