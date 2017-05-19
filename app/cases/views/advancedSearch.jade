@@ -32,7 +32,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
                 i.glyphicon.glyphicon-search
                 = ' Search'
         div(ng-show="!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.totalCases === 0")
-            .alert.alert-warning No cases found.
+            .alert.alert-warning {{'No cases found.'|translate}}
         div(ng-show="AdvancedCaseSearchService.query != null && AdvancedCaseSearchService.cases.length > 0 && AdvancedCaseSearchService.totalCases != null")
             span(translate) Showing {{AdvancedCaseSearchService.getCasesStart()}} to {{AdvancedCaseSearchService.getCasesEnd()}} of {{AdvancedCaseSearchService.totalCases}} search results
     rha-advanced-search-case-list(
@@ -48,7 +48,7 @@ div(ng-if='securityService.loginStatus.isLoggedIn')
     .row(ng-show='!AdvancedCaseSearchService.searching && AdvancedCaseSearchService.totalCases > 0 && AdvancedCaseSearchService.totalCases > AdvancedCaseSearchService.pageSize')
         .col-sm-6
             .pull-left
-                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage == 1", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage-1; doSearch()") Previous
+                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage == 1", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage-1; doSearch()") {{'Previous'|translate}}
         .col-sm-6
             .pull-right
-                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage >= AdvancedCaseSearchService.numberOfPages()", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage+1; doSearch()") Next
+                a.btn.btn-app.btn-sm(ng-disabled="AdvancedCaseSearchService.currentPage >= AdvancedCaseSearchService.numberOfPages()", ng-click="AdvancedCaseSearchService.currentPage=AdvancedCaseSearchService.currentPage+1; doSearch()") {{'Next'|translate}}

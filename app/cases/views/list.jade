@@ -67,10 +67,10 @@ div(ng-hide='showCaseList()')
         .spinner
         p.center {{'Loading cases...'|translate}}
 
-    .row(ng-show='!SearchCaseService.searching && SearchCaseService.totalCases > 0 && SearchCaseService.totalCases > SearchCaseService.pageSize')
-        .col-sm-6
-            .pull-left
-                a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage == 1", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage-1; SearchCaseService.doFilter();") Previous
-        .col-sm-6
-            .pull-right
-                a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage >= SearchCaseService.numberOfPages()", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage+1; SearchCaseService.doFilter();") Next
+  .row(ng-show='!SearchCaseService.searching && SearchCaseService.totalCases > 0 && SearchCaseService.totalCases > SearchCaseService.pageSize')
+    .col-sm-6
+      .pull-left
+        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage == 1", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage-1; SearchCaseService.doFilter();") {{'Previous' | translate}}
+    .col-sm-6
+      .pull-right
+        a.btn.btn-app.btn-sm(ng-disabled="SearchCaseService.currentPage >= SearchCaseService.numberOfPages()", ng-click="SearchCaseService.currentPage=SearchCaseService.currentPage+1; SearchCaseService.doFilter();") {{'Next' | translate}}

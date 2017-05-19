@@ -4,7 +4,7 @@ import each from 'lodash/each'
 
 export default class SolrQueryInputController {
     constructor($scope, SOLRGrammarService, RHAUtils, CASE_EVENTS, strataService, CaseService, ProductsService, securityService,
-                AccountBookmarkService, AccountService, $stateParams, $state) {
+                AccountBookmarkService, AccountService, $stateParams, $state, gettextCatalog) {
         'ngInject';
 
         $scope.parseSuccessful = false;
@@ -164,9 +164,9 @@ export default class SolrQueryInputController {
                             content = contentMatch[1];
                         }
                         autocomplete.push({display: $scope.autocompleteSegments[content] || content, value: expected.value});
-                        info = "Choose one of the displayed options.";
+                        info = gettextCatalog.getString("Choose one of the displayed options.");
                     } else if (expected.value === '"') {
-                        info = "Values containing whitespaces have to be wrapped in double quotes.";
+                        info = gettextCatalog.getString("Values containing whitespaces have to be wrapped in double quotes.");
                     }
 
                     if (expected.value === " and ") {
@@ -177,11 +177,11 @@ export default class SolrQueryInputController {
                 });
 
                 if (andIsPresent && orIsPresent) {
-                    info = "Enter <b>and</b> or <b>or</b> to continue with the query.";
+                    info = gettextCatalog.getString("Enter <b>and</b> or <b>or</b> to continue with the query.");
                 } else if (andIsPresent) {
-                    info = "Enter <b>and</b> to continue with the query.";
+                    info = gettextCatalog.getString("Enter <b>and</b> to continue with the query.");
                 } else if (orIsPresent) {
-                    info = "Enter <b>or</b> to continue with the query.";
+                    info = gettextCatalog.getString("Enter <b>or</b> to continue with the query.");
                 }
             }
 

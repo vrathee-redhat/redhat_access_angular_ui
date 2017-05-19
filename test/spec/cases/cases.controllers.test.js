@@ -596,8 +596,8 @@ describe('Case Controllers', function () {
             mockCaseService.groups=[];
             mockScope.setSearchOptions(true);
             mockScope.$root.$digest();
-            expect(mockCaseService.showsearchoptions).toBe(true);
-            expect(mockCaseService.kase.group).toEqual(mockStrataDataService.mockGroups[1]);
+            spyOn(mockCaseService, 'populateGroups').and.callThrough();
+            mockScope.$root.$digest();
 
         }));
         it('should have a function for set search options when group length is not 0', inject(function ($controller) {

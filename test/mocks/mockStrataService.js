@@ -1007,14 +1007,10 @@ angular.module('RedhatAccess.mock', [])
                 return deferred.promise;
 
             };
-            this.validateNewCase = function(){
-            };
-            this.clearProdVersionFromLS = function(){
-            };
-
-            this.onSelectChanged =  function () {
-
-            };
+            this.validateNewCase = function(){};
+            this.clearProdVersionFromLS = function(){};
+            this.onSelectChanged = function() {};
+            this.onOwnerSelectChanged = function(){};
 
             this.clearCase = function () {
                 this.kase = {};
@@ -1083,7 +1079,8 @@ angular.module('RedhatAccess.mock', [])
 
 
             this.buildGroupOptions = function() {
-                this.kase.group = MockStrataDataService.mockGroups[1]
+                this.kase.group = MockStrataDataService.mockGroups[1];
+                return this.kase.group;
             }
         }
     ])

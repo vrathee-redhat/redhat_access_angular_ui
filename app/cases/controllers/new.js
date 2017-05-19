@@ -1,5 +1,7 @@
 'use strict';
 
+import _ from 'lodash';
+
 export default class New {
     constructor($scope, $state, $timeout, $uibModal, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService,
                 ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5, COMMON_CONFIG) {
@@ -91,6 +93,14 @@ export default class New {
             }
         });
 
+        $scope.$watch('CaseService.users', function () {
+            if(securityService.loginStatus.authedUser.is_internal || securityService.loginStatus.authedUser.org_admin){
+                $scope.usersOnAccount = _.cloneDeep(CaseService.users);
+                $scope.usersOnAccount = $scope.usersOnAccount.concat(securityService.loginStatus.authedUser.accountContacts);
+                $scope.usersOnAccount = _.uniqBy($scope.usersOnAccount,'sso_username');
+            }
+        });
+
 
         $scope.$on(CASE_EVENTS.ownerChange, function () {
             CaseService.populateGroups(CaseService.owner);
@@ -105,7 +115,18 @@ export default class New {
 
         $scope.canCreateCaseForOtherAccounts = function() {
             return securityService.loginStatus.authedUser.is_internal || (securityService.loginStatus.authedUser.org_admin && $scope.userHasManagedAccounts() );
-        }
+        };
+
+        $scope.showEnhancedSLA = function () {
+            if($scope.canCreateCaseForOtherAccounts()) {
+                if(RHAUtils.isNotEmpty(CaseService.account.number)){
+                    return CaseService.account.has_enhanced_sla;
+                }
+                return false;
+            } else {
+                return securityService.loginStatus.authedUser.account.has_enhanced_sla;
+            }
+        };
 
         /**
          * Populate the selects

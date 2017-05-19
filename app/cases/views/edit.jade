@@ -26,7 +26,7 @@ div.edit(ng-if='showCasePage()')
         span(translate) Account number : {{$parent.CaseService.account.number}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
         span(translate) Account name : {{$parent.CaseService.account.name}}
-        span(rha-bookmark-account, account='$parent.CaseService.account')
+        span(rha-bookmark-account, account='$parent.CaseService.account', ng-if='$parent.securityService.loginStatus.authedUser.is_internal')
       .row.row-very-short
         a(href='/support/offerings/production/sla.html', target='_blank') {{$parent.CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
       .row.row-very-short(ng-show='$parent.EDIT_CASE_CONFIG.showDescription')

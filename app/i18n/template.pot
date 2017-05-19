@@ -8,6 +8,10 @@ msgstr ""
 msgid "(In reply to {{personName}})"
 msgstr ""
 
+#: dist/pcm.js:204
+msgid "A Case Contact must be selected to update case"
+msgstr ""
+
 #: dist/pcm.js:214
 msgid ""
 "A general usage question, reporting of a documentation error, or "
@@ -81,17 +85,25 @@ msgstr ""
 msgid "Are you sure you want to delete this bookmark?"
 msgstr ""
 
+#: dist/pcm.js:201 app/cases/views/accountBookmarkHome.html:3
+msgid "Bookmark Accounts"
+msgstr ""
+
 #: dist/pcm.js:204
 msgid "Bookmark this account!"
 msgstr ""
 
-#: dist/pcm.js:184
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:800
 msgid "CASE {{caseNumber}}"
 msgstr ""
 
 #: dist/pcm.js:204
 msgid "Case  {{caseNumber}} successfully closed."
+msgstr ""
+
+#: dist/pcm.js:210 app/cases/views/manageGroupList.html:5
+msgid "Case Groups"
 msgstr ""
 
 #: dist/pcm.js:185
@@ -114,12 +126,24 @@ msgstr ""
 msgid "Case Status (Z-A)"
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Case group successfully updated."
+msgstr ""
+
 #: dist/pcm.js:204
 msgid "Case severity was changed."
 msgstr ""
 
 #: dist/pcm.js:204
 msgid "Case status was changed."
+msgstr ""
+
+#: dist/pcm.js:215
+msgid "Case users successfully updated."
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Choose one of the displayed options."
 msgstr ""
 
 #: dist/pcm.js:185 dist/pcm.js:211
@@ -161,16 +185,48 @@ msgstr ""
 msgid "Creating case..."
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Creating group"
+msgstr ""
+
 #: dist/pcm.js:204
 msgid "Creating group {{groupName}}..."
+msgstr ""
+
+#. #-#-#-#-#  template-views.pot  #-#-#-#-#
+#. Verb
+#: dist/pcm.js:205 app/cases/views/listAttachments.html:12
+#: app/cases/views/listAttachments.html:25
+#: app/cases/views/listAttachments.html:26
+msgid "Delete"
 msgstr ""
 
 #: dist/pcm.js:214
 msgid "Deleting attachment: {{attachmentName}}"
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Deleting group"
+msgstr ""
+
+#: dist/pcm.js:205
+msgid "Duplicate"
+msgstr ""
+
 #: dist/pcm.js:223
 msgid "Email address is incorrect"
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> or <b>or</b> to continue with the query."
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> to continue with the query."
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Enter <b>or</b> to continue with the query."
 msgstr ""
 
 #: dist/pcm.js:201 dist/pcm.js:204
@@ -214,6 +270,10 @@ msgstr ""
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1668
 msgid "Last Modified User and Date"
+msgstr ""
+
+#: dist/pcm.js:203
+msgid "List"
 msgstr ""
 
 #: dist/pcm.js:210
@@ -266,11 +326,11 @@ msgid ""
 "performed."
 msgstr ""
 
-#: dist/pcm.js:198
+#: dist/pcm.js:210
 msgid "New"
 msgstr ""
 
-#: dist/pcm.js:198
+#: dist/pcm.js:210
 msgid "New Case - Portal Case Management"
 msgstr ""
 
@@ -286,6 +346,10 @@ msgstr ""
 
 #: dist/pcm.js:204
 msgid "Newest to Oldest"
+msgstr ""
+
+#: dist/pcm.js:210
+msgid "No access"
 msgstr ""
 
 #: dist/pcm.js:185
@@ -349,7 +413,7 @@ msgstr ""
 msgid "Please check the requestor email address"
 msgstr ""
 
-#: dist/pcm.js:189 dist/pcm.js:198
+#: dist/pcm.js:201 dist/pcm.js:210
 msgid "Portal Case Management"
 msgstr ""
 
@@ -364,6 +428,14 @@ msgid "Product and Version assigned to the case."
 msgstr ""
 
 #: dist/pcm.js:210
+msgid "Read Only"
+msgstr ""
+
+#: dist/pcm.js:210 app/cases/views/manageGroupUsers.html:28
+msgid "Read and Write"
+msgstr ""
+
+#: dist/pcm.js:210
 msgid "Refining top solutions"
 msgstr ""
 
@@ -371,7 +443,11 @@ msgstr ""
 msgid "Remove bookmark!"
 msgstr ""
 
-#: dist/pcm.js:184
+#: dist/pcm.js:205
+msgid "Rename"
+msgstr ""
+
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:798
 msgid "SUPPORT CASES"
 msgstr ""
@@ -380,7 +456,7 @@ msgstr ""
 msgid "Saturday = {{businessHours}}"
 msgstr ""
 
-#: dist/pcm.js:184 app/i18n/placeholder.html:3
+#: dist/pcm.js:184 dist/pcm.js:201 app/i18n/placeholder.html:3
 #: app/search/views/search_form.html:7
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:796
 msgid "Search"
@@ -392,7 +468,7 @@ msgid "Search Support Case"
 msgstr ""
 
 #: dist/pcm.js:185 app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/new.html:96 app/cases/views/severitySelect.html:14
+#: app/cases/views/new.html:101 app/cases/views/severitySelect.html:14
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1642
 msgid "Severity"
 msgstr ""
@@ -406,12 +482,20 @@ msgstr ""
 msgid "Successfully created case number {{caseNumber}}"
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Successfully created group"
+msgstr ""
+
 #: dist/pcm.js:204
 msgid "Successfully created group {{groupName}}"
 msgstr ""
 
 #: dist/pcm.js:214
 msgid "Successfully deleted attachment:{{attachmentName}}"
+msgstr ""
+
+#: dist/pcm.js:215
+msgid "Successfully deleted group"
 msgstr ""
 
 #: dist/pcm.js:204
@@ -451,6 +535,19 @@ msgstr ""
 msgid "Sunday = {{businessHours}}"
 msgstr ""
 
+#: dist/pcm.js:201 dist/pcm.js:203 dist/pcm.js:205 dist/pcm.js:210
+#: app/i18n/placeholder.html:5
+msgid "Support"
+msgstr ""
+
+#: dist/pcm.js:201 dist/pcm.js:203 dist/pcm.js:205 dist/pcm.js:210
+msgid "Support Cases"
+msgstr ""
+
+#: dist/pcm.js:203
+msgid "Support Cases - Portal Case Management"
+msgstr ""
+
 #: dist/pcm.js:205
 msgid ""
 "Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
@@ -482,6 +579,14 @@ msgstr ""
 msgid "Ungrouped Cases"
 msgstr ""
 
+#: dist/pcm.js:215
+msgid "Updating group"
+msgstr ""
+
+#: dist/pcm.js:215
+msgid "Updating users for group..."
+msgstr ""
+
 #: dist/pcm.js:204 dist/pcm.js:210
 msgid "Uploading attachment..."
 msgstr ""
@@ -492,6 +597,10 @@ msgstr ""
 
 #: dist/pcm.js:205
 msgid "User {{sso}} cannot be added as watcher because it is not internal."
+msgstr ""
+
+#: dist/pcm.js:211
+msgid "Values containing whitespaces have to be wrapped in double quotes."
 msgstr ""
 
 #: dist/pcm.js:205
@@ -543,6 +652,10 @@ msgstr ""
 msgid "no business hours"
 msgstr ""
 
+#: dist/pcm.js:205
+msgid "{{caseNumber}} | {{caseSummary}}"
+msgstr ""
+
 #: dist/pcm.js:214
 msgid "{{days}} business day"
 msgstr ""
@@ -581,14 +694,6 @@ msgstr ""
 
 #: dist/pcm.js:214
 msgid "{{hours}} hours"
-msgstr ""
-
-#: app/cases/views/new.html:25
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;Not visible by Red Hat people"
-msgstr ""
-
-#: app/cases/views/new.html:92
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;To Learn more view the"
 msgstr ""
 
 #: app/cases/views/searchBookmarkModal.html:12
@@ -643,12 +748,12 @@ msgid "- Private"
 msgstr ""
 
 #. Noun
-#: app/cases/views/detailsSection.html:93 app/cases/views/new.html:107
+#: app/cases/views/detailsSection.html:95 app/cases/views/new.html:112
 msgid "24x7 Contact"
 msgstr ""
 
 #. Noun
-#: app/cases/views/detailsSection.html:85 app/cases/views/new.html:103
+#: app/cases/views/detailsSection.html:87 app/cases/views/new.html:108
 msgid "24x7 Support"
 msgstr ""
 
@@ -665,7 +770,7 @@ msgid "Access"
 msgstr ""
 
 #. Noun
-#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:14
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:11
 msgid "Account"
 msgstr ""
 
@@ -764,7 +869,7 @@ msgid ""
 "you want to continue without attaching any files?"
 msgstr ""
 
-#: app/cases/views/new.html:85
+#: app/cases/views/new.html:90
 msgid ""
 "Attaching logs or other diagnostics files typically results in faster "
 "resolution."
@@ -794,10 +899,6 @@ msgstr ""
 msgid "Based on your description, here are some possible solutions"
 msgstr ""
 
-#: app/cases/views/accountBookmarkHome.html:3
-msgid "Bookmark Accounts"
-msgstr ""
-
 #: app/cases/views/advancedSearch.html:8
 msgid "Bookmarked Searches:&nbsp;"
 msgstr ""
@@ -819,7 +920,7 @@ msgstr ""
 #: app/cases/views/addCommentSection.html:39
 #: app/cases/views/createGroupModal.html:18
 #: app/cases/views/detailsSection.html:10
-#: app/cases/views/detailsSection.html:101 app/cases/views/new.html:120
+#: app/cases/views/detailsSection.html:103 app/cases/views/new.html:125
 #: app/cases/views/requestManagementEscalationModal.html:19
 #: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:27
 msgid "Cancel"
@@ -829,7 +930,7 @@ msgstr ""
 msgid "Case Contact"
 msgstr ""
 
-#: app/cases/views/new.html:37
+#: app/cases/views/new.html:42
 msgid "Case Description"
 msgstr ""
 
@@ -842,16 +943,12 @@ msgid "Case Group"
 msgstr ""
 
 #. Noun
-#: app/cases/views/new.html:115
+#: app/cases/views/new.html:120
 msgid "Case Group (Optional)"
 msgstr ""
 
 #: app/cases/views/createGroupModal.html:10
 msgid "Case Group:"
-msgstr ""
-
-#: app/cases/views/manageGroupList.html:5
-msgid "Case Groups"
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html:68
@@ -860,7 +957,7 @@ msgid "Case Information"
 msgstr ""
 
 #. Noun
-#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:23
+#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:26
 msgid "Case Type"
 msgstr ""
 
@@ -934,13 +1031,6 @@ msgstr ""
 msgid "Customize columns"
 msgstr ""
 
-#. Verb
-#: app/cases/views/listAttachments.html:12
-#: app/cases/views/listAttachments.html:25
-#: app/cases/views/listAttachments.html:26
-msgid "Delete"
-msgstr ""
-
 #: app/cases/views/deleteGroupButton.html:2
 msgid "Delete Group"
 msgstr ""
@@ -972,12 +1062,16 @@ msgid "Drop column here."
 msgstr ""
 
 #. Noun
-#: app/cases/views/detailsSection.html:77 app/cases/views/new.html:99
+#: app/cases/views/detailsSection.html:79 app/cases/views/new.html:104
 msgid "Enhanced SLA"
 msgstr ""
 
 #: app/cases/views/manageGroupList.html:9
 msgid "Enter Group Name"
+msgstr ""
+
+#: app/cases/views/solrQueryInput.html:7
+msgid "Enter SOLR query, for example:"
 msgstr ""
 
 #: app/cases/views/accountSearch.html:9
@@ -1078,7 +1172,7 @@ msgid ""
 "email. Watch this space for more details as they become available."
 msgstr ""
 
-#: app/cases/views/new.html:85
+#: app/cases/views/new.html:90
 msgid "Get faster results."
 msgstr ""
 
@@ -1090,17 +1184,12 @@ msgstr ""
 msgid "Handpicked For You"
 msgstr ""
 
-#: app/cases/views/detailsSection.html:69
+#: app/cases/views/detailsSection.html:70 app/cases/views/new.html:29
 msgid "Hostname"
 msgstr ""
 
-#. Noun
-#: app/cases/views/new.html:25
-msgid ""
-"Hostname <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
-"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/div&gt;&quot;"
-"\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon glyphicon-"
-"question-sign link\"></span>"
+#: app/cases/views/detailsSection.html:70 app/cases/views/new.html:29
+msgid "Hostname is not visible to Red Hat Support professionals"
 msgstr ""
 
 #: app/cases/views/edit.html:13
@@ -1189,7 +1278,7 @@ msgstr ""
 msgid "Make Default Group"
 msgstr ""
 
-#: app/cases/views/listFilter.html:22
+#: app/cases/views/accountSelect.html:12 app/cases/views/listFilter.html:23
 msgid "Manage Bookmarked Accounts"
 msgstr ""
 
@@ -1216,9 +1305,12 @@ msgstr ""
 msgid "NEXT"
 msgstr ""
 
-#: app/cases/views/groupList.html:10
-#: app/cases/views/searchBookmarkModal.html:8
+#: app/cases/views/groupList.html:10 app/cases/views/searchBookmarkModal.html:8
 msgid "Name"
+msgstr ""
+
+#: app/cases/views/advancedSearch.html:38 app/cases/views/list.html:75
+msgid "Next"
 msgstr ""
 
 #: app/cases/views/commonConfirmationModal.html:15
@@ -1250,6 +1342,10 @@ msgstr ""
 msgid "No cases found with given filters."
 msgstr ""
 
+#: app/cases/views/advancedSearch.html:25
+msgid "No cases found."
+msgstr ""
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "No fields selected."
 msgstr ""
@@ -1262,7 +1358,10 @@ msgstr ""
 msgid "No linked bugzillas"
 msgstr ""
 
-#: app/cases/views/ownerSelect.html:4
+#: app/cases/views/managedAccountSelect.html:3 app/cases/views/new.html:98
+#: app/cases/views/ownerSelect.html:3 app/cases/views/productSelect.html:2
+#: app/cases/views/statusSelect.html:2 app/cases/views/typeSelect.html:2
+#: app/cases/views/versionSelect.html:2
 msgid "No match found"
 msgstr ""
 
@@ -1272,10 +1371,6 @@ msgstr ""
 
 #: app/cases/views/proceedWithoutAttachModal.html:15
 msgid "No, Go Back"
-msgstr ""
-
-#: app/cases/views/new.html:25
-msgid "Not visible by Red Hat people"
 msgstr ""
 
 #: app/cases/views/discussionSection.html:112
@@ -1324,8 +1419,7 @@ msgstr ""
 msgid "Owned by {{case.contact_name}}"
 msgstr ""
 
-#. Noun
-#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:16
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:13
 msgid "Owner"
 msgstr ""
 
@@ -1399,6 +1493,10 @@ msgstr ""
 msgid "Premium"
 msgstr ""
 
+#: app/cases/views/advancedSearch.html:35 app/cases/views/list.html:72
+msgid "Previous"
+msgstr ""
+
 #: app/escalation/views/partnerEscalation.html:4
 msgid "Priority Customer Support Routing"
 msgstr ""
@@ -1412,22 +1510,20 @@ msgid "Private Notes"
 msgstr ""
 
 #. Noun
-#: app/cases/views/new.html:27
+#: app/cases/views/new.html:32
 msgid "Problem Statement"
 msgstr ""
 
-#. Noun
 #: app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:19
+#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:18
 msgid "Product"
 msgstr ""
 
-#. Noun
-#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:21
+#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:22
 msgid "Product Version"
 msgstr ""
 
-#: app/cases/views/new.html:92 app/cases/views/severitySelect.html:28
+#: app/cases/views/new.html:97 app/cases/views/severitySelect.html:28
 msgid "Production Support Service Level Agreement"
 msgstr ""
 
@@ -1437,10 +1533,6 @@ msgstr ""
 
 #: app/cases/views/searchBookmarkModal.html:16
 msgid "Query"
-msgstr ""
-
-#: app/cases/views/manageGroupUsers.html:28
-msgid "Read and Write"
 msgstr ""
 
 #: app/escalation/views/iceEscalation.html:85
@@ -1523,7 +1615,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: app/cases/views/detailsSection.html:101
+#: app/cases/views/detailsSection.html:103
 msgid "Save Changes"
 msgstr ""
 
@@ -1555,8 +1647,14 @@ msgstr ""
 msgid "Select Log"
 msgstr ""
 
-#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:112
+#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:117
 msgid "Select a User"
+msgstr ""
+
+#: app/cases/views/new.html:98 app/cases/views/ownerSelect.html:3
+#: app/cases/views/productSelect.html:2 app/cases/views/statusSelect.html:2
+#: app/cases/views/typeSelect.html:2 app/cases/views/versionSelect.html:2
+msgid "Select an Option"
 msgstr ""
 
 #: app/cases/views/bookmarkedAccountSelect.html:3
@@ -1567,11 +1665,15 @@ msgstr ""
 msgid "Select columns by dragging from left to right."
 msgstr ""
 
+#: app/cases/views/managedAccountSelect.html:3
+msgid "Select managed account"
+msgstr ""
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "Selected Columns"
 msgstr ""
 
-#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:110
+#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:115
 msgid "Send Email Notifications to"
 msgstr ""
 
@@ -1632,7 +1734,7 @@ msgid "Standard"
 msgstr ""
 
 #. Verb
-#: app/cases/views/new.html:120
+#: app/cases/views/new.html:125
 msgid "Submit"
 msgstr ""
 
@@ -1648,11 +1750,7 @@ msgstr ""
 msgid "Summary of Request"
 msgstr ""
 
-#: app/i18n/placeholder.html:5
-msgid "Support"
-msgstr ""
-
-#: app/cases/views/edit.html:20 app/cases/views/new.html:92
+#: app/cases/views/edit.html:20 app/cases/views/new.html:97
 msgid "Support Level"
 msgstr ""
 
@@ -1696,7 +1794,7 @@ msgid ""
 "Portal or Partner Center login"
 msgstr ""
 
-#: app/cases/views/new.html:92
+#: app/cases/views/new.html:97
 msgid "To Learn more view the"
 msgstr ""
 

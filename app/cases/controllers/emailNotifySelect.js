@@ -8,6 +8,7 @@ export default class EmailNotifySelect {
         $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
         $scope.selectedUsers = [];
         $scope.saving = false;
+        $scope.usersOnAccount = [];
 
         $scope.selectedUsersChanged = () => {
             const allUsers = $scope.internal ? CaseService.redhatUsers : CaseService.users;
@@ -83,9 +84,17 @@ export default class EmailNotifySelect {
                 $scope.selectedUsers.unshift(CaseService.kase.contact_sso_username); // fake insert the Case Contact
             }
 
+            if(securityService.loginStatus.authedUser.org_admin || securityService.loginStatus.authedUser.is_internal) {
+                $scope.usersOnAccount = _.cloneDeep(CaseService.users);
+                $scope.usersOnAccount = $scope.usersOnAccount.concat(securityService.loginStatus.authedUser.accountContacts);
+                $scope.usersOnAccount = _.uniqBy($scope.usersOnAccount,'sso_username');
+            } else {
+                $scope.usersOnAccount = _.cloneDeep(CaseService.users);
+            }
+
             if(!$scope.internal) {
                 CaseService.populateUsers().then(() => {
-                    $scope.$watch('CaseService.originalNotifiedUsers', () => setUsers(CaseService.users, CaseService.originalNotifiedUsers));
+                    $scope.$watch('CaseService.originalNotifiedUsers', () => setUsers($scope.usersOnAccount, CaseService.originalNotifiedUsers));
                 });
             } else {
                 if(RHAUtils.isEmpty(CaseService.redhatUsers)) { // RH Users are not loaded yet
@@ -109,6 +118,16 @@ export default class EmailNotifySelect {
                 $scope.selectedUsersChanged();
                 $scope.userToAdd = '';
             }
-        })
+        });
+
+        $scope.$watch('CaseService.users', function () {
+            if(securityService.loginStatus.authedUser.org_admin || securityService.loginStatus.authedUser.is_internal) {
+                $scope.usersOnAccount = _.cloneDeep(CaseService.users);
+                $scope.usersOnAccount = $scope.usersOnAccount.concat(securityService.loginStatus.authedUser.accountContacts);
+                $scope.usersOnAccount = _.uniqBy($scope.usersOnAccount,'sso_username');
+            } else {
+                $scope.usersOnAccount = _.cloneDeep(CaseService.users);
+            }
+        });
     }
 }
