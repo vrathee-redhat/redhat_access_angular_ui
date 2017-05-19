@@ -228,7 +228,7 @@ if (ENVIRONMENT === 'gs4') {
                     // strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
                     strata.setRedhatClientID("secure_case_management_1.0");
                     strata.addAccountNumber(account.number);
-                    strata.isSecureSupportPortal(true);
+                    strata.setSecureSupportPortal(true);
                     $.support.cors = true;
 
                     NEW_CASE_CONFIG.showRecommendations = false;
