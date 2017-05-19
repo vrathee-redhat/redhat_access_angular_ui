@@ -4,6 +4,7 @@ div(ng-hide='showCasePage()')
   p.center {{'Loading Case...'|translate}}
 div.edit(ng-if='showCasePage()')
   .row.row-very-short
+    rha-secure-support-header()
     div.section.main.col-md-8
       .row.row-very-short
         h1.page-title(translate) CASE {{$parent.CaseService.kase.case_number}}
@@ -19,6 +20,8 @@ div.edit(ng-if='showCasePage()')
         span(id="rha-case-filedOn" translate)  Filed on {{$parent.CaseService.kase.created_date}} by {{$parent.CaseService.kase.created_by}}
       .row.row-very-short
         span {{'Assigned to'|translate}} {{$parent.CaseService.kase.owner}}
+        a#cancelCaseDetailChanges.margin-left(ng-click="changeOwner()",translate='',
+        ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.loginStatus.authedUser.is_secure_support_tech') {{'Edit'|translate}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
         span(translate) Account number : {{$parent.CaseService.account.number}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
@@ -31,7 +34,7 @@ div.edit(ng-if='showCasePage()')
       .row.row-very-short(ng-show='$parent.EDIT_CASE_CONFIG.showDetails')
         div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
-      section.case-discussion
+      section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
         .row(ng-if="$parent.securityService.loginStatus.authedUser.org_admin || !$parent.securityService.loginStatus.authedUser.is_internal")
           .col-xs-12(rha-emailnotifyselect='')
         .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")

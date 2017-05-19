@@ -59,8 +59,77 @@ export default class CaseService {
         this.creationStartedEventSent = false;
         this.showKTFields = true;
         this.redhatUsersLoading = false;
+        this.redhatSecureSupportUsersLoading = false;
         this.redhatUsers = [];
+        this.redhatSecureSupportUsers = [];
         this.managedAccount = null;
+        this.internalStatuses= [
+            "Unassigned",
+            "Waiting on Customer",
+            "Waiting on Collaboration",
+            "Waiting on Contributor",
+            "Waiting on Engineering",
+            "Waiting on PM",
+            "Waiting on Sales",
+            "Waiting on QA",
+            "Waiting on Owner",
+            "Waiting on 3rd Party Vendor",
+            "Waiting on Collaboration - Native",
+            "Waiting on Translation",
+            "Closed"
+        ];
+
+        this.sbrList = [
+            "API Mgmt",
+            "Anaconda",
+            "Ansible",
+            "Business Rule Frameworks",
+            "CEE Ops",
+            "CFME",
+            "Ceph",
+            "Certification",
+            "Clusterha",
+            "Containers",
+            "Customer Portal",
+            "Desktop",
+            "Filesystem",
+            "FuseSource",
+            "Gluster",
+            "Identity Management",
+            "JBDS",
+            "JBoss Base AS",
+            "JBoss Clustering",
+            "JBoss Portal",
+            "JBoss Security",
+            "JON",
+            "JVM & Diagnostics",
+            "Kernel",
+            "Low Volume",
+            "MRG",
+            "Messaging",
+            "Networking",
+            "Non-Technical",
+            "OpenShift Online",
+            "RHN",
+            "ROLE",
+            "Red Hat Mobile",
+            "Red Hat Mobile - Consulting",
+            "SAP",
+            "Security Vulnerabilities",
+            "Services",
+            "Shells",
+            "Shift",
+            "Spinalstack",
+            "Stack",
+            "Storage",
+            "SysMgmt",
+            "Teiid/MMX",
+            "Tools",
+            "Transactions & JCA & SQL",
+            "Virtualization",
+            "Web Services",
+            "Webservers"
+        ];
 
         this.setSeverities = function (severities) {
             this.severities = severities;
@@ -314,6 +383,18 @@ export default class CaseService {
                     this.redhatUsers.unshift(securityService.loginStatus.authedUser);
                 }
                 this.redhatUsersLoading = false;
+            });
+        };
+
+        this.populateRedhatSecureSupportUsers = () => {
+            const accountNumber = "5487648";
+            this.redhatSecureSupportUsersLoading = true;
+            return strataService.accounts.users(accountNumber).then((users) => {
+                this.redhatSecureSupportUsers = users;
+                if (securityService.loginStatus.authedUser.is_internal && !_.find(this.redhatUsers, { sso_username: securityService.loginStatus.authedUser.sso_username })) {
+                    this.redhatSecureSupportUsers.unshift(securityService.loginStatus.authedUser);
+                }
+                this.redhatSecureSupportUsersLoading = false;
             });
         };
 
@@ -662,6 +743,9 @@ export default class CaseService {
             if (this.kase.status !== undefined && !angular.equals(this.prestineKase.status, this.kase.status)) {
                 caseJSON.status = this.kase.status.name;
             }
+            if (this.kase.internal_status !== undefined && !angular.equals(this.prestineKase.internal_status, this.kase.internal_status)) {
+                caseJSON.internalStatus = this.kase.internal_status;
+            }
             if (this.kase.alternate_id !== undefined && !angular.equals(this.prestineKase.alternate_id, this.kase.alternate_id)) {
                 caseJSON.alternateId = this.kase.alternate_id;
             }
@@ -695,6 +779,9 @@ export default class CaseService {
             if (this.kase.summary !== null && !angular.equals(this.prestineKase.summary, this.kase.summary)) {
                 caseJSON.summary = this.kase.summary;
             }
+            if (this.kase.case_summary !== null && !angular.equals(this.prestineKase.case_summary, this.kase.case_summary)) {
+                caseJSON.caseSummary = this.kase.case_summary;
+            }
             if (this.kase.enhanced_sla !== null && !angular.equals(this.prestineKase.enhanced_sla, this.kase.enhanced_sla)) {
                 caseJSON.enhancedSLA = this.kase.enhanced_sla;
             }
@@ -711,6 +798,24 @@ export default class CaseService {
             });
             return deferred.promise;
         };
+        this.updateCaseDescription = function () {
+            this.updatingCase = true;
+            var deferred = $q.defer();
+            var caseJSON = {};
+            if (this.kase.description !== null && !angular.equals(this.prestineKase.description, this.kase.description)) {
+                caseJSON.description = this.kase.description;
+            }
+            strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
+                this.updatingCase = false;
+                angular.copy(this.kase, this.prestineKase);
+                deferred.resolve();
+            }), (error) => {
+                deferred.reject(error);
+                this.updatingCase = false;
+            });
+            return deferred.promise;
+        };
+
         this.updateLocalStorageForNewCase = function () {
             //as we have common component for product and version, adding extra condition for confirming its on new case
             if (this.localStorageCache && RHAUtils.isEmpty(this.kase.case_number)) {

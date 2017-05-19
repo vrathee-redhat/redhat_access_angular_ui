@@ -5,6 +5,7 @@ div(rha-header='', page='newCase')
             div
                 section.case-new
                     section.config-options
+                        rha-secure-support-header()
                         #rha-case-main-options
                             div(ng-if='$parent.canCreateCaseForOtherAccounts()')
                                 label(for='rha-account-number',translate,translate-comment="Noun") Account
@@ -149,18 +150,19 @@ div(rha-header='', page='newCase')
                             div(ng-show="$parent.CaseService.showFts()")
                                 label#rha-24X7_Contact(translate,translate-comment="Noun") 24x7 Contact
                                 input#rha-24X7_Contact_input(ng-model="$parent.CaseService.fts_contact")
-                            label(for='email-notifications',translate) Send Email Notifications to
-                            .spinner.spinner-inline(ng-show='!$parent.securityService.loginStatus.isLoggedIn  || $parent.CaseService.usersLoading || $parent.securityService.loggingIn')
-                            select(
-                            chosen,
-                            multiple,
-                            data-placeholder="{{'Select a User'|translate}}",
-                            ng-disabled='$parent.updatingList || $parent.CaseService.submittingCase',
-                            ng-model='$parent.notifiedUsers',
-                            id='rha-email-notify-select',
-                            width='"100%"',
-                            ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in $parent.usersOnAccount | orderBy:['first_name','last_name']")
-                                option(value="")
+                            div(ng-if="!$parent.COMMON_CONFIG.isGS4")
+                                label(for='email-notifications',translate) Send Email Notifications to
+                                .spinner.spinner-inline(ng-show='!$parent.securityService.loginStatus.isLoggedIn  || $parent.CaseService.usersLoading || $parent.securityService.loggingIn')
+                                select(
+                                chosen,
+                                multiple,
+                                data-placeholder="{{'Select a User'|translate}}",
+                                ng-disabled='$parent.updatingList || $parent.CaseService.submittingCase',
+                                ng-model='$parent.notifiedUsers',
+                                id='rha-email-notify-select',
+                                width='"100%"',
+                                ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in $parent.usersOnAccount | orderBy:['first_name','last_name']")
+                                    option(value="")
 
 
                             label(translate,translate-comment="Noun") Case Group (Optional)

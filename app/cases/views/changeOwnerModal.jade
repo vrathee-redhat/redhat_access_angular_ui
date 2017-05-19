@@ -1,0 +1,24 @@
+.modal-header
+  h3 {{'Case'|translate}} {{CaseService.kase.case_number}}
+.modal-body
+  .row
+      .col-xs-4
+          span {{'Case Owner'|translate}}
+      .col-xs-8
+          .spinner.spinner-inline(ng-show="CaseService.redhatSecureSupportUsersLoading")
+          select#rha-owner-select.form-control(
+          chosen,
+          width="'100%'",
+          name='ownersList',
+          ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in CaseService.redhatSecureSupportUsers",
+          ng-model='caseOwnerSso')
+  .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
+    .col-sm-12
+      .pull-right
+        button.btn.btn-primary.btn-app.margin-left(
+          ng-click='confirm()')
+          span {{'Save'|translate}}
+        button.btn.btn-primary.btn-app.margin-left(
+          ng-click='closeModal()')
+          span {{'Cancel'|translate}}
+

@@ -10,6 +10,7 @@ export default class DetailsSection {
         $scope.maxNotesLength = '255';
         $scope.progressCount = 0;
         $scope.caseSummaryEditable = false;
+        $scope.caseDescriptionEditable = false;
         $scope.contactList = [];
         $scope.caseContactSelected = true;
         $scope.maxLength = 450;
@@ -43,11 +44,16 @@ export default class DetailsSection {
                     AlertService.addStrataErrorMessage(error);
                 });
             }
+            if(securityService.loginStatus.authedUser.is_secure_support_tech && RHAUtils.isEmpty(CaseService.redhatSecureSupportUsers)) {
+                CaseService.populateRedhatSecureSupportUsers();
+            }
+
             strataService.values.cases.status().then(function (response) {
                 CaseService.statuses = response;
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
+
             strataService.values.cases.severity().then(function (response) {
                 CaseService.setSeverities(response);
             }, function (error) {
@@ -110,6 +116,20 @@ export default class DetailsSection {
                 }
             }
         };
+        $scope.updateCaseDescription = function () {
+            $scope.updatingDetails = true;
+            if (CaseService.kase !== undefined) {
+                CaseService.updateCaseDescription().then(function () {
+                    $scope.updatingDetails = false;
+                    $scope.caseDescriptionEditable = false;
+                    $scope.descriptionForm.$setPristine();
+                    SearchCaseService.clear();
+                }, function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                    $scope.updatingDetails = false;
+                });
+            }
+        };
         $scope.changeCaseOwner = function () {
             strataService.cases.owner.update(CaseService.kase.case_number, CaseService.kase.owner).then(function () {
                 CaseService.kase.owner = securityService.loginStatus.authedUser.first_name + ' ' + securityService.loginStatus.authedUser.last_name;
@@ -140,6 +160,15 @@ export default class DetailsSection {
             } else {
                 CaseService.kase.summary = CaseService.prestineKase.summary;
                 $scope.caseSummaryEditable = false;
+            }
+
+        };
+        $scope.editCaseDescription = function (editDescription) {
+            if (editDescription === true) {
+                $scope.caseDescriptionEditable  = true;
+            } else {
+                CaseService.kase.description = CaseService.prestineKase.description;
+                $scope.caseDescriptionEditable  = false;
             }
 
         };
@@ -182,7 +211,7 @@ export default class DetailsSection {
         });
         $scope.contactSelected = function () {
             $scope.caseContactSelected = true;
-        }
+        };
         $scope.validatePage = function () {
             if (ProductsService.versionLoading) {
                 return true;

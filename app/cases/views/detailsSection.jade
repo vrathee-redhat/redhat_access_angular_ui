@@ -1,115 +1,156 @@
 section.case-description
-  h3.case-name.pre-wrap
-    a(ng-click='editCaseSummary(true)' , ng-show='!caseSummaryEditable' , href='') {{CaseService.kase.summary}}
-  form(name='summaryForm')
-   .row(ng-show='caseSummaryEditable')
-    .col-xs-4.col-sm-3.col-md-8
-      input#rha-case-summary.form-control(
-        ng-model='CaseService.kase.summary',
-        maxlength='255',
-        name='case_summary')
-    .col-xs-4.col-sm-3.col-md-4
-      button.btn.btn-primary(
-        name='saveButton',
-        ng-disabled='updatingDetails || !summaryForm.$dirty || !CaseService.kase.summary.length',
-        ng-click='updateCase()', translate='') Save
-      a.margin-left(
-        ng-hide='updatingDetails',
-        ng-click='editCaseSummary(false)') {{::'Cancel'|translate}}
-  span.description.toggled-content.pre-wrap(ng-hide='showExtraInfo', ng-bind-html='getDescription(maxLength)')
-  div(ng-hide='showExtraInfo || CaseService.kase.description.length < maxLength')
-    a(ng-click='toggleExtraInfo()', translate='') View More
-  span.description.pre-wrap(ng-show='showExtraInfo', ng-bind-html='getDescription()')
-  div(ng-show='showExtraInfo')
-    a(ng-click='toggleExtraInfo()', translate='') View Less
-  div#case-description-extra-info.active
-    form(name='detailsForm')
-      section.config-options
-        .row.row-short
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'Product'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            div(rha-productselect='')
-        .row.row-short
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'Product Version'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            div(rha-versionselect='')
-        .row.row-short
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'Alternate Case ID'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            input#rha-case-alt-id.form-control(
-              ng-model='CaseService.kase.alternate_id',
-              name='alternate_id')
-        .row.row-short
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'Case Group'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            select#rha-group-select.form-control(
-              chosen,
-              width="'100%'",
-              name='group',
-              ng-options='g.name for g in groups track by g.number',
-              ng-model='CaseService.kase.group',
-              ng-change='fetchPossibleContacts()')
-        .row.row-short(ng-show="securityService.loginStatus.authedUser.org_admin")
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'Case Contact'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            select#rha-contact-select.form-control(
-              chosen,
-              width="'100%'",
-              name='owner',
-              ng-options='user.sso_username as user.sso_username for user in contactList',
-              ng-model='CaseService.kase.contact_sso_username',
-              ng-change='contactSelected()')
-        .row.row-short
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'Case Type'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            div(rha-typeselect='', on-change = 'onCaseTypeChanged()')
-        div(ng-if='!$parent.securityService.loginStatus.authedUser.is_internal')
-            .row.row-short
-              .col-xs-4.col-sm-3.col-md-4
-                .label
-                    span {{::'Hostname'|translate}}&nbsp;
-                    span.glyphicon.glyphicon-question-sign.link(uib-tooltip="{{'Hostname is not visible to Red Hat Support professionals' |translate }}", tooltip-trigger="click")
-              .col-xs-4.col-sm-5.col-md-6
-                input#rha-case-hostname.form-control(
-                  maxlength='255',
-                  ng-model='CaseService.kase.hostname',
-                  name='hostname')
-        .row.row-short(ng-show="CaseService.account.has_enhanced_sla || CaseService.kase.enhanced_sla")
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'Enhanced SLA'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            input(ng-model="CaseService.kase.enhanced_sla",
-            type="checkbox",
-            name="enhancedSLACheckbox"
-            ng-disabled='!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla && !doNotDisableOnEditSLA')
-            span &nbsp;
-            span.glyphicon.glyphicon-info-sign.text-danger(ng-show="!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla && !doNotDisableOnEditSLA" uib-tooltip="{{noEnhancedSLAMessage}}")
-        .row.row-short(ng-show="CaseService.showFts()")
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'24x7 Support'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            input(ng-model="CaseService.kase.fts",
-            type="checkbox",
-            name="ftsCheckbox")
-        .row.row-short(ng-show="CaseService.showFts() && CaseService.kase.fts")
-          .col-xs-4.col-sm-3.col-md-4
-            .label {{::'24x7 Contact'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
-            input(
-              ng-model="CaseService.kase.contact_info24_x7")
-        .row
-          .col-sm-12
-            button.btn.btn-app.btn-submit(
-              name='updateButton',
-              ng-disabled='validatePage() || updatingDetails || !detailsForm.$dirty',
-              ng-class="{'btn-primary': !(validatePage() || updatingDetails || !detailsForm.$dirty) }",
-              ng-click='updateCase()', translate='') Save Changes
-            a#cancelCaseDetailChanges.margin-left(
-              ng-hide='updatingDetails || !detailsForm.$dirty',
-              ng-click='resetData()',translate='') Cancel
+    h3.case-name.pre-wrap
+        a(ng-click='editCaseSummary(true)' , ng-show='!caseSummaryEditable' , href='') {{CaseService.kase.summary}}
+    form(name='summaryForm')
+        .row(ng-show='caseSummaryEditable')
+            .col-xs-4.col-sm-3.col-md-8
+                input#rha-case-summary.form-control(
+                ng-model='CaseService.kase.summary',
+                maxlength='255',
+                name='case_summary')
+            .col-xs-4.col-sm-3.col-md-4
+                button.btn.btn-primary(
+                name='saveButton',
+                ng-disabled='updatingDetails || !summaryForm.$dirty || !CaseService.kase.summary.length',
+                ng-click='updateCase()', translate='') Save
+                a.margin-left(
+                ng-hide='updatingDetails',
+                ng-click='editCaseSummary(false)') {{::'Cancel'|translate}}
+    div(ng-if="!caseDescriptionEditable")
+        span.description.toggled-content.pre-wrap(ng-hide='showExtraInfo', ng-bind-html='getDescription(maxLength)')
+        div(ng-hide='showExtraInfo || CaseService.kase.description.length < maxLength')
+            a(ng-click='toggleExtraInfo()', translate='') View More
+        span.description.pre-wrap(ng-show='showExtraInfo', ng-bind-html='getDescription()')
+        div(ng-show='showExtraInfo')
+            a(ng-click='toggleExtraInfo()', translate='') View Less
+        div(ng-if='securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech')
+            a(ng-click='editCaseDescription(true)', translate='') Edit Description
+    div.margin-top(ng-if="caseDescriptionEditable")
+        form(name='descriptionForm')
+            .row
+                .col-xs-4.col-sm-3.col-md-8
+                    textarea#rha-case-description(
+                    ng-model='CaseService.kase.description',
+                    rows='5',
+                    name='caseDescription')
+                .col-xs-4.col-sm-3.col-md-4
+                    button.btn.btn-primary(
+                    name='saveButton',
+                    ng-disabled='updatingDetails || !descriptionForm.$dirty || !CaseService.kase.description.length',
+                    ng-click='updateCaseDescription()', translate='') Save
+                    a.margin-left(
+                    ng-hide='updatingDetails',
+                    ng-click='editCaseDescription(false)') {{::'Cancel'|translate}}
+    div#case-description-extra-info.active
+        form(name='detailsForm')
+            section.config-options
+                .row.row-short
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'Product'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        div(rha-productselect='')
+                .row.row-short
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'Product Version'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        div(rha-versionselect='')
+                .row.row-short
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'Alternate Case ID'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        input#rha-case-alt-id.form-control(
+                        ng-model='CaseService.kase.alternate_id',
+                        name='alternate_id')
+                .row.row-short(ng-if='securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech')
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'Internal Status'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        select#rha-internalStatus-select.form-control(
+                        chosen,
+                        width="'100%'",
+                        name='internalStatus',
+                        ng-options='internalStatus for internalStatus in CaseService.internalStatuses',
+                        ng-model='CaseService.kase.internal_status')
+                .row.row-short(ng-if='securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech')
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'SBR'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        select#rha-sbr-select.form-control(
+                        chosen,
+                        multiple,
+                        width="'100%'",
+                        data-placeholder="{{'Select SBRs'|translate}}",
+                        name='sbrGroups',
+                        ng-options='sbrGroup for sbrGroup in CaseService.sbrList',
+                        ng-model='CaseService.kase.sbr_groups.sbr_group')
+                .row.row-short
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'Case Group'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        select#rha-group-select.form-control(
+                        chosen,
+                        width="'100%'",
+                        name='group',
+                        ng-options='g.name for g in groups track by g.number',
+                        ng-model='CaseService.kase.group',
+                        ng-change='fetchPossibleContacts()')
+                .row.row-short(ng-show="securityService.loginStatus.authedUser.org_admin")
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'Case Contact'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        select#rha-contact-select.form-control(
+                        chosen,
+                        width="'100%'",
+                        name='owner',
+                        ng-options='user.sso_username as user.sso_username for user in contactList',
+                        ng-model='CaseService.kase.contact_sso_username',
+                        ng-change='contactSelected()')
+                .row.row-short
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'Case Type'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        div(rha-typeselect='', on-change = 'onCaseTypeChanged()')
+                div(ng-if='!$parent.securityService.loginStatus.authedUser.is_internal')
+                    .row.row-short
+                        .col-xs-4.col-sm-3.col-md-4
+                            .label
+                                span {{::'Hostname'|translate}}&nbsp;
+                                span.glyphicon.glyphicon-question-sign.link(uib-tooltip="{{'Hostname is not visible to Red Hat Support professionals' |translate }}", tooltip-trigger="click")
+                        .col-xs-4.col-sm-5.col-md-6
+                            input#rha-case-hostname.form-control(
+                            maxlength='255',
+                            ng-model='CaseService.kase.hostname',
+                            name='hostname')
+                .row.row-short(ng-show="CaseService.account.has_enhanced_sla || CaseService.kase.enhanced_sla")
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'Enhanced SLA'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        input(ng-model="CaseService.kase.enhanced_sla",
+                        type="checkbox",
+                        name="enhancedSLACheckbox"
+                        ng-disabled='!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla && !doNotDisableOnEditSLA')
+                        span &nbsp;
+                        span.glyphicon.glyphicon-info-sign.text-danger(ng-show="!CaseService.kase.enhanced_sla && CaseService.account.has_enhanced_sla && !CaseService.account.has_available_enhanced_sla && !doNotDisableOnEditSLA" uib-tooltip="{{noEnhancedSLAMessage}}")
+                .row.row-short(ng-show="CaseService.showFts()")
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'24x7 Support'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        input(ng-model="CaseService.kase.fts",
+                        type="checkbox",
+                        name="ftsCheckbox")
+                .row.row-short(ng-show="CaseService.showFts() && CaseService.kase.fts")
+                    .col-xs-4.col-sm-3.col-md-4
+                        .label {{::'24x7 Contact'|translate}}
+                    .col-xs-4.col-sm-5.col-md-6
+                        input(
+                        ng-model="CaseService.kase.contact_info24_x7")
+                .row
+                    .col-sm-12
+                        button.btn.btn-app.btn-submit(
+                        name='updateButton',
+                        ng-disabled='validatePage() || updatingDetails || !detailsForm.$dirty',
+                        ng-class="{'btn-primary': !(validatePage() || updatingDetails || !detailsForm.$dirty) }",
+                        ng-click='updateCase()', translate='') Save Changes
+                        a#cancelCaseDetailChanges.margin-left(
+                        ng-hide='updatingDetails || !detailsForm.$dirty',
+                        ng-click='resetData()',translate='') Cancel

@@ -218,11 +218,19 @@ if (ENVIRONMENT === 'gs4') {
                 }
             }
             window.sessionjs.onInit(() => {
+                var wasLoggedIn = securityService.loginStatus.isLoggedIn;
                 securityService.validateLogin(false).then(function (authedUser) {
                 var account = securityService.loginStatus.account;
                 if ( account && account.is_secured_support ) {
+
+                    // strata.setStrataHostname('https://access.stage.redhat.com');
+                    // strata.setCredentials('rhn-gs4-wlehman','redhat');
+                    // strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
                     strata.setRedhatClientID("secure_case_management_1.0");
-                    strata.setStrataHostname('https://' + host.replace('access.', 'access.us.'));
+                    strata.addAccountNumber(account.number);
+                    strata.setSecureSupportPortal(true);
+                    $.support.cors = true;
+
                     NEW_CASE_CONFIG.showRecommendations = false;
                     NEW_CASE_CONFIG.showAttachments = false;
                     EDIT_CASE_CONFIG.showBugzillas = false;
@@ -231,6 +239,9 @@ if (ENVIRONMENT === 'gs4') {
                     EDIT_CASE_CONFIG.showEmailNotifications = false;
                     CHAT_SUPPORT.enableChat = false;
                     COMMON_CONFIG.isGS4 = true;
+                    // $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                }
+                if (wasLoggedIn === false) {
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 }
             }, function (error) {

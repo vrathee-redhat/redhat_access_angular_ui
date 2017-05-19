@@ -1,7 +1,8 @@
 'use strict';
 
 export default class ListFilter {
-    constructor($scope, STATUS, CaseService, securityService, $rootScope, CASE_EVENTS, SearchCaseService, GroupService, ConstantsService, $state) {
+    constructor($scope, STATUS, CaseService, securityService, $rootScope, CASE_EVENTS, SearchCaseService, GroupService, ConstantsService, $state, COMMON_CONFIG) {
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.securityService = securityService;
         $scope.CaseService = CaseService;
         $scope.GroupService = GroupService;
