@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2017-05-02 02:16+0000\n"
+"PO-Revision-Date: 2017-05-15 11:34+0000\n"
 "Last-Translator: Corina Roe <croe@redhat.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -26,6 +26,12 @@ msgstr ""
 #: dist/pcm.js:204
 msgid "(In reply to {{personName}})"
 msgstr "(en réponse à {{personName}})"
+
+#: dist/pcm.js:204
+msgid "A Case Contact must be selected to update case"
+msgstr ""
+"Une personne en charge du dossier doit être sélectionnée pour que le dossier "
+"puisse être mis à jour"
 
 #: dist/pcm.js:214
 msgid ""
@@ -129,11 +135,15 @@ msgstr "Êtes-vous certain de vouloir fermer les dossiers sélectionnés ?"
 msgid "Are you sure you want to delete this bookmark?"
 msgstr "Voulez-vous vraiment supprimer ce marque-page  ?"
 
+#: dist/pcm.js:201 app/cases/views/accountBookmarkHome.html:3
+msgid "Bookmark Accounts"
+msgstr "Comptes Marque-page"
+
 #: dist/pcm.js:204
 msgid "Bookmark this account!"
 msgstr "Veuillez marquer cette page"
 
-#: dist/pcm.js:184
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:800
 msgid "CASE {{caseNumber}}"
 msgstr "DOSSIER {{caseNumber}}"
@@ -141,6 +151,10 @@ msgstr "DOSSIER {{caseNumber}}"
 #: dist/pcm.js:204
 msgid "Case  {{caseNumber}} successfully closed."
 msgstr "Dossier  {{caseNumber}} clôturé."
+
+#: dist/pcm.js:210 app/cases/views/manageGroupList.html:5
+msgid "Case Groups"
+msgstr "Groupes de dossiers"
 
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1608
@@ -162,6 +176,10 @@ msgstr "Statut de dossier (A-Z)"
 msgid "Case Status (Z-A)"
 msgstr "Statut de dossier (A-Z)"
 
+#: dist/pcm.js:215
+msgid "Case group successfully updated."
+msgstr "Groupe de dossiers mis à jour avec succès."
+
 #: dist/pcm.js:204
 msgid "Case severity was changed."
 msgstr "Le niveau de sévérité du dossier a été modifié."
@@ -169,6 +187,14 @@ msgstr "Le niveau de sévérité du dossier a été modifié."
 #: dist/pcm.js:204
 msgid "Case status was changed."
 msgstr "Le statut du dossier a été modifié."
+
+#: dist/pcm.js:215
+msgid "Case users successfully updated."
+msgstr "Utilisateurs du dossier mis à jour avec succès."
+
+#: dist/pcm.js:211
+msgid "Choose one of the displayed options."
+msgstr "Sélectionnez une des options qui s'affichent."
 
 # translation auto-copied from project Customer Portal Translations, version PCM_strings, document template, author Sam Friedmann
 #: dist/pcm.js:185 dist/pcm.js:211
@@ -215,18 +241,50 @@ msgstr "Création d'une requête d'Escalade Partenaire..."
 msgid "Creating case..."
 msgstr "Création du dossier..."
 
+#: dist/pcm.js:215
+msgid "Creating group"
+msgstr "Création du groupe"
+
 #: dist/pcm.js:204
 msgid "Creating group {{groupName}}..."
 msgstr "Création de groupe {{groupName}}..."
+
+#. #-#-#-#-#  template-views.pot  #-#-#-#-#
+#. Verb
+#: dist/pcm.js:205 app/cases/views/listAttachments.html:12
+#: app/cases/views/listAttachments.html:25
+#: app/cases/views/listAttachments.html:26
+msgid "Delete"
+msgstr "Supprimer"
 
 #: dist/pcm.js:214
 msgid "Deleting attachment: {{attachmentName}}"
 msgstr "Suppression de la pièce jointe : {{attachmentName}}"
 
+#: dist/pcm.js:215
+msgid "Deleting group"
+msgstr "Suppression du groupe"
+
+#: dist/pcm.js:205
+msgid "Duplicate"
+msgstr "Dupliquer"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: dist/pcm.js:223
 msgid "Email address is incorrect"
 msgstr "L'adresse électronique est incorrecte"
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> or <b>or</b> to continue with the query."
+msgstr "Saisir <b>et</b> ou <b>ou</b> pour continuer avec cette requête."
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> to continue with the query."
+msgstr "Saisir <b>et</b> pour continuer avec cette requête."
+
+#: dist/pcm.js:211
+msgid "Enter <b>or</b> to continue with the query."
+msgstr "Saisir <b>ou</b> pour continuer avec cette reequête."
 
 #: dist/pcm.js:201 dist/pcm.js:204
 msgid "Error: Failed to upload attachment."
@@ -281,6 +339,10 @@ msgstr ""
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1668
 msgid "Last Modified User and Date"
 msgstr "Dernière modification Utilisateur et Date"
+
+#: dist/pcm.js:203
+msgid "List"
+msgstr "Liste"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: dist/pcm.js:210
@@ -337,11 +399,11 @@ msgstr ""
 "Nom de la personne qui effectué la dernière modification sur ce cas, et la "
 "date à laquelle cela a été fait."
 
-#: dist/pcm.js:198
+#: dist/pcm.js:210
 msgid "New"
 msgstr "Nouveau"
 
-#: dist/pcm.js:198
+#: dist/pcm.js:210
 msgid "New Case - Portal Case Management"
 msgstr "Nouveau cas - Gestion des cas du Portail Client"
 
@@ -360,6 +422,10 @@ msgstr "Date de modification la plus récente"
 #: dist/pcm.js:204
 msgid "Newest to Oldest"
 msgstr "Du plus récent au plus ancien"
+
+#: dist/pcm.js:210
+msgid "No access"
+msgstr "Aucun accès"
 
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1647
@@ -428,7 +494,7 @@ msgstr "Nom du propriétaire"
 msgid "Please check the requestor email address"
 msgstr "Veuillez vérifier l'adresse électronique du demandeur"
 
-#: dist/pcm.js:189 dist/pcm.js:198
+#: dist/pcm.js:201 dist/pcm.js:210
 msgid "Portal Case Management"
 msgstr "Gestion des cas du Portail Client"
 
@@ -442,6 +508,14 @@ msgstr "Nom de produit et Action"
 msgid "Product and Version assigned to the case."
 msgstr "Produit et Version assignés au cas."
 
+#: dist/pcm.js:210
+msgid "Read Only"
+msgstr "Lecture seule"
+
+#: dist/pcm.js:210 app/cases/views/manageGroupUsers.html:28
+msgid "Read and Write"
+msgstr "Lecture et écriture"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: dist/pcm.js:210
 msgid "Refining top solutions"
@@ -451,8 +525,12 @@ msgstr "Affinage des meilleures solutions"
 msgid "Remove bookmark!"
 msgstr "Supprimer le marque-page"
 
+#: dist/pcm.js:205
+msgid "Rename"
+msgstr "Renommer"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
-#: dist/pcm.js:184
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:798
 msgid "SUPPORT CASES"
 msgstr "DOSSIERS D'ASSISTANCE"
@@ -461,7 +539,7 @@ msgstr "DOSSIERS D'ASSISTANCE"
 msgid "Saturday = {{businessHours}}"
 msgstr "Samedi = {{businessHours}}"
 
-#: dist/pcm.js:184 app/i18n/placeholder.html:3
+#: dist/pcm.js:184 dist/pcm.js:201 app/i18n/placeholder.html:3
 #: app/search/views/search_form.html:7
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:796
 msgid "Search"
@@ -473,7 +551,7 @@ msgid "Search Support Case"
 msgstr "Rechercher un dossier d'assistance"
 
 #: dist/pcm.js:185 app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/new.html:96 app/cases/views/severitySelect.html:14
+#: app/cases/views/new.html:101 app/cases/views/severitySelect.html:14
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1642
 msgid "Severity"
 msgstr "Sévérité"
@@ -487,6 +565,10 @@ msgstr "Sévérité du cas."
 msgid "Successfully created case number {{caseNumber}}"
 msgstr "Le numéro de dossier {{caseNumber}} a été créé"
 
+#: dist/pcm.js:215
+msgid "Successfully created group"
+msgstr "Groupe créé"
+
 #: dist/pcm.js:204
 msgid "Successfully created group {{groupName}}"
 msgstr "Le groupe {{groupName}} a été créé"
@@ -494,6 +576,10 @@ msgstr "Le groupe {{groupName}} a été créé"
 #: dist/pcm.js:214
 msgid "Successfully deleted attachment:{{attachmentName}}"
 msgstr "La pièce jointe {{attachmentName}} a été supprimée"
+
+#: dist/pcm.js:215
+msgid "Successfully deleted group"
+msgstr "Groupe supprimé"
 
 #: dist/pcm.js:204
 msgid "Successfully deleted group {{groupName}}"
@@ -535,6 +621,19 @@ msgstr "Récapitulatif du cas."
 msgid "Sunday = {{businessHours}}"
 msgstr "Dimanche = {{businessHours}}"
 
+#: dist/pcm.js:201 dist/pcm.js:203 dist/pcm.js:205 dist/pcm.js:210
+#: app/i18n/placeholder.html:5
+msgid "Support"
+msgstr "Assistance"
+
+#: dist/pcm.js:201 dist/pcm.js:203 dist/pcm.js:205 dist/pcm.js:210
+msgid "Support Cases"
+msgstr "Dossiers d'assistance"
+
+#: dist/pcm.js:203
+msgid "Support Cases - Portal Case Management"
+msgstr "Dossiers d'assistance - Gestion des cas du Portail Client"
+
 #: dist/pcm.js:205
 msgid ""
 "Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
@@ -569,6 +668,14 @@ msgstr "Dossier non groupé"
 msgid "Ungrouped Cases"
 msgstr "Dossiers non groupés"
 
+#: dist/pcm.js:215
+msgid "Updating group"
+msgstr "Mise à jour du groupe"
+
+#: dist/pcm.js:215
+msgid "Updating users for group..."
+msgstr "Mise à jour des utilisateurs pour le groupe..."
+
 #: dist/pcm.js:204 dist/pcm.js:210
 msgid "Uploading attachment..."
 msgstr "Téléversement de la pièce jointe en cours..."
@@ -582,6 +689,12 @@ msgid "User {{sso}} cannot be added as watcher because it is not internal."
 msgstr ""
 "L'utilisateur {{sso}} ne peut pas être ajouté en tant qu'observateur car il "
 "est externe."
+
+#: dist/pcm.js:211
+msgid "Values containing whitespaces have to be wrapped in double quotes."
+msgstr ""
+"Les valeurs contenant des espaces devront être insérées entre des "
+"guillements."
 
 #: dist/pcm.js:205
 msgid "Wednesday = {{businessHours}}"
@@ -645,6 +758,10 @@ msgstr "Votre requête d'Escalade Partenaire a été envoyée avec succès"
 msgid "no business hours"
 msgstr "aucune heure d'ouverture"
 
+#: dist/pcm.js:205
+msgid "{{caseNumber}} | {{caseSummary}}"
+msgstr "{{caseNumber}} | {{caseSummary}}"
+
 #: dist/pcm.js:214
 msgid "{{days}} business day"
 msgstr "{{days}} jour ouvrable"
@@ -691,15 +808,6 @@ msgstr "{{hours}} heure"
 #: dist/pcm.js:214
 msgid "{{hours}} hours"
 msgstr "{{hours}} heures"
-
-#: app/cases/views/new.html:25
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;Not visible by Red Hat people"
-msgstr ""
-"&lt;div&gt;&lt;span&gt;{{&quot;Non visible par les employés de Red Hat"
-
-#: app/cases/views/new.html:92
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;To Learn more view the"
-msgstr "&lt;div&gt;&lt;span&gt;{{&quot;Pour en savoir plus, afficher"
 
 #: app/cases/views/searchBookmarkModal.html:12
 #: app/cases/views/searchBookmarkModal.html:8
@@ -756,13 +864,13 @@ msgstr "- Privé"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html:93 app/cases/views/new.html:107
+#: app/cases/views/detailsSection.html:95 app/cases/views/new.html:112
 msgid "24x7 Contact"
 msgstr "Contact 24h/24, 7j/7"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html:85 app/cases/views/new.html:103
+#: app/cases/views/detailsSection.html:87 app/cases/views/new.html:108
 msgid "24x7 Support"
 msgstr "Assistance 24h/24, 7j/7"
 
@@ -780,7 +888,7 @@ msgstr "Accès"
 
 # translation auto-copied from project Customer Portal Translations, version management_page, document Management_Prototype.html, author Sam Friedmann
 #. Noun
-#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:14
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:11
 msgid "Account"
 msgstr "Compte"
 
@@ -893,7 +1001,7 @@ msgstr ""
 "fichier ?"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
-#: app/cases/views/new.html:85
+#: app/cases/views/new.html:90
 msgid ""
 "Attaching logs or other diagnostics files typically results in faster "
 "resolution."
@@ -928,10 +1036,6 @@ msgstr ""
 "Ci-dessous figurent quelques solutions possibles basées sur votre "
 "description."
 
-#: app/cases/views/accountBookmarkHome.html:3
-msgid "Bookmark Accounts"
-msgstr "Comptes Marque-page"
-
 #: app/cases/views/advancedSearch.html:8
 msgid "Bookmarked Searches:&nbsp;"
 msgstr "Recherches marquées :&nbsp;"
@@ -953,7 +1057,7 @@ msgstr "CASE {{$parent.CaseService.kase.case_number}}"
 #: app/cases/views/addCommentSection.html:39
 #: app/cases/views/createGroupModal.html:18
 #: app/cases/views/detailsSection.html:10
-#: app/cases/views/detailsSection.html:101 app/cases/views/new.html:120
+#: app/cases/views/detailsSection.html:103 app/cases/views/new.html:125
 #: app/cases/views/requestManagementEscalationModal.html:19
 #: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:27
 msgid "Cancel"
@@ -964,7 +1068,7 @@ msgid "Case Contact"
 msgstr "Personne en charge du dossier"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/new.html:37
+#: app/cases/views/new.html:42
 msgid "Case Description"
 msgstr "Description du dossier"
 
@@ -979,17 +1083,13 @@ msgstr "Groupe de dossiers"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #. Noun
-#: app/cases/views/new.html:115
+#: app/cases/views/new.html:120
 msgid "Case Group (Optional)"
 msgstr "Groupe de dossiers (optionnel)"
 
 #: app/cases/views/createGroupModal.html:10
 msgid "Case Group:"
 msgstr "Groupe du dossier :"
-
-#: app/cases/views/manageGroupList.html:5
-msgid "Case Groups"
-msgstr "Groupes de dossiers"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/escalation/views/iceEscalation.html:68
@@ -999,7 +1099,7 @@ msgstr "Informations sur le dossier"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:23
+#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:26
 msgid "Case Type"
 msgstr "Type de dossier"
 
@@ -1079,13 +1179,6 @@ msgstr "GEO client"
 msgid "Customize columns"
 msgstr "Personnaliser les colonnes"
 
-#. Verb
-#: app/cases/views/listAttachments.html:12
-#: app/cases/views/listAttachments.html:25
-#: app/cases/views/listAttachments.html:26
-msgid "Delete"
-msgstr "Supprimer"
-
 #: app/cases/views/deleteGroupButton.html:2
 msgid "Delete Group"
 msgstr "Supprimer le groupe"
@@ -1121,13 +1214,17 @@ msgid "Drop column here."
 msgstr "Mettre la colonne à cet endroit."
 
 #. Noun
-#: app/cases/views/detailsSection.html:77 app/cases/views/new.html:99
+#: app/cases/views/detailsSection.html:79 app/cases/views/new.html:104
 msgid "Enhanced SLA"
 msgstr "SLA améliorée"
 
 #: app/cases/views/manageGroupList.html:9
 msgid "Enter Group Name"
 msgstr "Saisir le nom du groupe"
+
+#: app/cases/views/solrQueryInput.html:7
+msgid "Enter SOLR query, for example:"
+msgstr "Saisir le demande SOLR, exemple :"
 
 #: app/cases/views/accountSearch.html:9
 msgid "Enter account number"
@@ -1244,7 +1341,7 @@ msgstr ""
 "publiés sur cet espace au fur et à mesure de leur mise à disponibilité."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
-#: app/cases/views/new.html:85
+#: app/cases/views/new.html:90
 msgid "Get faster results."
 msgstr "Obtenez des résultats plus rapides."
 
@@ -1257,22 +1354,13 @@ msgstr "Chargement des groupes..."
 msgid "Handpicked For You"
 msgstr "Votre sélection personnalisée"
 
-#: app/cases/views/detailsSection.html:69
+#: app/cases/views/detailsSection.html:70 app/cases/views/new.html:29
 msgid "Hostname"
 msgstr "Nom d'hôte"
 
-#. Noun
-#: app/cases/views/new.html:25
-msgid ""
-"Hostname <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
-"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/"
-"div&gt;&quot;\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon "
-"glyphicon-question-sign link\"></span>"
-msgstr ""
-"Nom d'hôte <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
-"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/"
-"div&gt;&quot;\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon "
-"glyphicon-question-sign link\"></span>"
+#: app/cases/views/detailsSection.html:70 app/cases/views/new.html:29
+msgid "Hostname is not visible to Red Hat Support professionals"
+msgstr "Le nom d'hôte n'est pas visible par les employés du Support Red Hat"
 
 #: app/cases/views/edit.html:13
 msgid "Hot Fix Delivered"
@@ -1381,7 +1469,7 @@ msgstr "Identification"
 msgid "Make Default Group"
 msgstr "Définir le groupe par défaut"
 
-#: app/cases/views/listFilter.html:22
+#: app/cases/views/accountSelect.html:12 app/cases/views/listFilter.html:23
 msgid "Manage Bookmarked Accounts"
 msgstr "Gérer les comptes marqués"
 
@@ -1409,10 +1497,13 @@ msgstr "Mes dossiers"
 msgid "NEXT"
 msgstr "SUIVANT"
 
-#: app/cases/views/groupList.html:10
-#: app/cases/views/searchBookmarkModal.html:8
+#: app/cases/views/groupList.html:10 app/cases/views/searchBookmarkModal.html:8
 msgid "Name"
 msgstr "Nom"
+
+#: app/cases/views/advancedSearch.html:38 app/cases/views/list.html:75
+msgid "Next"
+msgstr "Suivant"
 
 # translation auto-copied from project Customer Portal Translations, version RHJBossMiddlewareOperationsNetworkProduc, document RHJBossMiddlewareOperationsNetworkProductUpdate.html, author Corina Roe
 #: app/cases/views/commonConfirmationModal.html:15
@@ -1444,6 +1535,10 @@ msgstr "Aucune recherche marquée"
 msgid "No cases found with given filters."
 msgstr "Aucun dossier trouvé avec les filtres donnés."
 
+#: app/cases/views/advancedSearch.html:25
+msgid "No cases found."
+msgstr "Aucun dossier trouvé."
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "No fields selected."
 msgstr "Aucun champ sélectionné."
@@ -1456,7 +1551,10 @@ msgstr "Aucun groupe trouvé."
 msgid "No linked bugzillas"
 msgstr "Aucun bugzilla lié"
 
-#: app/cases/views/ownerSelect.html:4
+#: app/cases/views/managedAccountSelect.html:3 app/cases/views/new.html:98
+#: app/cases/views/ownerSelect.html:3 app/cases/views/productSelect.html:2
+#: app/cases/views/statusSelect.html:2 app/cases/views/typeSelect.html:2
+#: app/cases/views/versionSelect.html:2
 msgid "No match found"
 msgstr "Aucun résultat trouvé"
 
@@ -1467,10 +1565,6 @@ msgstr "Il n'y a plus de champs disponibles."
 #: app/cases/views/proceedWithoutAttachModal.html:15
 msgid "No, Go Back"
 msgstr "Non, revenir en arrière"
-
-#: app/cases/views/new.html:25
-msgid "Not visible by Red Hat people"
-msgstr "Non visible par les employés de Red Hat"
 
 #: app/cases/views/discussionSection.html:112
 msgid "Notes:"
@@ -1536,8 +1630,7 @@ msgid "Owned by {{case.contact_name}}"
 msgstr "Appartient à {{case.contact_name}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author Sam Friedmann
-#. Noun
-#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:16
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:13
 msgid "Owner"
 msgstr "Titulaire"
 
@@ -1643,6 +1736,10 @@ msgstr "Post"
 msgid "Premium"
 msgstr "Premium"
 
+#: app/cases/views/advancedSearch.html:35 app/cases/views/list.html:72
+msgid "Previous"
+msgstr "Précédent"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/escalation/views/partnerEscalation.html:4
 msgid "Priority Customer Support Routing"
@@ -1658,24 +1755,22 @@ msgid "Private Notes"
 msgstr "Remarques privées"
 
 #. Noun
-#: app/cases/views/new.html:27
+#: app/cases/views/new.html:32
 msgid "Problem Statement"
 msgstr "Énoncé de problème"
 
-#. Noun
 #: app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:19
+#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:18
 msgid "Product"
 msgstr "Produit"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#. Noun
-#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:21
+#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:22
 msgid "Product Version"
 msgstr "Version du produit"
 
 # translation auto-copied from project PressGang CCMS topics, version 1, document 30482-691403, author Corina Roe
-#: app/cases/views/new.html:92 app/cases/views/severitySelect.html:28
+#: app/cases/views/new.html:97 app/cases/views/severitySelect.html:28
 msgid "Production Support Service Level Agreement"
 msgstr "Contrat SLA (niveau de service) du Support production"
 
@@ -1686,10 +1781,6 @@ msgstr "Lien public pour cette Recherche"
 #: app/cases/views/searchBookmarkModal.html:16
 msgid "Query"
 msgstr "Requête"
-
-#: app/cases/views/manageGroupUsers.html:28
-msgid "Read and Write"
-msgstr "Lecture et écriture"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/escalation/views/iceEscalation.html:85
@@ -1787,7 +1878,7 @@ msgid "Save"
 msgstr "Enregistrer"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/detailsSection.html:101
+#: app/cases/views/detailsSection.html:103
 msgid "Save Changes"
 msgstr "Enregistrer les modifications"
 
@@ -1821,9 +1912,15 @@ msgid "Select Log"
 msgstr "Sélectionner un journal"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
-#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:112
+#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:117
 msgid "Select a User"
 msgstr "Sélectionner un utilisateur"
+
+#: app/cases/views/new.html:98 app/cases/views/ownerSelect.html:3
+#: app/cases/views/productSelect.html:2 app/cases/views/statusSelect.html:2
+#: app/cases/views/typeSelect.html:2 app/cases/views/versionSelect.html:2
+msgid "Select an Option"
+msgstr "Veuillez sélectionner une option"
 
 #: app/cases/views/bookmarkedAccountSelect.html:3
 msgid "Select bookmarked account"
@@ -1833,12 +1930,16 @@ msgstr "Sélectionner un compte marqué"
 msgid "Select columns by dragging from left to right."
 msgstr "Sélectionner des colonnes en les faisant glisser de gauche à droite."
 
+#: app/cases/views/managedAccountSelect.html:3
+msgid "Select managed account"
+msgstr "Sélectionner un compte géré"
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "Selected Columns"
 msgstr "Sélectionner des colonnes"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
-#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:110
+#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:115
 msgid "Send Email Notifications to"
 msgstr "Envoyer des notifications par courrier électronique à"
 
@@ -1908,7 +2009,7 @@ msgid "Standard"
 msgstr "Standard"
 
 #. Verb
-#: app/cases/views/new.html:120
+#: app/cases/views/new.html:125
 msgid "Submit"
 msgstr "Valider"
 
@@ -1924,12 +2025,8 @@ msgstr "Valider la requête"
 msgid "Summary of Request"
 msgstr "Résumé de la requête"
 
-#: app/i18n/placeholder.html:5
-msgid "Support"
-msgstr "Assistance"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/edit.html:20 app/cases/views/new.html:92
+#: app/cases/views/edit.html:20 app/cases/views/new.html:97
 msgid "Support Level"
 msgstr "Niveau de service"
 
@@ -1992,7 +2089,7 @@ msgstr ""
 "Ceci doit être l'adresse e-mail associée à votre identifiant de connexion au "
 "Portail Client Red Hat ou au Centre des Partenaires Red Hat (Partner Center)"
 
-#: app/cases/views/new.html:92
+#: app/cases/views/new.html:97
 msgid "To Learn more view the"
 msgstr "Pour en savoir davantage, veuillez consulter"
 
@@ -2294,4 +2391,3 @@ msgstr ""
 "déplacée, supprimée, ou son nom et son adresse ont peut-être été modifiés. "
 "Il se peut également qu'elle soit temporairement indisponible en raison de "
 "problèmes techniques."
-
