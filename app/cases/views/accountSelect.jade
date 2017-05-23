@@ -9,7 +9,7 @@ div(style='display: inline-block;')
 .row.row-short
   div.col-xs-10.col-sm-5(ng-show="securityService.loginStatus.authedUser.is_internal")
       div(rha-bookmarked-accounts-select='', selected-account='CaseService.account.number', selected-account-changed='populateAccountSpecificFields(accountNumber)')
-  div.col-xs-2.col-sm-1(ng-show="securityService.loginStatus.authedUser.is_internal")
+  div.col-xs-2.col-sm-1(ng-show="securityService.loginStatus.authedUser.is_internal && !COMMON_CONFIG.isGS4")
       a.btn.btn-primary.btn-app.bookmark-view-button(ng-href='{{bookmarkAccountUrl}}', uib-tooltip='{{"Manage Bookmarked Accounts"|translate}}', tooltip-placement="top", tooltip-append-to-body="true")
         i.icon-star-empty
         i.icon-users
