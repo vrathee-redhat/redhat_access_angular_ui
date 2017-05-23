@@ -2,7 +2,7 @@ div(style='display: inline-block; padding-right: 10px;')
   input#rha-account-number.form-control(style='width: 100%', ng-model='CaseService.account.number', ng-blur='populateAccountSpecificFields(CaseService.account.number)',
     ng-change='CaseService.sendCreationStartedEvent($event)',
     ng-disabled="!securityService.loginStatus.authedUser.is_internal")
-span(ng-if='securityService.loginStatus.authedUser.is_internal', rha-bookmark-account, account='CaseService.account')
+span(ng-if='securityService.loginStatus.authedUser.is_internal && !COMMON_CONFIG.isGS4', rha-bookmark-account, account='CaseService.account')
 div(style='display: inline-block;')
   span.link(ng-click='selectUserAccount()', ng-hide='loadingAccountNumber', translate='') Find My Account Number
   .spinner.spinner-inline(ng-show='loadingAccountNumber') &nbsp;

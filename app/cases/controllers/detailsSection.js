@@ -1,9 +1,11 @@
 'use strict';
 
 export default class DetailsSection {
-    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, LinkifyService, gettextCatalog, SearchCaseService) {
+    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, LinkifyService, gettextCatalog, SearchCaseService, COMMON_CONFIG) {
         'ngInject';
 
+        $scope.RHAUtils = RHAUtils;
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.showExtraInfo = false;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
