@@ -8,14 +8,15 @@
 # youli <youli@redhat.com>, 2016. #zanata
 # eukim <eukim@redhat.com>, 2017. #zanata
 # tagoh <tagoh@redhat.com>, 2017. #zanata
+# tchuang <tchuang@redhat.com>, 2017. #zanata
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2017-04-28 03:36+0000\n"
-"Last-Translator: eukim <eukim@redhat.com>\n"
+"PO-Revision-Date: 2017-05-23 01:49+0000\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
 "X-Generator: Zanata 3.9.6\n"
@@ -24,6 +25,10 @@ msgstr ""
 #: dist/pcm.js:204
 msgid "(In reply to {{personName}})"
 msgstr "({{personName}}에 회신)"
+
+#: dist/pcm.js:204
+msgid "A Case Contact must be selected to update case"
+msgstr "기술 문의 내용을 업데이트하려면 기술 문의 연락처를 선택해야 합니다"
 
 #: dist/pcm.js:214
 msgid ""
@@ -111,11 +116,15 @@ msgstr "선택한 기술 문의를 종료하시겠습니까?"
 msgid "Are you sure you want to delete this bookmark?"
 msgstr "정말로 이 북마크를 삭제하시겠습니까?"
 
+#: dist/pcm.js:201 app/cases/views/accountBookmarkHome.html:3
+msgid "Bookmark Accounts"
+msgstr "계정을 북마크 "
+
 #: dist/pcm.js:204
 msgid "Bookmark this account!"
 msgstr "이 계정을 북마크합니다!"
 
-#: dist/pcm.js:184
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:800
 msgid "CASE {{caseNumber}}"
 msgstr "기술 문의 {{caseNumber}}"
@@ -123,6 +132,10 @@ msgstr "기술 문의 {{caseNumber}}"
 #: dist/pcm.js:204
 msgid "Case  {{caseNumber}} successfully closed."
 msgstr "기술 문의 {{caseNumber}}이/가 성공적으로 종료되었습니다."
+
+#: dist/pcm.js:210 app/cases/views/manageGroupList.html:5
+msgid "Case Groups"
+msgstr "기술문의 그룹"
 
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1608
@@ -144,6 +157,10 @@ msgstr "기술 문의 상태 (A-Z)"
 msgid "Case Status (Z-A)"
 msgstr "기술 문의 상태 (Z-A)"
 
+#: dist/pcm.js:215
+msgid "Case group successfully updated."
+msgstr "기술 문의 그룹이 성공적으로 업데이트되었습니다. "
+
 #: dist/pcm.js:204
 msgid "Case severity was changed."
 msgstr "기술 문의 심각도가 변경되었습니다."
@@ -151,6 +168,14 @@ msgstr "기술 문의 심각도가 변경되었습니다."
 #: dist/pcm.js:204
 msgid "Case status was changed."
 msgstr "기술 문의 상태가 변경되었습니다."
+
+#: dist/pcm.js:215
+msgid "Case users successfully updated."
+msgstr "기술 문의 사용자가 성공적으로 업데이트되었습니다. "
+
+#: dist/pcm.js:211
+msgid "Choose one of the displayed options."
+msgstr "다음 중 한 가지 옵션을 선택합니다."
 
 #: dist/pcm.js:185 dist/pcm.js:211
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1637
@@ -196,18 +221,50 @@ msgstr "파트너 에스컬레이션 요청 생성 중 ....."
 msgid "Creating case..."
 msgstr "기술 문의 생성 중..."
 
+#: dist/pcm.js:215
+msgid "Creating group"
+msgstr "그룹 생성 중"
+
 #: dist/pcm.js:204
 msgid "Creating group {{groupName}}..."
 msgstr "그룹 {{groupName}} 생성 중..."
+
+#. #-#-#-#-#  template-views.pot  #-#-#-#-#
+#. Verb
+#: dist/pcm.js:205 app/cases/views/listAttachments.html:12
+#: app/cases/views/listAttachments.html:25
+#: app/cases/views/listAttachments.html:26
+msgid "Delete"
+msgstr "삭제 "
 
 #: dist/pcm.js:214
 msgid "Deleting attachment: {{attachmentName}}"
 msgstr "첨부 파일 삭제: {{attachmentName}}"
 
+#: dist/pcm.js:215
+msgid "Deleting group"
+msgstr "그룹 삭제 중"
+
+#: dist/pcm.js:205
+msgid "Duplicate"
+msgstr "복제"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: dist/pcm.js:223
 msgid "Email address is incorrect"
 msgstr "이메일 주소가 올바르지 않습니다"
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> or <b>or</b> to continue with the query."
+msgstr "쿼리를 계속 실행하려면 <b>and</b> 또는 <b>or</b>를 입력하십시오."
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> to continue with the query."
+msgstr "쿼리를 계속 실행하려면 <b>and</b>를 입력하십시오. "
+
+#: dist/pcm.js:211
+msgid "Enter <b>or</b> to continue with the query."
+msgstr "쿼리를 계속 실행하려면 <b>or</b>를 입력하십시오. "
 
 #: dist/pcm.js:201 dist/pcm.js:204
 msgid "Error: Failed to upload attachment."
@@ -256,6 +313,10 @@ msgstr ""
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1668
 msgid "Last Modified User and Date"
 msgstr "마지막 수정자 및 수정일 "
+
+#: dist/pcm.js:203
+msgid "List"
+msgstr "목록"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: dist/pcm.js:210
@@ -309,11 +370,11 @@ msgid ""
 "performed."
 msgstr "기술 문의를 마지막으로 수정한 사람의 이름 및 작업 실행 날짜"
 
-#: dist/pcm.js:198
+#: dist/pcm.js:210
 msgid "New"
 msgstr "새로 만들기"
 
-#: dist/pcm.js:198
+#: dist/pcm.js:210
 msgid "New Case - Portal Case Management"
 msgstr "새 기술 문의 - 포털 문의 관리 "
 
@@ -332,6 +393,10 @@ msgstr "최신 날짜 수정 순"
 #: dist/pcm.js:204
 msgid "Newest to Oldest"
 msgstr "최신 항목 순"
+
+#: dist/pcm.js:210
+msgid "No access"
+msgstr "액세스 권한 없음"
 
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1647
@@ -401,7 +466,7 @@ msgstr "소유자 이름 "
 msgid "Please check the requestor email address"
 msgstr "요청자의 이메일 주소를 확인하십시오"
 
-#: dist/pcm.js:189 dist/pcm.js:198
+#: dist/pcm.js:201 dist/pcm.js:210
 msgid "Portal Case Management"
 msgstr "포털 문의 관리 "
 
@@ -415,6 +480,14 @@ msgstr "제품 이름 및 버전 "
 msgid "Product and Version assigned to the case."
 msgstr "기술 문의에 할당된 제품 및 버전 "
 
+#: dist/pcm.js:210
+msgid "Read Only"
+msgstr "읽기 전용"
+
+#: dist/pcm.js:210 app/cases/views/manageGroupUsers.html:28
+msgid "Read and Write"
+msgstr "읽기 및 쓰기"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: dist/pcm.js:210
 msgid "Refining top solutions"
@@ -424,8 +497,12 @@ msgstr "상위 솔루션 검색"
 msgid "Remove bookmark!"
 msgstr "북마크 삭제"
 
+#: dist/pcm.js:205
+msgid "Rename"
+msgstr "이름 변경 "
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: dist/pcm.js:184
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:798
 msgid "SUPPORT CASES"
 msgstr "기술 문의"
@@ -434,7 +511,7 @@ msgstr "기술 문의"
 msgid "Saturday = {{businessHours}}"
 msgstr "토요일 = {{businessHours}}"
 
-#: dist/pcm.js:184 app/i18n/placeholder.html:3
+#: dist/pcm.js:184 dist/pcm.js:201 app/i18n/placeholder.html:3
 #: app/search/views/search_form.html:7
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:796
 msgid "Search"
@@ -448,7 +525,7 @@ msgstr "기술 문의 검색 "
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #: dist/pcm.js:185 app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/new.html:96 app/cases/views/severitySelect.html:14
+#: app/cases/views/new.html:101 app/cases/views/severitySelect.html:14
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1642
 msgid "Severity"
 msgstr "심각도"
@@ -462,6 +539,10 @@ msgstr "기술 문의 심각도 "
 msgid "Successfully created case number {{caseNumber}}"
 msgstr "기술 문의 번호 {{caseNumber}}이/가 성공적으로 생성되었습니다 "
 
+#: dist/pcm.js:215
+msgid "Successfully created group"
+msgstr "그룹을 성공적으로 생성했습니다"
+
 #: dist/pcm.js:204
 msgid "Successfully created group {{groupName}}"
 msgstr "그룹 {{groupName}}을/를 성공적으로 생성했습니다"
@@ -469,6 +550,10 @@ msgstr "그룹 {{groupName}}을/를 성공적으로 생성했습니다"
 #: dist/pcm.js:214
 msgid "Successfully deleted attachment:{{attachmentName}}"
 msgstr "첨부파일을 성공적으로 삭제했습니다:{{attachmentName}}"
+
+#: dist/pcm.js:215
+msgid "Successfully deleted group"
+msgstr "그룹을 성공적으로 삭제했습니다"
 
 #: dist/pcm.js:204
 msgid "Successfully deleted group {{groupName}}"
@@ -507,6 +592,19 @@ msgstr "기술 문의 요약 "
 msgid "Sunday = {{businessHours}}"
 msgstr "일요일 = {{businessHours}}"
 
+#: dist/pcm.js:201 dist/pcm.js:203 dist/pcm.js:205 dist/pcm.js:210
+#: app/i18n/placeholder.html:5
+msgid "Support"
+msgstr "지원 "
+
+#: dist/pcm.js:201 dist/pcm.js:203 dist/pcm.js:205 dist/pcm.js:210
+msgid "Support Cases"
+msgstr "기술 문의 지원 "
+
+#: dist/pcm.js:203
+msgid "Support Cases - Portal Case Management"
+msgstr "기술 문의 - 포털 문의 관리 "
+
 #: dist/pcm.js:205
 msgid ""
 "Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
@@ -540,6 +638,14 @@ msgstr "그룹화되지 않은 기술문의"
 msgid "Ungrouped Cases"
 msgstr "그룹화되지 않은 기술문의"
 
+#: dist/pcm.js:215
+msgid "Updating group"
+msgstr "그룹 업데이트 중"
+
+#: dist/pcm.js:215
+msgid "Updating users for group..."
+msgstr "그룹 사용자 업데이트 중..."
+
 #: dist/pcm.js:204 dist/pcm.js:210
 msgid "Uploading attachment..."
 msgstr "첨부 파일 업로드 중..."
@@ -551,6 +657,10 @@ msgstr "첨부 파일 업로드 중..."
 #: dist/pcm.js:205
 msgid "User {{sso}} cannot be added as watcher because it is not internal."
 msgstr "사용자 {{sso}}은/는 내부 사용자가 아니므로 감시자로 추가할 수 없습니다 "
+
+#: dist/pcm.js:211
+msgid "Values containing whitespaces have to be wrapped in double quotes."
+msgstr "공백이 포함된 값은 큰 따옴표로 묶어야 합니다."
 
 #: dist/pcm.js:205
 msgid "Wednesday = {{businessHours}}"
@@ -606,6 +716,10 @@ msgstr "파트너 에스컬레이션 요청이 성공적으로 전송되었습�
 msgid "no business hours"
 msgstr "업무 외 시간"
 
+#: dist/pcm.js:205
+msgid "{{caseNumber}} | {{caseSummary}}"
+msgstr "{{caseNumber}} | {{caseSummary}}"
+
 #: dist/pcm.js:214
 msgid "{{days}} business day"
 msgstr "{{days}}일 (영업일 기준)"
@@ -647,14 +761,6 @@ msgstr "{{hours}} 시간"
 #: dist/pcm.js:214
 msgid "{{hours}} hours"
 msgstr "{{hours}} 시간"
-
-#: app/cases/views/new.html:25
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;Not visible by Red Hat people"
-msgstr "&lt;div&gt;&lt;span&gt;{{&quot;Red Hat 담당자가 볼 수 없습니다 "
-
-#: app/cases/views/new.html:92
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;To Learn more view the"
-msgstr "&lt;div&gt;&lt;span&gt;{{&quot;자세한 내용은 다음에서 확인하십시오 "
 
 #: app/cases/views/searchBookmarkModal.html:12
 #: app/cases/views/searchBookmarkModal.html:8
@@ -711,13 +817,13 @@ msgstr "- 비공개"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html:93 app/cases/views/new.html:107
+#: app/cases/views/detailsSection.html:95 app/cases/views/new.html:112
 msgid "24x7 Contact"
 msgstr "24x7 연락처"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html:85 app/cases/views/new.html:103
+#: app/cases/views/detailsSection.html:87 app/cases/views/new.html:108
 msgid "24x7 Support"
 msgstr "연중무휴 24시간 지원"
 
@@ -735,7 +841,7 @@ msgstr "액세스"
 
 # translation auto-copied from project Customer Portal Translations, version management_page, document Management_Prototype.html, author eukim
 #. Noun
-#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:14
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:11
 msgid "Account"
 msgstr "계정"
 
@@ -842,7 +948,7 @@ msgid ""
 msgstr "로그 및 진단 파일을 첨부하면 문제 해결 시간이 단축됩니다. 파일을 첨부하지 않고 계속 진행하시겠습니까?"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/cases/views/new.html:85
+#: app/cases/views/new.html:90
 msgid ""
 "Attaching logs or other diagnostics files typically results in faster "
 "resolution."
@@ -873,10 +979,6 @@ msgstr "이전"
 msgid "Based on your description, here are some possible solutions"
 msgstr "제공해 주신 설명에 기반하여 가능한 해결 방법은 다음과 같습니다"
 
-#: app/cases/views/accountBookmarkHome.html:3
-msgid "Bookmark Accounts"
-msgstr "계정을 북마크 "
-
 #: app/cases/views/advancedSearch.html:8
 msgid "Bookmarked Searches:&nbsp;"
 msgstr "북마크된 검색 결과:&nbsp;"
@@ -898,7 +1000,7 @@ msgstr "기술 문의 {{$parent.CaseService.kase.case_number}}"
 #: app/cases/views/addCommentSection.html:39
 #: app/cases/views/createGroupModal.html:18
 #: app/cases/views/detailsSection.html:10
-#: app/cases/views/detailsSection.html:101 app/cases/views/new.html:120
+#: app/cases/views/detailsSection.html:103 app/cases/views/new.html:125
 #: app/cases/views/requestManagementEscalationModal.html:19
 #: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:27
 msgid "Cancel"
@@ -909,7 +1011,7 @@ msgid "Case Contact"
 msgstr "기술 문의 연락처"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/new.html:37
+#: app/cases/views/new.html:42
 msgid "Case Description"
 msgstr "기술 문의 설명"
 
@@ -924,17 +1026,13 @@ msgstr "기술문의 그룹"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #. Noun
-#: app/cases/views/new.html:115
+#: app/cases/views/new.html:120
 msgid "Case Group (Optional)"
 msgstr "기술문의 그룹 (옵션)"
 
 #: app/cases/views/createGroupModal.html:10
 msgid "Case Group:"
 msgstr "기술문의 그룹:"
-
-#: app/cases/views/manageGroupList.html:5
-msgid "Case Groups"
-msgstr "기술문의 그룹"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html:68
@@ -944,7 +1042,7 @@ msgstr "기술 문의 정보"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:23
+#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:26
 msgid "Case Type"
 msgstr "기술 문의 유형"
 
@@ -1026,13 +1124,6 @@ msgstr "고객 GEO"
 msgid "Customize columns"
 msgstr "사용자 지정 열 "
 
-#. Verb
-#: app/cases/views/listAttachments.html:12
-#: app/cases/views/listAttachments.html:25
-#: app/cases/views/listAttachments.html:26
-msgid "Delete"
-msgstr "삭제 "
-
 #: app/cases/views/deleteGroupButton.html:2
 msgid "Delete Group"
 msgstr "그룹 삭제"
@@ -1066,13 +1157,17 @@ msgid "Drop column here."
 msgstr "여기에 열을 드롭합니다."
 
 #. Noun
-#: app/cases/views/detailsSection.html:77 app/cases/views/new.html:99
+#: app/cases/views/detailsSection.html:79 app/cases/views/new.html:104
 msgid "Enhanced SLA"
 msgstr "확장 SLA"
 
 #: app/cases/views/manageGroupList.html:9
 msgid "Enter Group Name"
 msgstr "그룹 이름 입력 "
+
+#: app/cases/views/solrQueryInput.html:7
+msgid "Enter SOLR query, for example:"
+msgstr "SOLR 쿼리를 입력합니다. 예:"
 
 #: app/cases/views/accountSearch.html:9
 msgid "Enter account number"
@@ -1185,7 +1280,7 @@ msgstr ""
 "참조하십시오."
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/cases/views/new.html:85
+#: app/cases/views/new.html:90
 msgid "Get faster results."
 msgstr "보다 빠르게 결과를 구현할 수 있습니다."
 
@@ -1198,22 +1293,13 @@ msgstr "그룹 로딩 중..."
 msgid "Handpicked For You"
 msgstr "주요 참고 자료"
 
-#: app/cases/views/detailsSection.html:69
+#: app/cases/views/detailsSection.html:70 app/cases/views/new.html:29
 msgid "Hostname"
 msgstr "호스트명"
 
-#. Noun
-#: app/cases/views/new.html:25
-msgid ""
-"Hostname <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
-"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/"
-"div&gt;&quot;\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon "
-"glyphicon-question-sign link\"></span>"
-msgstr ""
-"호스트 이름 <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
-"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/"
-"div&gt;&quot;\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon "
-"glyphicon-question-sign link\"></span>"
+#: app/cases/views/detailsSection.html:70 app/cases/views/new.html:29
+msgid "Hostname is not visible to Red Hat Support professionals"
+msgstr "호스트 이름은 Red Hat 지원 담당자가 볼 수 없습니다."
 
 #: app/cases/views/edit.html:13
 msgid "Hot Fix Delivered"
@@ -1314,7 +1400,7 @@ msgstr "로그인"
 msgid "Make Default Group"
 msgstr "기본 그룹 만들기"
 
-#: app/cases/views/listFilter.html:22
+#: app/cases/views/accountSelect.html:12 app/cases/views/listFilter.html:23
 msgid "Manage Bookmarked Accounts"
 msgstr "북마크된 계정 관리 "
 
@@ -1342,10 +1428,13 @@ msgstr "내 기술문의"
 msgid "NEXT"
 msgstr "다음"
 
-#: app/cases/views/groupList.html:10
-#: app/cases/views/searchBookmarkModal.html:8
+#: app/cases/views/groupList.html:10 app/cases/views/searchBookmarkModal.html:8
 msgid "Name"
 msgstr "이름 "
+
+#: app/cases/views/advancedSearch.html:38 app/cases/views/list.html:75
+msgid "Next"
+msgstr "다음"
 
 # translation auto-copied from project Customer Portal Translations, version RHJBossMiddlewareOperationsNetworkProduc, document RHJBossMiddlewareOperationsNetworkProductUpdate.html, author Michelle Kim
 #: app/cases/views/commonConfirmationModal.html:15
@@ -1377,6 +1466,10 @@ msgstr "북마크된 검색 결과가 없습니다 "
 msgid "No cases found with given filters."
 msgstr "지정된 필터에 맞는 기술 문의 사항이 없습니다."
 
+#: app/cases/views/advancedSearch.html:25
+msgid "No cases found."
+msgstr "기술 문의를 찾을 수 없습니다."
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "No fields selected."
 msgstr "필드가 선택되어 있지 않습니다. "
@@ -1389,7 +1482,10 @@ msgstr "그룹을 찾을 수 없습니다."
 msgid "No linked bugzillas"
 msgstr "링크된 Bugzilla가 없습니다 "
 
-#: app/cases/views/ownerSelect.html:4
+#: app/cases/views/managedAccountSelect.html:3 app/cases/views/new.html:98
+#: app/cases/views/ownerSelect.html:3 app/cases/views/productSelect.html:2
+#: app/cases/views/statusSelect.html:2 app/cases/views/typeSelect.html:2
+#: app/cases/views/versionSelect.html:2
 msgid "No match found"
 msgstr "해당 사항이 없습니다"
 
@@ -1400,10 +1496,6 @@ msgstr "사용 가능한 필드가 없습니다."
 #: app/cases/views/proceedWithoutAttachModal.html:15
 msgid "No, Go Back"
 msgstr "아니요, 돌아가기"
-
-#: app/cases/views/new.html:25
-msgid "Not visible by Red Hat people"
-msgstr "Red Hat 담당자가 볼 수 없습니다 "
 
 #: app/cases/views/discussionSection.html:112
 msgid "Notes:"
@@ -1459,8 +1551,7 @@ msgstr "새 기술 문의 생성"
 msgid "Owned by {{case.contact_name}}"
 msgstr "소유자:  {{case.contact_name}}"
 
-#. Noun
-#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:16
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:13
 msgid "Owner"
 msgstr "소유자 "
 
@@ -1550,6 +1641,10 @@ msgstr "게재"
 msgid "Premium"
 msgstr "프리미엄"
 
+#: app/cases/views/advancedSearch.html:35 app/cases/views/list.html:72
+msgid "Previous"
+msgstr "이전"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #: app/escalation/views/partnerEscalation.html:4
 msgid "Priority Customer Support Routing"
@@ -1565,23 +1660,21 @@ msgid "Private Notes"
 msgstr "비공개 메모"
 
 #. Noun
-#: app/cases/views/new.html:27
+#: app/cases/views/new.html:32
 msgid "Problem Statement"
 msgstr "문제 설명"
 
-#. Noun
 #: app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:19
+#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:18
 msgid "Product"
 msgstr "제품"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#. Noun
-#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:21
+#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:22
 msgid "Product Version"
 msgstr "제품 버전 "
 
-#: app/cases/views/new.html:92 app/cases/views/severitySelect.html:28
+#: app/cases/views/new.html:97 app/cases/views/severitySelect.html:28
 msgid "Production Support Service Level Agreement"
 msgstr "제품 지원 서비스 수준 약관"
 
@@ -1592,10 +1685,6 @@ msgstr "이 검색에 대한 공개 링크 "
 #: app/cases/views/searchBookmarkModal.html:16
 msgid "Query"
 msgstr "쿼리 "
-
-#: app/cases/views/manageGroupUsers.html:28
-msgid "Read and Write"
-msgstr "읽기 및 쓰기"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
 #: app/escalation/views/iceEscalation.html:85
@@ -1687,7 +1776,7 @@ msgid "Save"
 msgstr "저장"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/detailsSection.html:101
+#: app/cases/views/detailsSection.html:103
 msgid "Save Changes"
 msgstr "변경 사항 저장 "
 
@@ -1721,9 +1810,15 @@ msgid "Select Log"
 msgstr "로그 선택"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:112
+#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:117
 msgid "Select a User"
 msgstr "사용자 선택"
+
+#: app/cases/views/new.html:98 app/cases/views/ownerSelect.html:3
+#: app/cases/views/productSelect.html:2 app/cases/views/statusSelect.html:2
+#: app/cases/views/typeSelect.html:2 app/cases/views/versionSelect.html:2
+msgid "Select an Option"
+msgstr "옵션 선택 "
 
 #: app/cases/views/bookmarkedAccountSelect.html:3
 msgid "Select bookmarked account"
@@ -1733,12 +1828,16 @@ msgstr "북마크된 계정 선택 "
 msgid "Select columns by dragging from left to right."
 msgstr "열을 왼쪽에서 오른쪽으로 드래그하여 선택합니다."
 
+#: app/cases/views/managedAccountSelect.html:3
+msgid "Select managed account"
+msgstr "관리 계정 선택 "
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "Selected Columns"
 msgstr "선택한 열"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author eukim
-#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:110
+#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:115
 msgid "Send Email Notifications to"
 msgstr "이메일 통지 전송"
 
@@ -1805,7 +1904,7 @@ msgstr "표준"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author eukim
 #. Verb
-#: app/cases/views/new.html:120
+#: app/cases/views/new.html:125
 msgid "Submit"
 msgstr "보내기"
 
@@ -1822,12 +1921,8 @@ msgstr "요청 보내기"
 msgid "Summary of Request"
 msgstr "요청 요약 "
 
-#: app/i18n/placeholder.html:5
-msgid "Support"
-msgstr "지원 "
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/edit.html:20 app/cases/views/new.html:92
+#: app/cases/views/edit.html:20 app/cases/views/new.html:97
 msgid "Support Level"
 msgstr "지원 수준 "
 
@@ -1881,7 +1976,7 @@ msgid ""
 "Portal or Partner Center login"
 msgstr "이는 귀하의 Red Hat 고객 포털 또는 파트너 센터 로그인에 연결된 이메일 주소여야 합니다."
 
-#: app/cases/views/new.html:92
+#: app/cases/views/new.html:97
 msgid "To Learn more view the"
 msgstr "자세한 내용은 다음에서 확인하십시오:"
 
@@ -2170,4 +2265,3 @@ msgid ""
 msgstr ""
 "찾고 계신 페이지가 없습니다. 이동 또는 삭제되었거나 이름 및 주소가 변경되었을 수 있습니다. 또는 기술적인 원인으로 일시적으로 사용하지 "
 "못하는 것일 수 도 있습니다. "
-

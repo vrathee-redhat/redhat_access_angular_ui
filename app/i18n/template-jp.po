@@ -13,8 +13,10 @@
 # kmoriguc <kmoriguc@redhat.com>, 2016. #zanata
 # noriko <noriko@redhat.com>, 2016. #zanata
 # pnemade <pnemade@redhat.com>, 2016. #zanata
+# jito <jito@redhat.com>, 2017. #zanata
 # kmoriguc <kmoriguc@redhat.com>, 2017. #zanata
 # tagoh <tagoh@redhat.com>, 2017. #zanata
+# tchuang <tchuang@redhat.com>, 2017. #zanata
 # tnagamot <tnagamot@redhat.com>, 2017. #zanata
 msgid ""
 msgstr ""
@@ -22,8 +24,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 "MIME-Version: 1.0\n"
-"PO-Revision-Date: 2017-04-27 03:34+0000\n"
-"Last-Translator: kmoriguc <kmoriguc@redhat.com>\n"
+"PO-Revision-Date: 2017-05-23 01:49+0000\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
 "X-Generator: Zanata 3.9.6\n"
@@ -32,6 +34,10 @@ msgstr ""
 #: dist/pcm.js:204
 msgid "(In reply to {{personName}})"
 msgstr "({{personName}} に対する返信)"
+
+#: dist/pcm.js:204
+msgid "A Case Contact must be selected to update case"
+msgstr "ケースを更新するにはケースの連絡先を選択する必要があります"
 
 #: dist/pcm.js:214
 msgid ""
@@ -114,11 +120,15 @@ msgstr "選択したケースをクローズしてもよろしいですか?"
 msgid "Are you sure you want to delete this bookmark?"
 msgstr "本当にこのブックマークを削除してもよろしいですか?"
 
+#: dist/pcm.js:201 app/cases/views/accountBookmarkHome.html:3
+msgid "Bookmark Accounts"
+msgstr "アカウントをブックマーク"
+
 #: dist/pcm.js:204
 msgid "Bookmark this account!"
 msgstr "このアカウントをブックマークする"
 
-#: dist/pcm.js:184
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:800
 msgid "CASE {{caseNumber}}"
 msgstr "ケース {{caseNumber}}"
@@ -126,6 +136,10 @@ msgstr "ケース {{caseNumber}}"
 #: dist/pcm.js:204
 msgid "Case  {{caseNumber}} successfully closed."
 msgstr "ケース  {{caseNumber}} が正しくクローズされました。"
+
+#: dist/pcm.js:210 app/cases/views/manageGroupList.html:5
+msgid "Case Groups"
+msgstr "ケースグループ"
 
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1608
@@ -147,6 +161,10 @@ msgstr "ケースのステータス (A-Z)"
 msgid "Case Status (Z-A)"
 msgstr "ケースのステータス (Z-A)"
 
+#: dist/pcm.js:215
+msgid "Case group successfully updated."
+msgstr "ケースグループが正常に更新されました。"
+
 #: dist/pcm.js:204
 msgid "Case severity was changed."
 msgstr "ケースの重大度が変更されました。"
@@ -154,6 +172,14 @@ msgstr "ケースの重大度が変更されました。"
 #: dist/pcm.js:204
 msgid "Case status was changed."
 msgstr "ケースのステータスが変更されました。"
+
+#: dist/pcm.js:215
+msgid "Case users successfully updated."
+msgstr "ケースユーザーが正常に更新されました。"
+
+#: dist/pcm.js:211
+msgid "Choose one of the displayed options."
+msgstr "表示されたオプションのいずれかを選択します。"
 
 #: dist/pcm.js:185 dist/pcm.js:211
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1637
@@ -199,18 +225,50 @@ msgstr "パートナーエスカレーションリクエストの作成中 .....
 msgid "Creating case..."
 msgstr "ケースの作成中..."
 
+#: dist/pcm.js:215
+msgid "Creating group"
+msgstr "グループの作成中"
+
 #: dist/pcm.js:204
 msgid "Creating group {{groupName}}..."
 msgstr "グループ {{groupName}} の作成中..."
+
+#. #-#-#-#-#  template-views.pot  #-#-#-#-#
+#. Verb
+#: dist/pcm.js:205 app/cases/views/listAttachments.html:12
+#: app/cases/views/listAttachments.html:25
+#: app/cases/views/listAttachments.html:26
+msgid "Delete"
+msgstr "削除"
 
 #: dist/pcm.js:214
 msgid "Deleting attachment: {{attachmentName}}"
 msgstr "添付ファイルの削除中: {{attachmentName}}"
 
+#: dist/pcm.js:215
+msgid "Deleting group"
+msgstr "グループの削除中"
+
+#: dist/pcm.js:205
+msgid "Duplicate"
+msgstr "複製"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: dist/pcm.js:223
 msgid "Email address is incorrect"
 msgstr "メールアドレスが正しくありません"
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> or <b>or</b> to continue with the query."
+msgstr "クエリを続けるには<b>and</b> または <b>or</b> を入力してください。"
+
+#: dist/pcm.js:211
+msgid "Enter <b>and</b> to continue with the query."
+msgstr "クエリを続けるには<b>and</b> を入力してください。"
+
+#: dist/pcm.js:211
+msgid "Enter <b>or</b> to continue with the query."
+msgstr "クエリを続けるには <b>or</b> を入力してください。"
 
 #: dist/pcm.js:201 dist/pcm.js:204
 msgid "Error: Failed to upload attachment."
@@ -258,6 +316,10 @@ msgstr ""
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1668
 msgid "Last Modified User and Date"
 msgstr "最終更新ユーザーおよび最終更新日"
+
+#: dist/pcm.js:203
+msgid "List"
+msgstr "List"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: dist/pcm.js:210
@@ -312,11 +374,11 @@ msgid ""
 "performed."
 msgstr "ケースを最後に編集した人の名前、最終変更日、および実行されたアクション。"
 
-#: dist/pcm.js:198
+#: dist/pcm.js:210
 msgid "New"
 msgstr "新規"
 
-#: dist/pcm.js:198
+#: dist/pcm.js:210
 msgid "New Case - Portal Case Management"
 msgstr "新規ケース - ポータルケース管理"
 
@@ -335,6 +397,10 @@ msgstr "変更日が新しい順"
 #: dist/pcm.js:204
 msgid "Newest to Oldest"
 msgstr "新しい順"
+
+#: dist/pcm.js:210
+msgid "No access"
+msgstr "アクセスなし"
 
 #: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1647
@@ -402,7 +468,7 @@ msgstr "担当者名"
 msgid "Please check the requestor email address"
 msgstr "リクエスターのメールアドレスを確認してください"
 
-#: dist/pcm.js:189 dist/pcm.js:198
+#: dist/pcm.js:201 dist/pcm.js:210
 msgid "Portal Case Management"
 msgstr "ポータルケース管理"
 
@@ -416,6 +482,14 @@ msgstr "製品名およびバージョン"
 msgid "Product and Version assigned to the case."
 msgstr "ケースに割り当てられた製品およびバージョン。"
 
+#: dist/pcm.js:210
+msgid "Read Only"
+msgstr "読み取り専用"
+
+#: dist/pcm.js:210 app/cases/views/manageGroupUsers.html:28
+msgid "Read and Write"
+msgstr "読み書き"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: dist/pcm.js:210
 msgid "Refining top solutions"
@@ -425,8 +499,12 @@ msgstr "関連記事の絞り込み"
 msgid "Remove bookmark!"
 msgstr "ブックマークを削除する"
 
+#: dist/pcm.js:205
+msgid "Rename"
+msgstr "名前変更"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: dist/pcm.js:184
+#: dist/pcm.js:185
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:798
 msgid "SUPPORT CASES"
 msgstr "サポートケース"
@@ -435,7 +513,7 @@ msgstr "サポートケース"
 msgid "Saturday = {{businessHours}}"
 msgstr "土曜日 = {{businessHours}}"
 
-#: dist/pcm.js:184 app/i18n/placeholder.html:3
+#: dist/pcm.js:184 dist/pcm.js:201 app/i18n/placeholder.html:3
 #: app/search/views/search_form.html:7
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:796
 msgid "Search"
@@ -447,7 +525,7 @@ msgid "Search Support Case"
 msgstr "サポートケースの検索"
 
 #: dist/pcm.js:185 app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/new.html:96 app/cases/views/severitySelect.html:14
+#: app/cases/views/new.html:101 app/cases/views/severitySelect.html:14
 #: node_modules/redhat_access_pcm_ascension_common/dist/redhat_access_pcm_ascension_common.js:1642
 msgid "Severity"
 msgstr "重大度"
@@ -461,6 +539,10 @@ msgstr "ケースの重大度。"
 msgid "Successfully created case number {{caseNumber}}"
 msgstr "ケース番号 {{caseNumber}} が正しく作成されました"
 
+#: dist/pcm.js:215
+msgid "Successfully created group"
+msgstr "グループが正しく作成されました"
+
 #: dist/pcm.js:204
 msgid "Successfully created group {{groupName}}"
 msgstr "グループ {{groupName}} が正しく作成されました"
@@ -468,6 +550,10 @@ msgstr "グループ {{groupName}} が正しく作成されました"
 #: dist/pcm.js:214
 msgid "Successfully deleted attachment:{{attachmentName}}"
 msgstr "添付ファイルが正しく削除されました:{{attachmentName}}"
+
+#: dist/pcm.js:215
+msgid "Successfully deleted group"
+msgstr "グループが正しく削除されました"
 
 #: dist/pcm.js:204
 msgid "Successfully deleted group {{groupName}}"
@@ -506,6 +592,19 @@ msgstr "ケースのサマリー。"
 msgid "Sunday = {{businessHours}}"
 msgstr "日曜日 = {{businessHours}}"
 
+#: dist/pcm.js:201 dist/pcm.js:203 dist/pcm.js:205 dist/pcm.js:210
+#: app/i18n/placeholder.html:5
+msgid "Support"
+msgstr "サポート"
+
+#: dist/pcm.js:201 dist/pcm.js:203 dist/pcm.js:205 dist/pcm.js:210
+msgid "Support Cases"
+msgstr "サポートケース"
+
+#: dist/pcm.js:203
+msgid "Support Cases - Portal Case Management"
+msgstr "サポートケース - ポータルケース管理"
+
 #: dist/pcm.js:205
 msgid ""
 "Thank you for contacting Red Hat support!  We'll be in contact soon.  Our "
@@ -537,6 +636,14 @@ msgstr "グループ化されていないケース"
 msgid "Ungrouped Cases"
 msgstr "グループ化されていないケース"
 
+#: dist/pcm.js:215
+msgid "Updating group"
+msgstr "グループを更新しています"
+
+#: dist/pcm.js:215
+msgid "Updating users for group..."
+msgstr "グループに対してユーザーを更新しています..."
+
 #: dist/pcm.js:204 dist/pcm.js:210
 msgid "Uploading attachment..."
 msgstr "添付ファイルをアップロード中..."
@@ -548,6 +655,10 @@ msgstr "添付ファイルをアップロード中..."
 #: dist/pcm.js:205
 msgid "User {{sso}} cannot be added as watcher because it is not internal."
 msgstr "ユーザー {{sso}} は内部の人ではないので、ウォッチャーに追加できません。"
+
+#: dist/pcm.js:211
+msgid "Values containing whitespaces have to be wrapped in double quotes."
+msgstr "空白を含む値は二重引用符で囲む必要があります。"
 
 #: dist/pcm.js:205
 msgid "Wednesday = {{businessHours}}"
@@ -603,6 +714,10 @@ msgstr "パートナーエスカレーションリクエストが正常に送信
 msgid "no business hours"
 msgstr "営業時間外"
 
+#: dist/pcm.js:205
+msgid "{{caseNumber}} | {{caseSummary}}"
+msgstr "{{caseNumber}} | {{caseSummary}}"
+
 #: dist/pcm.js:214
 msgid "{{days}} business day"
 msgstr "{{days}} 営業日"
@@ -644,14 +759,6 @@ msgstr "{{hours}} 時間"
 #: dist/pcm.js:214
 msgid "{{hours}} hours"
 msgstr "{{hours}} 時間"
-
-#: app/cases/views/new.html:25
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;Not visible by Red Hat people"
-msgstr "&lt;div&gt;&lt;span&gt;{{&quot; Red Hat 担当者からは見えません"
-
-#: app/cases/views/new.html:92
-msgid "&lt;div&gt;&lt;span&gt;{{&quot;To Learn more view the"
-msgstr "&lt;div&gt;&lt;span&gt;{{&quot;詳細は、をご覧ください"
 
 #: app/cases/views/searchBookmarkModal.html:12
 #: app/cases/views/searchBookmarkModal.html:8
@@ -708,13 +815,13 @@ msgstr "- 非公開"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #. Noun
-#: app/cases/views/detailsSection.html:93 app/cases/views/new.html:107
+#: app/cases/views/detailsSection.html:95 app/cases/views/new.html:112
 msgid "24x7 Contact"
 msgstr "24x7 のお問い合わせ先"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html:85 app/cases/views/new.html:103
+#: app/cases/views/detailsSection.html:87 app/cases/views/new.html:108
 msgid "24x7 Support"
 msgstr "24x7 サポート"
 
@@ -732,7 +839,7 @@ msgstr "アクセス"
 
 # translation auto-copied from project Customer Portal Translations, version management_page, document Management_Prototype.html, author asasaki
 #. Noun
-#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:14
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:11
 msgid "Account"
 msgstr "アカウント"
 
@@ -839,7 +946,7 @@ msgid ""
 msgstr "ログやその他の診断ファイルを添付していただくと、解決までの時間を大幅に短縮することができます。ファイルを添付せずに継続されますか?"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/cases/views/new.html:85
+#: app/cases/views/new.html:90
 msgid ""
 "Attaching logs or other diagnostics files typically results in faster "
 "resolution."
@@ -870,10 +977,6 @@ msgstr "戻る"
 msgid "Based on your description, here are some possible solutions"
 msgstr "以下は、ご提供いただいた情報に基づく関連記事です。"
 
-#: app/cases/views/accountBookmarkHome.html:3
-msgid "Bookmark Accounts"
-msgstr "アカウントをブックマーク"
-
 #: app/cases/views/advancedSearch.html:8
 msgid "Bookmarked Searches:&nbsp;"
 msgstr "ブックマークされた検索結果:&nbsp;"
@@ -895,7 +998,7 @@ msgstr "ケース {{$parent.CaseService.kase.case_number}}"
 #: app/cases/views/addCommentSection.html:39
 #: app/cases/views/createGroupModal.html:18
 #: app/cases/views/detailsSection.html:10
-#: app/cases/views/detailsSection.html:101 app/cases/views/new.html:120
+#: app/cases/views/detailsSection.html:103 app/cases/views/new.html:125
 #: app/cases/views/requestManagementEscalationModal.html:19
 #: node_modules/redhat_access_pcm_ascension_common/app/security/views/login_form.html:27
 msgid "Cancel"
@@ -906,7 +1009,7 @@ msgid "Case Contact"
 msgstr "ケースの連絡先"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/cases/views/new.html:37
+#: app/cases/views/new.html:42
 msgid "Case Description"
 msgstr "ケースの説明"
 
@@ -921,17 +1024,13 @@ msgstr "ケースグループ"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #. Noun
-#: app/cases/views/new.html:115
+#: app/cases/views/new.html:120
 msgid "Case Group (Optional)"
 msgstr "ケースグループ (オプション)"
 
 #: app/cases/views/createGroupModal.html:10
 msgid "Case Group:"
 msgstr "ケースグループ:"
-
-#: app/cases/views/manageGroupList.html:5
-msgid "Case Groups"
-msgstr "ケースグループ"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: app/escalation/views/iceEscalation.html:68
@@ -941,7 +1040,7 @@ msgstr "ケース情報"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
 #. Noun
-#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:23
+#: app/cases/views/detailsSection.html:61 app/cases/views/new.html:26
 msgid "Case Type"
 msgstr "ケースタイプ"
 
@@ -1022,13 +1121,6 @@ msgstr "お客様の地域"
 msgid "Customize columns"
 msgstr "コラムをカスタマイズする"
 
-#. Verb
-#: app/cases/views/listAttachments.html:12
-#: app/cases/views/listAttachments.html:25
-#: app/cases/views/listAttachments.html:26
-msgid "Delete"
-msgstr "削除"
-
 #: app/cases/views/deleteGroupButton.html:2
 msgid "Delete Group"
 msgstr "グループを削除する"
@@ -1063,13 +1155,17 @@ msgid "Drop column here."
 msgstr "ここにコラムをドロップする。"
 
 #. Noun
-#: app/cases/views/detailsSection.html:77 app/cases/views/new.html:99
+#: app/cases/views/detailsSection.html:79 app/cases/views/new.html:104
 msgid "Enhanced SLA"
 msgstr "拡張 SLA"
 
 #: app/cases/views/manageGroupList.html:9
 msgid "Enter Group Name"
 msgstr "グループ名を入力する"
+
+#: app/cases/views/solrQueryInput.html:7
+msgid "Enter SOLR query, for example:"
+msgstr "SOLR クエリを入力する。例:"
 
 #: app/cases/views/accountSearch.html:9
 msgid "Enter account number"
@@ -1180,7 +1276,7 @@ msgid ""
 msgstr "現在 GSS はメールの使用による ICE プロセスの強化に取り組んでいます。このスペースで詳細情報を確認してください。"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/cases/views/new.html:85
+#: app/cases/views/new.html:90
 msgid "Get faster results."
 msgstr "迅速な問題解決: "
 
@@ -1193,22 +1289,13 @@ msgstr "グループをロードしています..."
 msgid "Handpicked For You"
 msgstr "このケースの参考記事"
 
-#: app/cases/views/detailsSection.html:69
+#: app/cases/views/detailsSection.html:70 app/cases/views/new.html:29
 msgid "Hostname"
 msgstr "ホスト名"
 
-#. Noun
-#: app/cases/views/new.html:25
-msgid ""
-"Hostname <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
-"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/"
-"div&gt;&quot;\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon "
-"glyphicon-question-sign link\"></span>"
-msgstr ""
-"ホスト名 <span uib-tooltip-html=\"&quot;&lt;div&gt;&lt;span&gt;{{&quot;Not "
-"visible by Red Hat people&quot; |translate }}&lt;/span&gt;&lt;/"
-"div&gt;&quot;\" tabindex=\"0\" tooltip-trigger=\"click\" class=\"glyphicon "
-"glyphicon-question-sign link\"></span>"
+#: app/cases/views/detailsSection.html:70 app/cases/views/new.html:29
+msgid "Hostname is not visible to Red Hat Support professionals"
+msgstr "ホスト名は Red Hat サポート担当者には表示されません"
 
 #: app/cases/views/edit.html:13
 msgid "Hot Fix Delivered"
@@ -1310,7 +1397,7 @@ msgstr "ログイン"
 msgid "Make Default Group"
 msgstr "デフォルトグループの作成"
 
-#: app/cases/views/listFilter.html:22
+#: app/cases/views/accountSelect.html:12 app/cases/views/listFilter.html:23
 msgid "Manage Bookmarked Accounts"
 msgstr "ブックマーク済みアカウントの管理"
 
@@ -1338,10 +1425,13 @@ msgstr "自分のケース"
 msgid "NEXT"
 msgstr "次へ"
 
-#: app/cases/views/groupList.html:10
-#: app/cases/views/searchBookmarkModal.html:8
+#: app/cases/views/groupList.html:10 app/cases/views/searchBookmarkModal.html:8
 msgid "Name"
 msgstr "名前"
+
+#: app/cases/views/advancedSearch.html:38 app/cases/views/list.html:75
+msgid "Next"
+msgstr "次へ"
 
 # translation auto-copied from project Customer Portal Translations, version RHELLifecycle, document RHELLifeCycle.html, author asasaki
 #: app/cases/views/commonConfirmationModal.html:15
@@ -1374,6 +1464,10 @@ msgstr "ブックマーク済み検索結果がありません"
 msgid "No cases found with given filters."
 msgstr "指定のフィルターではケースが見つかりません。"
 
+#: app/cases/views/advancedSearch.html:25
+msgid "No cases found."
+msgstr "ケースが見つかりません。"
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "No fields selected."
 msgstr "フィールドが選択されていません。"
@@ -1387,7 +1481,10 @@ msgstr "グループが見つかりません。"
 msgid "No linked bugzillas"
 msgstr "リンクされた Bugzilla がありません"
 
-#: app/cases/views/ownerSelect.html:4
+#: app/cases/views/managedAccountSelect.html:3 app/cases/views/new.html:98
+#: app/cases/views/ownerSelect.html:3 app/cases/views/productSelect.html:2
+#: app/cases/views/statusSelect.html:2 app/cases/views/typeSelect.html:2
+#: app/cases/views/versionSelect.html:2
 msgid "No match found"
 msgstr "一致するものが見つかりませんでした"
 
@@ -1398,10 +1495,6 @@ msgstr "利用可能なフィールドはありません。"
 #: app/cases/views/proceedWithoutAttachModal.html:15
 msgid "No, Go Back"
 msgstr "いいえ、戻ります"
-
-#: app/cases/views/new.html:25
-msgid "Not visible by Red Hat people"
-msgstr "Red Hat 担当者からは見えません"
 
 #: app/cases/views/discussionSection.html:112
 msgid "Notes:"
@@ -1457,8 +1550,7 @@ msgid "Owned by {{case.contact_name}}"
 msgstr "作成者: {{case.contact_name}}"
 
 # translation auto-copied from project Customer Portal Translations, version PCM_template, document template, author asasaki
-#. Noun
-#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:16
+#: app/cases/views/advancedSearchCaseList.html:5 app/cases/views/new.html:13
 msgid "Owner"
 msgstr "作成者"
 
@@ -1548,6 +1640,10 @@ msgstr "送信"
 msgid "Premium"
 msgstr "プレミアム"
 
+#: app/cases/views/advancedSearch.html:35 app/cases/views/list.html:72
+msgid "Previous"
+msgstr "前へ"
+
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: app/escalation/views/partnerEscalation.html:4
 msgid "Priority Customer Support Routing"
@@ -1563,24 +1659,22 @@ msgid "Private Notes"
 msgstr "プライベートメモ"
 
 #. Noun
-#: app/cases/views/new.html:27
+#: app/cases/views/new.html:32
 msgid "Problem Statement"
 msgstr "問題の概要"
 
-#. Noun
 #: app/cases/views/advancedSearchCaseList.html:5
-#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:19
+#: app/cases/views/detailsSection.html:21 app/cases/views/new.html:18
 msgid "Product"
 msgstr "製品"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#. Noun
-#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:21
+#: app/cases/views/detailsSection.html:29 app/cases/views/new.html:22
 msgid "Product Version"
 msgstr "製品バージョン"
 
 # translation auto-copied from project PressGang CCMS topics, version 1, document 30482-691403, author jito
-#: app/cases/views/new.html:92 app/cases/views/severitySelect.html:28
+#: app/cases/views/new.html:97 app/cases/views/severitySelect.html:28
 msgid "Production Support Service Level Agreement"
 msgstr "製品サポートのサービスレベルアグリーメント"
 
@@ -1592,10 +1686,6 @@ msgstr "この検索への公開リンク"
 #: app/cases/views/searchBookmarkModal.html:16
 msgid "Query"
 msgstr "Query"
-
-#: app/cases/views/manageGroupUsers.html:28
-msgid "Read and Write"
-msgstr "読み書き"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
 #: app/escalation/views/iceEscalation.html:85
@@ -1686,7 +1776,7 @@ msgid "Save"
 msgstr "保存"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings
-#: app/cases/views/detailsSection.html:101
+#: app/cases/views/detailsSection.html:103
 msgid "Save Changes"
 msgstr "変更を保存"
 
@@ -1720,9 +1810,15 @@ msgid "Select Log"
 msgstr "ログの選択"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:112
+#: app/cases/views/emailNotifySelect.html:13 app/cases/views/new.html:117
 msgid "Select a User"
 msgstr "ユーザーを選択"
+
+#: app/cases/views/new.html:98 app/cases/views/ownerSelect.html:3
+#: app/cases/views/productSelect.html:2 app/cases/views/statusSelect.html:2
+#: app/cases/views/typeSelect.html:2 app/cases/views/versionSelect.html:2
+msgid "Select an Option"
+msgstr "オプションを選択"
 
 #: app/cases/views/bookmarkedAccountSelect.html:3
 msgid "Select bookmarked account"
@@ -1732,12 +1828,16 @@ msgstr "ブックマーク済みアカウントを選択する"
 msgid "Select columns by dragging from left to right."
 msgstr "コラムを左から右にドラックして選択する"
 
+#: app/cases/views/managedAccountSelect.html:3
+msgid "Select managed account"
+msgstr "管理アカウントを選択する"
+
 #: app/cases/views/columnSelectModal.html:16
 msgid "Selected Columns"
 msgstr "選択したコラム"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author asasaki
-#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:110
+#: app/cases/views/emailNotifySelect.html:5 app/cases/views/new.html:115
 msgid "Send Email Notifications to"
 msgstr "通知メールの送信先"
 
@@ -1804,7 +1904,7 @@ msgid "Standard"
 msgstr "標準"
 
 #. Verb
-#: app/cases/views/new.html:120
+#: app/cases/views/new.html:125
 msgid "Submit"
 msgstr "送信する"
 
@@ -1821,12 +1921,8 @@ msgstr "リクエストの送信"
 msgid "Summary of Request"
 msgstr "リクエストの要約"
 
-#: app/i18n/placeholder.html:5
-msgid "Support"
-msgstr "サポート"
-
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Ykatabam
-#: app/cases/views/edit.html:20 app/cases/views/new.html:92
+#: app/cases/views/edit.html:20 app/cases/views/new.html:97
 msgid "Support Level"
 msgstr "サポートレベル"
 
@@ -1879,7 +1975,7 @@ msgid ""
 "Portal or Partner Center login"
 msgstr "これは、ご自身の Red Hat カスタマーポータルまたはパートナーセンターのログインに関連付けられているメールアドレスになります。"
 
-#: app/cases/views/new.html:92
+#: app/cases/views/new.html:97
 msgid "To Learn more view the"
 msgstr "詳細情報は、以下をご覧ください:"
 
@@ -2168,4 +2264,3 @@ msgid ""
 "unavailable for technical reasons."
 msgstr ""
 "お探しのページはここにありません。ページは移動または削除されたか、または名前とアドレスが変更されている可能性があります。あるいは、技術的な理由で一時的に使用できない可能性があります。"
-
