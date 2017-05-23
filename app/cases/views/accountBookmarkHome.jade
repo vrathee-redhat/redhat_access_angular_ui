@@ -1,7 +1,9 @@
-div.account-bookmark-home
+div.account-bookmark-home(ng-if="!COMMON_CONFIG.isGS4")
     h1.page-title(translate) Bookmark Accounts
     div.spinner(ng-show='isLoading()')
     div(ng-show='!isLoading() && isLoggedInAndInternal()')
         div(rha-existing-bookmarked-accounts)
         hr
         div(rha-account-search)
+div.account-bookmark-home(ng-if="COMMON_CONFIG.isGS4")
+    h1.page-title(translate) You are not authorized to perform this action.

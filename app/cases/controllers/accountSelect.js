@@ -1,9 +1,10 @@
 'use strict';
 
 export default class AccountSelect {
-    constructor($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog, ProductsService, securityService, $state) {
+    constructor($scope, strataService, AlertService, CaseService, RHAUtils, gettextCatalog, ProductsService, securityService, $state, COMMON_CONFIG) {
         'ngInject';
 
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.bookmarkAccountUrl = $state.href('accountBookmark');

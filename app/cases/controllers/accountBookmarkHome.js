@@ -1,9 +1,9 @@
 'use strict';
 
 export default class AccountBookmarkHome {
-    constructor($scope, securityService, AUTH_EVENTS, $state, gettextCatalog) {
+    constructor($scope, securityService, AUTH_EVENTS, $state, gettextCatalog, COMMON_CONFIG) {
         'ngInject';
-
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         const init = function () {
             if (!securityService.loginStatus.isLoggedIn || !securityService.loginStatus.authedUser.is_internal) {
                 // user not allowed to use this, redirect back to case/list
