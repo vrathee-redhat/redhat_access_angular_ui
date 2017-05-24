@@ -4,8 +4,6 @@ export default class DetailsSection {
     constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, LinkifyService, gettextCatalog, SearchCaseService, COMMON_CONFIG) {
         'ngInject';
 
-        $scope.RHAUtils = RHAUtils;
-        $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.showExtraInfo = false;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -21,6 +19,10 @@ export default class DetailsSection {
         $scope.toggleExtraInfo = function () {
             $scope.showExtraInfo = !$scope.showExtraInfo;
 
+        };
+
+        $scope.showSbrGroups = () => {
+            return COMMON_CONFIG.isGS4 && RHAUtils.isNotEmpty(CaseService.kase.sbr_groups.sbr_group) && securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech;
         };
 
         $scope.resetData = function () {
