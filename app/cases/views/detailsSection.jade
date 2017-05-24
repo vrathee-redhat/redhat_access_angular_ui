@@ -71,7 +71,7 @@ section.case-description
                         name='internalStatus',
                         ng-options='internalStatus for internalStatus in CaseService.internalStatuses',
                         ng-model='CaseService.kase.internal_status')
-                .row.row-short(ng-if='COMMON_CONFIG.isGS4 && RHAUtils.isNotEmpty(CaseService.kase.sbr_groups.sbr_group)')
+                .row.row-short(ng-if='showSbrGroups()')
                     .col-xs-4.col-sm-3.col-md-4
                         .label {{::'SBR Groups'|translate}}
                     .col-xs-4.col-sm-5.col-md-6
