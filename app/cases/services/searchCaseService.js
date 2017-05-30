@@ -59,7 +59,7 @@ export default class SearchCaseService {
         this.makeCaseFilter = function(checkIsInternal) {
             const caseFilter = {};
             caseFilter.count = this.pageSize;
-            caseFilter.include_closed = this.searchParameters.caseStatus !== STATUS.open;
+            caseFilter.include_closed = (this.searchParameters.caseStatus !== STATUS.open && this.searchParameters.caseStatus !== STATUS.worh && this.searchParameters.caseStatus !== STATUS.wocust);
             caseFilter.start = (this.currentPage - 1) * this.pageSize;
 
             if (!RHAUtils.isEmpty(CaseService.filterSelect.sortField)) {
@@ -89,6 +89,12 @@ export default class SearchCaseService {
             }
             if (this.searchParameters.caseStatus === STATUS.closed) {
                 caseFilter.status = STATUS.closed;
+            }
+            if (this.searchParameters.caseStatus === STATUS.worh) {
+                caseFilter.status = 'Waiting on Red Hat';
+            }
+            if (this.searchParameters.caseStatus === STATUS.wocust) {
+                caseFilter.status = 'Waiting on Customer';
             }
             if (COMMON_CONFIG.isGS4 === true && securityService.loginStatus.authedUser.is_internal) {
                 caseFilter.account_number = '5487648';
