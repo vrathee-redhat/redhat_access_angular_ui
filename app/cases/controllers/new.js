@@ -49,13 +49,11 @@ export default class New {
         CaseService.showKTFields = true;
         $scope.$watch('CaseService.kase.product + CaseService.kase.version + CaseService.kase.description + CaseService.kase.summary', function () {
             if (!waiting) {
-                var descriptionText = CaseService.kase.problem + ' ' + CaseService.kase.environment + ' ' + CaseService.kase.occurance + ' ' + CaseService.kase.urgency;
-                if (RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
-                    if (RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
-                        $scope.makeRecommendationPanelVisible();
-                    }
-                    waiting = true;
-                    var descriptionText = CaseService.kase.description;
+                var descriptionText = CaseService.kase.description;
+
+                if(CaseService.showKTFields){
+                    // descriptionText = CaseService.kase.problem + ' ' + CaseService.kase.environment + ' ' + CaseService.kase.occurance + ' ' + CaseService.kase.urgency;
+
                     if (RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0) {
                         descriptionText = CaseService.kase.problem;
                     }
@@ -77,6 +75,14 @@ export default class New {
                         }
                         descriptionText = descriptionText.concat(CaseService.kase.urgency);
                     }
+                }
+
+                if (RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
+                    if (RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
+                        $scope.makeRecommendationPanelVisible();
+                    }
+                    waiting = true;
+
                     var recommendationsText = {
                         product: CaseService.kase.product,
                         version: CaseService.kase.version,
@@ -205,6 +211,7 @@ export default class New {
                 CaseService.kase.urgency = draftNewCase.urgency;
                 CaseService.kase.summary = draftNewCase.summary;
                 CaseService.kase.hostname = draftNewCase.hostname;
+                CaseService.kase.type = draftNewCase.type;
                 if (RHAUtils.isEmpty(urlParameter.product)) {
                     if (RHAUtils.isNotEmpty(draftNewCase.product)) {
                         $scope.setProductAndVersion(draftNewCase.product, draftNewCase.version);
@@ -532,18 +539,22 @@ export default class New {
 
         $scope.onProblemChange = function ($event) {
             $scope.genericOnChangeTasks($event);
+            $scope.updateDescriptionString();
         };
 
         $scope.onEnvironmentChange = function ($event) {
             $scope.genericOnChangeTasks($event);
+            $scope.updateDescriptionString();
         };
 
         $scope.onOccuranceChange = function ($event) {
             $scope.genericOnChangeTasks($event);
+            $scope.updateDescriptionString();
         };
 
         $scope.onUrgencyChange = function ($event) {
             $scope.genericOnChangeTasks($event);
+            $scope.updateDescriptionString();
         };
 
         $scope.onDescriptionChange = function ($event) {
@@ -554,6 +565,8 @@ export default class New {
             let ktQuesArray= ['Defect / Bug','Usage / Documentation Help','Configuration issue','RCA Only'];
             CaseService.showKTFields = ( ktQuesArray.indexOf(CaseService.kase.type.name) > -1 ) ? true : false;
             CaseService.validateNewCase();
+            CaseService.updateLocalStorageForNewCase();
+            $scope.updateDescriptionString();
         };
 
         $scope.genericOnChangeTasks = function ($event) {

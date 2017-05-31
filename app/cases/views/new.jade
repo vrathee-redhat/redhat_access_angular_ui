@@ -34,7 +34,8 @@ div(rha-header='', page='newCase')
                             maxlength='255',
                             ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase',
                             ng-change='$parent.onSummaryChange($event)',
-                            ng-model='$parent.CaseService.kase.summary'
+                            ng-model='$parent.CaseService.kase.summary',
+                            ng-model-options='{ debounce: 500 }',
                             ng-focus="$parent.CaseService.updatingNewCaseSummary=true",
                             ng-blur="$parent.CaseService.updatingNewCaseSummary=false")
                             .loader
@@ -48,6 +49,7 @@ div(rha-header='', page='newCase')
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.description',
                                 ng-change='$parent.onDescriptionChange($event)',
+                                ng-model-options='{ debounce: 500 }',
                                 ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
                                 ng-focus="$parent.CaseService.updatingCaseDescription=true",
                                 ng-blur="$parent.CaseService.updatingCaseDescription=false")
@@ -62,6 +64,7 @@ div(rha-header='', page='newCase')
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.problem',
                                 ng-change='$parent.onProblemChange($event)',
+                                ng-model-options='{ debounce: 500 }',
                                 ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
                                 ng-focus="$parent.CaseService.updatingProblemString=true",
                                 ng-blur="$parent.CaseService.updatingProblemString=false")
@@ -75,6 +78,7 @@ div(rha-header='', page='newCase')
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.environment',
                                 ng-change='$parent.onEnvironmentChange($event)',
+                                ng-model-options='{ debounce: 500 }',
                                 ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
                                 ng-focus="$parent.CaseService.updatingEnvironmentString=true",
                                 ng-blur="$parent.CaseService.updatingEnvironmentString=false")
@@ -88,6 +92,7 @@ div(rha-header='', page='newCase')
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.occurance',
                                 ng-change='$parent.onOccuranceChange($event)',
+                                ng-model-options='{ debounce: 500 }',
                                 ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
                                 ng-focus="$parent.CaseService.updatingOccuranceString=true",
                                 ng-blur="$parent.CaseService.updatingOccuranceString=false")
@@ -101,6 +106,7 @@ div(rha-header='', page='newCase')
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.urgency',
                                 ng-change='$parent.onUrgencyChange($event)',
+                                ng-model-options='{ debounce: 500 }',
                                 ng-disabled='!$parent.securityService.loginStatus.isLoggedIn || $parent.CaseService.submittingCase'
                                 ng-focus="$parent.CaseService.updatingUrgencyString=true",
                                 ng-blur="$parent.CaseService.updatingUrgencyString=false")
