@@ -40,7 +40,7 @@ div.edit(ng-if='showCasePage()')
         .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
           .col-xs-12(rha-emailnotifyselect, internal="true")
 
-    .aside.col-md-4(ng-if="!$parent.COMMON_CONFIG.isGS4")
+    .aside.col-sm-4(ng-if="!$parent.COMMON_CONFIG.isGS4")
       .spinner.spinner-inline(ng-show='$parent.RecommendationsService.loadingRecommendations')
       #rha-recommendation-section.recommendations.aside-section(rha-editcaserecommendations='', ng-hide='($parent.RecommendationsService.recommendations.length === 0 && $parent.RecommendationsService.handPickedRecommendations.length === 0 && $parent.RecommendationsService.pinnedRecommendations.length === 0) || RecommendationsService.loadingRecommendations')
       div#case-escalation.case-escalation(rha-requestescalation='')
