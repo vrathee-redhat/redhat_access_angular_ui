@@ -20,8 +20,8 @@ div.edit(ng-if='showCasePage()')
         span(id="rha-case-filedOn" translate)  Filed on {{$parent.CaseService.kase.created_date}} by {{$parent.CaseService.kase.created_by}}
       .row.row-very-short
         span {{'Assigned to'|translate}} {{$parent.CaseService.kase.owner}}
-        //a#cancelCaseDetailChanges.margin-left(ng-click="changeOwner()",translate='',
-        //ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.loginStatus.authedUser.is_secure_support_tech') {{'Edit'|translate}}
+        a#cancelCaseDetailChanges.margin-left(ng-click="changeOwner()",translate='',
+        ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.loginStatus.authedUser.is_secure_support_tech') {{'Edit'|translate}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
         span(translate) Account number : {{$parent.CaseService.account.number}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
@@ -40,7 +40,7 @@ div.edit(ng-if='showCasePage()')
         .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
           .col-xs-12(rha-emailnotifyselect, internal="true")
 
-    .aside.col-md-4(ng-if="!$parent.COMMON_CONFIG.isGS4")
+    .aside.col-sm-4(ng-if="!$parent.COMMON_CONFIG.isGS4")
       .spinner.spinner-inline(ng-show='$parent.RecommendationsService.loadingRecommendations')
       #rha-recommendation-section.recommendations.aside-section(rha-editcaserecommendations='', ng-hide='($parent.RecommendationsService.recommendations.length === 0 && $parent.RecommendationsService.handPickedRecommendations.length === 0 && $parent.RecommendationsService.pinnedRecommendations.length === 0) || RecommendationsService.loadingRecommendations')
       div#case-escalation.case-escalation(rha-requestescalation='')

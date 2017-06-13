@@ -257,6 +257,11 @@ export default class CaseService {
         this.getGroups = function () {
             return this.groups;
         };
+        this.sbrDiff = function(a, b) {
+            if (!a) return b;
+            if (!b) return a;
+            return _.filter(a, (i) => b.indexOf(i) < 0);
+        };
         this.clearCase = function () {
             this.caseDataReady = false;
             this.isCommentPublic = true;
@@ -730,9 +735,8 @@ export default class CaseService {
             }
         };
 
-        this.updateCase = function () {
+        this.updateCase = async function () {
             this.updatingCase = true;
-            var deferred = $q.defer();
             var caseJSON = {};
             if (this.kase.type !== undefined && !angular.equals(this.prestineKase.type, this.kase.type)) {
                 caseJSON.type = this.kase.type.name;
@@ -788,16 +792,40 @@ export default class CaseService {
             if (this.kase.contact_sso_username !== null && !angular.equals(this.prestineKase.contact_sso_username, this.kase.contact_sso_username)) {
                 caseJSON.contactSsoUsername = this.kase.contact_sso_username;
             }
-            strataService.cases.put(this.kase.case_number, caseJSON).then(angular.bind(this, function () {
+
+            let deletedSbrs = [];
+            let addedSbrs = [];
+            if(RHAUtils.isNotEmpty(this.kase.sbr_groups.sbr_group) || RHAUtils.isNotEmpty(this.prestineKase.sbr_groups.sbr_group)) {
+                //Sbr logic  - http://pastebin.test.redhat.com/492854
+                if(this.prestineKase.sbr_groups.sbr_group) {
+                    deletedSbrs = this.sbrDiff(this.prestineKase.sbr_groups.sbr_group, this.kase.sbr_groups.sbr_group);
+                }
+                addedSbrs = this.sbrDiff(this.kase.sbr_groups.sbr_group, this.prestineKase.sbr_groups.sbr_group);
+            }
+
+            try {
+                let addSbrJSON = { };
+                let removeSbrJSON = { };
+                if (addedSbrs.length > 0 && deletedSbrs.length > 0) {
+                    addSbrJSON.sbrGroup = addedSbrs;
+                    removeSbrJSON.sbrGroup = deletedSbrs;
+                    await strataService.cases.sbrs.add(this.kase.case_number, addSbrJSON);
+                    await strataService.cases.sbrs.remove(this.kase.case_number, removeSbrJSON);
+                } else if (addedSbrs.length > 0 && deletedSbrs.length === 0) {
+                    addSbrJSON.sbrGroup = addedSbrs;
+                    await strataService.cases.sbrs.add(this.kase.case_number, addSbrJSON);
+                } else if (deletedSbrs.length > 0 && addedSbrs.length === 0) {
+                    removeSbrJSON.sbrGroup = deletedSbrs;
+                    await strataService.cases.sbrs.remove(this.kase.case_number, removeSbrJSON);
+                }
+                await strataService.cases.put(this.kase.case_number, caseJSON);
                 this.updatingCase = false;
                 angular.copy(this.kase, this.prestineKase);
-                deferred.resolve();
-            }), (error) => {
-                deferred.reject(error);
+            } catch (error) {
                 this.updatingCase = false;
-            });
-            return deferred.promise;
+            }
         };
+
         this.updateCaseDescription = function () {
             this.updatingCase = true;
             var deferred = $q.defer();
@@ -849,6 +877,9 @@ export default class CaseService {
                 }
                 if (RHAUtils.isNotEmpty(this.kase.hostname)) {
                     draftNewCase.hostname = this.kase.hostname;
+                }
+                if (RHAUtils.isNotEmpty(this.kase.type)) {
+                    draftNewCase.type = this.kase.type;
                 }
                 var newCaseDescLocalStorage = {'text': draftNewCase};
                 this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username, newCaseDescLocalStorage);

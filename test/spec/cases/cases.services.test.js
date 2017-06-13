@@ -323,12 +323,10 @@ describe('Case Services', function () {
                 }
             };
             securityService.loginStatus.authedUser.sso_username="test";
-            caseService.updateCase();
-            spyOn(mockStrataService.cases, 'put').and.callThrough();
-            scope.$root.$digest();
-            expect(caseService.updatingCase).toBeFalsy();
-            expect(caseService.prestineKase, caseService.kase);
-
+            caseService.updateCase().then(() => {
+                expect(caseService.updatingCase).toBeFalsy();
+                expect(caseService.prestineKase, caseService.kase);
+            });
         });
 
         it('should have a method for update case with fts true', function () {
@@ -371,12 +369,10 @@ describe('Case Services', function () {
                 "alternate_id":"123456"
             };
             securityService.loginStatus.authedUser.sso_username="test";
-            caseService.updateCase();
-            spyOn(mockStrataService.cases, 'put').and.callThrough();
-            scope.$root.$digest();
-            expect(caseService.updatingCase).toBeFalsy();
-            expect(caseService.prestineKase, caseService.kase);
-
+            caseService.updateCase().then(() => {
+                expect(caseService.updatingCase).toBeFalsy();
+                expect(caseService.prestineKase, caseService.kase);
+            });
         });
 
         it('should have a method for update local storage for new case', function () {
