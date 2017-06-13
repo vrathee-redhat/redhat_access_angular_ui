@@ -1,7 +1,7 @@
 'use strict';
 
 export default class EditCaseRecommendationsController {
-    constructor(RecommendationsService, $scope, strataService, CaseService, AlertService) {
+    constructor(RecommendationsService, $scope, strataService, CaseService, AlertService, RHAUtils) {
         'ngInject';
 
         $scope.RecommendationsService = RecommendationsService;
@@ -35,13 +35,23 @@ export default class EditCaseRecommendationsController {
             var doPut = function (linked) {
                 var recJSON = {
                     recommendations: {
-                        recommendation: [{
-                            linked: linked,
-                            resourceId: recommendation.resource_id,
-                            resourceType: recommendation.resource_type
-                        }]
+                        recommendation: []
                     }
                 };
+
+                var recommendationObject = {
+                    linked: linked,
+                    resourceId: recommendation.resource_id,
+                    resourceType: recommendation.resource_type
+                };
+
+                if(RHAUtils.isNotEmpty(recommendation.resource_view_uri)) {
+                    recommendationObject.resourceViewURI = recommendation.resource_view_uri;
+                }
+                if(RHAUtils.isNotEmpty(recommendation.resource_uri)) {
+                    recommendationObject.resourceURI = recommendation.resource_uri;
+                }
+                recJSON.recommendations.recommendation.push(recommendationObject);
                 strataService.cases.put(CaseService.kase.case_number, recJSON).then(function () {
                     if (!$scope.currentRecPin.pinned) {
                         //not currently pinned, so add it to the pinned list
