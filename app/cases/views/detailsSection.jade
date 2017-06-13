@@ -71,21 +71,21 @@ section.case-description
                         name='internalStatus',
                         ng-options='internalStatus for internalStatus in CaseService.internalStatuses',
                         ng-model='CaseService.kase.internal_status')
-                .row.row-short(ng-if='showSbrGroups()')
+                .row.row-short(ng-if='securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech')
                     .col-xs-4.col-sm-3.col-md-4
                         .label {{::'SBR Groups'|translate}}
                     .col-xs-4.col-sm-5.col-md-6
-                        div
-                            span.label.label-default.sbr-label-mar-right(ng-repeat="sbrGroup in CaseService.kase.sbr_groups.sbr_group") {{sbrGroup}}
-                        //select#rha-sbr-select.form-control(
-                        //chosen,
-                        //multiple,
-                        //ng-disabled="true",
-                        //width="'100%'",
-                        //data-placeholder="{{'Select SBRs'|translate}}",
-                        //name='sbrGroups',
-                        //ng-options='sbrGroup for sbrGroup in CaseService.sbrList',
-                        //ng-model='CaseService.kase.sbr_groups.sbr_group')
+                        //div
+                        //    span.label.label-default.sbr-label-mar-right(ng-repeat="sbrGroup in CaseService.kase.sbr_groups.sbr_group") {{sbrGroup}}
+                        select#rha-sbr-select.form-control(
+                        chosen,
+                        multiple,
+                        ng-disabled="true",
+                        width="'100%'",
+                        data-placeholder="{{'Select SBRs'|translate}}",
+                        name='sbrGroups',
+                        ng-options='sbrGroup for sbrGroup in CaseService.sbrList',
+                        ng-model='CaseService.kase.sbr_groups.sbr_group')
                 .row.row-short
                     .col-xs-4.col-sm-3.col-md-4
                         .label {{::'Case Group'|translate}}
