@@ -9,7 +9,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         a(ng-click='toggleBugzillas()', data-toggle="tab") {{'Bugzilla Tickets'|translate}}
     li(ng-class='{"active": actionPlan}')
         a(ng-click='toggleActionPlan()', data-toggle="tab") {{'Action Plan'|translate}}
-    li(ng-class='{"active": caseSummary}', ng-if="securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech")
+    li(ng-class='{"active": caseSummary}', ng-if="securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4")
         a(ng-click='toggleCaseSummary()', data-toggle="tab") {{'Case Summary'|translate}}
 .tab-content
     #pane1.tab-pane(ng-class='{"active": discussion}')
@@ -156,13 +156,13 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     ng-model='CaseService.kase.action_plan',
                     maxlength='255',
                     name='actionPlan')
-            span.warning-text(ng-if="securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech") {{'Updates to Action Plan are customer facing.'|translate}}
+            span.warning-text(ng-if="securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4") {{'Updates to Action Plan are customer facing.'|translate}}
             .row.row-short(ng-if="securityService.loginStatus.authedUser.is_internal")
                 .col-sm-6
                     .pull-left
                         button.btn.btn-app(ng-click="updateActionPlan()", ng-disabled='CaseService.updatingCase || !actionPlanForm.$dirty', ng-class="{'btn-primary': !(CaseService.updatingCase || !actionPlanForm.$dirty)}") {{'Update'|translate}}
                         button.btn.btn-app.margin-left(ng-click="discardActionPlan()", ng-disabled='CaseService.updatingCase || !actionPlanForm.$dirty', ng-class="{'btn-primary': !(CaseService.updatingCase || !actionPlanForm.$dirty)}") {{'Discard Changes'|translate}}
-    #pane6.tab-pane(ng-class='{"active": caseSummary}', ng-if="securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech")
+    #pane6.tab-pane(ng-class='{"active": caseSummary}', ng-if="securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4")
         form(name='caseSummaryForm')
             div
                 label(for='rha-case-summary') {{'Case Summary:'|translate}}

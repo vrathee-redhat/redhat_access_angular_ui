@@ -23,7 +23,7 @@ section.case-description
         span.description.pre-wrap(ng-show='showExtraInfo', ng-bind-html='getDescription()')
         div(ng-show='showExtraInfo')
             a(ng-click='toggleExtraInfo()', translate='') View Less
-        div(ng-if='securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech')
+        div(ng-if='securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4')
             a(ng-click='editCaseDescription(true)', translate='') Edit Description
     div.margin-top(ng-if="caseDescriptionEditable")
         form(name='descriptionForm')
@@ -61,7 +61,7 @@ section.case-description
                         input#rha-case-alt-id.form-control(
                         ng-model='CaseService.kase.alternate_id',
                         name='alternate_id')
-                .row.row-short(ng-if='securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech')
+                .row.row-short(ng-if='securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4')
                     .col-xs-4.col-sm-3.col-md-4
                         .label {{::'Internal Status'|translate}}
                     .col-xs-4.col-sm-5.col-md-6
@@ -71,7 +71,7 @@ section.case-description
                         name='internalStatus',
                         ng-options='internalStatus for internalStatus in CaseService.internalStatuses',
                         ng-model='CaseService.kase.internal_status')
-                .row.row-short(ng-if='securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech')
+                .row.row-short(ng-if='securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4')
                     .col-xs-4.col-sm-3.col-md-4
                         .label {{::'SBR Groups'|translate}}
                     .col-xs-4.col-sm-5.col-md-6

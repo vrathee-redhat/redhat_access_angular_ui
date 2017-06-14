@@ -1,7 +1,8 @@
 'use strict';
 
 export default class DiscussionSection {
-    constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal, $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService) {
+    constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
+                $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG) {
         'ngInject';
 
         $scope.AttachmentsService = AttachmentsService;
@@ -12,6 +13,7 @@ export default class DiscussionSection {
         $scope.noteCharactersMax = 255;
         $scope.noteCharactersLeft = $scope.noteCharactersMax;
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.discussion = true;
         $scope.attachments = false;
         $scope.notes = false;
