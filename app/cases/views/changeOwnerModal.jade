@@ -10,8 +10,8 @@
           chosen,
           width="'100%'",
           name='ownersList',
-          ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in CaseService.redhatSecureSupportUsers",
-          ng-model='caseOwnerSso')
+          ng-options="user as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in CaseService.redhatSecureSupportUsers",
+          ng-model='caseOwner')
   .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     .col-sm-12
       .pull-right
