@@ -21,7 +21,7 @@ div.edit(ng-if='showCasePage()')
       .row.row-very-short
         span {{'Assigned to'|translate}} {{$parent.CaseService.kase.owner}}
         a#cancelCaseDetailChanges.margin-left(ng-click="changeOwner()",translate='',
-        ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.loginStatus.authedUser.is_secure_support_tech') {{'Edit'|translate}}
+        ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.COMMON_CONFIG.isGS4') {{'Edit'|translate}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
         span(translate) Account number : {{$parent.CaseService.account.number}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')

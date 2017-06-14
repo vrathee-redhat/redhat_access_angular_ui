@@ -5,6 +5,7 @@ export default class DetailsSection {
         'ngInject';
 
         $scope.showExtraInfo = false;
+        $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
         $scope.maxNotesLength = '255';
@@ -22,7 +23,7 @@ export default class DetailsSection {
         };
 
         $scope.showSbrGroups = () => {
-            return COMMON_CONFIG.isGS4 && RHAUtils.isNotEmpty(CaseService.kase.sbr_groups.sbr_group) && securityService.loginStatus.authedUser.is_internal && securityService.loginStatus.authedUser.is_secure_support_tech;
+            return COMMON_CONFIG.isGS4 && RHAUtils.isNotEmpty(CaseService.kase.sbr_groups.sbr_group) && securityService.loginStatus.authedUser.is_internal;
         };
 
         $scope.resetData = function () {
@@ -48,7 +49,7 @@ export default class DetailsSection {
                     AlertService.addStrataErrorMessage(error);
                 });
             }
-            if(securityService.loginStatus.authedUser.is_secure_support_tech && RHAUtils.isEmpty(CaseService.redhatSecureSupportUsers)) {
+            if(securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4 && RHAUtils.isEmpty(CaseService.redhatSecureSupportUsers)) {
                 CaseService.populateRedhatSecureSupportUsers();
             }
 
