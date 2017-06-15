@@ -15,10 +15,13 @@
   .row(style='border-top: 1px; solid #cccccc; padding-top: 10px;')
     .col-sm-12
       .pull-right
+        span.spinner.spinner-inline.spinner-sm(ng-show='updatingOwner')
         button.btn.btn-primary.btn-app.margin-left(
-          ng-click='confirm()')
+            ng-click='confirm()',
+            ng-disabled='updatingOwner')
           span {{'Save'|translate}}
-        button.btn.btn-primary.btn-app.margin-left(
-          ng-click='closeModal()')
+        button.btn.btn-danger.btn-app.margin-left(
+            ng-click='closeModal()',
+            ng-disabled='updatingOwner')
           span {{'Cancel'|translate}}
 
