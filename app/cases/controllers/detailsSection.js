@@ -22,9 +22,9 @@ export default class DetailsSection {
 
         };
 
-        $scope.showSbrGroups = () => {
-            return COMMON_CONFIG.isGS4 && RHAUtils.isNotEmpty(CaseService.kase.sbr_groups.sbr_group) && securityService.loginStatus.authedUser.is_internal;
-        };
+        // $scope.showSbrGroups = () => {
+        //     return COMMON_CONFIG.isGS4 && RHAUtils.isNotEmpty(CaseService.kase.sbr_groups.sbr_group) && securityService.loginStatus.authedUser.is_internal;
+        // };
 
         $scope.resetData = function () {
             CaseService.resetCase();
