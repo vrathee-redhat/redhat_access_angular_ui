@@ -154,7 +154,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     textarea#rha-action-plan(
                     style='width: 100%; height: 70px; max-width: 100%;',
                     ng-model='CaseService.kase.action_plan',
-                    maxlength='255',
+                    maxlength='32768',
                     name='actionPlan')
             span.warning-text(ng-if="securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4") {{'Updates to Action Plan are customer facing.'|translate}}
             .row.row-short(ng-if="securityService.loginStatus.authedUser.is_internal")
