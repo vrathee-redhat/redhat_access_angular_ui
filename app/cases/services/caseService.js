@@ -63,6 +63,7 @@ export default class CaseService {
         this.redhatUsers = [];
         this.redhatSecureSupportUsers = [];
         this.managedAccount = null;
+        this.externalCaseCreateKey;
         this.internalStatuses= [
             "Unassigned",
             "Waiting on Customer",
@@ -679,6 +680,11 @@ export default class CaseService {
                 AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created case number {{caseNumber}}', {caseNumber: caseNumber}));
                 self.clearLocalStorageCacheForNewCase();
                 deferred.resolve(caseNumber);
+                // TODO - Send the newly created case number to API as mentioned in PCM-5350
+                // Once, the data is sent, delete the caseCreateKey entry from localStorage
+                if(RHAUtils.isNotEmpty(self.externalCaseCreateKey) && self.externalCaseCreateKey.includes('se-')) {
+                    self.localStorageCache.remove(self.externalCaseCreateKey);
+                }
             }, function (error) {
                 AlertService.clearAlerts();
                 AlertService.addStrataErrorMessage(error);

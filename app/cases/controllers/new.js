@@ -220,6 +220,24 @@ export default class New {
             }
         };
 
+        // This function has been added for the Solution Engine & Container Catalog
+        // Solution Engine or Container Catalog will send the key in URL parameter and store the new case details object in localStorage
+        // PCM reads the localStorageCache using the caseCreateKey passed in the URL params and populates case fields accordingly
+        // PCM-5052
+        $scope.getCaseDetailsFromLocalStorage = () => {
+            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(CaseService.externalCaseCreateKey)) {
+                var draftNewCase = JSON.parse(CaseService.localStorageCache.get(CaseService.externalCaseCreateKey));
+                CaseService.kase.problem = draftNewCase.problemStatement;
+                CaseService.kase.environment = draftNewCase.environment;
+                CaseService.kase.occurance = draftNewCase.frequency;
+                CaseService.kase.urgency = draftNewCase.businessImpact;
+                CaseService.kase.summary = draftNewCase.issue;
+                if (RHAUtils.isNotEmpty(draftNewCase.product)) {
+                    $scope.setProductAndVersion(draftNewCase.product, draftNewCase.version);
+                }
+            }
+        };
+
         $scope.setProductAndVersion = function (product, version) {
             //if we directly call $scope.getProductVersions function without product list in strata service it return error
             strataService.products.list(CaseService.owner).then(function (products) {
@@ -306,6 +324,21 @@ export default class New {
             var urlParameter = $location.search();
             if (RHAUtils.isNotEmpty(urlParameter.product)) {
                 $scope.setProductAndVersion(urlParameter.product, urlParameter.version);
+            }
+            if (RHAUtils.isNotEmpty(urlParameter.caseCreateKey)) {
+                CaseService.externalCaseCreateKey = urlParameter.caseCreateKey;
+                //dummy stringified case object, need to delete this once get original object from solution engine or container catalog
+                //delete the below 2 lines when original integration is complete.
+                let newStrigifiedCaseObject = '{"product":"Red Hat Enterprise Linux","version":"6.0","problemStatement":"test problem","issue":"test issue","environment":"test env","frequency":"test frequency","businessImpact":"test business","guid":"test"}';
+                CaseService.localStorageCache.put(CaseService.externalCaseCreateKey, newStrigifiedCaseObject);
+
+                $scope.getCaseDetailsFromLocalStorage();
+
+                //remove the container catalog localStorageCache object once we populate the fields
+                //do not remove the solution engine localStorageCache object as we want to send the new case number to their API with guid
+                if(CaseService.externalCaseCreateKey.includes('cc-')) {
+                    CaseService.localStorageCache.remove(CaseService.externalCaseCreateKey);
+                }
             }
         }
 
