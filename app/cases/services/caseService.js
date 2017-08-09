@@ -679,12 +679,21 @@ export default class CaseService {
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created case number {{caseNumber}}', {caseNumber: caseNumber}));
                 self.clearLocalStorageCacheForNewCase();
-                deferred.resolve(caseNumber);
-                // TODO - Send the newly created case number to API as mentioned in PCM-5350
+                // Send the newly created case number to API as mentioned in PCM-5350
                 // Once, the data is sent, delete the caseCreateKey entry from localStorage
                 if(RHAUtils.isNotEmpty(self.externalCaseCreateKey) && self.externalCaseCreateKey.includes('se-')) {
-                    self.localStorageCache.remove(self.externalCaseCreateKey);
+                    const caseNumObj = {
+                        caseNumber:caseNumber
+                    };
+                    const guid = JSON.parse(self.localStorageCache.get(self.externalCaseCreateKey)).guid;
+                    strataService.solutionEngine.sendCaseNumber(caseNumObj, guid).then(function () {
+                        self.localStorageCache.remove(self.externalCaseCreateKey);
+                    }, function (error) {
+                        AlertService.clearAlerts();
+                        AlertService.addStrataErrorMessage(error);
+                    });
                 }
+                deferred.resolve(caseNumber);
             }, function (error) {
                 AlertService.clearAlerts();
                 AlertService.addStrataErrorMessage(error);
