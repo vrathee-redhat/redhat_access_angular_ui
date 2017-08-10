@@ -329,8 +329,8 @@ export default class New {
                 CaseService.externalCaseCreateKey = urlParameter.caseCreateKey;
                 //dummy stringified case object, need to delete this once get original object from solution engine or container catalog
                 //delete the below 2 lines when original integration is complete.
-                let newStrigifiedCaseObject = '{"product":"Red Hat Enterprise Linux","version":"6.0","problemStatement":"test problem","issue":"test issue","environment":"test env","frequency":"test frequency","businessImpact":"test business","guid":"test"}';
-                CaseService.localStorageCache.put(CaseService.externalCaseCreateKey, newStrigifiedCaseObject);
+                // let newStrigifiedCaseObject = '{"product":"Red Hat Enterprise Linux","version":"6.0","problemStatement":"test problem","issue":"test issue","environment":"test env","frequency":"test frequency","businessImpact":"test business","guid":"test"}';
+                // CaseService.localStorageCache.put(CaseService.externalCaseCreateKey, newStrigifiedCaseObject);
 
                 $scope.getCaseDetailsFromLocalStorage();
 
