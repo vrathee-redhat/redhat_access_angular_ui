@@ -685,9 +685,9 @@ export default class CaseService {
                     const caseNumObj = {
                         caseNumber:caseNumber
                     };
-                    const guid = JSON.parse(self.localStorageCache.get(self.externalCaseCreateKey)).guid;
+                    const guid = JSON.parse(window.localStorage.getItem(self.externalCaseCreateKey)).guid;
                     strataService.solutionEngine.sendCaseNumber(caseNumObj, guid).then(function () {
-                        self.localStorageCache.remove(self.externalCaseCreateKey);
+                        window.localStorage.removeItem(self.externalCaseCreateKey);
                     }, function (error) {
                         AlertService.clearAlerts();
                         AlertService.addStrataErrorMessage(error);

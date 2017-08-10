@@ -225,8 +225,8 @@ export default class New {
         // PCM reads the localStorageCache using the caseCreateKey passed in the URL params and populates case fields accordingly
         // PCM-5052
         $scope.getCaseDetailsFromLocalStorage = () => {
-            if (RHAUtils.isNotEmpty(CaseService.localStorageCache) && CaseService.localStorageCache.get(CaseService.externalCaseCreateKey)) {
-                var draftNewCase = JSON.parse(CaseService.localStorageCache.get(CaseService.externalCaseCreateKey));
+            if (window.localStorage && window.localStorage.getItem(CaseService.externalCaseCreateKey)) {
+                var draftNewCase = JSON.parse(window.localStorage.getItem(CaseService.externalCaseCreateKey));
                 CaseService.kase.problem = draftNewCase.problemStatement;
                 CaseService.kase.environment = draftNewCase.environment;
                 CaseService.kase.occurance = draftNewCase.frequency;
@@ -337,7 +337,7 @@ export default class New {
                 //remove the container catalog localStorageCache object once we populate the fields
                 //do not remove the solution engine localStorageCache object as we want to send the new case number to their API with guid
                 if(CaseService.externalCaseCreateKey.includes('cc-')) {
-                    CaseService.localStorageCache.remove(CaseService.externalCaseCreateKey);
+                    window.localStorage.removeItem(CaseService.externalCaseCreateKey);
                 }
             }
         }
