@@ -20,7 +20,7 @@ div(ng-hide='showCaseList()')
                             a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()', ng-class="{'btn-primary': caseChosen() }") Close Case(s)
                         div(style='padding-top: 10px;')
                             span {{'Find answers faster with '|translate}}
-                                a(target="_blank",href='/solution-engine') Solution Engine
+                                a(href='/solution-engine') Solution Engine
     .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.totalCases == 0')
         .col-sm-6
             .case-count
