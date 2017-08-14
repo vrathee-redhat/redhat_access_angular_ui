@@ -1,6 +1,6 @@
 {
     "name": "redhat-access-angular-ui",
-    "version": "1.2.94",
+    "version": "1.2.95",
     "dependencies": {
         "stratajs": "1.5.4",
         "angular-treeview": "",
