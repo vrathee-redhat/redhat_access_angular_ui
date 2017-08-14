@@ -28,7 +28,10 @@ export default class New {
         $scope.ie8Message = 'We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
 
         $scope.showRecommendationPanel = false;
-        $scope.notifiedUsers = [];
+        $scope.kase = {
+            notifiedUsers : []
+        };
+
         $scope.isControlGroup = true;
         $scope.recommendationsPerPage = 6;
         $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
@@ -121,6 +124,10 @@ export default class New {
 
         $scope.canCreateCaseForOtherAccounts = function() {
             return securityService.loginStatus.authedUser.is_internal || (securityService.loginStatus.authedUser.org_admin && $scope.userHasManagedAccounts() );
+        };
+
+        $scope.disableEmailNotifySelect = function() {
+          return CaseService.usersLoading || CaseService.submittingCase || !securityService.loginStatus.authedUser.org_admin;
         };
 
         $scope.showEnhancedSLA = function () {
@@ -387,7 +394,7 @@ export default class New {
                         analytics.trigger('OpenSupportCaseSubmit', $event);
                     });
                 }
-                angular.forEach($scope.notifiedUsers, function (user) {
+                angular.forEach($scope.kase.notifiedUsers, function (user) {
                     var userMessage = AlertService.addWarningMessage(gettextCatalog.getString('Adding user {{userName}} to case.', {userName: user}));
                     strataService.cases.notified_users.add(caseNumber, user).then(function () {
                         AlertService.removeAlert(userMessage);
