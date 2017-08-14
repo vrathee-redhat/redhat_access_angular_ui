@@ -5,6 +5,7 @@ export default class EmailNotifySelect {
         'ngInject';
 
         $scope.CaseService = CaseService;
+        $scope.securityService = securityService;
         $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
         $scope.selectedUsers = [];
         $scope.saving = false;

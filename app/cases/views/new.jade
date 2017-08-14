@@ -156,7 +156,7 @@ div(rha-header='', page='newCase')
                             div(ng-show="$parent.CaseService.showFts()")
                                 label#rha-24X7_Contact(translate,translate-comment="Noun") 24x7 Contact
                                 input#rha-24X7_Contact_input(ng-model="$parent.CaseService.fts_contact")
-                            div(ng-if="!$parent.COMMON_CONFIG.isGS4")
+                            div(ng-if="!$parent.COMMON_CONFIG.isGS4 && !$parent.disableEmailNotifySelect()")
                                 label(for='email-notifications',translate) Send Additional Email Notifications to
                                     span &nbsp;
                                     span.glyphicon.glyphicon-info-sign.link(uib-tooltip-html='"<div><span>{{"By opening this case you will automatically receive notifications." |translate }}</span></div>"',tabindex='0',tooltip-trigger="focus")
@@ -165,14 +165,19 @@ div(rha-header='', page='newCase')
                                 chosen,
                                 multiple,
                                 data-placeholder="{{'Select a User'|translate}}",
-                                ng-disabled='$parent.updatingList || $parent.CaseService.submittingCase',
-                                ng-model='$parent.notifiedUsers',
+                                ng-model='$parent.kase.notifiedUsers',
                                 id='rha-email-notify-select',
                                 width='"100%"',
                                 ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in $parent.usersOnAccount | orderBy:['first_name','last_name']")
                                     option(value="")
-
-
+                            div(ng-if="!$parent.COMMON_CONFIG.isGS4 && $parent.disableEmailNotifySelect()")
+                                label(for='email-notifications',translate) Send Additional Email Notifications to
+                                    span &nbsp;
+                                    span.glyphicon.glyphicon-info-sign.link(uib-tooltip-html='"<div><span>{{"By opening this case you will automatically receive notifications." |translate }}</span></div>"',tabindex='0',tooltip-trigger="focus")
+                                .spinner.spinner-inline(ng-show='!$parent.securityService.loginStatus.isLoggedIn  || $parent.CaseService.usersLoading || $parent.securityService.loggingIn')
+                                input.form-control(
+                                ng-disabled='true',
+                                placeholder="{{'Select a User'|translate}}")
                             label(translate,translate-comment="Noun") Case Group (Optional)
                             div(rha-groupselect='', ng-init="$parent.setSearchOptions('false')")
                         .row.submit
