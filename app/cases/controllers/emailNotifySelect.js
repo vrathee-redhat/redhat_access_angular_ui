@@ -10,6 +10,7 @@ export default class EmailNotifySelect {
         $scope.selectedUsers = [];
         $scope.saving = false;
         $scope.usersOnAccount = [];
+        $scope.RHAUtils = RHAUtils;
 
         $scope.selectedUsersChanged = () => {
             const allUsers = $scope.internal ? CaseService.redhatUsers : CaseService.users;

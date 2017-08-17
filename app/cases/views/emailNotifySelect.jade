@@ -22,7 +22,8 @@
             width='"100%"',
             ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in usersOnAccount | orderBy:['first_name','last_name']")
         div.edit-emailNotify-Container(ng-show="!CaseService.usersLoading && !internal && !securityService.loginStatus.authedUser.org_admin")
-            span.label-contact(ng-repeat='user in mapUsers(selectedUsers)') {{user.first_name}} {{user.last_name}} <{{user.sso_username}}>
+            span.label-contact(ng-repeat='user in mapUsers(selectedUsers)', ng-if='RHAUtils.isNotEmpty(selectedUsers)') {{user.first_name}} {{user.last_name}} <{{user.sso_username}}>
+            span.disable-span-text(ng-if='RHAUtils.isEmpty(selectedUsers)', translate='') No users selected
         div(ng-show="internal && !CaseService.redhatUsersLoading")
             div.label-contact(ng-repeat="user in mapUsers(selectedUsers)", ng-class="{'label-disabled':saving}")
                 span {{user.first_name}} {{user.last_name}} <{{user.sso_username}}>
