@@ -148,6 +148,11 @@
 	}
 }
 
+.disable-span-text {
+    color: #808080;
+    padding: 10px;
+}
+
 .label-contact {
     display: inline-block;
     background: #4c4c4c;
@@ -168,6 +173,7 @@
     border: 1px solid #ccc;
     padding: 2px;
     padding-top: 5px;
+    height: 37px;
 }
 
 .case-summary-text {
