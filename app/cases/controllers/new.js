@@ -388,20 +388,20 @@ export default class New {
                 CaseService.submittingCase = false;
             };
 
-            var caseUploadsAndUpdates = function (caseNumber) {
+            var caseUploadsAndUpdates = async function (caseNumber) {
                 if (window.chrometwo_require !== undefined) {
                     chrometwo_require(['analytics/main'], function (analytics) {
                         analytics.trigger('OpenSupportCaseSubmit', $event);
                     });
                 }
-                angular.forEach($scope.kase.notifiedUsers, function (user) {
-                    var userMessage = AlertService.addWarningMessage(gettextCatalog.getString('Adding user {{userName}} to case.', {userName: user}));
-                    strataService.cases.notified_users.add(caseNumber, user).then(function () {
-                        AlertService.removeAlert(userMessage);
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                    });
-                });
+
+                //add notified users
+                try{
+                    const addNotifiedUsers = _.map($scope.kase.notifiedUsers, (user) => strataService.cases.notified_users.add(caseNumber, user));
+                    await Promise.all(addNotifiedUsers);
+                } catch (error) {
+                    AlertService.addStrataErrorMessage(error);
+                }
 
                 if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && NEW_CASE_CONFIG.showAttachments) {
                     AttachmentsService.updateAttachments(caseNumber).then(function () {
