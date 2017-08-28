@@ -10,3 +10,7 @@
 .panel-group .panel-title>a:before {
     content: none;
 }
+
+.ml-5{
+    margin-left: 5px;
+}
