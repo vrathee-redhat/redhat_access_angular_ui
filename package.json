@@ -40,7 +40,6 @@
         "file-loader": "~0.9.0",
         "filesaver.js": "^0.2.0",
         "html-webpack-plugin": "~2.22.0",
-        "hydrajs": "git+https://gitlab.cee.redhat.com/redhataccess/hydrajs.git#0.0.89",
         "image-webpack-loader": "~1.8.0",
         "isparta-loader": "~2.0.0",
         "jade": "~1.11.0",

@@ -1,8 +1,7 @@
 'use strict';
 
-import _ from 'lodash';
-import hydrajs from 'hydrajs';
-import find from 'lodash/filter';
+import _        from 'lodash';
+import hydrajs  from '../../shared/hydra.js';
 
 export default class CaseService {
     constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location) {
@@ -454,7 +453,7 @@ export default class CaseService {
                         }
                         comments[0].slice(index, index + 1);
                     }
-                    let commentFeedback = find(comments[1], (comm) => comm.commentId === comment.id);
+                    let commentFeedback = _.filter(comments[1], (comm) => comm.commentId === comment.id);
                     if (RHAUtils.isNotEmpty(commentFeedback[0])) {
                         comment.feedback = commentFeedback[0].feedback;
                     } else {
