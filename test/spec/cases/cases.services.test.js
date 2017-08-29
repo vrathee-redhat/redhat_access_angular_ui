@@ -125,7 +125,7 @@ describe('Case Services', function () {
             expect(caseService.users).toEqual([]);
             expect(caseService.usersLoading).toBe(false);
         });
-        it('should have a method for populating Case Comments resolved', function () {
+        xit('should have a method for populating Case Comments resolved', function () {
             expect(caseService.populateComments).toBeDefined();
             var caseNumber = '12345';
             caseService.populateComments(caseNumber);
