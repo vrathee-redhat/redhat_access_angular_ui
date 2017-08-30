@@ -42,6 +42,9 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                             .reply.text-right
                                 a.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}&nbsp;
                                 a.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
+                                span(ng-if='!securityService.loginStatus.authedUser.is_internal && !COMMON_CONFIG.isGS4')
+                                    a.ml-5.fa(ng-class="element.feedback === 1 ? 'fa-thumbs-up' : 'fa-thumbs-o-up'" ng-click='applyCommentFeedback(element, 1)')
+                                    a.ml-5.fa(ng-class="element.feedback === 0 ? 'fa-thumbs-down' : 'fa-thumbs-o-down'" ng-click='applyCommentFeedback(element, 0)')
 
                     article.comment.article-private-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && element.public !== undefined && !element.public")
                         i.fa.fa-comments-o

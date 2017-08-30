@@ -95,6 +95,14 @@ export default class DiscussionSection {
             }
         };
 
+        $scope.applyCommentFeedback = (element, feedback) => {
+            CaseService.feedbackComment(element, feedback).then(angular.bind(this, function() {
+                DiscussionService.updateElements();
+            }), angular.bind(this, function(error) {
+                AlertService.addStrataErrorMessage(error);
+            }));
+        };
+
         $scope.$watch('AttachmentsService.originalAttachments', function () {
             DiscussionService.updateElements();
             if (AttachmentsService.originalAttachments.length === 0) { //if we are deleting last attachment, we should default to case discussion tab

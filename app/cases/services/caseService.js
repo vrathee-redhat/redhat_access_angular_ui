@@ -1,6 +1,7 @@
 'use strict';
 
-import _ from 'lodash';
+import _        from 'lodash';
+import hydrajs  from '../../shared/hydra.js';
 
 export default class CaseService {
     constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location) {
@@ -413,11 +414,32 @@ export default class CaseService {
                 commentElem.scrollIntoView(true);
             }
         };
-        this.populateComments = function (caseNumber) {
-            var promise = strataService.cases.comments.get(caseNumber);
+
+        this.feedbackComment = async function(element, feedback) {
+            if (RHAUtils.isNotEmpty(this.kase) && RHAUtils.isNotEmpty(element)) {
+                const commJson = {
+                    feedback: feedback,
+                    accountNumber: this.kase.account_number,
+                    commentId: element.id,
+                    commentCreatedBy: element.created_by
+                }
+                try {
+                    if (element.feedback !== undefined) {
+                        await hydrajs.commentFeedback.updateCommentFeedback(this.kase.case_number, commJson);
+                    } else {
+                        await hydrajs.commentFeedback.createCommentFeedback(this.kase.case_number, commJson)
+                    }
+                    element.feedback = feedback;
+                } catch (error) {
+                    AlertService.addStrataErrorMessage(error);
+                }
+            }
+        };
+        this.populateComments = function(caseNumber) {
+            var promise = $q.all([strataService.cases.comments.get(caseNumber), hydrajs.commentFeedback.getCommentFeedback(this.kase.case_number)]);
             var draftId;
-            promise.then(angular.bind(this, function (comments) {
-                angular.forEach(comments, angular.bind(this, function (comment, index) {
+            promise.then(angular.bind(this, function(comments) {
+                angular.forEach(comments[0], angular.bind(this, function(comment, index) {
                     if (comment.draft === true) {
                         this.draftComment = comment;
                         this.draftCommentOnServerExists = true;
@@ -429,7 +451,13 @@ export default class CaseService {
                         } else if (RHAUtils.isEmpty(this.commentText)) {
                             this.disableAddComment = true;
                         }
-                        comments.slice(index, index + 1);
+                        comments[0].slice(index, index + 1);
+                    }
+                    let commentFeedback = _.filter(comments[1], (comm) => comm.commentId === comment.id);
+                    if (RHAUtils.isNotEmpty(commentFeedback[0])) {
+                        comment.feedback = commentFeedback[0].feedback;
+                    } else {
+                        comment.feedback = undefined;
                     }
                 }));
                 if (this.localStorageCache) {
@@ -449,7 +477,7 @@ export default class CaseService {
                         }
                     }
                 }
-                this.comments = comments;
+                this.comments = comments[0];
             }), function (error) {
             });
             return promise;
