@@ -30,6 +30,7 @@
 		position: relative;
 		@include rem('padding', $global-padding $global-margin);
 		border-top: 1px solid #D3D3D3;
+		border-right: 1px solid #D3D3D3;
 		border-bottom: 1px solid #D3D3D3;
 		border-left: 4px solid #ddd;
 		font-family: monospace;
@@ -49,6 +50,36 @@
 		}
 
 		& + article { @include rem('margin-top', $global-margin); }
+
+		.reply {
+			font-family: 'Overpass';
+			font-size: 12px;
+		}
+
+		.vote-buttons {
+			display: inline-block;
+			font-size: 13px;
+			a {
+				border: 1px solid #ECECEC;
+				color: #646464;
+				display: inline-block;
+				padding: 6px 10px;
+				&.active {
+					background: #FAFAFA;
+					color: #3f9c35;
+				}
+				+ a {
+					margin-left: -1px;
+					&.active {
+						color: #C00;
+					}
+				}
+				&:hover {
+					text-decoration: none;
+				}
+			}
+
+		}
 	}
 
 	.article-comment {
