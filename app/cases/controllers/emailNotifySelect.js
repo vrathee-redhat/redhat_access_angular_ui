@@ -1,5 +1,7 @@
 'use strict';
 
+import _ from 'lodash';
+
 export default class EmailNotifySelect {
     constructor($scope, CaseService, securityService, AlertService, strataService, CASE_EVENTS, $filter, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog) {
         'ngInject';
@@ -69,6 +71,7 @@ export default class EmailNotifySelect {
 
         $scope.isCurrentUserWatcher = () => $scope.selectedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) > -1;
         $scope.isCurrentUserCaseContact = () => CaseService.kase.contact_sso_username == securityService.loginStatus.authedUser.sso_username;
+        $scope.isCurrentUserNotifiedUser = () => _.includes(CaseService.originalNotifiedUsers, securityService.loginStatus.authedUser.sso_username);
 
         $scope.toggleCurrentUser = () => {
             if($scope.isCurrentUserWatcher()) {
