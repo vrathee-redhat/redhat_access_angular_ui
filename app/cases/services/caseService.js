@@ -133,6 +133,16 @@ export default class CaseService {
             "Webservers"
         ];
 
+        // pcm-5478 : only the below products would see premium plus entitlements if account has this entitlement
+        this.premiumPlusProducts = [
+            'Red Hat Virtualization',
+            'Red Hat Insights',
+            'Red Hat Satellite or Proxy',
+            'Red Hat Cluster Suite',
+            'Red Hat Enterprise IPA',
+            'Red Hat Enterprise Linux'
+        ];
+
         this.setSeverities = function (severities) {
             this.severities = severities;
             angular.forEach(this.severities, function (severity) {
@@ -513,6 +523,7 @@ export default class CaseService {
                 if (unknownIndex > -1) {
                     entitlements.splice(unknownIndex, 1);
                 }
+                this.originalEntitlements = entitlements;
                 this.entitlements = entitlements;
 
                 //Added this for PCM 996
@@ -525,6 +536,27 @@ export default class CaseService {
             }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
             }));
+        };
+
+        this.updateAndValidateEntitlements = function() {
+            // case_number is empty means its new case create page
+            if(_.isEmpty(this.kase.case_number)) {
+                if(_.includes(this.originalEntitlements,'PREMIUMPLUS')){
+                    if(!_.isEmpty(this.kase.product) && !_.includes(this.premiumPlusProducts,this.kase.product)){
+                        this.entitlements = _.without(this.originalEntitlements,'PREMIUMPLUS');
+                    } else {
+                        this.entitlements = this.originalEntitlements.concat([]); // clone
+                    }
+                }
+            } else {
+                // case_number is not empty means its case edit page
+                if(!_.isEmpty(this.kase.entitlement.sla) && this.kase.entitlement.sla==='PREMIUMPLUS'){
+                    if(!_.isEmpty(this.kase.product) && !_.includes(this.premiumPlusProducts,this.kase.product)) {
+                        AlertService.addWarningMessage(gettextCatalog.getString('Selected product {{productName}} is not entitled for Premium Plus support level.',{productName:this.kase.product}));
+                        this.kase.product = this.prestineKase.product;
+                    }
+                }
+            }
         };
 
 
@@ -743,7 +775,7 @@ export default class CaseService {
             recommendation.analysisAlgorithm = "Text Analysis";
             recommendation.analysisService = "calaveras";
             recommendation.algorithmScore = rec.score;
-            recommendation.resource = "Summary"
+            recommendation.resource = "Summary";
             var bucket = index===0 ? 4 :3;
             recommendation.bucket = bucket;
             recommendation.analysisCategory = "Text Analysis";
@@ -755,13 +787,13 @@ export default class CaseService {
                 recommendation.solutionUrl = rec.view_uri;
             }
             return recommendation;
-        }
+        };
 
 
         this.correctSupportLevelAndFTS = function (caseJson) {
             if (RHAUtils.isEmpty(caseJson.entitlement) || RHAUtils.isEmpty(caseJson.entitlement.sla)) {
                 caseJson.entitlement = {};
-                var supportLevelPriorities = ['PREMIUM', 'ENTERPRISE', 'STANDARD', 'PROFESSIONAL', 'AMC'];
+                var supportLevelPriorities = ['PREMIUM', 'ENTERPRISE', 'STANDARD', 'PROFESSIONAL', 'AMC', 'PREMIUMPLUS'];
                 supportLevelPriorities.forEach(angular.bind(this, function (entitlement) {
                     if (RHAUtils.isEmpty(caseJson.entitlement.sla) && RHAUtils.isNotEmpty(this.entitlements) && this.entitlements.indexOf(entitlement) >= 0) {
                         // user has the support level and no support level is selected, we can select it
