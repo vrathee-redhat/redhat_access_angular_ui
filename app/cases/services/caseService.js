@@ -541,16 +541,17 @@ export default class CaseService {
         this.updateAndValidateEntitlements = function() {
             // case_number is empty means its new case create page
             if(_.isEmpty(this.kase.case_number)) {
-                if(_.includes(this.originalEntitlements,'PREMIUMPLUS')){
+                if(_.includes(this.originalEntitlements,'PREMIUMPLUS') || _.includes(this.originalEntitlements,'PREMIUM PLUS')){
                     if(!_.isEmpty(this.kase.product) && !_.includes(this.premiumPlusProducts,this.kase.product)){
-                        this.entitlements = _.without(this.originalEntitlements,'PREMIUMPLUS');
+                        if(_.includes(this.originalEntitlements,'PREMIUMPLUS')) this.entitlements = _.without(this.originalEntitlements,'PREMIUMPLUS');
+                        if(_.includes(this.originalEntitlements,'PREMIUM PLUS')) this.entitlements = _.without(this.originalEntitlements,'PREMIUM PLUS');
                     } else {
                         this.entitlements = this.originalEntitlements.concat([]); // clone
                     }
                 }
             } else {
                 // case_number is not empty means its case edit page
-                if(!_.isEmpty(this.kase.entitlement.sla) && this.kase.entitlement.sla==='PREMIUMPLUS'){
+                if(!_.isEmpty(this.kase.entitlement.sla) && (this.kase.entitlement.sla==='PREMIUMPLUS' || this.kase.entitlement.sla==='PREMIUM PLUS')){
                     if(!_.isEmpty(this.kase.product) && !_.includes(this.premiumPlusProducts,this.kase.product)) {
                         AlertService.addWarningMessage(gettextCatalog.getString('Selected product {{productName}} is not entitled for Premium Plus support level.',{productName:this.kase.product}));
                         this.kase.product = this.prestineKase.product;
@@ -793,7 +794,7 @@ export default class CaseService {
         this.correctSupportLevelAndFTS = function (caseJson) {
             if (RHAUtils.isEmpty(caseJson.entitlement) || RHAUtils.isEmpty(caseJson.entitlement.sla)) {
                 caseJson.entitlement = {};
-                var supportLevelPriorities = ['PREMIUM', 'ENTERPRISE', 'STANDARD', 'PROFESSIONAL', 'AMC', 'PREMIUMPLUS'];
+                var supportLevelPriorities = ['PREMIUM', 'ENTERPRISE', 'STANDARD', 'PROFESSIONAL', 'AMC', 'PREMIUMPLUS', 'PREMIUM PLUS'];
                 supportLevelPriorities.forEach(angular.bind(this, function (entitlement) {
                     if (RHAUtils.isEmpty(caseJson.entitlement.sla) && RHAUtils.isNotEmpty(this.entitlements) && this.entitlements.indexOf(entitlement) >= 0) {
                         // user has the support level and no support level is selected, we can select it
