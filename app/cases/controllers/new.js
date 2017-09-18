@@ -112,9 +112,13 @@ export default class New {
 
 
         $scope.$on(CASE_EVENTS.ownerChange, function () {
-            CaseService.populateGroups(CaseService.owner);
+            let caseOwner = CaseService.owner;
+            if(RHAUtils.isNotEmpty(CaseService.virtualOwner)){
+                caseOwner = CaseService.virtualOwner;
+            }
+            CaseService.populateGroups(caseOwner);
             if (CaseService.owner !== undefined) {
-                CaseService.populateEntitlements(CaseService.owner);
+                CaseService.populateEntitlements(caseOwner);
                 ProductsService.getProducts(true);
 
                 //as owner change, we might get different product and version list, so better to clear previous selection
