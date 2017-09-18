@@ -34,9 +34,13 @@ export default class ProductSelect {
         });
 
         $scope.onProductSelect = function ($event) {
-            CaseService.kase.version="";
-            ProductsService.getVersions(CaseService.kase.product);
+            // Check Products and update entitlements
+            CaseService.updateAndValidateEntitlements();
+            if(CaseService.kase.product !== CaseService.prestineKase.product) {
+                CaseService.kase.version="";
+            }
             CaseService.validateNewCase();
+            ProductsService.getVersions(CaseService.kase.product);
             CaseService.updateLocalStorageForNewCase();
             CaseService.sendCreationStartedEvent($event);
         }

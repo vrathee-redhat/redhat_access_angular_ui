@@ -82,30 +82,31 @@ export default class RecommendationsService {
                                 this.recommendations = [];
                             }
                             if (RHAUtils.isNotEmpty(response)) {
-                                response.response.docs.forEach(angular.bind(this, function (solution) {
-                                    if (solution !== undefined) {
-                                        solution.resource_type = 'Solution';
-                                        solution.resource_id = solution.id;
-                                        solution.resource_view_uri = solution.view_uri;
-                                        solution.title = solution.allTitle;
-                                        solution.abstract = solution.abstract.substring(0, 300);
-                                        if (RHAUtils.isNotEmpty(response.highlighting[solution.uri])) {
+                                response.response.docs.forEach(angular.bind(this, function (recommendation) {
+                                    if (recommendation !== undefined) {
+                                        recommendation.resource_type = recommendation.documentKind;
+                                        recommendation.resource_id = recommendation.id;
+                                        recommendation.resource_uri = recommendation.uri;
+                                        recommendation.resource_view_uri = recommendation.view_uri;
+                                        recommendation.title = recommendation.allTitle;
+                                        recommendation.abstract = recommendation.abstract.substring(0, 300);
+                                        if (RHAUtils.isNotEmpty(response.highlighting[recommendation.uri])) {
                                             try {
-                                                solution.abstract = decodeURIComponent($sanitize(response.highlighting[solution.uri].abstract[0]));
+                                                recommendation.abstract = decodeURIComponent($sanitize(response.highlighting[recommendation.uri].abstract[0]));
                                             } catch (err) {
                                             }
                                         }
 
                                         //this is to sync the case detail pinned recommendation with /rs/recommendations recommendation w.r.t pinned flag so that red pin will appear in both section
                                         var pinnedRecommendation = $filter('filter')(self.pinnedRecommendations, function (rec) {
-                                            return rec.resource_id === solution.id;
+                                            return rec.resource_id === recommendation.id;
                                         })[0];
                                         if (RHAUtils.isNotEmpty(pinnedRecommendation)) {
                                             if (pinnedRecommendation.pinned_at) {
-                                                solution.pinned = true;
+                                                recommendation.pinned = true;
                                             }
                                         }
-                                        this.recommendations.push(solution);
+                                        this.recommendations.push(recommendation);
                                     }
                                 }));
                             }
