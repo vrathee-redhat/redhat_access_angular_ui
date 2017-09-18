@@ -43,7 +43,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                                 a.commentReply(ng-click='commentReply(element,(ie8 || ie9))', href='') {{'Reply'|translate}}
                                 a.ml-5.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
                                 //TODO -- Removed as per the request by Renu Jhamtani in the comments of https://projects.engineering.redhat.com/browse/PCM-4449
-                                // Uncomment the below lines when this needs to be pushed to Production
+                                // Uncomment the below lines when this needs to be pushed to Production 
                                 //span.ml-5.vote-buttons(ng-if='!securityService.loginStatus.authedUser.is_internal && !COMMON_CONFIG.isGS4')
                                 //    a.fa(ng-class="element.feedback === 1 ? 'fa-thumbs-up active' : 'fa-thumbs-o-up'" ng-click='applyCommentFeedback(element, 1)')
                                 //    a.fa(ng-class="element.feedback === 0 ? 'fa-thumbs-down active' : 'fa-thumbs-o-down'" ng-click='applyCommentFeedback(element, 0)')
