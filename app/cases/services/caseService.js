@@ -65,8 +65,9 @@ export default class CaseService {
         this.redhatSecureSupportUsers = [];
         this.managedAccount = null;
         this.externalCaseCreateKey;
-        this.loggedInAccountUsers = [];
-        this.managedAccountUsers = [];
+        // PCM-5264 commenting as per comment by Renu
+        // this.loggedInAccountUsers = [];
+        // this.managedAccountUsers = [];
         this.internalStatuses= [
             "Unassigned",
             "Waiting on Customer",
@@ -192,9 +193,10 @@ export default class CaseService {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.onOwnerSelectChanged = function () {
-            if(RHAUtils.isNotEmpty(this.managedAccountUsers) && !_.includes(_.map(this.managedAccountUsers,'sso_username'),this.owner)) {
-                this.virtualOwner = this.managedAccountUsers[0].sso_username;
-            }
+            // PCM-5264 Commenting as per comment by Renu
+            // if(RHAUtils.isNotEmpty(this.managedAccountUsers) && !_.includes(_.map(this.managedAccountUsers,'sso_username'),this.owner)) {
+            //     this.virtualOwner = this.managedAccountUsers[0].sso_username;
+            // }
             $rootScope.$broadcast(CASE_EVENTS.ownerChange);
         };
         this.onGroupSelectChanged = function () {
@@ -310,7 +312,8 @@ export default class CaseService {
             this.entitlement = '';
             this.updatingNewCaseSummary = false;
             this.updatingNewCaseDescription = false;
-            this.virtualOwner = undefined;
+            // PCM-5264 Commenting as per comment by Renu
+            // this.virtualOwner = undefined;
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
@@ -340,25 +343,26 @@ export default class CaseService {
         };
         this.usersLoading = false;
 
-        this.isManagedAccount = (accountNumber) => {
-            if(RHAUtils.isNotEmpty(accountNumber)) {
-                if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
-                    RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts) &&
-                    _.includes(_.map(securityService.loginStatus.authedUser.managedAccounts.accounts,'accountNum'),accountNumber)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            return false;
-        };
-
-        this.isAuthedUserAccount = (accountNumber) => {
-            if(RHAUtils.isNotEmpty(accountNumber) && securityService.loginStatus.authedUser.account_number==accountNumber) {
-                return true;
-            }
-            return  false;
-        };
+        // PCM-5264 Commenting as per comment by Renu
+        // this.isManagedAccount = (accountNumber) => {
+        //     if(RHAUtils.isNotEmpty(accountNumber)) {
+        //         if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
+        //             RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts) &&
+        //             _.includes(_.map(securityService.loginStatus.authedUser.managedAccounts.accounts,'accountNum'),accountNumber)) {
+        //             return true;
+        //         } else {
+        //             return false;
+        //         }
+        //     }
+        //     return false;
+        // };
+        //
+        // this.isAuthedUserAccount = (accountNumber) => {
+        //     if(RHAUtils.isNotEmpty(accountNumber) && securityService.loginStatus.authedUser.account_number==accountNumber) {
+        //         return true;
+        //     }
+        //     return  false;
+        // };
 
         /**
          *  Intended to be called only after user is logged in and has account details
@@ -394,13 +398,14 @@ export default class CaseService {
                         this.usersLoading = false;
                         this.users = users;
 
-                        if(this.isAuthedUserAccount(accountNumber)) {
-                            this.loggedInAccountUsers = users;
-                        }
-                        if(this.isManagedAccount(accountNumber)) {
-                            this.managedAccountUsers = users;
-                            this.users = _.concat(this.managedAccountUsers, this.loggedInAccountUsers);
-                        }
+                        // PCM-5264 Commenting as per comment by Renu
+                        // if(this.isAuthedUserAccount(accountNumber)) {
+                        //     this.loggedInAccountUsers = users;
+                        // }
+                        // if(this.isManagedAccount(accountNumber)) {
+                        //     this.managedAccountUsers = users;
+                        //     this.users = _.concat(this.managedAccountUsers, this.loggedInAccountUsers);
+                        // }
                     }, (error) => {
                         this.users = [];
                         this.usersLoading = false;

@@ -36,9 +36,10 @@ export default class ProductsService {
                     }
                 }
             }
-            if(RHAUtils.isNotEmpty(CaseService.virtualOwner)) {
-                contact = CaseService.virtualOwner; // Used for fetching products list(of customers) for cases managed by Partners
-            }
+            // PCM-5264 Commenting as per comment by Renu
+            // if(RHAUtils.isNotEmpty(CaseService.virtualOwner)) {
+            //     contact = CaseService.virtualOwner; // Used for fetching products list(of customers) for cases managed by Partners
+            // }
             this.productsLoading = true;
             return strataService.products.list(contact).then(angular.bind(this, function (response) {
                 this.products = response;
