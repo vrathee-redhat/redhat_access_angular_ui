@@ -611,12 +611,12 @@ export default class CaseService {
             var showFtsCheckbox = false;
             if (RHAUtils.isNotEmpty(this.severities)) {
                 if (this.entitlements !== undefined && this.entitlements.length === 1) {
-                    if (this.entitlements[0] === 'PREMIUM' || this.entitlements[0] === 'AMC') {
+                    if (this.entitlements[0] === 'PREMIUM' || this.entitlements[0] === 'AMC' || this.entitlements[0] === 'PREMIUMPLUS' || this.entitlements[0] === 'PREMIUM PLUS') {
                         showFtsCheckbox = true;
                     }
-                } else if (this.entitlement === 'PREMIUM' || this.entitlement === 'AMC') {
+                } else if (this.entitlement === 'PREMIUM' || this.entitlement === 'AMC' || this.entitlement === 'PREMIUMPLUS' || this.entitlement === 'PREMIUM PLUS') {
                     showFtsCheckbox = true;
-                } else if (RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC')) {
+                } else if (RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC' || this.kase.entitlement.sla === 'PREMIUMPLUS' || this.kase.entitlement.sla === 'PREMIUM PLUS')) {
                     showFtsCheckbox = true;
                 }
                 if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
@@ -841,7 +841,7 @@ export default class CaseService {
                     }
                 }));
 
-                var ftsSupportLevels = ['PREMIUM', 'AMC'];
+                var ftsSupportLevels = ['PREMIUM', 'AMC', 'PREMIUMPLUS', 'PREMIUM PLUS'];
                 if (caseJson.severity === '1 (Urgent)' && RHAUtils.isNotEmpty(caseJson.entitlement.sla)
                     && ftsSupportLevels.indexOf(caseJson.entitlement.sla) >= 0) {
                     // for PREMIUM and AMC we auto set FTS if severity is 1
