@@ -188,10 +188,10 @@ if (ENVIRONMENT === 'gs4') {
             } else {
                 if (host === 'access.stage.redhat.com') {
                     CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
-                    CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la6cs.salesforceliveagent.com/chat';
+                    CHAT_SUPPORT.chatLiveAgentUrlPrefix = 'https://d.la2-c1cs-ord.salesforceliveagent.com/chat';
                     CHAT_SUPPORT.chatInitHashOne = '572A0000000GmiP';
-                    CHAT_SUPPORT.chatInitHashTwo = '00DJ0000003OTJd';
-                    CHAT_SUPPORT.chatIframeHackUrlPrefix = 'https://stage2-rogsstest.cs10.force.com/chatHidden';
+                    CHAT_SUPPORT.chatInitHashTwo = '00D3F000000CmV8';
+                    CHAT_SUPPORT.chatIframeHackUrlPrefix = 'http://stage2-rogsstest.cs92.force.com/chatHidden';
                 } else {
                     if (host === 'access.redhat.com') {
                         CHAT_SUPPORT.chatButtonToken = '573A0000000GmiP';
