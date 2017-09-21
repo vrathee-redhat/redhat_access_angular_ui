@@ -1,5 +1,5 @@
 div(rha-header='', page='caseList')
-div(ng-hide='showCaseList()')
+div(ng-hide='showCaseList() || securityService.loginFailure')
     .spinner.spinner-lg
     p.center {{'Loading...'|translate}}
 .page-header(ng-show='showCaseList()')
