@@ -111,14 +111,27 @@ export default class New {
         });
 
 
+        // Commenting as a part of comment by Renu Jhamtani in https://projects.engineering.redhat.com/browse/PCM-5264
+        // $scope.$on(CASE_EVENTS.ownerChange, function () {
+        //     let caseOwner = CaseService.owner;
+        //     if(RHAUtils.isNotEmpty(CaseService.virtualOwner)){
+        //         caseOwner = CaseService.virtualOwner;
+        //     }
+        //     CaseService.populateGroups(caseOwner);
+        //     if (CaseService.owner !== undefined) {
+        //         CaseService.populateEntitlements(caseOwner);
+        //         ProductsService.getProducts(true);
+        //
+        //         //as owner change, we might get different product and version list, so better to clear previous selection
+        //         CaseService.clearProdVersionFromLS();
+        //     }
+        // });
+
+        // TODO - Comment this once the above lines are uncommented
         $scope.$on(CASE_EVENTS.ownerChange, function () {
-            let caseOwner = CaseService.owner;
-            if(RHAUtils.isNotEmpty(CaseService.virtualOwner)){
-                caseOwner = CaseService.virtualOwner;
-            }
-            CaseService.populateGroups(caseOwner);
+            CaseService.populateGroups(CaseService.owner);
             if (CaseService.owner !== undefined) {
-                CaseService.populateEntitlements(caseOwner);
+                CaseService.populateEntitlements(CaseService.owner);
                 ProductsService.getProducts(true);
 
                 //as owner change, we might get different product and version list, so better to clear previous selection
