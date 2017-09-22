@@ -241,7 +241,9 @@ if (ENVIRONMENT === 'gs4') {
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 }
             }, function (error) {
-                window.sessionjs.login();
+                if(!securityService.loginFailure) {
+                    window.sessionjs.login();
+                }
             });
             });
         }
