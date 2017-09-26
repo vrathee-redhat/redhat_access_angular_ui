@@ -485,10 +485,11 @@ export default class CaseService {
             }
         };
         this.populateComments = function(caseNumber) {
-            var promise = $q.all([strataService.cases.comments.get(caseNumber), hydrajs.commentFeedback.getCommentFeedback(this.kase.case_number)]);
+            //var promise = $q.all([strataService.cases.comments.get(caseNumber), hydrajs.commentFeedback.getCommentFeedback(this.kase.case_number)]);
+            var promise = strataService.cases.comments.get(caseNumber);
             var draftId;
             promise.then(angular.bind(this, function(comments) {
-                angular.forEach(comments[0], angular.bind(this, function(comment, index) {
+                angular.forEach(comments, angular.bind(this, function(comment, index) {
                     if (comment.draft === true) {
                         this.draftComment = comment;
                         this.draftCommentOnServerExists = true;
@@ -500,14 +501,14 @@ export default class CaseService {
                         } else if (RHAUtils.isEmpty(this.commentText)) {
                             this.disableAddComment = true;
                         }
-                        comments[0].slice(index, index + 1);
+                        comments.slice(index, index + 1);
                     }
-                    let commentFeedback = _.filter(comments[1], (comm) => comm.commentId === comment.id);
-                    if (RHAUtils.isNotEmpty(commentFeedback[0])) {
-                        comment.feedback = commentFeedback[0].feedback;
-                    } else {
-                        comment.feedback = undefined;
-                    }
+                    // let commentFeedback = _.filter(comments[1], (comm) => comm.commentId === comment.id);
+                    // if (RHAUtils.isNotEmpty(commentFeedback[0])) {
+                    //     comment.feedback = commentFeedback[0].feedback;
+                    // } else {
+                    //     comment.feedback = undefined;
+                    // }
                 }));
                 if (this.localStorageCache) {
                     var cacheKey = (caseNumber + securityService.loginStatus.authedUser.sso_username);
@@ -526,7 +527,7 @@ export default class CaseService {
                         }
                     }
                 }
-                this.comments = comments[0];
+                this.comments = comments;
             }), function (error) {
             });
             return promise;
