@@ -316,7 +316,7 @@ describe('Case Controllers', function () {
 
     //Suite for AddCommentSection
     describe('AddCommentSection', function () {
-        it('should have a function for adding comments to case resolved', inject(function ($controller) {
+        xit('should have a function for adding comments to case resolved', inject(function ($controller) {
             $controller('AddCommentSection', {
                 $scope: mockScope,
                 CaseService: mockCaseService,
@@ -332,7 +332,7 @@ describe('Case Controllers', function () {
             mockScope.$root.$digest();
             expect(mockCaseService.kase.status.name).toEqual('Waiting on Red Hat');
         }));
-        it('should have a function for adding comments to case rejected', inject(function ($controller) {
+        xit('should have a function for adding comments to case rejected', inject(function ($controller) {
             $controller('AddCommentSection', {
                 $scope: mockScope,
                 CaseService: mockCaseService,
@@ -350,7 +350,7 @@ describe('Case Controllers', function () {
             expect(mockCaseService.kase.status.name).toEqual('Waiting on Red Hat');
             expect(mockScope.addingComment).toBe(false);
         }));
-        it('should have a function for adding draft comments to case', inject(function ($controller) {
+        xit('should have a function for adding draft comments to case', inject(function ($controller) {
             $controller('AddCommentSection', {
                 $scope: mockScope,
                 CaseService: mockCaseService,
