@@ -485,7 +485,6 @@ export default class CaseService {
             }
         };
         this.populateComments = function(caseNumber) {
-            //var promise = $q.all([strataService.cases.comments.get(caseNumber), hydrajs.commentFeedback.getCommentFeedback(this.kase.case_number)]);
             var promise = strataService.cases.comments.get(caseNumber);
             var draftId;
             promise.then(angular.bind(this, function(comments) {
@@ -528,7 +527,25 @@ export default class CaseService {
                     }
                 }
                 this.comments = comments;
+                this.populateCommentsFeedback();
             }), function (error) {
+            });
+            return promise;
+        };
+
+        this.populateCommentsFeedback = function() {
+            var promise = hydrajs.commentFeedback.getCommentFeedback(123);
+            promise.then(angular.bind(this, function(response) {
+                _.forEach(this.comments, (comment) => {
+                    let commentFeedback = _.filter(response, (comm) => comm.commentId === comment.id);
+                    if (RHAUtils.isNotEmpty(commentFeedback[0])) {
+                        comment.feedback = commentFeedback[0].feedback;
+                    } else {
+                        comment.feedback = undefined;
+                    }
+                });
+            }), function (error) {
+                console.log('error fetching comment feedback');
             });
             return promise;
         };

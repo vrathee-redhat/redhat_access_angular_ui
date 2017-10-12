@@ -52,37 +52,51 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var comment_1 = __webpack_require__(13);
-	var insights_1 = __webpack_require__(18);
-	var roleMetadata_1 = __webpack_require__(24);
-	var testClass_1 = __webpack_require__(30);
-	var general_1 = __webpack_require__(16);
-	var kyce_1 = __webpack_require__(20);
-	var businessHours_1 = __webpack_require__(8);
-	var tags_1 = __webpack_require__(28);
-	var user_1 = __webpack_require__(31);
-	var kcs_1 = __webpack_require__(19);
-	var case_1 = __webpack_require__(10);
-	var shiftMetadata_1 = __webpack_require__(26);
-	var templateMetadata_1 = __webpack_require__(29);
-	var vendorProduct_1 = __webpack_require__(33);
-	var certification_1 = __webpack_require__(11);
-	var certificationTest_1 = __webpack_require__(12);
-	var userShifts_1 = __webpack_require__(32);
-	var groupMetadata_1 = __webpack_require__(17);
-	var counts_1 = __webpack_require__(14);
-	var review_1 = __webpack_require__(23);
-	var products_1 = __webpack_require__(22);
-	var sbrs_1 = __webpack_require__(25);
-	var externalTrackers_1 = __webpack_require__(15);
-	var solr_1 = __webpack_require__(27);
-	var account_1 = __webpack_require__(7);
-	var callCenters_1 = __webpack_require__(9);
-	var commentFeedback_1 = __webpack_require__(21);
+	var insights_1 = __webpack_require__(27);
+	var roleMetadata_1 = __webpack_require__(33);
+	var testClass_1 = __webpack_require__(40);
+	var general_1 = __webpack_require__(25);
+	var kyce_1 = __webpack_require__(29);
+	var businessHours_1 = __webpack_require__(15);
+	var tags_1 = __webpack_require__(38);
+	var brms_1 = __webpack_require__(14);
+	var user_1 = __webpack_require__(3);
+	var contact_1 = __webpack_require__(4);
+	var case_1 = __webpack_require__(45);
+	var caseGroup_1 = __webpack_require__(7);
+	var bomgar_1 = __webpack_require__(44);
+	var caseHistory_1 = __webpack_require__(18);
+	var escalation_1 = __webpack_require__(23);
+	var chat_1 = __webpack_require__(46);
+	var bugzilla_1 = __webpack_require__(6);
+	var product_1 = __webpack_require__(8);
+	var comment_1 = __webpack_require__(21);
+	var user_2 = __webpack_require__(41);
+	var kcs_1 = __webpack_require__(28);
+	var case_2 = __webpack_require__(17);
+	var shiftMetadata_1 = __webpack_require__(36);
+	var templateMetadata_1 = __webpack_require__(39);
+	var vendorProduct_1 = __webpack_require__(43);
+	var certification_1 = __webpack_require__(19);
+	var certificationTest_1 = __webpack_require__(20);
+	var userShifts_1 = __webpack_require__(42);
+	var groupMetadata_1 = __webpack_require__(26);
+	var counts_1 = __webpack_require__(22);
+	var review_1 = __webpack_require__(32);
+	var products_1 = __webpack_require__(31);
+	var sbrs_1 = __webpack_require__(35);
+	var externalTrackers_1 = __webpack_require__(24);
+	var solr_1 = __webpack_require__(37);
+	var account_1 = __webpack_require__(13);
+	var callCenters_1 = __webpack_require__(16);
+	var commentFeedback_1 = __webpack_require__(30);
+	var roles_1 = __webpack_require__(34);
+	var account_2 = __webpack_require__(5);
+	var comment_2 = __webpack_require__(47);
 	exports.default = {
 	    general: {
 	        health: general_1.health,
@@ -91,13 +105,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    kase: {
 	        getComments: comment_1.getComments,
 	        upsertComment: comment_1.upsertComment,
-	        getCase: case_1.getCase,
-	        getCases: case_1.getCases,
-	        updateCase: case_1.updateCase,
-	        getLinkedJiras: case_1.getLinkedJiras,
-	        linkJiraToCase: case_1.linkJiraToCase,
-	        deleteJiraLinkFromCase: case_1.deleteJiraLinkFromCase,
-	        getEscalations: case_1.getEscalations,
+	        getCase: case_2.getCase,
+	        getCases: case_2.getCases,
+	        updateCase: case_2.updateCase,
+	        updateCaseByInternal: case_2.updateCaseByInternal,
+	        getLinkedJiras: case_2.getLinkedJiras,
+	        linkJiraToCase: case_2.linkJiraToCase,
+	        deleteJiraLinkFromCase: case_2.deleteJiraLinkFromCase,
 	        counts: {
 	            articlesLinked: counts_1.articlesLinked,
 	            bomgarSessions: counts_1.bomgarSessions,
@@ -113,25 +127,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	            teamMembers: counts_1.teamMembers,
 	            reviews: counts_1.reviews
 	        },
-	        getLanguages: case_1.getLanguages,
-	        getSeverities: case_1.getSeverities,
-	        getStatuses: case_1.getStatuses,
-	        getTypes: case_1.getTypes,
-	        getCaseExternalTrackers: case_1.getCaseExternalTrackers,
-	        getCaseExternalTrackerUpdates: case_1.getCaseExternalTrackerUpdates,
-	        getCaseContacts: case_1.getCaseContacts,
-	        addCaseContacts: case_1.addCaseContacts,
-	        deleteCaseContacts: case_1.deleteCaseContacts,
-	        getAccountCaseGroups: case_1.getAccountCaseGroups,
-	        getHistory: case_1.getHistory,
-	        getAssociates: case_1.getAssociates,
-	        addAssociate: case_1.addAssociate,
-	        deleteAssociate: case_1.deleteAssociate,
-	        updateOwner: case_1.updateOwner
+	        getLanguages: case_2.getLanguages,
+	        getCaseSbrs: case_2.getCaseSbrs,
+	        getCaseTags: case_2.getCaseTags,
+	        updateCaseTags: case_2.updateCaseTags,
+	        deleteCaseTags: case_2.deleteCaseTags,
+	        getSeverities: case_2.getSeverities,
+	        getStatuses: case_2.getStatuses,
+	        getTypes: case_2.getTypes,
+	        getCaseExternalTrackers: case_2.getCaseExternalTrackers,
+	        getCaseExternalTrackerUpdates: case_2.getCaseExternalTrackerUpdates,
+	        getCaseContacts: case_2.getCaseContacts,
+	        addCaseContacts: case_2.addCaseContacts,
+	        deleteCaseContacts: case_2.deleteCaseContacts,
+	        getAccountCaseGroups: case_2.getAccountCaseGroups,
+	        getCaseHistory: case_2.getCaseHistory,
+	        getAssociates: case_2.getAssociates,
+	        addAssociate: case_2.addAssociate,
+	        deleteAssociate: case_2.deleteAssociate,
+	        updateOwner: case_2.updateOwner,
+	        getLockedCases: case_2.getLockedCases,
+	        lockCase: case_2.lockCase,
+	        unlockCase: case_2.unlockCase,
+	        getBomgarSessionKey: case_2.getBomgarSessionKey,
+	        getNep: case_2.getNep,
+	        createNep: case_2.createNep,
+	        updateNep: case_2.updateNep,
+	        deleteNep: case_2.deleteNep,
+	        getAttachments: case_2.getAttachments,
+	        updateAttachment: case_2.updateAttachment,
+	        getBomgarSessions: case_2.getBomgarSessions,
+	        updateCaseSbrs: case_2.updateCaseSbrs,
+	        deleteCaseSbrs: case_2.deleteCaseSbrs,
+	        getMilestones: case_2.getMilestones,
+	        getChatTranscripts: case_2.getChatTranscripts,
+	        getBugs: case_2.getBugs
 	    },
 	    insights: {
 	        runInsights: insights_1.runInsights,
 	        getInsightsRules: insights_1.getInsightsRules,
+	    },
+	    brms: {
+	        getBrmsResponse: brms_1.getBrmsResponse
 	    },
 	    skedge: {
 	        getAllShiftMetadatas: shiftMetadata_1.getAllShiftMetadatas,
@@ -174,8 +211,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        getTestClasses: testClass_1.getTestClasses,
 	        getComponents: vendorProduct_1.getComponents,
 	        upsertComponents: vendorProduct_1.upsertComponents,
-	        getCertificationTestPlans: certificationTest_1.getCertificationTestPlans,
-	        upsertCertificationTestPlans: certificationTest_1.upsertCertificationTestPlans,
+	        getCertificationTestPlan: certificationTest_1.getCertificationTestPlan,
+	        updateCertificationTestPlanComponent: certificationTest_1.updateCertificationTestPlanComponent,
+	        updateCertificationTestPlanItem: certificationTest_1.updateCertificationTestPlanItem,
 	        getCertificationTestData: certificationTest_1.getCertificationTestData,
 	        getProgram: certification_1.getProgram,
 	        getPrograms: certification_1.getPrograms,
@@ -193,12 +231,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        createReview: review_1.createReview
 	    },
 	    users: {
-	        getUsers: user_1.getUsers,
-	        getUserById: user_1.getUserById,
-	        getUserBySSO: user_1.getUserBySSO,
-	        getCaseGroups: user_1.getCaseGroups,
-	        getRoles: user_1.getRoles,
-	        updateUser: user_1.updateUser
+	        getUsers: user_2.getUsers,
+	        getUserById: user_2.getUserById,
+	        getUserBySSO: user_2.getUserBySSO,
+	        getCaseGroups: user_2.getCaseGroups,
+	        getRoles: user_2.getRoles,
+	        updateUser: user_2.updateUser,
+	        getChatterComments: comment_1.getChatterComments,
+	        getNnoRegions: user_2.getNnoRegions,
+	        updateUserInformation: user_2.updateUserInformation,
+	        getAllRoleTemplates: user_2.getAllRoleTemplates,
+	        getUserSbrs: user_2.getUserSbrs,
+	        getUserTags: user_2.getUserTags,
+	        getUserQueueBuddies: user_2.getUserQueueBuddies,
+	        getAllRoles: user_2.getAllRoles,
+	        getLanguage: user_2.getLanguage,
 	    },
 	    kyce: {
 	        runKyce: kyce_1.runKyce
@@ -210,7 +257,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    kcs: {
 	        linkKcsResources: kcs_1.linkKcsResources,
-	        getSolution: kcs_1.getSolution
+	        getSolution: kcs_1.getSolution,
+	        getResources: kcs_1.getResources
 	    },
 	    products: {
 	        getProducts: products_1.getProducts,
@@ -218,7 +266,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    sbrs: {
 	        getSbr: sbrs_1.getSbr,
-	        getSbrs: sbrs_1.getSbrs
+	        getSbrs: sbrs_1.getSbrs,
+	        getSbrTags: sbrs_1.getSbrTags
 	    },
 	    externalTrackers: {
 	        getExternalTrackers: externalTrackers_1.getExternalTrackers,
@@ -230,7 +279,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    accounts: {
 	        getAccount: account_1.getAccount,
-	        getAccountContacts: account_1.getAccountContacts
+	        getAccountContacts: account_1.getAccountContacts,
+	        getAccountNotes: account_1.getAccountNotes,
+	        getAccountTeamMembers: account_1.getAccountTeamMembers
 	    },
 	    businessHours: {
 	        getBusinessHours: businessHours_1.getBusinessHours
@@ -241,24 +292,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	    callcenters: {
 	        getCallCenters: callCenters_1.getCallCenters,
 	        getCallCenter: callCenters_1.getCallCenter
+	    },
+	    fields: {
+	        getCaseFields: case_1.getCaseFields,
+	        getUserFields: user_1.getUserFields,
+	        getContactFields: contact_1.getContactFields,
+	        getCaseGroupFields: caseGroup_1.getCaseGroupFields,
+	        getCaseBomgarSessionFields: bomgar_1.getCaseBomgarSessionFields,
+	        getAccountFields: account_2.getAccountFields,
+	        getAccountNoteFields: account_2.getAccountNoteFields,
+	        getAccountMemberFields: account_2.getAccountMemberFields,
+	        getCaseCommentFields: comment_2.getCaseCommentFields,
+	        getLiveChatTranscriptFields: chat_1.getLiveChatTranscriptFields,
+	        getBugzillaBugFields: bugzilla_1.getBugzillaBugFields,
+	        getProductFields: product_1.getProductFields
+	    },
+	    caseHistory: {
+	        getHistory: caseHistory_1.getHistory
+	    },
+	    escalations: {
+	        getEscalations: escalation_1.getEscalations
+	    },
+	    userManagement: {
+	        createRole: roles_1.createRole,
+	        updateRole: roles_1.updateRole,
+	        deleteRole: roles_1.deleteRole
 	    }
 	};
 
 
-/***/ }),
+/***/ },
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	// Since we aren't transpiling to babel can't use ES6 imports here
-	var Uri = __webpack_require__(5);
-	var btoa = __webpack_require__(3);
+	var Uri = __webpack_require__(11);
+	var btoa = __webpack_require__(9);
 	function createBasicAuth(user, pass) {
 	    return "Basic " + btoa(user + ':' + pass);
 	}
 	exports.createBasicAuth = createBasicAuth;
 	var hydraHostName = new Uri('');
+	var pcmHostName = new Uri('');
 	var pathPrefix = '/hydra/rest';
 	var auth = null;
 	if (process && ({"NODE_ENV":"production"}) && ({"NODE_ENV":"production"}).RHN_USER) {
@@ -287,28 +364,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	else {
 	    throw new Error('Could not determine hostname, if you are running in Node make sure to set the HYDRA_HOSTNAME, RHN_USER, and RHN_PASS env variables.');
 	}
+	if (process && ({"NODE_ENV":"production"}) && ({"NODE_ENV":"production"}).PCM_HOSTNAME) {
+	    pcmHostName = new Uri(({"NODE_ENV":"production"}).PCM_HOSTNAME);
+	}
+	else if (typeof window !== 'undefined' && window) {
+	    if (window.location.hostname === 'access.redhat.com' || window.location.hostname === 'prod.foo.redhat.com' || window.location.hostname === 'fooprod.redhat.com' || window.location.hostname === 'skedge.redhat.com') {
+	        pcmHostName = new Uri('https://access.redhat.com/hydra/rest/');
+	    }
+	    else if (window.location.hostname === 'access.qa.redhat.com' || window.location.hostname === 'qa.foo.redhat.com' || window.location.hostname === 'fooqa.redhat.com' || window.location.hostname === 'skedge.qa.redhat.com') {
+	        pcmHostName = new Uri('https://access.qa.redhat.com/hydra/rest/');
+	    }
+	    else if (window.location.hostname === 'access.devgssfte.devlab.phx1.redhat.com' || window.location.hostname === 'fte.foo.redhat.com' || window.location.hostname === 'foofte.redhat.com') {
+	        pcmHostName = new Uri('https://access.devgssfte.devlab.phx1.redhat.com/hydra/rest/');
+	    }
+	    else if (window.location.hostname === 'access.devgssci.devlab.phx1.redhat.com' || window.location.hostname === 'ci.foo.redhat.com' || window.location.hostname === 'fooci.redhat.com' || window.location.hostname === 'skedge.ci.redhat.com') {
+	        pcmHostName = new Uri('https://hydraadmin-corp-dev-redhat-com.vserver.devlab.ext.phx1.redhat.com/hydra/rest/');
+	    }
+	    else if (window.location.hostname === 'access.stage.redhat.com' || window.location.hostname === 'stage.foo.redhat.com' || window.location.hostname === 'foostage.redhat.com' || window.location.hostname === 'skedge.stage.redhat.com') {
+	        pcmHostName = new Uri('https://access.stage.redhat.com/hydra/rest/');
+	    }
+	}
+	else {
+	    throw new Error('Could not determine hostname, if you are running in Node make sure to set the HYDRA_HOSTNAME, RHN_USER, and RHN_PASS env variables.');
+	}
 	var Env = (function () {
 	    function Env() {
 	    }
-	    Env.hydraHostName = hydraHostName;
-	    Env.pathPrefix = pathPrefix;
-	    Env.auth = auth;
 	    return Env;
 	}());
+	Env.hydraHostName = hydraHostName;
+	Env.pcmHostName = pcmHostName;
+	Env.pathPrefix = pathPrefix;
+	Env.auth = auth;
 	exports.default = Env;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
-/***/ }),
+/***/ },
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	// Since we aren't transpiling to babel can't use ES6 imports here.  Also we can't specify the Response and Request
 	// types for fetch since A) They happen automatically with import which we can't use and B) the reference paths would
 	// be different in downstream apps
-	var fetch = __webpack_require__(4);
+	var fetch = __webpack_require__(10);
 	var env_1 = __webpack_require__(1);
 	function errorHandler(response) {
 	    return response.text().then(function (body) {
@@ -319,20 +420,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	            parsedError = JSON.parse(body);
 	        }
 	        catch (e) { }
-	        var error = new Error((parsedError && parsedError.message) || body);
 	        if (parsedError) {
-	            Object.assign(error, parsedError);
+	            var error = new Error((parsedError && parsedError.message) || body);
+	            Object.assign(error, parsedError, { isHydraError: true });
+	            throw error;
 	        }
-	        throw error;
+	        else {
+	            throw new Error(body);
+	        }
 	    });
 	}
-	// If the token is expiring within 5 seconds, go ahead and refresh it.  Using 5 seconds as that is what keycloak uses as the default minValidity
+	// If the token is expiring within 60 seconds, go ahead and refresh it.  Using 60 seconds considering jwt.js checks if
+	// the token needs to be refreshed every 60 seconds with a TTE of 90 seconds.  So 60 seconds guarantees that
+	// we are at the boundary of what jwt.js does without overlapping a great deal
 	function isTokenExpired() {
 	    return (window.sessionjs && window.sessionjs._state && window.sessionjs._state.keycloak && window.sessionjs._state.keycloak.isTokenExpired(5) === true);
 	}
 	function forceTokenRefresh() {
 	    console.warn("Hydrajs detected the JWT token has expired, forcing an update");
-	    // -1 here forces the token to refresh
+	    // updateToken(true) forces the token to update by passing -1 to keycloak.updateToken
 	    return window.sessionjs._state.keycloak.updateToken(-1);
 	}
 	function getToken() {
@@ -343,7 +449,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return null;
 	}
-	function responseHandler(response) {
+	function responseHandler(response, dataType) {
 	    if (response.status === 500) {
 	        return errorHandler(response);
 	    }
@@ -354,6 +460,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return response.clone().text().then(function (body) {
 	            if (body == null || body === '')
 	                return null;
+	            if (dataType === 'text')
+	                return body;
 	            // Safari must implement the fetch API differently than Chrome/FF as Safari doesn't like the response to
 	            // ever be cloned.  Therefore, if the clone fails here, we can just return the response.json()
 	            try {
@@ -376,7 +484,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return errorHandler(response);
 	    }
 	}
-	function callFetchAndHandleJwt(uri, params) {
+	function getSecondsElapsed(previousTime) {
+	    return (new Date().getTime() - previousTime) / 1000;
+	}
+	// Once Hydra goes to the Managed Platform then we may be able to remove this as the MP will have an 80s timeout for all requests.
+	function handleLongRunningRequest(uri, params, secondsElapsed) {
+	    if (secondsElapsed > 90) {
+	        // Raven
+	        if (typeof window.Raven !== 'undefined' && typeof window.Raven.captureException === 'function') {
+	            window.Raven.captureException(new Error("Long running request, seconds taken: " + secondsElapsed), {
+	                extra: {
+	                    secondsElapsed: secondsElapsed,
+	                    url: uri.toString(),
+	                    params: params
+	                }
+	            });
+	        }
+	    }
+	}
+	function isError(error) {
+	    return error && error.message != null;
+	}
+	function processCaughtError(uri, params, error) {
+	    try {
+	        if (isError(error)) {
+	            error.extra = {
+	                url: uri.toString(),
+	                params: params
+	            };
+	        }
+	    }
+	    catch (e) { }
+	}
+	function callFetchAndHandleJwt(uri, params, dataType) {
 	    if (env_1.default.auth) {
 	        params.headers['Authorization'] = env_1.default.auth;
 	    }
@@ -386,22 +526,101 @@ return /******/ (function(modules) { // webpackBootstrap
 	    else {
 	        console.warn("Could not set JWT token on request header, unauthenticated.");
 	    }
-	    if (!env_1.default.auth && isTokenExpired()) {
-	        return forceTokenRefresh().success(function () {
-	            params.headers['Authorization'] = getToken();
-	            return fetch(uri.toString(), params).then(responseHandler);
-	        }).error(function () {
-	            // Even if there was an error updating the token, we still need to hit Hydra, which at this point would probably return the "JWT expired" though this edge case is very unlikely.
-	            return fetch(uri.toString(), params).then(responseHandler);
-	        });
-	    }
-	    else {
-	        // Else we have a valid token and continue as always.
-	        return fetch(uri.toString(), params).then(responseHandler);
-	    }
+	    return new Promise(function (resolve, reject) {
+	        var start = new Date().getTime();
+	        if (!env_1.default.auth && isTokenExpired()) {
+	            forceTokenRefresh().success(function () {
+	                params.headers['Authorization'] = getToken();
+	                if (dataType) {
+	                    fetch(uri.toString(), params)
+	                        .then(function (response) { return responseHandler(response, dataType); })
+	                        .then(function (output) {
+	                        handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                        resolve(output);
+	                    })
+	                        .catch(function (error) {
+	                        handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                        processCaughtError(uri, params, error);
+	                        reject(error);
+	                    });
+	                }
+	                else {
+	                    fetch(uri.toString(), params)
+	                        .then(responseHandler)
+	                        .then(function (output) {
+	                        handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                        resolve(output);
+	                    })
+	                        .catch(function (error) {
+	                        handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                        processCaughtError(uri, params, error);
+	                        reject(error);
+	                    });
+	                }
+	            }).error(function () {
+	                // Even if there was an error updating the token, we still need to hit Hydra, which at this point would probably return the "JWT expired" though this edge case is very unlikely.
+	                if (dataType) {
+	                    fetch(uri.toString(), params)
+	                        .then(function (response) { return responseHandler(response, dataType); })
+	                        .then(function (output) {
+	                        handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                        resolve(output);
+	                    })
+	                        .catch(function (error) {
+	                        handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                        processCaughtError(uri, params, error);
+	                        reject(error);
+	                    });
+	                }
+	                else {
+	                    fetch(uri.toString(), params)
+	                        .then(responseHandler)
+	                        .then(function (output) {
+	                        handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                        resolve(output);
+	                    })
+	                        .catch(function (error) {
+	                        handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                        processCaughtError(uri, params, error);
+	                        reject(error);
+	                    });
+	                }
+	            });
+	        }
+	        else {
+	            // Else we have a valid token and continue as always.
+	            if (dataType) {
+	                fetch(uri.toString(), params)
+	                    .then(function (response) { return responseHandler(response, dataType); })
+	                    .then(function (output) {
+	                    handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                    resolve(output);
+	                })
+	                    .catch(function (error) {
+	                    handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                    processCaughtError(uri, params, error);
+	                    reject(error);
+	                });
+	            }
+	            else {
+	                fetch(uri.toString(), params)
+	                    .then(responseHandler)
+	                    .then(function (output) {
+	                    handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                    resolve(output);
+	                })
+	                    .catch(function (error) {
+	                    handleLongRunningRequest(uri, params, getSecondsElapsed(start));
+	                    processCaughtError(uri, params, error);
+	                    reject(error);
+	                });
+	            }
+	        }
+	    });
 	}
-	function getUri(uri, headerParams) {
+	function getUri(uri, headerParams, dataType) {
 	    var params = {
+	        method: 'GET',
 	        credentials: 'include',
 	        headers: {}
 	    };
@@ -410,10 +629,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            params.headers[element.key] = element.value;
 	        });
 	    }
+	    if (dataType)
+	        return callFetchAndHandleJwt(uri, params, dataType);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.getUri = getUri;
-	function postUri(uri, body) {
+	function postUri(uri, body, dataType) {
 	    var params = {
 	        method: 'POST',
 	        credentials: 'include',
@@ -423,10 +644,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        body: JSON.stringify(body)
 	    };
+	    if (dataType)
+	        return callFetchAndHandleJwt(uri, params, dataType);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.postUri = postUri;
-	function putUri(uri, body) {
+	function putUri(uri, body, dataType) {
 	    var params = {
 	        method: 'PUT',
 	        credentials: 'include',
@@ -436,10 +659,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        body: JSON.stringify(body)
 	    };
+	    if (dataType)
+	        return callFetchAndHandleJwt(uri, params, dataType);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.putUri = putUri;
-	function patchUri(uri, body) {
+	function patchUri(uri, body, dataType) {
 	    var params = {
 	        method: 'PATCH',
 	        credentials: 'include',
@@ -449,10 +674,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        body: JSON.stringify(body)
 	    };
+	    if (dataType)
+	        return callFetchAndHandleJwt(uri, params, dataType);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.patchUri = patchUri;
-	function deleteUri(uri) {
+	function deleteUri(uri, dataType) {
 	    var params = {
 	        method: 'DELETE',
 	        credentials: 'include',
@@ -460,10 +687,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            'Content-Type': 'application/json'
 	        }
 	    };
+	    if (dataType)
+	        return callFetchAndHandleJwt(uri, params, dataType);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.deleteUri = deleteUri;
-	function deleteUriWithBody(uri, body) {
+	function deleteUriWithBody(uri, body, dataType) {
 	    var params = {
 	        method: 'DELETE',
 	        credentials: 'include',
@@ -473,35 +702,515 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        body: JSON.stringify(body)
 	    };
+	    if (dataType)
+	        return callFetchAndHandleJwt(uri, params, dataType);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.deleteUriWithBody = deleteUriWithBody;
 
 
-/***/ }),
+/***/ },
 /* 3 */
-/***/ (function(module, exports) {
+/***/ function(module, exports) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	function getUserFields(options) {
+	    var finalFields = [];
+	    if (options && options.minimal === true) {
+	        var fields = [
+	            'id',
+	            'email',
+	            'fullName',
+	            'fullTitle',
+	            'inGSS',
+	            'isActive',
+	            'managerId',
+	            'mobilePhone',
+	            'outOfOffice',
+	            'phone',
+	            'rhatLocation',
+	            'region',
+	            'ssoUsername',
+	            'superRegion',
+	            'title',
+	            'isManager',
+	            'timeZone'
+	        ];
+	        Array.prototype.push.apply(finalFields, fields);
+	    }
+	    else {
+	        var fields = [
+	            'id',
+	            'accountId',
+	            'accountNumber',
+	            'callCenterId',
+	            'contactId',
+	            'contactNumber',
+	            'email',
+	            'firstName',
+	            'firstNameCustom',
+	            'fullName',
+	            'fullTitle',
+	            'gssCostcenterName',
+	            'genesysUsername',
+	            'ircNick',
+	            'itarUser',
+	            'inGSS',
+	            'isActive',
+	            'kcsGroup',
+	            'kerberosName',
+	            'lastName',
+	            'lastNameCustom',
+	            'managerId',
+	            'mobilePhone',
+	            'name',
+	            'officeLocation',
+	            'outOfOffice',
+	            'phone',
+	            'rhatLocation',
+	            'redhatComEmailAddress',
+	            'region',
+	            'ssoUsername',
+	            'superRegion',
+	            'title',
+	            'userName',
+	            'bomgarUsername',
+	            'canWorkNightShift',
+	            'isManager',
+	            'timeZone'
+	        ];
+	        Array.prototype.push.apply(finalFields, fields);
+	    }
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'aboutMe',
+	            'alias',
+	            'city',
+	            'country',
+	            'countryCustom',
+	            'explicitKerberosName',
+	            // 'firstLevelManagerUsername',
+	            'fourthLevelManagerUsername',
+	            'managerSID',
+	            'outOfOfficeChangedBy',
+	            'outOfOfficeChangedOn',
+	            'secondLevelManagerUsername',
+	            'sixthLevelManagerUsername',
+	            'thirdLevelManagerUsername',
+	            'virtualOffice'
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    return finalFields;
+	}
+	exports.getUserFields = getUserFields;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	function getContactFields(options) {
+	    var finalFields = [];
+	    if (options && options.minimal === true) {
+	        var fields = [
+	            'id',
+	            'isOrgAdmin',
+	            'ssoUsername',
+	            'accountId',
+	            'email',
+	            'fullNameCustom',
+	            'isActive',
+	            'phone',
+	            'timezone',
+	            'regionGeo',
+	        ];
+	        Array.prototype.push.apply(finalFields, fields);
+	    }
+	    else {
+	        var fields = [
+	            'firstName',
+	            'lastName',
+	            'isOrgAdmin',
+	            'ssoUsername',
+	            'id',
+	            'accountId',
+	            'email',
+	            'fullNameCustom',
+	            'isActive',
+	            'phone',
+	            'timezone',
+	            'isInternal',
+	            'canAddAttachments',
+	            'contact24x7',
+	            'contactNumber',
+	            'defaultCaseGroup',
+	            'doNotCall',
+	            'firstNameCustom',
+	            'itarContact',
+	            'isEntitled',
+	            'lastNameCustom',
+	            'manageSupportCases',
+	            'mobilePhone',
+	            'name',
+	            'normalizedTZ',
+	            'preferredLanguage',
+	            'preferredMethodOfContact',
+	            'rhnLoginName',
+	            'regionGeo',
+	            'reportsToId',
+	            'srmContact',
+	            'secureSupportTech',
+	            'tamContact',
+	            'title',
+	        ];
+	        Array.prototype.push.apply(finalFields, fields);
+	    }
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'hasOptedOutOfEmail',
+	            'homePhone',
+	            'npsEligibility',
+	            'noLongerAtCompany',
+	            'otherPhone',
+	            'primaryComment',
+	            'primaryScore',
+	            'salutation',
+	            'surveyOptOut',
+	            'tamNewsletterSubscription',
+	            'typeOfContact',
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    return finalFields;
+	}
+	exports.getContactFields = getContactFields;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var user_1 = __webpack_require__(3);
+	function getAccountFields(options) {
+	    var finalFields = [];
+	    var fields = [
+	        'accountId',
+	        'accountNumber',
+	        'accountStatus',
+	        'businessHoursId',
+	        'cannotAddAttachments',
+	        'csm',
+	        'gscsmSegment',
+	        'caseCount',
+	        'escalationsInLast30Days',
+	        'description',
+	        'escalateToHomeGeoWith1stTouch',
+	        'escalateToHomeGeoWithoutFirstTouch',
+	        'expectsQuickInitialResponse',
+	        'hardwarePartner',
+	        'hasAvailableEnhancedSLA',
+	        // 'hasChat', // APIAccount
+	        'hasEnhancedSLA',
+	        'holdSupport',
+	        'identifyingAddressCountry',
+	        'identifyingAddressSuperRegion',
+	        'isPartner',
+	        'isActive',
+	        'name',
+	        'noAutomationForCases',
+	        'ownerId',
+	        'responseTime',
+	        'secureSupport',
+	        'securedEnvironment',
+	        'specialHandlingRequired',
+	        'strategic',
+	        'superRegion',
+	        'supportPartner',
+	        'tactical',
+	        'totalNumberOfEscalations',
+	        'watchlist',
+	        'hasSRM',
+	        'hasTAM',
+	        'isInternal'
+	    ];
+	    // owner: IUser;
+	    // csmUser: IUser;
+	    // parent: IAccount;
+	    Array.prototype.push.apply(finalFields, fields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'accountKey',
+	            'accountAlias',
+	            'additionalEnhancedEntitlementCount',
+	            'customerSegment',
+	            'escalationsInLast60Days',
+	            'hasGroupACLs',
+	            'npsScore',
+	            'parentId',
+	            'requireCGroupOnCreate',
+	            'remainingEnhancedEntitlementCases',
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeCsmUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "csmUser." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getAccountFields = getAccountFields;
+	function getAccountNoteFields(options) {
+	    var finalFields = [];
+	    var fields = [
+	        'body',
+	        'numberOfDaysReviewPending',
+	        'reasonForReview',
+	        'isRetired',
+	        'subject',
+	        'type',
+	        'name',
+	        'lastModifiedDate',
+	        'createdDate'
+	    ];
+	    Array.prototype.push.apply(finalFields, fields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'accountId',
+	            'accountIdentifier',
+	            'isEditable',
+	            'expiryDate',
+	            'expirySetBy',
+	            'intendedReviewDate',
+	            'lastReviewDate',
+	            'needsReview',
+	            'needsReviewByAuthor',
+	            'noteAuthor',
+	            'retireDate',
+	            'retiredBy',
+	            'createdById',
+	            'lastModifiedById',
+	            'sortedType',
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeCreatedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdBy." + f; }));
+	    }
+	    if (options && options.includeLastModifiedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedBy." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getAccountNoteFields = getAccountNoteFields;
+	function getAccountMemberFields(options) {
+	    var finalFields = [];
+	    var fields = [
+	        'id',
+	        'createdById',
+	        'createdDate',
+	        'lastModifiedDate',
+	        'name',
+	        'role'
+	        // 'createdBy: IUser;
+	        // 'lastModifiedBy: IUser;
+	        // 'account: IAccount;
+	        // 'member: IUser;
+	    ];
+	    Array.prototype.push.apply(finalFields, fields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'ownerId',
+	            'isDeleted',
+	            'isAddToCaseTeam',
+	            'isEmailOnUpdates',
+	            'minimumSeverity',
+	            'isNotifyOfNewCases',
+	            'tamCaseStatus',
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeCreatedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdBy." + f; }));
+	    }
+	    if (options && options.includeLastModifiedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedBy." + f; }));
+	    }
+	    if (options && options.includeMember) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "member." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getAccountMemberFields = getAccountMemberFields;
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var user_1 = __webpack_require__(3);
+	function getBugzillaBugFields(options) {
+	    var finalFields = [];
+	    var fields = [
+	        'id',
+	        'assignedTo',
+	        'blocks2',
+	        'blocks',
+	        'bugzillaURL',
+	        'bugzillaKeywords',
+	        'bugzillaLink',
+	        'bugzillaNumber',
+	        'caseNumber',
+	        'linkedAt',
+	        'component',
+	        'createdById',
+	        'createdDate',
+	        'dependsOn',
+	        'depends',
+	        'description',
+	        'dupeOf',
+	        'groups',
+	        'isOpen',
+	        'isPrivate',
+	        'lastModifiedById',
+	        'lastModifiedDate',
+	        'name',
+	        'platform',
+	        'priority',
+	        'product',
+	        'resolution',
+	        'severity',
+	        'status',
+	        'summary',
+	        'version',
+	    ];
+	    Array.prototype.push.apply(finalFields, fields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeCreatedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdBy." + f; }));
+	    }
+	    if (options && options.includeLastModifiedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedBy." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getBugzillaBugFields = getBugzillaBugFields;
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	function getCaseGroupFields() {
+	    var fields = [
+	        'id',
+	        // accountId field not found
+	        // 'accountId',
+	        // 'accountDetails',
+	        // 'createdBy',
+	        'createdById',
+	        'createdDate',
+	        'folderNumber',
+	        // 'lastModifiedBy',
+	        'lastModifiedById',
+	        'lastModifiedDate',
+	        'name',
+	        'noAutomationForCases',
+	        // 'owner',
+	        'ownerId',
+	        'isPrivate'
+	    ];
+	    return fields;
+	}
+	exports.getCaseGroupFields = getCaseGroupFields;
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var user_1 = __webpack_require__(3);
+	function getProductFields(options) {
+	    var finalFields = [];
+	    var fields = [
+	        'id',
+	        'productCode',
+	        'name',
+	        'productFamily',
+	        'productNumber',
+	        'currentlySupported'
+	    ];
+	    Array.prototype.push.apply(finalFields, fields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'ownerId',
+	            'isDeleted',
+	            'createdDate',
+	            'createdById',
+	            'lastModifiedDate',
+	            'lastModifiedById',
+	            'systemModstamp',
+	            'lastViewedDate',
+	            'lastReferencedDate',
+	            'connectionReceivedId',
+	            'connectionSentId',
+	            'endOfLifeDate',
+	            'supportedDate',
+	            'doesNotRequireSupportedEntitlement'
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeOwner) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "owner." + f; }));
+	    }
+	    if (options && options.includeCreatedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdBy." + f; }));
+	    }
+	    if (options && options.includeLastModifiedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedBy." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getProductFields = getProductFields;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
 
 	module.exports = function _btoa(str) {
 	  return btoa(str)
 	}
 
 
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
 
 	// the whatwg-fetch polyfill installs the fetch() function
 	// on the global object (window or self)
 	//
 	// Return that as the export for use in Webpack, Browserify etc.
-	__webpack_require__(34);
+	__webpack_require__(49);
 	module.exports = self.fetch.bind(self);
 
 
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	 * jsUri
@@ -965,9 +1674,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(this));
 
 
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
 
 	// shim for using process in browser
 	var process = module.exports = {};
@@ -1139,10 +1848,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	process.removeListener = noop;
 	process.removeAllListeners = noop;
 	process.emit = noop;
-	process.prependListener = noop;
-	process.prependOnceListener = noop;
-
-	process.listeners = function (name) { return [] }
 
 	process.binding = function (name) {
 	    throw new Error('process.binding is not supported');
@@ -1155,16 +1860,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	process.umask = function() { return 0; };
 
 
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var fetch_1 = __webpack_require__(2);
 	var env_1 = __webpack_require__(1);
-	function getAccount(accountNumber) {
+	function getAccount(accountNumber, fields) {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/accounts/" + accountNumber);
+	    if (fields && fields.length > 0) {
+	        uri.addQueryParam('fields', fields.join(','));
+	    }
 	    return fetch_1.getUri(uri);
 	}
 	exports.getAccount = getAccount;
@@ -1173,11 +1881,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.getUri(uri);
 	}
 	exports.getAccountContacts = getAccountContacts;
+	function getAccountNotes(accountNumber, fields, limit) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/accounts/" + accountNumber + "/notes");
+	    if (fields && fields.length > 0) {
+	        uri.addQueryParam('fields', fields.join(','));
+	    }
+	    if (limit !== undefined) {
+	        uri.addQueryParam('limit', limit);
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getAccountNotes = getAccountNotes;
+	function getAccountTeamMembers(accountNumber, fields, limit) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/accounts/" + accountNumber + "/associates");
+	    if (fields && fields.length > 0) {
+	        uri.addQueryParam('fields', fields.join(','));
+	    }
+	    if (limit !== undefined) {
+	        uri.addQueryParam('limit', limit);
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getAccountTeamMembers = getAccountTeamMembers;
 
 
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var fetch_1 = __webpack_require__(2);
+	var env_1 = __webpack_require__(1);
+	function getBrmsResponse(brmsPayload) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/brms/");
+	    return fetch_1.postUri(uri, brmsPayload, 'text');
+	}
+	exports.getBrmsResponse = getBrmsResponse;
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1191,9 +1936,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getBusinessHours = getBusinessHours;
 
 
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1211,22 +1956,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getCallCenter = getCallCenter;
 
 
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var env_1 = __webpack_require__(1);
 	var fetch_1 = __webpack_require__(2);
+	exports.CaseMilestoneTypes = {
+	    ONGOING_RESPONES: 'Ongoing Response',
+	    FIRST_RESPONSE: 'First Response',
+	    BREACH: 'Breach',
+	    AMC_FINAL_REMEDY: 'AMC Final Remedy',
+	    AMC_TEMPORARY_REMEDY: 'AMC Temporary Remedy'
+	};
 	// caseId can be id or case number
 	// Note that fields can't currently be Fields<ICase> since we don't actively type each field and sub relationship field
 	function getCase(caseId, fields) {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseId);
 	    if (fields && fields.length > 0) {
-	        uri.addQueryParam('fields', fields.join(','));
+	        return fetch_1.postUri(uri, { fields: fields.join(',') });
 	    }
-	    return fetch_1.getUri(uri);
+	    else {
+	        return fetch_1.getUri(uri);
+	    }
 	}
 	exports.getCase = getCase;
 	function getCases(filters, fields) {
@@ -1248,6 +2002,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.putUri(uri, kase);
 	}
 	exports.updateCase = updateCase;
+	// PCM-3403 - it will honor all email settings the same way like SFDC does
+	function updateCaseByInternal(caseId, kase) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/internal/cases/" + caseId);
+	    return fetch_1.putUri(uri, kase);
+	}
+	exports.updateCaseByInternal = updateCaseByInternal;
 	function getLinkedJiras(caseId, fields) {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseId + "/jiras");
 	    if (fields && fields.length > 0) {
@@ -1266,16 +2026,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.deleteUri(uri);
 	}
 	exports.deleteJiraLinkFromCase = deleteJiraLinkFromCase;
-	function getEscalations(caseId) {
-	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/escalations?caseNumber=" + caseId);
-	    return fetch_1.getUri(uri);
-	}
-	exports.getEscalations = getEscalations;
 	function getLanguages() {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/languages");
 	    return fetch_1.getUri(uri);
 	}
 	exports.getLanguages = getLanguages;
+	function getCaseSbrs() {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/metadata/sbrs");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getCaseSbrs = getCaseSbrs;
+	function getCaseTags() {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/metadata/tags");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getCaseTags = getCaseTags;
+	function updateCaseTags(caseNumber, tagsUpdate) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/tags");
+	    return fetch_1.putUri(uri, tagsUpdate);
+	}
+	exports.updateCaseTags = updateCaseTags;
+	function deleteCaseTags(caseNumber, tagsUpdate) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/tags");
+	    return fetch_1.deleteUriWithBody(uri, tagsUpdate);
+	}
+	exports.deleteCaseTags = deleteCaseTags;
 	function getSeverities() {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/severities");
 	    return fetch_1.getUri(uri);
@@ -1345,7 +2120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.getUri(uri);
 	}
 	exports.getAccountCaseGroups = getAccountCaseGroups;
-	function getHistory(caseId, fields, limit) {
+	function getCaseHistory(caseId, fields, limit) {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseId + "/history");
 	    if (fields && fields.length > 0) {
 	        uri.addQueryParam('fields', fields.join(','));
@@ -1355,7 +2130,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return fetch_1.getUri(uri);
 	}
-	exports.getHistory = getHistory;
+	exports.getCaseHistory = getCaseHistory;
 	function getAssociates(caseId, fields, limit) {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseId + "/associates");
 	    if (fields && fields.length > 0) {
@@ -1382,11 +2157,145 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.putUri(uri, ssoUsername);
 	}
 	exports.updateOwner = updateOwner;
+	function lockCase(caseId, kase) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseId + "/externalLock");
+	    return fetch_1.putUri(uri, kase);
+	}
+	exports.lockCase = lockCase;
+	function unlockCase(caseId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseId + "/externalLock");
+	    return fetch_1.deleteUri(uri);
+	}
+	exports.unlockCase = unlockCase;
+	function getLockedCases(userId, fields, limit) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/locked/" + userId);
+	    if (limit !== undefined) {
+	        uri.addQueryParam('limit', limit);
+	    }
+	    if (fields && fields.length > 0) {
+	        return fetch_1.postUri(uri, { fields: fields.join(',') });
+	    }
+	    else {
+	        return fetch_1.getUri(uri);
+	    }
+	}
+	exports.getLockedCases = getLockedCases;
+	function getBomgarSessionKey(caseId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseId + "/bomgar");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getBomgarSessionKey = getBomgarSessionKey;
+	function getNep(caseNumber) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/nep");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getNep = getNep;
+	function createNep(caseNumber, nep) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/nep");
+	    return fetch_1.postUri(uri, { nep: nep });
+	}
+	exports.createNep = createNep;
+	function updateNep(caseNumber, nep) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/nep");
+	    return fetch_1.putUri(uri, { nep: nep });
+	}
+	exports.updateNep = updateNep;
+	function deleteNep(caseNumber) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/nep");
+	    return fetch_1.deleteUri(uri);
+	}
+	exports.deleteNep = deleteNep;
+	function getAttachments(caseNumber) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getAttachments = getAttachments;
+	function updateAttachment(caseNumber, attachmentId, updateOps) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + attachmentId);
+	    return fetch_1.patchUri(uri, updateOps);
+	}
+	exports.updateAttachment = updateAttachment;
+	function getBomgarSessions(caseNumber, fields, limit) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/remotesessions");
+	    if (fields && fields.length > 0) {
+	        uri.addQueryParam('fields', fields.join(','));
+	    }
+	    if (limit !== undefined) {
+	        uri.addQueryParam('limit', limit);
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getBomgarSessions = getBomgarSessions;
+	function updateCaseSbrs(caseNumber, sbrs) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/sbrs");
+	    return fetch_1.putUri(uri, sbrs);
+	}
+	exports.updateCaseSbrs = updateCaseSbrs;
+	function deleteCaseSbrs(caseNumber, sbrs) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/sbrs");
+	    return fetch_1.deleteUriWithBody(uri, sbrs);
+	}
+	exports.deleteCaseSbrs = deleteCaseSbrs;
+	function getMilestones(caseNumber, options) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/milestones");
+	    if (options && options.fields && options.fields.length > 0) {
+	        uri.addQueryParam('fields', options.fields.join(','));
+	    }
+	    if (options && options.limit !== undefined) {
+	        uri.addQueryParam('limit', options.limit);
+	    }
+	    if (options && options.type) {
+	        uri.addQueryParam('type', options.type.join(','));
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getMilestones = getMilestones;
+	function getChatTranscripts(caseNumber, fields, limit) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/livechattranscripts");
+	    if (fields && fields.length > 0) {
+	        uri.addQueryParam('fields', fields.join(','));
+	    }
+	    if (limit !== undefined) {
+	        uri.addQueryParam('limit', limit);
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getChatTranscripts = getChatTranscripts;
+	function getBugs(caseNumber) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/bugs");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getBugs = getBugs;
 
 
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var env_1 = __webpack_require__(1);
+	var fetch_1 = __webpack_require__(2);
+	function getHistory(options) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/history");
+	    if (options) {
+	        if (options.fields && options.fields.length > 0) {
+	            uri.addQueryParam('fields', options.fields.join(','));
+	        }
+	        Object.keys(options).filter(function (k) { return k !== 'fields'; }).forEach(function (k) {
+	            if (options[k] !== undefined) {
+	                uri.addQueryParam(k, options[k]);
+	            }
+	        });
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getHistory = getHistory;
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1528,24 +2437,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getPlatforms = getPlatforms;
 
 
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var env_1 = __webpack_require__(1);
 	var fetch_1 = __webpack_require__(2);
-	function getCertificationTestPlans(caseNumber) {
-	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/certcases/" + caseNumber + "/testplans");
+	function getCertificationTestPlan(caseNumber) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/certcases/" + caseNumber + "/testplan");
 	    return fetch_1.getUri(uri);
 	}
-	exports.getCertificationTestPlans = getCertificationTestPlans;
-	function upsertCertificationTestPlans(caseNumber, testplans) {
-	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/certcases/" + caseNumber + "/testplans");
-	    return fetch_1.putUri(uri, testplans);
+	exports.getCertificationTestPlan = getCertificationTestPlan;
+	function updateCertificationTestPlanComponent(caseNumber, testplanComponent) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/certcases/" + caseNumber + "/testplan");
+	    return fetch_1.patchUri(uri, testplanComponent);
 	}
-	exports.upsertCertificationTestPlans = upsertCertificationTestPlans;
+	exports.updateCertificationTestPlanComponent = updateCertificationTestPlanComponent;
+	function updateCertificationTestPlanItem(caseNumber, testplanItem) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/certcases/" + caseNumber + "/testplan");
+	    return fetch_1.patchUri(uri, testplanItem);
+	}
+	exports.updateCertificationTestPlanItem = updateCertificationTestPlanItem;
 	function getCertificationTestData(caseNumber) {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/certcases/" + caseNumber + "/testdata");
 	    return fetch_1.getUri(uri);
@@ -1553,9 +2467,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getCertificationTestData = getCertificationTestData;
 
 
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1563,13 +2477,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var fetch_1 = __webpack_require__(2);
 	function getComments(caseNumber, fields, limit) {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments");
-	    if (fields && fields.length > 0) {
-	        uri.addQueryParam('fields', fields.join(','));
-	    }
 	    if (limit && limit > 0) {
 	        uri.addQueryParam('limit', limit);
 	    }
-	    return fetch_1.getUri(uri);
+	    if (fields && fields.length > 0) {
+	        return fetch_1.postUri(uri, { fields: fields.join(',') });
+	    }
+	    else {
+	        return fetch_1.getUri(uri);
+	    }
 	}
 	exports.getComments = getComments;
 	function upsertComment(comment, doNotSendEmail) {
@@ -1580,11 +2496,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.putUri(uri, comment);
 	}
 	exports.upsertComment = upsertComment;
+	function getChatterComments(userId, options) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/users/" + userId + "/comments");
+	    if (options && options.fromDate) {
+	        uri.addQueryParam('fromDate', options.fromDate);
+	    }
+	    if (options && options.toDate) {
+	        uri.addQueryParam('toDate', options.toDate);
+	    }
+	    if (options && options.dateType) {
+	        uri.addQueryParam('dateType', options.dateType);
+	    }
+	    if (options.fields && options.fields.length > 0) {
+	        uri.addQueryParam('fields', options.fields.join(','));
+	    }
+	    if (options.limit && options.limit > 0) {
+	        uri.addQueryParam('limit', options.limit);
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getChatterComments = getChatterComments;
 
 
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1669,9 +2605,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.reviews = reviews;
 
 
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var env_1 = __webpack_require__(1);
+	var fetch_1 = __webpack_require__(2);
+	function getEscalations(options) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/escalations");
+	    if (options.caseNumber) {
+	        uri.addQueryParam('caseNumber', options.caseNumber);
+	    }
+	    if (options.accountNumber) {
+	        uri.addQueryParam('accountNumber', options.accountNumber);
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getEscalations = getEscalations;
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1695,9 +2652,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getExternalTrackersUpdates = getExternalTrackersUpdates;
 
 
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1714,9 +2671,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.hostname = hostname;
 
 
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1749,9 +2706,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.deleteGroupByGroupId = deleteGroupByGroupId;
 
 
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1769,9 +2726,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getInsightsRules = getInsightsRules;
 
 
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1782,16 +2739,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.postUri(uri, kcsLinkedResources);
 	}
 	exports.linkKcsResources = linkKcsResources;
-	function getSolution(id) {
+	function getSolution(id, revisionId) {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/solutions/" + id);
+	    if (revisionId) {
+	        uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/solutions/" + id + "/revision/" + revisionId);
+	    }
 	    return fetch_1.getUri(uri);
 	}
 	exports.getSolution = getSolution;
+	function getResources(caseNumber, options) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/resources");
+	    if (options) {
+	        if (options.fields && options.fields.length > 0) {
+	            uri.addQueryParam('fields', options.fields.join(','));
+	        }
+	        Object.keys(options).filter(function (k) { return k !== 'fields'; }).forEach(function (k) {
+	            if (options[k] !== undefined) {
+	                uri.addQueryParam(k, options[k]);
+	            }
+	        });
+	    }
+	    return fetch_1.getUri(uri);
+	}
+	exports.getResources = getResources;
 
 
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1809,34 +2784,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.runKyce = runKyce;
 
 
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var env_1 = __webpack_require__(1);
 	var fetch_1 = __webpack_require__(2);
 	function createCommentFeedback(caseNumber, comment) {
-	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
+	    var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
 	    return fetch_1.postUri(uri, comment);
 	}
 	exports.createCommentFeedback = createCommentFeedback;
 	function updateCommentFeedback(caseNumber, comment) {
-	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
+	    var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
 	    return fetch_1.putUri(uri, comment);
 	}
 	exports.updateCommentFeedback = updateCommentFeedback;
 	function getCommentFeedback(caseNumber) {
-	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
+	    var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
 	    return fetch_1.getUri(uri);
 	}
 	exports.getCommentFeedback = getCommentFeedback;
 
 
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1860,9 +2835,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getProductVersions = getProductVersions;
 
 
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1902,9 +2877,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.createReview = createReview;
 
 
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1917,9 +2892,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getAllRoleMetadatas = getAllRoleMetadatas;
 
 
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var fetch_1 = __webpack_require__(2);
+	var env_1 = __webpack_require__(1);
+	function createRole(role) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/roles/");
+	    return fetch_1.postUri(uri, role);
+	}
+	exports.createRole = createRole;
+	function updateRole(roleId, role) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/roles/" + roleId);
+	    return fetch_1.putUri(uri, role);
+	}
+	exports.updateRole = updateRole;
+	function deleteRole(roleId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/roles/" + roleId);
+	    return fetch_1.deleteUri(uri);
+	}
+	exports.deleteRole = deleteRole;
+
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1930,6 +2930,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.getUri(uri);
 	}
 	exports.getSbr = getSbr;
+	function getSbrTags(sbrId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/sbrs/" + sbrId + "/tags");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getSbrTags = getSbrTags;
 	function getSbrs() {
 	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/sbrs");
 	    return fetch_1.getUri(uri);
@@ -1937,9 +2942,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getSbrs = getSbrs;
 
 
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -1967,9 +2972,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.deleteShiftMetadata = deleteShiftMetadata;
 
 
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2035,9 +3040,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getSolrCases = getSolrCases;
 
 
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2056,9 +3061,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getTags = getTags;
 
 
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2081,9 +3086,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.postCustomTemplateForUser = postCustomTemplateForUser;
 
 
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2096,9 +3101,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getTestClasses = getTestClasses;
 
 
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2154,11 +3159,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return fetch_1.getUri(uri);
 	}
 	exports.getRoles = getRoles;
+	function getNnoRegions(userId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/users/" + userId + "/nnoregions");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getNnoRegions = getNnoRegions;
+	function getLanguage(userId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/users/" + userId + "/languages");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getLanguage = getLanguage;
+	function getUserSbrs(userId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/users/" + userId + "/sbrs");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getUserSbrs = getUserSbrs;
+	function getUserTags(userId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/users/" + userId + "/tags");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getUserTags = getUserTags;
+	function getUserQueueBuddies(userId) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/users/" + userId + "/queuebuddies");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getUserQueueBuddies = getUserQueueBuddies;
+	// update language,roles, sbrs
+	function updateUserInformation(userId, updateOps) {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/users/" + userId);
+	    return fetch_1.patchUri(uri, updateOps);
+	}
+	exports.updateUserInformation = updateUserInformation;
+	function getAllRoles() {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/roles");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getAllRoles = getAllRoles;
+	function getAllRoleTemplates() {
+	    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/roleTemplates");
+	    return fetch_1.getUri(uri);
+	}
+	exports.getAllRoleTemplates = getAllRoleTemplates;
 
 
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2196,9 +3242,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.deleteShiftForUsers = deleteShiftForUsers;
 
 
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2237,9 +3283,669 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.upsertComponents = upsertComponents;
 
 
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var user_1 = __webpack_require__(3);
+	function getCaseBomgarSessionFields(options) {
+	    var finalFields = [];
+	    var caseBomgarSessionFields = [
+	        'id',
+	        'createdById',
+	        'createdDate',
+	        'lastModifiedById',
+	        'lastModifiedDate',
+	        'name',
+	        'duration',
+	        'primaryCustomerName',
+	        'primarySupportRepName',
+	        'salesforceRecordId',
+	        'sessionRecordingUrl',
+	        'sessionStartDate',
+	        'sessionEndDate'
+	    ];
+	    Array.prototype.push.apply(finalFields, caseBomgarSessionFields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'ownerId',
+	            'isDeleted',
+	            'chatDownloadUrl',
+	            'chatViewUrl',
+	            'externalKey',
+	            'fileTransferCount',
+	            'hostname',
+	            'os',
+	            'privateIp',
+	            'publicSiteId',
+	            'publicIp',
+	            'recordingDownloadUrl',
+	            'recordingViewUrl',
+	            'relatedCase',
+	            'durationHours',
+	            'sessionRecording',
+	            'lastActivityDate',
+	            'lastReferencedDate',
+	            'lastViewedDate'
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeLastModifiedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedBy." + f; }));
+	    }
+	    if (options && options.includeCreatedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdBy." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getCaseBomgarSessionFields = getCaseBomgarSessionFields;
+
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var user_1 = __webpack_require__(3);
+	var contact_1 = __webpack_require__(4);
+	var caseGroup_1 = __webpack_require__(7);
+	var bugzilla_1 = __webpack_require__(6);
+	var account_1 = __webpack_require__(5);
+	var entitlement_1 = __webpack_require__(48);
+	var product_1 = __webpack_require__(8);
+	function getCaseFields(options) {
+	    var finalFields = [];
+	    var caseFields = [
+	        'accountBugzillaConfidentialGroup',
+	        'accountId',
+	        'accountNumber',
+	        'actionPlan',
+	        'actionPlanLastUpdated',
+	        'actionPlanLastUpdatedByUserId',
+	        'alternateId',
+	        'amcFinalRemedyProvided',
+	        'amcTemporaryRemedyProvided',
+	        'automationEnabledForCaseComputed',
+	        'bugId',
+	        'bugzillaLink',
+	        'bugzillaNumber',
+	        'bugzillaSummary',
+	        'businessHoursId',
+	        'caseContact',
+	        'caseCreatedDayOfWeek',
+	        'caseCreatedHourOfDay',
+	        'caseGroupId',
+	        'caseLanguage',
+	        'caseLink',
+	        'caseNumber',
+	        'caseOwnerId',
+	        'caseSummary',
+	        'caseType',
+	        'certArchitecture',
+	        'certCategory',
+	        'certPortalId',
+	        'certProduct',
+	        'certVendorName',
+	        'certVendorPortalId',
+	        'certVendorProductName',
+	        'certVendorProductPortalId',
+	        'certVersion',
+	        'certProgram',
+	        'closedDate',
+	        'commentCount',
+	        'contactId',
+	        'contactInfo24x7',
+	        'contributors',
+	        'createdByContactId',
+	        'createdByUserId',
+	        'createdDate',
+	        'critSit',
+	        'currentCaseOwnerManagersEmail',
+	        'customerCaseNotes',
+	        'customerEngagementScorecard',
+	        'customerEscalation',
+	        'customerSegment',
+	        'description',
+	        'emailAddress',
+	        'enhancedSLA',
+	        'entitlementId',
+	        'entitlementNeedsAttention',
+	        'entitlementState',
+	        'environment',
+	        'externalHandlingSystem',
+	        'externalLock',
+	        'externalLockById',
+	        'externalLockDate',
+	        'fts',
+	        'ftsHandoverReady',
+	        'ftsRole',
+	        'hasCommentsUnreadByOwner',
+	        'hasNewPublicComment',
+	        'hasSelfServiceComments',
+	        'hostname',
+	        'hotfixDelivered',
+	        'hotfixDeliveredDate',
+	        'hotfixRequestDate',
+	        'hotfixRequested',
+	        'hoursSinceLastPublicComment',
+	        'id',
+	        'identifyingAddressCountry',
+	        'initialServiceLevel',
+	        'internalStatus',
+	        'isABRTCaseThatShouldRemainClosed',
+	        'isClosed',
+	        'isDeleted',
+	        'isEscalated',
+	        'isPOC',
+	        'isReviewed',
+	        'isStopped',
+	        'issue',
+	        'itar',
+	        'kickCase',
+	        'lastBreach',
+	        'lastClosedAt',
+	        'lastEscalationUpdatedAt',
+	        'lastModifiedByContactId',
+	        'lastModifiedById',
+	        'lastModifiedByLink',
+	        'lastModifiedByName',
+	        'lastModifiedByUserId',
+	        'lastModifiedDate',
+	        'legacyId',
+	        'legacySystem',
+	        'linkToCaseInPortal',
+	        'linkedResourceCount',
+	        'linkedToRecommendationOnClosure',
+	        'linkedToRecommendationOnClosureSet',
+	        'milestoneStatus',
+	        'name',
+	        'needsNewOwner',
+	        'noAutomationForCase',
+	        'normalizedServiceLevel',
+	        'numberOfBreaches',
+	        'origin',
+	        'ownerIRCNickname',
+	        'ownerId',
+	        'ownersManagersEmail',
+	        'ownerOutOfOffice',
+	        'priorityScore',
+	        'isPrivate',
+	        'privateCommentCount',
+	        'product',
+	        'productFamily',
+	        'publicComment',
+	        'publicCommentCount',
+	        'publicTSEComments',
+	        'reliefAt',
+	        'remoteSessionCount',
+	        'requestManagementEscalation',
+	        'resolution',
+	        'resolutionDescription',
+	        'resolvedAt',
+	        'sbrGroup',
+	        'sbt',
+	        'sbtState',
+	        'searchHelper',
+	        'sendCSATSurvey',
+	        'severity',
+	        'slaExitDate',
+	        'slaStartDate',
+	        'srmFlag',
+	        'status',
+	        'strategic',
+	        'subject',
+	        'summaryLastModifiedByUserId',
+	        'summaryLastUpdated',
+	        'tags',
+	        'tamCase',
+	        'targetDate',
+	        'translators',
+	        'ttc',
+	        'version',
+	        'waitingOnCallback'
+	    ];
+	    Array.prototype.push.apply(finalFields, caseFields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'accountNumberRef',
+	            'assetId',
+	            'caseOwnerIsTam',
+	            'caseOwnerManagersEmail',
+	            'caseOwnerSuperRegion',
+	            'createdById',
+	            'createdByLink',
+	            'createdByName',
+	            'createdDateGainsight',
+	            'closedDateGainsight',
+	            'company',
+	            'connectionReceivedId',
+	            'connectionSentId',
+	            'contactLink',
+	            'contactPreferredLanguage',
+	            'firstCaseInactivityWarningSentAt',
+	            'highestSeverity',
+	            'hoursInCurrentStatus',
+	            'hoursSinceCaseLastUpdated',
+	            'hoursSinceLastCommentOfAnyType',
+	            'hoursSinceLastPrivateComment',
+	            'hxComment',
+	            'hxDirection',
+	            'hxHubId',
+	            'hxId',
+	            'hxIsEscalation',
+	            'hxPartnerId',
+	            'hxStatus',
+	            'lastETUUpdatedAt',
+	            'lastEscalationAssociatedAt',
+	            'lastPrivateCommentDateTime',
+	            'lastPublicAttachmentMs',
+	            'lastPublicCaseUpdateContactId',
+	            'lastPublicCaseUpdateMs',
+	            'lastPublicCaseUpdateUserId',
+	            'lastPublicCommentDateTime',
+	            'lastPublicCommentPublishedMs',
+	            'lastPublicUpdateBy',
+	            'lastPublicUpdateDateDisplay',
+	            'lastReferencedDate',
+	            'lastStatusChange',
+	            'lastUpdateDate',
+	            'lastViewedDate',
+	            'ltrocClosed',
+	            'ltrocClosedSet',
+	            'manuallySetNoCSATSurvey',
+	            'newTimestamp',
+	            'originalDescription',
+	            'originalEnvironment',
+	            'originalIssue',
+	            'originalPeriodicityOfIssue',
+	            'originalProduct',
+	            'originalServiceLevel',
+	            'originalSeverity',
+	            'originalSubject',
+	            'originalTimeFramesAndUrgency',
+	            'originalVersion',
+	            // 'parent',
+	            'parentId',
+	            'periodicityOfIssue',
+	            'prsRecordId',
+	            'pushToPartner',
+	            'priorityScoreExplanation',
+	            'priorityScoreFormula',
+	            'proactive',
+	            'phone',
+	            'priorityScoreLastUpdateDate',
+	            'reason',
+	            'redHatLogin',
+	            'recordTypeId',
+	            'redHatLoginRef',
+	            'refTagForEmails',
+	            'relatedChanges',
+	            'reopenCount',
+	            'resetSBTCount',
+	            'rhProductId',
+	            'rhVersionId',
+	            'secondCaseInactivityWarningSentAt',
+	            'stopStartDate',
+	            'systemModstamp',
+	            'timeFramesAndUrgency',
+	            'timeSinceCaseWasLastUpdated',
+	            'totalDaysWoCollaboration',
+	            'totalEscalation',
+	            'userAgent',
+	            'vhtScore',
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeCreatedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdBy." + f; }));
+	    }
+	    if (options && options.includeCreatedByContact) {
+	        Array.prototype.push.apply(finalFields, contact_1.getContactFields(options).map(function (f) { return "createdByContact." + f; }));
+	    }
+	    if (options && options.includeCreatedByUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdByUser." + f; }));
+	    }
+	    if (options && options.includeActionPlanLastUpdatedByUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "actionPlanLastUpdatedByUser." + f; }));
+	    }
+	    if (options && options.includeExternalLockBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "externalLockBy." + f; }));
+	    }
+	    if (options && options.includeAccount) {
+	        Array.prototype.push.apply(finalFields, account_1.getAccountFields(options).map(function (f) { return "account." + f; }));
+	    }
+	    // Currently not used
+	    if (options && options.includeBug) {
+	        Array.prototype.push.apply(finalFields, bugzilla_1.getBugzillaBugFields().map(function (f) { return "bug." + f; }));
+	    }
+	    if (options && options.includeCaseGroup) {
+	        Array.prototype.push.apply(finalFields, caseGroup_1.getCaseGroupFields().map(function (f) { return " caseGroup." + f; }));
+	    }
+	    if (options && options.includeCaseOwner) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "caseOwner." + f; }));
+	    }
+	    if (options && options.includeContact) {
+	        Array.prototype.push.apply(finalFields, contact_1.getContactFields(options).map(function (f) { return "contact." + f; }));
+	    }
+	    if (options && options.includeLastModifiedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedBy." + f; }));
+	    }
+	    if (options && options.includeLastModifiedByUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedByUser." + f; }));
+	    }
+	    if (options && options.includeLastPublicCaseUpdateUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastPublicCaseUpdateUser." + f; }));
+	    }
+	    if (options && options.includeLastPublicCaseUpdateContact) {
+	        Array.prototype.push.apply(finalFields, contact_1.getContactFields(options).map(function (f) { return "lastPublicCaseUpdateContact." + f; }));
+	    }
+	    if (options && options.includeLastModifiedByContact) {
+	        Array.prototype.push.apply(finalFields, contact_1.getContactFields(options).map(function (f) { return "lastModifiedByContact." + f; }));
+	    }
+	    if (options && options.includeSummaryLastModifiedByUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "summaryLastModifiedByUser." + f; }));
+	    }
+	    if (options && options.includeEntitlement) {
+	        Array.prototype.push.apply(finalFields, entitlement_1.getEntitlementFields(options).map(function (f) { return "entitlement." + f; }));
+	    }
+	    if (options && options.includeProduct) {
+	        Array.prototype.push.apply(finalFields, product_1.getProductFields(options).map(function (f) { return "rhProduct." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getCaseFields = getCaseFields;
+
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var user_1 = __webpack_require__(3);
+	function getLiveChatTranscriptFields(options) {
+	    var finalFields = [];
+	    var fields = [
+	        'id',
+	        'createdDate',
+	        'chatDuration',
+	        'lastModifiedDate',
+	        'body',
+	        'status',
+	    ];
+	    Array.prototype.push.apply(finalFields, fields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'isDeleted',
+	            'accountId',
+	            'accountIdFormula',
+	            'averageResponseTimeOperator',
+	            'averageResponseTimeVisitor',
+	            'browser',
+	            'browserLanguage',
+	            'caseId',
+	            'createdById',
+	            'lastModifiedById',
+	            'caseNumber',
+	            'contactId',
+	            'contactIdFormula',
+	            'endTime',
+	            'endedBy',
+	            'ipAddress',
+	            'lastReferencedDate',
+	            'lastViewedDate',
+	            'leadId',
+	            'liveChatButtonId',
+	            'liveChatDeploymentId',
+	            'liveChatVisitorId',
+	            'location',
+	            'operatorMessageCount',
+	            'ownerId',
+	            'platform',
+	            'referrerUri',
+	            'requestTime',
+	            'ssoUsername',
+	            'screenResolution',
+	            'skillId',
+	            'startTime',
+	            'timeToAnswer',
+	            'userAgent',
+	            'visitorMessageCount',
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeCreatedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdBy." + f; }));
+	    }
+	    if (options && options.includeLastModifiedBy) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedBy." + f; }));
+	    }
+	    if (options && options.includeAccount) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "account." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getLiveChatTranscriptFields = getLiveChatTranscriptFields;
+
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var user_1 = __webpack_require__(3);
+	var contact_1 = __webpack_require__(4);
+	function getBugzillaCommentFields(options) {
+	    var finalFields = [];
+	    var fields = [
+	        'id',
+	        'bugzillaBugId',
+	        'bugzillaId',
+	        'caseCommentId',
+	        'createdById',
+	        'createdDate',
+	        'isPrivate',
+	        'lastModifiedById',
+	        'lastModifiedDate'
+	    ];
+	    // Not yet mapped as we have no need for it.
+	    // 'bugzillaBug',
+	    Array.prototype.push.apply(finalFields, fields);
+	    if (options && options.includeCreatedByUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdBy." + f; }));
+	    }
+	    if (options && options.includeLastModifiedByUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedBy." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getBugzillaCommentFields = getBugzillaCommentFields;
+	function getCaseCommentFields(options) {
+	    var finalFields = [];
+	    if (options && options.minimal === true) {
+	        var minimalFields = [
+	            'id',
+	            'commentBody',
+	            'caseNumber',
+	            'createdDate',
+	            'createdByText',
+	            'createdByLink',
+	            'doNotChangeSBT',
+	            'externalHandlingSystem',
+	            'hoursWorked',
+	            'isPublic',
+	            'lastModifiedDate',
+	            'sbt',
+	            'sortDate'
+	        ];
+	        Array.prototype.push.apply(finalFields, minimalFields);
+	    }
+	    else {
+	        var fields = [
+	            'id',
+	            'bugzillaCommentId',
+	            'caseNumber',
+	            'caseCommentId',
+	            'caseID',
+	            'commentBody',
+	            'createdById',
+	            'createdDate',
+	            'createdByContactID',
+	            'createdByText',
+	            'createdByLink',
+	            'createdByUserID',
+	            'createdWithBug',
+	            'doNotChangeSBT',
+	            'externalHandlingSystem',
+	            'fromBug',
+	            'hoursWorked',
+	            'inBreach',
+	            'isDraft',
+	            'isPublic',
+	            'lastModifiedById',
+	            'lastModifiedDate',
+	            'lastReferencedDate',
+	            'lastModifiedByContactID',
+	            'lastModifiedByText',
+	            'lastModifiedByUserID',
+	            'lastModifiedDateCustom',
+	            'name',
+	            'sbt',
+	            'sortDate',
+	            'targetDate'
+	        ];
+	        Array.prototype.push.apply(finalFields, fields);
+	    }
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'caseCommentCreatedDayOfWeek',
+	            'caseCommentCreatedHourOfDay',
+	            'caseCommentCreatedByLocation',
+	            'connectionReceivedId',
+	            'connectionSentId',
+	            'externalCaseCommentId',
+	            'externalId',
+	            'externalTrackerToPartnerPrivateMap',
+	            'helpsResolutionScore',
+	            'lastModifiedByLink',
+	            'lastViewedDate',
+	            'lastModifiedByIdCustom',
+	            'prsRecordID',
+	            'lastVotedOnHelpsResolutionAt',
+	            'representedInOtherSystemsAs',
+	            'roleOfCreatedBy',
+	            'isDeleted',
+	            'managerOfCreatedBy',
+	            'milestoneTargetDate',
+	            'publishedDate',
+	            'publishedMs',
+	            'rhLocation',
+	            'searchHelper',
+	            'systemModstamp',
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    if (options && options.includeBugzillaComment) {
+	        Array.prototype.push.apply(finalFields, getBugzillaCommentFields(options).map(function (f) { return "bugzillaComment." + f; }));
+	    }
+	    if (options && options.includeCreatedByUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "createdByUser." + f; }));
+	    }
+	    if (options && options.includeLastModifiedByUser) {
+	        Array.prototype.push.apply(finalFields, user_1.getUserFields(options).map(function (f) { return "lastModifiedByUser." + f; }));
+	    }
+	    if (options && options.includeCreatedByContact) {
+	        Array.prototype.push.apply(finalFields, contact_1.getContactFields(options).map(function (f) { return "createdByContact." + f; }));
+	    }
+	    if (options && options.includeLastModifiedByContact) {
+	        Array.prototype.push.apply(finalFields, contact_1.getContactFields(options).map(function (f) { return "lastModifiedByContact." + f; }));
+	    }
+	    return finalFields;
+	}
+	exports.getCaseCommentFields = getCaseCommentFields;
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
+	function getEntitlementFields(options) {
+	    var finalFields = [];
+	    var fields = [
+	        'id',
+	        'name',
+	        'status',
+	        'serviceLevel',
+	        'serviceType',
+	        'supportLevel'
+	    ];
+	    // 'createdBy: IUser;
+	    // 'lastModifiedBy: IUser;
+	    // 'account: IAccount;
+	    Array.prototype.push.apply(finalFields, fields);
+	    if (options && options.includeUncommonFields) {
+	        var uncommonFields = [
+	            'createdById',
+	            'createdDate',
+	            'lastModifiedById',
+	            'lastModifiedDate',
+	            'isDeleted',
+	            'accountId',
+	            'assetId',
+	            'isAssociatedWithNoEngineeringProducts',
+	            'businessHoursId',
+	            'businessUnit',
+	            'casesPerEntitlement',
+	            'isConsiderSupported',
+	            'contractLineItemId',
+	            'contractLineItemSubscriptionProductNum',
+	            'endDate',
+	            'entitlementProcessRule',
+	            'externalAccountNumber',
+	            'externalContractId',
+	            'externalContractLineItemId',
+	            'externalEntitlementId',
+	            'externalProductCode',
+	            'installBaseNumber',
+	            'isPerIncident',
+	            'isActive',
+	            'isL3',
+	            'isLayered',
+	            'isManuallySelectedEntitlementProcess',
+	            'isTAMEntitlement',
+	            'lastReferencedDate',
+	            'lastViewedDate',
+	            'levelTypeConcat',
+	            'oracleStatus',
+	            'quantity',
+	            'remainingCases',
+	            'serviceContractId',
+	            'serviceLevelLabel',
+	            'serviceValue',
+	            'slaProcessId',
+	            'startDate',
+	            'statusAndStartDate',
+	            'subscriptionNumber',
+	            'subscriptionProductNumber',
+	            'type',
+	            'coordinates'
+	        ];
+	        Array.prototype.push.apply(finalFields, uncommonFields);
+	    }
+	    return finalFields;
+	}
+	exports.getEntitlementFields = getEntitlementFields;
+
+
+/***/ },
+/* 49 */
+/***/ function(module, exports) {
 
 	(function(self) {
 	  'use strict';
@@ -2704,7 +4410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})(typeof self !== 'undefined' ? self : this);
 
 
-/***/ })
+/***/ }
 /******/ ])
 });
 ;
