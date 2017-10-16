@@ -469,8 +469,7 @@ export default class CaseService {
                 const commJson = {
                     feedback: feedback,
                     accountNumber: this.kase.account_number,
-                    commentId: element.id,
-                    commentCreatedBy: element.created_by
+                    commentId: element.id
                 }
                 try {
                     if (element.feedback !== undefined) {
@@ -527,14 +526,14 @@ export default class CaseService {
                     }
                 }
                 this.comments = comments;
-                this.populateCommentsFeedback();
+                this.populateCommentsFeedback(caseNumber);
             }), function (error) {
             });
             return promise;
         };
 
-        this.populateCommentsFeedback = function() {
-            var promise = hydrajs.commentFeedback.getCommentFeedback(123);
+        this.populateCommentsFeedback = function(caseNumber) {
+            var promise = hydrajs.commentFeedback.getCommentFeedback(caseNumber);
             promise.then(angular.bind(this, function(response) {
                 _.forEach(this.comments, (comment) => {
                     let commentFeedback = _.filter(response, (comm) => comm.commentId === comment.id);
