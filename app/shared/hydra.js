@@ -516,16 +516,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    catch (e) { }
 	}
-	function callFetchAndHandleJwt(uri, params, dataType) {
-	    if (env_1.default.auth) {
-	        params.headers['Authorization'] = env_1.default.auth;
-	    }
-	    else if (getToken()) {
-	        params.headers['Authorization'] = getToken();
-	    }
-	    else {
-	        console.warn("Could not set JWT token on request header, unauthenticated.");
-	    }
+	function callFetchAndHandleJwt(uri, params, dataType, externalUrl) {
+		// remove Authorization from the header if calling external API from the PCM.
+		if (!externalUrl) {
+			if (env_1.default.auth) {
+				params.headers['Authorization'] = env_1.default.auth;
+			}
+			else if (getToken()) {
+				params.headers['Authorization'] = getToken();
+			}
+			else {
+				console.warn("Could not set JWT token on request header, unauthenticated.");
+			}
+		}
 	    return new Promise(function (resolve, reject) {
 	        var start = new Date().getTime();
 	        if (!env_1.default.auth && isTokenExpired()) {
@@ -618,7 +621,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    });
 	}
-	function getUri(uri, headerParams, dataType) {
+	function getUri(uri, headerParams, dataType, externalUrl) {
 	    var params = {
 	        method: 'GET',
 	        credentials: 'include',
@@ -630,11 +633,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    }
 	    if (dataType)
-	        return callFetchAndHandleJwt(uri, params, dataType);
+			return callFetchAndHandleJwt(uri, params, dataType);
+		if (externalUrl)
+			return callFetchAndHandleJwt(uri, params, undefined, externalUrl);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.getUri = getUri;
-	function postUri(uri, body, dataType) {
+	function postUri(uri, body, dataType, externalUrl) {
 	    var params = {
 	        method: 'POST',
 	        credentials: 'include',
@@ -645,11 +650,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        body: JSON.stringify(body)
 	    };
 	    if (dataType)
-	        return callFetchAndHandleJwt(uri, params, dataType);
+			return callFetchAndHandleJwt(uri, params, dataType);
+		if (externalUrl)
+			return callFetchAndHandleJwt(uri, params, undefined, externalUrl);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.postUri = postUri;
-	function putUri(uri, body, dataType) {
+	function putUri(uri, body, dataType, externalUrl) {
 	    var params = {
 	        method: 'PUT',
 	        credentials: 'include',
@@ -660,7 +667,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        body: JSON.stringify(body)
 	    };
 	    if (dataType)
-	        return callFetchAndHandleJwt(uri, params, dataType);
+			return callFetchAndHandleJwt(uri, params, dataType);
+		if (externalUrl)
+			return callFetchAndHandleJwt(uri, params, undefined, externalUrl);
 	    return callFetchAndHandleJwt(uri, params);
 	}
 	exports.putUri = putUri;
@@ -2794,17 +2803,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	var fetch_1 = __webpack_require__(2);
 	function createCommentFeedback(caseNumber, comment) {
 	    var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
-	    return fetch_1.postUri(uri, comment);
+	    return fetch_1.postUri(uri, comment, undefined, true);
 	}
 	exports.createCommentFeedback = createCommentFeedback;
 	function updateCommentFeedback(caseNumber, comment) {
 	    var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
-	    return fetch_1.putUri(uri, comment);
+	    return fetch_1.putUri(uri, comment, undefined, true);
 	}
 	exports.updateCommentFeedback = updateCommentFeedback;
 	function getCommentFeedback(caseNumber) {
 	    var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
-	    return fetch_1.getUri(uri);
+	    return fetch_1.getUri(uri, undefined, undefined, true);
 	}
 	exports.getCommentFeedback = getCommentFeedback;
 

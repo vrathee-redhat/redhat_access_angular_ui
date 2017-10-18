@@ -479,7 +479,7 @@ export default class CaseService {
                     }
                     element.feedback = feedback;
                 } catch (error) {
-                    AlertService.addStrataErrorMessage(error);
+                    console.log('error updating comment feedback' + error);   
                 }
             }
         };
