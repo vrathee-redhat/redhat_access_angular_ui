@@ -186,9 +186,10 @@ export default class SearchCaseService {
                 this.searchParameters.searchString,
                 sortField,
                 CaseService.filterSelect.sortOrder,
-                (this.currentPage - 1) * this.pageSize,
+                null,
                 this.pageSize,
                 this.searchParameters.queryParams,
+                (this.currentPage - 1) * this.pageSize
             ).then(
                 (response) => this.onSuccess(response, deferred),
                 (error) => this.onFailure(error, deferred)
