@@ -469,7 +469,8 @@ export default class CaseService {
                 const commJson = {
                     feedback: feedback,
                     accountNumber: this.kase.account_number,
-                    commentId: element.id
+                    commentId: element.id,
+                    commentCreatedBy: element.created_by
                 }
                 try {
                     if (element.feedback !== undefined) {
