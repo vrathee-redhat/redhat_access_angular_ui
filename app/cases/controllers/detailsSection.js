@@ -43,11 +43,28 @@ export default class DetailsSection {
                 if (RHAUtils.isNotEmpty(CaseService.kase.contact_sso_username)) {
                     contact = CaseService.kase.contact_sso_username; // When internal user views case of another account
                 }
-                strataService.groups.list(contact).then(function (response) {
-                    $scope.groups = response;
-                }, function (error) {
-                    AlertService.addStrataErrorMessage(error);
-                });
+
+                if(CaseService.kase.contact_is_partner){
+                    strataService.accounts.users(CaseService.kase.account_number).then((users) => {
+                        contact = _.first(_.filter(users, (user) => user.org_admin));
+                        CaseService.virtualOwner = contact.sso_username;
+                        strataService.groups.list(contact.sso_username).then(function (response) {
+                            $scope.groups = response;
+                        }, function (error) {
+                            AlertService.addStrataErrorMessage(error);
+                        });
+                        ProductsService.getProducts(false);
+                    }, (error) => {
+                        AlertService.addStrataErrorMessage(error);
+                    });
+                } else {
+                    strataService.groups.list(contact).then(function (response) {
+                        $scope.groups = response;
+                    }, function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
+                    ProductsService.getProducts(false);
+                }
             }
             if(securityService.loginStatus.authedUser.is_internal && COMMON_CONFIG.isGS4 && RHAUtils.isEmpty(CaseService.redhatSecureSupportUsers)) {
                 CaseService.populateRedhatSecureSupportUsers();
@@ -64,7 +81,6 @@ export default class DetailsSection {
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
-            ProductsService.getProducts(false);
             $scope.userIsCaseOwner = true;
             var ownerOptions = [];
             //Assuming the full name matches the owner name, strata does not support getting that through case object
@@ -185,18 +201,37 @@ export default class DetailsSection {
                     } else {
                         $scope.contactList = $filter('filter')(group, {write: true});
                     }
-                    $scope.caseContactSelected = true;
-                    var listContainsUser = false;
-                    for (var i = 0; i < $scope.contactList.length; i++) {
-                        if ($scope.contactList[i].sso_username === CaseService.kase.contact_sso_username) {
-                            listContainsUser = true;
-                            break;
+
+                    if(CaseService.kase.contact_is_partner) {
+                        strataService.accounts.users(securityService.loginStatus.authedUser.account_number).then(angular.bind(this, function (users) {
+                            $scope.contactList = _.uniq($scope.contactList.concat(users));
+                            $scope.caseContactSelected = true;
+                            var listContainsUser = false;
+                            for (var i = 0; i < $scope.contactList.length; i++) {
+                                if ($scope.contactList[i].sso_username === CaseService.kase.contact_sso_username) {
+                                    listContainsUser = true;
+                                    break;
+                                }
+                            }
+                            if (!listContainsUser) {
+                                $scope.caseContactSelected = false;
+                            }
+                        }), function (error) {
+                            AlertService.addStrataErrorMessage(error);
+                        });
+                    } else {
+                        $scope.caseContactSelected = true;
+                        var listContainsUser = false;
+                        for (var i = 0; i < $scope.contactList.length; i++) {
+                            if ($scope.contactList[i].sso_username === CaseService.kase.contact_sso_username) {
+                                listContainsUser = true;
+                                break;
+                            }
+                        }
+                        if (!listContainsUser) {
+                            $scope.caseContactSelected = false;
                         }
                     }
-                    if (!listContainsUser) {
-                        $scope.caseContactSelected = false;
-                    }
-
                 }), function (error) {
                     if (error.xhr.status === 403) {
                         AlertService.addDangerMessage(gettextCatalog.getString('Error: Selected Case Group does not belong to your account'));
@@ -206,6 +241,49 @@ export default class DetailsSection {
                 });
             } else {
                 $scope.contactList = CaseService.users;
+                if(CaseService.kase.contact_is_partner && securityService.loginStatus.authedUser.org_admin) {
+                    strataService.accounts.users(securityService.loginStatus.authedUser.account_number).then(angular.bind(this, function (users) {
+                        $scope.contactList = _.uniq($scope.contactList.concat(users));
+
+                        $scope.caseContactSelected = true;
+                        var listContainsUser = false;
+                        for (var i = 0; i < $scope.contactList.length; i++) {
+                            if ($scope.contactList[i].sso_username === CaseService.kase.contact_sso_username) {
+                                listContainsUser = true;
+                                break;
+                            }
+                        }
+                        if (!listContainsUser) {
+                            $scope.caseContactSelected = false;
+                        }
+
+                    }), function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
+                } else if((CaseService.kase.contact_is_partner && !securityService.loginStatus.authedUser.org_admin) || CaseService.isManagedAccount(CaseService.kase.account_number)) {
+                    strataService.accounts.users(CaseService.kase.account_number).then(angular.bind(this, function (users) {
+                        $scope.contactList = $scope.contactList.concat(users);
+                        const loggedInUser = _.pick(securityService.loginStatus.authedUser, ['sso_username', 'first_name', 'last_name']);
+
+                        $scope.contactList.unshift(loggedInUser);
+                        $scope.contactList = _.uniqBy($scope.contactList,'sso_username');
+
+                        $scope.caseContactSelected = true;
+                        var listContainsUser = false;
+                        for (var i = 0; i < $scope.contactList.length; i++) {
+                            if ($scope.contactList[i].sso_username === CaseService.kase.contact_sso_username) {
+                                listContainsUser = true;
+                                break;
+                            }
+                        }
+                        if (!listContainsUser) {
+                            $scope.caseContactSelected = false;
+                        }
+
+                    }), function (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    });
+                }
             }
         };
         $scope.$watch('CaseService.users', function () {
