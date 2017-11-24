@@ -18,8 +18,7 @@ div(ng-hide='showCaseList() || securityService.loginFailure || !securityService.
                                 span#rha-new-case-btn
                                 | {{'Open a Support Case'|translate}}
                             a.btn.btn-app.btn-sm(translate='',translate-comment='Verb', ng-click='closeCases()', ng-disabled='!caseChosen()', ng-class="{'btn-primary': caseChosen() }") Close Case(s)
-                        //remove ng-hide='true' when Solution Engine stakeholders give an ack as per PCM-5159
-                        div(style='padding-top: 10px;',ng-hide='true')
+                        div(style='padding-top: 10px;')
                             span {{'Find answers faster with '|translate}}
                                 a(href='/solution-engine') Solution Engine
     .row(ng-hide='!CaseService.sfdcIsHealthy || SearchCaseService.totalCases == 0')
