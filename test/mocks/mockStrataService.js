@@ -1030,6 +1030,10 @@ angular.module('RedhatAccess.mock', [])
                 return deferred.promise;
             };
 
+            this.isManagedAccount = function (accountNumber) {
+                return false;
+            };
+
             this.defineCase = function (rawCase) {
                 this.kase = rawCase;
                 this.caseDataReady = false;
