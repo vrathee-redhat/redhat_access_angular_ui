@@ -49,8 +49,13 @@ export default class AccountSelect {
                     CaseService.validateNewCase();
                 });
             } else {
+                // field used for partner case management
+                CaseService.virtualOwner = undefined;
+                CaseService.managedAccountUsers = [];
+
                 CaseService.populateUsers();
                 CaseService.populateGroups(CaseService.owner);
+                ProductsService.getProducts(false);
             }
         };
     }
