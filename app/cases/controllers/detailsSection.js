@@ -44,7 +44,7 @@ export default class DetailsSection {
                     contact = CaseService.kase.contact_sso_username; // When internal user views case of another account
                 }
 
-                if(CaseService.kase.contact_is_partner){
+                if(CaseService.kase.contact_is_partner && (securityService.loginStatus.authedUser.org_admin || CaseService.isManagedAccount(CaseService.kase.account_number))){
                     strataService.accounts.users(CaseService.kase.account_number).then((users) => {
                         contact = _.first(_.filter(users, (user) => user.org_admin));
                         CaseService.virtualOwner = contact.sso_username;
@@ -260,7 +260,7 @@ export default class DetailsSection {
                     }), function (error) {
                         AlertService.addStrataErrorMessage(error);
                     });
-                } else if((CaseService.kase.contact_is_partner && !securityService.loginStatus.authedUser.org_admin) || CaseService.isManagedAccount(CaseService.kase.account_number)) {
+                } else if(CaseService.kase.contact_is_partner && !securityService.loginStatus.authedUser.org_admin && CaseService.isManagedAccount(CaseService.kase.account_number)) {
                     strataService.accounts.users(CaseService.kase.account_number).then(angular.bind(this, function (users) {
                         $scope.contactList = $scope.contactList.concat(users);
                         const loggedInUser = _.pick(securityService.loginStatus.authedUser, ['sso_username', 'first_name', 'last_name']);
