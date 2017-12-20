@@ -11,12 +11,19 @@ export default class LinkifyService {
             var textSegments = caseLinksinkifiedText.split(caseLinkRegex);
             var caseLinks = caseLinksinkifiedText.match(caseLinkRegex);
             // merge the elements back together and linkify textSegments
-            var result = [$filter('linky')(textSegments[0], '_blank')];
-            for (var i = 1; i < textSegments.length; i++) {
-                result.push(caseLinks[i - 1]);
-                result.push($filter('linky')(textSegments[i], '_blank'));
+            try {
+                var result = [$filter('linky')(textSegments[0], '_blank')];
+                for (var i = 1; i < textSegments.length; i++) {
+                    result.push(caseLinks[i - 1]);
+                    result.push($filter('linky')(textSegments[i], '_blank'));
+                }
+                return result.join('');
+            } catch(error) {
+                // https://projects.engineering.redhat.com/browse/PCM-6168
+                // Returning comment text as it is if there is any error while linkifying the content inside the comment text
+                return text;
             }
-            return result.join('');
+
         }
     }
 }
