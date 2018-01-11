@@ -1,0 +1,17 @@
+{
+    "name": "pcm-openshift",
+    "version": "1.0.0",
+    "author": "Kun Yan <kyan@redhat.com>",
+    "description": "",
+    "scripts": {
+      "start": "node ./server.js"
+    },
+    "dependencies": {
+      "compression": "^1.7.1",
+      "connect-history-api-fallback": "^1.5.0",
+      "express": "^4.16.2",
+      "morgan": "^1.9.0",
+      "serve-static": "^1.13.1"
+    }
+  }
+  
