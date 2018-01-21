@@ -16,29 +16,46 @@ const port = 8443;
 
 function setCustomCacheControl(res, path) {
     if (serveStatic.mime.lookup(path) === 'text/html') {
-        res.setHeader('Cache-Control', 'public, max-age=600')
+        res.setHeader('Cache-Control', 'public, max-age=600');
     }
 }
 
 app
-    .use(morgan('combined'))
-    .use(compression())
-    .use('/live', function (req, res) {
+    .use(morgan('combined')) // logger
+    .use(compression()) // gzip
+    .use('/live', function(req, res) {
+        // OpenShift livenessProbe
         res.send('<h1>Application is alive :)</h1>');
     })
-    .use(history())
-    .use(history({
-        rewrites: [{
-            from: /^\/support\/cases\/(.*)/i,
-            to: function (context) {
-                return '/' + context.match[1];
-            },
-        }],
-    }))
-    .use(serveStatic(path.join(__dirname, publicDir), {
-        maxAge: '10d',
-        setHeaders: setCustomCacheControl,
-    }));
+    .get('/*', function(req, res, next) {
+        /**
+         * Rewrite url and redirect
+         * example: /support/cases/new to /support/cases/#/case/new
+         */
+        const tmpPath = req.path.replace('/support/cases', '');
+        if (tmpPath !== '/' && tmpPath.search(/.(js|css|png|gif)$/) < 0) {
+            res.redirect(302, '/support/cases/#/case' + tmpPath);
+        }
+        next();
+    })
+    .use(
+        history({
+            rewrites: [
+                {
+                    from: /^\/support\/cases\/(.*)/i,
+                    to: function(context) {
+                        return '/' + context.match[1];
+                    }
+                }
+            ]
+        })
+    )
+    .use(
+        serveStatic(path.join(__dirname, publicDir), {
+            maxAge: '10d',
+            setHeaders: setCustomCacheControl
+        })
+    );
 
 try {
     const cert = fs.readFileSync('/etc/ssl/server.crt');
@@ -46,8 +63,8 @@ try {
 
     const options = {
         cert,
-        key,
-    }
+        key
+    };
 
     https.createServer(options, app).listen(port, function() {
         console.log('Application start with https');
@@ -56,5 +73,5 @@ try {
     console.error(err);
     app.listen(port, function() {
         console.log('Application start with http');
-    })
+    });
 }
