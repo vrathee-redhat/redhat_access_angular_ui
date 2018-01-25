@@ -12,6 +12,7 @@ export default class EscalationRequest {
         $scope.ESCALATION_TYPE = ESCALATION_TYPE;
         $scope.partnerGeoList = ['NA', 'EMEA', 'LATAM', 'APAC'];
         $scope.iceGeoList = ['NA', 'EMEA', 'LATAM', 'APAC', 'Combo'];
+        $scope.severityList = [1, 2, 3, 4];
         $scope.subjectList = ['Product Issue',
             'Integration Issue',
             'Critical Customer Issue',

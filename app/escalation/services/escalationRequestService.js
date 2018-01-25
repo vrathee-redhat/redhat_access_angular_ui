@@ -14,6 +14,7 @@ export default class EscalationRequestService {
         this.customerEmail = '';
         this.customerPhone = '';
         this.geo = '';
+        this.severity = 3;
         this.expectations = '';
         this.issueDescription = '';
         this.subject = '';
@@ -31,6 +32,7 @@ export default class EscalationRequestService {
             this.customerEmail = '';
             this.customerPhone = '';
             this.geo = '';
+            this.severity = 3;
             this.expectations = '';
             this.issueDescription = '';
             this.subject = '';
@@ -39,14 +41,19 @@ export default class EscalationRequestService {
 
         this.sendEscalationRequest = function (recordType) {
             var subject = '';
+            var escalationSource = '';
             if (recordType === ESCALATION_TYPE.partner) {
                 subject = 'Partner Escalation through Portal Case Management';
+                escalationSource = 'Partner Escalation';
             } else {
                 subject = 'Ice Escalation through Portal Case Management';
+                escalationSource = 'Sales/ICE Escalation';
             }
             var escalationJSON = {
-                'record_type': recordType,
-                'subject': subject
+                'record_type': 'Active Customer Escalation',
+                'subject': subject,
+                'escalationSource': escalationSource,
+                'status': 'New'
             };
             var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
@@ -95,6 +102,9 @@ export default class EscalationRequestService {
             }
             if (!isObjectNothing(this.geo)) {
                 escalationJSON.geo = this.geo;
+            }
+            if (!isObjectNothing(this.severity)) {
+                escalationJSON.severity = this.severity;
             }
             if (!isObjectNothing(this.expectations)) {
                 escalationJSON.expectations = this.expectations;
