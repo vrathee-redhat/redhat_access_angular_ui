@@ -1,5 +1,7 @@
 'use strict';
 
+import includes from 'lodash/includes';
+
 export default class RecommendationsService {
     constructor(strataService, CaseService, $q, $sanitize, NEW_CASE_CONFIG, $filter, RHAUtils) {
         'ngInject';
@@ -7,6 +9,7 @@ export default class RecommendationsService {
         this.recommendations = [];
         this.pinnedRecommendations = [];
         this.handPickedRecommendations = [];
+        this.validResourceType = ['Solution', 'Video', 'CertifiedSoftware', 'CertifiedCloudPartner', 'Article', 'Errata', 'Vulnerability', 'CertifiedHardware', 'Cve', 'LabInfo']
         var currentData = {
             product: null,
             version: null,
@@ -53,16 +56,6 @@ export default class RecommendationsService {
             }
         };
 
-        this.validResourceType = function (resourceType) {
-            if (resourceType === 'Solution' || resourceType === 'Video' || resourceType === 'CertifiedSoftware' || resourceType === 'CertifiedCloudPartner'
-            || resourceType === 'Article' || resourceType === 'Errata' || resourceType === 'Vulnerability' || resourceType === 'CertifiedHardware' ||
-            resourceType === 'Cve' || resourceType === 'LabInfo') {
-                return true;
-            } else {
-                return false;
-            }
-        };
-
         this.getRecommendations = function (refreshRecommendations, max, objectToDiagnose) {
             var self = this;
             if (NEW_CASE_CONFIG.showRecommendations) {
@@ -93,7 +86,7 @@ export default class RecommendationsService {
                             }
                             if (RHAUtils.isNotEmpty(response)) {
                                 response.response.docs.forEach(angular.bind(this, function (recommendation) {
-                                    if (recommendation !== undefined && this.validResourceType(recommendation.documentKind)) {
+                                    if (recommendation !== undefined && includes(this.validResourceType, recommendation.documentKind)) {
                                         recommendation.resource_type = recommendation.documentKind;
                                         recommendation.resource_id = recommendation.id;
                                         recommendation.resource_uri = recommendation.uri;
