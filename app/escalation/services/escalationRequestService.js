@@ -52,7 +52,7 @@ export default class EscalationRequestService {
             var escalationJSON = {
                 'record_type': 'Active Customer Escalation',
                 'subject': subject,
-                'escalationSource': escalationSource,
+                'escalation_source': escalationSource,
                 'status': 'New'
             };
             var isObjectNothing = function (object) {
