@@ -58,13 +58,6 @@ div#redhat-access-escalations.container-offset(ng-hide='HeaderService.showPartne
               ng-options='geo for geo in partnerGeoList'
               ng-change="partnerMandatoryFieldCheck()")
             span.help-block NA-North America, EMEA-Europe,the Middle East and Africa, LATAM-Latin America, APAC-Asia Pacific
-        div.form-group
-            label.col-sm-5.control-label(for='rha-severity') {{'Severity'|translate}} *
-            div.col-sm-7
-              select#rha-severity.form-control.productSelect.nonEmpty(
-              ng-model='EscalationRequestService.severity'
-              ng-options='severity for severity in severityList'
-              ng-change="partnerMandatoryFieldCheck()")
       div.col-md-7.push-bottom
         fieldset
           legend
