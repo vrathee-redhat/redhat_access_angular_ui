@@ -37,7 +37,7 @@ export default class New {
         $scope.recommendationsPerPage = 6;
         $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
 
-        $scope.$watch('CaseService.account.name', async function () {
+        $scope.$watch('CaseService.account.name', function () {
             if(RHAUtils.isNotEmpty(CaseService.account.require_cgroup_on_create) && CaseService.account.require_cgroup_on_create){
                 CaseService.requireCaseGroup = true;
                 $scope.caseGroupRequired = true;
