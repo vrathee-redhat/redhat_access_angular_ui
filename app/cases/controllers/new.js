@@ -26,15 +26,27 @@ export default class New {
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
         $scope.ie8Message = 'We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
-
+        
         $scope.showRecommendationPanel = false;
         $scope.kase = {
             notifiedUsers : []
         };
+        $scope.caseGroupRequired = false;
 
         $scope.isControlGroup = true;
         $scope.recommendationsPerPage = 6;
         $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
+
+        $scope.$watch('CaseService.account.name', function () {
+            if(RHAUtils.isNotEmpty(CaseService.account.require_cgroup_on_create) && CaseService.account.require_cgroup_on_create){
+                CaseService.requireCaseGroup = true;
+                $scope.caseGroupRequired = true;
+            } else {
+                $scope.caseGroupRequired = false;
+                CaseService.requireCaseGroup = false;
+            }
+        });
+
         if (window.chrometwo_require !== undefined) {
             breadcrumbs = [
                 [gettextCatalog.getString('Support'), '/support/'],

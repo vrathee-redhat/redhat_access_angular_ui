@@ -178,7 +178,8 @@ div(rha-header='', page='newCase')
                                 input.form-control(
                                 ng-disabled='true',
                                 placeholder="{{'Select a User'|translate}}")
-                            label(translate,translate-comment="Noun") Case Group (Optional)
+                            label(translate,translate-comment="Noun" ng-if="!$parent.caseGroupRequired") Case Group (Optional)
+                            label(translate,translate-comment="Noun" ng-if="$parent.caseGroupRequired") Case Group
                             div(rha-groupselect='', ng-init="$parent.setSearchOptions('false')")
                         .row.submit
                             //- TODO make remove local storage once implemented

@@ -27,6 +27,7 @@ export default class CaseService {
         this.prestineKase = {};
         this.caseDataReady = false;
         this.isCommentPublic = true;
+        this.requiredCaseGroup = false;
         this.versions = [];
         this.products = [];
         this.severities = [];
@@ -203,6 +204,7 @@ export default class CaseService {
         };
         this.onGroupSelectChanged = function () {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
+            this.validateNewCase();
         };
         this.onProductSelectChange = function () {
             $rootScope.$broadcast(CASE_EVENTS.productSelectChange);
@@ -656,7 +658,8 @@ export default class CaseService {
                     && RHAUtils.isEmpty(this.kase.urgency)
                     )
                 || RHAUtils.isEmpty(this.kase.type)
-                || (securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.owner))) {
+                || (securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.owner))
+                ||(this.requireCaseGroup && RHAUtils.isEmpty(this.group))) {
                 this.newCaseIncomplete = true;
             } else {
                 this.newCaseIncomplete = false;
