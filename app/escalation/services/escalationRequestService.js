@@ -45,15 +45,16 @@ export default class EscalationRequestService {
             var type = '';
             if (recordType === ESCALATION_TYPE.partner) {
                 subject = 'Partner Escalation through Portal Case Management';
-                type = recordType;
+                escalationSource = 'Partner Escalation';
             } else {
                 subject = 'Ice Escalation through Portal Case Management';
                 escalationSource = 'Sales/ICE Escalation';
-                type = 'Active Customer Escalation';
             }
             var escalationJSON = {
-                'record_type': type,
-                'subject': subject
+                'record_type': 'Active Customer Escalation',
+                'subject': subject,
+                'escalation_source': escalationSource,
+                'status': 'New'
             };
             var isObjectNothing = function (object) {
                 if (object === '' || object === undefined || object === null) {
@@ -62,14 +63,6 @@ export default class EscalationRequestService {
                     return false;
                 }
             };
-            // we are using new escalation object for ICE and old escalation object for partner
-            if (recordType === ESCALATION_TYPE.ice) {
-                escalationJSON.escalation_source = escalationSource;
-                escalationJSON.status = 'New';
-                if (!isObjectNothing(this.severity)) {
-                    escalationJSON.severity = this.severity;
-                }
-            }
 
             if (!isObjectNothing(this.accountNumber)) {
                 escalationJSON.account_number = this.accountNumber;
@@ -110,6 +103,9 @@ export default class EscalationRequestService {
             }
             if (!isObjectNothing(this.geo)) {
                 escalationJSON.geo = this.geo;
+            }
+            if (!isObjectNothing(this.severity)) {
+                escalationJSON.severity = this.severity;
             }
             if (!isObjectNothing(this.expectations)) {
                 escalationJSON.expectations = this.expectations;
