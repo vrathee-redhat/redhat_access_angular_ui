@@ -87,10 +87,10 @@ export default class ProductsService {
                     productOptions.push({ isDisabled: true, name: sep, code: '' });
                 }
 
-                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name}) );
+                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer ? 'Supported' : 'Unsupported'}) );
                 this.products = productOptions;
             } else {
-                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name}) );
+                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer ? 'Supported' : 'Unsupported'}) );
                 this.products = productOptions;
             }
         };
