@@ -37,7 +37,21 @@ export default class New {
         $scope.recommendationsPerPage = 6;
         $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
 
+        let isManagedAccount = false;
+
         $scope.$watch('CaseService.account.name', function () {
+            //checking whether the account is a managed account or not
+            if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts)){
+                for( var a of securityService.loginStatus.authedUser.managedAccounts.accounts){
+                    if(a.accountNum === CaseService.account.number){
+                        isManagedAccount = true;
+                        break;
+                    } else {
+                        isManagedAccount = false;
+                    }
+                }
+            }
+
             if(RHAUtils.isNotEmpty(CaseService.account.require_cgroup_on_create) && CaseService.account.require_cgroup_on_create){
                 CaseService.requireCaseGroup = true;
                 $scope.caseGroupRequired = true;
@@ -45,6 +59,38 @@ export default class New {
                 $scope.caseGroupRequired = false;
                 CaseService.requireCaseGroup = false;
             }
+        });
+
+        $scope.$watch('securityService.loginStatus.authedUser', function(){
+            if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.account)){
+                if(securityService.loginStatus.authedUser.account.require_cgroup_on_create){
+                    $scope.caseGroupRequired = true;
+                    CaseService.requireCaseGroup = true;
+                } else {
+                    $scope.caseGroupRequired = false;
+                    CaseService.requireCaseGroup = false;
+                }
+            }
+        });
+
+        $scope.$watch('CaseService.owner', function(){
+            if(isManagedAccount){
+                for(var a of CaseService.loggedInAccountUsers){
+                    if(CaseService.owner === a.sso_username){
+                        CaseService.requireCaseGroup = false;
+                        $scope.caseGroupRequired = false;
+                        break;
+                    } else {
+                        if(RHAUtils.isNotEmpty(CaseService.account.require_cgroup_on_create) && CaseService.account.require_cgroup_on_create){
+                            CaseService.requireCaseGroup = true;
+                            $scope.caseGroupRequired = true;
+                        } else {
+                            $scope.caseGroupRequired = false;
+                            CaseService.requireCaseGroup = false;
+                        }
+                    }
+                }
+            }            
         });
 
         if (window.chrometwo_require !== undefined) {
