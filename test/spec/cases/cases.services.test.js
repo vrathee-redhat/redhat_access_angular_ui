@@ -947,7 +947,8 @@ describe('Case Services', function () {
             scope.$root.$digest();
             var mockProducts = [{
                 "name": mockStrataDataService.mockProducts[0].name,
-                "code": mockStrataDataService.mockProducts[0].code
+                "code": mockStrataDataService.mockProducts[0].code,
+                "supported": mockStrataDataService.mockProducts[0].supported_for_customer
             }];
             expect(productsService.products).toEqual(mockProducts);
         });
@@ -964,7 +965,8 @@ describe('Case Services', function () {
             scope.$root.$digest();
             var mockProducts = [{
                 "name": mockStrataDataService.mockProducts[0].name,
-                "code": mockStrataDataService.mockProducts[0].code
+                "code": mockStrataDataService.mockProducts[0].code,
+                "supported": mockStrataDataService.mockProducts[0].supported_for_customer
             }];
             expect(productsService.products).toEqual(mockProducts);
             expect(productsService.productsLoading).toEqual(false);
