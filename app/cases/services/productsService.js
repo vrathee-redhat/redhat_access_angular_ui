@@ -1,4 +1,5 @@
 'use strict';
+import _        from 'lodash';
 
 const productSortListFile = require('../../../productSortList.txt');
 
@@ -71,24 +72,32 @@ export default class ProductsService {
                 productSortList = productSortListFile.split(',');
                 for (var i = 0; i < productSortList.length; i++) {
                     for (var j = 0; j < this.products.length; j++) {
-                        if (productSortList[i] === this.products[j].code) {
+                        if (productSortList[i] === this.products[j].code && this.products[j].supported_for_customer) {
                             var sortProduct = productSortList[i];
                             productOptions.push({
                                 code: sortProduct,
-                                name: sortProduct
+                                name: sortProduct,
+                                supported: true
                             });
                             break;
                         }
                     }
                 }
 
-                const sep = '────────────────────────────────────────';
-                if (productOptions.length > 0) {
-                    productOptions.push({ isDisabled: true, name: sep, code: '' });
+                const supportedProduct = _.filter(this.products, (p) => p.supported_for_customer);
+                const unsupportedProduct = _.filter(this.products, (p) => !p.supported_for_customer);
+
+                if (supportedProduct.length > 0) {
+                    angular.forEach(supportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer}));
                 }
 
-                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer ? 'Supported' : 'Unsupported'}) );
-                this.products = productOptions;
+                if (unsupportedProduct.length > 0) {
+                    const sep = '────────────────────────────────────────';
+                    productOptions.push({ isDisabled: true, name: sep, code: '' });
+                    angular.forEach(unsupportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer}));
+                }
+
+                this.products = _.uniqBy(productOptions, (p) => p.name);
             } else {
                 angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer ? 'Supported' : 'Unsupported'}) );
                 this.products = productOptions;

@@ -6,5 +6,5 @@ select#rha-product-select.form-control(
 	ng-disabled='ProductsService.products.length === 0 || !securityService.loginStatus.isLoggedIn || CaseService.submittingCase || ProductsService.productsLoading',
 	ng-model='CaseService.kase.product',
 	ng-change='onProductSelect($event)',
-	ng-options='p.code as p.name group by p.supported disable when p.isDisabled for p in products')
+	ng-options='p.code as p.name disable when p.isDisabled for p in products')
 	option(value="")
