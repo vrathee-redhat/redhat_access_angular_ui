@@ -99,7 +99,7 @@ export default class ProductsService {
 
                 this.products = _.uniqBy(productOptions, (p) => p.name);
             } else {
-                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer ? 'Supported' : 'Unsupported'}) );
+                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer}) );
                 this.products = productOptions;
             }
         };
