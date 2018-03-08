@@ -712,7 +712,7 @@ msgid ""
 "What problem/issue/behavior are you having trouble with?  What do you expect "
 "to see?"
 msgstr ""
-"Quelle sorte de problème/comportement inatendu rencontrez-vous ? A quoi vous "
+"Quelle sorte de problème/comportement inattendu rencontrez-vous ? A quoi vous "
 "attendez-vous normalement ?"
 
 #: dist/pcm.js:214
@@ -725,7 +725,7 @@ msgstr ""
 #: dist/pcm.js:214
 msgid "Where are you experiencing the behavior?  What environment?"
 msgstr ""
-"Où rencontrez-vous ce comportement inatendu ? Dans quel environnement ?"
+"Où rencontrez-vous ce comportement inattendu ? Dans quel environnement ?"
 
 #: dist/pcm.js:201
 msgid ""
@@ -1006,8 +1006,8 @@ msgid ""
 "Attaching logs or other diagnostics files typically results in faster "
 "resolution."
 msgstr ""
-"L'ajout de journaux ou autres fichiers de diagnostique en pièce jointe "
-"entraîne habituellement des résolutions plus rapides."
+"L'ajout de fichiers journaux ou autres fichiers de diagnostique en pièce jointe "
+"permet habituellement une résolutions plus rapide."
 
 #: app/cases/views/discussionSection.html:51
 #: app/cases/views/discussionSection.html:93
@@ -1086,6 +1086,14 @@ msgstr "Groupe de dossiers"
 #: app/cases/views/new.html:120
 msgid "Case Group (Optional)"
 msgstr "Groupe de dossiers (optionnel)"
+
+#: app/cases/views/new.html:120
+msgid "Send Additional Email Notifications to"
+msgstr "Envoyer des E-mails de notification supplémentaires à"
+
+#: app/cases/views/new.html:120
+msgid "By opening this case you will automatically receive notifications."
+msgstr "En ouvrant ce ticket vous recevrez automatiquement des notifications."
 
 #: app/cases/views/createGroupModal.html:10
 msgid "Case Group:"
@@ -1757,7 +1765,7 @@ msgstr "Remarques privées"
 #. Noun
 #: app/cases/views/new.html:32
 msgid "Problem Statement"
-msgstr "Énoncé de problème"
+msgstr "Énoncé du problème"
 
 #: app/cases/views/advancedSearchCaseList.html:5
 #: app/cases/views/detailsSection.html:21 app/cases/views/new.html:18
@@ -1772,7 +1780,7 @@ msgstr "Version du produit"
 # translation auto-copied from project PressGang CCMS topics, version 1, document 30482-691403, author Corina Roe
 #: app/cases/views/new.html:97 app/cases/views/severitySelect.html:28
 msgid "Production Support Service Level Agreement"
-msgstr "Contrat SLA (niveau de service) du Support production"
+msgstr "Accord de Niveau de Service (SLA) du Support Production"
 
 #: app/cases/views/advancedSearch.html:5
 msgid "Public link to this Search"
