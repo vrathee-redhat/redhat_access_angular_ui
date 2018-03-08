@@ -337,7 +337,8 @@ angular.module('RedhatAccess.mock', [])
 
             this.mockProducts = [{
                 "name": "Red Hat Enterprise Linux",
-                "code": "RHEL"
+                "code": "RHEL",
+                "supported_for_customer": true
             }];
 
             this.mockProduct = {
