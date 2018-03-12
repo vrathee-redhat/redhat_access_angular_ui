@@ -84,16 +84,18 @@ export default class ProductsService {
                     }
                 }
 
-                const supportedProduct = _.filter(this.products, (p) => p.supported_for_customer);
-                const unsupportedProduct = _.filter(this.products, (p) => !p.supported_for_customer);
+                let supportedProduct = _.filter(this.products, (p) => p.supported_for_customer);
+                let unsupportedProduct = _.filter(this.products, (p) => !p.supported_for_customer);
 
                 if (supportedProduct.length > 0) {
+                    supportedProduct = _.sortBy(supportedProduct, (p) => p.code);
                     angular.forEach(supportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer}));
                 }
 
                 if (unsupportedProduct.length > 0) {
                     const sep = '────────────────────────────────────────';
                     productOptions.push({ isDisabled: true, name: sep, code: '' });
+                    unsupportedProduct = _.sortBy(unsupportedProduct, (p) => p.code);
                     angular.forEach(unsupportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer}));
                 }
 
