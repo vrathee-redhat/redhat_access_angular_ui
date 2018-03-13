@@ -58,5 +58,12 @@ export default class AccountSelect {
                 ProductsService.getProducts(false);
             }
         };
+
+        $scope.$watch('CaseService.account.name', function(){
+            // PCM-6541 if account.number is blank then show login user account.
+            if(CaseService.account && RHAUtils.isEmpty(CaseService.account.number)) {
+                $scope.selectUserAccount();
+            }
+        });
     }
 }
