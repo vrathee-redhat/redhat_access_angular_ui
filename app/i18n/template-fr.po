@@ -1325,8 +1325,8 @@ msgstr "Par exemple : 1-888-467-3342"
 #: app/cases/views/severitySelect.html:28
 msgid "For more details about initial and ongoing response times, visit the"
 msgstr ""
-"Pour en savoir plus les délais de réponse initiaux et en cours, merci de "
-"consulter"
+"Pour en savoir plus sur les délais de réponse initiaux et en cours, merci de "
+"consulter l'"
 
 # translation auto-copied from project Customer Portal Translations, version PortalCaseManagementStrings, document PortalCaseManagementStrings, author Sam Friedmann
 #: app/escalation/views/iceEscalation.html:5
