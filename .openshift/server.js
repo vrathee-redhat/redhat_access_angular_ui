@@ -27,6 +27,11 @@ app
         // OpenShift livenessProbe
         res.send('<h1>Application is alive :)</h1>');
     })
+    .get('/support/cases/ice', function(req, res, next) {
+        var hostname = req.headers.host.split('-')[1];
+        var newUrl = 'http://ice-' + hostname + '/ice';
+        req.pipe(request(newUrl)).pipe(res);
+    })
     .get('/*', function(req, res, next) {
         /**
          * Rewrite url and redirect
