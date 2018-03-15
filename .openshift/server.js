@@ -20,19 +20,12 @@ function setCustomCacheControl(res, path) {
     }
 }
 
-const iceProxyRe = /(ext\.paas\.(?:\w+).redhat.com)/;
-
 app
     .use(morgan('combined')) // logger
     .use(compression()) // gzip
     .use('/live', function(req, res) {
         // OpenShift livenessProbe
         res.send('<h1>Application is alive :)</h1>');
-    })
-    .get('/support/cases/ice', function(req, res, next) {
-        var hostname = iceProxyRe.exec(req.headers.host);
-        var newUrl = 'http://ice-' + hostname[0] + '/ice';
-        req.pipe(request(newUrl)).pipe(res);
     })
     .get('/*', function(req, res, next) {
         /**
