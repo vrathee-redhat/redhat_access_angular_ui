@@ -31,7 +31,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder", ng-if='!element.draft')
                     article.comment.article-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)")
                         i.fa.fa-comments-o
-                        h4.meta {{'Message'|translate}}&nbsp; {{'('}}{{element.created_by_type}}{{')'}}
+                        h4.meta {{'Message'|translate}}&nbsp; ({{element.created_by_type}})
                         .byline
                             author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
                             date {{element.published_date}} {{'at'|translate}}&nbsp;
@@ -47,7 +47,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                                 a.ml-5.glyphicon.glyphicon-link(ng-click='CaseService.scrollToComment(element.id)' ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')
                     article.comment.article-private-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && element.public !== undefined && !element.public")
                         i.fa.fa-comments-o
-                        h4.meta {{'Private Message'|translate}}&nbsp;{{'('}}{{element.created_by_type}}{{')'}}
+                        h4.meta {{'Private Message'|translate}}&nbsp;({{element.created_by_type}})
                         .byline
                             author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
                             date {{element.published_date}} {{'at'|translate}}&nbsp;
