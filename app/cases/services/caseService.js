@@ -1,7 +1,7 @@
 'use strict';
 
 import _        from 'lodash';
-import hydrajs  from '../../shared/hydra.js';
+import hydrajs  from '../../shared/hydrajs.js';
 
 export default class CaseService {
     constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location) {
