@@ -56,6 +56,8 @@ export default class AccountSelect {
                 CaseService.populateUsers();
                 CaseService.populateGroups(CaseService.owner);
                 ProductsService.getProducts(false);
+                // PCM-6541 if account.number is blank then show login user account.
+                $scope.selectUserAccount();
             }
         };
 
