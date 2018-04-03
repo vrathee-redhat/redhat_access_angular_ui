@@ -205,6 +205,13 @@ export default class DetailsSection {
                     if(CaseService.kase.contact_is_partner) {
                         strataService.accounts.users(securityService.loginStatus.authedUser.account_number).then(angular.bind(this, function (users) {
                             $scope.contactList = _.uniq($scope.contactList.concat(users));
+                            // add case contact in the list if it is not present.
+                            if (!_.find($scope.contactList, (list) => list && list.sso_username === CaseService.kase.contact_sso_username)) {
+                                $scope.contactList.push({
+                                    sso_username: CaseService.kase.contact_sso_username,
+                                    fullName: CaseService.kase.contact_name
+                                });
+                            }
                             $scope.caseContactSelected = true;
                             var listContainsUser = false;
                             for (var i = 0; i < $scope.contactList.length; i++) {
@@ -244,7 +251,13 @@ export default class DetailsSection {
                 if(CaseService.kase.contact_is_partner && securityService.loginStatus.authedUser.org_admin) {
                     strataService.accounts.users(securityService.loginStatus.authedUser.account_number).then(angular.bind(this, function (users) {
                         $scope.contactList = _.uniq($scope.contactList.concat(users));
-
+                        // add case contact in the list if it is not present.
+                        if (!_.find($scope.contactList, (list) => list && list.sso_username === CaseService.kase.contact_sso_username)) {
+                            $scope.contactList.push({
+                                sso_username: CaseService.kase.contact_sso_username,
+                                fullName: CaseService.kase.contact_name
+                            });
+                        }
                         $scope.caseContactSelected = true;
                         var listContainsUser = false;
                         for (var i = 0; i < $scope.contactList.length; i++) {
@@ -266,6 +279,13 @@ export default class DetailsSection {
                         const loggedInUser = _.pick(securityService.loginStatus.authedUser, ['sso_username', 'first_name', 'last_name']);
 
                         $scope.contactList.unshift(loggedInUser);
+                        // add case contact in the list if it is not present.
+                        if (!_.find($scope.contactList, (list) => list && list.sso_username === CaseService.kase.contact_sso_username)) {
+                            $scope.contactList.push({
+                                sso_username: CaseService.kase.contact_sso_username,
+                                fullName: CaseService.kase.contact_name
+                            });
+                        }
                         $scope.contactList = _.uniqBy($scope.contactList,'sso_username');
 
                         $scope.caseContactSelected = true;
