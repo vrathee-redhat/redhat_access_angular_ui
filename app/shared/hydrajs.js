@@ -566,7 +566,6 @@ function getUserFields(options) {
             'itarUser',
             'inGSS',
             'isActive',
-            'kcsGroup',
             'kerberosName',
             'lastName',
             'lastNameCustom',
@@ -1333,10 +1332,12 @@ exports.default = {
         },
         cta: {
             listCtas: cta_1.listCtas,
+            getCtaGroupedCount: cta_1.getCtaGroupedCount,
             getCta: cta_1.getCta,
             updateCta: cta_1.updateCta,
             addCta: cta_1.addCta,
             deleteCta: cta_1.deleteCta,
+            getCtaTasks: cta_1.getCtaTasks
         }
     }
 };
@@ -4228,17 +4229,17 @@ var env_1 = __webpack_require__(0);
 var fetch_1 = __webpack_require__(1);
 function createCommentFeedback(caseNumber, comment) {
     var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
-    return fetch_1.postUri(uri, comment, undefined, true);
+    return fetch_1.postUri(uri, comment);
 }
 exports.createCommentFeedback = createCommentFeedback;
 function updateCommentFeedback(caseNumber, comment) {
     var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
-    return fetch_1.putUri(uri, comment, undefined, true);
+    return fetch_1.putUri(uri, comment);
 }
 exports.updateCommentFeedback = updateCommentFeedback;
 function getCommentFeedback(caseNumber) {
     var uri = env_1.default.pcmHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/comments/feedback");
-    return fetch_1.getUri(uri, undefined, undefined, true);
+    return fetch_1.getUri(uri);
 }
 exports.getCommentFeedback = getCommentFeedback;
 
@@ -4534,13 +4535,23 @@ function listCtas(params) {
     return fetch_1.getUri(uri);
 }
 exports.listCtas = listCtas;
+function getCtaGroupedCount(params) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/count");
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k] !== undefined) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
+    return fetch_1.getUri(uri);
+}
+exports.getCtaGroupedCount = getCtaGroupedCount;
 function getCta(ctaId) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId);
     return fetch_1.getUri(uri);
 }
 exports.getCta = getCta;
-function updateCta(ctaDetails) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas");
+function updateCta(ctaId, ctaDetails) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId);
     return fetch_1.putUri(uri, ctaDetails);
 }
 exports.updateCta = updateCta;
@@ -4554,6 +4565,11 @@ function deleteCta(ctaId) {
     return fetch_1.deleteUri(uri);
 }
 exports.deleteCta = deleteCta;
+function getCtaTasks(ctaId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/tasks");
+    return fetch_1.getUri(uri);
+}
+exports.getCtaTasks = getCtaTasks;
 
 
 /***/ })

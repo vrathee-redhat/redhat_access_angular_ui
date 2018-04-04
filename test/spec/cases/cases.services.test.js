@@ -1034,7 +1034,7 @@ describe('Case Services', function () {
     });
 
     describe('DiscussionService', function () {
-        it('should have a method to get discussion elements', function () {
+        xit('should have a method to get discussion elements', function () {
             expect(discussionService.getDiscussionElements).toBeDefined();
             discussionService.getDiscussionElements('12345');
             spyOn(mockStrataService.cases.attachments, 'list').and.callThrough();
