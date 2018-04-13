@@ -71,7 +71,7 @@ export default class RecommendationsService {
                         product: CaseService.kase.product,
                         version: CaseService.kase.version,
                         summary: CaseService.kase.summary,
-                        description: CaseService.kase.description
+                        description: CaseService.kase.description.replace(/\?\?/g, '') // remove ?? special character PCM-6641
                     };
                 }
 
