@@ -121,6 +121,10 @@ export default class Edit {
             RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts)
         );
 
+        $scope.isShowPartnerManagedCaseLabel = function() {
+            return (securityService.loginStatus.authedUser.is_internal || !($scope.userHasManagedAccounts()) && CaseService.kase.contact_is_partner);
+        };
+
         if (securityService.loginStatus.isLoggedIn) {
             $scope.firePageLoadEvent();
             $scope.init();
