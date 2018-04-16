@@ -5,9 +5,10 @@ div(ng-hide='showCasePage()')
 div.edit(ng-if='showCasePage()')
   .row.row-very-short
     rha-secure-support-header()
-    div.section.main(ng-class="{'col-sm-8': !$parent.COMMON_CONFIG.isGS4, 'col-sm-12': $parent.COMMON_CONFIG.isGS4}")
+    div.section.main(ng-class="{'col-sm-8': !$parent.COMMON_CONFIG.isGS4, 'col-sm-12': $parent.COMMON_CONFIG.isGS4}")        
       .row.row-very-short
         h1.page-title(translate) CASE {{$parent.CaseService.kase.case_number}}
+            small.partner-label.text-green.block(ng-if='$parent.isShowPartnerManagedCaseLabel()') {{'Case is managed by a partner'|translate}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal')
         span.label.label-mar-right.label-info(ng-show='$parent.CaseService.kase.hotfix_requested') {{'Hot Fix Requested'|translate}}
         span.label.label-mar-right.label-success(ng-show='$parent.CaseService.kase.hotfix_delivered') {{'Hot Fix Delivered'|translate}}
