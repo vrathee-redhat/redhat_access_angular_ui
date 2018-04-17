@@ -171,6 +171,7 @@ export default class SearchCaseService {
         this.doCaseSearch = function() {
             const deferred = $q.defer();
             let sortField = CaseService.filterSelect.sortField === 'owner' ? 'contactName' : CaseService.filterSelect.sortField;
+            const partnerSearch = RHAUtils.isEmpty(this.searchParameters.accountNumber) && this.isManagedAccount();
 
             if (COMMON_CONFIG.isGS4 && RHAUtils.isEmpty(this.searchParameters.accountNumber) && securityService.loginStatus.authedUser.is_internal) {
                 this.searchParameters.accountNumber = '5487648';
@@ -189,7 +190,8 @@ export default class SearchCaseService {
                 null,
                 this.pageSize,
                 this.searchParameters.queryParams,
-                (this.currentPage - 1) * this.pageSize
+                (this.currentPage - 1) * this.pageSize,
+                partnerSearch
             ).then(
                 (response) => this.onSuccess(response, deferred),
                 (error) => this.onFailure(error, deferred)
@@ -202,17 +204,24 @@ export default class SearchCaseService {
         this.doCaseFilter = function(checkIsInternal) {
             const deferred = $q.defer();
             const caseFilter = this.makeCaseFilter(checkIsInternal);
+            const partnerSearch = RHAUtils.isEmpty(this.searchParameters.accountNumber) && this.isManagedAccount();
+
             if (this.refreshFilterCache === true) {
                 strataService.cache.clr('filter' + JSON.stringify(caseFilter));
                 this.refreshFilterCache = false;
             }
-            strataService.cases.filter(caseFilter).then(
+            strataService.cases.filter(caseFilter, partnerSearch).then(
                 (response) => this.onSuccess(response, deferred),
                 (error) => this.onFailure(error, deferred)
             ).finally(() => {
                 this.searching = this.searching404 ? true : this.searching = false;
             });
             return deferred.promise;
+        }
+
+        this.isManagedAccount = function() {
+            return RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
+            RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts);
         }
     }
 
