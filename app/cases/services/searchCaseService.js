@@ -171,7 +171,7 @@ export default class SearchCaseService {
         this.doCaseSearch = function() {
             const deferred = $q.defer();
             let sortField = CaseService.filterSelect.sortField === 'owner' ? 'contactName' : CaseService.filterSelect.sortField;
-            const partnerSearch = (RHAUtils.isEmpty(this.searchParameters.accountNumber) && this.isManagedAccount()) ? true : false;
+            const partnerSearch = RHAUtils.isEmpty(this.searchParameters.accountNumber) && this.isManagedAccount() ? true : false;
 
             if (COMMON_CONFIG.isGS4 && RHAUtils.isEmpty(this.searchParameters.accountNumber) && securityService.loginStatus.authedUser.is_internal) {
                 this.searchParameters.accountNumber = '5487648';
@@ -204,7 +204,7 @@ export default class SearchCaseService {
         this.doCaseFilter = function(checkIsInternal) {
             const deferred = $q.defer();
             const caseFilter = this.makeCaseFilter(checkIsInternal);
-            const partnerSearch = (RHAUtils.isEmpty(this.searchParameters.accountNumber) && this.isManagedAccount()) ? true : false;
+            const partnerSearch = RHAUtils.isEmpty(this.searchParameters.accountNumber) && this.isManagedAccount() ? true : false;
 
             if (this.refreshFilterCache === true) {
                 strataService.cache.clr('filter' + JSON.stringify(caseFilter));
@@ -220,8 +220,8 @@ export default class SearchCaseService {
         }
 
         this.isManagedAccount = function() {
-            return (RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
-            RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts)) ? true : false;
+            return RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
+            RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts) ? true : false;
         }
     }
 
