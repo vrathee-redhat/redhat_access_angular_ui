@@ -70,7 +70,7 @@ export default class RecommendationsService {
                     newData = {
                         product: CaseService.kase.product,
                         version: CaseService.kase.version,
-                        summary: CaseService.kase.summary,
+                        summary: CaseService.kase.summary && CaseService.kase.summary.replace(/\?\?/g, ''),
                         description: CaseService.kase.description && CaseService.kase.description.replace(/\?\?/g, '') // remove ?? special character PCM-6641
                     };
                 }
