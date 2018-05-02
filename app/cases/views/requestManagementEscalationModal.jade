@@ -1,27 +1,39 @@
 .modal-header
-  h3(translate='') Request Management Escalation
+  h3.modal-title(translate='') Request Management Escalation
 .modal-body
   .row
     .col-sm-12
       span {{'If you feel the issue has become more severe or the case should be a higher priority, please provide a detailed comment, and the case will be reviewed by a support manager.'|translate}}
       a(href='https://access.redhat.com/site/support/policy/mgt_escalation', target='_blank') {{'Learn more'|translate}}
+      p#requireFieldInfo.rha-bold {{'* All fields are mandatory.'|translate}}
   .row
     .col-sm-12
-      div {{'Comment:'|translate}}
-      textarea(
-        style='width: 100%; max-width: 100%; height: 200px;',
-        maxlength='32000',
-        ng-model='CaseService.escalationCommentText',
-        ng-disabled='submittingRequest',
-        ng-change='onNewEscalationComment()',
-        auto-focus='')
-  .row
-    .col-sm-12
-      .pull-right
-        span.spinner.spinner-inline(ng-show='submittingRequest')
-        button#rha-case-escalation-submitbutton.btn-accent.btn(
-          style='margin-left: 10px;',
-          ng-click='submitRequestClick(CaseService.escalationCommentText)',
-          ng-disabled='submittingRequest || disableSubmitRequest')
-          span {{'Submit Request'|translate}}
-        button.btn-accent.btn(style='margin-left: 10px;', ng-click='closeModal()', ng-disabled='submittingRequest') {{'Cancel'|translate}}
+        form
+          .form-group
+            label.control-label {{'Subject:'|translate}}
+            textarea.form-control(
+                maxlength='2000',
+                ng-model='escalationSubject',
+                ng-change='onNewEscalationComment()')
+          .form-group
+            label.control-label {{'Description:'|translate}}
+            textarea.form-control(
+                maxlength='2000',
+                ng-model='escalationDescription',
+                ng-disabled='submittingRequest',
+                ng-change='onNewEscalationComment()')
+          .form-group
+            label.control-label {{'Expectations:'|translate}}
+            textarea.form-control(
+                maxlength='2000',
+                ng-model='escalationExpectations',
+                ng-disabled='submittingRequest',
+                ng-change='onNewEscalationComment()')
+.modal-footer
+    span.spinner.spinner-inline(ng-show='submittingRequest')
+    button#rha-case-escalation-submitbutton.btn-accent.btn(
+        style='margin-left: 10px;',
+        ng-click='submitRMEEscalation()',
+        ng-disabled='submittingRequest || disableSubmitRequest')
+        span {{'Submit Request'|translate}}
+    button.btn-accent.btn(style='margin-left: 10px;', ng-click='closeModal()', ng-disabled='submittingRequest') {{'Cancel'|translate}}
