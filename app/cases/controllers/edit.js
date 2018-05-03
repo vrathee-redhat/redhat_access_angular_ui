@@ -122,7 +122,10 @@ export default class Edit {
         );
 
         $scope.isShowPartnerManagedCaseLabel = function() {
-            return (securityService.loginStatus.authedUser.is_internal || !($scope.userHasManagedAccounts()) && CaseService.kase.contact_is_partner);
+            if (CaseService.kase.contact_is_partner) {
+                return securityService.loginStatus.authedUser.is_internal || !($scope.userHasManagedAccounts())
+            }
+            return false;
         };
 
         if (securityService.loginStatus.isLoggedIn) {
