@@ -3,12 +3,12 @@
         thead
             tr
                 th(translate) Severity Level
-                th(translate) Standard
-                th(translate) Premium
+                th(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct') {{'Standard' |translate}}
+                th(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct') {{'Premium' |translate}}
         tbody
             tr(ng-repeat-start="severity in severities.slice().reverse()").list-item
                 td.severity(id="severity_{{severity.name.substring(0,1)}}")
-                    input.pull-left.severity-radio#severity-radio(type="radio" ng-model="createdCase.severity" ng-value="severity")
+                    input.pull-left.severity-radio#severity-radio(type="radio" ng-model="createdCase.severity" ng-value="severity" ng-click="toggleDetails(severity, $event)")
                     span(ng-if="!ie8")
                         span.icon-severity.level1(ng-show="severity.name === '1 (Urgent)'") 1
                         span.icon-severity.level2(ng-show="severity.name === '2 (High)'") 2
@@ -16,10 +16,9 @@
                         span.icon-severity.level4(ng-show="severity.name === '4 (Low)'") 4
                     span.severity-select-name(ng-show="!ie8") {{'Severity' |translate}} {{ severity.name}}
                     span.severity-select-name(ng-show="ie8") {{ severity.name }}
-                    span.glyphicon.glyphicon-question-sign.link.severity-details-link(ng-click="toggleDetails(severity, $event)")
-                td
+                td(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct')
                     div.severity-time-description {{severity.responseTimes.standard}}
-                td
+                td(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct')
                     div.severity-time-description {{severity.responseTimes.premium}}
             tr(ng-repeat-end, ng-show="openedDetails[severity.name]", ng-animate=).severity-description
                 td(colspan=3)
@@ -33,4 +32,5 @@
 
     span(translate) For more details about initial and ongoing response times, visit the
     = " "
-    a(href="/support/offerings/production/sla", target="_blank") {{"Production Support Service Level Agreement" | translate}}
+    a(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct')(href="/support/offerings/production/sla", target="_blank") {{"Production Support Service Level Agreement" | translate}}
+    a(ng-show='$parent.CaseService.kase.isOpenShiftOnlineProduct')(href="/support/offerings/openshift/sla", target="_blank") {{"Production Support Service Level Agreement" | translate}}
