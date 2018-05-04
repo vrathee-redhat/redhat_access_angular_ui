@@ -138,7 +138,7 @@ export default class New {
                     }
                 }
 
-                if (RHAUtils.isNotEmpty(CaseService.kase.product) && CaseService.kase.product === 'Openshift Online') {
+                if (RHAUtils.isNotEmpty(CaseService.kase) && RHAUtils.isNotEmpty(CaseService.kase.product) && CaseService.kase.product === 'Openshift Online') {
                     CaseService.kase.isOpenShiftOnlineProduct = true;
                 } else {
                     CaseService.kase.isOpenShiftOnlineProduct = false;
