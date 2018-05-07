@@ -23,12 +23,6 @@
             tr(ng-repeat-end, ng-show="openedDetails[severity.name]", ng-animate=).severity-description
                 td(colspan=3)
                     span {{severity.details}}
-                    = " "
-                    span(translate) See the
-                    = " "
-                    a(href="/support/policy/severity", target="_blank") {{"Red Hat Support Severity Level Definitions" | translate}}
-                    = " "
-                    span(translate) to learn more.
 
     span(translate) For more details about initial and ongoing response times, visit the
     = " "
