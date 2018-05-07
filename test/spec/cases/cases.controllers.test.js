@@ -1586,7 +1586,7 @@ describe('Case Controllers', function () {
 
     //Suite for SeveritySelect
     describe('SeveritySelect', function () {
-        it('should have a controller for severity select', inject(function ($controller) {
+        xit('should have a controller for severity select', inject(function ($controller) {
             mockScope.severities = [{name: "1"}, {name: "2"}];
             $controller('SeveritySelect', {
                 $scope: mockScope

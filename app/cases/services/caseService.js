@@ -48,6 +48,7 @@ export default class CaseService {
         this.group = '';
         this.owner = '';
         this.product = '';
+        this.isOpenShiftOnlineProduct = false;
         this.bugzillaList = {};
         this.entitlement = '';
         this.updatingNewCaseSummary = false;
@@ -317,6 +318,7 @@ export default class CaseService {
             this.updatingNewCaseSummary = false;
             this.updatingNewCaseDescription = false;
             this.virtualOwner = undefined;
+            this.isOpenShiftOnlineProduct = false;
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
