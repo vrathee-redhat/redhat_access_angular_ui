@@ -71,10 +71,15 @@ export default class RecommendationsService {
                         product: CaseService.kase.product,
                         version: CaseService.kase.version,
                         summary: CaseService.kase.summary,
-                        description: CaseService.kase.description && CaseService.kase.description.replace(/\?\?/g, '') // remove ?? special character PCM-6641
+                        description: CaseService.kase.description
                     };
                 }
-
+                // remove ?? special character PCM-6641
+                if (RHAUtils.isNotEmpty(newData)) {
+                    newData.summary = newData.summary && newData.summary.replace(/\?\?/g, '');
+                    newData.description = newData.description && newData.description.replace(/\?\?/g, '');
+                }
+                
                 if ((newData.product !== undefined || newData.version !== undefined || newData.summary !== undefined || newData.description !== undefined || (!angular.equals(currentData, newData) && !this.loadingRecommendations))) {
                     this.loadingRecommendations = true;
                     currentData = newData;

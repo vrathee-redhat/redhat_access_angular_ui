@@ -32,6 +32,7 @@ export default class Edit {
                 } else {
                     CaseService.setCase(caseJSON);
                 }
+                setOpenShiftProductFlag();
                 $rootScope.$broadcast(CASE_EVENTS.received);
                 $scope.loading.kase = false;
                 if (caseJSON.account_number !== undefined) {
@@ -122,7 +123,10 @@ export default class Edit {
         );
 
         $scope.isShowPartnerManagedCaseLabel = function() {
-            return (securityService.loginStatus.authedUser.is_internal || !($scope.userHasManagedAccounts()) && CaseService.kase.contact_is_partner);
+            if (CaseService.kase.contact_is_partner) {
+                return securityService.loginStatus.authedUser.is_internal || !($scope.userHasManagedAccounts())
+            }
+            return false;
         };
 
         if (securityService.loginStatus.isLoggedIn) {
@@ -158,6 +162,18 @@ export default class Edit {
                 caseSettled();
             }
         });
+
+        $scope.$watch('CaseService.kase.product', function () {
+            setOpenShiftProductFlag();
+        });
+
+        var setOpenShiftProductFlag = function () {
+            if (RHAUtils.isNotEmpty(CaseService.kase) && RHAUtils.isNotEmpty(CaseService.kase.product) && CaseService.kase.product === 'Openshift Online') {
+                CaseService.kase.isOpenShiftOnlineProduct = true;
+            } else {
+                CaseService.kase.isOpenShiftOnlineProduct = false;
+            }
+        };
 
         $scope.$on(CASE_EVENTS.received, function () {
             document.title = gettextCatalog.getString('{{caseNumber}} | {{caseSummary}}', {caseNumber: $stateParams.id, caseSummary: CaseService.kase.summary});

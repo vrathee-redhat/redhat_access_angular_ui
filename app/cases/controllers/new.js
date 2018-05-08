@@ -138,6 +138,12 @@ export default class New {
                     }
                 }
 
+                if (RHAUtils.isNotEmpty(CaseService.kase) && RHAUtils.isNotEmpty(CaseService.kase.product) && CaseService.kase.product === 'Openshift Online') {
+                    CaseService.kase.isOpenShiftOnlineProduct = true;
+                } else {
+                    CaseService.kase.isOpenShiftOnlineProduct = false;
+                }
+
                 if (RHAUtils.isNotEmpty(CaseService.kase.product) || RHAUtils.isNotEmpty(CaseService.kase.version) || RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
                     if (RHAUtils.isNotEmpty(descriptionText) || RHAUtils.isNotEmpty(CaseService.kase.summary)) {
                         $scope.makeRecommendationPanelVisible();

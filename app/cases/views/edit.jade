@@ -29,7 +29,8 @@ div.edit(ng-if='showCasePage()')
         span(translate) Account name : {{$parent.CaseService.account.name}}
         span(rha-bookmark-account, account='$parent.CaseService.account', ng-if='$parent.securityService.loginStatus.authedUser.is_internal && !$parent.COMMON_CONFIG.isGS4')
       .row.row-very-short
-        a(href='/support/offerings/production/sla.html', target='_blank') {{$parent.CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
+        a(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct')(href='/support/offerings/production/sla.html', target='_blank') {{$parent.CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
+        a(ng-show='$parent.CaseService.kase.isOpenShiftOnlineProduct')(href='/support/offerings/openshift/sla.html', target='_blank') {{$parent.CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
       .row.row-very-short(ng-show='$parent.EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='$parent.loading.kase')
       .row.row-very-short(ng-show='$parent.EDIT_CASE_CONFIG.showDetails')

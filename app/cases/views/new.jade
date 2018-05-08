@@ -135,6 +135,7 @@ div(rha-header='', page='newCase')
                             ng-options="entitlement as entitlement for entitlement in $parent.CaseService.entitlements")
                                 option(value="")
                             label {{'Severity' |translate}}
+                                span.glyphicon.glyphicon-question-sign.link(uib-tooltip-html='"<div><span>{{"To Learn more view the" |translate }}</span><br /><a href=\'/support/policy/severity\' target=\'_blank\'>{{"Red Hat Support Severity Level Definitions"|translate}}</a></div>"',tabindex='0',tooltip-trigger="click")
                             div(rha-severityselect,
                             created-case="$parent.CaseService.kase",
                             severity-change="$parent.CaseService.onChangeFTSCheck()",
