@@ -118,6 +118,10 @@ div(rha-header='', page='newCase')
                             div(style="margin-top: 10px", ng-show='$parent.NEW_CASE_CONFIG.showAttachments && $parent.securityService.loginStatus.authedUser.can_add_attachments')
                                 b {{'Get faster results.'|translate}}
                                 | &nbsp; {{'Attaching logs or other diagnostics files typically results in faster resolution.'|translate}}
+                                div(ng-if='CaseService.kase.product === "Red Hat Virtualization"')
+                                    span {{'Please attach a ' | translate}}
+                                    a(href="/solutions/61546", target='_blank') RHEV log collector
+                                    span{{' archive (optional)' | translate}}
                                 div(ng-bind-html='$parent.AttachmentsService.parseArtifactHtml()')
                                 div#attachments(rha-listnewattachments='')
                                 div#attach-file(rha-attachlocalfile='', disabled='$parent.CaseService.submittingCase')
