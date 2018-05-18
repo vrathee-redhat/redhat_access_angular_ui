@@ -34,7 +34,7 @@
             label.control-label(for='rha-geo') {{'Customer GEO'|translate}}
             select#rha-geo.form-control.productSelect.nonEmpty(
               ng-model='rmeEscalationGeo'
-              ng-options='geo for geo in RMEGeoList',
+              ng-options='geo.label for geo in RMEGeoList',
               ng-disabled='submittingRequest',
               ng-change="onNewEscalationComment()")
 .modal-footer

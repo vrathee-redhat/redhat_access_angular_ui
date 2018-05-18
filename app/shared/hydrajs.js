@@ -1041,38 +1041,40 @@ var bugzilla_1 = __webpack_require__(5);
 var product_1 = __webpack_require__(7);
 var externalTracker_1 = __webpack_require__(27);
 var view_1 = __webpack_require__(28);
-var comment_1 = __webpack_require__(29);
-var user_2 = __webpack_require__(30);
-var kcs_1 = __webpack_require__(31);
-var case_2 = __webpack_require__(32);
-var attachment_1 = __webpack_require__(33);
-var shiftMetadata_1 = __webpack_require__(34);
-var templateMetadata_1 = __webpack_require__(35);
-var vendorProduct_1 = __webpack_require__(36);
-var certification_1 = __webpack_require__(37);
-var hive_1 = __webpack_require__(38);
-var certificationTest_1 = __webpack_require__(39);
-var userShifts_1 = __webpack_require__(40);
-var groupMetadata_1 = __webpack_require__(41);
-var counts_1 = __webpack_require__(42);
-var review_1 = __webpack_require__(43);
-var products_1 = __webpack_require__(44);
-var sbrs_1 = __webpack_require__(45);
-var externalTrackers_1 = __webpack_require__(46);
-var solr_1 = __webpack_require__(47);
-var account_1 = __webpack_require__(48);
-var callCenters_1 = __webpack_require__(49);
-var commentFeedback_1 = __webpack_require__(50);
-var roles_1 = __webpack_require__(51);
-var vocabulary_1 = __webpack_require__(52);
-var maintenance_1 = __webpack_require__(53);
-var account_2 = __webpack_require__(6);
-var comment_2 = __webpack_require__(54);
-var metadata_1 = __webpack_require__(55);
-var successPlan_1 = __webpack_require__(56);
-var account_3 = __webpack_require__(57);
-var cta_1 = __webpack_require__(58);
-var timeline_1 = __webpack_require__(59);
+var account_1 = __webpack_require__(29);
+var comment_1 = __webpack_require__(30);
+var user_2 = __webpack_require__(31);
+var kcs_1 = __webpack_require__(32);
+var case_2 = __webpack_require__(33);
+var attachment_1 = __webpack_require__(34);
+var shiftMetadata_1 = __webpack_require__(35);
+var templateMetadata_1 = __webpack_require__(36);
+var vendorProduct_1 = __webpack_require__(37);
+var certification_1 = __webpack_require__(38);
+var hive_1 = __webpack_require__(39);
+var certificationTest_1 = __webpack_require__(40);
+var userShifts_1 = __webpack_require__(41);
+var groupMetadata_1 = __webpack_require__(42);
+var counts_1 = __webpack_require__(43);
+var review_1 = __webpack_require__(44);
+var products_1 = __webpack_require__(45);
+var sbrs_1 = __webpack_require__(46);
+var externalTrackers_1 = __webpack_require__(47);
+var solr_1 = __webpack_require__(48);
+var account_2 = __webpack_require__(49);
+var callCenters_1 = __webpack_require__(50);
+var commentFeedback_1 = __webpack_require__(51);
+var roles_1 = __webpack_require__(52);
+var vocabulary_1 = __webpack_require__(53);
+var maintenance_1 = __webpack_require__(54);
+var account_3 = __webpack_require__(6);
+var comment_2 = __webpack_require__(55);
+var metadata_1 = __webpack_require__(56);
+var successPlan_1 = __webpack_require__(57);
+var account_4 = __webpack_require__(58);
+var cta_1 = __webpack_require__(59);
+var timeline_1 = __webpack_require__(60);
+var contact_2 = __webpack_require__(61);
 exports.default = {
     general: {
         health: general_1.health,
@@ -1265,12 +1267,12 @@ exports.default = {
         getSolrCases: solr_1.getSolrCases
     },
     accounts: {
-        getAccount: account_1.getAccount,
-        getAccountContacts: account_1.getAccountContacts,
-        getAccountNotes: account_1.getAccountNotes,
-        getAccountTeamMembers: account_1.getAccountTeamMembers,
-        patchAccounts: account_1.patchAccounts,
-        getContactBySso: account_1.getContactBySso
+        getAccount: account_2.getAccount,
+        getAccountContacts: account_2.getAccountContacts,
+        getAccountNotes: account_2.getAccountNotes,
+        getAccountTeamMembers: account_2.getAccountTeamMembers,
+        patchAccounts: account_2.patchAccounts,
+        getContactDetailBySso: account_2.getContactDetailBySso
     },
     businessHours: {
         getBusinessHours: businessHours_1.getBusinessHours
@@ -1288,9 +1290,9 @@ exports.default = {
         getContactFields: contact_1.getContactFields,
         getCaseGroupFields: caseGroup_1.getCaseGroupFields,
         getCaseBomgarSessionFields: bomgar_1.getCaseBomgarSessionFields,
-        getAccountFields: account_2.getAccountFields,
-        getAccountNoteFields: account_2.getAccountNoteFields,
-        getAccountMemberFields: account_2.getAccountMemberFields,
+        getAccountFields: account_3.getAccountFields,
+        getAccountNoteFields: account_3.getAccountNoteFields,
+        getAccountMemberFields: account_3.getAccountMemberFields,
         getCaseCommentFields: comment_2.getCaseCommentFields,
         getLiveChatTranscriptFields: chat_1.getLiveChatTranscriptFields,
         getBugzillaBugFields: bugzilla_1.getBugzillaBugFields,
@@ -1326,17 +1328,21 @@ exports.default = {
         getAllCaseInfo: view_1.getAllCaseInfo,
         getErrata: view_1.getErrata,
         getSubscriptionStats: view_1.getSubscriptionStats,
-        getInsights: view_1.getInsights
+        getInsights: view_1.getInsights,
+        getAccounts: account_1.getAccounts,
     },
     csp: {
         metadata: {
             getMetadata: metadata_1.getMetadata
         },
         account: {
-            getCSAccounts: account_3.getCSAccounts,
-            getOpenCaseCount: account_3.getOpenCaseCount,
-            getCTACount: account_3.getCTACount,
-            getEntitlementCount: account_3.getEntitlementCount,
+            getCSAccounts: account_4.getCSAccounts,
+            getOpenCaseCount: account_4.getOpenCaseCount,
+            getCTACount: account_4.getCTACount,
+            getEntitlementCount: account_4.getEntitlementCount,
+        },
+        contact: {
+            getContacts: contact_2.getContacts
         },
         cta: {
             listCtas: cta_1.listCtas,
@@ -2986,6 +2992,22 @@ function paramValid(param) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(1);
+var env_1 = __webpack_require__(0);
+function getAccounts() {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/dashboard/v2/accounts");
+    return fetch_1.getUri(uri);
+}
+exports.getAccounts = getAccounts;
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var env_1 = __webpack_require__(0);
 var fetch_1 = __webpack_require__(1);
 function getComments(caseNumber, options) {
@@ -3044,7 +3066,7 @@ exports.getChatterComments = getChatterComments;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3146,7 +3168,7 @@ exports.getAllRoleTemplates = getAllRoleTemplates;
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3192,7 +3214,7 @@ exports.getResources = getResources;
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3522,7 +3544,7 @@ exports.getCasesFromSoql = getCasesFromSoql;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3545,7 +3567,7 @@ exports.getAttachments = getAttachments;
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3576,7 +3598,7 @@ exports.deleteShiftMetadata = deleteShiftMetadata;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3602,7 +3624,7 @@ exports.postCustomTemplateForUser = postCustomTemplateForUser;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3628,7 +3650,7 @@ exports.updateOpenStackVendorProduct = updateOpenStackVendorProduct;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3701,7 +3723,7 @@ exports.getCaseNumberFromPortalId = getCaseNumberFromPortalId;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3788,7 +3810,7 @@ exports.getPlatforms = getPlatforms;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3844,7 +3866,7 @@ exports.updateSubTestStatus = updateSubTestStatus;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3885,7 +3907,7 @@ exports.deleteShiftForUsers = deleteShiftForUsers;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3921,7 +3943,7 @@ exports.deleteGroupByGroupId = deleteGroupByGroupId;
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4024,7 +4046,7 @@ exports.testResult = testResult;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4067,7 +4089,7 @@ exports.createReview = createReview;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4094,7 +4116,7 @@ exports.getProductVersions = getProductVersions;
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4120,7 +4142,7 @@ exports.getSbrs = getSbrs;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4147,7 +4169,7 @@ exports.getExternalTrackersUpdates = getExternalTrackersUpdates;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4216,7 +4238,7 @@ exports.getSolrCases = getSolrCases;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4264,15 +4286,15 @@ function patchAccounts(accounts) {
     return fetch_1.patchUri(uri, accounts);
 }
 exports.patchAccounts = patchAccounts;
-function getContactBySso(sso) {
+function getContactDetailBySso(sso) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/contacts/sso/" + sso);
     return fetch_1.getUri(uri);
 }
-exports.getContactBySso = getContactBySso;
+exports.getContactDetailBySso = getContactDetailBySso;
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4293,7 +4315,7 @@ exports.getCallCenter = getCallCenter;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4319,7 +4341,7 @@ exports.getCommentFeedback = getCommentFeedback;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4345,7 +4367,7 @@ exports.deleteRole = deleteRole;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4381,7 +4403,7 @@ exports.getVocabularyComponents = getVocabularyComponents;
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4398,7 +4420,7 @@ exports.getMaintenanceMode = getMaintenanceMode;
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4537,7 +4559,7 @@ exports.getCaseCommentFields = getCaseCommentFields;
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4553,7 +4575,7 @@ exports.getMetadata = getMetadata;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4660,7 +4682,7 @@ exports.removeObjectiveStakeholder = removeObjectiveStakeholder;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4697,7 +4719,7 @@ exports.getEntitlementCount = getEntitlementCount;
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4803,7 +4825,7 @@ exports.deleteCtaComment = deleteCtaComment;
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4841,6 +4863,27 @@ function deleteTimelineActivity(activityId) {
     return fetch_1.deleteUri(uri);
 }
 exports.deleteTimelineActivity = deleteTimelineActivity;
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(1);
+var env_1 = __webpack_require__(0);
+function getContacts(params) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/contacts/");
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k] !== undefined) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
+    return fetch_1.getUri(uri);
+}
+exports.getContacts = getContacts;
 
 
 /***/ })

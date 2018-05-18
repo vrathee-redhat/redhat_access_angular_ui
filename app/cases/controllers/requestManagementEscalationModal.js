@@ -12,7 +12,12 @@ export default class RequestManagementEscalationModal {
         $scope.escalationDescription = '';
         $scope.escalationExpectations = '';
         $scope.rmeEscalationGeo = '';
-        $scope.RMEGeoList = ['NA', 'EMEA', 'LATAM', 'APAC', 'Combo'];
+        $scope.RMEGeoList = [
+            {label:'North America', value: 'NA'},
+            {label:'Europe, the Middle East and Africa', value: 'EMEA'},
+            {label:'Latin America', value: 'LATAM'},
+            {label:'Asia Pacific', value: 'APAC'},{label:'Combo', value: 'Combo'}
+        ];
         $scope.securityService = securityService;
         if (RHAUtils.isNotEmpty(CaseService.commentText)) {
             $scope.disableSubmitRequest = false;
@@ -84,7 +89,8 @@ export default class RequestManagementEscalationModal {
         $scope.submitRMEEscalation = function () {
             $scope.submittingRequest = true;
             // get contact information from the hydra
-            hydrajs.accounts.getContactBySso(CaseService.kase.contact_sso_username).then((contactInfo) => {
+            hydrajs.accounts.getContactDetailBySso(CaseService.kase.contact_sso_username).then((contactInfo) => {
+                const severity = CaseService.kase.severity && CaseService.kase.severity.name && CaseService.kase.severity.name.substring(0, 1);
                 let escalationJSON = {
                     'record_type': 'Active Customer Escalation',
                     'subject': $scope.escalationSubject,
@@ -101,8 +107,8 @@ export default class RequestManagementEscalationModal {
                     'requestor_email': contactInfo.email,
                     'requestor_phone': contactInfo.phone,
                     'already_escalated': false,
-                    'geo': $scope.rmeEscalationGeo,
-                    'severity': '3',
+                    'geo': $scope.rmeEscalationGeo.value,
+                    'severity': RHAUtils.isNotEmpty(severity) ? severity : '3',
                 };
                 const promise = strataService.escalationRequest.create(escalationJSON);
                 promise.then((escalationNum) => {
