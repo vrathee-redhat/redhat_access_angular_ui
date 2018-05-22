@@ -1,4 +1,5 @@
 'use strict';
+import _        from 'lodash';
 
 export default class ProductSelect {
     constructor($scope, securityService, SearchCaseService, CaseService, ProductsService, strataService, AlertService, RHAUtils, RecommendationsService) {
@@ -35,7 +36,8 @@ export default class ProductSelect {
 
         $scope.onProductSelect = function ($event) {
             // Check Products and update entitlements
-            CaseService.updateAndValidateEntitlements();
+            const selectedProduct = _.find(ProductsService.products,{ 'name': CaseService.kase.product});
+            CaseService.updateAndValidateEntitlements(selectedProduct);
             if(CaseService.kase.product !== CaseService.prestineKase.product) {
                 CaseService.kase.version="";
             }

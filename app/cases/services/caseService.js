@@ -599,16 +599,12 @@ export default class CaseService {
             }));
         };
 
-        this.updateAndValidateEntitlements = function() {
+        this.updateAndValidateEntitlements = function(product) {
             // case_number is empty means its new case create page
             if(_.isEmpty(this.kase.case_number)) {
-                if(_.includes(this.originalEntitlements,'PREMIUMPLUS') || _.includes(this.originalEntitlements,'PREMIUM PLUS')){
-                    if(!_.isEmpty(this.kase.product) && !_.includes(this.premiumPlusProducts,this.kase.product)){
-                        if(_.includes(this.originalEntitlements,'PREMIUMPLUS')) this.entitlements = _.without(this.originalEntitlements,'PREMIUMPLUS');
-                        if(_.includes(this.originalEntitlements,'PREMIUM PLUS')) this.entitlements = _.without(this.originalEntitlements,'PREMIUM PLUS');
-                    } else {
-                        this.entitlements = this.originalEntitlements.concat([]); // clone
-                    }
+                if(!_.isEmpty(this.kase.product) && !_.isEmpty(product)){
+                    this.entitlements = product.serviceLevels;
+                    this.entitlement = product.preferredServiceLevel;
                 }
             } else {
                 // case_number is not empty means its case edit page
@@ -1035,16 +1031,9 @@ export default class CaseService {
                 this.kase.status = status;
             }
 
-            if (securityService.loginStatus.authedUser.is_internal) {
-                if (this.kase.status.name === 'Waiting on Red Hat') {
-                    status = {name: 'Waiting on Customer'};
-                    this.kase.status = status;
-                }
-            } else {
-                if (this.kase.status.name === 'Waiting on Customer') {
-                    status = {name: 'Waiting on Red Hat'};
-                    this.kase.status = status;
-                }
+            if (this.kase.status.name === 'Waiting on Customer') {
+                status = {name: 'Waiting on Red Hat'};
+                this.kase.status = status;
             }
         };
         this.setFilterSelectModel = function (sortField, sortOrder) {

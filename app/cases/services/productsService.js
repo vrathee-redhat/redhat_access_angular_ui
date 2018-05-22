@@ -66,18 +66,21 @@ export default class ProductsService {
         };
 
         this.buildProductOptions = function () {
-            var productOptions = [];
-            var productSortList = [];
+            let productOptions = [];
+            let productSortList = [];
             if (NEW_CASE_CONFIG.isPCM) {
                 productSortList = productSortListFile.split(',');
-                for (var i = 0; i < productSortList.length; i++) {
-                    for (var j = 0; j < this.products.length; j++) {
+                for (let i = 0; i < productSortList.length; i++) {
+                    for (let j = 0; j < this.products.length; j++) {
                         if (productSortList[i] === this.products[j].code && this.products[j].supported_for_customer) {
-                            var sortProduct = productSortList[i];
+                            const sortProduct = productSortList[i];
+                            const productInResponse = _.find(this.products, (p) => p.name === sortProduct);
                             productOptions.push({
                                 code: sortProduct,
                                 name: sortProduct,
-                                supported: true
+                                supported: true,
+                                preferredServiceLevel : RHAUtils.isNotEmpty(productInResponse) ? productInResponse.preferred_service_level : CaseService.originalEntitlements[0],
+                                serviceLevels : RHAUtils.isNotEmpty(productInResponse) ? _.split(productInResponse.service_levels , ';'): CaseService.originalEntitlements
                             });
                             break;
                         }
@@ -87,21 +90,27 @@ export default class ProductsService {
                 let supportedProduct = _.filter(this.products, (p) => p.supported_for_customer);
                 let unsupportedProduct = _.filter(this.products, (p) => !p.supported_for_customer);
 
+                // Service level change
+                this.products = _.forEach(this.products, (p) => {
+                    p.preferredServiceLevel = RHAUtils.isNotEmpty(p.preferred_service_level) ? p.preferred_service_level : CaseService.originalEntitlements[0];
+                    p.serviceLevels = RHAUtils.isNotEmpty(p.service_levels) ? _.split(p.service_levels , ';'): CaseService.originalEntitlements;
+                });
+
                 if (supportedProduct.length > 0) {
                     supportedProduct = _.sortBy(supportedProduct, (p) => p.code);
-                    angular.forEach(supportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer}));
+                    angular.forEach(supportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer, preferredServiceLevel: product.preferredServiceLevel, serviceLevels: product.serviceLevels}));
                 }
 
                 if (unsupportedProduct.length > 0) {
                     const sep = '────────────────────────────────────────';
                     productOptions.push({ isDisabled: true, name: sep, code: '' });
                     unsupportedProduct = _.sortBy(unsupportedProduct, (p) => p.code);
-                    angular.forEach(unsupportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer}));
+                    angular.forEach(unsupportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer, preferredServiceLevel: product.preferredServiceLevel, serviceLevels: product.serviceLevels}));
                 }
 
                 this.products = _.uniqBy(productOptions, (p) => p.name);
             } else {
-                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer}) );
+                angular.forEach(this.products, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer, preferredServiceLevel: product.preferredServiceLevel, serviceLevels: product.serviceLevels}) );
                 this.products = productOptions;
             }
         };
