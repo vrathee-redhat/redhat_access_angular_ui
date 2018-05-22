@@ -1031,7 +1031,7 @@ export default class CaseService {
                 this.kase.status = status;
             }
 
-            if (this.kase.status.name === 'Waiting on Customer') {
+            if (!securityService.loginStatus.authedUser.is_internal && this.kase.status.name === 'Waiting on Customer') {
                 status = {name: 'Waiting on Red Hat'};
                 this.kase.status = status;
             }
