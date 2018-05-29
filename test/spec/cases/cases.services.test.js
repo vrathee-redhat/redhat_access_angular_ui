@@ -227,17 +227,18 @@ describe('Case Services', function () {
             expect(caseService.draftCommentLocalStorage).toBeUndefined();
         });
 
-        it('should have a method for toggling of case status On attachment and comment', function () {
-            expect(caseService.checkForCaseStatusToggleOnAttachOrComment).toBeDefined();
-            securityService.loginStatus.authedUser.is_internal=true;
-            //cannot use mockStrataCase as it has a different status field.
-            caseService.kase={};
-            caseService.kase.status={};
-            caseService.kase.status.name = 'Waiting on Red Hat' ;
-            caseService.checkForCaseStatusToggleOnAttachOrComment();
-            var status=   { name: 'Waiting on Customer' };
-            expect(caseService.kase.status).toEqual(status);
-        });
+        // commenting this as this is no longer a valid scenario : PCM-6265
+        // it('should have a method for toggling of case status On attachment and comment', function () {
+        //     expect(caseService.checkForCaseStatusToggleOnAttachOrComment).toBeDefined();
+        //     securityService.loginStatus.authedUser.is_internal=true;
+        //     //cannot use mockStrataCase as it has a different status field.
+        //     caseService.kase={};
+        //     caseService.kase.status={};
+        //     caseService.kase.status.name = 'Waiting on Red Hat' ;
+        //     caseService.checkForCaseStatusToggleOnAttachOrComment();
+        //     var status=   { name: 'Waiting on Customer' };
+        //     expect(caseService.kase.status).toEqual(status);
+        // });
 
         it('should have a method for toggling of case status On attachment and comment with previous status as closed', function () {
             expect(caseService.checkForCaseStatusToggleOnAttachOrComment).toBeDefined();
@@ -948,7 +949,9 @@ describe('Case Services', function () {
             var mockProducts = [{
                 "name": mockStrataDataService.mockProducts[0].name,
                 "code": mockStrataDataService.mockProducts[0].code,
-                "supported": mockStrataDataService.mockProducts[0].supported_for_customer
+                "supported": mockStrataDataService.mockProducts[0].supported_for_customer,
+                "preferredServiceLevel": mockStrataDataService.mockProducts[0].preferredServiceLevel,
+                "serviceLevels": mockStrataDataService.mockProducts[0].serviceLevels
             }];
             expect(productsService.products).toEqual(mockProducts);
         });
@@ -966,7 +969,9 @@ describe('Case Services', function () {
             var mockProducts = [{
                 "name": mockStrataDataService.mockProducts[0].name,
                 "code": mockStrataDataService.mockProducts[0].code,
-                "supported": mockStrataDataService.mockProducts[0].supported_for_customer
+                "supported": mockStrataDataService.mockProducts[0].supported_for_customer,
+                "preferredServiceLevel": mockStrataDataService.mockProducts[0].preferredServiceLevel,
+                "serviceLevels": mockStrataDataService.mockProducts[0].serviceLevels
             }];
             expect(productsService.products).toEqual(mockProducts);
             expect(productsService.productsLoading).toEqual(false);
