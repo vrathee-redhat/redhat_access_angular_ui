@@ -42,6 +42,10 @@ export default class CaseService {
         this.commentText = '';
         this.commentReplyText = '';
         this.escalationCommentText = '';
+        this.escalationSubject = '';
+        this.escalationDescription = '';
+        this.escalationExpectations = '';
+        this.rmeEscalationGeo = '';
         this.status = '';
         this.severity = '';
         this.type = '';
@@ -304,6 +308,10 @@ export default class CaseService {
             this.commentText = undefined;
             this.commentReplyText = undefined;
             this.escalationCommentText = undefined;
+            this.escalationSubject = undefined;
+            this.escalationDescription = undefined;
+            this.escalationExpectations = undefined;
+            this.rmeEscalationGeo = undefined;
             this.status = undefined;
             this.severity = undefined;
             this.type = undefined;

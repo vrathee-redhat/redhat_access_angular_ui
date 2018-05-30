@@ -13,27 +13,27 @@
             label.control-label {{'Subject:'|translate}}
             textarea.form-control(
                 maxlength='2000',
-                ng-model='escalationSubject',
+                ng-model='CaseService.escalationSubject',
                 ng-disabled='submittingRequest',
                 ng-change='onNewEscalationComment()')
           .form-group
             label.control-label {{'Description:'|translate}}
             textarea.form-control(
                 maxlength='2000',
-                ng-model='escalationDescription',
+                ng-model='CaseService.escalationDescription',
                 ng-disabled='submittingRequest',
                 ng-change='onNewEscalationComment()')
           .form-group
             label.control-label {{'Expectations:'|translate}}
             textarea.form-control(
                 maxlength='2000',
-                ng-model='escalationExpectations',
+                ng-model='CaseService.escalationExpectations',
                 ng-disabled='submittingRequest',
                 ng-change='onNewEscalationComment()')
           .form-group
             label.control-label(for='rha-geo') {{'Customer GEO'|translate}}
             select#rha-geo.form-control.productSelect.nonEmpty(
-              ng-model='rmeEscalationGeo'
+              ng-model='CaseService.rmeEscalationGeo'
               ng-options='geo.label for geo in RMEGeoList',
               ng-disabled='submittingRequest',
               ng-change="onNewEscalationComment()")

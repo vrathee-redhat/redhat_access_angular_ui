@@ -1,7 +1,13 @@
-h3(ng-show="!securityService.loginStatus.authedUser.is_internal") {{'Request Management Escalation' |translate}}
 h3(ng-show="securityService.loginStatus.authedUser.is_internal") {{'Active Customer Escalation' |translate}}
-span {{'Request a management escalation if you feel that:' |translate}}
-ul
+span(ng-show="securityService.loginStatus.authedUser.is_internal") {{'Internal Red Hat associates can open an Active Customer Escalation when:' |translate}}
+ul(ng-show="securityService.loginStatus.authedUser.is_internal")
+    li(translate) The customer wants an update.
+    li(translate) The customer thinks the case is not moving appropriately.
+    li(translate) The customer wants a new resource.
+    li(translate) The issue is more severe than originally thought.
+h3(ng-show="!securityService.loginStatus.authedUser.is_internal") {{'Request Management Escalation' |translate}}
+span(ng-show="!securityService.loginStatus.authedUser.is_internal") {{'Request a management escalation if you feel that:' |translate}}
+ul(ng-show="!securityService.loginStatus.authedUser.is_internal")
     li(translate) Your issue isn't being resolved appropriately.
     li(translate) Your issue needs a more senior resource.
     li(translate) Your issue has become more severe or should be a higher priority.

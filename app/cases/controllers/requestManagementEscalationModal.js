@@ -8,10 +8,6 @@ export default class RequestManagementEscalationModal {
 
         $scope.CaseService = CaseService;
         $scope.submittingRequest = false;
-        $scope.escalationSubject = '';
-        $scope.escalationDescription = '';
-        $scope.escalationExpectations = '';
-        $scope.rmeEscalationGeo = '';
         $scope.RMEGeoList = [
             {label:'North America', value: 'NA'},
             {label:'Europe, the Middle East and Africa', value: 'EMEA'},
@@ -75,11 +71,21 @@ export default class RequestManagementEscalationModal {
         });
         $scope.closeModal = function () {
             CaseService.escalationCommentText = undefined;
+            CaseService.escalationSubject = undefined;
+            CaseService.escalationDescription = undefined;
+            CaseService.escalationExpectations = undefined;
+            CaseService.rmeEscalationGeo = undefined;
             $uibModalInstance.close();
         };
+        $scope.showErrorMessage = function (errorMessage) {
+            AlertService.clearAlerts();
+            $scope.closeModal();
+            $scope.submittingRequest = false;
+            AlertService.addStrataErrorMessage(errorMessage);
+        };
         $scope.onNewEscalationComment = function () {
-            if (RHAUtils.isNotEmpty($scope.escalationSubject) && !$scope.submittingRequest && RHAUtils.isNotEmpty($scope.escalationDescription)
-        && RHAUtils.isNotEmpty($scope.escalationExpectations) && RHAUtils.isNotEmpty($scope.rmeEscalationGeo)) {
+            if (RHAUtils.isNotEmpty(CaseService.escalationSubject) && !$scope.submittingRequest && RHAUtils.isNotEmpty(CaseService.escalationDescription)
+        && RHAUtils.isNotEmpty(CaseService.escalationExpectations) && RHAUtils.isNotEmpty(CaseService.rmeEscalationGeo)) {
                 $scope.disableSubmitRequest = false;
             } else if (RHAUtils.isEmpty(CaseService.escalationCommentText)) {
                 $scope.disableSubmitRequest = true;
@@ -93,10 +99,10 @@ export default class RequestManagementEscalationModal {
                 const severity = CaseService.kase.severity && CaseService.kase.severity.name && CaseService.kase.severity.name.substring(0, 1);
                 let escalationJSON = {
                     'record_type': 'Active Customer Escalation',
-                    'subject': $scope.escalationSubject,
-                    'issue_description': $scope.escalationDescription,
+                    'subject': CaseService.escalationSubject,
+                    'issue_description': CaseService.escalationDescription,
                     'escalation_source': 'RME Escalation',
-                    'expectations': $scope.escalationExpectations,
+                    'expectations': CaseService.escalationExpectations,
                     'status': 'New',
                     'account_number': CaseService.kase.account_number,
                     'case_number': CaseService.kase.case_number,
@@ -107,29 +113,43 @@ export default class RequestManagementEscalationModal {
                     'requestor_email': contactInfo.email,
                     'requestor_phone': contactInfo.phone,
                     'already_escalated': false,
-                    'geo': $scope.rmeEscalationGeo.value,
+                    'geo': CaseService.rmeEscalationGeo.value,
                     'severity': RHAUtils.isNotEmpty(severity) ? severity : '3',
                 };
                 const promise = strataService.escalationRequest.create(escalationJSON);
                 promise.then((escalationNum) => {
-                    AlertService.clearAlerts();
-                    $scope.closeModal();
-                    $scope.submittingRequest = false;  
+                    $scope.submitEscalationComment(escalationNum);
+                }, (error) => {
+                    $scope.showErrorMessage(error);
+                });
+            }, (error) => {
+                $scope.showErrorMessage(error);
+            });
+        };
+        $scope.submitEscalationComment = function (escalationNum) {
+            var fullComment = `Request Management Escalation:\n Subject: ${CaseService.escalationSubject}\n Description: ${CaseService.escalationDescription}\n Expectations: ${CaseService.escalationExpectations}`;
+            strataService.cases.comments.post(CaseService.kase.case_number, fullComment, true, false).then(function(){
+                var caseJSON = {'escalated': true};
+                var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
+                updateCase.then(function (response) {
+                    CaseService.checkForCaseStatusToggleOnAttachOrComment();
                     if (escalationNum !== undefined) {       
                         AlertService.addSuccessMessage(gettextCatalog.getString('Your Escalation request has been sent successfully'));
                     }
-                }, (error) => {
+                },
+                function (error) {
+                    $scope.showErrorMessage(error);
+                });
+                CaseService.populateComments($stateParams.id).then(function (comments) {
                     AlertService.clearAlerts();
                     $scope.closeModal();
                     $scope.submittingRequest = false;  
+                }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });
-            }, (error) => {
-                AlertService.clearAlerts();
-                $scope.closeModal();
-                $scope.submittingRequest = false;  
-                AlertService.addStrataErrorMessage(error);
+            }, function (error) {
+                $scope.showErrorMessage(error);
             });
-        };
+        }
     }
 }
