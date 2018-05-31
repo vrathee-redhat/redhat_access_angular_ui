@@ -1,6 +1,6 @@
 'use strict';
 
-import hydrajs  from '../../shared/hydrajs.js';
+import hydrajs  from '../../shared/hydrajs';
 
 export default class RequestManagementEscalationModal {
     constructor($scope, $uibModalInstance, AlertService, CaseService, DiscussionService, strataService, securityService, $q, $stateParams, RHAUtils, gettextCatalog) {
