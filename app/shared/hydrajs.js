@@ -7,7 +7,7 @@
 		exports["hydrajs"] = factory();
 	else
 		root["hydrajs"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -169,8 +169,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var env_1 = __webpack_require__(0);
 function errorHandler(response) {
     return response.text().then(function (body) {
-        if (body == null || body === '')
-            throw new Error(body);
+        if (body == null || body === '') {
+            var error = new Error(body);
+            Object.assign(error, { status: response.status }, { statusText: response.statusText });
+            throw error;
+        }
         var parsedError;
         try {
             parsedError = JSON.parse(body);
@@ -178,11 +181,13 @@ function errorHandler(response) {
         catch (e) { }
         if (parsedError) {
             var error = new Error((parsedError && parsedError.message) || body);
-            Object.assign(error, parsedError, { isHydraError: true });
+            Object.assign(error, parsedError, { isHydraError: true }, { status: response.status }, { statusText: response.statusText });
             throw error;
         }
         else {
-            throw new Error(body);
+            var error = new Error(body);
+            Object.assign(error, { status: response.status }, { statusText: response.statusText });
+            throw error;
         }
     });
 }
@@ -234,10 +239,7 @@ function getToken() {
     return null;
 }
 function responseHandler(response, dataType) {
-    if (response.status === 500) {
-        return errorHandler(response);
-    }
-    else if (response.status === 204) {
+    if (response.status === 204) {
         return null;
     }
     else if (response.status === 200 || response.status === 201) {
@@ -309,7 +311,9 @@ function callFetchAndHandleJwt(uri, params, dataType, externalUrl) {
             params.headers['Authorization'] = getToken();
         }
         else {
-            throw new Error("Could not set JWT token on request header, unauthenticated.");
+            var error = new Error("Could not set JWT token on request header, unauthenticated.");
+            Object.assign(error, { status: 401 }, { statusText: 'Unauthorized' });
+            throw error;
         }
     }
     return new Promise(function (resolve, reject) {
@@ -1037,36 +1041,40 @@ var bugzilla_1 = __webpack_require__(5);
 var product_1 = __webpack_require__(7);
 var externalTracker_1 = __webpack_require__(27);
 var view_1 = __webpack_require__(28);
-var comment_1 = __webpack_require__(29);
-var user_2 = __webpack_require__(30);
-var kcs_1 = __webpack_require__(31);
-var case_2 = __webpack_require__(32);
-var attachment_1 = __webpack_require__(33);
-var shiftMetadata_1 = __webpack_require__(34);
-var templateMetadata_1 = __webpack_require__(35);
-var vendorProduct_1 = __webpack_require__(36);
-var certification_1 = __webpack_require__(37);
-var hive_1 = __webpack_require__(38);
-var certificationTest_1 = __webpack_require__(39);
-var userShifts_1 = __webpack_require__(40);
-var groupMetadata_1 = __webpack_require__(41);
-var counts_1 = __webpack_require__(42);
-var review_1 = __webpack_require__(43);
-var products_1 = __webpack_require__(44);
-var sbrs_1 = __webpack_require__(45);
-var externalTrackers_1 = __webpack_require__(46);
-var solr_1 = __webpack_require__(47);
-var account_1 = __webpack_require__(48);
-var callCenters_1 = __webpack_require__(49);
-var commentFeedback_1 = __webpack_require__(50);
-var roles_1 = __webpack_require__(51);
-var vocabulary_1 = __webpack_require__(52);
-var maintenance_1 = __webpack_require__(53);
-var account_2 = __webpack_require__(6);
-var comment_2 = __webpack_require__(54);
-var metadata_1 = __webpack_require__(55);
-var account_3 = __webpack_require__(56);
-var cta_1 = __webpack_require__(57);
+var account_1 = __webpack_require__(29);
+var comment_1 = __webpack_require__(30);
+var user_2 = __webpack_require__(31);
+var kcs_1 = __webpack_require__(32);
+var case_2 = __webpack_require__(33);
+var attachment_1 = __webpack_require__(34);
+var shiftMetadata_1 = __webpack_require__(35);
+var templateMetadata_1 = __webpack_require__(36);
+var vendorProduct_1 = __webpack_require__(37);
+var certification_1 = __webpack_require__(38);
+var hive_1 = __webpack_require__(39);
+var certificationTest_1 = __webpack_require__(40);
+var userShifts_1 = __webpack_require__(41);
+var groupMetadata_1 = __webpack_require__(42);
+var counts_1 = __webpack_require__(43);
+var review_1 = __webpack_require__(44);
+var products_1 = __webpack_require__(45);
+var sbrs_1 = __webpack_require__(46);
+var externalTrackers_1 = __webpack_require__(47);
+var solr_1 = __webpack_require__(48);
+var account_2 = __webpack_require__(49);
+var callCenters_1 = __webpack_require__(50);
+var commentFeedback_1 = __webpack_require__(51);
+var roles_1 = __webpack_require__(52);
+var vocabulary_1 = __webpack_require__(53);
+var maintenance_1 = __webpack_require__(54);
+var account_3 = __webpack_require__(6);
+var comment_2 = __webpack_require__(55);
+var metadata_1 = __webpack_require__(56);
+var successPlan_1 = __webpack_require__(57);
+var account_4 = __webpack_require__(58);
+var cta_1 = __webpack_require__(59);
+var timeline_1 = __webpack_require__(60);
+var contact_2 = __webpack_require__(61);
 exports.default = {
     general: {
         health: general_1.health,
@@ -1259,10 +1267,12 @@ exports.default = {
         getSolrCases: solr_1.getSolrCases
     },
     accounts: {
-        getAccount: account_1.getAccount,
-        getAccountContacts: account_1.getAccountContacts,
-        getAccountNotes: account_1.getAccountNotes,
-        getAccountTeamMembers: account_1.getAccountTeamMembers
+        getAccount: account_2.getAccount,
+        getAccountContacts: account_2.getAccountContacts,
+        getAccountNotes: account_2.getAccountNotes,
+        getAccountTeamMembers: account_2.getAccountTeamMembers,
+        patchAccounts: account_2.patchAccounts,
+        getContactDetailBySso: account_2.getContactDetailBySso
     },
     businessHours: {
         getBusinessHours: businessHours_1.getBusinessHours
@@ -1280,9 +1290,9 @@ exports.default = {
         getContactFields: contact_1.getContactFields,
         getCaseGroupFields: caseGroup_1.getCaseGroupFields,
         getCaseBomgarSessionFields: bomgar_1.getCaseBomgarSessionFields,
-        getAccountFields: account_2.getAccountFields,
-        getAccountNoteFields: account_2.getAccountNoteFields,
-        getAccountMemberFields: account_2.getAccountMemberFields,
+        getAccountFields: account_3.getAccountFields,
+        getAccountNoteFields: account_3.getAccountNoteFields,
+        getAccountMemberFields: account_3.getAccountMemberFields,
         getCaseCommentFields: comment_2.getCaseCommentFields,
         getLiveChatTranscriptFields: chat_1.getLiveChatTranscriptFields,
         getBugzillaBugFields: bugzilla_1.getBugzillaBugFields,
@@ -1317,27 +1327,66 @@ exports.default = {
         getAccountDetails: view_1.getAccountDetails,
         getAllCaseInfo: view_1.getAllCaseInfo,
         getErrata: view_1.getErrata,
-        getSubscriptionStats: view_1.getSubscriptionStats
+        getSubscriptionStats: view_1.getSubscriptionStats,
+        getInsights: view_1.getInsights,
+        getAccounts: account_1.getAccounts,
     },
     csp: {
         metadata: {
             getMetadata: metadata_1.getMetadata
         },
         account: {
-            getCSAccount: account_3.getCSAccount,
-            getOpenCaseCount: account_3.getOpenCaseCount,
-            getCTACount: account_3.getCTACount,
-            getEntitlementCount: account_3.getEntitlementCount,
-            putCSHydraAccount: account_3.putCSHydraAccount
+            getCSAccounts: account_4.getCSAccounts,
+            getOpenCaseCount: account_4.getOpenCaseCount,
+            getCTACount: account_4.getCTACount,
+            getEntitlementCount: account_4.getEntitlementCount,
+        },
+        contact: {
+            getContacts: contact_2.getContacts
         },
         cta: {
             listCtas: cta_1.listCtas,
             getCtaGroupedCount: cta_1.getCtaGroupedCount,
             getCta: cta_1.getCta,
             updateCta: cta_1.updateCta,
+            updateCtaTask: cta_1.updateCtaTask,
             addCta: cta_1.addCta,
+            addTask: cta_1.addTask,
             deleteCta: cta_1.deleteCta,
-            getCtaTasks: cta_1.getCtaTasks
+            deleteTask: cta_1.deleteTask,
+            getCtaTasks: cta_1.getCtaTasks,
+            getCtaComments: cta_1.getCtaComments,
+            getCtaComment: cta_1.getCtaComment,
+            updateCtaComment: cta_1.updateCtaComment,
+            deleteCtaComment: cta_1.deleteCtaComment,
+            addCtaComment: cta_1.addCtaComment
+        },
+        successPlan: {
+            getSuccessPlansForUserName: successPlan_1.getSuccessPlansForUserName,
+            getSuccessPlansForAccountNumber: successPlan_1.getSuccessPlansForAccountNumber,
+            getSuccessPlansForId: successPlan_1.getSuccessPlansForId,
+            updateSuccessPlan: successPlan_1.updateSuccessPlan,
+            addSuccessPlan: successPlan_1.addSuccessPlan,
+            removeSuccessPlan: successPlan_1.removeSuccessPlan,
+            addProduct: successPlan_1.addProduct,
+            updateProduct: successPlan_1.updateProduct,
+            removeProduct: successPlan_1.removeProduct,
+            addObjective: successPlan_1.addObjective,
+            updateObjective: successPlan_1.updateObjective,
+            removeObjective: successPlan_1.removeObjective,
+            addObjectiveLink: successPlan_1.addObjectiveLink,
+            updateObjectiveLink: successPlan_1.updateObjectiveLink,
+            removeObjectiveLink: successPlan_1.removeObjectiveLink,
+            addObjectiveStakeholder: successPlan_1.addObjectiveStakeholder,
+            updateObjectiveStakeholder: successPlan_1.updateObjectiveStakeholder,
+            removeObjectiveStakeholder: successPlan_1.removeObjectiveStakeholder
+        },
+        timeline: {
+            getTimeline: timeline_1.getTimeline,
+            getTimelineActivity: timeline_1.getTimelineActivity,
+            updateTimelineActivity: timeline_1.updateTimelineActivity,
+            addTimelineActivity: timeline_1.addTimelineActivity,
+            deleteTimelineActivity: timeline_1.deleteTimelineActivity
         }
     }
 };
@@ -2009,9 +2058,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
    * export via AMD or CommonJS, otherwise leak a global
    */
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+    !(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
       return Uri;
-    }).call(exports, __webpack_require__, exports, module),
+    }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   } else if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = Uri;
@@ -2909,6 +2958,20 @@ function getErrata(id, startDate, endDate) {
     return fetch_1.getUri(uri);
 }
 exports.getErrata = getErrata;
+function getInsights(id, startDate, endDate) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/dashboard/v2/insights");
+    if (paramValid(id)) {
+        uri.addQueryParam('id', id);
+    }
+    if (paramValid(startDate)) {
+        uri.addQueryParam('startDate', startDate);
+    }
+    if (paramValid(endDate)) {
+        uri.addQueryParam('endDate', endDate);
+    }
+    return fetch_1.getUri(uri);
+}
+exports.getInsights = getInsights;
 function getSubscriptionStats(id) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/dashboard/v2/subscriptions");
     if (paramValid(id)) {
@@ -2924,6 +2987,22 @@ function paramValid(param) {
 
 /***/ }),
 /* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(1);
+var env_1 = __webpack_require__(0);
+function getAccounts() {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/dashboard/v2/accounts");
+    return fetch_1.getUri(uri);
+}
+exports.getAccounts = getAccounts;
+
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2987,7 +3066,7 @@ exports.getChatterComments = getChatterComments;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3089,7 +3168,7 @@ exports.getAllRoleTemplates = getAllRoleTemplates;
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3097,7 +3176,12 @@ exports.getAllRoleTemplates = getAllRoleTemplates;
 Object.defineProperty(exports, "__esModule", { value: true });
 var env_1 = __webpack_require__(0);
 var fetch_1 = __webpack_require__(1);
-function linkKcsResources(kcsLinkedResources) {
+function linkKcsResources(kcsLinkedResources, isCertificationCase) {
+    if (isCertificationCase === void 0) { isCertificationCase = false; }
+    if (isCertificationCase) {
+        var uri_1 = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/cases/certification/KnowledgeResources");
+        return fetch_1.putUri(uri_1, kcsLinkedResources);
+    }
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/resource");
     return fetch_1.postUri(uri, kcsLinkedResources);
 }
@@ -3116,7 +3200,9 @@ function getResources(caseNumber, options) {
         if (options.fields && options.fields.length > 0) {
             uri.addQueryParam('fields', options.fields.join(','));
         }
-        Object.keys(options).filter(function (k) { return k !== 'fields'; }).forEach(function (k) {
+        Object.keys(options)
+            .filter(function (k) { return k !== 'fields'; })
+            .forEach(function (k) {
             if (options[k] !== undefined) {
                 uri.addQueryParam(k, options[k]);
             }
@@ -3128,7 +3214,7 @@ exports.getResources = getResources;
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3458,7 +3544,7 @@ exports.getCasesFromSoql = getCasesFromSoql;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3481,7 +3567,7 @@ exports.getAttachments = getAttachments;
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3512,7 +3598,7 @@ exports.deleteShiftMetadata = deleteShiftMetadata;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3538,7 +3624,7 @@ exports.postCustomTemplateForUser = postCustomTemplateForUser;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3564,7 +3650,7 @@ exports.updateOpenStackVendorProduct = updateOpenStackVendorProduct;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3637,7 +3723,7 @@ exports.getCaseNumberFromPortalId = getCaseNumberFromPortalId;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3724,7 +3810,7 @@ exports.getPlatforms = getPlatforms;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3780,7 +3866,7 @@ exports.updateSubTestStatus = updateSubTestStatus;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3821,7 +3907,7 @@ exports.deleteShiftForUsers = deleteShiftForUsers;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3857,7 +3943,7 @@ exports.deleteGroupByGroupId = deleteGroupByGroupId;
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3960,7 +4046,7 @@ exports.testResult = testResult;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4003,7 +4089,7 @@ exports.createReview = createReview;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4030,7 +4116,7 @@ exports.getProductVersions = getProductVersions;
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4056,7 +4142,7 @@ exports.getSbrs = getSbrs;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4083,7 +4169,7 @@ exports.getExternalTrackersUpdates = getExternalTrackersUpdates;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4152,7 +4238,7 @@ exports.getSolrCases = getSolrCases;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4195,10 +4281,20 @@ function getAccountTeamMembers(accountNumber, fields, limit) {
     return fetch_1.getUri(uri);
 }
 exports.getAccountTeamMembers = getAccountTeamMembers;
+function patchAccounts(accounts) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/accounts");
+    return fetch_1.patchUri(uri, accounts);
+}
+exports.patchAccounts = patchAccounts;
+function getContactDetailBySso(sso) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/contacts/sso/" + sso);
+    return fetch_1.getUri(uri);
+}
+exports.getContactDetailBySso = getContactDetailBySso;
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4219,7 +4315,7 @@ exports.getCallCenter = getCallCenter;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4245,7 +4341,7 @@ exports.getCommentFeedback = getCommentFeedback;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4271,7 +4367,7 @@ exports.deleteRole = deleteRole;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4307,7 +4403,7 @@ exports.getVocabularyComponents = getVocabularyComponents;
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4315,15 +4411,16 @@ exports.getVocabularyComponents = getVocabularyComponents;
 Object.defineProperty(exports, "__esModule", { value: true });
 var env_1 = __webpack_require__(0);
 var fetch_1 = __webpack_require__(1);
-function getMaintenanceMode() {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/configuration/ascension_maintenance");
+function getMaintenanceMode(configurationType) {
+    if (configurationType === void 0) { configurationType = 'ascension_maintenance'; }
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/configuration/" + configurationType);
     return fetch_1.getUri(uri);
 }
 exports.getMaintenanceMode = getMaintenanceMode;
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4462,7 +4559,7 @@ exports.getCaseCommentFields = getCaseCommentFields;
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4478,7 +4575,7 @@ exports.getMetadata = getMetadata;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4486,38 +4583,143 @@ exports.getMetadata = getMetadata;
 Object.defineProperty(exports, "__esModule", { value: true });
 var fetch_1 = __webpack_require__(1);
 var env_1 = __webpack_require__(0);
-function getCSAccount(accountNumber, fields) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/customers/accounts/" + accountNumber);
-    if (fields && fields.length > 0) {
-        uri.addQueryParam('fields', fields.join(','));
-    }
+// success Plan
+function getSuccessPlansForUserName(ssoUsername) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans");
+    uri.addQueryParam('username', ssoUsername);
     return fetch_1.getUri(uri);
 }
-exports.getCSAccount = getCSAccount;
+exports.getSuccessPlansForUserName = getSuccessPlansForUserName;
+function getSuccessPlansForAccountNumber(accountNumber) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/accounts/" + accountNumber);
+    return fetch_1.getUri(uri);
+}
+exports.getSuccessPlansForAccountNumber = getSuccessPlansForAccountNumber;
+function getSuccessPlansForId(successPlanId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId);
+    return fetch_1.getUri(uri);
+}
+exports.getSuccessPlansForId = getSuccessPlansForId;
+function addSuccessPlan(successPlan) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans");
+    return fetch_1.postUri(uri, successPlan);
+}
+exports.addSuccessPlan = addSuccessPlan;
+function updateSuccessPlan(successPlanId, successPlan) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId);
+    return fetch_1.putUri(uri, successPlan);
+}
+exports.updateSuccessPlan = updateSuccessPlan;
+function removeSuccessPlan(successPlanId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId);
+    return fetch_1.deleteUri(uri);
+}
+exports.removeSuccessPlan = removeSuccessPlan;
+// Products
+function addProduct(successPlanId, product) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/products");
+    return fetch_1.postUri(uri, product);
+}
+exports.addProduct = addProduct;
+function updateProduct(product) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + product.successPlanId + "/products/" + product.id);
+    return fetch_1.putUri(uri, product);
+}
+exports.updateProduct = updateProduct;
+function removeProduct(successPlanId, productId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/products/" + productId);
+    return fetch_1.deleteUri(uri);
+}
+exports.removeProduct = removeProduct;
+// Objectives
+function addObjective(successPlanId, objective) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives");
+    return fetch_1.postUri(uri, objective);
+}
+exports.addObjective = addObjective;
+function updateObjective(objective) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + objective.successPlanId + "/objectives/" + objective.id);
+    return fetch_1.putUri(uri, objective);
+}
+exports.updateObjective = updateObjective;
+function removeObjective(successPlanId, objectiveId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId);
+    return fetch_1.deleteUri(uri);
+}
+exports.removeObjective = removeObjective;
+// objective doclinks
+function addObjectiveLink(successPlanId, objectiveId, doclink) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/doclinks");
+    return fetch_1.postUri(uri, doclink);
+}
+exports.addObjectiveLink = addObjectiveLink;
+function updateObjectiveLink(successPlanId, doclink) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + doclink.objectiveId + "/doclinks/" + doclink.id);
+    return fetch_1.putUri(uri, doclink);
+}
+exports.updateObjectiveLink = updateObjectiveLink;
+function removeObjectiveLink(successPlanId, objectiveId, doclinkId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/doclinks/" + doclinkId);
+    return fetch_1.deleteUri(uri);
+}
+exports.removeObjectiveLink = removeObjectiveLink;
+// Objective Stakeholders
+function addObjectiveStakeholder(successPlanId, objectiveId, stakeholder) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/stakeholders");
+    return fetch_1.postUri(uri, stakeholder);
+}
+exports.addObjectiveStakeholder = addObjectiveStakeholder;
+function updateObjectiveStakeholder(successPlanId, stakeholder) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + stakeholder.objectiveId + "/stakeholders/" + stakeholder.id);
+    return fetch_1.putUri(uri, stakeholder);
+}
+exports.updateObjectiveStakeholder = updateObjectiveStakeholder;
+function removeObjectiveStakeholder(successPlanId, objectiveId, stakeholderId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/stakeholders/" + stakeholderId);
+    return fetch_1.deleteUri(uri);
+}
+exports.removeObjectiveStakeholder = removeObjectiveStakeholder;
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(1);
+var env_1 = __webpack_require__(0);
+// TODO: Need to create Params interface.
+function getCSAccounts(params) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/accounts/");
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k] !== undefined) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
+    return fetch_1.getUri(uri);
+}
+exports.getCSAccounts = getCSAccounts;
 function getOpenCaseCount(accountNumber) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/customers/accounts/" + accountNumber + "/cases/count");
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/accounts/" + accountNumber + "/cases/count");
     return fetch_1.getUri(uri);
 }
 exports.getOpenCaseCount = getOpenCaseCount;
 function getCTACount(accountNumber) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/customers/accounts/" + accountNumber + "/ctas/count");
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/accounts/" + accountNumber + "/ctas/count");
     return fetch_1.getUri(uri);
 }
 exports.getCTACount = getCTACount;
 function getEntitlementCount(accountNumber) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/customers/accounts/" + accountNumber + "/entitlements/count");
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/accounts/" + accountNumber + "/entitlements/count");
     return fetch_1.getUri(uri);
 }
 exports.getEntitlementCount = getEntitlementCount;
-function putCSHydraAccount(accountNumber, hydraAccount) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/customers/accounts/" + accountNumber);
-    return fetch_1.putUri(uri, hydraAccount);
-}
-exports.putCSHydraAccount = putCSHydraAccount;
 
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4565,11 +4767,123 @@ function deleteCta(ctaId) {
     return fetch_1.deleteUri(uri);
 }
 exports.deleteCta = deleteCta;
-function getCtaTasks(ctaId) {
+function getCtaTasks(ctaId, params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/tasks");
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k] !== undefined) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
     return fetch_1.getUri(uri);
 }
 exports.getCtaTasks = getCtaTasks;
+function updateCtaTask(taskId, ctaId, taskDetails) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/tasks/" + taskId);
+    return fetch_1.putUri(uri, taskDetails);
+}
+exports.updateCtaTask = updateCtaTask;
+function addTask(ctaId, taskDetails) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/tasks");
+    return fetch_1.postUri(uri, taskDetails);
+}
+exports.addTask = addTask;
+function deleteTask(taskId, ctaId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/tasks/" + taskId);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteTask = deleteTask;
+function getCtaComments(ctaId, params) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/comments");
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k] !== undefined) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
+    return fetch_1.getUri(uri);
+}
+exports.getCtaComments = getCtaComments;
+function getCtaComment(commentId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + commentId);
+    return fetch_1.getUri(uri);
+}
+exports.getCtaComment = getCtaComment;
+function updateCtaComment(commentId, ctaId, comment) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/comments/" + commentId);
+    return fetch_1.putUri(uri, comment);
+}
+exports.updateCtaComment = updateCtaComment;
+function addCtaComment(ctaId, comment) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/comments");
+    return fetch_1.postUri(uri, comment);
+}
+exports.addCtaComment = addCtaComment;
+function deleteCtaComment(commentId, ctaId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/comments/" + commentId);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteCtaComment = deleteCtaComment;
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var env_1 = __webpack_require__(0);
+var fetch_1 = __webpack_require__(1);
+function getTimeline(params) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/timeline");
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k] !== undefined) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
+    return fetch_1.getUri(uri);
+}
+exports.getTimeline = getTimeline;
+function getTimelineActivity(activityId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/timeline/" + activityId);
+    return fetch_1.getUri(uri);
+}
+exports.getTimelineActivity = getTimelineActivity;
+function updateTimelineActivity(activityId, activity) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/timeline/" + activityId);
+    return fetch_1.putUri(uri, activity);
+}
+exports.updateTimelineActivity = updateTimelineActivity;
+function addTimelineActivity(activity) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/timeline");
+    return fetch_1.postUri(uri, activity);
+}
+exports.addTimelineActivity = addTimelineActivity;
+function deleteTimelineActivity(activityId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/timeline/" + activityId);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteTimelineActivity = deleteTimelineActivity;
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(1);
+var env_1 = __webpack_require__(0);
+function getContacts(params) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/contacts/");
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k] !== undefined) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
+    return fetch_1.getUri(uri);
+}
+exports.getContacts = getContacts;
 
 
 /***/ })

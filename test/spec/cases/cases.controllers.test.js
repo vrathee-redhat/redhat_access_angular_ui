@@ -1820,7 +1820,7 @@ describe('Case Controllers', function () {
 
     //Suite for RequestManagementEscalationModal
     describe('RequestManagementEscalationModal', function () {
-        it('should have a function for new escalation comment with escalation comment text empty ', inject(function ($controller) {
+        xit('should have a function for new escalation comment with escalation comment text empty ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
                 $uibModalInstance:mockStrataDataService.mockModalInstance,
@@ -1835,7 +1835,7 @@ describe('Case Controllers', function () {
             expect(mockScope.disableSubmitRequest).toBe(true);
 
         }));
-        it('should have a function for onNewEscalationComment with escalation comment text non empty ', inject(function ($controller) {
+        xit('should have a function for onNewEscalationComment with escalation comment text non empty ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
                 $uibModalInstance:mockStrataDataService.mockModalInstance,
