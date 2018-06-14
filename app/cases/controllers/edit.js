@@ -1,5 +1,7 @@
 'use strict';
 
+import _   from 'lodash';
+
 export default class Edit {
     constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService,
                 $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils, $uibModal, COMMON_CONFIG) {
@@ -16,6 +18,8 @@ export default class Edit {
         CaseService.clearCase();
         $scope.loading = {};
         $scope.loading.kase = true;
+        $scope.isShowRmeEscalationBox = false;
+        $scope.isCreateRmeEscalationBox = true;
         $scope.showCasePage = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases && !$scope.loading.kase;
         $scope.init = function () {
             AttachmentsService.clear();
@@ -50,6 +54,10 @@ export default class Edit {
                 }
                 if (EDIT_CASE_CONFIG.showEmailNotifications) {
                     CaseService.defineNotifiedUsers();
+                }
+                if (EDIT_CASE_CONFIG.showCaseEscalation) {
+                    CaseService.getCaseEscalation(caseJSON.account_number, caseJSON.case_number);
+                    showRmeBox();
                 }
                 if ($scope.fromNewCase) {
                     AlertService.clearAlerts();
@@ -166,6 +174,32 @@ export default class Edit {
         $scope.$watch('CaseService.kase.product', function () {
             setOpenShiftProductFlag();
         });
+
+        $scope.$watch('CaseService.caseRMEEscalation', function () {
+            showRmeBox();
+        });
+
+        var showRmeBox = function () {
+            if (!CaseService.caseRMEEscalation) {
+                return;
+            }
+            if (CaseService.caseRMEEscalation.length === 0) {
+                $scope.isShowRmeEscalationBox = false;
+                $scope.isCreateRmeEscalationBox = true;
+                return;
+            }
+            if (RHAUtils.isNotEmpty(_.find(CaseService.caseRMEEscalation, (es) => es && es.status !== 'Closed'))) {
+                $scope.isShowRmeEscalationBox = true;
+                $scope.isCreateRmeEscalationBox = false;
+                return;
+            }
+            if (RHAUtils.isNotEmpty(_.find(CaseService.caseRMEEscalation, (es) => es && es.status === 'Closed'))) {
+                $scope.isShowRmeEscalationBox = true;
+                $scope.isCreateRmeEscalationBox = true;
+                return;
+            }
+
+        }
 
         var setOpenShiftProductFlag = function () {
             if (RHAUtils.isNotEmpty(CaseService.kase) && RHAUtils.isNotEmpty(CaseService.kase.product) && CaseService.kase.product === 'Openshift Online') {

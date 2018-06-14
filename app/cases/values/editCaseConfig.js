@@ -9,5 +9,6 @@ export default {
     'showComments': true,
     'showServerSideAttachments': true,
     'showEmailNotifications': true,
-    'isPCM': false
+    'isPCM': false,
+    'showCaseEscalation': true
 }

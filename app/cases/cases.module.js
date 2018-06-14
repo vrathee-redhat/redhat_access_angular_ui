@@ -87,6 +87,7 @@ import OwnerSelect from './controllers/ownerSelect'
 import ProceedWithoutAttachModal from './controllers/proceedWithoutAttachModal'
 import ProductSelect from './controllers/productSelect'
 import RequestEscalation from './controllers/requestEscalation'
+import ShowRmeEscalation from './controllers/showRMEEscalation'
 import RequestManagementEscalationModal from './controllers/requestManagementEscalationModal'
 import SearchBox from './controllers/searchBox'
 import SeveritySelect from './controllers/severitySelect'
@@ -145,6 +146,7 @@ app.controller('OwnerSelect', OwnerSelect);
 app.controller('ProceedWithoutAttachModal', ProceedWithoutAttachModal);
 app.controller('ProductSelect', ProductSelect);
 app.controller('RequestEscalation', RequestEscalation);
+app.controller('ShowRmeEscalation', ShowRmeEscalation);
 app.controller('RequestManagementEscalationModal', RequestManagementEscalationModal);
 app.controller('SearchBox', SearchBox);
 app.controller('SeveritySelect', SeveritySelect);
@@ -191,6 +193,7 @@ import rhaNewcaserecommendations from './directives/newCaseRecommendationsSectio
 import rhaOwnerselect from './directives/ownerSelect'
 import rhaProductselect from './directives/productSelect'
 import rhaRequestescalation from './directives/requestEscalation'
+import rhaShowrmeescalation from './directives/showRMEEscalation'
 import scrollHide from './directives/scrollHide'
 import rhaSearchbox from './directives/searchBox'
 import rhaSelectloadingindicator from './directives/selectLoadingIndicator'
@@ -234,6 +237,7 @@ app.directive('rhaNewcaserecommendations', rhaNewcaserecommendations);
 app.directive('rhaOwnerselect', rhaOwnerselect);
 app.directive('rhaProductselect', rhaProductselect);
 app.directive('rhaRequestescalation', rhaRequestescalation);
+app.directive('rhaShowrmeescalation', rhaShowrmeescalation);
 app.directive('scrollHide', scrollHide);
 app.directive('rhaSearchbox', rhaSearchbox);
 app.directive('rhaSelectloadingindicator', rhaSelectloadingindicator);
