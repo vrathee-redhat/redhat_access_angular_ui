@@ -1,0 +1,15 @@
+h3 {{'Management Escalation ID ' |translate}} {{CaseService.caseRMEEscalation[0].name}}
+dl
+    dt Status
+    dd.reset {{CaseService.caseRMEEscalation[0].status}}
+dl
+    dt Escalation Owner
+    dd.reset {{CaseService.caseRMEEscalation[0].owner}}
+dl
+    dt Description
+    dd.reset {{CaseService.caseRMEEscalation[0].subject}}
+.row
+    .col-sm-6
+        a.btn.btn-app.btn-open-white Request Update
+    .col-sm-6
+        a.btn.btn-app.btn-open-white Request Closure
