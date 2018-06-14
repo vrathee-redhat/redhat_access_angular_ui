@@ -328,6 +328,7 @@ export default class CaseService {
             this.updatingNewCaseDescription = false;
             this.virtualOwner = undefined;
             this.isOpenShiftOnlineProduct = false;
+            this.caseRMEEscalation = [];
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
