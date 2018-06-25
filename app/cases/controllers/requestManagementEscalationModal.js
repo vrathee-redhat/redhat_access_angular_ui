@@ -1,6 +1,6 @@
 'use strict';
 
-import hydrajs  from '../../shared/hydrajs';
+// import hydrajs  from '../../shared/hydrajs';
 
 export default class RequestManagementEscalationModal {
     constructor($scope, $uibModalInstance, AlertService, CaseService, DiscussionService, strataService, securityService, $q, $stateParams, RHAUtils, gettextCatalog) {
@@ -71,10 +71,10 @@ export default class RequestManagementEscalationModal {
         });
         $scope.closeModal = function () {
             CaseService.escalationCommentText = undefined;
-            CaseService.escalationSubject = undefined;
-            CaseService.escalationDescription = undefined;
-            CaseService.escalationExpectations = undefined;
-            CaseService.rmeEscalationGeo = undefined;
+            // CaseService.escalationSubject = undefined;
+            // CaseService.escalationDescription = undefined;
+            // CaseService.escalationExpectations = undefined;
+            // CaseService.rmeEscalationGeo = undefined;
             $uibModalInstance.close();
         };
         $scope.showErrorMessage = function (errorMessage) {
@@ -84,8 +84,7 @@ export default class RequestManagementEscalationModal {
             AlertService.addStrataErrorMessage(errorMessage);
         };
         $scope.onNewEscalationComment = function () {
-            if (RHAUtils.isNotEmpty(CaseService.escalationSubject) && !$scope.submittingRequest && RHAUtils.isNotEmpty(CaseService.escalationDescription)
-        && RHAUtils.isNotEmpty(CaseService.escalationExpectations) && RHAUtils.isNotEmpty(CaseService.rmeEscalationGeo)) {
+            if (RHAUtils.isNotEmpty(CaseService.escalationCommentText) && !$scope.submittingRequest) {
                 $scope.disableSubmitRequest = false;
             } else if (RHAUtils.isEmpty(CaseService.escalationCommentText)) {
                 $scope.disableSubmitRequest = true;
@@ -95,36 +94,36 @@ export default class RequestManagementEscalationModal {
         $scope.submitRMEEscalation = function () {
             $scope.submittingRequest = true;
             // get contact information from the hydra
-            hydrajs.accounts.getContactDetailBySso(CaseService.kase.contact_sso_username).then((contactInfo) => {
-                const severity = CaseService.kase.severity && CaseService.kase.severity.name && CaseService.kase.severity.name.substring(0, 1);
-                let escalationJSON = {
-                    'record_type': 'Active Customer Escalation',
-                    'subject': CaseService.escalationSubject,
-                    'issue_description': CaseService.escalationDescription,
-                    'escalation_source': 'RME Escalation',
-                    'expectations': CaseService.escalationExpectations,
-                    'status': 'New',
-                    'account_number': CaseService.kase.account_number,
-                    'case_number': CaseService.kase.case_number,
-                    'customer_name':  contactInfo.name,
-                    'customer_email': contactInfo.email,
-                    'customer_phone': contactInfo.phone,
-                    'requestor': contactInfo.name,
-                    'requestor_email': contactInfo.email,
-                    'requestor_phone': contactInfo.phone,
-                    'already_escalated': false,
-                    'geo': CaseService.rmeEscalationGeo.value,
-                    'severity': RHAUtils.isNotEmpty(severity) ? severity : '3',
-                };
-                const promise = strataService.escalationRequest.create(escalationJSON);
-                promise.then((escalationNum) => {
-                    $scope.submitEscalationComment(escalationNum);
-                }, (error) => {
-                    $scope.showErrorMessage(error);
-                });
-            }, (error) => {
-                $scope.showErrorMessage(error);
-            });
+            // hydrajs.accounts.getContactDetailBySso(CaseService.kase.contact_sso_username).then((contactInfo) => {
+            //     const severity = CaseService.kase.severity && CaseService.kase.severity.name && CaseService.kase.severity.name.substring(0, 1);
+            //     let escalationJSON = {
+            //         'record_type': 'Active Customer Escalation',
+            //         'subject': CaseService.escalationSubject,
+            //         'issue_description': CaseService.escalationDescription,
+            //         'escalation_source': 'RME Escalation',
+            //         'expectations': CaseService.escalationExpectations,
+            //         'status': 'New',
+            //         'account_number': CaseService.kase.account_number,
+            //         'case_number': CaseService.kase.case_number,
+            //         'customer_name':  contactInfo.name,
+            //         'customer_email': contactInfo.email,
+            //         'customer_phone': contactInfo.phone,
+            //         'requestor': contactInfo.name,
+            //         'requestor_email': contactInfo.email,
+            //         'requestor_phone': contactInfo.phone,
+            //         'already_escalated': false,
+            //         'geo': CaseService.rmeEscalationGeo.value,
+            //         'severity': RHAUtils.isNotEmpty(severity) ? severity : '3',
+            //     };
+            //     const promise = strataService.escalationRequest.create(escalationJSON);
+            //     promise.then((escalationNum) => {
+            //         $scope.submitEscalationComment(escalationNum);
+            //     }, (error) => {
+            //         $scope.showErrorMessage(error);
+            //     });
+            // }, (error) => {
+            //     $scope.showErrorMessage(error);
+            // });
         };
         $scope.submitEscalationComment = function (escalationNum) {
             var fullComment = `Request Management Escalation:\n Subject: ${CaseService.escalationSubject}\n Description: ${CaseService.escalationDescription}\n Expectations: ${CaseService.escalationExpectations}`;

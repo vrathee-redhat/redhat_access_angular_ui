@@ -1,13 +1,6 @@
-h3(ng-show="securityService.loginStatus.authedUser.is_internal") {{'Active Customer Escalation' |translate}}
-span(ng-show="securityService.loginStatus.authedUser.is_internal") {{'Internal Red Hat associates can open an Active Customer Escalation when:' |translate}}
-ul(ng-show="securityService.loginStatus.authedUser.is_internal")
-    li(translate) The customer wants an update.
-    li(translate) The customer thinks the case is not moving appropriately.
-    li(translate) The customer wants a new resource.
-    li(translate) The issue is more severe than originally thought.
-h3(ng-show="!securityService.loginStatus.authedUser.is_internal") {{'Request Management Escalation' |translate}}
-span(ng-show="!securityService.loginStatus.authedUser.is_internal") {{'Request a management escalation if you feel that:' |translate}}
-ul(ng-show="!securityService.loginStatus.authedUser.is_internal")
+h3(translate) Request Management Escalation
+span(translate) Request a management escalation if you feel that:
+ul
     li(translate) Your issue isn't being resolved appropriately.
     li(translate) Your issue needs a more senior resource.
     li(translate) Your issue has become more severe or should be a higher priority.
@@ -17,5 +10,4 @@ p()
     span(translate) To learn more, visit
     = " "
     a(href="/support/escalation" target="_blank") {{"The Red Hat Escalation Process" | translate}}
-a.btn.btn-primary.btn-app(ng-show="!securityService.loginStatus.authedUser.is_internal" ng-click='requestManagementEscalation()') {{'Request Management Escalation'|translate}}
-a.btn.btn-primary.btn-app(ng-show="securityService.loginStatus.authedUser.is_internal" href="/support/cases/ace" target="_blank") {{'ACE Escalation'|translate}}
+a.btn.btn-primary.btn-app(ng-click='requestManagementEscalation()') {{'Request Management Escalation'|translate}}
