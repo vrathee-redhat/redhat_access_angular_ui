@@ -79,8 +79,8 @@ export default class ProductsService {
                                 code: sortProduct,
                                 name: sortProduct,
                                 supported: true,
-                                preferredServiceLevel : RHAUtils.isNotEmpty(productInResponse) ? productInResponse.preferred_service_level : CaseService.originalEntitlements[0],
-                                serviceLevels : RHAUtils.isNotEmpty(productInResponse) ? _.split(productInResponse.service_levels , ';'): CaseService.originalEntitlements
+                                preferredServiceLevel : RHAUtils.isNotEmpty(productInResponse) && RHAUtils.isNotEmpty(productInResponse.preferred_service_level) ? productInResponse.preferred_service_level : CaseService.originalEntitlements[0],
+                                serviceLevels : RHAUtils.isNotEmpty(productInResponse) && RHAUtils.isNotEmpty(productInResponse.service_levels) ? _.split(productInResponse.service_levels , ';'): CaseService.originalEntitlements
                             });
                             break;
                         }
