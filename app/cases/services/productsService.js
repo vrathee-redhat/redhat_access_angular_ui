@@ -105,7 +105,9 @@ export default class ProductsService {
                     const sep = '────────────────────────────────────────';
                     productOptions.push({ isDisabled: true, name: sep, code: '' });
                     unsupportedProduct = _.sortBy(unsupportedProduct, (p) => p.code);
-                    angular.forEach(unsupportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer, preferredServiceLevel: product.preferredServiceLevel, serviceLevels: product.serviceLevels}));
+                    // Do not add preferred service level for unsupported product, CCM would do it automatically
+                    // or user can select it if needed
+                    angular.forEach(unsupportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer, serviceLevels: product.serviceLevels}));
                 }
 
                 this.products = _.uniqBy(productOptions, (p) => p.name);
