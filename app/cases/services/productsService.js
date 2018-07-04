@@ -79,7 +79,7 @@ export default class ProductsService {
                                 code: sortProduct,
                                 name: sortProduct,
                                 supported: true,
-                                preferredServiceLevel : RHAUtils.isNotEmpty(productInResponse) && RHAUtils.isNotEmpty(productInResponse.preferred_service_level) ? productInResponse.preferred_service_level : CaseService.originalEntitlements[0],
+                                preferredServiceLevel : RHAUtils.isNotEmpty(productInResponse) && RHAUtils.isNotEmpty(productInResponse.preferred_service_level) ? productInResponse.preferred_service_level :RHAUtils.isNotEmpty(CaseService.originalEntitlements) && CaseService.originalEntitlements[0],
                                 serviceLevels : RHAUtils.isNotEmpty(productInResponse) && RHAUtils.isNotEmpty(productInResponse.service_levels) ? _.split(productInResponse.service_levels , ';'): CaseService.originalEntitlements
                             });
                             break;
@@ -92,7 +92,7 @@ export default class ProductsService {
 
                 // Service level change
                 this.products = _.forEach(this.products, (p) => {
-                    p.preferredServiceLevel = RHAUtils.isNotEmpty(p.preferred_service_level) ? p.preferred_service_level : CaseService.originalEntitlements[0];
+                    p.preferredServiceLevel = RHAUtils.isNotEmpty(p.preferred_service_level) ? p.preferred_service_level : RHAUtils.isNotEmpty(CaseService.originalEntitlements) && CaseService.originalEntitlements[0];
                     p.serviceLevels = RHAUtils.isNotEmpty(p.service_levels) ? _.split(p.service_levels , ';'): CaseService.originalEntitlements;
                 });
 
