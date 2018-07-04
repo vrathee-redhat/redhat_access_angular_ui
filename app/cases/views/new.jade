@@ -121,7 +121,7 @@ div(rha-header='', page='newCase')
                                 div(ng-if='CaseService.kase.product === "Red Hat Virtualization"')
                                     span {{'Please attach a ' | translate}}
                                     a(href="/solutions/61546", target='_blank') RHEV log collector
-                                    span{{' archive (optional)' | translate}}
+                                    span {{' archive (optional)' | translate}}
                                 div(ng-bind-html='$parent.AttachmentsService.parseArtifactHtml()')
                                 div#attachments(rha-listnewattachments='')
                                 div#attach-file(rha-attachlocalfile='', disabled='$parent.CaseService.submittingCase')
