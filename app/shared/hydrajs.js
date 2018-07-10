@@ -7,7 +7,7 @@
 		exports["hydrajs"] = factory();
 	else
 		root["hydrajs"] = factory();
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -242,6 +242,17 @@ function responseHandler(response, dataType) {
     if (response.status === 204) {
         return null;
     }
+    else if (response.status === 401) {
+        if (window.app) {
+            if (window.sessionjs && window.sessionjs.reportProblem) {
+                window.sessionjs.reportProblem('received 401 from a hydra rest call', {
+                    tags: {
+                        portal_app: window.app
+                    }
+                });
+            }
+        }
+    }
     else if (response.status === 200 || response.status === 201) {
         return response.clone().text().then(function (body) {
             if (body == null || body === '')
@@ -416,6 +427,10 @@ function callFetchAndHandleJwt(uri, params, dataType, externalUrl) {
 function getUri(uri, headerParams, dataType, externalUrl) {
     var params = {
         method: 'GET',
+        // adding this because according to MDN, fetch will set credentials to same-origin by default,
+        // which will let to inclusion of cookies into the request
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        credentials: 'omit',
         headers: {}
     };
     if (headerParams !== undefined) {
@@ -433,6 +448,10 @@ exports.getUri = getUri;
 function postUri(uri, body, dataType, externalUrl) {
     var params = {
         method: 'POST',
+        // adding this because according to MDN, fetch will set credentials to same-origin by default,
+        // which will let to inclusion of cookies into the request
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -449,7 +468,10 @@ exports.postUri = postUri;
 function postFormUri(uri, formData, dataType, externalUrl) {
     var params = {
         method: 'POST',
-        credentials: 'include',
+        // adding this because according to MDN, fetch will set credentials to same-origin by default,
+        // which will let to inclusion of cookies into the request
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
         },
@@ -465,6 +487,10 @@ exports.postFormUri = postFormUri;
 function putUri(uri, body, dataType, externalUrl) {
     var params = {
         method: 'PUT',
+        // adding this because according to MDN, fetch will set credentials to same-origin by default,
+        // which will let to inclusion of cookies into the request
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -481,6 +507,10 @@ exports.putUri = putUri;
 function patchUri(uri, body, dataType) {
     var params = {
         method: 'PATCH',
+        // adding this because according to MDN, fetch will set credentials to same-origin by default,
+        // which will let to inclusion of cookies into the request
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -495,6 +525,10 @@ exports.patchUri = patchUri;
 function deleteUri(uri, dataType) {
     var params = {
         method: 'DELETE',
+        // adding this because according to MDN, fetch will set credentials to same-origin by default,
+        // which will let to inclusion of cookies into the request
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        credentials: 'omit',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -507,6 +541,10 @@ exports.deleteUri = deleteUri;
 function deleteUriWithBody(uri, body, dataType) {
     var params = {
         method: 'DELETE',
+        // adding this because according to MDN, fetch will set credentials to same-origin by default,
+        // which will let to inclusion of cookies into the request
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -1072,9 +1110,11 @@ var comment_2 = __webpack_require__(55);
 var metadata_1 = __webpack_require__(56);
 var successPlan_1 = __webpack_require__(57);
 var account_4 = __webpack_require__(58);
-var cta_1 = __webpack_require__(59);
-var timeline_1 = __webpack_require__(60);
-var contact_2 = __webpack_require__(61);
+var product_2 = __webpack_require__(59);
+var cta_1 = __webpack_require__(60);
+var timeline_1 = __webpack_require__(61);
+var contact_2 = __webpack_require__(62);
+var fetch_1 = __webpack_require__(1);
 exports.default = {
     general: {
         health: general_1.health,
@@ -1332,6 +1372,9 @@ exports.default = {
         getAccounts: account_1.getAccounts,
     },
     csp: {
+        product: {
+            getProductsForAccount: product_2.getProductsForAccount
+        },
         metadata: {
             getMetadata: metadata_1.getMetadata
         },
@@ -1388,6 +1431,15 @@ exports.default = {
             addTimelineActivity: timeline_1.addTimelineActivity,
             deleteTimelineActivity: timeline_1.deleteTimelineActivity
         }
+    },
+    xhrRequest: {
+        getUri: fetch_1.getUri,
+        postUri: fetch_1.postUri,
+        postFormUri: fetch_1.postFormUri,
+        putUri: fetch_1.putUri,
+        patchUri: fetch_1.patchUri,
+        deleteUri: fetch_1.deleteUri,
+        deleteUriWithBody: fetch_1.deleteUriWithBody
     }
 };
 
@@ -2058,9 +2110,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
    * export via AMD or CommonJS, otherwise leak a global
    */
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
       return Uri;
-    }.call(exports, __webpack_require__, exports, module),
+    }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   } else if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = Uri;
@@ -4469,7 +4521,8 @@ function getCaseCommentFields(options) {
             'isPublic',
             'lastModifiedDate',
             'sbt',
-            'sortDate'
+            'sortDate',
+            'createdByType'
         ];
         Array.prototype.push.apply(finalFields, minimalFields);
     }
@@ -4505,7 +4558,8 @@ function getCaseCommentFields(options) {
             'name',
             'sbt',
             'sortDate',
-            'targetDate'
+            'targetDate',
+            'createdByType'
         ];
         Array.prototype.push.apply(finalFields, fields);
     }
@@ -4727,6 +4781,22 @@ exports.getEntitlementCount = getEntitlementCount;
 Object.defineProperty(exports, "__esModule", { value: true });
 var fetch_1 = __webpack_require__(1);
 var env_1 = __webpack_require__(0);
+function getProductsForAccount(accountNumber) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/accounts/" + accountNumber + "/products");
+    return fetch_1.getUri(uri);
+}
+exports.getProductsForAccount = getProductsForAccount;
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(1);
+var env_1 = __webpack_require__(0);
 function listCtas(params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas");
     params && Object.keys(params).forEach(function (k) {
@@ -4762,8 +4832,13 @@ function addCta(ctaDetails) {
     return fetch_1.postUri(uri, ctaDetails);
 }
 exports.addCta = addCta;
-function deleteCta(ctaId) {
+function deleteCta(ctaId, params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId);
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k] !== undefined) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
     return fetch_1.deleteUri(uri);
 }
 exports.deleteCta = deleteCta;
@@ -4825,7 +4900,7 @@ exports.deleteCtaComment = deleteCtaComment;
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4866,7 +4941,7 @@ exports.deleteTimelineActivity = deleteTimelineActivity;
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
