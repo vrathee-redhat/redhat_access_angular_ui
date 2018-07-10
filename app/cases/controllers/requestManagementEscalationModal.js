@@ -95,7 +95,7 @@ export default class RequestManagementEscalationModal {
         $scope.submitRMEEscalation = function () {
             $scope.submittingRequest = true;
             // get contact information from the hydra
-            hydrajs.accounts.getContactDetailBySso(CaseService.kase.contact_sso_username).then((contactInfo) => {
+            hydrajs.accounts.getContactDetailBySso(securityService.loginStatus.authedUser.sso_username).then((contactInfo) => {
                 const severity = CaseService.kase.severity && CaseService.kase.severity.name && CaseService.kase.severity.name.substring(0, 1);
                 let escalationJSON = {
                     'record_type': 'Active Customer Escalation',
@@ -106,9 +106,6 @@ export default class RequestManagementEscalationModal {
                     'status': 'New',
                     'account_number': CaseService.kase.account_number,
                     'case_number': CaseService.kase.case_number,
-                    'customer_name':  contactInfo.name,
-                    'customer_email': contactInfo.email,
-                    'customer_phone': contactInfo.phone,
                     'requestor': contactInfo.name,
                     'requestor_email': contactInfo.email,
                     'requestor_phone': contactInfo.phone,
@@ -133,7 +130,7 @@ export default class RequestManagementEscalationModal {
                 var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
                 updateCase.then(function (response) {
                     CaseService.checkForCaseStatusToggleOnAttachOrComment();
-                    if (escalationNum !== undefined) {       
+                    if (escalationNum !== undefined) {
                         AlertService.addSuccessMessage(gettextCatalog.getString('Your Escalation request has been sent successfully'));
                     }
                 },
@@ -143,7 +140,7 @@ export default class RequestManagementEscalationModal {
                 CaseService.populateComments($stateParams.id).then(function (comments) {
                     AlertService.clearAlerts();
                     $scope.closeModal();
-                    $scope.submittingRequest = false;  
+                    $scope.submittingRequest = false;
                 }, function (error) {
                     AlertService.addStrataErrorMessage(error);
                 });

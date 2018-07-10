@@ -5,7 +5,7 @@ div(ng-hide='showCasePage()')
 div.edit(ng-if='showCasePage()')
   .row.row-very-short
     rha-secure-support-header()
-    div.section.main(ng-class="{'col-sm-8': !$parent.COMMON_CONFIG.isGS4, 'col-sm-12': $parent.COMMON_CONFIG.isGS4}")        
+    div.section.main(ng-class="{'col-sm-8': !$parent.COMMON_CONFIG.isGS4, 'col-sm-12': $parent.COMMON_CONFIG.isGS4}")
       .row.row-very-short
         h1.page-title(translate) CASE {{$parent.CaseService.kase.case_number}}
             small.partner-label.text-green.block(ng-if='$parent.isShowPartnerManagedCaseLabel()') {{'Case is managed by a partner'|translate}}
@@ -29,8 +29,8 @@ div.edit(ng-if='showCasePage()')
         span(translate) Account name : {{$parent.CaseService.account.name}}
         span(rha-bookmark-account, account='$parent.CaseService.account', ng-if='$parent.securityService.loginStatus.authedUser.is_internal && !$parent.COMMON_CONFIG.isGS4')
       .row.row-very-short
-        a(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct')(href='/support/offerings/production/sla.html', target='_blank') {{$parent.CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
-        a(ng-show='$parent.CaseService.kase.isOpenShiftOnlineProduct')(href='/support/offerings/openshift/sla.html', target='_blank') {{$parent.CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
+        a(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct' href='/support/offerings/production/sla.html', target='_blank') {{$parent.CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
+        a(ng-show='$parent.CaseService.kase.isOpenShiftOnlineProduct' href='/support/offerings/openshift/sla.html', target='_blank') {{$parent.CaseService.kase.entitlement.sla}} {{'Support Level'|translate}}
       .row.row-very-short(ng-show='$parent.EDIT_CASE_CONFIG.showDescription')
         div(rha-casedescription='', loading='$parent.loading.kase')
       .row.row-very-short(ng-show='$parent.EDIT_CASE_CONFIG.showDetails')
