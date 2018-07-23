@@ -79,8 +79,8 @@ export default class ProductsService {
                                 code: sortProduct,
                                 name: sortProduct,
                                 supported: true,
-                                preferredServiceLevel : RHAUtils.isNotEmpty(productInResponse) ? productInResponse.preferred_service_level : CaseService.originalEntitlements[0],
-                                serviceLevels : RHAUtils.isNotEmpty(productInResponse) ? _.split(productInResponse.service_levels , ';'): CaseService.originalEntitlements
+                                preferredServiceLevel : RHAUtils.isNotEmpty(productInResponse) && RHAUtils.isNotEmpty(productInResponse.preferred_service_level) ? productInResponse.preferred_service_level :RHAUtils.isNotEmpty(CaseService.originalEntitlements) && CaseService.originalEntitlements[0],
+                                serviceLevels : RHAUtils.isNotEmpty(productInResponse) && RHAUtils.isNotEmpty(productInResponse.service_levels) ? _.split(productInResponse.service_levels , ';'): CaseService.originalEntitlements
                             });
                             break;
                         }
@@ -92,7 +92,7 @@ export default class ProductsService {
 
                 // Service level change
                 this.products = _.forEach(this.products, (p) => {
-                    p.preferredServiceLevel = RHAUtils.isNotEmpty(p.preferred_service_level) ? p.preferred_service_level : CaseService.originalEntitlements[0];
+                    p.preferredServiceLevel = RHAUtils.isNotEmpty(p.preferred_service_level) ? p.preferred_service_level : RHAUtils.isNotEmpty(CaseService.originalEntitlements) && CaseService.originalEntitlements[0];
                     p.serviceLevels = RHAUtils.isNotEmpty(p.service_levels) ? _.split(p.service_levels , ';'): CaseService.originalEntitlements;
                 });
 
@@ -105,7 +105,9 @@ export default class ProductsService {
                     const sep = '────────────────────────────────────────';
                     productOptions.push({ isDisabled: true, name: sep, code: '' });
                     unsupportedProduct = _.sortBy(unsupportedProduct, (p) => p.code);
-                    angular.forEach(unsupportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer, preferredServiceLevel: product.preferredServiceLevel, serviceLevels: product.serviceLevels}));
+                    // Do not add preferred service level for unsupported product, CCM would do it automatically
+                    // or user can select it if needed
+                    angular.forEach(unsupportedProduct, (product) => productOptions.push({code: product.code, name: product.name, supported: product.supported_for_customer, serviceLevels: product.serviceLevels}));
                 }
 
                 this.products = _.uniqBy(productOptions, (p) => p.name);

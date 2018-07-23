@@ -26,7 +26,7 @@ export default class New {
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
         $scope.ie8Message = 'We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
-        
+
         $scope.showRecommendationPanel = false;
         $scope.kase = {
             notifiedUsers : []
@@ -90,7 +90,7 @@ export default class New {
                         }
                     }
                 }
-            }            
+            }
         });
 
         if (window.chrometwo_require !== undefined) {
@@ -243,8 +243,8 @@ export default class New {
                 });
             });
             $scope.severitiesLoading = true;
-            ProductsService.getProducts(false);
             CaseService.populateEntitlements(securityService.loginStatus.authedUser.sso_username);
+            ProductsService.getProducts(false);
             strataService.values.cases.severity().then(function (severities) {
                 CaseService.setSeverities(severities);
                 CaseService.kase.severity = severities[severities.length - 1];

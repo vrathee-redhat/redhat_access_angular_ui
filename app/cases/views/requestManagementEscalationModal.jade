@@ -8,11 +8,11 @@
       p#requireFieldInfo.rha-bold {{'* All fields are mandatory.'|translate}}
   .row
     .col-sm-12
-        form
+      form
           .form-group
             label.control-label {{'Subject:'|translate}}
             textarea.form-control(
-                maxlength='2000',
+                maxlength='254',
                 ng-model='CaseService.escalationSubject',
                 ng-disabled='submittingRequest',
                 ng-change='onNewEscalationComment()')
