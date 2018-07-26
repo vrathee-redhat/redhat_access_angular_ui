@@ -180,7 +180,7 @@ export default class Edit {
         });
 
         var showRmeBox = function () {
-            if (!CaseService.caseRMEEscalation) {
+            if (!CaseService.caseRMEEscalation || securityService.loginStatus.authedUser.is_internal) {
                 return;
             }
             if (CaseService.caseRMEEscalation.length === 0) {
@@ -198,7 +198,6 @@ export default class Edit {
                 $scope.isCreateRmeEscalationBox = true;
                 return;
             }
-
         }
 
         var setOpenShiftProductFlag = function () {

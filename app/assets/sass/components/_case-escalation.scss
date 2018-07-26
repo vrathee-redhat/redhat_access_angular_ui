@@ -48,3 +48,22 @@ $escalation-link-size: $recommendations-link-size;
         }
     }
 }
+.aside {
+    .aside-section-escalation {
+        .panel-body {
+            padding: 15px;
+        }
+        .escalation-actions {
+            .row {
+                margin-left: -7.5px;
+                margin-right: -7.5px;
+                margin-bottom: 0;
+                
+                [class^="col-"], [class*=" col-"] {
+                    padding-right: 7.5px;
+                    padding-left: 7.5px;
+                }
+            }
+        }   
+    }
+}

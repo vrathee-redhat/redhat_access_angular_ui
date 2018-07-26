@@ -243,8 +243,7 @@ export default class DiscussionSection {
             } else if (comment.text !== undefined) {
                 if (RHAUtils.isNotEmpty(comment.text)) {
                     const matchText = 'Request Management Escalation:';
-                    if (comment.text.indexOf(matchText) > -1 && comment.text.indexOf('Subject:') > -1
-                    && comment.text.indexOf('Description:') > -1 && comment.text.indexOf('Expectations:') > -1) {
+                    if (comment.text.indexOf(matchText) > -1) {
                         // made red color to RME escalation comment.
                         return $sce.trustAsHtml(comment.text.replace(new RegExp(matchText, "gi"), function(match) {
                             return '<span class="text-danger">' + match + '</span>';
