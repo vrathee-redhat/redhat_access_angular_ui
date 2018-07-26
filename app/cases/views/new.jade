@@ -120,7 +120,7 @@ div(rha-header='', page='newCase')
                                 | &nbsp; {{'Attaching logs or other diagnostics files typically results in faster resolution.'|translate}}
                                 div(ng-if='CaseService.kase.product === "Red Hat Virtualization"')
                                     span {{'Please attach a ' | translate}}
-                                    a(href="/solutions/61546", target='_blank') RHEV log collector
+                                    a(href="/solutions/61546", target='_blank') RHV log collector
                                     span {{' archive (optional)' | translate}}
                                 div(ng-bind-html='$parent.AttachmentsService.parseArtifactHtml()')
                                 div#attachments(rha-listnewattachments='')
