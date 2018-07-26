@@ -125,7 +125,7 @@ export default class RequestManagementEscalationModal {
         };
         $scope.submitEscalationComment = function (escalationNum) {
             var fullComment = `Request Management Escalation:\n Subject: ${CaseService.escalationSubject}\n Description: ${CaseService.escalationDescription}\n Expectations: ${CaseService.escalationExpectations}`;
-            if (escalationNum !== undefined) {       
+            if (escalationNum) {      
                 CaseService.getCaseEscalation(CaseService.kase.account_number, CaseService.kase.case_number);
             }
             strataService.cases.comments.post(CaseService.kase.case_number, fullComment, true, false).then(function(){
