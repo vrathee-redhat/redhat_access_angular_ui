@@ -45,7 +45,10 @@ div.edit(ng-if='showCasePage()')
     .aside.col-sm-4(ng-if="!$parent.COMMON_CONFIG.isGS4")
       .spinner.spinner-inline(ng-show='$parent.RecommendationsService.loadingRecommendations')
       #rha-recommendation-section.recommendations.aside-section(rha-editcaserecommendations='', ng-hide='($parent.RecommendationsService.recommendations.length === 0 && $parent.RecommendationsService.handPickedRecommendations.length === 0 && $parent.RecommendationsService.pinnedRecommendations.length === 0) || RecommendationsService.loadingRecommendations')
-      div#case-escalation.case-escalation(rha-requestescalation='')
+      div.aside-section.aside-section-escalation
+        h3(ng-show='isShowRmeEscalationBox && !$parent.securityService.loginStatus.authedUser.is_internal'){{'Management Escalation'|translate}}
+        div(ng-show='isShowRmeEscalationBox && !$parent.securityService.loginStatus.authedUser.is_internal', ng-repeat="escalation in CaseService.caseRMEEscalation")#case-escalation.recommendations(rha-showrmeescalation,rme-escalation="escalation", is-escalation-open="escalation.status !== 'Closed'")
+      div(ng-show='isCreateRmeEscalationBox || $parent.securityService.loginStatus.authedUser.is_internal')#case-escalation.case-escalation(rha-requestescalation='')
   .row
     .col-xs-12
       div(rha-casediscussion='', loading='$parent.loading.comments')

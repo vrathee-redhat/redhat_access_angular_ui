@@ -1,0 +1,22 @@
+uib-accordion
+  uib-accordion-group(is-open="isEscalationOpen")
+    uib-accordion-heading
+      i.fa.fa-chevron-down(ng-class='{"active": isEscalationOpen}')
+      | {{'Escalation ID ' |translate}} {{rmeEscalation.name}}
+    dl
+        dt Status
+        dd.reset {{rmeEscalation.status}}
+    dl
+        dt Escalation Owner
+        dd.reset {{rmeEscalation.owner}}
+    dl
+        dt Description
+        dd.reset {{rmeEscalation.subject}}
+    .escalation-actions
+        .row
+            .col-sm-6(ng-show='rmeEscalation.status !== "Closed"')
+                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestUpdateRMEEscalation(rmeEscalation.name)' ng-disabled='submittingRequest') Request Update
+            .col-sm-6(ng-show='rmeEscalation.status !== "Closed"')
+                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestClosureRMEEscalation(rmeEscalation.name)' ng-disabled='submittingRequest') Request Closure
+            .col-sm-12(ng-show='rmeEscalation.status === "Closed"')
+                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestReOpenRMEEscalation(rmeEscalation.name)' ng-disabled='submittingRequest') Request Re-Open

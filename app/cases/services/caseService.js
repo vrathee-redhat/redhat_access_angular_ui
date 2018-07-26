@@ -73,6 +73,7 @@ export default class CaseService {
         this.externalCaseCreateKey;
         this.loggedInAccountUsers = [];
         this.managedAccountUsers = [];
+        this.caseRMEEscalation = [];
         this.internalStatuses= [
             "Unassigned",
             "Waiting on Customer",
@@ -327,6 +328,7 @@ export default class CaseService {
             this.updatingNewCaseDescription = false;
             this.virtualOwner = undefined;
             this.isOpenShiftOnlineProduct = false;
+            this.caseRMEEscalation = [];
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
@@ -1084,5 +1086,27 @@ export default class CaseService {
         this.setCreationStartedEventSent = function (flag) {
             this.creationStartedEventSent = flag;
         };
+
+        this.getCaseEscalation = async function(accountNumber, caseNumber) {
+            try {
+                if (RHAUtils.isNotEmpty(caseNumber) && RHAUtils.isNotEmpty(accountNumber)) {
+                    const options = {caseNumber,accountNumber};
+                    const escalations = await hydrajs.escalations.getEscalations(options);
+                    if (escalations && escalations.length >= 0) {
+                        const rmeEscalation = _.filter(escalations, (es) => es && es.escalationSource === 'RME Escalation');
+                        if (rmeEscalation && rmeEscalation.length >= 0) {
+                            let allEscalation = _.concat(this.caseRMEEscalation, rmeEscalation);
+                            this.caseRMEEscalation = _.without(_.uniqBy(allEscalation, (es) => es && es.name), null, undefined);
+                        }
+                    }
+                } else {
+                    this.caseRMEEscalation = [];
+                }
+            } catch (error) {
+                this.caseRMEEscalation = [];
+                console.log('error getting case escalation' + error);
+            }
+
+        }
     }
 }

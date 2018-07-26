@@ -7,7 +7,7 @@
 		exports["hydrajs"] = factory();
 	else
 		root["hydrajs"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -241,17 +241,6 @@ function getToken() {
 function responseHandler(response, dataType) {
     if (response.status === 204) {
         return null;
-    }
-    else if (response.status === 401) {
-        if (window.app) {
-            if (window.sessionjs && window.sessionjs.reportProblem) {
-                window.sessionjs.reportProblem('received 401 from a hydra rest call', {
-                    tags: {
-                        portal_app: window.app
-                    }
-                });
-            }
-        }
     }
     else if (response.status === 200 || response.status === 201) {
         return response.clone().text().then(function (body) {
@@ -1344,7 +1333,8 @@ exports.default = {
     },
     escalations: {
         getEscalations: escalation_1.getEscalations,
-        createIceEscalation: escalation_1.createIceEscalation
+        createIceEscalation: escalation_1.createIceEscalation,
+        updateEscalations: escalation_1.updateEscalations
     },
     userManagement: {
         createRole: roles_1.createRole,
@@ -2110,9 +2100,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
    * export via AMD or CommonJS, otherwise leak a global
    */
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+    !(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
       return Uri;
-    }).call(exports, __webpack_require__, exports, module),
+    }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   } else if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = Uri;
@@ -2791,6 +2781,11 @@ function createIceEscalation(escalation) {
     return fetch_1.postUri(uri, escalation);
 }
 exports.createIceEscalation = createIceEscalation;
+function updateEscalations(escalationName, escalation) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/escalations/" + escalationName + "/comments");
+    return fetch_1.postUri(uri, escalation);
+}
+exports.updateEscalations = updateEscalations;
 
 
 /***/ }),
