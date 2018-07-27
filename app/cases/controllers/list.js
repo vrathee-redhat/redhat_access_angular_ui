@@ -21,7 +21,6 @@ export default class List {
 
         $rootScope.$on('$locationChangeSuccess', function() {
             if($location.path() === '/case/list') {
-                console.log('detected');
                 CaseService.populateGroups(securityService.loginStatus.authedUser.sso_username, true);
             }
         });
