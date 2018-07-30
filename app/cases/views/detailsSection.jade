@@ -138,14 +138,15 @@ section.case-description
                         .label {{::'24x7 Support'|translate}}
                     .col-xs-4.col-sm-5.col-md-6
                         input(ng-model="CaseService.kase.fts",
+                        ng-disabled="!CaseService.isFtsEditable()",
                         type="checkbox",
                         name="ftsCheckbox")
                 .row.row-short(ng-show="CaseService.showFts() && CaseService.kase.fts")
                     .col-xs-4.col-sm-3.col-md-4
                         .label {{::'24x7 Contact'|translate}}
                     .col-xs-4.col-sm-5.col-md-6
-                        input(
-                        ng-model="CaseService.kase.contact_info24_x7")
+                        input(ng-model="CaseService.kase.contact_info24_x7",
+                        ng-disabled="!CaseService.isFtsEditable()")
                 .row
                     .col-sm-12
                         button.btn.btn-app.btn-submit(
