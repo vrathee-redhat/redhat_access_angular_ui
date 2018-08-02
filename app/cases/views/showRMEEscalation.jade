@@ -14,9 +14,11 @@ uib-accordion
         dd.reset {{rmeEscalation.subject}}
     .escalation-actions
         .row
-            .col-sm-6(ng-show='rmeEscalation.status !== "Closed"')
-                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestUpdateRMEEscalation(rmeEscalation.name)' ng-disabled='submittingRequest') Request Update
-            .col-sm-6(ng-show='rmeEscalation.status !== "Closed"')
-                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestClosureRMEEscalation(rmeEscalation.name)' ng-disabled='submittingRequest') Request Closure
-            .col-sm-12(ng-show='rmeEscalation.status === "Closed"')
-                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestReOpenRMEEscalation(rmeEscalation.name)' ng-disabled='submittingRequest') Request Re-Open
+            .col-sm-6(ng-show='rmeEscalation.status !== "Closed" && !submittingRequest')
+                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestUpdateRMEEscalation(rmeEscalation.name)') Request Update
+            .col-sm-6(ng-show='rmeEscalation.status !== "Closed" && !submittingRequest')
+                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestClosureRMEEscalation(rmeEscalation.name)') Request Closure
+            .col-sm-12(ng-show='rmeEscalation.status === "Closed" && !submittingRequest')
+                a.btn.btn-app.btn-open-white.btn-block(ng-click='requestReOpenRMEEscalation(rmeEscalation.name)') Request Re-Open
+            .col-sm-12.text-center
+                span.spinner.spinner-inline(ng-show='submittingRequest')
