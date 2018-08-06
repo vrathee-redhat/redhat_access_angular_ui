@@ -339,6 +339,7 @@ export default class CaseService {
                 if (username === undefined) {
                     this.groups=[];
                     this.buildGroupOptions();
+                    this.groupsLoading = false;
                     deferred.resolve(this.groups)
                 } else {
                     strataService.groups.list(username, flushCache).then(angular.bind(this, function (groups) {
