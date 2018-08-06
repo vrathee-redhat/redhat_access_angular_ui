@@ -187,7 +187,7 @@ div(rha-header='', page='newCase')
                             label(translate,translate-comment="Noun" ng-if="$parent.caseGroupRequired") Case Group (Mandatory)
                                 span &nbsp;
                                 span(ng-if="$parent.caseGroupRequired").glyphicon.glyphicon-info-sign.link(uib-tooltip-html='"<div><span>{{"Selecting a case group is mandatory for case creation, if there are no groups assigned to you. Please contact your Org admin" | translate }}</span></div>"',tabindex='0',tooltip-trigger="focus")
-                            div(rha-groupselect='', ng-init="$parent.setSearchOptions('false')")
+                            div(rha-groupselect='', ng-init="$parent.setSearchOptions(false)")
                         .row.submit
                             //- TODO make remove local storage once implemented
                             .col-sm-12
