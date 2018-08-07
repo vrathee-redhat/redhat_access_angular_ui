@@ -639,18 +639,25 @@ export default class CaseService {
 
 
         this.showFts = function () {
-            var showFtsCheckbox = false;
+            if (RHAUtils.isNotEmpty(this.kase.severity) && (this.kase.severity.name.charAt(0) === '1' || this.kase.severity.name.charAt(0) === '2')) {
+                return true;
+            }
+            return false;
+        };
+
+        this.isFtsEditable = () => {
+            var canEditFts = false;
             if (RHAUtils.isNotEmpty(this.severities)) {
                 if (this.entitlements !== undefined && this.entitlements.length === 1) {
                     if (this.entitlements[0] === 'PREMIUM' || this.entitlements[0] === 'AMC' || this.entitlements[0] === 'PREMIUMPLUS' || this.entitlements[0] === 'PREMIUM PLUS') {
-                        showFtsCheckbox = true;
+                        canEditFts = true;
                     }
                 } else if (this.entitlement === 'PREMIUM' || this.entitlement === 'AMC' || this.entitlement === 'PREMIUMPLUS' || this.entitlement === 'PREMIUM PLUS') {
-                    showFtsCheckbox = true;
+                    canEditFts = true;
                 } else if (RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC' || this.kase.entitlement.sla === 'PREMIUMPLUS' || this.kase.entitlement.sla === 'PREMIUM PLUS')) {
-                    showFtsCheckbox = true;
+                    canEditFts = true;
                 }
-                if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
+                if ((canEditFts === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
                     return true;
                 } else {
                     return false;
@@ -658,6 +665,7 @@ export default class CaseService {
             }
             return false;
         };
+
         this.newCaseIncomplete = true;
         this.validateNewCase = function () {
             if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary)
