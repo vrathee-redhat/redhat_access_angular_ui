@@ -180,17 +180,15 @@ describe('Case Services', function () {
                 { 'name': '3 (Normal)' },
                 { 'name': '4 (Low)' }
             ];
-            // Show the FTS flag for sev 1 premium case
+            // Show the FTS flag for sev 1 or sev 2 cases
             caseService.kase.severity = { 'name': '1 (Urgent)' };
-            caseService.kase.entitlement = {};
-            caseService.kase.entitlement.sla = 'PREMIUM';
             fts = caseService.showFts();
             expect(fts).toBe(true);
             caseService.onChangeFTSCheck();
             expect(caseService.fts).toBe(true);
             expect(caseService.kase.fts).toBe(true);
-            // Hide the FTS flag for non premium case
-            caseService.kase.entitlement.sla = 'STANDARD';
+            // Hide the FTS flag for non sev1 & sev2 cases
+            caseService.kase.severity = { 'name': '3 (Normal)' };
             fts = caseService.showFts();
             expect(fts).toBe(false);
         });
