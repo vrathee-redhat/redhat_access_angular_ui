@@ -7,7 +7,7 @@
 		exports["hydrajs"] = factory();
 	else
 		root["hydrajs"] = factory();
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -166,6 +166,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Since we aren't transpiling to babel can't use ES6 imports here.  Also we can't specify the Response and Request
 // types for fetch since A) They happen automatically with import which we can't use and B) the reference paths would
 // be different in downstream apps
+__webpack_require__(13);
 var env_1 = __webpack_require__(0);
 function errorHandler(response) {
     return response.text().then(function (body) {
@@ -1049,60 +1050,60 @@ exports.getProductFields = getProductFields;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var insights_1 = __webpack_require__(9);
-var roleMetadata_1 = __webpack_require__(13);
-var testClass_1 = __webpack_require__(14);
-var general_1 = __webpack_require__(15);
-var kyce_1 = __webpack_require__(16);
-var businessHours_1 = __webpack_require__(17);
-var tags_1 = __webpack_require__(18);
-var brms_1 = __webpack_require__(19);
+var roleMetadata_1 = __webpack_require__(15);
+var testClass_1 = __webpack_require__(16);
+var general_1 = __webpack_require__(17);
+var kyce_1 = __webpack_require__(18);
+var businessHours_1 = __webpack_require__(19);
+var tags_1 = __webpack_require__(20);
+var brms_1 = __webpack_require__(21);
 var user_1 = __webpack_require__(2);
 var contact_1 = __webpack_require__(3);
-var case_1 = __webpack_require__(20);
+var case_1 = __webpack_require__(22);
 var caseGroup_1 = __webpack_require__(4);
-var bomgar_1 = __webpack_require__(23);
-var caseHistory_1 = __webpack_require__(24);
-var escalation_1 = __webpack_require__(25);
-var chat_1 = __webpack_require__(26);
+var bomgar_1 = __webpack_require__(25);
+var caseHistory_1 = __webpack_require__(26);
+var escalation_1 = __webpack_require__(27);
+var chat_1 = __webpack_require__(28);
 var bugzilla_1 = __webpack_require__(5);
 var product_1 = __webpack_require__(7);
-var externalTracker_1 = __webpack_require__(27);
-var view_1 = __webpack_require__(28);
-var account_1 = __webpack_require__(29);
-var comment_1 = __webpack_require__(30);
-var user_2 = __webpack_require__(31);
-var kcs_1 = __webpack_require__(32);
-var case_2 = __webpack_require__(33);
-var attachment_1 = __webpack_require__(34);
-var shiftMetadata_1 = __webpack_require__(35);
-var templateMetadata_1 = __webpack_require__(36);
-var vendorProduct_1 = __webpack_require__(37);
-var certification_1 = __webpack_require__(38);
-var hive_1 = __webpack_require__(39);
-var certificationTest_1 = __webpack_require__(40);
-var userShifts_1 = __webpack_require__(41);
-var groupMetadata_1 = __webpack_require__(42);
-var counts_1 = __webpack_require__(43);
-var review_1 = __webpack_require__(44);
-var products_1 = __webpack_require__(45);
-var sbrs_1 = __webpack_require__(46);
-var externalTrackers_1 = __webpack_require__(47);
-var solr_1 = __webpack_require__(48);
-var account_2 = __webpack_require__(49);
-var callCenters_1 = __webpack_require__(50);
-var commentFeedback_1 = __webpack_require__(51);
-var roles_1 = __webpack_require__(52);
-var vocabulary_1 = __webpack_require__(53);
-var maintenance_1 = __webpack_require__(54);
+var externalTracker_1 = __webpack_require__(29);
+var view_1 = __webpack_require__(30);
+var account_1 = __webpack_require__(31);
+var comment_1 = __webpack_require__(32);
+var user_2 = __webpack_require__(33);
+var kcs_1 = __webpack_require__(34);
+var case_2 = __webpack_require__(35);
+var attachment_1 = __webpack_require__(36);
+var shiftMetadata_1 = __webpack_require__(37);
+var templateMetadata_1 = __webpack_require__(38);
+var vendorProduct_1 = __webpack_require__(39);
+var certification_1 = __webpack_require__(40);
+var hive_1 = __webpack_require__(41);
+var certificationTest_1 = __webpack_require__(42);
+var userShifts_1 = __webpack_require__(43);
+var groupMetadata_1 = __webpack_require__(44);
+var counts_1 = __webpack_require__(45);
+var review_1 = __webpack_require__(46);
+var products_1 = __webpack_require__(47);
+var sbrs_1 = __webpack_require__(48);
+var externalTrackers_1 = __webpack_require__(49);
+var solr_1 = __webpack_require__(50);
+var account_2 = __webpack_require__(51);
+var callCenters_1 = __webpack_require__(52);
+var commentFeedback_1 = __webpack_require__(53);
+var roles_1 = __webpack_require__(54);
+var vocabulary_1 = __webpack_require__(55);
+var maintenance_1 = __webpack_require__(56);
 var account_3 = __webpack_require__(6);
-var comment_2 = __webpack_require__(55);
-var metadata_1 = __webpack_require__(56);
-var successPlan_1 = __webpack_require__(57);
-var account_4 = __webpack_require__(58);
-var product_2 = __webpack_require__(59);
-var cta_1 = __webpack_require__(60);
-var timeline_1 = __webpack_require__(61);
-var contact_2 = __webpack_require__(62);
+var comment_2 = __webpack_require__(57);
+var metadata_1 = __webpack_require__(58);
+var successPlan_1 = __webpack_require__(59);
+var account_4 = __webpack_require__(60);
+var product_2 = __webpack_require__(61);
+var cta_1 = __webpack_require__(62);
+var timeline_1 = __webpack_require__(63);
+var contact_2 = __webpack_require__(64);
 var fetch_1 = __webpack_require__(1);
 exports.default = {
     general: {
@@ -2100,9 +2101,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
    * export via AMD or CommonJS, otherwise leak a global
    */
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
       return Uri;
-    }.call(exports, __webpack_require__, exports, module),
+    }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   } else if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = Uri;
@@ -2125,6 +2126,490 @@ module.exports = function _btoa(str) {
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// the whatwg-fetch polyfill installs the fetch() function
+// on the global object (window or self)
+//
+// Return that as the export for use in Webpack, Browserify etc.
+__webpack_require__(14);
+module.exports = self.fetch.bind(self);
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+(function(self) {
+  'use strict';
+
+  if (self.fetch) {
+    return
+  }
+
+  var support = {
+    searchParams: 'URLSearchParams' in self,
+    iterable: 'Symbol' in self && 'iterator' in Symbol,
+    blob: 'FileReader' in self && 'Blob' in self && (function() {
+      try {
+        new Blob()
+        return true
+      } catch(e) {
+        return false
+      }
+    })(),
+    formData: 'FormData' in self,
+    arrayBuffer: 'ArrayBuffer' in self
+  }
+
+  if (support.arrayBuffer) {
+    var viewClasses = [
+      '[object Int8Array]',
+      '[object Uint8Array]',
+      '[object Uint8ClampedArray]',
+      '[object Int16Array]',
+      '[object Uint16Array]',
+      '[object Int32Array]',
+      '[object Uint32Array]',
+      '[object Float32Array]',
+      '[object Float64Array]'
+    ]
+
+    var isDataView = function(obj) {
+      return obj && DataView.prototype.isPrototypeOf(obj)
+    }
+
+    var isArrayBufferView = ArrayBuffer.isView || function(obj) {
+      return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+    }
+  }
+
+  function normalizeName(name) {
+    if (typeof name !== 'string') {
+      name = String(name)
+    }
+    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+      throw new TypeError('Invalid character in header field name')
+    }
+    return name.toLowerCase()
+  }
+
+  function normalizeValue(value) {
+    if (typeof value !== 'string') {
+      value = String(value)
+    }
+    return value
+  }
+
+  // Build a destructive iterator for the value list
+  function iteratorFor(items) {
+    var iterator = {
+      next: function() {
+        var value = items.shift()
+        return {done: value === undefined, value: value}
+      }
+    }
+
+    if (support.iterable) {
+      iterator[Symbol.iterator] = function() {
+        return iterator
+      }
+    }
+
+    return iterator
+  }
+
+  function Headers(headers) {
+    this.map = {}
+
+    if (headers instanceof Headers) {
+      headers.forEach(function(value, name) {
+        this.append(name, value)
+      }, this)
+    } else if (Array.isArray(headers)) {
+      headers.forEach(function(header) {
+        this.append(header[0], header[1])
+      }, this)
+    } else if (headers) {
+      Object.getOwnPropertyNames(headers).forEach(function(name) {
+        this.append(name, headers[name])
+      }, this)
+    }
+  }
+
+  Headers.prototype.append = function(name, value) {
+    name = normalizeName(name)
+    value = normalizeValue(value)
+    var oldValue = this.map[name]
+    this.map[name] = oldValue ? oldValue+','+value : value
+  }
+
+  Headers.prototype['delete'] = function(name) {
+    delete this.map[normalizeName(name)]
+  }
+
+  Headers.prototype.get = function(name) {
+    name = normalizeName(name)
+    return this.has(name) ? this.map[name] : null
+  }
+
+  Headers.prototype.has = function(name) {
+    return this.map.hasOwnProperty(normalizeName(name))
+  }
+
+  Headers.prototype.set = function(name, value) {
+    this.map[normalizeName(name)] = normalizeValue(value)
+  }
+
+  Headers.prototype.forEach = function(callback, thisArg) {
+    for (var name in this.map) {
+      if (this.map.hasOwnProperty(name)) {
+        callback.call(thisArg, this.map[name], name, this)
+      }
+    }
+  }
+
+  Headers.prototype.keys = function() {
+    var items = []
+    this.forEach(function(value, name) { items.push(name) })
+    return iteratorFor(items)
+  }
+
+  Headers.prototype.values = function() {
+    var items = []
+    this.forEach(function(value) { items.push(value) })
+    return iteratorFor(items)
+  }
+
+  Headers.prototype.entries = function() {
+    var items = []
+    this.forEach(function(value, name) { items.push([name, value]) })
+    return iteratorFor(items)
+  }
+
+  if (support.iterable) {
+    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+  }
+
+  function consumed(body) {
+    if (body.bodyUsed) {
+      return Promise.reject(new TypeError('Already read'))
+    }
+    body.bodyUsed = true
+  }
+
+  function fileReaderReady(reader) {
+    return new Promise(function(resolve, reject) {
+      reader.onload = function() {
+        resolve(reader.result)
+      }
+      reader.onerror = function() {
+        reject(reader.error)
+      }
+    })
+  }
+
+  function readBlobAsArrayBuffer(blob) {
+    var reader = new FileReader()
+    var promise = fileReaderReady(reader)
+    reader.readAsArrayBuffer(blob)
+    return promise
+  }
+
+  function readBlobAsText(blob) {
+    var reader = new FileReader()
+    var promise = fileReaderReady(reader)
+    reader.readAsText(blob)
+    return promise
+  }
+
+  function readArrayBufferAsText(buf) {
+    var view = new Uint8Array(buf)
+    var chars = new Array(view.length)
+
+    for (var i = 0; i < view.length; i++) {
+      chars[i] = String.fromCharCode(view[i])
+    }
+    return chars.join('')
+  }
+
+  function bufferClone(buf) {
+    if (buf.slice) {
+      return buf.slice(0)
+    } else {
+      var view = new Uint8Array(buf.byteLength)
+      view.set(new Uint8Array(buf))
+      return view.buffer
+    }
+  }
+
+  function Body() {
+    this.bodyUsed = false
+
+    this._initBody = function(body) {
+      this._bodyInit = body
+      if (!body) {
+        this._bodyText = ''
+      } else if (typeof body === 'string') {
+        this._bodyText = body
+      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+        this._bodyBlob = body
+      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+        this._bodyFormData = body
+      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+        this._bodyText = body.toString()
+      } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+        this._bodyArrayBuffer = bufferClone(body.buffer)
+        // IE 10-11 can't handle a DataView body.
+        this._bodyInit = new Blob([this._bodyArrayBuffer])
+      } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+        this._bodyArrayBuffer = bufferClone(body)
+      } else {
+        throw new Error('unsupported BodyInit type')
+      }
+
+      if (!this.headers.get('content-type')) {
+        if (typeof body === 'string') {
+          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+        } else if (this._bodyBlob && this._bodyBlob.type) {
+          this.headers.set('content-type', this._bodyBlob.type)
+        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+        }
+      }
+    }
+
+    if (support.blob) {
+      this.blob = function() {
+        var rejected = consumed(this)
+        if (rejected) {
+          return rejected
+        }
+
+        if (this._bodyBlob) {
+          return Promise.resolve(this._bodyBlob)
+        } else if (this._bodyArrayBuffer) {
+          return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+        } else if (this._bodyFormData) {
+          throw new Error('could not read FormData body as blob')
+        } else {
+          return Promise.resolve(new Blob([this._bodyText]))
+        }
+      }
+
+      this.arrayBuffer = function() {
+        if (this._bodyArrayBuffer) {
+          return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
+        } else {
+          return this.blob().then(readBlobAsArrayBuffer)
+        }
+      }
+    }
+
+    this.text = function() {
+      var rejected = consumed(this)
+      if (rejected) {
+        return rejected
+      }
+
+      if (this._bodyBlob) {
+        return readBlobAsText(this._bodyBlob)
+      } else if (this._bodyArrayBuffer) {
+        return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+      } else if (this._bodyFormData) {
+        throw new Error('could not read FormData body as text')
+      } else {
+        return Promise.resolve(this._bodyText)
+      }
+    }
+
+    if (support.formData) {
+      this.formData = function() {
+        return this.text().then(decode)
+      }
+    }
+
+    this.json = function() {
+      return this.text().then(JSON.parse)
+    }
+
+    return this
+  }
+
+  // HTTP methods whose capitalization should be normalized
+  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+  function normalizeMethod(method) {
+    var upcased = method.toUpperCase()
+    return (methods.indexOf(upcased) > -1) ? upcased : method
+  }
+
+  function Request(input, options) {
+    options = options || {}
+    var body = options.body
+
+    if (input instanceof Request) {
+      if (input.bodyUsed) {
+        throw new TypeError('Already read')
+      }
+      this.url = input.url
+      this.credentials = input.credentials
+      if (!options.headers) {
+        this.headers = new Headers(input.headers)
+      }
+      this.method = input.method
+      this.mode = input.mode
+      if (!body && input._bodyInit != null) {
+        body = input._bodyInit
+        input.bodyUsed = true
+      }
+    } else {
+      this.url = String(input)
+    }
+
+    this.credentials = options.credentials || this.credentials || 'omit'
+    if (options.headers || !this.headers) {
+      this.headers = new Headers(options.headers)
+    }
+    this.method = normalizeMethod(options.method || this.method || 'GET')
+    this.mode = options.mode || this.mode || null
+    this.referrer = null
+
+    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+      throw new TypeError('Body not allowed for GET or HEAD requests')
+    }
+    this._initBody(body)
+  }
+
+  Request.prototype.clone = function() {
+    return new Request(this, { body: this._bodyInit })
+  }
+
+  function decode(body) {
+    var form = new FormData()
+    body.trim().split('&').forEach(function(bytes) {
+      if (bytes) {
+        var split = bytes.split('=')
+        var name = split.shift().replace(/\+/g, ' ')
+        var value = split.join('=').replace(/\+/g, ' ')
+        form.append(decodeURIComponent(name), decodeURIComponent(value))
+      }
+    })
+    return form
+  }
+
+  function parseHeaders(rawHeaders) {
+    var headers = new Headers()
+    // Replace instances of \r\n and \n followed by at least one space or horizontal tab with a space
+    // https://tools.ietf.org/html/rfc7230#section-3.2
+    var preProcessedHeaders = rawHeaders.replace(/\r?\n[\t ]+/g, ' ')
+    preProcessedHeaders.split(/\r?\n/).forEach(function(line) {
+      var parts = line.split(':')
+      var key = parts.shift().trim()
+      if (key) {
+        var value = parts.join(':').trim()
+        headers.append(key, value)
+      }
+    })
+    return headers
+  }
+
+  Body.call(Request.prototype)
+
+  function Response(bodyInit, options) {
+    if (!options) {
+      options = {}
+    }
+
+    this.type = 'default'
+    this.status = options.status === undefined ? 200 : options.status
+    this.ok = this.status >= 200 && this.status < 300
+    this.statusText = 'statusText' in options ? options.statusText : 'OK'
+    this.headers = new Headers(options.headers)
+    this.url = options.url || ''
+    this._initBody(bodyInit)
+  }
+
+  Body.call(Response.prototype)
+
+  Response.prototype.clone = function() {
+    return new Response(this._bodyInit, {
+      status: this.status,
+      statusText: this.statusText,
+      headers: new Headers(this.headers),
+      url: this.url
+    })
+  }
+
+  Response.error = function() {
+    var response = new Response(null, {status: 0, statusText: ''})
+    response.type = 'error'
+    return response
+  }
+
+  var redirectStatuses = [301, 302, 303, 307, 308]
+
+  Response.redirect = function(url, status) {
+    if (redirectStatuses.indexOf(status) === -1) {
+      throw new RangeError('Invalid status code')
+    }
+
+    return new Response(null, {status: status, headers: {location: url}})
+  }
+
+  self.Headers = Headers
+  self.Request = Request
+  self.Response = Response
+
+  self.fetch = function(input, init) {
+    return new Promise(function(resolve, reject) {
+      var request = new Request(input, init)
+      var xhr = new XMLHttpRequest()
+
+      xhr.onload = function() {
+        var options = {
+          status: xhr.status,
+          statusText: xhr.statusText,
+          headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+        }
+        options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL')
+        var body = 'response' in xhr ? xhr.response : xhr.responseText
+        resolve(new Response(body, options))
+      }
+
+      xhr.onerror = function() {
+        reject(new TypeError('Network request failed'))
+      }
+
+      xhr.ontimeout = function() {
+        reject(new TypeError('Network request failed'))
+      }
+
+      xhr.open(request.method, request.url, true)
+
+      if (request.credentials === 'include') {
+        xhr.withCredentials = true
+      } else if (request.credentials === 'omit') {
+        xhr.withCredentials = false
+      }
+
+      if ('responseType' in xhr && support.blob) {
+        xhr.responseType = 'blob'
+      }
+
+      request.headers.forEach(function(value, name) {
+        xhr.setRequestHeader(name, value)
+      })
+
+      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+    })
+  }
+  self.fetch.polyfill = true
+})(typeof self !== 'undefined' ? self : this);
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2138,7 +2623,7 @@ exports.getAllRoleMetadatas = getAllRoleMetadatas;
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2159,7 +2644,7 @@ exports.getTestClasses = getTestClasses;
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2179,7 +2664,7 @@ exports.hostname = hostname;
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2200,7 +2685,7 @@ exports.runKyce = runKyce;
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2217,7 +2702,7 @@ exports.getBusinessHours = getBusinessHours;
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2239,7 +2724,7 @@ exports.getTags = getTags;
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2255,7 +2740,7 @@ exports.getBrmsResponse = getBrmsResponse;
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2266,9 +2751,9 @@ var contact_1 = __webpack_require__(3);
 var caseGroup_1 = __webpack_require__(4);
 var bugzilla_1 = __webpack_require__(5);
 var account_1 = __webpack_require__(6);
-var entitlement_1 = __webpack_require__(21);
+var entitlement_1 = __webpack_require__(23);
 var product_1 = __webpack_require__(7);
-var recordType_1 = __webpack_require__(22);
+var recordType_1 = __webpack_require__(24);
 function getCaseFields(options) {
     var finalFields = [];
     var caseFields = [
@@ -2577,7 +3062,7 @@ exports.getCaseFields = getCaseFields;
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2652,7 +3137,7 @@ exports.getEntitlementFields = getEntitlementFields;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2670,7 +3155,7 @@ exports.getRecordTypeFields = getRecordTypeFields;
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2731,7 +3216,7 @@ exports.getCaseBomgarSessionFields = getCaseBomgarSessionFields;
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2757,7 +3242,7 @@ exports.getHistory = getHistory;
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2789,7 +3274,7 @@ exports.updateEscalations = updateEscalations;
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2862,7 +3347,7 @@ exports.getLiveChatTranscriptFields = getLiveChatTranscriptFields;
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2933,7 +3418,7 @@ exports.getExternalTrackerFields = getExternalTrackerFields;
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3033,7 +3518,7 @@ function paramValid(param) {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3049,7 +3534,7 @@ exports.getAccounts = getAccounts;
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3113,7 +3598,7 @@ exports.getChatterComments = getChatterComments;
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3215,7 +3700,7 @@ exports.getAllRoleTemplates = getAllRoleTemplates;
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3261,7 +3746,7 @@ exports.getResources = getResources;
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3591,7 +4076,7 @@ exports.getCasesFromSoql = getCasesFromSoql;
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3614,7 +4099,7 @@ exports.getAttachments = getAttachments;
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3645,7 +4130,7 @@ exports.deleteShiftMetadata = deleteShiftMetadata;
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3671,7 +4156,7 @@ exports.postCustomTemplateForUser = postCustomTemplateForUser;
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3697,7 +4182,7 @@ exports.updateOpenStackVendorProduct = updateOpenStackVendorProduct;
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3770,7 +4255,7 @@ exports.getCaseNumberFromPortalId = getCaseNumberFromPortalId;
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3857,7 +4342,7 @@ exports.getPlatforms = getPlatforms;
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3913,7 +4398,7 @@ exports.updateSubTestStatus = updateSubTestStatus;
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3954,7 +4439,7 @@ exports.deleteShiftForUsers = deleteShiftForUsers;
 
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3990,7 +4475,7 @@ exports.deleteGroupByGroupId = deleteGroupByGroupId;
 
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4093,7 +4578,7 @@ exports.testResult = testResult;
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4136,7 +4621,7 @@ exports.createReview = createReview;
 
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4163,7 +4648,7 @@ exports.getProductVersions = getProductVersions;
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4189,7 +4674,7 @@ exports.getSbrs = getSbrs;
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4216,7 +4701,7 @@ exports.getExternalTrackersUpdates = getExternalTrackersUpdates;
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4285,7 +4770,7 @@ exports.getSolrCases = getSolrCases;
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4341,7 +4826,7 @@ exports.getContactDetailBySso = getContactDetailBySso;
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4362,7 +4847,7 @@ exports.getCallCenter = getCallCenter;
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4388,7 +4873,7 @@ exports.getCommentFeedback = getCommentFeedback;
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4414,7 +4899,7 @@ exports.deleteRole = deleteRole;
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4450,7 +4935,7 @@ exports.getVocabularyComponents = getVocabularyComponents;
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4467,7 +4952,7 @@ exports.getMaintenanceMode = getMaintenanceMode;
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4608,7 +5093,7 @@ exports.getCaseCommentFields = getCaseCommentFields;
 
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4624,7 +5109,7 @@ exports.getMetadata = getMetadata;
 
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4731,7 +5216,7 @@ exports.removeObjectiveStakeholder = removeObjectiveStakeholder;
 
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4768,7 +5253,7 @@ exports.getEntitlementCount = getEntitlementCount;
 
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4784,7 +5269,7 @@ exports.getProductsForAccount = getProductsForAccount;
 
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4895,7 +5380,7 @@ exports.deleteCtaComment = deleteCtaComment;
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4936,7 +5421,7 @@ exports.deleteTimelineActivity = deleteTimelineActivity;
 
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
