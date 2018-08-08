@@ -13,7 +13,7 @@ export default class ShowRmeEscalation {
         $scope.requestUpdateRMEEscalation = function (escalationName) {
             $scope.submittingRequest = true;
             const message = 'Escalation update requested. You will receive an update from a manager shortly.';
-            var comment = `${$scope.escalationMessage}\n ${message}`;
+            const comment = `${$scope.escalationMessage}\n ${message}`;
             const updateJson = {
                 escalationName: escalationName,
                 isPrivate: false,
@@ -34,7 +34,7 @@ export default class ShowRmeEscalation {
         $scope.requestReOpenRMEEscalation = function (escalationName) {
             $scope.submittingRequest = true;
             const message = 'Escalation reopened. A manager will review your request shortly.';
-            var comment = `${$scope.escalationMessage}\n ${message}`;
+            const comment = `${$scope.escalationMessage}\n ${message}`;
             const updateJson = {
                 escalationName: escalationName,
                 isPrivate: false,
@@ -55,7 +55,7 @@ export default class ShowRmeEscalation {
         $scope.requestClosureRMEEscalation = function (escalationName) {
             $scope.submittingRequest = true;
             const message = 'Escalation closed.';
-            var comment = `${$scope.escalationMessage}\n ${message}`;
+            const comment = `${$scope.escalationMessage}\n ${message}`;
             const updateJson = {
                 escalationName: escalationName,
                 isPrivate: false,
