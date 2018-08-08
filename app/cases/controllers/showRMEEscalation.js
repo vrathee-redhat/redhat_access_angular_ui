@@ -8,10 +8,12 @@ export default class ShowRmeEscalation {
 
         $scope.CaseService = CaseService;
         $scope.submittingRequest = false;
+        $scope.escalationMessage = 'Request Management Escalation:';
 
         $scope.requestUpdateRMEEscalation = function (escalationName) {
             $scope.submittingRequest = true;
-            var comment = `Request Management Escalation:\n Your update Escalation request submitted successfully`;
+            const message = 'Escalation update requested. You will receive an update from a manager shortly.';
+            const comment = `${$scope.escalationMessage}\n ${message}`;
             const updateJson = {
                 escalationName: escalationName,
                 isPrivate: false,
@@ -22,7 +24,7 @@ export default class ShowRmeEscalation {
             };
             hydrajs.escalations.updateEscalations(escalationName, updateJson).then((updatedInfo) => {
                 if (RHAUtils.isNotEmpty(updatedInfo)) {
-                    $scope.submitEscalationComment(updatedInfo.escalationName, comment);
+                    $scope.submitEscalationComment(updatedInfo.escalationName, comment, message);
                 }
             }, (error) => {
                 $scope.showErrorMessage(error);
@@ -31,7 +33,8 @@ export default class ShowRmeEscalation {
 
         $scope.requestReOpenRMEEscalation = function (escalationName) {
             $scope.submittingRequest = true;
-            var comment = `Request Management Escalation:\n Your re-open Escalation request submitted successfully`;
+            const message = 'Escalation reopened. A manager will review your request shortly.';
+            const comment = `${$scope.escalationMessage}\n ${message}`;
             const updateJson = {
                 escalationName: escalationName,
                 isPrivate: false,
@@ -42,7 +45,7 @@ export default class ShowRmeEscalation {
             };
             hydrajs.escalations.updateEscalations(escalationName, updateJson).then((updatedInfo) => {
                 if (RHAUtils.isNotEmpty(updatedInfo)) {
-                    $scope.submitEscalationComment(updatedInfo.escalationName, comment);
+                    $scope.submitEscalationComment(updatedInfo.escalationName, comment, message);
                 }
             }, (error) => {
                 $scope.showErrorMessage(error);
@@ -51,7 +54,8 @@ export default class ShowRmeEscalation {
 
         $scope.requestClosureRMEEscalation = function (escalationName) {
             $scope.submittingRequest = true;
-            var comment = `Request Management Escalation:\n Your close Escalation request submitted successfully`;
+            const message = 'Escalation closed.';
+            const comment = `${$scope.escalationMessage}\n ${message}`;
             const updateJson = {
                 escalationName: escalationName,
                 isPrivate: false,
@@ -62,7 +66,7 @@ export default class ShowRmeEscalation {
             };
             hydrajs.escalations.updateEscalations(escalationName, updateJson).then((updatedInfo) => {
                 if (RHAUtils.isNotEmpty(updatedInfo)) {
-                    $scope.submitEscalationComment(updatedInfo.escalationName, comment);
+                    $scope.submitEscalationComment(updatedInfo.escalationName, comment, message);
                 }
             }, (error) => {
                 $scope.showErrorMessage(error);
@@ -75,7 +79,7 @@ export default class ShowRmeEscalation {
             AlertService.addStrataErrorMessage(errorMessage);
         };
 
-        $scope.submitEscalationComment = function (escalationNum, comment) {
+        $scope.submitEscalationComment = function (escalationNum, comment, alertMessage) {
             if (escalationNum !== undefined) {     
                 CaseService.getCaseEscalation(CaseService.kase.account_number, CaseService.kase.case_number);
             }
@@ -86,7 +90,7 @@ export default class ShowRmeEscalation {
                     CaseService.checkForCaseStatusToggleOnAttachOrComment();
                     if (escalationNum !== undefined) {
                         AlertService.clearAlerts();
-                        AlertService.addSuccessMessage(gettextCatalog.getString('Your Escalation request has been updated successfully'));
+                        AlertService.addSuccessMessage(gettextCatalog.getString(alertMessage));
                         $scope.submittingRequest = false;
                     }
                 },
