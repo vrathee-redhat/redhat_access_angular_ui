@@ -153,12 +153,12 @@ div(rha-header='', page='newCase')
                                 ng-disabled='$parent.canCreateCaseForOtherAccounts() ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla')
                                 span &nbsp;
                                 span.glyphicon.glyphicon-info-sign.text-danger(ng-show="$parent.canCreateCaseForOtherAccounts() ? !$parent.CaseService.account.has_available_enhanced_sla : !$parent.securityService.loginStatus.authedUser.account.has_available_enhanced_sla" uib-tooltip="{{$parent.noEnhancedSLAMessage}}")
-                            div(ng-show="$parent.CaseService.showFts()")
+                            div(ng-show="$parent.CaseService.showFtsOnCreatePage()")
                                 label#rha-24X7_Support(translate,translate-comment="Noun") 24x7 Support
                                 input(
                                 type="checkbox",
                                 ng-model="$parent.CaseService.fts")
-                            div(ng-show="$parent.CaseService.showFts()")
+                            div(ng-show="$parent.CaseService.showFtsOnCreatePage()")
                                 label#rha-24X7_Contact(translate,translate-comment="Noun") 24x7 Contact
                                 input#rha-24X7_Contact_input(ng-model="$parent.CaseService.fts_contact")
                             div(ng-if="!$parent.COMMON_CONFIG.isGS4 && !$parent.disableEmailNotifySelect()")
