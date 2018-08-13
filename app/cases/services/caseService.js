@@ -637,6 +637,27 @@ export default class CaseService {
             this.kase.fts = showFts;
         };
 
+        this.showFtsOnCreatePage = function () {
+            var showFtsCheckbox = false;
+            if (RHAUtils.isNotEmpty(this.severities)) {
+                if (this.entitlements !== undefined && this.entitlements.length === 1) {
+                    if (this.entitlements[0] === 'PREMIUM' || this.entitlements[0] === 'AMC' || this.entitlements[0] === 'PREMIUMPLUS' || this.entitlements[0] === 'PREMIUM PLUS') {
+                        showFtsCheckbox = true;
+                    }
+                } else if (this.entitlement === 'PREMIUM' || this.entitlement === 'AMC' || this.entitlement === 'PREMIUMPLUS' || this.entitlement === 'PREMIUM PLUS') {
+                    showFtsCheckbox = true;
+                } else if (RHAUtils.isNotEmpty(this.kase.entitlement) && (this.kase.entitlement.sla === 'PREMIUM' || this.kase.entitlement.sla === 'AMC' || this.kase.entitlement.sla === 'PREMIUMPLUS' || this.kase.entitlement.sla === 'PREMIUM PLUS')) {
+                    showFtsCheckbox = true;
+                }
+                if ((showFtsCheckbox === true) && (RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return false;
+        };
+
 
         this.showFts = function () {
             if (RHAUtils.isNotEmpty(this.kase.severity) && (this.kase.severity.name.charAt(0) === '1' || this.kase.severity.name.charAt(0) === '2')) {
