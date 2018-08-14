@@ -67,7 +67,6 @@ import DiscussionSection from './controllers/discussionSection'
 import Edit from './controllers/edit'
 import EditCaseRecommendationsController from './controllers/editCaseRecommendationsSection'
 import EmailNotifySelect from './controllers/emailNotifySelect'
-import EntitlementSelect from './controllers/entitlementSelect'
 import ExistingBookmarkedAccounts from './controllers/existingBookmarkedAccounts'
 import ExportCSVButton from './controllers/exportCSVButton'
 import FilterSelect from './controllers/filterSelect'
@@ -125,7 +124,6 @@ app.controller('DiscussionSection', DiscussionSection);
 app.controller('Edit', Edit );
 app.controller('EditCaseRecommendationsController', EditCaseRecommendationsController);
 app.controller('EmailNotifySelect', EmailNotifySelect);
-app.controller('EntitlementSelect', EntitlementSelect);
 app.controller('ExistingBookmarkedAccounts', ExistingBookmarkedAccounts);
 app.controller('ExportCSVButton', ExportCSVButton);
 app.controller('FilterSelect', FilterSelect);
@@ -175,7 +173,6 @@ import rhaCasedetails from './directives/detailsSection'
 import rhaCasediscussion from './directives/discussionSection'
 import rhaEditcaserecommendations from './directives/editCaseRecommendationsSection'
 import rhaEmailnotifyselect from './directives/emailNotifySelect'
-import rhaEntitlementselect from './directives/entitlementSelect'
 import equalWidths from './directives/equalWidths'
 import rhaExistingBookmarkedAccounts from './directives/existingBookmarkedAccounts'
 import rhaExportcsvbutton from './directives/exportCSVButton'
@@ -219,7 +216,6 @@ app.directive('rhaCasedetails', rhaCasedetails);
 app.directive('rhaCasediscussion', rhaCasediscussion);
 app.directive('rhaEditcaserecommendations', rhaEditcaserecommendations);
 app.directive('rhaEmailnotifyselect', rhaEmailnotifyselect);
-app.directive('rhaEntitlementselect', rhaEntitlementselect);
 app.directive('equalWidths', equalWidths);
 app.directive('rhaExistingBookmarkedAccounts', rhaExistingBookmarkedAccounts);
 app.directive('rhaExportcsvbutton', rhaExportcsvbutton);
