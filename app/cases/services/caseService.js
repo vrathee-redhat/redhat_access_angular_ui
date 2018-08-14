@@ -669,7 +669,7 @@ export default class CaseService {
         };
 
         this.showFtsOnEditPage = function () {
-            return this.isPremiumEntitlement() && this.isSev1Sev2();
+            return this.isSev1Sev2();
         };
 
         this.isFtsEditableOnEditPage = () => {
