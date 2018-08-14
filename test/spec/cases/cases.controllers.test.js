@@ -1339,19 +1339,6 @@ describe('Case Controllers', function () {
             expect(mockScope.typesLoading).toBe(false);
         }));
     });
-    //Suite for EntitlementSelect
-    describe('EntitlementSelect', function () {
-        it('should have a function to do blah!', inject(function ($controller) {
-            $controller('EntitlementSelect', {
-                $scope: mockScope,
-                strataService: mockStrataService,
-                CaseService: mockCaseService,
-                AlertService: mockAlertService
-            });
-            expect(mockCaseService.entitlements).toEqual(mockStrataDataService.mockEntitlements);
-        }));
-    });
-
     //Suite for Group
     describe('Group', function () {
         it('should have a on change function', inject(function ($controller) {
