@@ -645,11 +645,11 @@ export default class CaseService {
         }
 
         this.isSev1 = function () {
-            return RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1';
+            return RHAUtils.isNotEmpty(this.severities) && RHAUtils.isNotEmpty(this.kase.severity) && this.kase.severity.name.charAt(0) === '1';
         }
 
         this.isSev1Sev2 = function () {
-            return RHAUtils.isNotEmpty(this.kase.severity) && (this.kase.severity.name.charAt(0) === '1' || this.kase.severity.name.charAt(0) === '2');
+            return RHAUtils.isNotEmpty(this.severities) && RHAUtils.isNotEmpty(this.kase.severity) && (this.kase.severity.name.charAt(0) === '1' || this.kase.severity.name.charAt(0) === '2');
         }
 
         this.onChangeFTSCheckEditPage = function () {
