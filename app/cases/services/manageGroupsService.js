@@ -151,11 +151,14 @@ export default class ManageGroupsService {
             };
             //user.is_default = true;
             user.settingDefaultGroup = true;
-            strataService.groups.createDefault(tmpGroup).then(function () {
+            strataService.groups.createDefault(tmpGroup, securityService.loginStatus.authedUser.sso_username,
+                securityService.loginStatus.authedUser.account_number).then(function () {
                 user.is_default = !user.is_default;
                 user.settingDefaultGroup = false;
+                AlertService.clearAlerts();
                 AlertService.addSuccessMessage('Successfully set ' + tmpGroup.name + ' as ' + user.sso_username + '\'s default group.');
             }, function (error) {
+                AlertService.clearAlerts();
                 AlertService.addStrataErrorMessage(error);
             });
         };
