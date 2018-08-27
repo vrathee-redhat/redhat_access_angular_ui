@@ -4,7 +4,7 @@ import _ from 'lodash';
 import hydrajs from '../../shared/hydrajs';
 
 export default class AttachmentsService {
-    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog, ATTACHMENTS) {
+    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, HeaderService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog, ATTACHMENTS) {
         'ngInject';
 
         this.originalAttachments = [];
@@ -12,10 +12,8 @@ export default class AttachmentsService {
         this.backendAttachments = [];
         this.suggestedArtifact = {};
         this.proceedWithoutAttachments = false;
+        this.loading = false;
         this.maxAttachmentSize;
-
-        // Used when checking the upload status of recently uploaded files
-        this.filesProcessed = 0;
 
         // Key/val for an attachment uuid to credentials
         this.attachmentCredentials = {};
@@ -111,6 +109,35 @@ export default class AttachmentsService {
                 return $q.all(promises);
             });
         };
+
+        this.getAttachments = (caseId) => {
+            this.loading = true;
+            return Promise.all([
+                strataService.cases.attachments.list(caseId),
+                hydrajs.kase.attachments.getAttachmentsS3(caseId)
+            ]).then(angular.bind(this, (responses) => {
+                const attachmentsStrata = responses[0];
+                const attachmentsS3 = responses[1];
+
+                attachmentsS3.concat(attachmentsStrata);
+                attachmentsS3.forEach((val, index) => {
+                    const item = attachmentsS3[index];
+                    const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
+                    item.file_name = item.fileName;
+                    item.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                    item.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                    item.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                    item.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                });
+
+                this.defineOriginalAttachments(attachmentsS3);
+                this.loading = false;
+            }), (error) => {
+                AlertService.addDangerMessage(error);
+                this.loading = false;
+            });
+        };
+
         this.updateAttachments = function (caseId) {
             const hasServerAttachments = this.hasBackEndSelections();
             const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
@@ -123,6 +150,7 @@ export default class AttachmentsService {
                 if (hasLocalAttachments) {
                     //find new attachments
                     _.each(updatedAttachments, (attachment) => {
+                        const uploadAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
                         if (!attachment.hasOwnProperty('uuid')) {
                             const putObjectRequest = {
                                 Body: attachment.fileObj,
@@ -156,7 +184,7 @@ export default class AttachmentsService {
                                     } else if (res.status === ATTACHMENTS.METADATA_CREATION_FAILED) {
                                         delete this.attachmentCredentials[res.attachmentId];
 
-                                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Attachment {{filename}} to {{caseId}} failed to upload', {
+                                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment {{filename}} to case {{caseId}}', {
                                             filename: attachment.fileObj.name,
                                             caseId: res.caseNumber
                                         }));
@@ -168,15 +196,18 @@ export default class AttachmentsService {
                                             filename: attachment.fileObj.name
                                         }));
                                     }
+
+                                    if (RHAUtils.isObjectEmpty(this.attachmentCredentials)) {
+                                        AlertService.removeAlert(uploadAlert);
+                                        this.getAttachments(res.caseNumber).catch((error) => AlertService.addDangerMessage(error));
+                                    }
                                 }), (error) => AlertService.addDangerMessage(error));
 
                             const promise = hydrajs.kase.attachments.uploadAttachmentS3(caseId, s3UploadCredentialsData, putObjectRequest)
                                 .then(angular.bind(this, (res) => {
                                     // Sets the key/val pair with the attachmentId and the credentials.
                                     this.attachmentCredentials[res.attachmentId] = res.credentials;
-                                    attachmentUploadStatus(res.caseNumber, res.attachmentId);
-
-                                    return res;
+                                    return attachmentUploadStatus(res.caseNumber, res.attachmentId);
                                 }), (error) => {
                                     if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                         if ($location.path() === '/case/new') {

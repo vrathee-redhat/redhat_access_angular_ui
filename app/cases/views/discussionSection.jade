@@ -26,8 +26,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .col-xs-12
                 // Add Comment Section
                 div(rha-addcommentsection='', loading='loading.comments')
-        .spinner(ng-show="DiscussionService.loadingAttachments")
-        .row.row-very-short.case-discussion(ng-show="!DiscussionService.loadingAttachments")
+        .spinner(ng-show="AttachmentsService.loading")
+        .row.row-very-short.case-discussion(ng-show="!AttachmentsService.loading")
             .col-xs-12
                 .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder", ng-if='!element.draft')
                     article.comment.article-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)")
@@ -69,7 +69,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                             span {{'at'|translate}}&nbsp;
                             time {{element.published_time}}
                         .pre-wrap
-                            .spinner-xs(ng-show="!elementUris[element.attachmentId || element.uuid]" ng-init="getAttachmentUrlS3(element)")
+                            .spinner-sm(ng-show="!elementUris[element.attachmentId || element.uuid]" ng-init="getAttachmentUrlS3(element)")
                             a(ng-show="elementUris[element.attachmentId || element.uuid]" ng-href="{{elementUris[element.attachmentId || element.uuid]}}")
                                 .fa.fa-file-image-o.file-upload
                                 span {{element.file_name}} ({{element.length ? element.length : element.size | bytes}})&nbsp;

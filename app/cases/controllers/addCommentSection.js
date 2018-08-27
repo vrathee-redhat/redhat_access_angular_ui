@@ -17,19 +17,11 @@ export default class AddCommentSection {
         DiscussionService.commentTextBoxEnlargen = false;
 
         const updateAttachments = () => {
-            return AttachmentsService.updateAttachments(CaseService.kase.case_number).then(angular.bind(this, function () {
-                strataService.cache.clr('attachments' + CaseService.kase.case_number);
-                return DiscussionService.getAttachments(CaseService.kase.case_number).then(angular.bind(this, function (attachmentsJSON) {
-                    AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                    $scope.addingattachment = false;
-                    CaseService.checkForCaseStatusToggleOnAttachOrComment();
-                }), angular.bind(this, function (error) {
-                    $scope.addingattachment = false;
-                    CaseService.checkForCaseStatusToggleOnAttachOrComment();
-                }));
-
-            }), function (error) {
-                AlertService.addStrataErrorMessage(error);
+            strataService.cache.clr('attachments' + CaseService.kase.case_number);
+            return AttachmentsService.updateAttachments(CaseService.kase.case_number).then(function () {
+                $scope.addingattachment = false;
+            }, function (error) {
+                AlertService.addDangerMessage(error);
                 $scope.addingattachment = false;
             });
         };
