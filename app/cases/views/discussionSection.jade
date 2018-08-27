@@ -26,7 +26,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .col-xs-12
                 // Add Comment Section
                 div(rha-addcommentsection='', loading='loading.comments')
-        .row.row-very-short.case-discussion
+        .spinner(ng-show="DiscussionService.loadingAttachments")
+        .row.row-very-short.case-discussion(ng-show="!DiscussionService.loadingAttachments")
             .col-xs-12
                 .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder", ng-if='!element.draft')
                     article.comment.article-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)")
@@ -63,15 +64,16 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                         i.fa.fa-paperclip
                         h4.meta {{'Attachment'|translate}}
                         .byline
-                            author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
+                            author {{element.last_modified_by ? element.last_modified_by : element.modifiedBy}} {{'on'|translate}}&nbsp;
                             date {{element.published_date}}&nbsp;
                             span {{'at'|translate}}&nbsp;
                             time {{element.published_time}}
                         .pre-wrap
-                            a(href="{{element.uri}}")
+                            .spinner-xs(ng-show="!elementUris[element.attachmentId || element.uuid]" ng-init="getAttachmentUrlS3(element)")
+                            a(ng-show="elementUris[element.attachmentId || element.uuid]" ng-href="{{elementUris[element.attachmentId || element.uuid]}}")
                                 .fa.fa-file-image-o.file-upload
-                                span {{element.file_name}} ({{element.length | bytes}})&nbsp;
-                            span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
+                                span {{element.file_name}} ({{element.length ? element.length : element.size | bytes}})&nbsp;
+                            span.fa.fa-close(ng-if="DiscussionService.isAwsAttachment(element)" type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
                             div {{'SHA-256:'|translate}}&nbsp;{{element.checksum}}
                             .description.margin-top-short(ng-show="element.description") {{element.description}}
 
@@ -114,8 +116,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                         .pre-wrap
                             a(href="{{attachment.uri}}")
                                 .fa.fa-file-image-o.file-upload
-                                span {{attachment.file_name}} ({{attachment.length | bytes}})&nbsp;
-                            span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(attachment)')
+                                span {{attachment.file_name}} ({{attachment.length ? attachment.length : attachment.size | bytes}})&nbsp;
+                            span.fa.fa-close(ng-if="DiscussionService.isAwsAttachment(element)" type='button', style='cursor: pointer;', ng-click='deleteAttachment(attachment)')
                             div {{'SHA-256:'|translate}}&nbsp;{{attachment.checksum}}
                             .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
     #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')

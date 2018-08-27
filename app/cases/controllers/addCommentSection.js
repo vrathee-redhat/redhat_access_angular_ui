@@ -16,6 +16,24 @@ export default class AddCommentSection {
 
         DiscussionService.commentTextBoxEnlargen = false;
 
+        const updateAttachments = () => {
+            return AttachmentsService.updateAttachments(CaseService.kase.case_number).then(angular.bind(this, function () {
+                strataService.cache.clr('attachments' + CaseService.kase.case_number);
+                return DiscussionService.getAttachments(CaseService.kase.case_number).then(angular.bind(this, function (attachmentsJSON) {
+                    AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                    $scope.addingattachment = false;
+                    CaseService.checkForCaseStatusToggleOnAttachOrComment();
+                }), angular.bind(this, function (error) {
+                    $scope.addingattachment = false;
+                    CaseService.checkForCaseStatusToggleOnAttachOrComment();
+                }));
+
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+                $scope.addingattachment = false;
+            });
+        };
+
         $scope.clearComment = function () {
             CaseService.commentText = '';
             DiscussionService.commentTextBoxEnlargen = false;
@@ -94,23 +112,7 @@ export default class AddCommentSection {
             if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && EDIT_CASE_CONFIG.showAttachments) {
                 $scope.addingattachment = true;
                 window.sessionjs.updateToken(true).success(() => {
-                    AttachmentsService.updateAttachments(CaseService.kase.case_number).then(function () {
-                        strataService.cache.clr('attachments' + CaseService.kase.case_number);
-                        strataService.cases.attachments.list(CaseService.kase.case_number).then(angular.bind(this, function (attachmentsJSON) {
-                            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                            DiscussionService.loadingAttachments = false;
-                            $scope.addingattachment = false;
-                            CaseService.checkForCaseStatusToggleOnAttachOrComment();
-                        }), angular.bind(this, function (error) {
-                            $scope.addingattachment = false;
-                            DiscussionService.loadingAttachments = false;
-                            CaseService.checkForCaseStatusToggleOnAttachOrComment();
-                        }));
-
-                    }, function (error) {
-                        AlertService.addStrataErrorMessage(error);
-                        $scope.addingattachment = false;
-                    });
+                    updateAttachments();
                 }).error(() => {
                     AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment.'));
                 });
@@ -246,14 +248,10 @@ export default class AddCommentSection {
                         var splitPath = parser.pathname.split('/');
                         if (splitPath !== undefined && splitPath[4] !== undefined) {
                             AttachmentsService.clear();
-                            strataService.cache.clr('attachments' + CaseService.kase.case_number);
-                            strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
-                                $scope.addingComment = false;
-                                AttachmentsService.defineOriginalAttachments(attachmentsJSON);
+                            updateAttachments().then(function (attachmentsJSON) {
                                 $scope.ieClearSelectedFile();
                                 SearchCaseService.clear();
                             }, function (error) {
-                                $scope.addingComment = false;
                                 AlertService.addStrataErrorMessage(error);
                             });
                         } else {
@@ -267,18 +265,15 @@ export default class AddCommentSection {
                         $scope.$apply();
                     }
                 } else {
-                    strataService.cases.attachments.list(CaseService.kase.case_number).then(function (attachmentsJSON) {
-                        $scope.addingComment = false;
+                    updateAttachments().then(function (attachmentsJSON) {
                         SearchCaseService.clear();
                         if (attachmentsJSON.length !== AttachmentsService.originalAttachments.length) {
-                            AttachmentsService.defineOriginalAttachments(attachmentsJSON);
                             $scope.ieClearSelectedFile();
                         } else {
                             AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment.'));
                         }
 
                     }, function (error) {
-                        $scope.addingComment = false;
                         AlertService.addStrataErrorMessage(error);
                     });
                 }

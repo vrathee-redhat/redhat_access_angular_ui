@@ -1,5 +1,7 @@
 'use strict';
 
+import hydrajs from '../../shared/hydrajs';
+
 export default class DiscussionSection {
     constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
                 $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG) {
@@ -21,6 +23,7 @@ export default class DiscussionSection {
         $scope.bugzillas = false;
         $scope.hasScrolled = false;
         $scope.commentSortOrder = true;
+        $scope.elementUris = {};
         $scope.commentSortOrderList = [
             {
                 name: gettextCatalog.getString('Newest to Oldest'),
@@ -108,6 +111,8 @@ export default class DiscussionSection {
             if (AttachmentsService.originalAttachments.length === 0) { //if we are deleting last attachment, we should default to case discussion tab
                 $scope.toggleDiscussion();
             }
+
+            $scope.init();
         }, true);
         $scope.$watch('CaseService.comments', function () {
             DiscussionService.updateElements();
@@ -265,5 +270,20 @@ export default class DiscussionSection {
             }
         };
 
+        // This fetches a signed url from a s3 instance to download the specified file.
+        $scope.getAttachmentUrlS3 = (element) => {
+            const uri = element.uri || element.link;
+            const hydraAttachments = hydrajs.kase.attachments;
+            const caseNumber = CaseService.kase.case_number;
+            const id = element.uuid;
+            const elementUris = $scope.elementUris;
+
+            if (uri.indexOf('/hydra/rest/') > -1 || uri.indexOf('/hydrafs/rest/') > -1) {
+                hydraAttachments.downloadAttachmentS3(caseNumber, id)
+                    .then((res) => elementUris[id] = res, (error) => AlertService.addDangerMessage(error));
+            } else {
+                elementUris[id] = uri;
+            }
+        };
     }
 }
