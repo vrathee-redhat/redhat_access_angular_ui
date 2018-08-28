@@ -110,35 +110,45 @@ export default class AttachmentsService {
             });
         };
 
-        this.getAttachments = (caseId) => {
-            this.loading = true;
-            return Promise.all([
+        this.getAttachments = async function(caseId) {
+            const responses = await Promise.all([
                 strataService.cases.attachments.list(caseId),
                 hydrajs.kase.attachments.getAttachmentsS3(caseId)
-            ]).then(angular.bind(this, (responses) => {
-                const attachmentsStrata = responses[0];
-                const attachmentsS3 = responses[1];
+            ]);
 
-                attachmentsS3.concat(attachmentsStrata);
-                attachmentsS3.forEach((val, index) => {
-                    const item = attachmentsS3[index];
-                    const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
-                    item.file_name = item.fileName;
-                    item.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
-                    item.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
-                    item.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
-                    item.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
-                });
+            const attachmentsS3 = responses[1];
+            const attachmentsStrata = _.map(responses[0], (response) => {
+                response.caseNumber = caseId;
+                response.createdBy = response.created_by;
+                response.fileType = response.mime_type;
+                response.fileName = response.file_name;
+                response.isPrivate = response.private;
+                response.size = response.length;
+                response.link = response.uri;
 
-                this.defineOriginalAttachments(attachmentsS3);
-                this.loading = false;
-            }), (error) => {
-                AlertService.addDangerMessage(error);
-                this.loading = false;
+                return response;
             });
-        };
 
-        this.updateAttachments = function (caseId) {
+            const strataS3 = _.uniqBy(attachmentsS3.concat(attachmentsStrata), 'uuid');
+            const attachments = _.map(strataS3, (item) => {
+                const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
+
+                item.file_name = item.fileName || item.filename;
+                item.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                item.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                item.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                item.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+
+                return item;
+            });
+
+            this.defineOriginalAttachments(attachments);
+            this.loading = false;
+
+            return attachments;
+        }
+
+        this.updateAttachments = async function (caseId) {
             const hasServerAttachments = this.hasBackEndSelections();
             const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
             if (hasLocalAttachments || hasServerAttachments) {
@@ -149,36 +159,38 @@ export default class AttachmentsService {
                 }
                 if (hasLocalAttachments) {
                     //find new attachments
-                    _.each(updatedAttachments, (attachment) => {
-                        const uploadAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
-                        if (!attachment.hasOwnProperty('uuid')) {
-                            const putObjectRequest = {
-                                Body: attachment.fileObj,
-                                ContentLength: attachment.fileObj.size,
-                                Metadata: {
-                                    description: attachment.description,
+                    try {
+                        const attachmentPromises = await Promise.all(_.map(updatedAttachments, async (attachment) => {
+                            const uploadAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
+                            if (!attachment.hasOwnProperty('uuid')) {
+                                const putObjectRequest = {
+                                    Body: attachment.fileObj,
+                                    ContentLength: attachment.fileObj.size,
+                                    Metadata: {
+                                        description: attachment.description,
+                                        fileName: attachment.fileObj.name,
+                                        byteLength: attachment.fileObj.size.toString()
+                                    }
+                                };
+
+                                const s3UploadCredentialsData = {
                                     fileName: attachment.fileObj.name,
-                                    byteLength: attachment.fileObj.size.toString()
-                                }
-                            };
+                                    size: attachment.fileObj.size,
+                                    isPrivate: !CaseService.isCommentPublic,
+                                    description: attachment.description
+                                };
 
-                            const s3UploadCredentialsData = {
-                                fileName: attachment.fileObj.name,
-                                size: attachment.fileObj.size,
-                                isPrivate: !CaseService.isCommentPublic,
-                                description: attachment.description
-                            };
+                                const attachmentUploadStatus = async (caseNumber, uuid) => {
+                                    const res = await hydrajs.kase.attachments.checkUploadStatusS3(caseNumber, uuid);
 
-                            const attachmentUploadStatus = (caseNumber, uuid) => hydrajs.kase.attachments.checkUploadStatusS3(caseNumber, uuid)
-                                .then(angular.bind(this, (res) => {
                                     if (res.status === ATTACHMENTS.METADATA_CREATION_PENDING) {
                                         // Polls the status of the file upload status and refreshes credentials when necessary.
-                                        $timeout(() => {
+                                        $timeout(async () => {
                                             if (this.attachmentCredentials[res.attachmentId] - 30000 < Date.now()) {
-                                                hydrajs.kase.attachments.refreshUploadCredentials(res.caseNumber, res.attachmentId)
-                                                    .then(() => attachmentUploadStatus(res.caseNumber, res.attachmentId));
+                                                await hydrajs.kase.attachments.refreshUploadCredentials(res.caseNumber, res.attachmentId)
+                                                await attachmentUploadStatus(res.caseNumber, res.attachmentId);
                                             } else {
-                                                attachmentUploadStatus(res.caseNumber, res.attachmentId);
+                                                await attachmentUploadStatus(res.caseNumber, res.attachmentId);
                                             }
                                         }, 10000);
                                     } else if (res.status === ATTACHMENTS.METADATA_CREATION_FAILED) {
@@ -199,16 +211,20 @@ export default class AttachmentsService {
 
                                     if (RHAUtils.isObjectEmpty(this.attachmentCredentials)) {
                                         AlertService.removeAlert(uploadAlert);
-                                        this.getAttachments(res.caseNumber).catch((error) => AlertService.addDangerMessage(error));
-                                    }
-                                }), (error) => AlertService.addDangerMessage(error));
 
-                            const promise = hydrajs.kase.attachments.uploadAttachmentS3(caseId, s3UploadCredentialsData, putObjectRequest)
-                                .then(angular.bind(this, (res) => {
-                                    // Sets the key/val pair with the attachmentId and the credentials.
+                                        try {
+                                            await this.getAttachments(res.caseNumber);
+                                        } catch (error) {
+                                            AlertService.addDangerMessage(error);
+                                        }
+                                    }
+                                };
+
+                                try {
+                                    const res = await hydrajs.kase.attachments.uploadAttachmentS3(caseId, s3UploadCredentialsData, putObjectRequest);
                                     this.attachmentCredentials[res.attachmentId] = res.credentials;
-                                    return attachmentUploadStatus(res.caseNumber, res.attachmentId);
-                                }), (error) => {
+                                    await attachmentUploadStatus(res.caseNumber, res.attachmentId);
+                                } catch (error) {
                                     if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                         if ($location.path() === '/case/new') {
                                             $state.go('edit', {id: caseId});
@@ -220,19 +236,16 @@ export default class AttachmentsService {
                                     } else {
                                         AlertService.addDangerMessage(error);
                                     }
-                                });
+                                }
+                            }
+                        }));
 
-                            promises.push(promise);
-                        }
-                    });
+                        this.updatedAttachments = [];
+                        return attachmentPromises;
+                    } catch (error) {
+                        AlertService.addStrataErrorMessage(error);
+                    }
                 }
-                var parentPromise = $q.all(promises);
-                parentPromise.then(angular.bind(this, function () {
-                    this.updatedAttachments = [];
-                }), function (error) {
-                    AlertService.addStrataErrorMessage(error);
-                });
-                return parentPromise;
             }
         };
         this.parseArtifactHtml = function () {
