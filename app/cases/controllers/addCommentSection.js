@@ -16,14 +16,16 @@ export default class AddCommentSection {
 
         DiscussionService.commentTextBoxEnlargen = false;
 
-        const updateAttachments = () => {
-            strataService.cache.clr('attachments' + CaseService.kase.case_number);
-            return AttachmentsService.updateAttachments(CaseService.kase.case_number).then(function () {
+        const updateAttachments = async () => {
+            try {
+                strataService.cache.clr('attachments' + CaseService.kase.case_number);
+                await AttachmentsService.updateAttachments(CaseService.kase.case_number);
                 $scope.addingattachment = false;
-            }, function (error) {
+                await DiscussionService.getDiscussionElements(CaseService.kase.case_number);
+            } catch(error) {
                 AlertService.addDangerMessage(error);
                 $scope.addingattachment = false;
-            });
+            }
         };
 
         $scope.clearComment = function () {

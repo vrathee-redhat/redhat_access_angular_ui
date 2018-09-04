@@ -21,7 +21,7 @@ export default class DiscussionService {
             this.discussionElements = [];
             if(!COMMON_CONFIG.isGS4) {
                 attachPromise = AttachmentsService.getAttachments(caseId)
-                    .then(angular.bind(this, () => this.updateElements()));
+                    .then(() => this.updateElements());
             }
             commentsPromise = CaseService.populateComments(caseId).then(function () {
             }, function (error) {

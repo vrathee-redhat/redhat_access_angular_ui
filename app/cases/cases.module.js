@@ -23,14 +23,12 @@ import CHAT_SUPPORT from './constants/chatSupport'
 import STATUS from './constants/status'
 import CASE_EVENTS from './constants/caseEvents'
 import CASE_GROUPS from './constants/caseGroups'
-import ATTACHMENTS from './constants/attachments'
 
 app.constant('CASE_EVENTS', CASE_EVENTS);
 app.constant('ACCOUNT_EVENTS', ACCOUNT_EVENTS);
 app.constant('CHAT_SUPPORT', CHAT_SUPPORT);
 app.constant('STATUS', STATUS);
 app.constant('CASE_GROUPS', CASE_GROUPS);
-app.constant('ATTACHMENTS', ATTACHMENTS);
 
 // Values
 import NEW_DEFAULTS from './values/newDefaults'

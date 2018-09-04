@@ -23,7 +23,6 @@ export default class DiscussionSection {
         $scope.bugzillas = false;
         $scope.hasScrolled = false;
         $scope.commentSortOrder = true;
-        $scope.elementUris = {};
         $scope.commentSortOrderList = [
             {
                 name: gettextCatalog.getString('Newest to Oldest'),
@@ -271,19 +270,15 @@ export default class DiscussionSection {
         };
 
         // This fetches a signed url from a s3 instance to download the specified file.
-        $scope.getAttachmentUrlS3 = (element) => {
-            const uri = element.uri || element.link;
+        $scope.downloadS3Attachment = (element) => {
             const hydraAttachments = hydrajs.kase.attachments;
             const caseNumber = CaseService.kase.case_number;
             const id = element.uuid;
-            const elementUris = $scope.elementUris;
 
-            if (uri.indexOf('/hydra/rest/') > -1 || uri.indexOf('/hydrafs/rest/') > -1) {
-                hydraAttachments.downloadAttachmentS3(caseNumber, id)
-                    .then((res) => elementUris[id] = res, (error) => AlertService.addDangerMessage(error));
-            } else {
-                elementUris[id] = uri;
-            }
+            hydraAttachments.downloadAttachmentS3(caseNumber, id, element.file_name)
+            .catch((error) => {
+                AlertService.addDangerMessage(error);
+            });
         };
     }
 }

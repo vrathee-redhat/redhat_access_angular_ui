@@ -4,7 +4,7 @@ import _ from 'lodash';
 import hydrajs from '../../shared/hydrajs';
 
 export default class AttachmentsService {
-    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, HeaderService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog, ATTACHMENTS) {
+    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, HeaderService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
         'ngInject';
 
         this.originalAttachments = [];
@@ -15,14 +15,14 @@ export default class AttachmentsService {
         this.loading = false;
         this.maxAttachmentSize;
 
-        // Key/val for an attachment uuid to credentials
-        this.attachmentCredentials = {};
-
         // returns true if the attachment is
         this.isAwsAttachment = (attachment) => attachment &&
-            attachment.uri &&
-            !attachment.uri.indexOf('/hydrafs/rest/') &&
-            !attachment.uri.indexOf('/hydra/rest/');
+            ((attachment.uri &&
+                (attachment.uri.indexOf('/hydrafs/rest/') > -1 ||
+                attachment.uri.indexOf('/hydra/rest/') > -1)) ||
+            (attachment.link &&
+                (attachment.link.indexOf('/hydra/rest/') > -1 ||
+                attachment.link.indexOf('/hydrafs/rest/') > -1)));
 
         this.clear = function () {
             this.originalAttachments = [];
@@ -144,13 +144,13 @@ export default class AttachmentsService {
 
             this.defineOriginalAttachments(attachments);
             this.loading = false;
-
-            return attachments;
-        }
+        };
 
         this.updateAttachments = async function (caseId) {
             const hasServerAttachments = this.hasBackEndSelections();
             const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
+            const uploadAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
+
             if (hasLocalAttachments || hasServerAttachments) {
                 var promises = [];
                 var updatedAttachments = this.updatedAttachments;
@@ -160,16 +160,16 @@ export default class AttachmentsService {
                 if (hasLocalAttachments) {
                     //find new attachments
                     try {
-                        const attachmentPromises = await Promise.all(_.map(updatedAttachments, async (attachment) => {
-                            const uploadAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
+                        await Promise.all(_.map(updatedAttachments, async (attachment) => {
                             if (!attachment.hasOwnProperty('uuid')) {
                                 const putObjectRequest = {
                                     Body: attachment.fileObj,
                                     ContentLength: attachment.fileObj.size,
                                     Metadata: {
-                                        description: attachment.description,
-                                        fileName: attachment.fileObj.name,
-                                        byteLength: attachment.fileObj.size.toString()
+                                        'x-amz-meta-description': attachment.description,
+                                        'x-amz-meta-fileName': attachment.fileObj.name,
+                                        'x-amz-meta-byteLength': attachment.fileObj.size.toString(),
+                                        'x-amz-meta-content-type': attachment.fileObj.type
                                     }
                                 };
 
@@ -180,50 +180,8 @@ export default class AttachmentsService {
                                     description: attachment.description
                                 };
 
-                                const attachmentUploadStatus = async (caseNumber, uuid) => {
-                                    const res = await hydrajs.kase.attachments.checkUploadStatusS3(caseNumber, uuid);
-
-                                    if (res.status === ATTACHMENTS.METADATA_CREATION_PENDING) {
-                                        // Polls the status of the file upload status and refreshes credentials when necessary.
-                                        $timeout(async () => {
-                                            if (this.attachmentCredentials[res.attachmentId] - 30000 < Date.now()) {
-                                                await hydrajs.kase.attachments.refreshUploadCredentials(res.caseNumber, res.attachmentId)
-                                                await attachmentUploadStatus(res.caseNumber, res.attachmentId);
-                                            } else {
-                                                await attachmentUploadStatus(res.caseNumber, res.attachmentId);
-                                            }
-                                        }, 10000);
-                                    } else if (res.status === ATTACHMENTS.METADATA_CREATION_FAILED) {
-                                        delete this.attachmentCredentials[res.attachmentId];
-
-                                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment {{filename}} to case {{caseId}}', {
-                                            filename: attachment.fileObj.name,
-                                            caseId: res.caseNumber
-                                        }));
-                                    } else if (res.status === ATTACHMENTS.METADATA_CREATION_COMPLETED) {
-                                        delete this.attachmentCredentials[res.attachmentId];
-
-                                        AlertService.addSuccessMessage(gettextCatalog.getString('Attachment {{filename}} to case {{caseId}} uploaded successfully', {
-                                            caseId: res.caseNumber,
-                                            filename: attachment.fileObj.name
-                                        }));
-                                    }
-
-                                    if (RHAUtils.isObjectEmpty(this.attachmentCredentials)) {
-                                        AlertService.removeAlert(uploadAlert);
-
-                                        try {
-                                            await this.getAttachments(res.caseNumber);
-                                        } catch (error) {
-                                            AlertService.addDangerMessage(error);
-                                        }
-                                    }
-                                };
-
                                 try {
-                                    const res = await hydrajs.kase.attachments.uploadAttachmentS3(caseId, s3UploadCredentialsData, putObjectRequest);
-                                    this.attachmentCredentials[res.attachmentId] = res.credentials;
-                                    await attachmentUploadStatus(res.caseNumber, res.attachmentId);
+                                    return await hydrajs.kase.attachments.uploadAttachmentS3(caseId, s3UploadCredentialsData, putObjectRequest);
                                 } catch (error) {
                                     if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                         if ($location.path() === '/case/new') {
@@ -240,14 +198,22 @@ export default class AttachmentsService {
                             }
                         }));
 
+                        const updatedLen = this.originalAttachments.length + this.updatedAttachments.length;
+                        do {
+                            await this.getAttachments(caseId);
+                        } while (this.originalAttachments.length !== updatedLen);
+
                         this.updatedAttachments = [];
-                        return attachmentPromises;
+                        AlertService.removeAlert(uploadAlert);
+                        AlertService.addSuccessMessage(gettextCatalog.getString('Attachment Uploads have finished'));
                     } catch (error) {
+                        AlertService.removeAlert(uploadAlert);
                         AlertService.addStrataErrorMessage(error);
                     }
                 }
             }
         };
+
         this.parseArtifactHtml = function () {
             var parsedHtml = '';
             if (RHAUtils.isNotEmpty(this.suggestedArtifact.description)) {
