@@ -16,7 +16,9 @@ app.config(escalationRouting);
 
 // Constants
 import ESCALATION_TYPE from './constants/escalationType'
+import ESCALATION_STATUS from './constants/escalationStatus'
 app.constant('ESCALATION_TYPE', ESCALATION_TYPE);
+app.constant('ESCALATION_STATUS', ESCALATION_STATUS);
 
 // Controllers
 import EscalationRequest from './controllers/escalationRequest'
