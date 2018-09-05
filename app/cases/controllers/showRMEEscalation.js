@@ -7,7 +7,6 @@ export default class ShowRmeEscalation {
         'ngInject';
 
         $scope.CaseService = CaseService;
-        $scope.ESCALATION_STATUS = ESCALATION_STATUS;
         $scope.submittingRequest = false;
         $scope.escalationMessage = 'Request Management Escalation:';
 
