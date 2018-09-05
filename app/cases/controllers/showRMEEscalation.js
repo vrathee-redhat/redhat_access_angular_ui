@@ -20,7 +20,8 @@ export default class ShowRmeEscalation {
                 text: comment,
                 isRequestForUpdate: true,
                 isRequestForReOpen: false,
-                isRequestForClosure: false
+                isRequestForClosure: false,
+                status: 'Request Update'
             };
             hydrajs.escalations.updateEscalations(escalationName, updateJson).then((updatedInfo) => {
                 if (RHAUtils.isNotEmpty(updatedInfo)) {
