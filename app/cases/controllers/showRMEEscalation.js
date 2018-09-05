@@ -3,10 +3,11 @@
 import hydrajs  from '../../shared/hydrajs';
 
 export default class ShowRmeEscalation {
-    constructor($scope, RHAUtils, CaseService, AlertService, strataService, $stateParams, gettextCatalog) {
+    constructor($scope, RHAUtils, CaseService, AlertService, strataService, $stateParams, gettextCatalog, ESCALATION_STATUS) {
         'ngInject';
 
         $scope.CaseService = CaseService;
+        $scope.ESCALATION_STATUS = ESCALATION_STATUS;
         $scope.submittingRequest = false;
         $scope.escalationMessage = 'Request Management Escalation:';
 
@@ -21,7 +22,7 @@ export default class ShowRmeEscalation {
                 isRequestForUpdate: true,
                 isRequestForReOpen: false,
                 isRequestForClosure: false,
-                status: 'Request Update'
+                status: ESCALATION_STATUS.requestUpdate
             };
             hydrajs.escalations.updateEscalations(escalationName, updateJson).then((updatedInfo) => {
                 if (RHAUtils.isNotEmpty(updatedInfo)) {
