@@ -95,7 +95,7 @@ To generate translation templates from the code follow the steps below.
 This should generate all required files and then scrape all keys for translations. All intermediate files should be deleted afterwards automatically.
 
 ## Release process
-bump version needs versiony-cli. To install versiony-cli use this command:
+bump-version.sh needs versiony-cli. To install versiony-cli use this command:
 npm install -g versiony-cli
 
 Run ./bump-version.sh <new-version>
