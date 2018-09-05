@@ -93,3 +93,9 @@ To generate translation templates from the code follow the steps below.
         npm run generate-translates
         
 This should generate all required files and then scrape all keys for translations. All intermediate files should be deleted afterwards automatically.
+
+## Release process
+
+1. npm install -g versiony-cli
+2. Run ./bump-version.sh <new-version>
+
