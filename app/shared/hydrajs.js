@@ -8703,9 +8703,7 @@ exports.default = {
             getAttachments: attachment_1.getAttachments,
             getAttachmentsS3: attachment_1.getAttachmentsS3,
             uploadAttachmentS3: attachment_1.uploadAttachmentS3,
-            downloadAttachmentS3: attachment_1.downloadAttachmentS3,
-            checkUploadStatusS3: attachment_1.checkUploadStatusS3,
-            refreshUploadCredentials: attachment_1.refreshUploadCredentials
+            downloadAttachmentS3: attachment_1.downloadAttachmentS3
         },
         getLanguages: case_2.getLanguages,
         getCaseSbrs: case_2.getCaseSbrs,
@@ -11549,7 +11547,6 @@ function checkUploadStatusS3(caseNumber, attachmentId) {
     var uri = env_1.default.hydraHostName.clone().setPath("" + env_1.default.fsPathPrefix + path);
     return fetch_1.getUri(uri);
 }
-exports.checkUploadStatusS3 = checkUploadStatusS3;
 /**
  * Refreshes the upload credentials. Credentials expire after fifteen minutes.
  *
@@ -11562,7 +11559,6 @@ function refreshUploadCredentials(caseNumber, attachmentId) {
     var uri = env_1.default.hydraHostName.clone().setPath("" + env_1.default.fsPathPrefix + path);
     return fetch_1.getUri(uri);
 }
-exports.refreshUploadCredentials = refreshUploadCredentials;
 /**
  * Fetches upload credentials then uploads the given file to s3.
  *
@@ -11573,7 +11569,7 @@ exports.refreshUploadCredentials = refreshUploadCredentials;
  */
 function uploadAttachmentS3(caseNumber, data, params) {
     return __awaiter(this, void 0, void 0, function () {
-        var path, uri, credentials, attachmentId_1, options, s3_1, e_1;
+        var path, uri, credentials, attachmentId_1, options_1, s3_1, e_1;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -11582,12 +11578,12 @@ function uploadAttachmentS3(caseNumber, data, params) {
                     uri = env_1.default.hydraHostName.clone().setPath("" + env_1.default.fsPathPrefix + path);
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 5, , 6]);
+                    _a.trys.push([1, 4, , 5]);
                     return [4 /*yield*/, fetch_1.postUri(uri, data)];
                 case 2:
                     credentials = _a.sent();
                     attachmentId_1 = credentials.attachmentId;
-                    options = { partSize: 10 * 1024 * 1024, queueSize: 1 };
+                    options_1 = { partSize: 10 * 1024 * 1024, queueSize: 1 };
                     s3_1 = getAmazonS3(credentials);
                     s3_1.config.credentials.refresh = function (callback) { return __awaiter(_this, void 0, void 0, function () {
                         var creds, error_1;
@@ -11614,17 +11610,34 @@ function uploadAttachmentS3(caseNumber, data, params) {
                     }); };
                     params.Bucket = credentials.bucketName;
                     params.Key = credentials.key;
-                    return [4 /*yield*/, s3_1.upload(params, options).promise()];
+                    return [4 /*yield*/, new Promise(function (resolve, reject) {
+                            s3_1.upload(params, options_1, function () { return __awaiter(_this, void 0, void 0, function () {
+                                var error_2;
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0:
+                                            _a.trys.push([0, 2, , 3]);
+                                            return [4 /*yield*/, pollS3Upload(caseNumber, attachmentId_1, data.size)];
+                                        case 1:
+                                            _a.sent();
+                                            resolve();
+                                            return [3 /*break*/, 3];
+                                        case 2:
+                                            error_2 = _a.sent();
+                                            reject(error_2);
+                                            return [3 /*break*/, 3];
+                                        case 3: return [2 /*return*/];
+                                    }
+                                });
+                            }); });
+                        })];
                 case 3:
                     _a.sent();
-                    return [4 /*yield*/, pollS3Upload(caseNumber, attachmentId_1, data.size)];
+                    return [3 /*break*/, 5];
                 case 4:
-                    _a.sent();
-                    return [3 /*break*/, 6];
-                case 5:
                     e_1 = _a.sent();
                     throw e_1;
-                case 6: return [2 /*return*/];
+                case 5: return [2 /*return*/];
             }
         });
     });
@@ -11644,7 +11657,7 @@ var pollS3Upload = function (caseNumber, attachmentId, fileSize) { return __awai
         switch (_a.label) {
             case 0:
                 maxDelay = 10000;
-                minDelay = 100;
+                minDelay = 1000;
                 computedDelay = maxDelay * (1 - (1 / fileSize));
                 return [4 /*yield*/, checkUploadStatusS3(caseNumber, attachmentId)];
             case 1:
@@ -11683,7 +11696,7 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName) {
                     uri = env_1.default.hydraHostName.clone().setPath("" + env_1.default.fsPathPrefix + path);
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 4, , 5]);
+                    _a.trys.push([1, 5, , 6]);
                     return [4 /*yield*/, fetch_1.getUri(uri)];
                 case 2:
                     credentials = _a.sent();
@@ -11691,7 +11704,7 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName) {
                     Key_1 = credentials.key;
                     Bucket_1 = credentials.bucketName;
                     s3_2.config.credentials.refresh = function (callback) { return __awaiter(_this, void 0, void 0, function () {
-                        var creds, error_2;
+                        var creds, error_3;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
@@ -11706,8 +11719,8 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName) {
                                     callback(null);
                                     return [3 /*break*/, 3];
                                 case 2:
-                                    error_2 = _a.sent();
-                                    callback(error_2);
+                                    error_3 = _a.sent();
+                                    callback(error_3);
                                     return [3 /*break*/, 3];
                                 case 3: return [2 /*return*/];
                             }
@@ -11716,21 +11729,24 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName) {
                     return [4 /*yield*/, new Promise(function (resolve, reject) { return s3_2.getSignedUrl('getObject', {
                             Key: Key_1,
                             Bucket: Bucket_1,
-                            ResponseContentDisposition: "attachment; filename=\"" + fileName + "\""
+                            ResponseContentDisposition: "attachment; filename=\"" + fileName + "\"",
+                            Expires: 5
                         }, function (error, url) { return error ? reject(error) : resolve(url); }); })];
                 case 3:
                     url = _a.sent();
+                    return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 10000); })];
+                case 4:
+                    _a.sent();
                     element = document.createElement('a');
                     element.setAttribute('href', url);
-                    element.setAttribute('target', '_blank');
                     document.body.appendChild(element);
                     element.click();
                     document.body.removeChild(element);
-                    return [3 /*break*/, 5];
-                case 4:
+                    return [3 /*break*/, 6];
+                case 5:
                     e_2 = _a.sent();
                     throw e_2;
-                case 5: return [2 /*return*/];
+                case 6: return [2 /*return*/];
             }
         });
     });

@@ -39,15 +39,13 @@ export default class AttachLocalFile {
             $('#fileUploader').click();
         };
         $scope.selectFile = function () {
-            // Strata will always keep the limit display in Mb (current = 1024Mb)
-            const maxSize = (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
             const minSize = 0;
-            const file = $('#fileUploader')[0].files[0]; 
-            if (file && file.size < maxSize && file.size > minSize) {
+            const file = $('#fileUploader')[0].files[0];
+            if (file && file.size > minSize) {
                 $scope.fileObj = file;
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
-                
+
                 // Check if file is readable
                 const reader = new FileReader();
                 reader.onload = () => {
@@ -66,16 +64,12 @@ export default class AttachLocalFile {
             } else if (file && file.size === minSize) {
                 var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.", {errorFileName: file.name});
                 AlertService.addDangerMessage(message);
-            } else if (file) {
-                var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.", {
-                    errorFileName: file.name,
-                    errorFileSize: (AttachmentsService.maxAttachmentSize / 1024)
-                });
-                AlertService.addDangerMessage(message);
             }
+
             if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                 $scope.$apply();
             }
+
             $('#fileUploader')[0].value = '';
         };
         $scope.clearSelectedFile();
