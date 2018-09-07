@@ -61,7 +61,7 @@ describe('Case Controllers', function () {
                 $scope: mockScope,
                 CaseService: mockCaseService,
                 strataService: mockStrataService,
-                ProductsService:mockProductsService
+                ProductsService: mockProductsService
             });
             securityService.loginStatus.authedUser={};
             securityService.loginStatus.authedUser.is_internal=true;
@@ -1126,6 +1126,7 @@ describe('Case Controllers', function () {
             });
             mockDiscussionService.commentSortOrder={};
             mockDiscussionService.commentSortOrder.sortOrder="ASC";
+            console.log(mockAttachmentsService.getAttachments);
             expect(mockScope.onSortOrderChange).toBeDefined();
             mockScope.onSortOrderChange();
             mockScope.$root.$digest();

@@ -11696,7 +11696,7 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName) {
                     uri = env_1.default.hydraHostName.clone().setPath("" + env_1.default.fsPathPrefix + path);
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 5, , 6]);
+                    _a.trys.push([1, 4, , 5]);
                     return [4 /*yield*/, fetch_1.getUri(uri)];
                 case 2:
                     credentials = _a.sent();
@@ -11734,19 +11734,16 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName) {
                         }, function (error, url) { return error ? reject(error) : resolve(url); }); })];
                 case 3:
                     url = _a.sent();
-                    return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 10000); })];
-                case 4:
-                    _a.sent();
                     element = document.createElement('a');
                     element.setAttribute('href', url);
                     document.body.appendChild(element);
                     element.click();
                     document.body.removeChild(element);
-                    return [3 /*break*/, 6];
-                case 5:
+                    return [3 /*break*/, 5];
+                case 4:
                     e_2 = _a.sent();
                     throw e_2;
-                case 6: return [2 /*return*/];
+                case 5: return [2 /*return*/];
             }
         });
     });

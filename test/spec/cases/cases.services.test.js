@@ -784,45 +784,47 @@ describe('Case Services', function () {
     });
     //Suite for AttachmentsService
     describe('AttachmentsService', function () {
-        it('should have a method to delete Attachment resolved', function () {
-            expect(attachmentsService.removeOriginalAttachment).toBeDefined();
-            attachmentsService.originalAttachments = [
-                {
-                    'file_name': 'abc.txt',
-                    'uuid': '1234'
-                },
-                {
-                    'file_name': 'xyz.txt',
-                    'uuid': '4567'
-                }
-            ];
-            expect(attachmentsService.originalAttachments.length).toBe(2);
-            caseService.kase.case_number = '12345';
-            attachmentsService.removeOriginalAttachment(mockStrataDataService.mockAttachment);
-            spyOn(mockStrataService.cases.attachments, 'remove').and.callThrough();
-            scope.$root.$digest();
-            expect(attachmentsService.originalAttachments.length).toBe(1);
-        });
-        it('should have a method to delete Attachment rejected', function () {
-            expect(attachmentsService.removeOriginalAttachment).toBeDefined();
-            attachmentsService.originalAttachments = [
-                {
-                    'file_name': 'abc.txt',
-                    'uuid': '1234'
-                },
-                {
-                    'file_name': 'xyz.txt',
-                    'uuid': '4567'
-                }
-            ];
-            expect(attachmentsService.originalAttachments.length).toBe(2);
-            caseService.kase.case_number = '12345';
-            mockStrataService.rejectCalls();
-            spyOn(mockStrataService.cases.attachments, 'remove').and.callThrough();
-            attachmentsService.removeOriginalAttachment(mockStrataDataService.mockAttachment);
-            scope.$root.$digest();
-            expect(attachmentsService.originalAttachments.length).toBe(2);
-        });
+        // Need to add AttachmentsService.updateAttachments back based on PCM-7308
+        // so these tests will be needed again.
+        // it('should have a method to delete Attachment resolved', function () {
+        //     expect(attachmentsService.removeOriginalAttachment).toBeDefined();
+        //     attachmentsService.originalAttachments = [
+        //         {
+        //             'file_name': 'abc.txt',
+        //             'uuid': '1234'
+        //         },
+        //         {
+        //             'file_name': 'xyz.txt',
+        //             'uuid': '4567'
+        //         }
+        //     ];
+        //     expect(attachmentsService.originalAttachments.length).toBe(2);
+        //     caseService.kase.case_number = '12345';
+        //     attachmentsService.removeOriginalAttachment(mockStrataDataService.mockAttachment);
+        //     spyOn(mockStrataService.cases.attachments, 'remove').and.callThrough();
+        //     scope.$root.$digest();
+        //     expect(attachmentsService.originalAttachments.length).toBe(1);
+        // });
+        // it('should have a method to delete Attachment rejected', function () {
+        //     expect(attachmentsService.removeOriginalAttachment).toBeDefined();
+        //     attachmentsService.originalAttachments = [
+        //         {
+        //             'file_name': 'abc.txt',
+        //             'uuid': '1234'
+        //         },
+        //         {
+        //             'file_name': 'xyz.txt',
+        //             'uuid': '4567'
+        //         }
+        //     ];
+        //     expect(attachmentsService.originalAttachments.length).toBe(2);
+        //     caseService.kase.case_number = '12345';
+        //     mockStrataService.rejectCalls();
+        //     spyOn(mockStrataService.cases.attachments, 'remove').and.callThrough();
+        //     attachmentsService.removeOriginalAttachment(mockStrataDataService.mockAttachment);
+        //     scope.$root.$digest();
+        //     expect(attachmentsService.originalAttachments.length).toBe(2);
+        // });
         it('should have a method to add new Attachment', function () {
             expect(attachmentsService.addNewAttachment).toBeDefined();
             var attachment = {
@@ -849,51 +851,54 @@ describe('Case Services', function () {
             attachmentsService.removeUpdatedAttachment(1);
             expect(attachmentsService.updatedAttachments.length).toBe(1);
         });
-        it('should have a method to update Attachments resolved', function () {
-            expect(attachmentsService.updateAttachments).toBeDefined();
-            attachmentsService.originalAttachments = [
-                {
-                    'file_name': 'abc.txt',
-                    'uuid': '1234'
-                },
-                {
-                    'file_name': 'xyz.txt',
-                    'uuid': '4567'
-                }
-            ];
-            attachmentsService.updatedAttachments = [
-                {
-                    'file_name': 'abc.txt',
-                    'uuid': '1234'
-                },
-                {
-                    'file_name': 'xyz.txt',
-                    'uuid': '4567'
-                },
-                {
-                    'file_name': 'pqr.txt',
-                    'uuid': '5678'
-                }
-            ];
-            rhaUtils.userTimeZone="Asia/Calcutta";
-            attachmentsService.updateAttachments('12345');
-            spyOn(mockStrataService.cases.attachments, 'post').and.callThrough();
-            scope.$root.$digest();
-            expect(attachmentsService.updatedAttachments.length).toBe(0);
-        });
-        it('should have a method to update Attachments rejected', function () {
-            expect(attachmentsService.updateAttachments).toBeDefined();
-            attachmentsService.updatedAttachments = [mockStrataDataService.mockAttachments[0]];
-            var formdata = new FormData();
-                            formdata.append('file', undefined);
-                            formdata.append('description', 'sample1 attachment');
-            mockStrataService.rejectCalls();
-            spyOn(mockStrataService.cases.attachments, 'post').and.callThrough();
-            attachmentsService.updateAttachments('12345');
-            scope.$root.$digest();
-            expect(mockStrataService.cases.attachments.post).toHaveBeenCalledWith(formdata, '12345', jasmine.any(Function));
-            expect(attachmentsService.originalAttachments.length).toBe(0);
-        });
+
+        // Need to add AttachmentsService.updateAttachments back based on PCM-7308
+        // so these tests will be needed again.
+        // it('should have a method to update Attachments resolved', function () {
+        //     expect(attachmentsService.updateAttachments).toBeDefined();
+        //     attachmentsService.originalAttachments = [
+        //         {
+        //             'file_name': 'abc.txt',
+        //             'uuid': '1234'
+        //         },
+        //         {
+        //             'file_name': 'xyz.txt',
+        //             'uuid': '4567'
+        //         }
+        //     ];
+        //     attachmentsService.updatedAttachments = [
+        //         {
+        //             'file_name': 'abc.txt',
+        //             'uuid': '1234'
+        //         },
+        //         {
+        //             'file_name': 'xyz.txt',
+        //             'uuid': '4567'
+        //         },
+        //         {
+        //             'file_name': 'pqr.txt',
+        //             'uuid': '5678'
+        //         }
+        //     ];
+        //     rhaUtils.userTimeZone="Asia/Calcutta";
+        //     attachmentsService.updateAttachments('12345');
+        //     spyOn(mockStrataService.cases.attachments, 'post').and.callThrough();
+        //     scope.$root.$digest();
+        //     expect(attachmentsService.updatedAttachments.length).toBe(0);
+        // });
+        // it('should have a method to update Attachments rejected', function () {
+        //     expect(attachmentsService.updateAttachments).toBeDefined();
+        //     attachmentsService.updatedAttachments = [mockStrataDataService.mockAttachments[0]];
+        //     var formdata = new FormData();
+        //                     formdata.append('file', undefined);
+        //                     formdata.append('description', 'sample1 attachment');
+        //     mockStrataService.rejectCalls();
+        //     spyOn(mockStrataService.cases.attachments, 'post').and.callThrough();
+        //     attachmentsService.updateAttachments('12345');
+        //     scope.$root.$digest();
+        //     expect(mockStrataService.cases.attachments.post).toHaveBeenCalledWith(formdata, '12345', jasmine.any(Function));
+        //     expect(attachmentsService.originalAttachments.length).toBe(0);
+        // });
         it('should have a method to define Original Attachments', function () {
             expect(attachmentsService.defineOriginalAttachments).toBeDefined();
             var attachments = [
