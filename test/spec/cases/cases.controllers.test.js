@@ -1126,7 +1126,6 @@ describe('Case Controllers', function () {
             });
             mockDiscussionService.commentSortOrder={};
             mockDiscussionService.commentSortOrder.sortOrder="ASC";
-            console.log(mockAttachmentsService.getAttachments);
             expect(mockScope.onSortOrderChange).toBeDefined();
             mockScope.onSortOrderChange();
             mockScope.$root.$digest();
