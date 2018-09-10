@@ -8,9 +8,11 @@ export default class AttachLocalFile {
         $scope.CaseService = CaseService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
         $scope.fileDescription = '';
+        $scope.attachFileTT = '';
 
-        $scope.init = function () {
+        $scope.init = async function () {
             AttachmentsService.fetchMaxAttachmentSize();
+            $scope.attachFileTT = await AttachmentsService.useS3Upload() ? 'Can now accept large attachments (~5TB)' : '';
         };
 
         $scope.clearSelectedFile = function () {
