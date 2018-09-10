@@ -61,7 +61,7 @@ describe('Case Controllers', function () {
                 $scope: mockScope,
                 CaseService: mockCaseService,
                 strataService: mockStrataService,
-                ProductsService:mockProductsService
+                ProductsService: mockProductsService
             });
             securityService.loginStatus.authedUser={};
             securityService.loginStatus.authedUser.is_internal=true;

@@ -1,7 +1,9 @@
 'use strict';
 
+import hydrajs from '../../shared/hydrajs';
+
 export default class DiscussionService {
-    constructor($location, $q, AlertService, AttachmentsService, CaseService, strataService, HeaderService, securityService, COMMON_CONFIG) {
+    constructor($location, $q, AlertService, RHAUtils, AttachmentsService, CaseService, strataService, HeaderService, securityService, COMMON_CONFIG) {
         'ngInject';
 
         this.discussionElements = [];
@@ -9,25 +11,17 @@ export default class DiscussionService {
         this.comments = CaseService.comments;
         this.attachments = AttachmentsService.originalAttachments;
         this.externalUpdates = CaseService.externalUpdates;
-        this.loadingAttachments = false;
         this.loadingComments = false;
         this.commentTextBoxEnlargen = false;
+
         this.getDiscussionElements = function (caseId) {
             var attachPromise = null;
             var commentsPromise = null;
             var externalUpdatesPromise = null;
             this.discussionElements = [];
-            this.loadingAttachments = true;
             if(!COMMON_CONFIG.isGS4) {
-                attachPromise = strataService.cases.attachments.list(caseId).then(angular.bind(this, function (attachmentsJSON) {
-                    AttachmentsService.defineOriginalAttachments(attachmentsJSON);
-                    this.loadingAttachments = false;
-                }), angular.bind(this, function (error) {
-                    if (!HeaderService.pageLoadFailure) {
-                        AlertService.addStrataErrorMessage(error);
-                    }
-                    this.loadingAttachments = false;
-                }));
+                attachPromise = AttachmentsService.getAttachments(caseId)
+                    .then(() => this.updateElements());
             }
             commentsPromise = CaseService.populateComments(caseId).then(function () {
             }, function (error) {

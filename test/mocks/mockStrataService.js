@@ -1187,8 +1187,13 @@ angular.module('RedhatAccess.mock', [])
             {
 
 
-            }
+            };
 
+            this.getDiscussionElements = function (caseNumber) {
+                var deferred = $q.defer();
+                deferred.resolve();
+                return deferred.promise;
+            }
         }
     ])
 
@@ -1268,6 +1273,13 @@ angular.module('RedhatAccess.mock', [])
             this.fetchMaxAttachmentSize = function () {
                 this.maxAttachmentSize =  45;
             };
+
+            this.getAttachments = function (caseNumber) {
+                var deferred = $q.defer();
+                this.defineOriginalAttachments(this.originalAttachments);
+                deferred.resolve();
+                return deferred.promise;
+            }
         }
     ])
     .service('MockGroupService', [
