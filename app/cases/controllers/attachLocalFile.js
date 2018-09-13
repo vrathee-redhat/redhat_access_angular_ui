@@ -1,5 +1,7 @@
 'use strict';
 
+import hydrajs from '../../shared/hydrajs';
+
 export default class AttachLocalFile {
     constructor($scope, AlertService, AttachmentsService, CaseService, securityService, RHAUtils, gettextCatalog) {
         'ngInject';
@@ -12,7 +14,8 @@ export default class AttachLocalFile {
 
         $scope.init = async function () {
             AttachmentsService.fetchMaxAttachmentSize();
-            $scope.attachFileTT = await AttachmentsService.useS3Upload() ? 'Can now accept large attachments (~5TB)' : '';
+            $scope.attachFileTT = await hydrajs.kase.attachments.isValidS3Account(securityService.loginStatus.authedUser.account.number)
+                ? 'Can now accept large attachments (~5TB)' : '';
         };
 
         $scope.clearSelectedFile = function () {

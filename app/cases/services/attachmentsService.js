@@ -153,25 +153,9 @@ export default class AttachmentsService {
             this.loading = false;
         };
 
-        this.useS3Upload = async function() {
-            const s3Configurations = await hydrajs.maintenance.getMaintenanceMode(this.s3Constants.s3_configurations);
-            const uploadConfig = _.find(s3Configurations, { fieldName: this.s3Constants.s3UploadFunctionality });
-            const lists = _.filter(s3Configurations, (val) => val.fieldName.indexOf(this.s3Constants.accountWhitelist) > -1);
-            const whitelist = [];
-            lists.forEach((val) => whitelist.push(...val.fieldValue.split(',')));
-
-            if (uploadConfig.fieldValue === 'enabled' ||
-                (uploadConfig.fieldValue === '' &&
-                    _.find(whitelist, (o) => o === securityService.loginStatus.authedUser.account.number))) {
-                return true;
-            }
-
-            return false;
-        };
-
         this.updateAttachments = async function(caseId) {
             try {
-                const useS3Upload = await this.useS3Upload();
+                const useS3Upload = await hydrajs.kase.attachments.isValidS3Account(securityService.loginStatus.authedUser.account.number);
                 return useS3Upload ? this.updateAttachmentsS3(caseId) : this.updateAttachmentsStrata(caseId);
             } catch (error) {
                 AlertService.addWarningMessage(error);
