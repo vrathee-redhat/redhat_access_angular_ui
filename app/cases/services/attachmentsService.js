@@ -14,11 +14,6 @@ export default class AttachmentsService {
         this.proceedWithoutAttachments = false;
         this.loading = false;
         this.maxAttachmentSize;
-        this.s3Constants = {
-          s3_configurations: 's3_configurations',
-          accountWhitelist: 'accountWhitelist',
-          s3UploadFunctionality: 's3UploadFunctionality'
-        };
 
         // returns true if the attachment is
         this.isAwsAttachment = (attachment) => {
@@ -155,8 +150,19 @@ export default class AttachmentsService {
 
         this.updateAttachments = async function(caseId) {
             try {
-                const useS3Upload = await hydrajs.kase.attachments.isValidS3Account(securityService.loginStatus.authedUser.account.number);
-                return useS3Upload ? this.updateAttachmentsS3(caseId) : this.updateAttachmentsStrata(caseId);
+                if (!this.s3AccountConfigurations) {
+                    this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
+                }
+
+                const accountNumber = securityService.loginStatus.authedUser.account.number;
+                const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
+                if (uploadFunctionality === 'enable_all' ||
+                    (uploadFunctionality === 'specified_accounts' &&
+                        find(this.s3AccountConfigurations.result, (o) => o === accountNumber))) {
+                    return this.updateAttachmentsS3(caseId);
+                }
+
+                return this.updateAttachmentsStrata(caseId);
             } catch (error) {
                 AlertService.addWarningMessage(error);
             }
