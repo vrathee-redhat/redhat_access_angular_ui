@@ -180,8 +180,23 @@ export default class AttachmentsService {
                                     description: attachment.description
                                 };
 
+                                const listener = (progress) => {
+                                    const decimal = progress.loaded / progress.total;
+                                    const percent = decimal * 100;
+                                    attachment.progress = Math.floor(percent);
+
+                                    if (decimal === 1) {
+                                        attachment.verifyingUpload = true;
+                                    }
+                                };
+
                                 try {
-                                    return await hydrajs.kase.attachments.uploadAttachmentS3(caseId, s3UploadCredentialsData, putObjectRequest);
+                                    return await hydrajs.kase.attachments.uploadAttachmentS3(
+                                        caseId,
+                                        s3UploadCredentialsData,
+                                        putObjectRequest,
+                                        listener
+                                    );
                                 } catch (error) {
                                     if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                         if ($location.path() === '/case/new') {
