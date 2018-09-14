@@ -52,6 +52,7 @@ export default class DiscussionSection {
                 if ($location.search().commentId !== undefined) {
                     scroll($location.search().commentId);
                 }
+                console.log(DiscussionService.discussionElements);
             }, function (error) {
             }));
         };
@@ -280,5 +281,7 @@ export default class DiscussionSection {
                 AlertService.addDangerMessage(error);
             });
         };
+
+        $scope.temp = (element) => console.log(element);
     }
 }

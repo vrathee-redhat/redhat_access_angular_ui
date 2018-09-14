@@ -29,7 +29,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         .spinner(ng-show="AttachmentsService.loading")
         .row.row-very-short.case-discussion(ng-show="!AttachmentsService.loading")
             .col-xs-12
-                .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'last_modified_date':commentSortOrder", ng-if='!element.draft')
+                .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder", ng-if='!element.draft' ng-init="temp(element)")
                     article.comment.article-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)")
                         i.fa.fa-comments-o
                         h4.meta {{'Message'|translate}}&nbsp; ({{element.created_by_type}})
