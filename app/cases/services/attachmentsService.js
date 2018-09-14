@@ -15,10 +15,12 @@ export default class AttachmentsService {
         this.loading = false;
         this.maxAttachmentSize;
 
-        this.init();
-
         this.init = async function() {
-            this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
+            try {
+                this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
+            } catch (error) {
+                throw error;
+            }
         };
 
         // returns true if the attachment is
@@ -325,5 +327,7 @@ export default class AttachmentsService {
                 AlertService.addStrataErrorMessage(error);
             });
         };
+
+        this.init().catch((error) => AlertService.addDangerMessage(error));
     }
 }
