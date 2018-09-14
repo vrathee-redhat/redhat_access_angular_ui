@@ -158,7 +158,7 @@ export default class AttachmentsService {
 
         this.updateAttachments = async function(caseId) {
             try {
-                const accountNumber = securityService.loginStatus.authedUser.account.number;
+                const accountNumber = CaseService.account.number;
                 const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
                 if (uploadFunctionality === 'enable_all' ||
                     (uploadFunctionality === 'specified_accounts' &&
