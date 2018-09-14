@@ -15,14 +15,37 @@ export default class AttachmentsService {
         this.loading = false;
         this.maxAttachmentSize;
 
+        this.init = async function() {
+            try {
+                this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
+            } catch (error) {
+                throw error;
+            }
+        };
+
+        this.isValidS3Upload = function () {
+            const accountNumber = CaseService.account.number;
+            const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
+            if (uploadFunctionality === 'enable_all' ||
+                (uploadFunctionality === 'specified_accounts' &&
+                    find(this.s3AccountConfigurations.result, (o) => o === accountNumber))) {
+                return true;
+            }
+
+            return false;
+        };
+
         // returns true if the attachment is
-        this.isAwsAttachment = (attachment) => attachment &&
+        this.isAwsAttachment = (attachment) => {
+            //console.log(attachment);
+            return attachment &&
             ((attachment.uri &&
                 (attachment.uri.indexOf('/hydrafs/rest/') > -1 ||
-                attachment.uri.indexOf('/hydra/rest/') > -1)) ||
-            (attachment.link &&
-                (attachment.link.indexOf('/hydra/rest/') > -1 ||
-                attachment.link.indexOf('/hydrafs/rest/') > -1)));
+                    attachment.uri.indexOf('/hydra/rest/') > -1)) ||
+                (attachment.link &&
+                    (attachment.link.indexOf('/hydra/rest/') > -1 ||
+                        attachment.link.indexOf('/hydrafs/rest/') > -1)));
+        };
 
         this.clear = function () {
             this.originalAttachments = [];
@@ -132,7 +155,6 @@ export default class AttachmentsService {
             const strataS3 = _.uniqBy(attachmentsS3.concat(attachmentsStrata), 'uuid');
             const attachments = _.map(strataS3, (item) => {
                 const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
-
                 item.file_name = item.fileName || item.filename;
                 item.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                 item.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
@@ -146,7 +168,85 @@ export default class AttachmentsService {
             this.loading = false;
         };
 
-        this.updateAttachments = async function (caseId) {
+        this.updateAttachments = async function(caseId) {
+            try {
+                return this.isValidS3Upload() ? this.updateAttachmentsS3(caseId) : this.updateAttachmentsStrata(caseId);
+            } catch (error) {
+                AlertService.addWarningMessage(error);
+            }
+        };
+
+        this.updateAttachmentsStrata = function (caseId) {
+            const hasServerAttachments = this.hasBackEndSelections();
+            const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
+            if (hasLocalAttachments || hasServerAttachments) {
+                var promises = [];
+                var updatedAttachments = this.updatedAttachments;
+                if (hasServerAttachments) {
+                    promises.push(this.postBackEndAttachments(caseId));
+                }
+                if (hasLocalAttachments) {
+                    //find new attachments
+                    _.each(updatedAttachments, (attachment) => {
+                        if (!attachment.hasOwnProperty('uuid')) {
+                            var formdata = new FormData();
+                            formdata.append('file', attachment.fileObj);
+                            formdata.append('description', attachment.description);
+
+                            const updateProgress = (progress) => {
+                                attachment.progress = Math.round(progress);
+                                if ($rootScope.$$phase !== '$apply' && $rootScope.$$phase !== '$digest') {
+                                    $rootScope.$apply();
+                                }
+                            };
+
+                            var promise = strataService.cases.attachments.post(formdata, caseId, updateProgress);
+                            promise.then((uri) => {
+                                attachment.progress = null;
+                                attachment.uri = uri;
+                                attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
+                                var currentDate = new Date();
+                                var lastModifiedDate = RHAUtils.convertToTimezone(currentDate);
+                                attachment.sortModifiedDate = currentDate;
+                                attachment.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                                attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                                attachment.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
+                                attachment.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}', {
+                                    attachmentFileName: attachment.file_name,
+                                    caseNumber: caseId
+                                }));
+                            }, function (error) {
+                                if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
+                                    if ($location.path() === '/case/new') {
+                                        $state.go('edit', {id: caseId});
+                                        AlertService.clearAlerts();
+                                        CaseService.submittingCase = false;
+                                    } else {
+                                        $window.location.reload();
+                                    }
+                                } else {
+                                    AlertService.addStrataErrorMessage(error);
+                                }
+                            });
+                            promises.push(promise);
+                        }
+                    });
+                }
+                var uploadingAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
+                var parentPromise = $q.all(promises);
+                parentPromise.then(angular.bind(this, function () {
+                    this.updatedAttachments = [];
+                    AlertService.removeAlert(uploadingAlert);
+                }), function (error) {
+                    AlertService.addStrataErrorMessage(error);
+                    AlertService.removeAlert(uploadingAlert);
+                });
+                return parentPromise;
+            }
+        };
+
+        this.updateAttachmentsS3 = async function (caseId) {
             const hasServerAttachments = this.hasBackEndSelections();
             const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
             const uploadAlert = AlertService.addWarningMessage(gettextCatalog.getString('Uploading attachments...'));
@@ -246,5 +346,7 @@ export default class AttachmentsService {
                 AlertService.addStrataErrorMessage(error);
             });
         };
+
+        this.init().catch((error) => AlertService.addDangerMessage(error));
     }
 }

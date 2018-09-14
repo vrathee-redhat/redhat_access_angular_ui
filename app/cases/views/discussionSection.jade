@@ -75,8 +75,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                             a(ng-show="!AttachmentsService.isAwsAttachment(element)" href="{{element.uri}}")
                                 .fa.fa-file-image-o.file-upload
                                 span {{element.file_name}} ({{element.length ? element.length : element.size | bytes}})&nbsp;
-                            span.fa.fa-close(ng-if="DiscussionService.isAwsAttachment(element)" type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
-                            div {{'SHA-256:'|translate}}&nbsp;{{element.checksum}}
+                            span.fa.fa-close(ng-if="AttachmentService.isAwsAttachment(element)" type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
+                            div(ng-if="element.checksum") {{'SHA-256:'|translate}}&nbsp;{{element.checksum}}
                             .description.margin-top-short(ng-show="element.description") {{element.description}}
 
                     article.comment.article-chat(ng-if="element.comment_type === 'chat'")
