@@ -12792,9 +12792,10 @@ function refreshUploadCredentials(caseNumber, attachmentId) {
  * @param {string} caseNumber
  * @param {IS3CredentialsPostData} data
  * @param {AWS.S3.Types.PutObjectRequest} params
+ * @param listener
  * @returns {Promise<IS3UploadResponse>}
  */
-function uploadAttachmentS3(caseNumber, data, params) {
+function uploadAttachmentS3(caseNumber, data, params, listener) {
     return __awaiter(this, void 0, void 0, function () {
         var path, uri, credentials, attachmentId_1, options_1, s3_1, e_1;
         var _this = this;
@@ -12856,7 +12857,7 @@ function uploadAttachmentS3(caseNumber, data, params) {
                                         case 3: return [2 /*return*/];
                                     }
                                 });
-                            }); });
+                            }); }).on('httpUploadProgress', listener || (function () { return null; }));
                         })];
                 case 3:
                     _a.sent();
