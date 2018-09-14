@@ -14,8 +14,7 @@ export default class AttachLocalFile {
 
         $scope.init = async function () {
             AttachmentsService.fetchMaxAttachmentSize();
-            $scope.attachFileTT = await hydrajs.kase.attachments.isValidS3Account(securityService.loginStatus.authedUser.account.number)
-                ? 'Can now accept large attachments (~5TB)' : '';
+            $scope.attachFileTT = AttachmentsService.isValidS3Upload() ? 'Can now accept large attachments (~5TB)' : '';
         };
 
         $scope.clearSelectedFile = function () {

@@ -23,6 +23,18 @@ export default class AttachmentsService {
             }
         };
 
+        this.isValidS3Upload = function () {
+            const accountNumber = CaseService.account.number;
+            const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
+            if (uploadFunctionality === 'enable_all' ||
+                (uploadFunctionality === 'specified_accounts' &&
+                    find(this.s3AccountConfigurations.result, (o) => o === accountNumber))) {
+                return true;
+            }
+
+            return false;
+        };
+
         // returns true if the attachment is
         this.isAwsAttachment = (attachment) => {
             //console.log(attachment);
@@ -158,15 +170,7 @@ export default class AttachmentsService {
 
         this.updateAttachments = async function(caseId) {
             try {
-                const accountNumber = CaseService.account.number;
-                const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
-                if (uploadFunctionality === 'enable_all' ||
-                    (uploadFunctionality === 'specified_accounts' &&
-                        find(this.s3AccountConfigurations.result, (o) => o === accountNumber))) {
-                    return this.updateAttachmentsS3(caseId);
-                }
-
-                return this.updateAttachmentsStrata(caseId);
+                return this.isValidS3Upload() ? this.updateAttachmentsS3(caseId) : this.updateAttachmentsStrata(caseId);
             } catch (error) {
                 AlertService.addWarningMessage(error);
             }
