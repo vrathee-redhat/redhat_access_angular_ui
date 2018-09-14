@@ -15,6 +15,12 @@ export default class AttachmentsService {
         this.loading = false;
         this.maxAttachmentSize;
 
+        this.init();
+
+        this.init = async function() {
+            this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
+        };
+
         // returns true if the attachment is
         this.isAwsAttachment = (attachment) => {
             //console.log(attachment);
@@ -150,10 +156,6 @@ export default class AttachmentsService {
 
         this.updateAttachments = async function(caseId) {
             try {
-                if (!this.s3AccountConfigurations) {
-                    this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
-                }
-
                 const accountNumber = securityService.loginStatus.authedUser.account.number;
                 const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
                 if (uploadFunctionality === 'enable_all' ||
