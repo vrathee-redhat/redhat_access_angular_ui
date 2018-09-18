@@ -19,7 +19,10 @@ export default class AttachmentsService {
             try {
                 this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
             } catch (error) {
-                throw error;
+                this.s3AccountConfigurations = {
+                    s3UploadFunctionality: 'specified_accounts',
+                    result: []
+                };
             }
         };
 
@@ -347,6 +350,6 @@ export default class AttachmentsService {
             });
         };
 
-        this.init().catch((error) => AlertService.addDangerMessage(error));
+        this.init();
     }
 }
