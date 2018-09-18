@@ -7,6 +7,8 @@ export default class Edit {
                 $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils, $uibModal, COMMON_CONFIG) {
         'ngInject';
 
+        // Used to store the previous alerts when creating a new case.
+        $scope.stateChangeAlerts = [];
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
         $scope.COMMON_CONFIG = COMMON_CONFIG;
         $scope.securityService = securityService;
@@ -60,7 +62,7 @@ export default class Edit {
                     showRmeBox();
                 }
                 if ($scope.fromNewCase) {
-                    AlertService.clearAlerts();
+                    $scope.stateChangeAlerts = _.filter($scope.stateChangeAlerts, (a) => AlertService.addAlert(a) && false);
                     $scope.fromNewCase = false;
                     var noBusinessHours = gettextCatalog.getString('no business hours');
                     strataService.values.businesshours(securityService.loginStatus.authedUser.timezone).then(function (response) {
@@ -225,7 +227,11 @@ export default class Edit {
             }
         });
         $scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
-            if (from.url === '/case/new') {
+            if (AlertService.alerts.length > 0) {
+                $scope.stateChangeAlerts = AlertService.alerts;
+            }
+
+            if (from.url.indexOf('/case/new') === 0) {
                 $scope.fromNewCase = true;
             }
         });

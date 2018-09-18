@@ -462,7 +462,6 @@ export default class New {
 
             var redirectToCase = function (caseNumber) {
                 $state.go('edit', {id: caseNumber});
-                AlertService.clearAlerts();
                 CaseService.submittingCase = false;
             };
 
@@ -563,7 +562,6 @@ export default class New {
 
             var redirectToCase = function (caseNumber) {
                 $state.go('edit', {id: caseNumber});
-                AlertService.clearAlerts();
                 CaseService.submittingCase = false;
             };
 
@@ -692,6 +690,10 @@ export default class New {
             CaseService.updateLocalStorageForNewCase();
             CaseService.sendCreationStartedEvent($event);
         };
+
+        $scope.canAddAttachments = () => !!($scope.$parent && $scope.$parent.securityService &&
+            $scope.$parent.securityService.loginStatus && $scope.$parent.securityService.loginStatus.authedUser &&
+            $scope.$parent.securityService.loginStatus.authedUser.can_add_attachments);
 
         if (ENVIRONMENT !== 'test') {
             angular.element('.affixed-recommendations').affix({
