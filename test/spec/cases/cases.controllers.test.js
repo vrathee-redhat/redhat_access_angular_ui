@@ -1835,67 +1835,6 @@ describe('Case Controllers', function () {
             mockScope.onNewEscalationComment();
             expect(mockScope.disableSubmitRequest).toBe(false);
         }));
-        xit('should have a function for submit request click for non-existence of draft comment on server ', inject(function ($controller) {
-            $controller('RequestManagementEscalationModal', {
-                $scope: mockScope,
-                $uibModalInstance:mockStrataDataService.mockModalInstance,
-                CaseService: mockCaseService,
-                RHAUtils:rhaUtils,
-                strataService:mockStrataService
-            });
-            mockScope.submittingRequest=false;
-            expect(mockScope.submitRequestClick).toBeDefined();
-            mockScope.submitRequestClick();
-            spyOn(mockStrataService.cases.comments, 'post').and.callThrough();
-            mockScope.$root.$digest();
-            expect(mockScope.submittingRequest).toBe(false);
-            expect(mockCaseService.draftSaved).toBe(false);
-            expect(mockCaseService.draftComment).toBeUndefined();
-            expect(mockCaseService.commentText).toBeUndefined();
-        }));
-        xit('should have a function for submit request click for existence of draft comment on server ', inject(function ($controller) {
-            $controller('RequestManagementEscalationModal', {
-                $scope: mockScope,
-                $uibModalInstance:mockStrataDataService.mockModalInstance,
-                CaseService: mockCaseService,
-                RHAUtils:rhaUtils,
-                strataService:mockStrataService
-            });
-            mockScope.submittingRequest=false;
-            expect(mockScope.submitRequestClick).toBeDefined();
-            mockCaseService.draftCommentOnServerExists=true;
-            mockCaseService.draftComment.id=2;
-            mockScope.submitRequestClick();
-            spyOn(mockStrataService.cases.comments, 'post').and.callThrough();
-            mockScope.$root.$digest();
-            expect(mockScope.submittingRequest).toBe(false);
-            expect(mockCaseService.draftSaved).toBe(false);
-            expect(mockCaseService.draftComment).toBeUndefined();
-            expect(mockCaseService.commentText).toBeUndefined();
-
-        }));
-        xit('should have a function for submit request click for draft comment not empty ', inject(function ($controller) {
-            $controller('RequestManagementEscalationModal', {
-                $scope: mockScope,
-                $uibModalInstance:mockStrataDataService.mockModalInstance,
-                CaseService: mockCaseService,
-                RHAUtils:rhaUtils,
-                strataService:mockStrataService
-            });
-            mockScope.submittingRequest=false;
-            expect(mockScope.submitRequestClick).toBeDefined();
-            mockCaseService.draftCommentOnServerExists=false
-            mockCaseService.localStorageCache=undefined;
-            mockCaseService.draftComment.text="test";
-            mockCaseService.draftComment.id=2;
-            mockScope.submitRequestClick();
-            spyOn(mockStrataService.cases.comments, 'post').and.callThrough();
-            mockScope.$root.$digest();
-            expect(mockScope.submittingRequest).toBe(false);
-            expect(mockCaseService.draftSaved).toBe(false);
-            expect(mockCaseService.draftComment).toBeUndefined();
-            expect(mockCaseService.commentText).toBeUndefined();
-        }));
         it('should have a function for close modal ', inject(function ($controller) {
             $controller('RequestManagementEscalationModal', {
                 $scope: mockScope,
