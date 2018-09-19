@@ -12,6 +12,9 @@ uib-accordion
     dl
         dt Description
         dd.reset {{rmeEscalation.subject}}
+    dl(ng-show='rmeEscalation.status === "Closed"')
+        dt Closed Date
+        dd.reset {{rmeEscalation.closedDate | date:'medium'}}
     .escalation-actions
         .row(ng-show='!submittingRequest')
             .col-sm-6(ng-show='rmeEscalation.status !== "Closed"')
