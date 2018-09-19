@@ -294,12 +294,18 @@ export default class AttachmentsService {
                                 };
 
                                 try {
-                                    return await hydrajs.kase.attachments.uploadAttachmentS3(
+                                    const res = await hydrajs.kase.attachments.uploadAttachmentS3(
                                         caseId,
                                         s3UploadCredentialsData,
                                         putObjectRequest,
                                         listener
                                     );
+
+                                    AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{filename}} to case {{id}}', {
+                                        filename: attachment.fileObj.name,
+                                        id: caseId
+                                    }));
+                                    return res;
                                 } catch (error) {
                                     if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                         if ($location.path() === '/case/new') {
@@ -323,7 +329,6 @@ export default class AttachmentsService {
 
                         this.updatedAttachments = [];
                         AlertService.removeAlert(uploadAlert);
-                        AlertService.addSuccessMessage(gettextCatalog.getString('Attachment Uploads have finished'));
                     } catch (error) {
                         AlertService.removeAlert(uploadAlert);
                         AlertService.addStrataErrorMessage(error);
