@@ -161,6 +161,7 @@ export default class AttachmentsService {
                 item.file_name = item.fileName || item.filename;
                 item.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                 item.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                item.sortModifiedDate = new Date(item.lastModifiedDate);
                 item.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                 item.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
 
