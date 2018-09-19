@@ -72,7 +72,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                             a(ng-show="AttachmentsService.isAwsAttachment(element)" ng-click="downloadS3Attachment(element)")
                                 .fa.fa-file-image-o.file-upload
                                 span {{element.file_name}} ({{element.length ? element.length : element.size | bytes}})&nbsp;
-                            a(ng-show="!AttachmentsService.isAwsAttachment(element)" href="{{element.uri}}")
+                            a(ng-show="!AttachmentsService.isAwsAttachment(element)" href="{{element.link}}")
                                 .fa.fa-file-image-o.file-upload
                                 span {{element.file_name}} ({{element.length ? element.length : element.size | bytes}})&nbsp;
                             span.fa.fa-close(ng-if="AttachmentService.isAwsAttachment(element)" type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
