@@ -1,7 +1,5 @@
 'use strict';
 
-import hydrajs from '../../shared/hydrajs';
-
 export default class AttachLocalFile {
     constructor($scope, AlertService, AttachmentsService, CaseService, securityService, RHAUtils, gettextCatalog) {
         'ngInject';
@@ -44,8 +42,9 @@ export default class AttachLocalFile {
         };
         $scope.selectFile = function () {
             const minSize = 0;
+            const maxSize = (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
             const file = $('#fileUploader')[0].files[0];
-            if (file && file.size > minSize) {
+            if (file && file.size < maxSize && file.size > minSize) {
                 $scope.fileObj = file;
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
@@ -67,6 +66,12 @@ export default class AttachLocalFile {
                 reader.readAsArrayBuffer(file.slice(0,10)); // try reading first 10 bytes
             } else if (file && file.size === minSize) {
                 var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.", {errorFileName: file.name});
+                AlertService.addDangerMessage(message);
+            } else if (file) {
+                var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.", {
+                    errorFileName: file.name,
+                    errorFileSize: (AttachmentsService.maxAttachmentSize / 1024)
+                });
                 AlertService.addDangerMessage(message);
             }
 
