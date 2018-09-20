@@ -12,7 +12,7 @@ export default class AttachLocalFile {
 
         $scope.init = async function () {
             AttachmentsService.fetchMaxAttachmentSize();
-            $scope.attachFileTT = AttachmentsService.isValidS3Upload() ? 'Can now accept large attachments (~5TB)' : '';
+            $scope.attachFileTT = AttachmentsService.isValidS3UploadAccount() ? 'Can now accept large attachments (~1TB)' : '';
         };
 
         $scope.clearSelectedFile = function () {
@@ -41,12 +41,13 @@ export default class AttachLocalFile {
             $('#fileUploader').click();
         };
         $scope.selectFile = function () {
+            const isValidS3UploadAccount = AttachmentsService.isValidS3UploadAccount();
             const minSize = 0;
-            const maxSize = (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
+            const maxSize = isValidS3UploadAccount ? 1e12 : (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
             const file = $('#fileUploader')[0].files[0];
             const greaterThanMin = file.size > minSize;
             const lessThanMax = file.size < maxSize;
-            if ((file && greaterThanMin && lessThanMax) || (file && greaterThanMin && AttachmentsService.isValidS3Upload())) {
+            if ((file && greaterThanMin && lessThanMax) || (file && greaterThanMin && isValidS3UploadAccount)) {
                 $scope.fileObj = file;
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
@@ -64,15 +65,20 @@ export default class AttachLocalFile {
                     if ($scope.$root.$$phase !== '$apply' && $scope.$root.$$phase !== '$digest') {
                         $scope.$apply();
                     }
-                }
+                };
                 reader.readAsArrayBuffer(file.slice(0,10)); // try reading first 10 bytes
             } else if (file && file.size === minSize) {
                 var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.", {errorFileName: file.name});
                 AlertService.addDangerMessage(message);
-            } else if (file) {
+            } else if (file && !isValidS3UploadAccount) {
                 var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.", {
                     errorFileName: file.name,
                     errorFileSize: (AttachmentsService.maxAttachmentSize / 1024)
+                });
+                AlertService.addDangerMessage(message);
+            } else if (file && isValidS3UploadAccount) {
+                var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than 1 TB.", {
+                    errorFileName: file.name
                 });
                 AlertService.addDangerMessage(message);
             }

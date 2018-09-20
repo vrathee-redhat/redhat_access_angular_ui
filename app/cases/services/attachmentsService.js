@@ -26,7 +26,7 @@ export default class AttachmentsService {
             }
         };
 
-        this.isValidS3Upload = function () {
+        this.isValidS3UploadAccount = function () {
             const accountNumber = CaseService.account.number;
             const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
             if (uploadFunctionality === 'enable_all' ||
@@ -165,7 +165,7 @@ export default class AttachmentsService {
 
         this.updateAttachments = async function(caseId) {
             try {
-                return this.isValidS3Upload() ? this.updateAttachmentsS3(caseId) : this.updateAttachmentsStrata(caseId);
+                return this.isValidS3UploadAccount() ? this.updateAttachmentsS3(caseId) : this.updateAttachmentsStrata(caseId);
             } catch (error) {
                 AlertService.addWarningMessage(error);
             }
