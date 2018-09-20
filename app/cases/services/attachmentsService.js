@@ -26,6 +26,8 @@ export default class AttachmentsService {
             }
         };
 
+        this.accountCanAddAttachments = () => _.get(securityService, 'loginStatus.authedUser.can_add_attachments', false);
+
         this.isValidS3UploadAccount = function () {
             const accountNumber = CaseService.account.number;
             const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
