@@ -44,7 +44,9 @@ export default class AttachLocalFile {
             const minSize = 0;
             const maxSize = (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
             const file = $('#fileUploader')[0].files[0];
-            if (file && file.size < maxSize && file.size > minSize) {
+            const greaterThanMin = file.size > minSize;
+            const lessThanMax = file.size < maxSize;
+            if ((file && greaterThanMin && lessThanMax) || (file && greaterThanMin && AttachmentsService.isValidS3Upload())) {
                 $scope.fileObj = file;
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
