@@ -285,6 +285,10 @@ export default class AttachmentsService {
                                     if (decimal === 1) {
                                         attachment.verifyingUpload = true;
                                     }
+
+                                    if ($rootScope.$$phase !== '$apply' && $rootScope.$$phase !== '$digest') {
+                                        $rootScope.$apply();
+                                    }
                                 };
 
                                 try {
