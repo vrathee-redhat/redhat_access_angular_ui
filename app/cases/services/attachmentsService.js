@@ -31,7 +31,7 @@ export default class AttachmentsService {
             const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
             if (uploadFunctionality === 'enable_all' ||
                 (uploadFunctionality === 'specified_accounts' &&
-                    find(this.s3AccountConfigurations.result, (o) => o === accountNumber))) {
+                    _.find(this.s3AccountConfigurations.result, (o) => o === accountNumber))) {
                 return true;
             }
 
