@@ -39,16 +39,8 @@ export default class AttachmentsService {
         };
 
         // returns true if the attachment is
-        this.isAwsAttachment = (attachment) => {
-            //console.log(attachment);
-            return attachment &&
-            ((attachment.uri &&
-                (attachment.uri.indexOf('/hydrafs/rest/') > -1 ||
-                    attachment.uri.indexOf('/hydra/rest/') > -1)) ||
-                (attachment.link &&
-                    (attachment.link.indexOf('/hydra/rest/') > -1 ||
-                        attachment.link.indexOf('/hydrafs/rest/') > -1)));
-        };
+        this.isAwsAttachment = (attachment) => attachment && attachment.link &&
+            (attachment.link.indexOf('/hydra/rest/') > -1 || attachment.link.indexOf('/hydrafs/rest/') > -1);
 
         this.clear = function () {
             this.originalAttachments = [];
@@ -150,7 +142,6 @@ export default class AttachmentsService {
                 response.fileName = response.file_name;
                 response.isPrivate = response.private;
                 response.size = response.length;
-                response.link = response.uri;
 
                 return response;
             });
