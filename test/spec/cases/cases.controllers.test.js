@@ -922,6 +922,7 @@ describe('Case Controllers', function () {
             mockScope.fileDescription = 'test_description';
             mockScope.fileName = 'test_file';
             mockScope.fileSize = '200MB';
+            console.log(mockScope.addFile);
             expect(mockScope.addFile).toBeDefined();
             mockScope.addFile();
             expect(mockAttachmentsService.updatedAttachments.length).toEqual(1);
