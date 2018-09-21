@@ -118,12 +118,12 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                         .pre-wrap
                             a(ng-show="AttachmentsService.isAwsAttachment(attachment)" ng-click="downloadS3Attachment(attachment)")
                                 .fa.fa-file-image-o.file-upload
-                                span {{element.file_name}} ({{element.length ? element.length : element.size | bytes}})&nbsp;
-                            a(ng-show="!AttachmentsService.isAwsAttachment(attachment)" href="{{attachment.uri}}")
+                                span {{attachment.file_name}} ({{attachment.length ? attachment.length : attachment.size | bytes}})&nbsp;
+                            a(ng-show="!AttachmentsService.isAwsAttachment(attachment)" href="{{attachment.link}}")
                                 .fa.fa-file-image-o.file-upload
                                 span {{attachment.file_name}} ({{attachment.length ? attachment.length : attachment.size | bytes}})&nbsp;
-                            span.fa.fa-close(ng-if="DiscussionService.isAwsAttachment(element)" type='button', style='cursor: pointer;', ng-click='deleteAttachment(attachment)')
-                            div {{'SHA-256:'|translate}}&nbsp;{{attachment.checksum}}
+                            span.fa.fa-close(ng-if="DiscussionService.isAwsAttachment(attachment)" type='button', style='cursor: pointer;', ng-click='deleteAttachment(attachment)')
+                            div(ng-if='attachment.checksum') {{'SHA-256:'|translate}}&nbsp;{{attachment.checksum}}
                             .description.margin-top-short(ng-show="attachment.description") {{attachment.description}}
     #pane3.tab-pane(ng-hide="securityService.loginStatus.authedUser.is_internal", ng-class='{"active": notes}')
         form(name='notesForm')
