@@ -1116,8 +1116,7 @@ export default class CaseService {
                     if (escalations && escalations.length >= 0) {
                         const rmeEscalation = _.filter(escalations, (es) => es && es.escalationSource === 'RME Escalation');
                         if (rmeEscalation && rmeEscalation.length >= 0) {
-                            let allEscalation = _.concat(this.caseRMEEscalation, rmeEscalation);
-                            this.caseRMEEscalation = _.without(_.uniqBy(allEscalation, (es) => es && es.name), null, undefined);
+                            this.caseRMEEscalation = _.without(_.uniqBy(rmeEscalation, (es) => es && es.name), null, undefined);
                         }
                     }
                 } else {

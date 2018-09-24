@@ -42,7 +42,8 @@ export default class ShowRmeEscalation {
                 text: comment,
                 isRequestForUpdate: false,
                 isRequestForReOpen: true,
-                isRequestForClosure: false
+                isRequestForClosure: false,
+                status: ESCALATION_STATUS.requestUpdate
             };
             hydrajs.escalations.updateEscalations(escalationName, updateJson).then((updatedInfo) => {
                 if (RHAUtils.isNotEmpty(updatedInfo)) {
@@ -63,7 +64,8 @@ export default class ShowRmeEscalation {
                 text: comment,
                 isRequestForUpdate: false,
                 isRequestForReOpen: false,
-                isRequestForClosure: true
+                isRequestForClosure: true,
+                status: ESCALATION_STATUS.requestUpdate
             };
             hydrajs.escalations.updateEscalations(escalationName, updateJson).then((updatedInfo) => {
                 if (RHAUtils.isNotEmpty(updatedInfo)) {
