@@ -1290,7 +1290,11 @@ angular.module('RedhatAccess.mock', [])
                 this.defineOriginalAttachments(this.originalAttachments);
                 deferred.resolve();
                 return deferred.promise;
-            }
+            };
+
+            this.abortS3Upload = function(attachment) {
+                // do nothing
+            };
         }
     ])
     .service('MockGroupService', [
