@@ -7,6 +7,8 @@ export default class ListNewAttachments {
         $scope.AttachmentsService = AttachmentsService;
         $scope.TreeViewSelectorUtils = TreeViewSelectorUtils;
         $scope.removeLocalAttachment = function ($index) {
+            const attachment = AttachmentsService.updatedAttachments[$index];
+            AttachmentsService.abortS3Upload(attachment);
             AttachmentsService.removeUpdatedAttachment($index);
         };
     }
