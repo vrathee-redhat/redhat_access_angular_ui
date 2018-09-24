@@ -243,6 +243,11 @@ export default class AttachmentsService {
             }
         };
 
+        this.abortS3Upload = function (attachment) {
+            attachment.aborted = true;
+            hydrajs.kase.attachments.abortS3Upload(attachment.uuid);
+        };
+
         this.updateAttachmentsS3 = async function (caseId) {
             const hasServerAttachments = this.hasBackEndSelections();
             const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
@@ -299,11 +304,15 @@ export default class AttachmentsService {
                                         listener
                                     );
 
-                                    AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{filename}} to case {{id}}', {
-                                        filename: attachment.fileObj.name,
-                                        id: caseId
-                                    }));
-                                    return res;
+                                    attachment.uuid = res.attachmentId;
+                                    await res.promise;
+
+                                    if (!attachment.aborted) {
+                                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{filename}} to case {{id}}', {
+                                            filename: attachment.fileObj.name,
+                                            id: caseId
+                                        }));
+                                    }
                                 } catch (error) {
                                     if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                         if ($location.path() === '/case/new') {
@@ -314,22 +323,31 @@ export default class AttachmentsService {
                                             $window.location.reload();
                                         }
                                     } else {
-                                        AlertService.addDangerMessage(error);
+                                        AlertService.addDangerMessage(gettextCatalog.getString('Could not upload {{filename}}', {
+                                            filename: attachment.fileObj.name
+                                        }));
                                     }
+
+                                    throw error;
                                 }
                             }
                         }));
 
                         const updatedLen = this.originalAttachments.length + this.updatedAttachments.length;
                         do {
-                            await this.getAttachments(caseId);
+                            try {
+                                await this.getAttachments(caseId);
+                            } catch (error) {
+                                AlertService.addDangerMessage(gettextCatalog.getString('Could not fetch attachments: {{message}}', {
+                                    message: error.message
+                                }));
+                            }
                         } while (this.originalAttachments.length !== updatedLen);
 
                         this.updatedAttachments = [];
                         AlertService.removeAlert(uploadAlert);
                     } catch (error) {
                         AlertService.removeAlert(uploadAlert);
-                        AlertService.addStrataErrorMessage(error);
                     }
                 }
             }
