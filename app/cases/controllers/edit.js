@@ -225,7 +225,7 @@ export default class Edit {
             }
         });
         $scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
-            if (from.url === '/case/new') {
+            if (from.url.indexOf('/case/new') === 0) {
                 $scope.fromNewCase = true;
             }
         });

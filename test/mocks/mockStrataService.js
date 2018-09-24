@@ -1214,6 +1214,17 @@ angular.module('RedhatAccess.mock', [])
                 return date.format(formatter);
             };
 
+            this.isEmpty = function (object) {
+                if (object === undefined || object === null || object === '' || object.length === 0 || object === {}) {
+                    return true;
+                }
+                return false;
+            };
+
+            this.isNotEmpty = function (object) {
+                return !this.isEmpty(object);
+            };
+
         }
     ])
     .service('MockSearchResultsService', [
