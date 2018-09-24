@@ -63,22 +63,19 @@ export default class AttachmentsService {
         this.removeOriginalAttachment = function (attachment) {
             var progressMessage = AlertService.addWarningMessage(gettextCatalog.getString('Deleting attachment: {{attachmentName}}', {attachmentName: attachment.file_name}));
 
-            // cannot delete files uploaded to s3 yet.
-            if (this.isAwsAttachment(attachment)) {
-                strataService.cases.attachments.remove(attachment.uuid, CaseService.kase.case_number).then(angular.bind(this, function () {
-                    AlertService.removeAlert(progressMessage);
-                    AlertService.addSuccessMessage(gettextCatalog.getString('Successfully deleted attachment:{{attachmentName}}', {attachmentName: attachment.file_name}));
-                    var i = 0;
-                    for (i; i < this.originalAttachments.length; i++) {
-                        if (this.originalAttachments[i].uuid === attachment.uuid) {
-                            break;
-                        }
+            strataService.cases.attachments.remove(attachment.uuid, CaseService.kase.case_number).then(angular.bind(this, function () {
+                AlertService.removeAlert(progressMessage);
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully deleted attachment:{{attachmentName}}', {attachmentName: attachment.file_name}));
+                var i = 0;
+                for (i; i < this.originalAttachments.length; i++) {
+                    if (this.originalAttachments[i].uuid === attachment.uuid) {
+                        break;
                     }
-                    this.originalAttachments.splice(i, 1);
-                }), function (error) {
-                    AlertService.addStrataErrorMessage(error);
-                });
-            }
+                }
+                this.originalAttachments.splice(i, 1);
+            }), function (error) {
+                AlertService.addStrataErrorMessage(error);
+            });
 
         };
         this.addNewAttachment = function (attachment) {
