@@ -4,7 +4,7 @@ import _ from 'lodash';
 import hydrajs from '../../shared/hydrajs';
 
 export default class AttachmentsService {
-    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, HeaderService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog) {
+    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, HeaderService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog, AUTH_EVENTS) {
         'ngInject';
 
         this.originalAttachments = [];
@@ -368,6 +368,12 @@ export default class AttachmentsService {
             });
         };
 
-        this.init();
+        if (securityService.loginStatus.isLoggedIn) {
+            this.init();
+        }
+
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, angular.bind(this, function () {
+            this.init();
+        }));
     }
 }
