@@ -9,7 +9,7 @@ ul.attachment-list.block-list.block-list-gray(ng-hide='AttachmentsService.update
           div.progress-bar.progress-bar-striped.active(ng-style="{'width': attachment.progress + '%'}")
             span(ng-show="!attachment.verifyingUpload") {{attachment.progress}}% complete
             span(ng-show="attachment.verifyingUpload") Verifying Upload....
-      .attachment-remove.fa.fa-close(type='button', ng-click='removeLocalAttachment($index)')
+      .attachment-remove.fa.fa-close(ng-show="!attachment.verifyingUpload", type='button', ng-click='removeLocalAttachment($index)')
     input#rha-case-attachement-fileDescription.form-control.description(
       placeholder="{{'Please Add File Description'|translate}}",
       ng-model='attachment.description',
