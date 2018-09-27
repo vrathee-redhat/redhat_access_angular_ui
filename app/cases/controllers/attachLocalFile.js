@@ -1,7 +1,7 @@
 'use strict';
 
 export default class AttachLocalFile {
-    constructor($scope, AlertService, AttachmentsService, CaseService, securityService, RHAUtils, gettextCatalog) {
+    constructor($scope, AlertService, AttachmentsService, CaseService, securityService, RHAUtils, gettextCatalog, AUTH_EVENTS) {
         'ngInject';
 
         $scope.AttachmentsService = AttachmentsService;
@@ -10,14 +10,15 @@ export default class AttachLocalFile {
         $scope.fileDescription = '';
         $scope.attachFileTT = '';
 
-        $scope.$watch('CaseService.account.number', function() {
+        $scope.$watch('CaseService.account.number', async function() {
             if(CaseService.account && RHAUtils.isNotEmpty(CaseService.account.number)) {
-                $scope.attachFileTT = AttachmentsService.isValidS3UploadAccount() ? 'Can now accept large attachments (~5TB)' : '';
+                $scope.attachFileTT = (await AttachmentsService.isValidS3UploadAccount()) ? 'Can now accept large attachments (~5TB)' : '';
             }
         });
 
         $scope.init = async function () {
             AttachmentsService.fetchMaxAttachmentSize();
+            $scope.attachFileTT = (await AttachmentsService.isValidS3UploadAccount()) ? 'Can now accept large attachments (~5TB)' : '';
         };
 
         $scope.clearSelectedFile = function () {
@@ -45,8 +46,8 @@ export default class AttachLocalFile {
         $scope.getFile = function () {
             $('#fileUploader').click();
         };
-        $scope.selectFile = function () {
-            const isValidS3UploadAccount = AttachmentsService.isValidS3UploadAccount();
+        $scope.selectFile = async function () {
+            const isValidS3UploadAccount = (await AttachmentsService.isValidS3UploadAccount());
             const minSize = 0;
             const maxSize = isValidS3UploadAccount ? 1e12 : (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
             const file = $('#fileUploader')[0].files[0];
@@ -95,6 +96,13 @@ export default class AttachLocalFile {
             $('#fileUploader')[0].value = '';
         };
         $scope.clearSelectedFile();
-        $scope.init();
+
+        if (securityService.loginStatus.isLoggedIn) {
+            $scope.init();
+        }
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
+            $scope.init();
+        });
+
     }
 }
