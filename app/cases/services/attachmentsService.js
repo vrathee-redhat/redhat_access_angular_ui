@@ -320,12 +320,11 @@ export default class AttachmentsService {
                                             $window.location.reload();
                                         }
                                     } else {
-                                        AlertService.addDangerMessage(gettextCatalog.getString('Could not upload {{filename}}', {
-                                            filename: attachment.fileObj.name
+                                        AlertService.addDangerMessage(gettextCatalog.getString('Could not upload {{filename}}: {{error}}', {
+                                            filename: attachment.fileObj.name,
+                                            error: error.message
                                         }));
                                     }
-
-                                    throw error;
                                 }
                             }
                         }));

@@ -484,9 +484,8 @@ export default class New {
                 if ((AttachmentsService.updatedAttachments.length > 0 || AttachmentsService.hasBackEndSelections()) && NEW_CASE_CONFIG.showAttachments) {
                     AttachmentsService.updateAttachments(caseNumber).then(function () {
                         redirectToCase(caseNumber);
-                    }, function (error) {
+                    }, function () {
                         redirectToCase(caseNumber);
-                        AlertService.addStrataErrorMessage(error);
                     });
                 } else if (NEW_CASE_CONFIG.showAttachments && $scope.ie8 || $scope.ie9) {
                     var fileName = document.getElementById('newFileUploader').value;

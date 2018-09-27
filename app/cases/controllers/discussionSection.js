@@ -277,7 +277,10 @@ export default class DiscussionSection {
 
             hydraAttachments.downloadAttachmentS3(caseNumber, id, element.file_name)
             .catch((error) => {
-                AlertService.addDangerMessage(error);
+                AlertService.addDangerMessage(gettextCatalog.getString(`Could not download {{filename}}: {{error}}`, {
+                    filename: element.file_name,
+                    error: error.message
+                }));
             });
         };
     }
