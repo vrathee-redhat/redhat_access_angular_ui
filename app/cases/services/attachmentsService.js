@@ -16,6 +16,10 @@ export default class AttachmentsService {
         this.maxAttachmentSize;
 
         this.init = async function() {
+            await this.fetchS3Configs();
+        };
+
+        this.fetchS3Configs = async function() {
             try {
                 this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
             } catch (error) {
@@ -28,15 +32,17 @@ export default class AttachmentsService {
 
         this.accountCanAddAttachments = () => _.get(securityService, 'loginStatus.authedUser.can_add_attachments', false);
 
-        this.isValidS3UploadAccount = function () {
-            const accountNumber = CaseService.account.number;
+        this.isValidS3UploadAccount = async function () {
+            const accountNumber = RHAUtils.isNotEmpty(CaseService.account.number) ? CaseService.account.number : securityService.loginStatus.authedUser.account.number;
+            if(RHAUtils.isEmpty(this.s3AccountConfigurations)) {
+                await this.fetchS3Configs();
+            }
             const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
             if (uploadFunctionality === 'enable_all' ||
                 (uploadFunctionality === 'specified_accounts' &&
                     _.find(this.s3AccountConfigurations.result, (o) => o === accountNumber))) {
                 return true;
             }
-
             return false;
         };
 
