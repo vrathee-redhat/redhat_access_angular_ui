@@ -10,14 +10,18 @@ export default class AttachLocalFile {
         $scope.fileDescription = '';
         $scope.attachFileTT = '';
 
-        $scope.$watch('CaseService.account.number', async function() {
+        $scope.$watch('CaseService.account.number', () => {
             if(CaseService.account && RHAUtils.isNotEmpty(CaseService.account.number)) {
-                $scope.attachFileTT = (await AttachmentsService.isValidS3UploadAccount()) ? 'Can now accept large attachments (~5TB)' : '';
+                $scope.setToolTip();
             }
         });
 
-        $scope.init = async function () {
+        $scope.init = function () {
             AttachmentsService.fetchMaxAttachmentSize();
+            $scope.setToolTip();
+        };
+
+        $scope.setToolTip = async () => {
             $scope.attachFileTT = (await AttachmentsService.isValidS3UploadAccount()) ? 'Can now accept large attachments (~5TB)' : '';
         };
 
