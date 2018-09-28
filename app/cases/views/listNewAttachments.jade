@@ -11,9 +11,9 @@ ul.attachment-list.block-list.block-list-gray(ng-hide='AttachmentsService.update
             span(ng-show="attachment.verifyingUpload") Verifying Upload....
             span(ng-show="attachment.uploadComplete") Upload Complete
       .attachment-remove.fa.fa-close(
-      ng-hide="attachment.verifyingUpload || !attachment.progress",
+      ng-show="!AttachmentsService.uploadingAttachments || (attachment.abort && attachment.progress >= 1 && !attachment.verifyingUpload && !attachment.uploadComplete)",
       type='button',
-      ng-click='removeLocalAttachment($index, !!attachment.progress && !attachment.verifyingUpload)')
+      ng-click='removeLocalAttachment($index, !!attachment.abort)')
     input#rha-case-attachement-fileDescription.form-control.description(
       placeholder="{{'Please Add File Description'|translate}}",
       ng-model='attachment.description',

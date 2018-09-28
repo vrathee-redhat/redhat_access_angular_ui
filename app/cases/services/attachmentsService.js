@@ -12,6 +12,7 @@ export default class AttachmentsService {
         this.backendAttachments = [];
         this.suggestedArtifact = {};
         this.proceedWithoutAttachments = false;
+        this.uploadingAttachments = false;
         this.loading = false;
         this.maxAttachmentSize;
 
@@ -169,7 +170,10 @@ export default class AttachmentsService {
         };
 
         this.updateAttachments = async function(caseId) {
-            return this.isValidS3UploadAccount() ? this.updateAttachmentsS3(caseId) : this.updateAttachmentsStrata(caseId);
+            this.uploadingAttachments = true;
+            const response = await this.isValidS3UploadAccount() ? await this.updateAttachmentsS3(caseId) : await this.updateAttachmentsStrata(caseId);
+            this.uploadingAttachments = false;
+            return response;
         };
 
         this.updateAttachmentsStrata = function (caseId) {
@@ -314,9 +318,6 @@ export default class AttachmentsService {
                                         putObjectRequest,
                                         listener
                                     );
-
-                                    attachment.uuid = res && res.attachmentId;
-                                    await res && res.promise;
 
                                     if (!attachment.aborted) {
                                         attachment.uploadComplete = true;
