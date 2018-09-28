@@ -212,6 +212,8 @@ export default class AttachmentsService {
                                 attachment.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                                 attachment.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                                 attachment.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
+                                attachment.uploadComplete = true;
+                                attachment.verifyingUpload = false;
                                 AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{attachmentFileName}} to case {{caseNumber}}', {
                                     attachmentFileName: attachment.file_name,
                                     caseNumber: caseId
@@ -311,6 +313,8 @@ export default class AttachmentsService {
                                     await res.promise;
 
                                     if (!attachment.aborted) {
+                                        attachment.uploadComplete = true;
+                                        attachment.verifyingUpload = false;
                                         AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{filename}} to case {{id}}', {
                                             filename: attachment.fileObj.name,
                                             id: caseId
@@ -335,17 +339,6 @@ export default class AttachmentsService {
                                 }
                             }
                         }));
-
-                        const updatedLen = this.originalAttachments.length + this.updatedAttachments.length;
-                        do {
-                            try {
-                                await this.getAttachments(caseId);
-                            } catch (error) {
-                                AlertService.addDangerMessage(gettextCatalog.getString('Could not fetch attachments: {{message}}', {
-                                    message: error.message
-                                }));
-                            }
-                        } while (this.originalAttachments.length !== updatedLen);
 
                         this.updatedAttachments = [];
                         AlertService.removeAlert(uploadAlert);
