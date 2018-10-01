@@ -309,8 +309,8 @@ export default class AttachmentsService {
                                         listener
                                     );
 
-                                    attachment.uuid = res.attachmentId;
-                                    await res.promise;
+                                    attachment.uuid = res && res.attachmentId;
+                                    await res && res.promise;
 
                                     if (!attachment.aborted) {
                                         attachment.uploadComplete = true;
