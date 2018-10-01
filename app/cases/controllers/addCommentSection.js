@@ -23,7 +23,6 @@ export default class AddCommentSection {
                 $scope.addingattachment = false;
                 await DiscussionService.getDiscussionElements(CaseService.kase.case_number);
             } catch(error) {
-                AlertService.addDangerMessage(error);
                 $scope.addingattachment = false;
             }
         };
