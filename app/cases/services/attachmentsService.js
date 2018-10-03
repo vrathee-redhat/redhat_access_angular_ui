@@ -12,6 +12,7 @@ export default class AttachmentsService {
         this.backendAttachments = [];
         this.suggestedArtifact = {};
         this.proceedWithoutAttachments = false;
+        this.uploadingAttachments = false;
         this.loading = false;
         this.maxAttachmentSize;
 
@@ -169,11 +170,10 @@ export default class AttachmentsService {
         };
 
         this.updateAttachments = async function(caseId) {
-            try {
-                return this.isValidS3UploadAccount() ? this.updateAttachmentsS3(caseId) : this.updateAttachmentsStrata(caseId);
-            } catch (error) {
-                AlertService.addWarningMessage(error);
-            }
+            this.uploadingAttachments = true;
+            const response = await this.isValidS3UploadAccount() ? await this.updateAttachmentsS3(caseId) : await this.updateAttachmentsStrata(caseId);
+            this.uploadingAttachments = false;
+            return response;
         };
 
         this.updateAttachmentsStrata = function (caseId) {
@@ -193,8 +193,14 @@ export default class AttachmentsService {
                             formdata.append('file', attachment.fileObj);
                             formdata.append('description', attachment.description);
 
-                            const updateProgress = (progress) => {
+                            const updateProgress = (progress, abort) => {
                                 attachment.progress = Math.round(progress);
+                                attachment.verifyingUpload = attachment.progress === 100;
+
+                                if (!attachment.abort) {
+                                    attachment.abort = abort;
+                                }
+
                                 if ($rootScope.$$phase !== '$apply' && $rootScope.$$phase !== '$digest') {
                                     $rootScope.$apply();
                                 }
@@ -218,8 +224,12 @@ export default class AttachmentsService {
                                     attachmentFileName: attachment.file_name,
                                     caseNumber: caseId
                                 }));
-                            }, function (error) {
-                                if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
+                            }).catch((error) => {
+                                if (error && error.message && error.message === 'aborted') {
+                                    AlertService.addSuccessMessage(gettextCatalog.getString('Successfully aborted {{filename}} upload', {
+                                        filename: attachment.fileObj.name
+                                    }));
+                                } else if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                     if ($location.path() === '/case/new') {
                                         $state.go('edit', {id: caseId});
                                         AlertService.clearAlerts();
@@ -240,17 +250,16 @@ export default class AttachmentsService {
                 parentPromise.then(angular.bind(this, function () {
                     this.updatedAttachments = [];
                     AlertService.removeAlert(uploadingAlert);
-                }), function (error) {
-                    AlertService.addStrataErrorMessage(error);
+                }), function () {
                     AlertService.removeAlert(uploadingAlert);
                 });
                 return parentPromise;
             }
         };
 
-        this.abortS3Upload = function (attachment) {
+        this.abortUpload = function (attachment) {
             attachment.aborted = true;
-            hydrajs.kase.attachments.abortS3Upload(attachment.uuid);
+            attachment.abort();
         };
 
         this.updateAttachmentsS3 = async function (caseId) {
@@ -287,13 +296,14 @@ export default class AttachmentsService {
                                     description: attachment.description
                                 };
 
-                                const listener = (progress) => {
+                                const listener = (progress, abort) => {
                                     const decimal = progress.loaded / progress.total;
                                     const percent = decimal * 100;
                                     attachment.progress = Math.floor(percent);
+                                    attachment.verifyingUpload = decimal === 1;
 
-                                    if (decimal === 1) {
-                                        attachment.verifyingUpload = true;
+                                    if (!attachment.abort) {
+                                        attachment.abort = abort;
                                     }
 
                                     if ($rootScope.$$phase !== '$apply' && $rootScope.$$phase !== '$digest') {
@@ -302,15 +312,12 @@ export default class AttachmentsService {
                                 };
 
                                 try {
-                                    const res = await hydrajs.kase.attachments.uploadAttachmentS3(
+                                    await hydrajs.kase.attachments.uploadAttachmentS3(
                                         caseId,
                                         s3UploadCredentialsData,
                                         putObjectRequest,
                                         listener
                                     );
-
-                                    attachment.uuid = res && res.attachmentId;
-                                    await res && res.promise;
 
                                     if (!attachment.aborted) {
                                         attachment.uploadComplete = true;
@@ -318,6 +325,11 @@ export default class AttachmentsService {
                                         AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{filename}} to case {{id}}', {
                                             filename: attachment.fileObj.name,
                                             id: caseId
+                                        }));
+
+                                    } else {
+                                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully aborted {{filename}} upload', {
+                                            filename: attachment.fileObj.name
                                         }));
                                     }
                                 } catch (error) {
