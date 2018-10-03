@@ -11755,6 +11755,11 @@ function uploadAttachmentS3(caseNumber, data, params, listener) {
                     }); };
                     params.Bucket = credentials.bucketName;
                     params.Key = credentials.key;
+                    // encode all metadata to make sure that they are compatible with http headers
+                    if (params && params.Metadata) {
+                        Object.getOwnPropertyNames(params.Metadata)
+                            .forEach(function (value) { return params.Metadata[value] = encodeURI(params.Metadata[value]); });
+                    }
                     return [4 /*yield*/, new Promise(function (resolve, reject) {
                             var upload = s3_1.upload(params, options_1, function (cbError) { return __awaiter(_this, void 0, void 0, function () {
                                 var error_6;
