@@ -283,5 +283,7 @@ export default class DiscussionSection {
                 }));
             });
         };
+
+        $scope.isCertification = () => CaseService.kase.type.name === 'Certification';
     }
 }

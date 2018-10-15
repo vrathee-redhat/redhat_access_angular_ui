@@ -69,10 +69,10 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                             span {{'at'|translate}}&nbsp;
                             time {{element.published_time}}
                         .pre-wrap
-                            a(ng-show="AttachmentsService.isAwsAttachment(element)" ng-click="downloadS3Attachment(element)")
+                            a(ng-show="!isCertification() && AttachmentsService.isAwsAttachment(element)" ng-click="downloadS3Attachment(element)")
                                 .fa.fa-file-image-o.file-upload
                                 span {{element.file_name}} ({{element.length ? element.length : element.size | bytes}})&nbsp;
-                            a(ng-show="!AttachmentsService.isAwsAttachment(element)" href="{{element.link}}")
+                            a(ng-show="isCertification() || !AttachmentsService.isAwsAttachment(element)" href="{{element.link}}" download="download")
                                 .fa.fa-file-image-o.file-upload
                                 span {{element.file_name}} ({{element.length ? element.length : element.size | bytes}})&nbsp;
                             span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(element)')
@@ -116,10 +116,10 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                             span {{'at'|translate}} &nbsp;
                             time {{attachment.published_time}}
                         .pre-wrap
-                            a(ng-show="AttachmentsService.isAwsAttachment(attachment)" ng-click="downloadS3Attachment(attachment)")
+                            a(ng-show="!isCertification() && AttachmentsService.isAwsAttachment(attachment)" ng-click="downloadS3Attachment(attachment)")
                                 .fa.fa-file-image-o.file-upload
                                 span {{attachment.file_name}} ({{attachment.length ? attachment.length : attachment.size | bytes}})&nbsp;
-                            a(ng-show="!AttachmentsService.isAwsAttachment(attachment)" href="{{attachment.link}}")
+                            a(ng-show="isCertification() || !AttachmentsService.isAwsAttachment(attachment)" href="{{attachment.link}}" download="download")
                                 .fa.fa-file-image-o.file-upload
                                 span {{attachment.file_name}} ({{attachment.length ? attachment.length : attachment.size | bytes}})&nbsp;
                             span.fa.fa-close(type='button', style='cursor: pointer;', ng-click='deleteAttachment(attachment)')
