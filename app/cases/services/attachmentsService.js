@@ -225,6 +225,10 @@ export default class AttachmentsService {
                                     caseNumber: caseId
                                 }));
                             }).catch((error) => {
+                                if (this.updatedAttachments.length === 0) {
+                                    this.uploadingAttachments = false;
+                                }
+
                                 if (error && error.message && error.message === 'aborted') {
                                     AlertService.addSuccessMessage(gettextCatalog.getString('Successfully aborted {{filename}} upload', {
                                         filename: attachment.fileObj.name
@@ -319,20 +323,17 @@ export default class AttachmentsService {
                                         listener
                                     );
 
-                                    if (!attachment.aborted) {
-                                        attachment.uploadComplete = true;
-                                        attachment.verifyingUpload = false;
-                                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{filename}} to case {{id}}', {
-                                            filename: attachment.fileObj.name,
-                                            id: caseId
-                                        }));
-
-                                    } else {
-                                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully aborted {{filename}} upload', {
-                                            filename: attachment.fileObj.name
-                                        }));
-                                    }
+                                    attachment.uploadComplete = true;
+                                    attachment.verifyingUpload = false;
+                                    AlertService.addSuccessMessage(gettextCatalog.getString('Successfully uploaded attachment {{filename}} to case {{id}}', {
+                                        filename: attachment.fileObj.name,
+                                        id: caseId
+                                    }));
                                 } catch (error) {
+                                    if (this.updatedAttachments.length === 0) {
+                                        this.uploadingAttachments = false;
+                                    }
+
                                     if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                         if ($location.path() === '/case/new') {
                                             $state.go('edit', {id: caseId});
@@ -341,6 +342,10 @@ export default class AttachmentsService {
                                         } else {
                                             $window.location.reload();
                                         }
+                                    } else if (error.message === 'Request aborted by user') {
+                                        AlertService.addSuccessMessage(gettextCatalog.getString('Successfully aborted {{filename}} upload', {
+                                            filename: attachment.fileObj.name
+                                        }));
                                     } else {
                                         AlertService.addDangerMessage(gettextCatalog.getString('Could not upload {{filename}}: {{error}}', {
                                             filename: attachment.fileObj.name,
