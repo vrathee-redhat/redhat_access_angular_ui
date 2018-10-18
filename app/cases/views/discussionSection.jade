@@ -35,8 +35,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                         h4.meta {{'Message'|translate}}&nbsp; ({{element.created_by_type}})
                         .byline
                             author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
-                            date {{element.published_date}} {{'at'|translate}}&nbsp;
-                            date {{element.published_time}}
+                            date {{element.last_modified_date}} {{'at'|translate}}&nbsp;
+                            date {{element.last_modified_time}}
                         .pre-wrap
                             span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.text}}
                             .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
