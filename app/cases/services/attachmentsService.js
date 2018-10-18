@@ -135,25 +135,8 @@ export default class AttachmentsService {
         };
 
         this.getAttachments = async function(caseId) {
-            const responses = await Promise.all([
-                strataService.cases.attachments.list(caseId),
-                hydrajs.kase.attachments.getAttachmentsS3(caseId)
-            ]);
-
-            const attachmentsS3 = responses[1];
-            const attachmentsStrata = _.map(responses[0], (response) => {
-                response.caseNumber = caseId;
-                response.createdBy = response.created_by;
-                response.fileType = response.mime_type;
-                response.fileName = response.file_name;
-                response.isPrivate = response.private;
-                response.size = response.length;
-
-                return response;
-            });
-
-            const strataS3 = _.uniqBy(attachmentsS3.concat(attachmentsStrata), 'uuid');
-            const attachments = _.map(strataS3, (item) => {
+            const response = await hydrajs.kase.attachments.getAttachmentsS3(caseId);
+            const attachments = _.map(response, (item) => {
                 const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
                 item.file_name = item.fileName || item.filename;
                 item.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
