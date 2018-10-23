@@ -153,10 +153,14 @@ export default class AttachmentsService {
         };
 
         this.updateAttachments = async function(caseId) {
-            this.uploadingAttachments = true;
-            const response = await this.isValidS3UploadAccount() ? await this.updateAttachmentsS3(caseId) : await this.updateAttachmentsStrata(caseId);
-            this.uploadingAttachments = false;
-            return response;
+            try {
+                this.uploadingAttachments = true;
+                const response = await this.isValidS3UploadAccount() ? await this.updateAttachmentsS3(caseId) : await this.updateAttachmentsStrata(caseId);
+                this.uploadingAttachments = false;
+                return response;
+            } catch (error) {
+                this.uploadingAttachments = false;
+            }
         };
 
         this.updateAttachmentsStrata = function (caseId) {
@@ -170,7 +174,7 @@ export default class AttachmentsService {
                 }
                 if (hasLocalAttachments) {
                     //find new attachments
-                    _.each(updatedAttachments, (attachment) => {
+                    _.each(updatedAttachments, (attachment, index) => {
                         if (!attachment.hasOwnProperty('uuid')) {
                             var formdata = new FormData();
                             formdata.append('file', attachment.fileObj);
@@ -207,7 +211,9 @@ export default class AttachmentsService {
                                     attachmentFileName: attachment.file_name,
                                     caseNumber: caseId
                                 }));
+                                this.removeUpdatedAttachment(index);
                             }).catch((error) => {
+                                this.removeUpdatedAttachment(index);
                                 if (this.updatedAttachments.length === 0) {
                                     this.uploadingAttachments = false;
                                 }
@@ -263,7 +269,7 @@ export default class AttachmentsService {
                 if (hasLocalAttachments) {
                     //find new attachments
                     try {
-                        await Promise.all(_.map(updatedAttachments, async (attachment) => {
+                        await Promise.all(_.map(updatedAttachments, async (attachment, index) => {
                             if (!attachment.hasOwnProperty('uuid')) {
                                 const putObjectRequest = {
                                     Body: attachment.fileObj,
@@ -312,7 +318,9 @@ export default class AttachmentsService {
                                         filename: attachment.fileObj.name,
                                         id: caseId
                                     }));
+                                    this.removeUpdatedAttachment(index);
                                 } catch (error) {
+                                    this.removeUpdatedAttachment(index);
                                     if (this.updatedAttachments.length === 0) {
                                         this.uploadingAttachments = false;
                                     }
