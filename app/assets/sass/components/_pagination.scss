@@ -1,0 +1,15 @@
+.pagination-padding {
+    padding-top: 15px;
+}
+
+.pagination-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1%;
+}
+
+.page-tracker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
