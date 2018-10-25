@@ -213,7 +213,6 @@ export default class AttachmentsService {
                                 }));
                                 this.removeUpdatedAttachment(index);
                             }).catch((error) => {
-                                this.removeUpdatedAttachment(index);
                                 if (this.updatedAttachments.length === 0) {
                                     this.uploadingAttachments = false;
                                 }
@@ -230,8 +229,10 @@ export default class AttachmentsService {
                                     } else {
                                         $window.location.reload();
                                     }
+                                    this.removeUpdatedAttachment(index);
                                 } else {
                                     AlertService.addStrataErrorMessage(error);
+                                    this.removeUpdatedAttachment(index);
                                 }
                             });
                             promises.push(promise);
@@ -320,7 +321,6 @@ export default class AttachmentsService {
                                     }));
                                     this.removeUpdatedAttachment(index);
                                 } catch (error) {
-                                    this.removeUpdatedAttachment(index);
                                     if (this.updatedAttachments.length === 0) {
                                         this.uploadingAttachments = false;
                                     }
@@ -333,11 +333,13 @@ export default class AttachmentsService {
                                         } else {
                                             $window.location.reload();
                                         }
+                                        this.removeUpdatedAttachment(index);
                                     } else if (error.message === 'Request aborted by user') {
                                         AlertService.addSuccessMessage(gettextCatalog.getString('Successfully aborted {{filename}} upload', {
                                             filename: attachment.fileObj.name
                                         }));
                                     } else {
+                                        this.removeUpdatedAttachment(index);
                                         AlertService.addDangerMessage(gettextCatalog.getString('Could not upload {{filename}}: {{error}}', {
                                             filename: attachment.fileObj.name,
                                             error: error.message
