@@ -64,6 +64,7 @@ export default class AttachmentsService {
             return TreeViewSelectorUtils.hasSelections(this.backendAttachments);
         };
         this.removeUpdatedAttachment = function ($index) {
+            this.updatedAttachments.forEach((value, index) => index > $index ? value.updatedAttachmentsIndex-- : null);
             this.updatedAttachments.splice($index, 1);
         };
 
@@ -153,14 +154,10 @@ export default class AttachmentsService {
         };
 
         this.updateAttachments = async function(caseId) {
-            try {
-                this.uploadingAttachments = true;
-                const response = await this.isValidS3UploadAccount() ? await this.updateAttachmentsS3(caseId) : await this.updateAttachmentsStrata(caseId);
-                this.uploadingAttachments = false;
-                return response;
-            } catch (error) {
-                this.uploadingAttachments = false;
-            }
+            this.uploadingAttachments = true;
+            const response = await this.isValidS3UploadAccount() ? await this.updateAttachmentsS3(caseId) : await this.updateAttachmentsStrata(caseId);
+            this.uploadingAttachments = false;
+            return response;
         };
 
         this.updateAttachmentsStrata = function (caseId) {
@@ -179,6 +176,7 @@ export default class AttachmentsService {
                             var formdata = new FormData();
                             formdata.append('file', attachment.fileObj);
                             formdata.append('description', attachment.description);
+                            attachment.updatedAttachmentsIndex = index;
 
                             const updateProgress = (progress, abort) => {
                                 attachment.progress = Math.round(progress);
@@ -194,7 +192,7 @@ export default class AttachmentsService {
                             };
 
                             var promise = strataService.cases.attachments.post(formdata, caseId, updateProgress);
-                            promise.then((uri) => {
+                            promise.then(async (uri) => {
                                 attachment.progress = null;
                                 attachment.uri = uri;
                                 attachment.uuid = uri.slice(uri.lastIndexOf('/') + 1);
@@ -211,12 +209,12 @@ export default class AttachmentsService {
                                     attachmentFileName: attachment.file_name,
                                     caseNumber: caseId
                                 }));
-                                this.removeUpdatedAttachment(index);
-                            }).catch((error) => {
+                                this.removeUpdatedAttachment(attachment.updatedAttachmentsIndex);
+
                                 if (this.updatedAttachments.length === 0) {
                                     this.uploadingAttachments = false;
                                 }
-
+                            }).catch(async (error) => {
                                 if (error && error.message && error.message === 'aborted') {
                                     AlertService.addSuccessMessage(gettextCatalog.getString('Successfully aborted {{filename}} upload', {
                                         filename: attachment.fileObj.name
@@ -229,10 +227,14 @@ export default class AttachmentsService {
                                     } else {
                                         $window.location.reload();
                                     }
-                                    this.removeUpdatedAttachment(index);
+                                    this.removeUpdatedAttachment(attachment.updatedAttachmentsIndex);
                                 } else {
                                     AlertService.addStrataErrorMessage(error);
-                                    this.removeUpdatedAttachment(index);
+                                    this.removeUpdatedAttachment(attachment.updatedAttachmentsIndex);
+                                }
+
+                                if (this.updatedAttachments.length === 0) {
+                                    this.uploadingAttachments = false;
                                 }
                             });
                             promises.push(promise);
@@ -272,6 +274,7 @@ export default class AttachmentsService {
                     try {
                         await Promise.all(_.map(updatedAttachments, async (attachment, index) => {
                             if (!attachment.hasOwnProperty('uuid')) {
+                                attachment.updatedAttachmentsIndex = index;
                                 const putObjectRequest = {
                                     Body: attachment.fileObj,
                                     ContentLength: attachment.fileObj.size,
@@ -319,12 +322,12 @@ export default class AttachmentsService {
                                         filename: attachment.fileObj.name,
                                         id: caseId
                                     }));
-                                    this.removeUpdatedAttachment(index);
-                                } catch (error) {
+                                    this.removeUpdatedAttachment(attachment.updatedAttachmentsIndex);
+
                                     if (this.updatedAttachments.length === 0) {
                                         this.uploadingAttachments = false;
                                     }
-
+                                } catch (error) {
                                     if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
                                         if ($location.path() === '/case/new') {
                                             $state.go('edit', {id: caseId});
@@ -333,17 +336,21 @@ export default class AttachmentsService {
                                         } else {
                                             $window.location.reload();
                                         }
-                                        this.removeUpdatedAttachment(index);
+                                        this.removeUpdatedAttachment(attachment.updatedAttachmentsIndex);
                                     } else if (error.message === 'Request aborted by user') {
                                         AlertService.addSuccessMessage(gettextCatalog.getString('Successfully aborted {{filename}} upload', {
                                             filename: attachment.fileObj.name
                                         }));
                                     } else {
-                                        this.removeUpdatedAttachment(index);
+                                        this.removeUpdatedAttachment(attachment.updatedAttachmentsIndex);
                                         AlertService.addDangerMessage(gettextCatalog.getString('Could not upload {{filename}}: {{error}}', {
                                             filename: attachment.fileObj.name,
                                             error: error.message
                                         }));
+                                    }
+
+                                    if (this.updatedAttachments.length === 0) {
+                                        this.uploadingAttachments = false;
                                     }
                                 }
                             }
