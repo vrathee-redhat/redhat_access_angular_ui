@@ -46,8 +46,6 @@ class Pagination {
             }
         };
 
-        $scope.onPageChange = () => console.log('hello');
-
         $scope.setParentScopeVariables = () => $scope.setdata({
             pageSize: $scope.pageData.pageSize,
             currentPage: $scope.pageData.currentPage
