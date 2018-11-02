@@ -13,6 +13,7 @@ div.edit(ng-if='showCasePage()')
         span.label.label-mar-right.label-info(ng-show='$parent.CaseService.kase.hotfix_requested') {{'Hot Fix Requested'|translate}}
         span.label.label-mar-right.label-success(ng-show='$parent.CaseService.kase.hotfix_delivered') {{'Hot Fix Delivered'|translate}}
         span.label.label-mar-right.label-danger(ng-show='$parent.CaseService.account.is_special_handling_required') {{'Special Handling'|translate}}
+        span.label.label-mar-right.label-info(ng-show='$parent.CaseService.kase.cep') {{'Consultant Engagement in Progress'|translate}}
       .row.row-very-short
         b {{$parent.CaseService.kase.summary}}
       .row.row-very-short
@@ -37,6 +38,16 @@ div.edit(ng-if='showCasePage()')
         div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
       section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
+        .row
+          .col-xs-4.col-sm-3.col-md-4
+                .label {{::'Consultant Engaged'|translate}}
+          .col-xs-4.col-sm-5.col-md-6
+                input(ng-model="CaseService.kase.cep",
+                type="checkbox",
+                ng-change="updateCEP(CaseService.kase.cep)"
+                name="cepCheckbox")
+                span &nbsp;
+                span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{cepMessage}}")
         .row
           .col-xs-12(rha-emailnotifyselect='')
         .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")

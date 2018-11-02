@@ -1,7 +1,7 @@
 'use strict';
 
 export default class DetailsSection {
-    constructor($scope, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, LinkifyService, gettextCatalog, SearchCaseService, COMMON_CONFIG) {
+    constructor($scope, $uibModal, $filter, strataService, CaseService, securityService, ProductsService, CASE_EVENTS, AlertService, RHAUtils, LinkifyService, gettextCatalog, SearchCaseService, COMMON_CONFIG) {
         'ngInject';
 
         $scope.showExtraInfo = false;
@@ -15,6 +15,7 @@ export default class DetailsSection {
         $scope.contactList = [];
         $scope.caseContactSelected = true;
         $scope.maxLength = 450;
+        CaseService.cep = CaseService.kase.cep;
         $scope.noEnhancedSLAMessage = gettextCatalog.getString("There are no remaining enhanced SLA's available");
         $scope.doNotDisableOnEditSLA = CaseService.kase.enhanced_sla && !CaseService.account.has_available_enhanced_sla;
         $scope.toggleExtraInfo = function () {
@@ -30,6 +31,23 @@ export default class DetailsSection {
             CaseService.resetCase();
             ProductsService.getVersions(CaseService.kase.product);
             $scope.detailsForm.$setPristine();
+        };
+
+        $scope.updateCEP = function (isCep) {
+            if (isCep) {
+                $uibModal.open({
+                    template: require('../views/cepModal.jade'),
+                    controller: 'CepModal'
+                });
+            } else {
+                CaseService.confirmationModal = CASE_EVENTS.updateCEP;
+                CaseService.confirmationModalHeader = gettextCatalog.getString('Update CEP');
+                CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to update the cep?');
+                $uibModal.open({
+                    template: require('../views/commonConfirmationModal.jade'),
+                    controller: 'CommonConfirmationModal'
+                });
+            } 
         };
 
         $scope.init = function () {

@@ -20,6 +20,7 @@ export default class Edit {
         $scope.loading.kase = true;
         $scope.isShowRmeEscalationBox = false;
         $scope.isCreateRmeEscalationBox = true;
+        $scope.cepMessage = gettextCatalog.getString("Used by consultants to indicate that a consulting engagement is in progress and the issue requires increased attention from support resources.");
         $scope.showCasePage = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases && !$scope.loading.kase;
         $scope.init = function () {
             AttachmentsService.clear();
@@ -106,6 +107,23 @@ export default class Edit {
                 ];
                 updateBreadCrumb();
             }
+        };
+
+        $scope.updateCEP = function (isCep) {
+            if (isCep) {
+                $uibModal.open({
+                    template: require('../views/cepModal.jade'),
+                    controller: 'CepModal'
+                });
+            } else {
+                CaseService.confirmationModal = CASE_EVENTS.updateCEP;
+                CaseService.confirmationModalHeader = gettextCatalog.getString('Update Consultant Engagement in Progress');
+                CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to update the Consultant Engagement in Progress?');
+                $uibModal.open({
+                    template: require('../views/commonConfirmationModal.jade'),
+                    controller: 'CommonConfirmationModal'
+                });
+            } 
         };
 
 

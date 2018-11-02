@@ -1,0 +1,48 @@
+.modal-header
+  h3.modal-title(translate='') Consultant Engagement in Progress
+.modal-body
+  .row
+    .col-sm-12
+      span {{'Please update the required fields below if a consulting engagement is in progress and the issue reqiures increased attention from support resources.'|translate}}
+  .row
+    .col-sm-12
+      form
+          .form-group
+            label.control-label {{'Contact Name: *'|translate}}
+            input.form-control(
+                maxlength='254',
+                ng-model='cepContactName',
+                ng-disabled='submittingRequest',
+                ng-change='onChangeCepInformation()'
+                name='contact_name')
+          .form-group
+            label.control-label {{'Working Hours: *'|translate}}
+            input.form-control(
+                        ng-model='cepWorkingHours',
+                        ng-disabled='submittingRequest',
+                        ng-change='onChangeCepInformation()'
+                        name='working_hours')
+          .form-group
+            label.control-label {{'Contact Information: *'|translate}}
+            textarea.form-control(
+                maxlength='2000',
+                ng-model='cepContactInformation',
+                ng-disabled='submittingRequest',
+                ng-change='onChangeCepInformation()'
+                name='contact_information')
+          .form-group
+            label.control-label {{'Notes:'|translate}}
+            textarea.form-control(
+                maxlength='2000',
+                ng-model='cepNotes',
+                ng-disabled='submittingRequest',
+                ng-change='onChangeCepInformation()'
+                name='notes')
+.modal-footer
+    span.spinner.spinner-inline(ng-show='submittingRequest')
+    button#rha-case-escalation-submitbutton.btn-accent.btn(
+        style='margin-left: 10px;',
+        ng-click='submitCEP()',
+        ng-disabled='submittingRequest || disableSubmitRequest')
+        span {{'Submit'|translate}}
+    button.btn-accent.btn(style='margin-left: 10px;', ng-click='closeModal()', ng-disabled='submittingRequest') {{'Cancel'|translate}}
