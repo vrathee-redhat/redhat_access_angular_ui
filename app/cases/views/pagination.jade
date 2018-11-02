@@ -1,4 +1,4 @@
-div.pull-right.pagination-padding.pagination-grid
+div.pull-right.pagination-padding.pagination-grid(ng-if="datalength > pageSize")
   button.btn.btn-primary.btn-app(ng-disabled='isBackBtnDisabled()', ng-click='goBack()') Previous
   div.page-tracker {{getCurrentPage()}} / {{numberOfPages()}}
   button.btn.btn-primary.btn-app(ng-disabled='isForwardBtnDisabled()', ng-click='goForward()') Next
