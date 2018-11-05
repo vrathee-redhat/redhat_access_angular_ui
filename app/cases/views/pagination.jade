@@ -1,4 +1,4 @@
-div.pull-right.pagination-padding.pagination-grid(ng-if="datalength > pageSize")
+div.pull-right.pagination-padding.pagination-grid(ng-if="datalength > pageData.pageSize")
   div.previous-pagination-btns
     button.btn.btn-primary.btn-app(ng-disabled='isBackBtnDisabled()', ng-click='skipBack()')
       i.fa.fa-angle-double-left
