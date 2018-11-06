@@ -38,10 +38,12 @@ div.edit(ng-if='showCasePage()')
         div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
       section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
-        .row
+        .row(ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.isCep')
           .col-xs-4.col-sm-3.col-md-4
                 .label {{::'Consultant Engaged'|translate}}
-          .col-xs-4.col-sm-5.col-md-6
+          .col-xs-4.col-sm-5.col-md-6(ng-show='$parent.CaseService.submittingCep')
+                span.spinner.spinner-inline
+          .col-xs-4.col-sm-5.col-md-6(ng-show='!$parent.CaseService.submittingCep')
                 input(ng-model="CaseService.kase.cep",
                 type="checkbox",
                 ng-change="updateCEP(CaseService.kase.cep)"

@@ -13,5 +13,5 @@ export default {
     focusSearchInput: 'focus-search-input',
     advancedSearchSubmitted: 'advanced-search-submitted',
     filterInitialized: 'filter-initialized',
-    updateCEP: 'case-cep',
+    updateCEP: 'update-cep',
 }

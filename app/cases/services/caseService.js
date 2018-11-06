@@ -67,6 +67,7 @@ export default class CaseService {
         this.showKTFields = true;
         this.redhatUsersLoading = false;
         this.redhatSecureSupportUsersLoading = false;
+        this.submittingCep = false;
         this.redhatUsers = [];
         this.redhatSecureSupportUsers = [];
         this.managedAccount = null;
