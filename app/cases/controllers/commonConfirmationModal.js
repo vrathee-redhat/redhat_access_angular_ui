@@ -69,7 +69,6 @@ export default class CommonConfirmationModal {
             function (error) {
                 CaseService.kase.cep = CaseService.prestineKase.cep;
                 CaseService.submittingCep = false;
-                $scope.showErrorMessage(error);
             });
         };
     }
