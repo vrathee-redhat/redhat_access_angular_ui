@@ -8929,7 +8929,8 @@ exports.default = {
         getAccountNotes: account_2.getAccountNotes,
         getAccountTeamMembers: account_2.getAccountTeamMembers,
         patchAccounts: account_2.patchAccounts,
-        getContactDetailBySso: account_2.getContactDetailBySso
+        getContactDetailBySso: account_2.getContactDetailBySso,
+        bookmarkAccount: account_2.bookmarkAccount
     },
     businessHours: {
         getBusinessHours: businessHours_1.getBusinessHours
@@ -29669,6 +29670,11 @@ function getContactDetailBySso(sso) {
     return fetch_1.getUri(uri);
 }
 exports.getContactDetailBySso = getContactDetailBySso;
+function bookmarkAccount(sso, accountNumber) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/accounts/bookmarks/" + sso + "/" + accountNumber);
+    return fetch_1.postUri(uri, { accountNumber: accountNumber, contactSsoName: sso });
+}
+exports.bookmarkAccount = bookmarkAccount;
 
 
 /***/ }),
