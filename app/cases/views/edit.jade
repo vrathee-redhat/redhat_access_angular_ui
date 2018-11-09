@@ -37,8 +37,8 @@ div.edit(ng-if='showCasePage()')
       .row.row-very-short(ng-show='$parent.EDIT_CASE_CONFIG.showDetails')
         div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
-      section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
-        .row(ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.isCep')
+      section.case-discussion(ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.isCep')
+        .row
           .col-xs-4.col-sm-3.col-md-4
                 .label {{::'Consultant Engaged'|translate}}
           .col-xs-4.col-sm-5.col-md-6(ng-show='$parent.CaseService.submittingCep')
@@ -50,6 +50,7 @@ div.edit(ng-if='showCasePage()')
                 name="cepCheckbox")
                 span &nbsp;
                 span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{cepMessage}}")
+      section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
         .row
           .col-xs-12(rha-emailnotifyselect='')
         .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
