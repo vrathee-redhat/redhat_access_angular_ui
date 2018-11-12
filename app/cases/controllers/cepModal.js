@@ -40,34 +40,27 @@ export default class CepModal {
             }
         };
 
-        $scope.submitCEP = function () {
+        $scope.submitCEP = async function () {
             $scope.submittingRequest = true;
             CaseService.submittingCep = true;
             var fullComment = `A consultant has been engaged with this case:\n Name: ${$scope.cepContactName}\n Hours: ${$scope.cepWorkingHours}\n Contact information: ${$scope.cepContactInformation}\n ${$scope.cepNotes ? `Notes: ${$scope.cepNotes}`: ''} `;
             // add private comment on the case.
-            strataService.cases.comments.post(CaseService.kase.case_number, fullComment, false, false).then(function(){
-                var caseJSON = {'cep': true};
-                var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
-                updateCase.then(function (response) {
-                    CaseService.checkForCaseStatusToggleOnAttachOrComment();
-                    AlertService.clearAlerts();
-                    CaseService.kase.cep = true;
-                    CaseService.submittingCep = false;
-                    AlertService.addSuccessMessage(gettextCatalog.getString('CEP has been updated successfully'));
-                    angular.copy(CaseService.kase, CaseService.prestineKase);
-                },
-                function (error) {
-                    $scope.showErrorMessage(error);
-                });
-                CaseService.populateComments($stateParams.id).then(function (comments) {
-                    $scope.closeModal();
-                    $scope.submittingRequest = false;
-                }, function (error) {
-                    $scope.showErrorMessage(error);
-                });
-            }, function (error) {
+            try {
+                await strataService.cases.comments.post(CaseService.kase.case_number, fullComment, false, false);
+                const caseJSON = {'cep': true};
+                await Promise.all([strataService.cases.put(CaseService.kase.case_number, caseJSON),
+                    CaseService.populateComments($stateParams.id)]);
+                CaseService.checkForCaseStatusToggleOnAttachOrComment();
+                AlertService.clearAlerts();
+                CaseService.kase.cep = true;
+                CaseService.submittingCep = false;
+                AlertService.addSuccessMessage(gettextCatalog.getString('CEP has been updated successfully'));
+                angular.copy(CaseService.kase, CaseService.prestineKase);
+                $scope.closeModal();
+                $scope.submittingRequest = false;
+            } catch(error) {
                 $scope.showErrorMessage(error);
-            });
+            }
         };
     }
 }

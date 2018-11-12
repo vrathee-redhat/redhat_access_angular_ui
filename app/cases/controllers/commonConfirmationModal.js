@@ -54,22 +54,21 @@ export default class CommonConfirmationModal {
             });
         };
 
-        $scope.submitCEP = function () {
+        $scope.submitCEP = async function () {
             CaseService.submittingCep = true;
-            var caseJSON = {'cep': false};
-            var updateCase = strataService.cases.put(CaseService.kase.case_number, caseJSON);
-            updateCase.then(function (response) {
+            const caseJSON = {'cep': true};
+            try {
+                await strataService.cases.put(CaseService.kase.case_number, caseJSON);
                 CaseService.checkForCaseStatusToggleOnAttachOrComment();
                 AlertService.clearAlerts();
                 AlertService.addSuccessMessage(gettextCatalog.getString('CEP has been updated successfully'));
                 CaseService.kase.cep = false;
                 angular.copy(CaseService.kase, CaseService.prestineKase);
                 CaseService.submittingCep = false;
-            },
-            function (error) {
+            } catch(error) {
                 CaseService.kase.cep = CaseService.prestineKase.cep;
                 CaseService.submittingCep = false;
-            });
+            }
         };
     }
 }
