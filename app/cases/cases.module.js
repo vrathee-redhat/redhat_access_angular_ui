@@ -88,6 +88,7 @@ import ProductSelect from './controllers/productSelect'
 import RequestEscalation from './controllers/requestEscalation'
 import ShowRmeEscalation from './controllers/showRMEEscalation'
 import RequestManagementEscalationModal from './controllers/requestManagementEscalationModal'
+import CepModal from './controllers/cepModal'
 import SearchBox from './controllers/searchBox'
 import SeveritySelect from './controllers/severitySelect'
 import SolrQueryInputController from './controllers/solrQueryInput'
@@ -146,6 +147,7 @@ app.controller('ProductSelect', ProductSelect);
 app.controller('RequestEscalation', RequestEscalation);
 app.controller('ShowRmeEscalation', ShowRmeEscalation);
 app.controller('RequestManagementEscalationModal', RequestManagementEscalationModal);
+app.controller('CepModal', CepModal);
 app.controller('SearchBox', SearchBox);
 app.controller('SeveritySelect', SeveritySelect);
 app.controller('SolrQueryInputController', SolrQueryInputController);

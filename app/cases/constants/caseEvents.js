@@ -12,5 +12,6 @@ export default {
     caseClose: 'case-close',
     focusSearchInput: 'focus-search-input',
     advancedSearchSubmitted: 'advanced-search-submitted',
-    filterInitialized: 'filter-initialized'
+    filterInitialized: 'filter-initialized',
+    updateCEP: 'update-cep',
 }

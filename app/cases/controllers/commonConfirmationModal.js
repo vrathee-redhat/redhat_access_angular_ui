@@ -9,6 +9,8 @@ export default class CommonConfirmationModal {
             $uibModalInstance.close();
             if (CaseService.confirmationModal === CASE_EVENTS.caseClose) {
                 $scope.closeCases();
+            } else if (CaseService.confirmationModal === CASE_EVENTS.updateCEP) {
+                $scope.submitCEP();
             } else {
                 CaseService.updateCase().then(function () {
                     SearchCaseService.clear();
@@ -22,6 +24,8 @@ export default class CommonConfirmationModal {
                 CaseService.kase.status = CaseService.prestineKase.status;
             } else if (CaseService.confirmationModal === CASE_EVENTS.caseSeverityChanged) {
                 CaseService.kase.severity = CaseService.prestineKase.severity;
+            } else if (CaseService.confirmationModal === CASE_EVENTS.updateCEP) {
+                CaseService.kase.cep = CaseService.prestineKase.cep;
             }
             $uibModalInstance.close();
         };
@@ -48,6 +52,23 @@ export default class CommonConfirmationModal {
             }, function (error) {
                 AlertService.addStrataErrorMessage(error);
             });
+        };
+
+        $scope.submitCEP = async function () {
+            CaseService.submittingCep = true;
+            const caseJSON = {'cep': true};
+            try {
+                await strataService.cases.put(CaseService.kase.case_number, caseJSON);
+                CaseService.checkForCaseStatusToggleOnAttachOrComment();
+                AlertService.clearAlerts();
+                AlertService.addSuccessMessage(gettextCatalog.getString('CEP has been updated successfully'));
+                CaseService.kase.cep = false;
+                angular.copy(CaseService.kase, CaseService.prestineKase);
+                CaseService.submittingCep = false;
+            } catch(error) {
+                CaseService.kase.cep = CaseService.prestineKase.cep;
+                CaseService.submittingCep = false;
+            }
         };
     }
 }
