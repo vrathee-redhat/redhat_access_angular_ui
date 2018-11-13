@@ -56,7 +56,7 @@ export default class CommonConfirmationModal {
 
         $scope.submitCEP = async function () {
             CaseService.submittingCep = true;
-            const caseJSON = {'cep': true};
+            const caseJSON = {'cep': false};
             try {
                 await strataService.cases.put(CaseService.kase.case_number, caseJSON);
                 CaseService.checkForCaseStatusToggleOnAttachOrComment();
