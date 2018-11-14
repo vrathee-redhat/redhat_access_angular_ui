@@ -20,6 +20,7 @@ export default class Edit {
         $scope.loading.kase = true;
         $scope.isShowRmeEscalationBox = false;
         $scope.isCreateRmeEscalationBox = true;
+        $scope.ownerTooltip = '';
         $scope.cepMessage = gettextCatalog.getString("Used by consultants to indicate that a consulting engagement is in progress and the issue requires increased attention from support resources.");
         $scope.showCasePage = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases && !$scope.loading.kase;
         $scope.init = function () {
@@ -126,6 +127,17 @@ export default class Edit {
             } 
         };
 
+        var updateOwnerTooltip = function() {
+            if (RHAUtils.isNotEmpty(CaseService.hydraCaseDetail) && RHAUtils.isNotEmpty(CaseService.hydraCaseDetail.caseOwner)) {
+                const owner = CaseService.hydraCaseDetail.caseOwner;
+                $scope.ownerTooltip = $sce.trustAsHtml(
+                    `<div style="text-align: left;"><b>IRC</b>: ${owner.ircNick}<br> <b>Title</b>: ${owner.title}<br> <b>Phone</b>: ${owner.mobilePhone}<br> <b>Email</b>: ${owner.email}<br>
+                    <b>Region</b>: ${owner.superRegion}</div>`
+                );
+            } else {
+                $scope.ownerTooltip = '';
+            }
+        }
 
         $scope.changeOwner = function () {
             $uibModal.open({
@@ -195,6 +207,10 @@ export default class Edit {
 
         $scope.$watch('CaseService.caseRMEEscalation', function () {
             showRmeBox();
+        });
+
+        $scope.$watch('CaseService.hydraCaseDetail', function () {
+            updateOwnerTooltip();
         });
 
         var showRmeBox = function () {
