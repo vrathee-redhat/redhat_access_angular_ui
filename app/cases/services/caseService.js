@@ -270,10 +270,9 @@ export default class CaseService {
         };
 
         this.fetchHydraCaseDetails = async function() {
-            if (securityService.loginStatus.authedUser.is_internal && RHAUtils.isNotEmpty(this.kase.case_number)) {
+            if (securityService.loginStatus.authedUser.is_internal && RHAUtils.isNotEmpty(this.kase) && this.kase.case_number) {
                 try {
-                    const fieldOptions = { includeCaseOwner: true };
-                    this.hydraCaseDetail = await hydrajs.kase.getCase(this.kase.case_number, hydrajs.fields.getCaseFields(fieldOptions));
+                    this.hydraCaseDetail = await hydrajs.kase.getCase(this.kase.case_number, hydrajs.fields.getCaseFields({ includeCaseOwner: true }));
                   } catch (error) {
                     this.hydraCaseDetail = {};
                   }
