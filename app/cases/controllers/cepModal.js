@@ -54,7 +54,7 @@ export default class CepModal {
                 AlertService.clearAlerts();
                 CaseService.kase.cep = true;
                 CaseService.submittingCep = false;
-                AlertService.addSuccessMessage(gettextCatalog.getString('CEP has been updated successfully'));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Consultant Engagement in Progress flag has been updated successfully'));
                 angular.copy(CaseService.kase, CaseService.prestineKase);
                 $scope.closeModal();
                 $scope.submittingRequest = false;
