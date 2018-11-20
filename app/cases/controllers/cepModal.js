@@ -43,7 +43,7 @@ export default class CepModal {
         $scope.submitCEP = async function () {
             $scope.submittingRequest = true;
             CaseService.submittingCep = true;
-            var fullComment = `A consultant has been engaged with this case:\n Name: ${$scope.cepContactName}\n Hours: ${$scope.cepWorkingHours}\n Contact information: ${$scope.cepContactInformation}\n ${$scope.cepNotes ? `Notes: ${$scope.cepNotes}`: ''} `;
+            var fullComment = `A consultant has been engaged with this case:\n Name: ${$scope.cepContactName}\n Availability/Working Hours: ${$scope.cepWorkingHours}\n Contact information: ${$scope.cepContactInformation}\n ${$scope.cepNotes ? `Notes: ${$scope.cepNotes}`: ''} `;
             // add private comment on the case.
             try {
                 await strataService.cases.comments.post(CaseService.kase.case_number, fullComment, false, false);
