@@ -18,7 +18,7 @@
                 name='contact_name')
           .form-group
             label.control-label {{::'Availability/Working Hours: *'|translate}} &nbsp;
-            span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{'Indicate working hours, time zone specify if not available on certain dates (i.e. weekends, holidays)' |translate }}")
+            span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{'Indicate working hours, time zone; specify if not available on certain dates (i.e. weekends, holidays)' |translate }}")
             input.form-control(
                         ng-model='cepWorkingHours',
                         ng-disabled='submittingRequest',
@@ -27,7 +27,7 @@
                         name='working_hours')
           .form-group
             label.control-label {{::'Contact Information: *'|translate}} &nbsp;
-            span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{'Please provide phone number, chat ID, and or email' |translate }}")
+            span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{'Please provide phone number, chat ID or email' |translate }}")
             textarea.form-control(
                 maxlength='2000',
                 ng-model='cepContactInformation',
