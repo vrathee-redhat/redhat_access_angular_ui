@@ -61,7 +61,7 @@ export default class CommonConfirmationModal {
                 await strataService.cases.put(CaseService.kase.case_number, caseJSON);
                 CaseService.checkForCaseStatusToggleOnAttachOrComment();
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(gettextCatalog.getString('CEP has been updated successfully'));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Consultant Engagement in Progress flag has been updated successfully'));
                 CaseService.kase.cep = false;
                 angular.copy(CaseService.kase, CaseService.prestineKase);
                 CaseService.submittingCep = false;

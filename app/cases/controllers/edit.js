@@ -118,7 +118,7 @@ export default class Edit {
             } else {
                 CaseService.confirmationModal = CASE_EVENTS.updateCEP;
                 CaseService.confirmationModalHeader = gettextCatalog.getString('Update Consultant Engagement in Progress');
-                CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to update the Consultant Engagement in Progress?');
+                CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to remove the Consultant Engagement in Progress flag?');
                 $uibModal.open({
                     template: require('../views/commonConfirmationModal.jade'),
                     controller: 'CommonConfirmationModal'
