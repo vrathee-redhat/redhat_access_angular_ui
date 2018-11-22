@@ -9,8 +9,10 @@ export default class CommonConfirmationModal {
             $uibModalInstance.close();
             if (CaseService.confirmationModal === CASE_EVENTS.caseClose) {
                 $scope.closeCases();
-            } else if (CaseService.confirmationModal === CASE_EVENTS.updateCEP) {
+            } else if (CaseService.confirmationModal === CASE_EVENTS.editPageCEP) {
                 $scope.submitCEP();
+            } else if (CaseService.confirmationModal === CASE_EVENTS.newPageCEP) {
+                CaseService.isNewPageCEP = false;
             } else {
                 CaseService.updateCase().then(function () {
                     SearchCaseService.clear();
@@ -19,13 +21,16 @@ export default class CommonConfirmationModal {
                 });
             }
         };
+
         $scope.closeModal = function () {
             if (CaseService.confirmationModal === CASE_EVENTS.caseStatusChanged) {
                 CaseService.kase.status = CaseService.prestineKase.status;
             } else if (CaseService.confirmationModal === CASE_EVENTS.caseSeverityChanged) {
                 CaseService.kase.severity = CaseService.prestineKase.severity;
-            } else if (CaseService.confirmationModal === CASE_EVENTS.updateCEP) {
+            } else if (CaseService.confirmationModal === CASE_EVENTS.editPageCEP) {
                 CaseService.kase.cep = CaseService.prestineKase.cep;
+            } else if (CaseService.confirmationModal === CASE_EVENTS.newPageCEP) {
+                CaseService.isNewPageCEP = true;
             }
             $uibModalInstance.close();
         };
