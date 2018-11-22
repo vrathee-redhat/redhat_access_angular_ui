@@ -25,6 +25,7 @@ export default class New {
         $scope.HeaderService = HeaderService;
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
+        $scope.cepMessage = gettextCatalog.getString("Used by consultants to indicate that a consulting engagement is in progress and the issue requires increased attention from support resources.");
         $scope.ie8Message = 'We’re unable to accept file attachments from Internet Explorer 8 (IE8) at this time. Please see our instructions for providing files <a href=\"https://access.redhat.com/solutions/2112\" target="_blank\">via FTP </a> in the interim.';
 
         $scope.showRecommendationPanel = false;
@@ -475,6 +476,12 @@ export default class New {
 
                 //add notified users
                 try{
+                    if (CaseService.isNewPageCEP && caseNumber && RHAUtils.isNotEmpty(CaseService.newPageCEPComment)) {
+                        await strataService.cases.comments.post(caseNumber, CaseService.newPageCEPComment, false, false);
+                        const caseJSON = {'cep': true};
+                        await strataService.cases.put(caseNumber, caseJSON);
+                        CaseService.submittingCep = false;
+                    }
                     const addNotifiedUsers = _.map($scope.kase.notifiedUsers, (user) => strataService.cases.notified_users.add(caseNumber, user));
                     await Promise.all(addNotifiedUsers);
                 } catch (error) {
@@ -690,6 +697,24 @@ export default class New {
             CaseService.validateNewCase();
             CaseService.updateLocalStorageForNewCase();
             CaseService.sendCreationStartedEvent($event);
+        };
+
+        $scope.updateCEP = function (isCep) {
+            if (isCep) {
+                CaseService.cepModalEvent = CASE_EVENTS.newPageCEP;
+                $uibModal.open({
+                    template: require('../views/cepModal.jade'),
+                    controller: 'CepModal'
+                });
+            } else {
+                CaseService.confirmationModal = CASE_EVENTS.newPageCEP;
+                CaseService.confirmationModalHeader = gettextCatalog.getString('Update Consultant Engagement in Progress');
+                CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to remove the Consultant Engagement in Progress flag?');
+                $uibModal.open({
+                    template: require('../views/commonConfirmationModal.jade'),
+                    controller: 'CommonConfirmationModal'
+                });
+            } 
         };
 
         if (ENVIRONMENT !== 'test') {

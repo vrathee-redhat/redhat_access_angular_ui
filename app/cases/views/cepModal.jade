@@ -47,7 +47,7 @@
     span.spinner.spinner-inline(ng-show='submittingRequest')
     button#rha-case-escalation-submitbutton.btn-accent.btn(
         style='margin-left: 10px;',
-        ng-click='submitCEP()',
+        ng-click='submit()',
         ng-disabled='submittingRequest || disableSubmitRequest')
         span {{'Submit'|translate}}
     button.btn-accent.btn(style='margin-left: 10px;', ng-click='closeModal()', ng-disabled='submittingRequest') {{'Cancel'|translate}}
