@@ -477,9 +477,9 @@ export default class New {
                 //add notified users
                 try{
                     if (CaseService.isNewPageCEP && caseNumber && RHAUtils.isNotEmpty(CaseService.newPageCEPComment)) {
-                        await strataService.cases.comments.post(caseNumber, CaseService.newPageCEPComment, false, false);
                         const caseJSON = {'cep': true};
                         await strataService.cases.put(caseNumber, caseJSON);
+                        await strataService.cases.comments.post(caseNumber, CaseService.newPageCEPComment, false, false);
                         CaseService.submittingCep = false;
                     }
                     const addNotifiedUsers = _.map($scope.kase.notifiedUsers, (user) => strataService.cases.notified_users.add(caseNumber, user));
