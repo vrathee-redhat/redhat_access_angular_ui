@@ -3,7 +3,7 @@
 import hydrajs  from '../../shared/hydrajs';
 
 export default class CepModal {
-    constructor($scope, $uibModalInstance, AlertService, CaseService, DiscussionService, strataService, securityService, $q, $stateParams, RHAUtils, gettextCatalog) {
+    constructor($scope, CASE_EVENTS, $uibModalInstance, AlertService, CaseService, DiscussionService, strataService, securityService, $q, $stateParams, RHAUtils, gettextCatalog) {
         'ngInject';
 
         $scope.CaseService = CaseService;
@@ -15,12 +15,22 @@ export default class CepModal {
         $scope.cepContactInformation = '';
         $scope.cepNotes = '';
 
+        $scope.submit = function () {
+            if (CaseService.cepModalEvent === CASE_EVENTS.newPageCEP) {
+                $scope.submitNewPageCEP();
+            } else if (CaseService.cepModalEvent === CASE_EVENTS.editPageCEP) {
+                $scope.submitEditPageCEP();
+            }
+            $uibModalInstance.close();
+        };
+        
         $scope.closeModal = function () {
             $scope.cepContactName = undefined;
             $scope.cepWorkingHours = null;
             $scope.cepContactInformation = undefined;
             $scope.cepNotes = undefined;
             CaseService.kase.cep = CaseService.prestineKase.cep;
+            CaseService.isNewPageCEP = false;
             CaseService.submittingCep = false;
             $uibModalInstance.close();
         };
@@ -40,10 +50,14 @@ export default class CepModal {
             }
         };
 
-        $scope.submitCEP = async function () {
+        $scope.submitNewPageCEP = async function () {
+            CaseService.newPageCEPComment = `A consultant has been engaged with this case:\n Name: ${$scope.cepContactName}\n Availability/Working Hours: ${$scope.cepWorkingHours}\n Contact information: ${$scope.cepContactInformation}\n ${$scope.cepNotes ? `Notes: ${$scope.cepNotes}`: ''} `;
+        }
+
+        $scope.submitEditPageCEP = async function () {
             $scope.submittingRequest = true;
             CaseService.submittingCep = true;
-            var fullComment = `A consultant has been engaged with this case:\n Name: ${$scope.cepContactName}\n Hours: ${$scope.cepWorkingHours}\n Contact information: ${$scope.cepContactInformation}\n ${$scope.cepNotes ? `Notes: ${$scope.cepNotes}`: ''} `;
+            var fullComment = `A consultant has been engaged with this case:\n Name: ${$scope.cepContactName}\n Availability/Working Hours: ${$scope.cepWorkingHours}\n Contact information: ${$scope.cepContactInformation}\n ${$scope.cepNotes ? `Notes: ${$scope.cepNotes}`: ''} `;
             // add private comment on the case.
             try {
                 await strataService.cases.comments.post(CaseService.kase.case_number, fullComment, false, false);
@@ -54,7 +68,7 @@ export default class CepModal {
                 AlertService.clearAlerts();
                 CaseService.kase.cep = true;
                 CaseService.submittingCep = false;
-                AlertService.addSuccessMessage(gettextCatalog.getString('CEP has been updated successfully'));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Consultant Engagement in Progress flag has been updated successfully'));
                 angular.copy(CaseService.kase, CaseService.prestineKase);
                 $scope.closeModal();
                 $scope.submittingRequest = false;

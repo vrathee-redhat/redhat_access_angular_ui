@@ -58,6 +58,9 @@ export default class CaseService {
         this.updatingNewCaseSummary = false;
         this.updatingNewCaseDescription = false;
         // Added common modal variables for Status/Severity/CaseClose confirmation
+        this.cepModalEvent = '';
+        this.isNewPageCEP = false;
+        this.newPageCEPComment = '';
         this.confirmationModal = '';
         this.confirmationModalHeader = '';
         this.confirmationModalMessage = '';
@@ -344,6 +347,9 @@ export default class CaseService {
             this.isOpenShiftOnlineProduct = false;
             this.caseRMEEscalation = [];
             this.hydraCaseDetail = {};
+            this.cepModalEvent = '';
+            this.isNewPageCEP = false;
+            this.newPageCEPComment = '';
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
