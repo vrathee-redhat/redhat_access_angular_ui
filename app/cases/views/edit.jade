@@ -23,7 +23,7 @@ div.edit(ng-if='showCasePage()')
       .row.row-very-short
         span {{'Assigned to'|translate}} {{$parent.CaseService.kase.owner}}
         span &nbsp;
-        span(ng-if='$parent.securityService.loginStatus.authedUser.is_internal && isShowOwnerTooltip').glyphicon.glyphicon-info-sign(uib-popover-html="ownerTooltip", popover-placement="right", popover-trigger="mouseenter")
+        span(ng-if="$parent.securityService.loginStatus.authedUser.is_internal && ownerTooltip !== ''").glyphicon.glyphicon-info-sign(uib-popover-html="ownerTooltip", popover-placement="right", popover-trigger="mouseenter")
         a#cancelCaseDetailChanges.margin-left(ng-click="changeOwner()",translate='',
         ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.COMMON_CONFIG.isGS4') {{'Edit'|translate}}
       .row.row-very-short(ng-if='$parent.securityService.loginStatus.authedUser.is_internal || $parent.userHasManagedAccounts()')
