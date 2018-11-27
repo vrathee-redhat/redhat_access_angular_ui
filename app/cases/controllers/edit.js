@@ -21,7 +21,7 @@ export default class Edit {
         $scope.isShowRmeEscalationBox = false;
         $scope.isCreateRmeEscalationBox = true;
         $scope.ownerTooltip = '';
-        $scope.isShowOwnerTooltip = true;
+        $scope.isShowOwnerTooltip = false;
         $scope.cepMessage = gettextCatalog.getString("Used by consultants to indicate that a consulting engagement is in progress and the issue requires increased attention from support resources.");
         $scope.showCasePage = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases && !$scope.loading.kase;
         $scope.init = function () {
