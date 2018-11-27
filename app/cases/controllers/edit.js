@@ -132,8 +132,13 @@ export default class Edit {
             if (RHAUtils.isNotEmpty(CaseService.hydraCaseDetail) && RHAUtils.isNotEmpty(CaseService.hydraCaseDetail.caseOwner)) {
                 const owner = CaseService.hydraCaseDetail.caseOwner;
                 $scope.ownerTooltip = $sce.trustAsHtml(
-                    `<div style="text-align: left;"><b>Name</b>: ${owner.name}<br> <b>Title</b>: ${owner.title}<br><b>Email</b>: ${owner.email}<br> <b>Phone</b>: ${owner.mobilePhone}<br>
-                    <b>IRC</b>: ${owner.ircNick}</div>`
+                    `<div style="text-align: left;">
+                    <b>Name</b>: ${owner.name ? owner.name : ''}<br>
+                    <b>Title</b>: ${owner.title ? owner.title : ''}<br>
+                    <b>Email</b>: ${owner.email ? owner.email : ''}<br> 
+                    <b>Phone</b>: ${owner.mobilePhone ? owner.mobilePhone : ''}<br>
+                    <b>IRC</b>: ${owner.ircNick ? owner.ircNick : ''}
+                    </div>`
                 );
             } else {
                 $scope.ownerTooltip = '';
