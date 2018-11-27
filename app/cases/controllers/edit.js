@@ -131,7 +131,6 @@ export default class Edit {
         var updateOwnerTooltip = function() {
             if (RHAUtils.isNotEmpty(CaseService.hydraCaseDetail) && RHAUtils.isNotEmpty(CaseService.hydraCaseDetail.caseOwner)) {
                 const owner = CaseService.hydraCaseDetail.caseOwner;
-                $scope.isShowOwnerTooltip = true;
                 $scope.ownerTooltip = $sce.trustAsHtml(
                     `<div style="text-align: left;">
                     <b>Name</b>: ${owner.name ? owner.name : ''}<br>
