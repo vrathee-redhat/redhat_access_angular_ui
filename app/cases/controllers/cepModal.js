@@ -51,6 +51,7 @@ export default class CepModal {
         };
 
         $scope.submitNewPageCEP = async function () {
+            CaseService.isNewPageCEP = true;
             CaseService.newPageCEPComment = `A consultant has been engaged with this case:\n Name: ${$scope.cepContactName}\n Availability/Working Hours: ${$scope.cepWorkingHours}\n Contact information: ${$scope.cepContactInformation}\n ${$scope.cepNotes ? `Notes: ${$scope.cepNotes}`: ''} `;
         }
 
