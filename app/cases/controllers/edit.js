@@ -113,12 +113,14 @@ export default class Edit {
         $scope.updateCEP = function (isCep) {
             if (isCep) {
                 CaseService.cepModalEvent = CASE_EVENTS.editPageCEP;
+                CaseService.kase.cep = false;
                 $uibModal.open({
                     template: require('../views/cepModal.jade'),
                     controller: 'CepModal'
                 });
             } else {
                 CaseService.confirmationModal = CASE_EVENTS.editPageCEP;
+                CaseService.kase.cep = true;
                 CaseService.confirmationModalHeader = gettextCatalog.getString('Update Consultant Engagement in Progress');
                 CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to remove the Consultant Engagement in Progress flag?');
                 $uibModal.open({
