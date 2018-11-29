@@ -71,6 +71,7 @@ export default class CaseService {
         this.redhatUsersLoading = false;
         this.redhatSecureSupportUsersLoading = false;
         this.submittingCep = false;
+        this.solutionEngineProduct = '';
         this.redhatUsers = [];
         this.redhatSecureSupportUsers = [];
         this.managedAccount = null;
@@ -203,13 +204,16 @@ export default class CaseService {
         this.onSelectChanged = function () {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
-        this.onOwnerSelectChanged = function () {
+        this.onOwnerSelectChanged = function (ownerSelect = false) {
             if(RHAUtils.isNotEmpty(this.account.number) && RHAUtils.isNotEmpty(this.managedAccountUsers) && !_.includes(_.map(this.managedAccountUsers,'sso_username'),this.owner)) {
                 if(RHAUtils.isNotEmpty(_.first(_.filter(this.managedAccountUsers, (user) => user.org_admin)))) {
                     this.virtualOwner = _.first(_.filter(this.managedAccountUsers, (user) => user.org_admin)).sso_username;
                 } else {
                     this.virtualOwner = this.managedAccountUsers[0].sso_username;
                 }
+            }
+            if (ownerSelect) {
+                this.solutionEngineProduct = '';
             }
             $rootScope.$broadcast(CASE_EVENTS.ownerChange);
         };
@@ -350,6 +354,7 @@ export default class CaseService {
             this.cepModalEvent = '';
             this.isNewPageCEP = false;
             this.newPageCEPComment = '';
+            this.solutionEngineProduct = '';
         };
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
