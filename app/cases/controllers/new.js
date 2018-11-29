@@ -23,7 +23,6 @@ export default class New {
         $scope.RecommendationsService = RecommendationsService;
         $scope.securityService = securityService;
         $scope.HeaderService = HeaderService;
-        $scope.solutionEngineProduct = '';
         $scope.ie8 = window.ie8;
         $scope.ie9 = window.ie9;
         $scope.cepMessage = gettextCatalog.getString("Used by consultants to indicate that a consulting engagement is in progress and the issue requires increased attention from support resources.");
@@ -187,7 +186,7 @@ export default class New {
                 ProductsService.getProducts(true);
 
                 //as owner change, we might get different product and version list, so better to clear previous selection
-                if (!RHAUtils.isNotEmpty($scope.solutionEngineProduct)) {
+                if (!RHAUtils.isNotEmpty(CaseService.solutionEngineProduct)) {
                     CaseService.clearProdVersionFromLS();
                 }
             }
@@ -322,7 +321,7 @@ export default class New {
                 CaseService.kase.urgency = draftNewCase.businessImpact;
                 CaseService.kase.summary = draftNewCase.issue;
                 if (RHAUtils.isNotEmpty(draftNewCase.product)) {
-                    $scope.solutionEngineProduct = draftNewCase.product;
+                    CaseService.solutionEngineProduct = draftNewCase.product;
                     $scope.setProductAndVersion(draftNewCase.product, draftNewCase.version);
                 }
             }
@@ -419,8 +418,8 @@ export default class New {
                 CaseService.externalCaseCreateKey = urlParameter.caseCreateKey;
                 //dummy stringified case object, need to delete this once get original object from solution engine or container catalog
                 //delete the below 2 lines when original integration is complete.
-                // let newStrigifiedCaseObject = '{"product":"Red Hat Satellite or Proxy","version":"6.4","problemStatement":"test problem","issue":"test issue","environment":"test env","frequency":"test frequency","businessImpact":"test business","guid":"test"}';
-                // window.localStorage.setItem(CaseService.externalCaseCreateKey, newStrigifiedCaseObject);
+                 // let newStrigifiedCaseObject = '{"product":"Red Hat Satellite or Proxy","version":"6.4","problemStatement":"test problem","issue":"test issue","environment":"test env","frequency":"test frequency","businessImpact":"test business","guid":"test"}';
+                 // window.localStorage.setItem(CaseService.externalCaseCreateKey, newStrigifiedCaseObject);
 
                 $scope.getCaseDetailsFromLocalStorage();
 
