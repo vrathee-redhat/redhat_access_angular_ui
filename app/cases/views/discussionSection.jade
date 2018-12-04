@@ -103,7 +103,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                         .pre-wrap
                             span(ng-if="ie8 || ie9", style='word-wrap: normal; word-break: normal;') {{element.body}}
                             .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
-                pagination(ng-if="discussion", datalength="DiscussionService.discussionElements.length", setdata="getPaginationData(pageSize, currentPage)")
+                pagination(ng-if="discussion", default-current-page-number="defaultCurrentPageNumber", datalength="DiscussionService.discussionElements.length", setdata="getPaginationData(pageSize, currentPage)")
     #pane2.tab-pane(ng-class='{"active": attachments}')
         .row.row-very-short.case-discussion
             .col-xs-12
