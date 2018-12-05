@@ -65,15 +65,15 @@ export default class DiscussionSection {
 
         $scope.init = function () {
             DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function () {
-                var commentIdFromQueryParams = $location.search().commentId;
+                let commentIdFromQueryParams = $location.search().commentId;
 
                 if (commentIdFromQueryParams) {
-                    var commentIndex = findIndex($scope.getOrderedDiscussionElements(), { id: commentIdFromQueryParams });
-                    var commentNumber = commentIndex + 1;
-                    var mod = (commentNumber % $scope.pageSize);
-                    var division = Math.floor(commentNumber / $scope.pageSize);
-                    var currentPageNumber = mod == 0 ? (division || 1) : (division + 1)
-                    var currentPage = currentPageNumber - 1;
+                    let commentIndex = findIndex($scope.getOrderedDiscussionElements(), { id: commentIdFromQueryParams });
+                    let commentNumber = commentIndex + 1;
+                    let mod = (commentNumber % $scope.pageSize);
+                    let division = Math.floor(commentNumber / $scope.pageSize);
+                    let currentPageNumber = mod == 0 ? (division || 1) : (division + 1)
+                    let currentPage = currentPageNumber - 1;
 
 
                     if (commentIndex > -1 && currentPageNumber) {
