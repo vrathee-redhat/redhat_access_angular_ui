@@ -1,10 +1,14 @@
 'use strict';
 
 import hydrajs from '../../shared/hydrajs';
+import findIndex from 'lodash/findIndex'
+import orderBy from 'lodash/orderBy';
+import reverse from 'lodash/reverse';
+import filter from 'lodash/filter';
 
 export default class DiscussionSection {
     constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
-                $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG) {
+        $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG) {
         'ngInject';
 
         $scope.AttachmentsService = AttachmentsService;
@@ -23,6 +27,7 @@ export default class DiscussionSection {
         $scope.bugzillas = false;
         $scope.hasScrolled = false;
         $scope.commentSortOrder = true;
+        $scope.defaultCurrentPageNumber = 1;
         $scope.commentSortOrderList = [
             {
                 name: gettextCatalog.getString('Newest to Oldest'),
@@ -52,10 +57,30 @@ export default class DiscussionSection {
             }, 150);
         };
 
+        $scope.getOrderedDiscussionElements = () => {
+            var sorted = orderBy(DiscussionService.discussionElements, "sortModifiedDate");
+            var ordered = $scope.commentSortOrder ? reverse(sorted) : sorted;
+            return filter(ordered, (e) => (!e.draft))
+        }
+
         $scope.init = function () {
             DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function () {
-                if ($location.search().commentId !== undefined) {
-                    scroll($location.search().commentId);
+                let commentIdFromQueryParams = $location.search().commentId;
+
+                if (commentIdFromQueryParams) {
+                    let commentIndex = findIndex($scope.getOrderedDiscussionElements(), { id: commentIdFromQueryParams });
+                    let commentNumber = commentIndex + 1;
+                    let mod = (commentNumber % $scope.pageSize);
+                    let division = Math.floor(commentNumber / $scope.pageSize);
+                    let currentPageNumber = mod == 0 ? (division || 1) : (division + 1)
+                    let currentPage = currentPageNumber - 1;
+
+
+                    if (commentIndex > -1 && currentPageNumber) {
+                        $scope.defaultCurrentPageNumber = currentPageNumber;
+                        $scope.getPaginationData($scope.pageSize, currentPage);
+                        scroll($location.search().commentId);
+                    }
                 }
             }, function (error) {
             }));
@@ -72,7 +97,7 @@ export default class DiscussionSection {
             var truncatedText = comment.text.substring(0, 1000);
             var person = comment.created_by;
             var lines = truncatedText.split(/\n/);
-            truncatedText = gettextCatalog.getString('(In reply to {{personName}})', {personName: person}) + '\n';
+            truncatedText = gettextCatalog.getString('(In reply to {{personName}})', { personName: person }) + '\n';
             for (var i = 0, max = lines.length; i < max; i++) {
                 truncatedText = truncatedText + '> ' + lines[i] + '\n';
             }
@@ -103,9 +128,9 @@ export default class DiscussionSection {
         };
 
         $scope.applyCommentFeedback = (element, feedback) => {
-            CaseService.feedbackComment(element, feedback).then(angular.bind(this, function() {
+            CaseService.feedbackComment(element, feedback).then(angular.bind(this, function () {
                 DiscussionService.updateElements();
-            }), angular.bind(this, function(error) {
+            }), angular.bind(this, function (error) {
                 AlertService.addStrataErrorMessage(error);
             }));
         };
@@ -254,7 +279,7 @@ export default class DiscussionSection {
                     const matchText = 'Request Management Escalation:';
                     if (comment.text.indexOf(matchText) > -1) {
                         // made red color to RME escalation comment.
-                        return $sce.trustAsHtml(comment.text.replace(new RegExp(matchText, "gi"), function(match) {
+                        return $sce.trustAsHtml(comment.text.replace(new RegExp(matchText, "gi"), function (match) {
                             return '<span class="text-danger">' + match + '</span>';
                         }));
                     }
@@ -281,12 +306,12 @@ export default class DiscussionSection {
             const id = element.uuid;
 
             hydraAttachments.downloadAttachmentS3(caseNumber, id, element.file_name)
-            .catch((error) => {
-                AlertService.addDangerMessage(gettextCatalog.getString(`Could not download {{filename}}: {{error}}`, {
-                    filename: element.file_name,
-                    error: error.message
-                }));
-            });
+                .catch((error) => {
+                    AlertService.addDangerMessage(gettextCatalog.getString(`Could not download {{filename}}: {{error}}`, {
+                        filename: element.file_name,
+                        error: error.message
+                    }));
+                });
         };
 
         $scope.isCertification = () => CaseService.kase.type.name === 'Certification';

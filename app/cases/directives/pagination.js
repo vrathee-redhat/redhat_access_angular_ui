@@ -8,8 +8,8 @@ class Pagination {
         $scope.onlyNumbers = /^\d+$/;
         $scope.disablePageInput = false;
         $scope.pageData = {
-            currentPage: 0,
-            currentPageNumber: 1,
+            currentPage: ($scope.defaultCurrentPageNumber - 1 > -1) || 0,
+            currentPageNumber: $scope.defaultCurrentPageNumber ? $scope.defaultCurrentPageNumber : 1,
             pageSize: 15
         };
 
@@ -22,7 +22,7 @@ class Pagination {
         $scope.showSkipBtns = () => $scope.numberOfPages() > $scope.skipSize;
 
         $scope.isForwardBtnDisabled = () => $scope.getCurrentPage() >= $scope.numberOfPages();
-        $scope.isSkipForwardBtnDisabled = () => $scope.getCurrentPage() + $scope.skipSize  > $scope.numberOfPages();
+        $scope.isSkipForwardBtnDisabled = () => $scope.getCurrentPage() + $scope.skipSize > $scope.numberOfPages();
         $scope.goForward = () => $scope.pageData.currentPage++;
         $scope.skipForward = () => {
             const numberOfPages = $scope.numberOfPages();
@@ -63,6 +63,11 @@ class Pagination {
             $scope.setParentScopeVariables();
         });
 
+        $scope.$watch('defaultCurrentPageNumber', (newv) => {
+            $scope.pageData.currentPage = (newv - 1 > -1) || 0;
+            $scope.pageData.currentPageNumber = newv || 1;
+        })
+
         $scope.$watch('pageData.currentPageNumber', (newv) => {
             const numOfPages = $scope.numberOfPages();
 
@@ -101,6 +106,7 @@ export default () => ({
     controller: Pagination,
     scope: {
         datalength: '<',
+        defaultCurrentPageNumber: '=',
         setdata: '&'
     }
 });
