@@ -119,7 +119,7 @@ if (ENVIRONMENT === 'gs4') {
     $.support.cors = true;
 
     angular.module('RedhatAccess.cases').run(
-        function (COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog){
+        function (COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, securityService, gettextCatalog, AttachmentsService){
             'ngInject';
 
             COMMON_CONFIG.isGS4 = true;
@@ -160,7 +160,7 @@ if (ENVIRONMENT === 'gs4') {
     window.strata.setStrataHostname('https://' + host);
     // TODO removed TITLE_VIEW_CONFIG / TITLE_VIEW_CONFIG.show = true;  It doesn't appear to be read in the code anywhere
     angular.module('RedhatAccess.cases').run(
-        function ($rootScope, COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, AUTH_EVENTS, securityService, gettextCatalog) {
+        function ($rootScope, COMMON_CONFIG, CHAT_SUPPORT, EDIT_CASE_CONFIG, NEW_CASE_CONFIG, SECURITY_CONFIG, AUTH_EVENTS, securityService, gettextCatalog, AttachmentsService) {
             'ngInject';
 
             COMMON_CONFIG.showTitle = true;
