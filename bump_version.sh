@@ -8,5 +8,5 @@ fi
 versiony --version=$1 --to=package.json,bower.json
 git commit -am "Publish version $1"
 git tag $1
-git push
-git push --tags
+git push upstream master
+git push upstream master --tags
