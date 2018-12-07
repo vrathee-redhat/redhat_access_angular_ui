@@ -16,8 +16,10 @@ export default class AttachmentsService {
         this.loading = false;
         this.maxAttachmentSize;
 
-        this.init = async function() {
-            await this.fetchS3Configs();
+        this.init = async function() { 
+            if(RHAUtils.isEmpty(this.s3AccountConfigurations)) {
+                await this.fetchS3Configs();
+            }
         };
 
         this.fetchS3Configs = async function() {
@@ -34,10 +36,14 @@ export default class AttachmentsService {
         this.accountCanAddAttachments = () => _.get(securityService, 'loginStatus.authedUser.can_add_attachments', false);
 
         this.isValidS3UploadAccount = async function () {
-            const accountNumber = RHAUtils.isNotEmpty(CaseService.account.number) ? CaseService.account.number : securityService.loginStatus.authedUser.account.number;
             if(RHAUtils.isEmpty(this.s3AccountConfigurations)) {
                 await this.fetchS3Configs();
             }
+            this.checkAccountInS3Config();
+        };
+
+        this.checkAccountInS3Config = function () {
+            const accountNumber = RHAUtils.isNotEmpty(CaseService.account.number) ? CaseService.account.number : securityService.loginStatus.authedUser.account.number;
             const uploadFunctionality = this.s3AccountConfigurations.s3UploadFunctionality;
             if (uploadFunctionality === 'enable_all' ||
                 (uploadFunctionality === 'specified_accounts' &&
@@ -48,7 +54,7 @@ export default class AttachmentsService {
         };
 
         // returns true if the attachment is
-        this.isAwsAttachment = (attachment) => attachment && attachment.link &&
+        this.isAwsAttachment = (attachment) => RHAUtils.isNotEmpty(this.s3AccountConfigurations) && this.checkAccountInS3Config() && attachment && attachment.link &&
             (attachment.link.indexOf('/hydra/rest/') > -1 || attachment.link.indexOf('/hydrafs/rest/') > -1);
 
         this.clear = function () {
