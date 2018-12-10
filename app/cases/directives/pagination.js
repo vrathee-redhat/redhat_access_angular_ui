@@ -8,7 +8,7 @@ class Pagination {
         $scope.onlyNumbers = /^\d+$/;
         $scope.disablePageInput = false;
         $scope.pageData = {
-            currentPage: ($scope.defaultCurrentPageNumber - 1 > -1) || 0,
+            currentPage: ($scope.defaultCurrentPageNumber > 0) ? $scope.defaultCurrentPageNumber - 1 :  0,
             currentPageNumber: $scope.defaultCurrentPageNumber ? $scope.defaultCurrentPageNumber : 1,
             pageSize: 15
         };
@@ -64,8 +64,8 @@ class Pagination {
         });
 
         $scope.$watch('defaultCurrentPageNumber', (newv) => {
-            $scope.pageData.currentPage = (newv - 1 > -1) || 0;
-            $scope.pageData.currentPageNumber = newv || 1;
+            $scope.pageData.currentPage = (newv > 0) ? newv-1 : 0;
+            $scope.pageData.currentPageNumber = newv ? newv : 1;
         })
 
         $scope.$watch('pageData.currentPageNumber', (newv) => {
