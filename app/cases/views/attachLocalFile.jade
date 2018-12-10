@@ -1,13 +1,13 @@
 .row
   .col-xs-12
     button.btn.btn-primary.btn-app(
-    uib-tooltip="{{attachFileTT | translate}}"
+    uib-tooltip="{{getAttachFileTT(AttachmentsService.s3EnabledForAccount)}}"
     ng-click='getFile()',
     ng-disabled='disabled',
     translate='',
     ng-hide='AttachmentsService.updatedAttachments.length === 0 || AttachmentsService.uploadingAttachments') Attach Another File
     button.btn.btn-primary.btn-app(
-    uib-tooltip="{{attachFileTT | translate}}"
+    uib-tooltip="{{getAttachFileTT(AttachmentsService.s3EnabledForAccount)}}"
     ng-click='getFile()',
     ng-disabled='disabled',
     translate='',
