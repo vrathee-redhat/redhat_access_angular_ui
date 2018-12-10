@@ -315,5 +315,9 @@ export default class DiscussionSection {
         };
 
         $scope.isCertification = () => CaseService.kase.type.name === 'Certification';
+
+        $scope.$watch('CaseService.account.number', async () => {
+            await AttachmentsService.reEvaluateS3EnabledForAccount();
+        }, true);
     }
 }

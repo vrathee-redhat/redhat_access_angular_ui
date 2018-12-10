@@ -8,21 +8,17 @@ export default class AttachLocalFile {
         $scope.CaseService = CaseService;
         $scope.NO_FILE_CHOSEN = 'No file chosen';
         $scope.fileDescription = '';
-        $scope.attachFileTT = '';
 
-        $scope.$watch('CaseService.account.number', () => {
-            if(CaseService.account && RHAUtils.isNotEmpty(CaseService.account.number)) {
-                $scope.setToolTip();
-            }
-        });
+        $scope.$watch('CaseService.account.number', async () => {
+            await AttachmentsService.reEvaluateS3EnabledForAccount();
+        }, true);
+
+        $scope.getAttachFileTT = function(s3Enabled) {
+            return s3Enabled ? gettextCatalog.getString('Can now accept large attachments (~5TB)') : '';
+        }
 
         $scope.init = function () {
             AttachmentsService.fetchMaxAttachmentSize();
-            $scope.setToolTip();
-        };
-
-        $scope.setToolTip = async () => {
-            $scope.attachFileTT = (await AttachmentsService.isValidS3UploadAccount()) ? 'Can now accept large attachments (~5TB)' : '';
         };
 
         $scope.clearSelectedFile = function () {
@@ -50,14 +46,13 @@ export default class AttachLocalFile {
         $scope.getFile = function () {
             $('#fileUploader').click();
         };
-        $scope.selectFile = async function () {
-            const isValidS3UploadAccount = (await AttachmentsService.isValidS3UploadAccount());
+        $scope.selectFile = function () {
             const minSize = 0;
-            const maxSize = isValidS3UploadAccount ? 1e12 : (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
+            const maxSize = AttachmentsService.s3EnabledForAccount ? 1e12 : (AttachmentsService.maxAttachmentSize / 1024) * 1000000000;
             const file = $('#fileUploader')[0].files[0];
             const greaterThanMin = file.size > minSize;
             const lessThanMax = file.size < maxSize;
-            if ((file && greaterThanMin && lessThanMax) || (file && greaterThanMin && isValidS3UploadAccount)) {
+            if ((file && greaterThanMin && lessThanMax) || (file && greaterThanMin && AttachmentsService.s3EnabledForAccount)) {
                 $scope.fileObj = file;
                 $scope.fileSize = $scope.fileObj.size;
                 $scope.fileName = $scope.fileObj.name;
@@ -80,13 +75,13 @@ export default class AttachLocalFile {
             } else if (file && file.size === minSize) {
                 var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is a 0 byte file.", {errorFileName: file.name});
                 AlertService.addDangerMessage(message);
-            } else if (file && !isValidS3UploadAccount) {
+            } else if (file && !AttachmentsService.s3EnabledForAccount) {
                 var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than {{errorFileSize}} GB. Please FTP large files to dropbox.redhat.com.", {
                     errorFileName: file.name,
                     errorFileSize: (AttachmentsService.maxAttachmentSize / 1024)
                 });
                 AlertService.addDangerMessage(message);
-            } else if (file && isValidS3UploadAccount) {
+            } else if (file && AttachmentsService.s3EnabledForAccount) {
                 var message = gettextCatalog.getString("{{errorFileName}} cannot be attached because it is larger than 1 TB.", {
                     errorFileName: file.name
                 });

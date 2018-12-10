@@ -15,14 +15,17 @@ export default class AttachmentsService {
         this.uploadingAttachments = false;
         this.loading = false;
         this.maxAttachmentSize;
+        this.s3EnabledForAccount = false;
 
-        this.init = async function() { 
-            if(RHAUtils.isEmpty(this.s3AccountConfigurations)) {
-                await this.fetchS3Configs();
-            }
+        this.init = async () => { 
+            this.s3EnabledForAccount = await this.isValidS3UploadAccount();
         };
 
-        this.fetchS3Configs = async function() {
+        this.reEvaluateS3EnabledForAccount = async () => {
+            this.s3EnabledForAccount = await this.isValidS3UploadAccount();
+        }
+
+        this.fetchS3Configs = async () => {
             try {
                 this.s3AccountConfigurations = await hydrajs.kase.attachments.getS3UploadAccounts();
             } catch (error) {
@@ -35,11 +38,11 @@ export default class AttachmentsService {
 
         this.accountCanAddAttachments = () => _.get(securityService, 'loginStatus.authedUser.can_add_attachments', false);
 
-        this.isValidS3UploadAccount = async function () {
+        this.isValidS3UploadAccount = async () => {
             if(RHAUtils.isEmpty(this.s3AccountConfigurations)) {
                 await this.fetchS3Configs();
             }
-            this.checkAccountInS3Config();
+            return this.checkAccountInS3Config();
         };
 
         this.checkAccountInS3Config = function () {
@@ -54,7 +57,7 @@ export default class AttachmentsService {
         };
 
         // returns true if the attachment is
-        this.isAwsAttachment = (attachment) => RHAUtils.isNotEmpty(this.s3AccountConfigurations) && this.checkAccountInS3Config() && attachment && attachment.link &&
+        this.isAwsAttachment = (attachment, s3EnabledForAccount) => s3EnabledForAccount && attachment && attachment.link &&
             (attachment.link.indexOf('/hydra/rest/') > -1 || attachment.link.indexOf('/hydrafs/rest/') > -1);
 
         this.clear = function () {
@@ -161,7 +164,7 @@ export default class AttachmentsService {
 
         this.updateAttachments = async function(caseId) {
             this.uploadingAttachments = true;
-            const response = await this.isValidS3UploadAccount() ? await this.updateAttachmentsS3(caseId) : await this.updateAttachmentsStrata(caseId);
+            const response = this.s3EnabledForAccount ? await this.updateAttachmentsS3(caseId) : await this.updateAttachmentsStrata(caseId);
             this.uploadingAttachments = false;
             return response;
         };
