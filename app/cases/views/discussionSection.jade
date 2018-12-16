@@ -37,7 +37,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                         i.fa.fa-comments-o
                         h4.meta 
                             {{'Message'|translate}}&nbsp; ({{element.created_by_type}})
-                            a(ng-if="showJumpToComment == element.id") Jump to comment
+                            a(ng-if="showJumpToComment == element.id" ng-click="jumpToComment(element.id)", ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')) Jump to comment
                         .byline
                             author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
                             date {{element.last_modified_date}} {{'at'|translate}}&nbsp;
@@ -54,7 +54,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-private-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && element.public !== undefined && !element.public")
                         i.fa.fa-comments-o
                         h4.meta {{'Private Message'|translate}}&nbsp;({{element.created_by_type}})
-                            a(ng-if="showJumpToComment == element.id") Jump to comment
+                            a(ng-if="showJumpToComment == element.id" ng-click="jumpToComment(element.id)", ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}')) Jump to comment
                         
                         .byline
                             author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
@@ -70,7 +70,6 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-attachment(ng-if="element.file_name && !element.originating_system")
                         i.fa.fa-paperclip
                         h4.meta {{'Attachment'|translate}}
-                            a(ng-if="showJumpToComment == element.id") Jump to comment
 
                         .byline
                             author {{element.last_modified_by ? element.last_modified_by : element.modifiedBy}} {{'on'|translate}}&nbsp;
@@ -91,7 +90,6 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-chat(ng-if="element.comment_type === 'chat'")
                         i.fa.fa-file-text-o
                         h4.meta(ng-if="element.comment_type === 'chat'") {{'Transcript of chat'|translate}}
-                            a(ng-if="showJumpToComment == element.id") Jump to comment
                         .byline
                             span {{'between'|translate}}&nbsp;
                             author {{element.agent_name}}&nbsp;
@@ -104,7 +102,6 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-external-updates(ng-if="element.originating_system")
                         i.fa.fa-comments-o
                         h4.meta {{element.originating_system}}
-                            a(ng-if="showJumpToComment == element.id") Jump to comment
                             span(ng-show="element.visibility==='Partner Only'") {{' - Private'|translate}}
                         .byline
                             author {{element.created_by}} {{'on'|translate}}&nbsp;
@@ -124,7 +121,6 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-attachment(ng-if="attachment.file_name") 
                         i.fa.fa-paperclip
                         h4.meta {{'Attachment'|translate}}
-                            a(ng-if="showJumpToComment == attachment.id") Jump to comment
 
                         .byline
                             author {{attachment.last_modified_by}} {{'on'|translate}} &nbsp;

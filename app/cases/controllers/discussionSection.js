@@ -78,25 +78,27 @@ export default class DiscussionSection {
             return filter(ordered, (e) => (!e.draft))
         }
 
+        $scope.scrollToComment = (commentId) => {
+            if (commentId) {
+                let commentIndex = findIndex($scope.getOrderedDiscussionElements(), { id: commentId });
+                let commentNumber = commentIndex + 1;
+                let mod = (commentNumber % $scope.pageSize);
+                let division = Math.floor(commentNumber / $scope.pageSize);
+                let currentPageNumber = mod == 0 ? (division || 1) : (division + 1)
+                let currentPage = currentPageNumber - 1;
+
+
+                if (commentIndex > -1 && currentPageNumber) {
+                    $scope.defaultCurrentPageNumber = currentPageNumber;
+                    $scope.getPaginationData($scope.pageSize, currentPage);
+                    scroll($location.search().commentId);
+                }
+            }
+        }
+
         $scope.init = function () {
             DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function () {
-                let commentIdFromQueryParams = $location.search().commentId;
-
-                if (commentIdFromQueryParams) {
-                    let commentIndex = findIndex($scope.getOrderedDiscussionElements(), { id: commentIdFromQueryParams });
-                    let commentNumber = commentIndex + 1;
-                    let mod = (commentNumber % $scope.pageSize);
-                    let division = Math.floor(commentNumber / $scope.pageSize);
-                    let currentPageNumber = mod == 0 ? (division || 1) : (division + 1)
-                    let currentPage = currentPageNumber - 1;
-
-
-                    if (commentIndex > -1 && currentPageNumber) {
-                        $scope.defaultCurrentPageNumber = currentPageNumber;
-                        $scope.getPaginationData($scope.pageSize, currentPage);
-                        scroll($location.search().commentId);
-                    }
-                }
+                $scope.scrollToComment($location.search().commentId);
             }, function (error) {
             }));
         };
@@ -345,6 +347,12 @@ export default class DiscussionSection {
         $scope.mouseOut = (element) => {
             const isUserSearching = !!SearchBoxService.searchTerm;
             if (isUserSearching) $scope.showJumpToComment = false;
+        }
+        $scope.jumpToComment = (commentId) => {
+            DiscussionService.discussionElements = DiscussionService.allDiscussionElements();
+            SearchBoxService.searchTerm = '';
+            SearchBoxService.doSearch(SearchBoxService.searchTerm);
+            $scope.scrollToComment(commentId);
         }
     }
 }
