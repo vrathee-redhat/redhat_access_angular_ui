@@ -23,7 +23,7 @@ export default class DiscussionService {
         this.externalUpdates = CaseService.externalUpdates;
         this.loadingComments = false;
         this.commentTextBoxEnlargen = false;
-
+        
         this.getDiscussionElements = function (caseId) {
             var attachPromise = null;
             var commentsPromise = null;
@@ -82,38 +82,45 @@ export default class DiscussionService {
             ]
         }
 
-        this.doSearch = function (searchTerm) {
-            const allDiscussionElements = this.makeDiscussionElements();
+        this.setSearchResults = function (searchInAttachments, results) {
+            if (searchInAttachments) {
+                this.attachments = results;
+            } else {
+                this.discussionElements = results;
+            }
+        }
+
+        this.doSearch = function (searchTerm, searchInAttachments) {
+            const allElements = searchInAttachments ? AttachmentsService.originalAttachments : this.allDiscussionElements();
             if (isBlankStr(searchTerm)) {
-                this.discussionElements = allDiscussionElements;
+                this.setSearchResults(searchInAttachments, allElements);
                 this.highlightSearchResults(searchTerm);
                 return;
             }
-            const results = filter(allDiscussionElements, ((element) => {
+            const results = filter(allElements, ((element) => {
                 return some(this.fieldsToSearchWithin(element), (field) => {
                     const text = field === 'heading' ? translate(this.getHeading(element)) : element[field];
                     return text && (text.search(new RegExp(escapeRegExp(searchTerm), 'gi')) > -1);
                 });
             }));
-            this.discussionElements = results;
+            this.setSearchResults(searchInAttachments, results);
             this.highlightSearchResults(searchTerm);
         }
 
         this.highlightSearchResults = (searchTerm) => {
-            if (isBlankStr(searchTerm)) return;
             setTimeout(() => {
                 const d = document.querySelectorAll(".discussion-element");
-                console.log(d.length);
                 const markInstance = new Mark(d);
                 markInstance.unmark({
                     done: angular.bind(this, function () {
+                        if (isBlankStr(searchTerm)) return;
                         markInstance.mark(searchTerm, { "separateWordSearch": false });
                     })
                 });
             }, 1000);
         }
 
-        this.makeDiscussionElements = () => {
+        this.allDiscussionElements = () => {
             let _discussionElements = CaseService.comments
                 .concat(AttachmentsService.originalAttachments)
                 .concat(CaseService.externalUpdates);
@@ -127,7 +134,7 @@ export default class DiscussionService {
             this.comments = CaseService.comments;
             this.attachments = AttachmentsService.originalAttachments;
             this.externalUpdates = CaseService.externalUpdates;
-            this.discussionElements = this.makeDiscussionElements();
+            this.discussionElements = this.allDiscussionElements();
         };
     }
 }

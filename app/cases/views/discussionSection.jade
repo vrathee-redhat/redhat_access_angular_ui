@@ -31,10 +31,13 @@ ul#tab_list.nav.nav-tabs(role="tablist")
             .col-xs-12
                 //- div(rha-searchbox='', placeholder='"Search Discussion"')
                 rha-searchbox(placeholder='"Search Discussion"')
-                .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder | startFrom:currentPage*pageSize | limitTo:pageSize", ng-if='!element.draft')
+                span {{DiscussionService.discussionElements.length}} of {{DiscussionService.allDiscussionElements().length}}
+                .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder | startFrom:currentPage*pageSize | limitTo:pageSize", ng-if='!element.draft', ng-mouseenter='mouseOver(element)', ng-mouseleave='mouseOut(element)')
                     article.comment.article-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)")
                         i.fa.fa-comments-o
-                        h4.meta {{'Message'|translate}}&nbsp; ({{element.created_by_type}})
+                        h4.meta 
+                            {{'Message'|translate}}&nbsp; ({{element.created_by_type}})
+                            a(ng-if="showJumpToComment == element.id") Jump to comment
                         .byline
                             author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
                             date {{element.last_modified_date}} {{'at'|translate}}&nbsp;
@@ -51,6 +54,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-private-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && element.public !== undefined && !element.public")
                         i.fa.fa-comments-o
                         h4.meta {{'Private Message'|translate}}&nbsp;({{element.created_by_type}})
+                            a(ng-if="showJumpToComment == element.id") Jump to comment
+                        
                         .byline
                             author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
                             date {{element.published_date}} {{'at'|translate}}&nbsp;
@@ -65,6 +70,8 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-attachment(ng-if="element.file_name && !element.originating_system")
                         i.fa.fa-paperclip
                         h4.meta {{'Attachment'|translate}}
+                            a(ng-if="showJumpToComment == element.id") Jump to comment
+
                         .byline
                             author {{element.last_modified_by ? element.last_modified_by : element.modifiedBy}} {{'on'|translate}}&nbsp;
                             date {{element.published_date}}&nbsp;
@@ -84,6 +91,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-chat(ng-if="element.comment_type === 'chat'")
                         i.fa.fa-file-text-o
                         h4.meta(ng-if="element.comment_type === 'chat'") {{'Transcript of chat'|translate}}
+                            a(ng-if="showJumpToComment == element.id") Jump to comment
                         .byline
                             span {{'between'|translate}}&nbsp;
                             author {{element.agent_name}}&nbsp;
@@ -96,6 +104,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     article.comment.article-external-updates(ng-if="element.originating_system")
                         i.fa.fa-comments-o
                         h4.meta {{element.originating_system}}
+                            a(ng-if="showJumpToComment == element.id") Jump to comment
                             span(ng-show="element.visibility==='Partner Only'") {{' - Private'|translate}}
                         .byline
                             author {{element.created_by}} {{'on'|translate}}&nbsp;
@@ -107,12 +116,16 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                             .content(ng-if="!ie8 && !ie9", ng-bind-html="parseCommentHtml(element)")
                 pagination(ng-if="discussion", default-current-page-number="defaultCurrentPageNumber", datalength="DiscussionService.discussionElements.length", setdata="getPaginationData(pageSize, currentPage)")
     #pane2.tab-pane(ng-class='{"active": attachments}')
+        rha-searchbox(placeholder='"Search Attachments"')
+        span {{DiscussionService.attachments.length}} of {{AttachmentsService.originalAttachments.length}}
         .row.row-very-short.case-discussion
             .col-xs-12
-                .discussion-element(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse' | startFrom:currentPage*pageSize | limitTo:pageSize")
-                    article.comment.article-attachment(ng-if="attachment.file_name")
+                .discussion-element(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse' | startFrom:currentPage*pageSize | limitTo:pageSize", ng-mouseenter='mouseOver(attachment)', ng-mouseleave='mouseOut(attachment)')
+                    article.comment.article-attachment(ng-if="attachment.file_name") 
                         i.fa.fa-paperclip
                         h4.meta {{'Attachment'|translate}}
+                            a(ng-if="showJumpToComment == attachment.id") Jump to comment
+
                         .byline
                             author {{attachment.last_modified_by}} {{'on'|translate}} &nbsp;
                             date {{attachment.published_date}} &nbsp;

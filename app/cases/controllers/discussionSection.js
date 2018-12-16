@@ -39,18 +39,27 @@ export default class DiscussionSection {
             }
         ];
         $scope.DiscussionService = DiscussionService;
-        
+
         $scope.$on(CASE_EVENTS.searchSubmit, function () {
-            console.log("search:", SearchBoxService.searchTerm);
-            DiscussionService.doSearch(SearchBoxService.searchTerm);
+            DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
         });
 
+        $scope.$on(CASE_EVENTS.searchBoxChange, function () {
+            // when search box is cleared via clear icon
+            if (!SearchBoxService.searchTerm) {
+                DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
+            }
+        });
 
         $scope.getPaginationData = (pageSize, currentPage) => {
             $scope.pageSize = pageSize;
             $scope.currentPage = currentPage;
-            DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
+            $scope.onChange();
         };
+
+        $scope.onChange = () => {
+            DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
+        }
 
         var scroll = function (commentId) {
             $timeout(function () {
@@ -204,6 +213,7 @@ export default class DiscussionSection {
             $scope.bugzillas = false;
             $scope.actionPlan = false;
             $scope.caseSummary = false;
+            DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
         };
         $scope.toggleAttachments = function () {
             $scope.discussion = false;
@@ -212,6 +222,7 @@ export default class DiscussionSection {
             $scope.bugzillas = false;
             $scope.actionPlan = false;
             $scope.caseSummary = false;
+            DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
         };
         $scope.toggleNotes = function () {
             $scope.discussion = false;
@@ -302,6 +313,7 @@ export default class DiscussionSection {
                 } else if (DiscussionService.commentSortOrder.sortOrder === 'DESC') {
                     $scope.commentSortOrder = true;
                 }
+                $scope.onChange();
             }
         };
 
@@ -325,5 +337,14 @@ export default class DiscussionSection {
         $scope.$watch('CaseService.account.number', async () => {
             await AttachmentsService.reEvaluateS3EnabledForAccount();
         }, true);
+
+        $scope.mouseOver = (element) => {
+            const isUserSearching = !!SearchBoxService.searchTerm;
+            if (isUserSearching) $scope.showJumpToComment = element.id;
+        }
+        $scope.mouseOut = (element) => {
+            const isUserSearching = !!SearchBoxService.searchTerm;
+            if (isUserSearching) $scope.showJumpToComment = false;
+        }
     }
 }
