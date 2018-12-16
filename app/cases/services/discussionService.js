@@ -2,13 +2,18 @@
 
 import filter from 'lodash/filter';
 import Mark from 'mark.js';
+import some from 'lodash/some';
 
 function isBlankStr(str) {
     return !str ? true : str.trim().length == 0;
 }
 
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
 export default class DiscussionService {
-    constructor($sce, $location, $q, AlertService, RHAUtils, AttachmentsService, CaseService, strataService, HeaderService, securityService, COMMON_CONFIG, SearchBoxService) {
+    constructor($sce, $location, $q, AlertService, RHAUtils, AttachmentsService, CaseService, strataService, HeaderService, securityService, COMMON_CONFIG, SearchBoxService, translate) {
         'ngInject';
 
         this.discussionElements = [];
@@ -49,29 +54,47 @@ export default class DiscussionService {
 
         };
 
+        this.getHeading = (element) => {
+            if (!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)) return `Message (${element.created_by_type})`;
+
+            if (!element.file_name && element.comment_type !== 'chat' && !element.originating_system && element.public !== undefined && !element.public) return `Private Message (${element.created_by_type})`;
+
+
+            if (element.file_name && !element.originating_system) return 'Attachment';
+
+            if (element.comment_type === 'chat') return 'Transcript of chat';
+
+            if (element.originating_system) return element.originating_system;
+        }
+
+        this.fieldsToSearchWithin = (element) => {
+            return [
+                'heading',
+                'created_by_type',
+                'last_modified_by',
+                'modifiedBy',
+                'published_date',
+                'published_time',
+                'text',
+                'file_name',
+                'checksum',
+                'description'
+            ]
+        }
+
         this.doSearch = function (searchTerm) {
             const allDiscussionElements = this.makeDiscussionElements();
-            console.log(allDiscussionElements.length, "allDiscussionElements.length");
-
             if (isBlankStr(searchTerm)) {
                 this.discussionElements = allDiscussionElements;
+                this.highlightSearchResults(searchTerm);
                 return;
             }
-
             const results = filter(allDiscussionElements, ((element) => {
-                const text = element && element.text;
-                if (text) {
-                    const matchIndex = text.search(new RegExp(searchTerm, 'gi'));
-                    const matchFound = matchIndex > -1;
-                    if (matchFound) {
-                        // console.log(text, matchIndex);
-                    }
-                    return matchFound;
-                }
-
-                // return text && (text.search(new RegExp(searchTerm, 'gi')) > -1);
+                return some(this.fieldsToSearchWithin(element), (field) => {
+                    const text = field === 'heading' ? translate(this.getHeading(element)) : element[field];
+                    return text && (text.search(new RegExp(escapeRegExp(searchTerm), 'gi')) > -1);
+                });
             }));
-            console.log(results.length, "results.length");
             this.discussionElements = results;
             this.highlightSearchResults(searchTerm);
         }
@@ -84,7 +107,7 @@ export default class DiscussionService {
                 const markInstance = new Mark(d);
                 markInstance.unmark({
                     done: angular.bind(this, function () {
-                        markInstance.mark(searchTerm, {});
+                        markInstance.mark(searchTerm, { "separateWordSearch": false });
                     })
                 });
             }, 1000);
