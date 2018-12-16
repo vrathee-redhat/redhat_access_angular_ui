@@ -1,9 +1,11 @@
 'use strict';
 
-import hydrajs from '../../shared/hydrajs';
-import assign from 'lodash/assign';
 import filter from 'lodash/filter';
+import Mark from 'mark.js';
 
+function isBlankStr(str) {
+    return !str ? true : str.trim().length == 0;
+}
 
 export default class DiscussionService {
     constructor($sce, $location, $q, AlertService, RHAUtils, AttachmentsService, CaseService, strataService, HeaderService, securityService, COMMON_CONFIG, SearchBoxService) {
@@ -51,7 +53,7 @@ export default class DiscussionService {
             const allDiscussionElements = this.makeDiscussionElements();
             console.log(allDiscussionElements.length, "allDiscussionElements.length");
 
-            if((searchTerm || '').trim() == '') {
+            if (isBlankStr(searchTerm)) {
                 this.discussionElements = allDiscussionElements;
                 return;
             }
@@ -62,14 +64,30 @@ export default class DiscussionService {
                     const matchIndex = text.search(new RegExp(searchTerm, 'gi'));
                     const matchFound = matchIndex > -1;
                     if (matchFound) {
-                        console.log(text, matchIndex);
+                        // console.log(text, matchIndex);
                     }
                     return matchFound;
                 }
+
                 // return text && (text.search(new RegExp(searchTerm, 'gi')) > -1);
             }));
             console.log(results.length, "results.length");
             this.discussionElements = results;
+            this.highlightSearchResults(searchTerm);
+        }
+
+        this.highlightSearchResults = (searchTerm) => {
+            if (isBlankStr(searchTerm)) return;
+            setTimeout(() => {
+                const d = document.querySelectorAll(".discussion-element");
+                console.log(d.length);
+                const markInstance = new Mark(d);
+                markInstance.unmark({
+                    done: angular.bind(this, function () {
+                        markInstance.mark(searchTerm, {});
+                    })
+                });
+            }, 1000);
         }
 
         this.makeDiscussionElements = () => {

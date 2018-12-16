@@ -49,6 +49,7 @@ export default class DiscussionSection {
         $scope.getPaginationData = (pageSize, currentPage) => {
             $scope.pageSize = pageSize;
             $scope.currentPage = currentPage;
+            DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
         };
 
         var scroll = function (commentId) {
