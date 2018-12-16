@@ -8,9 +8,9 @@ import filter from 'lodash/filter';
 
 export default class DiscussionSection {
     constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
-        $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG) {
+        $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService) {
         'ngInject';
-
+        
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -38,8 +38,13 @@ export default class DiscussionSection {
                 sortOrder: 'ASC'
             }
         ];
-
         $scope.DiscussionService = DiscussionService;
+        
+        $scope.$on(CASE_EVENTS.searchSubmit, function () {
+            console.log("search:", SearchBoxService.searchTerm);
+            DiscussionService.doSearch(SearchBoxService.searchTerm);
+        });
+
 
         $scope.getPaginationData = (pageSize, currentPage) => {
             $scope.pageSize = pageSize;
