@@ -41,6 +41,7 @@ export default class DiscussionSection {
         $scope.DiscussionService = DiscussionService;
 
         $scope.$on(CASE_EVENTS.searchSubmit, function () {
+            $location.search('commentId', null);
             DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
         });
 

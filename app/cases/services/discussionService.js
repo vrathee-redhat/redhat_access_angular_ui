@@ -67,7 +67,7 @@ export default class DiscussionService {
             if (element.originating_system) return element.originating_system;
         }
 
-        this.fieldsToSearchWithin = (element) => {
+        this.fieldsToSearchWithin = () => {
             return [
                 'heading',
                 'created_by_type',
