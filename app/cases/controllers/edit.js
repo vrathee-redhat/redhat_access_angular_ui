@@ -140,7 +140,7 @@ export default class Edit {
                     <b>Email</b>: ${owner.email ? owner.email : ''}<br> 
                     <b>Phone</b>: ${owner.mobilePhone ? owner.mobilePhone : ''}<br>
                     <b>IRC</b>: ${owner.ircNick ? owner.ircNick : ''}<br>
-                    <b>Time Zone</b>: ${owner.timeZone ? owner.timeZone : ''}<br>
+                    <b>Timezone</b>: ${owner.timeZone ? owner.timeZone : ''}<br>
                     <b>Office Location</b>: ${owner.officeLocation ? owner.officeLocation : ''}
                     </div>`
                 );

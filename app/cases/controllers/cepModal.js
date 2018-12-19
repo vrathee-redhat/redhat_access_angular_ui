@@ -53,8 +53,8 @@ export default class CepModal {
         $scope.submitNewPageCEP = async function () {
             CaseService.isNewPageCEP = true;
             CaseService.newPageCEPComment =
-            `---------------------------------\n\t Consultant Engaged\n---------------------------------\nThis case has been flagged with Consulting Engagement in Progress (CEP).This issue needs additional focus as Red Hat Consulting is currently engaged and working with the customer.
-Consulting Contact\nName: ${$scope.cepContactName}\nAvailability/Working Hours: ${$scope.cepWorkingHours}\nContact information: ${$scope.cepContactInformation}\n${$scope.cepNotes ?`Notes: ${$scope.cepNotes}`: ''} `;
+            `---------------------------------\n\t Consultant Engaged\n---------------------------------\n\nThis case has been flagged with Consulting Engagement in Progress (CEP).This issue needs additional focus as Red Hat Consulting is currently engaged and working with the customer.
+\nConsulting Contact:\n\nName: ${$scope.cepContactName}\nAvailability/Working Hours: ${$scope.cepWorkingHours}\nContact information: ${$scope.cepContactInformation}\n${$scope.cepNotes ?`Notes: ${$scope.cepNotes}`: ''} `;
         }
 
         $scope.submitEditPageCEP = async function () {
@@ -62,7 +62,7 @@ Consulting Contact\nName: ${$scope.cepContactName}\nAvailability/Working Hours: 
             CaseService.submittingCep = true;
             var fullComment =
             `---------------------------------\n\t Consultant Engaged\n---------------------------------\n\nThis case has been flagged with Consulting Engagement in Progress (CEP).This issue needs additional focus as Red Hat Consulting is currently engaged and working with the customer.
-\nConsulting Contact\n\nName: ${$scope.cepContactName}\nAvailability/Working Hours: ${$scope.cepWorkingHours}\nContact information: ${$scope.cepContactInformation}\n${$scope.cepNotes ?`Notes: ${$scope.cepNotes}`: ''} `;
+\nConsulting Contact:\n\nName: ${$scope.cepContactName}\nAvailability/Working Hours: ${$scope.cepWorkingHours}\nContact information: ${$scope.cepContactInformation}\n${$scope.cepNotes ?`Notes: ${$scope.cepNotes}`: ''} `;
             // add private comment on the case.
             try {
                 await strataService.cases.comments.post(CaseService.kase.case_number, fullComment, false, false);
