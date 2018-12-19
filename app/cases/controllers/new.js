@@ -634,25 +634,25 @@ export default class New {
         $scope.updateDescriptionString = function () {
             CaseService.kase.description = '';
             if (RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0) {
-                CaseService.kase.description = CaseService.problemString + '\n\n' + CaseService.kase.problem;
+                CaseService.kase.description = gettextCatalog.getString(CaseService.problemString) + '\n\n' + CaseService.kase.problem;
             }
             if (RHAUtils.isNotEmpty(CaseService.kase.environment) && CaseService.kase.environment.length > 0) {
                 if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
                     CaseService.kase.description = CaseService.kase.description.concat('\n\n');
                 }
-                CaseService.kase.description = CaseService.kase.description.concat(CaseService.environmentString + '\n\n' + CaseService.kase.environment);
+                CaseService.kase.description = CaseService.kase.description.concat(gettextCatalog.getString(CaseService.environmentString) + '\n\n' + CaseService.kase.environment);
             }
             if (RHAUtils.isNotEmpty(CaseService.kase.occurance) && CaseService.kase.occurance.length > 0) {
                 if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
                     CaseService.kase.description = CaseService.kase.description.concat('\n\n');
                 }
-                CaseService.kase.description = CaseService.kase.description.concat(CaseService.occuranceString + '\n\n' + CaseService.kase.occurance);
+                CaseService.kase.description = CaseService.kase.description.concat(gettextCatalog.getString(CaseService.occuranceString) + '\n\n' + CaseService.kase.occurance);
             }
             if (RHAUtils.isNotEmpty(CaseService.kase.urgency) && CaseService.kase.urgency.length > 0) {
                 if (RHAUtils.isNotEmpty(CaseService.kase.description)) {
                     CaseService.kase.description = CaseService.kase.description.concat('\n\n');
                 }
-                CaseService.kase.description = CaseService.kase.description.concat(CaseService.urgencyString + '\n\n' + CaseService.kase.urgency);
+                CaseService.kase.description = CaseService.kase.description.concat(gettextCatalog.getString(CaseService.urgencyString) + '\n\n' + CaseService.kase.urgency);
             }
         };
 
