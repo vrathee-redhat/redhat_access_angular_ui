@@ -50,19 +50,20 @@ export default class CepModal {
             }
         };
 
+        function getCepComment() {
+            return `---------------------------------\n\t Consultant Engaged\n---------------------------------\n\nThis case has been flagged with Consulting Engagement in Progress (CEP).This issue needs additional focus as Red Hat Consulting is currently engaged and working with the customer.
+\nConsulting Contact:\n\nName: ${$scope.cepContactName}\nAvailability/Working Hours: ${$scope.cepWorkingHours}\nContact information: ${$scope.cepContactInformation}\n${$scope.cepNotes ?`Notes: ${$scope.cepNotes}`: ''} `;
+        }
+
         $scope.submitNewPageCEP = async function () {
             CaseService.isNewPageCEP = true;
-            CaseService.newPageCEPComment =
-            `---------------------------------\n\t Consultant Engaged\n---------------------------------\n\nThis case has been flagged with Consulting Engagement in Progress (CEP).This issue needs additional focus as Red Hat Consulting is currently engaged and working with the customer.
-\nConsulting Contact:\n\nName: ${$scope.cepContactName}\nAvailability/Working Hours: ${$scope.cepWorkingHours}\nContact information: ${$scope.cepContactInformation}\n${$scope.cepNotes ?`Notes: ${$scope.cepNotes}`: ''} `;
+            CaseService.newPageCEPComment = getCepComment();
         }
 
         $scope.submitEditPageCEP = async function () {
             $scope.submittingRequest = true;
             CaseService.submittingCep = true;
-            var fullComment =
-            `---------------------------------\n\t Consultant Engaged\n---------------------------------\n\nThis case has been flagged with Consulting Engagement in Progress (CEP).This issue needs additional focus as Red Hat Consulting is currently engaged and working with the customer.
-\nConsulting Contact:\n\nName: ${$scope.cepContactName}\nAvailability/Working Hours: ${$scope.cepWorkingHours}\nContact information: ${$scope.cepContactInformation}\n${$scope.cepNotes ?`Notes: ${$scope.cepNotes}`: ''} `;
+            var fullComment = getCepComment();
             // add private comment on the case.
             try {
                 await strataService.cases.comments.post(CaseService.kase.case_number, fullComment, false, false);
