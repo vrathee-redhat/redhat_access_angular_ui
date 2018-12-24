@@ -73,6 +73,15 @@ export default class DiscussionSection {
             $scope.onChange();
         };
 
+        $scope.firstCommentNumberShownOnThePage = () => {
+            return DiscussionService.discussionElements.length && ($scope.currentPage*$scope.pageSize) + 1 
+        }
+
+        $scope.lastCommentNumberShownOnThePage = () => {
+            let x = ($scope.currentPage * $scope.pageSize) + $scope.pageSize;
+            return (x > DiscussionService.discussionElements.length) ? ($scope.currentPage * $scope.pageSize) + (DiscussionService.discussionElements.length % $scope.pageSize) :  x 
+        }
+
         $scope.onChange = () => {
             DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
         }
