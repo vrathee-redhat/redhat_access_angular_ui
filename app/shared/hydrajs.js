@@ -28501,12 +28501,7 @@ function getComments(caseNumber, options, isSecureSupport) {
     if (options && options.offsetValue) {
         uri.addQueryParam('offsetValue', options.offsetValue);
     }
-    if (options && options.fields && options.fields.length > 0) {
-        return fetch_1.postUri(uri, { fields: options.fields.join(',') });
-    }
-    else {
-        return fetch_1.getUri(uri);
-    }
+    return fetch_1.getUri(uri);
 }
 exports.getComments = getComments;
 function upsertComment(comment, doNotSendEmail, isSecureSupport) {
