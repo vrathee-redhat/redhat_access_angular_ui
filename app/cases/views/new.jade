@@ -59,7 +59,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                                         .circle &nbsp;
                             div(ng-show='$parent.CaseService.showKTFields')
-                                label.label-small-mar.pre-wrap {{$parent.CaseService.problemString}}
+                                label.label-small-mar.pre-wrap {{$parent.CaseService.problemString | translate}}
                                 textarea(name='', id='rha-problem',
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.problem',
@@ -73,7 +73,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                                         .circle &nbsp;
                                         .circle &nbsp;
-                                label.pre-wrap.label-small-mar {{$parent.CaseService.environmentString}}
+                                label.pre-wrap.label-small-mar {{$parent.CaseService.environmentString | translate}}
                                 textarea(name='', id='rha-environment',
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.environment',
@@ -87,7 +87,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                                         .circle &nbsp;
                                         .circle &nbsp;
-                                label.pre-wrap.label-small-mar {{$parent.CaseService.occuranceString}}
+                                label.pre-wrap.label-small-mar {{$parent.CaseService.occuranceString | translate}}
                                 textarea(name='', id='rha-occurance',
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.occurance',
@@ -101,7 +101,7 @@ div(rha-header='', page='newCase')
                                         .circle &nbsp;
                                         .circle &nbsp;
                                         .circle &nbsp;
-                                label.pre-wrap.label-small-mar {{$parent.CaseService.urgencyString}}
+                                label.pre-wrap.label-small-mar {{$parent.CaseService.urgencyString | translate}}
                                 textarea(name='', id='rha-urgency',
                                 style='width: 100%; height: 75px; max-width: 100%;',
                                 ng-model='$parent.CaseService.kase.urgency',

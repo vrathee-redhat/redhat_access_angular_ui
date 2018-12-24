@@ -23,7 +23,7 @@ export default class DiscussionService {
         this.externalUpdates = CaseService.externalUpdates;
         this.loadingComments = false;
         this.commentTextBoxEnlargen = false;
-        
+
         this.getDiscussionElements = function (caseId) {
             var attachPromise = null;
             var commentsPromise = null;

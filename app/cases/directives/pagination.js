@@ -68,6 +68,15 @@ class Pagination {
             $scope.pageData.currentPageNumber = newv ? newv : 1;
         })
 
+        $scope.$watch('currentPageProp', (newv) => {
+            $scope.pageData.currentPage = (newv > 0) ? newv : 0;
+            $scope.pageData.currentPageNumber = newv ? (newv + 1) : 1;
+        })
+
+        $scope.$watch('pageSizeProp', (newv) => {
+            $scope.pageSize = newv;
+        })
+
         $scope.$watch('pageData.currentPageNumber', (newv) => {
             const numOfPages = $scope.numberOfPages();
 
@@ -106,6 +115,8 @@ export default () => ({
     controller: Pagination,
     scope: {
         datalength: '<',
+        currentPageProp: '<',
+        pageSizeProp: '<',
         defaultCurrentPageNumber: '=',
         setdata: '&'
     }

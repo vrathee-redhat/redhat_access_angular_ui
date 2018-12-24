@@ -10,7 +10,7 @@ export default class DiscussionSection {
     constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
         $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService) {
         'ngInject';
-        
+
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -52,9 +52,24 @@ export default class DiscussionSection {
             }
         });
 
+        $scope.scrollToTopOfDiscussionSection = () => {
+            let element = document.getElementById('top-discussion-section');
+            element && element.scrollIntoView(true);
+        }
+
+        $scope.scrollToBottomOfDiscussionSection = () => {
+            let element = document.getElementById('bottom-discussion-section');
+            element && element.scrollIntoView(true);
+        }
+
         $scope.getPaginationData = (pageSize, currentPage) => {
+            let shouldScroll = $scope.currentPage !== undefined && $scope.currentPage !== currentPage;
+            let scrollToTop = currentPage > $scope.currentPage;
             $scope.pageSize = pageSize;
             $scope.currentPage = currentPage;
+            if (shouldScroll) {
+                scrollToTop ? $scope.scrollToTopOfDiscussionSection() : $scope.scrollToBottomOfDiscussionSection();
+            }
             $scope.onChange();
         };
 

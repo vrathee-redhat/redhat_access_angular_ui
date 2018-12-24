@@ -7,7 +7,8 @@ export default function () {
         controller: 'SearchBox',
         scope: {
             placeholder: '=',
-            hidebutton: '=?'
+            hidebutton: '=?',
+            className: '<'
         }
     };
 }

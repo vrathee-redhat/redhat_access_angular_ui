@@ -139,7 +139,9 @@ export default class Edit {
                     <b>Title</b>: ${owner.title ? owner.title : ''}<br>
                     <b>Email</b>: ${owner.email ? owner.email : ''}<br> 
                     <b>Phone</b>: ${owner.mobilePhone ? owner.mobilePhone : ''}<br>
-                    <b>IRC</b>: ${owner.ircNick ? owner.ircNick : ''}
+                    <b>IRC</b>: ${owner.ircNick ? owner.ircNick : ''}<br>
+                    <b>Timezone</b>: ${owner.timeZone ? owner.timeZone : ''}<br>
+                    <b>Office Location</b>: ${owner.officeLocation ? owner.officeLocation : ''}
                     </div>`
                 );
             } else {
