@@ -12,11 +12,17 @@ export default class DiscussionSection {
         'ngInject';
 
         $scope.state = {
-            currentPageNumber: 1,
-            pageSize: 15
+            discussionSection: {
+                currentPageNumber: 1,
+                pageSize: 15
+            },
+            attachmentsSection: {
+                currentPageNumber: 1,
+                pageSize: 15
+            }
         }
 
-
+        $scope.pageSize = 15;
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -92,8 +98,12 @@ export default class DiscussionSection {
             DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
         }
 
-        $scope.setCurrentPageNumber = (currentPageNumber) => {
-            $scope.state.currentPageNumber = currentPageNumber;
+        $scope.setCurrentPageNumberForDS = (currentPageNumber) => {
+            $scope.state.discussionSection.currentPageNumber = currentPageNumber;
+        }
+
+        $scope.setCurrentPageNumberForAS = (currentPageNumber) => {
+            $scope.state.attachmentsSection.currentPageNumber = currentPageNumber;
         }
 
         var scroll = function (commentId) {

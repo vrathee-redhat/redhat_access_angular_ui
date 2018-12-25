@@ -33,6 +33,7 @@ class Pagination {
         $scope.onInputBoxChange = (value) => {
             let pageNumber = $scope.sanatizeInput(value);
             $scope.setCurrentPageNumber({ pageNumber });
+            // setting inputcurrentPageNumber here as well as in watcher of currentPageNumber, because we cann't rely on watcher to be called everytime because when value is same as previous value watchers doesn't get called.
             $scope.state.inputCurrentPageNumber = pageNumber;
         }
 
