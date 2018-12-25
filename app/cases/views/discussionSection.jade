@@ -36,9 +36,9 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                     //- pagination(ng-if="discussion", current-page-number="state.currentPageNumber" datalength="DiscussionService.discussionElements.length", page-size="state.pageSize", set-current-page-number="setCurrentPageNumberForDS(pageNumber)")
                     //- pagination(ng-if="discussion", default-current-page-number="defaultCurrentPageNumber", datalength="DiscussionService.discussionElements.length", current-page-prop="currentPage",  setdata="getPaginationData(pageSize, currentPage)")
                     .col-sm-6
-                        rha-searchbox(placeholder='"Search Discussion"', class-name='"padding-searchbox"')
-                        span Showing {{firstCommentNumberShownOnThePage()}}-{{lastCommentNumberShownOnThePage()}} of {{DiscussionService.discussionElements.length}}
-                .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder | startFrom:currentPage*pageSize | limitTo:pageSize", ng-if='!element.draft', ng-mouseenter='mouseOver(element)', ng-mouseleave='mouseOut(element)')
+                        rha-searchbox(placeholder='"Search Discussion"', class-name='"padding-searchbox"', ng-if="DiscussionService.discussionElements.length > 0")
+                        span(ng-if="DiscussionService.discussionElements.length > 0") Showing {{firstCommentNumberShownOnThePage()}}-{{lastCommentNumberShownOnThePage()}} of {{DiscussionService.discussionElements.length}}
+                .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder | startFrom:(state.discussionSection.currentPageNumber-1)*state.discussionSection.pageSize | limitTo:state.discussionSection.pageSize", ng-if='!element.draft', ng-mouseenter='mouseOver(element)', ng-mouseleave='mouseOut(element)')
                     article.comment.article-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)")
                         i.fa.fa-comments-o
                         h4.meta 
@@ -124,11 +124,11 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         pagination(ng-if="attachments", current-page-number="state.attachmentsSection.currentPageNumber" datalength="DiscussionService.attachments.length", page-size="state.attachmentsSection.pageSize", set-current-page-number="setCurrentPageNumberForAS(pageNumber)")
         pagination(ng-if="attachments", current-page-number="state.attachmentsSection.currentPageNumber" datalength="DiscussionService.attachments.length", page-size="state.attachmentsSection.pageSize", set-current-page-number="setCurrentPageNumberForAS(pageNumber)")
         //- pagination(ng-if="attachments", current-page-prop="currentPage", , datalength="DiscussionService.attachments.length", setdata="getPaginationData(pageSize, currentPage)")
-        rha-searchbox(placeholder='"Search Attachments"', class-name="padding-searchbox")
-        span {{DiscussionService.attachments.length}} of {{AttachmentsService.originalAttachments.length}}
+        rha-searchbox(placeholder='"Search Attachments"', class-name="padding-searchbox", ng-if="DiscussionService.attachments.length > 0")
+        span(ng-if="DiscussionService.attachments.length > 0") Showing {{firstAttachmentNumberShownOnThePage()}}-{{lastAttachmentNumberShownOnThePage()}} of {{DiscussionService.attachments.length}}
         .row.row-very-short.case-discussion
             .col-xs-12
-                .discussion-element(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse' | startFrom:currentPage*pageSize | limitTo:pageSize", ng-mouseenter='mouseOver(attachment)', ng-mouseleave='mouseOut(attachment)')
+                .discussion-element(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse' | startFrom:(state.attachmentsSection.currentPageNumber-1)*state.attachmentsSection.pageSize | limitTo:state.attachmentsSection.pageSize", ng-mouseenter='mouseOver(attachment)', ng-mouseleave='mouseOut(attachment)')
                     article.comment.article-attachment(ng-if="attachment.file_name") 
                         i.fa.fa-paperclip
                         h4.meta {{'Attachment'|translate}}

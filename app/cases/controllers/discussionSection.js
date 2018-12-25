@@ -86,13 +86,31 @@ export default class DiscussionSection {
         };
 
         $scope.firstCommentNumberShownOnThePage = () => {
-            return DiscussionService.discussionElements.length && ($scope.currentPage * $scope.pageSize) + 1
+            const lastCommentNumberShownOnPreviousPage = ($scope.state.discussionSection.currentPageNumber - 1) * $scope.state.discussionSection.pageSize;
+            return DiscussionService.discussionElements.length && lastCommentNumberShownOnPreviousPage + 1
+        }
+
+        $scope.firstAttachmentNumberShownOnThePage = () => {
+            const lastAttachmentNumberShownOnPreviousPage = ($scope.state.attachmentsSection.currentPageNumber - 1) * $scope.state.attachmentsSection.pageSize;
+            return DiscussionService.attachments.length && lastAttachmentNumberShownOnPreviousPage + 1
         }
 
         $scope.lastCommentNumberShownOnThePage = () => {
-            let x = ($scope.currentPage * $scope.pageSize) + $scope.pageSize;
-            return (x > DiscussionService.discussionElements.length) ? ($scope.currentPage * $scope.pageSize) + (DiscussionService.discussionElements.length % $scope.pageSize) : x
+            const currentPage = $scope.state.discussionSection.currentPageNumber - 1;
+            const pageSize = $scope.state.discussionSection.pageSize;
+            const x = (currentPage * pageSize) + pageSize;
+            const mod = (DiscussionService.discussionElements.length % pageSize);
+            return (x > DiscussionService.discussionElements.length) ? ((currentPage * pageSize) + mod) : x
         }
+
+        $scope.lastAttachmentNumberShownOnThePage = () => {
+            const currentPage = $scope.state.attachmentsSection.currentPageNumber - 1;
+            const pageSize = $scope.state.attachmentsSection.pageSize;
+            const x = (currentPage * pageSize) + pageSize;
+            const mod = (DiscussionService.attachments.length % pageSize);
+            return (x > DiscussionService.attachments.length) ? ((currentPage * pageSize) + mod) : x
+        }
+
 
         $scope.onChange = () => {
             DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
