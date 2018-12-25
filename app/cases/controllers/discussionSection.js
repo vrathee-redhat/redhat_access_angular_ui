@@ -111,7 +111,6 @@ export default class DiscussionSection {
             return (x > DiscussionService.attachments.length) ? ((currentPage * pageSize) + mod) : x
         }
 
-
         $scope.onChange = () => {
             DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
         }
@@ -143,23 +142,21 @@ export default class DiscussionSection {
 
         $scope.scrollToComment = (commentId) => {
             if (commentId) {
+                let pageSize = $scope.state.discussionSection.pageSize;
                 let commentIndex = findIndex($scope.getOrderedDiscussionElements(), { id: commentId });
                 let commentNumber = commentIndex + 1;
-                let mod = (commentNumber % $scope.pageSize);
-                let division = Math.floor(commentNumber / $scope.pageSize);
+                let mod = (commentNumber % pageSize);
+                let division = Math.floor(commentNumber / pageSize);
                 let currentPageNumber = mod == 0 ? (division || 1) : (division + 1)
-                let currentPage = currentPageNumber - 1;
-
 
                 if (commentIndex > -1 && currentPageNumber) {
-                    $scope.defaultCurrentPageNumber = currentPageNumber;
-                    $scope.getPaginationData($scope.pageSize, currentPage);
+                    $scope.state.discussionSection.currentPageNumber = currentPageNumber;
                     scroll($location.search().commentId);
                 }
             }
         }
 
-        $scope.init = function () {
+        $scope.init = function() {
             DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function () {
                 $scope.scrollToComment($location.search().commentId);
             }, function (error) {
