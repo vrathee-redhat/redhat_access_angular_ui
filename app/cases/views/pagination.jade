@@ -1,11 +1,11 @@
-div.pull-right.pagination-padding.pagination-grid(ng-if="datalength > pageData.pageSize")
+div.pull-right.pagination-padding.pagination-grid(ng-if="datalength > pageSize")
   div.previous-pagination-btns
     button.btn.btn-primary.btn-app(ng-if="showSkipBtns()", ng-disabled='isSkipBackBtnDisabled()', ng-click='skipBack()')
       i.fa.fa-angle-double-left
     button.btn.btn-primary.btn-app(ng-disabled='isBackBtnDisabled()', ng-click='goBack()')
       i.fa.fa-angle-left
   div.page-tracker
-    input.page-input(ng-model="pageData.currentPageNumber", ng-model-options="ngModelOptions")
+    input.page-input(ng-model="state.inputCurrentPageNumber", ng-model-options="ngModelOptions", ng-change="onInputBoxChange(state.inputCurrentPageNumber)")
     div.max-pages of {{numberOfPages()}}
   div.forward-pagination-btns
     button.btn.btn-primary.btn-app(ng-disabled='isForwardBtnDisabled()', ng-click='goForward()')

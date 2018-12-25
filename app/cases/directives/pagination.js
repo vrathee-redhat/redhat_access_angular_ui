@@ -1,109 +1,62 @@
 'use strict';
 
 class Pagination {
-    constructor($scope, $rootScope, gettextCatalog) {
+    constructor($scope) {
 
         // this is 4 because currentPage range is 0 ... n-1.
         $scope.skipSize = 5;
         $scope.onlyNumbers = /^\d+$/;
-        $scope.disablePageInput = false;
-        $scope.pageData = {
-            currentPage: ($scope.defaultCurrentPageNumber > 0) ? $scope.defaultCurrentPageNumber - 1 :  0,
-            currentPageNumber: $scope.defaultCurrentPageNumber ? $scope.defaultCurrentPageNumber : 1,
-            pageSize: 15
-        };
+        $scope.state = { inputCurrentPageNumber: $scope.currentPageNumber };
+
+        $scope.sanatizeInput = (_input) => {
+            const numOfPages = $scope.numberOfPages();
+
+            if (_input && Number.isInteger(Number(_input)) && numOfPages > 0) {
+                const input = parseInt(_input, 10);
+                const isValid = input >= 1 && input <= numOfPages;
+                const gtMax = input > numOfPages;
+                const ltMin = input < 1;
+
+                switch (true) {
+                    case isValid:
+                        return input;
+                    case gtMax:
+                        return numOfPages
+                    case ltMin:
+                        return 1;
+                }
+            } else {
+                return $scope.currentPageNumber;
+            }
+        }
+
+        $scope.onInputBoxChange = (value) => {
+            let pageNumber = $scope.sanatizeInput(value);
+            $scope.setCurrentPageNumber({ pageNumber });
+            $scope.state.inputCurrentPageNumber = pageNumber;
+        }
+
+        $scope.$watch('currentPageNumber', (newv) => {
+            $scope.state.inputCurrentPageNumber = newv;
+        }, true)
 
         // ng-model-options makes input only throw even when  user clicks outside of input (blur) or presses "enter" (change)
         // http://embed.plnkr.co/2hCAxnClv68Dl5c06Brm/ https://docs.angularjs.org/api/ng/directive/ngModelOptions
         $scope.ngModelOptions = { updateOn: 'change blur' };
 
-        $scope.numberOfPages = () => Math.ceil($scope.datalength / $scope.pageData.pageSize) || 0;
-        $scope.getCurrentPage = () => $scope.pageData.currentPage + 1;
+        $scope.numberOfPages = () => Math.ceil($scope.datalength / $scope.pageSize) || 0;
         $scope.showSkipBtns = () => $scope.numberOfPages() > $scope.skipSize;
 
-        $scope.isForwardBtnDisabled = () => $scope.getCurrentPage() >= $scope.numberOfPages();
-        $scope.isSkipForwardBtnDisabled = () => $scope.getCurrentPage() + $scope.skipSize > $scope.numberOfPages();
-        $scope.goForward = () => $scope.pageData.currentPage++;
-        $scope.skipForward = () => {
-            const numberOfPages = $scope.numberOfPages();
-            const isLessThanNumOfPages = $scope.getCurrentPage() + $scope.skipSize < numberOfPages;
+        $scope.isForwardBtnDisabled = () => $scope.currentPageNumber >= $scope.numberOfPages();
+        $scope.isSkipForwardBtnDisabled = () => $scope.currentPageNumber + $scope.skipSize > $scope.numberOfPages();
+        $scope.goForward = () => $scope.setCurrentPageNumber({ pageNumber: $scope.currentPageNumber + 1 });
+        $scope.skipForward = () => $scope.setCurrentPageNumber({ pageNumber: $scope.currentPageNumber + $scope.skipSize });
 
-            if ($scope.pageData.currentPage === 0) {
-                $scope.pageData.currentPage += $scope.skipSize - 1;
-            } else if (isLessThanNumOfPages) {
-                $scope.pageData.currentPage += $scope.skipSize;
-            } else {
-                $scope.pageData.currentPage = numberOfPages - 1;
-            }
-        };
+        $scope.isBackBtnDisabled = () => $scope.currentPageNumber === 1;
+        $scope.isSkipBackBtnDisabled = () => $scope.currentPageNumber - $scope.skipSize < 0;
+        $scope.goBack = () => $scope.setCurrentPageNumber({ pageNumber: $scope.currentPageNumber - 1 });
+        $scope.skipBack = () => $scope.setCurrentPageNumber({ pageNumber: $scope.currentPageNumber - $scope.skipSize });
 
-        $scope.isBackBtnDisabled = () => $scope.getCurrentPage() === 1;
-        $scope.isSkipBackBtnDisabled = () => $scope.getCurrentPage() - $scope.skipSize < 0;
-        $scope.goBack = () => $scope.pageData.currentPage--;
-        $scope.skipBack = () => {
-            const isGTZero = $scope.getCurrentPage() - $scope.skipSize > 0;
-            const isEqualZero = $scope.getCurrentPage() - $scope.skipSize === 0;
-
-            if (isGTZero) {
-                $scope.pageData.currentPage -= $scope.skipSize;
-            } else if (isEqualZero) {
-                $scope.pageData.currentPage -= $scope.skipSize - 1;
-            } else {
-                $scope.pageData.currentPage = 0;
-            }
-        };
-
-        $scope.setParentScopeVariables = () => $scope.setdata({
-            pageSize: $scope.pageData.pageSize,
-            currentPage: $scope.pageData.currentPage
-        });
-
-        $scope.$watch('pageData.currentPage', () => {
-            $scope.pageData.currentPageNumber = $scope.pageData.currentPage + 1;
-            $scope.setParentScopeVariables();
-        });
-
-        $scope.$watch('defaultCurrentPageNumber', (newv) => {
-            $scope.pageData.currentPage = (newv > 0) ? newv-1 : 0;
-            $scope.pageData.currentPageNumber = newv ? newv : 1;
-        })
-
-        $scope.$watch('currentPageProp', (newv) => {
-            $scope.pageData.currentPage = (newv > 0) ? newv : 0;
-            $scope.pageData.currentPageNumber = newv ? (newv + 1) : 1;
-        })
-
-
-        $scope.$watch('pageData.currentPageNumber', (newv) => {
-            const numOfPages = $scope.numberOfPages();
-
-            if (newv && Number.isInteger(Number(newv)) && numOfPages > 0) {
-                const isValid = newv >= 1 && newv <= numOfPages;
-                const gtMax = newv > numOfPages;
-                const ltMin = newv < 1;
-
-                switch (true) {
-                    case isValid:
-                        $scope.pageData.currentPage = newv - 1;
-                        $scope.pageData.currentPageNumber = newv;
-                        break;
-                    case gtMax:
-                        $scope.pageData.currentPage = numOfPages - 1;
-                        $scope.pageData.currentPageNumber = numOfPages;
-                        break;
-                    case ltMin:
-                        $scope.pageData.currentPage = 0;
-                        $scope.pageData.currentPageNumber = 1;
-                        break;
-                }
-            } else {
-                $scope.pageData.currentPageNumber = $scope.pageData.currentPage + 1;
-            }
-
-            $scope.setParentScopeVariables();
-        });
-
-        $scope.setParentScopeVariables();
     }
 }
 
@@ -111,10 +64,10 @@ export default () => ({
     template: require('../views/pagination.jade')(),
     controller: Pagination,
     scope: {
+        currentPageNumber: '<',
         datalength: '<',
-        currentPageProp: '<',
-        pageSizeProp: '<',
-        defaultCurrentPageNumber: '=',
-        setdata: '&'
+        pageSize: '<',
+        setCurrentPageNumber: '&',
+        setPageSize: '&'
     }
 });

@@ -11,6 +11,12 @@ export default class DiscussionSection {
         $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService) {
         'ngInject';
 
+        $scope.state = {
+            currentPageNumber: 1,
+            pageSize: 15
+        }
+
+
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -74,16 +80,20 @@ export default class DiscussionSection {
         };
 
         $scope.firstCommentNumberShownOnThePage = () => {
-            return DiscussionService.discussionElements.length && ($scope.currentPage*$scope.pageSize) + 1 
+            return DiscussionService.discussionElements.length && ($scope.currentPage * $scope.pageSize) + 1
         }
 
         $scope.lastCommentNumberShownOnThePage = () => {
             let x = ($scope.currentPage * $scope.pageSize) + $scope.pageSize;
-            return (x > DiscussionService.discussionElements.length) ? ($scope.currentPage * $scope.pageSize) + (DiscussionService.discussionElements.length % $scope.pageSize) :  x 
+            return (x > DiscussionService.discussionElements.length) ? ($scope.currentPage * $scope.pageSize) + (DiscussionService.discussionElements.length % $scope.pageSize) : x
         }
 
         $scope.onChange = () => {
             DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
+        }
+
+        $scope.setCurrentPageNumber = (currentPageNumber) => {
+            $scope.state.currentPageNumber = currentPageNumber;
         }
 
         var scroll = function (commentId) {
@@ -185,9 +195,11 @@ export default class DiscussionSection {
 
             $scope.init();
         }, true);
+
         $scope.$watch('CaseService.comments', function () {
             DiscussionService.updateElements();
         }, true);
+
         $scope.$watch('CaseService.kase.notes', function () {
             $scope.maxNotesCharacterCheck();
         }, true);
