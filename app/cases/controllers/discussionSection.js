@@ -22,7 +22,6 @@ export default class DiscussionSection {
             attachmentsSection: $scope.initialValues(),
         }
 
-        $scope.pageSize = 15;
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -39,7 +38,6 @@ export default class DiscussionSection {
         $scope.bugzillas = false;
         $scope.hasScrolled = false;
         $scope.commentSortOrder = true;
-        $scope.defaultCurrentPageNumber = 1;
         $scope.commentSortOrderList = [
             {
                 name: gettextCatalog.getString('Newest to Oldest'),
@@ -82,7 +80,7 @@ export default class DiscussionSection {
             if (shouldScroll) {
                 scrollToTop ? $scope.scrollToTopOfDiscussionSection() : $scope.scrollToBottomOfDiscussionSection();
             }
-            $scope.onChange();
+            $scope.onListChange();
         };
 
         $scope.firstCommentNumberShownOnThePage = () => {
@@ -111,19 +109,21 @@ export default class DiscussionSection {
             return (x > DiscussionService.attachments.length) ? ((currentPage * pageSize) + mod) : x
         }
 
-        $scope.onChange = () => {
+        $scope.onListChange = () => {
             DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
         }
 
         $scope.setCurrentPageNumberForDS = (currentPageNumber) => {
             $scope.state.discussionSection.currentPageNumber = currentPageNumber;
+            $scope.onListChange();
         }
 
         $scope.setCurrentPageNumberForAS = (currentPageNumber) => {
             $scope.state.attachmentsSection.currentPageNumber = currentPageNumber;
+            $scope.onListChange();
         }
 
-        var scroll = function (commentId) {
+        var scroll = function (commentId, delay) {
             $timeout(function () {
                 if (!$scope.hasScrolled && angular.element(commentId)) {
                     CaseService.scrollToComment(commentId);
@@ -131,7 +131,7 @@ export default class DiscussionSection {
                 else {
                     scroll(commentId);
                 }
-            }, 150);
+            }, delay || 150);
         };
 
         $scope.getOrderedDiscussionElements = () => {
@@ -140,7 +140,7 @@ export default class DiscussionSection {
             return filter(ordered, (e) => (!e.draft))
         }
 
-        $scope.scrollToComment = (commentId) => {
+        $scope.scrollToComment = (commentId, delay) => {
             if (commentId) {
                 let pageSize = $scope.state.discussionSection.pageSize;
                 let commentIndex = findIndex($scope.getOrderedDiscussionElements(), { id: commentId });
@@ -148,10 +148,9 @@ export default class DiscussionSection {
                 let mod = (commentNumber % pageSize);
                 let division = Math.floor(commentNumber / pageSize);
                 let currentPageNumber = mod == 0 ? (division || 1) : (division + 1)
-
                 if (commentIndex > -1 && currentPageNumber) {
                     $scope.state.discussionSection.currentPageNumber = currentPageNumber;
-                    scroll($location.search().commentId);
+                    scroll(commentId, delay);
                 }
             }
         }
@@ -277,6 +276,7 @@ export default class DiscussionSection {
                 attachmentsSection: $scope.initialValues(),
             }
         };
+
         $scope.toggleDiscussion = function () {
             $scope.discussion = true;
             $scope.attachments = false;
@@ -284,8 +284,13 @@ export default class DiscussionSection {
             $scope.bugzillas = false;
             $scope.actionPlan = false;
             $scope.caseSummary = false;
-            $scope.doSearch();
         };
+
+        $scope.toggleDiscussionClick = function () {
+            $scope.toggleDiscussion();
+            $scope.doSearch();
+        }
+
         $scope.toggleAttachments = function () {
             $scope.discussion = false;
             $scope.attachments = true;
@@ -384,7 +389,7 @@ export default class DiscussionSection {
                 } else if (DiscussionService.commentSortOrder.sortOrder === 'DESC') {
                     $scope.commentSortOrder = true;
                 }
-                $scope.onChange();
+                $scope.onListChange();
             }
         };
 
@@ -417,10 +422,14 @@ export default class DiscussionSection {
             const isUserSearching = !!SearchBoxService.searchTerm;
             if (isUserSearching) $scope.showJumpToComment = false;
         }
+        $scope.resetSearch = () => {
+            SearchBoxService.searchTerm = '';
+            $scope.doSearch();
+        }
+
         $scope.jumpToComment = (commentId) => {
             DiscussionService.discussionElements = DiscussionService.allDiscussionElements();
-            SearchBoxService.searchTerm = '';
-            SearchBoxService.doSearch(SearchBoxService.searchTerm);
+            $scope.resetSearch();
             $scope.scrollToComment(commentId);
         }
     }

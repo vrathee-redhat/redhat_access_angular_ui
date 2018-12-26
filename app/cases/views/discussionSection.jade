@@ -1,6 +1,6 @@
 ul#tab_list.nav.nav-tabs(role="tablist")
     li(ng-class='{"active": discussion}')
-        a(ng-click='toggleDiscussion()', data-toggle="tab") {{'Case Discussion'|translate}}
+        a(ng-click='toggleDiscussionClick()', data-toggle="tab") {{'Case Discussion'|translate}}
     li(ng-class='{"active": attachments}')
         a(ng-click='toggleAttachments()',  data-toggle="tab", ng-hide="AttachmentsService.originalAttachments.length === 0") {{'All Attachments'|translate}}
     li(ng-class='{"active": notes}', ng-hide="securityService.loginStatus.authedUser.is_internal")
