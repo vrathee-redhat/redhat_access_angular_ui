@@ -10,16 +10,16 @@ export default class DiscussionSection {
     constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
         $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService) {
         'ngInject';
-
-        $scope.state = {
-            discussionSection: {
-                currentPageNumber: 1,
-                pageSize: 15
-            },
-            attachmentsSection: {
+        
+        $scope.initialValues = () => {
+            return {
                 currentPageNumber: 1,
                 pageSize: 15
             }
+        }
+        $scope.state = {
+            discussionSection: $scope.initialValues(),
+            attachmentsSection: $scope.initialValues(),
         }
 
         $scope.pageSize = 15;
@@ -54,13 +54,13 @@ export default class DiscussionSection {
 
         $scope.$on(CASE_EVENTS.searchSubmit, function () {
             $location.search('commentId', null);
-            DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
+            $scope.doSearch();
         });
 
         $scope.$on(CASE_EVENTS.searchBoxChange, function () {
             // when search box is cleared via clear icon
             if (!SearchBoxService.searchTerm) {
-                DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
+                $scope.doSearch();
             }
         });
 
@@ -156,7 +156,7 @@ export default class DiscussionSection {
             }
         }
 
-        $scope.init = function() {
+        $scope.init = function () {
             DiscussionService.getDiscussionElements($stateParams.id).then(angular.bind(this, function () {
                 $scope.scrollToComment($location.search().commentId);
             }, function (error) {
@@ -270,6 +270,13 @@ export default class DiscussionSection {
             CaseService.kase.case_summary = CaseService.prestineKase.case_summary;
             this.caseSummaryForm.$setPristine();
         };
+        $scope.doSearch = function () {
+            DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
+            $scope.state = {
+                discussionSection: $scope.initialValues(),
+                attachmentsSection: $scope.initialValues(),
+            }
+        };
         $scope.toggleDiscussion = function () {
             $scope.discussion = true;
             $scope.attachments = false;
@@ -277,7 +284,7 @@ export default class DiscussionSection {
             $scope.bugzillas = false;
             $scope.actionPlan = false;
             $scope.caseSummary = false;
-            DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
+            $scope.doSearch();
         };
         $scope.toggleAttachments = function () {
             $scope.discussion = false;
@@ -286,7 +293,7 @@ export default class DiscussionSection {
             $scope.bugzillas = false;
             $scope.actionPlan = false;
             $scope.caseSummary = false;
-            DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
+            $scope.doSearch();
         };
         $scope.toggleNotes = function () {
             $scope.discussion = false;

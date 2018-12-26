@@ -54,7 +54,7 @@ class Pagination {
         $scope.skipForward = () => $scope.setCurrentPageNumber({ pageNumber: $scope.currentPageNumber + $scope.skipSize });
 
         $scope.isBackBtnDisabled = () => $scope.currentPageNumber === 1;
-        $scope.isSkipBackBtnDisabled = () => $scope.currentPageNumber - $scope.skipSize < 0;
+        $scope.isSkipBackBtnDisabled = () => $scope.currentPageNumber - $scope.skipSize < 1;
         $scope.goBack = () => $scope.setCurrentPageNumber({ pageNumber: $scope.currentPageNumber - 1 });
         $scope.skipBack = () => $scope.setCurrentPageNumber({ pageNumber: $scope.currentPageNumber - $scope.skipSize });
 
