@@ -54,17 +54,45 @@ export default class DiscussionService {
 
         };
 
+        this.isAttachment = (element) => {
+            return element.file_name && !element.originating_system;
+        }
+
+        this.isChat = (element) => {
+            return element.comment_type === 'chat';
+        }
+
+        this.isPublicComment = (element) => {
+            return !element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)
+        }
+
+        this.isPrivateComment = (element) => {
+            return !element.file_name && element.comment_type !== 'chat' && !element.originating_system && element.public !== undefined && !element.public;
+        }
+
         this.getHeading = (element) => {
-            if (!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)) return `Message (${element.created_by_type})`;
+            if (this.isPublicComment(element)) return `Message (${element.created_by_type})`;
 
-            if (!element.file_name && element.comment_type !== 'chat' && !element.originating_system && element.public !== undefined && !element.public) return `Private Message (${element.created_by_type})`;
+            if (this.isPrivateComment(element)) return `Private Message (${element.created_by_type})`;
 
+            if (this.isAttachment(element)) return 'Attachment';
 
-            if (element.file_name && !element.originating_system) return 'Attachment';
-
-            if (element.comment_type === 'chat') return 'Transcript of chat';
+            if (this.isChat(element)) return 'Transcript of chat';
 
             if (element.originating_system) return element.originating_system;
+        }
+
+        this.getUpdatedInfo = (element) => {
+            let commentUpdatedInfo = `${element.last_modified_by} ${translate('on')} ${element.last_modified_date} ${translate('at')} ${element.last_modified_time}}}`
+
+            if (this.isPublicComment(element)) return commentUpdatedInfo;
+
+            if (this.isPrivateComment(element)) return commentUpdatedInfo;
+
+            if (this.isAttachment(element)) return `${element.last_modified_by ? element.last_modified_by : element.modifiedBy} ${translate('on')} ${element.published_date} ${translate('at')} ${element.published_time}}}`;
+
+            if (this.isChat(element)) return `${translate('between')} ${element.agent_name} ${translate('and')} ${element.visitor_name} ${element.last_modified_date} ${translate('at')} ${element.last_modified_time}`;
+
         }
 
         this.fieldsToSearchWithin = () => {
@@ -78,7 +106,8 @@ export default class DiscussionService {
                 'text',
                 'file_name',
                 'checksum',
-                'description'
+                'description',
+                'updatedInfo',
             ]
         }
 
@@ -99,7 +128,17 @@ export default class DiscussionService {
             }
             const results = filter(allElements, ((element) => {
                 return some(this.fieldsToSearchWithin(element), (field) => {
-                    const text = field === 'heading' ? translate(this.getHeading(element)) : element[field];
+                    let text;
+                    switch (field) {
+                        case 'heading':
+                            text = translate(this.getHeading(element));
+                            break;
+                        case 'updatedInfo':
+                            text = this.getUpdatedInfo(element);
+                            break;
+                        default:
+                            text = element[field];
+                    }
                     return text && (text.search(new RegExp(escapeRegExp(searchTerm), 'gi')) > -1);
                 });
             }));
