@@ -10,7 +10,7 @@ export default class DiscussionSection {
     constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
         $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService) {
         'ngInject';
-        
+
         $scope.initialValues = () => {
             return {
                 currentPageNumber: 1,
@@ -72,6 +72,23 @@ export default class DiscussionSection {
             element && element.scrollIntoView(true);
         }
 
+        $scope.scrollToTopOfAttachmentsSection = () => {
+            let element = document.getElementById('top-attachments-section');
+            element && element.scrollIntoView(true);
+        }
+
+        $scope.scrollToBottomOfAttachmentsSection = () => {
+            let element = document.getElementById('bottom-attachments-section');
+            element && element.scrollIntoView(true);
+        }
+
+        $scope.scrollForPagination = (prevPage, newPage) => {
+            let shouldScroll = prevPage !== undefined && prevPage !== newPage;
+            let shouldScrollToTop = newPage > prevPage;
+            if (shouldScroll) {
+                shouldScrollToTop ? ($scope.attachments ? $scope.scrollToTopOfAttachmentsSection() : $scope.scrollToTopOfDiscussionSection()) : ($scope.attachments ? $scope.scrollToBottomOfAttachmentsSection() : $scope.scrollToBottomOfDiscussionSection());
+            }
+        }
         $scope.getPaginationData = (pageSize, currentPage) => {
             let shouldScroll = $scope.currentPage !== undefined && $scope.currentPage !== currentPage;
             let scrollToTop = currentPage > $scope.currentPage;
@@ -114,11 +131,13 @@ export default class DiscussionSection {
         }
 
         $scope.setCurrentPageNumberForDS = (currentPageNumber) => {
+            $scope.scrollForPagination($scope.state.discussionSection.currentPageNumber, currentPageNumber);
             $scope.state.discussionSection.currentPageNumber = currentPageNumber;
             $scope.onListChange();
         }
 
         $scope.setCurrentPageNumberForAS = (currentPageNumber) => {
+            $scope.scrollForPagination($scope.state.attachmentsSection.currentPageNumber, currentPageNumber);
             $scope.state.attachmentsSection.currentPageNumber = currentPageNumber;
             $scope.onListChange();
         }
