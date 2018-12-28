@@ -232,7 +232,7 @@ export default class DiscussionSection {
             DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
             $scope.PaginationService.discussionSection.currentPageNumber = 1;
             $scope.PaginationService.attachmentsSection.currentPageNumber = 1;
-            $scope.showJumpToComment = false;
+            $scope.showJumpToCommentId = null;
         };
 
         $scope.toggleDiscussion = function () {
@@ -374,11 +374,11 @@ export default class DiscussionSection {
 
         $scope.mouseOver = (element) => {
             const isUserSearching = !!SearchBoxService.searchTerm;
-            if (isUserSearching) $scope.showJumpToComment = element.id;
+            if (isUserSearching) $scope.showJumpToCommentId = element.id;
         }
         $scope.mouseOut = (element) => {
             const isUserSearching = !!SearchBoxService.searchTerm;
-            if (isUserSearching) $scope.showJumpToComment = false;
+            if (isUserSearching) $scope.showJumpToCommentId = null;
         }
         $scope.resetSearch = () => {
             SearchBoxService.searchTerm = '';
@@ -389,7 +389,7 @@ export default class DiscussionSection {
             DiscussionService.discussionElements = DiscussionService.allDiscussionElements();
             $scope.resetSearch();
             $scope.scrollToComment(commentId);
-            $scope.showJumpToComment = false;
+            $scope.showJumpToCommentId = null;
         }
     }
 }

@@ -1183,12 +1183,9 @@ angular.module('RedhatAccess.mock', [])
         function (MockStrataDataService, $q) {
 
             this.commentTextBoxEnlargen =false;
-            this.updateElements=function()
-            {
-
-
-            };
-
+            this.updateElements=function() {};
+            this.highlightSearchResults = function() {};
+            this.doSearch = function() {};
             this.getDiscussionElements = function (caseNumber) {
                 var deferred = $q.defer();
                 deferred.resolve();
