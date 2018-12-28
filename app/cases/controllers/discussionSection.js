@@ -51,23 +51,8 @@ export default class DiscussionSection {
             }
         });
 
-        $scope.scrollToTopOfDiscussionSection = () => {
-            let element = document.getElementById('top-discussion-section');
-            element && element.scrollIntoView(true);
-        }
-
-        $scope.scrollToBottomOfDiscussionSection = () => {
-            let element = document.getElementById('bottom-discussion-section');
-            element && element.scrollIntoView(true);
-        }
-
-        $scope.scrollToTopOfAttachmentsSection = () => {
-            let element = document.getElementById('top-attachments-section');
-            element && element.scrollIntoView(true);
-        }
-
-        $scope.scrollToBottomOfAttachmentsSection = () => {
-            let element = document.getElementById('bottom-attachments-section');
+        $scope.scrollToElementById = (id) => {
+            let element = document.getElementById(id);
             element && element.scrollIntoView(true);
         }
 
@@ -75,7 +60,7 @@ export default class DiscussionSection {
             let shouldScroll = prevPage !== undefined && prevPage !== newPage;
             let shouldScrollToTop = newPage > prevPage;
             if (shouldScroll) {
-                shouldScrollToTop ? ($scope.attachments ? $scope.scrollToTopOfAttachmentsSection() : $scope.scrollToTopOfDiscussionSection()) : ($scope.attachments ? $scope.scrollToBottomOfAttachmentsSection() : $scope.scrollToBottomOfDiscussionSection());
+                shouldScrollToTop ? ($scope.attachments ? $scope.scrollToElementById('top-attachments-section') : $scope.scrollToElementById('top-discussion-section')) : ($scope.attachments ? $scope.scrollToElementById('bottom-attachments-section') : $scope.scrollToElementById('bottom-discussion-section'));
             }
         }
 
