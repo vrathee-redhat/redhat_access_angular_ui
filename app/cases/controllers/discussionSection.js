@@ -17,6 +17,12 @@ export default class DiscussionSection {
                 pageSize: 15
             }
         }
+
+        $scope.pageSizeOptions = [
+            {pageSize: "15"},
+            {pageSize: "30"}
+        ]
+
         $scope.state = {
             discussionSection: $scope.initialValues(),
             attachmentsSection: $scope.initialValues(),
@@ -288,12 +294,12 @@ export default class DiscussionSection {
             CaseService.kase.case_summary = CaseService.prestineKase.case_summary;
             this.caseSummaryForm.$setPristine();
         };
+
+
         $scope.doSearch = function () {
             DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
-            $scope.state = {
-                discussionSection: $scope.initialValues(),
-                attachmentsSection: $scope.initialValues(),
-            }
+            $scope.state.discussionSection.currentPageNumber = 1;
+            $scope.state.attachmentsSection.currentPageNumber = 1;
         };
 
         $scope.toggleDiscussion = function () {
