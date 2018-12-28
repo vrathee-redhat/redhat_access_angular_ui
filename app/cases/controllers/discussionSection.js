@@ -18,11 +18,6 @@ export default class DiscussionSection {
             }
         }
 
-        $scope.pageSizeOptions = [
-            {pageSize: "15"},
-            {pageSize: "30"}
-        ]
-
         $scope.state = {
             discussionSection: $scope.initialValues(),
             attachmentsSection: $scope.initialValues(),
@@ -146,6 +141,16 @@ export default class DiscussionSection {
             $scope.scrollForPagination($scope.state.attachmentsSection.currentPageNumber, currentPageNumber);
             $scope.state.attachmentsSection.currentPageNumber = currentPageNumber;
             $scope.onListChange();
+        }
+
+        $scope.setPageSizeForDS = (pageSize) => {
+            $scope.state.discussionSection.pageSize = pageSize;
+            $scope.state.discussionSection.currentPageNumber = 1;
+        }
+
+        $scope.setPageSizeForAS = (pageSize) => {
+            $scope.state.attachmentsSection.pageSize = pageSize
+            $scope.state.attachmentsSection.currentPageNumber = 1;
         }
 
         var scroll = function (commentId, delay) {
@@ -300,6 +305,7 @@ export default class DiscussionSection {
             DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
             $scope.state.discussionSection.currentPageNumber = 1;
             $scope.state.attachmentsSection.currentPageNumber = 1;
+            $scope.showJumpToComment = false;
         };
 
         $scope.toggleDiscussion = function () {
@@ -456,6 +462,7 @@ export default class DiscussionSection {
             DiscussionService.discussionElements = DiscussionService.allDiscussionElements();
             $scope.resetSearch();
             $scope.scrollToComment(commentId);
+            $scope.showJumpToComment = false;
         }
     }
 }

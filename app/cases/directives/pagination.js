@@ -6,8 +6,12 @@ class Pagination {
         // this is 4 because currentPage range is 0 ... n-1.
         $scope.skipSize = 5;
         $scope.onlyNumbers = /^\d+$/;
-        $scope.state = { inputCurrentPageNumber: $scope.currentPageNumber };
-
+        $scope.state = { inputCurrentPageNumber: $scope.currentPageNumber, inputPageSize: $scope.pageSize };
+        $scope.pageSizeOptions = [
+            { pageSize: "15" },
+            { pageSize: "30" }
+        ]
+        $scope.minPageSize = 15;
         $scope.sanatizeInput = (_input) => {
             const numOfPages = $scope.numberOfPages();
 
@@ -39,6 +43,14 @@ class Pagination {
 
         $scope.$watch('currentPageNumber', (newv) => {
             $scope.state.inputCurrentPageNumber = newv;
+        }, true)
+
+        $scope.$watch('pageSize', (newv) => {
+            $scope.state.inputPageSize = newv;
+        }, true)
+
+        $scope.$watch('state.inputPageSize', (newv) => {
+            $scope.setPageSize({ pageSize: newv })
         }, true)
 
         // ng-model-options makes input only throw even when  user clicks outside of input (blur) or presses "enter" (change)
