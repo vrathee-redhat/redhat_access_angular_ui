@@ -3,7 +3,7 @@ div
     strong Show &nbsp;
     select(ng-model="state.inputPageSize" convert-to-number)
         option(ng-repeat="option in pageSizeOptions", value="{{option.pageSize}}"){{option.pageSize}}
-    strong &nbsp;per page
+    strong &nbsp; per page
   div.pull-right.pagination-padding.pagination-grid(ng-if="datalength > pageSize")
     div.previous-pagination-btns
       button.btn.btn-primary.btn-app(ng-if="showSkipBtns()", ng-disabled='isSkipBackBtnDisabled()', ng-click='skipBack()')

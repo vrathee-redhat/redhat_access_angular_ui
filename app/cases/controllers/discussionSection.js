@@ -8,21 +8,8 @@ import filter from 'lodash/filter';
 
 export default class DiscussionSection {
     constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
-        $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService) {
+        $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService, PaginationService) {
         'ngInject';
-
-        $scope.initialValues = () => {
-            return {
-                currentPageNumber: 1,
-                pageSize: 15
-            }
-        }
-
-        $scope.state = {
-            discussionSection: $scope.initialValues(),
-            attachmentsSection: $scope.initialValues(),
-        }
-
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
         $scope.securityService = securityService;
@@ -50,6 +37,7 @@ export default class DiscussionSection {
             }
         ];
         $scope.DiscussionService = DiscussionService;
+        $scope.PaginationService = PaginationService;
 
         $scope.$on(CASE_EVENTS.searchSubmit, function () {
             $location.search('commentId', null);
@@ -90,67 +78,21 @@ export default class DiscussionSection {
                 shouldScrollToTop ? ($scope.attachments ? $scope.scrollToTopOfAttachmentsSection() : $scope.scrollToTopOfDiscussionSection()) : ($scope.attachments ? $scope.scrollToBottomOfAttachmentsSection() : $scope.scrollToBottomOfDiscussionSection());
             }
         }
-        $scope.getPaginationData = (pageSize, currentPage) => {
-            let shouldScroll = $scope.currentPage !== undefined && $scope.currentPage !== currentPage;
-            let scrollToTop = currentPage > $scope.currentPage;
-            $scope.pageSize = pageSize;
-            $scope.currentPage = currentPage;
-            if (shouldScroll) {
-                scrollToTop ? $scope.scrollToTopOfDiscussionSection() : $scope.scrollToBottomOfDiscussionSection();
-            }
-            $scope.onListChange();
-        };
-
-        $scope.firstCommentNumberShownOnThePage = () => {
-            const lastCommentNumberShownOnPreviousPage = ($scope.state.discussionSection.currentPageNumber - 1) * $scope.state.discussionSection.pageSize;
-            return DiscussionService.discussionElements.length && lastCommentNumberShownOnPreviousPage + 1
-        }
-
-        $scope.firstAttachmentNumberShownOnThePage = () => {
-            const lastAttachmentNumberShownOnPreviousPage = ($scope.state.attachmentsSection.currentPageNumber - 1) * $scope.state.attachmentsSection.pageSize;
-            return DiscussionService.attachments.length && lastAttachmentNumberShownOnPreviousPage + 1
-        }
-
-        $scope.lastCommentNumberShownOnThePage = () => {
-            const currentPage = $scope.state.discussionSection.currentPageNumber - 1;
-            const pageSize = $scope.state.discussionSection.pageSize;
-            const x = (currentPage * pageSize) + pageSize;
-            const mod = (DiscussionService.discussionElements.length % pageSize);
-            return (x > DiscussionService.discussionElements.length) ? ((currentPage * pageSize) + mod) : x
-        }
-
-        $scope.lastAttachmentNumberShownOnThePage = () => {
-            const currentPage = $scope.state.attachmentsSection.currentPageNumber - 1;
-            const pageSize = $scope.state.attachmentsSection.pageSize;
-            const x = (currentPage * pageSize) + pageSize;
-            const mod = (DiscussionService.attachments.length % pageSize);
-            return (x > DiscussionService.attachments.length) ? ((currentPage * pageSize) + mod) : x
-        }
 
         $scope.onListChange = () => {
             DiscussionService.highlightSearchResults(SearchBoxService.searchTerm);
         }
 
         $scope.setCurrentPageNumberForDS = (currentPageNumber) => {
-            $scope.scrollForPagination($scope.state.discussionSection.currentPageNumber, currentPageNumber);
-            $scope.state.discussionSection.currentPageNumber = currentPageNumber;
+            $scope.scrollForPagination($scope.PaginationService.discussionSection.currentPageNumber, currentPageNumber);
+            $scope.PaginationService.discussionSection.currentPageNumber = currentPageNumber;
             $scope.onListChange();
         }
 
         $scope.setCurrentPageNumberForAS = (currentPageNumber) => {
-            $scope.scrollForPagination($scope.state.attachmentsSection.currentPageNumber, currentPageNumber);
-            $scope.state.attachmentsSection.currentPageNumber = currentPageNumber;
+            $scope.scrollForPagination($scope.PaginationService.attachmentsSection.currentPageNumber, currentPageNumber);
+            $scope.PaginationService.attachmentsSection.currentPageNumber = currentPageNumber;
             $scope.onListChange();
-        }
-
-        $scope.setPageSizeForDS = (pageSize) => {
-            $scope.state.discussionSection.pageSize = pageSize;
-            $scope.state.discussionSection.currentPageNumber = 1;
-        }
-
-        $scope.setPageSizeForAS = (pageSize) => {
-            $scope.state.attachmentsSection.pageSize = pageSize
-            $scope.state.attachmentsSection.currentPageNumber = 1;
         }
 
         var scroll = function (commentId, delay) {
@@ -172,14 +114,14 @@ export default class DiscussionSection {
 
         $scope.scrollToComment = (commentId, delay) => {
             if (commentId) {
-                let pageSize = $scope.state.discussionSection.pageSize;
+                let pageSize = $scope.PaginationService.discussionSection.pageSize;
                 let commentIndex = findIndex($scope.getOrderedDiscussionElements(), { id: commentId });
                 let commentNumber = commentIndex + 1;
                 let mod = (commentNumber % pageSize);
                 let division = Math.floor(commentNumber / pageSize);
                 let currentPageNumber = mod == 0 ? (division || 1) : (division + 1)
                 if (commentIndex > -1 && currentPageNumber) {
-                    $scope.state.discussionSection.currentPageNumber = currentPageNumber;
+                    $scope.PaginationService.discussionSection.currentPageNumber = currentPageNumber;
                     scroll(commentId, delay);
                 }
             }
@@ -303,8 +245,8 @@ export default class DiscussionSection {
 
         $scope.doSearch = function () {
             DiscussionService.doSearch(SearchBoxService.searchTerm, $scope.attachments);
-            $scope.state.discussionSection.currentPageNumber = 1;
-            $scope.state.attachmentsSection.currentPageNumber = 1;
+            $scope.PaginationService.discussionSection.currentPageNumber = 1;
+            $scope.PaginationService.attachmentsSection.currentPageNumber = 1;
             $scope.showJumpToComment = false;
         };
 
