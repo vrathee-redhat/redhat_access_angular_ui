@@ -122,7 +122,7 @@ app.controller('DeleteGroupButton', DeleteGroupButton);
 app.controller('DescriptionSection', DescriptionSection);
 app.controller('DetailsSection', DetailsSection);
 app.controller('DiscussionSection', DiscussionSection);
-app.controller('Edit', Edit );
+app.controller('Edit', Edit);
 app.controller('EditCaseRecommendationsController', EditCaseRecommendationsController);
 app.controller('EmailNotifySelect', EmailNotifySelect);
 app.controller('ExistingBookmarkedAccounts', ExistingBookmarkedAccounts);
@@ -202,6 +202,7 @@ import rhaStatusselect from './directives/statusSelect'
 import rhaTypeselect from './directives/typeSelect'
 import rhaVersionselect from './directives/versionSelect'
 import pagination from './directives/pagination'
+import { convertToNumber } from './directives/convertToNumber'
 
 app.directive('rhaAccountSearch', rhaAccountSearch);
 app.directive('rhaAccountselect', rhaAccountselect);
@@ -246,6 +247,7 @@ app.directive('rhaStatusselect', rhaStatusselect);
 app.directive('rhaTypeselect', rhaTypeselect);
 app.directive('rhaVersionselect', rhaVersionselect);
 app.directive('pagination', pagination);
+app.directive('convertToNumber', convertToNumber);
 
 //Components
 import rhaAdvancedSearchCaseList from './components/advancedSearchCaseList'
@@ -275,14 +277,15 @@ import CaseService from './services/caseService'
 import DiscussionService from './services/discussionService'
 import GroupService from './services/groupService'
 import GroupUserService from './services/groupUserService'
-import LinkifyService  from './services/linkifyService'
-import ManageGroupsService  from './services/manageGroupsService'
+import LinkifyService from './services/linkifyService'
+import ManageGroupsService from './services/manageGroupsService'
 import ProductsService from './services/productsService'
 import RecommendationsService from './services/recommendationsService'
 import SearchBoxService from './services/searchBoxService'
 import SearchCaseService from './services/searchCaseService'
 import SOLRGrammarService from './services/solrGrammarService'
 import SearchBookmarkService from './services/searchBookmarkService'
+import PaginationService from './services/paginationService'
 
 
 app.service('AccountBookmarkService', AccountBookmarkService);
@@ -294,13 +297,14 @@ app.service('CaseService', CaseService);
 app.service('DiscussionService', DiscussionService);
 app.service('GroupService', GroupService);
 app.service('GroupUserService', GroupUserService);
-app.service('LinkifyService',  LinkifyService);
-app.service('ManageGroupsService',  ManageGroupsService);
+app.service('LinkifyService', LinkifyService);
+app.service('ManageGroupsService', ManageGroupsService);
 app.service('ProductsService', ProductsService);
 app.service('RecommendationsService', RecommendationsService);
 app.service('SearchBoxService', SearchBoxService);
 app.service('SearchCaseService', SearchCaseService);
 app.service('SOLRGrammarService', SOLRGrammarService);
 app.service('SearchBookmarkService', SearchBookmarkService);
+app.service('PaginationService', PaginationService);
 
 export default app.name;
