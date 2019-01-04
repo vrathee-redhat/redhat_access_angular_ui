@@ -1,28 +1,7 @@
 'use strict';
 
-var versionSorter = (_a, _b) => { //Added because of wrong order of versions
-  let a = _a.match(/(\d+|\w+)/gm);
-  let b = _b.match(/(\d+|\w+)/gm);
-  for (var i = 0; i < (a.length > b.length ? a.length : b.length); i++) {
-    const x = parseInt(a[i]) || a[i];
-    const y = parseInt(b[i]) || b[i];
-    if (x === undefined || x < y) {
-      return 1;
-    } else if (y === undefined || y < x) {
-      return -1;
-    }
-  }
-  if (_a.length > _b.length) {
-    return 1;
-  } else if (_b.length > _a.length) {
-    return -1;
-  }
-  return 0;
-}
-
-var versionSort = (arr) => {
-  return arr.sort(versionSorter);
-}
+var utils = require('../../app/shared/utils');
+var versionSort = utils.versionSort;
 
 describe('Version Sort', function () {
   it('should pass for RHEL', function () {
@@ -43,9 +22,22 @@ describe('Version Sort', function () {
     const unsorted = ["1.1", "1.1.1", "2.1", "2.9", "2.99", "3.2", "3.4", "3.5", "3.6", "3.7", "4", "4.0", "4.0.6", "4.1", "4.1.6", "4.2", "4.2.3", "5", "5.0", "5.0.2", "5.1", "5.1.1", "5.2", "5.2.1", "5.3", "5.4", "5.4.1", "5.5", "5.6", "5.7", "5.8", "6.0", "6.1", "6.2", "6.3", "6.4"];
 
     const sorted = ["6.4", "6.3", "6.2", "6.1", "6.0", "5.8", "5.7", "5.6", "5.5", "5.4.1", "5.4", "5.3", "5.2.1", "5.2", "5.1.1", "5.1", "5.0.2", "5.0", "5", "4.2.3", "4.2", "4.1.6", "4.1", "4.0.6", "4.0", "4", "3.7", "3.6", "3.5", "3.4", "3.2", "2.99", "2.9", "2.1", "1.1.1", "1.1"];
-    console.log(versionSort(unsorted))
     expect(versionSort(unsorted)).toEqual(sorted);
   });
+
+  it('should pass for .NET core', function () {
+    const unsorted = ["6.0.0", "6.1.0", "6.1.1", "6.1.2", "6.1.3", "6.1.4", "6.2.0", "6.2.1", "6.2.2", "6.2.3", "6.2.4", "6.2.5", "6.2.6", "6.2.7", "6.2.8", "6.2.9", "6.3.0", "6.3.1", "6.3.2", "6.3.4", "6.3.5", "6.3.6", "6.3.7", "6.3.8", "6.4.0", "6.4.1", "6.4.2", "6.4.3"]
+    const sorted = ["6.4.3", "6.4.2", "6.4.1", "6.4.0", "6.3.8", "6.3.7", "6.3.6", "6.3.5", "6.3.4", "6.3.2", "6.3.1", "6.3.0", "6.2.9", "6.2.8", "6.2.7", "6.2.6", "6.2.5", "6.2.4", "6.2.3", "6.2.2", "6.2.1", "6.2.0", "6.1.4", "6.1.3", "6.1.2", "6.1.1", "6.1.0", "6.0.0"];
+    expect(versionSort(unsorted)).toEqual(sorted);
+  });
+
+  it('should pass for Ansible Tower', function () {
+    const unsorted = ["3.1.4", "3.1.5", "3.1.6", "3.1.7", "3.2", "3.2.1", "3.2.2", "3.2.3", "3.2.4", "3.2.5", "3.2.6", "3.3"];
+    const sorted = ["3.3", "3.2.6", "3.2.5", "3.2.4", "3.2.3", "3.2.2", "3.2.1", "3.2", "3.1.7", "3.1.6", "3.1.5", "3.1.4"];
+    expect(versionSort(unsorted)).toEqual(sorted);
+  });
+
+
 
 
 
