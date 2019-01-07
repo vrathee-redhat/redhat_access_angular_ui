@@ -13,7 +13,7 @@ function escapeRegExp(string) {
 }
 
 export default class DiscussionService {
-    constructor($sce, $location, $q, AlertService, RHAUtils, AttachmentsService, CaseService, strataService, HeaderService, securityService, COMMON_CONFIG, SearchBoxService, translate) {
+    constructor($sce, $location, $q, AlertService, RHAUtils, AttachmentsService, CaseService, strataService, HeaderService, securityService, COMMON_CONFIG, SearchBoxService, translate, $filter) {
         'ngInject';
 
         this.discussionElements = [];
@@ -119,6 +119,10 @@ export default class DiscussionService {
             }
         }
 
+        this.getFileName = function (element) {
+            return this.isAttachment(element) && `${element.file_name} (${element.length ? element.length : $filter('bytes')(element.size)})`;
+        }
+
         this.doSearch = function (searchTerm, searchInAttachments) {
             const allElements = searchInAttachments ? AttachmentsService.originalAttachments : this.allDiscussionElements();
             if (isBlankStr(searchTerm)) {
@@ -135,6 +139,9 @@ export default class DiscussionService {
                             break;
                         case 'updatedInfo':
                             text = this.getUpdatedInfo(element);
+                            break;
+                        case 'file_name':
+                            text = this.getFileName(element);
                             break;
                         default:
                             text = element[field];
