@@ -15,6 +15,9 @@ export default class SearchBoxService {
         this.doSearch = function () {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
+        this.clear = () => {
+            this.searchTerm = undefined;
+        };
         this.searchTerm = undefined;
         this.onKeyPress = {};
         this.disableSearchButton = true;
