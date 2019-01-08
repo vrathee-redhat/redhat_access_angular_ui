@@ -181,6 +181,8 @@ export default class DiscussionService {
             this.attachments = AttachmentsService.originalAttachments;
             this.externalUpdates = CaseService.externalUpdates;
             this.discussionElements = this.allDiscussionElements();
+            this.doSearch(SearchBoxService.searchTerm, true);
+            this.doSearch(SearchBoxService.searchTerm);
         };
     }
 }
