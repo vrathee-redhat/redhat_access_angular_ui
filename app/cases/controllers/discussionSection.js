@@ -381,7 +381,7 @@ export default class DiscussionSection {
             if (isUserSearching) $scope.showJumpToCommentId = null;
         }
         $scope.resetSearch = () => {
-            SearchBoxService.searchTerm = '';
+            SearchBoxService.clear();
             $scope.doSearch();
         }
 

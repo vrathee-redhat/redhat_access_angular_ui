@@ -1,10 +1,10 @@
 'use strict';
 
-import _   from 'lodash';
+import _ from 'lodash';
 
 export default class Edit {
     constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService,
-                $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils, $uibModal, COMMON_CONFIG) {
+        $rootScope, AUTH_EVENTS, AlertService, securityService, EDIT_CASE_CONFIG, CASE_EVENTS, $sce, gettextCatalog, RHAUtils, $uibModal, COMMON_CONFIG, SearchBoxService) {
         'ngInject';
 
         $scope.EDIT_CASE_CONFIG = EDIT_CASE_CONFIG;
@@ -24,6 +24,7 @@ export default class Edit {
         $scope.cepMessage = gettextCatalog.getString("Used by consultants to indicate that a consulting engagement is in progress and the issue requires increased attention from support resources.");
         $scope.showCasePage = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases && !$scope.loading.kase;
         $scope.init = function () {
+            SearchBoxService.clear();
             AttachmentsService.clear();
             RecommendationsService.clear();
             HeaderService.pageLoadFailure = false;
