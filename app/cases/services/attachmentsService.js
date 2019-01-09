@@ -56,9 +56,11 @@ export default class AttachmentsService {
             return false;
         };
 
-        // returns true if the attachment is
-        this.isAwsAttachment = (attachment, s3EnabledForAccount) => s3EnabledForAccount && attachment && attachment.link &&
-            (attachment.link.indexOf('/hydra/rest/') > -1 || attachment.link.indexOf('/hydrafs/rest/') > -1);
+        // this.isAwsAttachment = (attachment, s3EnabledForAccount) => s3EnabledForAccount && attachment && attachment.link &&
+        //     (attachment.link.indexOf('/hydra/rest/') > -1 || attachment.link.indexOf('/hydrafs/rest/') > -1);
+
+        // always return false as we want hydra/strata to be used for download in PCM for now
+        this.isAwsAttachment = (attachment, s3EnabledForAccount) => false;
 
         this.clear = function () {
             this.originalAttachments = [];
@@ -322,7 +324,8 @@ export default class AttachmentsService {
                                         caseId,
                                         s3UploadCredentialsData,
                                         putObjectRequest,
-                                        listener
+                                        listener,
+                                        true
                                     );
 
                                     attachment.uploadComplete = true;
