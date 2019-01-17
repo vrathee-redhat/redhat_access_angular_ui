@@ -15,7 +15,7 @@ export default class EmailNotifySelect {
         $scope.RHAUtils = RHAUtils;
 
         $scope.selectedUsersChanged = () => {
-            const allUsers = $scope.internal ? CaseService.redhatUsers : CaseService.users;
+            const allUsers = CaseService.users;
             const previouslySelectedUsers = _.intersection(CaseService.originalNotifiedUsers, _.map(allUsers, 'sso_username'));
             // ignore the case contact, we never want to add/remove notifications for him
             const toBeAdded = _.without(_.difference($scope.selectedUsers, previouslySelectedUsers), CaseService.kase.contact_sso_username);
@@ -36,24 +36,11 @@ export default class EmailNotifySelect {
                     _.each(removed, (sso)=> AlertService.addWarningMessage(gettextCatalog.getString('User {{sso}} cannot be added as watcher because it is not internal.', {sso})));
                 });
             }
-
-            if($scope.internal) {
-                // fetch user info for all users to be added
-                return Promise.all(_.map(toBeAdded, (user) => strataService.users.getBySSO(user))).then((users) => {
-                    const internalSSOs = _.map(_.filter(users, 'is_internal'), 'sso_username');
-
-                    // remove non-internal users
-                    const removed = _.remove(toBeAdded, (userSSO) => internalSSOs.indexOf(userSSO) == -1);
-
-                    return submitWatchers(toBeAdded, toBeRemoved, removed);
-                });
-            } else {
-                return submitWatchers(toBeAdded, toBeRemoved, []);
-            }
+            return submitWatchers(toBeAdded, toBeRemoved, []);
         };
 
 
-        $scope.mapUsers = (users) => _.compact(_.map(users, (userSSO) => _.find($scope.internal ? CaseService.redhatUsers : CaseService.users, {'sso_username': userSSO})));
+        $scope.mapUsers = (users) => _.compact(_.map(users, (userSSO) => _.find(CaseService.users, {'sso_username': userSSO})));
 
         $scope.removeUser = (userSSO) => {
             if($scope.saving) return;
@@ -97,17 +84,9 @@ export default class EmailNotifySelect {
                 $scope.usersOnAccount = _.cloneDeep(CaseService.users);
             }
 
-            if(!$scope.internal) {
-                CaseService.populateUsers().then(() => {
-                    $scope.$watch('CaseService.originalNotifiedUsers', () => setUsers($scope.usersOnAccount, CaseService.originalNotifiedUsers));
-                });
-            } else {
-                if(RHAUtils.isEmpty(CaseService.redhatUsers)) { // RH Users are not loaded yet
-                    CaseService.populateRedhatUsers().then(() => $scope.$watch('CaseService.originalNotifiedUsers', () => setUsers(CaseService.redhatUsers, CaseService.originalNotifiedUsers)));
-                } else {
-                    $scope.$watch('CaseService.originalNotifiedUsers', () => setUsers(CaseService.redhatUsers, CaseService.originalNotifiedUsers));
-                }
-            }
+            CaseService.populateUsers().then(() => {
+                $scope.$watch('CaseService.originalNotifiedUsers', () => setUsers($scope.usersOnAccount, CaseService.originalNotifiedUsers));
+            });
         };
 
         if (CaseService.caseDataReady) {
