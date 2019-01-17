@@ -14,3 +14,8 @@
 .ml-5 {
     margin-left: 5px;
 }
+
+.padding-searchbox {
+    padding-top: 15px;
+    padding-bottom: 5px;
+}

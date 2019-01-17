@@ -1,6 +1,6 @@
 {
   "name": "redhat_access_angular_ui",
-  "version": "1.4.33",
+  "version": "1.4.38",
   "devDependencies": {
     "angular": "~1.5.7",
     "angular-animate": "~1.5.7",
@@ -60,6 +60,7 @@
     "karma-sourcemap-loader": "~0.3.7",
     "karma-webpack": "~1.7.0",
     "lodash": "~4.15.0",
+    "mark.js": "^8.11.1",
     "moment": "~2.14.1",
     "moment-timezone": "0.5.11",
     "ng-annotate-loader": "~0.1.0",

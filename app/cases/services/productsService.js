@@ -1,6 +1,6 @@
 'use strict';
 import _        from 'lodash';
-
+import {versionSort} from '../../shared/utils';
 const productSortListFile = require('../../../productSortList.txt');
 
 export default class ProductsService {
@@ -138,24 +138,7 @@ export default class ProductsService {
             //Retrieve the product detail, basically finding the attachment artifact
             this.fetchProductDetail(product);
             return strataService.products.versions(product).then(angular.bind(this, function (response) {
-                response.sort(function (a, b) { //Added because of wrong order of versions
-                    a = a.split('.');
-                    b = b.split('.');
-                    for (var i = 0; i < a.length; i++) {
-                        if (a[i] < b[i]) {
-                            return 1;
-                        } else if (b[i] < a[i]) {
-                            return -1;
-                        }
-                    }
-                    if (a.length > b.length) {
-                        return 1;
-                    } else if (b.length > a.length) {
-                        return -1;
-                    }
-                    return 0;
-                });
-                this.versions = response;
+                this.versions = versionSort(response);
                 this.versionDisabled = false;
                 this.versionLoading = false;
 

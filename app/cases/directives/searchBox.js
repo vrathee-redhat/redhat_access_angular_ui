@@ -3,11 +3,12 @@
 export default function () {
     return {
         template: require('../views/searchBox.jade'),
-        restrict: 'A',
+        restrict: 'EA',
         controller: 'SearchBox',
         scope: {
             placeholder: '=',
-            hidebutton: '=?'
+            hidebutton: '=?',
+            className: '<'
         }
     };
 }

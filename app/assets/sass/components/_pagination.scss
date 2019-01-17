@@ -5,6 +5,7 @@ $numOfColsFirstAndLast: 7;
 
 .pagination-padding {
     padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .pagination-grid {
@@ -29,4 +30,9 @@ $numOfColsFirstAndLast: 7;
         width: 50%;
         text-align: center;
     }
+}
+
+.pagesize-select {
+	margin-top: 15px;
+	margin-left: 10px
 }
