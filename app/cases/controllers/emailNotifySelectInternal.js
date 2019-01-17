@@ -19,19 +19,12 @@ export default class EmailNotifySelectInternal {
             const addPromises = _.map(toBeAdded, (user) => strataService.cases.notified_users.add(CaseService.kase.case_number, user));
             const removePromises = _.map(toBeRemoved, (user) => strataService.cases.notified_users.remove(CaseService.kase.case_number, user));
 
-            return Promise.all([...addPromises, ...removePromises]).then(() => {
+            return Promise.all([...addPromises, ...removePromises]).then( async () => {
                 _.pullAll(CaseService.originalNotifiedUsers, toBeRemoved);
                 CaseService.originalNotifiedUsers = CaseService.originalNotifiedUsers.concat(toBeAdded);
-                if ($scope.contactToAdd && toBeAdded && toBeAdded.length > 0) {
-                    CaseService.internalNotificationContacts = CaseService.internalNotificationContacts.concat($scope.contactToAdd);
-                }
-                if (toBeRemoved && toBeRemoved.length > 0) {
-                    CaseService.internalNotificationContacts = _.filter(CaseService.internalNotificationContacts, (contact) => !_.includes(toBeRemoved, contact.ssoUsername));
-                }
-                $scope.selectedUsers = CaseService.originalNotifiedUsers;
+                _.each(removed, (sso)=> AlertService.addWarningMessage(gettextCatalog.getString('User {{sso}} cannot be added as watcher because it is not internal.', {sso})));
                 $scope.saving = false;
                 // add warning message for users we cannot add
-                _.each(removed, (sso)=> AlertService.addWarningMessage(gettextCatalog.getString('User {{sso}} cannot be added as watcher because it is not internal.', {sso})));
             });
         }
 
@@ -99,7 +92,10 @@ export default class EmailNotifySelectInternal {
         };
 
         const init = () => {
-            $scope.$watch('CaseService.originalNotifiedUsers', () => $scope.selectedUsers = _.cloneDeep(CaseService.originalNotifiedUsers));
+            $scope.$watch('CaseService.originalNotifiedUsers', async () => {
+                await CaseService.setInternalNotificationContacts(CaseService.originalNotifiedUsers)
+                $scope.selectedUsers = _.map(CaseService.internalNotificationContacts, 'ssoUsername');
+            });
         };
 
         if (CaseService.caseDataReady) {

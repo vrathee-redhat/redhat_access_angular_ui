@@ -490,18 +490,6 @@ export default class CaseService {
             }
         };
 
-        this.populateRedhatUsers = () => {
-            const accountNumber = "540155";
-            this.redhatUsersLoading = true;
-            return strataService.accounts.users(accountNumber).then((users) => {
-                this.redhatUsers = users;
-                if (securityService.loginStatus.authedUser.is_internal && !_.find(this.redhatUsers, { sso_username: securityService.loginStatus.authedUser.sso_username })) {
-                    this.redhatUsers.unshift(securityService.loginStatus.authedUser);
-                }
-                this.redhatUsersLoading = false;
-            });
-        };
-
         this.populateRedhatSecureSupportUsers = () => {
             const accountNumber = "5487648";
             this.redhatSecureSupportUsersLoading = true;
