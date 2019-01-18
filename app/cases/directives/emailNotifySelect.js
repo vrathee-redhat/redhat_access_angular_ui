@@ -6,9 +6,7 @@ export default function () {
         restrict: 'A',
         transclude: true,
         controller: 'EmailNotifySelect',
-        scope: {
-            internal: '='
-        },
+        scope: {},
         link: function postLink(scope, element, attrs) {
             scope.$on('$destroy', () => element.remove() );
         }

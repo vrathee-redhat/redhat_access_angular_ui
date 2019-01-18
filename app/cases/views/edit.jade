@@ -54,7 +54,7 @@ div.edit(ng-if='showCasePage()')
                 span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{cepMessage}}")
       section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
         .row
-          .col-xs-12(rha-emailnotifyselect='')
+          .col-xs-12(rha-emailnotifyselect)
         .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
             .col-xs-12(rha-emailnotifyselect-internal)
 

@@ -85,7 +85,7 @@ export default class EmailNotifySelect {
             $scope.$watch('CaseService.users', () => setUsers());
             $scope.$watch('CaseService.originalNotifiedUsers', () => setUsers());
             $scope.$watch('securityService.loginStatus.authedUser.accountContacts', () => setUsers());
-            $scope.$watch('CaseService.internalNotificationContacts', () => setUsers());
+            securityService.loginStatus.authedUser.is_internal && $scope.$watch('CaseService.internalNotificationContacts', () => setUsers());
         };
 
         if (CaseService.caseDataReady) {

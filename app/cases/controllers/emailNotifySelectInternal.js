@@ -14,6 +14,7 @@ export default class EmailNotifySelectInternal {
         $scope.saving = false;
         $scope.RHAUtils = RHAUtils;
         $scope.contactToAdd = undefined;
+        $scope.noResults = false;
 
         const submitWatchers = (toBeAdded, toBeRemoved, removed) => {
             const addPromises = _.map(toBeAdded, (user) => strataService.cases.notified_users.add(CaseService.kase.case_number, user));
@@ -51,7 +52,8 @@ export default class EmailNotifySelectInternal {
         };
 
         $scope.searchRHUsers = async (searchQuery) => {
-            if (searchQuery && searchQuery.length < 4) return [];
+            $scope.noResults = false;
+            if (searchQuery && searchQuery.length < 2) return [];
             let queryParams = {
                 limit: 10,
                 internal: false, // to get non-ldap contacts 
@@ -63,11 +65,13 @@ export default class EmailNotifySelectInternal {
                 $scope.isLoadingContacts = true;
                 const response = await hydrajs.contacts.getSFDCContacts(queryParams);
                 options = (response && response.items && response.items.length) ? response.items : [];
+                options = _.filter(options, (c)=> !_.includes(CaseService.originalNotifiedUsers, c.ssoUsername));
                 $scope.isLoadingContacts = false;
             } catch (e) {
                 console.warn(`Unable to search contacts, error: ${e}`);
                 $scope.isLoadingContacts = false;
             }
+            $scope.noResults = options.length === 0;
             return options;
         };
 
@@ -79,14 +83,15 @@ export default class EmailNotifySelectInternal {
                 _.pull($scope.selectedUsers, securityService.loginStatus.authedUser.sso_username);
                 $scope.selectedUsersChanged();
             } else {
+                const authedUser = securityService.loginStatus.authedUser;
                 $scope.contactToAdd = {
-                    ssoUsername: securityService.loginStatus.authedUser.sso_username,
-                    firstName: securityService.loginStatus.authedUser.first_name,
-                    lastName: securityService.loginStatus.authedUser.last_name,
-                    isInternal: securityService.loginStatus.authedUser.is_internal,
-                    orgAdmin: securityService.loginStatus.authedUser.org_admin
+                    ssoUsername: authedUser.sso_username,
+                    firstName: authedUser.first_name,
+                    lastName: authedUser.last_name,
+                    isInternal: authedUser.is_internal,
+                    orgAdmin: authedUser.org_admin
                 }
-                $scope.selectedUsers.push(securityService.loginStatus.authedUser.sso_username);
+                $scope.selectedUsers.push(authedUser.sso_username);
                 $scope.selectedUsersChanged();
             }
         };
