@@ -2,10 +2,10 @@
 
 export default function () {
     return {
-        template: require('../views/emailNotifySelect.jade'),
+        template: require('../views/emailNotifySelectInternal.jade'),
         restrict: 'A',
         transclude: true,
-        controller: 'EmailNotifySelect',
+        controller: 'EmailNotifySelectInternal',
         scope: {},
         link: function postLink(scope, element, attrs) {
             scope.$on('$destroy', () => element.remove() );

@@ -1,0 +1,19 @@
+.row
+    .col-sm-4
+        .label {{'Red Hat Watchers'|translate}}
+        div(uib-tooltip="{{isCurrentUserCaseContact() ? 'You are case contact and therefore you cannot be removed as watcher.' : '' | translate}}")
+            button.btn.btn-info.btn-xs(
+                ng-click="toggleCurrentUser()",
+                ng-disabled="saving || isCurrentUserCaseContact()",
+                ng-show="!CaseService.redhatUsersLoading")
+                span(ng-hide="isCurrentUserWatcher()", translate) Add me as watcher
+                span(ng-show="isCurrentUserWatcher()", translate) Remove me as watcher
+    .col-sm-8
+        div.label-contact(ng-repeat="user in mapUsers(selectedUsers)", ng-class="{'label-disabled':saving}")
+            span {{user.firstName}} {{user.lastName}} <{{user.ssoUsername}}>
+            a(ng-click="removeUser(user.ssoUsername)", ng-disabled="saving")
+                i.fa.fa-close
+        .spinner.spinner-inline(ng-show="isLoadingContacts")
+        input.form-control(type="text", ng-model="userToAdd", placeholder="{{'Search here to add watchers' | translate}}", ng-disabled="saving", ng-model-options="{'debounce': 600}"
+        typeahead-loading="isLoadingContacts" typeahead-no-results="noResults" typeahead-min-length="0" uib-typeahead="user as (user.name + ' &lt;'+user.ssoUsername+'&gt;') for user in searchRHUsers($viewValue)")
+        div(ng-show="noResults && !isLoadingContacts" translate) No new contacts found.
