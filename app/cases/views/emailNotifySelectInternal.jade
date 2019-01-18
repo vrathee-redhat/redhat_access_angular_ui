@@ -17,4 +17,4 @@
         .spinner.spinner-inline(ng-show="isLoadingContacts")
         input.form-control(type="text", ng-model="userToAdd", placeholder="{{'Search here to add watchers' | translate}}", ng-disabled="saving", ng-model-options="{'debounce': 600}"
         typeahead-loading="isLoadingContacts" typeahead-no-results="noResults" typeahead-min-length="0" uib-typeahead="user as (user.name + ' &lt;'+user.ssoUsername+'&gt;') for user in searchRHUsers($viewValue)")
-        div(ng-show="noResults && !isLoadingContacts") No New Contacts Found
+        div(ng-show="noResults && !isLoadingContacts" translate) No new contacts found.
