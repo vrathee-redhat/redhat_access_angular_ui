@@ -4,15 +4,12 @@ import _ from 'lodash';
 import hydrajs  from '../../shared/hydrajs';
 
 export default class EmailNotifySelectInternal {
-    constructor($scope, CaseService, securityService, AlertService, strataService, CASE_EVENTS, $filter, RHAUtils, EDIT_CASE_CONFIG, gettextCatalog) {
+    constructor($scope, CaseService, securityService, AlertService, strataService, CASE_EVENTS, gettextCatalog) {
         'ngInject';
         $scope.isLoadingContacts = false;
         $scope.CaseService = CaseService;
-        $scope.securityService = securityService;
-        $scope.showEmailNotifications = EDIT_CASE_CONFIG.showEmailNotifications;
         $scope.selectedUsers = [];
         $scope.saving = false;
-        $scope.RHAUtils = RHAUtils;
         $scope.contactToAdd = undefined;
         $scope.noResults = false;
 
