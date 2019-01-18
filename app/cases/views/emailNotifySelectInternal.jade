@@ -9,7 +9,6 @@
                 span(ng-hide="isCurrentUserWatcher()", translate) Add me as watcher
                 span(ng-show="isCurrentUserWatcher()", translate) Remove me as watcher
     .col-sm-8
-        
         div.label-contact(ng-repeat="user in mapUsers(selectedUsers)", ng-class="{'label-disabled':saving}")
             span {{user.firstName}} {{user.lastName}} <{{user.ssoUsername}}>
             a(ng-click="removeUser(user.ssoUsername)", ng-disabled="saving")
