@@ -13,8 +13,8 @@ export default class LinkifyService {
         this.linkifyBZIDs = function (text) {
             if (RHAUtils.isEmpty(text)) return '';
 
-            var bzIdRegex = /(Bug|BZ)([\s\('";#]|^)(\d{7,})([\s\)'"\&]|$)/ig;
-            var bzLinkifiedText = text.replace(bzIdRegex, '<a href="https://bugzilla.redhat.com/show_bug.cgi?id=$3">$1$2$3</a>$4');
+            var bzIdRegex = /(Bug|BZ)([ \t])?([\('\"#-])?(&#\S{2,4};)?(\d{7,})/ig;
+            var bzLinkifiedText = text.replace(bzIdRegex, '<a href="https://bugzilla.redhat.com/show_bug.cgi?id=$4">$1$2$3$4</a>');
             return bzLinkifiedText;
         }
     }
