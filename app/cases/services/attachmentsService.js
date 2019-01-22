@@ -292,18 +292,17 @@ export default class AttachmentsService {
                                     Metadata: {}
                                 };
 
-                                if (attachment.description) {
-                                    putObjectRequest.Metadata["x-amz-meta-description"] = attachment.description;
-                                }
-                                if (attachment.fileObj.name) {
-                                    putObjectRequest.Metadata["x-amz-meta-fileName"] = attachment.fileObj.name;
-                                }
-                                if (attachment.fileObj.size) {
-                                    putObjectRequest.Metadata["x-amz-meta-byteLength"] = attachment.fileObj.size.toString();
-                                }
-                                if (attachment.fileObj.type) {
-                                    putObjectRequest.Metadata["x-amz-meta-content-type"] = attachment.fileObj.type;
-                                }
+                                attachment.description &&
+                                    (putObjectRequest.Metadata["x-amz-meta-description"] = attachment.description)
+
+                                attachment.fileObj.name && 
+                                    (putObjectRequest.Metadata["x-amz-meta-fileName"] = attachment.fileObj.name)
+                        
+                                attachment.fileObj.size &&
+                                    (putObjectRequest.Metadata["x-amz-meta-byteLength"] = attachment.fileObj.size.toString())
+
+                                attachment.fileObj.type && 
+                                    (putObjectRequest.Metadata["x-amz-meta-content-type"] = attachment.fileObj.type)
 
                                 const s3UploadCredentialsData = {
                                     fileName: attachment.fileObj.name,
