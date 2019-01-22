@@ -290,12 +290,14 @@ export default class AttachmentsService {
                                     Body: attachment.fileObj,
                                     ContentLength: attachment.fileObj.size,
                                     Metadata: {
-                                        'x-amz-meta-description': attachment.description,
                                         'x-amz-meta-fileName': attachment.fileObj.name,
                                         'x-amz-meta-byteLength': attachment.fileObj.size.toString(),
                                         'x-amz-meta-content-type': attachment.fileObj.type
                                     }
                                 };
+                                if (attachment.description) {
+                                    putObjectRequest.Metadata["x-amz-meta-description"] = attachment.description;
+                                }
 
                                 const s3UploadCredentialsData = {
                                     fileName: attachment.fileObj.name,
