@@ -301,7 +301,7 @@ export default class CaseService {
             /*jshint camelcase: false */
             if (RHAUtils.isNotEmpty(this.kase.notified_users)) {
                 _.each(this.kase.notified_users.link, (user) => {
-                    this.originalNotifiedUsers.push(user.sso_username);
+                    user.sso_username && this.originalNotifiedUsers.push(user.sso_username);
                 });
                 securityService.loginStatus.authedUser.is_internal && this.setInternalNotificationContacts(this.originalNotifiedUsers);
             }
