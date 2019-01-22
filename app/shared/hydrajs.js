@@ -27489,22 +27489,18 @@ var expiryWindow = 10 * 60;
 AWS.config.setPromisesDependency(Promise);
 function uploadAttachment(caseNumber, formData) {
     var path = "/cwe/cases/" + caseNumber + "/attachments";
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + path);
+    var uri = env_1.default.hydraFSHostName.clone().setPath(env_1.default.fsPathPrefix + path);
     return fetch_1.postFormUri(uri, formData);
 }
 exports.uploadAttachment = uploadAttachment;
 function getAttachments(caseNumber) {
     var path = "/cwe/cases/" + caseNumber + "/attachments";
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + path);
+    var uri = env_1.default.hydraFSHostName.clone().setPath(env_1.default.fsPathPrefix + path);
     return fetch_1.getUri(uri);
 }
 exports.getAttachments = getAttachments;
-function uploadNonS3Attachment(caseNumber, formData, isPrivate) {
-    if (isPrivate === void 0) { isPrivate = false; }
+function uploadNonS3Attachment(caseNumber, formData) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments");
-    if (isPrivate) {
-        uri.addQueryParam('private', isPrivate);
-    }
     return fetch_1.postFormUri(uri, formData);
 }
 exports.uploadNonS3Attachment = uploadNonS3Attachment;
@@ -29069,190 +29065,6 @@ exports.deleteTimelineActivity = deleteTimelineActivity;
 
 /***/ }),
 
-/***/ "./src/api/cweAdmin/configuration.ts":
-/*!*******************************************!*\
-  !*** ./src/api/cweAdmin/configuration.ts ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-function getConfigurations(id, type, fieldName) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/configurations/" + (id ? id : ''));
-    // NOTE: If we have an Id given we need not apply any filter using Query Params
-    // Filter is applicable only for fetching all configurations with specific type
-    // and/or specific field name
-    if (!id && type)
-        uri.addQueryParam('type', type);
-    if (!id && fieldName)
-        uri.addQueryParam('fieldName', fieldName);
-    return fetch_1.getUri(uri);
-}
-exports.getConfigurations = getConfigurations;
-function addConfiguration(configObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/configurations");
-    return fetch_1.postUri(uri, configObj);
-}
-exports.addConfiguration = addConfiguration;
-function updateConfiguration(id, updateConfigOp) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/configurations/" + id);
-    return fetch_1.patchUri(uri, updateConfigOp);
-}
-exports.updateConfiguration = updateConfiguration;
-function removeConfiguration(id) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/configurations/" + id);
-    return fetch_1.deleteUri(uri);
-}
-exports.removeConfiguration = removeConfiguration;
-
-
-/***/ }),
-
-/***/ "./src/api/cweAdmin/openstackFeatures.ts":
-/*!***********************************************!*\
-  !*** ./src/api/cweAdmin/openstackFeatures.ts ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-function getOpenstackFeatures(id, pluginType) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/feature/" + (id ? id : ''));
-    // NOTE: We only want to use Plugin Type feature while we want to
-    // filter all the plugins, in case of Id we need not apply filter
-    if (!id && pluginType)
-        uri.addQueryParam('pluginType', pluginType);
-    return fetch_1.getUri(uri);
-}
-exports.getOpenstackFeatures = getOpenstackFeatures;
-function addOpenstackFeature(openstackFeatureObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/feature");
-    return fetch_1.postUri(uri, openstackFeatureObj);
-}
-exports.addOpenstackFeature = addOpenstackFeature;
-function updateOpenstackFeature(id, updateOpenstackFeatureObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/feature/" + id);
-    return fetch_1.putUri(uri, updateOpenstackFeatureObj);
-}
-exports.updateOpenstackFeature = updateOpenstackFeature;
-
-
-/***/ }),
-
-/***/ "./src/api/cweAdmin/openstackPluginProtocol.ts":
-/*!*****************************************************!*\
-  !*** ./src/api/cweAdmin/openstackPluginProtocol.ts ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-function getOSPPluginProtocols(id) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/protocol/" + (id ? id : ''));
-    return fetch_1.getUri(uri);
-}
-exports.getOSPPluginProtocols = getOSPPluginProtocols;
-function addOSPPluginProtocol(protocolObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/protocol");
-    return fetch_1.postUri(uri, protocolObj);
-}
-exports.addOSPPluginProtocol = addOSPPluginProtocol;
-function updateOSPPluginProtocol(id, updateProtocolObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/protocol/" + id);
-    return fetch_1.putUri(uri, updateProtocolObj);
-}
-exports.updateOSPPluginProtocol = updateOSPPluginProtocol;
-
-
-/***/ }),
-
-/***/ "./src/api/cweAdmin/policyGuide.ts":
-/*!*****************************************!*\
-  !*** ./src/api/cweAdmin/policyGuide.ts ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-function getPolicyGuides() {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/policyguides");
-    return fetch_1.getUri(uri);
-}
-exports.getPolicyGuides = getPolicyGuides;
-function addPolicyGuide(policyGuideObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/policyguides");
-    return fetch_1.postUri(uri, policyGuideObj);
-}
-exports.addPolicyGuide = addPolicyGuide;
-function updatePolicyGuide(id, updatePolicyGuideObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/policyguides/" + id);
-    return fetch_1.putUri(uri, updatePolicyGuideObj);
-}
-exports.updatePolicyGuide = updatePolicyGuide;
-function removePolicyGuide(id) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/policyguides/" + id);
-    return fetch_1.deleteUri(uri);
-}
-exports.removePolicyGuide = removePolicyGuide;
-
-
-/***/ }),
-
-/***/ "./src/api/cweAdmin/testClass.ts":
-/*!***************************************!*\
-  !*** ./src/api/cweAdmin/testClass.ts ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-function getCWEAdminTestClasses(id, isSupport, productType, pluginType) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/testclasses/" + (id ? id : ''));
-    // NOTE: We only want to use filter when we haven't mentioned the
-    // id. In case, Id is given we need not apply filter
-    if (!id && isSupport)
-        uri.addQueryParam('isSupport', isSupport);
-    if (!id && productType)
-        uri.addQueryParam('productType', productType);
-    if (!id && pluginType)
-        uri.addQueryParam('pluginType', pluginType);
-    return fetch_1.getUri(uri);
-}
-exports.getCWEAdminTestClasses = getCWEAdminTestClasses;
-function addCWEAdminTestClass(testClassObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/testclasses");
-    return fetch_1.postUri(uri, testClassObj);
-}
-exports.addCWEAdminTestClass = addCWEAdminTestClass;
-function updateCWEAdminTestClass(id, updateTestClassoObj) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/testclasses/" + id);
-    return fetch_1.putUri(uri, updateTestClassoObj);
-}
-exports.updateCWEAdminTestClass = updateCWEAdminTestClass;
-
-
-/***/ }),
-
 /***/ "./src/api/cweAdmin/vendor.ts":
 /*!************************************!*\
   !*** ./src/api/cweAdmin/vendor.ts ***!
@@ -29265,11 +29077,16 @@ exports.updateCWEAdminTestClass = updateCWEAdminTestClass;
 Object.defineProperty(exports, "__esModule", { value: true });
 var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
 var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-function getVendors(id) {
-    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors/" + (id ? id : ''));
+function getVendors() {
+    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors");
     return fetch_1.getUri(url);
 }
 exports.getVendors = getVendors;
+function getVendorById(vendorId) {
+    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors/" + vendorId);
+    return fetch_1.getUri(url);
+}
+exports.getVendorById = getVendorById;
 function createVendor(vendor) {
     var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors");
     return fetch_1.postUri(url, vendor);
@@ -31839,11 +31656,6 @@ var timeline_1 = __webpack_require__(/*! ./api/csp/timeline */ "./src/api/csp/ti
 var contact_2 = __webpack_require__(/*! ./api/csp/contact */ "./src/api/csp/contact.ts");
 var contact_3 = __webpack_require__(/*! ./api/contacts/contact */ "./src/api/contacts/contact.ts");
 var vendor_1 = __webpack_require__(/*! ./api/cweAdmin/vendor */ "./src/api/cweAdmin/vendor.ts");
-var openstackPluginProtocol_1 = __webpack_require__(/*! ./api/cweAdmin/openstackPluginProtocol */ "./src/api/cweAdmin/openstackPluginProtocol.ts");
-var openstackFeatures_1 = __webpack_require__(/*! ./api/cweAdmin/openstackFeatures */ "./src/api/cweAdmin/openstackFeatures.ts");
-var testClass_2 = __webpack_require__(/*! ./api/cweAdmin/testClass */ "./src/api/cweAdmin/testClass.ts");
-var configuration_1 = __webpack_require__(/*! ./api/cweAdmin/configuration */ "./src/api/cweAdmin/configuration.ts");
-var policyGuide_1 = __webpack_require__(/*! ./api/cweAdmin/policyGuide */ "./src/api/cweAdmin/policyGuide.ts");
 var fetch_1 = __webpack_require__(/*! ./utils/fetch */ "./src/utils/fetch.ts");
 exports.default = {
     general: {
@@ -32174,35 +31986,9 @@ exports.default = {
     cweAdmin: {
         vendors: {
             getVendors: vendor_1.getVendors,
+            getVendorById: vendor_1.getVendorById,
             createVendor: vendor_1.createVendor,
             updateVendor: vendor_1.updateVendor
-        },
-        openstackFeature: {
-            getOpenstackFeatures: openstackFeatures_1.getOpenstackFeatures,
-            addOpenstackFeature: openstackFeatures_1.addOpenstackFeature,
-            updateOpenstackFeature: openstackFeatures_1.updateOpenstackFeature
-        },
-        cweAdminTestClass: {
-            getCWEAdminTestClasses: testClass_2.getCWEAdminTestClasses,
-            addCWEAdminTestClass: testClass_2.addCWEAdminTestClass,
-            updateCWEAdminTestClass: testClass_2.updateCWEAdminTestClass
-        },
-        configuration: {
-            getConfigurations: configuration_1.getConfigurations,
-            addConfiguration: configuration_1.addConfiguration,
-            updateConfiguration: configuration_1.updateConfiguration,
-            removeConfiguration: configuration_1.removeConfiguration
-        },
-        ospPluginProtocol: {
-            getOSPPluginProtocols: openstackPluginProtocol_1.getOSPPluginProtocols,
-            addOSPPluginProtocol: openstackPluginProtocol_1.addOSPPluginProtocol,
-            updateOSPPluginProtocol: openstackPluginProtocol_1.updateOSPPluginProtocol
-        },
-        policyGuide: {
-            getPolicyGuides: policyGuide_1.getPolicyGuides,
-            addPolicyGuide: policyGuide_1.addPolicyGuide,
-            updatePolicyGuide: policyGuide_1.updatePolicyGuide,
-            removePolicyGuide: policyGuide_1.removePolicyGuide
         }
     },
     contacts: {
@@ -32280,7 +32066,9 @@ function createBasicAuth(user, pass) {
 exports.createBasicAuth = createBasicAuth;
 var hydraHostName = new Uri('');
 var pcmHostName = new Uri('');
+var hydraFSHostName = new Uri('');
 var pathPrefix = '/hydra/rest';
+var fsPathPrefix = '/hydrafs/rest';
 var securePathPrefix = '/hydra/secure/rest';
 var secureExtPathPrefix = '/hydra/secure/rest/external';
 var auth = null;
@@ -32298,15 +32086,21 @@ if (process && process.env && (process.env.HYDRA_HOSTNAME || process.env.PCM_HOS
         hydraHostName = new Uri(process.env.HYDRA_HOSTNAME);
     if (process.env.PCM_HOSTNAME)
         pcmHostName = new Uri(process.env.PCM_HOSTNAME);
+    if (process.env.HYDRA_FS_HOSTNAME)
+        hydraFSHostName = new Uri(process.env.HYDRA_FS_HOSTNAME);
 }
 else if (typeof window !== 'undefined' && window) {
     if (prodHostNames.indexOf(window.location.hostname) !== -1) {
         hydraHostName = new Uri('https://access.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
+        hydraFSHostName = new Uri('https://access.redhat.com/hydrafs/rest');
+        fsPathPrefix = '/hydrafs/rest';
     }
     else if (qaHostNames.indexOf(window.location.hostname) !== -1) {
         hydraHostName = new Uri('https://access.qa.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
+        hydraFSHostName = new Uri('https://hydra.fs.dev.redhat.com/hydra/rest/');
+        fsPathPrefix = pathPrefix;
     }
     else if (fteHostNames.indexOf(window.location.hostname) !== -1) {
         hydraHostName = new Uri('https://access.devgssfte.devlab.phx1.redhat.com/hydra/rest/');
@@ -32319,6 +32113,8 @@ else if (typeof window !== 'undefined' && window) {
     else if (stageHostNames.indexOf(window.location.hostname) !== -1) {
         hydraHostName = new Uri('https://access.stage.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
+        hydraFSHostName = new Uri('https://hydra-fs.ext.paas.stage.redhat.com/hydra/rest/');
+        fsPathPrefix = pathPrefix;
     }
 }
 else {
@@ -32329,7 +32125,9 @@ var Env = /** @class */ (function () {
     }
     Env.hydraHostName = hydraHostName;
     Env.pcmHostName = pcmHostName;
+    Env.hydraFSHostName = hydraFSHostName;
     Env.pathPrefix = pathPrefix;
+    Env.fsPathPrefix = fsPathPrefix;
     Env.securePathPrefix = securePathPrefix;
     Env.secureExtPathPrefix = secureExtPathPrefix;
     Env.auth = auth;
@@ -32607,7 +32405,7 @@ function getUri(uri, headerParams, dataType, externalUrl) {
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
         // which will let to inclusion of cookies into the request
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        credentials: 'include',
+        credentials: 'omit',
         headers: {}
     };
     if (headerParams !== undefined) {
@@ -32628,7 +32426,7 @@ function postUri(uri, body, dataType, externalUrl) {
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
         // which will let to inclusion of cookies into the request
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        credentials: 'include',
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -32648,7 +32446,7 @@ function postFormUri(uri, formData, dataType, externalUrl) {
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
         // which will let to inclusion of cookies into the request
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        credentials: 'include',
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
         },
@@ -32667,7 +32465,7 @@ function putUri(uri, body, dataType, externalUrl) {
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
         // which will let to inclusion of cookies into the request
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        credentials: 'include',
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -32687,7 +32485,7 @@ function patchUri(uri, body, dataType) {
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
         // which will let to inclusion of cookies into the request
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        credentials: 'include',
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -32705,7 +32503,7 @@ function deleteUri(uri, dataType) {
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
         // which will let to inclusion of cookies into the request
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        credentials: 'include',
+        credentials: 'omit',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -32721,7 +32519,7 @@ function deleteUriWithBody(uri, body, dataType) {
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
         // which will let to inclusion of cookies into the request
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        credentials: 'include',
+        credentials: 'omit',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
