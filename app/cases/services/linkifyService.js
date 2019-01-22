@@ -12,9 +12,8 @@ export default class LinkifyService {
 
         this.linkifyBZIDs = function (text) {
             if (RHAUtils.isEmpty(text)) return '';
-
-            var bzIdRegex = /(Bug|BZ)([ \t])?([\('\"#-])?(&#\S{2,4};)?(\d{7,})/ig;
-            var bzLinkifiedText = text.replace(bzIdRegex, '<a href="https://bugzilla.redhat.com/show_bug.cgi?id=$4">$1$2$3$4</a>');
+            var bzIdRegex = /(Bug|BZ)([ \t])?([\[\('\"#-])?(&#\S{1,4};)?(\d{7,})([\]\)'\"])?(&#\S{2,4};)?/ig;
+            var bzLinkifiedText = text.replace(bzIdRegex, '<a href="https://bugzilla.redhat.com/show_bug.cgi?id=$5">$1$2$3$4$5$6$7</a>');
             return bzLinkifiedText;
         }
     }
