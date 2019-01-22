@@ -8,7 +8,7 @@ import filter from 'lodash/filter';
 
 export default class DiscussionSection {
     constructor($scope, $timeout, AttachmentsService, CaseService, DiscussionService, securityService, $stateParams, AlertService, $uibModal,
-        $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService, PaginationService) {
+        $location, RHAUtils, EDIT_CASE_CONFIG, AUTH_EVENTS, CASE_EVENTS, $sce, gettextCatalog, LinkifyService, SearchCaseService, COMMON_CONFIG, SearchBoxService, PaginationService, $filter) {
         'ngInject';
         $scope.AttachmentsService = AttachmentsService;
         $scope.CaseService = CaseService;
@@ -327,18 +327,30 @@ export default class DiscussionSection {
                 }
             } else if (comment.text !== undefined) {
                 if (RHAUtils.isNotEmpty(comment.text)) {
-                    const matchText = 'Request Management Escalation:';
-                    if (comment.text.indexOf(matchText) > -1) {
-                        // made red color to RME escalation comment.
-                        return $sce.trustAsHtml(comment.text.replace(new RegExp(matchText, "gi"), function (match) {
-                            return '<span class="text-danger">' + match + '</span>';
-                        }));
+                    let linkifiedText;
+                    try {
+                        linkifiedText = $filter('linky')(comment.text);
+                    } catch (e) {
+                        linkifiedText = comment.text;
                     }
-                    parsedHtml = LinkifyService.linkifyWithCaseIDs(comment.text);
+                    let linkifiedCaseIds = LinkifyService.linkifyWithCaseIDs(linkifiedText);
+                    let linkifiedBZIds = LinkifyService.linkifyBZIDs(linkifiedCaseIds);
+                    parsedHtml = $scope.processRME(linkifiedBZIds);
                 }
             }
             return parsedHtml;
         };
+
+        $scope.processRME = (text) => {
+            const matchText = 'Request Management Escalation:';
+            if (text.indexOf(matchText) > -1) {
+                // made red color to RME escalation comment.
+                return text.replace(new RegExp(matchText, "gi"), function (match) {
+                    return '<span class="text-danger">' + match + '</span>';
+                });
+            }
+            return text;
+        }
 
         $scope.onSortOrderChange = function () {
             if (RHAUtils.isNotEmpty(DiscussionService.commentSortOrder)) {
