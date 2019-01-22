@@ -27499,16 +27499,6 @@ function getAttachments(caseNumber) {
     return fetch_1.getUri(uri);
 }
 exports.getAttachments = getAttachments;
-function uploadNonS3Attachment(caseNumber, formData) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments");
-    return fetch_1.postFormUri(uri, formData);
-}
-exports.uploadNonS3Attachment = uploadNonS3Attachment;
-function deleteAttachment(caseNumber, uuid) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + uuid);
-    return fetch_1.deleteUri(uri);
-}
-exports.deleteAttachment = deleteAttachment;
 /**
  * Sets the credentials for AWS and returns an instance of s3 service.
  *
@@ -28547,32 +28537,6 @@ exports.getChatterComments = getChatterComments;
 
 /***/ }),
 
-/***/ "./src/api/contacts/contact.ts":
-/*!*************************************!*\
-  !*** ./src/api/contacts/contact.ts ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-function getSFDCContacts(params) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/contacts/");
-    params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
-            uri.addQueryParam(k, params[k]);
-        }
-    });
-    return fetch_1.getUri(uri);
-}
-exports.getSFDCContacts = getSFDCContacts;
-
-
-/***/ }),
-
 /***/ "./src/api/counts.ts":
 /*!***************************!*\
   !*** ./src/api/counts.ts ***!
@@ -29061,42 +29025,6 @@ function deleteTimelineActivity(activityId) {
     return fetch_1.deleteUri(uri);
 }
 exports.deleteTimelineActivity = deleteTimelineActivity;
-
-
-/***/ }),
-
-/***/ "./src/api/cweAdmin/vendor.ts":
-/*!************************************!*\
-  !*** ./src/api/cweAdmin/vendor.ts ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-function getVendors() {
-    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors");
-    return fetch_1.getUri(url);
-}
-exports.getVendors = getVendors;
-function getVendorById(vendorId) {
-    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors/" + vendorId);
-    return fetch_1.getUri(url);
-}
-exports.getVendorById = getVendorById;
-function createVendor(vendor) {
-    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors");
-    return fetch_1.postUri(url, vendor);
-}
-exports.createVendor = createVendor;
-function updateVendor(vendorId, updateOps) {
-    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors/" + vendorId);
-    return fetch_1.patchUri(url, updateOps);
-}
-exports.updateVendor = updateVendor;
 
 
 /***/ }),
@@ -31654,8 +31582,6 @@ var product_2 = __webpack_require__(/*! ./api/csp/product */ "./src/api/csp/prod
 var cta_1 = __webpack_require__(/*! ./api/csp/cta */ "./src/api/csp/cta.ts");
 var timeline_1 = __webpack_require__(/*! ./api/csp/timeline */ "./src/api/csp/timeline.ts");
 var contact_2 = __webpack_require__(/*! ./api/csp/contact */ "./src/api/csp/contact.ts");
-var contact_3 = __webpack_require__(/*! ./api/contacts/contact */ "./src/api/contacts/contact.ts");
-var vendor_1 = __webpack_require__(/*! ./api/cweAdmin/vendor */ "./src/api/cweAdmin/vendor.ts");
 var fetch_1 = __webpack_require__(/*! ./utils/fetch */ "./src/utils/fetch.ts");
 exports.default = {
     general: {
@@ -31696,9 +31622,7 @@ exports.default = {
             getAttachmentsS3: attachment_1.getAttachmentsS3,
             uploadAttachmentS3: attachment_1.uploadAttachmentS3,
             downloadAttachmentS3: attachment_1.downloadAttachmentS3,
-            getS3UploadAccounts: attachment_1.getS3UploadAccounts,
-            uploadNonS3Attachment: attachment_1.uploadNonS3Attachment,
-            deleteAttachment: attachment_1.deleteAttachment
+            getS3UploadAccounts: attachment_1.getS3UploadAccounts
         },
         getLanguages: case_2.getLanguages,
         getCaseSbrs: case_2.getCaseSbrs,
@@ -31982,17 +31906,6 @@ exports.default = {
             addTimelineActivity: timeline_1.addTimelineActivity,
             deleteTimelineActivity: timeline_1.deleteTimelineActivity
         }
-    },
-    cweAdmin: {
-        vendors: {
-            getVendors: vendor_1.getVendors,
-            getVendorById: vendor_1.getVendorById,
-            createVendor: vendor_1.createVendor,
-            updateVendor: vendor_1.updateVendor
-        }
-    },
-    contacts: {
-        getSFDCContacts: contact_3.getSFDCContacts
     },
     xhrRequest: {
         getUri: fetch_1.getUri,
