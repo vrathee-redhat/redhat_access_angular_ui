@@ -289,13 +289,20 @@ export default class AttachmentsService {
                                 const putObjectRequest = {
                                     Body: attachment.fileObj,
                                     ContentLength: attachment.fileObj.size,
-                                    Metadata: {
-                                        'x-amz-meta-description': attachment.description,
-                                        'x-amz-meta-fileName': attachment.fileObj.name,
-                                        'x-amz-meta-byteLength': attachment.fileObj.size.toString(),
-                                        'x-amz-meta-content-type': attachment.fileObj.type
-                                    }
+                                    Metadata: {}
                                 };
+
+                                attachment.description &&
+                                    (putObjectRequest.Metadata["x-amz-meta-description"] = attachment.description)
+
+                                attachment.fileObj && attachment.fileObj.name && 
+                                    (putObjectRequest.Metadata["x-amz-meta-fileName"] = attachment.fileObj.name)
+                        
+                                attachment.fileObj && attachment.fileObj.size &&
+                                    (putObjectRequest.Metadata["x-amz-meta-byteLength"] = attachment.fileObj.size.toString())
+
+                                attachment.fileObj && attachment.fileObj.type && 
+                                    (putObjectRequest.Metadata["x-amz-meta-content-type"] = attachment.fileObj.type)
 
                                 const s3UploadCredentialsData = {
                                     fileName: attachment.fileObj.name,
