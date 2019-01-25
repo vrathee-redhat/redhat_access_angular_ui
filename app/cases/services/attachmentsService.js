@@ -270,6 +270,11 @@ export default class AttachmentsService {
             attachment.abort();
         };
 
+        this.refreshTokenIfNeeded() = () => {
+            const isTokenExpired = _.get(window,'sessionjs._state.keycloak.isTokenExpired');
+            isTokenExpired && isTokenExpired(30) && window.sessionjs.updateToken(true);
+        }
+
         this.updateAttachmentsS3 = async function (caseId) {
             const hasServerAttachments = this.hasBackEndSelections();
             const hasLocalAttachments = this.updatedAttachments && this.updatedAttachments.length > 0;
@@ -313,6 +318,7 @@ export default class AttachmentsService {
                                 };
 
                                 const listener = (progress, abort) => {
+                                    this.refreshTokenIfNeeded();
                                     const decimal = progress.loaded / progress.total;
                                     const percent = decimal * 100;
                                     attachment.progress = Math.floor(percent);
