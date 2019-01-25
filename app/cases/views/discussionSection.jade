@@ -39,7 +39,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder | startFrom:(PaginationService.discussionSection.currentPageNumber-1)*PaginationService.discussionSection.pageSize | limitTo:PaginationService.discussionSection.pageSize", ng-if='!element.draft', ng-mouseenter='mouseOver(element)', ng-mouseleave='mouseOut(element)')
                     article.comment.article-comment(ng-if="!element.file_name && element.comment_type !== 'chat' && !element.originating_system && (element.public === undefined || element.public === true)")
                         i.fa.fa-comments-o
-                        h4.meta 
+                        h4.meta
                             {{'Message'|translate}}&nbsp;({{element.created_by_type}})
                             a.pull-right(ng-if="showJumpToCommentId == element.id" ng-click="jumpToComment(element.id)", ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}') Jump to comment
                         .byline
@@ -59,7 +59,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                         i.fa.fa-comments-o
                         h4.meta {{'Private Message'|translate}}&nbsp;({{element.created_by_type}})
                             a.pull-right(ng-if="showJumpToCommentId == element.id" ng-click="jumpToComment(element.id)", ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}') Jump to comment
-                        
+
                         .byline
                             author {{element.last_modified_by}} {{'on'|translate}}&nbsp;
                             date {{element.published_date}} {{'at'|translate}}&nbsp;
@@ -130,12 +130,12 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         .row.row-very-short.case-discussion
             .col-xs-12
                 .discussion-element(id="{{attachment.id}}", ng-repeat="attachment in DiscussionService.attachments | orderBy:'sortModifiedDate':'reverse' | startFrom:(PaginationService.attachmentsSection.currentPageNumber-1)*PaginationService.attachmentsSection.pageSize | limitTo:PaginationService.attachmentsSection.pageSize", ng-mouseenter='mouseOver(attachment)', ng-mouseleave='mouseOut(attachment)')
-                    article.comment.article-attachment(ng-if="attachment.file_name") 
+                    article.comment.article-attachment(ng-if="attachment.file_name")
                         i.fa.fa-paperclip
                         h4.meta {{'Attachment'|translate}}
 
                         .byline
-                            author {{attachment.last_modified_by}} {{'on'|translate}} &nbsp;
+                            author {{attachment.modifiedBy}} {{'on'|translate}} &nbsp;
                             date {{attachment.published_date}} &nbsp;
                             span {{'at'|translate}} &nbsp;
                             time {{attachment.published_time}}
