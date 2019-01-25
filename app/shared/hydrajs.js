@@ -27689,7 +27689,7 @@ function uploadAttachmentS3(caseNumber, data, params, listener, useRHEndpoint) {
                 case 2:
                     credentials = _a.sent();
                     attachmentId_1 = credentials.attachmentId;
-                    options_1 = { partSize: 10 * 1024 * 1024, queueSize: 10 };
+                    options_1 = { partSize: 5 * 1024 * 1024, queueSize: 5 };
                     s3_1 = getAmazonS3(credentials, useRHEndpoint);
                     s3_1.config.credentials.refresh = function (callback) { return __awaiter(_this, void 0, void 0, function () {
                         var creds, error_5;
