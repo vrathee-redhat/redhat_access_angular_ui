@@ -149,17 +149,18 @@ export default class AttachmentsService {
         this.getAttachments = async function(caseId) {
             const response = await hydrajs.kase.attachments.getAttachmentsS3(caseId);
             const attachments = _.map(response, (item) => {
-                const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
+                // PCM-7772 => Using created date instead of lastModifiedDate temporarily 
+                // const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
+                const lastModifiedDate = RHAUtils.convertToTimezone(item.createdDate);
                 item.file_name = item.fileName || item.filename;
                 item.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                 item.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
-                item.sortModifiedDate = new Date(item.lastModifiedDate);
+                // item.sortModifiedDate = new Date(item.lastModifiedDate);
+                item.sortModifiedDate = new Date(item.createdDate);
                 item.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                 item.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
-
                 return item;
             });
-
             this.defineOriginalAttachments(attachments);
             this.loading = false;
         };
