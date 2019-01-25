@@ -1,23 +1,16 @@
 .row
     .col-sm-4
-        .label(ng-show="internal") {{'Red Hat Watchers'|translate}}
-        .label(ng-show="!internal") {{'Send Email Notifications to'|translate}}
+        .label {{'Send Email Notifications to'|translate}}
         div(uib-tooltip="{{isCurrentUserCaseContact() ? 'You are case contact and therefore you cannot be removed as watcher.' : '' | translate}}")
             button.btn.btn-info.btn-xs(
                 ng-click="toggleCurrentUser()",
                 ng-disabled="saving || isCurrentUserCaseContact()",
-                ng-show="internal && !CaseService.redhatUsersLoading")
-                span(ng-hide="isCurrentUserWatcher()", translate) Add me as watcher
-                span(ng-show="isCurrentUserWatcher()", translate) Remove me as watcher
-            button.btn.btn-info.btn-xs(
-                ng-click="toggleCurrentUser()",
-                ng-disabled="saving || isCurrentUserCaseContact()",
-                ng-show="!internal && !CaseService.usersLoading && !securityService.loginStatus.authedUser.org_admin && !securityService.loginStatus.authedUser.is_internal")
+                ng-show="!CaseService.usersLoading && !securityService.loginStatus.authedUser.org_admin && !securityService.loginStatus.authedUser.is_internal")
                     span(ng-hide="isCurrentUserNotifiedUser() || isCurrentUserCaseContact()", translate) Add me as watcher
                     span(ng-show="isCurrentUserNotifiedUser() || isCurrentUserCaseContact()", translate) Remove me as watcher
     .col-sm-8
-        .spinner.spinner-inline(ng-show="(internal && CaseService.redhatUsersLoading) || (!internal && CaseService.usersLoading)")
-        div(ng-show="!CaseService.usersLoading && !internal && securityService.loginStatus.authedUser.org_admin")
+        .spinner.spinner-inline(ng-show="CaseService.usersLoading")
+        div(ng-show="!CaseService.usersLoading && securityService.loginStatus.authedUser.org_admin")
             select(
             chosen,
             multiple,
@@ -27,13 +20,6 @@
             ng-change='selectedUsersChanged()',
             width='"100%"',
             ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in usersOnAccount | orderBy:['first_name','last_name']")
-        div.edit-emailNotify-Container(ng-show="!CaseService.usersLoading && !internal && !securityService.loginStatus.authedUser.org_admin")
+        div.edit-emailNotify-Container(ng-show="!CaseService.usersLoading && !securityService.loginStatus.authedUser.org_admin")
             span.label-contact(ng-repeat='user in mapUsers(selectedUsers)', ng-if='RHAUtils.isNotEmpty(selectedUsers)') {{user.first_name}} {{user.last_name}} <{{user.sso_username}}>
             span.disable-span-text(ng-if='RHAUtils.isEmpty(selectedUsers)', translate='') No users selected
-        div(ng-show="internal && !CaseService.redhatUsersLoading")
-            div.label-contact(ng-repeat="user in mapUsers(selectedUsers)", ng-class="{'label-disabled':saving}")
-                span {{user.first_name}} {{user.last_name}} <{{user.sso_username}}>
-                a(ng-click="removeUser(user.sso_username)", ng-disabled="saving")
-                    i.fa.fa-close
-            input.form-control(type="text", ng-model="userToAdd", placeholder="{{'Search here to add watchers' | translate}}", ng-disabled="saving",
-            uib-typeahead="user as (user.first_name+' '+user.last_name+' &lt;'+user.sso_username+'&gt;') for user in searchRHUsers($viewValue) | limitTo:7")

@@ -36,6 +36,7 @@ export default class CaseService {
         this.comments = [];
         this.externalUpdates = [];
         this.originalNotifiedUsers = [];
+        this.internalNotificationContacts = [];
         this.account = {};
         this.draftComment = {};
         this.draftCommentOnServerExists = false;
@@ -300,10 +301,26 @@ export default class CaseService {
             /*jshint camelcase: false */
             if (RHAUtils.isNotEmpty(this.kase.notified_users)) {
                 _.each(this.kase.notified_users.link, (user) => {
-                    this.originalNotifiedUsers.push(user.sso_username);
+                    user.sso_username && this.originalNotifiedUsers.push(user.sso_username);
                 });
+                securityService.loginStatus.authedUser.is_internal && this.setInternalNotificationContacts(this.originalNotifiedUsers);
             }
         };
+        this.setInternalNotificationContacts = async (originalNotifiedUsers) => {
+            if (originalNotifiedUsers.length > 0) {
+                let queryParams = {
+                    internal: false, // to get non-ldap contacts 
+                    isInternalContact: true,
+                    ssoUsernameIn: originalNotifiedUsers.join(',')
+                }
+                try {
+                    const response = await hydrajs.contacts.getSFDCContacts(queryParams);
+                    this.internalNotificationContacts = (response && response.items && response.items.length) ? response.items : [];
+                } catch (e) {
+                    console.warn(`Unable to get contacts, error: ${e}`);
+                }
+            }
+        }
         this.getGroups = function () {
             return this.groups;
         };
@@ -471,18 +488,6 @@ export default class CaseService {
                 deferred.resolve();
                 return deferred.promise;
             }
-        };
-
-        this.populateRedhatUsers = () => {
-            const accountNumber = "540155";
-            this.redhatUsersLoading = true;
-            return strataService.accounts.users(accountNumber).then((users) => {
-                this.redhatUsers = users;
-                if (securityService.loginStatus.authedUser.is_internal && !_.find(this.redhatUsers, { sso_username: securityService.loginStatus.authedUser.sso_username })) {
-                    this.redhatUsers.unshift(securityService.loginStatus.authedUser);
-                }
-                this.redhatUsersLoading = false;
-            });
         };
 
         this.populateRedhatSecureSupportUsers = () => {

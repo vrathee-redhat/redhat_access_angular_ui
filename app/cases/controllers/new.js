@@ -167,13 +167,15 @@ export default class New {
             }
         });
 
-        $scope.$watch('CaseService.users', function () {
+        const setUsers = () => {
             if(securityService.loginStatus.authedUser.is_internal || securityService.loginStatus.authedUser.org_admin){
                 $scope.usersOnAccount = _.cloneDeep(CaseService.users);
                 $scope.usersOnAccount = $scope.usersOnAccount.concat(securityService.loginStatus.authedUser.accountContacts);
                 $scope.usersOnAccount = _.uniqBy($scope.usersOnAccount,'sso_username');
             }
-        });
+        }
+        $scope.$watch('CaseService.users', () => setUsers());
+        $scope.$watch('securityService.loginStatus.authedUser.accountContacts', () => setUsers());
 
         $scope.$on(CASE_EVENTS.ownerChange, function () {
             let caseOwner = CaseService.owner;
