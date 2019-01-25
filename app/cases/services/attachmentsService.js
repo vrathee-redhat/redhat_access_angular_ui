@@ -270,7 +270,7 @@ export default class AttachmentsService {
             attachment.abort();
         };
 
-        this.refreshTokenIfNeeded() = () => {
+        this.refreshTokenIfNeeded = () => {
             const isTokenExpired = _.get(window,'sessionjs._state.keycloak.isTokenExpired');
             isTokenExpired && isTokenExpired(30) && window.sessionjs.updateToken(true);
         }
