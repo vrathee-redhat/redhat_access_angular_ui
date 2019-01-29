@@ -31,7 +31,9 @@ export default class AttachmentsService {
             } catch (error) {
                 this.s3AccountConfigurations = {
                     s3UploadFunctionality: 'specified_accounts',
-                    result: []
+                    result: [],
+                    partSize: 5 * 1024 * 1024,
+                    queueSize: 5
                 };
             }
         };
@@ -272,7 +274,7 @@ export default class AttachmentsService {
 
         this.refreshTokenIfNeeded = () => {
             const isTokenExpired = _.get(window,'sessionjs._state.keycloak.isTokenExpired');
-            isTokenExpired && isTokenExpired(30) && window.sessionjs.updateToken(true);
+            isTokenExpired && isTokenExpired(100) && console.log("Force update token") && window.sessionjs.updateToken(true);
         }
 
         this.updateAttachmentsS3 = async function (caseId) {
@@ -339,7 +341,8 @@ export default class AttachmentsService {
                                         s3UploadCredentialsData,
                                         putObjectRequest,
                                         listener,
-                                        true
+                                        true,
+                                        {partSize: this.s3AccountConfigurations.partSize, queueSize: this.s3AccountConfigurations.queueSize}
                                     );
 
                                     attachment.uploadComplete = true;
