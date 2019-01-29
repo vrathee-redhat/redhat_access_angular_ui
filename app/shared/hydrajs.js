@@ -21323,6 +21323,79 @@ function isnan (val) {
 
 /***/ }),
 
+/***/ "./node_modules/es6-object-assign/auto.js":
+/*!************************************************!*\
+  !*** ./node_modules/es6-object-assign/auto.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! ./index */ "./node_modules/es6-object-assign/index.js").polyfill();
+
+
+/***/ }),
+
+/***/ "./node_modules/es6-object-assign/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/es6-object-assign/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Code refactored from Mozilla Developer Network:
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+ */
+
+
+
+function assign(target, firstSource) {
+  if (target === undefined || target === null) {
+    throw new TypeError('Cannot convert first argument to object');
+  }
+
+  var to = Object(target);
+  for (var i = 1; i < arguments.length; i++) {
+    var nextSource = arguments[i];
+    if (nextSource === undefined || nextSource === null) {
+      continue;
+    }
+
+    var keysArray = Object.keys(Object(nextSource));
+    for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+      var nextKey = keysArray[nextIndex];
+      var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+      if (desc !== undefined && desc.enumerable) {
+        to[nextKey] = nextSource[nextKey];
+      }
+    }
+  }
+  return to;
+}
+
+function polyfill() {
+  if (!Object.assign) {
+    Object.defineProperty(Object, 'assign', {
+      enumerable: false,
+      configurable: true,
+      writable: true,
+      value: assign
+    });
+  }
+}
+
+module.exports = {
+  assign: assign,
+  polyfill: polyfill
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/events/events.js":
 /*!***************************************!*\
   !*** ./node_modules/events/events.js ***!
@@ -27489,18 +27562,22 @@ var expiryWindow = 10 * 60;
 AWS.config.setPromisesDependency(Promise);
 function uploadAttachment(caseNumber, formData) {
     var path = "/cwe/cases/" + caseNumber + "/attachments";
-    var uri = env_1.default.hydraFSHostName.clone().setPath(env_1.default.fsPathPrefix + path);
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + path);
     return fetch_1.postFormUri(uri, formData);
 }
 exports.uploadAttachment = uploadAttachment;
 function getAttachments(caseNumber) {
     var path = "/cwe/cases/" + caseNumber + "/attachments";
-    var uri = env_1.default.hydraFSHostName.clone().setPath(env_1.default.fsPathPrefix + path);
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + path);
     return fetch_1.getUri(uri);
 }
 exports.getAttachments = getAttachments;
-function uploadNonS3Attachment(caseNumber, formData) {
+function uploadNonS3Attachment(caseNumber, formData, isPrivate) {
+    if (isPrivate === void 0) { isPrivate = false; }
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments");
+    if (isPrivate) {
+        uri.addQueryParam('private', isPrivate);
+    }
     return fetch_1.postFormUri(uri, formData);
 }
 exports.uploadNonS3Attachment = uploadNonS3Attachment;
@@ -27553,22 +27630,17 @@ exports.getAttachmentsS3 = getAttachmentsS3;
  */
 function checkUploadStatusS3(caseNumber, attachmentId) {
     return __awaiter(this, void 0, void 0, function () {
-        var path, uri, error_1;
+        var path, uri;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    path = env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + attachmentId + "/status";
-                    uri = env_1.default.hydraHostName.clone().setPath("" + path);
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, fetch_1.getUri(uri)];
-                case 2: return [2 /*return*/, _a.sent()];
-                case 3:
-                    error_1 = _a.sent();
-                    throw new Error('Failed to check upload status.');
-                case 4: return [2 /*return*/];
+            path = env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + attachmentId + "/status";
+            uri = env_1.default.hydraHostName.clone().setPath("" + path);
+            try {
+                return [2 /*return*/, fetch_1.getUri(uri)];
             }
+            catch (error) {
+                throw new Error('Failed to check upload status.');
+            }
+            return [2 /*return*/];
         });
     });
 }
@@ -27581,22 +27653,17 @@ function checkUploadStatusS3(caseNumber, attachmentId) {
  */
 function refreshUploadCredentials(caseNumber, attachmentId) {
     return __awaiter(this, void 0, void 0, function () {
-        var path, uri, error_2;
+        var path, uri;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    path = env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + attachmentId + "/upload/credentials/refresh";
-                    uri = env_1.default.hydraHostName.clone().setPath("" + path);
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, fetch_1.getUri(uri)];
-                case 2: return [2 /*return*/, _a.sent()];
-                case 3:
-                    error_2 = _a.sent();
-                    throw new Error('Failed to refresh upload credentials.');
-                case 4: return [2 /*return*/];
+            path = env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + attachmentId + "/upload/credentials/refresh";
+            uri = env_1.default.hydraHostName.clone().setPath("" + path);
+            try {
+                return [2 /*return*/, fetch_1.getUri(uri)];
             }
+            catch (error) {
+                throw new Error('Failed to refresh upload credentials.');
+            }
+            return [2 /*return*/];
         });
     });
 }
@@ -27609,7 +27676,7 @@ function refreshUploadCredentials(caseNumber, attachmentId) {
  */
 function pollS3Upload(caseNumber, attachmentId, fileSize) {
     return __awaiter(this, void 0, void 0, function () {
-        var maxDelay, minDelay, computedDelay, uploadStatus, error_3;
+        var maxDelay, minDelay, computedDelay, uploadStatus, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -27641,8 +27708,8 @@ function pollS3Upload(caseNumber, attachmentId, fileSize) {
                     _a.label = 6;
                 case 6: return [3 /*break*/, 8];
                 case 7:
-                    error_3 = _a.sent();
-                    throw error_3;
+                    error_1 = _a.sent();
+                    throw error_1;
                 case 8: return [2 /*return*/];
             }
         });
@@ -27657,8 +27724,9 @@ function pollS3Upload(caseNumber, attachmentId, fileSize) {
  * @param listener
  * @returns {Promise<void>}
  */
-function uploadAttachmentS3(caseNumber, data, params, listener, useRHEndpoint) {
+function uploadAttachmentS3(caseNumber, data, params, listener, useRHEndpoint, uploadConfig) {
     if (useRHEndpoint === void 0) { useRHEndpoint = false; }
+    if (uploadConfig === void 0) { uploadConfig = { partSize: 5 * 1024 * 1024, queueSize: 5 }; }
     return __awaiter(this, void 0, void 0, function () {
         var path, uri, getCredentials, credentials, attachmentId_1, options_1, s3_1, e_1;
         var _this = this;
@@ -27668,18 +27736,14 @@ function uploadAttachmentS3(caseNumber, data, params, listener, useRHEndpoint) {
                     path = env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/upload/credentials";
                     uri = env_1.default.hydraHostName.clone().setPath("" + path);
                     getCredentials = function () { return __awaiter(_this, void 0, void 0, function () {
-                        var error_4;
                         return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    _a.trys.push([0, 2, , 3]);
-                                    return [4 /*yield*/, fetch_1.postUri(uri, data)];
-                                case 1: return [2 /*return*/, _a.sent()];
-                                case 2:
-                                    error_4 = _a.sent();
-                                    throw new Error('Failed to fetch upload credentials.');
-                                case 3: return [2 /*return*/];
+                            try {
+                                return [2 /*return*/, fetch_1.postUri(uri, data)];
                             }
+                            catch (error) {
+                                throw new Error('Failed to fetch upload credentials.');
+                            }
+                            return [2 /*return*/];
                         });
                     }); };
                     _a.label = 1;
@@ -27689,10 +27753,10 @@ function uploadAttachmentS3(caseNumber, data, params, listener, useRHEndpoint) {
                 case 2:
                     credentials = _a.sent();
                     attachmentId_1 = credentials.attachmentId;
-                    options_1 = { partSize: 5 * 1024 * 1024, queueSize: 5 };
+                    options_1 = { partSize: uploadConfig.partSize, queueSize: uploadConfig.queueSize };
                     s3_1 = getAmazonS3(credentials, useRHEndpoint);
                     s3_1.config.credentials.refresh = function (callback) { return __awaiter(_this, void 0, void 0, function () {
-                        var creds, error_5;
+                        var creds, error_2;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
@@ -27707,8 +27771,8 @@ function uploadAttachmentS3(caseNumber, data, params, listener, useRHEndpoint) {
                                     callback(null);
                                     return [3 /*break*/, 3];
                                 case 2:
-                                    error_5 = _a.sent();
-                                    callback(error_5);
+                                    error_2 = _a.sent();
+                                    callback(error_2);
                                     return [3 /*break*/, 3];
                                 case 3: return [2 /*return*/];
                             }
@@ -27723,7 +27787,7 @@ function uploadAttachmentS3(caseNumber, data, params, listener, useRHEndpoint) {
                     }
                     return [4 /*yield*/, new Promise(function (resolve, reject) {
                             var upload = s3_1.upload(params, options_1, function (cbError) { return __awaiter(_this, void 0, void 0, function () {
-                                var error_6;
+                                var error_3;
                                 return __generator(this, function (_a) {
                                     switch (_a.label) {
                                         case 0:
@@ -27738,8 +27802,8 @@ function uploadAttachmentS3(caseNumber, data, params, listener, useRHEndpoint) {
                                             resolve();
                                             return [3 /*break*/, 4];
                                         case 3:
-                                            error_6 = _a.sent();
-                                            reject(error_6);
+                                            error_3 = _a.sent();
+                                            reject(error_3);
                                             return [3 /*break*/, 4];
                                         case 4: return [2 /*return*/];
                                     }
@@ -27769,7 +27833,7 @@ exports.uploadAttachmentS3 = uploadAttachmentS3;
 function downloadAttachmentS3(caseNumber, attachmentId, fileName, useRHEndpoint) {
     if (useRHEndpoint === void 0) { useRHEndpoint = false; }
     return __awaiter(this, void 0, void 0, function () {
-        var path, uri, getCredentials, credentials, s3_2, Key_1, Bucket_1, url, element, error_7;
+        var path, uri, getCredentials, credentials, s3_2, Key_1, Bucket_1, url, element, error_4;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -27777,18 +27841,14 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName, useRHEndpoint)
                     path = env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + attachmentId + "/download/credentials";
                     uri = env_1.default.hydraHostName.clone().setPath("" + path);
                     getCredentials = function () { return __awaiter(_this, void 0, void 0, function () {
-                        var error_8;
                         return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    _a.trys.push([0, 2, , 3]);
-                                    return [4 /*yield*/, fetch_1.getUri(uri)];
-                                case 1: return [2 /*return*/, _a.sent()];
-                                case 2:
-                                    error_8 = _a.sent();
-                                    throw new Error('Failed to fetch download credentials.');
-                                case 3: return [2 /*return*/];
+                            try {
+                                return [2 /*return*/, fetch_1.getUri(uri)];
                             }
+                            catch (error) {
+                                throw new Error('Failed to fetch download credentials.');
+                            }
+                            return [2 /*return*/];
                         });
                     }); };
                     _a.label = 1;
@@ -27801,7 +27861,7 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName, useRHEndpoint)
                     Key_1 = credentials.key;
                     Bucket_1 = credentials.bucketName;
                     s3_2.config.credentials.refresh = function (callback) { return __awaiter(_this, void 0, void 0, function () {
-                        var creds, error_9;
+                        var creds, error_5;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
@@ -27816,8 +27876,8 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName, useRHEndpoint)
                                     callback(null);
                                     return [3 /*break*/, 3];
                                 case 2:
-                                    error_9 = _a.sent();
-                                    callback(error_9);
+                                    error_5 = _a.sent();
+                                    callback(error_5);
                                     return [3 /*break*/, 3];
                                 case 3: return [2 /*return*/];
                             }
@@ -27838,8 +27898,8 @@ function downloadAttachmentS3(caseNumber, attachmentId, fileName, useRHEndpoint)
                     document.body.removeChild(element);
                     return [3 /*break*/, 5];
                 case 4:
-                    error_7 = _a.sent();
-                    throw error_7;
+                    error_4 = _a.sent();
+                    throw error_4;
                 case 5: return [2 /*return*/];
             }
         });
@@ -27854,31 +27914,36 @@ exports.downloadAttachmentS3 = downloadAttachmentS3;
  */
 function getS3UploadAccounts() {
     return __awaiter(this, void 0, void 0, function () {
-        var configurations, uploadConfig, whitelist, error_10;
+        var s3Configurations_1, configurations, error_6;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
+                    s3Configurations_1 = {
+                        s3UploadFunctionality: maintenance_1.s3ConfigurationFieldValues.s3UpoadFunctionalityWhitelist,
+                        result: [],
+                        partSize: 5 * 1024 * 1024,
+                        queueSize: 5,
+                    };
                     return [4 /*yield*/, maintenance_2.getMaintenanceMode(maintenance_1.ConfigurationTypes.s3_configurations)];
                 case 1:
                     configurations = _a.sent();
-                    uploadConfig = configurations.find(function (config) {
-                        return config.fieldName === maintenance_1.s3ConfigurationFieldNames.s3UploadFunctionality;
-                    });
-                    whitelist = configurations.reduce(function (result, value) {
+                    configurations.forEach(function (config) {
+                        var _a;
                         var regex = new RegExp("^(" + maintenance_1.s3ConfigurationFieldNames.accountWhitelist + "_\\d+)$", 'g');
-                        if (value.fieldName.match(regex)) {
-                            result.push.apply(result, value.fieldValue.split(','));
-                        }
-                        return result;
-                    }, []);
-                    return [2 /*return*/, {
-                            s3UploadFunctionality: uploadConfig.fieldValue,
-                            result: whitelist
-                        }];
+                        if (config.fieldName === maintenance_1.s3ConfigurationFieldNames.s3UploadFunctionality)
+                            s3Configurations_1.s3UploadFunctionality = config.fieldValue;
+                        else if (config.fieldName === maintenance_1.s3ConfigurationFieldNames.partSize)
+                            s3Configurations_1.partSize = parseFloat(config.fieldValue) * 1024 * 1024;
+                        else if (config.fieldName === maintenance_1.s3ConfigurationFieldNames.queueSize)
+                            s3Configurations_1.queueSize = parseFloat(config.fieldValue);
+                        else if (config.fieldName.match(regex))
+                            (_a = s3Configurations_1.result).push.apply(_a, config.fieldValue.split(','));
+                    });
+                    return [2 /*return*/, s3Configurations_1];
                 case 2:
-                    error_10 = _a.sent();
-                    throw error_10;
+                    error_6 = _a.sent();
+                    throw error_6;
                 case 3: return [2 /*return*/];
             }
         });
@@ -29015,6 +29080,22 @@ function removeObjectiveStakeholder(successPlanId, objectiveId, stakeholderId) {
     return fetch_1.deleteUri(uri);
 }
 exports.removeObjectiveStakeholder = removeObjectiveStakeholder;
+// Objective Comments
+function addObjectiveComment(successPlanId, objectiveId, comment) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/comments");
+    return fetch_1.postUri(uri, comment);
+}
+exports.addObjectiveComment = addObjectiveComment;
+function updateObjectiveComment(successPlanId, objectiveId, commentId, comment) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/comments/" + commentId);
+    return fetch_1.putUri(uri, comment);
+}
+exports.updateObjectiveComment = updateObjectiveComment;
+function deleteObjectiveComment(successPlanId, objectiveId, commentId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/comments/" + commentId);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteObjectiveComment = deleteObjectiveComment;
 
 
 /***/ }),
@@ -29065,6 +29146,190 @@ exports.deleteTimelineActivity = deleteTimelineActivity;
 
 /***/ }),
 
+/***/ "./src/api/cweAdmin/configuration.ts":
+/*!*******************************************!*\
+  !*** ./src/api/cweAdmin/configuration.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+function getConfigurations(id, type, fieldName) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/configurations/" + (id ? id : ''));
+    // NOTE: If we have an Id given we need not apply any filter using Query Params
+    // Filter is applicable only for fetching all configurations with specific type
+    // and/or specific field name
+    if (!id && type)
+        uri.addQueryParam('type', type);
+    if (!id && fieldName)
+        uri.addQueryParam('fieldName', fieldName);
+    return fetch_1.getUri(uri);
+}
+exports.getConfigurations = getConfigurations;
+function addConfiguration(configObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/configurations");
+    return fetch_1.postUri(uri, configObj);
+}
+exports.addConfiguration = addConfiguration;
+function updateConfiguration(id, updateConfigOp) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/configurations/" + id);
+    return fetch_1.patchUri(uri, updateConfigOp);
+}
+exports.updateConfiguration = updateConfiguration;
+function removeConfiguration(id) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/configurations/" + id);
+    return fetch_1.deleteUri(uri);
+}
+exports.removeConfiguration = removeConfiguration;
+
+
+/***/ }),
+
+/***/ "./src/api/cweAdmin/openstackFeatures.ts":
+/*!***********************************************!*\
+  !*** ./src/api/cweAdmin/openstackFeatures.ts ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+function getOpenstackFeatures(id, pluginType) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/feature/" + (id ? id : ''));
+    // NOTE: We only want to use Plugin Type feature while we want to
+    // filter all the plugins, in case of Id we need not apply filter
+    if (!id && pluginType)
+        uri.addQueryParam('pluginType', pluginType);
+    return fetch_1.getUri(uri);
+}
+exports.getOpenstackFeatures = getOpenstackFeatures;
+function addOpenstackFeature(openstackFeatureObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/feature");
+    return fetch_1.postUri(uri, openstackFeatureObj);
+}
+exports.addOpenstackFeature = addOpenstackFeature;
+function updateOpenstackFeature(id, updateOpenstackFeatureObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/feature/" + id);
+    return fetch_1.putUri(uri, updateOpenstackFeatureObj);
+}
+exports.updateOpenstackFeature = updateOpenstackFeature;
+
+
+/***/ }),
+
+/***/ "./src/api/cweAdmin/openstackPluginProtocol.ts":
+/*!*****************************************************!*\
+  !*** ./src/api/cweAdmin/openstackPluginProtocol.ts ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+function getOSPPluginProtocols(id) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/protocol/" + (id ? id : ''));
+    return fetch_1.getUri(uri);
+}
+exports.getOSPPluginProtocols = getOSPPluginProtocols;
+function addOSPPluginProtocol(protocolObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/protocol");
+    return fetch_1.postUri(uri, protocolObj);
+}
+exports.addOSPPluginProtocol = addOSPPluginProtocol;
+function updateOSPPluginProtocol(id, updateProtocolObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/openstack/plugin/protocol/" + id);
+    return fetch_1.putUri(uri, updateProtocolObj);
+}
+exports.updateOSPPluginProtocol = updateOSPPluginProtocol;
+
+
+/***/ }),
+
+/***/ "./src/api/cweAdmin/policyGuide.ts":
+/*!*****************************************!*\
+  !*** ./src/api/cweAdmin/policyGuide.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+function getPolicyGuides() {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/policyguides");
+    return fetch_1.getUri(uri);
+}
+exports.getPolicyGuides = getPolicyGuides;
+function addPolicyGuide(policyGuideObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/policyguides");
+    return fetch_1.postUri(uri, policyGuideObj);
+}
+exports.addPolicyGuide = addPolicyGuide;
+function updatePolicyGuide(id, updatePolicyGuideObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/policyguides/" + id);
+    return fetch_1.putUri(uri, updatePolicyGuideObj);
+}
+exports.updatePolicyGuide = updatePolicyGuide;
+function removePolicyGuide(id) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/policyguides/" + id);
+    return fetch_1.deleteUri(uri);
+}
+exports.removePolicyGuide = removePolicyGuide;
+
+
+/***/ }),
+
+/***/ "./src/api/cweAdmin/testClass.ts":
+/*!***************************************!*\
+  !*** ./src/api/cweAdmin/testClass.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+function getCWEAdminTestClasses(id, isSupport, productType, pluginType) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/testclasses/" + (id ? id : ''));
+    // NOTE: We only want to use filter when we haven't mentioned the
+    // id. In case, Id is given we need not apply filter
+    if (!id && isSupport)
+        uri.addQueryParam('isSupport', isSupport);
+    if (!id && productType)
+        uri.addQueryParam('productType', productType);
+    if (!id && pluginType)
+        uri.addQueryParam('pluginType', pluginType);
+    return fetch_1.getUri(uri);
+}
+exports.getCWEAdminTestClasses = getCWEAdminTestClasses;
+function addCWEAdminTestClass(testClassObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/testclasses");
+    return fetch_1.postUri(uri, testClassObj);
+}
+exports.addCWEAdminTestClass = addCWEAdminTestClass;
+function updateCWEAdminTestClass(id, updateTestClassoObj) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/testclasses/" + id);
+    return fetch_1.putUri(uri, updateTestClassoObj);
+}
+exports.updateCWEAdminTestClass = updateCWEAdminTestClass;
+
+
+/***/ }),
+
 /***/ "./src/api/cweAdmin/vendor.ts":
 /*!************************************!*\
   !*** ./src/api/cweAdmin/vendor.ts ***!
@@ -29077,16 +29342,11 @@ exports.deleteTimelineActivity = deleteTimelineActivity;
 Object.defineProperty(exports, "__esModule", { value: true });
 var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
 var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
-function getVendors() {
-    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors");
+function getVendors(id) {
+    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors/" + (id ? id : ''));
     return fetch_1.getUri(url);
 }
 exports.getVendors = getVendors;
-function getVendorById(vendorId) {
-    var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors/" + vendorId);
-    return fetch_1.getUri(url);
-}
-exports.getVendorById = getVendorById;
 function createVendor(vendor) {
     var url = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cwe/vendors");
     return fetch_1.postUri(url, vendor);
@@ -30236,6 +30496,11 @@ function getVocabularyComponents() {
     return fetch_1.getUri(uri);
 }
 exports.getVocabularyComponents = getVocabularyComponents;
+function getVocabularyInternalTags() {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/vocabulary/internal_tags");
+    return fetch_1.getUri(uri);
+}
+exports.getVocabularyInternalTags = getVocabularyInternalTags;
 
 
 /***/ }),
@@ -31656,6 +31921,11 @@ var timeline_1 = __webpack_require__(/*! ./api/csp/timeline */ "./src/api/csp/ti
 var contact_2 = __webpack_require__(/*! ./api/csp/contact */ "./src/api/csp/contact.ts");
 var contact_3 = __webpack_require__(/*! ./api/contacts/contact */ "./src/api/contacts/contact.ts");
 var vendor_1 = __webpack_require__(/*! ./api/cweAdmin/vendor */ "./src/api/cweAdmin/vendor.ts");
+var openstackPluginProtocol_1 = __webpack_require__(/*! ./api/cweAdmin/openstackPluginProtocol */ "./src/api/cweAdmin/openstackPluginProtocol.ts");
+var openstackFeatures_1 = __webpack_require__(/*! ./api/cweAdmin/openstackFeatures */ "./src/api/cweAdmin/openstackFeatures.ts");
+var testClass_2 = __webpack_require__(/*! ./api/cweAdmin/testClass */ "./src/api/cweAdmin/testClass.ts");
+var configuration_1 = __webpack_require__(/*! ./api/cweAdmin/configuration */ "./src/api/cweAdmin/configuration.ts");
+var policyGuide_1 = __webpack_require__(/*! ./api/cweAdmin/policyGuide */ "./src/api/cweAdmin/policyGuide.ts");
 var fetch_1 = __webpack_require__(/*! ./utils/fetch */ "./src/utils/fetch.ts");
 exports.default = {
     general: {
@@ -31906,7 +32176,8 @@ exports.default = {
         getVocabularyComponents: vocabulary_1.getVocabularyComponents,
         getVocabularyProducts: vocabulary_1.getVocabularyProducts,
         getVocabularySbrs: vocabulary_1.getVocabularySbrs,
-        getVocabularyTags: vocabulary_1.getVocabularyTags
+        getVocabularyTags: vocabulary_1.getVocabularyTags,
+        getVocabularyInternalTags: vocabulary_1.getVocabularyInternalTags
     },
     maintenance: {
         getMaintenanceMode: maintenance_1.getMaintenanceMode,
@@ -31973,7 +32244,10 @@ exports.default = {
             removeObjectiveLink: successPlan_1.removeObjectiveLink,
             addObjectiveStakeholder: successPlan_1.addObjectiveStakeholder,
             updateObjectiveStakeholder: successPlan_1.updateObjectiveStakeholder,
-            removeObjectiveStakeholder: successPlan_1.removeObjectiveStakeholder
+            removeObjectiveStakeholder: successPlan_1.removeObjectiveStakeholder,
+            addObjectiveComment: successPlan_1.addObjectiveComment,
+            updateObjectiveComment: successPlan_1.updateObjectiveComment,
+            deleteObjectiveComment: successPlan_1.deleteObjectiveComment
         },
         timeline: {
             getTimeline: timeline_1.getTimeline,
@@ -31986,9 +32260,35 @@ exports.default = {
     cweAdmin: {
         vendors: {
             getVendors: vendor_1.getVendors,
-            getVendorById: vendor_1.getVendorById,
             createVendor: vendor_1.createVendor,
             updateVendor: vendor_1.updateVendor
+        },
+        openstackFeature: {
+            getOpenstackFeatures: openstackFeatures_1.getOpenstackFeatures,
+            addOpenstackFeature: openstackFeatures_1.addOpenstackFeature,
+            updateOpenstackFeature: openstackFeatures_1.updateOpenstackFeature
+        },
+        cweAdminTestClass: {
+            getCWEAdminTestClasses: testClass_2.getCWEAdminTestClasses,
+            addCWEAdminTestClass: testClass_2.addCWEAdminTestClass,
+            updateCWEAdminTestClass: testClass_2.updateCWEAdminTestClass
+        },
+        configuration: {
+            getConfigurations: configuration_1.getConfigurations,
+            addConfiguration: configuration_1.addConfiguration,
+            updateConfiguration: configuration_1.updateConfiguration,
+            removeConfiguration: configuration_1.removeConfiguration
+        },
+        ospPluginProtocol: {
+            getOSPPluginProtocols: openstackPluginProtocol_1.getOSPPluginProtocols,
+            addOSPPluginProtocol: openstackPluginProtocol_1.addOSPPluginProtocol,
+            updateOSPPluginProtocol: openstackPluginProtocol_1.updateOSPPluginProtocol
+        },
+        policyGuide: {
+            getPolicyGuides: policyGuide_1.getPolicyGuides,
+            addPolicyGuide: policyGuide_1.addPolicyGuide,
+            updatePolicyGuide: policyGuide_1.updatePolicyGuide,
+            removePolicyGuide: policyGuide_1.removePolicyGuide
         }
     },
     contacts: {
@@ -32031,6 +32331,8 @@ var ConfigurationTypes;
  */
 var s3ConfigurationFieldNames;
 (function (s3ConfigurationFieldNames) {
+    s3ConfigurationFieldNames["partSize"] = "partSize";
+    s3ConfigurationFieldNames["queueSize"] = "queueSize";
     s3ConfigurationFieldNames["accountWhitelist"] = "accountWhitelist";
     s3ConfigurationFieldNames["s3UploadFunctionality"] = "s3UploadFunctionality";
 })(s3ConfigurationFieldNames = exports.s3ConfigurationFieldNames || (exports.s3ConfigurationFieldNames = {}));
@@ -32066,9 +32368,7 @@ function createBasicAuth(user, pass) {
 exports.createBasicAuth = createBasicAuth;
 var hydraHostName = new Uri('');
 var pcmHostName = new Uri('');
-var hydraFSHostName = new Uri('');
 var pathPrefix = '/hydra/rest';
-var fsPathPrefix = '/hydrafs/rest';
 var securePathPrefix = '/hydra/secure/rest';
 var secureExtPathPrefix = '/hydra/secure/rest/external';
 var auth = null;
@@ -32086,21 +32386,15 @@ if (process && process.env && (process.env.HYDRA_HOSTNAME || process.env.PCM_HOS
         hydraHostName = new Uri(process.env.HYDRA_HOSTNAME);
     if (process.env.PCM_HOSTNAME)
         pcmHostName = new Uri(process.env.PCM_HOSTNAME);
-    if (process.env.HYDRA_FS_HOSTNAME)
-        hydraFSHostName = new Uri(process.env.HYDRA_FS_HOSTNAME);
 }
 else if (typeof window !== 'undefined' && window) {
     if (prodHostNames.indexOf(window.location.hostname) !== -1) {
         hydraHostName = new Uri('https://access.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
-        hydraFSHostName = new Uri('https://access.redhat.com/hydrafs/rest');
-        fsPathPrefix = '/hydrafs/rest';
     }
     else if (qaHostNames.indexOf(window.location.hostname) !== -1) {
         hydraHostName = new Uri('https://access.qa.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
-        hydraFSHostName = new Uri('https://hydra.fs.dev.redhat.com/hydra/rest/');
-        fsPathPrefix = pathPrefix;
     }
     else if (fteHostNames.indexOf(window.location.hostname) !== -1) {
         hydraHostName = new Uri('https://access.devgssfte.devlab.phx1.redhat.com/hydra/rest/');
@@ -32113,8 +32407,6 @@ else if (typeof window !== 'undefined' && window) {
     else if (stageHostNames.indexOf(window.location.hostname) !== -1) {
         hydraHostName = new Uri('https://access.stage.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
-        hydraFSHostName = new Uri('https://hydra-fs.ext.paas.stage.redhat.com/hydra/rest/');
-        fsPathPrefix = pathPrefix;
     }
 }
 else {
@@ -32125,9 +32417,7 @@ var Env = /** @class */ (function () {
     }
     Env.hydraHostName = hydraHostName;
     Env.pcmHostName = pcmHostName;
-    Env.hydraFSHostName = hydraFSHostName;
     Env.pathPrefix = pathPrefix;
-    Env.fsPathPrefix = fsPathPrefix;
     Env.securePathPrefix = securePathPrefix;
     Env.secureExtPathPrefix = secureExtPathPrefix;
     Env.auth = auth;
@@ -32152,6 +32442,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Since we aren't transpiling to babel can't use ES6 imports here.  Also we can't specify the Response and Request
 // types for fetch since A) They happen automatically with import which we can't use and B) the reference paths would
 // be different in downstream apps
+__webpack_require__(/*! es6-object-assign/auto */ "./node_modules/es6-object-assign/auto.js");
 __webpack_require__(/*! whatwg-fetch */ "./node_modules/whatwg-fetch/fetch.js");
 var env_1 = __webpack_require__(/*! ../utils/env */ "./src/utils/env.ts");
 function errorHandler(response) {
