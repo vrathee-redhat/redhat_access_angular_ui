@@ -15,9 +15,10 @@ ul.attachment-list.block-list.block-list-gray(ng-hide='AttachmentsService.update
       type='button',
       ng-click='removeLocalAttachment($index, !!attachment.abort)')
     input#rha-case-attachement-fileDescription.form-control.description(
+      ng-show='!attachment.progress'
       placeholder="{{'Please Add File Description'|translate}}",
-      ng-model='attachment.description',
-      ng-disabled='disabled')
+      ng-model='attachment.description')
+    span(ng-show='attachment.progress') {{attachment.description}}
 
 
     //li(
