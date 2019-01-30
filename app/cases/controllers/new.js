@@ -704,25 +704,25 @@ export default class New {
             CaseService.sendCreationStartedEvent($event);
         };
 
-        $scope.updateCEP = function (isCep) {
-            if (isCep) {
-                CaseService.isNewPageCEP = false;
-                CaseService.cepModalEvent = CASE_EVENTS.newPageCEP;
-                $uibModal.open({
-                    template: require('../views/cepModal.jade'),
-                    controller: 'CepModal'
-                });
-            } else {
-                CaseService.isNewPageCEP = true;
-                CaseService.confirmationModal = CASE_EVENTS.newPageCEP;
-                CaseService.confirmationModalHeader = gettextCatalog.getString('Update Consultant Engagement in Progress');
-                CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to remove the Consultant Engagement in Progress flag?');
-                $uibModal.open({
-                    template: require('../views/commonConfirmationModal.jade'),
-                    controller: 'CommonConfirmationModal'
-                });
-            } 
-        };
+        // $scope.updateCEP = function (isCep) {
+        //     if (isCep) {
+        //         CaseService.isNewPageCEP = false;
+        //         CaseService.cepModalEvent = CASE_EVENTS.newPageCEP;
+        //         $uibModal.open({
+        //             template: require('../views/cepModal.jade'),
+        //             controller: 'CepModal'
+        //         });
+        //     } else {
+        //         CaseService.isNewPageCEP = true;
+        //         CaseService.confirmationModal = CASE_EVENTS.newPageCEP;
+        //         CaseService.confirmationModalHeader = gettextCatalog.getString('Update Consultant Engagement in Progress');
+        //         CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to remove the Consultant Engagement in Progress flag?');
+        //         $uibModal.open({
+        //             template: require('../views/commonConfirmationModal.jade'),
+        //             controller: 'CommonConfirmationModal'
+        //         });
+        //     } 
+        // };
 
         if (ENVIRONMENT !== 'test') {
             angular.element('.affixed-recommendations').affix({
