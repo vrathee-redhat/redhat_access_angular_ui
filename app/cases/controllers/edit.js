@@ -1,6 +1,7 @@
 'use strict';
 
 import _ from 'lodash';
+import { getRedhatDotComHost } from '../../shared/utils';
 
 export default class Edit {
     constructor($scope, $stateParams, $location, AttachmentsService, CaseService, strataService, HeaderService, RecommendationsService,
@@ -68,26 +69,26 @@ export default class Edit {
                     var noBusinessHours = gettextCatalog.getString('no business hours');
                     strataService.values.businesshours(securityService.loginStatus.authedUser.timezone).then(function (response) {
                         var availability = "";
-                        availability = availability + gettextCatalog.getString('Sunday = {{businessHours}}', {businessHours: ((response.Days.Sunday[0] === "" && response.Days.Sunday[1] === "") ? noBusinessHours : response.Days.Sunday[0] + " - " + response.Days.Sunday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Sunday = {{businessHours}}', { businessHours: ((response.Days.Sunday[0] === "" && response.Days.Sunday[1] === "") ? noBusinessHours : response.Days.Sunday[0] + " - " + response.Days.Sunday[1] + " (" + response.OffsetName + ")") });
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Monday = {{businessHours}}', {businessHours: ((response.Days.Monday[0] === "" && response.Days.Monday[1] === "") ? noBusinessHours : response.Days.Monday[0] + " - " + response.Days.Monday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Monday = {{businessHours}}', { businessHours: ((response.Days.Monday[0] === "" && response.Days.Monday[1] === "") ? noBusinessHours : response.Days.Monday[0] + " - " + response.Days.Monday[1] + " (" + response.OffsetName + ")") });
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Tuesday = {{businessHours}}', {businessHours: ((response.Days.Tuesday[0] === "" && response.Days.Tuesday[1] === "") ? noBusinessHours : response.Days.Tuesday[0] + " - " + response.Days.Tuesday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Tuesday = {{businessHours}}', { businessHours: ((response.Days.Tuesday[0] === "" && response.Days.Tuesday[1] === "") ? noBusinessHours : response.Days.Tuesday[0] + " - " + response.Days.Tuesday[1] + " (" + response.OffsetName + ")") });
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Wednesday = {{businessHours}}', {businessHours: ((response.Days.Wednesday[0] === "" && response.Days.Wednesday[1] === "") ? noBusinessHours : response.Days.Wednesday[0] + " - " + response.Days.Wednesday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Wednesday = {{businessHours}}', { businessHours: ((response.Days.Wednesday[0] === "" && response.Days.Wednesday[1] === "") ? noBusinessHours : response.Days.Wednesday[0] + " - " + response.Days.Wednesday[1] + " (" + response.OffsetName + ")") });
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Thursday = {{businessHours}}', {businessHours: ((response.Days.Thursday[0] === "" && response.Days.Thursday[1] === "") ? noBusinessHours : response.Days.Thursday[0] + " - " + response.Days.Thursday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Thursday = {{businessHours}}', { businessHours: ((response.Days.Thursday[0] === "" && response.Days.Thursday[1] === "") ? noBusinessHours : response.Days.Thursday[0] + " - " + response.Days.Thursday[1] + " (" + response.OffsetName + ")") });
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Friday = {{businessHours}}', {businessHours: ((response.Days.Friday[0] === "" && response.Days.Friday[1] === "") ? noBusinessHours : response.Days.Friday[0] + " - " + response.Days.Friday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Friday = {{businessHours}}', { businessHours: ((response.Days.Friday[0] === "" && response.Days.Friday[1] === "") ? noBusinessHours : response.Days.Friday[0] + " - " + response.Days.Friday[1] + " (" + response.OffsetName + ")") });
                         availability = availability + "<br/>";
-                        availability = availability + gettextCatalog.getString('Saturday = {{businessHours}}', {businessHours: ((response.Days.Saturday[0] === "" && response.Days.Saturday[1] === "") ? noBusinessHours : response.Days.Saturday[0] + " - " + response.Days.Saturday[1] + " (" + response.OffsetName + ")")});
+                        availability = availability + gettextCatalog.getString('Saturday = {{businessHours}}', { businessHours: ((response.Days.Saturday[0] === "" && response.Days.Saturday[1] === "") ? noBusinessHours : response.Days.Saturday[0] + " - " + response.Days.Saturday[1] + " (" + response.OffsetName + ")") });
                         availability = availability + "<br/>";
 
                         var message = gettextCatalog.getString("Thank you for contacting Red Hat support!  We'll be in contact soon.  Our records indicate your availability as follows:") +
                             "<br/>" +
                             availability +
                             "<br/>" +
-                            gettextCatalog.getString("If we have not recorded your business hours correctly, please update your timezone in  <a href=\'/wapps/ugc/protected/locale.html\' target=\'_blank\'>Your preferences</a>");
+                            gettextCatalog.getString(`If we have not recorded your business hours correctly, please update your timezone in  <a href=\'${getRedhatDotComHost()}/wapps/ugc/protected/locale.html\' target=\'_blank\'>Your preferences</a>`);
                         var parsedHtml = $sce.trustAsHtml(message);
                         AlertService.addInfoMessage(parsedHtml);
 
@@ -128,10 +129,10 @@ export default class Edit {
                     template: require('../views/commonConfirmationModal.jade'),
                     controller: 'CommonConfirmationModal'
                 });
-            } 
+            }
         };
 
-        var updateOwnerTooltip = function() {
+        var updateOwnerTooltip = function () {
             if (RHAUtils.isNotEmpty(CaseService.hydraCaseDetail) && RHAUtils.isNotEmpty(CaseService.hydraCaseDetail.caseOwner)) {
                 const owner = CaseService.hydraCaseDetail.caseOwner;
                 $scope.ownerTooltip = $sce.trustAsHtml(
@@ -171,7 +172,7 @@ export default class Edit {
             RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts)
         );
 
-        $scope.isShowPartnerManagedCaseLabel = function() {
+        $scope.isShowPartnerManagedCaseLabel = function () {
             if (CaseService.kase.contact_is_partner) {
                 return securityService.loginStatus.authedUser.is_internal || !($scope.userHasManagedAccounts())
             }
@@ -254,7 +255,7 @@ export default class Edit {
         };
 
         $scope.$on(CASE_EVENTS.received, function () {
-            document.title = gettextCatalog.getString('{{caseNumber}} | {{caseSummary}}', {caseNumber: $stateParams.id, caseSummary: CaseService.kase.summary});
+            document.title = gettextCatalog.getString('{{caseNumber}} | {{caseSummary}}', { caseNumber: $stateParams.id, caseSummary: CaseService.kase.summary });
         })
 
         $scope.$on('$locationChangeSuccess', function () {
