@@ -32315,20 +32315,6 @@ exports.default = {
 
 /***/ }),
 
-/***/ "./src/models/envs/index.ts":
-/*!**********************************!*\
-  !*** ./src/models/envs/index.ts ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-/***/ }),
-
 /***/ "./src/models/maintenance.ts":
 /*!***********************************!*\
   !*** ./src/models/maintenance.ts ***!
@@ -32383,7 +32369,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Since we aren't transpiling to babel can't use ES6 imports here
 var Uri = __webpack_require__(/*! jsuri */ "./node_modules/jsuri/Uri.js");
 var btoa = __webpack_require__(/*! btoa-lite */ "./node_modules/btoa-lite/btoa-browser.js");
-var envs_1 = __webpack_require__(/*! ../models/envs */ "./src/models/envs/index.ts");
+var EnvNames = {
+    DEV: 'DEV',
+    QA: 'QA',
+    STAGE: 'Stage',
+    FTE: 'FTE',
+    CI: 'CI',
+    PROD: 'PROD',
+};
 function createBasicAuth(user, pass) {
     return "Basic " + btoa(user + ':' + pass);
 }
@@ -32404,19 +32397,19 @@ var getEnvName = function () {
     var stageHostNames = ['access.stage.redhat.com', 'stage.foo.redhat.com', 'foostage.redhat.com', 'skedge.stage.redhat.com'];
     if (typeof window !== 'undefined' && window) {
         if (prodHostNames.indexOf(window.location.hostname) !== -1) {
-            return envs_1.EnvNames.PROD;
+            return EnvNames.PROD;
         }
         else if (qaHostNames.indexOf(window.location.hostname) !== -1) {
-            return envs_1.EnvNames.QA;
+            return EnvNames.QA;
         }
         else if (fteHostNames.indexOf(window.location.hostname) !== -1) {
-            return envs_1.EnvNames.FTE;
+            return EnvNames.FTE;
         }
         else if (ciHostNames.indexOf(window.location.hostname) !== -1) {
-            return envs_1.EnvNames.CI;
+            return EnvNames.CI;
         }
         else if (stageHostNames.indexOf(window.location.hostname) !== -1) {
-            return envs_1.EnvNames.STAGE;
+            return EnvNames.STAGE;
         }
     }
 };
@@ -32431,23 +32424,23 @@ if (process && process.env && (process.env.HYDRA_HOSTNAME || process.env.PCM_HOS
 }
 else if (typeof window !== 'undefined' && window) {
     var env = getEnvName();
-    if (env === envs_1.EnvNames.PROD) {
+    if (env === EnvNames.PROD) {
         hydraHostName = new Uri('https://access.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
     }
-    else if (env === envs_1.EnvNames.QA) {
+    else if (env === EnvNames.QA) {
         hydraHostName = new Uri('https://access.qa.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
     }
-    else if (env === envs_1.EnvNames.FTE) {
+    else if (env === EnvNames.FTE) {
         hydraHostName = new Uri('https://access.devgssfte.devlab.phx1.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
     }
-    else if (env === envs_1.EnvNames.CI) {
+    else if (env === EnvNames.CI) {
         // There is no Hydra CI
         pcmHostName = new Uri('https://hydraadmin-corp-dev-redhat-com.vserver.devlab.ext.phx1.redhat.com/hydra/rest/');
     }
-    else if (env === envs_1.EnvNames.STAGE) {
+    else if (env === EnvNames.STAGE) {
         hydraHostName = new Uri('https://access.stage.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
     }
