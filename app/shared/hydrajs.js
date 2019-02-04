@@ -27914,37 +27914,42 @@ exports.downloadAttachmentS3 = downloadAttachmentS3;
  */
 function getS3UploadAccounts() {
     return __awaiter(this, void 0, void 0, function () {
-        var s3Configurations_1, configurations, error_6;
+        var s3Configurations, configurations, error_6;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    s3Configurations_1 = {
+                    s3Configurations = {
                         s3UploadFunctionality: maintenance_1.s3ConfigurationFieldValues.s3UpoadFunctionalityWhitelist,
                         result: [],
                         partSize: 5 * 1024 * 1024,
                         queueSize: 5,
                     };
-                    return [4 /*yield*/, maintenance_2.getMaintenanceMode(maintenance_1.ConfigurationTypes.s3_configurations)];
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, maintenance_2.getMaintenanceMode(maintenance_1.ConfigurationTypes.s3_configurations)];
+                case 2:
                     configurations = _a.sent();
                     configurations.forEach(function (config) {
                         var _a;
                         var regex = new RegExp("^(" + maintenance_1.s3ConfigurationFieldNames.accountWhitelist + "_\\d+)$", 'g');
                         if (config.fieldName === maintenance_1.s3ConfigurationFieldNames.s3UploadFunctionality)
-                            s3Configurations_1.s3UploadFunctionality = config.fieldValue;
-                        else if (config.fieldName === maintenance_1.s3ConfigurationFieldNames.partSize)
-                            s3Configurations_1.partSize = parseFloat(config.fieldValue) * 1024 * 1024;
+                            s3Configurations.s3UploadFunctionality = config.fieldValue;
+                        else if (config.fieldName === maintenance_1.s3ConfigurationFieldNames.partSize) {
+                            var partSize = parseFloat(config.fieldValue);
+                            partSize = (partSize >= 5) ? partSize : 5;
+                            s3Configurations.partSize = partSize * 1024 * 1024;
+                        }
                         else if (config.fieldName === maintenance_1.s3ConfigurationFieldNames.queueSize)
-                            s3Configurations_1.queueSize = parseFloat(config.fieldValue);
+                            s3Configurations.queueSize = parseInt(config.fieldValue);
                         else if (config.fieldName.match(regex))
-                            (_a = s3Configurations_1.result).push.apply(_a, config.fieldValue.split(','));
+                            (_a = s3Configurations.result).push.apply(_a, config.fieldValue.split(','));
                     });
-                    return [2 /*return*/, s3Configurations_1];
-                case 2:
+                    return [2 /*return*/, s3Configurations];
+                case 3:
                     error_6 = _a.sent();
-                    throw error_6;
-                case 3: return [2 /*return*/];
+                    return [2 /*return*/, s3Configurations];
+                case 4: return [2 /*return*/];
             }
         });
     });

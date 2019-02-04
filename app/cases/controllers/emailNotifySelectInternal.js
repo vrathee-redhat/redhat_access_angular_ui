@@ -16,13 +16,16 @@ export default class EmailNotifySelectInternal {
         const submitWatchers = (toBeAdded, toBeRemoved, removed) => {
             const addPromises = _.map(toBeAdded, (user) => strataService.cases.notified_users.add(CaseService.kase.case_number, user));
             const removePromises = _.map(toBeRemoved, (user) => strataService.cases.notified_users.remove(CaseService.kase.case_number, user));
-
-            return Promise.all([...addPromises, ...removePromises]).then( async () => {
+            $scope.saving = true;
+            return Promise.all([...addPromises, ...removePromises]).then(() => {
                 _.pullAll(CaseService.originalNotifiedUsers, toBeRemoved);
                 CaseService.originalNotifiedUsers = CaseService.originalNotifiedUsers.concat(toBeAdded);
-                _.each(removed, (sso)=> AlertService.addWarningMessage(gettextCatalog.getString('User {{sso}} cannot be added as watcher because it is not internal.', {sso})));
                 $scope.saving = false;
                 // add warning message for users we cannot add
+                _.each(removed, (sso)=> AlertService.addWarningMessage(gettextCatalog.getString('User {{sso}} cannot be added as watcher because it is not internal.', {sso})));
+            }).catch((error) => {
+                AlertService.addDangerMessage(gettextCatalog.getString('Failed to update watchers, please retry.'));
+                $scope.saving = false;
             });
         }
 
@@ -31,7 +34,6 @@ export default class EmailNotifySelectInternal {
             // ignore the case contact, we never want to add/remove notifications for him
             const toBeAdded = _.without(_.difference($scope.selectedUsers, previouslySelectedUsers), CaseService.kase.contact_sso_username);
             const toBeRemoved = _.without(_.difference(previouslySelectedUsers, $scope.selectedUsers), CaseService.kase.contact_sso_username);
-            $scope.saving = true;
             const internalSSOs = _.map(_.filter([$scope.contactToAdd], 'isInternal'), 'ssoUsername');
             // remove non-internal users
             const removed = _.remove(toBeAdded, (userSSO) => internalSSOs.indexOf(userSSO) == -1);
