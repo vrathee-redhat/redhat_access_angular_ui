@@ -151,14 +151,11 @@ export default class AttachmentsService {
         this.getAttachments = async function(caseId) {
             const response = await hydrajs.kase.attachments.getAttachmentsS3(caseId);
             const attachments = _.map(response, (item) => {
-                // PCM-7772 => Using created date instead of lastModifiedDate temporarily 
-                // const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
-                const lastModifiedDate = RHAUtils.convertToTimezone(item.createdDate);
+                const lastModifiedDate = RHAUtils.convertToTimezone(item.lastModifiedDate);
                 item.file_name = item.fileName || item.filename;
                 item.last_modified_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                 item.last_modified_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
-                // item.sortModifiedDate = new Date(item.lastModifiedDate);
-                item.sortModifiedDate = new Date(item.createdDate);
+                item.sortModifiedDate = new Date(item.lastModifiedDate);
                 item.published_date = RHAUtils.formatDate(lastModifiedDate, 'MMM DD YYYY');
                 item.published_time = RHAUtils.formatDate(lastModifiedDate, 'hh:mm A Z');
                 return item;
@@ -272,9 +269,12 @@ export default class AttachmentsService {
             attachment.abort();
         };
 
-        this.refreshTokenIfNeeded = () => {
+        this.refreshTokenIfNeeded = async () => {
             const isTokenExpired = _.get(window,'sessionjs._state.keycloak.isTokenExpired');
-            isTokenExpired && isTokenExpired(100) && console.log("Force update token") && window.sessionjs.updateToken(true);
+            if(isTokenExpired && isTokenExpired(100)) {
+                console.log("Updating token forcefully");
+                await window.sessionjs.updateToken(true);
+            }
         }
 
         this.updateAttachmentsS3 = async function (caseId) {
@@ -320,19 +320,17 @@ export default class AttachmentsService {
                                 };
 
                                 const listener = (progress, abort) => {
-                                    this.refreshTokenIfNeeded();
                                     const decimal = progress.loaded / progress.total;
                                     const percent = decimal * 100;
                                     attachment.progress = Math.floor(percent);
                                     attachment.verifyingUpload = decimal === 1;
-
                                     if (!attachment.abort) {
                                         attachment.abort = abort;
                                     }
-
                                     if ($rootScope.$$phase !== '$apply' && $rootScope.$$phase !== '$digest') {
                                         $rootScope.$apply();
                                     }
+                                    this.refreshTokenIfNeeded();
                                 };
 
                                 try {

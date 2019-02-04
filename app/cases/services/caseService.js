@@ -319,6 +319,8 @@ export default class CaseService {
                 } catch (e) {
                     console.warn(`Unable to get contacts, error: ${e}`);
                 }
+            } else {
+                this.internalNotificationContacts = [];
             }
         }
         this.getGroups = function () {
