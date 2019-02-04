@@ -1,3 +1,6 @@
+import hydrajs from './hydrajs';
+import { REDHAT_DOT_COM } from './constants';
+
 const versionSorter = (_a, _b) => { //Added because of wrong order of versions
   let a = _a.match(/(\d+|\w+)/gm);
   let b = _b.match(/(\d+|\w+)/gm);
@@ -22,8 +25,22 @@ const versionSort = (arr) => {
   return arr.sort(versionSorter);
 }
 
+const getRedhatDotComHost = () => {
+  const env = hydrajs.Env.getEnvName();
+  switch (env) {
+    case 'QA':
+      return REDHAT_DOT_COM.QA;
+    case 'DEV':
+      return REDHAT_DOT_COM.DEV;
+    case 'STAGE':
+      return REDHAT_DOT_COM.STAGE;
+    default:
+      return REDHAT_DOT_COM.PROD;
+  }
+}
 
 module.exports = {
   versionSort,
-  versionSorter
+  versionSorter,
+  getRedhatDotComHost
 }

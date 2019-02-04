@@ -31932,6 +31932,7 @@ var testClass_2 = __webpack_require__(/*! ./api/cweAdmin/testClass */ "./src/api
 var configuration_1 = __webpack_require__(/*! ./api/cweAdmin/configuration */ "./src/api/cweAdmin/configuration.ts");
 var policyGuide_1 = __webpack_require__(/*! ./api/cweAdmin/policyGuide */ "./src/api/cweAdmin/policyGuide.ts");
 var fetch_1 = __webpack_require__(/*! ./utils/fetch */ "./src/utils/fetch.ts");
+var env_1 = __webpack_require__(/*! ./utils/env */ "./src/utils/env.ts");
 exports.default = {
     general: {
         health: general_1.health,
@@ -32307,8 +32308,23 @@ exports.default = {
         patchUri: fetch_1.patchUri,
         deleteUri: fetch_1.deleteUri,
         deleteUriWithBody: fetch_1.deleteUriWithBody
-    }
+    },
+    Env: env_1.default
 };
+
+
+/***/ }),
+
+/***/ "./src/models/envs/index.ts":
+/*!**********************************!*\
+  !*** ./src/models/envs/index.ts ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 
 
 /***/ }),
@@ -32367,6 +32383,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Since we aren't transpiling to babel can't use ES6 imports here
 var Uri = __webpack_require__(/*! jsuri */ "./node_modules/jsuri/Uri.js");
 var btoa = __webpack_require__(/*! btoa-lite */ "./node_modules/btoa-lite/btoa-browser.js");
+var envs_1 = __webpack_require__(/*! ../models/envs */ "./src/models/envs/index.ts");
 function createBasicAuth(user, pass) {
     return "Basic " + btoa(user + ':' + pass);
 }
@@ -32378,11 +32395,31 @@ var securePathPrefix = '/hydra/secure/rest';
 var secureExtPathPrefix = '/hydra/secure/rest/external';
 var auth = null;
 // Add any new services consuming hydrajs to below arrays
-var prodHostNames = ['access.redhat.com', 'prod.foo.redhat.com', 'fooprod.redhat.com', 'skedge.redhat.com'];
-var qaHostNames = ['access.qa.redhat.com', 'qa.foo.redhat.com', 'fooqa.redhat.com', 'skedge.qa.redhat.com'];
-var fteHostNames = ['access.devgssfte.devlab.phx1.redhat.com', 'fte.foo.redhat.com', 'foofte.redhat.com'];
-var ciHostNames = ['access.devgssci.devlab.phx1.redhat.com', 'ci.foo.redhat.com', 'fooci.redhat.com', 'skedge.ci.redhat.com'];
-var stageHostNames = ['access.stage.redhat.com', 'stage.foo.redhat.com', 'foostage.redhat.com', 'skedge.stage.redhat.com'];
+var getEnvName = function () {
+    // Returns PROD | QA | FTE | CI | STAGE
+    var prodHostNames = ['access.redhat.com', 'prod.foo.redhat.com', 'fooprod.redhat.com', 'skedge.redhat.com'];
+    var qaHostNames = ['access.qa.redhat.com', 'qa.foo.redhat.com', 'fooqa.redhat.com', 'skedge.qa.redhat.com'];
+    var fteHostNames = ['access.devgssfte.devlab.phx1.redhat.com', 'fte.foo.redhat.com', 'foofte.redhat.com'];
+    var ciHostNames = ['access.devgssci.devlab.phx1.redhat.com', 'ci.foo.redhat.com', 'fooci.redhat.com', 'skedge.ci.redhat.com'];
+    var stageHostNames = ['access.stage.redhat.com', 'stage.foo.redhat.com', 'foostage.redhat.com', 'skedge.stage.redhat.com'];
+    if (typeof window !== 'undefined' && window) {
+        if (prodHostNames.indexOf(window.location.hostname) !== -1) {
+            return envs_1.EnvNames.PROD;
+        }
+        else if (qaHostNames.indexOf(window.location.hostname) !== -1) {
+            return envs_1.EnvNames.QA;
+        }
+        else if (fteHostNames.indexOf(window.location.hostname) !== -1) {
+            return envs_1.EnvNames.FTE;
+        }
+        else if (ciHostNames.indexOf(window.location.hostname) !== -1) {
+            return envs_1.EnvNames.CI;
+        }
+        else if (stageHostNames.indexOf(window.location.hostname) !== -1) {
+            return envs_1.EnvNames.STAGE;
+        }
+    }
+};
 if (process && process.env && process.env.RHN_USER) {
     auth = createBasicAuth(process.env.RHN_USER, process.env.RHN_PASS);
 }
@@ -32393,23 +32430,24 @@ if (process && process.env && (process.env.HYDRA_HOSTNAME || process.env.PCM_HOS
         pcmHostName = new Uri(process.env.PCM_HOSTNAME);
 }
 else if (typeof window !== 'undefined' && window) {
-    if (prodHostNames.indexOf(window.location.hostname) !== -1) {
+    var env = getEnvName();
+    if (env === envs_1.EnvNames.PROD) {
         hydraHostName = new Uri('https://access.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
     }
-    else if (qaHostNames.indexOf(window.location.hostname) !== -1) {
+    else if (env === envs_1.EnvNames.QA) {
         hydraHostName = new Uri('https://access.qa.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
     }
-    else if (fteHostNames.indexOf(window.location.hostname) !== -1) {
+    else if (env === envs_1.EnvNames.FTE) {
         hydraHostName = new Uri('https://access.devgssfte.devlab.phx1.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
     }
-    else if (ciHostNames.indexOf(window.location.hostname) !== -1) {
+    else if (env === envs_1.EnvNames.CI) {
         // There is no Hydra CI
         pcmHostName = new Uri('https://hydraadmin-corp-dev-redhat-com.vserver.devlab.ext.phx1.redhat.com/hydra/rest/');
     }
-    else if (stageHostNames.indexOf(window.location.hostname) !== -1) {
+    else if (env === envs_1.EnvNames.STAGE) {
         hydraHostName = new Uri('https://access.stage.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
     }
@@ -32426,6 +32464,7 @@ var Env = /** @class */ (function () {
     Env.securePathPrefix = securePathPrefix;
     Env.secureExtPathPrefix = secureExtPathPrefix;
     Env.auth = auth;
+    Env.getEnvName = getEnvName;
     return Env;
 }());
 exports.default = Env;
