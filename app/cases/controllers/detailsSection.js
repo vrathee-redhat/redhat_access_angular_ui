@@ -329,7 +329,7 @@ export default class DetailsSection {
         $scope.getDescription = function (maxLength) {
             var text = CaseService.kase.description;
             if (maxLength !== undefined) text = $filter('substring')(text, maxLength);
-            return LinkifyService.linkifyWithCaseIDs(text);
+            return LinkifyService.linkifyBZIDs(LinkifyService.linkifyWithCaseIDs(text));
         };
         $scope.onCaseTypeChanged = function () {
             CaseService.onSelectChanged();
