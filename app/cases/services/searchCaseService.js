@@ -1,4 +1,5 @@
 'use strict';
+import { strataCaseFields } from '../constants/strataCaseFields';
 
 export default class SearchCaseService {
     constructor(CaseService, strataService, AlertService, STATUS, CASE_GROUPS, $q, SearchBoxService, securityService, COMMON_CONFIG, RHAUtils) {
@@ -13,11 +14,11 @@ export default class SearchCaseService {
         this.previousGroupFilter = CASE_GROUPS.none;
         this.currentPage = 1;
         this.pageSize = 50;
-        this.numberOfPages = function() {
+        this.numberOfPages = function () {
             return Math.ceil(this.totalCases / this.pageSize);
         };
 
-        this.clear = function() {
+        this.clear = function () {
             this.cases = [];
             SearchBoxService.searchTerm = '';
             this.start = 0;
@@ -39,7 +40,7 @@ export default class SearchCaseService {
             return end;
         };
 
-        this.clearPagination = function() {
+        this.clearPagination = function () {
             this.start = 0;
             this.total = 0;
             this.allCasesDownloaded = false;
@@ -56,7 +57,7 @@ export default class SearchCaseService {
             queryParams: null,
         };
 
-        this.makeCaseFilter = function(checkIsInternal) {
+        this.makeCaseFilter = function (checkIsInternal) {
             const caseFilter = {};
             caseFilter.count = this.pageSize;
             caseFilter.include_closed = (this.searchParameters.caseStatus !== STATUS.open && this.searchParameters.caseStatus !== STATUS.worh && this.searchParameters.caseStatus !== STATUS.wocust);
@@ -101,7 +102,7 @@ export default class SearchCaseService {
             } else if (COMMON_CONFIG.isGS4 === true && !securityService.loginStatus.authedUser.is_internal) {
                 caseFilter.account_number = securityService.loginStatus.authedUser.account_number;
             }
-            if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.searchParameters.accountNumber) && ( checkIsInternal === undefined || checkIsInternal === true) ) {
+            if (!COMMON_CONFIG.isGS4 && securityService.loginStatus.authedUser.sso_username && securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.searchParameters.accountNumber) && (checkIsInternal === undefined || checkIsInternal === true)) {
                 caseFilter.associate_ssoname = securityService.loginStatus.authedUser.sso_username;
                 caseFilter.view = 'internal';
             }
@@ -154,7 +155,7 @@ export default class SearchCaseService {
             }
         }
 
-        this.doFilter = function(checkIsInternal) {
+        this.doFilter = function (checkIsInternal) {
             this.searching = true;
             this.previousGroupFilter = this.searchParameters.caseGroup;
 
@@ -168,7 +169,7 @@ export default class SearchCaseService {
             }
         }
 
-        this.doCaseSearch = function() {
+        this.doCaseSearch = function () {
             const deferred = $q.defer();
             let sortField = CaseService.filterSelect.sortField === 'owner' ? 'contactName' : CaseService.filterSelect.sortField;
             const partnerSearch = RHAUtils.isEmpty(this.searchParameters.accountNumber) && this.isManagedAccount();
@@ -191,7 +192,8 @@ export default class SearchCaseService {
                 this.pageSize,
                 this.searchParameters.queryParams,
                 (this.currentPage - 1) * this.pageSize,
-                partnerSearch
+                partnerSearch,
+                strataCaseFields
             ).then(
                 (response) => this.onSuccess(response, deferred),
                 (error) => this.onFailure(error, deferred)
@@ -201,7 +203,7 @@ export default class SearchCaseService {
             return deferred.promise;
         }
 
-        this.doCaseFilter = function(checkIsInternal) {
+        this.doCaseFilter = function (checkIsInternal) {
             const deferred = $q.defer();
             const caseFilter = this.makeCaseFilter(checkIsInternal);
             const partnerSearch = RHAUtils.isEmpty(this.searchParameters.accountNumber) && this.isManagedAccount();
@@ -219,9 +221,9 @@ export default class SearchCaseService {
             return deferred.promise;
         }
 
-        this.isManagedAccount = function() {
+        this.isManagedAccount = function () {
             return RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
-            RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts);
+                RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts);
         }
     }
 

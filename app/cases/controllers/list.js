@@ -1,6 +1,7 @@
 'use strict';
 
-import * as FileSaver from 'filesaver.js'
+import * as FileSaver from 'filesaver.js';
+import { strataCaseFields } from '../constants/strataCaseFields';
 
 export default class List {
     constructor($scope, $rootScope, $filter, $location, $state, $uibModal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS, gettextCatalog, RHAUtils, HeaderService) {
@@ -19,20 +20,20 @@ export default class List {
         $scope.displayedCaseText = gettextCatalog.getString('Open Support Cases');
         $scope.RHAUtils = RHAUtils;
 
-        $rootScope.$on('$locationChangeSuccess', function() {
-            if($location.path() === '/case/list') {
+        $rootScope.$on('$locationChangeSuccess', function () {
+            if ($location.path() === '/case/list') {
                 CaseService.populateGroups(securityService.loginStatus.authedUser.sso_username, true);
             }
         });
 
         $scope.showCaseList = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases;
 
-        $scope.exports = async function() {
+        $scope.exports = async function () {
             $scope.exporting = true;
 
             try {
                 const query = `case_accountNumber:${this.securityService.loginStatus.authedUser.account.number}`;
-                const response = await strataService.cases.advancedSearch(query, null, 0, 10000, 'csv');
+                const response = await strataService.cases.advancedSearch(query, null, 0, 10000, 'csv', strataCaseFields);
                 const csvBlob = new Blob([response], {
                     type: 'text/csv'
                 });
@@ -49,7 +50,7 @@ export default class List {
             $scope.doSearch();
         });
 
-        $scope.doSearch = function() {
+        $scope.doSearch = function () {
             SearchCaseService.clearPagination();
             if (SearchCaseService.searchParameters.caseGroup === CASE_GROUPS.manage) {
 
@@ -80,7 +81,7 @@ export default class List {
             }
         };
 
-        $scope.firePageLoadEvent = function() {
+        $scope.firePageLoadEvent = function () {
             if (window.chrometwo_require !== undefined) {
                 chrometwo_require(['analytics/attributes', 'analytics/main'], (attrs, paf) => {
                     attrs.harvest();
@@ -89,7 +90,7 @@ export default class List {
             }
         };
 
-        $scope.setBreadcrumbs = function() {
+        $scope.setBreadcrumbs = function () {
             if (window.chrometwo_require !== undefined) {
                 breadcrumbs = [
                     [gettextCatalog.getString('Support'), '/support/'],
@@ -113,12 +114,12 @@ export default class List {
             if (RHAUtils.isEmpty(SearchCaseService.cases)) $scope.doSearch();
             $scope.setBreadcrumbs();
         }
-        $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             if (securityService.loginStatus.userAllowedToManageCases) {
                 $scope.firePageLoadEvent();
                 CaseService.status = 'open';
 
-                if(CaseService.sessionStorageCache) {
+                if (CaseService.sessionStorageCache) {
                     if (CaseService.sessionStorageCache.get('listFilter' + securityService.loginStatus.authedUser.sso_username)) {
                         SearchCaseService.searchParameters = CaseService.sessionStorageCache.get('listFilter' + securityService.loginStatus.authedUser.sso_username);
                         SearchCaseService.previousGroupFilter = SearchCaseService.searchParameters.caseGroup;
@@ -133,23 +134,23 @@ export default class List {
             }
         });
 
-        $scope.$on(AUTH_EVENTS.logoutSuccess, function() {
+        $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             CaseService.clearCase();
             SearchCaseService.clear();
         });
 
-        $scope.caseLink = function(caseNumber) {
+        $scope.caseLink = function (caseNumber) {
             $location.path('/case/' + caseNumber);
         };
 
-        $scope.caseChosen = function() {
+        $scope.caseChosen = function () {
             var trues = $filter('filter')(SearchCaseService.cases, {
                 selected: true
             });
             return trues.length;
         };
 
-        $scope.closeCases = function() {
+        $scope.closeCases = function () {
             CaseService.confirmationModal = CASE_EVENTS.caseClose;
             CaseService.confirmationModalHeader = gettextCatalog.getString('Closing Cases.');
             CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to close the selected cases?');
@@ -159,7 +160,7 @@ export default class List {
             });
         };
 
-        $scope.getCasesText = function() {
+        $scope.getCasesText = function () {
             if (SearchCaseService.searchParameters.caseStatus === STATUS.open) {
                 $scope.displayedCaseText = gettextCatalog.getString('Open Support Cases');
             } else if (SearchCaseService.searchParameters.caseStatus === STATUS.closed) {
@@ -169,7 +170,7 @@ export default class List {
             }
         };
 
-        $scope.loadingRecWatcher = $scope.$watch('SearchCaseService.searchParameters.caseStatus', function(newVal) {
+        $scope.loadingRecWatcher = $scope.$watch('SearchCaseService.searchParameters.caseStatus', function (newVal) {
             $scope.getCasesText();
         });
     }

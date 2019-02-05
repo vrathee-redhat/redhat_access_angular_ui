@@ -4,6 +4,7 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import * as FileSaver from 'filesaver.js'
+import { strataCaseFields } from '../constants/strataCaseFields';
 
 export default class AdvancedCaseSearchService {
     constructor(strataService, SearchBookmarkService, ConstantsService, RHAUtils, AlertService) {
@@ -18,7 +19,7 @@ export default class AdvancedCaseSearchService {
         this.currentPage = 1;
         this.totalCases = 0;
 
-        this.numberOfPages = function() {
+        this.numberOfPages = function () {
             return Math.ceil(this.totalCases / this.pageSize);
         };
 
@@ -48,7 +49,7 @@ export default class AdvancedCaseSearchService {
             this.searching = true;
             this.query = query;
             this.order = solrOrder;
-            return strataService.cases.advancedSearch(query, solrOrder, (this.currentPage - 1) * this.pageSize, this.pageSize).then((response) => {
+            return strataService.cases.advancedSearch(query, solrOrder, (this.currentPage - 1) * this.pageSize, this.pageSize, null, strataCaseFields).then((response) => {
                 this.searching = false;
                 if (response['case'] === undefined) {
                     this.totalCases = 0;
@@ -71,13 +72,13 @@ export default class AdvancedCaseSearchService {
         }
 
         this.getColumns = () => {
-            if(this.columns == null) {
+            if (this.columns == null) {
                 const allColumns = ConstantsService.advancedCaseListColumns;
                 const currentBookmark = SearchBookmarkService.getCurrentBookmark();
-                if(currentBookmark != null && RHAUtils.isNotEmpty(currentBookmark.columns))  {
-                    this.columns = filter(map(currentBookmark.columns, (col) => find(allColumns, {id: col})), c => c != null);
+                if (currentBookmark != null && RHAUtils.isNotEmpty(currentBookmark.columns)) {
+                    this.columns = filter(map(currentBookmark.columns, (col) => find(allColumns, { id: col })), c => c != null);
                 } else { // set default columns
-                    this.columns = filter(allColumns, {default: true});
+                    this.columns = filter(allColumns, { default: true });
                 }
             }
 
@@ -90,8 +91,8 @@ export default class AdvancedCaseSearchService {
 
         this.initiateCSVDownload = () => {
             this.exporting = true;
-            return strataService.cases.advancedSearch(this.query, this.order, 0, 10000, 'csv').then((response, xhr) => {
-                const csvBlob = new Blob([response], {type: 'text/csv'});
+            return strataService.cases.advancedSearch(this.query, this.order, 0, 10000, 'csv', strataCaseFields).then((response, xhr) => {
+                const csvBlob = new Blob([response], { type: 'text/csv' });
                 FileSaver.saveAs(csvBlob, 'cases-export.csv');
                 this.exporting = false;
             }, (error) => {
