@@ -4,7 +4,7 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import * as FileSaver from 'filesaver.js'
-import { strataCaseFields } from '../constants/strataCaseFields';
+import { solrCaseFields } from '../constants/solrCaseFields';
 
 export default class AdvancedCaseSearchService {
     constructor(strataService, SearchBookmarkService, ConstantsService, RHAUtils, AlertService) {
@@ -49,7 +49,7 @@ export default class AdvancedCaseSearchService {
             this.searching = true;
             this.query = query;
             this.order = solrOrder;
-            return strataService.cases.advancedSearch(query, solrOrder, (this.currentPage - 1) * this.pageSize, this.pageSize, null, strataCaseFields).then((response) => {
+            return strataService.cases.advancedSearch(query, solrOrder, (this.currentPage - 1) * this.pageSize, this.pageSize, null, solrCaseFields).then((response) => {
                 this.searching = false;
                 if (response['case'] === undefined) {
                     this.totalCases = 0;
@@ -91,7 +91,7 @@ export default class AdvancedCaseSearchService {
 
         this.initiateCSVDownload = () => {
             this.exporting = true;
-            return strataService.cases.advancedSearch(this.query, this.order, 0, 10000, 'csv', strataCaseFields).then((response, xhr) => {
+            return strataService.cases.advancedSearch(this.query, this.order, 0, 10000, 'csv', solrCaseFields).then((response, xhr) => {
                 const csvBlob = new Blob([response], { type: 'text/csv' });
                 FileSaver.saveAs(csvBlob, 'cases-export.csv');
                 this.exporting = false;

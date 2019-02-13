@@ -1,5 +1,5 @@
 'use strict';
-import { strataCaseFields } from '../constants/strataCaseFields';
+import { solrCaseFields } from '../constants/solrCaseFields';
 
 export default class SearchCaseService {
     constructor(CaseService, strataService, AlertService, STATUS, CASE_GROUPS, $q, SearchBoxService, securityService, COMMON_CONFIG, RHAUtils) {
@@ -193,7 +193,7 @@ export default class SearchCaseService {
                 this.searchParameters.queryParams,
                 (this.currentPage - 1) * this.pageSize,
                 partnerSearch,
-                strataCaseFields
+                solrCaseFields
             ).then(
                 (response) => this.onSuccess(response, deferred),
                 (error) => this.onFailure(error, deferred)

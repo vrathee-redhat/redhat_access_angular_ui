@@ -1,4 +1,4 @@
-export const strataCaseFields = [
+export const solrCaseFields = [
   "case_createdByName",
   "case_createdDate",
   "case_lastModifiedDate",

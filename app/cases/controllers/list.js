@@ -1,7 +1,7 @@
 'use strict';
 
 import * as FileSaver from 'filesaver.js';
-import { strataCaseFields } from '../constants/strataCaseFields';
+import { solrCaseFields } from '../constants/solrCaseFields';
 
 export default class List {
     constructor($scope, $rootScope, $filter, $location, $state, $uibModal, securityService, AlertService, SearchCaseService, CaseService, strataService, AUTH_EVENTS, NEW_CASE_CONFIG, CASE_EVENTS, CASE_GROUPS, STATUS, gettextCatalog, RHAUtils, HeaderService) {
@@ -33,7 +33,7 @@ export default class List {
 
             try {
                 const query = `case_accountNumber:${this.securityService.loginStatus.authedUser.account.number}`;
-                const response = await strataService.cases.advancedSearch(query, null, 0, 10000, 'csv', strataCaseFields);
+                const response = await strataService.cases.advancedSearch(query, null, 0, 10000, 'csv', solrCaseFields);
                 const csvBlob = new Blob([response], {
                     type: 'text/csv'
                 });
