@@ -4,7 +4,7 @@ import _ from 'lodash';
 import hydrajs from '../../shared/hydrajs';
 
 export default class AttachmentsService {
-    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, HeaderService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog, AUTH_EVENTS) {
+    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, HeaderService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog, AUTH_EVENTS, $interval) {
         'ngInject';
 
         this.originalAttachments = [];
@@ -269,11 +269,11 @@ export default class AttachmentsService {
             attachment.abort();
         };
 
-        this.refreshTokenIfNeeded = async () => {
+        this.refreshTokenIfNeeded = (timeRemaining = 30) => {
             const isTokenExpired = _.get(window,'sessionjs._state.keycloak.isTokenExpired');
-            if(isTokenExpired && isTokenExpired(100)) {
-                console.log("Updating token forcefully");
-                await window.sessionjs.updateToken(true);
+            const isIE11 = !((!(window.ActiveXObject) && 'ActiveXObject' in window));
+            if( isIE11 && isTokenExpired && isTokenExpired(timeRemaining)) {
+                window.sessionjs.updateToken(true);
             }
         }
 
@@ -330,9 +330,9 @@ export default class AttachmentsService {
                                     if ($rootScope.$$phase !== '$apply' && $rootScope.$$phase !== '$digest') {
                                         $rootScope.$apply();
                                     }
-                                    this.refreshTokenIfNeeded();
                                 };
-
+                                // While upload is in progress, Keep trying to refreshing Auth token after every 3 minutes if its ie11 and token is set to expire within 50 seconds.
+                                var refreshTokenInterval = $interval(()=>{this.refreshTokenIfNeeded(50)}, 3*60*1000);
                                 try {
                                     await hydrajs.kase.attachments.uploadAttachmentS3(
                                         caseId,
@@ -379,6 +379,8 @@ export default class AttachmentsService {
                                     if (this.updatedAttachments.length === 0) {
                                         this.uploadingAttachments = false;
                                     }
+                                } finally {
+                                    $interval.cancel(refreshTokenInterval);
                                 }
                             }
                         }));
