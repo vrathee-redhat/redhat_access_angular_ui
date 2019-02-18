@@ -5,7 +5,6 @@ if  [ "$1" = "" ] ; then
     exit
 fi
 
-npm install -g versiony-cli &&
 versiony --version=$1 --to=package.json,bower.json &&
 npm install &&
 git commit -am "Publish version $1" &&
