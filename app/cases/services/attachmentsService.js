@@ -4,7 +4,7 @@ import _ from 'lodash';
 import hydrajs from '../../shared/hydrajs';
 
 export default class AttachmentsService {
-    constructor($q, $sce, $state, $window, $location, $rootScope, $timeout, RHAUtils, strataService, HeaderService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog, AUTH_EVENTS, $interval) {
+    constructor($q, $sce, $state, $window, $location, $rootScope, RHAUtils, strataService, TreeViewSelectorUtils, $http, securityService, AlertService, CaseService, gettextCatalog, AUTH_EVENTS) {
         'ngInject';
 
         this.originalAttachments = [];
@@ -17,7 +17,7 @@ export default class AttachmentsService {
         this.maxAttachmentSize;
         this.s3EnabledForAccount = false;
 
-        this.init = async () => { 
+        this.init = async () => {
             this.s3EnabledForAccount = await this.isValidS3UploadAccount();
         };
 
@@ -269,11 +269,14 @@ export default class AttachmentsService {
             attachment.abort();
         };
 
-        this.refreshTokenIfNeeded = (timeRemaining = 30) => {
+        this.refreshTokenIfNeeded = async (timeRemaining = 60) => {
             const isTokenExpired = _.get(window,'sessionjs._state.keycloak.isTokenExpired');
-            const isIE11 = !((!(window.ActiveXObject) && 'ActiveXObject' in window));
-            if( isIE11 && isTokenExpired && isTokenExpired(timeRemaining)) {
-                window.sessionjs.updateToken(true);
+            if(isTokenExpired && isTokenExpired(timeRemaining)) {
+                try{
+                    await window.sessionjs.updateToken(true);
+                } catch(e) {
+                    console.log('failed to update token');
+                }
             }
         }
 
@@ -331,8 +334,9 @@ export default class AttachmentsService {
                                         $rootScope.$apply();
                                     }
                                 };
-                                // While upload is in progress, Keep trying to refreshing Auth token after every 3 minutes if its ie11 and token is set to expire within 50 seconds.
-                                var refreshTokenInterval = $interval(()=>{this.refreshTokenIfNeeded(50)}, 3*60*1000);
+                                // While upload is in progress, Keep trying to refreshing Auth token after every 50 seconds if its ie11 and token is about to expire within 60 seconds.
+                                const isIE11 = !((!(window.ActiveXObject) && 'ActiveXObject' in window));
+                                const refreshTokenInterval = isIE11 ? setInterval(()=>{this.refreshTokenIfNeeded()}, 50*1000): undefined;
                                 try {
                                     await hydrajs.kase.attachments.uploadAttachmentS3(
                                         caseId,
@@ -380,7 +384,7 @@ export default class AttachmentsService {
                                         this.uploadingAttachments = false;
                                     }
                                 } finally {
-                                    $interval.cancel(refreshTokenInterval);
+                                    refreshTokenInterval && clearInterval(refreshTokenInterval);
                                 }
                             }
                         }));
