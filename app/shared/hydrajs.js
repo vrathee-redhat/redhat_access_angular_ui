@@ -32693,8 +32693,9 @@ function callFetchAndHandleJwt(uri, params, dataType, externalUrl) {
             params.headers['Authorization'] = getToken();
         }
         else if (isIE11) {
-            // https://stackoverflow.com/questions/16098430/angular-ie-caching-issue-for-http
-            params.headers['cache-burst-param'] = new Date().getTime();
+            // uri.addQueryParam('', new Date().getTime());
+            params.cache = false;
+            // params['cache-burst-param'] = new Date().getTime();
         }
     }
     return new Promise(function (resolve, reject) {
