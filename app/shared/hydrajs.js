@@ -32693,7 +32693,7 @@ function callFetchAndHandleJwt(uri, params, dataType, externalUrl) {
             params.headers['Authorization'] = getToken();
         }
         else if (isIE11) {
-            params.cache = 'no-store';
+            params.headers['cache-control'] = 'no-store';
         }
     }
     return new Promise(function (resolve, reject) {
