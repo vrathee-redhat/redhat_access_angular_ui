@@ -1,6 +1,6 @@
 {
   "name": "redhat_access_angular_ui",
-  "version": "1.4.57",
+  "version": "1.4.58",
   "devDependencies": {
     "angular": "~1.5.7",
     "angular-animate": "~1.5.7",
