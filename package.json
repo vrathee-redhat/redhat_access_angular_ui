@@ -1,6 +1,6 @@
 {
   "name": "redhat_access_angular_ui",
-  "version": "1.4.58",
+  "version": "1.4.59",
   "devDependencies": {
     "angular": "~1.5.7",
     "angular-animate": "~1.5.7",
@@ -68,7 +68,7 @@
     "null-loader": "~0.1.1",
     "pegjs": "~0.9.0",
     "raw-loader": "~0.5.1",
-    "redhat_access_pcm_ascension_common": "1.2.67",
+    "redhat_access_pcm_ascension_common": "1.2.68",
     "requirejs": "~2.1.11",
     "rimraf": "~2.5.3",
     "sass-loader": "~4.0.0",
