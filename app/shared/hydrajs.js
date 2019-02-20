@@ -32694,9 +32694,6 @@ function callFetchAndHandleJwt(uri, params, dataType, externalUrl) {
         else if (getToken() && !isIE11) {
             params.headers['Authorization'] = getToken();
         }
-        else if (isIE11) {
-            uri.addQueryParam('', new Date().getTime());
-        }
     }
     return new Promise(function (resolve, reject) {
         var start;
