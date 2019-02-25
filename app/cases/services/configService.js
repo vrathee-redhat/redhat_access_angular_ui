@@ -36,7 +36,7 @@ export default class ConfigService {
 
         this.loadConfig = async () => {
             try {
-                this.config = await hydrajs.maintenance.getMaintenanceMode('pcm_configurations')
+                this.config = await hydrajs.maintenance.getMaintenanceMode('pcm_configurations') || [];
             } catch (e) {
                 AlertService.addStrataErrorMessage(error);
             }

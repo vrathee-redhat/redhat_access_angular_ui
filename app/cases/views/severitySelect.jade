@@ -6,7 +6,7 @@
                 th(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct') {{'Standard' |translate}}
                 th(ng-show='!$parent.CaseService.kase.isOpenShiftOnlineProduct') {{'Premium' |translate}}
         tbody
-            tr(ng-repeat-start="severity in severities.slice().reverse()", ng-disabled="!$parent.CaseService.isValidSeverity(severity.name)", ng-click="toggleDetails(severity, $event)").list-item.severity-row
+            tr(ng-repeat-start="severity in severities.slice().reverse()", ng-disabled="!$parent.CaseService.isValidSeverity(severity.name)").list-item.severity-row
                 td.severity(id="severity_{{severity.name.substring(0,1)}}")
                     input.pull-left.severity-radio#severity-radio(type="radio" ng-model="createdCase.severity" ng-value="severity" ng-click="toggleDetails(severity, $event)", ng-selected="openedDetails[severity.name] === true")
                     span(ng-if="!ie8")
