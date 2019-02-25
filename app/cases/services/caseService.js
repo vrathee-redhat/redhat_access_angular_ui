@@ -1,21 +1,21 @@
 'use strict';
 
-import _        from 'lodash';
-import hydrajs  from '../../shared/hydrajs.js';
+import _ from 'lodash';
+import hydrajs from '../../shared/hydrajs.js';
 
 export default class CaseService {
-    constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location) {
+    constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location, ConfigService) {
         'ngInject';
 
         this.localStorageCache = CacheFactory.get('localStorageCache');
-        if ( RHAUtils.isEmpty(this.localStorageCache) ) {
+        if (RHAUtils.isEmpty(this.localStorageCache)) {
             this.localStorageCache = CacheFactory('localStorageCache', {
                 storageMode: 'localStorage',
                 verifyIntegrity: true
             })
         }
         this.sessionStorageCache = CacheFactory.get('sessionStorageCache');
-        if ( RHAUtils.isEmpty(this.sessionStorageCache) ) {
+        if (RHAUtils.isEmpty(this.sessionStorageCache)) {
             this.sessionStorageCache = CacheFactory('sessionStorageCache', {
                 storageMode: 'sessionStorage',
                 verifyIntegrity: true
@@ -81,7 +81,7 @@ export default class CaseService {
         this.managedAccountUsers = [];
         this.caseRMEEscalation = [];
         this.hydraCaseDetail = {};
-        this.internalStatuses= [
+        this.internalStatuses = [
             "Unassigned",
             "Waiting on Customer",
             "Waiting on Collaboration",
@@ -164,28 +164,28 @@ export default class CaseService {
             angular.forEach(this.severities, function (severity) {
                 severity.responseTimes = {};
                 if (severity.name === '1 (Urgent)') {
-                    severity.responseTimes.standard = gettextCatalog.getString('{{hours}} business hour', {hours: 1});
-                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} hour', {hours: 1});
+                    severity.responseTimes.standard = gettextCatalog.getString('{{hours}} business hour', { hours: 1 });
+                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} hour', { hours: 1 });
                     severity.details = gettextCatalog.getString('A problem that severely impacts your use of the software in a production environment ' +
                         '(such as loss of production data or in which your production systems are not functioning). ' +
                         'The situation halts your business operations and no procedural workaround exists.');
                 } else if (severity.name === '2 (High)') {
-                    severity.responseTimes.standard = gettextCatalog.getString('{{hours}} business hours', {hours: 4});
-                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} hours', {hours: 2});
+                    severity.responseTimes.standard = gettextCatalog.getString('{{hours}} business hours', { hours: 4 });
+                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} hours', { hours: 2 });
                     severity.details = gettextCatalog.getString('A problem where the software is functioning but your use in a production environment ' +
                         'is severely reduced. The situation is causing a high impact to portions of your business ' +
                         'operations and no procedural workaround exists.');
                 } else if (severity.name === '3 (Normal)') {
-                    severity.responseTimes.standard = gettextCatalog.getString('{{days}} business day', {days: 1});
-                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} business hours', {hours: 4});
+                    severity.responseTimes.standard = gettextCatalog.getString('{{days}} business day', { days: 1 });
+                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} business hours', { hours: 4 });
                     severity.details = gettextCatalog.getString('A problem that involves partial, non-critical loss of use of the software in ' +
                         'a production environment or development environment. For production environments, there is a ' +
                         'medium-to-low impact on your business, but your business continues to function, including by ' +
                         'using a procedural workaround. For development environments, where the situation is causing ' +
                         'your project to no longer continue or migrate into production.');
                 } else if (severity.name === '4 (Low)') {
-                    severity.responseTimes.standard = gettextCatalog.getString('{{days}} business days', {days: 2});
-                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} business hours', {hours: 8});
+                    severity.responseTimes.standard = gettextCatalog.getString('{{days}} business days', { days: 2 });
+                    severity.responseTimes.premium = gettextCatalog.getString('{{hours}} business hours', { hours: 8 });
                     severity.details = gettextCatalog.getString('A general usage question, reporting of a documentation error, or recommendation ' +
                         'for a future product enhancement or modification. For production environments, there is ' +
                         'low-to-no impact on your business or the performance or functionality of your system. For ' +
@@ -206,8 +206,8 @@ export default class CaseService {
             $rootScope.$broadcast(CASE_EVENTS.searchSubmit);
         };
         this.onOwnerSelectChanged = function (ownerSelect = false) {
-            if(RHAUtils.isNotEmpty(this.account.number) && RHAUtils.isNotEmpty(this.managedAccountUsers) && !_.includes(_.map(this.managedAccountUsers,'sso_username'),this.owner)) {
-                if(RHAUtils.isNotEmpty(_.first(_.filter(this.managedAccountUsers, (user) => user.org_admin)))) {
+            if (RHAUtils.isNotEmpty(this.account.number) && RHAUtils.isNotEmpty(this.managedAccountUsers) && !_.includes(_.map(this.managedAccountUsers, 'sso_username'), this.owner)) {
+                if (RHAUtils.isNotEmpty(_.first(_.filter(this.managedAccountUsers, (user) => user.org_admin)))) {
                     this.virtualOwner = _.first(_.filter(this.managedAccountUsers, (user) => user.org_admin)).sso_username;
                 } else {
                     this.virtualOwner = this.managedAccountUsers[0].sso_username;
@@ -248,10 +248,10 @@ export default class CaseService {
          */
         this.defineCase = function (rawCase) {
             /*jshint camelcase: false */
-            rawCase.severity = {'name': rawCase.severity};
-            rawCase.status = {'name': rawCase.status};
-            rawCase.group = {'number': rawCase.folder_number};
-            rawCase.type = {'name': rawCase.type};
+            rawCase.severity = { 'name': rawCase.severity };
+            rawCase.status = { 'name': rawCase.status };
+            rawCase.group = { 'number': rawCase.folder_number };
+            rawCase.type = { 'name': rawCase.type };
             this.kase = rawCase;
             this.ungroupedCaseModifier();
             angular.copy(this.kase, this.prestineKase);
@@ -264,10 +264,10 @@ export default class CaseService {
             angular.copy(this.prestineKase, this.kase);
         };
         this.setCase = function (jsonCase) {
-            jsonCase.severity = {'name': jsonCase.severity};
-            jsonCase.status = {'name': jsonCase.status};
-            jsonCase.group = {'number': jsonCase.folder_number};
-            jsonCase.type = {'name': jsonCase.type};
+            jsonCase.severity = { 'name': jsonCase.severity };
+            jsonCase.status = { 'name': jsonCase.status };
+            jsonCase.group = { 'number': jsonCase.folder_number };
+            jsonCase.type = { 'name': jsonCase.type };
             this.kase = jsonCase;
             this.ungroupedCaseModifier();
             angular.copy(this.kase, this.prestineKase);
@@ -277,20 +277,20 @@ export default class CaseService {
             this.onProductSelectChange();
         };
 
-        this.fetchHydraCaseDetails = async function() {
+        this.fetchHydraCaseDetails = async function () {
             if (securityService.loginStatus.authedUser.is_internal && RHAUtils.isNotEmpty(this.kase) && this.kase.case_number) {
                 try {
                     this.hydraCaseDetail = await hydrajs.kase.getCase(this.kase.case_number, hydrajs.fields.getCaseFields({ includeCaseOwner: true }));
-                  } catch (error) {
+                } catch (error) {
                     this.hydraCaseDetail = {};
-                  }
+                }
             }
         }
 
         //Explicitly assigning group_number = '-1' for ungrouped case when case payload has no group information
         this.ungroupedCaseModifier = function () {
             if (RHAUtils.isEmpty(this.kase.group.number)) {
-                this.kase.group = {"number": "-1", "name": "Ungrouped Case", "is_private": false, "is_default": false};
+                this.kase.group = { "number": "-1", "name": "Ungrouped Case", "is_private": false, "is_default": false };
             }
         };
 
@@ -326,7 +326,7 @@ export default class CaseService {
         this.getGroups = function () {
             return this.groups;
         };
-        this.sbrDiff = function(a, b) {
+        this.sbrDiff = function (a, b) {
             if (!a) return b;
             if (!b) return a;
             return _.filter(a, (i) => b.indexOf(i) < 0);
@@ -378,11 +378,11 @@ export default class CaseService {
         this.groupsLoading = false;
         this.populateGroups = function (ssoUsername, flushCache) {
             var deferred = $q.defer();
-            if(!this.groupsLoading) {
+            if (!this.groupsLoading) {
                 this.groupsLoading = true;
                 var username = ssoUsername;
                 if (username === undefined) {
-                    this.groups=[];
+                    this.groups = [];
                     this.buildGroupOptions();
                     this.groupsLoading = false;
                     deferred.resolve(this.groups)
@@ -407,10 +407,10 @@ export default class CaseService {
         this.usersLoading = false;
 
         this.isManagedAccount = (accountNumber) => {
-            if(RHAUtils.isNotEmpty(accountNumber)) {
-                if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
+            if (RHAUtils.isNotEmpty(accountNumber)) {
+                if (RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts) &&
                     RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts.accounts) &&
-                    _.includes(_.map(securityService.loginStatus.authedUser.managedAccounts.accounts,'accountNum'),accountNumber)) {
+                    _.includes(_.map(securityService.loginStatus.authedUser.managedAccounts.accounts, 'accountNum'), accountNumber)) {
                     return true;
                 } else {
                     return false;
@@ -420,10 +420,10 @@ export default class CaseService {
         };
 
         this.isAuthedUserAccount = (accountNumber) => {
-            if(RHAUtils.isNotEmpty(accountNumber) && securityService.loginStatus.authedUser.account_number==accountNumber) {
+            if (RHAUtils.isNotEmpty(accountNumber) && securityService.loginStatus.authedUser.account_number == accountNumber) {
                 return true;
             }
-            return  false;
+            return false;
         };
 
         /**
@@ -460,10 +460,10 @@ export default class CaseService {
                         this.usersLoading = false;
                         this.users = users;
 
-                        if(this.isAuthedUserAccount(accountNumber)) {
+                        if (this.isAuthedUserAccount(accountNumber)) {
                             this.loggedInAccountUsers = users;
                         }
-                        if(this.isManagedAccount(accountNumber)) {
+                        if (this.isManagedAccount(accountNumber)) {
                             this.managedAccountUsers = users;
                             this.users = _.concat(this.managedAccountUsers, this.loggedInAccountUsers);
                         }
@@ -514,7 +514,7 @@ export default class CaseService {
             }
         };
 
-        this.feedbackComment = async function(element, feedback) {
+        this.feedbackComment = async function (element, feedback) {
             if (RHAUtils.isNotEmpty(this.kase) && RHAUtils.isNotEmpty(element)) {
                 const commJson = {
                     feedback: feedback,
@@ -534,11 +534,11 @@ export default class CaseService {
                 }
             }
         };
-        this.populateComments = function(caseNumber) {
+        this.populateComments = function (caseNumber) {
             var promise = strataService.cases.comments.get(caseNumber);
             var draftId;
-            promise.then(angular.bind(this, function(comments) {
-                angular.forEach(comments, angular.bind(this, function(comment, index) {
+            promise.then(angular.bind(this, function (comments) {
+                angular.forEach(comments, angular.bind(this, function (comment, index) {
                     if (comment.draft === true) {
                         this.draftComment = comment;
                         this.draftCommentOnServerExists = true;
@@ -583,9 +583,9 @@ export default class CaseService {
             return promise;
         };
 
-        this.populateCommentsFeedback = function(caseNumber) {
+        this.populateCommentsFeedback = function (caseNumber) {
             var promise = hydrajs.commentFeedback.getCommentFeedback(caseNumber);
-            promise.then(angular.bind(this, function(response) {
+            promise.then(angular.bind(this, function (response) {
                 _.forEach(this.comments, (comment) => {
                     let commentFeedback = _.filter(response, (comm) => comm.commentId === comment.id);
                     if (RHAUtils.isNotEmpty(commentFeedback[0])) {
@@ -645,18 +645,18 @@ export default class CaseService {
             }));
         };
 
-        this.updateAndValidateEntitlements = function(product) {
+        this.updateAndValidateEntitlements = function (product) {
             // case_number is empty means its new case create page
-            if(_.isEmpty(this.kase.case_number)) {
-                if(!_.isEmpty(this.kase.product) && !_.isEmpty(product)){
+            if (_.isEmpty(this.kase.case_number)) {
+                if (!_.isEmpty(this.kase.product) && !_.isEmpty(product)) {
                     this.entitlements = product.serviceLevels;
                     this.entitlement = product.preferredServiceLevel;
                 }
             } else {
                 // case_number is not empty means its case edit page
-                if(!_.isEmpty(this.kase.entitlement.sla) && (this.kase.entitlement.sla==='PREMIUMPLUS' || this.kase.entitlement.sla==='PREMIUM PLUS')){
-                    if(!_.isEmpty(this.kase.product) && !_.includes(this.premiumPlusProducts,this.kase.product)) {
-                        AlertService.addWarningMessage(gettextCatalog.getString('Selected product {{productName}} is not entitled for Premium Plus support level.',{productName:this.kase.product}));
+                if (!_.isEmpty(this.kase.entitlement.sla) && (this.kase.entitlement.sla === 'PREMIUMPLUS' || this.kase.entitlement.sla === 'PREMIUM PLUS')) {
+                    if (!_.isEmpty(this.kase.product) && !_.includes(this.premiumPlusProducts, this.kase.product)) {
+                        AlertService.addWarningMessage(gettextCatalog.getString('Selected product {{productName}} is not entitled for Premium Plus support level.', { productName: this.kase.product }));
                         this.kase.product = this.prestineKase.product;
                     }
                 }
@@ -710,18 +710,33 @@ export default class CaseService {
         };
 
         this.newCaseIncomplete = true;
+
+        this.allowedSeveritiesForProductAndVersion = () => {
+            const config = ConfigService.getField('product_severity', 'JSON-HASHMAP');
+            const allSeverities = _.map(this.severities, (v) => (v.name));
+            const productConfig = _.get(config, this.kase.product);
+            if (!productConfig) return allSeverities;
+            const versionConfig = _.find(productConfig.versionSeverities, (v) => (v.version === this.kase.version));
+            return _.get(versionConfig, 'severities') || productConfig.severities || allSeverities;
+        }
+
+        this.isValidSeverity = (severity) => {
+            const allowedSeverities = this.allowedSeveritiesForProductAndVersion();
+            return Boolean(_.find(allowedSeverities, (v) => (v === severity)));
+        }
+
         this.validateNewCase = function () {
-            if (RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary)
-                || ( !this.showKTFields && RHAUtils.isEmpty(this.kase.description) )
-                || ( this.showKTFields
+            if (!this.isValidSeverity(_.get(this.kase.severity, 'name')) || RHAUtils.isEmpty(this.kase.product) || RHAUtils.isEmpty(this.kase.version) || RHAUtils.isEmpty(this.kase.summary)
+                || (!this.showKTFields && RHAUtils.isEmpty(this.kase.description))
+                || (this.showKTFields
                     && RHAUtils.isEmpty(this.kase.problem)
                     && RHAUtils.isEmpty(this.kase.environment)
                     && RHAUtils.isEmpty(this.kase.occurance)
                     && RHAUtils.isEmpty(this.kase.urgency)
-                    )
+                )
                 || RHAUtils.isEmpty(this.kase.type)
                 || (securityService.loginStatus.authedUser.is_internal && RHAUtils.isEmpty(this.owner))
-                ||(this.requireCaseGroup && RHAUtils.isEmpty(this.group))) {
+                || (this.requireCaseGroup && RHAUtils.isEmpty(this.group))) {
                 this.newCaseIncomplete = true;
             } else {
                 this.newCaseIncomplete = false;
@@ -746,9 +761,9 @@ export default class CaseService {
                     value: '',
                     label: gettextCatalog.getString('All Groups')
                 }, {
-                    value: 'ungrouped',
-                    label: gettextCatalog.getString('Ungrouped Cases')
-                });
+                        value: 'ungrouped',
+                        label: gettextCatalog.getString('Ungrouped Cases')
+                    });
             } else {
                 this.groupOptions.push({
                     value: '',
@@ -778,9 +793,9 @@ export default class CaseService {
                     isDisabled: true,
                     label: sep
                 }, {
-                    value: 'manage',
-                    label: gettextCatalog.getString('Manage Case Groups')
-                });
+                        value: 'manage',
+                        label: gettextCatalog.getString('Manage Case Groups')
+                    });
             }
         };
 
@@ -808,12 +823,12 @@ export default class CaseService {
             if (RHAUtils.isNotEmpty(this.kase.hostname)) {
                 caseJSON.hostname = this.kase.hostname;
             }
-            if(this.showKTFields) {
+            if (this.showKTFields) {
                 if (RHAUtils.isNotEmpty(this.kase.problem)) {
                     caseJSON.issue = this.kase.problem;
                 }
                 if (RHAUtils.isNotEmpty(this.kase.environment)) {
-                caseJSON.environment = this.kase.environment;
+                    caseJSON.environment = this.kase.environment;
                 }
                 if (RHAUtils.isNotEmpty(this.kase.occurance)) {
                     caseJSON.periodicityOfIssue = this.kase.occurance;
@@ -845,13 +860,13 @@ export default class CaseService {
                 caseJSON.contactSsoUsername = this.owner;
             }
 
-            if(RHAUtils.isNotEmpty(recommendations)) {
+            if (RHAUtils.isNotEmpty(recommendations)) {
                 caseJSON.recommendations = {
                     recommendation: []
                 };
-                recommendations.forEach(function (rec,index) {
-                    caseJSON.recommendations.recommendation.push(this.getRecommendationObject(rec,index));
-                },this);
+                recommendations.forEach(function (rec, index) {
+                    caseJSON.recommendations.recommendation.push(this.getRecommendationObject(rec, index));
+                }, this);
             }
 
             this.correctSupportLevelAndFTS(caseJSON);
@@ -860,13 +875,13 @@ export default class CaseService {
             AlertService.addWarningMessage(gettextCatalog.getString('Creating case...'));
             strataService.cases.post(caseJSON).then(function (caseNumber) {
                 AlertService.clearAlerts();
-                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created case number {{caseNumber}}', {caseNumber: caseNumber}));
+                AlertService.addSuccessMessage(gettextCatalog.getString('Successfully created case number {{caseNumber}}', { caseNumber: caseNumber }));
                 self.clearLocalStorageCacheForNewCase();
                 // Send the newly created case number to API as mentioned in PCM-5350
                 // Once, the data is sent, delete the caseCreateKey entry from localStorage
-                if(RHAUtils.isNotEmpty(self.externalCaseCreateKey) && self.externalCaseCreateKey.includes('se-')) {
+                if (RHAUtils.isNotEmpty(self.externalCaseCreateKey) && self.externalCaseCreateKey.includes('se-')) {
                     const caseNumObj = {
-                        caseNumber:caseNumber
+                        caseNumber: caseNumber
                     };
                     const guid = JSON.parse(window.localStorage.getItem(self.externalCaseCreateKey)).guid;
                     strataService.solutionEngine.sendCaseNumber(caseNumObj, guid).then(function () {
@@ -886,7 +901,7 @@ export default class CaseService {
             return deferred.promise;
         };
 
-        this.getRecommendationObject = function (rec,index){
+        this.getRecommendationObject = function (rec, index) {
             var recommendation = {};
             recommendation.resourceId = rec.id;
             recommendation.resourceURI = rec.uri;
@@ -899,10 +914,10 @@ export default class CaseService {
             recommendation.analysisService = "calaveras";
             recommendation.algorithmScore = rec.score;
             recommendation.resource = "Summary";
-            var bucket = index===0 ? 4 :3;
+            var bucket = index === 0 ? 4 : 3;
             recommendation.bucket = bucket;
             recommendation.analysisCategory = "Text Analysis";
-            if ( rec.documentKind === "Solution" ) {
+            if (rec.documentKind === "Solution") {
                 recommendation.solutionOwnerSSOName = rec.authorSSOName;
                 recommendation.solutionAbstract = rec.abstract;
                 recommendation.solutionTitle = rec.title;
@@ -993,17 +1008,17 @@ export default class CaseService {
 
             let deletedSbrs = [];
             let addedSbrs = [];
-            if(RHAUtils.isNotEmpty(this.kase.sbr_groups.sbr_group) || RHAUtils.isNotEmpty(this.prestineKase.sbr_groups.sbr_group)) {
+            if (RHAUtils.isNotEmpty(this.kase.sbr_groups.sbr_group) || RHAUtils.isNotEmpty(this.prestineKase.sbr_groups.sbr_group)) {
                 //Sbr logic  - http://pastebin.test.redhat.com/492854
-                if(this.prestineKase.sbr_groups.sbr_group) {
+                if (this.prestineKase.sbr_groups.sbr_group) {
                     deletedSbrs = this.sbrDiff(this.prestineKase.sbr_groups.sbr_group, this.kase.sbr_groups.sbr_group);
                 }
                 addedSbrs = this.sbrDiff(this.kase.sbr_groups.sbr_group, this.prestineKase.sbr_groups.sbr_group);
             }
 
             try {
-                let addSbrJSON = { };
-                let removeSbrJSON = { };
+                let addSbrJSON = {};
+                let removeSbrJSON = {};
                 if (addedSbrs.length > 0 && deletedSbrs.length > 0) {
                     addSbrJSON.sbrGroup = addedSbrs;
                     removeSbrJSON.sbrGroup = deletedSbrs;
@@ -1079,7 +1094,7 @@ export default class CaseService {
                 if (RHAUtils.isNotEmpty(this.kase.type)) {
                     draftNewCase.type = this.kase.type;
                 }
-                var newCaseDescLocalStorage = {'text': draftNewCase};
+                var newCaseDescLocalStorage = { 'text': draftNewCase };
                 this.localStorageCache.put(securityService.loginStatus.authedUser.sso_username, newCaseDescLocalStorage);
             }
         };
@@ -1091,12 +1106,12 @@ export default class CaseService {
         this.checkForCaseStatusToggleOnAttachOrComment = function () {
             var status = {};
             if (!securityService.loginStatus.authedUser.is_internal && this.kase.status.name === 'Closed') {
-                status = {name: 'Waiting on Red Hat'};
+                status = { name: 'Waiting on Red Hat' };
                 this.kase.status = status;
             }
 
             if (!securityService.loginStatus.authedUser.is_internal && this.kase.status.name === 'Waiting on Customer') {
-                status = {name: 'Waiting on Red Hat'};
+                status = { name: 'Waiting on Red Hat' };
                 this.kase.status = status;
             }
         };
@@ -1141,10 +1156,10 @@ export default class CaseService {
             this.creationStartedEventSent = flag;
         };
 
-        this.getCaseEscalation = async function(accountNumber, caseNumber) {
+        this.getCaseEscalation = async function (accountNumber, caseNumber) {
             try {
                 if (RHAUtils.isNotEmpty(caseNumber) && RHAUtils.isNotEmpty(accountNumber)) {
-                    const options = {caseNumber,accountNumber};
+                    const options = { caseNumber, accountNumber };
                     const escalations = await hydrajs.escalations.getEscalations(options);
                     if (escalations && escalations.length >= 0) {
                         const rmeEscalation = _.filter(escalations, (es) => es && es.escalationSource === 'RME Escalation');

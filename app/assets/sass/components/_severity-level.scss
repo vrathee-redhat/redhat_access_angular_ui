@@ -36,7 +36,7 @@
 
 .icon-severity {
 
-	.list-item:hover &, &:hover {
+	.list-item:hover:not([disabled]) &, &:hover:not([disabled]) {
 		background: $red;
 		color: #fff;
 
@@ -45,13 +45,21 @@
 		&.level4 { background: #78848C; }
 	}
 }
+
+tr[disabled] {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
 #severity-select{
 	input.severity-radio {
 		margin-top: 9px;
 	}
 }
 
-
+.warning {
+	color: #cc0000;
+}
 
 .severity-time-description {
 	margin-top: 5px;
