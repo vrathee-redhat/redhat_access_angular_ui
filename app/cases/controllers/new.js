@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 export default class New {
     constructor($scope, $state, $timeout, $uibModal, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService,
-                ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5, COMMON_CONFIG) {
+        ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5, COMMON_CONFIG) {
         'ngInject';
 
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
@@ -30,7 +30,7 @@ export default class New {
 
         $scope.showRecommendationPanel = false;
         $scope.kase = {
-            notifiedUsers : []
+            notifiedUsers: []
         };
         $scope.caseGroupRequired = false;
 
@@ -42,9 +42,9 @@ export default class New {
 
         $scope.$watch('CaseService.account.name', function () {
             //checking whether the account is a managed account or not
-            if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts)){
-                for( var a of securityService.loginStatus.authedUser.managedAccounts.accounts){
-                    if(a.accountNum === CaseService.account.number){
+            if (RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.managedAccounts)) {
+                for (var a of securityService.loginStatus.authedUser.managedAccounts.accounts) {
+                    if (a.accountNum === CaseService.account.number) {
                         isManagedAccount = true;
                         break;
                     } else {
@@ -53,7 +53,7 @@ export default class New {
                 }
             }
 
-            if(RHAUtils.isNotEmpty(CaseService.account.require_cgroup_on_create) && CaseService.account.require_cgroup_on_create){
+            if (RHAUtils.isNotEmpty(CaseService.account.require_cgroup_on_create) && CaseService.account.require_cgroup_on_create) {
                 CaseService.requireCaseGroup = true;
                 $scope.caseGroupRequired = true;
             } else {
@@ -62,9 +62,9 @@ export default class New {
             }
         });
 
-        $scope.$watch('securityService.loginStatus.authedUser', function(){
-            if(RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.account)){
-                if(securityService.loginStatus.authedUser.account.require_cgroup_on_create){
+        $scope.$watch('securityService.loginStatus.authedUser', function () {
+            if (RHAUtils.isNotEmpty(securityService.loginStatus.authedUser.account)) {
+                if (securityService.loginStatus.authedUser.account.require_cgroup_on_create) {
                     $scope.caseGroupRequired = true;
                     CaseService.requireCaseGroup = true;
                 } else {
@@ -74,15 +74,15 @@ export default class New {
             }
         });
 
-        $scope.$watch('CaseService.owner', function(){
-            if(isManagedAccount){
-                for(var a of CaseService.loggedInAccountUsers){
-                    if(CaseService.owner === a.sso_username){
+        $scope.$watch('CaseService.owner', function () {
+            if (isManagedAccount) {
+                for (var a of CaseService.loggedInAccountUsers) {
+                    if (CaseService.owner === a.sso_username) {
                         CaseService.requireCaseGroup = false;
                         $scope.caseGroupRequired = false;
                         break;
                     } else {
-                        if(RHAUtils.isNotEmpty(CaseService.account.require_cgroup_on_create) && CaseService.account.require_cgroup_on_create){
+                        if (RHAUtils.isNotEmpty(CaseService.account.require_cgroup_on_create) && CaseService.account.require_cgroup_on_create) {
                             CaseService.requireCaseGroup = true;
                             $scope.caseGroupRequired = true;
                         } else {
@@ -113,7 +113,7 @@ export default class New {
             if (!waiting) {
                 var descriptionText = CaseService.kase.description;
 
-                if(CaseService.showKTFields){
+                if (CaseService.showKTFields) {
                     // descriptionText = CaseService.kase.problem + ' ' + CaseService.kase.environment + ' ' + CaseService.kase.occurance + ' ' + CaseService.kase.urgency;
 
                     if (RHAUtils.isNotEmpty(CaseService.kase.problem) && CaseService.kase.problem.length > 0) {
@@ -168,10 +168,10 @@ export default class New {
         });
 
         const setUsers = () => {
-            if(securityService.loginStatus.authedUser.is_internal || securityService.loginStatus.authedUser.org_admin){
+            if (securityService.loginStatus.authedUser.is_internal || securityService.loginStatus.authedUser.org_admin) {
                 $scope.usersOnAccount = _.cloneDeep(CaseService.users);
                 $scope.usersOnAccount = $scope.usersOnAccount.concat(securityService.loginStatus.authedUser.accountContacts);
-                $scope.usersOnAccount = _.uniqBy($scope.usersOnAccount,'sso_username');
+                $scope.usersOnAccount = _.uniqBy($scope.usersOnAccount, 'sso_username');
             }
         }
         $scope.$watch('CaseService.users', () => setUsers());
@@ -179,7 +179,7 @@ export default class New {
 
         $scope.$on(CASE_EVENTS.ownerChange, function () {
             let caseOwner = CaseService.owner;
-            if(RHAUtils.isNotEmpty(CaseService.virtualOwner)){
+            if (RHAUtils.isNotEmpty(CaseService.virtualOwner)) {
                 caseOwner = CaseService.virtualOwner;
             }
             CaseService.populateGroups(caseOwner);
@@ -205,17 +205,17 @@ export default class New {
         //     }
         // });
 
-        $scope.canCreateCaseForOtherAccounts = function() {
-            return securityService.loginStatus.authedUser.is_internal || ($scope.userHasManagedAccounts() );
+        $scope.canCreateCaseForOtherAccounts = function () {
+            return securityService.loginStatus.authedUser.is_internal || ($scope.userHasManagedAccounts());
         };
 
-        $scope.disableEmailNotifySelect = function() {
-          return CaseService.usersLoading || CaseService.submittingCase || !securityService.loginStatus.authedUser.org_admin;
+        $scope.disableEmailNotifySelect = function () {
+            return CaseService.usersLoading || CaseService.submittingCase || !securityService.loginStatus.authedUser.org_admin;
         };
 
         $scope.showEnhancedSLA = function () {
-            if($scope.canCreateCaseForOtherAccounts()) {
-                if(RHAUtils.isNotEmpty(CaseService.account.number)){
+            if ($scope.canCreateCaseForOtherAccounts()) {
+                if (RHAUtils.isNotEmpty(CaseService.account.number)) {
                     return CaseService.account.has_enhanced_sla;
                 }
                 return false;
@@ -334,7 +334,7 @@ export default class New {
             strataService.products.list(CaseService.owner).then(function (products) {
                 CaseService.kase.product = product;
                 ProductsService.getVersions(CaseService.kase.product).then(function (versions) {
-                    if(RHAUtils.isNotEmpty(version)) {
+                    if (RHAUtils.isNotEmpty(version)) {
                         version = version.trim();
                         var matchingVersions = versions.filter(function (productVersion) {
                             return productVersion === version;
@@ -420,14 +420,14 @@ export default class New {
                 CaseService.externalCaseCreateKey = urlParameter.caseCreateKey;
                 //dummy stringified case object, need to delete this once get original object from solution engine or container catalog
                 //delete the below 2 lines when original integration is complete.
-                 // let newStrigifiedCaseObject = '{"product":"Red Hat Satellite or Proxy","version":"6.4","problemStatement":"test problem","issue":"test issue","environment":"test env","frequency":"test frequency","businessImpact":"test business","guid":"test"}';
-                 // window.localStorage.setItem(CaseService.externalCaseCreateKey, newStrigifiedCaseObject);
+                // let newStrigifiedCaseObject = '{"product":"Red Hat Satellite or Proxy","version":"6.4","problemStatement":"test problem","issue":"test issue","environment":"test env","frequency":"test frequency","businessImpact":"test business","guid":"test"}';
+                // window.localStorage.setItem(CaseService.externalCaseCreateKey, newStrigifiedCaseObject);
 
                 $scope.getCaseDetailsFromLocalStorage();
 
                 //remove the container catalog localStorageCache object once we populate the fields
                 //do not remove the solution engine localStorageCache object as we want to send the new case number to their API with guid
-                if(CaseService.externalCaseCreateKey.includes('cc-')) {
+                if (CaseService.externalCaseCreateKey.includes('cc-')) {
                     window.localStorage.removeItem(CaseService.externalCaseCreateKey);
                 }
             }
@@ -467,7 +467,7 @@ export default class New {
             AttachmentsService.proceedWithoutAttachments = false;
 
             var redirectToCase = function (caseNumber) {
-                $state.go('edit', {id: caseNumber});
+                $state.go('edit', { id: caseNumber });
                 AlertService.clearAlerts();
                 CaseService.submittingCase = false;
             };
@@ -480,9 +480,9 @@ export default class New {
                 }
 
                 //add notified users
-                try{
+                try {
                     if (CaseService.isNewPageCEP && caseNumber && RHAUtils.isNotEmpty(CaseService.newPageCEPComment)) {
-                        const caseJSON = {'cep': true};
+                        const caseJSON = { 'cep': true };
                         await strataService.cases.put(caseNumber, caseJSON);
                         await strataService.cases.comments.post(caseNumber, CaseService.newPageCEPComment, false, false);
                         CaseService.submittingCep = false;
@@ -518,7 +518,7 @@ export default class New {
                 });
                 proceedWithoutAttachModal.result.then(function () {
                     if (AttachmentsService.proceedWithoutAttachments) {
-                        if(CaseService.showKTFields) $scope.updateDescriptionString();
+                        if (CaseService.showKTFields) $scope.updateDescriptionString();
                         CaseService.createCase(RecommendationsService.recommendations).then(function (caseNumber) {
                             caseUploadsAndUpdates(caseNumber);
                         }, function (error) {
@@ -528,7 +528,7 @@ export default class New {
                     }
                 });
             } else {
-                if(CaseService.showKTFields) $scope.updateDescriptionString();
+                if (CaseService.showKTFields) $scope.updateDescriptionString();
                 CaseService.createCase(RecommendationsService.recommendations).then(function (caseNumber) {
                     caseUploadsAndUpdates(caseNumber);
                 }, function (error) {
@@ -573,7 +573,7 @@ export default class New {
             form.action = 'https://' + window.location.host + '/rs/cases/' + caseNumber + '/attachments';
 
             var redirectToCase = function (caseNumber) {
-                $state.go('edit', {id: caseNumber});
+                $state.go('edit', { id: caseNumber });
                 AlertService.clearAlerts();
                 CaseService.submittingCase = false;
             };
@@ -600,12 +600,12 @@ export default class New {
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         } else {
-                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}', {errorMessage: content}));
+                            AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}', { errorMessage: content }));
                             redirectToCase(caseNumber);
                             $scope.$apply();
                         }
                     } else {
-                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}', {errorMessage: content}));
+                        AlertService.addDangerMessage(gettextCatalog.getString('Error: Failed to upload attachment. Message: {{errorMessage}}', { errorMessage: content }));
                         redirectToCase(caseNumber);
                         $scope.$apply();
                     }
@@ -691,8 +691,8 @@ export default class New {
         };
 
         $scope.onCaseTypeChanged = function () {
-            let ktQuesArray= ['Defect / Bug','Usage / Documentation Help','Configuration issue','RCA Only'];
-            CaseService.showKTFields = ( ktQuesArray.indexOf(CaseService.kase.type.name) > -1 ) ? true : false;
+            let ktQuesArray = ['Defect / Bug', 'Usage / Documentation Help', 'Configuration issue', 'RCA Only'];
+            CaseService.showKTFields = (ktQuesArray.indexOf(CaseService.kase.type.name) > -1) ? true : false;
             CaseService.validateNewCase();
             CaseService.updateLocalStorageForNewCase();
             $scope.updateDescriptionString();
