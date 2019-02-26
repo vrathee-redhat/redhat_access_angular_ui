@@ -290,7 +290,6 @@ import SearchCaseService from './services/searchCaseService'
 import SOLRGrammarService from './services/solrGrammarService'
 import SearchBookmarkService from './services/searchBookmarkService'
 import PaginationService from './services/paginationService'
-import ConfigService from './services/configService';
 
 
 app.service('AccountBookmarkService', AccountBookmarkService);
@@ -311,6 +310,5 @@ app.service('SearchCaseService', SearchCaseService);
 app.service('SOLRGrammarService', SOLRGrammarService);
 app.service('SearchBookmarkService', SearchBookmarkService);
 app.service('PaginationService', PaginationService);
-app.service('ConfigService', ConfigService);
 
 export default app.name;

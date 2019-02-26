@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 export default class New {
     constructor($scope, $state, $timeout, $uibModal, SearchResultsService, AttachmentsService, strataService, RecommendationsService, CaseService, AlertService, HeaderService,
-        ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5, COMMON_CONFIG, ConfigService) {
+        ProductsService, securityService, AUTH_EVENTS, $location, RHAUtils, NEW_CASE_CONFIG, CASE_EVENTS, gettextCatalog, md5, COMMON_CONFIG) {
         'ngInject';
 
         $scope.NEW_CASE_CONFIG = NEW_CASE_CONFIG;
@@ -258,7 +258,6 @@ export default class New {
                 AlertService.addStrataErrorMessage(error);
             });
             $scope.groupsLoading = true;
-            ConfigService.loadConfig();
         };
         $scope.initDescription = function () {
             var searchObject = $location.search();
