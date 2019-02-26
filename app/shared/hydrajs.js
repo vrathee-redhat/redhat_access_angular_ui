@@ -27689,6 +27689,8 @@ function pollS3Upload(caseNumber, attachmentId, fileSize) {
                     return [4 /*yield*/, checkUploadStatusS3(caseNumber, attachmentId)];
                 case 2:
                     uploadStatus = _a.sent();
+                    if (uploadStatus.status === attachments_1.S3_CREDENTIALS_STATUS.METADATA_CREATION_COMPLETED)
+                        return [2 /*return*/, null];
                     if (!(uploadStatus.status === attachments_1.S3_CREDENTIALS_STATUS.METADATA_CREATION_PENDING ||
                         uploadStatus.status === attachments_1.S3_CREDENTIALS_STATUS.UPLOAD_PENDING)) return [3 /*break*/, 5];
                     return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, computedDelay < minDelay ? minDelay : computedDelay); })];
@@ -32693,9 +32695,7 @@ function callFetchAndHandleJwt(uri, params, dataType, externalUrl) {
             params.headers['Authorization'] = getToken();
         }
         else if (isIE11) {
-            // uri.addQueryParam('', new Date().getTime());
-            params.cache = false;
-            // params['cache-burst-param'] = new Date().getTime();
+            uri.addQueryParam('cache-burst-param', new Date().getTime());
         }
     }
     return new Promise(function (resolve, reject) {
