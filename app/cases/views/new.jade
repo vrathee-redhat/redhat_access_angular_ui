@@ -184,6 +184,21 @@ div(rha-header='', page='newCase')
                                 width='"100%"',
                                 ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in $parent.usersOnAccount | orderBy:['first_name','last_name']")
                                     option(value="")
+
+                            div(ng-if="!$parent.COMMON_CONFIG.isGS4 && !$parent.disableEmailNotifySelect()")
+                                label(for='email-notifications', translate, translate-comment="Noun") {{'Send Additional Email Notifications to' | translate}}
+                                    span.glyphicon.glyphicon-info-sign.link.margin-left-sm(uib-tooltip-html='"<div><span>{{"By opening this case you will automatically receive notifications." |translate }}</span></div>"',tabindex='0',tooltip-trigger="focus")
+                                .spinner.spinner-inline.spinner-xs(ng-show='!$parent.securityService.loginStatus.isLoggedIn  || $parent.CaseService.usersLoading || $parent.securityService.loggingIn')
+                                select(
+                                chosen,
+                                multiple,
+                                data-placeholder="{{'Select a User'|translate}}",
+                                ng-model='$parent.kase.notifiedUsers',
+                                id='rha-email-notify-select',
+                                width='"100%"',
+                                ng-options="user.sso_username as (user.first_name+' '+user.last_name+' <'+user.sso_username+'>') for user in $parent.usersOnAccount | orderBy:['first_name','last_name']")
+                                    option(value="")
+
                             div(ng-if="!$parent.COMMON_CONFIG.isGS4 && $parent.disableEmailNotifySelect()")
                                 label(for='email-notifications',translate,translate-comment="Noun") {{'Send Additional Email Notifications to' | translate}}
                                     span &nbsp;
@@ -192,11 +207,32 @@ div(rha-header='', page='newCase')
                                 input.form-control(
                                 ng-disabled='true',
                                 placeholder="{{'Select a User'|translate}}")
+                            
+                            div
+                                label(for='redhat-watchers', translate, translate-comment="Noun") {{'Red Hat Watchers' | translate}}
+                                    .spinner.spinner-inline.spinner-xs.margin-left-sm(ng-show="CaseService.isLoadingRHUsers")
+                                div.label-contact(ng-repeat="user in $parent.kase.redhatWatchers")
+                                    span {{user.firstName}} {{user.lastName}} <{{user.ssoUsername}}>
+                                    a(ng-click="removeUser(user.ssoUsername)", ng-disabled="saving")
+                                        i.fa.fa-close
+                                input.form-control(type="text", ng-model="$parent.userToAdd", placeholder="{{'Search here to add watchers' | translate}}", ng-model-options="{'debounce': 600}"
+                                typeahead-loading="CaseService.isLoadingRHUsers" typeahead-no-results="CaseService.noResultsForRHUsersSearch" typeahead-min-length="0" uib-typeahead="user as (user.name + ' ('+user.ssoUsername+')') for user in CaseService.searchRHUsers($viewValue)")
+                                div(ng-show="CaseService.noResultsForRHUsersSearch && !CaseService.isLoadingRHUsers" translate) No new contacts found.
+
                             label(translate,translate-comment="Noun" ng-if="!$parent.caseGroupRequired") Case Group (Optional)
                             label(translate,translate-comment="Noun" ng-if="$parent.caseGroupRequired") Case Group (Mandatory)
                                 span &nbsp;
                                 span(ng-if="$parent.caseGroupRequired").glyphicon.glyphicon-info-sign.link(uib-tooltip-html='"<div><span>{{"Selecting a case group is mandatory for case creation, if there are no groups assigned to you. Please contact your Org admin" | translate }}</span></div>"',tabindex='0',tooltip-trigger="focus")
                             div(rha-groupselect='', ng-init="$parent.setSearchOptions(false)")
+                            
+                            div(ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.isCep')
+                                label(for='email-notifications'){{::'Consultant Engaged'|translate}}
+                                    input.margin-left-sm(ng-model="CaseService.isNewPageCEP",
+                                    type="checkbox",
+                                    ng-change="updateCEP(CaseService.isNewPageCEP)"
+                                    name="cepCheckbox")
+                                    span.glyphicon.glyphicon-info-sign.text-info.margin-left-sm(uib-tooltip="{{cepMessage}}")
+
                         .row.submit
                             //- TODO make remove local storage once implemented
                             .col-sm-12

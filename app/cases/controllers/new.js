@@ -30,7 +30,8 @@ export default class New {
 
         $scope.showRecommendationPanel = false;
         $scope.kase = {
-            notifiedUsers: []
+            notifiedUsers: [],
+            redhatWatchers: [],
         };
         $scope.caseGroupRequired = false;
 
@@ -487,7 +488,9 @@ export default class New {
                         await strataService.cases.comments.post(caseNumber, CaseService.newPageCEPComment, false, false);
                         CaseService.submittingCep = false;
                     }
-                    const addNotifiedUsers = _.map($scope.kase.notifiedUsers, (user) => strataService.cases.notified_users.add(caseNumber, user));
+                    const redhatWatchersSsoUsernames = _.map($scope.kase.redhatWatchers, 'ssoUsername');
+                    const usersTobeNotified = _.unionWith($scope.kase.notified_users, redhatWatchersSsoUsernames, _.isEqual);
+                    const addNotifiedUsers = _.map(usersTobeNotified, (user) => strataService.cases.notified_users.add(caseNumber, user));
                     await Promise.all(addNotifiedUsers);
                 } catch (error) {
                     AlertService.addStrataErrorMessage(error);
@@ -704,25 +707,33 @@ export default class New {
             CaseService.sendCreationStartedEvent($event);
         };
 
-        // $scope.updateCEP = function (isCep) {
-        //     if (isCep) {
-        //         CaseService.isNewPageCEP = false;
-        //         CaseService.cepModalEvent = CASE_EVENTS.newPageCEP;
-        //         $uibModal.open({
-        //             template: require('../views/cepModal.jade'),
-        //             controller: 'CepModal'
-        //         });
-        //     } else {
-        //         CaseService.isNewPageCEP = true;
-        //         CaseService.confirmationModal = CASE_EVENTS.newPageCEP;
-        //         CaseService.confirmationModalHeader = gettextCatalog.getString('Update Consultant Engagement in Progress');
-        //         CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to remove the Consultant Engagement in Progress flag?');
-        //         $uibModal.open({
-        //             template: require('../views/commonConfirmationModal.jade'),
-        //             controller: 'CommonConfirmationModal'
-        //         });
-        //     } 
-        // };
+        $scope.$watch('userToAdd', (user) => {
+            if (_.isObject(user)) { // user is object if it was selected from the options, otherwise it's string
+                console.log(user, "Usssssssser");
+                $scope.kase.redhatWatchers = _.unionWith($scope.kase.redhatWatchers, [user], (a, b) => (a.ssoUsername === b.ssoUsername))
+                $scope.userToAdd = '';
+            }
+        });
+
+        $scope.updateCEP = function (isCep) {
+            if (isCep) {
+                CaseService.isNewPageCEP = false;
+                CaseService.cepModalEvent = CASE_EVENTS.newPageCEP;
+                $uibModal.open({
+                    template: require('../views/cepModal.jade'),
+                    controller: 'CepModal'
+                });
+            } else {
+                CaseService.isNewPageCEP = true;
+                CaseService.confirmationModal = CASE_EVENTS.newPageCEP;
+                CaseService.confirmationModalHeader = gettextCatalog.getString('Update Consultant Engagement in Progress');
+                CaseService.confirmationModalMessage = gettextCatalog.getString('Are you sure you want to remove the Consultant Engagement in Progress flag?');
+                $uibModal.open({
+                    template: require('../views/commonConfirmationModal.jade'),
+                    controller: 'CommonConfirmationModal'
+                });
+            }
+        };
 
         if (ENVIRONMENT !== 'test') {
             angular.element('.affixed-recommendations').affix({
