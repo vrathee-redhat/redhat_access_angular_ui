@@ -40,38 +40,11 @@ export default class EmailNotifySelectInternal {
             return submitWatchers(toBeAdded, toBeRemoved, removed);
         };
 
-
-        $scope.mapUsers = (users) => _.compact(_.map(users, (userSSO) => _.find(CaseService.internalNotificationContacts, {'ssoUsername': userSSO})));
-
         $scope.removeUser = (userSSO) => {
             if($scope.saving) return;
 
             _.pull($scope.selectedUsers, userSSO);
             $scope.selectedUsersChanged();
-        };
-
-        $scope.searchRHUsers = async (searchQuery) => {
-            $scope.noResults = false;
-            if (searchQuery && searchQuery.length < 2) return [];
-            let queryParams = {
-                limit: 10,
-                internal: false, // to get non-ldap contacts 
-                isInternalContact: true,
-                nameLookup: searchQuery || ''
-            }
-            let options = [];
-            try {
-                $scope.isLoadingContacts = true;
-                const response = await hydrajs.contacts.getSFDCContacts(queryParams);
-                options = (response && response.items && response.items.length) ? response.items : [];
-                options = _.filter(options, (c)=> !_.includes(CaseService.originalNotifiedUsers, c.ssoUsername));
-                $scope.isLoadingContacts = false;
-            } catch (e) {
-                console.warn(`Unable to search contacts, error: ${e}`);
-                $scope.isLoadingContacts = false;
-            }
-            $scope.noResults = options.length === 0;
-            return options;
         };
 
         $scope.isCurrentUserWatcher = () => $scope.selectedUsers.indexOf(securityService.loginStatus.authedUser.sso_username) > -1;

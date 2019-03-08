@@ -18,6 +18,11 @@
 				margin-bottom: 5px;
 			}
 	}
+
+	.margin-left-sm {
+		margin-left: 5px !important;
+	}
+
 	.rha-case-more-options{
 		label{
 			margin: 15px 0 5px;
@@ -27,6 +32,9 @@
 		}
 		.glyphicon-question-sign{
 		    margin-left: 5px;
+		}
+		.glyphicon-info-sign {
+			cursor: pointer;
 		}
 	}
 	.submit {

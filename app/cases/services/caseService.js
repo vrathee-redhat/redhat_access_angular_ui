@@ -159,6 +159,9 @@ export default class CaseService {
             'Red Hat Enterprise Linux'
         ];
 
+        this.isLoadingRHUsers = false;
+        this.noResultsForRHUsersSearch = false;
+        
         this.setSeverities = function (severities) {
             this.severities = severities;
             angular.forEach(this.severities, function (severity) {
@@ -1176,5 +1179,32 @@ export default class CaseService {
             }
 
         }
+        this.searchRHUsers = async (searchQuery) => {
+            this.noResultsForRHUsersSearch = false;
+            // if (_.isNil(searchQuery) || searchQuery.length < 2) return [];
+            let queryParams = {
+                limit: 10,
+                internal: false, // to get non-ldap contacts 
+                isInternalContact: true,
+                nameLookup: searchQuery || ''
+            }
+            let options = [];
+            try {
+                this.isLoadingRHUsers = true;
+                const response = await hydrajs.contacts.getSFDCContacts(queryParams);
+                options = (response && response.items && response.items.length) ? response.items : [];
+                options = _.filter(options, (c)=> !_.includes(this.originalNotifiedUsers, c.ssoUsername));
+                this.isLoadingRHUsers = false;
+            } catch (e) {
+                console.warn(`Unable to search contacts, error: ${e}`);
+                this.isLoadingRHUsers = false;
+            }
+            this.noResultsForRHUsersSearch = options.length === 0;
+            return options;
+        };
+
+        this.mapUsers = (users) => {
+            return _.compact(_.map(users, (userSSO) => _.find(this.internalNotificationContacts, {'ssoUsername': userSSO})))
+        };
     }
 }
