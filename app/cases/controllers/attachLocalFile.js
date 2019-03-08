@@ -14,7 +14,7 @@ export default class AttachLocalFile {
         }, true);
 
         $scope.getAttachFileTT = function(s3Enabled) {
-            return s3Enabled ? gettextCatalog.getString('Can now accept large attachments (~5TB)') : '';
+            return s3Enabled ? gettextCatalog.getString('Can now accept large attachments (~250GB)') : '';
         }
 
         $scope.init = function () {
