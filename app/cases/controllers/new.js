@@ -188,7 +188,7 @@ export default class New {
                 ProductsService.getProducts(true);
 
                 //as owner change, we might get different product and version list, so better to clear previous selection
-                if (!RHAUtils.isNotEmpty(CaseService.solutionEngineProduct)) {
+                if (RHAUtils.isNotEmpty(CaseService.solutionEngineProduct)) {
                     CaseService.clearProdVersionFromLS();
                 }
             }
