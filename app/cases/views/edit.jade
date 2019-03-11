@@ -51,6 +51,12 @@ div.edit(ng-if='showCasePage()')
         .col-md-12(ng-show='$parent.EDIT_CASE_CONFIG.showDetails')
           div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
+      section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
+        .row
+          .col-xs-12(rha-emailnotifyselect)
+        .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
+          .col-xs-12(rha-emailnotifyselect-internal)
+      
       section.case-discussion(ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.isCep')
         .row
           .col-xs-4.col-sm-3.col-md-4
@@ -64,11 +70,6 @@ div.edit(ng-if='showCasePage()')
                 name="cepCheckbox")
                 span &nbsp;
                 span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{cepMessage}}")
-      section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
-        .row
-          .col-xs-12(rha-emailnotifyselect)
-        .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
-          .col-xs-12(rha-emailnotifyselect-internal)
 
     .aside.col-sm-4(ng-if="!$parent.COMMON_CONFIG.isGS4")
       .spinner.spinner-inline(ng-show='$parent.RecommendationsService.loadingRecommendations')

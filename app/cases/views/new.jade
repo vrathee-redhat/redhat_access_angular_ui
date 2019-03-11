@@ -186,7 +186,8 @@ div(rha-header='', page='newCase')
                                 ng-disabled='true',
                                 placeholder="{{'Select a User'|translate}}")
                             
-                            div
+                            // $parent.securityService.isCep added this check to make redhat-watchers-feature to use same isCep flag, we can remove this flag once it is not required.
+                            div(ng-show="$parent.securityService.isCep && !$parent.COMMON_CONFIG.isGS4 && $parent.securityService.loginStatus.authedUser.is_internal")
                                 label(for='redhat-watchers', translate, translate-comment="Noun") {{'Red Hat Watchers' | translate}}
                                     .spinner.spinner-inline.spinner-xs.margin-left-sm(ng-show="CaseService.isLoadingRHUsers")
                                 div.label-contact(ng-repeat="user in $parent.kase.redhatWatchers")
