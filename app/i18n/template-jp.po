@@ -2264,3 +2264,9 @@ msgid ""
 "unavailable for technical reasons."
 msgstr ""
 "お探しのページはここにありません。ページは移動または削除されたか、または名前とアドレスが変更されている可能性があります。あるいは、技術的な理由で一時的に使用できない可能性があります。"
+
+msgid "Only the above-listed severity levels are supported for selected product and version."
+msgstr "選択した製品とバージョンでは、上記の重大度のみがサポートされています。"
+
+msgid "Please select valid severity"
+msgstr "有効な重大度を選択してください。"

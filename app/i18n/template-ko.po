@@ -2265,3 +2265,9 @@ msgid ""
 msgstr ""
 "찾고 계신 페이지가 없습니다. 이동 또는 삭제되었거나 이름 및 주소가 변경되었을 수 있습니다. 또는 기술적인 원인으로 일시적으로 사용하지 "
 "못하는 것일 수 도 있습니다. "
+
+msgid "Only the above-listed severity levels are supported for selected product and version."
+msgstr "선택한 제품 및 버전에 대해 위에 나열된 심각도 수준만 지원됩니다."
+
+msgid "Please select valid severity"
+msgstr "유효한 심각도 수준을 선택하십시오."
