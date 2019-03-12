@@ -2399,3 +2399,9 @@ msgstr ""
 "déplacée, supprimée, ou son nom et son adresse ont peut-être été modifiés. "
 "Il se peut également qu'elle soit temporairement indisponible en raison de "
 "problèmes techniques."
+
+msgid "Only the above-listed severity levels are supported for selected product and version."
+msgstr "Seuls les niveaux de gravité mentionnés ci-dessus sont pris en charge pour le produit et la version sélectionnés."
+
+msgid "Please select valid severity"
+msgstr "Veuillez sélectionner un niveau de sévérité approprié."

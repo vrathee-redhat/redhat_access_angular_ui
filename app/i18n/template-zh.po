@@ -2231,3 +2231,9 @@ msgid ""
 "or had its name and address changed. It might otherwise be temporarily "
 "unavailable for technical reasons."
 msgstr "您要查找的页面不在此处。它可能已被移动、删除，或者其名字和地址已更改。也可能因为技术原因暂时不可用。"
+
+msgid "Only the above-listed severity levels are supported for selected product and version."
+msgstr "对于选择的产品和版本，只有以上列出的严重性级别才被支持。"
+
+msgid "Please select valid severity"
+msgstr "请选择有效的严重性级别"
