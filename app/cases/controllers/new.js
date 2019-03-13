@@ -489,7 +489,7 @@ export default class New {
                         CaseService.submittingCep = false;
                     }
                     const redhatWatchersSsoUsernames = _.map($scope.kase.redhatWatchers, 'ssoUsername');
-                    const usersTobeNotified = _.unionWith($scope.kase.notified_users, redhatWatchersSsoUsernames, _.isEqual);
+                    const usersTobeNotified = _.unionWith($scope.kase.notifiedUsers, redhatWatchersSsoUsernames, _.isEqual);
                     const addNotifiedUsers = _.map(usersTobeNotified, (user) => strataService.cases.notified_users.add(caseNumber, user));
                     await Promise.all(addNotifiedUsers);
                 } catch (error) {
