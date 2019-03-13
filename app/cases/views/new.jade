@@ -163,8 +163,7 @@ div(rha-header='', page='newCase')
                                 label#rha-24X7_Contact(translate,translate-comment="Noun") 24x7 Contact
                                 input#rha-24X7_Contact_input(ng-model="$parent.CaseService.fts_contact")
                             
-                            //- (ng-if="!$parent.COMMON_CONFIG.isGS4 && !$parent.disableEmailNotifySelect()")
-                            div
+                            div(ng-if="!$parent.COMMON_CONFIG.isGS4 && !$parent.disableEmailNotifySelect()")
                                 label(for='email-notifications', translate, translate-comment="Noun") {{'Send Additional Email Notifications to' | translate}}
                                     span.glyphicon.glyphicon-info-sign.link.margin-left-sm(uib-tooltip-html='"<div><span>{{"By opening this case you will automatically receive notifications." |translate }}</span></div>"',tabindex='0',tooltip-trigger="focus")
                                 .spinner.spinner-inline.spinner-xs(ng-show='!$parent.securityService.loginStatus.isLoggedIn  || $parent.CaseService.usersLoading || $parent.securityService.loggingIn')
