@@ -1,6 +1,6 @@
 {
   "name": "redhat_access_angular_ui",
-  "version": "1.4.72",
+  "version": "1.4.72-s2i",
   "dependencies": {
     "compression": "^1.7.1",
     "connect-history-api-fallback": "^1.5.0",
@@ -85,7 +85,8 @@
     "url-loader": "~0.5.7",
     "versiony-cli": "~1.3.0",
     "webpack": "~1.13.1",
-    "webpack-dev-server": "~1.14.1"
+    "webpack-dev-server": "~1.14.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "engines": {
     "node": ">=0.8.0"
