@@ -10,7 +10,6 @@ const history = require('connect-history-api-fallback');
 const app = new Express();
 
 const publicDir = 'public';
-const defaultPage = 'index.html';
 
 const port = 8443;
 
@@ -62,8 +61,8 @@ try {
     const key = fs.readFileSync('/etc/ssl/server.key');
 
     const options = {
-        cert,
-        key
+        cert: cert,
+        key: key
     };
 
     https.createServer(options, app).listen(port, function() {

@@ -1,6 +1,13 @@
 {
   "name": "redhat_access_angular_ui",
   "version": "1.4.72",
+  "dependencies": {
+    "compression": "^1.7.1",
+    "connect-history-api-fallback": "^1.5.0",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "serve-static": "^1.13.1"
+  },
   "devDependencies": {
     "angular": "~1.5.7",
     "angular-animate": "~1.5.7",
@@ -88,10 +95,10 @@
     "test": "./node_modules/.bin/karma start",
     "build": "rimraf dist && nice webpack --config webpack-production.config.js --bail --progress --profile",
     "server-inline": "webpack-dev-server --config webpack-dev-server.config.js --history-api-fallback --inline --progress --port 9000",
-    "server": "webpack-dev-server --config webpack-dev-server.config.js --history-api-fallback --progress --port 9000",
-    "server-prod": "webpack-dev-server --config webpack-production.config.js --history-api-fallback --inline --progress --port 9000",
+    "server": "cp hooks/pre-commit .git/hooks/ && webpack-dev-server --config webpack-dev-server.config.js --history-api-fallback --progress --port 9000",
+    "server-prod": "webpack-dev-server --config webpack-production.config.js --history-api-fallback --progress --port 9000",
     "test-watch": "karma start --auto-watch --no-single-run",
-    "start": "cp hooks/pre-commit .git/hooks/ && npm run server-inline",
+    "start": "node ./app/server.js",
     "start-prod": "npm run server-prod",
     "generate-html": "jade --pretty app/cases/views app/escalation/views app/log_viewer/views app/search/views node_modules/redhat_access_pcm_ascension_common/app/security/views/ node_modules/redhat_access_pcm_ascension_common/app/common/views/",
     "generate-dist-translates": "./node_modules/.bin/angular-gettext-cli --files 'dist/pcm.js'  --dest \"./app/i18n/template-dist.pot\"",
