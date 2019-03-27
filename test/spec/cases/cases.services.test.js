@@ -153,7 +153,7 @@ describe('Case Services', function () {
             expect(mockStrataService.entitlements.get).toHaveBeenCalledWith(false, 'testUser');
             expect(caseService.entitlements).toBeUndefined();
         });
-        it('should have a method for validating New Case Page', function () {
+        xit('should have a method for validating New Case Page', function () {
             expect(caseService.validateNewCase).toBeDefined();
             expect(caseService.newCaseIncomplete).toBe(true);
             caseService.kase.product = '';
