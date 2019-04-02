@@ -71,6 +71,7 @@
     "moment": "~2.14.1",
     "moment-timezone": "0.5.11",
     "ng-annotate-loader": "~0.1.0",
+    "node-sass": "^4.11.0",
     "null-loader": "~0.1.1",
     "pegjs": "~0.9.0",
     "raw-loader": "~0.5.1",
