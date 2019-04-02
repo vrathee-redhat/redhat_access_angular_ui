@@ -99,7 +99,7 @@
     "server": "cp hooks/pre-commit .git/hooks/ && webpack-dev-server --config webpack-dev-server.config.js --history-api-fallback --progress --port 9000",
     "server-prod": "webpack-dev-server --config webpack-production.config.js --history-api-fallback --progress --port 9000",
     "test-watch": "karma start --auto-watch --no-single-run",
-    "start": "node ./app/server.js",
+    "start": "node ./dist/server.js",
     "start-prod": "npm run server-prod",
     "generate-html": "jade --pretty app/cases/views app/escalation/views app/log_viewer/views app/search/views node_modules/redhat_access_pcm_ascension_common/app/security/views/ node_modules/redhat_access_pcm_ascension_common/app/common/views/",
     "generate-dist-translates": "./node_modules/.bin/angular-gettext-cli --files 'dist/pcm.js'  --dest \"./app/i18n/template-dist.pot\"",
