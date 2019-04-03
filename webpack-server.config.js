@@ -1,5 +1,6 @@
 const nodeExternals = require('webpack-node-externals');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
+
 module.exports = {
   entry: './app/server.js',
   output: {
@@ -12,5 +13,5 @@ module.exports = {
     __filename: false
   },
   externals: [nodeExternals()],
-  plugins: [new UglifyJsPlugin()]
+  plugins: [new webpack.optimize.UglifyJsPlugin()]
 };
