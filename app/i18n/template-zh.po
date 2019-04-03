@@ -2240,3 +2240,6 @@ msgstr "请选择有效的严重性级别"
 
 msgid "Search Discussion"
 msgstr "搜索讨论"
+
+msgid "Showing {{showing}} - {{x}} of {{y}} results"
+msgstr "显示 {{showing}} - {{x}} 个结果（共 {{y}}）"

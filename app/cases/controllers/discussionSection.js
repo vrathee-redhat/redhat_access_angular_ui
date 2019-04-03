@@ -91,6 +91,13 @@ export default class DiscussionSection {
             }, delay || 150);
         };
 
+        $scope.$watch('DiscussionService.discussionElements', function() {
+            $scope.showingResultsString = gettextCatalog.getString('Showing {{showing}} - {{x}} of {{y}} results', {
+                showing: PaginationService.firstItemNumberShownOnThePage('discussionSection', DiscussionService.discussionElements.length),
+                x: PaginationService.lastItemNumberShownOnThePage('discussionSection', DiscussionService.discussionElements.length),
+                y: DiscussionService.discussionElements.length
+            });
+        })
         $scope.getOrderedDiscussionElements = () => {
             var sorted = orderBy(DiscussionService.discussionElements, "sortModifiedDate");
             var ordered = $scope.commentSortOrder ? reverse(sorted) : sorted;

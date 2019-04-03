@@ -2274,3 +2274,6 @@ msgstr "유효한 심각도 수준을 선택하십시오."
 
 msgid "Search Discussion"
 msgstr "토론 검색"
+
+msgid "Showing {{showing}} - {{x}} of {{y}} results"
+msgstr "{{showing}} - {{x}} / {{y}} 결과 표시"
