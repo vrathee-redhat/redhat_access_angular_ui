@@ -32,7 +32,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 #top-discussion-section
                 .row
                     .col-sm-4
-                        rha-searchbox(placeholder='"Search Discussion"', class-name='"padding-searchbox"', ng-if="DiscussionService.allDiscussionElements().length > 0")
+                        rha-searchbox(placeholder='searchDiscussionString', class-name='"padding-searchbox"', ng-if="DiscussionService.allDiscussionElements().length > 0")
                         span(ng-if="DiscussionService.allDiscussionElements().length > 0") Showing {{PaginationService.firstItemNumberShownOnThePage('discussionSection', DiscussionService.discussionElements.length)}}-{{PaginationService.lastItemNumberShownOnThePage('discussionSection', DiscussionService.discussionElements.length)}} of {{DiscussionService.discussionElements.length}} results
                     .col-sm-8
                         pagination(ng-if="discussion", current-page-number="PaginationService.discussionSection.currentPageNumber" datalength="DiscussionService.discussionElements.length", page-size="PaginationService.discussionSection.pageSize", set-current-page-number="setCurrentPageNumberForDS(pageNumber)", set-page-size="PaginationService.setPageSize('discussionSection', pageSize)")

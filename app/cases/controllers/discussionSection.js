@@ -38,7 +38,7 @@ export default class DiscussionSection {
         ];
         $scope.DiscussionService = DiscussionService;
         $scope.PaginationService = PaginationService;
-
+        $scope.searchDiscussionString = gettextCatalog.getString('Search Discussion');
         $scope.$on(CASE_EVENTS.searchSubmit, function () {
             $location.search('commentId', null);
             $scope.doSearch();
