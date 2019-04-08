@@ -33,7 +33,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 .row
                     .col-sm-4
                         rha-searchbox(placeholder='searchDiscussionString', class-name='"padding-searchbox"', ng-if="DiscussionService.allDiscussionElements().length > 0")
-                        span(ng-if="DiscussionService.allDiscussionElements().length > 0") {{showingResultsString}}
+                        span(ng-if="DiscussionService.allDiscussionElements().length > 0") {{showingResultsString()}}
                     .col-sm-8
                         pagination(ng-if="discussion", current-page-number="PaginationService.discussionSection.currentPageNumber" datalength="DiscussionService.discussionElements.length", page-size="PaginationService.discussionSection.pageSize", set-current-page-number="setCurrentPageNumberForDS(pageNumber)", set-page-size="PaginationService.setPageSize('discussionSection', pageSize)")
                 .discussion-element(id="{{element.id}}", ng-repeat="element in DiscussionService.discussionElements | orderBy:'sortModifiedDate':commentSortOrder | startFrom:(PaginationService.discussionSection.currentPageNumber-1)*PaginationService.discussionSection.pageSize | limitTo:PaginationService.discussionSection.pageSize", ng-if='!element.draft', ng-mouseenter='mouseOver(element)', ng-mouseleave='mouseOut(element)')
