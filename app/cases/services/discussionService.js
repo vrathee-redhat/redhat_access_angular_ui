@@ -24,7 +24,7 @@ export default class DiscussionService {
         this.loadingComments = false;
         this.commentTextBoxEnlargen = false;
 
-        this.getDiscussionElements = function (caseId) {
+        this.getDiscussionElements = async function (caseId) {
             var attachPromise = null;
             var commentsPromise = null;
             var externalUpdatesPromise = null;
@@ -33,6 +33,9 @@ export default class DiscussionService {
                 attachPromise = AttachmentsService.getAttachments(caseId)
                     .then(() => this.updateElements());
             }
+            console.log("Updating Token Forcefully")
+            await window.sessionjs.updateToken(true);
+            console.log("Updating Token Finish")
             commentsPromise = CaseService.populateComments(caseId).then(function () {
             }, function (error) {
                 if (!HeaderService.pageLoadFailure) {
