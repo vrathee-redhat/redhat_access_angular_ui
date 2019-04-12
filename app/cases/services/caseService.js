@@ -518,13 +518,14 @@ export default class CaseService {
         };
 
         this.feedbackComment = async function (element, feedback) {
-            if (RHAUtils.isNotEmpty(this.kase) && RHAUtils.isNotEmpty(element)) {
+            if (RHAUtils.isNotEmpty(this.kase) && RHAUtils.isNotEmpty(element) && !element.applyingFeedback) {
                 const commJson = {
                     feedback: feedback,
                     accountNumber: this.kase.account_number,
                     commentId: element.id,
                     commentCreatedBy: element.created_by
                 }
+                element.applyingFeedback = true;
                 try {
                     if (element.feedback !== undefined) {
                         await hydrajs.commentFeedback.updateCommentFeedback(this.kase.case_number, commJson);
@@ -533,7 +534,9 @@ export default class CaseService {
                     }
                     element.feedback = feedback;
                 } catch (error) {
-                    console.log('error updating comment feedback' + error);
+                    AlertService.addStrataErrorMessage(error);
+                } finally {
+                    element.applyingFeedback = false;
                 }
             }
         };

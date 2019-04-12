@@ -168,11 +168,7 @@ export default class DiscussionSection {
         };
 
         $scope.applyCommentFeedback = (element, feedback) => {
-            CaseService.feedbackComment(element, feedback).then(angular.bind(this, function () {
-                DiscussionService.updateElements();
-            }), angular.bind(this, function (error) {
-                AlertService.addStrataErrorMessage(error);
-            }));
+            CaseService.feedbackComment(element, feedback);
         };
 
         $scope.$watch('AttachmentsService.originalAttachments', function () {
