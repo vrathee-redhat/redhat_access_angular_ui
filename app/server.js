@@ -18,7 +18,6 @@ function setCustomCacheControl(res, path) {
         res.setHeader('Cache-Control', 'public, max-age=600');
     }
 }
-console.log('dir and filename:', __dirname, __filename);
 app
     .use(morgan('combined')) // logger
     .use(compression()) // gzip
