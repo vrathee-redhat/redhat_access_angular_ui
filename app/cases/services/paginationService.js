@@ -1,7 +1,7 @@
 'use strict';
 
 export default class PaginationService {
-  constructor() {
+  constructor(DiscussionService) {
     'ngInject';
 
     this.initialValues = () => {
