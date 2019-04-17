@@ -482,16 +482,16 @@ export default class New {
 
                 //add notified users
                 try {
+                    const redhatWatchersSsoUsernames = _.map($scope.kase.redhatWatchers, 'ssoUsername');
+                    const usersTobeNotified = _.unionWith($scope.kase.notifiedUsers, redhatWatchersSsoUsernames, _.isEqual);
+                    const addNotifiedUsers = _.map(usersTobeNotified, (user) => strataService.cases.notified_users.add(caseNumber, user));
+                    await Promise.all(addNotifiedUsers);
                     if (CaseService.isNewPageCEP && caseNumber && RHAUtils.isNotEmpty(CaseService.newPageCEPComment)) {
                         const caseJSON = { 'cep': true };
                         await strataService.cases.put(caseNumber, caseJSON);
                         await strataService.cases.comments.post(caseNumber, CaseService.newPageCEPComment, false, false);
                         CaseService.submittingCep = false;
                     }
-                    const redhatWatchersSsoUsernames = _.map($scope.kase.redhatWatchers, 'ssoUsername');
-                    const usersTobeNotified = _.unionWith($scope.kase.notifiedUsers, redhatWatchersSsoUsernames, _.isEqual);
-                    const addNotifiedUsers = _.map(usersTobeNotified, (user) => strataService.cases.notified_users.add(caseNumber, user));
-                    await Promise.all(addNotifiedUsers);
                 } catch (error) {
                     AlertService.addStrataErrorMessage(error);
                 }
