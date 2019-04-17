@@ -10,7 +10,6 @@ const history = require('connect-history-api-fallback');
 const app = new Express();
 
 const publicDir = 'public';
-const defaultPage = 'index.html';
 
 const port = 8443;
 
@@ -19,7 +18,6 @@ function setCustomCacheControl(res, path) {
         res.setHeader('Cache-Control', 'public, max-age=600');
     }
 }
-
 app
     .use(morgan('combined')) // logger
     .use(compression()) // gzip
@@ -51,7 +49,7 @@ app
         })
     )
     .use(
-        serveStatic(path.join(__dirname, publicDir), {
+        serveStatic(path.join(__dirname), {
             maxAge: '10d',
             setHeaders: setCustomCacheControl
         })
@@ -62,8 +60,8 @@ try {
     const key = fs.readFileSync('/etc/ssl/server.key');
 
     const options = {
-        cert,
-        key
+        cert: cert,
+        key: key
     };
 
     https.createServer(options, app).listen(port, function() {
