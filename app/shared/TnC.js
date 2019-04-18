@@ -16,11 +16,9 @@ export function getTnCHost() {
   }
 }
 
-
-
 export function getTnCUrl() {
   const wejava_host = getTnCHost();
-  const redirectUrl = window.location.host;
-  const cancelRedirectUrl = window.location.host;
-  return `https://${wejava_host}/wapps/tnc/ackrequired?site=${TnC.SITE_CODE}&event=${TnC.EVENT_CODE}&redirect=${redirectUrl}&cancelRedirect=${cancelRedirectUrl}`
+  const redirectUrl = encodeURIComponent(window.location.href);
+  const cancelRedirectUrl = encodeURIComponent(window.location.href);
+  return `https://${wejava_host}/wapps/tnc/ackrequired?site=${TnC.SITE_CODE}&event=${TnC.EVENT_CODE}&redirect=${redirectUrl}&cancelRedirect=${cancelRedirectUrl}`;
 } 

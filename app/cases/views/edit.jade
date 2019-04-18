@@ -78,7 +78,7 @@ div.edit(ng-if='showCasePage()')
             .col-xs-4.col-sm-5.col-md-6(ng-show='$parent.CaseService.loadingPartners')
                 span.spinner.spinner-inline
             .col-xs-4.col-sm-5.col-md-6(ng-show='!$parent.CaseService.loadingPartners')
-              a.btn.btn-info.btn-xs(href="{{::$parent.CaseService.TnCUrl}}"){{::'Share'|translate}}
+              a.btn.btn-info.btn-xs(href="{{::$parent.CaseService.TnCUrl}}", ng-disabled="false"){{::'Share'|translate}}
 
 
 
