@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import hydrajs from '../../shared/hydrajs.js';
+import { getTnCUrl } from '../../shared/TnC';
 
 export default class CaseService {
     constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location, ConfigService) {
@@ -148,20 +149,21 @@ export default class CaseService {
             "Web Services",
             "Webservers"
         ];
+        this.TnCUrl = getTnCUrl();
 
-        // pcm-5478 : only the below products would see premium plus entitlements if account has this entitlement
-        this.premiumPlusProducts = [
-            'Red Hat Virtualization',
-            'Red Hat Insights',
-            'Red Hat Satellite or Proxy',
-            'Red Hat Cluster Suite',
-            'Red Hat Enterprise IPA',
-            'Red Hat Enterprise Linux'
-        ];
+            // pcm-5478 : only the below products would see premium plus entitlements if account has this entitlement
+            this.premiumPlusProducts = [
+                'Red Hat Virtualization',
+                'Red Hat Insights',
+                'Red Hat Satellite or Proxy',
+                'Red Hat Cluster Suite',
+                'Red Hat Enterprise IPA',
+                'Red Hat Enterprise Linux'
+            ];
 
         this.isLoadingRHUsers = false;
         this.noResultsForRHUsersSearch = false;
-        
+
         this.setSeverities = function (severities) {
             this.severities = severities;
             angular.forEach(this.severities, function (severity) {
@@ -1193,7 +1195,7 @@ export default class CaseService {
                 this.isLoadingRHUsers = true;
                 const response = await hydrajs.contacts.getSFDCContacts(queryParams);
                 options = (response && response.items && response.items.length) ? response.items : [];
-                options = _.filter(options, (c)=> !_.includes(this.originalNotifiedUsers, c.ssoUsername));
+                options = _.filter(options, (c) => !_.includes(this.originalNotifiedUsers, c.ssoUsername));
                 this.isLoadingRHUsers = false;
             } catch (e) {
                 console.warn(`Unable to search contacts, error: ${e}`);
@@ -1204,7 +1206,7 @@ export default class CaseService {
         };
 
         this.mapUsers = (users) => {
-            return _.compact(_.map(users, (userSSO) => _.find(this.internalNotificationContacts, {'ssoUsername': userSSO})))
+            return _.compact(_.map(users, (userSSO) => _.find(this.internalNotificationContacts, { 'ssoUsername': userSSO })))
         };
     }
 }
