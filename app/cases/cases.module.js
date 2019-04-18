@@ -102,6 +102,7 @@ import ColumnSelectModal from './controllers/columnSelectModal'
 import ManagedAccountSelect from './controllers/managedAccountSelect'
 import SecureSupportHeader from './controllers/secureSupportHeader'
 import ShareCaseWithPartner from './controllers/shareCaseWithPartner';
+import ConfirmedStatesideAccountModal from './controllers/confirmedStatesideAccountModal';
 
 
 app.controller('ManagedAccountSelect', ManagedAccountSelect);
@@ -161,7 +162,7 @@ app.controller('SearchBookmarkModal', SearchBookmarkModal);
 app.controller('AdvancedSearchCaseList', AdvancedSearchCaseList);
 app.controller('ColumnSelectModal', ColumnSelectModal);
 app.controller('ShareCaseWithPartner', ShareCaseWithPartner);
-
+app.controller('ConfirmedStatesideAccountModal', ConfirmedStatesideAccountModal);
 
 // Directives
 import rhaAttachlocalfile from './directives/attachLocalFile'
