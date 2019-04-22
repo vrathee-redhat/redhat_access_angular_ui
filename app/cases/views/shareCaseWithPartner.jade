@@ -1,0 +1,21 @@
+.row
+  .col-xs-4.col-sm-3.col-md-4
+      .label {{::'Share with Partner'|translate}}
+  .col-xs-4.col-sm-5.col-md-6(ng-show='$parent.CaseService.loadingPartners')
+      span.spinner.spinner-inline
+  .col-xs-4.col-sm-5.col-md-6(ng-show='!$parent.CaseService.loadingPartners')
+    div.label-contact(ng-repeat="partner in $parent.CaseService.savedPartners", ng-class="{'label-disabled':$parent.CaseService.sharingCaseWithPartner}")
+      span {{partner.accountName}}
+    input.form-control(type="text", ng-model="selectedPartners", placeholder="{{'Search Partner' | translate}}",
+    ng-hide="$parent.CaseService.savedPartners.length > 0"
+    typeahead-min-length="0" 
+    uib-typeahead="partner as (partner.accountName) for partner in $parent.CaseService.eligiblePartnersToShareCase | orderBy:['accountName']")
+                                
+    //- select(
+    //-   chosen,
+    //-   data-placeholder="{{'Search Partner'|translate}}",
+    //-   ng-model='selectedPartners',
+    //-   ng-change='selectedPartnersChanged()',
+    //-   width='"100%"',
+    //-   ng-options="partner as (partner.accountName) for partner in $parent.CaseService.eligiblePartnersToShareCase | orderBy:['accountName']")
+    a.btn.btn-info.btn-xs(href="{{::$parent.CaseService.TnCUrl}}", ng-disabled="selectedPartners.length > 0"){{::'Share'|translate}}

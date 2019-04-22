@@ -24,6 +24,12 @@ export default class Edit {
         $scope.ownerTooltip = '';
         $scope.cepMessage = gettextCatalog.getString("Used by consultants to indicate that a consulting engagement is in progress and the issue requires increased attention from support resources.");
         $scope.showCasePage = () => securityService.loginStatus.isLoggedIn && !HeaderService.pageLoadFailure && CaseService.sfdcIsHealthy && securityService.loginStatus.userAllowedToManageCases && !$scope.loading.kase;
+        $scope.selectedPartners = [];
+
+        $scope.selectedPartnersChanged = () => {
+            console.log("selectedPartnerChanged:", arguments)
+        }
+
         $scope.init = function () {
             SearchBoxService.clear();
             AttachmentsService.clear();
@@ -63,6 +69,9 @@ export default class Edit {
                     CaseService.getCaseEscalation(caseJSON.account_number, caseJSON.case_number);
                     showRmeBox();
                 }
+
+                CaseService.populatePartners(caseJSON.case_number, caseJSON.account_number);
+                
                 if ($scope.fromNewCase) {
                     AlertService.clearAlerts();
                     $scope.fromNewCase = false;

@@ -75,6 +75,10 @@ export default class CaseService {
         this.submittingCep = false;
         this.solutionEngineProduct = '';
         this.redhatUsers = [];
+        this.partners = [];
+        this.loadingPartners = false;
+        this.eligiblePartnersToShareCase = [];
+        this.savedPartners = [];
         this.redhatSecureSupportUsers = [];
         this.managedAccount = null;
         this.externalCaseCreateKey;
@@ -151,15 +155,15 @@ export default class CaseService {
         ];
         this.TnCUrl = getTnCUrl();
 
-            // pcm-5478 : only the below products would see premium plus entitlements if account has this entitlement
-            this.premiumPlusProducts = [
-                'Red Hat Virtualization',
-                'Red Hat Insights',
-                'Red Hat Satellite or Proxy',
-                'Red Hat Cluster Suite',
-                'Red Hat Enterprise IPA',
-                'Red Hat Enterprise Linux'
-            ];
+        // pcm-5478 : only the below products would see premium plus entitlements if account has this entitlement
+        this.premiumPlusProducts = [
+            'Red Hat Virtualization',
+            'Red Hat Insights',
+            'Red Hat Satellite or Proxy',
+            'Red Hat Cluster Suite',
+            'Red Hat Enterprise IPA',
+            'Red Hat Enterprise Linux'
+        ];
 
         this.isLoadingRHUsers = false;
         this.noResultsForRHUsersSearch = false;
@@ -430,6 +434,61 @@ export default class CaseService {
             }
             return false;
         };
+
+        this.getEligiblePartnersToShareCase = (partners = []) => {
+            _.filter(partners, (p) => {
+                p.accessLevel !== "Write"
+            });
+        }
+
+        this.populatePartners = async (caseNumber, caseAccountNumber) => {
+            try {
+                this.loadingPartners = true;
+                const _partners = securityService.loginStatus.authedUser.account.number === caseAccountNumber ? loginStatus.authedUser.accountManagers : (await strataService.accounts.accountManagers.get(caseAccountNumber));
+                const partners = _.get(_partners, 'accounts');
+                if (!_.isEmpty(partners)) {
+                    const response = {
+                        "accessList": [
+                            {
+                                "overridden": false,
+                                "accountNumber": "1543949",
+                                "accessLevel": "Write"
+                            },
+                            // {
+                            //     "overridden": true,
+                            //     "accountNumber": "5500839",
+                            //     "accessLevel": "Write"
+                            // },
+                            {
+                                "overridden": false,
+                                "accountNumber": "5500839",
+                                "accessLevel": "none"
+                            }
+                        ]
+                    };
+
+                    const hasAccountLevelAccess = (access) => (access.overridden === false && access.accessLevel === "Write");
+                    const hasCaseLevelAccess = (access) => (access.overridden === true && access.accessLevel === "Write");
+                    const findAccountName = (partnerAccess) => {
+                        const account = _.find(partners, (p) => (p.accountNum === partnerAccess.accountNumber));
+                        return _.get(account, 'name');
+                    }
+                    const appendAccountName = (list) => _.map(list, (partnerAccess) => _.merge({}, partnerAccess, { accountName: findAccountName(partnerAccess) }));
+                    this.savedPartners = appendAccountName(_.filter(response.accessList, (p) => (hasCaseLevelAccess(p))));
+                    const eligiblePartnerAccessList = _.filter(response.accessList, (access) => {
+                        return !hasAccountLevelAccess(access) && !hasCaseLevelAccess(access);
+                    });
+                    this.eligiblePartnersToShareCase = appendAccountName(eligiblePartnerAccessList);
+
+                    console.log(this.savedPartners, this.eligiblePartnersToShareCase, "foobar")
+                }
+            } catch (e) {
+                console.log(e);
+            }
+            finally {
+                this.loadingPartners = false;
+            }
+        }
 
         /**
          *  Intended to be called only after user is logged in and has account details

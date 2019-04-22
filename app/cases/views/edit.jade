@@ -72,14 +72,7 @@ div.edit(ng-if='showCasePage()')
                 span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{cepMessage}}")
         
         section.case-discussion
-          .row
-            .col-xs-4.col-sm-3.col-md-4
-                .label {{::'Share with Partner'|translate}}
-            .col-xs-4.col-sm-5.col-md-6(ng-show='$parent.CaseService.loadingPartners')
-                span.spinner.spinner-inline
-            .col-xs-4.col-sm-5.col-md-6(ng-show='!$parent.CaseService.loadingPartners')
-              a.btn.btn-info.btn-xs(href="{{::$parent.CaseService.TnCUrl}}", ng-disabled="false"){{::'Share'|translate}}
-
+          share-case-with-partner
 
 
     .aside.col-sm-4(ng-if="!$parent.COMMON_CONFIG.isGS4")
