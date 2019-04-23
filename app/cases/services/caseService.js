@@ -437,7 +437,7 @@ export default class CaseService {
 
         this.getEligiblePartnersToShareCase = (partners = []) => {
             _.filter(partners, (p) => {
-                p.accessLevel !== "Write"
+                p.permission !== "Write"
             });
         }
 
@@ -447,33 +447,15 @@ export default class CaseService {
                 const _partners = securityService.loginStatus.authedUser.account.number === caseAccountNumber ? loginStatus.authedUser.accountManagers : (await strataService.accounts.accountManagers.get(caseAccountNumber));
                 const partners = _.get(_partners, 'accounts');
                 if (!_.isEmpty(partners)) {
-                    const response = {
-                        "accessList": [
-                            {
-                                "overridden": false,
-                                "accountNumber": "1543949",
-                                "accessLevel": "Write"
-                            },
-                            // {
-                            //     "overridden": true,
-                            //     "accountNumber": "5500839",
-                            //     "accessLevel": "Write"
-                            // },
-                            {
-                                "overridden": false,
-                                "accountNumber": "5500839",
-                                "accessLevel": "none"
-                            }
-                        ]
-                    };
+                    const response = await hydrajs.kase.access.getCaseAccessList(caseNumber);
+                    const hasAccountLevelAccess = (access) => (access.accessScope === "Account" && access.permission === "Write");
+                    const hasCaseLevelAccess = (access) => (access.accessScope === "Case" && access.permission === "Write");
 
-                    const hasAccountLevelAccess = (access) => (access.overridden === false && access.accessLevel === "Write");
-                    const hasCaseLevelAccess = (access) => (access.overridden === true && access.accessLevel === "Write");
-                    const findAccountName = (partnerAccess) => {
+                    const getAccountName = (partnerAccess) => {
                         const account = _.find(partners, (p) => (p.accountNum === partnerAccess.accountNumber));
                         return _.get(account, 'name');
                     }
-                    const appendAccountName = (list) => _.map(list, (partnerAccess) => _.merge({}, partnerAccess, { accountName: findAccountName(partnerAccess) }));
+                    const appendAccountName = (list) => _.map(list, (partnerAccess) => _.merge({}, partnerAccess, { accountName: getAccountName(partnerAccess) }));
                     this.savedPartners = appendAccountName(_.filter(response.accessList, (p) => (hasCaseLevelAccess(p))));
                     const eligiblePartnerAccessList = _.filter(response.accessList, (access) => {
                         return !hasAccountLevelAccess(access) && !hasCaseLevelAccess(access);
