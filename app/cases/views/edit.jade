@@ -1,5 +1,5 @@
 .page-header(rha-header='', page='')
-div(ng-hide='showCasePage()')
+div(ng-show='loading.kase')
   .spinner.spinner-lg
   p.center {{'Loading Case...'|translate}}
 div.edit(ng-if='showCasePage()')
