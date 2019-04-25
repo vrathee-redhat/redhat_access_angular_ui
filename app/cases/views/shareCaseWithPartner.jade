@@ -13,7 +13,7 @@
     typeahead-min-length="0"
     typeahead-editable="false"
     typeahead-focus-on-select="false" 
-    uib-typeahead="[partner] as (partner.accountName + ' (' + partner.accountNumber + ')') for partner in $parent.CaseService.eligiblePartnersToShareCase | orderBy:['accountName']")
+    uib-typeahead="partner as (partner.accountName + ' (' + partner.accountNumber + ')') for partner in $parent.CaseService.eligiblePartnersToShareCase | orderBy:['accountName']")
                                 
     a.btn.btn-info.btn-sm.share-btn(href="{{$parent.CaseService.TnCUrl}}", 
     ng-hide="$parent.CaseService.savedPartners.length > 0",

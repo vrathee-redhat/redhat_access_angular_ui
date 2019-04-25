@@ -2,7 +2,6 @@
 import { getTnCUrl } from '../../shared/TnC';
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
-import isObject from 'lodash/isObject';
 
 export default class ShareCaseWithPartner {
     constructor($scope, CaseService, AlertService, CASE_EVENTS, gettextCatalog) {
@@ -40,10 +39,10 @@ export default class ShareCaseWithPartner {
             init();
         });
 
-        $scope.$watch('selectedPartnersInput', (partners) => {
-            if(!isEmpty(partners) && isObject(partners)) {
-                CaseService.TnCUrl = getTnCUrl(get(partners, [0, 'accountNumber']));
-                $scope.selectedPartners = partners;
+        $scope.$watch('selectedPartnersInput', (partner) => {
+            if(!isEmpty(partner)) {
+                CaseService.TnCUrl = getTnCUrl(get(partner, 'accountNumber'));
+                $scope.selectedPartners = [partner];
                 $scope.selectedPartnersInput = '';
             }
         })
