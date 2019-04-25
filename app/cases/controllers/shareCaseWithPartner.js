@@ -23,7 +23,7 @@ export default class ShareCaseWithPartner {
             const decisionAccepted = (/decision-\d+=accepted/gi).exec(window.location.href.toString());
             const ackID = get((/ackID=(\d+)/gi).exec(window.location.href.toString()), [1]);
             if(partnerAccountNumber && decisionAccepted && ackID) {
-                var alert = AlertService.addWarningMessage(gettextCatalog.getString(`Sharing Case with ${partnerAccountNumber}`));
+                var alert = AlertService.addWarningMessage(gettextCatalog.getString(`Sharing Case with account: ${partnerAccountNumber}`));
                 await CaseService.savePartnerCaseAccess(CaseService.kase.case_number, partnerAccountNumber, ackID);
                 CaseService.sharingCaseWithPartner = false;
                 AlertService.removeAlert(alert);
