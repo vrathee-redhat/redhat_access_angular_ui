@@ -470,20 +470,6 @@ export default class CaseService {
             }
         }
 
-        this.savePartnerCaseAccess = async (caseNumber, partnerAccountNumber, confirmationNumber) => {
-            this.sharingCaseWithPartner = true;
-            try {
-                const body = {
-                    access: { permission: 'Write', accountNumber: partnerAccountNumber },
-                    confirmationNumber
-                }
-                await hydrajs.kase.access.patchCaseAccess(caseNumber, body);
-            } catch (e) {
-                AlertService.addDangerMessage(e.message);
-            }
-            this.sharingCaseWithPartner = false;
-        }
-
         this.getTnCUrl = (selectedPartners) => {
             return getTnCUrl(_.get(selectedPartners, [0, 'accountNumber']));
         }
