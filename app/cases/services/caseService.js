@@ -461,8 +461,6 @@ export default class CaseService {
                         return !hasAccountLevelAccess(access) && !hasCaseLevelAccess(access);
                     });
                     this.eligiblePartnersToShareCase = appendAccountName(eligiblePartnerAccessList);
-
-                    console.log(this.savedPartners, this.eligiblePartnersToShareCase, "foobar")
                 }
             } catch (e) {
                 console.log(e);
@@ -472,6 +470,23 @@ export default class CaseService {
             }
         }
 
+        this.savePartnerCaseAccess = async (caseNumber, partnerAccountNumber, confirmationNumber) => {
+            this.sharingCaseWithPartner = true;
+            try {
+                const body = {
+                    access: { permission: 'Write', accountNumber: partnerAccountNumber },
+                    confirmationNumber
+                }
+                await hydrajs.kase.access.patchCaseAccess(caseNumber, body);
+            } catch (e) {
+                AlertService.addDangerMessage(e.message);
+            }
+            this.sharingCaseWithPartner = false;
+        }
+
+        this.getTnCUrl = (selectedPartners) => {
+            return getTnCUrl(_.get(selectedPartners, [0, 'accountNumber']));
+        }
         /**
          *  Intended to be called only after user is logged in and has account details
          *  See securityService.

@@ -16,9 +16,9 @@ export function getTnCHost() {
   }
 }
 
-export function getTnCUrl() {
+export function getTnCUrl(accountNumber) {
   const wejava_host = getTnCHost();
-  const redirectUrl = encodeURIComponent(window.location.href);
+  const redirectUrl = encodeURIComponent(window.location.href + (accountNumber ? `?partnerAccountNumber=${accountNumber}` : ''));
   const cancelRedirectUrl = encodeURIComponent(window.location.href);
   return `https://${wejava_host}/wapps/tnc/ackrequired?site=${TnC.SITE_CODE}&event=${TnC.EVENT_CODE}&redirect=${redirectUrl}&cancelRedirect=${cancelRedirectUrl}`;
 } 
