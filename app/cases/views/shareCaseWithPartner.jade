@@ -15,6 +15,6 @@
     typeahead-focus-on-select="false" 
     uib-typeahead="partner as (partner.accountName + ' (' + partner.accountNumber + ')') for partner in $parent.CaseService.eligiblePartnersToShareCase | orderBy:['accountName']")
                                 
-    a.btn.btn-info.btn-sm.share-btn(href="{{$parent.CaseService.TnCUrl}}", 
+    a.btn.btn-app.btn-info.btn-sm.share-btn(href="{{$parent.CaseService.TnCUrl}}", 
     ng-hide="$parent.CaseService.savedPartners.length > 0",
     ng-disabled="selectedPartners.length < 1"){{::'Share'|translate}}

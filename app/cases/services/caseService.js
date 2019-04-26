@@ -472,15 +472,19 @@ export default class CaseService {
 
         this.savePartnerCaseAccess = async (caseNumber, partnerAccountNumber, confirmationNumber) => {
             this.sharingCaseWithPartner = true;
+            var alert = AlertService.addWarningMessage(gettextCatalog.getString(`Sharing Case with partner account: ${partnerAccountNumber}`));
             try {
                 const body = {
                     access: { permission: 'Write', accountNumber: partnerAccountNumber },
                     confirmationNumber
                 }
                 await hydrajs.kase.access.patchCaseAccess(caseNumber, body);
+                AlertService.addSuccessMessage(gettextCatalog.getString(`Case successfully shared with the partner`))
             } catch (e) {
-                AlertService.addDangerMessage(e.message);
+                console.error(e);
+                AlertService.addDangerMessage(`Problem sharing case with the partner, please retry. ${e.message}`);
             }
+            AlertService.removeAlert(alert);
             this.sharingCaseWithPartner = false;
         }
 

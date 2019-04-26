@@ -18,16 +18,25 @@ export default class ShareCaseWithPartner {
             window.location.replace(z);
         }
 
+        this.removeRejectQueryParams = () => {
+            const url = window.location.href;
+            const x = url.replace(/\??rejectedTnC=\w+/gi, '');
+            window.location.replace(x);
+        }
+
         const init = async () => {
-            const partnerAccountNumber = get((/partnerAccountNumber=(\d+)/gi).exec(window.location.href.toString()), [1]);
-            const decisionAccepted = (/decision-\d+=accepted/gi).exec(window.location.href.toString());
-            const ackID = get((/ackID=(\d+)/gi).exec(window.location.href.toString()), [1]);
-            if(partnerAccountNumber && decisionAccepted && ackID) {
-                var alert = AlertService.addWarningMessage(gettextCatalog.getString(`Sharing Case with account: ${partnerAccountNumber}`));
-                await CaseService.savePartnerCaseAccess(CaseService.kase.case_number, partnerAccountNumber, ackID);
-                CaseService.sharingCaseWithPartner = false;
-                AlertService.removeAlert(alert);
-                this.removeQueryParams();
+            const rejectedTnC = (/rejectedTnC=\w+/gi).exec(window.location.href.toString());
+            if (rejectedTnC) {
+                AlertService.addDangerMessage(`Case cannot be shared untill terms and conditions accepted`);
+                this.removeRejectQueryParams();
+            } else {
+                const partnerAccountNumber = get((/partnerAccountNumber=(\d+)/gi).exec(window.location.href.toString()), [1]);
+                const decisionAccepted = (/decision-\d+=accepted/gi).exec(window.location.href.toString());
+                const ackID = get((/ackID=(\d+)/gi).exec(window.location.href.toString()), [1]);
+                if (partnerAccountNumber && decisionAccepted && ackID) {
+                    await CaseService.savePartnerCaseAccess(CaseService.kase.case_number, partnerAccountNumber, ackID);
+                    this.removeQueryParams();
+                }
             }
             await CaseService.populatePartners(CaseService.kase.case_number, CaseService.kase.account_number);
         };
