@@ -27,7 +27,7 @@ export default class ShareCaseWithPartner {
         const init = async () => {
             const rejectedTnC = (/rejectedTnC=\w+/gi).exec(window.location.href.toString());
             if (rejectedTnC) {
-                AlertService.addDangerMessage(`Case cannot be shared untill terms and conditions accepted`);
+                AlertService.addDangerMessage(`Case cannot be shared untill terms and conditions are accepted`);
                 this.removeRejectQueryParams();
             } else {
                 const partnerAccountNumber = get((/partnerAccountNumber=(\d+)/gi).exec(window.location.href.toString()), [1]);

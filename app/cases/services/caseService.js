@@ -435,12 +435,6 @@ export default class CaseService {
             return false;
         };
 
-        this.getEligiblePartnersToShareCase = (partners = []) => {
-            _.filter(partners, (p) => {
-                p.permission !== "Write"
-            });
-        }
-
         this.populatePartners = async (caseNumber, caseAccountNumber) => {
             try {
                 this.loadingPartners = true;
