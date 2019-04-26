@@ -482,7 +482,7 @@ export default class CaseService {
                 AlertService.addSuccessMessage(gettextCatalog.getString(`Case successfully shared with the partner`))
             } catch (e) {
                 console.error(e);
-                AlertService.addDangerMessage(`Problem sharing case with the partner, please retry. ${e.message}`);
+                AlertService.addDangerMessage(`Problem sharing case with the partner. ${e.message}`);
             }
             AlertService.removeAlert(alert);
             this.sharingCaseWithPartner = false;
