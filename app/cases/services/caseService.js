@@ -472,7 +472,7 @@ export default class CaseService {
 
         this.savePartnerCaseAccess = async (caseNumber, partnerAccountNumber, confirmationNumber) => {
             this.sharingCaseWithPartner = true;
-            var alert = AlertService.addWarningMessage(gettextCatalog.getString(`Sharing Case with partner account: ${partnerAccountNumber}`));
+            const alert = AlertService.addWarningMessage(gettextCatalog.getString(`Sharing Case with partner account: ${partnerAccountNumber}`));
             try {
                 const body = {
                     access: { permission: 'Write', accountNumber: partnerAccountNumber },
