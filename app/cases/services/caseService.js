@@ -457,7 +457,7 @@ export default class CaseService {
                     this.eligiblePartnersToShareCase = appendAccountName(eligiblePartnerAccessList);
                 }
             } catch (e) {
-                console.log(e);
+                console.error(e);
             }
             finally {
                 this.loadingPartners = false;
