@@ -101,6 +101,7 @@ import AdvancedSearchCaseList from './controllers/advancedSearchCaseList'
 import ColumnSelectModal from './controllers/columnSelectModal'
 import ManagedAccountSelect from './controllers/managedAccountSelect'
 import SecureSupportHeader from './controllers/secureSupportHeader'
+import ShareCaseWithPartner from './controllers/shareCaseWithPartner';
 
 
 app.controller('ManagedAccountSelect', ManagedAccountSelect);
@@ -159,6 +160,8 @@ app.controller('VersionSelect', VersionSelect);
 app.controller('SearchBookmarkModal', SearchBookmarkModal);
 app.controller('AdvancedSearchCaseList', AdvancedSearchCaseList);
 app.controller('ColumnSelectModal', ColumnSelectModal);
+app.controller('ShareCaseWithPartner', ShareCaseWithPartner);
+
 
 // Directives
 import rhaAttachlocalfile from './directives/attachLocalFile'
@@ -178,6 +181,7 @@ import rhaCasediscussion from './directives/discussionSection'
 import rhaEditcaserecommendations from './directives/editCaseRecommendationsSection'
 import rhaEmailnotifyselect from './directives/emailNotifySelect'
 import rhaEmailnotifyselectInternal from './directives/emailNotifySelectInternal'
+import shareCaseWithPartner from './directives/shareCaseWithPartner'
 import equalWidths from './directives/equalWidths'
 import rhaExistingBookmarkedAccounts from './directives/existingBookmarkedAccounts'
 import rhaExportcsvbutton from './directives/exportCSVButton'
@@ -252,6 +256,7 @@ app.directive('rhaTypeselect', rhaTypeselect);
 app.directive('rhaVersionselect', rhaVersionselect);
 app.directive('pagination', pagination);
 app.directive('convertToNumber', convertToNumber);
+app.directive('shareCaseWithPartner', shareCaseWithPartner);
 
 //Components
 import rhaAdvancedSearchCaseList from './components/advancedSearchCaseList'

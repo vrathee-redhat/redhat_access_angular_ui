@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import hydrajs from '../../shared/hydrajs.js';
+import { getTnCUrl } from '../../shared/TnC';
 
 export default class CaseService {
     constructor(strataService, AlertService, RHAUtils, securityService, $q, gettextCatalog, CacheFactory, $rootScope, CASE_EVENTS, ConstantsService, HeaderService, $location, ConfigService) {
@@ -74,6 +75,10 @@ export default class CaseService {
         this.submittingCep = false;
         this.solutionEngineProduct = '';
         this.redhatUsers = [];
+        this.partners = [];
+        this.loadingPartners = false;
+        this.eligiblePartnersToShareCase = [];
+        this.savedPartners = [];
         this.redhatSecureSupportUsers = [];
         this.managedAccount = null;
         this.externalCaseCreateKey;
@@ -148,6 +153,7 @@ export default class CaseService {
             "Web Services",
             "Webservers"
         ];
+        this.TnCUrl = getTnCUrl();
 
         // pcm-5478 : only the below products would see premium plus entitlements if account has this entitlement
         this.premiumPlusProducts = [
@@ -161,7 +167,7 @@ export default class CaseService {
 
         this.isLoadingRHUsers = false;
         this.noResultsForRHUsersSearch = false;
-        
+
         this.setSeverities = function (severities) {
             this.severities = severities;
             angular.forEach(this.severities, function (severity) {
@@ -429,6 +435,56 @@ export default class CaseService {
             return false;
         };
 
+        this.populatePartners = async (caseNumber, caseAccountNumber) => {
+            try {
+                this.loadingPartners = true;
+                const _partners = securityService.loginStatus.authedUser.account.number === caseAccountNumber ? loginStatus.authedUser.accountManagers : (await strataService.accounts.accountManagers.get(caseAccountNumber));
+                const partners = _.get(_partners, 'accounts');
+                if (!_.isEmpty(partners)) {
+                    const response = await hydrajs.kase.access.getCaseAccessList(caseNumber);
+                    const hasAccountLevelAccess = (access) => (access.accessScope === "Account" && access.permission === "Write");
+                    const hasCaseLevelAccess = (access) => (access.accessScope === "Case" && access.permission === "Write");
+
+                    const getAccountName = (partnerAccess) => {
+                        const account = _.find(partners, (p) => (p.accountNum === partnerAccess.accountNumber));
+                        return _.get(account, 'name');
+                    }
+                    const appendAccountName = (list) => _.map(list, (partnerAccess) => _.merge({}, partnerAccess, { accountName: getAccountName(partnerAccess) }));
+                    this.savedPartners = appendAccountName(_.filter(response.accessList, (p) => (hasCaseLevelAccess(p))));
+                    const eligiblePartnerAccessList = _.filter(response.accessList, (access) => {
+                        return !hasAccountLevelAccess(access) && !hasCaseLevelAccess(access);
+                    });
+                    this.eligiblePartnersToShareCase = appendAccountName(eligiblePartnerAccessList);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+            finally {
+                this.loadingPartners = false;
+            }
+        }
+
+        this.savePartnerCaseAccess = async (caseNumber, partnerAccountNumber, confirmationNumber) => {
+            this.sharingCaseWithPartner = true;
+            const alert = AlertService.addWarningMessage(gettextCatalog.getString(`Sharing Case with partner account: ${partnerAccountNumber}`));
+            try {
+                const body = {
+                    access: { permission: 'Write', accountNumber: partnerAccountNumber },
+                    confirmationNumber
+                }
+                await hydrajs.kase.access.patchCaseAccess(caseNumber, body);
+                AlertService.addSuccessMessage(gettextCatalog.getString(`Case successfully shared with the partner`))
+            } catch (e) {
+                console.error(e);
+                AlertService.addDangerMessage(`Problem sharing case with the partner. ${e.message}`);
+            }
+            AlertService.removeAlert(alert);
+            this.sharingCaseWithPartner = false;
+        }
+
+        this.getTnCUrl = (selectedPartners) => {
+            return getTnCUrl(_.get(selectedPartners, [0, 'accountNumber']));
+        }
         /**
          *  Intended to be called only after user is logged in and has account details
          *  See securityService.
@@ -1193,7 +1249,7 @@ export default class CaseService {
                 this.isLoadingRHUsers = true;
                 const response = await hydrajs.contacts.getSFDCContacts(queryParams);
                 options = (response && response.items && response.items.length) ? response.items : [];
-                options = _.filter(options, (c)=> !_.includes(this.originalNotifiedUsers, c.ssoUsername));
+                options = _.filter(options, (c) => !_.includes(this.originalNotifiedUsers, c.ssoUsername));
                 this.isLoadingRHUsers = false;
             } catch (e) {
                 console.warn(`Unable to search contacts, error: ${e}`);
@@ -1204,7 +1260,7 @@ export default class CaseService {
         };
 
         this.mapUsers = (users) => {
-            return _.compact(_.map(users, (userSSO) => _.find(this.internalNotificationContacts, {'ssoUsername': userSSO})))
+            return _.compact(_.map(users, (userSSO) => _.find(this.internalNotificationContacts, { 'ssoUsername': userSSO })))
         };
     }
 }

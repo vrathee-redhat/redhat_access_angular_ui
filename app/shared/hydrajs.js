@@ -96,6 +96,252 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/abortcontroller-polyfill/dist/abortcontroller-polyfill-only.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/abortcontroller-polyfill/dist/abortcontroller-polyfill-only.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {(function (global, factory) {
+   true ? factory() :
+  undefined;
+}(this, (function () { 'use strict';
+
+  var classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+
+  var createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var get = function get(object, property, receiver) {
+    if (object === null) object = Function.prototype;
+    var desc = Object.getOwnPropertyDescriptor(object, property);
+
+    if (desc === undefined) {
+      var parent = Object.getPrototypeOf(object);
+
+      if (parent === null) {
+        return undefined;
+      } else {
+        return get(parent, property, receiver);
+      }
+    } else if ("value" in desc) {
+      return desc.value;
+    } else {
+      var getter = desc.get;
+
+      if (getter === undefined) {
+        return undefined;
+      }
+
+      return getter.call(receiver);
+    }
+  };
+
+  var inherits = function (subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  };
+
+  var possibleConstructorReturn = function (self, call) {
+    if (!self) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+  };
+
+  var Emitter = function () {
+    function Emitter() {
+      classCallCheck(this, Emitter);
+
+      this.listeners = {};
+    }
+
+    createClass(Emitter, [{
+      key: 'addEventListener',
+      value: function addEventListener(type, callback) {
+        if (!(type in this.listeners)) {
+          this.listeners[type] = [];
+        }
+        this.listeners[type].push(callback);
+      }
+    }, {
+      key: 'removeEventListener',
+      value: function removeEventListener(type, callback) {
+        if (!(type in this.listeners)) {
+          return;
+        }
+        var stack = this.listeners[type];
+        for (var i = 0, l = stack.length; i < l; i++) {
+          if (stack[i] === callback) {
+            stack.splice(i, 1);
+            return;
+          }
+        }
+      }
+    }, {
+      key: 'dispatchEvent',
+      value: function dispatchEvent(event) {
+        var _this = this;
+
+        if (!(event.type in this.listeners)) {
+          return;
+        }
+        var debounce = function debounce(callback) {
+          setTimeout(function () {
+            return callback.call(_this, event);
+          });
+        };
+        var stack = this.listeners[event.type];
+        for (var i = 0, l = stack.length; i < l; i++) {
+          debounce(stack[i]);
+        }
+        return !event.defaultPrevented;
+      }
+    }]);
+    return Emitter;
+  }();
+
+  var AbortSignal = function (_Emitter) {
+    inherits(AbortSignal, _Emitter);
+
+    function AbortSignal() {
+      classCallCheck(this, AbortSignal);
+
+      var _this2 = possibleConstructorReturn(this, (AbortSignal.__proto__ || Object.getPrototypeOf(AbortSignal)).call(this));
+
+      _this2.aborted = false;
+      _this2.onabort = null;
+      return _this2;
+    }
+
+    createClass(AbortSignal, [{
+      key: 'toString',
+      value: function toString() {
+        return '[object AbortSignal]';
+      }
+    }, {
+      key: 'dispatchEvent',
+      value: function dispatchEvent(event) {
+        if (event.type === 'abort') {
+          this.aborted = true;
+          if (typeof this.onabort === 'function') {
+            this.onabort.call(this, event);
+          }
+        }
+
+        get(AbortSignal.prototype.__proto__ || Object.getPrototypeOf(AbortSignal.prototype), 'dispatchEvent', this).call(this, event);
+      }
+    }]);
+    return AbortSignal;
+  }(Emitter);
+
+  var AbortController = function () {
+    function AbortController() {
+      classCallCheck(this, AbortController);
+
+      this.signal = new AbortSignal();
+    }
+
+    createClass(AbortController, [{
+      key: 'abort',
+      value: function abort() {
+        var event = void 0;
+        try {
+          event = new Event('abort');
+        } catch (e) {
+          if (typeof document !== 'undefined') {
+            // For Internet Explorer 11:
+            event = document.createEvent('Event');
+            event.initEvent('abort', false, false);
+          } else {
+            // Fallback where document isn't available:
+            event = {
+              type: 'abort',
+              bubbles: false,
+              cancelable: false
+            };
+          }
+        }
+        this.signal.dispatchEvent(event);
+      }
+    }, {
+      key: 'toString',
+      value: function toString() {
+        return '[object AbortController]';
+      }
+    }]);
+    return AbortController;
+  }();
+
+  if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+    // These are necessary to make sure that we get correct output for:
+    // Object.prototype.toString.call(new AbortController())
+    AbortController.prototype[Symbol.toStringTag] = 'AbortController';
+    AbortSignal.prototype[Symbol.toStringTag] = 'AbortSignal';
+  }
+
+  function hasBrokenNativeAbortController(userAgent) {
+    if (userAgent.match(/ (crios|gsa|fxios)\//i)) {
+      return true;
+    }
+    if (userAgent.match(/ Safari\//i) && userAgent.match(/ Version\/(12.0|12.1|11)/i)) {
+      return true;
+    }
+    return false;
+  }
+
+  function nativeAbortControllerIsBroken(self) {
+    return self.navigator && self.navigator.userAgent && hasBrokenNativeAbortController(self.navigator.userAgent);
+  }
+
+  (function (self) {
+
+    if (self.AbortController && !nativeAbortControllerIsBroken(self)) {
+      return;
+    }
+
+    self.AbortController = AbortController;
+    self.AbortSignal = AbortSignal;
+  })(typeof self !== 'undefined' ? self : global);
+
+})));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/aws-sdk/apis/acm-2015-12-08.min.json":
 /*!***********************************************************!*\
   !*** ./node_modules/aws-sdk/apis/acm-2015-12-08.min.json ***!
@@ -27835,74 +28081,18 @@ exports.uploadAttachmentS3 = uploadAttachmentS3;
 function downloadAttachmentS3(caseNumber, attachmentId, fileName, useRHEndpoint) {
     if (useRHEndpoint === void 0) { useRHEndpoint = false; }
     return __awaiter(this, void 0, void 0, function () {
-        var path, uri, getCredentials, credentials, s3_2, Key_1, Bucket_1, url, element, error_4;
-        var _this = this;
+        var url, element;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    path = env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + attachmentId + "/download/credentials";
-                    uri = env_1.default.hydraHostName.clone().setPath("" + path);
-                    getCredentials = function () { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            try {
-                                return [2 /*return*/, fetch_1.getUri(uri)];
-                            }
-                            catch (error) {
-                                throw new Error('Failed to fetch download credentials.');
-                            }
-                            return [2 /*return*/];
-                        });
-                    }); };
-                    _a.label = 1;
+                case 0: return [4 /*yield*/, getS3DownloadUrl(caseNumber, attachmentId, fileName, useRHEndpoint)];
                 case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, getCredentials()];
-                case 2:
-                    credentials = _a.sent();
-                    s3_2 = getAmazonS3(credentials, useRHEndpoint);
-                    Key_1 = credentials.key;
-                    Bucket_1 = credentials.bucketName;
-                    s3_2.config.credentials.refresh = function (callback) { return __awaiter(_this, void 0, void 0, function () {
-                        var creds, error_5;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    _a.trys.push([0, 2, , 3]);
-                                    return [4 /*yield*/, getCredentials()];
-                                case 1:
-                                    creds = _a.sent();
-                                    s3_2.config.credentials.accessKeyId = creds.accessKey;
-                                    s3_2.config.credentials.secretAccessKey = creds.secretKey;
-                                    s3_2.config.credentials.sessionToken = creds.sessionToken;
-                                    s3_2.config.credentials.expireTime = new Date(creds.expiration);
-                                    callback(null);
-                                    return [3 /*break*/, 3];
-                                case 2:
-                                    error_5 = _a.sent();
-                                    callback(error_5);
-                                    return [3 /*break*/, 3];
-                                case 3: return [2 /*return*/];
-                            }
-                        });
-                    }); };
-                    return [4 /*yield*/, new Promise(function (resolve, reject) { return s3_2.getSignedUrl('getObject', {
-                            Key: Key_1,
-                            Bucket: Bucket_1,
-                            ResponseContentDisposition: "attachment; filename=\"" + encodeURI(fileName) + "\"",
-                            Expires: 5
-                        }, function (error, url) { return error ? reject(error) : resolve(url); }); })];
-                case 3:
                     url = _a.sent();
                     element = document.createElement('a');
                     element.setAttribute('href', url);
                     document.body.appendChild(element);
                     element.click();
                     document.body.removeChild(element);
-                    return [3 /*break*/, 5];
-                case 4:
-                    error_4 = _a.sent();
-                    throw error_4;
-                case 5: return [2 /*return*/];
+                    return [2 /*return*/];
             }
         });
     });
@@ -27916,7 +28106,7 @@ exports.downloadAttachmentS3 = downloadAttachmentS3;
  */
 function getS3UploadAccounts() {
     return __awaiter(this, void 0, void 0, function () {
-        var s3Configurations, configurations, error_6;
+        var s3Configurations, configurations, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -27949,7 +28139,7 @@ function getS3UploadAccounts() {
                     });
                     return [2 /*return*/, s3Configurations];
                 case 3:
-                    error_6 = _a.sent();
+                    error_4 = _a.sent();
                     return [2 /*return*/, s3Configurations];
                 case 4: return [2 /*return*/];
             }
@@ -27957,6 +28147,201 @@ function getS3UploadAccounts() {
     });
 }
 exports.getS3UploadAccounts = getS3UploadAccounts;
+function getS3DownloadUrl(caseNumber, attachmentId, fileName, useRHEndpoint) {
+    if (useRHEndpoint === void 0) { useRHEndpoint = false; }
+    return __awaiter(this, void 0, void 0, function () {
+        var path, uri, getCredentials, credentials, s3_2, Key_1, Bucket_1, url, error_5;
+        var _this = this;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    path = env_1.default.pathPrefix + "/cases/" + caseNumber + "/attachments/" + attachmentId + "/download/credentials";
+                    uri = env_1.default.hydraHostName.clone().setPath("" + path);
+                    getCredentials = function () { return __awaiter(_this, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            try {
+                                return [2 /*return*/, fetch_1.getUri(uri)];
+                            }
+                            catch (error) {
+                                throw new Error('Failed to fetch download credentials.');
+                            }
+                            return [2 /*return*/];
+                        });
+                    }); };
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, getCredentials()];
+                case 2:
+                    credentials = _a.sent();
+                    s3_2 = getAmazonS3(credentials, useRHEndpoint);
+                    Key_1 = credentials.key;
+                    Bucket_1 = credentials.bucketName;
+                    s3_2.config.credentials.refresh = function (callback) { return __awaiter(_this, void 0, void 0, function () {
+                        var creds, error_6;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    _a.trys.push([0, 2, , 3]);
+                                    return [4 /*yield*/, getCredentials()];
+                                case 1:
+                                    creds = _a.sent();
+                                    s3_2.config.credentials.accessKeyId = creds.accessKey;
+                                    s3_2.config.credentials.secretAccessKey = creds.secretKey;
+                                    s3_2.config.credentials.sessionToken = creds.sessionToken;
+                                    s3_2.config.credentials.expireTime = new Date(creds.expiration);
+                                    callback(null);
+                                    return [3 /*break*/, 3];
+                                case 2:
+                                    error_6 = _a.sent();
+                                    callback(error_6);
+                                    return [3 /*break*/, 3];
+                                case 3: return [2 /*return*/];
+                            }
+                        });
+                    }); };
+                    return [4 /*yield*/, new Promise(function (resolve, reject) { return s3_2.getSignedUrl('getObject', {
+                            Key: Key_1,
+                            Bucket: Bucket_1,
+                            ResponseContentDisposition: "attachment; filename=\"" + encodeURI(fileName) + "\"",
+                            Expires: 5
+                        }, function (error, url) { return error ? reject(error) : resolve(url); }); })];
+                case 3:
+                    url = _a.sent();
+                    return [2 /*return*/, url];
+                case 4:
+                    error_5 = _a.sent();
+                    throw error_5;
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getS3DownloadUrl = getS3DownloadUrl;
+
+
+/***/ }),
+
+/***/ "./src/api/attachmentViewer/attachment.ts":
+/*!************************************************!*\
+  !*** ./src/api/attachmentViewer/attachment.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+function getAttachmentMetaDataForCaseNumber(caseNumber, abortSignal) {
+    var uri = env_1.default.cavHostName.clone().setPath(env_1.default.cavPathPrefix + "/attachments/" + caseNumber);
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.getUri(uri, options);
+}
+exports.getAttachmentMetaDataForCaseNumber = getAttachmentMetaDataForCaseNumber;
+function getSosReportStructureForCaseNumber(caseNumber, sosStructureReq, abortSignal) {
+    var uri = env_1.default.cavHostName.clone().setPath(env_1.default.cavPathPrefix + "/attachments/" + caseNumber + "/attachment");
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.postUri(uri, sosStructureReq, null, null, options);
+}
+exports.getSosReportStructureForCaseNumber = getSosReportStructureForCaseNumber;
+function getAttachmentFileContentForCaseNumber(caseNumber, sosContentReq, abortSignal) {
+    var uri = env_1.default.cavHostName.clone().setPath(env_1.default.cavPathPrefix + "/attachments/" + caseNumber + "/attachment/content");
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.postUri(uri, sosContentReq, null, null, options);
+}
+exports.getAttachmentFileContentForCaseNumber = getAttachmentFileContentForCaseNumber;
+function getSosReportFileDownloadToken(caseNumber, downloadReq) {
+    var uri = env_1.default.cavHostName.clone().setPath(env_1.default.cavPathPrefix + "/attachments/" + caseNumber + "/attachment/token");
+    return fetch_1.postUri(uri, downloadReq);
+}
+exports.getSosReportFileDownloadToken = getSosReportFileDownloadToken;
+function downloadSosReportFile(caseNumber, downloadReq) {
+    return __awaiter(this, void 0, void 0, function () {
+        var downloadToken, uri, element;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getSosReportFileDownloadToken(caseNumber, downloadReq)];
+                case 1:
+                    downloadToken = _a.sent();
+                    uri = env_1.default.cavHostName.clone().setPath(env_1.default.cavPathPrefix + "/attachments/" + caseNumber + "/attachment/download");
+                    if (downloadToken && downloadToken.file_token) {
+                        uri.addQueryParam('token', downloadToken.file_token);
+                        element = document.createElement('a');
+                        element.setAttribute('href', uri.toString());
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.downloadSosReportFile = downloadSosReportFile;
+
+
+/***/ }),
+
+/***/ "./src/api/attachmentViewer/user.ts":
+/*!******************************************!*\
+  !*** ./src/api/attachmentViewer/user.ts ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+function getUserForSsoUserName(ssoUserName) {
+    var uri = env_1.default.cavHostName.clone().setPath(env_1.default.cavPathPrefix + "/user/" + ssoUserName);
+    return fetch_1.getUri(uri);
+}
+exports.getUserForSsoUserName = getUserForSsoUserName;
 
 
 /***/ }),
@@ -28379,6 +28764,26 @@ function getCasesFromSoql(query, isSecureSupport) {
     return fetch_1.postUri(uri, query);
 }
 exports.getCasesFromSoql = getCasesFromSoql;
+// A proxy api exposed by hydra which internally calls search diagnostics api
+// Supports internal auth
+function caseSearch(payload, abortSignal) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/search");
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.postUri(uri, payload, null, null, options);
+}
+exports.caseSearch = caseSearch;
+function getCaseAccessList(caseNumber) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/share");
+    return fetch_1.getUri(uri);
+}
+exports.getCaseAccessList = getCaseAccessList;
+function patchCaseAccess(caseNumber, patchBody) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cases/" + caseNumber + "/share");
+    return fetch_1.patchUri(uri, patchBody);
+}
+exports.patchCaseAccess = patchCaseAccess;
 
 
 /***/ }),
@@ -28634,7 +29039,7 @@ var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
 function getSFDCContacts(params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/contacts/");
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
@@ -28766,14 +29171,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
 var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
 // TODO: Need to create Params interface.
-function getCSAccounts(params) {
+function getCSAccounts(params, abortSignal) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/accounts/");
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
-    return fetch_1.getUri(uri);
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.getUri(uri, options);
 }
 exports.getCSAccounts = getCSAccounts;
 function getOpenCaseCount(accountNumber) {
@@ -28807,14 +29215,17 @@ exports.getEntitlementCount = getEntitlementCount;
 Object.defineProperty(exports, "__esModule", { value: true });
 var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
 var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-function getContacts(params) {
+function getContacts(params, abortSignal) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/contacts/");
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
-    return fetch_1.getUri(uri);
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.getUri(uri, options);
 }
 exports.getContacts = getContacts;
 
@@ -28833,20 +29244,23 @@ exports.getContacts = getContacts;
 Object.defineProperty(exports, "__esModule", { value: true });
 var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
 var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
-function listCtas(params) {
+function listCtas(params, abortSignal) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas");
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
-    return fetch_1.getUri(uri);
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.getUri(uri, options);
 }
 exports.listCtas = listCtas;
 function getCtaGroupedCount(params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/count");
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
@@ -28871,7 +29285,7 @@ exports.addCta = addCta;
 function deleteCta(ctaId, params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId);
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
@@ -28881,7 +29295,7 @@ exports.deleteCta = deleteCta;
 function getCtaTasks(ctaId, params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/tasks");
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
@@ -28906,7 +29320,7 @@ exports.deleteTask = deleteTask;
 function getCtaComments(ctaId, params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/ctas/" + ctaId + "/comments");
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
@@ -28933,6 +29347,40 @@ function deleteCtaComment(commentId, ctaId) {
     return fetch_1.deleteUri(uri);
 }
 exports.deleteCtaComment = deleteCtaComment;
+
+
+/***/ }),
+
+/***/ "./src/api/csp/label.ts":
+/*!******************************!*\
+  !*** ./src/api/csp/label.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+function getLabels(params, abortSignal) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/labels/");
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k]) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.getUri(uri, options);
+}
+exports.getLabels = getLabels;
+function addLabel(body) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/labels/");
+    return fetch_1.postUri(uri, body);
+}
+exports.addLabel = addLabel;
 
 
 /***/ }),
@@ -28975,6 +29423,11 @@ function getProductsForAccount(accountNumber) {
     return fetch_1.getUri(uri);
 }
 exports.getProductsForAccount = getProductsForAccount;
+function getProductsList() {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/v2/products");
+    return fetch_1.getUri(uri);
+}
+exports.getProductsList = getProductsList;
 
 
 /***/ }),
@@ -28992,22 +29445,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
 var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
 // success Plan
-function getSuccessPlansForUserName(ssoUsername) {
+function getSuccessPlans(params, abortSignal) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans");
-    uri.addQueryParam('username', ssoUsername);
-    return fetch_1.getUri(uri);
+    params && Object.keys(params).forEach(function (k) {
+        if (params[k]) {
+            uri.addQueryParam(k, params[k]);
+        }
+    });
+    var options = {
+        signal: abortSignal
+    };
+    return fetch_1.getUri(uri, options);
 }
-exports.getSuccessPlansForUserName = getSuccessPlansForUserName;
-function getSuccessPlansForAccountNumber(accountNumber) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/accounts/" + accountNumber);
-    return fetch_1.getUri(uri);
-}
-exports.getSuccessPlansForAccountNumber = getSuccessPlansForAccountNumber;
-function getSuccessPlansForId(successPlanId) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId);
-    return fetch_1.getUri(uri);
-}
-exports.getSuccessPlansForId = getSuccessPlansForId;
+exports.getSuccessPlans = getSuccessPlans;
 function addSuccessPlan(successPlan) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans");
     return fetch_1.postUri(uri, successPlan);
@@ -29024,22 +29474,33 @@ function removeSuccessPlan(successPlanId) {
 }
 exports.removeSuccessPlan = removeSuccessPlan;
 // Products
-function addProduct(successPlanId, product) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/products");
+function addProductToObjective(successPlanId, product) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + product.objectiveId + "/products");
     return fetch_1.postUri(uri, product);
 }
-exports.addProduct = addProduct;
-function updateProduct(product) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + product.successPlanId + "/products/" + product.id);
-    return fetch_1.putUri(uri, product);
-}
-exports.updateProduct = updateProduct;
-function removeProduct(successPlanId, productId) {
-    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/products/" + productId);
+exports.addProductToObjective = addProductToObjective;
+function removeProductFromObjective(successPlanId, objectiveId, productId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/products/" + productId);
     return fetch_1.deleteUri(uri);
 }
-exports.removeProduct = removeProduct;
+exports.removeProductFromObjective = removeProductFromObjective;
+// Labels
+function addLabelToObjective(successPlanId, objectiveId, labelId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/labels/" + labelId);
+    return fetch_1.postUri(uri);
+}
+exports.addLabelToObjective = addLabelToObjective;
+function removeLabelFromObjective(successPlanId, objectiveId, labelId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/labels/" + labelId);
+    return fetch_1.deleteUri(uri);
+}
+exports.removeLabelFromObjective = removeLabelFromObjective;
 // Objectives
+function getObjectiveById(objectiveId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/objectives/" + objectiveId);
+    return fetch_1.getUri(uri);
+}
+exports.getObjectiveById = getObjectiveById;
 function addObjective(successPlanId, objective) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives");
     return fetch_1.postUri(uri, objective);
@@ -29103,6 +29564,28 @@ function deleteObjectiveComment(successPlanId, objectiveId, commentId) {
     return fetch_1.deleteUri(uri);
 }
 exports.deleteObjectiveComment = deleteObjectiveComment;
+// Objective Account
+function linkObjectiveAccount(successPlanId, objectiveId, accountNumber) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/accounts/" + accountNumber);
+    return fetch_1.postUri(uri);
+}
+exports.linkObjectiveAccount = linkObjectiveAccount;
+function unLinkObjectiveAccount(successPlanId, objectiveId, accountNumber) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/accounts/" + accountNumber);
+    return fetch_1.deleteUri(uri);
+}
+exports.unLinkObjectiveAccount = unLinkObjectiveAccount;
+// Objective Ctas
+function linkObjectiveCta(successPlanId, objectiveId, ctaId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/ctas/" + ctaId);
+    return fetch_1.postUri(uri);
+}
+exports.linkObjectiveCta = linkObjectiveCta;
+function unLinkObjectiveCta(successPlanId, objectiveId, ctaId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/successplans/" + successPlanId + "/objectives/" + objectiveId + "/ctas/" + ctaId);
+    return fetch_1.deleteUri(uri);
+}
+exports.unLinkObjectiveCta = unLinkObjectiveCta;
 
 
 /***/ }),
@@ -29122,7 +29605,7 @@ var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts
 function getTimeline(params) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/cs/timeline");
     params && Object.keys(params).forEach(function (k) {
-        if (params[k] !== undefined) {
+        if (params[k]) {
             uri.addQueryParam(k, params[k]);
         }
     });
@@ -29591,6 +30074,124 @@ exports.updateEscalations = updateEscalations;
 
 /***/ }),
 
+/***/ "./src/api/escalationHub/escalation.ts":
+/*!*********************************************!*\
+  !*** ./src/api/escalationHub/escalation.ts ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var fetch_1 = __webpack_require__(/*! ../../utils/fetch */ "./src/utils/fetch.ts");
+var env_1 = __webpack_require__(/*! ../../utils/env */ "./src/utils/env.ts");
+function getAllEscalations(options) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations");
+    uri.addQueryParam('highlight', options.highlight);
+    return fetch_1.getUri(uri);
+}
+exports.getAllEscalations = getAllEscalations;
+function createEscalation(payload) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations");
+    return fetch_1.postUri(uri, payload);
+}
+exports.createEscalation = createEscalation;
+function updateEscalation(id, payload) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id);
+    return fetch_1.putUri(uri, payload);
+}
+exports.updateEscalation = updateEscalation;
+function updateEscalationHistory(id, payload) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id);
+    return fetch_1.putUri(uri, payload);
+}
+exports.updateEscalationHistory = updateEscalationHistory;
+function getEscalationById(id) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id);
+    return fetch_1.getUri(uri);
+}
+exports.getEscalationById = getEscalationById;
+function addAccountToEscalation(id, accountNumber) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/account");
+    return fetch_1.postUri(uri, { accountNumber: accountNumber });
+}
+exports.addAccountToEscalation = addAccountToEscalation;
+function deleteAccountFromEscalation(id, accountNumber) {
+    var uri = env_1.default.hydraHostName.clone()
+        .setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/account/" + accountNumber);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteAccountFromEscalation = deleteAccountFromEscalation;
+function addSubscriberToEscalation(id, email) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/subscriber");
+    return fetch_1.postUri(uri, { email: email });
+}
+exports.addSubscriberToEscalation = addSubscriberToEscalation;
+function deleteSubscriberFromEscalation(id, email) {
+    var uri = env_1.default.hydraHostName.clone()
+        .setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/subscriber/" + email);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteSubscriberFromEscalation = deleteSubscriberFromEscalation;
+function addCaseToEscalation(id, caseNumber) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/case");
+    return fetch_1.postUri(uri, { caseNumber: caseNumber });
+}
+exports.addCaseToEscalation = addCaseToEscalation;
+function deleteCaseFromEscalation(id, caseNumber) {
+    var uri = env_1.default.hydraHostName.clone()
+        .setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/case/" + caseNumber);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteCaseFromEscalation = deleteCaseFromEscalation;
+function addProductToEscalation(id, productId, productName, versionId, versionName) {
+    var uri = env_1.default.hydraHostName.clone()
+        .setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/product");
+    return fetch_1.postUri(uri, { productId: productId, productName: productName, versionId: versionId, versionName: versionName });
+}
+exports.addProductToEscalation = addProductToEscalation;
+function deleteProductFromEscalation(id, productId, versionId) {
+    var uri = env_1.default.hydraHostName.clone()
+        .setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/product/" + productId + "/version/" + versionId);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteProductFromEscalation = deleteProductFromEscalation;
+function addUserToEscalation(id, userId, typeId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/associate");
+    return fetch_1.postUri(uri, { user: { id: userId }, type: { id: typeId } });
+}
+exports.addUserToEscalation = addUserToEscalation;
+function deleteUserFromEscalation(id, userId, typeId) {
+    var uri = env_1.default.hydraHostName.clone()
+        .setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/associate/type/" + typeId + "/user/" + userId);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteUserFromEscalation = deleteUserFromEscalation;
+function addNoteToEscalation(id, note) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/note");
+    return fetch_1.postUri(uri, { value: note });
+}
+exports.addNoteToEscalation = addNoteToEscalation;
+function deleteNoteFromEscalation(id, noteId) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/note/" + noteId);
+    return fetch_1.deleteUri(uri);
+}
+exports.deleteNoteFromEscalation = deleteNoteFromEscalation;
+function updateEscalationSubject(id, subject) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/" + id + "/subject");
+    return fetch_1.postUri(uri, { subject: subject });
+}
+exports.updateEscalationSubject = updateEscalationSubject;
+function sendWeeklyWatchListEmail(payload) {
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.escalationPathPrefix + "/escalations/email/weekly");
+    return fetch_1.postUri(uri, payload);
+}
+exports.sendWeeklyWatchListEmail = sendWeeklyWatchListEmail;
+
+
+/***/ }),
+
 /***/ "./src/api/externalTrackers.ts":
 /*!*************************************!*\
   !*** ./src/api/externalTrackers.ts ***!
@@ -29873,12 +30474,14 @@ var env_1 = __webpack_require__(/*! ../utils/env */ "./src/utils/env.ts");
 var fetch_1 = __webpack_require__(/*! ../utils/fetch */ "./src/utils/fetch.ts");
 function runKyce(attachmentId) {
     var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/hardgrok/attachments/" + attachmentId + "/inspect");
-    var headerParam = [];
-    headerParam.push({
+    var headers = {
         key: 'Accept',
         value: 'application/vnd.api.v1+json'
-    });
-    return fetch_1.getUri(uri, headerParam);
+    };
+    var options = {
+        headers: headers
+    };
+    return fetch_1.getUri(uri, options);
 }
 exports.runKyce = runKyce;
 
@@ -30005,6 +30608,24 @@ function getProductVersions(productName, eolProducts) {
     return fetch_1.getUri(uri);
 }
 exports.getProductVersions = getProductVersions;
+// Products v2
+// V2 returns an id with each product and product version and there is no need to pass sso since it will alway return all products
+// entitled products can be fetched using GET /v2/products/entitled/contact/{sso}
+// swagger for the same https://hydra-api.ext.paas.dev.redhat.com/?env=dev#!/v247products
+function getProductsV2(eolProducts) {
+    if (eolProducts === void 0) { eolProducts = false; }
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/v2/products");
+    uri.addQueryParam('includeEolProducts', eolProducts);
+    return fetch_1.getUri(uri);
+}
+exports.getProductsV2 = getProductsV2;
+function getProductVersionsV2(productName, eolProducts) {
+    if (eolProducts === void 0) { eolProducts = false; }
+    var uri = env_1.default.hydraHostName.clone().setPath(env_1.default.pathPrefix + "/v2/products/" + productName + "/versions");
+    uri.addQueryParam('includeEolProducts', eolProducts);
+    return fetch_1.getUri(uri);
+}
+exports.getProductVersionsV2 = getProductVersionsV2;
 
 
 /***/ }),
@@ -30215,11 +30836,14 @@ function getSolrAccess(solrQuery) {
     if (solrQuery.rows != null) {
         uri.addQueryParam('rows', solrQuery.rows);
     }
-    var headerParams = [{
-            key: 'Accept',
-            value: 'application/vnd.redhat.solr+json'
-        }];
-    return fetch_1.getUri(uri, headerParams);
+    var headers = {
+        key: 'Accept',
+        value: 'application/vnd.redhat.solr+json'
+    };
+    var options = {
+        headers: headers
+    };
+    return fetch_1.getUri(uri, options);
 }
 exports.getSolrAccess = getSolrAccess;
 function getSolrCases(solrQuery) {
@@ -30889,6 +31513,29 @@ exports.getBugzillaBugFields = getBugzillaBugFields;
 
 /***/ }),
 
+/***/ "./src/fields/businessHours.ts":
+/*!*************************************!*\
+  !*** ./src/fields/businessHours.ts ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function getBusinessHoursFields(options) {
+    var finalFields = [];
+    var fields = [
+        'name',
+    ];
+    Array.prototype.push.apply(finalFields, fields);
+    return finalFields;
+}
+exports.getBusinessHoursFields = getBusinessHoursFields;
+
+
+/***/ }),
+
 /***/ "./src/fields/case.ts":
 /*!****************************!*\
   !*** ./src/fields/case.ts ***!
@@ -30907,6 +31554,7 @@ var account_1 = __webpack_require__(/*! ./account */ "./src/fields/account.ts");
 var entitlement_1 = __webpack_require__(/*! ./entitlement */ "./src/fields/entitlement.ts");
 var product_1 = __webpack_require__(/*! ./product */ "./src/fields/product.ts");
 var recordType_1 = __webpack_require__(/*! ./recordType */ "./src/fields/recordType.ts");
+var businessHours_1 = __webpack_require__(/*! ./businessHours */ "./src/fields/businessHours.ts");
 function getCaseFields(options) {
     var finalFields = [];
     var caseFields = [
@@ -31063,7 +31711,8 @@ function getCaseFields(options) {
         'ttc',
         'version',
         'waitingOnCallback',
-        'cep'
+        'cep',
+        'pseCase'
     ];
     Array.prototype.push.apply(finalFields, caseFields);
     if (options && options.includeUncommonFields) {
@@ -31216,6 +31865,9 @@ function getCaseFields(options) {
     }
     if (options && options.includeRemoteSessionTermsAckedByContact) {
         Array.prototype.push.apply(finalFields, contact_1.getContactFields({ minimal: true }).map(function (f) { return "remoteSessionTermsAckedBy." + f; }));
+    }
+    if (options && options.includeBusinessHours) {
+        Array.prototype.push.apply(finalFields, businessHours_1.getBusinessHoursFields(options).map(function (f) { return "businessHours." + f; }));
     }
     return finalFields;
 }
@@ -31974,6 +32626,7 @@ var comment_2 = __webpack_require__(/*! ./fields/comment */ "./src/fields/commen
 var metadata_1 = __webpack_require__(/*! ./api/csp/metadata */ "./src/api/csp/metadata.ts");
 var successPlan_1 = __webpack_require__(/*! ./api/csp/successPlan */ "./src/api/csp/successPlan.ts");
 var account_4 = __webpack_require__(/*! ./api/csp/account */ "./src/api/csp/account.ts");
+var label_1 = __webpack_require__(/*! ./api/csp/label */ "./src/api/csp/label.ts");
 var product_2 = __webpack_require__(/*! ./api/csp/product */ "./src/api/csp/product.ts");
 var cta_1 = __webpack_require__(/*! ./api/csp/cta */ "./src/api/csp/cta.ts");
 var timeline_1 = __webpack_require__(/*! ./api/csp/timeline */ "./src/api/csp/timeline.ts");
@@ -31987,6 +32640,9 @@ var testClass_2 = __webpack_require__(/*! ./api/cweAdmin/testClass */ "./src/api
 var configuration_1 = __webpack_require__(/*! ./api/cweAdmin/configuration */ "./src/api/cweAdmin/configuration.ts");
 var policyGuide_1 = __webpack_require__(/*! ./api/cweAdmin/policyGuide */ "./src/api/cweAdmin/policyGuide.ts");
 var rhcertVersion_1 = __webpack_require__(/*! ./api/cweAdmin/rhcertVersion */ "./src/api/cweAdmin/rhcertVersion.ts");
+var escalation_2 = __webpack_require__(/*! ./api/escalationHub/escalation */ "./src/api/escalationHub/escalation.ts");
+var attachment_2 = __webpack_require__(/*! ./api/attachmentViewer/attachment */ "./src/api/attachmentViewer/attachment.ts");
+var user_4 = __webpack_require__(/*! ./api/attachmentViewer/user */ "./src/api/attachmentViewer/user.ts");
 var fetch_1 = __webpack_require__(/*! ./utils/fetch */ "./src/utils/fetch.ts");
 var env_1 = __webpack_require__(/*! ./utils/env */ "./src/utils/env.ts");
 exports.default = {
@@ -32030,7 +32686,8 @@ exports.default = {
             downloadAttachmentS3: attachment_1.downloadAttachmentS3,
             getS3UploadAccounts: attachment_1.getS3UploadAccounts,
             uploadNonS3Attachment: attachment_1.uploadNonS3Attachment,
-            deleteAttachment: attachment_1.deleteAttachment
+            deleteAttachment: attachment_1.deleteAttachment,
+            getS3DownloadUrl: attachment_1.getS3DownloadUrl
         },
         getLanguages: case_2.getLanguages,
         getCaseSbrs: case_2.getCaseSbrs,
@@ -32067,7 +32724,12 @@ exports.default = {
         getMilestones: case_2.getMilestones,
         getChatTranscripts: case_2.getChatTranscripts,
         getBugs: case_2.getBugs,
-        getCasesFromSoql: case_2.getCasesFromSoql
+        getCasesFromSoql: case_2.getCasesFromSoql,
+        caseSearch: case_2.caseSearch,
+        access: {
+            getCaseAccessList: case_2.getCaseAccessList,
+            patchCaseAccess: case_2.patchCaseAccess
+        }
     },
     insights: {
         runInsights: insights_1.runInsights,
@@ -32171,7 +32833,9 @@ exports.default = {
     },
     products: {
         getProducts: products_1.getProducts,
-        getProductVersions: products_1.getProductVersions
+        getProductVersions: products_1.getProductVersions,
+        getProductsV2: products_1.getProductsV2,
+        getProductVersionsV2: products_1.getProductVersionsV2
     },
     sbrs: {
         getSbr: sbrs_1.getSbr,
@@ -32226,7 +32890,26 @@ exports.default = {
     escalations: {
         getEscalations: escalation_1.getEscalations,
         createIceEscalation: escalation_1.createIceEscalation,
-        updateEscalations: escalation_1.updateEscalations
+        updateEscalations: escalation_1.updateEscalations,
+        getAllEscalations: escalation_2.getAllEscalations,
+        createEscalation: escalation_2.createEscalation,
+        updateEscalation: escalation_2.updateEscalation,
+        updateEscalationHistory: escalation_2.updateEscalationHistory,
+        sendWeeklyWatchListEmail: escalation_2.sendWeeklyWatchListEmail,
+        getEscalationById: escalation_2.getEscalationById,
+        addAccountToEscalation: escalation_2.addAccountToEscalation,
+        deleteAccountFromEscalation: escalation_2.deleteAccountFromEscalation,
+        addSubscriberToEscalation: escalation_2.addSubscriberToEscalation,
+        deleteSubscriberFromEscalation: escalation_2.deleteSubscriberFromEscalation,
+        addCaseToEscalation: escalation_2.addCaseToEscalation,
+        deleteCaseFromEscalation: escalation_2.deleteCaseFromEscalation,
+        addNoteToEscalation: escalation_2.addNoteToEscalation,
+        deleteNoteFromEscalation: escalation_2.deleteNoteFromEscalation,
+        addProductToEscalation: escalation_2.addProductToEscalation,
+        deleteProductFromEscalation: escalation_2.deleteProductFromEscalation,
+        addUserToEscalation: escalation_2.addUserToEscalation,
+        deleteUserFromEscalation: escalation_2.deleteUserFromEscalation,
+        updateEscalationSubject: escalation_2.updateEscalationSubject
     },
     userManagement: {
         createRole: roles_1.createRole,
@@ -32257,7 +32940,8 @@ exports.default = {
     },
     csp: {
         product: {
-            getProductsForAccount: product_2.getProductsForAccount
+            getProductsForAccount: product_2.getProductsForAccount,
+            getProductsList: product_2.getProductsList
         },
         metadata: {
             getMetadata: metadata_1.getMetadata
@@ -32289,15 +32973,10 @@ exports.default = {
             addCtaComment: cta_1.addCtaComment
         },
         successPlan: {
-            getSuccessPlansForUserName: successPlan_1.getSuccessPlansForUserName,
-            getSuccessPlansForAccountNumber: successPlan_1.getSuccessPlansForAccountNumber,
-            getSuccessPlansForId: successPlan_1.getSuccessPlansForId,
+            getSuccessPlans: successPlan_1.getSuccessPlans,
             updateSuccessPlan: successPlan_1.updateSuccessPlan,
             addSuccessPlan: successPlan_1.addSuccessPlan,
             removeSuccessPlan: successPlan_1.removeSuccessPlan,
-            addProduct: successPlan_1.addProduct,
-            updateProduct: successPlan_1.updateProduct,
-            removeProduct: successPlan_1.removeProduct,
             addObjective: successPlan_1.addObjective,
             updateObjective: successPlan_1.updateObjective,
             removeObjective: successPlan_1.removeObjective,
@@ -32309,7 +32988,20 @@ exports.default = {
             removeObjectiveStakeholder: successPlan_1.removeObjectiveStakeholder,
             addObjectiveComment: successPlan_1.addObjectiveComment,
             updateObjectiveComment: successPlan_1.updateObjectiveComment,
-            deleteObjectiveComment: successPlan_1.deleteObjectiveComment
+            deleteObjectiveComment: successPlan_1.deleteObjectiveComment,
+            linkObjectiveAccount: successPlan_1.linkObjectiveAccount,
+            unLinkObjectiveAccount: successPlan_1.unLinkObjectiveAccount,
+            linkObjectiveCta: successPlan_1.linkObjectiveCta,
+            unLinkObjectiveCta: successPlan_1.unLinkObjectiveCta,
+            addLabelToObjective: successPlan_1.addLabelToObjective,
+            removeLabelFromObjective: successPlan_1.removeLabelFromObjective,
+            addProductToObjective: successPlan_1.addProductToObjective,
+            removeProductFromObjective: successPlan_1.removeProductFromObjective,
+            getObjectiveById: successPlan_1.getObjectiveById
+        },
+        label: {
+            addLabel: label_1.addLabel,
+            getLabels: label_1.getLabels
         },
         timeline: {
             getTimeline: timeline_1.getTimeline,
@@ -32364,6 +33056,18 @@ exports.default = {
     contacts: {
         getSFDCContacts: contact_3.getSFDCContacts
     },
+    attachmentViewer: {
+        attachment: {
+            getAttachmentMetaDataForCaseNumber: attachment_2.getAttachmentMetaDataForCaseNumber,
+            getAttachmentFileContentForCaseNumber: attachment_2.getAttachmentFileContentForCaseNumber,
+            getSosReportStructureForCaseNumber: attachment_2.getSosReportStructureForCaseNumber,
+            getSosReportFileDownloadToken: attachment_2.getSosReportFileDownloadToken,
+            downloadSosReportFile: attachment_2.downloadSosReportFile
+        },
+        user: {
+            getUserForSsoUserName: user_4.getUserForSsoUserName
+        }
+    },
     xhrRequest: {
         getUri: fetch_1.getUri,
         postUri: fetch_1.postUri,
@@ -32396,6 +33100,8 @@ var ConfigurationTypes;
     ConfigurationTypes["support_hub_configuration"] = "support_hub_configuration";
     ConfigurationTypes["certops_hub_configuration"] = "certops_hub_configuration";
     ConfigurationTypes["ascension_commons_configuration"] = "ascension_commons_configuration";
+    ConfigurationTypes["escalation_configurations"] = "escalation_configurations";
+    ConfigurationTypes["attachment_configurations"] = "attachment_configurations";
 })(ConfigurationTypes = exports.ConfigurationTypes || (exports.ConfigurationTypes = {}));
 /**
  * The possible fieldNames for s3Configurations.
@@ -32447,15 +33153,18 @@ function createBasicAuth(user, pass) {
 exports.createBasicAuth = createBasicAuth;
 var hydraHostName = new Uri('');
 var pcmHostName = new Uri('');
+var cavHostName = new Uri('');
 var pathPrefix = '/hydra/rest';
 var securePathPrefix = '/hydra/secure/rest';
 var secureExtPathPrefix = '/hydra/secure/rest/external';
+var escalationPathPrefix = '/hydra/rest/eh';
+var cavPathPrefix = '/attachment-viewer';
 var auth = null;
 // Add any new services consuming hydrajs to below arrays
 var getEnvName = function () {
     // Returns PROD | QA | FTE | CI | STAGE
-    var prodHostNames = ['access.redhat.com', 'prod.foo.redhat.com', 'fooprod.redhat.com', 'skedge.redhat.com'];
-    var qaHostNames = ['access.qa.redhat.com', 'qa.foo.redhat.com', 'fooqa.redhat.com', 'skedge.qa.redhat.com'];
+    var prodHostNames = ['access.redhat.com', 'prod.foo.redhat.com', 'fooprod.redhat.com', 'skedge.redhat.com', 'attachment-viewer.cee.redhat.com'];
+    var qaHostNames = ['access.qa.redhat.com', 'qa.foo.redhat.com', 'fooqa.redhat.com', 'skedge.qa.redhat.com', 'sos-viewer.corp.qa.redhat.com'];
     var fteHostNames = ['access.devgssfte.devlab.phx1.redhat.com', 'fte.foo.redhat.com', 'foofte.redhat.com'];
     var ciHostNames = ['access.devgssci.devlab.phx1.redhat.com', 'ci.foo.redhat.com', 'fooci.redhat.com', 'skedge.ci.redhat.com'];
     var stageHostNames = ['access.stage.redhat.com', 'stage.foo.redhat.com', 'foostage.redhat.com', 'skedge.stage.redhat.com'];
@@ -32491,10 +33200,12 @@ else if (typeof window !== 'undefined' && window) {
     if (env === EnvNames.PROD) {
         hydraHostName = new Uri('https://access.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
+        cavHostName = new Uri('https://attachment-viewer.cee.redhat.com/');
     }
     else if (env === EnvNames.QA) {
         hydraHostName = new Uri('https://access.qa.redhat.com/hydra/rest/');
         pcmHostName = hydraHostName;
+        cavHostName = new Uri('https://sos-viewer.corp.qa.redhat.com/');
     }
     else if (env === EnvNames.FTE) {
         hydraHostName = new Uri('https://access.devgssfte.devlab.phx1.redhat.com/hydra/rest/');
@@ -32517,9 +33228,12 @@ var Env = /** @class */ (function () {
     }
     Env.hydraHostName = hydraHostName;
     Env.pcmHostName = pcmHostName;
+    Env.cavHostName = cavHostName;
     Env.pathPrefix = pathPrefix;
     Env.securePathPrefix = securePathPrefix;
     Env.secureExtPathPrefix = secureExtPathPrefix;
+    Env.escalationPathPrefix = escalationPathPrefix;
+    Env.cavPathPrefix = cavPathPrefix;
     Env.auth = auth;
     Env.getEnvName = getEnvName;
     Env.EnvNames = EnvNames;
@@ -32540,6 +33254,26 @@ exports.default = Env;
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 // Since we aren't transpiling to babel can't use ES6 imports here.  Also we can't specify the Response and Request
 // types for fetch since A) They happen automatically with import which we can't use and B) the reference paths would
@@ -32547,6 +33281,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! es6-object-assign/auto */ "./node_modules/es6-object-assign/auto.js");
 __webpack_require__(/*! whatwg-fetch */ "./node_modules/whatwg-fetch/fetch.js");
 var env_1 = __webpack_require__(/*! ../utils/env */ "./src/utils/env.ts");
+__webpack_require__(/*! abortcontroller-polyfill/dist/abortcontroller-polyfill-only */ "./node_modules/abortcontroller-polyfill/dist/abortcontroller-polyfill-only.js");
 function errorHandler(response) {
     return response.text().then(function (body) {
         if (body == null || body === '') {
@@ -32796,20 +33531,17 @@ function callFetchAndHandleJwt(uri, params, dataType, externalUrl) {
         }
     });
 }
-function getUri(uri, headerParams, dataType, externalUrl) {
+function getUri(uri, options, dataType, externalUrl) {
     var params = {
         method: 'GET',
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
         // which will let to inclusion of cookies into the request
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
         credentials: 'omit',
-        headers: {}
+        headers: {},
+        signal: null
     };
-    if (headerParams !== undefined) {
-        headerParams.forEach(function (element) {
-            params.headers[element.key] = element.value;
-        });
-    }
+    options && mergeRequestOptions(options, params);
     if (dataType)
         return callFetchAndHandleJwt(uri, params, dataType);
     if (externalUrl)
@@ -32817,7 +33549,7 @@ function getUri(uri, headerParams, dataType, externalUrl) {
     return callFetchAndHandleJwt(uri, params);
 }
 exports.getUri = getUri;
-function postUri(uri, body, dataType, externalUrl) {
+function postUri(uri, body, dataType, externalUrl, options) {
     var params = {
         method: 'POST',
         // adding this because according to MDN, fetch will set credentials to same-origin by default,
@@ -32828,8 +33560,10 @@ function postUri(uri, body, dataType, externalUrl) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        signal: null
     };
+    options && mergeRequestOptions(options, params);
     if (dataType)
         return callFetchAndHandleJwt(uri, params, dataType);
     if (externalUrl)
@@ -32928,6 +33662,11 @@ function deleteUriWithBody(uri, body, dataType) {
     return callFetchAndHandleJwt(uri, params);
 }
 exports.deleteUriWithBody = deleteUriWithBody;
+function mergeRequestOptions(options, params) {
+    var headers = options.headers, nonHeaderParams = __rest(options, ["headers"]);
+    Object.assign(params.headers, headers);
+    Object.assign(params, __assign({}, nonHeaderParams));
+}
 
 
 /***/ }),

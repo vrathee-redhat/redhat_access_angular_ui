@@ -1,5 +1,5 @@
 .page-header(rha-header='', page='')
-div(ng-hide='showCasePage()')
+div(ng-show='loading.kase')
   .spinner.spinner-lg
   p.center {{'Loading Case...'|translate}}
 div.edit(ng-if='showCasePage()')
@@ -70,6 +70,10 @@ div.edit(ng-if='showCasePage()')
                 name="cepCheckbox")
                 span &nbsp;
                 span.glyphicon.glyphicon-info-sign.text-info(uib-tooltip="{{cepMessage}}")
+        
+        section.case-discussion(ng-show='$parent.CaseService.eligiblePartnersToShareCase.length > 0 || $parent.CaseService.savedPartners.length > 0')
+          share-case-with-partner
+
 
     .aside.col-sm-4(ng-if="!$parent.COMMON_CONFIG.isGS4")
       .spinner.spinner-inline(ng-show='$parent.RecommendationsService.loadingRecommendations')
