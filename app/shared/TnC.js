@@ -16,9 +16,13 @@ export function getTnCHost() {
   }
 }
 
-export function getTnCUrl(accountNumber) {
+export function baseTnCURL() {
   const wejava_host = getTnCHost();
+  return `https://${wejava_host}/wapps/tnc/ackrequired`;
+}
+
+export function getTnCUrl(accountNumber) {
   const redirectUrl = encodeURIComponent(window.location.href + (accountNumber ? `?partnerAccountNumber=${accountNumber}` : ''));
   const cancelRedirectUrl = encodeURIComponent(window.location.href + `?rejectedTnC=true`);
-  return `https://${wejava_host}/wapps/tnc/ackrequired?site=${TnC.SITE_CODE}&event=${TnC.EVENT_CODE}&redirect=${redirectUrl}&cancelRedirect=${cancelRedirectUrl}`;
+  return `${baseURL()}?site=${TnC.SITE_CODE}&event=${TnC.EVENT_CODE}&redirect=${redirectUrl}&cancelRedirect=${cancelRedirectUrl}`;
 } 
