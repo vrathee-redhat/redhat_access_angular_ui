@@ -1,5 +1,5 @@
 'use strict';
-import { getTnCUrl, baseTnCURL } from '../../shared/TnC';
+import { getTnCUrl, baseTnCUrl } from '../../shared/TnC';
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
 
@@ -41,7 +41,7 @@ export default class ShareCaseWithPartner {
         }
 
         const init = async () => {
-            if((document.referrer || '').startsWith(baseTnCURL())) {
+            if((document.referrer || '').startsWith(baseTnCUrl())) {
                 this.handleTnCQueryParams();
             }
             await CaseService.populatePartners(CaseService.kase.case_number, CaseService.kase.account_number);

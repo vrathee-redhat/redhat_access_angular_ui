@@ -16,7 +16,7 @@ export function getTnCHost() {
   }
 }
 
-export function baseTnCURL() {
+export function baseTnCUrl() {
   const wejava_host = getTnCHost();
   return `https://${wejava_host}/wapps/tnc/ackrequired`;
 }
