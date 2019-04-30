@@ -1,5 +1,5 @@
 'use strict';
-import { getTnCUrl } from '../../shared/TnC';
+import { getTnCUrl, baseTnCUrl } from '../../shared/TnC';
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
 
@@ -24,7 +24,7 @@ export default class ShareCaseWithPartner {
             window.location.replace(x);
         }
 
-        const init = async () => {
+        this.handleTnCQueryParams = async () => {
             const rejectedTnC = (/rejectedTnC=\w+/gi).exec(window.location.href.toString());
             if (rejectedTnC) {
                 AlertService.addDangerMessage(`Case cannot be shared untill terms and conditions are accepted`);
@@ -37,6 +37,12 @@ export default class ShareCaseWithPartner {
                     await CaseService.savePartnerCaseAccess(CaseService.kase.case_number, partnerAccountNumber, ackID);
                     this.removeQueryParams();
                 }
+            }
+        }
+
+        const init = async () => {
+            if((document.referrer || '').startsWith(baseTnCUrl())) {
+                this.handleTnCQueryParams();
             }
             await CaseService.populatePartners(CaseService.kase.case_number, CaseService.kase.account_number);
         };
