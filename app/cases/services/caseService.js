@@ -438,7 +438,7 @@ export default class CaseService {
         this.populatePartners = async (caseNumber, caseAccountNumber) => {
             try {
                 this.loadingPartners = true;
-                const _partners = securityService.loginStatus.authedUser.account.number === caseAccountNumber ? loginStatus.authedUser.accountManagers : (await strataService.accounts.accountManagers.get(caseAccountNumber));
+                const _partners = securityService.loginStatus.authedUser.account.number === caseAccountNumber ? securityService.loginStatus.authedUser.accountManagers : (await strataService.accounts.accountManagers.get(caseAccountNumber));
                 const partners = _.get(_partners, 'accounts');
                 if (!_.isEmpty(partners)) {
                     const response = await hydrajs.kase.access.getCaseAccessList(caseNumber);
