@@ -24,5 +24,5 @@ export function baseTnCUrl() {
 export function getTnCUrl(accountNumber) {
   const redirectUrl = encodeURIComponent(window.location.href + (accountNumber ? `?partnerAccountNumber=${accountNumber}` : ''));
   const cancelRedirectUrl = encodeURIComponent(window.location.href + `?rejectedTnC=true`);
-  return `${baseURL()}?site=${TnC.SITE_CODE}&event=${TnC.EVENT_CODE}&redirect=${redirectUrl}&cancelRedirect=${cancelRedirectUrl}`;
+  return `${baseTnCUrl()}?site=${TnC.SITE_CODE}&event=${TnC.EVENT_CODE}&redirect=${redirectUrl}&cancelRedirect=${cancelRedirectUrl}`;
 } 
