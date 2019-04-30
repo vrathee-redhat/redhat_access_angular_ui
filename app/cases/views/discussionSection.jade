@@ -32,7 +32,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                 #top-discussion-section
                 .row
                     .col-sm-4
-                        rha-searchbox(placeholder='searchDiscussionString', class-name='"padding-searchbox"', ng-if="DiscussionService.allDiscussionElements().length > 0")
+                        rha-searchbox(placeholder='"Search Discussion"', class-name='"padding-searchbox"', ng-if="DiscussionService.allDiscussionElements().length > 0")
                         span(ng-if="DiscussionService.allDiscussionElements().length > 0") {{showingResultsString()}}
                     .col-sm-8
                         pagination(ng-if="discussion", current-page-number="PaginationService.discussionSection.currentPageNumber" datalength="DiscussionService.discussionElements.length", page-size="PaginationService.discussionSection.pageSize", set-current-page-number="setCurrentPageNumberForDS(pageNumber)", set-page-size="PaginationService.setPageSize('discussionSection', pageSize)")
@@ -41,7 +41,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
                         i.fa.fa-comments-o
                         h4.meta
                             {{::'Message'|translate}}&nbsp;({{::element.created_by_type}})
-                            a.pull-right(ng-if="ifJumpToCommentId == element.id" ng-click="jumpToComment(element.id)", ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{::element.id}}') Jump to comment
+                            a.pull-right(ng-if="showJumpToCommentId == element.id" ng-click="jumpToComment(element.id)", ng-href='#/case/{{CaseService.kase.case_number}}?commentId={{element.id}}') Jump to comment
                         .byline
                             author {{::element.last_modified_by}} {{::'on'|translate}}&nbsp;
                             date {{::element.last_modified_date}} {{::'at'|translate}}&nbsp;
@@ -121,7 +121,7 @@ ul#tab_list.nav.nav-tabs(role="tablist")
         .row
             .col-md-4
                 rha-searchbox(placeholder='"Search Attachments"', class-name='"padding-searchbox"', ng-if="AttachmentsService.originalAttachments.length > 0")
-                span(ng-if="AttachmentsService.originalAttachments.length > 0") ifing {{PaginationService.firstItemNumberifnOnThePage('attachmentsSection', DiscussionService.attachments.length)}}-{{PaginationService.lastItemNumberifnOnThePage('attachmentsSection', DiscussionService.attachments.length)}} of {{DiscussionService.attachments.length}} results
+                span(ng-if="AttachmentsService.originalAttachments.length > 0") Showing {{PaginationService.firstItemNumberifnOnThePage('attachmentsSection', DiscussionService.attachments.length)}}-{{PaginationService.lastItemNumberifnOnThePage('attachmentsSection', DiscussionService.attachments.length)}} of {{DiscussionService.attachments.length}} results
             .col-md-8
                 pagination(ng-if="attachments", current-page-number="PaginationService.attachmentsSection.currentPageNumber" datalength="DiscussionService.attachments.length", page-size="PaginationService.attachmentsSection.pageSize", set-current-page-number="setCurrentPageNumberForAS(pageNumber)", set-page-size="PaginationService.setPageSize('attachmentsSection', pageSize)")
         .row.row-very-short.case-discussion

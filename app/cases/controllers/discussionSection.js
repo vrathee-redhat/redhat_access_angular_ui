@@ -25,7 +25,6 @@ export default class DiscussionSection {
         $scope.hasScrolled = false;
         $scope.commentSortOrder = true;
         $scope.DiscussionService = DiscussionService;
-        $scope.searchDiscussionString = gettextCatalog.getString('Search Discussion');
         $scope.commentSortOrderList = [
             {
                 name: gettextCatalog.getString('Newest to Oldest'),
