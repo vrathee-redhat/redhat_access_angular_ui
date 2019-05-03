@@ -42,7 +42,7 @@ export default class ShareCaseWithPartner {
 
         const init = async () => {
             if((document.referrer || '').startsWith(baseTnCUrl())) {
-                this.handleTnCQueryParams();
+                await this.handleTnCQueryParams();
             }
             await CaseService.populatePartners(CaseService.kase.case_number, CaseService.kase.account_number);
         };
