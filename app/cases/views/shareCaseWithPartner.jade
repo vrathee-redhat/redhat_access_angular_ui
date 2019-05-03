@@ -6,16 +6,20 @@
   .col-xs-4.col-sm-5.col-md-8(ng-show='!$parent.CaseService.loadingPartners')
     div 
       div.label-contact(ng-repeat="partner in $parent.CaseService.savedPartners", ng-class="{'label-disabled':$parent.CaseService.sharingCaseWithPartner}")
-        span {{partner.accountName}}
+        span {{partner.accountName}} ({{partner.accountNumber}})
       div.label-contact(ng-repeat="partner in selectedPartners", ng-class="{'label-disabled':$parent.CaseService.sharingCaseWithPartner}")
-        span {{partner.accountName}}
-    input.form-control.search-partner-input(type="text", ng-model="selectedPartnersInput", placeholder="{{'Search Partner' | translate}}",
-    ng-hide="$parent.CaseService.savedPartners.length > 0"
-    typeahead-min-length="0"
-    typeahead-editable="false"
-    typeahead-focus-on-select="false" 
-    uib-typeahead="partner as (partner.accountName + ' (' + partner.accountNumber + ')') for partner in $parent.CaseService.eligiblePartnersToShareCase | removeItemsFromArray:[selectedPartners, 'accountNumber'] | orderBy:['accountName']")
-                                
-    a.btn.btn-app.btn-info.btn-sm.share-btn(href="{{$parent.CaseService.TnCUrl}}", 
-    ng-hide="$parent.CaseService.savedPartners.length > 0",
-    ng-disabled="selectedPartners.length < 1"){{::'Share'|translate}}
+        span {{partner.accountName}} ({{partner.accountNumber}})
+        a(ng-click="removeSelectedPartner(partner)")
+          i.fa.fa-close
+
+    div.share-with-partner
+      input.form-control.search-partner-input(type="text", ng-model="selectedPartnersInput", placeholder="{{'Search Partner' | translate}}",
+      ng-hide="$parent.CaseService.savedPartners.length > 0"
+      typeahead-min-length="0"
+      typeahead-editable="false"
+      typeahead-focus-on-select="false"
+      uib-typeahead="partner as (partner.accountName + ' (' + partner.accountNumber + ')') for partner in $parent.CaseService.eligiblePartnersToShareCase | removeItemsFromArray:[selectedPartners, 'accountNumber'] | orderBy:['accountName']")
+                                  
+      a.btn.btn-app.btn-info.btn-sm.share-btn(href="{{$parent.CaseService.TnCUrl}}", 
+      ng-hide="$parent.CaseService.savedPartners.length > 0",
+      ng-disabled="selectedPartners.length < 1"){{::'Share'|translate}}

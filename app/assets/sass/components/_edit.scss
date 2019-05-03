@@ -18,8 +18,12 @@
         margin-left: 10px;
       }
       
+    .share-with-partner {
+        display: flex
+    }
     .search-partner-input {
         display: inline-block;
+        flex: 1;
         width: 80%;
     }
 }
