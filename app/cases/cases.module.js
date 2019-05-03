@@ -271,10 +271,12 @@ app.component('rhaSecureSupportHeader', rhaSecureSupportHeader);
 import bytes from './filters/bytes'
 import substring from './filters/substring'
 import startFrom from './filters/startFrom';
+import removeItemsFromArray from './filters/removeItemsFromArray';
 
 app.filter('bytes', bytes);
 app.filter('substring', substring);
 app.filter('startFrom', startFrom);
+app.filter('removeItemsFromArray', removeItemsFromArray);
 
 // Services
 import AccountBookmarkService from './services/accountBookmarkService'
