@@ -51,10 +51,13 @@ div.edit(ng-if='showCasePage()')
         .col-md-12(ng-show='$parent.EDIT_CASE_CONFIG.showDetails')
           div(rha-casedetails='', compact='false', loading='$parent.loading.kase')
           rha-casedetails
+      
       section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4")
         .row
           .col-xs-12(rha-emailnotifyselect)
-        .row(ng-if="$parent.securityService.loginStatus.authedUser.is_internal")
+        
+      section.case-discussion(ng-if="!$parent.COMMON_CONFIG.isGS4 && $parent.securityService.loginStatus.authedUser.is_internal")
+        .row
           .col-xs-12(rha-emailnotifyselect-internal)
       
       section.case-discussion(ng-if='$parent.securityService.loginStatus.authedUser.is_internal && $parent.securityService.isCep')
