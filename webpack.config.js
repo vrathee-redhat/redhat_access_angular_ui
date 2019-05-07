@@ -167,7 +167,7 @@ module.exports = function (options) {
                 test: /\.scss$/,
                 // loaders: ["style", "css", "sass"] // This works
                 // 'css?sourceMap!sass?sourceMap' // Example on how to use sourceMaps, not sure we need them though
-                loader: ExtractTextPlugin.extract('css?minimize!sass'),
+                loader: ExtractTextPlugin.extract('css!sass'),
                 exclude: [
                     path.resolve(__dirname, 'node_modules'),
                     path.resolve(__dirname, 'bower_components')
